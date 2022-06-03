@@ -266,6 +266,7 @@
     <Compile Include="Native\Interfaces\Value\ICorDebugValue.cs" />
     <Compile Include="Native\Interfaces\Value\ICorDebugValue2.cs" />
     <Compile Include="Native\Interfaces\Value\ICorDebugValue3.cs" />
+    <Compile Include="Native\Struct\CLR_DEBUGGING_VERSION.cs" />
     <Compile Include="Native\Struct\CorDebugBlockingObject.cs" />
     <Compile Include="Native\Struct\CorDebugExceptionObjectStackFrame.cs" />
     <Compile Include="Native\Struct\CorDebugGuidToTypeMapping.cs" />
@@ -273,9 +274,13 @@
     <Compile Include="Native\Struct\COR_DEBUG_IL_TO_NATIVE_MAP.cs" />
     <Compile Include="Native\Struct\COR_DEBUG_STEP_RANGE.cs" />
     <Compile Include="Native\Struct\COR_FIELD.cs" />
+    <Compile Include="Native\Struct\COR_FIELD_OFFSET.cs" />
     <Compile Include="Native\Struct\COR_GC_REFERENCE.cs" />
     <Compile Include="Native\Struct\COR_TYPEID.cs" />
     <Compile Include="Native\Struct\COR_TYPE_LAYOUT.cs" />
+    <Compile Include="Native\Struct\PROCESS_INFORMATION.cs" />
+    <Compile Include="Native\Struct\STARTUPINFO.cs" />
+    <Compile Include="Native\Struct\SymUnmanagedLineDelta.cs" />
     <Compile Include="Native\Struct\tagSTATSTG.cs" />
     <Compile Include="Native\Struct\CodeChunkInfo.cs" />
     <Compile Include="Native\Struct\CorDebugEHClause.cs" />
