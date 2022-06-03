@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace ManagedCorDebug
 {
@@ -23,6 +24,6 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetString([In] uint cchString, out uint pcchString, [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugEditAndContinueErrorInfo szString);
+            StringBuilder szString);
     }
 }
