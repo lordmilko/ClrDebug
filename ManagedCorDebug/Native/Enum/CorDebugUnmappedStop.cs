@@ -7,7 +7,7 @@
         STOP_EPILOG = 2,
         STOP_NO_MAPPING_INFO = 4,
         STOP_OTHER_UNMAPPED = 8,
-        STOP_UNMANAGED = 16,
-        STOP_ALL = 65535
+        STOP_UNMANAGED = 16, // 0x00000010
+        STOP_ALL = 65535 // 0x0000FFFF
     }
 }
