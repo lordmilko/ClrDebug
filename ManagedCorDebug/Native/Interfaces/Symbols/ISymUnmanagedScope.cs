@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -19,7 +20,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetChildren([In] uint cChildren, out uint pcChildren, [MarshalAs(UnmanagedType.Interface), Out]
-            ISymUnmanagedScope children);
+            IntPtr children); //ISymUnmanagedScope
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -36,11 +37,11 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLocals([In] uint cLocals, out uint pcLocals, [MarshalAs(UnmanagedType.Interface), Out]
-            ISymUnmanagedScope locals);
+            IntPtr locals); //ISymUnmanagedVariable
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetNamespaces([In] uint cNameSpaces, out uint pcNameSpaces, [MarshalAs(UnmanagedType.Interface), Out]
-            ISymUnmanagedScope namespaces);
+            IntPtr namespaces); //ISymUnmanagedNamespace
     }
 }

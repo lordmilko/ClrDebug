@@ -85,18 +85,15 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetThreadContext([In] uint threadID, [In] uint contextSize, [MarshalAs(UnmanagedType.Interface), In, Out]
-            ICorDebugProcess context);
+        HRESULT GetThreadContext([In] uint threadID, [In] uint contextSize, [In, Out] byte[] context);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetThreadContext([In] uint threadID, [In] uint contextSize, [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugProcess context);
+        HRESULT SetThreadContext([In] uint threadID, [In] uint contextSize, [In] byte[] context);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ReadMemory([In] ulong address, [In] uint size, [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugProcess buffer, out ulong read);
+        HRESULT ReadMemory([In] ulong address, [In] uint size, [Out] byte[] buffer, out ulong read);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

@@ -19,25 +19,25 @@ namespace ManagedCorDebug
             [In] ref Guid documentType);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void SetUserEntryPoint([In] uint entryMethod);
+        public virtual extern HRESULT SetUserEntryPoint([In] uint entryMethod);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void OpenMethod([In] uint method);
+        public virtual extern HRESULT OpenMethod([In] uint method);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void CloseMethod();
+        public virtual extern HRESULT CloseMethod();
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern uint OpenScope([In] uint startOffset);
+        public virtual extern HRESULT OpenScope([In] uint startOffset);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void CloseScope([In] uint endOffset);
+        public virtual extern HRESULT CloseScope([In] uint endOffset);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void SetScopeRange([In] uint scopeID, [In] uint startOffset, [In] uint endOffset);
+        public virtual extern HRESULT SetScopeRange([In] uint scopeID, [In] uint startOffset, [In] uint endOffset);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void DefineLocalVariable(
+        public virtual extern HRESULT DefineLocalVariable(
             [In] ref ushort name,
             [In] uint attributes,
             [In] uint cSig,
@@ -50,7 +50,7 @@ namespace ManagedCorDebug
             [In] uint endOffset);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void DefineParameter(
+        public virtual extern HRESULT DefineParameter(
             [In] ref ushort name,
             [In] uint attributes,
             [In] uint sequence,
@@ -60,7 +60,7 @@ namespace ManagedCorDebug
             [In] uint addr3);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void DefineField(
+        public virtual extern HRESULT DefineField(
             [In] uint parent,
             [In] ref ushort name,
             [In] uint attributes,
@@ -72,7 +72,7 @@ namespace ManagedCorDebug
             [In] uint addr3);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void DefineGlobalVariable(
+        public virtual extern HRESULT DefineGlobalVariable(
             [In] ref ushort name,
             [In] uint attributes,
             [In] uint cSig,
@@ -83,26 +83,26 @@ namespace ManagedCorDebug
             [In] uint addr3);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void Close();
+        public virtual extern HRESULT Close();
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void SetSymAttribute(
+        public virtual extern HRESULT SetSymAttribute(
             [In] uint parent,
             [In] ref ushort name,
             [In] uint cData,
             [In] ref byte data);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void OpenNamespace([In] ref ushort name);
+        public virtual extern HRESULT OpenNamespace([In] ref ushort name);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void CloseNamespace();
+        public virtual extern HRESULT CloseNamespace();
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void UsingNamespace([In] ref ushort fullName);
+        public virtual extern HRESULT UsingNamespace([In] ref ushort fullName);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void SetMethodSourceRange(
+        public virtual extern HRESULT SetMethodSourceRange(
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocumentWriter startDoc,
             [In] uint startLine,
@@ -113,7 +113,7 @@ namespace ManagedCorDebug
             [In] uint endColumn);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void Initialize(
+        public virtual extern HRESULT Initialize(
             [MarshalAs(UnmanagedType.IUnknown), In]
             object emitter,
             [In] ref ushort filename,
@@ -122,15 +122,15 @@ namespace ManagedCorDebug
             [In] int fFullBuild);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void GetDebugInfo(
+        public virtual extern HRESULT GetDebugInfo(
             [In, Out] ref ulong pIDD,
             [In] uint cData,
             out uint pcData,
             [MarshalAs(UnmanagedType.Interface), Out]
-            ISymUnmanagedWriter data);
+            byte[] data);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void DefineSequencePoints(
+        public virtual extern HRESULT DefineSequencePoints(
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocumentWriter document,
             [In] uint spCount,
@@ -141,10 +141,10 @@ namespace ManagedCorDebug
             [In] ref uint endColumns);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void RemapToken([In] uint oldToken, [In] uint newToken);
+        public virtual extern HRESULT RemapToken([In] uint oldToken, [In] uint newToken);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void Initialize2(
+        public virtual extern HRESULT Initialize2(
             [MarshalAs(UnmanagedType.IUnknown), In]
             object emitter,
             [In] ref ushort tempfilename,
@@ -154,13 +154,13 @@ namespace ManagedCorDebug
             [In] ref ushort finalfilename);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void DefineConstant(
+        public virtual extern HRESULT DefineConstant(
             [In] ref ushort name,
             [MarshalAs(UnmanagedType.Struct), In] object value,
             [In] uint cSig,
             [In] ref byte signature);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void Abort();
+        public virtual extern HRESULT Abort();
     }
 }

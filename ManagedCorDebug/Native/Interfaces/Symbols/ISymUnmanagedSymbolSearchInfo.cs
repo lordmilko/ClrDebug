@@ -15,8 +15,7 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSearchPath([In] uint cchPath, out uint pcchPath, [MarshalAs(UnmanagedType.Interface), Out]
-            StringBuilder szPath);
+        HRESULT GetSearchPath([In] uint cchPath, out uint pcchPath, [Out] StringBuilder szPath);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

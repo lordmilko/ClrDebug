@@ -46,8 +46,7 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetDimensions([In] uint cdim, [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugArrayValue dims);
+        HRESULT GetDimensions([In] uint cdim, [MarshalAs(UnmanagedType.LPArray), Out] uint[] dims);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -55,13 +54,14 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetBaseIndicies([In] uint cdim, [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugArrayValue indicies);
+        HRESULT GetBaseIndicies([In] uint cdim, [MarshalAs(UnmanagedType.LPArray), Out] uint[] indicies);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetElement([In] uint cdim, [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugArrayValue indices, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
+        HRESULT GetElement(
+            [In] uint cdim,
+            [MarshalAs(UnmanagedType.LPArray), In] uint indices,
+            [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

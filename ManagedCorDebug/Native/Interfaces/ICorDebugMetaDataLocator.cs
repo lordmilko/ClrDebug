@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace ManagedCorDebug
 {
@@ -16,7 +17,6 @@ namespace ManagedCorDebug
             [In] uint dwImageSize,
             [In] uint cchPathBuffer,
             out uint pcchPathBuffer,
-            [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugMetaDataLocator wszPathBuffer);
+            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder wszPathBuffer);
     }
 }

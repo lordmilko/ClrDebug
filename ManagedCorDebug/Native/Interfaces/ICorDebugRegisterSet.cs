@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -14,21 +15,21 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRegisters([In] ulong mask, [In] uint regCount, [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugRegisterSet regBuffer);
+        HRESULT GetRegisters([In] ulong mask, [In] uint regCount, [MarshalAs(UnmanagedType.LPArray), Out]
+            CORDB_REGISTER[] regBuffer);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetRegisters([In] ulong mask, [In] uint regCount, [In] ref ulong regBuffer);
+        HRESULT SetRegisters([In] ulong mask, [In] uint regCount, [In] IntPtr regBuffer);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetThreadContext([In] uint contextSize, [MarshalAs(UnmanagedType.Interface), In, Out]
-            ICorDebugRegisterSet context);
+        HRESULT GetThreadContext([In] uint contextSize, [MarshalAs(UnmanagedType.LPArray), In, Out]
+            byte[] context);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetThreadContext([In] uint contextSize, [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugRegisterSet context);
+            byte[] context);
     }
 }

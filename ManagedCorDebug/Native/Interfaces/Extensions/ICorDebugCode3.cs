@@ -14,7 +14,6 @@ namespace ManagedCorDebug
             [In] uint ilOffset,
             [In] uint bufferSize,
             out uint pFetched,
-            [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugCode3 pOffsets);
+            [Out] uint pOffsets);
     }
 }

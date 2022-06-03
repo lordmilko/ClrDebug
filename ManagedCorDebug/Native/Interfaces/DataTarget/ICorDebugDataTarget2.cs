@@ -19,8 +19,7 @@ namespace ManagedCorDebug
             [In] ulong baseAddress,
             [In] uint cchName,
             out uint pcchName,
-            [MarshalAs(UnmanagedType.Interface), Out]
-            StringBuilder szName);
+            [Out] StringBuilder szName);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -30,8 +29,7 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateThreadIDs([In] uint cThreadIds, out uint pcThreadIds, [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugDataTarget2 pThreadIds);
+        HRESULT EnumerateThreadIDs([In] uint cThreadIds, out uint pcThreadIds, [Out] uint[] pThreadIds);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

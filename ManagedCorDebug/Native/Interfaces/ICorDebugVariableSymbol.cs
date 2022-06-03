@@ -11,8 +11,7 @@ namespace ManagedCorDebug
     {
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetName([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.Interface), Out]
-            StringBuilder szName);
+        HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -26,8 +25,7 @@ namespace ManagedCorDebug
             [In] ref byte context,
             [In] uint cbValue,
             out uint pcbValue,
-            [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugVariableSymbol pValue);
+            [MarshalAs(UnmanagedType.LPArray), Out] byte[] pValue);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

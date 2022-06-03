@@ -27,6 +27,6 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Next([In] uint celt, [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugValueEnum values, out uint pceltFetched);
+            ICorDebugValue values, out uint pceltFetched);
     }
 }

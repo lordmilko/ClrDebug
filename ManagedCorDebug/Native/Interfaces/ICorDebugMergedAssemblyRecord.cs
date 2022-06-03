@@ -11,8 +11,7 @@ namespace ManagedCorDebug
     {
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSimpleName([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.Interface), Out]
-            StringBuilder szName);
+        HRESULT GetSimpleName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -20,24 +19,23 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCulture([In] uint cchCulture, out uint pcchCulture, [MarshalAs(UnmanagedType.Interface), Out]
-            StringBuilder szCulture);
+        HRESULT GetCulture([In] uint cchCulture, out uint pcchCulture, [Out] StringBuilder szCulture);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetPublicKey(
             [In] uint cbPublicKey,
             out uint pcbPublicKey,
-            [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugMergedAssemblyRecord pbPublicKey);
+            [MarshalAs(UnmanagedType.LPArray), Out]
+            byte[] pbPublicKey);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetPublicKeyToken(
             [In] uint cbPublicKeyToken,
             out uint pcbPublicKeyToken,
-            [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugMergedAssemblyRecord pbPublicKeyToken);
+            [MarshalAs(UnmanagedType.LPArray), Out]
+            byte[] pbPublicKeyToken);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

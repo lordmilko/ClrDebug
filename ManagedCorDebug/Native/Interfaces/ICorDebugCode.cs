@@ -35,8 +35,7 @@ namespace ManagedCorDebug
             [In] uint startOffset,
             [In] uint endOffset,
             [In] uint cBufferAlloc,
-            [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugCode buffer,
+            [MarshalAs(UnmanagedType.LPArray), Out] byte[] buffer,
             out uint pcBufferSize);
 
         [PreserveSig]
@@ -45,12 +44,14 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetILToNativeMapping([In] uint cMap, out uint pcMap, [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugCode map);
+        HRESULT GetILToNativeMapping([In] uint cMap, out uint pcMap, [MarshalAs(UnmanagedType.LPArray), Out]
+            COR_DEBUG_IL_TO_NATIVE_MAP[] map);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetEnCRemapSequencePoints([In] uint cMap, out uint pcMap, [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugCode offsets);
+        HRESULT GetEnCRemapSequencePoints(
+            [In] uint cMap,
+            out uint pcMap,
+            [MarshalAs(UnmanagedType.LPArray), Out] uint[] offsets);
     }
 }

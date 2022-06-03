@@ -15,8 +15,7 @@ namespace ManagedCorDebug
             [In] uint dwOffset,
             [In] uint cchName,
             out uint pcchName,
-            [MarshalAs(UnmanagedType.Interface), Out]
-            StringBuilder szName);
+            [Out] StringBuilder szName);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

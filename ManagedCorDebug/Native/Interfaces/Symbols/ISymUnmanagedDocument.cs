@@ -12,8 +12,7 @@ namespace ManagedCorDebug
     {
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetURL([In] uint cchUrl, out uint pcchUrl, [MarshalAs(UnmanagedType.Interface), Out]
-            StringBuilder szUrl);
+        HRESULT GetURL([In] uint cchUrl, out uint pcchUrl, [Out] StringBuilder szUrl);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         Guid GetDocumentType();
@@ -29,8 +28,7 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCheckSum([In] uint cData, out uint pcData, [MarshalAs(UnmanagedType.Interface), Out]
-            ISymUnmanagedDocument data);
+        HRESULT GetCheckSum([In] uint cData, out uint pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -53,7 +51,6 @@ namespace ManagedCorDebug
             [In] uint endColumn,
             [In] uint cSourceBytes,
             out uint pcSourceBytes,
-            [MarshalAs(UnmanagedType.Interface), Out]
-            ISymUnmanagedDocument source);
+            [MarshalAs(UnmanagedType.LPArray), Out] byte[] source);
     }
 }

@@ -19,15 +19,14 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetUnmanagedBreakpoint(
-            [In] ulong address,
+            [In] CORDB_ADDRESS address,
             [In] uint bufsize,
-            [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugProcess2 buffer,
+            [Out] byte[] buffer,
             out uint bufLen);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ClearUnmanagedBreakpoint([In] ulong address);
+        HRESULT ClearUnmanagedBreakpoint([In] CORDB_ADDRESS address);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

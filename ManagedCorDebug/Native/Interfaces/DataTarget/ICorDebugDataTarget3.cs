@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -13,7 +14,6 @@ namespace ManagedCorDebug
         HRESULT GetLoadedModules(
             [In] uint cRequestedModules,
             out uint pcFetchedModules,
-            [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugDataTarget3 pLoadedModules);
+            [Out] IntPtr pLoadedModules); //ICorDebugLoadedModule
     }
 }

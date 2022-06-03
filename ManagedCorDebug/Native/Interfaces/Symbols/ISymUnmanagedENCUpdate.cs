@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -22,8 +23,7 @@ namespace ManagedCorDebug
         HRESULT GetLocalVariables(
             [In] uint mdMethodToken,
             [In] uint cLocals,
-            [MarshalAs(UnmanagedType.Interface), Out]
-            ISymUnmanagedENCUpdate rgLocals,
+            [Out] IntPtr rgLocals, //ISymUnmanagedVariable
             out uint pceltFetched);
 
         [PreserveSig]

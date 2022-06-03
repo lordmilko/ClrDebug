@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -38,13 +39,12 @@ namespace ManagedCorDebug
             [In] uint column,
             [In] uint cRanges,
             out uint pcRanges,
-            [MarshalAs(UnmanagedType.Interface), Out]
-            ISymUnmanagedMethod ranges);
+            [MarshalAs(UnmanagedType.LPArray), Out] uint[] ranges);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetParameters([In] uint cParams, out uint pcParams, [MarshalAs(UnmanagedType.Interface), Out]
-            ISymUnmanagedMethod @params);
+            IntPtr @params); //ISymUnmanagedVariable
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

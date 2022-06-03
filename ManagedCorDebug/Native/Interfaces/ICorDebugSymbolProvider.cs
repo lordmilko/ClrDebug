@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -15,8 +16,7 @@ namespace ManagedCorDebug
             [In] ref byte typeSig,
             [In] uint cRequestedSymbols,
             out uint pcFetchedSymbols,
-            [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugSymbolProvider pSymbols);
+            [Out] IntPtr pSymbols); //ICorDebugStaticFieldSymbol
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -25,8 +25,7 @@ namespace ManagedCorDebug
             [In] ref byte typeSig,
             [In] uint cRequestedSymbols,
             out uint pcFetchedSymbols,
-            [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugSymbolProvider pSymbols);
+            [Out] IntPtr pSymbols); //ICorDebugInstanceFieldSymbol
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -34,8 +33,7 @@ namespace ManagedCorDebug
             [In] uint nativeRVA,
             [In] uint cRequestedSymbols,
             out uint pcFetchedSymbols,
-            [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugSymbolProvider pSymbols);
+            [Out] IntPtr pSymbols); //ICorDebugVariableSymbol
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -43,8 +41,7 @@ namespace ManagedCorDebug
             [In] uint nativeRVA,
             [In] uint cRequestedSymbols,
             out uint pcFetchedSymbols,
-            [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugSymbolProvider pSymbols);
+            [Out] IntPtr pSymbols); //ICorDebugVariableSymbol
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -52,7 +49,7 @@ namespace ManagedCorDebug
             [In] uint cRequestedRecords,
             out uint pcFetchedRecords,
             [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugSymbolProvider pRecords);
+            IntPtr pRecords); //ICorDebugMergedAssemblyRecord
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -62,8 +59,7 @@ namespace ManagedCorDebug
             out uint pcGenericParams,
             [In] uint cbSignature,
             out uint pcbSignature,
-            [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugSymbolProvider signature);
+            [MarshalAs(UnmanagedType.LPArray), Out] byte[] signature);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -71,8 +67,7 @@ namespace ManagedCorDebug
             [In] uint vtableRva,
             [In] uint cbSignature,
             out uint pcbSignature,
-            [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugSymbolProvider signature);
+            [MarshalAs(UnmanagedType.LPArray), Out] byte[] signature);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

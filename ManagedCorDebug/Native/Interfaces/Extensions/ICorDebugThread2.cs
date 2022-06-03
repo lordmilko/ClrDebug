@@ -11,8 +11,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetActiveFunctions([In] uint cFunctions, out uint pcFunctions,
-            [MarshalAs(UnmanagedType.Interface), In, Out]
-            ICorDebugThread2 pFunctions);
+            [MarshalAs(UnmanagedType.LPArray), In, Out] COR_ACTIVE_FUNCTION[] pFunctions);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

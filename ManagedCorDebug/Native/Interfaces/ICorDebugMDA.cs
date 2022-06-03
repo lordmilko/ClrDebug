@@ -11,18 +11,15 @@ namespace ManagedCorDebug
     {
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetName([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.Interface), Out]
-            StringBuilder szName);
+        HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetDescription([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.Interface), Out]
-            StringBuilder szName);
+        HRESULT GetDescription([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetXML([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.Interface), Out]
-            StringBuilder szName);
+        HRESULT GetXML([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

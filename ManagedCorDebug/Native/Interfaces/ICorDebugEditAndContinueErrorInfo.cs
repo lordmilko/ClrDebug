@@ -23,7 +23,6 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetString([In] uint cchString, out uint pcchString, [MarshalAs(UnmanagedType.Interface), Out]
-            StringBuilder szString);
+        HRESULT GetString([In] uint cchString, out uint pcchString, [Out] StringBuilder szString);
     }
 }

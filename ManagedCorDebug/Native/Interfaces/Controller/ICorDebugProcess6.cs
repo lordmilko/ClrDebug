@@ -11,8 +11,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT DecodeEvent(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugProcess6 pRecord,
+            [In] byte[] pRecord,
             [In] uint countBytes,
             [In] CorDebugRecordFormat format,
             [In] uint dwFlags,

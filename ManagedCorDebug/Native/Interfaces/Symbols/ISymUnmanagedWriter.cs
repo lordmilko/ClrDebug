@@ -132,8 +132,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetDebugInfo([In, Out]
-            ref ulong pIDD, [In] uint cData, out uint pcData, [MarshalAs(UnmanagedType.Interface), Out]
-            ISymUnmanagedWriter data);
+            ref ulong pIDD, [In] uint cData, out uint pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

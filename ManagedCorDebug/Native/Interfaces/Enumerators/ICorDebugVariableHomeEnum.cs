@@ -27,6 +27,6 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Next([In] uint celt, [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugVariableHomeEnum homes, out uint pceltFetched);
+            ICorDebugVariableHome homes, out uint pceltFetched);
     }
 }

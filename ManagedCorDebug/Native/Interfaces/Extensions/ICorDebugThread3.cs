@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -17,7 +18,6 @@ namespace ManagedCorDebug
         HRESULT GetActiveInternalFrames(
             [In] uint cInternalFrames,
             out uint pcInternalFrames,
-            [MarshalAs(UnmanagedType.Interface), In, Out]
-            ICorDebugThread3 ppInternalFrames);
+            [In, Out] IntPtr ppInternalFrames); //ICorDebugInternalFrame2
     }
 }

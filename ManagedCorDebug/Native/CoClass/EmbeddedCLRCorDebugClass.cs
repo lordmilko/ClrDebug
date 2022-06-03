@@ -11,21 +11,21 @@ namespace ManagedCorDebug
     public class EmbeddedCLRCorDebugClass : ICorDebug, EmbeddedCLRCorDebug
     {
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void Initialize();
+        public virtual extern HRESULT Initialize();
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void Terminate();
+        public virtual extern HRESULT Terminate();
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void SetManagedHandler([MarshalAs(UnmanagedType.Interface), In]
+        public virtual extern HRESULT SetManagedHandler([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugManagedCallback pCallback);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void SetUnmanagedHandler([MarshalAs(UnmanagedType.Interface), In]
+        public virtual extern HRESULT SetUnmanagedHandler([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugUnmanagedCallback pCallback);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void CreateProcess(
+        public virtual extern HRESULT CreateProcess(
             [MarshalAs(UnmanagedType.LPWStr), In] string lpApplicationName,
             [MarshalAs(UnmanagedType.LPWStr), In] string lpCommandLine,
             [In] ref SECURITY_ATTRIBUTES lpProcessAttributes,
@@ -40,20 +40,20 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void DebugActiveProcess(
+        public virtual extern HRESULT DebugActiveProcess(
             [In] uint id,
             [In] int win32Attach,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void EnumerateProcesses(
+        public virtual extern HRESULT EnumerateProcesses(
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcessEnum ppProcess);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void GetProcess([In] uint dwProcessId,
+        public virtual extern HRESULT GetProcess([In] uint dwProcessId,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void CanLaunchOrAttach([In] uint dwProcessId, [In] int win32DebuggingEnabled);
+        public virtual extern HRESULT CanLaunchOrAttach([In] uint dwProcessId, [In] int win32DebuggingEnabled);
     }
 }
