@@ -8,20 +8,24 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugStackWalk
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetContext(
+        HRESULT GetContext(
             [In] uint contextFlags,
             [In] uint contextBufSize,
             out uint contextSize,
             out byte contextBuf);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetContext([In] CorDebugSetContextFlag flag, [In] uint contextSize, [In] ref byte context);
+        HRESULT SetContext([In] CorDebugSetContextFlag flag, [In] uint contextSize, [In] ref byte context);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Next();
+        HRESULT Next();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetFrame([MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame pFrame);
+        HRESULT GetFrame([MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame pFrame);
     }
 }

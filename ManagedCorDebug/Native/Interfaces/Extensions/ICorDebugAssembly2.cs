@@ -8,7 +8,8 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugAssembly2
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void IsFullyTrusted(out int pbFullyTrusted);
+        HRESULT IsFullyTrusted(out int pbFullyTrusted);
     }
 }

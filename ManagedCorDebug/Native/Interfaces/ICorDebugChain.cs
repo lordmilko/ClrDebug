@@ -8,40 +8,52 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugChain
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetThread([MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
+        HRESULT GetThread([MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetStackRange(out ulong pStart, out ulong pEnd);
+        HRESULT GetStackRange(out ulong pStart, out ulong pEnd);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetContext([MarshalAs(UnmanagedType.Interface)] out ICorDebugContext ppContext);
+        HRESULT GetContext([MarshalAs(UnmanagedType.Interface)] out ICorDebugContext ppContext);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetCaller([MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);
+        HRESULT GetCaller([MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetCallee([MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);
+        HRESULT GetCallee([MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetPrevious([MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);
+        HRESULT GetPrevious([MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetNext([MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);
+        HRESULT GetNext([MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void IsManaged(out int pManaged);
+        HRESULT IsManaged(out int pManaged);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void EnumerateFrames([MarshalAs(UnmanagedType.Interface)] out ICorDebugFrameEnum ppFrames);
+        HRESULT EnumerateFrames([MarshalAs(UnmanagedType.Interface)] out ICorDebugFrameEnum ppFrames);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetActiveFrame([MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);
+        HRESULT GetActiveFrame([MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetRegisterSet([MarshalAs(UnmanagedType.Interface)] out ICorDebugRegisterSet ppRegisters);
+        HRESULT GetRegisterSet([MarshalAs(UnmanagedType.Interface)] out ICorDebugRegisterSet ppRegisters);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetReason(out CorDebugChainReason pReason);
+        HRESULT GetReason(out CorDebugChainReason pReason);
     }
 }

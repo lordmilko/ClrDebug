@@ -8,10 +8,12 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ISequentialStream
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void RemoteRead(out byte pv, [In] uint cb, out uint pcbRead);
+        HRESULT RemoteRead(out byte pv, [In] uint cb, out uint pcbRead);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void RemoteWrite([In] ref byte pv, [In] uint cb, out uint pcbWritten);
+        HRESULT RemoteWrite([In] ref byte pv, [In] uint cb, out uint pcbWritten);
     }
 }

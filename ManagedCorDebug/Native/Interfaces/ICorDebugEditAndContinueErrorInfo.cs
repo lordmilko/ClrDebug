@@ -8,17 +8,21 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugEditAndContinueErrorInfo
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetModule([MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
+        HRESULT GetModule([MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetToken(out uint pToken);
+        HRESULT GetToken(out uint pToken);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetErrorCode([MarshalAs(UnmanagedType.Error)] out int pHr);
+        HRESULT GetErrorCode([MarshalAs(UnmanagedType.Error)] out int pHr);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetString([In] uint cchString, out uint pcchString, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetString([In] uint cchString, out uint pcchString, [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugEditAndContinueErrorInfo szString);
     }
 }

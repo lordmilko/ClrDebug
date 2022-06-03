@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -8,19 +8,24 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugStepperEnum : ICorDebugEnum
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void Skip([In] uint celt);
+        new HRESULT Skip([In] uint celt);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void Reset();
+        new HRESULT Reset();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void Clone([MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);
+        new HRESULT Clone([MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetCount(out uint pcelt);
+        new HRESULT GetCount(out uint pcelt);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Next([In] uint celt, [MarshalAs(UnmanagedType.Interface), Out] out ICorDebugStepper steppers, out uint pceltFetched);
+        HRESULT Next([In] uint celt, [MarshalAs(UnmanagedType.Interface), Out] out ICorDebugStepper steppers, out uint pceltFetched);
     }
 }

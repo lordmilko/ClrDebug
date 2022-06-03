@@ -8,16 +8,18 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugAppDomain2
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetArrayOrPointerType(
+        HRESULT GetArrayOrPointerType(
             [In] uint elementType,
             [In] uint nRank,
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugType pTypeArg,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetFunctionPointerType(
+        HRESULT GetFunctionPointerType(
             [In] uint nTypeArgs,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugType ppTypeArgs,

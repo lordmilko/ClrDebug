@@ -8,28 +8,36 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugStepper
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void IsActive(out int pbActive);
+        HRESULT IsActive(out int pbActive);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Deactivate();
+        HRESULT Deactivate();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetInterceptMask([In] CorDebugIntercept mask);
+        HRESULT SetInterceptMask([In] CorDebugIntercept mask);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetUnmappedStopMask([In] CorDebugUnmappedStop mask);
+        HRESULT SetUnmappedStopMask([In] CorDebugUnmappedStop mask);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Step([In] int bStepIn);
+        HRESULT Step([In] int bStepIn);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void StepRange([In] int bStepIn, [In] ref COR_DEBUG_STEP_RANGE ranges, [In] uint cRangeCount);
+        HRESULT StepRange([In] int bStepIn, [In] ref COR_DEBUG_STEP_RANGE ranges, [In] uint cRangeCount);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void StepOut();
+        HRESULT StepOut();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetRangeIL([In] int bIL);
+        HRESULT SetRangeIL([In] int bIL);
     }
 }

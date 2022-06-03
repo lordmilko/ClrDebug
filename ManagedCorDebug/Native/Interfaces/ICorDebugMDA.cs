@@ -8,22 +8,27 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugMDA
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetName([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetName([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugMDA szName);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetDescription([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetDescription([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugMDA szName);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetXML([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetXML([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugMDA szName);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetFlags([In] ref CorDebugMDAFlags pFlags);
+        HRESULT GetFlags([In] ref CorDebugMDAFlags pFlags);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetOSThreadId(out uint pOsTid);
+        HRESULT GetOSThreadId(out uint pOsTid);
     }
 }

@@ -8,28 +8,36 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugFunction
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetModule([MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
+        HRESULT GetModule([MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetClass([MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);
+        HRESULT GetClass([MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetToken(out uint pMethodDef);
+        HRESULT GetToken(out uint pMethodDef);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetILCode([MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
+        HRESULT GetILCode([MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetNativeCode([MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
+        HRESULT GetNativeCode([MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void CreateBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugFunctionBreakpoint ppBreakpoint);
+        HRESULT CreateBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugFunctionBreakpoint ppBreakpoint);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetLocalVarSigToken(out uint pmdSig);
+        HRESULT GetLocalVarSigToken(out uint pmdSig);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetCurrentVersionNumber(out uint pnCurrentVersion);
+        HRESULT GetCurrentVersionNumber(out uint pnCurrentVersion);
     }
 }

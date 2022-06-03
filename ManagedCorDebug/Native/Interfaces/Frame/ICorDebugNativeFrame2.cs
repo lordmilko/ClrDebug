@@ -8,14 +8,17 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugNativeFrame2
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void IsChild(out int pIsChild);
+        HRESULT IsChild(out int pIsChild);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void IsMatchingParentFrame([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT IsMatchingParentFrame([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugNativeFrame2 pPotentialParentFrame, out int pIsParent);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetStackParameterSize(out uint pSize);
+        HRESULT GetStackParameterSize(out uint pSize);
     }
 }

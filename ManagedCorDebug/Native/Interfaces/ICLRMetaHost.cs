@@ -38,14 +38,16 @@ namespace ManagedCorDebug
         [return: MarshalAs(UnmanagedType.Interface)]
         IEnumUnknown EnumerateLoadedRuntimes([In] IntPtr hndProcess);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void RequestRuntimeLoadedNotification([MarshalAs(UnmanagedType.FunctionPtr), In]
+        HRESULT RequestRuntimeLoadedNotification([MarshalAs(UnmanagedType.FunctionPtr), In]
             RuntimeLoadedCallback pCallbackFunction);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         IntPtr QueryLegacyV2RuntimeBinding([In] ref Guid riid);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void ExitProcess([In] int iExitCode);
+        HRESULT ExitProcess([In] int iExitCode);
     }
 }

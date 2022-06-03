@@ -9,13 +9,15 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugAppDomain3
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetCachedWinRTTypesForIIDs(
+        HRESULT GetCachedWinRTTypesForIIDs(
             [In] uint cReqTypes,
             [In] ref Guid iidsToResolve,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppTypesEnum);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetCachedWinRTTypes([MarshalAs(UnmanagedType.Interface)] out ICorDebugGuidToTypeEnum ppGuidToTypeEnum);
+        HRESULT GetCachedWinRTTypes([MarshalAs(UnmanagedType.Interface)] out ICorDebugGuidToTypeEnum ppGuidToTypeEnum);
     }
 }

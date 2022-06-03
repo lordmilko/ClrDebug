@@ -8,8 +8,9 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugHeapValue2
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void CreateHandle([In] CorDebugHandleType type,
+        HRESULT CreateHandle([In] CorDebugHandleType type,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugHandleValue ppHandle);
     }
 }

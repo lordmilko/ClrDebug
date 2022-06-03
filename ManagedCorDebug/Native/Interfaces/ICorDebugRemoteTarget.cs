@@ -8,8 +8,9 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugRemoteTarget
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetHostName([In] uint cchHostName, out uint pcchHostName, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetHostName([In] uint cchHostName, out uint pcchHostName, [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugRemoteTarget szHostName);
     }
 }

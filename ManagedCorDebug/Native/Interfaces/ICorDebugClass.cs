@@ -8,14 +8,17 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugClass
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetModule([MarshalAs(UnmanagedType.Interface)] out ICorDebugModule pModule);
+        HRESULT GetModule([MarshalAs(UnmanagedType.Interface)] out ICorDebugModule pModule);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetToken(out uint pTypeDef);
+        HRESULT GetToken(out uint pTypeDef);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetStaticFieldValue([In] uint fieldDef, [MarshalAs(UnmanagedType.Interface), In]
+        HRESULT GetStaticFieldValue([In] uint fieldDef, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugFrame pFrame, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
     }
 }

@@ -8,7 +8,8 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugType2
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetTypeID(out COR_TYPEID id);
+        HRESULT GetTypeID(out COR_TYPEID id);
     }
 }

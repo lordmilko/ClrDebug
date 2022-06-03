@@ -8,31 +8,40 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugReferenceValue : ICorDebugValue
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetType(out CorElementType pType);
+        new HRESULT GetType(out CorElementType pType);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetSize(out uint pSize);
+        new HRESULT GetSize(out uint pSize);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetAddress(out ulong pAddress);
+        new HRESULT GetAddress(out ulong pAddress);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void CreateBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
+        new HRESULT CreateBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void IsNull(out int pbNull);
+        HRESULT IsNull(out int pbNull);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetValue(out ulong pValue);
+        HRESULT GetValue(out ulong pValue);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetValue([In] ulong value);
+        HRESULT SetValue([In] ulong value);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Dereference([MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
+        HRESULT Dereference([MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void DereferenceStrong([MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
+        HRESULT DereferenceStrong([MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
     }
 }

@@ -8,14 +8,16 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugVirtualUnwinder
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetContext(
+        HRESULT GetContext(
             [In] uint contextFlags,
             [In] uint cbContextBuf,
             out uint contextSize,
             out byte contextBuf);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Next();
+        HRESULT Next();
     }
 }

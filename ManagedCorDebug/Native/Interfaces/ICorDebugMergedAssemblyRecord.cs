@@ -8,32 +8,38 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugMergedAssemblyRecord
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetSimpleName([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetSimpleName([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugMergedAssemblyRecord szName);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetVersion(out ushort pMajor, out ushort pMinor, out ushort pBuild, out ushort pRevision);
+        HRESULT GetVersion(out ushort pMajor, out ushort pMinor, out ushort pBuild, out ushort pRevision);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetCulture([In] uint cchCulture, out uint pcchCulture, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetCulture([In] uint cchCulture, out uint pcchCulture, [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugMergedAssemblyRecord szCulture);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetPublicKey(
+        HRESULT GetPublicKey(
             [In] uint cbPublicKey,
             out uint pcbPublicKey,
             [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugMergedAssemblyRecord pbPublicKey);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetPublicKeyToken(
+        HRESULT GetPublicKeyToken(
             [In] uint cbPublicKeyToken,
             out uint pcbPublicKeyToken,
             [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugMergedAssemblyRecord pbPublicKeyToken);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetIndex(out uint pIndex);
+        HRESULT GetIndex(out uint pIndex);
     }
 }

@@ -8,56 +8,69 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICLRDataTarget2 : ICLRDataTarget
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetMachineType(out uint machineType);
+        new HRESULT GetMachineType(out uint machineType);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetPointerSize(out uint pointerSize);
+        new HRESULT GetPointerSize(out uint pointerSize);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetImageBase([MarshalAs(UnmanagedType.LPWStr), In] string imagePath, out ulong baseAddress);
+        new HRESULT GetImageBase([MarshalAs(UnmanagedType.LPWStr), In] string imagePath, out ulong baseAddress);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void ReadVirtual([In] ulong address, out byte buffer, [In] uint bytesRequested, out uint bytesRead);
+        new HRESULT ReadVirtual([In] ulong address, out byte buffer, [In] uint bytesRequested, out uint bytesRead);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void WriteVirtual(
+        new HRESULT WriteVirtual(
             [In] ulong address,
             [In] ref byte buffer,
             [In] uint bytesRequested,
             out uint bytesWritten);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetTLSValue([In] uint threadID, [In] uint index, out ulong value);
+        new HRESULT GetTLSValue([In] uint threadID, [In] uint index, out ulong value);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void SetTLSValue([In] uint threadID, [In] uint index, [In] ulong value);
+        new HRESULT SetTLSValue([In] uint threadID, [In] uint index, [In] ulong value);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetCurrentThreadID(out uint threadID);
+        new HRESULT GetCurrentThreadID(out uint threadID);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetThreadContext(
+        new HRESULT GetThreadContext(
             [In] uint threadID,
             [In] uint contextFlags,
             [In] uint contextSize,
             out byte context);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void SetThreadContext([In] uint threadID, [In] uint contextSize, [In] ref byte context);
+        new HRESULT SetThreadContext([In] uint threadID, [In] uint contextSize, [In] ref byte context);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void Request(
+        new HRESULT Request(
             [In] uint reqCode,
             [In] uint inBufferSize,
             [In] ref byte inBuffer,
             [In] uint outBufferSize,
             out byte outBuffer);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void AllocVirtual([In] ulong addr, [In] uint size, [In] uint typeFlags, [In] uint protectFlags, out ulong virt);
+        HRESULT AllocVirtual([In] ulong addr, [In] uint size, [In] uint typeFlags, [In] uint protectFlags, out ulong virt);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void FreeVirtual([In] ulong addr, [In] uint size, [In] uint typeFlags);
+        HRESULT FreeVirtual([In] ulong addr, [In] uint size, [In] uint typeFlags);
     }
 }

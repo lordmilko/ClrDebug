@@ -8,15 +8,18 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugILFrame4
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void EnumerateLocalVariablesEx([In] ILCodeKind flags,
+        HRESULT EnumerateLocalVariablesEx([In] ILCodeKind flags,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValueEnum ppValueEnum);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetLocalVariableEx([In] ILCodeKind flags, [In] uint dwIndex,
+        HRESULT GetLocalVariableEx([In] ILCodeKind flags, [In] uint dwIndex,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetCodeEx([In] ILCodeKind flags, [MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
+        HRESULT GetCodeEx([In] ILCodeKind flags, [MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
     }
 }

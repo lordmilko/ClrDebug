@@ -10,23 +10,29 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ISymNGenWriter2 : ISymNGenWriter
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void AddSymbol([MarshalAs(UnmanagedType.BStr), In] string pSymbol, [In] ushort iSection, [In] ulong rva);
+        new HRESULT AddSymbol([MarshalAs(UnmanagedType.BStr), In] string pSymbol, [In] ushort iSection, [In] ulong rva);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void AddSection([In] ushort iSection, [In] ushort flags, [In] int offset, [In] int cb);
+        new HRESULT AddSection([In] ushort iSection, [In] ushort flags, [In] int offset, [In] int cb);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void OpenModW([In] ref ushort wszModule, [In] ref ushort wszObjFile, [Out] IntPtr ppmod);
+        HRESULT OpenModW([In] ref ushort wszModule, [In] ref ushort wszObjFile, [Out] IntPtr ppmod);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void CloseMod([In] ref byte pmod);
+        HRESULT CloseMod([In] ref byte pmod);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void ModAddSymbols([In] ref byte pmod, [In] ref byte pbSym, [In] int cb);
+        HRESULT ModAddSymbols([In] ref byte pmod, [In] ref byte pbSym, [In] int cb);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void ModAddSecContribEx(
+        HRESULT ModAddSecContribEx(
             [In] ref byte pmod,
             [In] ushort isect,
             [In] int off,
@@ -35,7 +41,8 @@ namespace ManagedCorDebug
             [In] uint dwDataCrc,
             [In] uint dwRelocCrc);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void QueryPDBNameExW(out ushort wszPDB, [In] ulong cchMax);
+        HRESULT QueryPDBNameExW(out ushort wszPDB, [In] ulong cchMax);
     }
 }

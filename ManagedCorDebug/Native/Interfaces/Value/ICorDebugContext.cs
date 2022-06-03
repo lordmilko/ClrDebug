@@ -8,40 +8,51 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugContext : ICorDebugObjectValue
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetType(out CorElementType pType);
+        new HRESULT GetType(out CorElementType pType);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetSize(out uint pSize);
+        new HRESULT GetSize(out uint pSize);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetAddress(out ulong pAddress);
+        new HRESULT GetAddress(out ulong pAddress);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void CreateBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
+        new HRESULT CreateBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetClass([MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);
+        new HRESULT GetClass([MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetFieldValue([MarshalAs(UnmanagedType.Interface), In]
+        new HRESULT GetFieldValue([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugClass pClass, [In] uint fieldDef, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetVirtualMethod([In] uint memberRef,
+        new HRESULT GetVirtualMethod([In] uint memberRef,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetContext([MarshalAs(UnmanagedType.Interface)] out ICorDebugContext ppContext);
+        new HRESULT GetContext([MarshalAs(UnmanagedType.Interface)] out ICorDebugContext ppContext);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void IsValueClass(out int pbIsValueClass);
+        new HRESULT IsValueClass(out int pbIsValueClass);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetManagedCopy([MarshalAs(UnmanagedType.IUnknown)] out object ppObject);
+        new HRESULT GetManagedCopy([MarshalAs(UnmanagedType.IUnknown)] out object ppObject);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void SetFromManagedCopy([MarshalAs(UnmanagedType.IUnknown), In]
+        new HRESULT SetFromManagedCopy([MarshalAs(UnmanagedType.IUnknown), In]
             object pObject);
     }
 }

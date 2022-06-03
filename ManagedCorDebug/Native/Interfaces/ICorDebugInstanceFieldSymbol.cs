@@ -8,14 +8,17 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugInstanceFieldSymbol
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetName([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetName([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugInstanceFieldSymbol szName);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetSize(out uint pcbSize);
+        HRESULT GetSize(out uint pcbSize);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetOffset(out uint pcbOffset);
+        HRESULT GetOffset(out uint pcbOffset);
     }
 }

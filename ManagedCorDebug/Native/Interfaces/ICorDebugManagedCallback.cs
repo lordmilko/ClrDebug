@@ -8,8 +8,9 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugManagedCallback
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Breakpoint(
+        HRESULT Breakpoint(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In]
@@ -17,8 +18,9 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugBreakpoint pBreakpoint);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void StepComplete(
+        HRESULT StepComplete(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In]
@@ -27,72 +29,86 @@ namespace ManagedCorDebug
             ICorDebugStepper pStepper,
             [In] CorDebugStepReason reason);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Break([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT Break([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugThread thread);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Exception([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT Exception([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugThread pThread, [In] int unhandled);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void EvalComplete([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT EvalComplete([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugThread pThread, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugEval pEval);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void EvalException([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT EvalException([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugThread pThread, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugEval pEval);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void CreateProcess([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT CreateProcess([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugProcess pProcess);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void ExitProcess([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT ExitProcess([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugProcess pProcess);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void CreateThread([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT CreateThread([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugThread thread);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void ExitThread([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT ExitThread([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugThread thread);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void LoadModule([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT LoadModule([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugModule pModule);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void UnloadModule([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT UnloadModule([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugModule pModule);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void LoadClass([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT LoadClass([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugClass c);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void UnloadClass([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT UnloadClass([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugClass c);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void DebuggerError([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT DebuggerError([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugProcess pProcess, [MarshalAs(UnmanagedType.Error), In] int errorHR, [In] uint errorCode);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void LogMessage(
+        HRESULT LogMessage(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In]
@@ -101,8 +117,9 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string pLogSwitchName,
             [MarshalAs(UnmanagedType.LPWStr), In] string pMessage);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void LogSwitch(
+        HRESULT LogSwitch(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In]
@@ -112,37 +129,44 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr)]  [In] string pLogSwitchName,
             [MarshalAs(UnmanagedType.LPWStr), In] string pParentName);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void CreateAppDomain([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT CreateAppDomain([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugProcess pProcess, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void ExitAppDomain([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT ExitAppDomain([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugProcess pProcess, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void LoadAssembly([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT LoadAssembly([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAssembly pAssembly);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void UnloadAssembly([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT UnloadAssembly([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAssembly pAssembly);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void ControlCTrap([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT ControlCTrap([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugProcess pProcess);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void NameChange([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT NameChange([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugThread pThread);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void UpdateModuleSymbols(
+        HRESULT UpdateModuleSymbols(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In]
@@ -150,8 +174,9 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.Interface), In]
             IStream pSymbolStream);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void EditAndContinueRemap(
+        HRESULT EditAndContinueRemap(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In]
@@ -160,8 +185,9 @@ namespace ManagedCorDebug
             ICorDebugFunction pFunction,
             [In] int fAccurate);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void BreakpointSetError(
+        HRESULT BreakpointSetError(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In]

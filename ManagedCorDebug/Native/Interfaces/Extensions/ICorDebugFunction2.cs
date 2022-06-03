@@ -8,16 +8,20 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugFunction2
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetJMCStatus([In] int bIsJustMyCode);
+        HRESULT SetJMCStatus([In] int bIsJustMyCode);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetJMCStatus(out int pbIsJustMyCode);
+        HRESULT GetJMCStatus(out int pbIsJustMyCode);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void EnumerateNativeCode([MarshalAs(UnmanagedType.Interface)] out ICorDebugCodeEnum ppCodeEnum);
+        HRESULT EnumerateNativeCode([MarshalAs(UnmanagedType.Interface)] out ICorDebugCodeEnum ppCodeEnum);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetVersionNumber(out uint pnVersion);
+        HRESULT GetVersionNumber(out uint pnVersion);
     }
 }

@@ -8,14 +8,17 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugLoadedModule
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetBaseAddress(out ulong pAddress);
+        HRESULT GetBaseAddress(out ulong pAddress);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetName([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetName([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugLoadedModule szName);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetSize(out uint pcBytes);
+        HRESULT GetSize(out uint pcBytes);
     }
 }

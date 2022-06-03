@@ -8,16 +8,20 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugEnum
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Skip([In] uint celt);
+        HRESULT Skip([In] uint celt);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Reset();
+        HRESULT Reset();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Clone([MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);
+        HRESULT Clone([MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetCount(out uint pcelt);
+        HRESULT GetCount(out uint pcelt);
     }
 }

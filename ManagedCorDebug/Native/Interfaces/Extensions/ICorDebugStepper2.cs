@@ -8,7 +8,8 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugStepper2
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetJMC([In] int fIsJMCStepper);
+        HRESULT SetJMC([In] int fIsJMCStepper);
     }
 }

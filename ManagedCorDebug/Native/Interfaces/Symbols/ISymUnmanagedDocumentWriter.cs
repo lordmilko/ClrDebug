@@ -9,10 +9,12 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ISymUnmanagedDocumentWriter
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetSource([In] uint sourceSize, [In] ref byte source);
+        HRESULT SetSource([In] uint sourceSize, [In] ref byte source);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetCheckSum([In] Guid algorithmId, [In] uint checkSumSize, [In] ref byte checkSum);
+        HRESULT SetCheckSum([In] Guid algorithmId, [In] uint checkSumSize, [In] ref byte checkSum);
     }
 }

@@ -8,7 +8,8 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugUnmanagedCallback
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void DebugEvent([In] ulong pDebugEvent, [In] int fOutOfBand);
+        HRESULT DebugEvent([In] ulong pDebugEvent, [In] int fOutOfBand);
     }
 }

@@ -8,25 +8,30 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ISymUnmanagedENCUpdate
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void UpdateSymbolStore2([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT UpdateSymbolStore2([MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream, [In] ref SYMLINEDELTA pDeltaLines, [In] uint cDeltaLines);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetLocalVariableCount([In] uint mdMethodToken, out uint pcLocals);
+        HRESULT GetLocalVariableCount([In] uint mdMethodToken, out uint pcLocals);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetLocalVariables(
+        HRESULT GetLocalVariables(
             [In] uint mdMethodToken,
             [In] uint cLocals,
             [MarshalAs(UnmanagedType.Interface), Out]
             ISymUnmanagedENCUpdate rgLocals,
             out uint pceltFetched);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void InitializeForEnc();
+        HRESULT InitializeForEnc();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void UpdateMethodLines([In] uint mdMethodToken, [In] ref int pDeltas, [In] uint cDeltas);
+        HRESULT UpdateMethodLines([In] uint mdMethodToken, [In] ref int pDeltas, [In] uint cDeltas);
     }
 }

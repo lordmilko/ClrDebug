@@ -9,8 +9,9 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICLRProfiling
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void AttachProfiler(
+        HRESULT AttachProfiler(
             [In] uint dwProfileeProcessID,
             [In] uint dwMillisecondsMax,
             [In] ref Guid pClsidProfiler,

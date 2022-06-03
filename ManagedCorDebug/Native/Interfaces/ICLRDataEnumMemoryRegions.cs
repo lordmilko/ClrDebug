@@ -8,8 +8,9 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICLRDataEnumMemoryRegions
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void EnumMemoryRegions(
+        HRESULT EnumMemoryRegions(
             [MarshalAs(UnmanagedType.Interface), In]
             ICLRDataEnumMemoryRegionsCallback callback,
             [In] uint miniDumpFlags,

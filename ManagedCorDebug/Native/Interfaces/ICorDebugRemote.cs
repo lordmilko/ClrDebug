@@ -9,8 +9,9 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugRemote
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void CreateProcessEx(
+        HRESULT CreateProcessEx(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugRemoteTarget pRemoteTarget,
             [MarshalAs(UnmanagedType.LPWStr), In] string lpApplicationName,
@@ -26,8 +27,9 @@ namespace ManagedCorDebug
             [In] CorDebugCreateProcessFlags debuggingFlags,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void DebugActiveProcessEx(
+        HRESULT DebugActiveProcessEx(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugRemoteTarget pRemoteTarget,
             [In] uint dwProcessId,

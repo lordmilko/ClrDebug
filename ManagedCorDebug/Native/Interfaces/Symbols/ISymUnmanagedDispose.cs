@@ -8,7 +8,8 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ISymUnmanagedDispose
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Destroy();
+        HRESULT Destroy();
     }
 }

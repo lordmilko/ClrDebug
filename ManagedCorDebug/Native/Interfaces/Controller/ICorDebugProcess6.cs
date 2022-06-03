@@ -8,8 +8,9 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugProcess6
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void DecodeEvent(
+        HRESULT DecodeEvent(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugProcess6 pRecord,
             [In] uint countBytes,
@@ -18,20 +19,25 @@ namespace ManagedCorDebug
             [In] uint dwThreadId,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugDebugEvent ppEvent);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void ProcessStateChanged([In] CorDebugStateChange change);
+        HRESULT ProcessStateChanged([In] CorDebugStateChange change);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetCode([In] ulong codeAddress, [MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
+        HRESULT GetCode([In] ulong codeAddress, [MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void EnableVirtualModuleSplitting(int enableSplitting);
+        HRESULT EnableVirtualModuleSplitting(int enableSplitting);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void MarkDebuggerAttached(int fIsAttached);
+        HRESULT MarkDebuggerAttached(int fIsAttached);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetExportStepInfo(
+        HRESULT GetExportStepInfo(
             [MarshalAs(UnmanagedType.LPWStr), In] string pszExportName,
             out CorDebugCodeInvokeKind pInvokeKind,
             out CorDebugCodeInvokePurpose pInvokePurpose);

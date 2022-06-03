@@ -8,8 +8,9 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugDataTarget3
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetLoadedModules(
+        HRESULT GetLoadedModules(
             [In] uint cRequestedModules,
             out uint pcFetchedModules,
             [MarshalAs(UnmanagedType.Interface), Out]

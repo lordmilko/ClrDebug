@@ -8,11 +8,13 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ISymUnmanagedMethod
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        uint GetToken();
+        HRESULT GetToken();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        uint GetSequencePointCount();
+        HRESULT GetSequencePointCount();
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         [return: MarshalAs(UnmanagedType.Interface)]
@@ -22,12 +24,14 @@ namespace ManagedCorDebug
         [return: MarshalAs(UnmanagedType.Interface)]
         ISymUnmanagedScope GetScopeFromOffset([In] uint offset);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        uint GetOffset([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT GetOffset([MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocument document, [In] uint line, [In] uint column);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetRanges(
+        HRESULT GetRanges(
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocument document,
             [In] uint line,
@@ -37,15 +41,18 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.Interface), Out]
             ISymUnmanagedMethod ranges);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetParameters([In] uint cParams, out uint pcParams, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetParameters([In] uint cParams, out uint pcParams, [MarshalAs(UnmanagedType.Interface), Out]
             ISymUnmanagedMethod @params);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetNamespace([MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedNamespace pRetVal);
+        HRESULT GetNamespace([MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedNamespace pRetVal);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetSourceStartEnd(
+        HRESULT GetSourceStartEnd(
             [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In]
             ISymUnmanagedDocument[] docs,
             [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In]
@@ -54,8 +61,9 @@ namespace ManagedCorDebug
             uint[] columns,
             out int pRetVal);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetSequencePoints(
+        HRESULT GetSequencePoints(
             [In] uint cPoints,
             out uint pcPoints,
             [In] ref uint offsets,

@@ -8,8 +8,9 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugObjectValue2
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetVirtualMethodAndType(
+        HRESULT GetVirtualMethodAndType(
             [In] uint memberRef,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);

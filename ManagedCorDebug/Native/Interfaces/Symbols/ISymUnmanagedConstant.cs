@@ -8,15 +8,18 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ISymUnmanagedConstant
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetName([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetName([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.Interface), Out]
             ISymUnmanagedConstant szName);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetValue([MarshalAs(UnmanagedType.Struct)] ref object pValue);
+        HRESULT GetValue([MarshalAs(UnmanagedType.Struct)] ref object pValue);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetSignature([In] uint cSig, out uint pcSig, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetSignature([In] uint cSig, out uint pcSig, [MarshalAs(UnmanagedType.Interface), Out]
             ISymUnmanagedConstant sig);
     }
 }

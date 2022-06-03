@@ -8,8 +8,9 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugILCode
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetEHClauses([In] uint cClauses, out uint pcClauses, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetEHClauses([In] uint cClauses, out uint pcClauses, [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugILCode clauses);
     }
 }

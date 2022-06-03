@@ -8,49 +8,63 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugArrayValue : ICorDebugHeapValue
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetType(out CorElementType pType);
+        new HRESULT GetType(out CorElementType pType);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetSize(out uint pSize);
+        new HRESULT GetSize(out uint pSize);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetAddress(out ulong pAddress);
+        new HRESULT GetAddress(out ulong pAddress);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void CreateBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
+        new HRESULT CreateBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void IsValid(out int pbValid);
+        new HRESULT IsValid(out int pbValid);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void CreateRelocBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
+        new HRESULT CreateRelocBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetElementType(out CorElementType pType);
+        HRESULT GetElementType(out CorElementType pType);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetRank(out uint pnRank);
+        HRESULT GetRank(out uint pnRank);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetCount(out uint pnCount);
+        HRESULT GetCount(out uint pnCount);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetDimensions([In] uint cdim, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetDimensions([In] uint cdim, [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugArrayValue dims);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void HasBaseIndicies(out int pbHasBaseIndicies);
+        HRESULT HasBaseIndicies(out int pbHasBaseIndicies);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetBaseIndicies([In] uint cdim, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetBaseIndicies([In] uint cdim, [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugArrayValue indicies);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetElement([In] uint cdim, [MarshalAs(UnmanagedType.Interface), In]
+        HRESULT GetElement([In] uint cdim, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugArrayValue indices, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetElementAtPosition([In] uint nPosition, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
+        HRESULT GetElementAtPosition([In] uint nPosition, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
     }
 }

@@ -10,21 +10,24 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICLRRuntimeInfo
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetVersionString([MarshalAs(UnmanagedType.LPWStr), Out]
+        HRESULT GetVersionString([MarshalAs(UnmanagedType.LPWStr), Out]
             StringBuilder pwzBuffer, [In] [Out] ref uint pcchBuffer);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int GetRuntimeDirectory([MarshalAs(UnmanagedType.LPWStr), Out]
+        HRESULT GetRuntimeDirectory([MarshalAs(UnmanagedType.LPWStr), Out]
             StringBuilder pwzBuffer, [In] [Out] ref uint pcchBuffer);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int IsLoaded([In] IntPtr hndProcess);
+        HRESULT IsLoaded([In] IntPtr hndProcess);
 
+        [PreserveSig]
         [LCIDConversion(3)]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void LoadErrorString([In] uint iResourceID, [MarshalAs(UnmanagedType.LPWStr), Out]
+        HRESULT LoadErrorString([In] uint iResourceID, [MarshalAs(UnmanagedType.LPWStr), Out]
             StringBuilder pwzBuffer, [In] [Out] ref uint pcchBuffer);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -37,24 +40,29 @@ namespace ManagedCorDebug
         [return: MarshalAs(UnmanagedType.IUnknown)]
         object GetInterface([In] ref Guid rclsid, [In] ref Guid riid);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int IsLoadable();
+        HRESULT IsLoadable();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetDefaultStartupFlags([In] uint dwStartupFlags,
+        HRESULT SetDefaultStartupFlags([In] uint dwStartupFlags,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzHostConfigFile);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetDefaultStartupFlags(
+        HRESULT GetDefaultStartupFlags(
             out uint pdwStartupFlags,
             [MarshalAs(UnmanagedType.LPWStr), Out]
             StringBuilder pwzHostConfigFile,
             [In] [Out] ref uint pcchHostConfigFile);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void BindAsLegacyV2Runtime();
+        HRESULT BindAsLegacyV2Runtime();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void IsStarted(out int pbStarted, out uint pdwStartupFlags);
+        HRESULT IsStarted(out int pbStarted, out uint pdwStartupFlags);
     }
 }

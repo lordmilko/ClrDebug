@@ -8,11 +8,13 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugInternalFrame2
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetAddress(out ulong pAddress);
+        HRESULT GetAddress(out ulong pAddress);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void IsCloserToLeaf([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT IsCloserToLeaf([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugFrame pFrameToCompare, out int pIsCloser);
     }
 }

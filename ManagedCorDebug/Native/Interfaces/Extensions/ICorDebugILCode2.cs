@@ -8,11 +8,13 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugILCode2
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetLocalVarSigToken(out uint pmdSig);
+        HRESULT GetLocalVarSigToken(out uint pmdSig);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetInstrumentedILMap([In] uint cMap, out uint pcMap, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetInstrumentedILMap([In] uint cMap, out uint pcMap, [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugILCode2 map);
     }
 }

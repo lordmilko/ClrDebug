@@ -8,13 +8,16 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugModuleBreakpoint : ICorDebugBreakpoint
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void Activate([In] int bActive);
+        new HRESULT Activate([In] int bActive);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void IsActive(out int pbActive);
+        new HRESULT IsActive(out int pbActive);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetModule([MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
+        HRESULT GetModule([MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
     }
 }

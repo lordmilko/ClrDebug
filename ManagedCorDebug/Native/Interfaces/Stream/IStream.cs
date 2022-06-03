@@ -8,42 +8,53 @@ namespace ManagedCorDebug
     [ComImport]
     public interface IStream : ISequentialStream
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void RemoteRead(out byte pv, [In] uint cb, out uint pcbRead);
+        new HRESULT RemoteRead(out byte pv, [In] uint cb, out uint pcbRead);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void RemoteWrite([In] ref byte pv, [In] uint cb, out uint pcbWritten);
+        new HRESULT RemoteWrite([In] ref byte pv, [In] uint cb, out uint pcbWritten);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void RemoteSeek([In] LARGE_INTEGER dlibMove, [In] uint dwOrigin, out ULARGE_INTEGER plibNewPosition);
+        HRESULT RemoteSeek([In] LARGE_INTEGER dlibMove, [In] uint dwOrigin, out ULARGE_INTEGER plibNewPosition);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetSize([In] ULARGE_INTEGER libNewSize);
+        HRESULT SetSize([In] ULARGE_INTEGER libNewSize);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void RemoteCopyTo(
+        HRESULT RemoteCopyTo(
             [MarshalAs(UnmanagedType.Interface), In]
             IStream pstm,
             [In] ULARGE_INTEGER cb,
             out ULARGE_INTEGER pcbRead,
             out ULARGE_INTEGER pcbWritten);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Commit([In] uint grfCommitFlags);
+        HRESULT Commit([In] uint grfCommitFlags);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Revert();
+        HRESULT Revert();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void LockRegion([In] ULARGE_INTEGER libOffset, [In] ULARGE_INTEGER cb, [In] uint dwLockType);
+        HRESULT LockRegion([In] ULARGE_INTEGER libOffset, [In] ULARGE_INTEGER cb, [In] uint dwLockType);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void UnlockRegion([In] ULARGE_INTEGER libOffset, [In] ULARGE_INTEGER cb, [In] uint dwLockType);
+        HRESULT UnlockRegion([In] ULARGE_INTEGER libOffset, [In] ULARGE_INTEGER cb, [In] uint dwLockType);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Stat(out tagSTATSTG pstatstg, [In] uint grfStatFlag);
+        HRESULT Stat(out tagSTATSTG pstatstg, [In] uint grfStatFlag);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Clone([MarshalAs(UnmanagedType.Interface)] out IStream ppstm);
+        HRESULT Clone([MarshalAs(UnmanagedType.Interface)] out IStream ppstm);
     }
 }

@@ -10,24 +10,27 @@ namespace ManagedCorDebug
     [Guid("9FD93CCF-3280-4391-B3A9-96E1CDE77C8D")]
     public interface ICLRStrongName
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetHashFromAssemblyFile(
+        HRESULT GetHashFromAssemblyFile(
             [MarshalAs(UnmanagedType.LPStr), In] string pszFilePath,
             [In] [Out] ref uint piHashAlg,
             out byte pbHash,
             [In] uint cchHash,
             out uint pchHash);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetHashFromAssemblyFileW(
+        HRESULT GetHashFromAssemblyFileW(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [In] [Out] ref uint piHashAlg,
             out byte pbHash,
             [In] uint cchHash,
             out uint pchHash);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetHashFromBlob(
+        HRESULT GetHashFromBlob(
             [In] ref byte pbBlob,
             [In] uint cchBlob,
             [In] [Out] ref uint piHashAlg,
@@ -35,83 +38,97 @@ namespace ManagedCorDebug
             [In] uint cchHash,
             out uint pchHash);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetHashFromFile(
+        HRESULT GetHashFromFile(
             [MarshalAs(UnmanagedType.LPStr), In] string pszFilePath,
             [In] [Out] ref uint piHashAlg,
             out byte pbHash,
             [In] uint cchHash,
             out uint pchHash);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetHashFromFileW(
+        HRESULT GetHashFromFileW(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [In] [Out] ref uint piHashAlg,
             out byte pbHash,
             [In] uint cchHash,
             out uint pchHash);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetHashFromHandle(
+        HRESULT GetHashFromHandle(
             [In] IntPtr hFile,
             [In] [Out] ref uint piHashAlg,
             out byte pbHash,
             [In] uint cchHash,
             out uint pchHash);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        uint StrongNameCompareAssemblies([MarshalAs(UnmanagedType.LPWStr), In] string pwzAssembly1,
+        HRESULT StrongNameCompareAssemblies([MarshalAs(UnmanagedType.LPWStr), In] string pwzAssembly1,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzAssembly2);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void StrongNameFreeBuffer([In] ref byte pbMemory);
+        HRESULT StrongNameFreeBuffer([In] ref byte pbMemory);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void StrongNameGetBlob([MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath, [In] [Out] ref byte pbBlob,
+        HRESULT StrongNameGetBlob([MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath, [In] [Out] ref byte pbBlob,
             [In] [Out] ref uint pcbBlob);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void StrongNameGetBlobFromImage(
+        HRESULT StrongNameGetBlobFromImage(
             [In] ref byte pbBase,
             [In] uint dwLength,
             out byte pbBlob,
             [In] [Out] ref uint pcbBlob);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void StrongNameGetPublicKey(
+        HRESULT StrongNameGetPublicKey(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
             [In] ref byte pbKeyBlob,
             [In] uint cbKeyBlob,
             [Out] IntPtr ppbPublicKeyBlob,
             out uint pcbPublicKeyBlob);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        uint StrongNameHashSize([In] uint ulHashAlg);
+        HRESULT StrongNameHashSize([In] uint ulHashAlg);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void StrongNameKeyDelete([MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer);
+        HRESULT StrongNameKeyDelete([MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void StrongNameKeyGen(
+        HRESULT StrongNameKeyGen(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
             [In] uint dwFlags,
             [Out] IntPtr ppbKeyBlob,
             out uint pcbKeyBlob);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void StrongNameKeyGenEx(
+        HRESULT StrongNameKeyGenEx(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
             [In] uint dwFlags,
             [In] uint dwKeySize,
             [Out] IntPtr ppbKeyBlob,
             out uint pcbKeyBlob);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void StrongNameKeyInstall([MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
+        HRESULT StrongNameKeyInstall([MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
             [In] ref byte pbKeyBlob, [In] uint cbKeyBlob);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void StrongNameSignatureGeneration(
+        HRESULT StrongNameSignatureGeneration(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
             [In] ref byte pbKeyBlob,
@@ -119,8 +136,9 @@ namespace ManagedCorDebug
             [Out] IntPtr ppbSignatureBlob,
             out uint pcbSignatureBlob);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void StrongNameSignatureGenerationEx(
+        HRESULT StrongNameSignatureGenerationEx(
             [MarshalAs(UnmanagedType.LPWStr), In] string wszFilePath,
             [MarshalAs(UnmanagedType.LPWStr), In] string wszKeyContainer,
             [In] ref byte pbKeyBlob,
@@ -129,36 +147,42 @@ namespace ManagedCorDebug
             out uint pcbSignatureBlob,
             [In] uint dwFlags);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void StrongNameSignatureSize([In] ref byte pbPublicKeyBlob, [In] uint cbPublicKeyBlob, [In] ref uint pcbSize);
+        HRESULT StrongNameSignatureSize([In] ref byte pbPublicKeyBlob, [In] uint cbPublicKeyBlob, [In] ref uint pcbSize);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        uint StrongNameSignatureVerification([MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
+        HRESULT StrongNameSignatureVerification([MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [In] uint dwInFlags);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         sbyte StrongNameSignatureVerificationEx([MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [In] sbyte fForceVerification);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        uint StrongNameSignatureVerificationFromImage([In] ref byte pbBase, [In] uint dwLength, [In] uint dwInFlags);
+        HRESULT StrongNameSignatureVerificationFromImage([In] ref byte pbBase, [In] uint dwLength, [In] uint dwInFlags);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void StrongNameTokenFromAssembly(
+        HRESULT StrongNameTokenFromAssembly(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [Out] IntPtr ppbStrongNameToken,
             out uint pcbStrongNameToken);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void StrongNameTokenFromAssemblyEx(
+        HRESULT StrongNameTokenFromAssemblyEx(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [Out] IntPtr ppbStrongNameToken,
             out uint pcbStrongNameToken,
             [Out] IntPtr ppbPublicKeyBlob,
             out uint pcbPublicKeyBlob);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void StrongNameTokenFromPublicKey(
+        HRESULT StrongNameTokenFromPublicKey(
             [In] ref byte pbPublicKeyBlob,
             [In] uint cbPublicKeyBlob,
             [Out] IntPtr ppbStrongNameToken,

@@ -9,8 +9,9 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ISymUnmanagedDocument
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetURL([In] uint cchUrl, out uint pcchUrl, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetURL([In] uint cchUrl, out uint pcchUrl, [MarshalAs(UnmanagedType.Interface), Out]
             ISymUnmanagedDocument szUrl);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -25,21 +26,26 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         Guid GetCheckSumAlgorithmId();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetCheckSum([In] uint cData, out uint pcData, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetCheckSum([In] uint cData, out uint pcData, [MarshalAs(UnmanagedType.Interface), Out]
             ISymUnmanagedDocument data);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        uint FindClosestLine([In] uint line);
+        HRESULT FindClosestLine([In] uint line);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int HasEmbeddedSource();
+        HRESULT HasEmbeddedSource();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        uint GetSourceLength();
+        HRESULT GetSourceLength();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetSourceRange(
+        HRESULT GetSourceRange(
             [In] uint startLine,
             [In] uint startColumn,
             [In] uint endLine,

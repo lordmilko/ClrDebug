@@ -8,13 +8,16 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugRegisterSet2
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetRegistersAvailable([In] uint numChunks, out byte availableRegChunks);
+        HRESULT GetRegistersAvailable([In] uint numChunks, out byte availableRegChunks);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetRegisters([In] uint maskCount, [In] ref byte mask, [In] uint regCount, out ulong regBuffer);
+        HRESULT GetRegisters([In] uint maskCount, [In] ref byte mask, [In] uint regCount, out ulong regBuffer);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetRegisters([In] uint maskCount, [In] ref byte mask, [In] uint regCount, [In] ref ulong regBuffer);
+        HRESULT SetRegisters([In] uint maskCount, [In] ref byte mask, [In] uint regCount, [In] ref ulong regBuffer);
     }
 }

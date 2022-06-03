@@ -8,25 +8,30 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugEval
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void CallFunction([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT CallFunction([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugFunction pFunction, [In] uint nArgs, [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugValue ppArgs);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void NewObject([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT NewObject([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugFunction pConstructor, [In] uint nArgs, [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugValue ppArgs);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void NewObjectNoConstructor([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT NewObjectNoConstructor([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugClass pClass);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void NewString([MarshalAs(UnmanagedType.LPWStr), In] string @string);
+        HRESULT NewString([MarshalAs(UnmanagedType.LPWStr), In] string @string);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void NewArray(
+        HRESULT NewArray(
             [In] uint elementType,
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugClass pElementClass,
@@ -34,20 +39,25 @@ namespace ManagedCorDebug
             [In] ref uint dims,
             [In] ref uint lowBounds);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void IsActive(out int pbActive);
+        HRESULT IsActive(out int pbActive);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Abort();
+        HRESULT Abort();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetResult([MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppResult);
+        HRESULT GetResult([MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppResult);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetThread([MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
+        HRESULT GetThread([MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void CreateValue([In] uint elementType, [MarshalAs(UnmanagedType.Interface), In]
+        HRESULT CreateValue([In] uint elementType, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugClass pElementClass, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
     }
 }

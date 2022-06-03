@@ -9,10 +9,12 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugMemoryBuffer
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetStartAddress(out IntPtr address);
+        HRESULT GetStartAddress(out IntPtr address);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetSize(out uint pcbBufferLength);
+        HRESULT GetSize(out uint pcbBufferLength);
     }
 }

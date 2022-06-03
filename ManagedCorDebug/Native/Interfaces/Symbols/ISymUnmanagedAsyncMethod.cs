@@ -8,23 +8,29 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ISymUnmanagedAsyncMethod
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int IsAsyncMethod();
+        HRESULT IsAsyncMethod();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        uint GetKickoffMethod();
+        HRESULT GetKickoffMethod();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int HasCatchHandlerILOffset();
+        HRESULT HasCatchHandlerILOffset();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        uint GetCatchHandlerILOffset();
+        HRESULT GetCatchHandlerILOffset();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        uint GetAsyncStepInfoCount();
+        HRESULT GetAsyncStepInfoCount();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetAsyncStepInfo(
+        HRESULT GetAsyncStepInfo(
             [In] uint cStepInfo,
             out uint pcStepInfo,
             [In] ref uint yieldOffsets,

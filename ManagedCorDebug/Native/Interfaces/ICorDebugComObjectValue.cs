@@ -8,12 +8,14 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugComObjectValue
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetCachedInterfaceTypes([In] int bIInspectableOnly,
+        HRESULT GetCachedInterfaceTypes([In] int bIInspectableOnly,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppInterfacesEnum);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetCachedInterfacePointers(
+        HRESULT GetCachedInterfacePointers(
             [In] int bIInspectableOnly,
             [In] uint celt,
             out uint pceltFetched,

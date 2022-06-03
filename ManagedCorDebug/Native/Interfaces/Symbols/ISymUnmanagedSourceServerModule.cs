@@ -10,7 +10,8 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ISymUnmanagedSourceServerModule
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetSourceServerData(out uint pDataByteCount, [Out] IntPtr ppData);
+        HRESULT GetSourceServerData(out uint pDataByteCount, [Out] IntPtr ppData);
     }
 }

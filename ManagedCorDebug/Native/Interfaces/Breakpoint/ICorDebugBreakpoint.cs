@@ -8,10 +8,12 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugBreakpoint
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Activate([In] int bActive);
+        HRESULT Activate([In] int bActive);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void IsActive(out int pbActive);
+        HRESULT IsActive(out int pbActive);
     }
 }

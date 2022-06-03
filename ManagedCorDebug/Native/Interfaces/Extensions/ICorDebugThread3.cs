@@ -8,11 +8,13 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugThread3
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void CreateStackWalk([MarshalAs(UnmanagedType.Interface)] out ICorDebugStackWalk ppStackWalk);
+        HRESULT CreateStackWalk([MarshalAs(UnmanagedType.Interface)] out ICorDebugStackWalk ppStackWalk);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetActiveInternalFrames(
+        HRESULT GetActiveInternalFrames(
             [In] uint cInternalFrames,
             out uint pcInternalFrames,
             [MarshalAs(UnmanagedType.Interface), In, Out]

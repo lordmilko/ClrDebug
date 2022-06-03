@@ -8,15 +8,17 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugClass2
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetParameterizedType(
+        HRESULT GetParameterizedType(
             [In] uint elementType,
             [In] uint nTypeArgs,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugType ppTypeArgs,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetJMCStatus([In] int bIsJustMyCode);
+        HRESULT SetJMCStatus([In] int bIsJustMyCode);
     }
 }

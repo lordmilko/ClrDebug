@@ -8,8 +8,9 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugManagedCallback2
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void FunctionRemapOpportunity(
+        HRESULT FunctionRemapOpportunity(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In]
@@ -20,20 +21,24 @@ namespace ManagedCorDebug
             ICorDebugFunction pNewFunction,
             [In] uint oldILOffset);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void CreateConnection([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT CreateConnection([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugProcess pProcess, [In] uint dwConnectionId, [MarshalAs(UnmanagedType.LPWStr), In] string pConnName);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void ChangeConnection([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT ChangeConnection([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugProcess pProcess, [In] uint dwConnectionId);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void DestroyConnection([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT DestroyConnection([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugProcess pProcess, [In] uint dwConnectionId);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Exception(
+        HRESULT Exception(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In]
@@ -44,8 +49,9 @@ namespace ManagedCorDebug
             [In] CorDebugExceptionCallbackType dwEventType,
             [In] uint dwFlags);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void ExceptionUnwind(
+        HRESULT ExceptionUnwind(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In]
@@ -53,8 +59,9 @@ namespace ManagedCorDebug
             [In] CorDebugExceptionUnwindCallbackType dwEventType,
             [In] uint dwFlags);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void FunctionRemapComplete(
+        HRESULT FunctionRemapComplete(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In]
@@ -62,8 +69,9 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugFunction pFunction);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void MDANotification(
+        HRESULT MDANotification(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugController pController,
             [MarshalAs(UnmanagedType.Interface), In]

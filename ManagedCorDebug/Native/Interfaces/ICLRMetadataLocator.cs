@@ -9,8 +9,9 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICLRMetadataLocator
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetMetadata(
+        HRESULT GetMetadata(
             [MarshalAs(UnmanagedType.LPWStr), In] string imagePath,
             [In] uint imageTimestamp,
             [In] uint imageSize,

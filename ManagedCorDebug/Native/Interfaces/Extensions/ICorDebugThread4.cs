@@ -8,15 +8,18 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugThread4
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void HasUnhandledException();
+        HRESULT HasUnhandledException();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetBlockingObjects(
+        HRESULT GetBlockingObjects(
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugBlockingObjectEnum ppBlockingObjectEnum);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetCurrentCustomDebuggerNotification(
+        HRESULT GetCurrentCustomDebuggerNotification(
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppNotificationObject);
     }
 }

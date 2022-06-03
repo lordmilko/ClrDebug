@@ -8,10 +8,12 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICLRDataEnumMemoryRegionsCallback2 : ICLRDataEnumMemoryRegionsCallback
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void EnumMemoryRegion([In] ulong address, [In] uint size);
+        new HRESULT EnumMemoryRegion([In] ulong address, [In] uint size);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void UpdateMemoryRegion([In] ulong address, [In] uint bufferSize, [In] ref byte buffer);
+        HRESULT UpdateMemoryRegion([In] ulong address, [In] uint bufferSize, [In] ref byte buffer);
     }
 }

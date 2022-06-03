@@ -8,78 +8,95 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugNativeFrame : ICorDebugFrame
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetChain([MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);
+        new HRESULT GetChain([MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetCode([MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
+        new HRESULT GetCode([MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetFunction([MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
+        new HRESULT GetFunction([MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetFunctionToken(out uint pToken);
+        new HRESULT GetFunctionToken(out uint pToken);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetStackRange(out ulong pStart, out ulong pEnd);
+        new HRESULT GetStackRange(out ulong pStart, out ulong pEnd);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetCaller([MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);
+        new HRESULT GetCaller([MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetCallee([MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);
+        new HRESULT GetCallee([MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void CreateStepper([MarshalAs(UnmanagedType.Interface)] out ICorDebugStepper ppStepper);
+        new HRESULT CreateStepper([MarshalAs(UnmanagedType.Interface)] out ICorDebugStepper ppStepper);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetIP(out uint pnOffset);
+        HRESULT GetIP(out uint pnOffset);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetIP([In] uint nOffset);
+        HRESULT SetIP([In] uint nOffset);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetRegisterSet([MarshalAs(UnmanagedType.Interface)] out ICorDebugRegisterSet ppRegisters);
+        HRESULT GetRegisterSet([MarshalAs(UnmanagedType.Interface)] out ICorDebugRegisterSet ppRegisters);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetLocalRegisterValue(
+        HRESULT GetLocalRegisterValue(
             [In] CorDebugRegister reg,
             [In] uint cbSigBlob,
             [In] ulong pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetLocalDoubleRegisterValue(
+        HRESULT GetLocalDoubleRegisterValue(
             [In] CorDebugRegister highWordReg,
             [In] CorDebugRegister lowWordReg,
             [In] uint cbSigBlob,
             [In] ulong pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetLocalMemoryValue(
+        HRESULT GetLocalMemoryValue(
             [In] ulong address,
             [In] uint cbSigBlob,
             [In] ulong pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetLocalRegisterMemoryValue(
+        HRESULT GetLocalRegisterMemoryValue(
             [In] CorDebugRegister highWordReg,
             [In] ulong lowWordAddress,
             [In] uint cbSigBlob,
             [In] ulong pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetLocalMemoryRegisterValue(
+        HRESULT GetLocalMemoryRegisterValue(
             [In] ulong highWordAddress,
             [In] CorDebugRegister lowWordRegister,
             [In] uint cbSigBlob,
             [In] ulong pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void CanSetIP([In] uint nOffset);
+        HRESULT CanSetIP([In] uint nOffset);
     }
 }

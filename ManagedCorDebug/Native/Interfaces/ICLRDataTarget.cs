@@ -8,38 +8,49 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICLRDataTarget
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetMachineType(out uint machineType);
+        HRESULT GetMachineType(out uint machineType);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetPointerSize(out uint pointerSize);
+        HRESULT GetPointerSize(out uint pointerSize);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetImageBase([MarshalAs(UnmanagedType.LPWStr), In] string imagePath, out ulong baseAddress);
+        HRESULT GetImageBase([MarshalAs(UnmanagedType.LPWStr), In] string imagePath, out ulong baseAddress);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void ReadVirtual([In] ulong address, out byte buffer, [In] uint bytesRequested, out uint bytesRead);
+        HRESULT ReadVirtual([In] ulong address, out byte buffer, [In] uint bytesRequested, out uint bytesRead);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void WriteVirtual([In] ulong address, [In] ref byte buffer, [In] uint bytesRequested, out uint bytesWritten);
+        HRESULT WriteVirtual([In] ulong address, [In] ref byte buffer, [In] uint bytesRequested, out uint bytesWritten);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetTLSValue([In] uint threadID, [In] uint index, out ulong value);
+        HRESULT GetTLSValue([In] uint threadID, [In] uint index, out ulong value);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetTLSValue([In] uint threadID, [In] uint index, [In] ulong value);
+        HRESULT SetTLSValue([In] uint threadID, [In] uint index, [In] ulong value);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetCurrentThreadID(out uint threadID);
+        HRESULT GetCurrentThreadID(out uint threadID);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetThreadContext([In] uint threadID, [In] uint contextFlags, [In] uint contextSize, out byte context);
+        HRESULT GetThreadContext([In] uint threadID, [In] uint contextFlags, [In] uint contextSize, out byte context);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetThreadContext([In] uint threadID, [In] uint contextSize, [In] ref byte context);
+        HRESULT SetThreadContext([In] uint threadID, [In] uint contextSize, [In] ref byte context);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Request(
+        HRESULT Request(
             [In] uint reqCode,
             [In] uint inBufferSize,
             [In] ref byte inBuffer,

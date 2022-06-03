@@ -8,30 +8,36 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugMutableDataTarget : ICorDebugDataTarget
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetPlatform(out CorDebugPlatform pTargetPlatform);
+        new HRESULT GetPlatform(out CorDebugPlatform pTargetPlatform);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void ReadVirtual(
+        new HRESULT ReadVirtual(
             [In] ulong address,
             out byte pBuffer,
             [In] uint bytesRequested,
             out uint pBytesRead);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetThreadContext(
+        new HRESULT GetThreadContext(
             [In] uint dwThreadId,
             [In] uint contextFlags,
             [In] uint contextSize,
             out byte pContext);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void WriteVirtual([In] ulong address, [In] ref byte pBuffer, [In] uint bytesRequested);
+        HRESULT WriteVirtual([In] ulong address, [In] ref byte pBuffer, [In] uint bytesRequested);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetThreadContext([In] uint dwThreadId, [In] uint contextSize, [In] ref byte pContext);
+        HRESULT SetThreadContext([In] uint dwThreadId, [In] uint contextSize, [In] ref byte pContext);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void ContinueStatusChanged([In] uint dwThreadId, [In] uint continueStatus);
+        HRESULT ContinueStatusChanged([In] uint dwThreadId, [In] uint continueStatus);
     }
 }

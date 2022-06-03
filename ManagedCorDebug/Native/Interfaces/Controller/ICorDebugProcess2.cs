@@ -8,30 +8,37 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugProcess2
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetThreadForTaskID([In] ulong taskid, [MarshalAs(UnmanagedType.Interface)] out ICorDebugThread2 ppThread);
+        HRESULT GetThreadForTaskID([In] ulong taskid, [MarshalAs(UnmanagedType.Interface)] out ICorDebugThread2 ppThread);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetVersion(out COR_VERSION version);
+        HRESULT GetVersion(out COR_VERSION version);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetUnmanagedBreakpoint(
+        HRESULT SetUnmanagedBreakpoint(
             [In] ulong address,
             [In] uint bufsize,
             [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugProcess2 buffer,
             out uint bufLen);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void ClearUnmanagedBreakpoint([In] ulong address);
+        HRESULT ClearUnmanagedBreakpoint([In] ulong address);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetDesiredNGENCompilerFlags([In] uint pdwFlags);
+        HRESULT SetDesiredNGENCompilerFlags([In] uint pdwFlags);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetDesiredNGENCompilerFlags(out uint pdwFlags);
+        HRESULT GetDesiredNGENCompilerFlags(out uint pdwFlags);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetReferenceValueFromGCHandle([In] ulong handle, [MarshalAs(UnmanagedType.Interface)] out ICorDebugReferenceValue pOutValue);
+        HRESULT GetReferenceValueFromGCHandle([In] ulong handle, [MarshalAs(UnmanagedType.Interface)] out ICorDebugReferenceValue pOutValue);
     }
 }

@@ -9,28 +9,35 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugEditAndContinueSnapshot
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void CopyMetaData([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT CopyMetaData([MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream, out Guid pMvid);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetMvid(out Guid pMvid);
+        HRESULT GetMvid(out Guid pMvid);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetRoDataRVA(out uint pRoDataRVA);
+        HRESULT GetRoDataRVA(out uint pRoDataRVA);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetRwDataRVA(out uint pRwDataRVA);
+        HRESULT GetRwDataRVA(out uint pRwDataRVA);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetPEBytes([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT SetPEBytes([MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetILMap([In] uint mdFunction, [In] uint cMapSize, [In] ref COR_IL_MAP map);
+        HRESULT SetILMap([In] uint mdFunction, [In] uint cMapSize, [In] ref COR_IL_MAP map);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetPESymbolBytes([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT SetPESymbolBytes([MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream);
     }
 }

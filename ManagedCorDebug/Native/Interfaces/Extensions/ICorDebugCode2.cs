@@ -8,11 +8,13 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugCode2
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetCodeChunks([In] uint cbufSize, out uint pcnumChunks, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetCodeChunks([In] uint cbufSize, out uint pcnumChunks, [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugCode2 chunks);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetCompilerFlags(out CorDebugJITCompilerFlags pdwFlags);
+        HRESULT GetCompilerFlags(out CorDebugJITCompilerFlags pdwFlags);
     }
 }

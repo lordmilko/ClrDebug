@@ -17,26 +17,33 @@ namespace ManagedCorDebug
             [In] ref Guid languageVendor,
             [In] ref Guid documentType);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void SetUserEntryPoint([In] uint entryMethod);
+        new HRESULT SetUserEntryPoint([In] uint entryMethod);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void OpenMethod([In] uint method);
+        new HRESULT OpenMethod([In] uint method);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void CloseMethod();
+        new HRESULT CloseMethod();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new uint OpenScope([In] uint startOffset);
+        new HRESULT OpenScope([In] uint startOffset);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void CloseScope([In] uint endOffset);
+        new HRESULT CloseScope([In] uint endOffset);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void SetScopeRange([In] uint scopeID, [In] uint startOffset, [In] uint endOffset);
+        new HRESULT SetScopeRange([In] uint scopeID, [In] uint startOffset, [In] uint endOffset);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void DefineLocalVariable(
+        new HRESULT DefineLocalVariable(
             [In] ref ushort name,
             [In] uint attributes,
             [In] uint cSig,
@@ -48,8 +55,9 @@ namespace ManagedCorDebug
             [In] uint startOffset,
             [In] uint endOffset);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void DefineParameter(
+        new HRESULT DefineParameter(
             [In] ref ushort name,
             [In] uint attributes,
             [In] uint sequence,
@@ -58,8 +66,9 @@ namespace ManagedCorDebug
             [In] uint addr2,
             [In] uint addr3);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void DefineField(
+        new HRESULT DefineField(
             [In] uint parent,
             [In] ref ushort name,
             [In] uint attributes,
@@ -70,8 +79,9 @@ namespace ManagedCorDebug
             [In] uint addr2,
             [In] uint addr3);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void DefineGlobalVariable(
+        new HRESULT DefineGlobalVariable(
             [In] ref ushort name,
             [In] uint attributes,
             [In] uint cSig,
@@ -81,23 +91,29 @@ namespace ManagedCorDebug
             [In] uint addr2,
             [In] uint addr3);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void Close();
+        new HRESULT Close();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void SetSymAttribute([In] uint parent, [In] ref ushort name, [In] uint cData, [In] ref byte data);
+        new HRESULT SetSymAttribute([In] uint parent, [In] ref ushort name, [In] uint cData, [In] ref byte data);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void OpenNamespace([In] ref ushort name);
+        new HRESULT OpenNamespace([In] ref ushort name);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void CloseNamespace();
+        new HRESULT CloseNamespace();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void UsingNamespace([In] ref ushort fullName);
+        new HRESULT UsingNamespace([In] ref ushort fullName);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void SetMethodSourceRange(
+        new HRESULT SetMethodSourceRange(
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocumentWriter startDoc,
             [In] uint startLine,
@@ -107,18 +123,21 @@ namespace ManagedCorDebug
             [In] uint endLine,
             [In] uint endColumn);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void Initialize([MarshalAs(UnmanagedType.IUnknown), In]
+        new HRESULT Initialize([MarshalAs(UnmanagedType.IUnknown), In]
             object emitter, [In] ref ushort filename, [MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream, [In] int fFullBuild);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetDebugInfo(
+        new HRESULT GetDebugInfo(
             [In, Out] ref ulong pIDD, [In] uint cData, out uint pcData, [MarshalAs(UnmanagedType.Interface), Out]
             ISymUnmanagedWriter data);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void DefineSequencePoints(
+        new HRESULT DefineSequencePoints(
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocumentWriter document,
             [In] uint spCount,
@@ -128,11 +147,13 @@ namespace ManagedCorDebug
             [In] ref uint endLines,
             [In] ref uint endColumns);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void RemapToken([In] uint oldToken, [In] uint newToken);
+        new HRESULT RemapToken([In] uint oldToken, [In] uint newToken);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void Initialize2(
+        new HRESULT Initialize2(
             [MarshalAs(UnmanagedType.IUnknown), In]
             object emitter,
             [In] ref ushort tempfilename,
@@ -141,15 +162,18 @@ namespace ManagedCorDebug
             [In] int fFullBuild,
             [In] ref ushort finalfilename);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void DefineConstant([In] ref ushort name, [MarshalAs(UnmanagedType.Struct), In] object value,
+        new HRESULT DefineConstant([In] ref ushort name, [MarshalAs(UnmanagedType.Struct), In] object value,
             [In] uint cSig, [In] ref byte signature);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void Abort();
+        new HRESULT Abort();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void DefineLocalVariable2(
+        new HRESULT DefineLocalVariable2(
             [In] ref ushort name,
             [In] uint attributes,
             [In] uint sigToken,
@@ -160,8 +184,9 @@ namespace ManagedCorDebug
             [In] uint startOffset,
             [In] uint endOffset);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void DefineGlobalVariable2(
+        new HRESULT DefineGlobalVariable2(
             [In] ref ushort name,
             [In] uint attributes,
             [In] uint sigToken,
@@ -170,32 +195,39 @@ namespace ManagedCorDebug
             [In] uint addr2,
             [In] uint addr3);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void DefineConstant2([In] ref ushort name, [MarshalAs(UnmanagedType.Struct), In] object value,
+        new HRESULT DefineConstant2([In] ref ushort name, [MarshalAs(UnmanagedType.Struct), In] object value,
             [In] uint sigToken);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void OpenMethod2([In] uint method, [In] uint isect, [In] uint offset);
+        new HRESULT OpenMethod2([In] uint method, [In] uint isect, [In] uint offset);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void Commit();
+        new HRESULT Commit();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetDebugInfoWithPadding(
+        new HRESULT GetDebugInfoWithPadding(
             [In, Out] ref ulong pIDD,
             [In] uint cData,
             out uint pcData,
             [MarshalAs(UnmanagedType.Interface), Out]
             ISymUnmanagedWriter4 data);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void OpenMapTokensToSourceSpans();
+        HRESULT OpenMapTokensToSourceSpans();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void CloseMapTokensToSourceSpans();
+        HRESULT CloseMapTokensToSourceSpans();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void MapTokenToSourceSpan(
+        HRESULT MapTokenToSourceSpan(
             [In] uint token,
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocumentWriter document,

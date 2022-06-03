@@ -8,22 +8,27 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugRegisterSet
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetRegistersAvailable(out ulong pAvailable);
+        HRESULT GetRegistersAvailable(out ulong pAvailable);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetRegisters([In] ulong mask, [In] uint regCount, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetRegisters([In] ulong mask, [In] uint regCount, [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugRegisterSet regBuffer);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetRegisters([In] ulong mask, [In] uint regCount, [In] ref ulong regBuffer);
+        HRESULT SetRegisters([In] ulong mask, [In] uint regCount, [In] ref ulong regBuffer);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetThreadContext([In] uint contextSize, [MarshalAs(UnmanagedType.Interface), In, Out]
+        HRESULT GetThreadContext([In] uint contextSize, [MarshalAs(UnmanagedType.Interface), In, Out]
             ICorDebugRegisterSet context);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetThreadContext([In] uint contextSize, [MarshalAs(UnmanagedType.Interface), In]
+        HRESULT SetThreadContext([In] uint contextSize, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugRegisterSet context);
     }
 }

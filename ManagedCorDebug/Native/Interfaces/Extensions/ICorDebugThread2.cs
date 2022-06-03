@@ -8,22 +8,27 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugThread2
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetActiveFunctions([In] uint cFunctions, out uint pcFunctions,
+        HRESULT GetActiveFunctions([In] uint cFunctions, out uint pcFunctions,
             [MarshalAs(UnmanagedType.Interface), In, Out]
             ICorDebugThread2 pFunctions);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetConnectionID(out uint pdwConnectionId);
+        HRESULT GetConnectionID(out uint pdwConnectionId);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetTaskID(out ulong pTaskId);
+        HRESULT GetTaskID(out ulong pTaskId);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetVolatileOSThreadID(out uint pdwTid);
+        HRESULT GetVolatileOSThreadID(out uint pdwTid);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void InterceptCurrentException([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT InterceptCurrentException([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugFrame pFrame);
     }
 }

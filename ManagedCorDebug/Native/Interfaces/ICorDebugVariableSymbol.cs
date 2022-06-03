@@ -8,15 +8,18 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugVariableSymbol
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetName([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetName([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugVariableSymbol szName);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetSize(out uint pcbValue);
+        HRESULT GetSize(out uint pcbValue);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetValue(
+        HRESULT GetValue(
             [In] uint offset,
             [In] uint cbContext,
             [In] ref byte context,
@@ -25,8 +28,9 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugVariableSymbol pValue);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetValue(
+        HRESULT SetValue(
             [In] uint offset,
             [In] uint threadID,
             [In] uint cbContext,
@@ -34,7 +38,8 @@ namespace ManagedCorDebug
             [In] uint cbValue,
             [In] ref byte pValue);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetSlotIndex(out uint pSlotIndex);
+        HRESULT GetSlotIndex(out uint pSlotIndex);
     }
 }

@@ -8,7 +8,8 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugProcess7
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetWriteableMetadataUpdateMode(WriteableMetadataUpdateMode flags);
+        HRESULT SetWriteableMetadataUpdateMode(WriteableMetadataUpdateMode flags);
     }
 }

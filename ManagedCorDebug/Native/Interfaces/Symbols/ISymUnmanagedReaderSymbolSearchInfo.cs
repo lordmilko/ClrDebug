@@ -8,11 +8,13 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ISymUnmanagedReaderSymbolSearchInfo
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetSymbolSearchInfoCount(out uint pcSearchInfo);
+        HRESULT GetSymbolSearchInfoCount(out uint pcSearchInfo);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetSymbolSearchInfo(
+        HRESULT GetSymbolSearchInfo(
             [In] uint cSearchInfo,
             out uint pcSearchInfo,
             [MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedSymbolSearchInfo rgpSearchInfo);

@@ -8,8 +8,9 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugAppDomain4
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetObjectForCCW([In] ulong ccwPointer,
+        HRESULT GetObjectForCCW([In] ulong ccwPointer,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppManagedObject);
     }
 }

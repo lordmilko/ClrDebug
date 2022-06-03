@@ -8,8 +8,9 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugSymbolProvider
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetStaticFieldSymbols(
+        HRESULT GetStaticFieldSymbols(
             [In] uint cbSignature,
             [In] ref byte typeSig,
             [In] uint cRequestedSymbols,
@@ -17,8 +18,9 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugSymbolProvider pSymbols);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetInstanceFieldSymbols(
+        HRESULT GetInstanceFieldSymbols(
             [In] uint cbSignature,
             [In] ref byte typeSig,
             [In] uint cRequestedSymbols,
@@ -26,31 +28,35 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugSymbolProvider pSymbols);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetMethodLocalSymbols(
+        HRESULT GetMethodLocalSymbols(
             [In] uint nativeRVA,
             [In] uint cRequestedSymbols,
             out uint pcFetchedSymbols,
             [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugSymbolProvider pSymbols);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetMethodParameterSymbols(
+        HRESULT GetMethodParameterSymbols(
             [In] uint nativeRVA,
             [In] uint cRequestedSymbols,
             out uint pcFetchedSymbols,
             [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugSymbolProvider pSymbols);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetMergedAssemblyRecords(
+        HRESULT GetMergedAssemblyRecords(
             [In] uint cRequestedRecords,
             out uint pcFetchedRecords,
             [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugSymbolProvider pRecords);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetMethodProps(
+        HRESULT GetMethodProps(
             [In] uint codeRva,
             out uint pMethodToken,
             out uint pcGenericParams,
@@ -59,25 +65,30 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugSymbolProvider signature);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetTypeProps(
+        HRESULT GetTypeProps(
             [In] uint vtableRva,
             [In] uint cbSignature,
             out uint pcbSignature,
             [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugSymbolProvider signature);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetCodeRange([In] uint codeRva, out uint pCodeStartAddress, ref uint pCodeSize);
+        HRESULT GetCodeRange([In] uint codeRva, out uint pCodeStartAddress, ref uint pCodeSize);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetAssemblyImageBytes([In] ulong rva, [In] uint length,
+        HRESULT GetAssemblyImageBytes([In] ulong rva, [In] uint length,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryBuffer ppMemoryBuffer);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetObjectSize([In] uint cbSignature, [In] ref byte typeSig, out uint pObjectSize);
+        HRESULT GetObjectSize([In] uint cbSignature, [In] ref byte typeSig, out uint pObjectSize);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetAssemblyImageMetadata([MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryBuffer ppMemoryBuffer);
+        HRESULT GetAssemblyImageMetadata([MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryBuffer ppMemoryBuffer);
     }
 }

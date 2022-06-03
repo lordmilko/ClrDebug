@@ -8,8 +8,9 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugManagedCallback3
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void CustomNotification([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT CustomNotification([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugThread pThread, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugAppDomain pAppDomain);
     }

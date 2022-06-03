@@ -8,7 +8,8 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugValue2
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetExactType([MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);
+        HRESULT GetExactType([MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);
     }
 }

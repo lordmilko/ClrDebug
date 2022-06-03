@@ -8,28 +8,33 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugDataTarget2
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetImageFromPointer([In] ulong addr, out ulong pImageBase, out uint pSize);
+        HRESULT GetImageFromPointer([In] ulong addr, out ulong pImageBase, out uint pSize);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetImageLocation(
+        HRESULT GetImageLocation(
             [In] ulong baseAddress,
             [In] uint cchName,
             out uint pcchName,
             [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugDataTarget2 szName);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetSymbolProviderForImage(
+        HRESULT GetSymbolProviderForImage(
             [In] ulong imageBaseAddress,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugSymbolProvider ppSymProvider);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void EnumerateThreadIDs([In] uint cThreadIds, out uint pcThreadIds, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT EnumerateThreadIDs([In] uint cThreadIds, out uint pcThreadIds, [MarshalAs(UnmanagedType.Interface), Out]
             ICorDebugDataTarget2 pThreadIds);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void CreateVirtualUnwinder(
+        HRESULT CreateVirtualUnwinder(
             [In] uint nativeThreadID,
             [In] uint contextFlags,
             [In] uint cbContext,

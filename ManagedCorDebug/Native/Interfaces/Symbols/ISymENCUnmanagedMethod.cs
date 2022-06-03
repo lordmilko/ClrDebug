@@ -8,16 +8,18 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ISymENCUnmanagedMethod
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetFileNameFromOffset(
+        HRESULT GetFileNameFromOffset(
             [In] uint dwOffset,
             [In] uint cchName,
             out uint pcchName,
             [MarshalAs(UnmanagedType.Interface), Out]
             ISymENCUnmanagedMethod szName);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetLineFromOffset(
+        HRESULT GetLineFromOffset(
             [In] uint dwOffset,
             out uint pline,
             out uint pcolumn,
@@ -25,15 +27,18 @@ namespace ManagedCorDebug
             out uint pendColumn,
             out uint pdwStartOffset);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        uint GetDocumentsForMethodCount();
+        HRESULT GetDocumentsForMethodCount();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetDocumentsForMethod([In] uint cDocs, out uint pcDocs, [MarshalAs(UnmanagedType.Interface), In]
+        HRESULT GetDocumentsForMethod([In] uint cDocs, out uint pcDocs, [MarshalAs(UnmanagedType.Interface), In]
             ref ISymUnmanagedDocument documents);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetSourceExtentInDocument(
+        HRESULT GetSourceExtentInDocument(
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocument document,
             out uint pstartLine,

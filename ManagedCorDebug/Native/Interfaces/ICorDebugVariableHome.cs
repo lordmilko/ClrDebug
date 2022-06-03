@@ -8,25 +8,32 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugVariableHome
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetCode([MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
+        HRESULT GetCode([MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetSlotIndex(out uint pSlotIndex);
+        HRESULT GetSlotIndex(out uint pSlotIndex);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetArgumentIndex(out uint pArgumentIndex);
+        HRESULT GetArgumentIndex(out uint pArgumentIndex);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetLiveRange(out uint pStartOffset, out uint pEndOffset);
+        HRESULT GetLiveRange(out uint pStartOffset, out uint pEndOffset);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetLocationType(out VariableLocationType pLocationType);
+        HRESULT GetLocationType(out VariableLocationType pLocationType);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetRegister(out CorDebugRegister pRegister);
+        HRESULT GetRegister(out CorDebugRegister pRegister);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetOffset(out int pOffset);
+        HRESULT GetOffset(out int pOffset);
     }
 }

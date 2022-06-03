@@ -9,22 +9,27 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebug
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Initialize();
+        HRESULT Initialize();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Terminate();
+        HRESULT Terminate();
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetManagedHandler([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT SetManagedHandler([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugManagedCallback pCallback);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetUnmanagedHandler([MarshalAs(UnmanagedType.Interface), In]
+        HRESULT SetUnmanagedHandler([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugUnmanagedCallback pCallback);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void CreateProcess(
+        HRESULT CreateProcess(
             [MarshalAs(UnmanagedType.LPWStr), In] string lpApplicationName,
             [MarshalAs(UnmanagedType.LPWStr), In] string lpCommandLine,
             [In] ref SECURITY_ATTRIBUTES lpProcessAttributes,
@@ -38,17 +43,21 @@ namespace ManagedCorDebug
             [In] CorDebugCreateProcessFlags debuggingFlags,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void DebugActiveProcess([In] uint id, [In] int win32Attach,
+        HRESULT DebugActiveProcess([In] uint id, [In] int win32Attach,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void EnumerateProcesses([MarshalAs(UnmanagedType.Interface)] out ICorDebugProcessEnum ppProcess);
+        HRESULT EnumerateProcesses([MarshalAs(UnmanagedType.Interface)] out ICorDebugProcessEnum ppProcess);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetProcess([In] uint dwProcessId, [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
+        HRESULT GetProcess([In] uint dwProcessId, [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void CanLaunchOrAttach([In] uint dwProcessId, [In] int win32DebuggingEnabled);
+        HRESULT CanLaunchOrAttach([In] uint dwProcessId, [In] int win32DebuggingEnabled);
     }
 }

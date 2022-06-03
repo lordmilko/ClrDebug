@@ -9,8 +9,9 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICLRDebugging
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void OpenVirtualProcess(
+        HRESULT OpenVirtualProcess(
             [In] ulong moduleBaseAddress,
             [MarshalAs(UnmanagedType.IUnknown), In]
             object pDataTarget,
@@ -22,7 +23,8 @@ namespace ManagedCorDebug
             [In] [Out] ref CLR_DEBUGGING_VERSION pVersion,
             out CLR_DEBUGGING_PROCESS_FLAGS pdwFlags);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void CanUnloadNow(IntPtr hModule);
+        HRESULT CanUnloadNow(IntPtr hModule);
     }
 }

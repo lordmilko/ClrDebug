@@ -8,14 +8,17 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ISymUnmanagedSymbolSearchInfo
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetSearchPathLength(out uint pcchPath);
+        HRESULT GetSearchPathLength(out uint pcchPath);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetSearchPath([In] uint cchPath, out uint pcchPath, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetSearchPath([In] uint cchPath, out uint pcchPath, [MarshalAs(UnmanagedType.Interface), Out]
             ISymUnmanagedSymbolSearchInfo szPath);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetHRESULT([MarshalAs(UnmanagedType.Error)] out int phr);
+        HRESULT GetHRESULT([MarshalAs(UnmanagedType.Error)] out int phr);
     }
 }

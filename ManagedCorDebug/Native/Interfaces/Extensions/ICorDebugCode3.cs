@@ -8,8 +8,9 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugCode3
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetReturnValueLiveOffset(
+        HRESULT GetReturnValueLiveOffset(
             [In] uint ilOffset,
             [In] uint bufferSize,
             out uint pFetched,

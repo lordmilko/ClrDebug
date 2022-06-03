@@ -8,10 +8,12 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugDebugEvent
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetEventKind(out CorDebugDebugEventKind pDebugEventKind);
+        HRESULT GetEventKind(out CorDebugDebugEventKind pDebugEventKind);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetThread([MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
+        HRESULT GetThread([MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
     }
 }

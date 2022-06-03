@@ -8,8 +8,9 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugILFrame3
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetReturnValueForILOffset(uint ilOffset,
+        HRESULT GetReturnValueForILOffset(uint ilOffset,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppReturnValue);
     }
 }

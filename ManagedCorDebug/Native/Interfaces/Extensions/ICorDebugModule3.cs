@@ -9,7 +9,8 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugModule3
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void CreateReaderForInMemorySymbols([In] ref Guid riid, out IntPtr ppObj);
+        HRESULT CreateReaderForInMemorySymbols([In] ref Guid riid, out IntPtr ppObj);
     }
 }

@@ -9,8 +9,9 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICLRDebuggingLibraryProvider
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void ProvideLibrary(
+        HRESULT ProvideLibrary(
             [In] ref ushort pwszFileName,
             [In] uint dwTimestamp,
             [In] uint dwSizeOfImage,

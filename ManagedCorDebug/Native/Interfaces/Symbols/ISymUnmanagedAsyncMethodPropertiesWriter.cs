@@ -8,14 +8,17 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ISymUnmanagedAsyncMethodPropertiesWriter
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void DefineKickoffMethod([In] uint kickoffMethod);
+        HRESULT DefineKickoffMethod([In] uint kickoffMethod);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void DefineCatchHandlerILOffset([In] uint catchHandlerOffset);
+        HRESULT DefineCatchHandlerILOffset([In] uint catchHandlerOffset);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void DefineAsyncStepInfo(
+        HRESULT DefineAsyncStepInfo(
             [In] uint count,
             [In] ref uint yieldOffsets,
             [In] ref uint breakpointOffset,

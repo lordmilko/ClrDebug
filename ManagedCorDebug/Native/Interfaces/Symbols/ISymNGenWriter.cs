@@ -8,10 +8,12 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ISymNGenWriter
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void AddSymbol([MarshalAs(UnmanagedType.BStr), In] string pSymbol, [In] ushort iSection, [In] ulong rva);
+        HRESULT AddSymbol([MarshalAs(UnmanagedType.BStr), In] string pSymbol, [In] ushort iSection, [In] ulong rva);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void AddSection([In] ushort iSection, [In] ushort flags, [In] int offset, [In] int cb);
+        HRESULT AddSection([In] ushort iSection, [In] ushort flags, [In] int offset, [In] int cb);
     }
 }

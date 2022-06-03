@@ -8,8 +8,9 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugMetaDataLocator
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetMetaData(
+        HRESULT GetMetaData(
             [MarshalAs(UnmanagedType.LPWStr), In] string wszImagePath,
             [In] uint dwImageTimeStamp,
             [In] uint dwImageSize,
