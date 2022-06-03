@@ -1,0 +1,49 @@
+#################
+# Visual Studio #
+#################
+
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# NuGet Packages Directory
+packages/
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+*.zip
+
+# MSBuild logs
+*.binlog
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+
+# ReSharper settings
+*.DotSettings
+
+# User-specific files
+.vs/
+*.user
+
+####################
+# Windows detritus #
+####################
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+##################
+# MacOS detritus #
+##################
+
+# Folder config file
+.DS_Store

@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{ADEFC667-2811-4954-BFA4-47A6470F1843}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ManagedCorDebug</RootNamespace>
+    <AssemblyName>ManagedCorDebug</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Native\CoClass\CorDebugClass.cs" />
+    <Compile Include="Native\CoClass\CorSymBinder_deprecatedClass.cs" />
+    <Compile Include="Native\CoClass\CorSymBinder_SxSClass.cs" />
+    <Compile Include="Native\CoClass\CorSymReader_deprecatedClass.cs" />
+    <Compile Include="Native\CoClass\CorSymReader_SxSClass.cs" />
+    <Compile Include="Native\CoClass\CorSymWriter_deprecatedClass.cs" />
+    <Compile Include="Native\CoClass\CorSymWriter_SxSClass.cs" />
+    <Compile Include="Native\CoClass\EmbeddedCLRCorDebugClass.cs" />
+    <Compile Include="Native\Enum\CLRDataEnumMemoryFlags.cs" />
+    <Compile Include="Native\Enum\CorDebugBlockingReason.cs" />
+    <Compile Include="Native\Enum\CorDebugChainReason.cs" />
+    <Compile Include="Native\Enum\CorDebugCodeInvokeKind.cs" />
+    <Compile Include="Native\Enum\CorDebugCodeInvokePurpose.cs" />
+    <Compile Include="Native\Enum\CorDebugCreateProcessFlags.cs" />
+    <Compile Include="Native\Enum\CorDebugDebugEventKind.cs" />
+    <Compile Include="Native\Enum\CorDebugExceptionCallbackType.cs" />
+    <Compile Include="Native\Enum\CorDebugExceptionFlags.cs" />
+    <Compile Include="Native\Enum\CorDebugExceptionUnwindCallbackType.cs" />
+    <Compile Include="Native\Enum\CorDebugGCType.cs" />
+    <Compile Include="Native\Enum\CorDebugGenerationTypes.cs" />
+    <Compile Include="Native\Enum\CorDebugHandleType.cs" />
+    <Compile Include="Native\Enum\CorDebugIntercept.cs" />
+    <Compile Include="Native\Enum\CorDebugInternalFrameType.cs" />
+    <Compile Include="Native\Enum\CorDebugMappingResult.cs" />
+    <Compile Include="Native\Enum\CorDebugMDAFlags.cs" />
+    <Compile Include="Native\Enum\CorDebugNGENPolicy.cs" />
+    <Compile Include="Native\Enum\CorDebugPlatform.cs" />
+    <Compile Include="Native\Enum\CorDebugRecordFormat.cs" />
+    <Compile Include="Native\Enum\CorDebugRegister.cs" />
+    <Compile Include="Native\Enum\CorDebugSetContextFlag.cs" />
+    <Compile Include="Native\Enum\CorDebugStateChange.cs" />
+    <Compile Include="Native\Enum\CorDebugStepReason.cs" />
+    <Compile Include="Native\Enum\CorDebugThreadState.cs" />
+    <Compile Include="Native\Enum\CorDebugUnmappedStop.cs" />
+    <Compile Include="Native\Enum\CorDebugUserState.cs" />
+    <Compile Include="Native\Enum\CorGCReferenceType.cs" />
+    <Compile Include="Native\Enum\ILCodeKind.cs" />
+    <Compile Include="Native\Enum\VariableLocationType.cs" />
+    <Compile Include="Native\Enum\WriteableMetadataUpdateMode.cs" />
+    <Compile Include="Native\Interfaces\Breakpoint\ICorDebugBreakpoint.cs" />
+    <Compile Include="Native\Interfaces\Breakpoint\ICorDebugFunctionBreakpoint.cs" />
+    <Compile Include="Native\Interfaces\Breakpoint\ICorDebugModuleBreakpoint.cs" />
+    <Compile Include="Native\Interfaces\Breakpoint\ICorDebugValueBreakpoint.cs" />
+    <Compile Include="Native\Interfaces\Controller\ICorDebugAppDomain.cs" />
+    <Compile Include="Native\Interfaces\Controller\ICorDebugAppDomain2.cs" />
+    <Compile Include="Native\Interfaces\Controller\ICorDebugAppDomain3.cs" />
+    <Compile Include="Native\Interfaces\Controller\ICorDebugAppDomain4.cs" />
+    <Compile Include="Native\Interfaces\Controller\ICorDebugController.cs" />
+    <Compile Include="Native\Interfaces\Controller\ICorDebugProcess.cs" />
+    <Compile Include="Native\Interfaces\Controller\ICorDebugProcess2.cs" />
+    <Compile Include="Native\Interfaces\Controller\ICorDebugProcess3.cs" />
+    <Compile Include="Native\Interfaces\Controller\ICorDebugProcess5.cs" />
+    <Compile Include="Native\Interfaces\Controller\ICorDebugProcess6.cs" />
+    <Compile Include="Native\Interfaces\Controller\ICorDebugProcess7.cs" />
+    <Compile Include="Native\Interfaces\Controller\ICorDebugProcess8.cs" />
+    <Compile Include="Native\Interfaces\CorDebug\CorDebug.cs" />
+    <Compile Include="Native\Interfaces\CorDebug\EmbeddedCLRCorDebug.cs" />
+    <Compile Include="Native\Interfaces\CorDebug\ICorDebug.cs" />
+    <Compile Include="Native\Interfaces\CorDebug\ICorDebug2.cs" />
+    <Compile Include="Native\Interfaces\CorSymBinder_deprecated.cs" />
+    <Compile Include="Native\Interfaces\CorSymBinder_SxS.cs" />
+    <Compile Include="Native\Interfaces\CorSymReader_deprecated.cs" />
+    <Compile Include="Native\Interfaces\CorSymReader_SxS.cs" />
+    <Compile Include="Native\Interfaces\CorSymWriter_deprecated.cs" />
+    <Compile Include="Native\Interfaces\CorSymWriter_SxS.cs" />
+    <Compile Include="Native\Interfaces\DataTarget\ICorDebugDataTarget.cs" />
+    <Compile Include="Native\Interfaces\DataTarget\ICorDebugDataTarget2.cs" />
+    <Compile Include="Native\Interfaces\DataTarget\ICorDebugDataTarget3.cs" />
+    <Compile Include="Native\Interfaces\DataTarget\ICorDebugMutableDataTarget.cs" />
+    <Compile Include="Native\Interfaces\DebugEvent\ICorDebugDebugEvent.cs" />
+    <Compile Include="Native\Interfaces\DebugEvent\ICorDebugExceptionDebugEvent.cs" />
+    <Compile Include="Native\Interfaces\DebugEvent\ICorDebugModuleDebugEvent.cs" />
+    <Compile Include="Native\Interfaces\Enumerators\ICorDebugAppDomainEnum.cs" />
+    <Compile Include="Native\Interfaces\Enumerators\ICorDebugAssemblyEnum.cs" />
+    <Compile Include="Native\Interfaces\Enumerators\ICorDebugBlockingObjectEnum.cs" />
+    <Compile Include="Native\Interfaces\Enumerators\ICorDebugBreakpointEnum.cs" />
+    <Compile Include="Native\Interfaces\Enumerators\ICorDebugChainEnum.cs" />
+    <Compile Include="Native\Interfaces\Enumerators\ICorDebugCodeEnum.cs" />
+    <Compile Include="Native\Interfaces\Enumerators\ICorDebugEnum.cs" />
+    <Compile Include="Native\Interfaces\Enumerators\ICorDebugErrorInfoEnum.cs" />
+    <Compile Include="Native\Interfaces\Enumerators\ICorDebugExceptionObjectCallStackEnum.cs" />
+    <Compile Include="Native\Interfaces\Enumerators\ICorDebugFrameEnum.cs" />
+    <Compile Include="Native\Interfaces\Enumerators\ICorDebugGCReferenceEnum.cs" />
+    <Compile Include="Native\Interfaces\Enumerators\ICorDebugGuidToTypeEnum.cs" />
+    <Compile Include="Native\Interfaces\Enumerators\ICorDebugHeapEnum.cs" />
+    <Compile Include="Native\Interfaces\Enumerators\ICorDebugHeapSegmentEnum.cs" />
+    <Compile Include="Native\Interfaces\Enumerators\ICorDebugModuleEnum.cs" />
+    <Compile Include="Native\Interfaces\Enumerators\ICorDebugObjectEnum.cs" />
+    <Compile Include="Native\Interfaces\Enumerators\ICorDebugProcessEnum.cs" />
+    <Compile Include="Native\Interfaces\Enumerators\ICorDebugStepperEnum.cs" />
+    <Compile Include="Native\Interfaces\Enumerators\ICorDebugThreadEnum.cs" />
+    <Compile Include="Native\Interfaces\Enumerators\ICorDebugTypeEnum.cs" />
+    <Compile Include="Native\Interfaces\Enumerators\ICorDebugValueEnum.cs" />
+    <Compile Include="Native\Interfaces\Enumerators\ICorDebugVariableHomeEnum.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICLRDataEnumMemoryRegionsCallback2.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICLRDataTarget2.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICLRDataTarget3.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICorDebugAssembly2.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICorDebugAssembly3.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICorDebugClass2.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICorDebugCode2.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICorDebugCode3.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICorDebugCode4.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICorDebugEval2.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICorDebugFunction2.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICorDebugFunction3.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICorDebugILCode2.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICorDebugManagedCallback2.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICorDebugManagedCallback3.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICorDebugModule2.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICorDebugModule3.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICorDebugRegisterSet2.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICorDebugStepper2.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICorDebugSymbolProvider2.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICorDebugThread2.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICorDebugThread3.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICorDebugThread4.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ICorDebugType2.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ISymNGenWriter2.cs" />
+    <Compile Include="Native\Interfaces\Extensions\ISymUnmanagedScope2.cs" />
+    <Compile Include="Native\Interfaces\Frame\ICorDebugFrame.cs" />
+    <Compile Include="Native\Interfaces\Frame\ICorDebugILFrame.cs" />
+    <Compile Include="Native\Interfaces\Frame\ICorDebugILFrame2.cs" />
+    <Compile Include="Native\Interfaces\Frame\ICorDebugILFrame3.cs" />
+    <Compile Include="Native\Interfaces\Frame\ICorDebugILFrame4.cs" />
+    <Compile Include="Native\Interfaces\Frame\ICorDebugInternalFrame.cs" />
+    <Compile Include="Native\Interfaces\Frame\ICorDebugInternalFrame2.cs" />
+    <Compile Include="Native\Interfaces\Frame\ICorDebugNativeFrame.cs" />
+    <Compile Include="Native\Interfaces\Frame\ICorDebugNativeFrame2.cs" />
+    <Compile Include="Native\Interfaces\Frame\ICorDebugRuntimeUnwindableFrame.cs" />
+    <Compile Include="Native\Interfaces\ICLRDataEnumMemoryRegions.cs" />
+    <Compile Include="Native\Interfaces\ICLRDataEnumMemoryRegionsCallback.cs" />
+    <Compile Include="Native\Interfaces\ICLRDataTarget.cs" />
+    <Compile Include="Native\Interfaces\ICLRMetadataLocator.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugAssembly.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugChain.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugClass.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugCode.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugComObjectValue.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugEditAndContinueErrorInfo.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugEditAndContinueSnapshot.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugEval.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugExceptionObjectValue.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugFunction.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugILCode.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugInstanceFieldSymbol.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugLoadedModule.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugManagedCallback.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugMDA.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugMemoryBuffer.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugMergedAssemblyRecord.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugMetaDataLocator.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugModule.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugRegisterSet.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugRemote.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugRemoteTarget.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugStackWalk.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugStaticFieldSymbol.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugStepper.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugSymbolProvider.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugThread.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugType.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugUnmanagedCallback.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugVariableHome.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugVariableSymbol.cs" />
+    <Compile Include="Native\Interfaces\ICorDebugVirtualUnwinder.cs" />
+    <Compile Include="Native\Interfaces\ISymENCUnmanagedMethod.cs" />
+    <Compile Include="Native\Interfaces\ISymNGenWriter.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedAsyncMethod.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedAsyncMethodPropertiesWriter.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedBinder.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedBinder2.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedBinder3.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedConstant.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedDispose.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedDocument.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedDocumentWriter.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedENCUpdate.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedMethod.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedNamespace.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedReader.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedReader2.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedReaderSymbolSearchInfo.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedScope.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedSourceServerModule.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedSymbolSearchInfo.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedVariable.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedWriter.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedWriter2.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedWriter3.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedWriter4.cs" />
+    <Compile Include="Native\Interfaces\ISymUnmanagedWriter5.cs" />
+    <Compile Include="Native\Interfaces\Stream\ISequentialStream.cs" />
+    <Compile Include="Native\Interfaces\Stream\IStream.cs" />
+    <Compile Include="Native\Interfaces\Value\ICorDebugArrayValue.cs" />
+    <Compile Include="Native\Interfaces\Value\ICorDebugBoxValue.cs" />
+    <Compile Include="Native\Interfaces\Value\ICorDebugContext.cs" />
+    <Compile Include="Native\Interfaces\Value\ICorDebugGenericValue.cs" />
+    <Compile Include="Native\Interfaces\Value\ICorDebugHandleValue.cs" />
+    <Compile Include="Native\Interfaces\Value\ICorDebugHeapValue.cs" />
+    <Compile Include="Native\Interfaces\Value\ICorDebugHeapValue2.cs" />
+    <Compile Include="Native\Interfaces\Value\ICorDebugHeapValue3.cs" />
+    <Compile Include="Native\Interfaces\Value\ICorDebugObjectValue.cs" />
+    <Compile Include="Native\Interfaces\Value\ICorDebugObjectValue2.cs" />
+    <Compile Include="Native\Interfaces\Value\ICorDebugReferenceValue.cs" />
+    <Compile Include="Native\Interfaces\Value\ICorDebugStringValue.cs" />
+    <Compile Include="Native\Interfaces\Value\ICorDebugValue.cs" />
+    <Compile Include="Native\Interfaces\Value\ICorDebugValue2.cs" />
+    <Compile Include="Native\Interfaces\Value\ICorDebugValue3.cs" />
+    <Compile Include="Native\Struct\CorDebugBlockingObject.cs" />
+    <Compile Include="Native\Struct\CorDebugExceptionObjectStackFrame.cs" />
+    <Compile Include="Native\Struct\CorDebugGuidToTypeMapping.cs" />
+    <Compile Include="Native\Struct\COR_ARRAY_LAYOUT.cs" />
+    <Compile Include="Native\Struct\COR_DEBUG_IL_TO_NATIVE_MAP.cs" />
+    <Compile Include="Native\Struct\COR_DEBUG_STEP_RANGE.cs" />
+    <Compile Include="Native\Struct\COR_FIELD.cs" />
+    <Compile Include="Native\Struct\COR_GC_REFERENCE.cs" />
+    <Compile Include="Native\Struct\COR_TYPEID.cs" />
+    <Compile Include="Native\Struct\COR_TYPE_LAYOUT.cs" />
+    <Compile Include="Native\Struct\tagSTATSTG.cs" />
+    <Compile Include="Native\Struct\_CodeChunkInfo.cs" />
+    <Compile Include="Native\Struct\_CorDebugEHClause.cs" />
+    <Compile Include="Native\Struct\_COR_ACTIVE_FUNCTION.cs" />
+    <Compile Include="Native\Struct\_COR_HEAPINFO.cs" />
+    <Compile Include="Native\Struct\_COR_HEAPOBJECT.cs" />
+    <Compile Include="Native\Struct\_COR_IL_MAP.cs" />
+    <Compile Include="Native\Struct\_COR_SEGMENT.cs" />
+    <Compile Include="Native\Struct\_COR_VERSION.cs" />
+    <Compile Include="Native\Struct\_FILETIME.cs" />
+    <Compile Include="Native\Struct\_LARGE_INTEGER.cs" />
+    <Compile Include="Native\Struct\_SECURITY_ATTRIBUTES.cs" />
+    <Compile Include="Native\Struct\_SYMLINEDELTA.cs" />
+    <Compile Include="Native\Struct\_ULARGE_INTEGER.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
