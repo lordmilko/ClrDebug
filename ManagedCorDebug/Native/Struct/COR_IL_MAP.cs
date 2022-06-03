@@ -3,9 +3,10 @@
 namespace ManagedCorDebug
 {
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
-    public struct _SYMLINEDELTA
+    public struct COR_IL_MAP
     {
-        public uint mdMethod;
-        public int delta;
+        public uint oldOffset;
+        public uint newOffset;
+        public int fAccurate;
     }
 }

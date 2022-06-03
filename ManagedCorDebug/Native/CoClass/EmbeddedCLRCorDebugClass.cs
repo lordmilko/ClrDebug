@@ -28,8 +28,8 @@ namespace ManagedCorDebug
         public virtual extern void CreateProcess(
             [MarshalAs(UnmanagedType.LPWStr), In] string lpApplicationName,
             [MarshalAs(UnmanagedType.LPWStr), In] string lpCommandLine,
-            [In] ref _SECURITY_ATTRIBUTES lpProcessAttributes,
-            [In] ref _SECURITY_ATTRIBUTES lpThreadAttributes,
+            [In] ref SECURITY_ATTRIBUTES lpProcessAttributes,
+            [In] ref SECURITY_ATTRIBUTES lpThreadAttributes,
             [In] int bInheritHandles,
             [In] uint dwCreationFlags,
             [In] IntPtr lpEnvironment,

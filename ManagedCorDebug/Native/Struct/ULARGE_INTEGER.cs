@@ -3,9 +3,8 @@
 namespace ManagedCorDebug
 {
     [StructLayout(LayoutKind.Sequential, Pack = 8)]
-    public struct _CodeChunkInfo
+    public struct ULARGE_INTEGER
     {
-        public ulong startAddr;
-        public uint length;
+        public ulong QuadPart;
     }
 }

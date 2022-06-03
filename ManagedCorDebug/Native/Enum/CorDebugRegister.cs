@@ -106,6 +106,6 @@
         REGISTER_ARM64_X28 = 31,
         REGISTER_AMD64_XMM15 = 32,
         REGISTER_ARM64_LR = 32,
-        REGISTER_IA64_F0 = 131,
+        REGISTER_IA64_F0 = 131
     }
 }

@@ -3,7 +3,7 @@
 namespace ManagedCorDebug
 {
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
-    public struct _COR_ACTIVE_FUNCTION
+    public struct COR_ACTIVE_FUNCTION
     {
         [MarshalAs(UnmanagedType.Interface)] public ICorDebugAppDomain pAppDomain;
         [MarshalAs(UnmanagedType.Interface)] public ICorDebugModule pModule;

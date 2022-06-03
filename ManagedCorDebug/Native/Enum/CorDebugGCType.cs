@@ -3,6 +3,6 @@
     public enum CorDebugGCType
     {
         CorDebugWorkstationGC,
-        CorDebugServerGC,
+        CorDebugServerGC
     }
 }

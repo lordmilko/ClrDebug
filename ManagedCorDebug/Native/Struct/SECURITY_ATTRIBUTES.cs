@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
-    public struct _SECURITY_ATTRIBUTES
+    public struct SECURITY_ATTRIBUTES
     {
         public uint nLength;
         public IntPtr lpSecurityDescriptor;

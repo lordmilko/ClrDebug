@@ -8,6 +8,6 @@
         STOP_NO_MAPPING_INFO = 4,
         STOP_OTHER_UNMAPPED = 8,
         STOP_UNMANAGED = 16,
-        STOP_ALL = 65535,
+        STOP_ALL = 65535
     }
 }

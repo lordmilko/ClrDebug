@@ -3,6 +3,6 @@
     public enum CorDebugThreadState
     {
         THREAD_RUN,
-        THREAD_SUSPEND,
+        THREAD_SUSPEND
     }
 }

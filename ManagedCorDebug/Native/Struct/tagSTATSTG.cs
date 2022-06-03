@@ -8,10 +8,10 @@ namespace ManagedCorDebug
     {
         [MarshalAs(UnmanagedType.LPWStr)] public string pwcsName;
         public uint type;
-        public _ULARGE_INTEGER cbSize;
-        public _FILETIME mtime;
-        public _FILETIME ctime;
-        public _FILETIME atime;
+        public ULARGE_INTEGER cbSize;
+        public FILETIME mtime;
+        public FILETIME ctime;
+        public FILETIME atime;
         public uint grfMode;
         public uint grfLocksSupported;
         public Guid clsid;

@@ -16,6 +16,6 @@
         CorHandleWeakWinRT = 512,
         CorHandleWeakOnly = 540,
         CorReferenceFinalizer = 80000002,
-        CorHandleAll = 2147483647,
+        CorHandleAll = 2147483647
     }
 }

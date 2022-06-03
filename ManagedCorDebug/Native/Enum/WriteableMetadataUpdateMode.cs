@@ -3,6 +3,6 @@
     public enum WriteableMetadataUpdateMode
     {
         LegacyCompatPolicy,
-        AlwaysShowUpdates,
+        AlwaysShowUpdates
     }
 }

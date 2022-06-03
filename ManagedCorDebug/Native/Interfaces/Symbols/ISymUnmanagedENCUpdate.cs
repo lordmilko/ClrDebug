@@ -10,7 +10,7 @@ namespace ManagedCorDebug
     {
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void UpdateSymbolStore2([MarshalAs(UnmanagedType.Interface), In]
-            IStream pIStream, [In] ref _SYMLINEDELTA pDeltaLines, [In] uint cDeltaLines);
+            IStream pIStream, [In] ref SYMLINEDELTA pDeltaLines, [In] uint cDeltaLines);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void GetLocalVariableCount([In] uint mdMethodToken, out uint pcLocals);

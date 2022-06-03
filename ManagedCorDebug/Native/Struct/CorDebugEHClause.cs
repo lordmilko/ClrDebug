@@ -3,7 +3,7 @@
 namespace ManagedCorDebug
 {
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
-    public struct _CorDebugEHClause
+    public struct CorDebugEHClause
     {
         public uint flags;
         public uint TryOffset;

@@ -3,6 +3,6 @@
     public enum CorDebugStateChange
     {
         PROCESS_RUNNING = 1,
-        FLUSH_ALL = 2,
+        FLUSH_ALL = 2
     }
 }

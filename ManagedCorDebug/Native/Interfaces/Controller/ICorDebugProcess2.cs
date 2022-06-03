@@ -12,7 +12,7 @@ namespace ManagedCorDebug
         void GetThreadForTaskID([In] ulong taskid, [MarshalAs(UnmanagedType.Interface)] out ICorDebugThread2 ppThread);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetVersion(out _COR_VERSION version);
+        void GetVersion(out COR_VERSION version);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void SetUnmanagedBreakpoint(

@@ -4,6 +4,6 @@
     {
         VLT_REGISTER,
         VLT_REGISTER_RELATIVE,
-        VLT_INVALID,
+        VLT_INVALID
     }
 }

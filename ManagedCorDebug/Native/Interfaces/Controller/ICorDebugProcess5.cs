@@ -9,7 +9,7 @@ namespace ManagedCorDebug
     public interface ICorDebugProcess5
     {
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetGCHeapInformation(out _COR_HEAPINFO pHeapInfo);
+        void GetGCHeapInformation(out COR_HEAPINFO pHeapInfo);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void EnumerateHeap([MarshalAs(UnmanagedType.Interface)] out ICorDebugHeapEnum ppObjects);

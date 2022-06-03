@@ -15,18 +15,18 @@ namespace ManagedCorDebug
         new void RemoteWrite([In] ref byte pv, [In] uint cb, out uint pcbWritten);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void RemoteSeek([In] _LARGE_INTEGER dlibMove, [In] uint dwOrigin, out _ULARGE_INTEGER plibNewPosition);
+        void RemoteSeek([In] LARGE_INTEGER dlibMove, [In] uint dwOrigin, out ULARGE_INTEGER plibNewPosition);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetSize([In] _ULARGE_INTEGER libNewSize);
+        void SetSize([In] ULARGE_INTEGER libNewSize);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void RemoteCopyTo(
             [MarshalAs(UnmanagedType.Interface), In]
             IStream pstm,
-            [In] _ULARGE_INTEGER cb,
-            out _ULARGE_INTEGER pcbRead,
-            out _ULARGE_INTEGER pcbWritten);
+            [In] ULARGE_INTEGER cb,
+            out ULARGE_INTEGER pcbRead,
+            out ULARGE_INTEGER pcbWritten);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void Commit([In] uint grfCommitFlags);
@@ -35,10 +35,10 @@ namespace ManagedCorDebug
         void Revert();
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void LockRegion([In] _ULARGE_INTEGER libOffset, [In] _ULARGE_INTEGER cb, [In] uint dwLockType);
+        void LockRegion([In] ULARGE_INTEGER libOffset, [In] ULARGE_INTEGER cb, [In] uint dwLockType);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void UnlockRegion([In] _ULARGE_INTEGER libOffset, [In] _ULARGE_INTEGER cb, [In] uint dwLockType);
+        void UnlockRegion([In] ULARGE_INTEGER libOffset, [In] ULARGE_INTEGER cb, [In] uint dwLockType);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void Stat(out tagSTATSTG pstatstg, [In] uint grfStatFlag);

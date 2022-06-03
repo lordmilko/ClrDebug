@@ -3,7 +3,7 @@
 namespace ManagedCorDebug
 {
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
-    public struct _COR_HEAPINFO
+    public struct COR_HEAPINFO
     {
         public int areGCStructuresValid;
         public uint pointerSize;

@@ -2,6 +2,6 @@
 {
     public enum CorDebugCreateProcessFlags
     {
-        DEBUG_NO_SPECIAL_OPTIONS,
+        DEBUG_NO_SPECIAL_OPTIONS
     }
 }

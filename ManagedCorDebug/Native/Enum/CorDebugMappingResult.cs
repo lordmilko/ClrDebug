@@ -7,6 +7,6 @@
         MAPPING_NO_INFO = 4,
         MAPPING_UNMAPPED_ADDRESS = 8,
         MAPPING_EXACT = 16,
-        MAPPING_APPROXIMATE = 32,
+        MAPPING_APPROXIMATE = 32
     }
 }

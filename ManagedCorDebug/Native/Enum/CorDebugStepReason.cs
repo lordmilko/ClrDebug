@@ -8,6 +8,6 @@
         STEP_EXCEPTION_FILTER,
         STEP_EXCEPTION_HANDLER,
         STEP_INTERCEPT,
-        STEP_EXIT,
+        STEP_EXIT
     }
 }

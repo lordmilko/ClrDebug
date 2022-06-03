@@ -3,7 +3,7 @@
 namespace ManagedCorDebug
 {
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
-    public struct _COR_VERSION
+    public struct COR_VERSION
     {
         public uint dwMajor;
         public uint dwMinor;

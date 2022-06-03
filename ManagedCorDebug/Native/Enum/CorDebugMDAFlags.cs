@@ -2,6 +2,6 @@
 {
     public enum CorDebugMDAFlags
     {
-        MDA_FLAG_SLIP = 2,
+        MDA_FLAG_SLIP = 2
     }
 }

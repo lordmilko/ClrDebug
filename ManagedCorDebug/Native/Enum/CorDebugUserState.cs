@@ -10,6 +10,6 @@
         USER_WAIT_SLEEP_JOIN = 32,
         USER_SUSPENDED = 64,
         USER_UNSAFE_POINT = 128,
-        USER_THREADPOOL = 256,
+        USER_THREADPOOL = 256
     }
 }

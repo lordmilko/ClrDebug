@@ -3,10 +3,9 @@
 namespace ManagedCorDebug
 {
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
-    public struct _COR_IL_MAP
+    public struct FILETIME
     {
-        public uint oldOffset;
-        public uint newOffset;
-        public int fAccurate;
+        public uint dwLowDateTime;
+        public uint dwHighDateTime;
     }
 }

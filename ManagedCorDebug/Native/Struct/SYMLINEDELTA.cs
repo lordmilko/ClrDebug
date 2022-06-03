@@ -3,9 +3,9 @@
 namespace ManagedCorDebug
 {
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
-    public struct _FILETIME
+    public struct SYMLINEDELTA
     {
-        public uint dwLowDateTime;
-        public uint dwHighDateTime;
+        public uint mdMethod;
+        public int delta;
     }
 }
