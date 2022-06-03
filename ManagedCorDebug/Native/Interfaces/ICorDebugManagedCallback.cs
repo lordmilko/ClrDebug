@@ -98,8 +98,8 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugThread pThread,
             [In] int lLevel,
-            [In] ref ushort pLogSwitchName,
-            [In] ref ushort pMessage);
+            [MarshalAs(UnmanagedType.LPWStr), In] string pLogSwitchName,
+            [MarshalAs(UnmanagedType.LPWStr), In] string pMessage);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void LogSwitch(
@@ -109,8 +109,8 @@ namespace ManagedCorDebug
             ICorDebugThread pThread,
             [In] int lLevel,
             [In] uint ulReason,
-            [In] ref ushort pLogSwitchName,
-            [In] ref ushort pParentName);
+            [MarshalAs(UnmanagedType.LPWStr)]  [In] string pLogSwitchName,
+            [MarshalAs(UnmanagedType.LPWStr), In] string pParentName);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void CreateAppDomain([MarshalAs(UnmanagedType.Interface), In]

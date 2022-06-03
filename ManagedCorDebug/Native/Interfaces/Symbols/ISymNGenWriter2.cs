@@ -36,6 +36,6 @@ namespace ManagedCorDebug
             [In] uint dwRelocCrc);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void QueryPDBNameExW(out ushort wszPDB, [ComAliasName("CorSym.ULONG_PTR"), In] ulong cchMax);
+        void QueryPDBNameExW(out ushort wszPDB, [In] ulong cchMax);
     }
 }

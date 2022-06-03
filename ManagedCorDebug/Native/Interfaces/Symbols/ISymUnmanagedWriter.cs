@@ -113,7 +113,7 @@ namespace ManagedCorDebug
             IStream pIStream, [In] int fFullBuild);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetDebugInfo([ComAliasName("CorSym.ULONG_PTR"), In, Out]
+        void GetDebugInfo([In, Out]
             ref ulong pIDD, [In] uint cData, out uint pcData, [MarshalAs(UnmanagedType.Interface), Out]
             ISymUnmanagedWriter data);
 

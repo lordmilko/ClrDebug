@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -52,7 +53,7 @@ namespace ManagedCorDebug
         void GetID(out uint pdwProcessId);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetHandle([ComAliasName("cordebug.long")] out uint phProcessHandle);
+        void GetHandle(out IntPtr phProcessHandle);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void GetThread([In] uint dwThreadId, [MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
@@ -76,11 +77,11 @@ namespace ManagedCorDebug
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void ReadMemory([In] ulong address, [In] uint size, [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugProcess buffer, [ComAliasName("cordebug.ULONG_PTR")] out ulong read);
+            ICorDebugProcess buffer, out ulong read);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void WriteMemory([In] ulong address, [In] uint size, [In] ref byte buffer,
-            [ComAliasName("cordebug.ULONG_PTR")] out ulong written);
+            out ulong written);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void ClearCurrentException([In] uint threadID);

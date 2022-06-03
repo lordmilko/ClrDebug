@@ -64,6 +64,7 @@
     <Compile Include="Native\Enum\CorDebugHandleType.cs" />
     <Compile Include="Native\Enum\CorDebugIntercept.cs" />
     <Compile Include="Native\Enum\CorDebugInternalFrameType.cs" />
+    <Compile Include="Native\Enum\CorDebugJITCompilerFlags.cs" />
     <Compile Include="Native\Enum\CorDebugMappingResult.cs" />
     <Compile Include="Native\Enum\CorDebugMDAFlags.cs" />
     <Compile Include="Native\Enum\CorDebugNGENPolicy.cs" />
@@ -116,6 +117,14 @@
     <Compile Include="Native\Interfaces\CorDebug\EmbeddedCLRCorDebug.cs" />
     <Compile Include="Native\Interfaces\CorDebug\ICorDebug.cs" />
     <Compile Include="Native\Interfaces\CorDebug\ICorDebug2.cs" />
+    <Compile Include="Native\Interfaces\Enumerators\IEnumUnknown.cs" />
+    <Compile Include="Native\Interfaces\ICLRDebugging.cs" />
+    <Compile Include="Native\Interfaces\ICLRDebuggingLibraryProvider.cs" />
+    <Compile Include="Native\Interfaces\ICLRMetaHost.cs" />
+    <Compile Include="Native\Interfaces\ICLRMetaHostPolicy.cs" />
+    <Compile Include="Native\Interfaces\ICLRProfiling.cs" />
+    <Compile Include="Native\Interfaces\ICLRRuntimeInfo.cs" />
+    <Compile Include="Native\Interfaces\ICLRStrongName.cs" />
     <Compile Include="Native\Interfaces\Symbols\CorSymBinder_deprecated.cs" />
     <Compile Include="Native\Interfaces\Symbols\CorSymBinder_SxS.cs" />
     <Compile Include="Native\Interfaces\Symbols\CorSymReader_deprecated.cs" />
@@ -175,7 +184,11 @@
     <Compile Include="Native\Interfaces\Extensions\ICorDebugThread3.cs" />
     <Compile Include="Native\Interfaces\Extensions\ICorDebugThread4.cs" />
     <Compile Include="Native\Interfaces\Extensions\ICorDebugType2.cs" />
+    <Compile Include="Native\Interfaces\Symbols\ISymNGenWriter.cs" />
     <Compile Include="Native\Interfaces\Symbols\ISymNGenWriter2.cs" />
+    <Compile Include="Native\Interfaces\Symbols\ISymUnmanagedDocument.cs" />
+    <Compile Include="Native\Interfaces\Symbols\ISymUnmanagedDocumentWriter.cs" />
+    <Compile Include="Native\Interfaces\Symbols\ISymUnmanagedScope.cs" />
     <Compile Include="Native\Interfaces\Symbols\ISymUnmanagedScope2.cs" />
     <Compile Include="Native\Interfaces\Frame\ICorDebugFrame.cs" />
     <Compile Include="Native\Interfaces\Frame\ICorDebugILFrame.cs" />
@@ -224,7 +237,6 @@
     <Compile Include="Native\Interfaces\ICorDebugVariableSymbol.cs" />
     <Compile Include="Native\Interfaces\ICorDebugVirtualUnwinder.cs" />
     <Compile Include="Native\Interfaces\Symbols\ISymENCUnmanagedMethod.cs" />
-    <Compile Include="Native\Interfaces\Symbols\ISymNGenWriter.cs" />
     <Compile Include="Native\Interfaces\Symbols\ISymUnmanagedAsyncMethod.cs" />
     <Compile Include="Native\Interfaces\Symbols\ISymUnmanagedAsyncMethodPropertiesWriter.cs" />
     <Compile Include="Native\Interfaces\Symbols\ISymUnmanagedBinder.cs" />
@@ -232,15 +244,12 @@
     <Compile Include="Native\Interfaces\Symbols\ISymUnmanagedBinder3.cs" />
     <Compile Include="Native\Interfaces\Symbols\ISymUnmanagedConstant.cs" />
     <Compile Include="Native\Interfaces\Symbols\ISymUnmanagedDispose.cs" />
-    <Compile Include="Native\Interfaces\Symbols\ISymUnmanagedDocument.cs" />
-    <Compile Include="Native\Interfaces\Symbols\ISymUnmanagedDocumentWriter.cs" />
     <Compile Include="Native\Interfaces\Symbols\ISymUnmanagedENCUpdate.cs" />
     <Compile Include="Native\Interfaces\Symbols\ISymUnmanagedMethod.cs" />
     <Compile Include="Native\Interfaces\Symbols\ISymUnmanagedNamespace.cs" />
     <Compile Include="Native\Interfaces\Symbols\ISymUnmanagedReader.cs" />
     <Compile Include="Native\Interfaces\Symbols\ISymUnmanagedReader2.cs" />
     <Compile Include="Native\Interfaces\Symbols\ISymUnmanagedReaderSymbolSearchInfo.cs" />
-    <Compile Include="Native\Interfaces\Symbols\ISymUnmanagedScope.cs" />
     <Compile Include="Native\Interfaces\Symbols\ISymUnmanagedSourceServerModule.cs" />
     <Compile Include="Native\Interfaces\Symbols\ISymUnmanagedSymbolSearchInfo.cs" />
     <Compile Include="Native\Interfaces\Symbols\ISymUnmanagedVariable.cs" />
@@ -296,6 +305,9 @@
     <Compile Include="Native\Struct\SYMLINEDELTA.cs" />
     <Compile Include="Native\Struct\ULARGE_INTEGER.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Native\Interfaces\Base\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

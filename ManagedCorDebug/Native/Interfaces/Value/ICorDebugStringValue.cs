@@ -9,7 +9,7 @@ namespace ManagedCorDebug
     public interface ICorDebugStringValue : ICorDebugHeapValue
     {
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetType(out uint pType);
+        new void GetType(out CorElementType pType);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new void GetSize(out uint pSize);

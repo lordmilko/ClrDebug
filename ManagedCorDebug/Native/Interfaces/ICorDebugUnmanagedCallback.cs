@@ -9,7 +9,6 @@ namespace ManagedCorDebug
     public interface ICorDebugUnmanagedCallback
     {
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void DebugEvent([ComAliasName("cordebug.ULONG_PTR"), In]
-            ulong pDebugEvent, [In] int fOutOfBand);
+        void DebugEvent([In] ulong pDebugEvent, [In] int fOutOfBand);
     }
 }

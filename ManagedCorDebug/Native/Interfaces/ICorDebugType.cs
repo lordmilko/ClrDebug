@@ -9,7 +9,7 @@ namespace ManagedCorDebug
     public interface ICorDebugType
     {
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetType(out uint ty);
+        void GetType(out CorElementType ty);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void GetClass([MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);

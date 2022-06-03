@@ -32,7 +32,6 @@ namespace ManagedCorDebug
         void GetDesiredNGENCompilerFlags(out uint pdwFlags);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetReferenceValueFromGCHandle([ComAliasName("cordebug.UINT_PTR"), In]
-            ulong handle, [MarshalAs(UnmanagedType.Interface)] out ICorDebugReferenceValue pOutValue);
+        void GetReferenceValueFromGCHandle([In] ulong handle, [MarshalAs(UnmanagedType.Interface)] out ICorDebugReferenceValue pOutValue);
     }
 }

@@ -9,7 +9,7 @@ namespace ManagedCorDebug
     public interface ICorDebugArrayValue : ICorDebugHeapValue
     {
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new void GetType(out uint pType);
+        new void GetType(out CorElementType pType);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new void GetSize(out uint pSize);
@@ -27,7 +27,7 @@ namespace ManagedCorDebug
         new void CreateRelocBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetElementType(out uint pType);
+        void GetElementType(out CorElementType pType);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void GetRank(out uint pnRank);

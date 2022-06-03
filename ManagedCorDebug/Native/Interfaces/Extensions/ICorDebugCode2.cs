@@ -13,6 +13,6 @@ namespace ManagedCorDebug
             ICorDebugCode2 chunks);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetCompilerFlags(out uint pdwFlags);
+        void GetCompilerFlags(out CorDebugJITCompilerFlags pdwFlags);
     }
 }

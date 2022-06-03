@@ -21,10 +21,8 @@ namespace ManagedCorDebug
             [In] uint dwCreationFlags,
             [In] IntPtr lpEnvironment,
             [MarshalAs(UnmanagedType.LPWStr), In] string lpCurrentDirectory,
-            [ComAliasName("cordebug.ULONG_PTR"), In]
-            ulong lpStartupInfo,
-            [ComAliasName("cordebug.ULONG_PTR"), In]
-            ulong lpProcessInformation,
+            [In] ulong lpStartupInfo,
+            [In] ulong lpProcessInformation,
             [In] CorDebugCreateProcessFlags debuggingFlags,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 

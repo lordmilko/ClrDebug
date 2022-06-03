@@ -4,20 +4,20 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    [Guid("CC7BCAF7-8A68-11D2-983C-0000F808342D")]
+    [Guid("00000100-0000-0000-C000-000000000046")]
     [ComImport]
-    public interface ICorDebugValue
+    public interface IEnumUnknown
     {
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetType(out CorElementType pType);
+        void Next([In] uint celt, [MarshalAs(UnmanagedType.IUnknown)] out object rgelt, out uint pceltFetched);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetSize(out uint pSize);
+        int Skip([In] uint celt);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetAddress(out ulong pAddress);
+        void Reset();
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void CreateBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
+        void Clone([MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppenum);
     }
 }

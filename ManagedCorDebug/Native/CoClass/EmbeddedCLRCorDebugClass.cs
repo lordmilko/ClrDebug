@@ -31,13 +31,11 @@ namespace ManagedCorDebug
             [In] ref SECURITY_ATTRIBUTES lpProcessAttributes,
             [In] ref SECURITY_ATTRIBUTES lpThreadAttributes,
             [In] int bInheritHandles,
-            [In] uint dwCreationFlags,
+            [In] CreateProcessFlags dwCreationFlags,
             [In] IntPtr lpEnvironment,
             [MarshalAs(UnmanagedType.LPWStr), In] string lpCurrentDirectory,
-            [ComAliasName("cordebug.ULONG_PTR"), In]
-            ulong lpStartupInfo,
-            [ComAliasName("cordebug.ULONG_PTR"), In]
-            ulong lpProcessInformation,
+            [In] ref STARTUPINFO lpStartupInfo,
+            [In] ref PROCESS_INFORMATION lpProcessInformation,
             [In] CorDebugCreateProcessFlags debuggingFlags,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 

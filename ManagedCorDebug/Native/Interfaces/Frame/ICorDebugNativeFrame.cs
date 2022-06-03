@@ -45,8 +45,7 @@ namespace ManagedCorDebug
         void GetLocalRegisterValue(
             [In] CorDebugRegister reg,
             [In] uint cbSigBlob,
-            [ComAliasName("cordebug.ULONG_PTR"), In]
-            ulong pvSigBlob,
+            [In] ulong pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -54,16 +53,14 @@ namespace ManagedCorDebug
             [In] CorDebugRegister highWordReg,
             [In] CorDebugRegister lowWordReg,
             [In] uint cbSigBlob,
-            [ComAliasName("cordebug.ULONG_PTR"), In]
-            ulong pvSigBlob,
+            [In] ulong pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void GetLocalMemoryValue(
             [In] ulong address,
             [In] uint cbSigBlob,
-            [ComAliasName("cordebug.ULONG_PTR"), In]
-            ulong pvSigBlob,
+            [In] ulong pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -71,8 +68,7 @@ namespace ManagedCorDebug
             [In] CorDebugRegister highWordReg,
             [In] ulong lowWordAddress,
             [In] uint cbSigBlob,
-            [ComAliasName("cordebug.ULONG_PTR"), In]
-            ulong pvSigBlob,
+            [In] ulong pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -80,8 +76,7 @@ namespace ManagedCorDebug
             [In] ulong highWordAddress,
             [In] CorDebugRegister lowWordRegister,
             [In] uint cbSigBlob,
-            [ComAliasName("cordebug.ULONG_PTR"), In]
-            ulong pvSigBlob,
+            [In] ulong pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

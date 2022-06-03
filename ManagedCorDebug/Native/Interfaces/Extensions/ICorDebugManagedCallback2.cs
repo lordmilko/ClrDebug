@@ -22,7 +22,7 @@ namespace ManagedCorDebug
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void CreateConnection([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugProcess pProcess, [In] uint dwConnectionId, [In] ref ushort pConnName);
+            ICorDebugProcess pProcess, [In] uint dwConnectionId, [MarshalAs(UnmanagedType.LPWStr), In] string pConnName);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void ChangeConnection([MarshalAs(UnmanagedType.Interface), In]
