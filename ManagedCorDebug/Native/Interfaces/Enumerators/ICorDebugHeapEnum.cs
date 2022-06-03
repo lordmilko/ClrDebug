@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -21,7 +21,6 @@ namespace ManagedCorDebug
         new void GetCount(out uint pcelt);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Next([In] uint celt, [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugHeapEnum objects, out uint pceltFetched);
+        void Next([In] uint celt, [MarshalAs(UnmanagedType.Interface), Out] out COR_HEAPOBJECT objects, out uint pceltFetched);
     }
 }

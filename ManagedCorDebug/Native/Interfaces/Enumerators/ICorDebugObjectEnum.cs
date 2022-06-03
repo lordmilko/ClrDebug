@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -21,7 +21,6 @@ namespace ManagedCorDebug
         new void GetCount(out uint pcelt);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Next([In] uint celt, [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugObjectEnum objects, out uint pceltFetched);
+        void Next([In] uint celt, [MarshalAs(UnmanagedType.Interface), Out] out ulong objects, out uint pceltFetched);
     }
 }
