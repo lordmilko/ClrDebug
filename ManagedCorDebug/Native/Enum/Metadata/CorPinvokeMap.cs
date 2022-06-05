@@ -104,7 +104,8 @@ namespace ManagedCorDebug
         pmCallConvStdcall   = 0x0300,
 
         /// <summary>
-        /// Use the ThisCall calling convention. In this case, the first parameter is the this pointer and is stored in register ECX. Other parameters are pushed on the stack. The ThisCall calling convention is used to call methods on classes exported from an unmanaged DLL.
+        /// Use the ThisCall calling convention. In this case, the first parameter is the this pointer and is stored in register ECX.<para/>
+        /// Other parameters are pushed on the stack. The ThisCall calling convention is used to call methods on classes exported from an unmanaged DLL.
         /// </summary>
         pmCallConvThiscall  = 0x0400,   // In M9, pinvoke will raise exception.
 

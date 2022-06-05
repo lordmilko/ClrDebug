@@ -19,7 +19,7 @@ namespace ManagedCorDebug
     /// of the inspection of the normal program state. The stack chain will be a CHAIN_FUNC_EVAL chain (see the "CorDebugStepReason"
     /// enumeration and the <see cref="ICorDebugChain.GetReason"/> method). The full debugger API will continue to operate
     /// as normal. If a deadlocked or infinite looping situation arises, the user code may never complete. In such a case,
-    /// you must call <see cref="ICorDebugEval.Abort"/> before resuming the program.
+    /// you must call <see cref="Abort"/> before resuming the program.
     /// </remarks>
     [Guid("CC7BCAF6-8A68-11D2-983C-0000F808342D")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -27,8 +27,7 @@ namespace ManagedCorDebug
     public interface ICorDebugEval
     {
         /// <summary>
-        /// Sets up a call to the specified function.<para/>
-        /// This method is obsolete in the .NET Framework version 2.0. Use <see cref="ICorDebugEval2.CallParameterizedFunction"/> instead.
+        /// Sets up a call to the specified function. This method is obsolete in the .NET Framework version 2.0. Use <see cref="ICorDebugEval2.CallParameterizedFunction"/> instead.
         /// </summary>
         /// <param name="pFunction">[in] Pointer to an ICorDebugFunction object that specifies the function to be called.</param>
         /// <param name="nArgs">[in] The number of arguments for the function.</param>
@@ -44,8 +43,8 @@ namespace ManagedCorDebug
             ref ICorDebugValue ppArgs);
 
         /// <summary>
-        /// Allocates a new object instance and calls the specified constructor method.<para/>
-        /// This method is obsolete in the .NET Framework version 2.0. Use <see cref="ICorDebugEval2.NewParameterizedObject"/> instead.
+        /// Allocates a new object instance and calls the specified constructor method. This method is obsolete in the .NET Framework version 2.0.<para/>
+        /// Use <see cref="ICorDebugEval2.NewParameterizedObject"/> instead.
         /// </summary>
         /// <param name="pConstructor">[in] The constructor to be called.</param>
         /// <param name="nArgs">[in] The size of the ppArgs array.</param>
@@ -57,8 +56,8 @@ namespace ManagedCorDebug
             ref ICorDebugValue ppArgs);
 
         /// <summary>
-        /// Allocates a new object instance of the specified type, without attempting to call a constructor method.<para/>
-        /// This method is obsolete in the .NET Framework version 2.0. Use <see cref="ICorDebugEval2.NewParameterizedObjectNoConstructor"/> instead.
+        /// Allocates a new object instance of the specified type, without attempting to call a constructor method. This method is obsolete in the .NET Framework version 2.0.<para/>
+        /// Use <see cref="ICorDebugEval2.NewParameterizedObjectNoConstructor"/> instead.
         /// </summary>
         /// <param name="pClass">[in] Pointer to an ICorDebugClass object that represents the type of object to be instantiated.</param>
         [PreserveSig]
@@ -78,8 +77,8 @@ namespace ManagedCorDebug
         HRESULT NewString([MarshalAs(UnmanagedType.LPWStr), In] string @string);
 
         /// <summary>
-        /// Allocates a new array of the specified element type and dimensions.<para/>
-        /// This method is obsolete in the .NET Framework version 2.0. Use <see cref="ICorDebugEval2.NewParameterizedArray"/> instead.
+        /// Allocates a new array of the specified element type and dimensions. This method is obsolete in the .NET Framework version 2.0.<para/>
+        /// Use <see cref="ICorDebugEval2.NewParameterizedArray"/> instead.
         /// </summary>
         /// <param name="elementType">[in] A value of the CorElementType enumeration that specifies the element type of the array.</param>
         /// <param name="pElementClass">[in] A pointer to a ICorDebugClass object that specifies the class of the element. This value may be null if the element type is a primitive type.</param>
@@ -139,8 +138,8 @@ namespace ManagedCorDebug
         HRESULT GetThread([MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
 
         /// <summary>
-        /// Creates a value of the specified type, with an initial value of zero or null.<para/>
-        /// This method is obsolete in the .NET Framework version 2.0. Use <see cref="ICorDebugEval2.CreateValueForType"/> instead.
+        /// Creates a value of the specified type, with an initial value of zero or null. This method is obsolete in the .NET Framework version 2.0.<para/>
+        /// Use <see cref="ICorDebugEval2.CreateValueForType"/> instead.
         /// </summary>
         /// <param name="elementType">[in] A value of the <see cref="CorElementType"/> enumeration that specifies the type of the value.</param>
         /// <param name="pElementClass">[in] Pointer to an <see cref="ICorDebugClass"/> object that specifies the class of the value, if the type is not a primitive type.</param>

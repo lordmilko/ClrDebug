@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -7,7 +8,7 @@ namespace ManagedCorDebug
     /// Extends the "ICorDebugObjectValue" interface to provide stack trace information from a managed exception object.
     /// </summary>
     /// <remarks>
-    /// The call to QueryInterface will succeed for managed objects that derive from System.Exception.
+    /// The call to QueryInterface will succeed for managed objects that derive from <see cref="Exception"/>.
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("AE4CA65D-59DD-42A2-83A5-57E8A08D8719")]

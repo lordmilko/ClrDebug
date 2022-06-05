@@ -1,10 +1,11 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Represents a generic class or a class with a method parameter of type System.Type. This interface extends <see cref="ICorDebugClass"/>.
+    /// Represents a generic class or a class with a method parameter of type <see cref="Type"/>. This interface extends <see cref="ICorDebugClass"/>.
     /// </summary>
     [Guid("B008EA8D-7AB1-43F7-BB20-FBB5A04038AE")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -14,10 +15,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the type declaration for this class.
         /// </summary>
-        /// <param name="elementType">[in] A value of the CorElementType enumeration that specifies the element type for this class: Set this value to ELEMENT_TYPE_VALUETYPE if this ICorDebugClass2 represents a value type. Set this value to ELEMENT_TYPE_CLASS if this ICorDebugClass2 represents a complex type.</param>
+        /// <param name="elementType">[in] A value of the CorElementType enumeration that specifies the element type for this class: Set this value to ELEMENT_TYPE_VALUETYPE if this ICorDebugClass2 represents a value type.<para/>
+        /// Set this value to ELEMENT_TYPE_CLASS if this ICorDebugClass2 represents a complex type.</param>
         /// <param name="nTypeArgs">[in] The number of type parameters, if the type is generic. The number of type parameters (if any) must match the number required by the class.</param>
         /// <param name="ppTypeArgs">[in] An array of pointers, each of which points to an ICorDebugType object that represents a type parameter. If the class is non-generic, this value is null.</param>
-        /// <param name="ppType">[out] A pointer to the address of an ICorDebugType object that represents the type declaration. This object is equivalent to a System.Type object in managed code.</param>
+        /// <param name="ppType">[out] A pointer to the address of an ICorDebugType object that represents the type declaration. This object is equivalent to a <see cref="Type"/> object in managed code.</param>
         /// <remarks>
         /// If the class is non-generic, that is, if it has no type parameters, GetParameterizedType simply gets the runtime
         /// type object corresponding to the class. The elementType parameter should be set to the correct element type for

@@ -27,11 +27,16 @@ namespace ManagedCorDebug
         /// <param name="bInheritHandles">[in] Unused for remote debugging.</param>
         /// <param name="dwCreationFlags">[in] Unused for remote debugging.</param>
         /// <param name="lpEnvironment">[in] Pointer to an environment block for the new process.</param>
-        /// <param name="lpCurrentDirectory">[in] Pointer to a null-terminated string that specifies the full path to the current directory for the process. If this parameter is null, the new process will have the same current drive and directory as the calling process.</param>
+        /// <param name="lpCurrentDirectory">[in] Pointer to a null-terminated string that specifies the full path to the current directory for the process.<para/>
+        /// If this parameter is null, the new process will have the same current drive and directory as the calling process.</param>
         /// <param name="lpStartupInfo">[in] Unused for remote debugging.</param>
         /// <param name="lpProcessInformation">[in] Unused for remote debugging.</param>
         /// <param name="debuggingFlags">[in] Unused for remote debugging.</param>
         /// <param name="ppProcess">[out] A pointer to the address of a"ICorDebugProcess Interface" object that represents the process.</param>
+        /// <returns>
+        /// * S_OK - Successfully launched the process on the remote machine and returned an "ICorDebugProcess Interface" for debugging.
+        /// * E_FAIL (or other E_ return codes) - Unable to launch the process on the remote machine and return an "ICorDebugProcess Interface" for debugging.
+        /// </returns>
         /// <remarks>
         /// Mixed-mode debugging is not supported in Silverlight.
         /// </remarks>
@@ -60,6 +65,10 @@ namespace ManagedCorDebug
         /// <param name="dwProcessId">[in] The ID of the process to which the debugger is to be attached.</param>
         /// <param name="fWin32Attach">[in] true if the debugger should behave as the Win32 debugger for the process and dispatch the unmanaged callbacks; otherwise, false.</param>
         /// <param name="ppProcess">[out] A pointer to the address of an "ICorDebugProcess" object that represents the process to which the debugger has been attached.</param>
+        /// <returns>
+        /// * S_OK - Successfully attached to the process on the remote machine.
+        /// * E_FAIL (or other E_ return codes) - Unable to attach to the process on the remote machine.
+        /// </returns>
         /// <remarks>
         /// Mixed-mode debugging is not supported in Silverlight.
         /// </remarks>

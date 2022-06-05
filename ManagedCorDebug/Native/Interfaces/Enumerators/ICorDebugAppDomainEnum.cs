@@ -4,7 +4,8 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Provides the Next method, which returns a specified number of ICorDebugAppDomainEnum values starting at the next location in the enumeration. This interface is a subclass of "ICorDebugEnum".
+    /// Provides the Next method, which returns a specified number of ICorDebugAppDomainEnum values starting at the next location in the enumeration.<para/>
+    /// This interface is a subclass of "ICorDebugEnum".
     /// </summary>
     [Guid("63CA1B24-4359-4883-BD57-13F815F58744")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

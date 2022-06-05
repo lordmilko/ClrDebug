@@ -15,7 +15,7 @@ namespace ManagedCorDebug
     public struct COR_TYPE_LAYOUT
     {
         /// <summary>
-        /// The identifier of the parent type to this type. This will be the NULL type id (token1= 0, token2 = 0) if the type id corresponds to System.Object.
+        /// The identifier of the parent type to this type. This will be the NULL type id (token1= 0, token2 = 0) if the type id corresponds to <see cref="object"/>.
         /// </summary>
         public COR_TYPEID parentID;
 

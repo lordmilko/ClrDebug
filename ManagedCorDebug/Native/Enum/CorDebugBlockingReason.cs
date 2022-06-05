@@ -1,4 +1,6 @@
-﻿namespace ManagedCorDebug
+﻿using System.Threading;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Specifies the reasons why a thread may become blocked on a given object.
@@ -16,12 +18,12 @@
         BLOCKING_NONE,
 
         /// <summary>
-        /// A thread is trying to acquire the critical section that is associated with the monitor lock on an object. Typically, this occurs when you call one of the System.Threading.Monitor.Enter or System.Threading.Monitor.TryEnter methods.
+        /// A thread is trying to acquire the critical section that is associated with the monitor lock on an object. Typically, this occurs when you call one of the <see cref="Monitor.Enter(object)"/> or <see cref="Monitor.TryEnter(object)"/> methods.
         /// </summary>
         BLOCKING_MONITOR_CRITICAL_SECTION,
 
         /// <summary>
-        /// A thread is waiting on the event that is associated with a monitor lock for an object. Typically, this occurs when you call one of the System.Threading.MonitorWait methods.
+        /// A thread is waiting on the event that is associated with a monitor lock for an object. Typically, this occurs when you call one of the <see cref="Monitor.Wait(object)"/> methods.
         /// </summary>
         BLOCKING_MONITOR_EVENT
     }

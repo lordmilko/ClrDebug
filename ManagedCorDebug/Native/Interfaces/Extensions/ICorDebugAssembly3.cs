@@ -15,6 +15,7 @@ namespace ManagedCorDebug
         /// Returns the container assembly of this ICorDebugAssembly3 object.
         /// </summary>
         /// <param name="ppAssembly">A pointer to the address of an ICorDebugAssembly object that represents the container assembly, or null if the method call fails.</param>
+        /// <returns>S_OK if the method call succeeds; otherwise, S_FALSE, and ppAssembly is null.</returns>
         /// <remarks>
         /// If this assembly has been merged with others inside a single container assembly, this method returns the container
         /// assembly. For more information and terminology, see the <see cref="ICorDebugProcess6.EnableVirtualModuleSplitting"/>
@@ -28,6 +29,7 @@ namespace ManagedCorDebug
         /// Gets an enumerator for the assemblies contained in this assembly.
         /// </summary>
         /// <param name="ppAssemblies">[out] A pointer to the address of an ICorDebugAssemblyEnum interface object that is the enumerator.</param>
+        /// <returns>S_OK if this ICorDebugAssembly3 object is a container; otherwise, S_FALSE, and the enumeration is empty.</returns>
         /// <remarks>
         /// Symbols are needed to enumerate the contained assemblies. If they aren't present, the method returns S_FALSE, and
         /// no valid enumerator is provided.

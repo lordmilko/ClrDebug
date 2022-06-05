@@ -16,7 +16,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cFunctions">[in] The size of the pFunctions array.</param>
         /// <param name="pcFunctions">[out] A pointer to the number of objects returned in the pFunctions array. The number of objects returned will be equal to the number of managed frames on the stack.</param>
-        /// <param name="pFunctions">[in, out] An array of COR_ACTIVE_FUNCTION objects, each of which contains information about the active functions in this thread's frames.
+        /// <param name="pFunctions">[in, out] An array of COR_ACTIVE_FUNCTION objects, each of which contains information about the active functions in this thread's frames.<para/>
         /// The first element will be used for the leaf frame, and so on back to the root of the stack.</param>
         /// <remarks>
         /// If pFunctions is null on input, GetActiveFunctions returns only the number of functions that are on the stack.

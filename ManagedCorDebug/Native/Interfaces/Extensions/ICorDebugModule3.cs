@@ -20,6 +20,12 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="riid">[in] The IID of the COM interface to return. Typically, this is an <see cref="ISymUnmanagedReader"/>.</param>
         /// <param name="ppObj">[out] Pointer to a pointer to the returned interface.</param>
+        /// <returns>
+        /// * S_OK - Successfully created the reader.
+        /// * CORDBG_E_MODULE_LOADED_FROM_DISK - The module is not an in-memory or dynamic module.
+        /// * CORDBG_E_SYMBOLS_NOT_AVAILABLE - Symbols have not been supplied by the application or are not yet available.
+        /// * E_FAIL (or other E_ return codes) - Unable to create the reader.
+        /// </returns>
         /// <remarks>
         /// This method can also be used to create a symbol reader object for in-memory (non-dynamic) modules, but only after
         /// the symbols are first available (indicated by the <see cref="ICorDebugManagedCallback.UpdateModuleSymbols"/> callback).

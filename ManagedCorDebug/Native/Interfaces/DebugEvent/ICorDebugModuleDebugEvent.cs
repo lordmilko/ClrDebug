@@ -7,7 +7,8 @@ namespace ManagedCorDebug
     /// Extends the <see cref="ICorDebugDebugEvent"/> interface to support module-level events.
     /// </summary>
     /// <remarks>
-    /// The <see cref="CorDebugDebugEventKind"/> and <see cref="CorDebugDebugEventKind"/> event types implement this interface.
+    /// The <see cref="CorDebugDebugEventKind.DEBUG_EVENT_KIND_MODULE_LOADED"/> and <see cref="CorDebugDebugEventKind.DEBUG_EVENT_KIND_MODULE_UNLOADED"/>
+    /// event types implement this interface.
     /// </remarks>
     [Guid("51A15E8D-9FFF-4864-9B87-F4FBDEA747A2")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

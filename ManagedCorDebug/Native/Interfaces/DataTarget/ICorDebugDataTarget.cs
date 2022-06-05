@@ -17,6 +17,19 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugDataTarget
     {
+        /// <summary>
+        /// Provides information about the platform, including processor architecture and operating system, on which the target process is running.
+        /// </summary>
+        /// <param name="pTargetPlatform">[out] A pointer to a <see cref="CorDebugPlatform"/> enumeration that describes the target platform.</param>
+        /// <remarks>
+        /// The CorDebugPlatformEnum enumeration return value is used by the <see cref="ICorDebug"/> interface to determine
+        /// details of the target process such as its pointer size, address space layout, register set, instruction format,
+        /// context layout, and calling conventions. The pTargetPlatform value may refer to a platform that is being emulated
+        /// for the target instead of specifying the actual hardware in use. For example, a process that is running in the
+        /// Windows on Windows (WOW) environment on a 64-bit edition of the Windows operating system should use the CORDB_PLATFORM_WINDOWS_X86
+        /// value of the <see cref="CorDebugPlatform"/> enumeration. This method must succeed. If it fails, the target platform
+        /// is unusable. The method may fail for the following reasons:
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetPlatform(out CorDebugPlatform pTargetPlatform);
@@ -45,9 +58,8 @@ namespace ManagedCorDebug
         /// <param name="pContext">[out] The buffer where the thread context will be stored.</param>
         /// <remarks>
         /// On Windows platforms, pContext must be a CONTEXT structure (defined in WinNT.h) that is appropriate for the machine
-        /// type specified by the <see cref="ICorDebugDataTarget.GetPlatform"/> method. contextFlags must have the same values
-        /// as the ContextFlags field of the CONTEXT structure. The CONTEXT structure is processor-specific; refer to the WinNT.h
-        /// file for details.
+        /// type specified by the <see cref="GetPlatform"/> method. contextFlags must have the same values as the ContextFlags
+        /// field of the CONTEXT structure. The CONTEXT structure is processor-specific; refer to the WinNT.h file for details.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

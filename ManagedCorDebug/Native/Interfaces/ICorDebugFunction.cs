@@ -3,6 +3,15 @@ using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Represents a managed function or method.
+    /// </summary>
+    /// <remarks>
+    /// The ICorDebugFunction interface does not represent a function with generic type parameters. For example, an ICorDebugFunction
+    /// instance would represent Func&lt;T&gt; but not Func&lt;string&gt;. Call <see cref="ICorDebugILFrame2.EnumerateTypeParameters"/>
+    /// to get the generic type parameters. The relationship between a method's metadata token, mdMethodDef, and a method's
+    /// ICorDebugFunction object is dependent upon whether Edit and Continue is allowed on the function:
+    /// </remarks>
     [Guid("CC7BCAF3-8A68-11D2-983C-0000F808342D")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [ComImport]

@@ -51,6 +51,14 @@ namespace ManagedCorDebug
         /// <param name="celt">[in] The number of objects to retrieve.</param>
         /// <param name="values">[out] An array of pointers to <see cref="CorDebugBlockingObject"/> objects.</param>
         /// <param name="pceltFetched">[out] A pointer to the number of objects that were retrieved.</param>
+        /// <returns>
+        /// This method returns the following specific HRESULTs.
+        /// 
+        /// | HRESULT | Description                        |
+        /// | ------- | ---------------------------------- |
+        /// | S_OK    | The method completed successfully. |
+        /// | S_FALSE | pceltFetched does not equal celt.  |
+        /// </returns>
         /// <remarks>
         /// This method functions like a typical COM enumerator. The input array values must be at least of size celt. The
         /// array will be filled with either the next celt values in the enumeration or with all remaining values if fewer

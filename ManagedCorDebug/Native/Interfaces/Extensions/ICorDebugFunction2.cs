@@ -15,6 +15,12 @@ namespace ManagedCorDebug
         /// Marks the function represented by this ICorDebugFunction2 for Just My Code stepping.
         /// </summary>
         /// <param name="bIsJustMyCode">[in] Set to true to mark the function as user code; otherwise, set to false.</param>
+        /// <returns>
+        /// | HRESULT                          | Description                                                                  |
+        /// | -------------------------------- | ---------------------------------------------------------------------------- |
+        /// | S_OK                             | The function was successfully marked.                                        |
+        /// | CORDBG_E_FUNCTION_NOT_DEBUGGABLE | The function could not be marked as user code because it cannot be debugged. |
+        /// </returns>
         /// <remarks>
         /// A Just My Code stepper will skip non-user code. User code must be a subset of debuggable code.
         /// </remarks>

@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -19,12 +20,12 @@ namespace ManagedCorDebug
     public interface ICorDebugType
     {
         /// <summary>
-        /// Gets a CorElementType value that describes the native type of the common language runtime (CLR) System.Type represented by this ICorDebugType.
+        /// Gets a CorElementType value that describes the native type of the common language runtime (CLR) <see cref="Type"/> represented by this ICorDebugType.
         /// </summary>
-        /// <param name="ty">[out] A pointer to a value of the CorElementType enumeration that indicates the CLR System.Type that this ICorDebugType represents.</param>
+        /// <param name="ty">[out] A pointer to a value of the CorElementType enumeration that indicates the CLR <see cref="Type"/> that this ICorDebugType represents.</param>
         /// <remarks>
-        /// If the value of ty is either ELEMENT_TYPE_CLASS or ELEMENT_TYPE_VALUETYPE, the <see cref="ICorDebugType.GetClass"/>
-        /// method may be called to get the uninstantiated type for a generic type; otherwise, do not call ICorDebugType::GetClass.
+        /// If the value of ty is either ELEMENT_TYPE_CLASS or ELEMENT_TYPE_VALUETYPE, the <see cref="GetClass"/> method may
+        /// be called to get the uninstantiated type for a generic type; otherwise, do not call ICorDebugType::GetClass.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -35,18 +36,36 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ppClass">[out] A pointer to the address of an ICorDebugClass interface that represents the uninstantiated generic type.</param>
         /// <remarks>
-        /// GetClass can be called only under certain conditions. Call <see cref="ICorDebugType.GetType"/> before calling GetClass.
-        /// If ICorDebugType::GetType returns a CorElementType value that is ELEMENT_TYPE_CLASS or ELEMENT_TYPE_VALUETYPE,
-        /// GetClass can be called to get the uninstantiated type for a generic type.
+        /// GetClass can be called only under certain conditions. Call <see cref="GetType"/> before calling GetClass. If ICorDebugType::GetType
+        /// returns a CorElementType value that is ELEMENT_TYPE_CLASS or ELEMENT_TYPE_VALUETYPE, GetClass can be called to
+        /// get the uninstantiated type for a generic type.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetClass([MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);
 
+        /// <summary>
+        /// Gets an interface pointer to an ICorDebugTypeEnum that contains the <see cref="Type"/> parameters of the class referenced by this ICorDebugType.
+        /// </summary>
+        /// <param name="ppTyParEnum">[out] A pointer to the address of an ICorDebugTypeEnum that contains the parameters of the type.</param>
+        /// <remarks>
+        /// You can use EnumerateTypeParameters if the CorElementType value returned by <see cref="GetType"/> is ELEMENT_TYPE_CLASS,
+        /// ELEMENT_TYPE_VALUETYPE, ELEMENT_TYPE_ARRAY, ELEMENT_TYPE_SZARRAY, ELEMENT_TYPE_BYREF, ELEMENT_TYPE_PTR, or ELEMENT_TYPE_FNPTR.
+        /// The number of parameters and their order depends on the type:
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateTypeParameters([MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppTyParEnum);
 
+        /// <summary>
+        /// Gets an interface pointer to an ICorDebugType that represents the first <see cref="Type"/> parameter of the type represented by this ICorDebugType.
+        /// </summary>
+        /// <param name="value">[out] A pointer to the address of an ICorDebugType object that represents the first parameter.</param>
+        /// <remarks>
+        /// GetFirstTypeParameter can be called in cases where the additional information about the type involves, at most,
+        /// one type parameter. In particular, it can be used if the type is an ELEMENT_TYPE_ARRAY, ELEMENT_TYPE_SZARRAY, ELEMENT_TYPE_BYREF,
+        /// or ELEMENT_TYPE_PTR, as indicated by the <see cref="GetType"/> method.
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetFirstTypeParameter([MarshalAs(UnmanagedType.Interface)] out ICorDebugType value);
@@ -63,6 +82,21 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetBase([MarshalAs(UnmanagedType.Interface)] out ICorDebugType pBase);
 
+        /// <summary>
+        /// Gets an interface pointer to an ICorDebugValue object that contains the value of the static field referenced by the specified field token in the specified stack frame.
+        /// </summary>
+        /// <param name="fieldDef">[in] An mdFieldDef token that specifies the static field.</param>
+        /// <param name="pFrame">[in] A pointer to an ICorDebugFrame that represents the stack frame.</param>
+        /// <param name="ppValue">[out] A pointer to the address of an ICorDebugValue that contains the value of the static field.</param>
+        /// <remarks>
+        /// The GetStaticFieldValue method may be used only if the type is ELEMENT_TYPE_CLASS or ELEMENT_TYPE_VALUETYPE, as
+        /// indicated by the <see cref="GetType"/> method. For non-generic types, the operation performed by GetStaticFieldValue
+        /// is identical to calling <see cref="ICorDebugClass.GetStaticFieldValue"/> on the ICorDebugClass object that is returned
+        /// by <see cref="GetClass"/>. For generic types, a static field value will be relative to a particular instantiation.
+        /// Also, if the static field could possibly be relative to a thread, a context, or an application domain, then the
+        /// stack frame will help the debugger determine the proper value. GetStaticFieldValue can be used only when a call
+        /// to ICorDebugType::GetType returns a value of ELEMENT_TYPE_CLASS or ELEMENT_TYPE_VALUETYPE.
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetStaticFieldValue([In] uint fieldDef, [MarshalAs(UnmanagedType.Interface), In]

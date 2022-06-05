@@ -11,7 +11,7 @@ namespace ManagedCorDebug
     /// is populated with <see cref="ICorDebugVariableHome"/> instances by calling the <see cref="ICorDebugCode4.EnumerateVariableHomes"/>
     /// method. Each <see cref="ICorDebugVariableHome"/> instance in the collection represents a local variable or argument
     /// in a function. The <see cref="ICorDebugVariableHome"/> objects in the collection can be enumerated by calling the
-    /// <see cref="ICorDebugVariableHomeEnum.Next"/> method.
+    /// <see cref="Next"/> method.
     /// </remarks>
     [Guid("E76B7A57-4F7A-4309-85A7-5D918C3DEAF7")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -53,11 +53,19 @@ namespace ManagedCorDebug
         /// Gets the specified number of <see cref="ICorDebugVariableHome"/> instances that contain information about the local variables and arguments in a function.
         /// </summary>
         /// <param name="celt">[in] The number of objects to be retrieved.</param>
-        /// <param name="homes">An array of pointers, each of which points to a <see cref="ICorDebugVariableHome"/> object that provides information about  a local variable or argument of a function.</param>
+        /// <param name="homes">An array of pointers, each of which points to a <see cref="ICorDebugVariableHome"/> object that provides information about a local variable or argument of a function.</param>
         /// <param name="pceltFetched">[out] The number of instances actually returned in objects.</param>
+        /// <returns>
+        /// The method returns the following values.
+        /// 
+        /// | HRESULT | Description                                                                                                             |
+        /// | ------- | ----------------------------------------------------------------------------------------------------------------------- |
+        /// | S_OK    | The method completed successfully.                                                                                      |
+        /// | S_FALSE | The actual number of instances retrieved, as reflected in pceltFetched, is less than the number of instances requested. |
+        /// </returns>
         /// <remarks>
-        /// The <see cref="ICorDebugVariableHomeEnum.Next"/> method retrieves a maximum of celt objects starting at the current
-        /// position of the enumerator. When the method returns, pceltFetched contains the actual number of objects retrieved.
+        /// The <see cref="Next"/> method retrieves a maximum of celt objects starting at the current position of the enumerator.
+        /// When the method returns, pceltFetched contains the actual number of objects retrieved.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

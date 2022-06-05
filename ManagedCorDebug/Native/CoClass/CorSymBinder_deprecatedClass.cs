@@ -11,18 +11,17 @@ namespace ManagedCorDebug
     {
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         [return: MarshalAs(UnmanagedType.Interface)]
-        public virtual extern ISymUnmanagedReader GetReaderForFile(
-            [MarshalAs(UnmanagedType.IUnknown), In]
-            object importer,
-            [In] ref ushort filename,
-            [In] ref ushort searchPath);
+        public virtual extern HRESULT GetReaderForFile(
+            [MarshalAs(UnmanagedType.IUnknown), In] IMetaDataImport importer,
+            [In] string fileName,
+            [In] string searchPath,
+            [Out] out ISymUnmanagedReader pRetVal);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         [return: MarshalAs(UnmanagedType.Interface)]
-        public virtual extern ISymUnmanagedReader GetReaderFromStream(
-            [MarshalAs(UnmanagedType.IUnknown), In]
-            object importer,
-            [MarshalAs(UnmanagedType.Interface), In]
-            IStream pstream);
+        public virtual extern HRESULT GetReaderFromStream(
+            [MarshalAs(UnmanagedType.IUnknown), In] IMetaDataImport importer,
+            [MarshalAs(UnmanagedType.Interface), In] IStream pstream,
+            [Out] ISymUnmanagedReader pRetVal);
     }
 }

@@ -61,11 +61,11 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pCallback">[in] A pointer to an <see cref="ICorDebugUnmanagedCallback"/> object that represents the event handler for unmanaged events.</param>
         /// <remarks>
-        /// The event handler object for unmanaged events must be set after a call to <see cref="ICorDebug.Initialize"/> and
-        /// before any calls to <see cref="ICorDebug.CreateProcess"/> or <see cref="ICorDebug.DebugActiveProcess"/>. However,
-        /// for legacy purposes, you are not required to set the event handler object for unmanaged events until the first
-        /// native debug event is raised. Specifically, if ICorDebug::CreateProcess has set the CREATE_SUSPENDED flag, native
-        /// debug events cannot be dispatched until the main thread is resumed.
+        /// The event handler object for unmanaged events must be set after a call to <see cref="Initialize"/> and before any
+        /// calls to <see cref="CreateProcess"/> or <see cref="DebugActiveProcess"/>. However, for legacy purposes, you are
+        /// not required to set the event handler object for unmanaged events until the first native debug event is raised.
+        /// Specifically, if ICorDebug::CreateProcess has set the CREATE_SUSPENDED flag, native debug events cannot be dispatched
+        /// until the main thread is resumed.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -76,13 +76,17 @@ namespace ManagedCorDebug
         /// Launches a process and its primary thread under the control of the debugger.
         /// </summary>
         /// <param name="lpApplicationName">[in] Pointer to a null-terminated string that specifies the module to be executed by the launched process. The module is executed in the security context of the calling process.</param>
-        /// <param name="lpCommandLine">[in] Pointer to a null-terminated string that specifies the command line to be executed by the launched process. The application name (for example, "SomeApp.exe") must be the first argument.</param>
+        /// <param name="lpCommandLine">[in] Pointer to a null-terminated string that specifies the command line to be executed by the launched process.<para/>
+        /// The application name (for example, "SomeApp.exe") must be the first argument.</param>
         /// <param name="lpProcessAttributes">[in] Pointer to a Win32 SECURITY_ATTRIBUTES structure that specifies the security descriptor for the process. If lpProcessAttributes is null, the process gets a default security descriptor.</param>
-        /// <param name="lpThreadAttributes">[in] Pointer to a Win32 SECURITY_ATTRIBUTES structure that specifies the security descriptor for the primary thread of the process. If lpThreadAttributes is null, the thread gets a default security descriptor.</param>
-        /// <param name="bInheritHandles">[in] Set to true to indicate that each inheritable handle in the calling process is inherited by the launched process, or false to indicate that the handles are not inherited. The inherited handles have the same value and access rights as the original handles.</param>
+        /// <param name="lpThreadAttributes">[in] Pointer to a Win32 SECURITY_ATTRIBUTES structure that specifies the security descriptor for the primary thread of the process.<para/>
+        /// If lpThreadAttributes is null, the thread gets a default security descriptor.</param>
+        /// <param name="bInheritHandles">[in] Set to true to indicate that each inheritable handle in the calling process is inherited by the launched process, or false to indicate that the handles are not inherited.<para/>
+        /// The inherited handles have the same value and access rights as the original handles.</param>
         /// <param name="dwCreationFlags">[in] A bitwise combination of the Win32 Process Creation Flags that control the priority class and the behavior of the launched process.</param>
         /// <param name="lpEnvironment">[in] Pointer to an environment block for the new process.</param>
-        /// <param name="lpCurrentDirectory">[in] Pointer to a null-terminated string that specifies the full path to the current directory for the process. If this parameter is null, the new process will have the same current drive and directory as the calling process.</param>
+        /// <param name="lpCurrentDirectory">[in] Pointer to a null-terminated string that specifies the full path to the current directory for the process.<para/>
+        /// If this parameter is null, the new process will have the same current drive and directory as the calling process.</param>
         /// <param name="lpStartupInfo">[in] Pointer to a Win32 STARTUPINFOW structure that specifies the window station, desktop, standard handles, and appearance of the main window for the launched process.</param>
         /// <param name="lpProcessInformation">[in] Pointer to a Win32 PROCESS_INFORMATION structure that specifies the identification information about the process to be launched.</param>
         /// <param name="debuggingFlags">[in] A value of the CorDebugCreateProcessFlags enumeration that specifies the debugging options.</param>
@@ -148,6 +152,14 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="dwProcessId">[in] The ID of an existing process.</param>
         /// <param name="win32DebuggingEnabled">[in] Pass in true if you plan to launch with Win32 debugging enabled, or to attach with Win32 debugging enabled; otherwise, pass false.</param>
+        /// <returns>
+        /// S_OK if the debugging services determine that launching a new process or attaching to the given process is possible, given the information about the current machine and runtime configuration.
+        /// Possible HRESULT values are:
+        /// * S_OK
+        /// * CORDBG_E_DEBUGGING_NOT_POSSIBLE
+        /// * CORDBG_E_KERNEL_DEBUGGER_PRESENT
+        /// * CORDBG_E_KERNEL_DEBUGGER_ENABLED
+        /// </returns>
         /// <remarks>
         /// This method is purely informational. The interface will not stop you from launching or attaching to a process,
         /// regardless of the value returned by CanLaunchOrAttach. If you plan to launch with Win32 debugging enabled or attach

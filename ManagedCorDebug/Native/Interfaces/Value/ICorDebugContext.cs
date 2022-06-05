@@ -57,6 +57,14 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT CreateBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
 
+        /// <summary>
+        /// Gets the class of this object value.
+        /// </summary>
+        /// <param name="ppClass">[out] A pointer to the address of an "ICorDebugClass" object that represents the class of the object value represented by this "ICorDebugObjectValue" object.</param>
+        /// <remarks>
+        /// The GetClass and <see cref="ICorDebugValue.GetType(out CorElementType)"/> methods each return information about
+        /// the type of a value; they are both superseded by the generics-aware <see cref="ICorDebugValue2.GetExactType"/>.
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetClass([MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);

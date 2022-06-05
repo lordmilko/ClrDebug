@@ -72,6 +72,7 @@ namespace ManagedCorDebug
         /// Gets the managed slot index of a local variable.
         /// </summary>
         /// <param name="pSlotIndex">[out] A pointer to the local variable's slot index.</param>
+        /// <returns>S_OK if successful. E_FAIL if the variable is a function argument.</returns>
         /// <remarks>
         /// The managed slot index of a local variable can be used to retrieve the variable's metadata information
         /// </remarks>

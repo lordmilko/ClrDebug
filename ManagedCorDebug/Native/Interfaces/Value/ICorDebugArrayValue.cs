@@ -61,8 +61,7 @@ namespace ManagedCorDebug
         new HRESULT CreateBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
 
         /// <summary>
-        /// Gets a value that indicates whether the object represented by this ICorDebugHeapValue is valid.<para/>
-        /// This method has been deprecated in the .NET Framework version 2.0.
+        /// Gets a value that indicates whether the object represented by this ICorDebugHeapValue is valid. This method has been deprecated in the .NET Framework version 2.0.
         /// </summary>
         /// <param name="pbValid">[out] A pointer to a Boolean value that indicates whether this value on the heap is valid.</param>
         /// <remarks>
@@ -108,8 +107,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the number of elements in each dimension of this array.
         /// </summary>
-        /// <param name="cdim">[in] The number of dimensions of this ICorDebugArrayValue object.
-        /// This value is also the size of the dims array because its size is equal to the number of dimensions of the ICorDebugArrayValue object.</param>
+        /// <param name="cdim">[in] The number of dimensions of this ICorDebugArrayValue object. This value is also the size of the dims array because its size is equal to the number of dimensions of the ICorDebugArrayValue object.</param>
         /// <param name="dims">[out] An array of integers, each of which specifies the number of elements in a dimension in this ICorDebugArrayValue object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -135,9 +133,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the value of the given array element.
         /// </summary>
-        /// <param name="cdim">[in] The number of dimensions of this ICorDebugArrayValue object.
-        /// This value is also the size of the indices array because its size is equal to the number of dimensions of the ICorDebugArrayValue object.</param>
-        /// <param name="indices">[in] An array of index values, each of which specifies a position within a dimension of the ICorDebugArrayValue object.
+        /// <param name="cdim">[in] The number of dimensions of this ICorDebugArrayValue object. This value is also the size of the indices array because its size is equal to the number of dimensions of the ICorDebugArrayValue object.</param>
+        /// <param name="indices">[in] An array of index values, each of which specifies a position within a dimension of the ICorDebugArrayValue object.<para/>
         /// This value must not be null.</param>
         /// <param name="ppValue">[out] A pointer to the address of an ICorDebugValue object that represents the value of the specified element.</param>
         [PreserveSig]

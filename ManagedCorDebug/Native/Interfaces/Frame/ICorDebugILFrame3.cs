@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -19,11 +20,11 @@ namespace ManagedCorDebug
         /// <remarks>
         /// This method is used along with the <see cref="ICorDebugCode3.GetReturnValueLiveOffset"/> method to get the return
         /// value of a method. It is particularly useful in the case of methods whose return values are ignored, as in the
-        /// following two code examples. The first example calls the System.Int32.TryParse method, but ignores the method's
-        /// return value. [!code-csharpUnmanaged.Debugging.MRV#1][!code-vbUnmanaged.Debugging.MRV#1] The second example illustrates
-        /// a much more common problem in debugging. Because a method is used as an argument in a method call, its return value
-        /// is accessible only when the debugger steps through the called method. In many cases, particularly when the called
-        /// method is defined in an external library, that is not possible. [!code-csharpUnmanaged.Debugging.MRV#2][!code-vbUnmanaged.Debugging.MRV#2]
+        /// following two code examples. The first example calls the <see cref="int.TryParse(string, out int)"/> method, but
+        /// ignores the method's return value. [!code-csharpUnmanaged.Debugging.MRV#1][!code-vbUnmanaged.Debugging.MRV#1] The
+        /// second example illustrates a much more common problem in debugging. Because a method is used as an argument in
+        /// a method call, its return value is accessible only when the debugger steps through the called method. In many cases,
+        /// particularly when the called method is defined in an external library, that is not possible. [!code-csharpUnmanaged.Debugging.MRV#2][!code-vbUnmanaged.Debugging.MRV#2]
         /// If you pass the <see cref="ICorDebugCode3.GetReturnValueLiveOffset"/> method an IL offset to a function call site,
         /// it returns one or more native offsets. The debugger can then set breakpoints on these native offsets in the function.
         /// When the debugger hits one of the breakpoints, you can then pass the same IL offset that you passed to this method

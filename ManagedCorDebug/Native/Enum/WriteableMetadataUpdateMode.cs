@@ -1,8 +1,7 @@
 ﻿namespace ManagedCorDebug
 {
     /// <summary>
-    /// [Supported in the .NET Framework 4.5.2 and later versions]<para/>
-    /// Provides values that specify whether in-memory updates to metadata are visible to a debugger.
+    /// [Supported in the .NET Framework 4.5.2 and later versions] Provides values that specify whether in-memory updates to metadata are visible to a debugger.
     /// </summary>
     /// <remarks>
     /// A member of the WriteableMetadataUpdateMode enumeration can be passed to the <see cref="ICorDebugProcess7.SetWriteableMetadataUpdateMode"/>
@@ -18,7 +17,8 @@
     public enum WriteableMetadataUpdateMode
     {
         /// <summary>
-        /// Maintain compatibility with previous versions of the .NET Framework when making in-memory updates to metadata visible. See the Remarks section for more information.
+        /// Maintain compatibility with previous versions of the .NET Framework when making in-memory updates to metadata visible.<para/>
+        /// See the Remarks section for more information.
         /// </summary>
         LegacyCompatPolicy,
 

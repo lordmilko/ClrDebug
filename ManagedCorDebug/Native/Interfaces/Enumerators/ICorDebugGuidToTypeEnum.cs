@@ -4,14 +4,14 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Provides an enumerator that defines the mapping between a set of GUIDs and their corresponding types, which are represented by ICorDebugType instances. This interface inherits the methods from the ICorDebugEnum interface.
+    /// Provides an enumerator that defines the mapping between a set of GUIDs and their corresponding types, which are represented by ICorDebugType instances.<para/>
+    /// This interface inherits the methods from the ICorDebugEnum interface.
     /// </summary>
     /// <remarks>
     /// An ICorDebugGuidToTypeEnum interface object can be retrieved by calling the <see cref="ICorDebugAppDomain3.GetCachedWinRTTypes"/>
-    /// method. A debugger can call this interface's <see cref="ICorDebugGuidToTypeEnum.Next"/> method to retrieve <see
-    /// cref="CorDebugGuidToTypeMapping"/> objects that represent mappings of managed representations of Windows Runtime
-    /// types loaded in the application domain used for the call to the <see cref="ICorDebugAppDomain3.GetCachedWinRTTypes"/>
-    /// method.
+    /// method. A debugger can call this interface's <see cref="Next"/> method to retrieve <see cref="CorDebugGuidToTypeMapping"/>
+    /// objects that represent mappings of managed representations of Windows Runtime types loaded in the application domain
+    /// used for the call to the <see cref="ICorDebugAppDomain3.GetCachedWinRTTypes"/> method.
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("6164D242-1015-4BD6-8CBE-D0DBD4B8275A")]

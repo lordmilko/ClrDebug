@@ -33,7 +33,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ppObjects">[out] A pointer to the address of an <see cref="ICorDebugHeapEnum"/> interface object that is an enumerator for the objects that reside on the managed heap.</param>
         /// <remarks>
-        /// Before calling the ICorDebugProcess5::EnumerateHeap method, you should call the <see cref="ICorDebugProcess5.GetGCHeapInformation"/>
+        /// Before calling the ICorDebugProcess5::EnumerateHeap method, you should call the <see cref="GetGCHeapInformation"/>
         /// method and examine the value of the areGCStructuresValid field of the returned <see cref="COR_HEAPINFO"/> object
         /// to ensure that the garbage collection heap in its current state is enumerable. In addition, the ICorDebugProcess5::EnumerateHeap
         /// returns E_FAIL if you attach too early in the lifetime of the process, before memory for the managed heap is allocated.
@@ -52,7 +52,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ppRegions">[out] A pointer to the address of an <see cref="ICorDebugHeapSegmentEnum"/> interface object that is an enumerator for the ranges of memory in which objects reside in the managed heap.</param>
         /// <remarks>
-        /// Before calling the ICorDebugProcess5::EnumerateHeapRegions method, you should call the <see cref="ICorDebugProcess5.GetGCHeapInformation"/>
+        /// Before calling the ICorDebugProcess5::EnumerateHeapRegions method, you should call the <see cref="GetGCHeapInformation"/>
         /// method and examine the value of the areGCStructuresValid field of the returned <see cref="COR_HEAPINFO"/> object
         /// to ensure that the garbage collection heap in its current state is enumerable. In addition, the ICorDebugProcess5::EnumerateHeapRegions
         /// method returns E_FAIL if you attach too early in the lifetime of the process, before memory regions are created.
@@ -71,7 +71,7 @@ namespace ManagedCorDebug
         /// Converts an object address to an "ICorDebugObjectValue" object.
         /// </summary>
         /// <param name="addr">[in] The object address.</param>
-        /// <param name="pObject">[out] A pointer to the address of an  "ICorDebugObjectValue" object.</param>
+        /// <param name="pObject">[out] A pointer to the address of an "ICorDebugObjectValue" object.</param>
         /// <remarks>
         /// If addr does not point to a valid managed object, the GetObject method returns E_FAIL.
         /// </remarks>
@@ -82,7 +82,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets an enumerator for all objects that are to be garbage-collected in a process.
         /// </summary>
-        /// <param name="enumerateWeakReferences">[in] A Boolean value that indicates whether weak references are also to be enumerated. If enumerateWeakReferences is true, the ppEnum enumerator includes both strong references and weak references. If enumerateWeakReferences is false, the enumerator includes only strong references.</param>
+        /// <param name="enumerateWeakReferences">[in] A Boolean value that indicates whether weak references are also to be enumerated. If enumerateWeakReferences is true, the ppEnum enumerator includes both strong references and weak references.<para/>
+        /// If enumerateWeakReferences is false, the enumerator includes only strong references.</param>
         /// <param name="ppEnum">[out] A pointer to the address of an <see cref="ICorDebugGCReferenceEnum"/> that is an enumerator for the objects to be garbage-collected.</param>
         /// <remarks>
         /// This method provides a way to determine the full rooting chain for any managed object in a process and can be used
@@ -99,7 +100,7 @@ namespace ManagedCorDebug
         /// <param name="types">[in] A bitwise combination of <see cref="CorGCReferenceType"/> values that specifies the type of handles to include in the collection.</param>
         /// <param name="ppEnum">[out] A pointer to the address of an <see cref="ICorDebugGCReferenceEnum"/> that is an enumerator for the objects to be garbage-collected.</param>
         /// <remarks>
-        /// EnumerateHandles is a helper function that supports inspection of the handle table. It is similar to the <see cref="ICorDebugProcess5.EnumerateGCReferences"/>
+        /// EnumerateHandles is a helper function that supports inspection of the handle table. It is similar to the <see cref="EnumerateGCReferences"/>
         /// method, except that rather than populating an <see cref="ICorDebugGCReferenceEnum"/> collection with all objects
         /// to be garbage-collected, it includes only objects that have handles from the handle table. The types parameter
         /// specifies the handle types to include in the collection. types can be any of the following three members of the
@@ -170,8 +171,19 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetTypeFields([In] COR_TYPEID id, uint celt, ref COR_FIELD fields, ref uint pceltNeeded);
 
+        /// <summary>
+        /// Sets a value that determines how an application loads native images while running under a managed debugger.
+        /// </summary>
+        /// <param name="ePolicy">[in] A <see cref="CorDebugNGenPolicy"/> constant that determines how an application loads native images while running under a managed debugger.</param>
+        /// <remarks>
+        /// If the policy is set successfully, the method returns S_OK. If ePolicy is outside the range of the enumerated values
+        /// defined by <see cref="CorDebugNGenPolicy"/>, the method returns E_INVALIDARG and the method call has no effect.
+        /// If the policy of the Native Image Generator (Ngen.exe) cannot be updated, the method returns E_FAIL. The ICorDebugProcess5::EnableNGenPolicy
+        /// method can be called at any time during the lifetime of the process. The policy is in effect for any modules that
+        /// are loaded after the policy is set.
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnableNGENPolicy([In] CorDebugNGENPolicy ePolicy);
+        HRESULT EnableNGENPolicy([In] CorDebugNGenPolicy ePolicy);
     }
 }

@@ -21,6 +21,7 @@ namespace ManagedCorDebug
         /// <param name="cbContextBuf">[in] The number of bytes in contextBuf.</param>
         /// <param name="contextSize">[out] A pointer to the number of bytes actually written to contextBuf.</param>
         /// <param name="contextBuf">[out] A byte array that contains the current context of this unwinder.</param>
+        /// <returns>Any failing HRESULT value received by mscordbi is considered fatal and will cause ICorDebug APIs to return CORDBG_E_DATA_TARGET_ERROR.</returns>
         /// <remarks>
         /// You set the initial value of the contextBuf argument to the context buffer returned by calling the <see cref="ICorDebugStackWalk.GetContext"/>
         /// method. Because unwinding may only restore a subset of the registers, such as the non-volatile registers only,
@@ -37,6 +38,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Advances to the caller's context.
         /// </summary>
+        /// <returns>S_OK if the unwind occurred successfully, or CORDBG_S_AT_END_OF_STACK if the unwind cannot be completed because there are no more frames.<para/>
+        /// If a failing HRESULT is returned, ICorDebug APIs will return CORDBG_E_DATA_TARGET_ERROR.</returns>
         /// <remarks>
         /// The stack walker should ensure that it makes forward progress, so that eventually a call to Next will return a
         /// failing HRESULT or CORDBG_S_AT_END_OF_STACK. Returning S_OK indefinitely may cause an infinite loop.

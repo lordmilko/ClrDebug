@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -12,7 +13,7 @@ namespace ManagedCorDebug
     public interface ICorDebugEval2
     {
         /// <summary>
-        /// Sets up a call to the specified ICorDebugFunction, which can be nested inside a class whose constructor takes System.Type parameters, or can itself take System.Type parameters.
+        /// Sets up a call to the specified ICorDebugFunction, which can be nested inside a class whose constructor takes <see cref="Type"/> parameters, or can itself take <see cref="Type"/> parameters.
         /// </summary>
         /// <param name="pFunction">[in] A pointer to an ICorDebugFunction object that represents the function to be called.</param>
         /// <param name="nTypeArgs">[in] The number of arguments that the function takes.</param>
@@ -46,9 +47,9 @@ namespace ManagedCorDebug
         /// <param name="ppValue">[out] Pointer to the address of an ICorDebugValue object that represents the value.</param>
         /// <remarks>
         /// CreateValueForType generalizes <see cref="ICorDebugEval.CreateValue"/> by allowing you to specify an arbitrary
-        /// object type, including constructed types such as List<int>. The only purpose of this method is to generate a value
-        /// that can be passed to a function evaluation. The type must be a class or a value type. You cannot use this method
-        /// to create array values or string values.
+        /// object type, including constructed types such as List&lt;int&gt;. The only purpose of this method is to generate
+        /// a value that can be passed to a function evaluation. The type must be a class or a value type. You cannot use this
+        /// method to create array values or string values.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -64,7 +65,7 @@ namespace ManagedCorDebug
         /// <param name="nArgs">[in] The number of arguments passed to the constructor.</param>
         /// <param name="ppArgs">[in] An array of pointers, each of which points to an ICorDebugValue object that represents an argument value that is passed to the constructor.</param>
         /// <remarks>
-        /// The object's constructor may take System.Type parameters.
+        /// The object's constructor may take <see cref="Type"/> parameters.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

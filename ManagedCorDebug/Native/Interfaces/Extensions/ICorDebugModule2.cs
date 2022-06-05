@@ -28,6 +28,29 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetJMCStatus([In] int bIsJustMyCode, [In] uint cTokens, [In] ref uint pTokens);
 
+        /// <summary>
+        /// Applies the changes in the metadata and the changes in the Microsoft intermediate language (MSIL) code to the running process.
+        /// </summary>
+        /// <param name="cbMetadata">[in] Size, in bytes, of the delta metadata.</param>
+        /// <param name="pbMetadata">[in] Buffer that contains the delta metadata. The address of the buffer is returned from the <see cref="IMetaDataEmit2.SaveDeltaToMemory"/> method.<para/>
+        /// The relative virtual addresses (RVAs) in the metadata should be relative to the start of the MSIL code.</param>
+        /// <param name="cbIL">[in] Size, in bytes, of the delta MSIL code.</param>
+        /// <param name="pbIL">[in] Buffer that contains the updated MSIL code.</param>
+        /// <remarks>
+        /// The pbMetadata parameter is in a special delta metadata format (as output by <see cref="IMetaDataEmit2.SaveDeltaToMemory"/>).
+        /// pbMetadata takes previous metadata as a base and describes individual changes to apply to that base. In contrast,
+        /// the pbIL[] parameter contains the new MSIL for the updated method, and is meant to completely replace the previous
+        /// MSIL for that method When the delta MSIL and the metadata have been created in the debugger’s memory, the debugger
+        /// calls ApplyChanges to send the changes into the common language runtime (CLR). The runtime updates its metadata
+        /// tables, places the new MSIL into the process, and sets up a just-in-time (JIT) compilation of the new MSIL. When
+        /// the changes have been applied, the debugger should call <see cref="IMetaDataEmit2.ResetENCLog"/> to prepare for
+        /// the next editing session. The debugger may then continue the process. Whenever the debugger calls ApplyChanges
+        /// on a module that has delta metadata, it should also call <see cref="IMetaDataEmit.ApplyEditAndContinue"/> with
+        /// the same delta metadata on all of its copies of that module’s metadata except for the copy used to emit the changes.
+        /// If a copy of the metadata somehow becomes out-of-sync with the actual metadata, the debugger can always throw away
+        /// that copy and obtain a new copy. If the ApplyChanges method fails, the debug session is in an invalid state and
+        /// must be restarted.
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ApplyChanges([In] uint cbMetadata, [In] ref byte pbMetadata, [In] uint cbIL, [In] ref byte pbIL);
@@ -42,7 +65,7 @@ namespace ManagedCorDebug
         /// to call it after the ICorDebugManagedCallback::LoadModule callback has been delivered will fail. Edit and Continue
         /// is not supported on 64-bit or Win9x platforms. Therefore, if you call the SetJITCompilerFlags method on either
         /// of these two platforms with the CORDEBUG_JIT_ENABLE_ENC flag set in dwFlags, the SetJITCompilerFlags method and
-        /// all methods specific to Edit and Continue, such as <see cref="ICorDebugModule2.ApplyChanges"/>, will fail.
+        /// all methods specific to Edit and Continue, such as <see cref="ApplyChanges"/>, will fail.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

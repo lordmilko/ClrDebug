@@ -59,8 +59,7 @@ namespace ManagedCorDebug
         new HRESULT CreateBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
 
         /// <summary>
-        /// Gets a value that indicates whether the object represented by this ICorDebugHeapValue is valid.<para/>
-        /// This method has been deprecated in the .NET Framework version 2.0.
+        /// Gets a value that indicates whether the object represented by this ICorDebugHeapValue is valid. This method has been deprecated in the .NET Framework version 2.0.
         /// </summary>
         /// <param name="pbValid">[out] A pointer to a Boolean value that indicates whether this value on the heap is valid.</param>
         /// <remarks>

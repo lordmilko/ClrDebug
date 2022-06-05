@@ -35,7 +35,8 @@ namespace ManagedCorDebug
         /// Gets a pointer to a function that has a given signature.
         /// </summary>
         /// <param name="nTypeArgs">[in] The number of type arguments for the function.</param>
-        /// <param name="ppTypeArgs">[in] An array of pointers, each of which points to an ICorDebugType object that represents a type argument of the function. The first element is the return type; each of the other elements is a parameter type.</param>
+        /// <param name="ppTypeArgs">[in] An array of pointers, each of which points to an ICorDebugType object that represents a type argument of the function.<para/>
+        /// The first element is the return type; each of the other elements is a parameter type.</param>
         /// <param name="ppType">[out] A pointer to the address of an ICorDebugType object that represents the pointer to the function.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

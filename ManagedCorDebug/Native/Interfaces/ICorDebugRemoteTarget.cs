@@ -22,6 +22,10 @@ namespace ManagedCorDebug
         /// <param name="cchHostName">[in] The size, in characters, of the szHostName buffer. If this parameter is 0 (zero), szHostName must be null.</param>
         /// <param name="pcchHostName">[out] The number of characters, including a null terminator, in the host name or IP address. This parameter can be null.</param>
         /// <param name="szHostName">[out] Buffer that contains the host name or IP address.</param>
+        /// <returns>
+        /// * S_OK - The host name or IP address was successfully returned.
+        /// * E_FAIL (or other E_ return codes) - Unable to return the host name or IP address.
+        /// </returns>
         /// <remarks>
         /// This method is implemented by the debugger writer. It must follow the multiple call paradigm: On the first call,
         /// the caller passes null to both cchHostName and szHostName, and pcchHostName returns the size of the required buffer.

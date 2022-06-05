@@ -117,8 +117,9 @@ namespace ManagedCorDebug
         /// <param name="threadID">[in] The operating system identifier of a thread in the target process.</param>
         /// <param name="contextFlags">[in] Flags that specify which parts of the context to return. The implementation will return at least these parts of the context.</param>
         /// <param name="contextSize">[in] The size of the context.</param>
-        /// <param name="context">[out] Pointer to a buffer in which to place the context.
-        /// The data in the context buffer must be in the format of the Win32 CONTEXT structure. The context specifies processor-specific register data, so the definition of the Win32 CONTEXT structure depends on the processor's architecture. Refer to the WinNT.h header file for the definition of the Win32 CONTEXT structure.</param>
+        /// <param name="context">[out] Pointer to a buffer in which to place the context. The data in the context buffer must be in the format of the Win32 CONTEXT structure.<para/>
+        /// The context specifies processor-specific register data, so the definition of the Win32 CONTEXT structure depends on the processor's architecture.<para/>
+        /// Refer to the WinNT.h header file for the definition of the Win32 CONTEXT structure.</param>
         /// <remarks>
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
@@ -135,8 +136,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="threadID">[in] The operating system identifier of a thread in the target process.</param>
         /// <param name="contextSize">[in] The size of the context.</param>
-        /// <param name="context">[in] Pointer to a buffer containing the context.
-        /// The data in the context buffer will be in the format of the Win32 CONTEXT structure. The context specifies processor-specific register data, so the definition of the Win32 CONTEXT structure depends on the processor's architecture. Refer to the WinNT.h header file for the definition of the Win32 CONTEXT structure.</param>
+        /// <param name="context">[in] Pointer to a buffer containing the context. The data in the context buffer will be in the format of the Win32 CONTEXT structure.<para/>
+        /// The context specifies processor-specific register data, so the definition of the Win32 CONTEXT structure depends on the processor's architecture.<para/>
+        /// Refer to the WinNT.h header file for the definition of the Win32 CONTEXT structure.</param>
         /// <remarks>
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>

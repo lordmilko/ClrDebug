@@ -18,6 +18,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pDataByteCount">[out] A pointer to a ULONG32 that receives the size, in bytes, of the source server data.</param>
         /// <param name="ppData">[out] A pointer to the returned pDataByteCount value.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSourceServerData(out uint pDataByteCount, [Out] IntPtr ppData);

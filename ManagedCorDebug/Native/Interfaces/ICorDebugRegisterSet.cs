@@ -62,7 +62,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The debugger should call this function instead of the Win32 GetThreadContext function, because the thread may be
         /// in a "hijacked" state where its context has been temporarily changed. The data returned is a Win32 CONTEXT structure
-        /// for the current platform. For non-leaf frames, clients should check which registers are valid by using <see cref="ICorDebugRegisterSet.GetRegistersAvailable"/>.
+        /// for the current platform. For non-leaf frames, clients should check which registers are valid by using <see cref="GetRegistersAvailable"/>.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

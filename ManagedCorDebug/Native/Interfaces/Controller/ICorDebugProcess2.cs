@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -11,6 +12,14 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugProcess2
     {
+        /// <summary>
+        /// Gets the thread on which the task with the specified identifier is executing.
+        /// </summary>
+        /// <param name="taskid">[in] The identifier of the task.</param>
+        /// <param name="ppThread">[out] A pointer to the address of an ICorDebugThread2 object that represents the thread to be retrieved.</param>
+        /// <remarks>
+        /// The host can set the task identifier by using the <see cref="ICLRTask.SetTaskIdentifier"/> method.
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetThreadForTaskID([In] ulong taskid, [MarshalAs(UnmanagedType.Interface)] out ICorDebugThread2 ppThread);
@@ -50,7 +59,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="address">[in] A CORDB_ADDRESS value that specifies the address at which the breakpoint was set.</param>
         /// <remarks>
-        /// The specified breakpoint would have been previously set by an earlier call to <see cref="ICorDebugProcess2.SetUnmanagedBreakpoint"/>.
+        /// The specified breakpoint would have been previously set by an earlier call to <see cref="SetUnmanagedBreakpoint"/>.
         /// The ClearUnmanagedBreakpoint method can be called while the process being debugged is running. The ClearUnmanagedBreakpoint
         /// method returns a failure code if the debugger is attached in managed-only mode or if no breakpoint exists at the
         /// specified address.
@@ -84,8 +93,8 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pdwFlags">[out] A pointer to a bitwise combination of the <see cref="CorDebugJITCompilerFlags"/> enumeration values that are used to select the correct precompiled image to be loaded.</param>
         /// <remarks>
-        /// Use the <see cref="ICorDebugProcess2.SetDesiredNGENCompilerFlags"/> method to set the flags that the CLR will use
-        /// to select the correct pre-compiled image to load.
+        /// Use the <see cref="SetDesiredNGENCompilerFlags"/> method to set the flags that the CLR will use to select the correct
+        /// pre-compiled image to load.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -94,7 +103,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets a reference pointer to the specified managed object that has a garbage collection handle.
         /// </summary>
-        /// <param name="handle">[in] A pointer to a managed object that has a garbage collection handle. This value is a System.IntPtr object and can be retrieved from the System.Runtime.InteropServices.GCHandle for the managed object.</param>
+        /// <param name="handle">[in] A pointer to a managed object that has a garbage collection handle. This value is a <see cref="IntPtr"/> object and can be retrieved from the <see cref="GCHandle"/> for the managed object.</param>
         /// <param name="pOutValue">[out] A pointer to the address of an ICorDebugReferenceValue object that represents a reference to the specified managed object.</param>
         /// <remarks>
         /// Do not confuse the returned reference value with a garbage collection reference value. The returned reference behaves
@@ -103,6 +112,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetReferenceValueFromGCHandle([In] ulong handle, [MarshalAs(UnmanagedType.Interface)] out ICorDebugReferenceValue pOutValue);
+        HRESULT GetReferenceValueFromGCHandle([In] IntPtr handle, [MarshalAs(UnmanagedType.Interface)] out ICorDebugReferenceValue pOutValue);
     }
 }

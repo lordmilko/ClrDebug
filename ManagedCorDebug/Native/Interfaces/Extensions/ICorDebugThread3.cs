@@ -19,6 +19,14 @@ namespace ManagedCorDebug
         /// Creates an <see cref="ICorDebugStackWalk"/> object for the thread whose stack you want to unwind.
         /// </summary>
         /// <param name="ppStackWalk">[out] A pointer to address of the <see cref="ICorDebugStackWalk"/> object for the thread whose stack you want to unwind.</param>
+        /// <returns>
+        /// This method returns the following specific HRESULTs as well as HRESULT errors that indicate method failure.
+        /// 
+        /// | HRESULT | Description                                             |
+        /// | ------- | ------------------------------------------------------- |
+        /// | S_OK    | The ICorDebugStackWalk object was successfully created. |
+        /// | E_FAIL  | The ICorDebugStackWalk object was not created.          |
+        /// </returns>
         /// <remarks>
         /// If the CreateStackWalk method succeeds, the returned ICorDebugStackWalk object's context is set to the thread's
         /// current context.
@@ -33,13 +41,22 @@ namespace ManagedCorDebug
         /// <param name="cInternalFrames">[in] The number of internal frames expected in ppInternalFrames.</param>
         /// <param name="pcInternalFrames">[out] A pointer to a ULONG32 that contains the number of internal frames on the stack.</param>
         /// <param name="ppInternalFrames">[in, out] A pointer to the address of an array of internal frames on the stack.</param>
+        /// <returns>
+        /// This method returns the following specific HRESULTs as well as HRESULT errors that indicate method failure.
+        /// 
+        /// | HRESULT                                       | Description                                                                            |
+        /// | --------------------------------------------- | -------------------------------------------------------------------------------------- |
+        /// | S_OK                                          | The <see cref="ICorDebugInternalFrame2"/> object was successfully created.             |
+        /// | E_INVALIDARG                                  | cInternalFrames is not zero and ppInternalFrames is null, or pcInternalFrames is null. |
+        /// | HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER) | ppInternalFrames is smaller than the count of internal frames.                         |
+        /// </returns>
         /// <remarks>
         /// Internal frames are data structures pushed onto the stack by the runtime to store temporary data. When you first
         /// call GetActiveInternalFrames, you should set the cInternalFrames parameter to 0 (zero), and the ppInternalFrames
         /// parameter to null. When GetActiveInternalFrames first returns, pcInternalFrames contains the count of the internal
         /// frames on the stack. GetActiveInternalFrames should then be called a second time. You should pass the proper count
         /// (pcInternalFrames) in the cInternalFrames parameter, and specify a pointer to an appropriately sized array in ppInternalFrames.
-        /// Use the <see cref="ICorDebugThread3.GetActiveInternalFrames"/> method to return actual stack frames.
+        /// Use the <see cref="GetActiveInternalFrames"/> method to return actual stack frames.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

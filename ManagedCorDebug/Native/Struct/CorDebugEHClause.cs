@@ -3,8 +3,7 @@
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// [Supported in the .NET Framework 4.5.2 and later versions]<para/>
-    /// Represents an exception handling (EH) clause for a given piece of intermediate language (IL) code.
+    /// [Supported in the .NET Framework 4.5.2 and later versions] Represents an exception handling (EH) clause for a given piece of intermediate language (IL) code.
     /// </summary>
     /// <remarks>
     /// An array of CoreDebugEHClause values is returned by the <see cref="ICorDebugILCode.GetEHClauses"/> method. The

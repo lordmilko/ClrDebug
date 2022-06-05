@@ -1,4 +1,6 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -20,7 +22,7 @@ namespace ManagedCorDebug
         /// <param name="szName">A pointer to a character array.</param>
         /// <remarks>
         /// This method retrieves the simple name of an assembly (such as "System.Collections"), without a file extension,
-        /// version, culture, or public key token. It corresponds to the System.Reflection.AssemblyName.Name property in managed
+        /// version, culture, or public key token. It corresponds to the <see cref="AssemblyName.Name"/> property in managed
         /// code.
         /// </remarks>
         [PreserveSig]
@@ -35,7 +37,7 @@ namespace ManagedCorDebug
         /// <param name="pBuild">[out] A pointer to the build number.</param>
         /// <param name="pRevision">[out] A pointer to the revision number.</param>
         /// <remarks>
-        /// For information on assembly version numbers, see the System.Version class topic.
+        /// For information on assembly version numbers, see the <see cref="Version"/> class topic.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

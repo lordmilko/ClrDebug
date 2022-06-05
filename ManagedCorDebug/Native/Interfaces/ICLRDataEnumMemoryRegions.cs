@@ -14,7 +14,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Enumerates specified areas of memory.
         /// </summary>
-        /// <param name="callback">[in] A pointer to an <see cref="ICLRDataEnumMemoryRegionsCallback"/> instance that is called by this method for each memory region being enumerated to notify the debugger of the result.
+        /// <param name="callback">[in] A pointer to an <see cref="ICLRDataEnumMemoryRegionsCallback"/> instance that is called by this method for each memory region being enumerated to notify the debugger of the result.<para/>
         /// The enumeration of memory regions continues even if the callback indicates a failure.</param>
         /// <param name="miniDumpFlags">[in] Not used.</param>
         /// <param name="clrFlags">[in] A value of the <see cref="CLRDataEnumMemoryFlags"/> enumeration that specifies the regions of memory to be enumerated.</param>

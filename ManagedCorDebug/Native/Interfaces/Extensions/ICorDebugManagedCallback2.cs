@@ -74,6 +74,15 @@ namespace ManagedCorDebug
         HRESULT ChangeConnection([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugProcess pProcess, [In] uint dwConnectionId);
 
+        /// <summary>
+        /// Notifies the debugger that the specified connection has been terminated.
+        /// </summary>
+        /// <param name="pProcess">[in] A pointer to an ICorDebugProcess object that represents the process containing the connection that was destroyed.</param>
+        /// <param name="dwConnectionId">[in] The ID of the connection that was destroyed.</param>
+        /// <remarks>
+        /// A DestroyConnection callback will be fired when a host calls <see cref="ICLRDebugManager.EndConnection"/> in the
+        /// Hosting API.
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT DestroyConnection([MarshalAs(UnmanagedType.Interface), In]
@@ -84,7 +93,8 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain containing the thread on which the exception was thrown.</param>
         /// <param name="pThread">[in] A pointer to an ICorDebugThread object that represents the thread on which the exception was thrown.</param>
-        /// <param name="pFrame">[in] A pointer to an ICorDebugFrame object that represents a frame, as determined by the dwEventType parameter. For more information, see the table in the Remarks section.</param>
+        /// <param name="pFrame">[in] A pointer to an ICorDebugFrame object that represents a frame, as determined by the dwEventType parameter.<para/>
+        /// For more information, see the table in the Remarks section.</param>
         /// <param name="nOffset">[in] An integer that specifies an offset, as determined by the dwEventType parameter. For more information, see the table in the Remarks section.</param>
         /// <param name="dwEventType">[in] A value of the CorDebugExceptionCallbackType enumeration that specifies the type of this exception callback.</param>
         /// <param name="dwFlags">[in] A value of the <see cref="CorDebugExceptionFlags"/> enumeration that specifies additional information about the exception</param>
@@ -152,11 +162,10 @@ namespace ManagedCorDebug
         /// <summary>
         /// Provides notification that code execution has encountered a managed debugging assistant (MDA) in the application that is being debugged.
         /// </summary>
-        /// <param name="pController">[in] A pointer to an ICorDebugController interface that exposes the process or application domain in which the MDA occurred.
+        /// <param name="pController">[in] A pointer to an ICorDebugController interface that exposes the process or application domain in which the MDA occurred.<para/>
         /// A debugger should not make any assumptions about whether the controller is a process or an application domain, although it can always query the interface to make a determination.</param>
-        /// <param name="pThread">[in] A pointer to an ICorDebugThread interface that exposes the managed thread on which the debug event occurred.
-        /// If the MDA occurred on an unmanaged thread, the value of pThread will be null.
-        /// You must get the operating system (OS) thread ID from the MDA object itself.</param>
+        /// <param name="pThread">[in] A pointer to an ICorDebugThread interface that exposes the managed thread on which the debug event occurred.<para/>
+        /// If the MDA occurred on an unmanaged thread, the value of pThread will be null. You must get the operating system (OS) thread ID from the MDA object itself.</param>
         /// <param name="pMDA">[in] A pointer to an <see cref="ICorDebugMDA"/> interface that exposes the MDA information.</param>
         /// <remarks>
         /// An MDA is a heuristic warning and does not require any explicit debugger action except for calling <see cref="ICorDebugController.Continue"/>

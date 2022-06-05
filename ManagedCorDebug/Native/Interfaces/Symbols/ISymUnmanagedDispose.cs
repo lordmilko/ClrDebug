@@ -14,6 +14,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Causes the underlying object to release all internal references and return failure on any subsequent method calls.
         /// </summary>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Destroy();

@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -30,7 +31,7 @@ namespace ManagedCorDebug
         new HRESULT Stop([In] uint dwTimeoutIgnored);
 
         /// <summary>
-        /// Resumes execution of managed threads after a call to <see cref="ICorDebugController.Stop"/>.
+        /// Resumes execution of managed threads after a call to <see cref="Stop"/>.
         /// </summary>
         /// <param name="fIsOutOfBand">[in] Set to true if continuing from an out-of-band event; otherwise, set to false.</param>
         /// <remarks>
@@ -59,16 +60,15 @@ namespace ManagedCorDebug
         /// Gets a value that indicates whether any managed callbacks are currently queued for the specified thread.
         /// </summary>
         /// <param name="pThread">[in] A pointer to an "ICorDebugThread" object that represents the thread.</param>
-        /// <param name="pbQueued">[out] A pointer to a value that is true if any managed callbacks are currently queued for the specified thread; otherwise, false.
+        /// <param name="pbQueued">[out] A pointer to a value that is true if any managed callbacks are currently queued for the specified thread; otherwise, false.<para/>
         /// If null is specified for the pThread parameter, HasQueuedCallbacks will return true if there are currently managed callbacks queued for any thread.</param>
         /// <remarks>
-        /// Callbacks will be dispatched one at a time, each time <see cref="ICorDebugController.Continue"/> is called. The
-        /// debugger can check this flag if it wants to report multiple debugging events that occur simultaneously. When debugging
-        /// events are queued, they have already occurred, so the debugger must drain the entire queue to be sure of the state
-        /// of the debuggee. (Call ICorDebugController::Continue to drain the queue.) For example, if the queue contains two
-        /// debugging events on thread X, and the debugger suspends thread X after the first debugging event and then calls
-        /// ICorDebugController::Continue, the second debugging event for thread X will be dispatched although the thread has
-        /// been suspended.
+        /// Callbacks will be dispatched one at a time, each time <see cref="Continue"/> is called. The debugger can check
+        /// this flag if it wants to report multiple debugging events that occur simultaneously. When debugging events are
+        /// queued, they have already occurred, so the debugger must drain the entire queue to be sure of the state of the
+        /// debuggee. (Call ICorDebugController::Continue to drain the queue.) For example, if the queue contains two debugging
+        /// events on thread X, and the debugger suspends thread X after the first debugging event and then calls ICorDebugController::Continue,
+        /// the second debugging event for thread X will be dispatched although the thread has been suspended.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -93,9 +93,10 @@ namespace ManagedCorDebug
         /// Sets the debug state of all managed threads in the process.
         /// </summary>
         /// <param name="state">[in] A value of the "CorDebugThreadState" enumeration that specifies the state of the thread for debugging.</param>
-        /// <param name="pExceptThisThread">[in] A pointer to an "ICorDebugThread" object that represents a thread to be exempted from the debug state setting. If this value is null, no thread is exempted.</param>
+        /// <param name="pExceptThisThread">[in] A pointer to an "ICorDebugThread" object that represents a thread to be exempted from the debug state setting.<para/>
+        /// If this value is null, no thread is exempted.</param>
         /// <remarks>
-        /// The SetAllThreadsDebugState method may affect threads that are not visible via <see cref="ICorDebugController.EnumerateThreads"/>,
+        /// The SetAllThreadsDebugState method may affect threads that are not visible via <see cref="EnumerateThreads"/>,
         /// so threads that were suspended with the SetAllThreadsDebugState method will need to be resumed with the SetAllThreadsDebugState
         /// method.
         /// </remarks>
@@ -121,7 +122,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="exitCode">[in] A numeric value that is the exit code. The valid numeric values are defined in Winbase.h.</param>
         /// <remarks>
-        /// If the process is stopped when Terminate is called, the process should be continued by using the <see cref="ICorDebugController.Continue"/>
+        /// If the process is stopped when Terminate is called, the process should be continued by using the <see cref="Continue"/>
         /// method so that the debugger receives confirmation of the termination through the <see cref="ICorDebugManagedCallback.ExitProcess"/>
         /// or <see cref="ICorDebugManagedCallback.ExitAppDomain"/> callback.
         /// </remarks>
@@ -226,9 +227,11 @@ namespace ManagedCorDebug
         /// Gets an interface pointer to the common language runtime (CLR) application domain.
         /// </summary>
         /// <param name="ppObject">[out] A pointer to the address of an ICorDebugValue interface object that represents the CLR application domain.</param>
+        /// <returns>If a managed <see cref="AppDomain"/> object hasn't been constructed for this application domain, the method returns S_FALSE and places NULL in *ppObject.</returns>
         /// <remarks>
-        /// Each application domain in a process may have a managed System.AppDomain object in the runtime that represents
-        /// it. This function gets an ICorDebugValue interface object that corresponds to this managed System.AppDomain object.
+        /// Each application domain in a process may have a managed <see cref="AppDomain"/> object in the runtime that represents
+        /// it. This function gets an ICorDebugValue interface object that corresponds to this managed <see cref="AppDomain"/>
+        /// object.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

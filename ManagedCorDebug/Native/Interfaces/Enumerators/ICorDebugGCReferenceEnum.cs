@@ -9,9 +9,8 @@ namespace ManagedCorDebug
     /// <remarks>
     /// The ICorDebugGCReferenceEnum interface implements the "ICorDebugEnum" interface. An ICorDebugGCReferenceEnum instance
     /// is populated with <see cref="COR_GC_REFERENCE"/> instances by calling the <see cref="ICorDebugProcess5.EnumerateGCReferences"/>
-    /// method. <see cref="COR_GC_REFERENCE"/> objects can be enumerated by calling the <see cref="ICorDebugGCReferenceEnum.Next"/>
-    /// method. The <see cref="COR_GC_REFERENCE"/> objects in the collection populated by this method represent three kinds
-    /// of objects:
+    /// method. <see cref="COR_GC_REFERENCE"/> objects can be enumerated by calling the <see cref="Next"/> method. The
+    /// <see cref="COR_GC_REFERENCE"/> objects in the collection populated by this method represent three kinds of objects:
     /// </remarks>
     [Guid("7F3C24D3-7E1D-4245-AC3A-F72F8859C80C")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

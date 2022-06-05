@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Extends the ICorDebugType interface to retrieve the type identifier  of a base type or complex (user-defined) type.
+    /// Extends the ICorDebugType interface to retrieve the type identifier of a base type or complex (user-defined) type.
     /// </summary>
     /// <remarks>
     /// This interface is a logical extension of the ICorDebugType interface.
@@ -18,6 +18,15 @@ namespace ManagedCorDebug
         /// Gets a <see cref="COR_TYPEID"/> for this type.
         /// </summary>
         /// <param name="id">[out] A pointer to the <see cref="COR_TYPEID"/> for this ICorDebugType.</param>
+        /// <returns>
+        /// The return value is S_OK on success, or a failure HRESULT code on failure. The HRESULT codes include the following:
+        /// 
+        /// | Return code               | Description                                                                  |
+        /// | ------------------------- | ---------------------------------------------------------------------------- |
+        /// | S_OK                      | Method succeeded. The method has retrieved a valid <see cref="COR_TYPEID"/>. |
+        /// | CORDBG_E_CLASS_NOT_LOADED | The type has not been loaded.                                                |
+        /// | CORDBG_E_UNSUPPORTED      | The type is not supported.                                                   |
+        /// </returns>
         /// <remarks>
         /// This method provides a mapping from the ICorDebugType, which represents a type that may or may not have been loaded
         /// into the runtime, to a <see cref="COR_TYPEID"/>, which serves as an opaque handle that identifies a type loaded

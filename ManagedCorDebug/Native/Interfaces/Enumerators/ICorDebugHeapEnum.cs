@@ -11,7 +11,7 @@ namespace ManagedCorDebug
     /// with <see cref="COR_HEAPOBJECT"/> instances by calling the <see cref="ICorDebugProcess5.EnumerateHeap"/> method.
     /// Each <see cref="COR_HEAPOBJECT"/> instance in the collection represents either a live object on the heap or an
     /// object that is not rooted by any object but has not yet been collected by the garbage collector. The <see cref="COR_HEAPOBJECT"/>
-    /// objects in the collection can be enumerated by calling the <see cref="ICorDebugHeapEnum.Next"/> method.
+    /// objects in the collection can be enumerated by calling the <see cref="Next"/> method.
     /// </remarks>
     [Guid("76D7DAB8-D044-11DF-9A15-7E29DFD72085")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

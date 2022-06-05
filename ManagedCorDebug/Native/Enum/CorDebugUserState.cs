@@ -46,7 +46,9 @@
         USER_SUSPENDED = 64, // 0x00000040
 
         /// <summary>
-        /// The thread is at an unsafe point. That is, the thread is at a point in execution where it may block garbage collection. Debug events may be dispatched from unsafe points, but suspending a thread at an unsafe point  will very likely cause a deadlock until the thread is resumed. The safe and unsafe points are determined by the just-in-time (JIT) and garbage collection implementation.
+        /// The thread is at an unsafe point. That is, the thread is at a point in execution where it may block garbage collection.<para/>
+        /// Debug events may be dispatched from unsafe points, but suspending a thread at an unsafe point will very likely cause a deadlock until the thread is resumed.<para/>
+        /// The safe and unsafe points are determined by the just-in-time (JIT) and garbage collection implementation.
         /// </summary>
         USER_UNSAFE_POINT = 128, // 0x00000080
 

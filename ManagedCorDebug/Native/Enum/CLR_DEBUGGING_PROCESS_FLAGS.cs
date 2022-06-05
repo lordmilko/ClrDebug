@@ -1,4 +1,6 @@
-﻿namespace ManagedCorDebug
+﻿using System.Diagnostics;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Provides values that are used by the <see cref="ICLRDebugging.OpenVirtualProcess"/> method.
@@ -18,7 +20,7 @@
         CLR_DEBUGGING_MANAGED_EVENT_PENDING = 1,
 
         /// <summary>
-        /// The managed event that is pending is a System.Diagnostics.Debugger.Launch request.
+        /// The managed event that is pending is a <see cref="Debugger.Launch"/> request.
         /// </summary>
         CLR_DEBUGGING_MANAGED_EVENT_DEBUGGER_LAUNCH = 2
     }

@@ -67,7 +67,8 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugFunctionBreakpoint ppBreakpoint);
 
         /// <summary>
-        /// Gets all the code for the specified function, formatted for disassembly. This method has been deprecated in the .NET Framework version 2.0. Use <see cref="ICorDebugCode2.GetCodeChunks"/> instead.
+        /// Gets all the code for the specified function, formatted for disassembly. This method has been deprecated in the .NET Framework version 2.0.<para/>
+        /// Use <see cref="ICorDebugCode2.GetCodeChunks"/> instead.
         /// </summary>
         /// <param name="startOffset">[in] The offset of the beginning of the function.</param>
         /// <param name="endOffset">[in] The offset of the end of the function.</param>
@@ -103,7 +104,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cMap">[in] The size of the map array.</param>
         /// <param name="pcMap">[out] A pointer to the actual number of elements returned in the map array.</param>
-        /// <param name="map">[out] An array of COR_DEBUG_IL_TO_NATIVE_MAP structures, each of which represents a mapping from an MSIL offset to a native offset.
+        /// <param name="map">[out] An array of COR_DEBUG_IL_TO_NATIVE_MAP structures, each of which represents a mapping from an MSIL offset to a native offset.<para/>
         /// There is no ordering to the array of elements returned.</param>
         /// <remarks>
         /// The GetILToNativeMapping method returns meaningful results only if this "ICorDebugCode" instance represents native

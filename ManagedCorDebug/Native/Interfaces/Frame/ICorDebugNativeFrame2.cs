@@ -18,10 +18,18 @@ namespace ManagedCorDebug
         /// Determines whether the current frame is a child frame.
         /// </summary>
         /// <param name="pIsChild">[out] A Boolean value that specifies whether the current frame is a child frame.</param>
+        /// <returns>
+        /// This method returns the following specific HRESULTs as well as HRESULT errors that indicate method failure.
+        /// 
+        /// | HRESULT      | Description                                 |
+        /// | ------------ | ------------------------------------------- |
+        /// | S_OK         | The child status was successfully returned. |
+        /// | E_FAIL       | The child status could not be returned.     |
+        /// | E_INVALIDARG | pIsChild is null.                           |
+        /// </returns>
         /// <remarks>
         /// The IsChild method returns true if the frame object on which you call the method is a child of another frame. If
-        /// this is the case, use the <see cref="ICorDebugNativeFrame2.IsMatchingParentFrame"/> method to check whether a frame
-        /// is its parent.
+        /// this is the case, use the <see cref="IsMatchingParentFrame"/> method to check whether a frame is its parent.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -32,6 +40,15 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pPotentialParentFrame">[in] A pointer to the frame object that you want to evaluate for parent status.</param>
         /// <param name="pIsParent">[out] true if pPotentialParentFrame is the current frame’s parent; otherwise, false.</param>
+        /// <returns>
+        /// This method returns the following specific HRESULTs as well as HRESULT errors that indicate method failure.
+        /// 
+        /// | HRESULT      | Description                                  |
+        /// | ------------ | -------------------------------------------- |
+        /// | S_OK         | The parent status was successfully returned. |
+        /// | E_FAIL       | The parent status could not be returned.     |
+        /// | E_INVALIDARG | pPotentialParentFrame or pIsParent is null.  |
+        /// </returns>
         /// <remarks>
         /// IsMatchingParentFrame returns true if the frame object you pass to the method is the parent of the frame object
         /// on which the method was called. If you call the method on a frame that is not a child of the specified frame, it
@@ -46,6 +63,16 @@ namespace ManagedCorDebug
         /// Returns the cumulative size of the parameters on the stack on x86 operating systems.
         /// </summary>
         /// <param name="pSize">[out] A pointer to the cumulative size of the parameters on the stack.</param>
+        /// <returns>
+        /// This method returns the following specific HRESULTs as well as HRESULT errors that indicate method failure.
+        /// 
+        /// | HRESULT      | Description                                             |
+        /// | ------------ | ------------------------------------------------------- |
+        /// | S_OK         | The stack size was successfully returned.               |
+        /// | S_FALSE      | GetStackParameterSize was called on a non-x86 platform. |
+        /// | E_FAIL       | The size of the parameters could not be returned.       |
+        /// | E_INVALIDARG | pSize Is null.                                          |
+        /// </returns>
         /// <remarks>
         /// The <see cref="ICorDebugStackWalk"/> methods do not adjust the stack pointer for parameters that are pushed on
         /// the stack. Instead, you can use the value returned by GetStackParameterSize to adjust the stack pointer to seed

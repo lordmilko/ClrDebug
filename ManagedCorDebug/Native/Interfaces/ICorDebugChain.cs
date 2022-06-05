@@ -46,8 +46,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the chain that called this chain.
         /// </summary>
-        /// <param name="ppChain">[out] A pointer to the address of an ICorDebugChain object that represents the calling chain.
-        /// If this chain was spontaneously called (as would be the case if this chain or the debugger initialized the call stack), ppChain will be null.</param>
+        /// <param name="ppChain">[out] A pointer to the address of an ICorDebugChain object that represents the calling chain. If this chain was spontaneously called (as would be the case if this chain or the debugger initialized the call stack), ppChain will be null.</param>
         /// <remarks>
         /// The calling chain may be on a different thread, if the call was marshalled across threads.
         /// </remarks>
@@ -70,7 +69,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the previous chain of frames for the thread.
         /// </summary>
-        /// <param name="ppChain">[out] A pointer to the address of an ICorDebugChain object that represents the previous chain of frames for this thread. If this chain is the first chain, ppChain is null.</param>
+        /// <param name="ppChain">[out] A pointer to the address of an ICorDebugChain object that represents the previous chain of frames for this thread.<para/>
+        /// If this chain is the first chain, ppChain is null.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetPrevious([MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);
@@ -78,7 +78,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the next chain of frames for the thread.
         /// </summary>
-        /// <param name="ppChain">[out] A pointer to the address of an ICorDebugChain object that represents the next chain of frames for the thread. If this chain is the last chain, ppChain is null.</param>
+        /// <param name="ppChain">[out] A pointer to the address of an ICorDebugChain object that represents the next chain of frames for the thread.<para/>
+        /// If this chain is the last chain, ppChain is null.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetNext([MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);

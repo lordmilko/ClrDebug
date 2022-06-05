@@ -50,6 +50,12 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetCount(out uint pcelt);
 
+        /// <summary>
+        /// Gets the specified number of <see cref="COR_SEGMENT"/> instances that contain information about memory regions of the managed heap.
+        /// </summary>
+        /// <param name="celt">[in] The number of segments to be retrieved.</param>
+        /// <param name="segments">[out] An array of pointers, each of which points to a <see cref="COR_SEGMENT"/> object that provides information about a region of memory in the managed heap.</param>
+        /// <param name="pceltFetched">[out] A pointer to the number of <see cref="COR_SEGMENT"/> objects actually returned in segments. This value may be null if celt is 1.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Next([In] uint celt, [MarshalAs(UnmanagedType.Interface), Out] out COR_SEGMENT segments, out uint pceltFetched);

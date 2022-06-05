@@ -117,8 +117,9 @@ namespace ManagedCorDebug
         /// <param name="threadID">[in] The operating system identifier of a thread in the target process.</param>
         /// <param name="contextFlags">[in] Flags that specify which parts of the context to return. The implementation will return at least these parts of the context.</param>
         /// <param name="contextSize">[in] The size of the context.</param>
-        /// <param name="context">[out] Pointer to a buffer in which to place the context.
-        /// The data in the context buffer must be in the format of the Win32 CONTEXT structure. The context specifies processor-specific register data, so the definition of the Win32 CONTEXT structure depends on the processor's architecture. Refer to the WinNT.h header file for the definition of the Win32 CONTEXT structure.</param>
+        /// <param name="context">[out] Pointer to a buffer in which to place the context. The data in the context buffer must be in the format of the Win32 CONTEXT structure.<para/>
+        /// The context specifies processor-specific register data, so the definition of the Win32 CONTEXT structure depends on the processor's architecture.<para/>
+        /// Refer to the WinNT.h header file for the definition of the Win32 CONTEXT structure.</param>
         /// <remarks>
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
@@ -135,8 +136,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="threadID">[in] The operating system identifier of a thread in the target process.</param>
         /// <param name="contextSize">[in] The size of the context.</param>
-        /// <param name="context">[in] Pointer to a buffer containing the context.
-        /// The data in the context buffer will be in the format of the Win32 CONTEXT structure. The context specifies processor-specific register data, so the definition of the Win32 CONTEXT structure depends on the processor's architecture. Refer to the WinNT.h header file for the definition of the Win32 CONTEXT structure.</param>
+        /// <param name="context">[in] Pointer to a buffer containing the context. The data in the context buffer will be in the format of the Win32 CONTEXT structure.<para/>
+        /// The context specifies processor-specific register data, so the definition of the Win32 CONTEXT structure depends on the processor's architecture.<para/>
+        /// Refer to the WinNT.h header file for the definition of the Win32 CONTEXT structure.</param>
         /// <remarks>
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
@@ -202,11 +204,21 @@ namespace ManagedCorDebug
         new HRESULT FreeVirtual([In] ulong addr, [In] uint size, [In] uint typeFlags);
 
         /// <summary>
-        /// Called by the common language runtime (CLR) data access services to retrieve the exception record associated with the target process. For example, for a dump target, this would be equivalent to the exception record passed in via the ExceptionParam argument to the MiniDumpWriteDump function in the Windows Debug Help Library (DbgHelp).
+        /// Called by the common language runtime (CLR) data access services to retrieve the exception record associated with the target process.<para/>
+        /// For example, for a dump target, this would be equivalent to the exception record passed in via the ExceptionParam argument to the MiniDumpWriteDump function in the Windows Debug Help Library (DbgHelp).
         /// </summary>
         /// <param name="bufferSize">[in] The input buffer size, in bytes. This must be equal to sizeof(MINIDUMP_EXCEPTION).</param>
         /// <param name="bufferUsed">[out] A pointer to a ULONG32 type that receives the number of bytes actually written to the buffer.</param>
         /// <param name="buffer">[out] A pointer to a memory buffer that receives a copy of the exception record. The exception record is returned as a MINIDUMP_EXCEPTION type.</param>
+        /// <returns>
+        /// The return value is S_OK on success, or a failure HRESULT code on failure. The HRESULT codes can include but are not limited to the following:
+        /// 
+        /// | Return code                          | Description                                                                  |
+        /// | ------------------------------------ | ---------------------------------------------------------------------------- |
+        /// | S_OK                                 | Method succeeded. The exception record has been copied to the output buffer. |
+        /// | HRESULT_FROM_WIN32(ERROR_NOT_FOUND)  | No exception record is associated with the target.                           |
+        /// | HRESULT_FROM_WIN32(ERROR_BAD_LENGTH) | The input buffer size is not equal to sizeof(MINIDUMP_EXCEPTION).            |
+        /// </returns>
         /// <remarks>
         /// MINIDUMP_EXCEPTION is a structure defined in dbghelp.h and imagehlp.h in the Windows SDK. This method is implemented
         /// by the writer of the debugging application.
@@ -215,6 +227,26 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetExceptionRecord([In] uint bufferSize, out uint bufferUsed, out byte buffer);
 
+        /// <summary>
+        /// Called by the common language runtime (CLR) data access services to retrieve the context record associated with the target process.<para/>
+        /// For example, for a dump target, this would be equivalent to the context record passed in via the ExceptionParam argument to the MiniDumpWriteDump function in the Windows Debug Help Library (DbgHelp).
+        /// </summary>
+        /// <param name="bufferSize">[in] The input buffer size, in bytes. This must be large enough to accommodate the context record.</param>
+        /// <param name="bufferUsed">[out] A pointer to a ULONG32 type that receives the number of bytes actually written to the buffer.</param>
+        /// <param name="buffer">[out] A pointer to a memory buffer that receives a copy of the context record. The exception record is returned as a CONTEXT type.</param>
+        /// <returns>
+        /// The return value is S_OK on success, or a failure HRESULT code on failure. The HRESULT codes can include but are not limited to the following:
+        /// 
+        /// | Return code                          | Description                                                                  |
+        /// | ------------------------------------ | ---------------------------------------------------------------------------- |
+        /// | S_OK                                 | Method succeeded. The context record has been copied to the output buffer.   |
+        /// | HRESULT_FROM_WIN32(ERROR_NOT_FOUND)  | No context record is associated with the target.                             |
+        /// | HRESULT_FROM_WIN32(ERROR_BAD_LENGTH) | The input buffer size is not large enough to accommodate the context record. |
+        /// </returns>
+        /// <remarks>
+        /// CONTEXT is a platform-specific structure defined in headers provided by the Windows SDK. This method is implemented
+        /// by the writer of the debugging application.
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetExceptionContextRecord([In] uint bufferSize, out uint bufferUsed, out byte buffer);
@@ -223,6 +255,14 @@ namespace ManagedCorDebug
         /// Called by the common language runtime (CLR) data access services to get the ID of the thread that threw the exception.
         /// </summary>
         /// <param name="threadID">[out] The ID of the thread that threw the exception.</param>
+        /// <returns>
+        /// The return value is S_OK on success, or a failure HRESULT code on failure. The HRESULT codes can include but are not limited to the following:
+        /// 
+        /// | Return code                         | Description                                         |
+        /// | ----------------------------------- | --------------------------------------------------- |
+        /// | S_OK                                | Method succeeded.                                   |
+        /// | HRESULT_FROM_WIN32(ERROR_NOT_FOUND) | Could not find a valid thread ID for the exception. |
+        /// </returns>
         /// <remarks>
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>

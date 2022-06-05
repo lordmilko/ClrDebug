@@ -14,7 +14,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Retrieves a generic dictionary map.
         /// </summary>
-        /// <param name="ppMemoryBuffer">[out] A pointer to the address of an <see cref="ICorDebugMemoryBuffer"/> object containing the generic dictionary map. See the Remarks section for more information.</param>
+        /// <param name="ppMemoryBuffer">[out] A pointer to the address of an <see cref="ICorDebugMemoryBuffer"/> object containing the generic dictionary map.<para/>
+        /// See the Remarks section for more information.</param>
         /// <remarks>
         /// The map consists of two top-level sections: 
         /// </remarks>

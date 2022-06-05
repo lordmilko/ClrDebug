@@ -25,6 +25,7 @@ namespace ManagedCorDebug
         /// <param name="pbHash">[out] The returned hash buffer.</param>
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
         /// <param name="pchHash">[out] The returned size, in bytes, of pbHash.</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHashFromAssemblyFile(
@@ -42,6 +43,7 @@ namespace ManagedCorDebug
         /// <param name="pbHash">[out] The returned hash buffer.</param>
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
         /// <param name="pchHash">[out] The returned size, in bytes, of pbHash.</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHashFromAssemblyFileW(
@@ -60,6 +62,7 @@ namespace ManagedCorDebug
         /// <param name="pbHash">[out] The returned hash buffer.</param>
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
         /// <param name="pchHash">[out] The size, in bytes, of the returned pbHash.</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHashFromBlob(
@@ -74,13 +77,15 @@ namespace ManagedCorDebug
         /// Generates a hash over the contents of the specified file.
         /// </summary>
         /// <param name="pszFilePath">[in] The name of the file to hash.</param>
-        /// <param name="piHashAlg">[in, out] The algorithm to use when generating the hash. Valid algorithms are those defined by the Win32 CryptoAPI. If piHashAlg is set to 0, the default algorithm CALG_SHA-1 is used.</param>
+        /// <param name="piHashAlg">[in, out] The algorithm to use when generating the hash. Valid algorithms are those defined by the Win32 CryptoAPI.<para/>
+        /// If piHashAlg is set to 0, the default algorithm CALG_SHA-1 is used.</param>
         /// <param name="pbHash">[out] A byte array containing the generated hash.</param>
         /// <param name="cchHash">[in] The maximum size of the buffer that pbHash points to.</param>
         /// <param name="pchHash">[out] The size, in bytes, of the returned pbHash.</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
         /// <remarks>
-        /// This method is the same as the <see cref="ICLRStrongName.GetHashFromFileW"/> method, except that the file name
-        /// specification is ANSI instead of Unicode.
+        /// This method is the same as the <see cref="GetHashFromFileW"/> method, except that the file name specification is
+        /// ANSI instead of Unicode.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -95,13 +100,15 @@ namespace ManagedCorDebug
         /// Generates a hash over the contents of the file specified by a Unicode string.
         /// </summary>
         /// <param name="pwzFilePath">[in] The Unicode name of the file to hash.</param>
-        /// <param name="piHashAlg">[in, out] The algorithm to use when generating the hash. Valid algorithms are those defined by the Win32 CryptoAPI. If piHashAlg is set to 0, the default algorithm CALG_SHA-1 is used.</param>
+        /// <param name="piHashAlg">[in, out] The algorithm to use when generating the hash. Valid algorithms are those defined by the Win32 CryptoAPI.<para/>
+        /// If piHashAlg is set to 0, the default algorithm CALG_SHA-1 is used.</param>
         /// <param name="pbHash">[out] A byte array containing the generated hash.</param>
         /// <param name="cchHash">[in] The maximum size of the buffer pointed to by pbHash.</param>
         /// <param name="pchHash">[out] The size, in bytes, of pbHash.</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
         /// <remarks>
-        /// This method is the same as the <see cref="ICLRStrongName.GetHashFromFile"/> method, except that the file name specification
-        /// is Unicode instead of ANSI.
+        /// This method is the same as the <see cref="GetHashFromFile"/> method, except that the file name specification is
+        /// Unicode instead of ANSI.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -120,6 +127,7 @@ namespace ManagedCorDebug
         /// <param name="pbHash">[out] The returned hash buffer.</param>
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
         /// <param name="pchHash">[out] The size, in bytes, of the returned pbHash.</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHashFromHandle(
@@ -129,15 +137,29 @@ namespace ManagedCorDebug
             [In] uint cchHash,
             out uint pchHash);
 
+        /// <summary>
+        /// Determines whether two assemblies differ only by their strong name signatures.
+        /// </summary>
+        /// <param name="wszAssembly1">[in] The path to the first assembly.</param>
+        /// <param name="wszAssembly2">[in] The path to the second assembly.</param>
+        /// <param name="pdwResult">[out] One of the following values:</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
+        /// <remarks>
+        /// The strong name signature of an assembly consists of the assembly's text name, version, culture, and public key
+        /// token.
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT StrongNameCompareAssemblies([MarshalAs(UnmanagedType.LPWStr), In] string pwzAssembly1,
-            [MarshalAs(UnmanagedType.LPWStr), In] string pwzAssembly2);
+        HRESULT StrongNameCompareAssemblies(
+            [MarshalAs(UnmanagedType.LPWStr), In] string wszAssembly1,
+            [MarshalAs(UnmanagedType.LPWStr), In] string wszAssembly2,
+            [Out] out uint pdwResult);
 
         /// <summary>
-        /// Frees memory that was allocated with a previous call to a strong name method such as <see cref="ICLRStrongName.StrongNameGetPublicKey"/>, <see cref="ICLRStrongName.StrongNameTokenFromPublicKey"/>, or <see cref="ICLRStrongName.StrongNameSignatureGeneration"/>.
+        /// Frees memory that was allocated with a previous call to a strong name method such as <see cref="StrongNameGetPublicKey"/>, <see cref="StrongNameTokenFromPublicKey"/>, or <see cref="StrongNameSignatureGeneration"/>.
         /// </summary>
         /// <param name="pbMemory">[in] A pointer to the memory to free.</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameFreeBuffer([In] ref byte pbMemory);
@@ -148,6 +170,7 @@ namespace ManagedCorDebug
         /// <param name="pwzFilePath">[in] A valid path to the executable file to be loaded.</param>
         /// <param name="pbBlob">[in] The buffer into which to load the executable file.</param>
         /// <param name="pcbBlob">[in, out] The requested maximum size, in bytes, of pbBlob. Upon return, the actual size, in bytes, of pbBlob.</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameGetBlob([MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath, [In] [Out] ref byte pbBlob,
@@ -160,6 +183,7 @@ namespace ManagedCorDebug
         /// <param name="dwLength">[in] The size, in bytes, of the image at pbBase.</param>
         /// <param name="pbBlob">[in] A buffer to contain the binary representation of the image.</param>
         /// <param name="pcbBlob">[in, out] The requested maximum size, in bytes, of pbBlob. Upon return, the actual size, in bytes, of pbBlob.</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameGetBlobFromImage(
@@ -168,6 +192,23 @@ namespace ManagedCorDebug
             out byte pbBlob,
             [In] [Out] ref uint pcbBlob);
 
+        /// <summary>
+        /// Gets the public key from a public/private key pair. The key pair can be supplied either as a key container name within a cryptographic service provider (CSP) or as a raw collection of bytes.
+        /// </summary>
+        /// <param name="pwzKeyContainer">[in] The name of the key container that contains the public/private key pair. If pbKeyBlob is null, szKeyContainer must specify a valid container within the CSP.<para/>
+        /// In this case, the <see cref="StrongNameGetPublicKey"/> method extracts the public key from the key pair stored in the container.<para/>
+        /// If pbKeyBlob is not null, the key pair is assumed to be contained in the key binary large object (BLOB). The keys must be 1024-bit Rivest-Shamir-Adleman (RSA) signing keys.<para/>
+        /// No other types of keys are supported at this time.</param>
+        /// <param name="pbKeyBlob">[in] A pointer to the public/private key pair. This pair is in the format created by the Win32 CryptExportKey function.<para/>
+        /// If pbKeyBlob is null, the key container specified by szKeyContainer is assumed to contain the key pair.</param>
+        /// <param name="cbKeyBlob">[in] The size, in bytes, of pbKeyBlob.</param>
+        /// <param name="ppbPublicKeyBlob">[out] The returned public key BLOB. The ppbPublicKeyBlob parameter is allocated by the common language runtime and returned to the caller.<para/>
+        /// The caller must free the memory by using the <see cref="StrongNameFreeBuffer"/> method.</param>
+        /// <param name="pcbPublicKeyBlob">[out] The size of the returned public key BLOB.</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
+        /// <remarks>
+        /// The public key is contained in a <see cref="PublicKeyBlob"/> structure.
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameGetPublicKey(
@@ -177,16 +218,23 @@ namespace ManagedCorDebug
             [Out] IntPtr ppbPublicKeyBlob,
             out uint pcbPublicKeyBlob);
 
+        /// <summary>
+        /// Gets the buffer size required for a hash, using the specified hash algorithm.
+        /// </summary>
+        /// <param name="ulHashAlg">[in] The hash algorithm used to compute the buffer size.</param>
+        /// <param name="pcbSize">[out] The returned buffer size, in bytes.</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT StrongNameHashSize([In] uint ulHashAlg);
+        HRESULT StrongNameHashSize([In] uint ulHashAlg, [Out] out uint pcbSize);
 
         /// <summary>
         /// Deletes the specified key container.
         /// </summary>
         /// <param name="pwzKeyContainer">[in] The name of the key container to delete.</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
         /// <remarks>
-        /// Use the <see cref="ICLRStrongName.StrongNameKeyInstall"/> method to import a public/private key pair into a container.
+        /// Use the <see cref="StrongNameKeyInstall"/> method to import a public/private key pair into a container.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -199,9 +247,10 @@ namespace ManagedCorDebug
         /// <param name="dwFlags">[in] A value that specifies whether to leave the key registered. The following values are supported:</param>
         /// <param name="ppbKeyBlob">[out] The returned public/private key pair.</param>
         /// <param name="pcbKeyBlob">[out] The size, in bytes, of ppbKeyBlob.</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
         /// <remarks>
-        /// The <see cref="ICLRStrongName.StrongNameKeyGen"/> method creates a 1024-bit key. After the key is retrieved, you
-        /// should call the <see cref="ICLRStrongName.StrongNameFreeBuffer"/> method to release the allocated memory.
+        /// The <see cref="StrongNameKeyGen"/> method creates a 1024-bit key. After the key is retrieved, you should call the
+        /// <see cref="StrongNameFreeBuffer"/> method to release the allocated memory.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -219,9 +268,10 @@ namespace ManagedCorDebug
         /// <param name="dwKeySize">[in] The requested size of the key, in bits.</param>
         /// <param name="ppbKeyBlob">[out] The returned public/private key pair.</param>
         /// <param name="pcbKeyBlob">[out] The size, in bytes, of ppbKeyBlob.</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
         /// <remarks>
         /// The .NET Framework versions 1.0 and 1.1 require a dwKeySize of 1024 bits to sign an assembly with a strong name;
-        /// version 2.0 adds supports for 2048-bit keys. After the key is retrieved, you should call the <see cref="ICLRStrongName.StrongNameFreeBuffer"/>
+        /// version 2.0 adds supports for 2048-bit keys. After the key is retrieved, you should call the <see cref="StrongNameFreeBuffer"/>
         /// method to release the allocated memory.
         /// </remarks>
         [PreserveSig]
@@ -239,8 +289,9 @@ namespace ManagedCorDebug
         /// <param name="pwzKeyContainer">[in] The name of the key container. wszKeyContainer must be a non-empty string.</param>
         /// <param name="pbKeyBlob">[in] The binary key pair.</param>
         /// <param name="cbKeyBlob">[in] The size, in bytes, of pbKeyBlob.</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
         /// <remarks>
-        /// Use the <see cref="ICLRStrongName.StrongNameKeyDelete"/> method to delete the key container.
+        /// Use the <see cref="StrongNameKeyDelete"/> method to delete the key container.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -251,15 +302,16 @@ namespace ManagedCorDebug
         /// Generates a strong name signature for the specified assembly.
         /// </summary>
         /// <param name="pwzFilePath">[in] The path to the file that contains the manifest of the assembly for which the strong name signature will be generated.</param>
-        /// <param name="pwzKeyContainer">[in] The name of the key container that contains the public/private key pair.
-        /// If pbKeyBlob is null, wszKeyContainer must specify a valid container within the cryptographic service provider (CSP). In this case, the key pair stored in the container is used to sign the file.
-        /// If pbKeyBlob is not null, the key pair is assumed to be contained in the key binary large object (BLOB).
+        /// <param name="pwzKeyContainer">[in] The name of the key container that contains the public/private key pair. If pbKeyBlob is null, wszKeyContainer must specify a valid container within the cryptographic service provider (CSP).<para/>
+        /// In this case, the key pair stored in the container is used to sign the file. If pbKeyBlob is not null, the key pair is assumed to be contained in the key binary large object (BLOB).<para/>
         /// The keys must be 1024-bit Rivest-Shamir-Adleman (RSA) signing keys. No other types of keys are supported at this time.</param>
-        /// <param name="pbKeyBlob">[in] A pointer to the public/private key pair. This pair is in the format created by the Win32 CryptExportKey function. If pbKeyBlob is null, the key container specified by wszKeyContainer is assumed to contain the key pair.</param>
+        /// <param name="pbKeyBlob">[in] A pointer to the public/private key pair. This pair is in the format created by the Win32 CryptExportKey function.<para/>
+        /// If pbKeyBlob is null, the key container specified by wszKeyContainer is assumed to contain the key pair.</param>
         /// <param name="cbKeyBlob">[in] The size, in bytes, of pbKeyBlob.</param>
-        /// <param name="ppbSignatureBlob">[out] A pointer to the location to which the common language runtime returns the signature. If ppbSignatureBlob is null, the runtime stores the signature in the file specified by wszFilePath.
-        /// If ppbSignatureBlob is not null, the common language runtime allocates space in which to return the signature. The caller must free this space by using the <see cref="ICLRStrongName.StrongNameFreeBuffer"/> method.</param>
+        /// <param name="ppbSignatureBlob">[out] A pointer to the location to which the common language runtime returns the signature. If ppbSignatureBlob is null, the runtime stores the signature in the file specified by wszFilePath.<para/>
+        /// If ppbSignatureBlob is not null, the common language runtime allocates space in which to return the signature. The caller must free this space by using the <see cref="StrongNameFreeBuffer"/> method.</param>
         /// <param name="pcbSignatureBlob">[out] The size, in bytes, of the returned signature.</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
         /// <remarks>
         /// Specify null for wszFilePath to calculate the size of the signature without creating the signature. The signature
         /// can be stored either directly in the file, or returned to the caller.
@@ -278,15 +330,16 @@ namespace ManagedCorDebug
         /// Generates a strong name signature for the specified assembly, according to the specified flags.
         /// </summary>
         /// <param name="wszFilePath">[in] The path to the file that contains the manifest of the assembly for which the strong name signature will be generated.</param>
-        /// <param name="wszKeyContainer">[in] The name of the key container that contains the public/private key pair.
-        /// If pbKeyBlob is null, wszKeyContainer must specify a valid container within the cryptographic service provider (CSP). In this case, the key pair stored in the container is used to sign the file.
-        /// If pbKeyBlob is not null, the key pair is assumed to be contained in the key binary large object (BLOB).</param>
-        /// <param name="pbKeyBlob">[in] A pointer to the public/private key pair. This pair is in the format created by the Win32 CryptExportKey function. If pbKeyBlob is null, the key container specified by wszKeyContainer is assumed to contain the key pair.</param>
+        /// <param name="wszKeyContainer">[in] The name of the key container that contains the public/private key pair. If pbKeyBlob is null, wszKeyContainer must specify a valid container within the cryptographic service provider (CSP).<para/>
+        /// In this case, the key pair stored in the container is used to sign the file. If pbKeyBlob is not null, the key pair is assumed to be contained in the key binary large object (BLOB).</param>
+        /// <param name="pbKeyBlob">[in] A pointer to the public/private key pair. This pair is in the format created by the Win32 CryptExportKey function.<para/>
+        /// If pbKeyBlob is null, the key container specified by wszKeyContainer is assumed to contain the key pair.</param>
         /// <param name="cbKeyBlob">[in] The size, in bytes, of pbKeyBlob.</param>
-        /// <param name="ppbSignatureBlob">[out] A pointer to the location to which the common language runtime returns the signature. If ppbSignatureBlob is null, the runtime stores the signature in the file specified by wszFilePath.
-        /// If ppbSignatureBlob is not null, the common language runtime allocates space in which to return the signature. The caller must free this space using the <see cref="ICLRStrongName.StrongNameFreeBuffer"/> method.</param>
+        /// <param name="ppbSignatureBlob">[out] A pointer to the location to which the common language runtime returns the signature. If ppbSignatureBlob is null, the runtime stores the signature in the file specified by wszFilePath.<para/>
+        /// If ppbSignatureBlob is not null, the common language runtime allocates space in which to return the signature. The caller must free this space using the <see cref="StrongNameFreeBuffer"/> method.</param>
         /// <param name="pcbSignatureBlob">[out] The size, in bytes, of the returned signature.</param>
         /// <param name="dwFlags">[in] One or more of the following values:</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
         /// <remarks>
         /// Specify null for wszFilePath to calculate the size of the signature without creating the signature. The signature
         /// can be either stored directly in the file, or returned to the caller. If SN_SIGN_ALL_FILES is specified but a public
@@ -305,22 +358,65 @@ namespace ManagedCorDebug
             out uint pcbSignatureBlob,
             [In] uint dwFlags);
 
+        /// <summary>
+        /// Returns the size of the strong name signature. This method is typically used by compilers to determine how much space to reserve in the file when creating a delay-signed assembly.
+        /// </summary>
+        /// <param name="pbPublicKeyBlob">[in] A structure of type <see cref="PublicKeyBlob"/> that contains the public portion of the key pair used to generate the strong name signature.</param>
+        /// <param name="cbPublicKeyBlob">[in] The size, in bytes, of pbPublicKeyBlob.</param>
+        /// <param name="pcbSize">[in] The number of bytes required to store the strong name signature.</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameSignatureSize([In] ref byte pbPublicKeyBlob, [In] uint cbPublicKeyBlob, [In] ref uint pcbSize);
 
+        /// <summary>
+        /// Gets a value that indicates whether the assembly manifest at the supplied path contains a strong name signature, which is verified according to the specified flags.
+        /// </summary>
+        /// <param name="wszFilePath">[in] The path to the portable executable (.dll or .exe) file for the assembly to verify.</param>
+        /// <param name="dwInFlags">[in] Flags to modify the verification behavior. The following values are supported:</param>
+        /// <param name="pdwOutFlags">[out] Flags indicating whether the strong name signature was verified. The following value is supported:</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT StrongNameSignatureVerification([MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
-            [In] uint dwInFlags);
+        HRESULT StrongNameSignatureVerification(
+            [MarshalAs(UnmanagedType.LPWStr), In] string wszFilePath,
+            [In] uint dwInFlags,
+            [Out] out uint pdwOutFlags);
 
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        sbyte StrongNameSignatureVerificationEx([MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
-            [In] sbyte fForceVerification);
-
+        /// <summary>
+        /// Gets a value that indicates whether the assembly manifest at the supplied path contains a strong name signature.
+        /// </summary>
+        /// <param name="wszFilePath">[in] The path to the portable executable (.exe or .dll) file for the assembly to be verified.</param>
+        /// <param name="fForceVerification">[in] true to perform verification, even if it is necessary to override registry settings; otherwise, false.</param>
+        /// <param name="pfWasVerified">[out] true if the strong name signature was verified; otherwise, false. pfWasVerified is also set to false if the verification was successful due to registry settings.</param>
+        /// <returns>S_OK if the verification was successful; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
+        /// <remarks>
+        /// The <see cref="StrongNameSignatureVerificationEx"/> method provides a capability similar to the <see cref="StrongNameSignatureVerification"/>
+        /// method. However, the second input parameter and the output parameter for <see cref="StrongNameSignatureVerificationEx"/>
+        /// are of type BOOLEAN instead of DWORD.
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT StrongNameSignatureVerificationFromImage([In] ref byte pbBase, [In] uint dwLength, [In] uint dwInFlags);
+        HRESULT StrongNameSignatureVerificationEx(
+            [MarshalAs(UnmanagedType.LPWStr), In] string wszFilePath,
+            [In] int fForceVerification,
+            [Out] int pfWasVerified);
+
+        /// <summary>
+        /// Verifies that an assembly that has already been mapped to memory is valid for the associated public key.
+        /// </summary>
+        /// <param name="pbBase">[in] The relative virtual address of the mapped assembly manifest.</param>
+        /// <param name="dwLength">[in] The size, in bytes, of the mapped image.</param>
+        /// <param name="dwInFlags">[in] Flags that influence verification behavior. The following values are supported:</param>
+        /// <param name="pdwOutFlags">[out] A flag for additional output information. The following value is supported:</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
+        [PreserveSig]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
+        HRESULT StrongNameSignatureVerificationFromImage(
+            [In] ref byte pbBase,
+            [In] uint dwLength,
+            [In] uint dwInFlags,
+            [Out] out uint pdwOutFlags);
 
         /// <summary>
         /// Creates a strong name token from the specified assembly file.
@@ -328,10 +424,11 @@ namespace ManagedCorDebug
         /// <param name="pwzFilePath">[in] The path to the portable executable (PE) file for the assembly.</param>
         /// <param name="ppbStrongNameToken">[out] The returned strong name token.</param>
         /// <param name="pcbStrongNameToken">[out] The size, in bytes, of the strong name token.</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
         /// <remarks>
         /// A strong name token is the shortened form of a public key. The token is a 64-bit hash that is created from the
         /// public key used to sign the assembly. The token is a part of the strong name for the assembly, and can be read
-        /// from the assembly metadata. After the token is created, you should call the <see cref="ICLRStrongName.StrongNameFreeBuffer"/>
+        /// from the assembly metadata. After the token is created, you should call the <see cref="StrongNameFreeBuffer"/>
         /// method to release the allocated memory.
         /// </remarks>
         [PreserveSig]
@@ -349,10 +446,11 @@ namespace ManagedCorDebug
         /// <param name="pcbStrongNameToken">[out] The size, in bytes, of the strong name token.</param>
         /// <param name="ppbPublicKeyBlob">[out] The returned public key.</param>
         /// <param name="pcbPublicKeyBlob">[out] The size, in bytes, of the public key.</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
         /// <remarks>
         /// A strong name token is the shortened form of a public key. The token is a 64-bit hash that is created from the
         /// public key used to sign the assembly. The token is a part of the strong name for the assembly, and can be read
-        /// from the assembly metadata. After the key is retrieved and the token is created, you should call the <see cref="ICLRStrongName.StrongNameFreeBuffer"/>
+        /// from the assembly metadata. After the key is retrieved and the token is created, you should call the <see cref="StrongNameFreeBuffer"/>
         /// method to release the allocated memory.
         /// </remarks>
         [PreserveSig]
@@ -364,6 +462,19 @@ namespace ManagedCorDebug
             [Out] IntPtr ppbPublicKeyBlob,
             out uint pcbPublicKeyBlob);
 
+        /// <summary>
+        /// Gets a token that represents a public key. A strong name token is the shortened form of a public key.
+        /// </summary>
+        /// <param name="pbPublicKeyBlob">[in] A structure of type <see cref="PublicKeyBlob"/> that contains the public portion of the key pair used to generate the strong name signature.</param>
+        /// <param name="cbPublicKeyBlob">[in] The size, in bytes, of pbPublicKeyBlob.</param>
+        /// <param name="ppbStrongNameToken">[out] The strong name token corresponding to the key passed in pbPublicKeyBlob. The common language runtime allocates the memory in which to return the token.<para/>
+        /// The caller must free this memory by using the <see cref="StrongNameFreeBuffer"/> method.</param>
+        /// <param name="pcbStrongNameToken">[out] The size, in bytes, of the returned strong name token.</param>
+        /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
+        /// <remarks>
+        /// A strong name token is the shortened form of a public key that is used to save space when storing key information
+        /// in metadata. Specifically, strong name tokens are used in assembly references to refer to the dependent assembly.
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameTokenFromPublicKey(

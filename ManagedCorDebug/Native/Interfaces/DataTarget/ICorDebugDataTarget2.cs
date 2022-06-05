@@ -66,6 +66,7 @@ namespace ManagedCorDebug
         /// <param name="cbContext">[in] The size of initialContext.</param>
         /// <param name="initialContext">[in] The data in the context.</param>
         /// <param name="ppUnwinder">[out] A pointer to the address of an ICorDebugVirtualUnwinder interface object.</param>
+        /// <returns>S_OK if successful. Any other HRESULT indicates failure. Any failing HRESULT received by mscordbi is considered fatal and causes <see cref="ICorDebug"/> methods to return CORDBG_E_DATA_TARGET_ERROR.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateVirtualUnwinder(

@@ -13,28 +13,30 @@ namespace ManagedCorDebug
     {
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         [return: MarshalAs(UnmanagedType.Interface)]
-        public virtual extern ISymUnmanagedDocument GetDocument(
-            [In] ref ushort url,
+        public virtual extern HRESULT GetDocument(
+            [In] string url,
             [In] Guid language,
             [In] Guid languageVendor,
-            [In] Guid documentType);
+            [In] Guid documentType,
+            [Out] out ISymUnmanagedDocument pRetVal);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetDocuments([In] uint cDocs, out uint pcDocs,
             [Out] IntPtr pDocs);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern HRESULT GetUserEntryPoint();
+        public virtual extern HRESULT GetUserEntryPoint([Out] out uint pToken);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         [return: MarshalAs(UnmanagedType.Interface)]
-        public virtual extern ISymUnmanagedMethod GetMethod([In] uint token);
+        public virtual extern HRESULT GetMethod([In] uint token, [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         [return: MarshalAs(UnmanagedType.Interface)]
-        public virtual extern ISymUnmanagedMethod GetMethodByVersion(
+        public virtual extern HRESULT GetMethodByVersion(
             [In] uint token,
-            [In] int version);
+            [In] int version,
+            [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetVariables(
@@ -51,16 +53,17 @@ namespace ManagedCorDebug
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         [return: MarshalAs(UnmanagedType.Interface)]
-        public virtual extern ISymUnmanagedMethod GetMethodFromDocumentPosition(
+        public virtual extern HRESULT GetMethodFromDocumentPosition(
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocument document,
             [In] uint line,
-            [In] uint column);
+            [In] uint column,
+            [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetSymAttribute(
             [In] uint parent,
-            [In] ref ushort name,
+            [In] string name,
             [In] uint cBuffer,
             out uint pcBuffer,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] buffer);
@@ -75,17 +78,17 @@ namespace ManagedCorDebug
         public virtual extern HRESULT Initialize(
             [MarshalAs(UnmanagedType.IUnknown), In]
             object importer,
-            [In] ref ushort filename,
-            [In] ref ushort searchPath,
+            [In] string filename,
+            [In] string searchPath,
             [MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern HRESULT UpdateSymbolStore([In] ref ushort filename, [MarshalAs(UnmanagedType.Interface), In]
+        public virtual extern HRESULT UpdateSymbolStore([In] string filename, [MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern HRESULT ReplaceSymbolStore([In] ref ushort filename, [MarshalAs(UnmanagedType.Interface), In]
+        public virtual extern HRESULT ReplaceSymbolStore([In] string filename, [MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

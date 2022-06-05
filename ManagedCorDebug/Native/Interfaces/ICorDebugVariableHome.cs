@@ -23,6 +23,14 @@ namespace ManagedCorDebug
         /// Gets the managed slot-index of a local variable.
         /// </summary>
         /// <param name="pSlotIndex">[out] A pointer to the slot-index of a local variable.</param>
+        /// <returns>
+        /// The method returns the following values.
+        /// 
+        /// | Value  | Description                                                                              |
+        /// | ------ | ---------------------------------------------------------------------------------------- |
+        /// | S_OK   | The method call returned a slot-index value in pSlotIndex.                               |
+        /// | E_FAIL | The current <see cref="ICorDebugVariableHome"/> instance represents a function argument. |
+        /// </returns>
         /// <remarks>
         /// The slot-index can be used to retrieve the metadata for this local variable.
         /// </remarks>
@@ -34,6 +42,14 @@ namespace ManagedCorDebug
         /// Gets the index of a function argument.
         /// </summary>
         /// <param name="pArgumentIndex">[out] A pointer to the argument index.</param>
+        /// <returns>
+        /// The method returns the following values.
+        /// 
+        /// | Value  | Description                                                                           |
+        /// | ------ | ------------------------------------------------------------------------------------- |
+        /// | S_OK   | The method call returned a valid argument index.                                      |
+        /// | E_FAIL | The current <see cref="ICorDebugVariableHome"/> instance represents a local variable. |
+        /// </returns>
         /// <remarks>
         /// The argument index can be used to retrieve metadata for this argument.
         /// </remarks>
@@ -53,7 +69,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the type of the variable's native location.
         /// </summary>
-        /// <param name="pLocationType">[out] A pointer to the type of the variable's native location.  See the <see cref="VariableLocationType"/> enumeration for more information.</param>
+        /// <param name="pLocationType">[out] A pointer to the type of the variable's native location. See the <see cref="VariableLocationType"/> enumeration for more information.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLocationType(out VariableLocationType pLocationType);
@@ -61,7 +77,15 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the register that contains a variable with a location type of VLT_REGISTER, and the base register for a variable with a location type of VLT_REGISTER_RELATIVE.
         /// </summary>
-        /// <param name="pRegister">[out] A CorDebugRegister enumeration value  that indicates the register for a variable with a location type of VLT_REGISTER, and the base register for a variable with a location type of VLT_REGISTER_RELATIVE.</param>
+        /// <param name="pRegister">[out] A CorDebugRegister enumeration value that indicates the register for a variable with a location type of VLT_REGISTER, and the base register for a variable with a location type of VLT_REGISTER_RELATIVE.</param>
+        /// <returns>
+        /// The method returns the following values:
+        /// 
+        /// | Value  | Description                                                          |
+        /// | ------ | -------------------------------------------------------------------- |
+        /// | S_OK   | The variable is in the register indicated by the pRegister argument. |
+        /// | E_FAIL | The variable is not in a register or a register-relative location.   |
+        /// </returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRegister(out CorDebugRegister pRegister);
@@ -70,6 +94,14 @@ namespace ManagedCorDebug
         /// Gets the offset from the base register for a variable.
         /// </summary>
         /// <param name="pOffset">[out] The offset from the base register.</param>
+        /// <returns>
+        /// The method returns the following values:
+        /// 
+        /// | Value  | Description                                                 |
+        /// | ------ | ----------------------------------------------------------- |
+        /// | S_OK   | The variable is in a register-relative memory location.     |
+        /// | E_FAIL | The variable is not in a register-relative memory location. |
+        /// </returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetOffset(out int pOffset);

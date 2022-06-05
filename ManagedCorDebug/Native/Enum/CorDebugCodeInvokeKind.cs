@@ -10,7 +10,8 @@
     public enum CorDebugCodeInvokeKind
     {
         /// <summary>
-        /// If any managed code is invoked by this method, it will have to be located by explicit events or breakpoints later. --or-- We may just miss some of the managed code this method calls because there is no easy way to stop on it. --or-- The method may never invoke managed code.
+        /// If any managed code is invoked by this method, it will have to be located by explicit events or breakpoints later.<para/>
+        /// --or-- We may just miss some of the managed code this method calls because there is no easy way to stop on it. --or-- The method may never invoke managed code.
         /// </summary>
         CODE_INVOKE_KIND_NONE,
 

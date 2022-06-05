@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -14,7 +15,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Remaps an edited function by specifying the new Microsoft intermediate language (MSIL) offset
         /// </summary>
-        /// <param name="newILOffset">[in] The stack frame's new MSIL offset at which the instruction pointer should be placed. This value must be a sequence point.
+        /// <param name="newILOffset">[in] The stack frame's new MSIL offset at which the instruction pointer should be placed. This value must be a sequence point.<para/>
         /// It is the caller’s responsibility to ensure the validity of this value. For example, the MSIL offset is not valid if it is outside the bounds of the function.</param>
         /// <remarks>
         /// When a frame’s function has been edited, the debugger can call the RemapFunction method to swap in the latest version
@@ -25,6 +26,14 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT RemapFunction([In] uint newILOffset);
 
+        /// <summary>
+        /// Gets an ICorDebugTypeEnum object that contains the <see cref="Type"/> parameters in this frame.
+        /// </summary>
+        /// <param name="ppTyParEnum">A pointer to the address of a ICorDebugTypeEnum interface object that allows enumeration of type parameters. The list of type parameters include the class type parameters (if any) followed by the method type parameters (if any).</param>
+        /// <remarks>
+        /// Use the <see cref="IMetaDataImport2.EnumGenericParams"/> method to determine how many class type parameters and
+        /// method type parameters this list contains. The type parameters are not always available.
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateTypeParameters([MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppTyParEnum);

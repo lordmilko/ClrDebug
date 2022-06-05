@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -38,12 +39,12 @@ namespace ManagedCorDebug
         /// Gets the value of the specified static field.
         /// </summary>
         /// <param name="fieldDef">[in] A field Def token that references the field to be retrieved.</param>
-        /// <param name="pFrame">[in] A pointer to an ICorDebugFrame object that represents the frame to be used to disambiguate among thread, context, or application domain statics.
+        /// <param name="pFrame">[in] A pointer to an ICorDebugFrame object that represents the frame to be used to disambiguate among thread, context, or application domain statics.<para/>
         /// If the static field is relative to a thread, a context, or an application domain, the frame will determine the proper value.</param>
         /// <param name="ppValue">[out] A pointer to the address of an ICorDebugValue object that represents the value of the static field.</param>
         /// <remarks>
         /// For parameterized types, the value of a static field is relative to the particular instantiation. Therefore, if
-        /// the class constructor takes parameters of type System.Type, call <see cref="ICorDebugType.GetStaticFieldValue"/>
+        /// the class constructor takes parameters of type <see cref="Type"/>, call <see cref="ICorDebugType.GetStaticFieldValue"/>
         /// instead of ICorDebugClass::GetStaticFieldValue.
         /// </remarks>
         [PreserveSig]

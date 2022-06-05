@@ -1,4 +1,6 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Diagnostics;
+using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -57,7 +59,7 @@ namespace ManagedCorDebug
             [In] CorDebugStepReason reason);
 
         /// <summary>
-        /// Notifies the debugger when a System.Reflection.Emit.OpCodes.Break instruction in the code stream is executed.
+        /// Notifies the debugger when a <see cref="OpCodes.Break"/> instruction in the code stream is executed.
         /// </summary>
         /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain that contains the break instruction.</param>
         /// <param name="thread">[in] A pointer to an ICorDebugThread object that represents the thread that contains the break instruction.</param>
@@ -242,6 +244,14 @@ namespace ManagedCorDebug
         HRESULT DebuggerError([MarshalAs(UnmanagedType.Interface), In]
             ICorDebugProcess pProcess, [MarshalAs(UnmanagedType.Error), In] int errorHR, [In] uint errorCode);
 
+        /// <summary>
+        /// Notifies the debugger that a common language runtime (CLR) managed thread has called a method in the <see cref="EventLog"/> class to log an event.
+        /// </summary>
+        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain containing the managed thread that logged the event.</param>
+        /// <param name="pThread">[in] A pointer to an ICorDebugThread object that represents the managed thread.</param>
+        /// <param name="lLevel">[in] A value of the <see cref="LoggingLevelEnum"/> enumeration that indicates the severity level of the descriptive message that was written to the event log.</param>
+        /// <param name="pLogSwitchName">[in] A pointer to the name of the tracing switch.</param>
+        /// <param name="pMessage">[in] A pointer to the message that was written to the event log.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT LogMessage(
@@ -249,10 +259,19 @@ namespace ManagedCorDebug
             ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugThread pThread,
-            [In] int lLevel,
+            [In] LoggingLevelEnum lLevel,
             [MarshalAs(UnmanagedType.LPWStr), In] string pLogSwitchName,
             [MarshalAs(UnmanagedType.LPWStr), In] string pMessage);
 
+        /// <summary>
+        /// Notifies the debugger that a common language runtime (CLR) managed thread has called a method in the <see cref="Switch"/> class to create, modify, or delete a debugging/tracing switch.
+        /// </summary>
+        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain containing the managed thread that created, modified, or deleted a debugging/tracing switch.</param>
+        /// <param name="pThread">[in] A pointer to an ICorDebugThread object that represents the managed thread.</param>
+        /// <param name="lLevel">[in] A value that indicates the severity level of the descriptive message that was written to the event log.</param>
+        /// <param name="ulReason">[in] A value of the <see cref="LogSwitchCallReason"/> enumeration that indicates the operation performed on the debugging/tracing switch.</param>
+        /// <param name="pLogSwitchName">[in] A pointer to the name of the debugging/tracing switch.</param>
+        /// <param name="pParentName">[in] A pointer to the name of the parent of the debugging/tracing switch.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT LogSwitch(
@@ -261,7 +280,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugThread pThread,
             [In] int lLevel,
-            [In] uint ulReason,
+            [In] LogSwitchCallReason ulReason,
             [MarshalAs(UnmanagedType.LPWStr)]  [In] string pLogSwitchName,
             [MarshalAs(UnmanagedType.LPWStr), In] string pParentName);
 
@@ -316,6 +335,12 @@ namespace ManagedCorDebug
         /// Notifies the debugger that a CTRL+C is trapped in the process that is being debugged.
         /// </summary>
         /// <param name="pProcess">[in] A pointer to an ICorDebugProcess object that represents the process in which the CTRL+C is trapped.</param>
+        /// <returns>
+        /// | HRESULT | Description                                   |
+        /// | ------- | --------------------------------------------- |
+        /// | S_OK    | The debugger will handle the CTRL+C trap.     |
+        /// | S_FALSE | The debugger will not handle the CTRL+C trap. |
+        /// </returns>
         /// <remarks>
         /// All application domains within the process are stopped for this callback.
         /// </remarks>

@@ -24,7 +24,8 @@
         MAPPING_NO_INFO = 4,
 
         /// <summary>
-        /// Although there is mapping information for the method, the current address cannot be mapped to Microsoft intermediate language (MSIL) code. The value of the IP is 0.
+        /// Although there is mapping information for the method, the current address cannot be mapped to Microsoft intermediate language (MSIL) code.<para/>
+        /// The value of the IP is 0.
         /// </summary>
         MAPPING_UNMAPPED_ADDRESS = 8,
 

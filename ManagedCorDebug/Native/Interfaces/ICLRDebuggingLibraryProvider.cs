@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Includes the <see cref="ICLRDebuggingLibraryProvider.ProvideLibrary"/> method, which gets a library provider callback interface that allows common language runtime version-specific debugging libraries to be located and loaded on demand.
+    /// Includes the <see cref="ProvideLibrary"/> method, which gets a library provider callback interface that allows common language runtime version-specific debugging libraries to be located and loaded on demand.
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("3151C08D-4D09-4F9B-8838-2880BF18FE51")]
@@ -19,6 +19,13 @@ namespace ManagedCorDebug
         /// <param name="dwTimestamp"> [in] The date time stamp stored in the COFF file header of PE files.</param>
         /// <param name="dwSizeOfImage"> [in] The SizeOfImage field stored in the COFF optional file header of PE files.</param>
         /// <param name="phModule"> [out] The handle to the requested module.</param>
+        /// <returns>
+        /// This method returns the following specific HRESULTs as well as HRESULT errors that indicate method failure.
+        /// 
+        /// | HRESULT | Description                        |
+        /// | ------- | ---------------------------------- |
+        /// | S_OK    | The method completed successfully. |
+        /// </returns>
         /// <remarks>
         /// ProvideLibrary allows the debugger to provide modules that are needed for debugging specific CLR files such as
         /// mscordbi.dll and mscordacwks.dll. The module handles have to remain valid until a call to the <see cref="ICLRDebugging.CanUnloadNow"/>
@@ -28,7 +35,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ProvideLibrary(
-            [In] ref ushort pwszFileName,
+            [In] string pwszFileName,
             [In] uint dwTimestamp,
             [In] uint dwSizeOfImage,
             out IntPtr phModule);

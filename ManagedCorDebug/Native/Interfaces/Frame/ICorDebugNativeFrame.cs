@@ -217,9 +217,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="nOffset">[in] The desired setting for the instruction pointer.</param>
         /// <remarks>
-        /// Use the CanSetIP method prior to calling the <see cref="ICorDebugNativeFrame.SetIP"/> method. If CanSetIP returns
-        /// any HRESULT other than S_OK, you can still invoke ICorDebugNativeFrame::SetIP, but there is no guarantee that the
-        /// debugger will continue the safe and correct execution of the code being debugged.
+        /// Use the CanSetIP method prior to calling the <see cref="SetIP"/> method. If CanSetIP returns any HRESULT other
+        /// than S_OK, you can still invoke ICorDebugNativeFrame::SetIP, but there is no guarantee that the debugger will continue
+        /// the safe and correct execution of the code being debugged.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

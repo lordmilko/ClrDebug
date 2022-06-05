@@ -5,7 +5,8 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Provides methods to retrieve information about the managed representations of Windows Runtime types currently loaded in an application domain. This interface is an extension of the ICorDebugAppDomain and ICorDebugAppDomain2 interfaces.
+    /// Provides methods to retrieve information about the managed representations of Windows Runtime types currently loaded in an application domain.<para/>
+    /// This interface is an extension of the ICorDebugAppDomain and ICorDebugAppDomain2 interfaces.
     /// </summary>
     /// <remarks>
     /// This interface is meant to be used by a debugger in conjunction with a function evaluation call to M:System.Runtime.InteropServices.Marshal.GetInspectableIIDs(System.Object).

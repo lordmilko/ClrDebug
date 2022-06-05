@@ -26,7 +26,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Any step action remains active until the debugger receives a <see cref="ICorDebugManagedCallback.StepComplete"/>
         /// call, which automatically deactivates the stepper. A stepper may also be deactivated prematurely by calling <see
-        /// cref="ICorDebugStepper.Deactivate"/> before the callback condition is reached.
+        /// cref="Deactivate"/> before the callback condition is reached.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -49,11 +49,11 @@ namespace ManagedCorDebug
         /// <remarks>
         /// If the bit for an interceptor is set, the stepper will complete when the given type of intercepting code is encountered.
         /// If the bit is cleared, the intercepting code will be skipped. The SetInterceptMask method may have unforeseen interactions
-        /// with <see cref="ICorDebugStepper.SetUnmappedStopMask"/> (from the user's point of view). For example, if the only
-        /// visible (that is, non-internal) portion of class initialization code lacks mapping information and STOP_NO_MAPPING_INFO
-        /// isn't set (see the <see cref="ICorDebugStepper.SetUnmappedStopMask"/> method and the CorDebugUnmappedStop enumeration),
-        /// the stepper will step over the class initialization. By default, only the INTERCEPT_NONE value of the CorDebugIntercept
-        /// enumeration will be used.
+        /// with <see cref="SetUnmappedStopMask"/> (from the user's point of view). For example, if the only visible (that
+        /// is, non-internal) portion of class initialization code lacks mapping information and STOP_NO_MAPPING_INFO isn't
+        /// set (see the <see cref="SetUnmappedStopMask"/> method and the CorDebugUnmappedStop enumeration), the stepper will
+        /// step over the class initialization. By default, only the INTERCEPT_NONE value of the CorDebugIntercept enumeration
+        /// will be used.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -62,7 +62,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Sets a value that specifies the type of unmapped code in which execution will halt.
         /// </summary>
-        /// <param name="mask">[in] A value of the CorDebugUnmappedStop enumeration that specifies the type of unmapped code in which the debugger will halt execution.
+        /// <param name="mask">[in] A value of the CorDebugUnmappedStop enumeration that specifies the type of unmapped code in which the debugger will halt execution.<para/>
         /// The default value is STOP_OTHER_UNMAPPED. The value STOP_UNMANAGED is only valid with interop debugging.</param>
         /// <remarks>
         /// When the debugger finds a just-in-time (JIT) compilation that has no corresponding mapping to Microsoft intermediate
@@ -94,11 +94,11 @@ namespace ManagedCorDebug
         /// <param name="ranges">[in] An array of COR_DEBUG_STEP_RANGE structures, each of which specifies a range.</param>
         /// <param name="cRangeCount">[in] The size of the ranges array.</param>
         /// <remarks>
-        /// The StepRange method works like the <see cref="ICorDebugStepper.Step"/> method, except that it does not complete
-        /// until code outside the given range is reached. This can be more efficient than stepping one instruction at a time.
-        /// Ranges are specified as a list of offset pairs from the start of the stepper's frame. Ranges are relative to the
-        /// Microsoft intermediate language (MSIL) code of a method. Call <see cref="ICorDebugStepper.SetRangeIL"/> with false
-        /// to make the ranges relative to the native code of a method.
+        /// The StepRange method works like the <see cref="Step"/> method, except that it does not complete until code outside
+        /// the given range is reached. This can be more efficient than stepping one instruction at a time. Ranges are specified
+        /// as a list of offset pairs from the start of the stepper's frame. Ranges are relative to the Microsoft intermediate
+        /// language (MSIL) code of a method. Call <see cref="SetRangeIL"/> with false to make the ranges relative to the native
+        /// code of a method.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -111,17 +111,18 @@ namespace ManagedCorDebug
         /// A StepOut operation will complete after returning normally from the current frame to the calling frame. If StepOut
         /// is called when in unmanaged code, the step will complete when the current frame returns to the managed code that
         /// called it. In the .NET Framework version 2.0, do not use StepOut with the STOP_UNMANAGED flag set because it will
-        /// fail. (Use <see cref="ICorDebugStepper.SetUnmappedStopMask"/> to set flags for stepping.) Interop debuggers must
-        /// step out to native code themselves.
+        /// fail. (Use <see cref="SetUnmappedStopMask"/> to set flags for stepping.) Interop debuggers must step out to native
+        /// code themselves.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StepOut();
 
         /// <summary>
-        /// Sets a value that specifies whether calls to <see cref="ICorDebugStepper.StepRange"/> pass argument values that are relative to the native code or relative to Microsoft intermediate language (MSIL) code of the method that is being stepped through.
+        /// Sets a value that specifies whether calls to <see cref="StepRange"/> pass argument values that are relative to the native code or relative to Microsoft intermediate language (MSIL) code of the method that is being stepped through.
         /// </summary>
-        /// <param name="bIL">[in] Set to true to specify that the ranges are relative to the MSIL code. Set to false to specify that the ranges are relative to the native code. The default value is true.</param>
+        /// <param name="bIL">[in] Set to true to specify that the ranges are relative to the MSIL code. Set to false to specify that the ranges are relative to the native code.<para/>
+        /// The default value is true.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetRangeIL([In] int bIL);

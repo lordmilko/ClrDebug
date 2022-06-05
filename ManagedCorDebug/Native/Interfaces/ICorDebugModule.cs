@@ -71,7 +71,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Controls whether the <see cref="ICorDebugManagedCallback.LoadClass"/> and <see cref="ICorDebugManagedCallback.UnloadClass"/> callbacks are called for this module.
         /// </summary>
-        /// <param name="bClassLoadCallbacks">[in] Set this value to true to enable the common language runtime (CLR) to call the ICorDebugManagedCallback::LoadClass and ICorDebugManagedCallback::UnloadClass methods when their associated events occur.
+        /// <param name="bClassLoadCallbacks">[in] Set this value to true to enable the common language runtime (CLR) to call the ICorDebugManagedCallback::LoadClass and ICorDebugManagedCallback::UnloadClass methods when their associated events occur.<para/>
         /// The default value is false for non-dynamic modules. The value is always true for dynamic modules and cannot be changed.</param>
         /// <remarks>
         /// The ICorDebugManagedCallback::LoadClass and ICorDebugManagedCallback::UnloadClass callbacks are always enabled
@@ -126,10 +126,29 @@ namespace ManagedCorDebug
         HRESULT GetEditAndContinueSnapshot(
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugEditAndContinueSnapshot ppEditAndContinueSnapshot);
 
+        /// <summary>
+        /// Gets a metadata interface object that can be used to examine the metadata for the module.
+        /// </summary>
+        /// <param name="riid">[in] The reference ID that specifies the metadata interface.</param>
+        /// <param name="ppObj">[out] A pointer to the address of an T:IUnknown object that is one of the metadata interfaces.</param>
+        /// <remarks>
+        /// The debugger can use the GetMetaDataInterface method to make a copy of the original metadata for a module, which
+        /// it must do in order to edit that module. The debugger calls GetMetaDataInterface to get an <see cref="IMetaDataEmit"/>
+        /// interface object for the module, then calls <see cref="IMetaDataEmit.SaveToMemory"/> to save a copy of the module's
+        /// metadata to memory.
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetMetaDataInterface([In] ref Guid riid, [MarshalAs(UnmanagedType.IUnknown)] out object ppObj);
 
+        /// <summary>
+        /// Gets the token for the table entry for this module.
+        /// </summary>
+        /// <param name="pToken">[out] A pointer to the mdModule token that references the module's metadata.</param>
+        /// <remarks>
+        /// The token can be passed to the <see cref="IMetaDataImport"/>, <see cref="IMetaDataImport2"/>, and <see cref="IMetaDataAssemblyImport"/>
+        /// metadata import interfaces.
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetToken(out uint pToken);
@@ -160,8 +179,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the size, in bytes, of the module.
         /// </summary>
-        /// <param name="pcBytes">[out] The size of the module in bytes.
-        /// If the module was produced from the native image generator (NGen.exe), the size of the module will be zero.</param>
+        /// <param name="pcBytes">[out] The size of the module in bytes. If the module was produced from the native image generator (NGen.exe), the size of the module will be zero.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSize(out uint pcBytes);

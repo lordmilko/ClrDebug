@@ -1,7 +1,9 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
     /// <summary>
-    /// Specifies a common language runtime System.Type, a type modifier, or information about a type in a metadata type signature.
+    /// Specifies a common language runtime <see cref="Type"/>, a type modifier, or information about a type in a metadata type signature.
     /// </summary>
     /// <remarks>
     /// The type modifiers form the basis for representing more complex types. A CorElementType type modifier value is
