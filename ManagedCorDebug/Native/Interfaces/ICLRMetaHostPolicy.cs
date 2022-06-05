@@ -5,11 +5,30 @@ using System.Text;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Provides the <see cref="ICLRMetaHostPolicy.GetRequestedRuntime"/> method, which returns a pointer to a common language runtime (CLR) interface based on a policy criteria, managed assembly, version and configuration file.
+    /// </summary>
+    /// <remarks>
+    /// You can get a reference to this interface by calling the CLRCreateInstance function as shown in the following code:
+    /// The .NET Framework 4 hosting API consolidates policies so that hosts with specific needs may use basic functionality
+    /// without incurring unintended penalties. For example, many of the MSCorEE.dll exports will bind to a specific CLR,
+    /// although a method might not logically require it. The <see cref="METAHOST_POLICY_FLAGS"/> enumeration provides
+    /// binding policies that are common to the majority of hosts.
+    /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("E2190695-77B2-492E-8E14-C4B3A7FDD593")]
     [ComImport]
     public interface ICLRMetaHostPolicy
     {
+        /// <summary>
+        /// Provides an interface to a preferred version of the common language runtime (CLR) based on a hosting policy, managed assembly, version string, and configuration stream. This method does not actually load or activate the CLR, but simply returns the <see cref="ICLRRuntimeInfo"/> interface that represents the policy result. This method supersedes the GetRequestedRuntimeInfo, GetRequestedRuntimeVersion, CorBindToRuntimeHost, CorBindToRuntimeByCfg, and GetCORRequiredVersion methods.
+        /// </summary>
+        /// <remarks>
+        /// When this method succeeds, it has the side effect of combining additional flags with the current default startup
+        /// flags of the returned runtime interface, if and only if one or more of the following elements exist in the configuration
+        /// stream within the &lt;configuration&gt;&lt;runtime&gt; section: The resulting default STARTUP_FLAGS value is the
+        /// bitwise OR combination of the values that are set from the preceding list with the default startup flags.
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRequestedRuntime(

@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Provides metadata information to the debugger.
+    /// </summary>
     [Guid("7CEF8BA9-2EF7-42BF-973F-4171474F87D9")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [ComImport]

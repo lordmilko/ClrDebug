@@ -4,19 +4,39 @@ using System.Text;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Represents the debug symbol information for a static field.
+    /// </summary>
+    /// <remarks>
+    /// The ICorDebugStaticFieldSymbol interface is used to retrieve the debug symbol information for a static field.
+    /// </remarks>
     [Guid("CBF9DA63-F68D-4BBB-A21C-15A45EAADF5B")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [ComImport]
     public interface ICorDebugStaticFieldSymbol
     {
+        /// <summary>
+        /// Gets the name of the static field.
+        /// </summary>
+        /// <param name="cchName">[in] The number of characters in the szName buffer.</param>
+        /// <param name="pcchName">[out] A pointer to the number of characters actually written to the szName buffer.</param>
+        /// <param name="szName">[out] A character array that stores the returned name.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);
 
+        /// <summary>
+        /// Gets the size in bytes of the static field.
+        /// </summary>
+        /// <param name="pcbSize">[out] A pointer to length of the field.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSize(out uint pcbSize);
 
+        /// <summary>
+        /// Gets the address of a static field.
+        /// </summary>
+        /// <param name="pRVA">[out] A pointer to the relative virtual address (RVA) of the static field.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetAddress(out ulong pRVA);

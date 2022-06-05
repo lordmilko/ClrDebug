@@ -3,6 +3,19 @@ using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Extends the <see cref="ICorDebugDataTarget"/> interface to support mutable data targets.
+    /// </summary>
+    /// <remarks>
+    /// This extension to the <see cref="ICorDebugDataTarget"/> interface can be implemented by debugging tools that wish
+    /// to modify the target process (for example, to perform live invasive debugging). All of these methods are optional
+    /// in the sense that no core inspection-based debugging functionality is lost by not implementing this interface or
+    /// by the failure of calls to these methods. Any failure HRESULT from these methods will propagate out as the HRESULT
+    /// from the ICorDebug method call. Note that a single ICorDebug method call may result in multiple mutations, and
+    /// that there is no mechanism for ensuring related mutations are applied transactionally (all-or-none). This means
+    /// that if a mutation fails after others (for the same ICorDebug call) have succeeded, the target process may be left
+    /// in an inconsistent state and debugging may become unreliable.
+    /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("A1B8A756-3CB6-4CCB-979F-3DF999673A59")]
     [ComImport]
@@ -12,6 +25,17 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetPlatform(out CorDebugPlatform pTargetPlatform);
 
+        /// <summary>
+        /// Gets a block of contiguous memory starting at the specified address, and returns it in the supplied buffer.
+        /// </summary>
+        /// <param name="address">[in] The start address of requested memory.</param>
+        /// <param name="pBuffer">[out] The buffer where the memory will be stored.</param>
+        /// <param name="bytesRequested">[in] The number of bytes to get from the target address.</param>
+        /// <param name="pBytesRead">[out] The number of bytes actually read from the target address. This can be fewer than bytesRequested.</param>
+        /// <remarks>
+        /// If the first byte (at the specified start address) can be read, the call should return success (to support efficient
+        /// reading of data structures with self-describing length, like null-terminated strings).
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ReadVirtual(
@@ -20,6 +44,19 @@ namespace ManagedCorDebug
             [In] uint bytesRequested,
             out uint pBytesRead);
 
+        /// <summary>
+        /// Returns the current thread context for the specified thread.
+        /// </summary>
+        /// <param name="dwThreadId">[in] The identifier of the thread whose context is to be retrieved. The identifier is defined by the operating system.</param>
+        /// <param name="contextFlags">[in] A bitwise combination of platform-dependent flags that indicate which portions of the context should be read.</param>
+        /// <param name="contextSize">[in] The size of pContext.</param>
+        /// <param name="pContext">[out] The buffer where the thread context will be stored.</param>
+        /// <remarks>
+        /// On Windows platforms, pContext must be a CONTEXT structure (defined in WinNT.h) that is appropriate for the machine
+        /// type specified by the <see cref="ICorDebugDataTarget.GetPlatform"/> method. contextFlags must have the same values
+        /// as the ContextFlags field of the CONTEXT structure. The CONTEXT structure is processor-specific; refer to the WinNT.h
+        /// file for details.
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetThreadContext(
@@ -28,14 +65,47 @@ namespace ManagedCorDebug
             [In] uint contextSize,
             out byte pContext);
 
+        /// <summary>
+        /// Writes memory into the target process address space.
+        /// </summary>
+        /// <param name="address">[in] The address at which to write the contents of pBuffer.</param>
+        /// <param name="pBuffer">[in] A pointer to a byte array that contains the bytes to be written.</param>
+        /// <param name="bytesRequested">[in] The number of bytes in pBuffer.</param>
+        /// <remarks>
+        /// If any bytes cannot be written, the method call fails without changing any bytes in the target address space. (Otherwise,
+        /// the target would be in an inconsistent state that makes further debugging unreliable.)
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT WriteVirtual([In] ulong address, [In] ref byte pBuffer, [In] uint bytesRequested);
 
+        /// <summary>
+        /// Sets the context (register values) for a thread.
+        /// </summary>
+        /// <param name="dwThreadId">[in] The operating system-defined thread identifier.</param>
+        /// <param name="contextSize">[in] The size of the pContext buffer to be written.</param>
+        /// <param name="pContext">[in] A pointer to the bytes to be written.</param>
+        /// <remarks>
+        /// The SetThreadContext method updates the current context for the thread specified by the operating system-defined
+        /// dwThreadID argument. The format of the context record is determined by the platform indicated by the <see cref="ICorDebugDataTarget.GetPlatform"/>
+        /// method. On Windows, this is a CONTEXT structure.
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetThreadContext([In] uint dwThreadId, [In] uint contextSize, [In] ref byte pContext);
 
+        /// <summary>
+        /// Changes the continuation status for the outstanding debug event on the specified thread.
+        /// </summary>
+        /// <param name="dwThreadId">The operating system-defined thread identifier.</param>
+        /// <param name="continueStatus">A COREDB_CONTINUE_STATUS value that represents the new requested continuation status.</param>
+        /// <remarks>
+        /// The debugger calls the ContinueStatusChanged method when it calls an ICorDebug method that requires the current
+        /// debug event to be handled in a way that is potentially different from the way in which it normally would be handled.
+        /// For example, if there is an outstanding exception, and the debugger requests an operation that would cancel the
+        /// exception (such as <see cref="ICorDebugILFrame.SetIP"/> or FuncEval), this API is used to request that the exception
+        /// be cancelled.
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ContinueStatusChanged([In] uint dwThreadId, [In] uint continueStatus);
