@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -26,7 +27,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetJMCStatus([In] int bIsJustMyCode, [In] uint cTokens, [In] ref uint pTokens);
+        HRESULT SetJMCStatus([In] int bIsJustMyCode, [In] uint cTokens, [In] mdToken[] pTokens);
 
         /// <summary>
         /// Applies the changes in the metadata and the changes in the Microsoft intermediate language (MSIL) code to the running process.
@@ -53,7 +54,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ApplyChanges([In] uint cbMetadata, [In] ref byte pbMetadata, [In] uint cbIL, [In] ref byte pbIL);
+        HRESULT ApplyChanges([In] uint cbMetadata, [In] IntPtr pbMetadata, [In] uint cbIL, [In] IntPtr pbIL);
 
         /// <summary>
         /// Sets the flags that control the just-in-time (JIT) compilation of this ICorDebugModule2.
@@ -90,7 +91,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ResolveAssembly([In] uint tkAssemblyRef,
+        HRESULT ResolveAssembly([In] mdToken tkAssemblyRef,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugAssembly ppAssembly);
     }
 }

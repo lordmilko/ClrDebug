@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -90,7 +91,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT WriteVirtual([In] ulong address, [In] ref byte pBuffer, [In] uint bytesRequested);
+        HRESULT WriteVirtual([In] ulong address, [In] IntPtr pBuffer, [In] uint bytesRequested);
 
         /// <summary>
         /// Sets the context (register values) for a thread.
@@ -105,7 +106,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetThreadContext([In] uint dwThreadId, [In] uint contextSize, [In] ref byte pContext);
+        HRESULT SetThreadContext([In] uint dwThreadId, [In] uint contextSize, [In] IntPtr pContext);
 
         /// <summary>
         /// Changes the continuation status for the outstanding debug event on the specified thread.

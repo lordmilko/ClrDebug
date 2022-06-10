@@ -42,6 +42,6 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetHRESULT([MarshalAs(UnmanagedType.Error)] out int phr);
+        HRESULT GetHRESULT([MarshalAs(UnmanagedType.Error)] out HRESULT phr);
     }
 }

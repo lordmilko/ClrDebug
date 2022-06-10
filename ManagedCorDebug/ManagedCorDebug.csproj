@@ -43,6 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Managed\Numbers.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Numbers.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Managed\Tokens.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Tokens.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Managed\UnsignedValueHelpers.cs" />
     <Compile Include="Native\CoClass\CorDebugClass.cs" />
     <Compile Include="Native\CoClass\CorSymBinder_deprecatedClass.cs" />
     <Compile Include="Native\CoClass\CorSymBinder_SxSClass.cs" />
@@ -401,6 +412,19 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Native\Interfaces\Base\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Managed\Numbers.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Numbers.cs</LastGenOutput>
+    </Content>
+    <Content Include="Managed\Tokens.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Tokens.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

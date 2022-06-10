@@ -129,7 +129,7 @@ namespace ManagedCorDebug
             [In] string name,
             [In] uint attributes,
             [In] uint cSig,
-            [In] ref byte signature,
+            [In] IntPtr signature,
             [In] uint addrKind,
             [In] uint addr1,
             [In] uint addr2,
@@ -181,7 +181,7 @@ namespace ManagedCorDebug
             [In] string name,
             [In] uint attributes,
             [In] uint cSig,
-            [In] ref byte signature,
+            [In] IntPtr signature,
             [In] uint addrKind,
             [In] uint addr1,
             [In] uint addr2,
@@ -205,7 +205,7 @@ namespace ManagedCorDebug
             [In] string name,
             [In] uint attributes,
             [In] uint cSig,
-            [In] ref byte signature,
+            [In] IntPtr signature,
             [In] uint addrKind,
             [In] uint addr1,
             [In] uint addr2,
@@ -233,7 +233,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetSymAttribute([In] uint parent, [In] string name, [In] uint cData, [In] ref byte data);
+        HRESULT SetSymAttribute([In] uint parent, [In] string name, [In] uint cData, [In] IntPtr data);
 
         /// <summary>
         /// Opens a new namespace. Call this method before defining methods or variables that occupy a namespace. Namespaces can be nested.
@@ -384,7 +384,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT DefineConstant([In] string name, [MarshalAs(UnmanagedType.Struct), In] object value, [In] uint cSig,
-            [In] ref byte signature);
+            [In] IntPtr signature);
 
         /// <summary>
         /// Closes the symbol writer without committing the symbols to the symbol store. After this call, the symbol writer becomes invalid for further updates.<para/>

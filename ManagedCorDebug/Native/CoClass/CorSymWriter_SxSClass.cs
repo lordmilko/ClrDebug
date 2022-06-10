@@ -42,7 +42,7 @@ namespace ManagedCorDebug
             [In] string name,
             [In] uint attributes,
             [In] uint cSig,
-            [In] ref byte signature,
+            [In] IntPtr signature,
             [In] uint addrKind,
             [In] uint addr1,
             [In] uint addr2,
@@ -66,7 +66,7 @@ namespace ManagedCorDebug
             [In] string name,
             [In] uint attributes,
             [In] uint cSig,
-            [In] ref byte signature,
+            [In] IntPtr signature,
             [In] uint addrKind,
             [In] uint addr1,
             [In] uint addr2,
@@ -77,7 +77,7 @@ namespace ManagedCorDebug
             [In] string name,
             [In] uint attributes,
             [In] uint cSig,
-            [In] ref byte signature,
+            [In] IntPtr signature,
             [In] uint addrKind,
             [In] uint addr1,
             [In] uint addr2,
@@ -91,7 +91,7 @@ namespace ManagedCorDebug
             [In] uint parent,
             [In] string name,
             [In] uint cData,
-            [In] ref byte data);
+            [In] IntPtr data);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT OpenNamespace([In] string name);
@@ -158,7 +158,7 @@ namespace ManagedCorDebug
             [In] string name,
             [MarshalAs(UnmanagedType.Struct), In] object value,
             [In] uint cSig,
-            [In] ref byte signature);
+            [In] IntPtr signature);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT Abort();

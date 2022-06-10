@@ -33,7 +33,7 @@ namespace ManagedCorDebug
         /// <param name="pTypeDef">[out] A pointer to an mdTypeDef token that references the definition of this class.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetToken(out uint pTypeDef);
+        HRESULT GetToken(out mdTypeDef pTypeDef);
 
         /// <summary>
         /// Gets the value of the specified static field.

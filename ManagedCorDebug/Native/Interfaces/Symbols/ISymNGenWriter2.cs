@@ -24,16 +24,16 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CloseMod([In] ref byte pmod);
+        HRESULT CloseMod([In] IntPtr pmod);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ModAddSymbols([In] ref byte pmod, [In] ref byte pbSym, [In] int cb);
+        HRESULT ModAddSymbols([In] IntPtr pmod, [In] IntPtr pbSym, [In] int cb);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ModAddSecContribEx(
-            [In] ref byte pmod,
+            [In] IntPtr pmod,
             [In] ushort isect,
             [In] int off,
             [In] int cb,

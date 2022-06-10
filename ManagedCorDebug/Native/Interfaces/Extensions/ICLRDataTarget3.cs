@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -70,7 +71,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT WriteVirtual(
             [In] ulong address,
-            [In] ref byte buffer,
+            [In] IntPtr buffer,
             [In] uint bytesRequested,
             out uint bytesWritten);
 
@@ -144,7 +145,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT SetThreadContext([In] uint threadID, [In] uint contextSize, [In] ref byte context);
+        new HRESULT SetThreadContext([In] uint threadID, [In] uint contextSize, [In] IntPtr context);
 
         /// <summary>
         /// Called by the common language runtime (CLR) data access services to request an operation, as defined by the implementation.
@@ -164,7 +165,7 @@ namespace ManagedCorDebug
         new HRESULT Request(
             [In] uint reqCode,
             [In] uint inBufferSize,
-            [In] ref byte inBuffer,
+            [In] IntPtr inBuffer,
             [In] uint outBufferSize,
             out byte outBuffer);
 

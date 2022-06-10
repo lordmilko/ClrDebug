@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -14,6 +15,6 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT RemoteWrite([In] ref byte pv, [In] uint cb, out uint pcbWritten);
+        HRESULT RemoteWrite([In] IntPtr pv, [In] uint cb, out uint pcbWritten);
     }
 }

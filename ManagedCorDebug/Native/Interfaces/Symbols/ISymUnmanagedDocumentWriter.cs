@@ -20,7 +20,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetSource([In] uint sourceSize, [In] ref byte source);
+        HRESULT SetSource([In] uint sourceSize, [In] IntPtr source);
 
         /// <summary>
         /// Sets checksum information.
@@ -31,6 +31,6 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetCheckSum([In] Guid algorithmId, [In] uint checkSumSize, [In] ref byte checkSum);
+        HRESULT SetCheckSum([In] Guid algorithmId, [In] uint checkSumSize, [In] IntPtr checkSum);
     }
 }

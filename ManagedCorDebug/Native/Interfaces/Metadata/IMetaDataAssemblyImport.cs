@@ -27,7 +27,7 @@ namespace ManagedCorDebug
         /// <param name="pdwAssemblyFlags">[out] Flags that describe the metadata applied to an assembly. This value is a combination of one or more <see cref="CorAssemblyFlags"/> values.</param>
         [PreserveSig]
         HRESULT GetAssemblyProps(
-            [In] uint mda,
+            [In] mdAssembly mda,
             [Out] out IntPtr ppbPublicKey,
             [Out] out uint pcbPublicKey,
             [Out] out uint pulHashAlgId,
@@ -53,7 +53,7 @@ namespace ManagedCorDebug
         /// <returns>This method returns S_OK if it succeeds; otherwise, it returns one of the error codes defined in the Winerror.h header file.</returns>
         [PreserveSig]
         HRESULT GetAssemblyRefProps(
-            [In] uint mdar,
+            [In] mdAssemblyRef mdar,
             [Out] IntPtr ppbPublicKeyOrToken,
             [Out] out uint pcbPublicKeyOrToken,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
@@ -76,7 +76,7 @@ namespace ManagedCorDebug
         /// <param name="pdwFileFlags">[out] A pointer to the flags that describe the metadata applied to a file. The flags value is a combination of one or more <see cref="CorFileFlags"/> values.</param>
         [PreserveSig]
         HRESULT GetFileProps(
-            [In] uint mdf,
+            [In] mdFile mdf,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
             [In] uint cchName,
             [Out] out uint pchName,
@@ -96,12 +96,12 @@ namespace ManagedCorDebug
         /// <param name="pdwExportedTypeFlags">[out] A pointer to the flags that describe the metadata applied to the exported type. The flags value can be one or more <see cref="CorTypeAttr"/> values.</param>
         [PreserveSig]
         HRESULT GetExportedTypeProps(
-            [In] uint mdct,
+            [In] mdExportedType mdct,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
             [In] uint cchName,
             [Out] out uint pchName,
             [Out] out uint ptkImplementation,
-            [Out] out uint ptkTypeDef,
+            [Out] out mdTypeDef ptkTypeDef,
             [Out] out CorTypeAttr pdwExportedTypeFlags);
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace ManagedCorDebug
         /// <param name="pdwResourceFlags">[out] A pointer to flags that describe the metadata applied to a resource. The flags value is a combination of one or more <see cref="CorManifestResourceFlags"/> values.</param>
         [PreserveSig]
         HRESULT GetManifestResourceProps(
-            [In] uint mdmr,
+            [In] mdManifestResource mdmr,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
             [In] uint cchName,
             [Out] out uint pchName,
@@ -140,7 +140,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT EnumAssemblyRefs(
             [In] ref IntPtr phEnum,
-            [Out, MarshalAs(UnmanagedType.LPArray)] uint[] rAssemblyRefs,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdAssemblyRef[] rAssemblyRefs,
             [In] uint cMax,
             [Out] out uint pcTokens);
 
@@ -160,7 +160,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT EnumFiles(
             [In] ref IntPtr phEnum,
-            [Out, MarshalAs(UnmanagedType.LPArray)] uint[] rFiles,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdFile[] rFiles,
             [In] uint cMax,
             [Out] out uint pcTokens);
 
@@ -180,7 +180,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT EnumExportedTypes(
             [In] ref IntPtr phEnum,
-            [Out, MarshalAs(UnmanagedType.LPArray)] uint[] rExportedTypes,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdExportedType[] rExportedTypes,
             [In] uint cMax,
             [Out] out uint pcTokens);
 
@@ -200,7 +200,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT EnumManifestResources(
             [In] ref IntPtr phEnum,
-            [Out, MarshalAs(UnmanagedType.LPArray)] uint[] rManifestResources,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdManifestResource[] rManifestResources,
             [In] uint cMax,
             [Out] out uint pcTokens);
 
@@ -210,7 +210,7 @@ namespace ManagedCorDebug
         /// <param name="ptkAssembly">[out] A pointer to the retrieved mdAssembly token that identifies the assembly.</param>
         [PreserveSig]
         HRESULT GetAssemblyFromScope(
-            [Out] out uint ptkAssembly);
+            [Out] out mdAssembly ptkAssembly);
 
         /// <summary>
         /// Gets a pointer to an exported type, given its name and enclosing type.
@@ -226,7 +226,7 @@ namespace ManagedCorDebug
         HRESULT FindExportedTypeByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] uint mdtExportedType,
-            [Out] out uint mdExportedType);
+            [Out] out mdExportedType mdExportedType);
 
         /// <summary>
         /// Gets a pointer to the manifest resource with the specified name.
@@ -240,7 +240,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT FindManifestResourceByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
-            [Out] out uint ptkManifestResource);
+            [Out] out mdManifestResource[] ptkManifestResource);
 
         /// <summary>
         /// Releases a reference to the specified enumeration instance.

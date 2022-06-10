@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -67,7 +68,7 @@ namespace ManagedCorDebug
         /// <param name="bytesWritten">[out] A pointer to the actual number of bytes that were written.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT WriteVirtual([In] ulong address, [In] ref byte buffer, [In] uint bytesRequested, out uint bytesWritten);
+        HRESULT WriteVirtual([In] ulong address, [In] IntPtr buffer, [In] uint bytesRequested, out uint bytesWritten);
 
         /// <summary>
         /// Gets a value from the thread local storage (TLS) of the specified thread in the target process. This method is called by the common language runtime (CLR) data access services.
@@ -135,7 +136,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetThreadContext([In] uint threadID, [In] uint contextSize, [In] ref byte context);
+        HRESULT SetThreadContext([In] uint threadID, [In] uint contextSize, [In] IntPtr context);
 
         /// <summary>
         /// Called by the common language runtime (CLR) data access services to request an operation, as defined by the implementation.
@@ -155,7 +156,7 @@ namespace ManagedCorDebug
         HRESULT Request(
             [In] uint reqCode,
             [In] uint inBufferSize,
-            [In] ref byte inBuffer,
+            [In] IntPtr inBuffer,
             [In] uint outBufferSize,
             out byte outBuffer);
     }

@@ -199,7 +199,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsTransitionStub([In] ulong address, out int pbTransitionStub);
+        HRESULT IsTransitionStub([In] CORDB_ADDRESS address, out int pbTransitionStub);
 
         /// <summary>
         /// Gets a value that indicates whether the specified thread has been suspended as a result of the debugger stopping this process.
@@ -267,7 +267,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ReadMemory([In] ulong address, [In] uint size, [Out] byte[] buffer, out ulong read);
+        HRESULT ReadMemory([In] CORDB_ADDRESS address, [In] uint size, [Out] byte[] buffer, out ulong read);
 
         /// <summary>
         /// Writes data to an area of memory in this process.
@@ -285,7 +285,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT WriteMemory([In] ulong address, [In] uint size, [In] ref byte buffer,
+        HRESULT WriteMemory([In] CORDB_ADDRESS address, [In] uint size, [In] IntPtr buffer,
             out ulong written);
 
         /// <summary>

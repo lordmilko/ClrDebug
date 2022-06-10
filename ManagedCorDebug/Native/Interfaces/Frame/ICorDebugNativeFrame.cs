@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -44,7 +45,7 @@ namespace ManagedCorDebug
         /// <param name="pToken">[out] A pointer to an mdMethodDef token that references the metadata for the function.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetFunctionToken(out uint pToken);
+        new HRESULT GetFunctionToken(out mdMethodDef pToken);
 
         /// <summary>
         /// Gets the absolute address range of this stack frame.
@@ -58,7 +59,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetStackRange(out ulong pStart, out ulong pEnd);
+        new HRESULT GetStackRange(out CORDB_ADDRESS pStart, out CORDB_ADDRESS pEnd);
 
         /// <summary>
         /// Gets a pointer to the ICorDebugFrame object in the current chain that called this frame.
@@ -140,7 +141,7 @@ namespace ManagedCorDebug
         HRESULT GetLocalRegisterValue(
             [In] CorDebugRegister reg,
             [In] uint cbSigBlob,
-            [In] ulong pvSigBlob,
+            [In] IntPtr pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         /// <summary>
@@ -160,7 +161,7 @@ namespace ManagedCorDebug
             [In] CorDebugRegister highWordReg,
             [In] CorDebugRegister lowWordReg,
             [In] uint cbSigBlob,
-            [In] ulong pvSigBlob,
+            [In] IntPtr pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         /// <summary>
@@ -173,9 +174,9 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLocalMemoryValue(
-            [In] ulong address,
+            [In] CORDB_ADDRESS address,
             [In] uint cbSigBlob,
-            [In] ulong pvSigBlob,
+            [In] IntPtr pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         /// <summary>
@@ -190,9 +191,9 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLocalRegisterMemoryValue(
             [In] CorDebugRegister highWordReg,
-            [In] ulong lowWordAddress,
+            [In] CORDB_ADDRESS lowWordAddress,
             [In] uint cbSigBlob,
-            [In] ulong pvSigBlob,
+            [In] IntPtr pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         /// <summary>
@@ -206,10 +207,10 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLocalMemoryRegisterValue(
-            [In] ulong highWordAddress,
+            [In] CORDB_ADDRESS highWordAddress,
             [In] CorDebugRegister lowWordRegister,
             [In] uint cbSigBlob,
-            [In] ulong pvSigBlob,
+            [In] IntPtr pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         /// <summary>

@@ -24,7 +24,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetStaticFieldSymbols(
             [In] uint cbSignature,
-            [In] ref byte typeSig,
+            [In] IntPtr typeSig,
             [In] uint cRequestedSymbols,
             out uint pcFetchedSymbols,
             [Out] IntPtr pSymbols); //ICorDebugStaticFieldSymbol
@@ -41,7 +41,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetInstanceFieldSymbols(
             [In] uint cbSignature,
-            [In] ref byte typeSig,
+            [In] IntPtr typeSig,
             [In] uint cRequestedSymbols,
             out uint pcFetchedSymbols,
             [Out] IntPtr pSymbols); //ICorDebugInstanceFieldSymbol
@@ -161,7 +161,7 @@ namespace ManagedCorDebug
         /// <param name="pObjectSize">[out] A pointer to the size of the object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetObjectSize([In] uint cbSignature, [In] ref byte typeSig, out uint pObjectSize);
+        HRESULT GetObjectSize([In] uint cbSignature, [In] IntPtr typeSig, out uint pObjectSize);
 
         /// <summary>
         /// Returns the metadata from a merged assembly.

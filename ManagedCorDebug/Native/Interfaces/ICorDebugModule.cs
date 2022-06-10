@@ -31,7 +31,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetBaseAddress(out ulong pAddress);
+        HRESULT GetBaseAddress(out CORDB_ADDRESS pAddress);
 
         /// <summary>
         /// Gets the containing assembly for this module.
@@ -92,7 +92,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetFunctionFromToken([In] uint methodDef,
+        HRESULT GetFunctionFromToken([In] mdMethodDef methodDef,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace ManagedCorDebug
         /// <param name="ppClass">[out] A pointer to the address of an ICorDebugClass object that represents the class.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetClassFromToken([In] uint typeDef, [MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);
+        HRESULT GetClassFromToken([In] mdTypeDef typeDef, [MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);
 
         /// <summary>
         /// This method has not been implemented in the current version of the .NET Framework.
@@ -151,7 +151,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetToken(out uint pToken);
+        HRESULT GetToken(out mdModule pToken);
 
         /// <summary>
         /// Gets a value that indicates whether this module is dynamic.
@@ -173,7 +173,7 @@ namespace ManagedCorDebug
         /// <param name="ppValue">[out] A pointer to the address of an ICorDebugValue object that represents the value of the specified global variable.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetGlobalVariableValue([In] uint fieldDef,
+        HRESULT GetGlobalVariableValue([In] mdFieldDef fieldDef,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         /// <summary>

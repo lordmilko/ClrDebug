@@ -242,7 +242,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT DebuggerError([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugProcess pProcess, [MarshalAs(UnmanagedType.Error), In] int errorHR, [In] uint errorCode);
+            ICorDebugProcess pProcess, [MarshalAs(UnmanagedType.Error), In] HRESULT errorHR, [In] uint errorCode);
 
         /// <summary>
         /// Notifies the debugger that a common language runtime (CLR) managed thread has called a method in the <see cref="EventLog"/> class to log an event.

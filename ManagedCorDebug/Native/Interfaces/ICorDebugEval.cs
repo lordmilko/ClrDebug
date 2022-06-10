@@ -91,7 +91,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT NewArray(
-            [In] uint elementType,
+            [In] CorElementType elementType,
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugClass pElementClass,
             [In] uint rank,

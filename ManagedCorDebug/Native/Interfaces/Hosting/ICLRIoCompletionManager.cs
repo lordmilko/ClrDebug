@@ -39,7 +39,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT OnComplete(
-            [In] uint dwErrorCode,
+            [In] HRESULT dwErrorCode,
             [In] uint NumberOfBytesTransferred,
             [In] IntPtr pvOverlapped);
     }

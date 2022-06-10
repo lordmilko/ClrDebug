@@ -52,7 +52,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetAddress(out ulong pAddress);
+        new HRESULT GetAddress(out CORDB_ADDRESS pAddress);
 
         /// <summary>
         /// The CreateBreakpoint method is currently not implemented.
@@ -75,7 +75,7 @@ namespace ManagedCorDebug
         /// <param name="pValue">[out] A pointer to a CORDB_ADDRESS value that specifies the address of the object to which this ICorDebugReferenceValue object points.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetValue(out ulong pValue);
+        new HRESULT GetValue(out CORDB_ADDRESS pValue);
 
         /// <summary>
         /// Sets the specified memory address. That is, this method sets this ICorDebugReferenceValue to point to an object.
@@ -83,7 +83,7 @@ namespace ManagedCorDebug
         /// <param name="value">[in] A CORDB_ADDRESS value that specifies the address of the object to which this ICorDebugReferenceValue points.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT SetValue([In] ulong value);
+        new HRESULT SetValue([In] CORDB_ADDRESS value);
 
         /// <summary>
         /// Gets the object that is referenced.

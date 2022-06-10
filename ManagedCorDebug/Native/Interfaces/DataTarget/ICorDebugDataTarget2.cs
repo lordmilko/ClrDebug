@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -20,7 +21,7 @@ namespace ManagedCorDebug
         /// <param name="pSize">A pointer to the module size.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetImageFromPointer([In] ulong addr, out ulong pImageBase, out uint pSize);
+        HRESULT GetImageFromPointer([In] CORDB_ADDRESS addr, out CORDB_ADDRESS pImageBase, out uint pSize);
 
         /// <summary>
         /// Returns the path of a module from the module's base address.
@@ -32,7 +33,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetImageLocation(
-            [In] ulong baseAddress,
+            [In] CORDB_ADDRESS baseAddress,
             [In] uint cchName,
             out uint pcchName,
             [Out] StringBuilder szName);
@@ -45,7 +46,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSymbolProviderForImage(
-            [In] ulong imageBaseAddress,
+            [In] CORDB_ADDRESS imageBaseAddress,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugSymbolProvider ppSymProvider);
 
         /// <summary>
@@ -73,7 +74,7 @@ namespace ManagedCorDebug
             [In] uint nativeThreadID,
             [In] uint contextFlags,
             [In] uint cbContext,
-            [In] ref byte initialContext,
+            [In] IntPtr initialContext,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugVirtualUnwinder ppUnwinder);
     }
 }

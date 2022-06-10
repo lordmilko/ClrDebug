@@ -19,7 +19,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetToken([Out] out uint pToken);
+        HRESULT GetToken([Out] out mdMethodDef pToken);
 
         /// <summary>
         /// Gets the count of sequence points within this method.

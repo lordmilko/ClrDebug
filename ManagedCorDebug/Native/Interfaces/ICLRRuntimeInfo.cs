@@ -100,7 +100,7 @@ namespace ManagedCorDebug
         [LCIDConversion(3)]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT LoadErrorString(
-            [In] uint iResourceID,
+            [In] HRESULT iResourceID,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder pwzBuffer,
             [In, Out] ref uint pcchBuffer,
             [In] int iLocaleID);

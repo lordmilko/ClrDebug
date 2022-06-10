@@ -39,7 +39,7 @@ namespace ManagedCorDebug
         /// <param name="pMethodDef">[out] A pointer to an mdMethodDef token that references the metadata for this function.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetToken(out uint pMethodDef);
+        HRESULT GetToken(out mdMethodDef pMethodDef);
 
         /// <summary>
         /// Gets the ICorDebugCode instance that represents the Microsoft intermediate language (MSIL) code associated with this ICorDebugFunction object.
@@ -79,7 +79,7 @@ namespace ManagedCorDebug
         /// <param name="pmdSig">[out] A pointer to the mdSignature token for the local variable signature of this function, or mdSignatureNil, if this function has no local variables.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetLocalVarSigToken(out uint pmdSig);
+        HRESULT GetLocalVarSigToken(out mdSignature pmdSig);
 
         /// <summary>
         /// Gets the version number of the latest edit made to the function represented by this ICorDebugFunction object.

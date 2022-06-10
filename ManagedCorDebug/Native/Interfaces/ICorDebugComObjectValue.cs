@@ -38,6 +38,6 @@ namespace ManagedCorDebug
             [In] int bIInspectableOnly,
             [In] uint celt,
             out uint pceltFetched,
-            out ulong ptrs);
+            out CORDB_ADDRESS[] ptrs);
     }
 }

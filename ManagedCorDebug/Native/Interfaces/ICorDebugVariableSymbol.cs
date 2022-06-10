@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -44,7 +45,7 @@ namespace ManagedCorDebug
         HRESULT GetValue(
             [In] uint offset,
             [In] uint cbContext,
-            [In] ref byte context,
+            [In] IntPtr context,
             [In] uint cbValue,
             out uint pcbValue,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] pValue);
@@ -64,9 +65,9 @@ namespace ManagedCorDebug
             [In] uint offset,
             [In] uint threadID,
             [In] uint cbContext,
-            [In] ref byte context,
+            [In] IntPtr context,
             [In] uint cbValue,
-            [In] ref byte pValue);
+            [In] IntPtr pValue);
 
         /// <summary>
         /// Gets the managed slot index of a local variable.

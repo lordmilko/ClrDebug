@@ -66,7 +66,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHashFromBlob(
-            [In] ref byte pbBlob,
+            [In] IntPtr pbBlob,
             [In] uint cchBlob,
             [In] [Out] ref uint piHashAlg,
             out byte pbHash,
@@ -162,7 +162,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT StrongNameFreeBuffer([In] ref byte pbMemory);
+        HRESULT StrongNameFreeBuffer([In] IntPtr pbMemory);
 
         /// <summary>
         /// Fills the specified buffer with the binary representation of the executable file at the specified address.
@@ -173,7 +173,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT StrongNameGetBlob([MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath, [In] [Out] ref byte pbBlob,
+        HRESULT StrongNameGetBlob([MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath, [In] [Out] IntPtr pbBlob,
             [In] [Out] ref uint pcbBlob);
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameGetBlobFromImage(
-            [In] ref byte pbBase,
+            [In] IntPtr pbBase,
             [In] uint dwLength,
             out byte pbBlob,
             [In] [Out] ref uint pcbBlob);
@@ -213,7 +213,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameGetPublicKey(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
-            [In] ref byte pbKeyBlob,
+            [In] IntPtr pbKeyBlob,
             [In] uint cbKeyBlob,
             [Out] IntPtr ppbPublicKeyBlob,
             out uint pcbPublicKeyBlob);
@@ -296,7 +296,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameKeyInstall([MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
-            [In] ref byte pbKeyBlob, [In] uint cbKeyBlob);
+            [In] IntPtr pbKeyBlob, [In] uint cbKeyBlob);
 
         /// <summary>
         /// Generates a strong name signature for the specified assembly.
@@ -321,7 +321,7 @@ namespace ManagedCorDebug
         HRESULT StrongNameSignatureGeneration(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
-            [In] ref byte pbKeyBlob,
+            [In] IntPtr pbKeyBlob,
             [In] uint cbKeyBlob,
             [Out] IntPtr ppbSignatureBlob,
             out uint pcbSignatureBlob);
@@ -352,7 +352,7 @@ namespace ManagedCorDebug
         HRESULT StrongNameSignatureGenerationEx(
             [MarshalAs(UnmanagedType.LPWStr), In] string wszFilePath,
             [MarshalAs(UnmanagedType.LPWStr), In] string wszKeyContainer,
-            [In] ref byte pbKeyBlob,
+            [In] IntPtr pbKeyBlob,
             [In] uint cbKeyBlob,
             [Out] IntPtr ppbSignatureBlob,
             out uint pcbSignatureBlob,
@@ -367,7 +367,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method completed successfully; otherwise, an HRESULT value that indicates failure (see Common HRESULT Values for a list).</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT StrongNameSignatureSize([In] ref byte pbPublicKeyBlob, [In] uint cbPublicKeyBlob, [In] ref uint pcbSize);
+        HRESULT StrongNameSignatureSize([In] IntPtr pbPublicKeyBlob, [In] PublicKeyBlob cbPublicKeyBlob, [In] ref uint pcbSize);
 
         /// <summary>
         /// Gets a value that indicates whether the assembly manifest at the supplied path contains a strong name signature, which is verified according to the specified flags.
@@ -413,7 +413,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameSignatureVerificationFromImage(
-            [In] ref byte pbBase,
+            [In] IntPtr pbBase,
             [In] uint dwLength,
             [In] uint dwInFlags,
             [Out] out uint pdwOutFlags);
@@ -478,8 +478,8 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameTokenFromPublicKey(
-            [In] ref byte pbPublicKeyBlob,
-            [In] uint cbPublicKeyBlob,
+            [In] IntPtr pbPublicKeyBlob,
+            [In] PublicKeyBlob cbPublicKeyBlob,
             [Out] IntPtr ppbStrongNameToken,
             out uint pcbStrongNameToken);
     }

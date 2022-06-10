@@ -501,7 +501,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT FindMember(
-            [In] uint td,
+            [In] mdToken td,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
             [In] IntPtr pvSigBlob,
             [In] uint cbSigBlob,
@@ -526,7 +526,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT FindMethod(
-            [In] uint td,
+            [In] mdToken td,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
             [In] IntPtr pvSigBlob,
             [In] uint cbSigBlob,
@@ -550,7 +550,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT FindField(
-            [In] uint td,
+            [In] mdToken td,
             [MarshalAs(UnmanagedType.LPWStr), In] StringBuilder szName,
             [In] IntPtr pvSigBlob,
             [In] uint cbSigBlob,
@@ -574,7 +574,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT FindMemberRef(
-            [In] uint td,
+            [In] mdToken td,
             [MarshalAs(UnmanagedType.LPWStr), In] StringBuilder szName,
             [In] IntPtr pvSigBlob, [In] uint cbSigBlob,
             [Out] out uint pmr);
@@ -1057,8 +1057,8 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT GetCustomAttributeProps(
             [In] uint cv,
-            [Out] out uint ptkObj,
-            [Out] out uint ptkType,
+            [Out] out mdToken ptkObj,
+            [Out] out mdToken ptkType,
             [Out] out IntPtr ppBlob,
             [Out] out uint pcbSize);
 

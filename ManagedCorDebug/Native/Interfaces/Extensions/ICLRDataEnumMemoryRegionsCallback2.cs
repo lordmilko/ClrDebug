@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -24,6 +25,6 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT UpdateMemoryRegion([In] ulong address, [In] uint bufferSize, [In] ref byte buffer);
+        HRESULT UpdateMemoryRegion([In] ulong address, [In] uint bufferSize, [In] IntPtr buffer);
     }
 }

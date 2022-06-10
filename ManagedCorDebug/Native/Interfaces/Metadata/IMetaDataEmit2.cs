@@ -19,7 +19,7 @@ namespace ManagedCorDebug
         /// <param name="cbSigBlob">[in] The size, in bytes, of pvSigBlob.</param>
         /// <param name="pmi">[out] A token to the metadata signature definition of the method.</param>
         [PreserveSig]
-        HRESULT DefineMethodSpec(uint tkParent, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)]
+        HRESULT DefineMethodSpec(mdToken tkParent, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)]
             byte[] pvSigBlob, uint cbSigBlob, out uint pmi);
 
         /// <summary>
@@ -66,12 +66,12 @@ namespace ManagedCorDebug
         /// <param name="pgp">[out] A token that represents the generic parameter.</param>
         [PreserveSig]
         HRESULT DefineGenericParam(
-            uint tk,
+            mdToken tk,
             uint ulParamSeq,
             uint dwParamFlags,
             [MarshalAs(UnmanagedType.LPWStr)] string szname,
             uint tkKind,
-            [MarshalAs(UnmanagedType.LPArray)] uint[] rtkConstraints,
+            [MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkConstraints,
             out uint pgp
         );
 
@@ -89,7 +89,7 @@ namespace ManagedCorDebug
             uint dwParamFlags,
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
             uint tkKind,
-            [MarshalAs(UnmanagedType.LPArray)] uint[] rtkConstraints
+            [MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkConstraints
         );
 
         /// <summary>

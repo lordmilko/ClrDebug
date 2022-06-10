@@ -17,7 +17,7 @@ namespace ManagedCorDebug
         /// <param name="pmdSig">[out] A pointer to the mdSignature token for the local variable signature for this function, or mdSignatureNil if there is no signature (that is, if the function doesn't have any local variables).</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetLocalVarSigToken(out uint pmdSig);
+        HRESULT GetLocalVarSigToken(out mdSignature pmdSig);
 
         /// <summary>
         /// [Supported in the .NET Framework 4.5.2 and later versions] Returns a map from profiler-instrumented intermediate language (IL) offsets to original method IL offsets for this instance.

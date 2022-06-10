@@ -34,7 +34,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetStackRange(out ulong pStart, out ulong pEnd);
+        HRESULT GetStackRange(out CORDB_ADDRESS pStart, out CORDB_ADDRESS pEnd);
 
         /// <summary>
         /// This method is not implemented in the current version of the .NET Framework.

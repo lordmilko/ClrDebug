@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -63,7 +64,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetContext([In] CorDebugSetContextFlag flag, [In] uint contextSize, [In] ref byte context);
+        HRESULT SetContext([In] CorDebugSetContextFlag flag, [In] uint contextSize, [In] IntPtr context);
 
         /// <summary>
         /// Moves the <see cref="ICorDebugStackWalk"/> object to the next frame.

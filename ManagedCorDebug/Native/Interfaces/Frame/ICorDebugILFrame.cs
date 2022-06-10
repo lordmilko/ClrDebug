@@ -49,7 +49,7 @@ namespace ManagedCorDebug
         /// <param name="pToken">[out] A pointer to an mdMethodDef token that references the metadata for the function.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetFunctionToken(out uint pToken);
+        new HRESULT GetFunctionToken(out mdMethodDef pToken);
 
         /// <summary>
         /// Gets the absolute address range of this stack frame.
@@ -63,7 +63,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetStackRange(out ulong pStart, out ulong pEnd);
+        new HRESULT GetStackRange(out CORDB_ADDRESS pStart, out CORDB_ADDRESS pEnd);
 
         /// <summary>
         /// Gets a pointer to the ICorDebugFrame object in the current chain that called this frame.
