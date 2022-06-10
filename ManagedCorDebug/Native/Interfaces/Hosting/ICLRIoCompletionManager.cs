@@ -9,7 +9,7 @@ namespace ManagedCorDebug
     /// <remarks>
     /// The host implements the I/O completion abstraction by using the <see cref="IHostIoCompletionManager"/> interface.
     /// The CLR makes I/O requests through this interface, and the host notifies the runtime of the outcome of such requests
-    /// by using the ICLRIoCompletionManager interface.
+    /// by using the <see cref="ICLRIoCompletionManager"/> interface.
     /// </remarks>
     [Guid("2d74ce86-b8d6-4c84-b3a7-9768933b3c12")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -19,9 +19,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the common language runtime (CLR) of the status of an I/O request that was made by using a call to the <see cref="IHostIoCompletionManager.Bind"/> method.
         /// </summary>
-        /// <param name="dwErrorCode">[in] An HRESULT value that indicates the status of the bind operation.</param>
+        /// <param name="dwErrorCode">[in] An <see cref="HRESULT"/> value that indicates the status of the bind operation.</param>
         /// <param name="NumberOfBytesTransferred">[in] The number of bytes transferred during the processing of the I/O request.</param>
-        /// <param name="pvOverlapped">[in] A pointer to the OVERLAPPED structure that was passed to the call to the IHostIoCompletionManager::Bind method.</param>
+        /// <param name="pvOverlapped">[in] A pointer to the OVERLAPPED structure that was passed to the call to the <see cref="IHostIoCompletionManager.Bind"/> method.</param>
         /// <returns>
         /// | HRESULT                | Description                                                                                                                                                                                 |
         /// | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

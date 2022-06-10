@@ -8,7 +8,7 @@ namespace ManagedCorDebug
     /// Provides methods that handle loading and unloading modules for debugging.
     /// </summary>
     /// <remarks>
-    /// You can obtain an instance of the ICLRDebugging interface by using the CLRCreateInstance function.
+    /// You can obtain an instance of the <see cref="ICLRDebugging"/> interface by using the CLRCreateInstance function.
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("D28F3C5A-9634-4206-A509-477552EEFB10")]
@@ -16,7 +16,7 @@ namespace ManagedCorDebug
     public interface ICLRDebugging
     {
         /// <summary>
-        /// Gets the ICorDebugProcess interface that corresponds to a common language runtime (CLR) module loaded in the process.
+        /// Gets the <see cref="ICorDebugProcess"/> interface that corresponds to a common language runtime (CLR) module loaded in the process.
         /// </summary>
         /// <param name="moduleBaseAddress">[in] The base address of a module in the target process. COR_E_NOT_CLR will be returned if the specified module is not a CLR module.</param>
         /// <param name="pDataTarget">[in] A data target abstraction that allows the managed debugger to inspect process state. The debugger must implement the <see cref="ICorDebugDataTarget"/> interface.<para/>
@@ -24,10 +24,10 @@ namespace ManagedCorDebug
         /// <param name="pLibraryProvider">[in] A library provider callback interface that allows version-specific debugging libraries to be located and loaded on demand.<para/>
         /// This parameter is required only if ppProcess or pFlags is not null.</param>
         /// <param name="pMaxDebuggerSupportedVersion">[in] The highest version of the CLR that this debugger can debug. You should specify the major, minor, and build versions from the latest CLR version this debugger supports, and set the revision number to 65535 to accommodate future in-place CLR servicing releases.</param>
-        /// <param name="riidProcess">[in] The ID of the ICorDebugProcess interface to retrieve. Currently, the only accepted values are IID_CORDEBUGPROCESS3, IID_CORDEBUGPROCESS2, and IID_CORDEBUGPROCESS.</param>
+        /// <param name="riidProcess">[in] The ID of the <see cref="ICorDebugProcess"/> interface to retrieve. Currently, the only accepted values are IID_CORDEBUGPROCESS3, IID_CORDEBUGPROCESS2, and IID_CORDEBUGPROCESS.</param>
         /// <param name="ppProcess">[out] A pointer to the COM interface that is identified by riidProcess.</param>
         /// <param name="pVersion">[in, out] The version of the CLR. On input, this value can be null. It can also point to a <see cref="CLR_DEBUGGING_VERSION"/> structure, in which case the structure's wStructVersion field must be initialized to 0 (zero).<para/>
-        /// On output, the returned CLR_DEBUGGING_VERSION structure will be filled in with the version information for the CLR.</param>
+        /// On output, the returned <see cref="CLR_DEBUGGING_VERSION"/> structure will be filled in with the version information for the CLR.</param>
         /// <param name="pdwFlags">[out] Informational flags about the specified runtime. See the <see cref="CLR_DEBUGGING_PROCESS_FLAGS"/> topic for a description of the flags.</param>
         /// <returns>
         /// This method returns the following specific HRESULTs as well as HRESULT errors that indicate method failure.

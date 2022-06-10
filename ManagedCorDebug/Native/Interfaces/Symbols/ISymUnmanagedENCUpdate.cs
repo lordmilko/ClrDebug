@@ -16,7 +16,7 @@ namespace ManagedCorDebug
         /// Allows a compiler to omit functions that have not been modified from the program database (PDB) stream, provided the line information meets the requirements.<para/>
         /// The correct line information can be determined with the old PDB line information and one delta for all lines in the function.
         /// </summary>
-        /// <param name="pIStream">[in] A pointer to an IStream that contains the line information.</param>
+        /// <param name="pIStream">[in] A pointer to an <see cref="IStream"/> that contains the line information.</param>
         /// <param name="pDeltaLines">[in] A pointer to a <see cref="SYMLINEDELTA"/> structure that contains the lines that have changed.</param>
         /// <param name="cDeltaLines">[in] A ULONG that represents the number of lines that have changed.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>

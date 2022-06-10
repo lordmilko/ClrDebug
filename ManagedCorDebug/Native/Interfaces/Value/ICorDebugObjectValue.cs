@@ -7,7 +7,7 @@ namespace ManagedCorDebug
     /// A subclass of "ICorDebugValue" that represents a value that contains an object.
     /// </summary>
     /// <remarks>
-    /// An ICorDebugObjectValue remains valid until the process being debugged is continued.
+    /// An <see cref="ICorDebugObjectValue"/> remains valid until the process being debugged is continued.
     /// </remarks>
     [Guid("18AD3D6E-B7D2-11D2-BD04-0000F80849BD")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -19,8 +19,8 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pType">[out] A pointer to a value of the "CorElementType" enumeration that indicates the value's type.</param>
         /// <remarks>
-        /// If the object is a complex run-time type, that type may be examined through the appropriate subclasses of the ICorDebugValue
-        /// interface. For example, "ICorDebugObjectValue", which inherits from ICorDebugValue, represents a complex type.
+        /// If the object is a complex run-time type, that type may be examined through the appropriate subclasses of the <see cref="ICorDebugValue"/>
+        /// interface. For example, "ICorDebugObjectValue", which inherits from <see cref="ICorDebugValue"/>, represents a complex type.
         /// The GetType and <see cref="ICorDebugObjectValue.GetClass"/> methods each return information about the type of a
         /// value. They are both superseded by the generics-aware <see cref="ICorDebugValue2.GetExactType"/> method.
         /// </remarks>
@@ -34,7 +34,7 @@ namespace ManagedCorDebug
         /// <param name="pSize">[out] The size, in bytes, of this value object.</param>
         /// <remarks>
         /// If the value's type is a reference type, this method returns the size of the pointer rather than the size of the
-        /// object. The ICorDebugValue::GetSize method returns COR_E_OVERFLOW for objects that are larger than 4 GB on 64-bit
+        /// object. The <see cref="ICorDebugValue.GetSize"/> method returns COR_E_OVERFLOW for objects that are larger than 4 GB on 64-bit
         /// platforms. Use the <see cref="ICorDebugValue3.GetSize64"/> method instead for objects that are larger than 4 GB.
         /// </remarks>
         [PreserveSig]
@@ -44,7 +44,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the address of this "ICorDebugValue" object, which is in the process of being debugged.
         /// </summary>
-        /// <param name="pAddress">[out] Pointer to a CORDB_ADDRESS object that specifies the address of this value object.</param>
+        /// <param name="pAddress">[out] Pointer to a <see cref="CORDB_ADDRESS"/> object that specifies the address of this value object.</param>
         /// <remarks>
         /// If the value is unavailable, 0 (zero) is returned. This could happen if the value is at least partly in registers
         /// or stored in a garbage collector handle (GCHandle).
@@ -76,13 +76,13 @@ namespace ManagedCorDebug
         /// Gets the value of the specified field of the specified class for this object value.
         /// </summary>
         /// <param name="pClass">[in] A pointer to an "ICorDebugClass" object that represents the class for which to get the field value.</param>
-        /// <param name="fieldDef">[in] An mdFieldDef token that references the metadata describing the field.</param>
+        /// <param name="fieldDef">[in] An <see cref="mdFieldDef"/> token that references the metadata describing the field.</param>
         /// <param name="ppValue">[out] A pointer to an "ICorDebugValue" object that represents the value of the specified field.</param>
         /// <remarks>
         /// The class, specified in the pClass parameter, must be in the hierarchy of the object value's class, and the field
         /// must be a field of that class. The GetFieldValue method will still succeed for generic objects and generic classes.
         /// For example, if MyDictionary&lt;V&gt; inherits from Dictionary&lt;string,V&gt;, and the object value is of type
-        /// MyDictionary&lt;int32&gt;, passing the ICorDebugClass object for Dictionary&lt;K,V&gt; will successfully get a
+        /// MyDictionary&lt;int32&gt;, passing the <see cref="ICorDebugClass"/> object for Dictionary&lt;K,V&gt; will successfully get a
         /// field of Dictionary&lt;string,int32&gt;.
         /// </remarks>
         [PreserveSig]

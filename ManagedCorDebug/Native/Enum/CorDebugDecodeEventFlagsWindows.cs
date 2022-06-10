@@ -5,7 +5,7 @@
     /// </summary>
     /// <remarks>
     /// The <see cref="ICorDebugProcess6.DecodeEvent"/> method includes a dwFlags parameter that provides additional information
-    /// about a debug event and whose value is dependent on the target architecture. The CorDebugDecodeEventFlagsWindows
+    /// about a debug event and whose value is dependent on the target architecture. The <see cref="CorDebugDecodeEventFlagsWindows"/>
     /// enumeration can be used with debug events on the Windows platform.
     /// </remarks>
     public enum CorDebugDecodeEventFlagsWindows

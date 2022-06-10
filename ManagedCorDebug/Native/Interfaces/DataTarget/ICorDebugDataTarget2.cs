@@ -16,8 +16,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Returns the module base address and size from an address in that module.
         /// </summary>
-        /// <param name="addr">A CORDB_ADDRESS value that represents an address in a module.</param>
-        /// <param name="pImageBase">[out] A CORDB_ADDRESS value that represents the module's base address.</param>
+        /// <param name="addr">A <see cref="CORDB_ADDRESS"/> value that represents an address in a module.</param>
+        /// <param name="pImageBase">[out] A <see cref="CORDB_ADDRESS"/> value that represents the module's base address.</param>
         /// <param name="pSize">A pointer to the module size.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -26,7 +26,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Returns the path of a module from the module's base address.
         /// </summary>
-        /// <param name="baseAddress">[in] A CORDB_ADDRESS value that represents the module's base address.</param>
+        /// <param name="baseAddress">[in] A <see cref="CORDB_ADDRESS"/> value that represents the module's base address.</param>
         /// <param name="cchName">[in] The number of characters in the buffer that is to receive the module path.</param>
         /// <param name="pcchName">[out] A pointer to the number of characters written to the szName buffer.</param>
         /// <param name="szName">[out] The path of the module.</param>
@@ -41,7 +41,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Returns the symbol-provider for a module from the base address of that module.
         /// </summary>
-        /// <param name="imageBaseAddress">[in] A CORDB_ADDRESS value that represents the base address of a module.</param>
+        /// <param name="imageBaseAddress">[in] A <see cref="CORDB_ADDRESS"/> value that represents the base address of a module.</param>
         /// <param name="ppSymProvider">[out] A pointer to the address of an <see cref="ICorDebugSymbolProvider"/> object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -66,8 +66,8 @@ namespace ManagedCorDebug
         /// <param name="contextFlags">[in] Flags that specify which parts of the context are defined in initialContext.</param>
         /// <param name="cbContext">[in] The size of initialContext.</param>
         /// <param name="initialContext">[in] The data in the context.</param>
-        /// <param name="ppUnwinder">[out] A pointer to the address of an ICorDebugVirtualUnwinder interface object.</param>
-        /// <returns>S_OK if successful. Any other HRESULT indicates failure. Any failing HRESULT received by mscordbi is considered fatal and causes <see cref="ICorDebug"/> methods to return CORDBG_E_DATA_TARGET_ERROR.</returns>
+        /// <param name="ppUnwinder">[out] A pointer to the address of an <see cref="ICorDebugVirtualUnwinder"/> interface object.</param>
+        /// <returns>S_OK if successful. Any other <see cref="HRESULT"/> indicates failure. Any failing <see cref="HRESULT"/> received by mscordbi is considered fatal and causes <see cref="ICorDebug"/> methods to return CORDBG_E_DATA_TARGET_ERROR.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateVirtualUnwinder(

@@ -4,7 +4,7 @@
     /// Provides additional information about an exception.
     /// </summary>
     /// <remarks>
-    /// New values may be added to this enumeration in later versions, so you should prepare code that uses CorDebugExceptionFlags
+    /// New values may be added to this enumeration in later versions, so you should prepare code that uses <see cref="CorDebugExceptionFlags"/>
     /// for unexpected values.
     /// </remarks>
     public enum CorDebugExceptionFlags

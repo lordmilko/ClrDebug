@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Logically extends the ICorDebugFunction interface to provide support for Just My Code step-through debugging, which skips non-user code.
+    /// Logically extends the <see cref="ICorDebugFunction"/> interface to provide support for Just My Code step-through debugging, which skips non-user code.
     /// </summary>
     [Guid("EF0C490B-94C3-4E4D-B629-DDC134C532D8")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -12,7 +12,7 @@ namespace ManagedCorDebug
     public interface ICorDebugFunction2
     {
         /// <summary>
-        /// Marks the function represented by this ICorDebugFunction2 for Just My Code stepping.
+        /// Marks the function represented by this <see cref="ICorDebugFunction2"/> for Just My Code stepping.
         /// </summary>
         /// <param name="bIsJustMyCode">[in] Set to true to mark the function as user code; otherwise, set to false.</param>
         /// <returns>
@@ -29,18 +29,18 @@ namespace ManagedCorDebug
         HRESULT SetJMCStatus([In] int bIsJustMyCode);
 
         /// <summary>
-        /// Gets a value that indicates whether the function that is represented by this ICorDebugFunction2 object is marked as user code.
+        /// Gets a value that indicates whether the function that is represented by this <see cref="ICorDebugFunction2"/> object is marked as user code.
         /// </summary>
         /// <param name="pbIsJustMyCode">[out] A pointer to a Boolean value that is true, if this function is marked as user code; otherwise, the value is false.</param>
         /// <remarks>
-        /// If the function represented by this ICorDebugFunction2 cannot be debugged, pbIsJustMyCode will always be false.
+        /// If the function represented by this <see cref="ICorDebugFunction2"/> cannot be debugged, pbIsJustMyCode will always be false.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetJMCStatus(out int pbIsJustMyCode);
 
         /// <summary>
-        /// Gets an interface pointer to an ICorDebugCodeEnum object that contains the native code statements in the function referenced by this ICorDebugFunction2 object.
+        /// Gets an interface pointer to an <see cref="ICorDebugCodeEnum"/> object that contains the native code statements in the function referenced by this <see cref="ICorDebugFunction2"/> object.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -49,12 +49,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the Edit and Continue version of this function.
         /// </summary>
-        /// <param name="pnVersion">[out] A pointer to an integer that is the version number of the function that is represented by this ICorDebugFunction2 object.</param>
+        /// <param name="pnVersion">[out] A pointer to an integer that is the version number of the function that is represented by this <see cref="ICorDebugFunction2"/> object.</param>
         /// <remarks>
         /// The runtime keeps track of the number of edits that have taken place to each module during a debug session. The
         /// version number of a function is one more than the number of the edit that introduced the function. The function's
         /// original version is version 1. The number is incremented for a module every time <see cref="ICorDebugModule2.ApplyChanges"/>
-        /// is called on that module. Thus, if a function’s body was replaced in the first and third call to ICorDebugModule2::ApplyChanges,
+        /// is called on that module. Thus, if a function’s body was replaced in the first and third call to <see cref="ICorDebugModule2.ApplyChanges"/>,
         /// GetVersionNumber may return version 1, 2, or 4 for that function, but not version 3. (That function would have
         /// no version 3.) The version number is tracked separately for each module. So, if you perform four edits on Module
         /// 1, and none on Module 2, your next edit on Module 1 will assign a version number of 6 to all the edited functions

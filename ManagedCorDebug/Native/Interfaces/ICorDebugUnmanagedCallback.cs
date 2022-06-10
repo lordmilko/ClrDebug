@@ -18,7 +18,7 @@ namespace ManagedCorDebug
         /// <param name="fOutOfBand">[in] true, if interaction with the managed process state is impossible after an unmanaged event occurs, until the debugger calls <see cref="ICorDebugController.Continue"/>; otherwise, false.</param>
         /// <remarks>
         /// If the thread being debugged is a Win32 thread, do not use any members of the Win32 debugging interface. You can
-        /// call ICorDebugController::Continue only on a Win32 thread and only when continuing past an out-of-band event. The
+        /// call <see cref="ICorDebugController.Continue"/> only on a Win32 thread and only when continuing past an out-of-band event. The
         /// DebugEvent callback does not follow the standard rules for callbacks. When you call DebugEvent, the process will
         /// be in the raw, OS-debug stopped state. The process will not be synchronized. It will automatically enter the synchronized
         /// state when necessary to satisfy requests for information about managed code, which may result in other nested DebugEvent
@@ -31,7 +31,7 @@ namespace ManagedCorDebug
         /// cref="ICorDebugProcess2.ClearUnmanagedBreakpoint"/> methods to add and remove breakpoints. These methods will skip
         /// over any out-of-band breakpoints automatically. Thus, the only out-of-band breakpoints that get dispatched should
         /// be raw breakpoints that are already in the instruction stream, such as a call to the Win32 DebugBreak function.
-        /// Do not try to use ICorDebugProcess::ClearCurrentException, <see cref="ICorDebugProcess.GetThreadContext"/>, <see
+        /// Do not try to use <see cref="ICorDebugProcess.ClearCurrentException"/>, <see cref="ICorDebugProcess.GetThreadContext"/>, <see
         /// cref="ICorDebugProcess.SetThreadContext"/>, or any other member of the debugging API.
         /// </remarks>
         [PreserveSig]

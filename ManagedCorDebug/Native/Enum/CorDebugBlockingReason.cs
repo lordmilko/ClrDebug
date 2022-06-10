@@ -7,7 +7,7 @@ namespace ManagedCorDebug
     /// </summary>
     /// <remarks>
     /// When the BLOCKING_MONITOR_CRITICAL_SECTION or BLOCKING_MONITOR_EVENT member is used in a <see cref="CorDebugBlockingObject"/>
-    /// structure, the pBlockingObject member of the structure points to an "ICorDebugValue" interface that represents
+    /// structure, the pBlockingObject member of the structure points to an <see cref="ICorDebugValue"/> interface that represents
     /// the object that is being entered. It is also guaranteed to implement the <see cref="ICorDebugHeapValue3"/> interface.
     /// </remarks>
     public enum CorDebugBlockingReason

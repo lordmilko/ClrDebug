@@ -9,123 +9,123 @@
     public enum CorTokenType
     {
         /// <summary>
-        /// An mdModule token.
+        /// An <see cref="mdModule"/> token.
         /// </summary>
         mdtModule               = 0x00000000,       //
 
         /// <summary>
-        /// An mdTypeRef token.
+        /// An <see cref="mdTypeRef"/> token.
         /// </summary>
         mdtTypeRef              = 0x01000000,       //
 
         /// <summary>
-        /// An mdTypeDef token.
+        /// An <see cref="mdTypeDef"/> token.
         /// </summary>
         mdtTypeDef              = 0x02000000,       //
 
         /// <summary>
-        /// An mdFieldDef token.
+        /// An <see cref="mdFieldDef"/> token.
         /// </summary>
         mdtFieldDef             = 0x04000000,       //
 
         /// <summary>
-        /// An mdMethodDef token.
+        /// An <see cref="mdMethodDef"/> token.
         /// </summary>
         mdtMethodDef            = 0x06000000,       //
 
         /// <summary>
-        /// An mdParamDef token.
+        /// An <see cref="mdParamDef"/> token.
         /// </summary>
         mdtParamDef             = 0x08000000,       //
 
         /// <summary>
-        /// An mdInterfaceImpl token.
+        /// An <see cref="mdInterfaceImpl"/> token.
         /// </summary>
         mdtInterfaceImpl        = 0x09000000,       //
 
         /// <summary>
-        /// An mdMemberRef token.
+        /// An <see cref="mdMemberRef"/> token.
         /// </summary>
         mdtMemberRef            = 0x0a000000,       //
 
         /// <summary>
-        /// An mdCustomAttribute token.
+        /// An <see cref="mdCustomAttribute"/> token.
         /// </summary>
         mdtCustomAttribute      = 0x0c000000,       //
 
         /// <summary>
-        /// An mdPermission token.
+        /// An <see cref="mdPermission"/> token.
         /// </summary>
         mdtPermission           = 0x0e000000,       //
 
         /// <summary>
-        /// An mdSignature token.
+        /// An <see cref="mdSignature"/> token.
         /// </summary>
         mdtSignature            = 0x11000000,       //
 
         /// <summary>
-        /// An mdEvent token.
+        /// An <see cref="mdEvent"/> token.
         /// </summary>
         mdtEvent                = 0x14000000,       //
 
         /// <summary>
-        /// An mdProperty token.
+        /// An <see cref="mdProperty"/> token.
         /// </summary>
         mdtProperty             = 0x17000000,       //
         mdtMethodImpl           = 0x19000000,       //
 
         /// <summary>
-        /// An mdModuleRef token.
+        /// An <see cref="mdModuleRef"/> token.
         /// </summary>
         mdtModuleRef            = 0x1a000000,       //
 
         /// <summary>
-        /// An mdTypeSpec token.
+        /// An <see cref="mdTypeSpec"/> token.
         /// </summary>
         mdtTypeSpec             = 0x1b000000,       //
 
         /// <summary>
-        /// An mdAssembly token.
+        /// An <see cref="mdAssembly"/> token.
         /// </summary>
         mdtAssembly             = 0x20000000,       //
 
         /// <summary>
-        /// An mdAssemblyRef token.
+        /// An <see cref="mdAssemblyRef"/> token.
         /// </summary>
         mdtAssemblyRef          = 0x23000000,       //
 
         /// <summary>
-        /// An mdFile token.
+        /// An <see cref="mdFile"/> token.
         /// </summary>
         mdtFile                 = 0x26000000,       //
 
         /// <summary>
-        /// An mdExportedType token.
+        /// An <see cref="mdExportedType"/> token.
         /// </summary>
         mdtExportedType         = 0x27000000,       //
 
         /// <summary>
-        /// An mdManifestResource token.
+        /// An <see cref="mdManifestResource"/> token.
         /// </summary>
         mdtManifestResource     = 0x28000000,       //
 
         /// <summary>
-        /// An mdGenericParam token.
+        /// An <see cref="mdGenericParam"/> token.
         /// </summary>
         mdtGenericParam         = 0x2a000000,       //
 
         /// <summary>
-        /// An mdMethodSpec token.
+        /// An <see cref="mdMethodSpec"/> token.
         /// </summary>
         mdtMethodSpec           = 0x2b000000,       //
 
         /// <summary>
-        /// An mdGenericParamConstraint token.
+        /// An <see cref="mdGenericParamConstraint"/> token.
         /// </summary>
         mdtGenericParamConstraint = 0x2c000000,
 
         /// <summary>
-        /// An mdString token.
+        /// An <see cref="mdString"/> token.
         /// </summary>
         mdtString               = 0x70000000,       //
 

@@ -4,7 +4,7 @@
     /// Represents, in binary format, the public key of a public/private key pair.
     /// </summary>
     /// <remarks>
-    /// The PublicKeyBlob structure is used by StrongNameGetPublicKey, StrongNameSignatureGeneration, and other strong
+    /// The <see cref="PublicKeyBlob"/> structure is used by StrongNameGetPublicKey, StrongNameSignatureGeneration, and other strong
     /// name functions to represent the public key of a public/private key pair.
     /// </remarks>
     public unsafe struct PublicKeyBlob

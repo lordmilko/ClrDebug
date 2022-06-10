@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Extends the symbol binder interface. Obtain this interface by calling QueryInterface on an object that implements the ISymUnmanagedBinder interface.
+    /// Extends the symbol binder interface. Obtain this interface by calling QueryInterface on an object that implements the <see cref="ISymUnmanagedBinder"/> interface.
     /// </summary>
     [Guid("28AD3D43-B601-4D26-8A1B-25F9165AF9D7")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

@@ -15,7 +15,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Returns the metadata token for this method.
         /// </summary>
-        /// <param name="pToken">[out] A pointer to a mdMethodDef that receives the size, in characters, of the buffer required to contain the metadata.</param>
+        /// <param name="pToken">[out] A pointer to a <see cref="mdMethodDef"/> that receives the size, in characters, of the buffer required to contain the metadata.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

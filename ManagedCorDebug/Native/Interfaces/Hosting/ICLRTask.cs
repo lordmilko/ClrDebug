@@ -10,17 +10,17 @@ namespace ManagedCorDebug
     /// Provides methods that allow the host to make requests of the common language runtime (CLR), or to provide notification to the CLR about the associated task.
     /// </summary>
     /// <remarks>
-    /// An ICLRTask is the representation of a task for the CLR. At any point during code execution, a task can be described
-    /// either as running or waiting to run. The host calls the ICLRTask::SwitchIn method to notify the CLR that the task
-    /// that the current ICLRTask instance represents is now in an operable state. After a call to ICLRTask::SwitchIn,
+    /// An <see cref="ICLRTask"/> is the representation of a task for the CLR. At any point during code execution, a task can be described
+    /// either as running or waiting to run. The host calls the <see cref="SwitchIn"/> method to notify the CLR that the task
+    /// that the current <see cref="ICLRTask"/> instance represents is now in an operable state. After a call to <see cref="SwitchIn"/>,
     /// the host can schedule the task on any operating system thread, except in cases where the runtime requires thread-affinity,
     /// as specified by calls to the <see cref="IHostTaskManager.BeginThreadAffinity"/> and <see cref="IHostTaskManager.EndThreadAffinity"/>
     /// methods. Some time later, the operating system might decide to remove the task from the thread and place it in
     /// a non-running state. For example, this might happen whenever the task blocks on synchronization primitives, or
     /// waits for I/O operations to complete. The host calls <see cref="SwitchOut"/> to notify the CLR that the task represented
-    /// by the current ICLRTask instance is no longer in an operable state. A task typically terminates at the end of code
-    /// execution. At that time, the host calls ICLRTask::ExitTask to destroy the associated ICLRTask. However, tasks can
-    /// also be recycled by using a call to ICLRTask::Reset, which allows the ICLRTask instance to be used again. This
+    /// by the current <see cref="ICLRTask"/> instance is no longer in an operable state. A task typically terminates at the end of code
+    /// execution. At that time, the host calls <see cref="ExitTask"/> to destroy the associated <see cref="ICLRTask"/>. However, tasks can
+    /// also be recycled by using a call to <see cref="Reset"/>, which allows the <see cref="ICLRTask"/> instance to be used again. This
     /// approach prevents the overhead of repeatedly creating and destroying instances.
     /// </remarks>
     [Guid("28E66A4A-9906-4225-B231-9187C3EB8611")]
@@ -31,7 +31,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the common language runtime (CLR) that the task that the current <see cref="ICLRTask"/> instance represents is now in an operable state.
         /// </summary>
-        /// <param name="threadHandle">[in] A handle to the physical thread on which the task represented by the current ICLRTask instance is executing.</param>
+        /// <param name="threadHandle">[in] A handle to the physical thread on which the task represented by the current <see cref="ICLRTask"/> instance is executing.</param>
         /// <returns>
         /// | HRESULT                 | Description                                                                                                                                                                                |
         /// | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -45,7 +45,7 @@ namespace ManagedCorDebug
         /// </returns>
         /// <remarks>
         /// The threadHandle parameter represents a handle to the operating system thread on which the task represented by
-        /// the current ICLRTask instance has been scheduled. If impersonation has occurred on this thread, you must call <see
+        /// the current <see cref="ICLRTask"/> instance has been scheduled. If impersonation has occurred on this thread, you must call <see
         /// cref="IHostSecurityManager.RevertToSelf"/> before switching in the task.
         /// </remarks>
         [PreserveSig]
@@ -65,7 +65,7 @@ namespace ManagedCorDebug
         /// | E_FAIL                 | An unknown catastrophic failure occurred. When a method returns E_FAIL, the CLR is no longer usable within the process. Subsequent calls to hosting methods return HOST_E_CLRNOTAVAILABLE. |
         /// </returns>
         /// <remarks>
-        /// A host calls SwitchOut to inform the CLR that it has temporarily stopped executing the task that the current ICLRTask
+        /// A host calls SwitchOut to inform the CLR that it has temporarily stopped executing the task that the current <see cref="ICLRTask"/>
         /// instance represents, and will reschedule the task.
         /// </remarks>
         [PreserveSig]
@@ -91,7 +91,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Informs the common language runtime (CLR) that the host has completed a task, and enables the CLR to reuse the current <see cref="ICLRTask"/> instance to represent another task.
         /// </summary>
-        /// <param name="fFull">[in] true, if the runtime should reset all thread-related static values in addition to the security and locale information related to the current ICLRTask instance; otherwise, false.<para/>
+        /// <param name="fFull">[in] true, if the runtime should reset all thread-related static values in addition to the security and locale information related to the current <see cref="ICLRTask"/> instance; otherwise, false.<para/>
         /// If the value is true, the runtime resets data that was stored using <see cref="Thread.AllocateDataSlot"/> or <see cref="Thread.AllocateNamedDataSlot"/>.</param>
         /// <returns>
         /// | HRESULT                | Description                                                                                                                                                                                |
@@ -104,14 +104,14 @@ namespace ManagedCorDebug
         /// | E_FAIL                 | An unknown catastrophic failure occurred. When a method returns E_FAIL, the CLR is no longer usable within the process. Subsequent calls to hosting methods return HOST_E_CLRNOTAVAILABLE. |
         /// </returns>
         /// <remarks>
-        /// The CLR can recycle previously created ICLRTask instances to avoid the overhead of repeatedly creating new instances
-        /// every time it needs a fresh task. The host enables this feature by calling ICLRTask::Reset instead of <see cref="ExitTask"/>
-        /// when it has completed a task. The following list summarizes the normal life cycle of an ICLRTask instance: Reset
+        /// The CLR can recycle previously created <see cref="ICLRTask"/> instances to avoid the overhead of repeatedly creating new instances
+        /// every time it needs a fresh task. The host enables this feature by calling <see cref="Reset"/> instead of <see cref="ExitTask"/>
+        /// when it has completed a task. The following list summarizes the normal life cycle of an <see cref="ICLRTask"/> instance: Reset
         /// alters this scenario in two ways. In step 5 above, the host calls Reset to reset the task to a clean state, and
-        /// then decouples the ICLRTask instance from its associated <see cref="IHostTask"/> instance. If desired, the host
-        /// can also cache the IHostTask instance for reuse. In step 1 above, the runtime pulls a recycled ICLRTask from the
+        /// then decouples the <see cref="ICLRTask"/> instance from its associated <see cref="IHostTask"/> instance. If desired, the host
+        /// can also cache the <see cref="IHostTask"/> instance for reuse. In step 1 above, the runtime pulls a recycled <see cref="ICLRTask"/> from the
         /// cache instead of creating a new instance. This approach works well when the host also has a pool of reusable worker
-        /// tasks. When the host destroys one of its IHostTask instances, it destroys the corresponding ICLRTask by calling
+        /// tasks. When the host destroys one of its <see cref="IHostTask"/> instances, it destroys the corresponding <see cref="ICLRTask"/> by calling
         /// ExitTask.
         /// </remarks>
         [PreserveSig]
@@ -216,7 +216,7 @@ namespace ManagedCorDebug
         /// </returns>
         /// <remarks>
         /// A host calls YieldTask to request processor resources for other tasks or processes. This method is primarily intended
-        /// to allow long-running code to give up CPU time. The runtime attempts to put the task that the current ICLRTask
+        /// to allow long-running code to give up CPU time. The runtime attempts to put the task that the current <see cref="ICLRTask"/>
         /// instance represents in a state where it can yield processing time, but makes no guarantee of success.
         /// </remarks>
         [PreserveSig]
@@ -242,7 +242,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Instructs the common language runtime (CLR) to associate the specified identifier value with the task represented by the current <see cref="ICLRTask"/> instance.
         /// </summary>
-        /// <param name="asked">[in] The unique identifier for the common language runtime to associate with the task represented by the current ICLRTask instance.</param>
+        /// <param name="asked">[in] The unique identifier for the common language runtime to associate with the task represented by the current <see cref="ICLRTask"/> instance.</param>
         /// <returns>
         /// | HRESULT                | Description                                                                                                                                                                                |
         /// | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |

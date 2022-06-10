@@ -4,7 +4,7 @@
     /// [Supported in the .NET Framework 4.5.2 and later versions] Provides values that specify whether in-memory updates to metadata are visible to a debugger.
     /// </summary>
     /// <remarks>
-    /// A member of the WriteableMetadataUpdateMode enumeration can be passed to the <see cref="ICorDebugProcess7.SetWriteableMetadataUpdateMode"/>
+    /// A member of the <see cref="WriteableMetadataUpdateMode"/> enumeration can be passed to the <see cref="ICorDebugProcess7.SetWriteableMetadataUpdateMode"/>
     /// method to control whether in-memory updates to metadata in the target process are visible to the debugger. The
     /// LegacyCompatPolicy option enforces the same behavior as in versions of the .NET Framework before 4.5.2. This often
     /// means that metadata from updates is not visible. However, calls to a number of debugging methods implicitly coerce

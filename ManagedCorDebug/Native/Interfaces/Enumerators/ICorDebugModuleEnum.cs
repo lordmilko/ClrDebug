@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Implements ICorDebugEnum methods, and enumerates ICorDebugModule arrays.
+    /// Implements <see cref="ICorDebugEnum"/> methods, and enumerates <see cref="ICorDebugModule"/> arrays.
     /// </summary>
     [Guid("CC7BCB09-8A68-11D2-983C-0000F808342D")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -27,9 +27,9 @@ namespace ManagedCorDebug
         new HRESULT Reset();
 
         /// <summary>
-        /// Creates a copy of this ICorDebugEnum object.
+        /// Creates a copy of this <see cref="ICorDebugEnum"/> object.
         /// </summary>
-        /// <param name="ppEnum">[out] A pointer to the address of an ICorDebugEnum object that is a copy of this ICorDebugEnum object.</param>
+        /// <param name="ppEnum">[out] A pointer to the address of an <see cref="ICorDebugEnum"/> object that is a copy of this <see cref="ICorDebugEnum"/> object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Clone([MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);
@@ -45,9 +45,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the number of "ICorDebugModule" instances specified by celt from the enumeration, starting at the current position.
         /// </summary>
-        /// <param name="celt">[in] The number of ICorDebugModule instances to be retrieved.</param>
-        /// <param name="modules">[out] An array of pointers, each of which points to an ICorDebugModule object.</param>
-        /// <param name="pceltFetched">[out] Pointer to the number of ICorDebugModule instances actually returned. This value may be null if celt is one.</param>
+        /// <param name="celt">[in] The number of <see cref="ICorDebugModule"/> instances to be retrieved.</param>
+        /// <param name="modules">[out] An array of pointers, each of which points to an <see cref="ICorDebugModule"/> object.</param>
+        /// <param name="pceltFetched">[out] Pointer to the number of <see cref="ICorDebugModule"/> instances actually returned. This value may be null if celt is one.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Next([In] uint celt, [MarshalAs(UnmanagedType.Interface), Out] out ICorDebugModule modules, out uint pceltFetched);

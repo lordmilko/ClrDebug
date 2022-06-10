@@ -54,7 +54,7 @@ namespace ManagedCorDebug
         miForwardRef = 0x0010,   // Indicates method is defined; used primarily in merge scenarios.
 
         /// <summary>
-        /// Specifies that the method signature cannot be mangled for an HRESULT conversion.
+        /// Specifies that the method signature cannot be mangled for an <see cref="HRESULT"/> conversion.
         /// </summary>
         miPreserveSig = 0x0080,   // Indicates method sig is not to be mangled to do HRESULT conversion.
 
@@ -92,7 +92,7 @@ namespace ManagedCorDebug
                      miNoOptimization,
 
         /// <summary>
-        /// The maximum valid value for a CorMethodImpl.
+        /// The maximum valid value for a <see cref="CorMethodImpl"/>.
         /// </summary>
         miMaxMethodImplVal = 0xffff,   // Range check value
     }

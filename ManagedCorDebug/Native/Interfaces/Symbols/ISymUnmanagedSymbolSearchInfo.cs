@@ -36,9 +36,9 @@ namespace ManagedCorDebug
             [Out] StringBuilder szPath);
 
         /// <summary>
-        /// Gets the HRESULT.
+        /// Gets the <see cref="HRESULT"/>.
         /// </summary>
-        /// <param name="phr">[out] A pointer to the HRESULT.</param>
+        /// <param name="phr">[out] A pointer to the <see cref="HRESULT"/>.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

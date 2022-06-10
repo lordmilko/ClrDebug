@@ -4,7 +4,7 @@
     /// Describes the amount of cached data that must be discarded based on changes to the process.
     /// </summary>
     /// <remarks>
-    /// A member of the CorDebugStateChange enumeration is provided as an argument when the debugger calls the ProcessStateChanged
+    /// A member of the <see cref="CorDebugStateChange"/> enumeration is provided as an argument when the debugger calls the ProcessStateChanged
     /// method either with ICorDebugProcess4.ProcessStateChanged or <see cref="ICorDebugProcess6.ProcessStateChanged"/>
     /// </remarks>
     public enum CorDebugStateChange

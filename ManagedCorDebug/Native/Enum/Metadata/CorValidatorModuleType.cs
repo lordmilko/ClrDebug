@@ -11,7 +11,7 @@
         ValidatorModuleTypeInvalid = 0x0,
 
         /// <summary>
-        /// The minimum value of the CorValidatorModuleType enum.
+        /// The minimum value of the <see cref="CorValidatorModuleType"/> enum.
         /// </summary>
         ValidatorModuleTypeMin = 0x00000001,
 
@@ -36,7 +36,7 @@
         ValidatorModuleTypeIncr = 0x00000004,
 
         /// <summary>
-        /// The maximum value of the CorValidatorModuleType enum.
+        /// The maximum value of the <see cref="CorValidatorModuleType"/> enum.
         /// </summary>
         ValidatorModuleTypeMax = 0x00000004,
     }

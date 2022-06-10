@@ -8,7 +8,7 @@ namespace ManagedCorDebug
     /// Provides methods that allow the common language runtime (CLR) to communicate with the host to manage tasks.
     /// </summary>
     /// <remarks>
-    /// The CLR calls methods defined by IHostTask to start a task, set its thread priority level, and so on.
+    /// The CLR calls methods defined by <see cref="IHostTask"/> to start a task, set its thread priority level, and so on.
     /// </remarks>
     [Guid("C2275828-C4B1-4B55-82C9-92135F74DF1A")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -25,7 +25,7 @@ namespace ManagedCorDebug
         /// | E_FAIL  | An unknown catastrophic failure occurred. When a method returns E_FAIL, the common language runtime (CLR) is no longer usable within the process. Subsequent calls to hosting methods return HOST_E_CLRNOTAVAILABLE. |
         /// </returns>
         /// <remarks>
-        /// Start always returns an HRESULT value of S_OK, except in cases where a catastrophic failure has occurred.
+        /// Start always returns an <see cref="HRESULT"/> value of S_OK, except in cases where a catastrophic failure has occurred.
         /// </remarks>
         [PreserveSig]
         HRESULT Start();
@@ -73,7 +73,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Requests that the host adjust the thread priority level for the task represented by the current <see cref="IHostTask"/> instance.
         /// </summary>
-        /// <param name="newPriority">[in] An integer that represents the requested thread priority value for the task represented by the current IHostTask instance.</param>
+        /// <param name="newPriority">[in] An integer that represents the requested thread priority value for the task represented by the current <see cref="IHostTask"/> instance.</param>
         /// <returns>
         /// | HRESULT                | Description                                                                                                                                                                                |
         /// | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -98,7 +98,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the thread priority level of the task represented by the current <see cref="IHostTask"/> instance.
         /// </summary>
-        /// <param name="pPriority">[out] A pointer to an integer that indicates the thread priority level of the task represented by the current IHostTask instance.</param>
+        /// <param name="pPriority">[out] A pointer to an integer that indicates the thread priority level of the task represented by the current <see cref="IHostTask"/> instance.</param>
         /// <returns>
         /// | HRESULT                | Description                                                                                                                                                                                |
         /// | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -116,9 +116,9 @@ namespace ManagedCorDebug
         HRESULT GetPriority([Out] out int pPriority);
 
         /// <summary>
-        /// Associates an ICLRTask instance with the current <see cref="IHostTask"/> instance.
+        /// Associates an <see cref="ICLRTask"/> instance with the current <see cref="IHostTask"/> instance.
         /// </summary>
-        /// <param name="pCLRTask">[in] An interface pointer to the ICLRTask instance to be associated with the current IHostTask instance.</param>
+        /// <param name="pCLRTask">[in] An interface pointer to the <see cref="ICLRTask"/> instance to be associated with the current <see cref="IHostTask"/> instance.</param>
         /// <returns>
         /// | HRESULT                | Description                                                                                                                                                                                |
         /// | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -130,7 +130,7 @@ namespace ManagedCorDebug
         /// | E_FAIL                 | An unknown catastrophic failure occurred. When a method returns E_FAIL, the CLR is no longer usable within the process. Subsequent calls to hosting methods return HOST_E_CLRNOTAVAILABLE. |
         /// </returns>
         /// <remarks>
-        /// The CLR calls SetCLRTask to associate an ICLRTask instance with the current IHostTask instance, which was created
+        /// The CLR calls SetCLRTask to associate an <see cref="ICLRTask"/> instance with the current <see cref="IHostTask"/> instance, which was created
         /// by a call to <see cref="IHostTaskManager.CreateTask"/>.
         /// </remarks>
         [PreserveSig]

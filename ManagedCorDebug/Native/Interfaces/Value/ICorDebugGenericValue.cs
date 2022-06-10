@@ -8,7 +8,7 @@ namespace ManagedCorDebug
     /// A subclass of "ICorDebugValue" that applies to all values. This interface provides Get and Set methods for the value.
     /// </summary>
     /// <remarks>
-    /// ICorDebugGenericValue is a sub-interface because it is non-remotable. For reference types, the value is the reference
+    /// <see cref="ICorDebugGenericValue"/> is a sub-interface because it is non-remotable. For reference types, the value is the reference
     /// rather than the contents of the reference. This interface does not support being called remotely, either cross-machine
     /// or cross-process.
     /// </remarks>
@@ -22,8 +22,8 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pType">[out] A pointer to a value of the "CorElementType" enumeration that indicates the value's type.</param>
         /// <remarks>
-        /// If the object is a complex run-time type, that type may be examined through the appropriate subclasses of the ICorDebugValue
-        /// interface. For example, "ICorDebugObjectValue", which inherits from ICorDebugValue, represents a complex type.
+        /// If the object is a complex run-time type, that type may be examined through the appropriate subclasses of the <see cref="ICorDebugValue"/>
+        /// interface. For example, "ICorDebugObjectValue", which inherits from <see cref="ICorDebugValue"/>, represents a complex type.
         /// The GetType and <see cref="ICorDebugObjectValue.GetClass"/> methods each return information about the type of a
         /// value. They are both superseded by the generics-aware <see cref="ICorDebugValue2.GetExactType"/> method.
         /// </remarks>
@@ -37,7 +37,7 @@ namespace ManagedCorDebug
         /// <param name="pSize">[out] The size, in bytes, of this value object.</param>
         /// <remarks>
         /// If the value's type is a reference type, this method returns the size of the pointer rather than the size of the
-        /// object. The ICorDebugValue::GetSize method returns COR_E_OVERFLOW for objects that are larger than 4 GB on 64-bit
+        /// object. The <see cref="ICorDebugValue.GetSize"/> method returns COR_E_OVERFLOW for objects that are larger than 4 GB on 64-bit
         /// platforms. Use the <see cref="ICorDebugValue3.GetSize64"/> method instead for objects that are larger than 4 GB.
         /// </remarks>
         [PreserveSig]
@@ -47,7 +47,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the address of this "ICorDebugValue" object, which is in the process of being debugged.
         /// </summary>
-        /// <param name="pAddress">[out] Pointer to a CORDB_ADDRESS object that specifies the address of this value object.</param>
+        /// <param name="pAddress">[out] Pointer to a <see cref="CORDB_ADDRESS"/> object that specifies the address of this value object.</param>
         /// <remarks>
         /// If the value is unavailable, 0 (zero) is returned. This could happen if the value is at least partly in registers
         /// or stored in a garbage collector handle (GCHandle).
@@ -66,7 +66,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Copies the value of this generic into the specified buffer.
         /// </summary>
-        /// <param name="pTo">[out] A pointer to the value that is represented by this ICorDebugGenericValue object. The value may be a simple type or a reference type (that is, a pointer).</param>
+        /// <param name="pTo">[out] A pointer to the value that is represented by this <see cref="ICorDebugGenericValue"/> object. The value may be a simple type or a reference type (that is, a pointer).</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetValue([Out] IntPtr pTo);

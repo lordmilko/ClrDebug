@@ -9,7 +9,7 @@ namespace ManagedCorDebug
     /// Represents a scope, either a <see cref="Process"/> or an <see cref="AppDomain"/>, in which code execution context can be controlled.
     /// </summary>
     /// <remarks>
-    /// If ICorDebugController is controlling a process, the scope includes all threads of the process. If ICorDebugController
+    /// If <see cref="ICorDebugController"/> is controlling a process, the scope includes all threads of the process. If <see cref="ICorDebugController"/>
     /// is controlling an application domain, the scope includes only the threads of that particular application domain.
     /// </remarks>
     [Guid("3D6F5F62-7538-11D3-8D5B-00104B35E7EF")]
@@ -27,7 +27,7 @@ namespace ManagedCorDebug
         /// interop debugging session, unmanaged threads will also be stopped. The dwTimeoutIgnored value is currently ignored
         /// and treated as INFINITE (-1). If the cooperative stop fails due to a deadlock, all threads are suspended and E_TIMEOUT
         /// is returned. The debugger maintains a stop counter. When the counter goes to zero, the controller is resumed. Each
-        /// call to Stop or each dispatched callback increments the counter. Each call to ICorDebugController::Continue decrements
+        /// call to Stop or each dispatched callback increments the counter. Each call to <see cref="Continue"/> decrements
         /// the counter.
         /// </remarks>
         [PreserveSig]
@@ -39,13 +39,13 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="fIsOutOfBand">[in] Set to true if continuing from an out-of-band event; otherwise, set to false.</param>
         /// <remarks>
-        /// Continue continues the process after a call to the ICorDebugController::Stop method. When doing mixed-mode debugging,
+        /// Continue continues the process after a call to the <see cref="Stop"/> method. When doing mixed-mode debugging,
         /// do not call Continue on the Win32 event thread unless you are continuing from an out-of-band event. An in-band
         /// event is either a managed event or a normal unmanaged event during which the debugger supports interaction with
         /// the managed state of the process. In this case, the debugger receives the <see cref="ICorDebugUnmanagedCallback.DebugEvent"/>
         /// callback with its fOutOfBand parameter set to false. An out-of-band event is an unmanaged event during which interaction
         /// with the managed state of the process is impossible while the process is stopped due to the event. In this case,
-        /// the debugger receives the ICorDebugUnmanagedCallback::DebugEvent callback with its fOutOfBand parameter set to
+        /// the debugger receives the <see cref="ICorDebugUnmanagedCallback.DebugEvent"/> callback with its fOutOfBand parameter set to
         /// true.
         /// </remarks>
         [PreserveSig]
@@ -70,8 +70,8 @@ namespace ManagedCorDebug
         /// Callbacks will be dispatched one at a time, each time <see cref="Continue"/> is called. The debugger can check
         /// this flag if it wants to report multiple debugging events that occur simultaneously. When debugging events are
         /// queued, they have already occurred, so the debugger must drain the entire queue to be sure of the state of the
-        /// debuggee. (Call ICorDebugController::Continue to drain the queue.) For example, if the queue contains two debugging
-        /// events on thread X, and the debugger suspends thread X after the first debugging event and then calls ICorDebugController::Continue,
+        /// debuggee. (Call <see cref="Continue"/> to drain the queue.) For example, if the queue contains two debugging
+        /// events on thread X, and the debugger suspends thread X after the first debugging event and then calls <see cref="Continue"/>,
         /// the second debugging event for thread X will be dispatched although the thread has been suspended.
         /// </remarks>
         [PreserveSig]

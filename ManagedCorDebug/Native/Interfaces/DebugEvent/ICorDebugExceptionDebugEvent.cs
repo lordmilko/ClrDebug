@@ -7,7 +7,7 @@ namespace ManagedCorDebug
     /// Extends the <see cref="ICorDebugDebugEvent"/> interface to support exception events.
     /// </summary>
     /// <remarks>
-    /// The ICorDebugExceptionDebugEvent interface is implemented by the following event types:
+    /// The <see cref="ICorDebugExceptionDebugEvent"/> interface is implemented by the following event types:
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("AF79EC94-4752-419C-A626-5FB1CC1A5AB7")]
@@ -15,7 +15,7 @@ namespace ManagedCorDebug
     public interface ICorDebugExceptionDebugEvent : ICorDebugDebugEvent
     {
         /// <summary>
-        /// Indicates what kind of event this ICorDebugDebugEvent object represents.
+        /// Indicates what kind of event this <see cref="ICorDebugDebugEvent"/> object represents.
         /// </summary>
         /// <param name="pDebugEventKind">A pointer to a <see cref="CorDebugDebugEventKind"/> enumeration member that indicates the type of event.</param>
         /// <remarks>
@@ -29,7 +29,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the thread on which the event occurred.
         /// </summary>
-        /// <param name="ppThread">[out] A pointer to the address of an ICorDebugThread object that represents the thread on which the event occurred.</param>
+        /// <param name="ppThread">[out] A pointer to the address of an <see cref="ICorDebugThread"/> object that represents the thread on which the event occurred.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetThread([MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);

@@ -4,10 +4,10 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Provides an enumerator for objects on the managed heap. This interface is a subclass of the ICorDebugEnum interface.
+    /// Provides an enumerator for objects on the managed heap. This interface is a subclass of the <see cref="ICorDebugEnum"/> interface.
     /// </summary>
     /// <remarks>
-    /// The ICorDebugHeapEnum interface implements the ICorDebugEnum interface. An ICorDebugHeapEnum instance is populated
+    /// The <see cref="ICorDebugHeapEnum"/> interface implements the <see cref="ICorDebugEnum"/> interface. An <see cref="ICorDebugHeapEnum"/> instance is populated
     /// with <see cref="COR_HEAPOBJECT"/> instances by calling the <see cref="ICorDebugProcess5.EnumerateHeap"/> method.
     /// Each <see cref="COR_HEAPOBJECT"/> instance in the collection represents either a live object on the heap or an
     /// object that is not rooted by any object but has not yet been collected by the garbage collector. The <see cref="COR_HEAPOBJECT"/>
@@ -34,9 +34,9 @@ namespace ManagedCorDebug
         new HRESULT Reset();
 
         /// <summary>
-        /// Creates a copy of this ICorDebugEnum object.
+        /// Creates a copy of this <see cref="ICorDebugEnum"/> object.
         /// </summary>
-        /// <param name="ppEnum">[out] A pointer to the address of an ICorDebugEnum object that is a copy of this ICorDebugEnum object.</param>
+        /// <param name="ppEnum">[out] A pointer to the address of an <see cref="ICorDebugEnum"/> object that is a copy of this <see cref="ICorDebugEnum"/> object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Clone([MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);

@@ -19,7 +19,7 @@ namespace ManagedCorDebug
         public COR_TYPEID componentID;
 
         /// <summary>
-        /// A CorElementType enumeration value that indicates whether the component is a garbage collection reference, a value class, or a primitive.
+        /// A <see cref="CorElementType"/> enumeration value that indicates whether the component is a garbage collection reference, a value class, or a primitive.
         /// </summary>
         public uint componentType;
 

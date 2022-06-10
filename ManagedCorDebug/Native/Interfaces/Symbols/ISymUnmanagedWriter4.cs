@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// ISymUnmanagedWriter4 interface.
+    /// <see cref="ISymUnmanagedWriter4"/> interface.
     /// </summary>
     [Guid("BC7E3F53-F458-4C23-9DBD-A189E6E96594")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -66,7 +66,7 @@ namespace ManagedCorDebug
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the scope identifier.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         /// <remarks>
-        /// ISymUnmanagedWriter::OpenScope returns an opaque scope identifier that can be used with <see cref="SetScopeRange"/>
+        /// <see cref="ISymUnmanagedWriter.OpenScope"/> returns an opaque scope identifier that can be used with <see cref="SetScopeRange"/>
         /// to define a scope's starting and ending offset at a later time. In this case, the offsets passed to ISymUnmanagedWriter::OpenScope
         /// and <see cref="CloseScope"/> are ignored. Scope identifiers are valid only in the current method.
         /// </remarks>
@@ -82,7 +82,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Once a scope is closed, no more variables can be defined within it. <see cref="OpenScope"/> returns an opaque scope
         /// identifier that can be used with <see cref="SetScopeRange"/> to later define a scope's starting and ending offset.
-        /// In this case, the offsets passed to ISymUnmanagedWriter::OpenScope and ISymUnmanagedWriter::CloseScope are ignored.
+        /// In this case, the offsets passed to <see cref="ISymUnmanagedWriter.OpenScope"/> and <see cref="ISymUnmanagedWriter.CloseScope"/> are ignored.
         /// Scope identifiers are valid only in the current method.
         /// </remarks>
         [PreserveSig]
@@ -481,7 +481,7 @@ namespace ManagedCorDebug
         /// Functions the same as <see cref="ISymUnmanagedWriter.GetDebugInfo"/> except that the path string is padded with zeros following the terminating null character to make the string data a fixed size of MAX_PATH.<para/>
         /// Padding is only given if the path string length itself is less than MAX_PATH. This makes it easier to write tools that difference PE files.
         /// </summary>
-        /// <returns>Returns HRESULT.</returns>
+        /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetDebugInfoWithPadding(

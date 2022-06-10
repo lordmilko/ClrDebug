@@ -8,7 +8,7 @@ namespace ManagedCorDebug
     /// Represents the debug symbol information for a static field.
     /// </summary>
     /// <remarks>
-    /// The ICorDebugStaticFieldSymbol interface is used to retrieve the debug symbol information for a static field.
+    /// The <see cref="ICorDebugStaticFieldSymbol"/> interface is used to retrieve the debug symbol information for a static field.
     /// </remarks>
     [Guid("CBF9DA63-F68D-4BBB-A21C-15A45EAADF5B")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

@@ -4,13 +4,13 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Provides an enumerator for the memory regions of the managed heap. This interface is a subclass of the ICorDebugEnum interface.
+    /// Provides an enumerator for the memory regions of the managed heap. This interface is a subclass of the <see cref="ICorDebugEnum"/> interface.
     /// </summary>
     /// <remarks>
-    /// The ICorDebugHeapSegmentEnum interface implements the ICorDebugEnum interface. An ICorDebugHeapSegmentEnum instance
+    /// The <see cref="ICorDebugHeapSegmentEnum"/> interface implements the <see cref="ICorDebugEnum"/> interface. An <see cref="ICorDebugHeapSegmentEnum"/> instance
     /// is populated with <see cref="COR_SEGMENT"/> instances by calling the <see cref="ICorDebugProcess5.EnumerateHeapRegions"/>
     /// method. The <see cref="COR_SEGMENT"/> objects in the collection can be enumerated by calling the <see cref="Next"/>
-    /// method. An ICorDebugHeapSegmentEnum collection object enumerates all memory regions that may contain managed objects,
+    /// method. An <see cref="ICorDebugHeapSegmentEnum"/> collection object enumerates all memory regions that may contain managed objects,
     /// but it does not guarantee that managed objects actually reside in those regions. It may include information about
     /// empty or reserved memory regions.
     /// </remarks>
@@ -35,9 +35,9 @@ namespace ManagedCorDebug
         new HRESULT Reset();
 
         /// <summary>
-        /// Creates a copy of this ICorDebugEnum object.
+        /// Creates a copy of this <see cref="ICorDebugEnum"/> object.
         /// </summary>
-        /// <param name="ppEnum">[out] A pointer to the address of an ICorDebugEnum object that is a copy of this ICorDebugEnum object.</param>
+        /// <param name="ppEnum">[out] A pointer to the address of an <see cref="ICorDebugEnum"/> object that is a copy of this <see cref="ICorDebugEnum"/> object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Clone([MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);

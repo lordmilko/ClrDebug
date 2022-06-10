@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// ISymUnmanagedWriter5 interface.
+    /// <see cref="ISymUnmanagedWriter5"/> interface.
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("DCF7780D-BDE9-45DF-ACFE-21731A32000C")]
@@ -66,7 +66,7 @@ namespace ManagedCorDebug
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the scope identifier.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         /// <remarks>
-        /// ISymUnmanagedWriter::OpenScope returns an opaque scope identifier that can be used with <see cref="SetScopeRange"/>
+        /// <see cref="ISymUnmanagedWriter.OpenScope"/> returns an opaque scope identifier that can be used with <see cref="SetScopeRange"/>
         /// to define a scope's starting and ending offset at a later time. In this case, the offsets passed to ISymUnmanagedWriter::OpenScope
         /// and <see cref="CloseScope"/> are ignored. Scope identifiers are valid only in the current method.
         /// </remarks>
@@ -82,7 +82,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Once a scope is closed, no more variables can be defined within it. <see cref="OpenScope"/> returns an opaque scope
         /// identifier that can be used with <see cref="SetScopeRange"/> to later define a scope's starting and ending offset.
-        /// In this case, the offsets passed to ISymUnmanagedWriter::OpenScope and ISymUnmanagedWriter::CloseScope are ignored.
+        /// In this case, the offsets passed to <see cref="ISymUnmanagedWriter.OpenScope"/> and <see cref="ISymUnmanagedWriter.CloseScope"/> are ignored.
         /// Scope identifiers are valid only in the current method.
         /// </remarks>
         [PreserveSig]
@@ -481,7 +481,7 @@ namespace ManagedCorDebug
         /// Functions the same as <see cref="ISymUnmanagedWriter.GetDebugInfo"/> except that the path string is padded with zeros following the terminating null character to make the string data a fixed size of MAX_PATH.<para/>
         /// Padding is only given if the path string length itself is less than MAX_PATH. This makes it easier to write tools that difference PE files.
         /// </summary>
-        /// <returns>Returns HRESULT.</returns>
+        /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetDebugInfoWithPadding(
@@ -493,7 +493,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Open a special custom data section to emit token-to-source span mapping information into. Opening this section when a method is already open, or vice versa, is an error.
         /// </summary>
-        /// <returns>Returns HRESULT.</returns>
+        /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT OpenMapTokensToSourceSpans();
@@ -501,7 +501,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Close the special custom data section for token-to-source span mapping information. After it is closed, no more mapping information can be added.
         /// </summary>
-        /// <returns>Returns HRESULT.</returns>
+        /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CloseMapTokensToSourceSpans();
@@ -509,7 +509,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Maps the given metadata token to the given source line span in the specified source file. Must be called between calls to <see cref="OpenMapTokensToSourceSpans"/> and <see cref="CloseMapTokensToSourceSpans"/>.
         /// </summary>
-        /// <returns>Returns HRESULT.</returns>
+        /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT MapTokenToSourceSpan(

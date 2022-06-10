@@ -12,7 +12,7 @@ namespace ManagedCorDebug
     public interface ICorDebugStepper2
     {
         /// <summary>
-        /// Sets a value that specifies whether this ICorDebugStepper steps only through code that is authored by an application's developer.<para/>
+        /// Sets a value that specifies whether this <see cref="ICorDebugStepper"/> steps only through code that is authored by an application's developer.<para/>
         /// This process is also known as just my code (JMC) debugging.
         /// </summary>
         /// <param name="fIsJMCStepper">[in] Set to true to step only through code that is authored by an application's developer; otherwise, set to false.</param>

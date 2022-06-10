@@ -77,7 +77,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the register that contains a variable with a location type of VLT_REGISTER, and the base register for a variable with a location type of VLT_REGISTER_RELATIVE.
         /// </summary>
-        /// <param name="pRegister">[out] A CorDebugRegister enumeration value that indicates the register for a variable with a location type of VLT_REGISTER, and the base register for a variable with a location type of VLT_REGISTER_RELATIVE.</param>
+        /// <param name="pRegister">[out] A <see cref="CorDebugRegister"/> enumeration value that indicates the register for a variable with a location type of VLT_REGISTER, and the base register for a variable with a location type of VLT_REGISTER_RELATIVE.</param>
         /// <returns>
         /// The method returns the following values:
         /// 

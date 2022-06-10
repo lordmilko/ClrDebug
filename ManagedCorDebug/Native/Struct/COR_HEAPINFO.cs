@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// Provides general information about the garbage collection heap, including whether it is enumerable.
     /// </summary>
     /// <remarks>
-    /// An instance of the COR_HEAPINFO structure is returned by calling the <see cref="ICorDebugProcess5.GetGCHeapInformation"/>
+    /// An instance of the <see cref="COR_HEAPINFO"/> structure is returned by calling the <see cref="ICorDebugProcess5.GetGCHeapInformation"/>
     /// method. Before enumerating objects on the garbage collection heap, you must always check the areGCStructuresValid
     /// field to ensure that the heap is in an enumerable state. For more information, see the <see cref="ICorDebugProcess5.GetGCHeapInformation"/>
     /// method.

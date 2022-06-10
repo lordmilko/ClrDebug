@@ -6,8 +6,8 @@ namespace ManagedCorDebug
     /// Specifies the application elements on which it is valid to apply an attribute.
     /// </summary>
     /// <remarks>
-    /// The CorAttributeTargets enumeration values can be combined with a bitwise OR operation to get the preferred combination.
-    /// The CorAttributeTargets parallels the managed <see cref="AttributeTargets"/> enumeration.
+    /// The <see cref="CorAttributeTargets"/> enumeration values can be combined with a bitwise OR operation to get the preferred combination.
+    /// The <see cref="CorAttributeTargets"/> parallels the managed <see cref="AttributeTargets"/> enumeration.
     /// </remarks>
     public enum CorAttributeTargets
     {

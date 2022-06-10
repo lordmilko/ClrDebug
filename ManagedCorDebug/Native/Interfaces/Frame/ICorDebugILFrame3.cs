@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Provides a method that encapsulates the return value of a function. ICorDebugILFrame3 is a logical extension of the ICorDebugILFrame and ICorDebugILFrame2 interfaces.
+    /// Provides a method that encapsulates the return value of a function. <see cref="ICorDebugILFrame3"/> is a logical extension of the <see cref="ICorDebugILFrame"/> and <see cref="ICorDebugILFrame2"/> interfaces.
     /// </summary>
     [Guid("9A9E2ED6-04DF-4FE0-BB50-CAB64126AD24")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

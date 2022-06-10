@@ -16,7 +16,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the containing process of this module.
         /// </summary>
-        /// <param name="ppProcess">[out] A pointer to the address of an ICorDebugProcess object that represents the process containing this module.</param>
+        /// <param name="ppProcess">[out] A pointer to the address of an <see cref="ICorDebugProcess"/> object that represents the process containing this module.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetProcess([MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
@@ -24,7 +24,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the base address of the module.
         /// </summary>
-        /// <param name="pAddress">[out] A CORDB_ADDRESS that specifies the base address of the module.</param>
+        /// <param name="pAddress">[out] A <see cref="CORDB_ADDRESS"/> that specifies the base address of the module.</param>
         /// <remarks>
         /// If the module is a native image (that is, if the module was produced by the native image generator, NGen.exe),
         /// its base address will be zero.
@@ -36,7 +36,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the containing assembly for this module.
         /// </summary>
-        /// <param name="ppAssembly">[out] A pointer to an ICorDebugAssembly object that represents the assembly containing this module.</param>
+        /// <param name="ppAssembly">[out] A pointer to an <see cref="ICorDebugAssembly"/> object that represents the assembly containing this module.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetAssembly([MarshalAs(UnmanagedType.Interface)] out ICorDebugAssembly ppAssembly);
@@ -48,8 +48,8 @@ namespace ManagedCorDebug
         /// <param name="pcchName">[in] A pointer to the length of the returned name.</param>
         /// <param name="szName">[out] An array that stores the returned name.</param>
         /// <remarks>
-        /// The GetName method returns an S_OK HRESULT if the module's file name matches the name on disk. GetName returns
-        /// an S_FALSE HRESULT if the name is fabricated, such as for a dynamic or in-memory module.
+        /// The GetName method returns an S_OK <see cref="HRESULT"/> if the module's file name matches the name on disk. GetName returns
+        /// an S_FALSE <see cref="HRESULT"/> if the name is fabricated, such as for a dynamic or in-memory module.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -71,10 +71,10 @@ namespace ManagedCorDebug
         /// <summary>
         /// Controls whether the <see cref="ICorDebugManagedCallback.LoadClass"/> and <see cref="ICorDebugManagedCallback.UnloadClass"/> callbacks are called for this module.
         /// </summary>
-        /// <param name="bClassLoadCallbacks">[in] Set this value to true to enable the common language runtime (CLR) to call the ICorDebugManagedCallback::LoadClass and ICorDebugManagedCallback::UnloadClass methods when their associated events occur.<para/>
+        /// <param name="bClassLoadCallbacks">[in] Set this value to true to enable the common language runtime (CLR) to call the <see cref="ICorDebugManagedCallback.LoadClass"/> and <see cref="ICorDebugManagedCallback.UnloadClass"/> methods when their associated events occur.<para/>
         /// The default value is false for non-dynamic modules. The value is always true for dynamic modules and cannot be changed.</param>
         /// <remarks>
-        /// The ICorDebugManagedCallback::LoadClass and ICorDebugManagedCallback::UnloadClass callbacks are always enabled
+        /// The <see cref="ICorDebugManagedCallback.LoadClass"/> and <see cref="ICorDebugManagedCallback.UnloadClass"/> callbacks are always enabled
         /// for dynamic modules and cannot be disabled.
         /// </remarks>
         [PreserveSig]
@@ -84,10 +84,10 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the function that is specified by the metadata token.
         /// </summary>
-        /// <param name="methodDef">[in] A mdMethodDef metadata token that references the function's metadata.</param>
-        /// <param name="ppFunction">[out] A pointer to the address of a ICorDebugFunction interface object that represents the function.</param>
+        /// <param name="methodDef">[in] A <see cref="mdMethodDef"/> metadata token that references the function's metadata.</param>
+        /// <param name="ppFunction">[out] A pointer to the address of a <see cref="ICorDebugFunction"/> interface object that represents the function.</param>
         /// <remarks>
-        /// The GetFunctionFromToken method returns a CORDBG_E_FUNCTION_NOT_IL HRESULT if the value passed in methodDef does
+        /// The GetFunctionFromToken method returns a CORDBG_E_FUNCTION_NOT_IL <see cref="HRESULT"/> if the value passed in methodDef does
         /// not refer to a Microsoft intermediate language (MSIL) method.
         /// </remarks>
         [PreserveSig]
@@ -105,8 +105,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the class specified by the metadata token.
         /// </summary>
-        /// <param name="typeDef">[in] An mdTypeDef metadata token that references the metadata of a class.</param>
-        /// <param name="ppClass">[out] A pointer to the address of an ICorDebugClass object that represents the class.</param>
+        /// <param name="typeDef">[in] An <see cref="mdTypeDef"/> metadata token that references the metadata of a class.</param>
+        /// <param name="ppClass">[out] A pointer to the address of an <see cref="ICorDebugClass"/> object that represents the class.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetClassFromToken([In] mdTypeDef typeDef, [MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);
@@ -144,7 +144,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the token for the table entry for this module.
         /// </summary>
-        /// <param name="pToken">[out] A pointer to the mdModule token that references the module's metadata.</param>
+        /// <param name="pToken">[out] A pointer to the <see cref="mdModule"/> token that references the module's metadata.</param>
         /// <remarks>
         /// The token can be passed to the <see cref="IMetaDataImport"/>, <see cref="IMetaDataImport2"/>, and <see cref="IMetaDataAssemblyImport"/>
         /// metadata import interfaces.
@@ -169,8 +169,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the value of the specified global variable.
         /// </summary>
-        /// <param name="fieldDef">[in] An mdFieldDef token that references the metadata describing the global variable.</param>
-        /// <param name="ppValue">[out] A pointer to the address of an ICorDebugValue object that represents the value of the specified global variable.</param>
+        /// <param name="fieldDef">[in] An <see cref="mdFieldDef"/> token that references the metadata describing the global variable.</param>
+        /// <param name="ppValue">[out] A pointer to the address of an <see cref="ICorDebugValue"/> object that represents the value of the specified global variable.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetGlobalVariableValue([In] mdFieldDef fieldDef,

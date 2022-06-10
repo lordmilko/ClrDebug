@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Represents a thread in a process. The lifetime of an ICorDebugThread instance is the same as the lifetime of the thread it represents.
+    /// Represents a thread in a process. The lifetime of an <see cref="ICorDebugThread"/> instance is the same as the lifetime of the thread it represents.
     /// </summary>
     [Guid("938C6D66-7FB6-4F69-B389-425B8987329B")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -13,15 +13,15 @@ namespace ManagedCorDebug
     public interface ICorDebugThread
     {
         /// <summary>
-        /// Gets an interface pointer to the process of which this ICorDebugThread forms a part.
+        /// Gets an interface pointer to the process of which this <see cref="ICorDebugThread"/> forms a part.
         /// </summary>
-        /// <param name="ppProcess">[out] A pointer to the address of an ICorDebugProcess interface object that represents the process.</param>
+        /// <param name="ppProcess">[out] A pointer to the address of an <see cref="ICorDebugProcess"/> interface object that represents the process.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetProcess([MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
         /// <summary>
-        /// Gets the current operating system identifier of the active part of this ICorDebugThread.
+        /// Gets the current operating system identifier of the active part of this <see cref="ICorDebugThread"/>.
         /// </summary>
         /// <param name="pdwThreadId">[out] The identifier of the thread.</param>
         /// <remarks>
@@ -33,7 +33,7 @@ namespace ManagedCorDebug
         HRESULT GetID(out uint pdwThreadId);
 
         /// <summary>
-        /// Gets the current handle for the active part of this ICorDebugThread.
+        /// Gets the current handle for the active part of this <see cref="ICorDebugThread"/>.
         /// </summary>
         /// <param name="phThreadHandle">[out] A pointer to an HTHREAD that is the handle of the active part of this thread.</param>
         /// <remarks>
@@ -45,17 +45,17 @@ namespace ManagedCorDebug
         HRESULT GetHandle(out IntPtr phThreadHandle);
 
         /// <summary>
-        /// Gets an interface pointer to the application domain in which this ICorDebugThread is currently executing.
+        /// Gets an interface pointer to the application domain in which this <see cref="ICorDebugThread"/> is currently executing.
         /// </summary>
-        /// <param name="ppAppDomain">[out] A pointer to an ICorDebugAppDomain object that represents the application domain in which this thread is currently executing.</param>
+        /// <param name="ppAppDomain">[out] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain in which this thread is currently executing.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetAppDomain([MarshalAs(UnmanagedType.Interface)] out ICorDebugAppDomain ppAppDomain);
 
         /// <summary>
-        /// Sets flags that describe the debugging state of this ICorDebugThread.
+        /// Sets flags that describe the debugging state of this <see cref="ICorDebugThread"/>.
         /// </summary>
-        /// <param name="state">[in] A bitwise combination of CorDebugThreadState enumeration values that specify the debugging state of this thread.</param>
+        /// <param name="state">[in] A bitwise combination of <see cref="CorDebugThreadState"/> enumeration values that specify the debugging state of this thread.</param>
         /// <remarks>
         /// SetDebugState sets the current debug state of the thread. (The "current debug state" represents the debug state
         /// if the process were to be continued, not the actual current state.) The normal value for this is THREAD_RUN. Only
@@ -73,9 +73,9 @@ namespace ManagedCorDebug
         HRESULT SetDebugState([In] CorDebugThreadState state);
 
         /// <summary>
-        /// Gets the current debug state of this ICorDebugThread object.
+        /// Gets the current debug state of this <see cref="ICorDebugThread"/> object.
         /// </summary>
-        /// <param name="pState">[out] A pointer to a bitwise combination of CorDebugThreadState enumeration values that describes the current debug state of this thread.</param>
+        /// <param name="pState">[out] A pointer to a bitwise combination of <see cref="CorDebugThreadState"/> enumeration values that describes the current debug state of this thread.</param>
         /// <remarks>
         /// If the process is currently stopped, pState represents the debug state that would exist for this thread if the
         /// process were to be continued, not the actual current state of this thread.
@@ -85,9 +85,9 @@ namespace ManagedCorDebug
         HRESULT GetDebugState(out CorDebugThreadState pState);
 
         /// <summary>
-        /// Gets the current user state of this ICorDebugThread.
+        /// Gets the current user state of this <see cref="ICorDebugThread"/>.
         /// </summary>
-        /// <param name="pState">[out] A pointer to a bitwise combination of CorDebugUserState enumeration values that describe the current user state of this thread.</param>
+        /// <param name="pState">[out] A pointer to a bitwise combination of <see cref="CorDebugUserState"/> enumeration values that describe the current user state of this thread.</param>
         /// <remarks>
         /// The user state of the thread is the state of the thread when it is examined by the program that is being debugged.
         /// A thread may have multiple state bits set.
@@ -97,12 +97,12 @@ namespace ManagedCorDebug
         HRESULT GetUserState(out CorDebugUserState pState);
 
         /// <summary>
-        /// Gets an interface pointer to an ICorDebugValue object that represents an exception that is currently being thrown by managed code.
+        /// Gets an interface pointer to an <see cref="ICorDebugValue"/> object that represents an exception that is currently being thrown by managed code.
         /// </summary>
-        /// <param name="ppExceptionObject">[out] A pointer to the address of an ICorDebugValue object that represents the exception that is currently being thrown by managed code.</param>
+        /// <param name="ppExceptionObject">[out] A pointer to the address of an <see cref="ICorDebugValue"/> object that represents the exception that is currently being thrown by managed code.</param>
         /// <remarks>
         /// The exception object will exist from the time the exception is thrown until the end of the catch block. A function
-        /// evaluation, which is performed by the ICorDebugEval methods, will clear out the exception object on setup and restore
+        /// evaluation, which is performed by the <see cref="ICorDebugEval"/> methods, will clear out the exception object on setup and restore
         /// it on completion. Exceptions can be nested (for example, if an exception is thrown in a filter or in a function
         /// evaluation), so there may be multiple outstanding exceptions on a single thread. GetCurrentException returns the
         /// most current exception. The exception object and type may change throughout the life of the exception. For example,
@@ -121,20 +121,20 @@ namespace ManagedCorDebug
         HRESULT ClearCurrentException();
 
         /// <summary>
-        /// Creates an ICorDebugStepper object that allows stepping through the active frame of this ICorDebugThread.
+        /// Creates an <see cref="ICorDebugStepper"/> object that allows stepping through the active frame of this <see cref="ICorDebugThread"/>.
         /// </summary>
-        /// <param name="ppStepper">[out] A pointer to the address of an ICorDebugStepper object that allows stepping through the active frame of this thread.</param>
+        /// <param name="ppStepper">[out] A pointer to the address of an <see cref="ICorDebugStepper"/> object that allows stepping through the active frame of this thread.</param>
         /// <remarks>
-        /// The active frame may be unmanaged code. The ICorDebugStepper interface must be used to perform the actual stepping.
+        /// The active frame may be unmanaged code. The <see cref="ICorDebugStepper"/> interface must be used to perform the actual stepping.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateStepper([MarshalAs(UnmanagedType.Interface)] out ICorDebugStepper ppStepper);
 
         /// <summary>
-        /// Gets an interface pointer to an ICorDebugChainEnum enumerator that contains all the stack chains in this ICorDebugThread object.
+        /// Gets an interface pointer to an <see cref="ICorDebugChainEnum"/> enumerator that contains all the stack chains in this <see cref="ICorDebugThread"/> object.
         /// </summary>
-        /// <param name="ppChains">[out] A pointer to the address of an ICorDebugChainEnum object that allows enumeration of all the stack chains in this thread, starting at the active (that is, the most recent) chain.</param>
+        /// <param name="ppChains">[out] A pointer to the address of an <see cref="ICorDebugChainEnum"/> object that allows enumeration of all the stack chains in this thread, starting at the active (that is, the most recent) chain.</param>
         /// <remarks>
         /// The stack chain represents the physical call stack for the thread. The following circumstances create a stack chain
         /// boundary: In the simple case for a thread that is running purely managed code in a single context, a one-to-one
@@ -147,9 +147,9 @@ namespace ManagedCorDebug
         HRESULT EnumerateChains([MarshalAs(UnmanagedType.Interface)] out ICorDebugChainEnum ppChains);
 
         /// <summary>
-        /// Gets an interface pointer to the active (most recent) stack chain on this ICorDebugThread object.
+        /// Gets an interface pointer to the active (most recent) stack chain on this <see cref="ICorDebugThread"/> object.
         /// </summary>
-        /// <param name="ppChain">[out] A pointer to the address of an ICorDebugChain object that represents the stack chain.</param>
+        /// <param name="ppChain">[out] A pointer to the address of an <see cref="ICorDebugChain"/> object that represents the stack chain.</param>
         /// <remarks>
         /// The ppChain parameter is null if no stack chain is currently active.
         /// </remarks>
@@ -158,9 +158,9 @@ namespace ManagedCorDebug
         HRESULT GetActiveChain([MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);
 
         /// <summary>
-        /// Gets an interface pointer to the active (most recent) frame on this ICorDebugThread object.
+        /// Gets an interface pointer to the active (most recent) frame on this <see cref="ICorDebugThread"/> object.
         /// </summary>
-        /// <param name="ppFrame">[out] A pointer to the address of an ICorDebugFrame interface object that represents a frame.</param>
+        /// <param name="ppFrame">[out] A pointer to the address of an <see cref="ICorDebugFrame"/> interface object that represents a frame.</param>
         /// <remarks>
         /// The ppFrame parameter is null if no frame is currently active.
         /// </remarks>
@@ -169,7 +169,7 @@ namespace ManagedCorDebug
         HRESULT GetActiveFrame([MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);
 
         /// <summary>
-        /// Gets an interface pointer to the register set that is associated with the active part of this ICorDebugThread object.
+        /// Gets an interface pointer to the register set that is associated with the active part of this <see cref="ICorDebugThread"/> object.
         /// </summary>
         /// <param name="ppRegisters">[out] A pointer to the address of an <see cref="ICorDebugRegisterSet"/> interface object that represents the register set for the active part of this thread.</param>
         [PreserveSig]
@@ -177,9 +177,9 @@ namespace ManagedCorDebug
         HRESULT GetRegisterSet([MarshalAs(UnmanagedType.Interface)] out ICorDebugRegisterSet ppRegisters);
 
         /// <summary>
-        /// Creates an ICorDebugEval object that collects and exposes the functionality of this ICorDebugThread.
+        /// Creates an <see cref="ICorDebugEval"/> object that collects and exposes the functionality of this <see cref="ICorDebugThread"/>.
         /// </summary>
-        /// <param name="ppEval">[out] A pointer to the address of an ICorDebugEval object that collects and exposes the functionality of this thread.</param>
+        /// <param name="ppEval">[out] A pointer to the address of an <see cref="ICorDebugEval"/> object that collects and exposes the functionality of this thread.</param>
         /// <remarks>
         /// The evaluation object will push a new chain on the thread before doing its computation. This interrupts the computation
         /// currently being performed on the thread until the evaluation completes.
@@ -191,7 +191,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets an interface pointer to the common language runtime (CLR) thread.
         /// </summary>
-        /// <param name="ppObject">[out] A pointer to the address of an ICorDebugValue interface object that represents the CLR thread.</param>
+        /// <param name="ppObject">[out] A pointer to the address of an <see cref="ICorDebugValue"/> interface object that represents the CLR thread.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetObject([MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppObject);

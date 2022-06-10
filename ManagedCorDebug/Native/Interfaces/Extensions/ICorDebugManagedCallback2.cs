@@ -4,12 +4,12 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Provides methods to support debugger exception handling and managed debugging assistants (MDAs). ICorDebugManagedCallback2 is a logical extension of the <see cref="ICorDebugManagedCallback"/> interface.
+    /// Provides methods to support debugger exception handling and managed debugging assistants (MDAs). <see cref="ICorDebugManagedCallback2"/> is a logical extension of the <see cref="ICorDebugManagedCallback"/> interface.
     /// </summary>
     /// <remarks>
-    /// The ICorDebugManagedCallback2 interface extends the ICorDebugManagedCallback interface to handle new debug events
-    /// introduced in the .NET Framework version 2.0. A debugger must implement ICorDebugManagedCallback2 if it is debugging
-    /// .NET Framework 2.0 applications. An instance of ICorDebugManagedCallback or ICorDebugManagedCallback2 is passed
+    /// The <see cref="ICorDebugManagedCallback2"/> interface extends the <see cref="ICorDebugManagedCallback"/> interface to handle new debug events
+    /// introduced in the .NET Framework version 2.0. A debugger must implement <see cref="ICorDebugManagedCallback2"/> if it is debugging
+    /// .NET Framework 2.0 applications. An instance of <see cref="ICorDebugManagedCallback"/> or <see cref="ICorDebugManagedCallback2"/> is passed
     /// as the callback object to <see cref="ICorDebug.SetManagedHandler"/>.
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -20,10 +20,10 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that code execution has reached a sequence point in an older version of an edited function.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain containing the edited function.</param>
-        /// <param name="pThread">[in] A pointer to an ICorDebugThread object that represents the thread on which the remap breakpoint was encountered.</param>
-        /// <param name="pOldFunction">[in] A pointer to an ICorDebugFunction object that represents the version of the function that is currently running on the thread.</param>
-        /// <param name="pNewFunction">[in] A pointer to an ICorDebugFunction object that represents the latest version of the function.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain containing the edited function.</param>
+        /// <param name="pThread">[in] A pointer to an <see cref="ICorDebugThread"/> object that represents the thread on which the remap breakpoint was encountered.</param>
+        /// <param name="pOldFunction">[in] A pointer to an <see cref="ICorDebugFunction"/> object that represents the version of the function that is currently running on the thread.</param>
+        /// <param name="pNewFunction">[in] A pointer to an <see cref="ICorDebugFunction"/> object that represents the latest version of the function.</param>
         /// <param name="oldILOffset">[in] The Microsoft intermediate language (MSIL) offset of the instruction pointer in the old version of the function.</param>
         /// <remarks>
         /// This callback gives the debugger an opportunity to remap the instruction pointer to its proper place in the new
@@ -77,7 +77,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that the specified connection has been terminated.
         /// </summary>
-        /// <param name="pProcess">[in] A pointer to an ICorDebugProcess object that represents the process containing the connection that was destroyed.</param>
+        /// <param name="pProcess">[in] A pointer to an <see cref="ICorDebugProcess"/> object that represents the process containing the connection that was destroyed.</param>
         /// <param name="dwConnectionId">[in] The ID of the connection that was destroyed.</param>
         /// <remarks>
         /// A DestroyConnection callback will be fired when a host calls <see cref="ICLRDebugManager.EndConnection"/> in the
@@ -91,17 +91,17 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that a search for an exception handler has started.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain containing the thread on which the exception was thrown.</param>
-        /// <param name="pThread">[in] A pointer to an ICorDebugThread object that represents the thread on which the exception was thrown.</param>
-        /// <param name="pFrame">[in] A pointer to an ICorDebugFrame object that represents a frame, as determined by the dwEventType parameter.<para/>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain containing the thread on which the exception was thrown.</param>
+        /// <param name="pThread">[in] A pointer to an <see cref="ICorDebugThread"/> object that represents the thread on which the exception was thrown.</param>
+        /// <param name="pFrame">[in] A pointer to an <see cref="ICorDebugFrame"/> object that represents a frame, as determined by the dwEventType parameter.<para/>
         /// For more information, see the table in the Remarks section.</param>
         /// <param name="nOffset">[in] An integer that specifies an offset, as determined by the dwEventType parameter. For more information, see the table in the Remarks section.</param>
-        /// <param name="dwEventType">[in] A value of the CorDebugExceptionCallbackType enumeration that specifies the type of this exception callback.</param>
+        /// <param name="dwEventType">[in] A value of the <see cref="CorDebugExceptionCallbackType"/> enumeration that specifies the type of this exception callback.</param>
         /// <param name="dwFlags">[in] A value of the <see cref="CorDebugExceptionFlags"/> enumeration that specifies additional information about the exception</param>
         /// <remarks>
         /// The Exception callback is called at various points during the search phase of the exception-handling process. That
         /// is, it can be called more than once while unwinding an exception. The exception being processed can be retrieved
-        /// from the ICorDebugThread object referenced by the pThread parameter. The particular frame and offset are determined
+        /// from the <see cref="ICorDebugThread"/> object referenced by the pThread parameter. The particular frame and offset are determined
         /// by the dwEventType parameter as follows:
         /// </remarks>
         [PreserveSig]
@@ -120,9 +120,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// Provides a status notification during the exception unwinding process.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain containing the thread on which the exception was thrown.</param>
-        /// <param name="pThread">[in] A pointer to an ICorDebugThread object that represents the thread on which the exception was thrown.</param>
-        /// <param name="dwEventType">[in] A value of the CorDebugExceptionUnwindCallbackType enumeration that specifies the event that is being signaled by the callback during the unwind phase.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain containing the thread on which the exception was thrown.</param>
+        /// <param name="pThread">[in] A pointer to an <see cref="ICorDebugThread"/> object that represents the thread on which the exception was thrown.</param>
+        /// <param name="dwEventType">[in] A value of the <see cref="CorDebugExceptionUnwindCallbackType"/> enumeration that specifies the event that is being signaled by the callback during the unwind phase.</param>
         /// <param name="dwFlags">[in] A value of the <see cref="CorDebugExceptionFlags"/> enumeration that specifies additional information about the exception.</param>
         /// <remarks>
         /// ExceptionUnwind is called at various points during the unwind phase of the exception-handling process. ExceptionUnwind
@@ -143,9 +143,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that code execution has switched to a new version of an edited function.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain containing the edited function.</param>
-        /// <param name="pThread">[in] A pointer to an ICorDebugThread object that represents the thread on which the remap breakpoint was encountered.</param>
-        /// <param name="pFunction">[in] A pointer to an ICorDebugFunction object that represents the version of the function currently running on the thread.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain containing the edited function.</param>
+        /// <param name="pThread">[in] A pointer to an <see cref="ICorDebugThread"/> object that represents the thread on which the remap breakpoint was encountered.</param>
+        /// <param name="pFunction">[in] A pointer to an <see cref="ICorDebugFunction"/> object that represents the version of the function currently running on the thread.</param>
         /// <remarks>
         /// This callback gives the debugger an opportunity to recreate any steppers that previously existed.
         /// </remarks>
@@ -162,9 +162,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// Provides notification that code execution has encountered a managed debugging assistant (MDA) in the application that is being debugged.
         /// </summary>
-        /// <param name="pController">[in] A pointer to an ICorDebugController interface that exposes the process or application domain in which the MDA occurred.<para/>
+        /// <param name="pController">[in] A pointer to an <see cref="ICorDebugController"/> interface that exposes the process or application domain in which the MDA occurred.<para/>
         /// A debugger should not make any assumptions about whether the controller is a process or an application domain, although it can always query the interface to make a determination.</param>
-        /// <param name="pThread">[in] A pointer to an ICorDebugThread interface that exposes the managed thread on which the debug event occurred.<para/>
+        /// <param name="pThread">[in] A pointer to an <see cref="ICorDebugThread"/> interface that exposes the managed thread on which the debug event occurred.<para/>
         /// If the MDA occurred on an unmanaged thread, the value of pThread will be null. You must get the operating system (OS) thread ID from the MDA object itself.</param>
         /// <param name="pMDA">[in] A pointer to an <see cref="ICorDebugMDA"/> interface that exposes the MDA information.</param>
         /// <remarks>
@@ -174,7 +174,7 @@ namespace ManagedCorDebug
         /// functionality requiring specific MDA patterns. MDAs may be queued and fired shortly after the MDA is encountered.
         /// This could happen if the runtime needs to wait until it reaches a safe point for firing the MDA, instead of firing
         /// the MDA when it encounters it. It also means that the runtime may fire a number of MDAs in a single set of queued
-        /// callbacks (similar to an "attach" event operation). A debugger should release the reference to an ICorDebugMDA
+        /// callbacks (similar to an "attach" event operation). A debugger should release the reference to an <see cref="ICorDebugMDA"/>
         /// instance immediately after returning from the MDANotification callback, to allow the CLR to recycle the memory
         /// consumed by an MDA. Releasing the instance may improve performance if many MDAs are firing.
         /// </remarks>

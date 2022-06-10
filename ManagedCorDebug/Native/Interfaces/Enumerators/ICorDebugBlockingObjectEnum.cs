@@ -4,10 +4,10 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Provides an enumerator for a list of <see cref="CorDebugBlockingObject"/> structures. This interface is a subclass of the ICorDebugEnum interface.
+    /// Provides an enumerator for a list of <see cref="CorDebugBlockingObject"/> structures. This interface is a subclass of the <see cref="ICorDebugEnum"/> interface.
     /// </summary>
     /// <remarks>
-    /// Each CorDebugBlockingObject structure represents an object that is blocking a thread.
+    /// Each <see cref="CorDebugBlockingObject"/> structure represents an object that is blocking a thread.
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("976A6278-134A-4A81-81A3-8F277943F4C3")]
@@ -30,9 +30,9 @@ namespace ManagedCorDebug
         new HRESULT Reset();
 
         /// <summary>
-        /// Creates a copy of this ICorDebugEnum object.
+        /// Creates a copy of this <see cref="ICorDebugEnum"/> object.
         /// </summary>
-        /// <param name="ppEnum">[out] A pointer to the address of an ICorDebugEnum object that is a copy of this ICorDebugEnum object.</param>
+        /// <param name="ppEnum">[out] A pointer to the address of an <see cref="ICorDebugEnum"/> object that is a copy of this <see cref="ICorDebugEnum"/> object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Clone([MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);

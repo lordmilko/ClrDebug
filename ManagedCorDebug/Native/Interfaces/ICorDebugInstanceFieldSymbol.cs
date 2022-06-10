@@ -8,7 +8,7 @@ namespace ManagedCorDebug
     /// Represents the debug symbol information for an instance field.
     /// </summary>
     /// <remarks>
-    /// The ICorDebugInstanceFieldSymbol interface is used to retrieve the debug symbol information for an instance field.
+    /// The <see cref="ICorDebugInstanceFieldSymbol"/> interface is used to retrieve the debug symbol information for an instance field.
     /// </remarks>
     [Guid("A074096B-3ADC-4485-81DA-68C7A4EA52DB")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

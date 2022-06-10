@@ -80,7 +80,7 @@ namespace ManagedCorDebug
         /// | CORDBG_E_PAST_END_OF_STACK | The frame pointer is already at the end of the stack; therefore, no additional frames can be accessed. |
         /// </returns>
         /// <remarks>
-        /// The Next method advances the ICorDebugStackWalk object to the calling frame only if the runtime can unwind the
+        /// The Next method advances the <see cref="ICorDebugStackWalk"/> object to the calling frame only if the runtime can unwind the
         /// current frame. Otherwise, the object advances to the next frame that the runtime is able to unwind.
         /// </remarks>
         [PreserveSig]
@@ -103,7 +103,7 @@ namespace ManagedCorDebug
         /// | CORDBG_E_PAST_END_OF_STACK | The frame pointer is already at the end of the stack; therefore, no additional frames can be accessed. |
         /// </returns>
         /// <remarks>
-        /// ICorDebugStackWalk returns only actual stack frames. Use the <see cref="ICorDebugThread3.GetActiveInternalFrames"/>
+        /// <see cref="ICorDebugStackWalk"/> returns only actual stack frames. Use the <see cref="ICorDebugThread3.GetActiveInternalFrames"/>
         /// method to return internal frames. (Internal frames are data structures pushed onto the stack by the runtime to
         /// store temporary data.)
         /// </remarks>

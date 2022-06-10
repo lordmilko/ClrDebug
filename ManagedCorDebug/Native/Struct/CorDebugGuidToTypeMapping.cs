@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Maps a Windows Runtime GUID to its corresponding ICorDebugType object.
+    /// Maps a Windows Runtime GUID to its corresponding <see cref="ICorDebugType"/> object.
     /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct CorDebugGuidToTypeMapping
@@ -15,7 +15,7 @@ namespace ManagedCorDebug
         public Guid iid;
 
         /// <summary>
-        /// A pointer to an ICorDebugType object that provides information about the cached type.
+        /// A pointer to an <see cref="ICorDebugType"/> object that provides information about the cached type.
         /// </summary>
         [MarshalAs(UnmanagedType.Interface)] public ICorDebugType pType;
     }

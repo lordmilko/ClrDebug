@@ -7,10 +7,10 @@ namespace ManagedCorDebug
     /// Represents a managed function or method.
     /// </summary>
     /// <remarks>
-    /// The ICorDebugFunction interface does not represent a function with generic type parameters. For example, an ICorDebugFunction
+    /// The <see cref="ICorDebugFunction"/> interface does not represent a function with generic type parameters. For example, an <see cref="ICorDebugFunction"/>
     /// instance would represent Func&lt;T&gt; but not Func&lt;string&gt;. Call <see cref="ICorDebugILFrame2.EnumerateTypeParameters"/>
-    /// to get the generic type parameters. The relationship between a method's metadata token, mdMethodDef, and a method's
-    /// ICorDebugFunction object is dependent upon whether Edit and Continue is allowed on the function:
+    /// to get the generic type parameters. The relationship between a method's metadata token, <see cref="mdMethodDef"/>, and a method's
+    /// <see cref="ICorDebugFunction"/> object is dependent upon whether Edit and Continue is allowed on the function:
     /// </remarks>
     [Guid("CC7BCAF3-8A68-11D2-983C-0000F808342D")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -20,15 +20,15 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the module in which this function is defined.
         /// </summary>
-        /// <param name="ppModule">[out] A pointer to the address of an ICorDebugModule object that represents the module in which this function is defined.</param>
+        /// <param name="ppModule">[out] A pointer to the address of an <see cref="ICorDebugModule"/> object that represents the module in which this function is defined.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetModule([MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
 
         /// <summary>
-        /// Gets an ICorDebugClass object that represents the class this function is a member of.
+        /// Gets an <see cref="ICorDebugClass"/> object that represents the class this function is a member of.
         /// </summary>
-        /// <param name="ppClass">[out] A pointer to the address of the ICorDebugClass object that represents the class, or null, if this function is not a member of a class.</param>
+        /// <param name="ppClass">[out] A pointer to the address of the <see cref="ICorDebugClass"/> object that represents the class, or null, if this function is not a member of a class.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetClass([MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);
@@ -36,15 +36,15 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the metadata token for this function.
         /// </summary>
-        /// <param name="pMethodDef">[out] A pointer to an mdMethodDef token that references the metadata for this function.</param>
+        /// <param name="pMethodDef">[out] A pointer to an <see cref="mdMethodDef"/> token that references the metadata for this function.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetToken(out mdMethodDef pMethodDef);
 
         /// <summary>
-        /// Gets the ICorDebugCode instance that represents the Microsoft intermediate language (MSIL) code associated with this ICorDebugFunction object.
+        /// Gets the <see cref="ICorDebugCode"/> instance that represents the Microsoft intermediate language (MSIL) code associated with this <see cref="ICorDebugFunction"/> object.
         /// </summary>
-        /// <param name="ppCode">[out] A pointer to the ICorDebugCode instance, or null, if the function was not compiled into MSIL.</param>
+        /// <param name="ppCode">[out] A pointer to the <see cref="ICorDebugCode"/> instance, or null, if the function was not compiled into MSIL.</param>
         /// <remarks>
         /// If Edit and Continue has been allowed on this function, the GetILCode method will get the MSIL code corresponding
         /// to this function's edited version of the code in the common language runtime (CLR).
@@ -54,11 +54,11 @@ namespace ManagedCorDebug
         HRESULT GetILCode([MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
 
         /// <summary>
-        /// Gets the native code for the function that is represented by this ICorDebugFunction instance.
+        /// Gets the native code for the function that is represented by this <see cref="ICorDebugFunction"/> instance.
         /// </summary>
-        /// <param name="ppCode">[out] A pointer to the ICorDebugCode instance that represents the native code for this function, or null, if this function is Microsoft intermediate language (MSIL) code that has not been just-in-time (JIT) compiled.</param>
+        /// <param name="ppCode">[out] A pointer to the <see cref="ICorDebugCode"/> instance that represents the native code for this function, or null, if this function is Microsoft intermediate language (MSIL) code that has not been just-in-time (JIT) compiled.</param>
         /// <remarks>
-        /// If the function that is represented by this ICorDebugFunction instance has been JIT-compiled more than once, as
+        /// If the function that is represented by this <see cref="ICorDebugFunction"/> instance has been JIT-compiled more than once, as
         /// in the case of generic types, GetNativeCode returns a random native code object.
         /// </remarks>
         [PreserveSig]
@@ -68,21 +68,21 @@ namespace ManagedCorDebug
         /// <summary>
         /// Creates a breakpoint at the beginning of this function.
         /// </summary>
-        /// <param name="ppBreakpoint">[out] A pointer to the address of an ICorDebugFunctionBreakpoint object that represents the new breakpoint for the function.</param>
+        /// <param name="ppBreakpoint">[out] A pointer to the address of an <see cref="ICorDebugFunctionBreakpoint"/> object that represents the new breakpoint for the function.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugFunctionBreakpoint ppBreakpoint);
 
         /// <summary>
-        /// Gets the metadata token for the local variable signature of the function that is represented by this ICorDebugFunction instance.
+        /// Gets the metadata token for the local variable signature of the function that is represented by this <see cref="ICorDebugFunction"/> instance.
         /// </summary>
-        /// <param name="pmdSig">[out] A pointer to the mdSignature token for the local variable signature of this function, or mdSignatureNil, if this function has no local variables.</param>
+        /// <param name="pmdSig">[out] A pointer to the <see cref="mdSignature"/> token for the local variable signature of this function, or mdSignatureNil, if this function has no local variables.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLocalVarSigToken(out mdSignature pmdSig);
 
         /// <summary>
-        /// Gets the version number of the latest edit made to the function represented by this ICorDebugFunction object.
+        /// Gets the version number of the latest edit made to the function represented by this <see cref="ICorDebugFunction"/> object.
         /// </summary>
         /// <param name="pnCurrentVersion">[out] A pointer to an integer value that is the version number of the latest edit made to this function.</param>
         /// <remarks>

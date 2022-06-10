@@ -8,7 +8,7 @@ namespace ManagedCorDebug
     /// Provides the entry point to the <see cref="ICorDebugStackWalk"/> and corresponding interfaces.
     /// </summary>
     /// <remarks>
-    /// ICorDebugThread3 is a logical extension to the ICorDebugThread interface.
+    /// <see cref="ICorDebugThread3"/> is a logical extension to the <see cref="ICorDebugThread"/> interface.
     /// </remarks>
     [Guid("F8544EC3-5E4E-46C7-8D3E-A52B8405B1F5")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -28,7 +28,7 @@ namespace ManagedCorDebug
         /// | E_FAIL  | The ICorDebugStackWalk object was not created.          |
         /// </returns>
         /// <remarks>
-        /// If the CreateStackWalk method succeeds, the returned ICorDebugStackWalk object's context is set to the thread's
+        /// If the CreateStackWalk method succeeds, the returned <see cref="ICorDebugStackWalk"/> object's context is set to the thread's
         /// current context.
         /// </remarks>
         [PreserveSig]

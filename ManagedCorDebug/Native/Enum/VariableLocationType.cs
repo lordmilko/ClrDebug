@@ -4,7 +4,7 @@
     /// Indicates the native location type of a variable.
     /// </summary>
     /// <remarks>
-    /// A member of the VariableLocationType enumeration is returned by the <see cref="ICorDebugVariableHome.GetLocationType"/>
+    /// A member of the <see cref="VariableLocationType"/> enumeration is returned by the <see cref="ICorDebugVariableHome.GetLocationType"/>
     /// method.
     /// </remarks>
     public enum VariableLocationType

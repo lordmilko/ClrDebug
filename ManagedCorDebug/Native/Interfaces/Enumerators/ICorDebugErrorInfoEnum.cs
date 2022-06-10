@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// ICorDebugErrorInfoEnum is obsolete. Do not use this interface.
+    /// <see cref="ICorDebugErrorInfoEnum"/> is obsolete. Do not use this interface.
     /// </summary>
     [Guid("F0E18809-72B5-11D2-976F-00A0C9B4D50C")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -27,9 +27,9 @@ namespace ManagedCorDebug
         new HRESULT Reset();
 
         /// <summary>
-        /// Creates a copy of this ICorDebugEnum object.
+        /// Creates a copy of this <see cref="ICorDebugEnum"/> object.
         /// </summary>
-        /// <param name="ppEnum">[out] A pointer to the address of an ICorDebugEnum object that is a copy of this ICorDebugEnum object.</param>
+        /// <param name="ppEnum">[out] A pointer to the address of an <see cref="ICorDebugEnum"/> object that is a copy of this <see cref="ICorDebugEnum"/> object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Clone([MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);
@@ -43,7 +43,7 @@ namespace ManagedCorDebug
         new HRESULT GetCount(out uint pcelt);
 
         /// <summary>
-        /// ICorDebugErrorInfoEnum::Next is obsolete. Do not call this method.
+        /// <see cref="Next"/> is obsolete. Do not call this method.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

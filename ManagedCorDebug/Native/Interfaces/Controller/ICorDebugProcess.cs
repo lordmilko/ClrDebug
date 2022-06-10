@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Represents a process that is executing managed code. This interface is a subclass of ICorDebugController.
+    /// Represents a process that is executing managed code. This interface is a subclass of <see cref="ICorDebugController"/>.
     /// </summary>
     [Guid("3D6F5F64-7538-11D3-8D5B-00104B35E7EF")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -22,7 +22,7 @@ namespace ManagedCorDebug
         /// interop debugging session, unmanaged threads will also be stopped. The dwTimeoutIgnored value is currently ignored
         /// and treated as INFINITE (-1). If the cooperative stop fails due to a deadlock, all threads are suspended and E_TIMEOUT
         /// is returned. The debugger maintains a stop counter. When the counter goes to zero, the controller is resumed. Each
-        /// call to Stop or each dispatched callback increments the counter. Each call to ICorDebugController::Continue decrements
+        /// call to Stop or each dispatched callback increments the counter. Each call to <see cref="ICorDebugController.Continue"/> decrements
         /// the counter.
         /// </remarks>
         [PreserveSig]
@@ -34,13 +34,13 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="fIsOutOfBand">[in] Set to true if continuing from an out-of-band event; otherwise, set to false.</param>
         /// <remarks>
-        /// Continue continues the process after a call to the ICorDebugController::Stop method. When doing mixed-mode debugging,
+        /// Continue continues the process after a call to the <see cref="ICorDebugController.Stop"/> method. When doing mixed-mode debugging,
         /// do not call Continue on the Win32 event thread unless you are continuing from an out-of-band event. An in-band
         /// event is either a managed event or a normal unmanaged event during which the debugger supports interaction with
         /// the managed state of the process. In this case, the debugger receives the <see cref="ICorDebugUnmanagedCallback.DebugEvent"/>
         /// callback with its fOutOfBand parameter set to false. An out-of-band event is an unmanaged event during which interaction
         /// with the managed state of the process is impossible while the process is stopped due to the event. In this case,
-        /// the debugger receives the ICorDebugUnmanagedCallback::DebugEvent callback with its fOutOfBand parameter set to
+        /// the debugger receives the <see cref="ICorDebugUnmanagedCallback.DebugEvent"/> callback with its fOutOfBand parameter set to
         /// true.
         /// </remarks>
         [PreserveSig]
@@ -65,8 +65,8 @@ namespace ManagedCorDebug
         /// Callbacks will be dispatched one at a time, each time <see cref="Continue"/> is called. The debugger can check
         /// this flag if it wants to report multiple debugging events that occur simultaneously. When debugging events are
         /// queued, they have already occurred, so the debugger must drain the entire queue to be sure of the state of the
-        /// debuggee. (Call ICorDebugController::Continue to drain the queue.) For example, if the queue contains two debugging
-        /// events on thread X, and the debugger suspends thread X after the first debugging event and then calls ICorDebugController::Continue,
+        /// debuggee. (Call <see cref="ICorDebugController.Continue"/> to drain the queue.) For example, if the queue contains two debugging
+        /// events on thread X, and the debugger suspends thread X after the first debugging event and then calls <see cref="ICorDebugController.Continue"/>,
         /// the second debugging event for thread X will be dispatched although the thread has been suspended.
         /// </remarks>
         [PreserveSig]
@@ -175,7 +175,7 @@ namespace ManagedCorDebug
         /// Gets this process's thread that has the specified operating system (OS) thread ID.
         /// </summary>
         /// <param name="dwThreadId">[in] The OS thread ID of the thread to be retrieved.</param>
-        /// <param name="ppThread">[out] A pointer to the address of an ICorDebugThread object that represents the thread.</param>
+        /// <param name="ppThread">[out] A pointer to the address of an <see cref="ICorDebugThread"/> object that represents the thread.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetThread([In] uint dwThreadId, [MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
@@ -190,7 +190,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets a value that indicates whether an address is inside a stub that will cause a transition to managed code.
         /// </summary>
-        /// <param name="address">[in] A CORDB_ADDRESS value that specifies the address in question.</param>
+        /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> value that specifies the address in question.</param>
         /// <param name="pbTransitionStub">[out] A pointer to a Boolean value that is true if the specified address is inside a stub that will cause a transition to managed code; otherwise *pbTransitionStub is false.</param>
         /// <remarks>
         /// The IsTransitionStub method can be used by unmanaged stepping code to decide when to return stepping control to
@@ -254,7 +254,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Reads a specified area of memory for this process.
         /// </summary>
-        /// <param name="address">[in] A CORDB_ADDRESS value that specifies the base address of the memory to be read.</param>
+        /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> value that specifies the base address of the memory to be read.</param>
         /// <param name="size">[in] The number of bytes to be read from memory.</param>
         /// <param name="buffer">[out] A buffer that receives the contents of the memory.</param>
         /// <param name="read">[out] A pointer to the number of bytes transferred into the specified buffer.</param>
@@ -272,7 +272,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Writes data to an area of memory in this process.
         /// </summary>
-        /// <param name="address">[in] A CORDB_ADDRESS value that is the base address of the memory area to which data is written. Before data transfer occurs, the system verifies that the memory area of the specified size, beginning at the base address, is accessible for writing.<para/>
+        /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> value that is the base address of the memory area to which data is written. Before data transfer occurs, the system verifies that the memory area of the specified size, beginning at the base address, is accessible for writing.<para/>
         /// If it is not accessible, the method fails.</param>
         /// <param name="size">[in] The number of bytes to be written to the memory area.</param>
         /// <param name="buffer">[in] A buffer that contains data to be written.</param>
@@ -363,7 +363,7 @@ namespace ManagedCorDebug
         /// the thread ID at every stopping event. The thread ID of the debugger's helper thread will be correct on every unmanaged
         /// <see cref="ICorDebugManagedCallback.CreateThread"/> event, thus allowing a debugger to determine the thread ID
         /// of its helper thread and hide it from the user. A thread that is identified as a helper thread during an unmanaged
-        /// ICorDebugManagedCallback::CreateThread event will never run managed user code.
+        /// <see cref="ICorDebugManagedCallback.CreateThread"/> event will never run managed user code.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

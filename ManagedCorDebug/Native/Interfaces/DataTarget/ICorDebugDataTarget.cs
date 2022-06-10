@@ -7,10 +7,10 @@ namespace ManagedCorDebug
     /// Provides a callback interface that provides access to a particular target process.
     /// </summary>
     /// <remarks>
-    /// ICorDebugDataTarget and its methods have the following characteristics: The target process should be stopped and
-    /// not changed in any way while ICorDebug* interfaces (and therefore ICorDebugDataTarget methods) are being called.
+    /// <see cref="ICorDebugDataTarget"/> and its methods have the following characteristics: The target process should be stopped and
+    /// not changed in any way while ICorDebug* interfaces (and therefore <see cref="ICorDebugDataTarget"/> methods) are being called.
     /// If the target is a live process and its state changes, the <see cref="ICLRDebugging.OpenVirtualProcess"/> method
-    /// has to be called again to provide a replacement ICorDebugProcess instance.
+    /// has to be called again to provide a replacement <see cref="ICorDebugProcess"/> instance.
     /// </remarks>
     [Guid("FE06DC28-49FB-4636-A4A3-E80DB4AE116C")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

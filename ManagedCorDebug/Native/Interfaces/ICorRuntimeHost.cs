@@ -60,7 +60,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pConfiguration">[out] A pointer to the address of an <see cref="ICorConfiguration"/> object that can be used to configure the CLR.</param>
         /// <remarks>
-        /// The CLR must be configured prior to its initialization; otherwise, the GetConfiguration method returns an HRESULT
+        /// The CLR must be configured prior to its initialization; otherwise, the GetConfiguration method returns an <see cref="HRESULT"/>
         /// indicating an error.
         /// </remarks>
         [PreserveSig]
@@ -133,7 +133,7 @@ namespace ManagedCorDebug
         /// | HOST_E_CLRNOTAVAILABLE | The CLR has not been loaded into a process, or the CLR is in a state in which it cannot run managed code or process the call successfully.                                                                       |
         /// </returns>
         [PreserveSig]
-        HRESULT GetDefaultDomain([MarshalAs(UnmanagedType.IUnknown)] object pAppDomain);
+        HRESULT GetDefaultDomain([Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);
 
         /// <summary>
         /// Gets an enumerator for the domains in the current process.

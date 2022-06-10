@@ -44,7 +44,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the <see cref="ICLRTask"/> instance that is currently running on the operating system thread from which the method call originated.
         /// </summary>
-        /// <param name="pTask">[out] A pointer to the address of an ICLRTask instance that is currently executing on the operating system thread from which the call originated, or null if no task is currently executing on this thread.</param>
+        /// <param name="pTask">[out] A pointer to the address of an <see cref="ICLRTask"/> instance that is currently executing on the operating system thread from which the call originated, or null if no task is currently executing on this thread.</param>
         /// <returns>
         /// | HRESULT                | Description                                                                                                                                                                                |
         /// | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -56,8 +56,8 @@ namespace ManagedCorDebug
         /// | E_FAIL                 | An unknown catastrophic failure occurred. When a method returns E_FAIL, the CLR is no longer usable within the process. Subsequent calls to hosting methods return HOST_E_CLRNOTAVAILABLE. |
         /// </returns>
         /// <remarks>
-        /// The ICLRTask instance that the ppTask parameter points to represents the currently executing task for the CLR.
-        /// The ICLRTask instance is associated with a corresponding <see cref="IHostTask"/> instance that represents the task
+        /// The <see cref="ICLRTask"/> instance that the ppTask parameter points to represents the currently executing task for the CLR.
+        /// The <see cref="ICLRTask"/> instance is associated with a corresponding <see cref="IHostTask"/> instance that represents the task
         /// for the host.
         /// </remarks>
         [PreserveSig]

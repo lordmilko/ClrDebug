@@ -7,10 +7,10 @@ namespace ManagedCorDebug
     /// Represents a step in code execution that is performed by a debugger, serves as an identifier between the issuance and completion of a command, and provides a way to cancel a step.
     /// </summary>
     /// <remarks>
-    /// The ICorDebugStepper interface serves the following purposes: There can be more than one stepper per thread. For
+    /// The <see cref="ICorDebugStepper"/> interface serves the following purposes: There can be more than one stepper per thread. For
     /// example, a breakpoint may be hit while stepping over a function, and the user may wish to start a new stepping
     /// operation inside that function. It is up to the debugger to determine how to handle this situation. The debugger
-    /// may want to cancel the original stepping operation or nest the two operations. The ICorDebugStepper interface supports
+    /// may want to cancel the original stepping operation or nest the two operations. The <see cref="ICorDebugStepper"/> interface supports
     /// both choices. A stepper may migrate between threads if the common language runtime (CLR) makes a cross-threaded,
     /// marshalled call.
     /// </remarks>
@@ -20,7 +20,7 @@ namespace ManagedCorDebug
     public interface ICorDebugStepper
     {
         /// <summary>
-        /// Gets a value that indicates whether this ICorDebugStepper is currently executing a step.
+        /// Gets a value that indicates whether this <see cref="ICorDebugStepper"/> is currently executing a step.
         /// </summary>
         /// <param name="pbActive">[out] Returns true if the stepper is currently executing a step; otherwise, returns false.</param>
         /// <remarks>
@@ -33,7 +33,7 @@ namespace ManagedCorDebug
         HRESULT IsActive(out int pbActive);
 
         /// <summary>
-        /// Causes this ICorDebugStepper to cancel the last step command that it received.
+        /// Causes this <see cref="ICorDebugStepper"/> to cancel the last step command that it received.
         /// </summary>
         /// <remarks>
         /// A new stepping command may be issued after the most recently received step command has been canceled.
@@ -45,14 +45,14 @@ namespace ManagedCorDebug
         /// <summary>
         /// Sets a value that specifies the types of code that are stepped into.
         /// </summary>
-        /// <param name="mask">[in] A combination of values of the CorDebugIntercept enumeration that specifies the types of code.</param>
+        /// <param name="mask">[in] A combination of values of the <see cref="CorDebugIntercept"/> enumeration that specifies the types of code.</param>
         /// <remarks>
         /// If the bit for an interceptor is set, the stepper will complete when the given type of intercepting code is encountered.
         /// If the bit is cleared, the intercepting code will be skipped. The SetInterceptMask method may have unforeseen interactions
         /// with <see cref="SetUnmappedStopMask"/> (from the user's point of view). For example, if the only visible (that
         /// is, non-internal) portion of class initialization code lacks mapping information and STOP_NO_MAPPING_INFO isn't
-        /// set (see the <see cref="SetUnmappedStopMask"/> method and the CorDebugUnmappedStop enumeration), the stepper will
-        /// step over the class initialization. By default, only the INTERCEPT_NONE value of the CorDebugIntercept enumeration
+        /// set (see the <see cref="SetUnmappedStopMask"/> method and the <see cref="CorDebugUnmappedStop"/> enumeration), the stepper will
+        /// step over the class initialization. By default, only the INTERCEPT_NONE value of the <see cref="CorDebugIntercept"/> enumeration
         /// will be used.
         /// </remarks>
         [PreserveSig]
@@ -62,7 +62,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Sets a value that specifies the type of unmapped code in which execution will halt.
         /// </summary>
-        /// <param name="mask">[in] A value of the CorDebugUnmappedStop enumeration that specifies the type of unmapped code in which the debugger will halt execution.<para/>
+        /// <param name="mask">[in] A value of the <see cref="CorDebugUnmappedStop"/> enumeration that specifies the type of unmapped code in which the debugger will halt execution.<para/>
         /// The default value is STOP_OTHER_UNMAPPED. The value STOP_UNMANAGED is only valid with interop debugging.</param>
         /// <remarks>
         /// When the debugger finds a just-in-time (JIT) compilation that has no corresponding mapping to Microsoft intermediate
@@ -75,7 +75,7 @@ namespace ManagedCorDebug
         HRESULT SetUnmappedStopMask([In] CorDebugUnmappedStop mask);
 
         /// <summary>
-        /// Causes this ICorDebugStepper to single-step through its containing thread, and optionally, to continue single-stepping through functions that are called within the thread.
+        /// Causes this <see cref="ICorDebugStepper"/> to single-step through its containing thread, and optionally, to continue single-stepping through functions that are called within the thread.
         /// </summary>
         /// <param name="bStepIn">[in] Set to true to step into a function that is called within the thread. Set to false to step over the function.</param>
         /// <remarks>
@@ -88,10 +88,10 @@ namespace ManagedCorDebug
         HRESULT Step([In] int bStepIn);
 
         /// <summary>
-        /// Causes this ICorDebugStepper to single-step through its containing thread, and to return when it reaches code beyond the last of the specified ranges.
+        /// Causes this <see cref="ICorDebugStepper"/> to single-step through its containing thread, and to return when it reaches code beyond the last of the specified ranges.
         /// </summary>
         /// <param name="bStepIn">[in] Set to true to step into a function that is called within the thread. Set to false to step over the function.</param>
-        /// <param name="ranges">[in] An array of COR_DEBUG_STEP_RANGE structures, each of which specifies a range.</param>
+        /// <param name="ranges">[in] An array of <see cref="COR_DEBUG_STEP_RANGE"/> structures, each of which specifies a range.</param>
         /// <param name="cRangeCount">[in] The size of the ranges array.</param>
         /// <remarks>
         /// The StepRange method works like the <see cref="Step"/> method, except that it does not complete until code outside
@@ -105,7 +105,7 @@ namespace ManagedCorDebug
         HRESULT StepRange([In] int bStepIn, [In] ref COR_DEBUG_STEP_RANGE ranges, [In] uint cRangeCount);
 
         /// <summary>
-        /// Causes this ICorDebugStepper to single-step through its containing thread, and to complete when the current frame returns control to the calling frame.
+        /// Causes this <see cref="ICorDebugStepper"/> to single-step through its containing thread, and to complete when the current frame returns control to the calling frame.
         /// </summary>
         /// <remarks>
         /// A StepOut operation will complete after returning normally from the current frame to the calling frame. If StepOut

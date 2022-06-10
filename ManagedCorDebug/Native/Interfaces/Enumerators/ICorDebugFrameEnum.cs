@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Implements ICorDebugEnum methods, and enumerates ICorDebugFrame arrays.
+    /// Implements <see cref="ICorDebugEnum"/> methods, and enumerates <see cref="ICorDebugFrame"/> arrays.
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("CC7BCB07-8A68-11D2-983C-0000F808342D")]
@@ -27,9 +27,9 @@ namespace ManagedCorDebug
         new HRESULT Reset();
 
         /// <summary>
-        /// Creates a copy of this ICorDebugEnum object.
+        /// Creates a copy of this <see cref="ICorDebugEnum"/> object.
         /// </summary>
-        /// <param name="ppEnum">[out] A pointer to the address of an ICorDebugEnum object that is a copy of this ICorDebugEnum object.</param>
+        /// <param name="ppEnum">[out] A pointer to the address of an <see cref="ICorDebugEnum"/> object that is a copy of this <see cref="ICorDebugEnum"/> object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Clone([MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);
@@ -43,11 +43,11 @@ namespace ManagedCorDebug
         new HRESULT GetCount(out uint pcelt);
 
         /// <summary>
-        /// Gets the specified number of ICorDebugFrame instances, starting at the current position.
+        /// Gets the specified number of <see cref="ICorDebugFrame"/> instances, starting at the current position.
         /// </summary>
-        /// <param name="celt">[in] The number of ICorDebugFrame instances to be retrieved.</param>
-        /// <param name="frames">[out] An array of pointers, each of which points to an ICorDebugFrame object.</param>
-        /// <param name="pceltFetched">[out] A pointer to the number of ICorDebugFrame instances actually returned. This value may be null if celt is one.</param>
+        /// <param name="celt">[in] The number of <see cref="ICorDebugFrame"/> instances to be retrieved.</param>
+        /// <param name="frames">[out] An array of pointers, each of which points to an <see cref="ICorDebugFrame"/> object.</param>
+        /// <param name="pceltFetched">[out] A pointer to the number of <see cref="ICorDebugFrame"/> instances actually returned. This value may be null if celt is one.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Next([In] uint celt, [MarshalAs(UnmanagedType.Interface), Out] out ICorDebugFrame frames, out uint pceltFetched);

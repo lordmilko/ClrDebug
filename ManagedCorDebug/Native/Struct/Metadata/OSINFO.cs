@@ -6,8 +6,8 @@ namespace ManagedCorDebug
     /// Contains details about the operating system for an assembly or module.
     /// </summary>
     /// <remarks>
-    /// OSINFO is based on the OSVERSIONINFOEX structure that is used in calls to the Microsoft Windows platform function
-    /// GetVersionEx. This structure is used by the ASSEMBLYMETADATA structure to indicate its operating system support.
+    /// <see cref="OSINFO"/> is based on the OSVERSIONINFOEX structure that is used in calls to the Microsoft Windows platform function
+    /// GetVersionEx. This structure is used by the <see cref="ASSEMBLYMETADATA"/> structure to indicate its operating system support.
     /// </remarks>
     [StructLayout(LayoutKind.Sequential)]
     public struct OSINFO

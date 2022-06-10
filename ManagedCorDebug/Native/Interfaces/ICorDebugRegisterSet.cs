@@ -8,7 +8,7 @@ namespace ManagedCorDebug
     /// Represents the set of registers available on the computer that is currently executing code.
     /// </summary>
     /// <remarks>
-    /// The ICorDebugRegisterSet interface supports only 32-bit registers. Use the <see cref="ICorDebugRegisterSet2"/>
+    /// The <see cref="ICorDebugRegisterSet"/> interface supports only 32-bit registers. Use the <see cref="ICorDebugRegisterSet2"/>
     /// interface on platforms such as IA-64 that require additional registers.
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -34,7 +34,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="mask">[in] A bit mask that specifies which register values are to be retrieved. Each bit corresponds to a register. If a bit is set to one, the register's value is retrieved; otherwise, the register's value is not retrieved.</param>
         /// <param name="regCount">[in] The number of register values to be retrieved.</param>
-        /// <param name="regBuffer">[out] An array of CORDB_REGISTER objects, each of which receives a value of a register.</param>
+        /// <param name="regBuffer">[out] An array of <see cref="CORDB_REGISTER"/> objects, each of which receives a value of a register.</param>
         /// <remarks>
         /// The size of the array should be equal to the number of bits set to one in the bit mask. The regCount parameter
         /// specifies the number of elements in the buffer that will receive the register values. If the regCount value is

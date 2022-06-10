@@ -7,9 +7,9 @@ namespace ManagedCorDebug
     /// Provides methods that allow the common language runtime (CLR) to interact with I/O completion ports provided by the host.
     /// </summary>
     /// <remarks>
-    /// IHostIoCompletionManager corresponds to the ICLRIoCompletionManager interface implemented by the CLR. The CLR calls
-    /// the methods of IHostIoCompletionManager to bind handles to the ports that the host provides, and the host calls
-    /// the methods of ICLRIoCompletionManager to report the completion of I/O requests.
+    /// <see cref="IHostIoCompletionManager"/> corresponds to the <see cref="ICLRIoCompletionManager"/> interface implemented by the CLR. The CLR calls
+    /// the methods of <see cref="IHostIoCompletionManager"/> to bind handles to the ports that the host provides, and the host calls
+    /// the methods of <see cref="ICLRIoCompletionManager"/> to report the completion of I/O requests.
     /// </remarks>
     [Guid("8bde9d80-ec06-41d6-83e6-22580effcc20")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -158,7 +158,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Provides the host with an interface pointer to the <see cref="ICLRIoCompletionManager"/> instance implemented by the common language runtime (CLR).
         /// </summary>
-        /// <param name="pManager">[in] An interface pointer to an ICLRIoCompletionManager instance provided by the CLR.</param>
+        /// <param name="pManager">[in] An interface pointer to an <see cref="ICLRIoCompletionManager"/> instance provided by the CLR.</param>
         /// <returns>
         /// | HRESULT                | Description                                                                                                                                                                                |
         /// | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |

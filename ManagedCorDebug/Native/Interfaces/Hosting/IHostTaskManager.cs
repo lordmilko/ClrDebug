@@ -8,7 +8,7 @@ namespace ManagedCorDebug
     /// Provides methods that allow the common language runtime (CLR) to work with tasks through the host instead of using the standard operating system threading or fiber functions.
     /// </summary>
     /// <remarks>
-    /// IHostTaskManager allows the CLR to create and manage tasks, to provide hooks for the host to take action when control
+    /// <see cref="IHostTaskManager"/> allows the CLR to create and manage tasks, to provide hooks for the host to take action when control
     /// transfers from managed to unmanaged code and vice versa, and to specify certain actions the host can and cannot
     /// take during code execution.
     /// </remarks>
@@ -38,7 +38,7 @@ namespace ManagedCorDebug
         /// </returns>
         /// <remarks>
         /// The CLR calls CreateTask to request that the host create a new task. The host returns an interface pointer to an
-        /// IHostTask instance. The returned task must remain suspended until it is explicitly started by a call to IHostTask::Start.
+        /// <see cref="IHostTask"/> instance. The returned task must remain suspended until it is explicitly started by a call to IHostTask::Start.
         /// </remarks>
         [PreserveSig]
         HRESULT CreateTask(
@@ -63,7 +63,7 @@ namespace ManagedCorDebug
         /// | E_FAIL                 | An unknown catastrophic failure occurred. When a method returns E_FAIL, the CLR is no longer usable within the process. Subsequent calls to hosting methods return HOST_E_CLRNOTAVAILABLE. |
         /// </returns>
         /// <remarks>
-        /// The CLR typically calls IHostTaskManager::Sleep when <see cref="Thread.Sleep(int)"/> is called from user code.
+        /// The CLR typically calls <see cref="Sleep"/> when <see cref="Thread.Sleep(int)"/> is called from user code.
         /// </remarks>
         [PreserveSig]
         HRESULT Sleep(
@@ -189,7 +189,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Call sequences to and from unmanaged code can be nested. For example, the list below describes a hypothetical situation
         /// in which the sequence of calls to LeaveRuntime, <see cref="ReverseEnterRuntime"/>, <see cref="ReverseLeaveRuntime"/>,
-        /// and IHostTaskManager::EnterRuntime allows the host to identify the nested layers.
+        /// and <see cref="EnterRuntime"/> allows the host to identify the nested layers.
         /// </remarks>
         [PreserveSig]
         HRESULT LeaveRuntime([In] uint target);
@@ -316,7 +316,7 @@ namespace ManagedCorDebug
         /// | E_FAIL                 | An unknown catastrophic failure occurred. When a method returns E_FAIL, the CLR is no longer usable within the process. Subsequent calls to hosting methods return HOST_E_CLRNOTAVAILABLE. |
         /// </returns>
         /// <remarks>
-        /// The CLR typically calls IHostTaskManager::BeginThreadAffinity in the context of a call to <see cref="Thread.BeginThreadAffinity"/>.
+        /// The CLR typically calls <see cref="BeginThreadAffinity"/> in the context of a call to <see cref="Thread.BeginThreadAffinity"/>.
         /// The current task must not be rescheduled until a corresponding call is made to <see cref="EndThreadAffinity"/>.
         /// Tasks can be switched out, but when they are switched back in, they must be assigned to the same operating system
         /// thread from which they were switched out. Nested calls to BeginThreadAffinity have no effect, because the call
@@ -363,7 +363,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Provides the host with an interface pointer to an <see cref="ICLRTaskManager"/> instance implemented by the common language runtime (CLR).
         /// </summary>
-        /// <param name="ppManager">[in] A pointer to an ICLRTaskManager instance implemented by the common language runtime.</param>
+        /// <param name="ppManager">[in] A pointer to an <see cref="ICLRTaskManager"/> instance implemented by the common language runtime.</param>
         /// <returns>
         /// | HRESULT                | Description                                                                                                                                                                                |
         /// | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -375,7 +375,7 @@ namespace ManagedCorDebug
         /// | E_FAIL                 | An unknown catastrophic failure occurred. When a method returns E_FAIL, the CLR is no longer usable within the process. Subsequent calls to hosting methods return HOST_E_CLRNOTAVAILABLE. |
         /// </returns>
         /// <remarks>
-        /// The runtime calls SetCLRTaskManager to provide the host with an interface pointer to an ICLRTaskManager instance.
+        /// The runtime calls SetCLRTaskManager to provide the host with an interface pointer to an <see cref="ICLRTaskManager"/> instance.
         /// </remarks>
         [PreserveSig]
         HRESULT SetCLRTaskManager([Out] out ICLRTaskManager ppManager);

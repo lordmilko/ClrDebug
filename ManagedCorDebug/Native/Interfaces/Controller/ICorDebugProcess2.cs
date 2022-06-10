@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// A logical extension of the ICorDebugProcess interface, which represents a process running managed code.
+    /// A logical extension of the <see cref="ICorDebugProcess"/> interface, which represents a process running managed code.
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("AD1B3588-0EF0-4744-A496-AA09A9F80371")]
@@ -16,7 +16,7 @@ namespace ManagedCorDebug
         /// Gets the thread on which the task with the specified identifier is executing.
         /// </summary>
         /// <param name="taskid">[in] The identifier of the task.</param>
-        /// <param name="ppThread">[out] A pointer to the address of an ICorDebugThread2 object that represents the thread to be retrieved.</param>
+        /// <param name="ppThread">[out] A pointer to the address of an <see cref="ICorDebugThread2"/> object that represents the thread to be retrieved.</param>
         /// <remarks>
         /// The host can set the task identifier by using the <see cref="ICLRTask.SetTaskIdentifier"/> method.
         /// </remarks>
@@ -27,7 +27,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the version number of the common language runtime (CLR) that is running in this process.
         /// </summary>
-        /// <param name="version">[out] A pointer to a COR_VERSION structure that stores the version number of the runtime.</param>
+        /// <param name="version">[out] A pointer to a <see cref="COR_VERSION"/> structure that stores the version number of the runtime.</param>
         /// <remarks>
         /// The GetVersion method returns an error code if no runtime has been loaded in the process.
         /// </remarks>
@@ -38,7 +38,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Sets an unmanaged breakpoint at the specified native image offset.
         /// </summary>
-        /// <param name="address">[in] A CORDB_ADDRESS object that specifies the native image offset.</param>
+        /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> object that specifies the native image offset.</param>
         /// <param name="bufsize">[in] The size, in bytes, of the buffer array.</param>
         /// <param name="buffer">[out] An array that contains the opcode that is replaced by the breakpoint.</param>
         /// <param name="bufLen">[out] A pointer to the number of bytes returned in the buffer array.</param>
@@ -57,7 +57,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Removes a previously set breakpoint at the given address.
         /// </summary>
-        /// <param name="address">[in] A CORDB_ADDRESS value that specifies the address at which the breakpoint was set.</param>
+        /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> value that specifies the address at which the breakpoint was set.</param>
         /// <remarks>
         /// The specified breakpoint would have been previously set by an earlier call to <see cref="SetUnmanagedBreakpoint"/>.
         /// The ClearUnmanagedBreakpoint method can be called while the process being debugged is running. The ClearUnmanagedBreakpoint
@@ -82,7 +82,7 @@ namespace ManagedCorDebug
         /// by the SetDesiredNGENCompilerFlags method will apply to the extra JIT compilation. The SetDesiredNGENCompilerFlags
         /// method must be called during the <see cref="ICorDebugManagedCallback.CreateProcess"/> callback. Attempts to call
         /// the SetDesiredNGENCompilerFlags method afterwards will fail. Also, attempts to set flags that are either not defined
-        /// in the CorDebugJITCompilerFlags enumeration or are not legal for the given process will fail.
+        /// in the <see cref="CorDebugJITCompilerFlags"/> enumeration or are not legal for the given process will fail.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -104,7 +104,7 @@ namespace ManagedCorDebug
         /// Gets a reference pointer to the specified managed object that has a garbage collection handle.
         /// </summary>
         /// <param name="handle">[in] A pointer to a managed object that has a garbage collection handle. This value is a <see cref="IntPtr"/> object and can be retrieved from the <see cref="GCHandle"/> for the managed object.</param>
-        /// <param name="pOutValue">[out] A pointer to the address of an ICorDebugReferenceValue object that represents a reference to the specified managed object.</param>
+        /// <param name="pOutValue">[out] A pointer to the address of an <see cref="ICorDebugReferenceValue"/> object that represents a reference to the specified managed object.</param>
         /// <remarks>
         /// Do not confuse the returned reference value with a garbage collection reference value. The returned reference behaves
         /// like a normal reference. It is disabled when code execution continues after a breakpoint. The lifetime of the target

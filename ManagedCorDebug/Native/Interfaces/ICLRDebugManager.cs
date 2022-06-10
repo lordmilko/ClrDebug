@@ -10,7 +10,7 @@ namespace ManagedCorDebug
     /// <remarks>
     /// In debugging scenarios, a host might want to group tasks according to its own programming logic. For example, a
     /// grouping would allow a developer to see only the tasks required by the developer's APIs, instead of seeing every
-    /// task running in the process. ICLRDebugManager allows the host to implement this kind of grouping. The grouping,
+    /// task running in the process. <see cref="ICLRDebugManager"/> allows the host to implement this kind of grouping. The grouping,
     /// and the identifiers and friendly names that the host assigns to the grouping, have no meaning for the common language
     /// runtime (CLR). The CLR merely passes the information along to the debugger.
     /// </remarks>
@@ -51,7 +51,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="id">[in] The host-specific identifier for the connection with which to associate the ppCLRTask array.</param>
         /// <param name="dwCount">[in] The number of members of ppCLRTask. This number must be greater than zero.</param>
-        /// <param name="ppCLRTask">[in] An array of ICLRTask pointers to associate with the connection identified by id. This array must contain at least one member.</param>
+        /// <param name="ppCLRTask">[in] An array of <see cref="ICLRTask"/> pointers to associate with the connection identified by id. This array must contain at least one member.</param>
         /// <returns>
         /// | HRESULT                | Description                                                                                                                                                                                 |
         /// | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

@@ -35,7 +35,7 @@ namespace ManagedCorDebug
         public uint boxOffset;
 
         /// <summary>
-        /// The CorElementType to which this type belongs.
+        /// The <see cref="CorElementType"/> to which this type belongs.
         /// </summary>
         public uint type;
     }

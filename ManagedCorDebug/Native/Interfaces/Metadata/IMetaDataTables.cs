@@ -40,7 +40,7 @@ namespace ManagedCorDebug
         HRESULT GetUserStringHeapSize(out uint pcbBlobs);
 
         /// <summary>
-        /// Gets the number of tables in the scope of the current IMetaDataTables instance.
+        /// Gets the number of tables in the scope of the current <see cref="IMetaDataTables"/> instance.
         /// </summary>
         /// <param name="pcTables">[out] A pointer to the number of tables in the current instance scope.</param>
         [PreserveSig]

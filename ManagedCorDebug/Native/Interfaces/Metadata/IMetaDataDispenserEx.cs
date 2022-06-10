@@ -101,7 +101,7 @@ namespace ManagedCorDebug
         /// <param name="pValue">[out] The value of the returned option. The type of this value will be a variant of the specified option's type.</param>
         /// <remarks>
         /// The following list shows the GUIDs that are supported for this method. For descriptions, see the <see cref="SetOption"/>
-        /// method. If optionId is not in this list, this method returns HRESULT E_INVALIDARG, indicating an incorrect parameter.
+        /// method. If optionId is not in this list, this method returns <see cref="HRESULT"/> E_INVALIDARG, indicating an incorrect parameter.
         /// </remarks>
         [PreserveSig]
         HRESULT GetOption([In] Guid optionId, [Out] object pValue);

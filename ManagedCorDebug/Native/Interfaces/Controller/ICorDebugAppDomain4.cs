@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Logically extends the ICorDebugAppDomain interface to get a managed object from a COM callable wrapper.
+    /// Logically extends the <see cref="ICorDebugAppDomain"/> interface to get a managed object from a COM callable wrapper.
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("FB99CC40-83BE-4724-AB3B-768E796EBAC2")]

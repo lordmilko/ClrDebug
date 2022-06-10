@@ -7,9 +7,9 @@ namespace ManagedCorDebug
     /// Represents a segment of either Microsoft intermediate language (MSIL) code or native code.
     /// </summary>
     /// <remarks>
-    /// ICorDebugCode can represent either MSIL or native code. An "ICorDebugFunction" object that represents MSIL code
-    /// can have either zero or one ICorDebugCode objects associated with it. An "ICorDebugFunction" object that represents
-    /// native code can have any number of ICorDebugCode objects associated with it.
+    /// <see cref="ICorDebugCode"/> can represent either MSIL or native code. An "ICorDebugFunction" object that represents MSIL code
+    /// can have either zero or one <see cref="ICorDebugCode"/> objects associated with it. An "ICorDebugFunction" object that represents
+    /// native code can have any number of <see cref="ICorDebugCode"/> objects associated with it.
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("CC7BCAF4-8A68-11D2-983C-0000F808342D")]
@@ -19,7 +19,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets a value that indicates whether this "ICorDebugCode" represents code that was compiled in Microsoft intermediate language (MSIL).
         /// </summary>
-        /// <param name="pbIL">[out] true if this ICorDebugCode represents code that was compiled in MSIL; otherwise, false.</param>
+        /// <param name="pbIL">[out] true if this <see cref="ICorDebugCode"/> represents code that was compiled in MSIL; otherwise, false.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsIL(out int pbIL);
@@ -29,7 +29,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ppFunction">[out] A pointer to the address of the function.</param>
         /// <remarks>
-        /// ICorDebugCode and ICorDebugFunction maintain a one-to-one relationship.
+        /// <see cref="ICorDebugCode"/> and <see cref="ICorDebugFunction"/> maintain a one-to-one relationship.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -46,7 +46,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the size, in bytes, of the binary code represented by this "ICorDebugCode".
         /// </summary>
-        /// <param name="pcBytes">[out] A pointer to the size, in bytes, of the binary code that this ICorDebugCode object represents.</param>
+        /// <param name="pcBytes">[out] A pointer to the size, in bytes, of the binary code that this <see cref="ICorDebugCode"/> object represents.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSize(out uint pcBytes);
@@ -104,7 +104,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cMap">[in] The size of the map array.</param>
         /// <param name="pcMap">[out] A pointer to the actual number of elements returned in the map array.</param>
-        /// <param name="map">[out] An array of COR_DEBUG_IL_TO_NATIVE_MAP structures, each of which represents a mapping from an MSIL offset to a native offset.<para/>
+        /// <param name="map">[out] An array of <see cref="COR_DEBUG_IL_TO_NATIVE_MAP"/> structures, each of which represents a mapping from an MSIL offset to a native offset.<para/>
         /// There is no ordering to the array of elements returned.</param>
         /// <remarks>
         /// The GetILToNativeMapping method returns meaningful results only if this "ICorDebugCode" instance represents native

@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Implements ICorDebugEnum methods, and enumerates ICorDebugChain arrays.
+    /// Implements <see cref="ICorDebugEnum"/> methods, and enumerates <see cref="ICorDebugChain"/> arrays.
     /// </summary>
     [Guid("CC7BCB08-8A68-11D2-983C-0000F808342D")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -27,9 +27,9 @@ namespace ManagedCorDebug
         new HRESULT Reset();
 
         /// <summary>
-        /// Creates a copy of this ICorDebugEnum object.
+        /// Creates a copy of this <see cref="ICorDebugEnum"/> object.
         /// </summary>
-        /// <param name="ppEnum">[out] A pointer to the address of an ICorDebugEnum object that is a copy of this ICorDebugEnum object.</param>
+        /// <param name="ppEnum">[out] A pointer to the address of an <see cref="ICorDebugEnum"/> object that is a copy of this <see cref="ICorDebugEnum"/> object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Clone([MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);
@@ -43,11 +43,11 @@ namespace ManagedCorDebug
         new HRESULT GetCount(out uint pcelt);
 
         /// <summary>
-        /// Gets the specified number of ICorDebugChain instances from the enumeration, starting at the current position.
+        /// Gets the specified number of <see cref="ICorDebugChain"/> instances from the enumeration, starting at the current position.
         /// </summary>
-        /// <param name="celt">[in] The number of ICorDebugChain instances to be retrieved.</param>
-        /// <param name="chains">[out] An array of pointers, each of which points to an ICorDebugChain object that represents a chain.</param>
-        /// <param name="pceltFetched">[out] A pointer to the number of ICorDebugChain instances actually returned. This value may be null if celt is one.</param>
+        /// <param name="celt">[in] The number of <see cref="ICorDebugChain"/> instances to be retrieved.</param>
+        /// <param name="chains">[out] An array of pointers, each of which points to an <see cref="ICorDebugChain"/> object that represents a chain.</param>
+        /// <param name="pceltFetched">[out] A pointer to the number of <see cref="ICorDebugChain"/> instances actually returned. This value may be null if celt is one.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Next([In] uint celt, [MarshalAs(UnmanagedType.Interface), Out] out ICorDebugChain chains, out uint pceltFetched);

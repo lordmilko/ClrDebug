@@ -81,10 +81,10 @@ namespace ManagedCorDebug
             [Out] out int pbLoaded);
 
         /// <summary>
-        /// Translates an HRESULT value into an appropriate error message for the specified culture. This method supersedes the following functions:
+        /// Translates an <see cref="HRESULT"/> value into an appropriate error message for the specified culture. This method supersedes the following functions:
         /// </summary>
-        /// <param name="iResourceID">[in] The HRESULT to translate.</param>
-        /// <param name="pwzBuffer">[out] The message string associated with the given HRESULT.</param>
+        /// <param name="iResourceID">[in] The <see cref="HRESULT"/> to translate.</param>
+        /// <param name="pwzBuffer">[out] The message string associated with the given <see cref="HRESULT"/>.</param>
         /// <param name="pcchBuffer">[in, out] The size of pwzbuffer to avoid buffer overruns. If pwzbuffer is null, pcchBuffer provides the expected size of pwzbuffer to allow preallocation.</param>
         /// <param name="iLocaleID">[in] The culture identifier. To use the default culture, you must specify -1.</param>
         /// <returns>

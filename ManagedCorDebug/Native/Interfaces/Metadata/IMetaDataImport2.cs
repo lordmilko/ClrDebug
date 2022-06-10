@@ -82,9 +82,9 @@ namespace ManagedCorDebug
         /// | S_FALSE | There are no MethodDef tokens to enumerate. In that case, pcImpls is set to zero. |
         /// </returns>
         /// <remarks>
-        /// The enumeration returns a collection of mdInterfaceImpl tokens for each interface implemented by the specified
+        /// The enumeration returns a collection of <see cref="mdInterfaceImpl"/> tokens for each interface implemented by the specified
         /// TypeDef. Interface tokens are returned in the order the interfaces were specified (through DefineTypeDef or SetTypeDefProps).
-        /// Properties of the returned mdInterfaceImpl tokens can be queried using <see cref="GetInterfaceImplProps"/>.
+        /// Properties of the returned <see cref="mdInterfaceImpl"/> tokens can be queried using <see cref="GetInterfaceImplProps"/>.
         /// </remarks>
         [PreserveSig]
         new HRESULT EnumInterfaceImpls(
@@ -179,7 +179,7 @@ namespace ManagedCorDebug
         /// <param name="ptkIface">[out] The metadata token representing the interface that defines the implemented method.</param>
         /// <remarks>
         /// You obtain the value for iImpl by calling the <see cref="EnumInterfaceImpls"/> method. For example, suppose that
-        /// a class has an mdTypeDef token value of 0x02000007 and that it implements threeinterfaces whose types have tokens:
+        /// a class has an <see cref="mdTypeDef"/> token value of 0x02000007 and that it implements threeinterfaces whose types have tokens:
         /// Conceptually, this information is stored into an interface implementation table as: Recall, the token is a 4-byte
         /// value: GetInterfaceImplProps returns the information held in the row whose token you provide in the iImpl argument.
         /// </remarks>
@@ -505,7 +505,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets a pointer to the MethodDef token for the method that is enclosed by the specified <see cref="Type"/> and that has the specified name and metadata signature.
         /// </summary>
-        /// <param name="td">[in] The mdTypeDef token for the type (a class or interface) that encloses the member to search for. If this value is mdTokenNil, then the lookup is done for a global function.</param>
+        /// <param name="td">[in] The <see cref="mdTypeDef"/> token for the type (a class or interface) that encloses the member to search for. If this value is mdTokenNil, then the lookup is done for a global function.</param>
         /// <param name="szName">[in] The name of the method to search for.</param>
         /// <param name="pvSigBlob">[in] A pointer to the binary metadata signature of the method.</param>
         /// <param name="cbSigBlob">[in] The size in bytes of pvSigBlob.</param>
@@ -851,7 +851,7 @@ namespace ManagedCorDebug
         /// <param name="typespec">[in] The TypeSpec token associated with the requested metadata signature.</param>
         /// <param name="ppvSig">[out] A pointer to the binary metadata signature.</param>
         /// <param name="pcbSig">[out] The size, in bytes, of the metadata signature.</param>
-        /// <returns>An HRESULT that indicates success or failure. Failures can be tested with the FAILED macro.</returns>
+        /// <returns>An <see cref="HRESULT"/> that indicates success or failure. Failures can be tested with the FAILED macro.</returns>
         [PreserveSig]
         new HRESULT GetTypeSpecFromToken(
             [In] uint typespec,
@@ -1042,8 +1042,8 @@ namespace ManagedCorDebug
         /// Gets the value of the custom attribute, given its metadata token.
         /// </summary>
         /// <param name="cv">[in] A metadata token that represents the custom attribute to be retrieved.</param>
-        /// <param name="ptkObj">[out, optional] A metadata token representing the object that the custom attribute modifies. This value can be any type of metadata token except mdCustomAttribute.</param>
-        /// <param name="ptkType">[out, optional] An mdMethodDef or mdMemberRef metadata token representing the <see cref="Type"/> of the returned custom attribute.</param>
+        /// <param name="ptkObj">[out, optional] A metadata token representing the object that the custom attribute modifies. This value can be any type of metadata token except <see cref="mdCustomAttribute"/>.</param>
+        /// <param name="ptkType">[out, optional] An <see cref="mdMethodDef"/> or <see cref="mdMemberRef"/> metadata token representing the <see cref="Type"/> of the returned custom attribute.</param>
         /// <param name="ppBlob">[out, optional] A pointer to an array of data that is the value of the custom attribute.</param>
         /// <param name="pcbSize">[out, optional] The size in bytes of the data returned in *ppBlob.</param>
         /// <remarks>
@@ -1142,7 +1142,7 @@ namespace ManagedCorDebug
         /// <param name="pdwPropFlags">[out] A pointer to any attribute flags applied to the property. This value is a bitmask from the <see cref="CorPropertyAttr"/> enumeration.</param>
         /// <param name="ppvSig">[out] A pointer to the metadata signature of the property.</param>
         /// <param name="pbSig">[out] The number of bytes returned in ppvSig.</param>
-        /// <param name="pdwCPlusTypeFlag">[out] A flag specifying the type of the constant that is the default value of the property. This value is from the CorElementType enumeration.</param>
+        /// <param name="pdwCPlusTypeFlag">[out] A flag specifying the type of the constant that is the default value of the property. This value is from the <see cref="CorElementType"/> enumeration.</param>
         /// <param name="ppDefaultValue">[out] A pointer to the bytes that store the default value for this property.</param>
         /// <param name="pcchDefaultValue">[out] The size in wide characters of ppDefaultValue, if pdwCPlusTypeFlag is ELEMENT_TYPE_STRING; otherwise, this value is not relevant.<para/>
         /// In that case, the length of ppDefaultValue is inferred from the type that is specified by pdwCPlusTypeFlag.</param>
@@ -1179,7 +1179,7 @@ namespace ManagedCorDebug
         /// <param name="szName">[out] A buffer to hold the name of the parameter.</param>
         /// <param name="cchName">[in] The requested size in wide characters of szName.</param>
         /// <param name="pchName">[out] The returned size in wide characters of szName.</param>
-        /// <param name="pdwAttr">[out] A pointer to any attribute flags associated with the parameter. This is a bitmask of CorParamAttr values.</param>
+        /// <param name="pdwAttr">[out] A pointer to any attribute flags associated with the parameter. This is a bitmask of <see cref="CorParamAttr"/> values.</param>
         /// <param name="pdwCPlusTypeFlag">[out] A pointer to a flag specifying that the parameter is a <see cref="ValueType"/>.</param>
         /// <param name="ppValue">[out] A pointer to a constant string returned by the parameter.</param>
         /// <param name="pcchValue">[out] The size of ppValue in wide characters, or zero if ppValue does not hold a string.</param>

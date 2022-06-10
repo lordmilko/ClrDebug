@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// [Supported in the .NET Framework 4.5.2 and later versions] Logically extends the ICorDebugFunction interface to provide access to code from a ReJIT request.
+    /// [Supported in the .NET Framework 4.5.2 and later versions] Logically extends the <see cref="ICorDebugFunction"/> interface to provide access to code from a ReJIT request.
     /// </summary>
     [Guid("09B70F28-E465-482D-99E0-81A165EB0532")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -16,7 +16,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ppReJitedILCode">A pointer to the IL from an active ReJIT request.</param>
         /// <remarks>
-        /// If the method represented by this ICorDebugFunction3 object has an active ReJIT request, ppReJitedILCode returns
+        /// If the method represented by this <see cref="ICorDebugFunction3"/> object has an active ReJIT request, ppReJitedILCode returns
         /// a pointer to its IL. If there is no active request, which is a common case, then ppReJitedILCode is null. A ReJIT
         /// request becomes active just after execution returns from the ICorProfilerCallback4.GetReJITParameters method call.
         /// It may not yet be JIT-compiled, and threads may still be executing in the original version of the code. A ReJIT

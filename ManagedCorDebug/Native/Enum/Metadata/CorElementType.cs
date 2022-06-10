@@ -6,9 +6,9 @@ namespace ManagedCorDebug
     /// Specifies a common language runtime <see cref="Type"/>, a type modifier, or information about a type in a metadata type signature.
     /// </summary>
     /// <remarks>
-    /// The type modifiers form the basis for representing more complex types. A CorElementType type modifier value is
-    /// applied to the value that immediately follows it in the type signature. The value that follows the CorElementType
-    /// type modifier value can be a CorElementType simple type value, a metadata token, or other value, as specified in
+    /// The type modifiers form the basis for representing more complex types. A <see cref="CorElementType"/> type modifier value is
+    /// applied to the value that immediately follows it in the type signature. The value that follows the <see cref="CorElementType"/>
+    /// type modifier value can be a <see cref="CorElementType"/> simple type value, a metadata token, or other value, as specified in
     /// the following table.
     /// </remarks>
     public enum CorElementType : uint

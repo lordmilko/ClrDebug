@@ -4,8 +4,8 @@
     /// Describes the security context of the currently executing thread.
     /// </summary>
     /// <remarks>
-    /// The CLR supplies one of the EContextType values as a parameter value in calls to the IHostSecurityManager::GetSecurityContext
-    /// and IHostSecurityManager::SetSecurityContext methods.
+    /// The CLR supplies one of the <see cref="EContextType"/> values as a parameter value in calls to the IHostSecurityManager::GetSecurityContext
+    /// and <see cref="IHostSecurityManager.SetSecurityContext"/> methods.
     /// </remarks>
     public enum EContextType
     {

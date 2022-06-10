@@ -10,8 +10,8 @@ namespace ManagedCorDebug
     /// <remarks>
     /// A host can control all code access to thread tokens by both the common language runtime (CLR) and user code. It
     /// can also ensure that complete security context information is passed across asynchronous operations or code points
-    /// with restricted code access. IHostSecurityContext encapsulates this security context information, which is opaque
-    /// to the CLR. The CLR handles managed thread context internally. It queries the process-specific IHostSecurityManager
+    /// with restricted code access. <see cref="IHostSecurityContext"/> encapsulates this security context information, which is opaque
+    /// to the CLR. The CLR handles managed thread context internally. It queries the process-specific <see cref="IHostSecurityManager"/>
     /// in the following situations:
     /// </remarks>
     [Guid("75ad2468-a349-4d02-a764-76a68aee0c4f")]
@@ -122,7 +122,7 @@ namespace ManagedCorDebug
         /// Gets the requested <see cref="IHostSecurityContext"/> from the host.
         /// </summary>
         /// <param name="eContextType">[in] One of the <see cref="EContextType"/> values, indicating what type of security context to return.</param>
-        /// <param name="ppSecurityContext">[out] The address of an interface pointer to the IHostSecurityContext of eContextType.</param>
+        /// <param name="ppSecurityContext">[out] The address of an interface pointer to the <see cref="IHostSecurityContext"/> of <see cref="EContextType"/>.</param>
         /// <returns>
         /// | HRESULT                | Description                                                                                                                                                                                |
         /// | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -136,7 +136,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// A host can control all code access to thread tokens by both the CLR and user code. It can also ensure that complete
         /// security context information is passed across asynchronous operations or code points with restricted code access.
-        /// IHostSecurityContext encapsulates this security context information, which is opaque to the CLR. The CLR captures
+        /// <see cref="IHostSecurityContext"/> encapsulates this security context information, which is opaque to the CLR. The CLR captures
         /// this information and moves it across thread pool worker item dispatch, finalizer execution, and module and class
         /// construction.
         /// </remarks>

@@ -4,7 +4,7 @@
     /// Identifies the source of an object to be garbage-collected.
     /// </summary>
     /// <remarks>
-    /// The CorGCReferenceType enumeration is used as follows:
+    /// The <see cref="CorGCReferenceType"/> enumeration is used as follows:
     /// </remarks>
     public enum CorGCReferenceType
     {

@@ -74,12 +74,18 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetVariables([In] uint parent, [In] uint cVars, out uint pcVars,
-            [Out] IntPtr pVars);
+        new HRESULT GetVariables(
+            [In] uint parent,
+            [In] uint cVars,
+            out uint pcVars,
+            [Out] IntPtr pVars); //ISymUnmanagedVariable
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetGlobalVariables([In] uint cVars, out uint pcVars, [Out] IntPtr pVars);
+        new HRESULT GetGlobalVariables(
+            [In] uint cVars,
+            out uint pcVars,
+            [Out] IntPtr pVars); //ISymUnmanagedVariable
 
         /// <summary>
         /// Returns the method that contains the breakpoint at the given position in a document.
@@ -105,11 +111,14 @@ namespace ManagedCorDebug
             [In] string name,
             [In] uint cBuffer,
             out uint pcBuffer,
-            [Out] byte[] buffer);
+            [MarshalAs(UnmanagedType.LPArray), Out] byte[] buffer);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetNamespaces([In] uint cNameSpaces, out uint pcNameSpaces, [Out] IntPtr namespaces);
+        new HRESULT GetNamespaces(
+            [In] uint cNameSpaces,
+            out uint pcNameSpaces,
+            [Out] IntPtr namespaces); //ISymUnmanagedNamespace
 
         /// <summary>
         /// Initializes the symbol reader with the metadata importer interface that this reader will be associated with, along with the file name of the module.
@@ -157,19 +166,20 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetSymbolStoreFileName([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.Interface), Out]
-            StringBuilder szName);
+        new HRESULT GetSymbolStoreFileName(
+            [In] uint cchName,
+            out uint pcchName,
+            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetMethodsFromDocumentPosition(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocument document,
+            [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument document,
             [In] uint line,
             [In] uint column,
             [In] uint cMethod,
-            out uint pcMethod,
-            [Out] IntPtr pRetVal);
+            [Out] out uint pcMethod,
+            [Out] IntPtr pRetVal); //ISymUnmanagedMethod
 
         /// <summary>
         /// Gets the specified version of the specified document. The document version starts at 1 and is incremented each time the document is updated using the <see cref="UpdateSymbolStore"/> method.<para/>

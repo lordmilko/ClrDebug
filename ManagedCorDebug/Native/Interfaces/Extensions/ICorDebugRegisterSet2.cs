@@ -17,9 +17,9 @@ namespace ManagedCorDebug
         /// <param name="numChunks">[in] The size of the availableRegChunks array.</param>
         /// <param name="availableRegChunks">[out] An array of bytes, each bit of which corresponds to a register. If a register is available, the register's corresponding bit is set.</param>
         /// <remarks>
-        /// The values of the CorDebugRegister enumeration specify the registers of different microprocessors. The upper five
+        /// The values of the <see cref="CorDebugRegister"/> enumeration specify the registers of different microprocessors. The upper five
         /// bits of each value are the index into the availableRegChunks array of bytes. The lower three bits of each value
-        /// identify the bit position within the indexed byte. Given a CorDebugRegister value that specifies a particular register,
+        /// identify the bit position within the indexed byte. Given a <see cref="CorDebugRegister"/> value that specifies a particular register,
         /// the register's position in the mask is determined as follows:
         /// </remarks>
         [PreserveSig]
@@ -32,14 +32,14 @@ namespace ManagedCorDebug
         /// <param name="maskCount">[in] The size, in bytes, of the mask array.</param>
         /// <param name="mask">[in] An array of bytes, each bit of which corresponds to a register. If the bit is 1, the corresponding register's value will be retrieved.</param>
         /// <param name="regCount">[in] The number of register values to be retrieved.</param>
-        /// <param name="regBuffer">[out] An array of CORDB_REGISTER objects, each of which receives the value of a register.</param>
+        /// <param name="regBuffer">[out] An array of <see cref="CORDB_REGISTER"/> objects, each of which receives the value of a register.</param>
         /// <remarks>
         /// The GetRegisters method returns an array of values from the registers that are specified by the mask. The array
         /// does not contain values of registers whose mask bit is not set. Thus, the size of the regBuffer array must be equal
         /// to the number of 1's in the mask. If the value of regCount is too small for the number of registers indicated by
         /// the mask, the values of the higher numbered registers will be truncated from the set. If regCount is too large,
         /// the unused regBuffer elements will be unmodified. If an unavailable register is indicated by the mask, an indeterminate
-        /// value will be returned for that register. The ICorDebugRegisterSet2::GetRegisters method is necessary for platforms
+        /// value will be returned for that register. The <see cref="GetRegisters"/> method is necessary for platforms
         /// that have more than 64 registers. For example, IA64 has 128 general purpose registers and 128 floating-point registers,
         /// so you need more than 64 bits in the bit mask. If you don't have more than 64 registers, as is the case on platforms
         /// such as x86, the GetRegisters method just translates the bytes in the mask byte array into a ULONG64 and then calls

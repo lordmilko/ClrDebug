@@ -4,10 +4,10 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Provides information about internal frames, including stack address and position in relation to ICorDebugFrame objects.
+    /// Provides information about internal frames, including stack address and position in relation to <see cref="ICorDebugFrame"/> objects.
     /// </summary>
     /// <remarks>
-    /// This interface extends the ICorDebugInternalFrame interface.
+    /// This interface extends the <see cref="ICorDebugInternalFrame"/> interface.
     /// </remarks>
     [Guid("C0815BDC-CFAB-447E-A779-C116B454EB5B")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -19,9 +19,9 @@ namespace ManagedCorDebug
         HRESULT GetAddress(out ulong pAddress);
 
         /// <summary>
-        /// Checks whether the this internal frame is closer to the leaf than the specified ICorDebugFrame object.
+        /// Checks whether the this internal frame is closer to the leaf than the specified <see cref="ICorDebugFrame"/> object.
         /// </summary>
-        /// <param name="pFrameToCompare">[in] A pointer to the comparison ICorDebugFrame object.</param>
+        /// <param name="pFrameToCompare">[in] A pointer to the comparison <see cref="ICorDebugFrame"/> object.</param>
         /// <param name="pIsCloser">[out] true if the this internal frame is closer to the leaf than the frame specified by pFrameToCompare; otherwise, false.</param>
         /// <returns>
         /// This method returns the following specific HRESULTs as well as HRESULT errors that indicate method failure.

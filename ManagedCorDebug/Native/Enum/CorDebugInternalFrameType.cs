@@ -6,7 +6,7 @@
     public enum CorDebugInternalFrameType
     {
         /// <summary>
-        /// A null value. The ICorDebugInternalFrame::GetFrameType method never returns this value.
+        /// A null value. The <see cref="ICorDebugInternalFrame.GetFrameType"/> method never returns this value.
         /// </summary>
         STUBFRAME_NONE,
 

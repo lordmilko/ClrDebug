@@ -88,8 +88,11 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetVariables([In] uint parent, [In] uint cVars, out uint pcVars, [MarshalAs(UnmanagedType.Interface), Out]
-            IntPtr pVars); //ISymUnmanagedVariable
+        HRESULT GetVariables(
+            [In] uint parent,
+            [In] uint cVars,
+            out uint pcVars,
+            [Out] IntPtr pVars); //ISymUnmanagedVariable
 
         /// <summary>
         /// Returns all global variables.
@@ -100,8 +103,10 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetGlobalVariables([In] uint cVars, out uint pcVars, [MarshalAs(UnmanagedType.Interface), Out]
-            IntPtr pVars); //ISymUnmanagedVariable
+        HRESULT GetGlobalVariables(
+            [In] uint cVars,
+            out uint pcVars,
+            [Out] IntPtr pVars); //ISymUnmanagedVariable
 
         /// <summary>
         /// Returns the method that contains the breakpoint at the given position in a document.
@@ -147,8 +152,10 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetNamespaces([In] uint cNameSpaces, out uint pcNameSpaces, [MarshalAs(UnmanagedType.Interface), Out]
-            IntPtr namespaces); //ISymUnmanagedNamespace
+        HRESULT GetNamespaces(
+            [In] uint cNameSpaces,
+            out uint pcNameSpaces,
+            [Out] IntPtr namespaces); //ISymUnmanagedNamespace
 
         /// <summary>
         /// Initializes the symbol reader with the metadata importer interface that this reader will be associated with, along with the file name of the module.
@@ -200,7 +207,10 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSymbolStoreFileName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);
+        HRESULT GetSymbolStoreFileName(
+            [In] uint cchName,
+            out uint pcchName,
+            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);
 
         /// <summary>
         /// Returns an array of methods, each of which contains the breakpoint at the given position in a document.
@@ -215,14 +225,12 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetMethodsFromDocumentPosition(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocument document,
+            [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument document,
             [In] uint line,
             [In] uint column,
             [In] uint cMethod,
-            out uint pcMethod,
-            [MarshalAs(UnmanagedType.Interface), Out]
-            IntPtr pRetVal); //ISymUnmanagedMethod
+            [Out] out uint pcMethod,
+            [Out] IntPtr pRetVal); //ISymUnmanagedMethod
 
         /// <summary>
         /// Gets the specified version of the specified document. The document version starts at 1 and is incremented each time the document is updated using the <see cref="UpdateSymbolStore"/> method.<para/>

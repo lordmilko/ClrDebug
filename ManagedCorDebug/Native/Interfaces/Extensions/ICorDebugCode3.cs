@@ -24,8 +24,8 @@ namespace ManagedCorDebug
         /// returns one or more native offsets. The debugger can then set breakpoints on these native offsets in the function.
         /// When the debugger hits one of the breakpoints, you can then pass the same IL offset that you passed to this method
         /// to the <see cref="ICorDebugILFrame3.GetReturnValueForILOffset"/> method to get the return value. The debugger should
-        /// then clear all the breakpoints that it set. The function returns the HRESULT values shown in the following table.
-        /// The ICorDebugCode3::GetReturnValueLiveOffset method is available only on x86-based and AMD64 systems.
+        /// then clear all the breakpoints that it set. The function returns the <see cref="HRESULT"/> values shown in the following table.
+        /// The <see cref="GetReturnValueLiveOffset"/> method is available only on x86-based and AMD64 systems.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

@@ -6,13 +6,13 @@ namespace ManagedCorDebug
 {
     /// <summary>
     /// Provides methods to retrieve information about the managed representations of Windows Runtime types currently loaded in an application domain.<para/>
-    /// This interface is an extension of the ICorDebugAppDomain and ICorDebugAppDomain2 interfaces.
+    /// This interface is an extension of the <see cref="ICorDebugAppDomain"/> and <see cref="ICorDebugAppDomain2"/> interfaces.
     /// </summary>
     /// <remarks>
     /// This interface is meant to be used by a debugger in conjunction with a function evaluation call to M:System.Runtime.InteropServices.Marshal.GetInspectableIIDs(System.Object).
     /// When the method retrieves the interface identifiers supported by a Windows Runtime server object, the debugger
     /// may use the methods defined in this interface to map them to managed types that correspond to those interfaces.
-    /// To retrieve an instance of this interface, run QueryInterface on an instance of the ICorDebugAppDomain or ICorDebugAppDomain2
+    /// To retrieve an instance of this interface, run QueryInterface on an instance of the <see cref="ICorDebugAppDomain"/> or <see cref="ICorDebugAppDomain2"/>
     /// interface.
     /// </remarks>
     [Guid("8CB96A16-B588-42E2-B71C-DD849FC2ECCC")]

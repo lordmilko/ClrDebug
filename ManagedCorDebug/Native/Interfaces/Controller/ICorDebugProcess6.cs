@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Logically extends the ICorDebugProcess interface to enable features such as decoding managed debug events that are encoded in native exception debug events and virtual module splitting.
+    /// Logically extends the <see cref="ICorDebugProcess"/> interface to enable features such as decoding managed debug events that are encoded in native exception debug events and virtual module splitting.
     /// </summary>
     [Guid("11588775-7205-4CEB-A41A-93753C3153E9")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -46,7 +46,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets information about the managed code at a particular code address.
         /// </summary>
-        /// <param name="codeAddress">[in] A CORDB_ADDRESS value that specifies the starting address of the managed code segment.</param>
+        /// <param name="codeAddress">[in] A <see cref="CORDB_ADDRESS"/> value that specifies the starting address of the managed code segment.</param>
         /// <param name="ppCode">[out] A pointer to the address of an "ICorDebugCode" object that represents a segment of managed code.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

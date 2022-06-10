@@ -65,7 +65,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pOsTid">[out] A pointer to the OS thread identifier.</param>
         /// <remarks>
-        /// The OS thread is used instead of an ICorDebugThread to allow for situations in which an MDA is fired either on
+        /// The OS thread is used instead of an <see cref="ICorDebugThread"/> to allow for situations in which an MDA is fired either on
         /// a native thread or on a managed thread that has not yet entered managed code.
         /// </remarks>
         [PreserveSig]

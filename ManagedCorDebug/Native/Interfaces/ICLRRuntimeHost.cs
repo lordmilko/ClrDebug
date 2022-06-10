@@ -12,10 +12,10 @@ namespace ManagedCorDebug
     /// </summary>
     /// <remarks>
     /// Starting with the .NET Framework 4, use the <see cref="ICLRMetaHost"/> interface to get a pointer to the <see cref="ICLRRuntimeInfo"/>
-    /// interface, and then call the <see cref="ICLRRuntimeInfo.GetInterface"/> method to get a pointer to ICLRRuntimeHost.
-    /// In earlier versions of the .NET Framework, the host gets a pointer to an ICLRRuntimeHost instance by calling CorBindToRuntimeEx
+    /// interface, and then call the <see cref="ICLRRuntimeInfo.GetInterface"/> method to get a pointer to <see cref="ICLRRuntimeHost"/>.
+    /// In earlier versions of the .NET Framework, the host gets a pointer to an <see cref="ICLRRuntimeHost"/> instance by calling CorBindToRuntimeEx
     /// or CorBindToCurrentRuntime. To provide implementations of any of the technologies provided in the .NET Framework
-    /// version 2.0, you must use ICLRRuntimeHost instead of ICorRuntimeHost.
+    /// version 2.0, you must use <see cref="ICLRRuntimeHost"/> instead of <see cref="ICorRuntimeHost"/>.
     /// </remarks>
     [Guid("90F1A06C-7712-4762-86B5-7A5EBA6BDB02")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -101,7 +101,7 @@ namespace ManagedCorDebug
         /// | HOST_E_INVALIDOPERATION | The CLR has already started.                                                                                                                                                             |
         /// </returns>
         /// <remarks>
-        /// ICLRControl provides the <see cref="ICLRControl.GetCLRManager"/> method, which enables the host to get an interface
+        /// <see cref="ICLRControl"/> provides the <see cref="ICLRControl.GetCLRManager"/> method, which enables the host to get an interface
         /// pointer to one of the manager types.
         /// </remarks>
         [PreserveSig]
@@ -238,7 +238,7 @@ namespace ManagedCorDebug
         /// </returns>
         /// <remarks>
         /// The invoked method must have the following signature: where pwzMethodName represents the name of the invoked method,
-        /// and pwzArgument represents the string value passed as a parameter to that method. If the HRESULT value is set to
+        /// and pwzArgument represents the string value passed as a parameter to that method. If the <see cref="HRESULT"/> value is set to
         /// S_OK, pReturnValue is set to the integer value returned by the invoked method. Otherwise, pReturnValue is not set.
         /// </remarks>
         [PreserveSig]

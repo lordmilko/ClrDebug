@@ -4,7 +4,7 @@
     /// Indicates the type of event whose information is decoded by the <see cref="ICorDebugProcess6.DecodeEvent"/> method.
     /// </summary>
     /// <remarks>
-    /// A member of the CorDebugDebugEventKind enumeration is returned by calling the <see cref="ICorDebugDebugEvent.GetEventKind"/>
+    /// A member of the <see cref="CorDebugDebugEventKind"/> enumeration is returned by calling the <see cref="ICorDebugDebugEvent.GetEventKind"/>
     /// method.
     /// </remarks>
     public enum CorDebugDebugEventKind

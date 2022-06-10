@@ -12,7 +12,7 @@ namespace ManagedCorDebug
     public struct CodeChunkInfo
     {
         /// <summary>
-        /// A CORDB_ADDRESS value that specifies the starting address of the chunk.
+        /// A <see cref="CORDB_ADDRESS"/> value that specifies the starting address of the chunk.
         /// </summary>
         public ulong startAddr;
 

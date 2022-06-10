@@ -16,14 +16,14 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the set of properties for the assembly with the specified metadata signature.
         /// </summary>
-        /// <param name="mda">[in]. The mdAssembly metadata token that represents the assembly for which to get the properties.</param>
+        /// <param name="mda">[in]. The <see cref="mdAssembly"/> metadata token that represents the assembly for which to get the properties.</param>
         /// <param name="ppbPublicKey">[out] A pointer to the public key or the metadata token.</param>
         /// <param name="pcbPublicKey">[out] The number of bytes in the returned public key.</param>
         /// <param name="pulHashAlgId">[out] A pointer to the algorithm used to hash the files in the assembly.</param>
         /// <param name="szName">[out] The simple name of the assembly.</param>
         /// <param name="cchName">[in] The size, in wide chars, of szName.</param>
         /// <param name="pchName">[out] The number of wide chars actually returned in szName.</param>
-        /// <param name="pMetaData">[out] A pointer to an ASSEMBLYMETADATA structure that contains the assembly metadata.</param>
+        /// <param name="pMetaData">[out] A pointer to an <see cref="ASSEMBLYMETADATA"/> structure that contains the assembly metadata.</param>
         /// <param name="pdwAssemblyFlags">[out] Flags that describe the metadata applied to an assembly. This value is a combination of one or more <see cref="CorAssemblyFlags"/> values.</param>
         [PreserveSig]
         HRESULT GetAssemblyProps(
@@ -40,13 +40,13 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the set of properties for the assembly reference with the specified metadata signature.
         /// </summary>
-        /// <param name="mdar">[in] The mdAssemblyRef metadata token that represents the assembly reference for which to get the properties.</param>
+        /// <param name="mdar">[in] The <see cref="mdAssemblyRef"/> metadata token that represents the assembly reference for which to get the properties.</param>
         /// <param name="ppbPublicKeyOrToken">[out] A pointer to the public key or the metadata token.</param>
         /// <param name="pcbPublicKeyOrToken">[out] The number of bytes in the returned public key or token.</param>
         /// <param name="szName">[out] The simple name of the assembly.</param>
         /// <param name="cchName">[in] The size, in wide chars, of szName.</param>
         /// <param name="pchName">[out] A pointer to the number of wide chars actually returned in szName.</param>
-        /// <param name="pMetaData">[out] A pointer to an ASSEMBLYMETADATA structure that contains the assembly metadata.</param>
+        /// <param name="pMetaData">[out] A pointer to an <see cref="ASSEMBLYMETADATA"/> structure that contains the assembly metadata.</param>
         /// <param name="ppbHashValue">[out] A pointer to the hash value. This is the hash, using the SHA-1 algorithm, of the PublicKey property of the assembly being referenced, unless the arfFullOriginator flag of the <see cref="AssemblyRefFlags"/> enumeration is set.</param>
         /// <param name="pcbHashValue">[out] The number of wide chars in the returned hash value.</param>
         /// <param name="pdwAssemblyFlags">[out] A pointer to flags that describe the metadata applied to an assembly. The flags value is a combination of one or more <see cref="CorAssemblyFlags"/> values.</param>
@@ -67,7 +67,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the properties of the file with the specified metadata signature.
         /// </summary>
-        /// <param name="mdf">[in] The mdFile metadata token that represents the file for which to get the properties.</param>
+        /// <param name="mdf">[in] The <see cref="mdFile"/> metadata token that represents the file for which to get the properties.</param>
         /// <param name="szName">[out] The simple name of the file.</param>
         /// <param name="cchName">[in] The size, in wide chars, of szName.</param>
         /// <param name="pchName">[out] The number of wide chars actually returned in szName.</param>
@@ -87,12 +87,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the set of properties of the exported type with the specified metadata signature.
         /// </summary>
-        /// <param name="mdct">[in] An mdExportedType metadata token that represents the exported type.</param>
+        /// <param name="mdct">[in] An <see cref="mdExportedType"/> metadata token that represents the exported type.</param>
         /// <param name="szName">[out] The name of the exported type.</param>
         /// <param name="cchName">[in] The size, in wide characters, of szName.</param>
         /// <param name="pchName">[out] The number of wide characters actually returned in szName</param>
-        /// <param name="ptkImplementation">[out] An mdFile, mdAssemblyRef, or mdExportedType metadata token that contains or allows access to the properties of the exported type.</param>
-        /// <param name="ptkTypeDef">[out] A pointer to an mdTypeDef token that represents a type in the file.</param>
+        /// <param name="ptkImplementation">[out] An <see cref="mdFile"/>, <see cref="mdAssemblyRef"/>, or <see cref="mdExportedType"/> metadata token that contains or allows access to the properties of the exported type.</param>
+        /// <param name="ptkTypeDef">[out] A pointer to an <see cref="mdTypeDef"/> token that represents a type in the file.</param>
         /// <param name="pdwExportedTypeFlags">[out] A pointer to the flags that describe the metadata applied to the exported type. The flags value can be one or more <see cref="CorTypeAttr"/> values.</param>
         [PreserveSig]
         HRESULT GetExportedTypeProps(
@@ -107,11 +107,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the set of properties of the manifest resource with the specified metadata signature.
         /// </summary>
-        /// <param name="mdmr">[in] An mdManifestResource token that represents the resource for which to get the properties.</param>
+        /// <param name="mdmr">[in] An <see cref="mdManifestResource"/> token that represents the resource for which to get the properties.</param>
         /// <param name="szName">[out] The name of the resource.</param>
         /// <param name="cchName">[in] The size, in wide chars, of szName.</param>
         /// <param name="pchName">[out] A pointer to the number of wide chars actually returned in szName.</param>
-        /// <param name="ptkImplementation">[out] A pointer to an mdFile token or an mdAssemblyRef token that represents the file or assembly, respectively, that contains the resource.</param>
+        /// <param name="ptkImplementation">[out] A pointer to an <see cref="mdFile"/> token or an <see cref="mdAssemblyRef"/> token that represents the file or assembly, respectively, that contains the resource.</param>
         /// <param name="pdwOffset">[out] A pointer to a value that specifies the offset to the beginning of the resource within the file.</param>
         /// <param name="pdwResourceFlags">[out] A pointer to flags that describe the metadata applied to a resource. The flags value is a combination of one or more <see cref="CorManifestResourceFlags"/> values.</param>
         [PreserveSig]
@@ -125,10 +125,10 @@ namespace ManagedCorDebug
             [Out] out CorManifestResourceFlags pdwResourceFlags);
 
         /// <summary>
-        /// Enumerates the mdAssemblyRef instances that are defined in the assembly manifest.
+        /// Enumerates the <see cref="mdAssemblyRef"/> instances that are defined in the assembly manifest.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be a null value when the EnumAssemblyRefs method is called for the first time.</param>
-        /// <param name="rAssemblyRefs">[out] The enumeration of mdAssemblyRef metadata tokens.</param>
+        /// <param name="rAssemblyRefs">[out] The enumeration of <see cref="mdAssemblyRef"/> metadata tokens.</param>
         /// <param name="cMax">[in] The maximum number of tokens that can be placed in the rAssemblyRefs array.</param>
         /// <param name="pcTokens">[out] The number of tokens actually placed in rAssemblyRefs.</param>
         /// <returns>
@@ -148,9 +148,9 @@ namespace ManagedCorDebug
         /// Enumerates the files referenced in the current assembly manifest.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be a null value for the first call of this method.</param>
-        /// <param name="rFiles">[out] The array used to store the mdFile metadata tokens.</param>
-        /// <param name="cMax">[in] The maximum number of mdFile tokens that can be placed in rFiles.</param>
-        /// <param name="pcTokens">[out] The number of mdFile tokens actually placed in rFiles.</param>
+        /// <param name="rFiles">[out] The array used to store the <see cref="mdFile"/> metadata tokens.</param>
+        /// <param name="cMax">[in] The maximum number of <see cref="mdFile"/> tokens that can be placed in rFiles.</param>
+        /// <param name="pcTokens">[out] The number of <see cref="mdFile"/> tokens actually placed in rFiles.</param>
         /// <returns>
         /// | HRESULT | Description                                                              |
         /// | ------- | ------------------------------------------------------------------------ |
@@ -168,9 +168,9 @@ namespace ManagedCorDebug
         /// Enumerates the exported types referenced in the assembly manifest in the current metadata scope.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be a null value when the EnumExportedTypes method is called for the first time.</param>
-        /// <param name="rExportedTypes">[out] The enumeration of mdExportedType metadata tokens.</param>
-        /// <param name="cMax">[in] The maximum number of mdExportedType tokens that can be placed in the rExportedTypes array.</param>
-        /// <param name="pcTokens">[out] The number of mdExportedType tokens actually placed in rExportedTypes.</param>
+        /// <param name="rExportedTypes">[out] The enumeration of <see cref="mdExportedType"/> metadata tokens.</param>
+        /// <param name="cMax">[in] The maximum number of <see cref="mdExportedType"/> tokens that can be placed in the rExportedTypes array.</param>
+        /// <param name="pcTokens">[out] The number of <see cref="mdExportedType"/> tokens actually placed in rExportedTypes.</param>
         /// <returns>
         /// | HRESULT | Description                                                              |
         /// | ------- | ------------------------------------------------------------------------ |
@@ -188,9 +188,9 @@ namespace ManagedCorDebug
         /// Gets a pointer to an enumerator for the resources referenced in the current assembly manifest.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be a null value when the EnumManifestResources method is called for the first time.</param>
-        /// <param name="rManifestResources">[out] The array used to store the mdManifestResource metadata tokens.</param>
-        /// <param name="cMax">[in] The maximum number of mdManifestResource tokens that can be placed in rManifestResources.</param>
-        /// <param name="pcTokens">[out] The number of mdManifestResource tokens actually placed in rManifestResources.</param>
+        /// <param name="rManifestResources">[out] The array used to store the <see cref="mdManifestResource"/> metadata tokens.</param>
+        /// <param name="cMax">[in] The maximum number of <see cref="mdManifestResource"/> tokens that can be placed in rManifestResources.</param>
+        /// <param name="pcTokens">[out] The number of <see cref="mdManifestResource"/> tokens actually placed in rManifestResources.</param>
         /// <returns>
         /// | HRESULT | Description                                                              |
         /// | ------- | ------------------------------------------------------------------------ |
@@ -207,7 +207,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets a pointer to the assembly in the current scope.
         /// </summary>
-        /// <param name="ptkAssembly">[out] A pointer to the retrieved mdAssembly token that identifies the assembly.</param>
+        /// <param name="ptkAssembly">[out] A pointer to the retrieved <see cref="mdAssembly"/> token that identifies the assembly.</param>
         [PreserveSig]
         HRESULT GetAssemblyFromScope(
             [Out] out mdAssembly ptkAssembly);
@@ -217,7 +217,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="szName">[in] The name of the exported type.</param>
         /// <param name="mdtExportedType">[in] The metadata token for the enclosing class of the exported type. This value is mdExportedTypeNil if the requested exported type is not a nested type.</param>
-        /// <param name="mdExportedType">[out] A pointer to the mdExportedType token that represents the exported type.</param>
+        /// <param name="mdExportedType">[out] A pointer to the <see cref="mdExportedType"/> token that represents the exported type.</param>
         /// <remarks>
         /// The FindExportedTypeByName method uses the standard rules employed by the common language runtime for resolving
         /// references.
@@ -232,7 +232,7 @@ namespace ManagedCorDebug
         /// Gets a pointer to the manifest resource with the specified name.
         /// </summary>
         /// <param name="szName">[in] The name of the resource.</param>
-        /// <param name="ptkManifestResource">[out] The array used to store the mdManifestResource metadata tokens, each of which represents a manifest resource.</param>
+        /// <param name="ptkManifestResource">[out] The array used to store the <see cref="mdManifestResource"/> metadata tokens, each of which represents a manifest resource.</param>
         /// <remarks>
         /// The FindManifestResourceByName method uses the standard rules employed by the common language runtime for resolving
         /// references.
@@ -257,7 +257,7 @@ namespace ManagedCorDebug
         /// <param name="szPrivateBin">[in] A list of semicolon-delimited subdirectories (for example, "bin;bin2"), under the root directory, in which to search for the assembly.<para/>
         /// These directories are probed in addition to those specified in the default probing rules.</param>
         /// <param name="szAssemblyName">[in] The name of the assembly to find. The format of this string is defined in the class reference page for <see cref="AssemblyName"/>.</param>
-        /// <param name="ppIUnk">[out] An array that holds the IMetadataAssemblyImport interface pointers.</param>
+        /// <param name="ppIUnk">[out] An array that holds the <see cref="IMetaDataAssemblyImport"/> interface pointers.</param>
         /// <param name="cMax">[in] The maximum number of interface pointers to place in ppIUnk.</param>
         /// <param name="pcAssemblies">[out] The number of interface pointers returnedthat is, the number of interface pointers actually placed in ppIUnk.</param>
         /// <returns>

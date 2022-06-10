@@ -15,7 +15,7 @@ namespace ManagedCorDebug
         /// Gets a pointer to an <see cref="IMetaDataImport"/> instance that represents the metadata signature of the type library referenced by the specified ITypeInfo instance.
         /// </summary>
         /// <param name="pITI">[in] A pointer to an ITypeInfo object that refers to the type library.</param>
-        /// <param name="ppMDI">[out] A pointer to a location that receives the address of the IMetaDataImport instance that represents the metadata signature.</param>
+        /// <param name="ppMDI">[out] A pointer to a location that receives the address of the <see cref="IMetaDataImport"/> instance that represents the metadata signature.</param>
         [PreserveSig]
         HRESULT GetMetaDataFromTypeInfo(
             [In, MarshalAs(UnmanagedType.Interface)] ITypeInfo pITI,
@@ -25,7 +25,7 @@ namespace ManagedCorDebug
         /// Gets an interface pointer to an <see cref="IMetaDataImport"/> instance that represents the metadata signature of the type library represented by the specified ITypeLib instance.
         /// </summary>
         /// <param name="pITL">[in] Pointer to an ITypeLib object that represents the type library.</param>
-        /// <param name="ppMDI">[out] Pointer to a location that receives the address of the IMetaDataImport instance that represents the metadata signature.</param>
+        /// <param name="ppMDI">[out] Pointer to a location that receives the address of the <see cref="IMetaDataImport"/> instance that represents the metadata signature.</param>
         [PreserveSig]
         HRESULT GetMetaDataFromTypeLib(
             [In, MarshalAs(UnmanagedType.Interface)] ITypeLib pITL,

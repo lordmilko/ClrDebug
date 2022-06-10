@@ -15,8 +15,8 @@ namespace ManagedCorDebug
         /// <param name="address">[in] The starting address of the memory region that was to be enumerated.</param>
         /// <param name="size">[in] The size, in bytes, of the memory region.</param>
         /// <remarks>
-        /// The ICLRDataEnumMemoryRegions::EnumMemoryRegions method will call this callback method after each attempt to enumerate
-        /// a memory region. The enumeration will continue even if this method returns an HRESULT indicating failure. Regions
+        /// The <see cref="ICLRDataEnumMemoryRegions.EnumMemoryRegions"/> method will call this callback method after each attempt to enumerate
+        /// a memory region. The enumeration will continue even if this method returns an <see cref="HRESULT"/> indicating failure. Regions
         /// reported by this callback may be duplicates or overlapping regions.
         /// </remarks>
         [PreserveSig]

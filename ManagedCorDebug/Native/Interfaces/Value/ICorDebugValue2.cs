@@ -15,7 +15,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets an interface pointer to an "ICorDebugType" object that represents the <see cref="Type"/> of this value.
         /// </summary>
-        /// <param name="ppType">[out] A pointer to the address of an ICorDebugType object that represents the <see cref="Type"/> of the value represented by this "ICorDebugValue2" object.</param>
+        /// <param name="ppType">[out] A pointer to the address of an <see cref="ICorDebugType"/> object that represents the <see cref="Type"/> of the value represented by this "ICorDebugValue2" object.</param>
         /// <remarks>
         /// The generics-aware GetExactType method supersedes both the <see cref="ICorDebugObjectValue.GetClass"/> and the
         /// <see cref="ICorDebugValue.GetType(out CorElementType)"/> methods, each of which return information about the type

@@ -6,7 +6,7 @@ using System.Text;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Provides methods for debugging application domains. This interface is a subclass of ICorDebugController.
+    /// Provides methods for debugging application domains. This interface is a subclass of <see cref="ICorDebugController"/>.
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("3D6F5F63-7538-11D3-8D5B-00104B35E7EF")]
@@ -23,7 +23,7 @@ namespace ManagedCorDebug
         /// interop debugging session, unmanaged threads will also be stopped. The dwTimeoutIgnored value is currently ignored
         /// and treated as INFINITE (-1). If the cooperative stop fails due to a deadlock, all threads are suspended and E_TIMEOUT
         /// is returned. The debugger maintains a stop counter. When the counter goes to zero, the controller is resumed. Each
-        /// call to Stop or each dispatched callback increments the counter. Each call to ICorDebugController::Continue decrements
+        /// call to Stop or each dispatched callback increments the counter. Each call to <see cref="ICorDebugController.Continue"/> decrements
         /// the counter.
         /// </remarks>
         [PreserveSig]
@@ -35,13 +35,13 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="fIsOutOfBand">[in] Set to true if continuing from an out-of-band event; otherwise, set to false.</param>
         /// <remarks>
-        /// Continue continues the process after a call to the ICorDebugController::Stop method. When doing mixed-mode debugging,
+        /// Continue continues the process after a call to the <see cref="ICorDebugController.Stop"/> method. When doing mixed-mode debugging,
         /// do not call Continue on the Win32 event thread unless you are continuing from an out-of-band event. An in-band
         /// event is either a managed event or a normal unmanaged event during which the debugger supports interaction with
         /// the managed state of the process. In this case, the debugger receives the <see cref="ICorDebugUnmanagedCallback.DebugEvent"/>
         /// callback with its fOutOfBand parameter set to false. An out-of-band event is an unmanaged event during which interaction
         /// with the managed state of the process is impossible while the process is stopped due to the event. In this case,
-        /// the debugger receives the ICorDebugUnmanagedCallback::DebugEvent callback with its fOutOfBand parameter set to
+        /// the debugger receives the <see cref="ICorDebugUnmanagedCallback.DebugEvent"/> callback with its fOutOfBand parameter set to
         /// true.
         /// </remarks>
         [PreserveSig]
@@ -66,8 +66,8 @@ namespace ManagedCorDebug
         /// Callbacks will be dispatched one at a time, each time <see cref="Continue"/> is called. The debugger can check
         /// this flag if it wants to report multiple debugging events that occur simultaneously. When debugging events are
         /// queued, they have already occurred, so the debugger must drain the entire queue to be sure of the state of the
-        /// debuggee. (Call ICorDebugController::Continue to drain the queue.) For example, if the queue contains two debugging
-        /// events on thread X, and the debugger suspends thread X after the first debugging event and then calls ICorDebugController::Continue,
+        /// debuggee. (Call <see cref="ICorDebugController.Continue"/> to drain the queue.) For example, if the queue contains two debugging
+        /// events on thread X, and the debugger suspends thread X after the first debugging event and then calls <see cref="ICorDebugController.Continue"/>,
         /// the second debugging event for thread X will be dispatched although the thread has been suspended.
         /// </remarks>
         [PreserveSig]
@@ -155,7 +155,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the process containing the application domain.
         /// </summary>
-        /// <param name="ppProcess">[out] A pointer to the address of an ICorDebugProcess object that represents the process.</param>
+        /// <param name="ppProcess">[out] A pointer to the address of an <see cref="ICorDebugProcess"/> object that represents the process.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetProcess([MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
@@ -163,7 +163,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets an enumerator for the assemblies in the application domain.
         /// </summary>
-        /// <param name="ppAssemblies">[out] A pointer to the address of an ICorDebugAssemblyEnum object that is the enumerator for the assemblies in the application domain.</param>
+        /// <param name="ppAssemblies">[out] A pointer to the address of an <see cref="ICorDebugAssemblyEnum"/> object that is the enumerator for the assemblies in the application domain.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateAssemblies([MarshalAs(UnmanagedType.Interface)] out ICorDebugAssemblyEnum ppAssemblies);
@@ -172,7 +172,7 @@ namespace ManagedCorDebug
         /// Gets the module that corresponds to the given metadata interface.
         /// </summary>
         /// <param name="pIMetaData">[in] A pointer to an object that is one of the Metadata interfaces.</param>
-        /// <param name="ppModule">[out] A pointer to the address of an ICorDebugModule object that represents the module corresponding to the given metadata interface.</param>
+        /// <param name="ppModule">[out] A pointer to the address of an <see cref="ICorDebugModule"/> object that represents the module corresponding to the given metadata interface.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetModuleFromMetaDataInterface([MarshalAs(UnmanagedType.IUnknown), In]
@@ -181,7 +181,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets an enumerator for all active breakpoints in the application domain.
         /// </summary>
-        /// <param name="ppBreakpoints">[out] A pointer to the address of an ICorDebugBreakpointEnum object that is the enumerator for all active breakpoints in the application domain.</param>
+        /// <param name="ppBreakpoints">[out] A pointer to the address of an <see cref="ICorDebugBreakpointEnum"/> object that is the enumerator for all active breakpoints in the application domain.</param>
         /// <remarks>
         /// The enumerator includes all types of breakpoints, including function breakpoints and data breakpoints.
         /// </remarks>
@@ -192,7 +192,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets an enumerator for all active steppers in the application domain.
         /// </summary>
-        /// <param name="ppSteppers">[out] A pointer to the address of an ICorDebugStepperEnum object that is the enumerator for all active steppers in the application domain.</param>
+        /// <param name="ppSteppers">[out] A pointer to the address of an <see cref="ICorDebugStepperEnum"/> object that is the enumerator for all active steppers in the application domain.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateSteppers([MarshalAs(UnmanagedType.Interface)] out ICorDebugStepperEnum ppSteppers);
@@ -202,7 +202,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pbAttached">[out] true if the debugger is attached to the application domain; otherwise, false.</param>
         /// <remarks>
-        /// The ICorDebugController methods cannot be used until the debugger attaches to the application domain.
+        /// The <see cref="ICorDebugController"/> methods cannot be used until the debugger attaches to the application domain.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -226,11 +226,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets an interface pointer to the common language runtime (CLR) application domain.
         /// </summary>
-        /// <param name="ppObject">[out] A pointer to the address of an ICorDebugValue interface object that represents the CLR application domain.</param>
+        /// <param name="ppObject">[out] A pointer to the address of an <see cref="ICorDebugValue"/> interface object that represents the CLR application domain.</param>
         /// <returns>If a managed <see cref="AppDomain"/> object hasn't been constructed for this application domain, the method returns S_FALSE and places NULL in *ppObject.</returns>
         /// <remarks>
         /// Each application domain in a process may have a managed <see cref="AppDomain"/> object in the runtime that represents
-        /// it. This function gets an ICorDebugValue interface object that corresponds to this managed <see cref="AppDomain"/>
+        /// it. This function gets an <see cref="ICorDebugValue"/> interface object that corresponds to this managed <see cref="AppDomain"/>
         /// object.
         /// </remarks>
         [PreserveSig]

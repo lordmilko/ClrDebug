@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// ICorDebugEditAndContinueSnapshot is obsolete. Do not use this interface.
+    /// <see cref="ICorDebugEditAndContinueSnapshot"/> is obsolete. Do not use this interface.
     /// </summary>
     [Guid("6DC3FA01-D7CB-11D2-8A95-0080C792E5D8")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

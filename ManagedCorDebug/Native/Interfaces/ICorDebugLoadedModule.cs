@@ -8,7 +8,7 @@ namespace ManagedCorDebug
     /// Provides information about a loaded module.
     /// </summary>
     /// <remarks>
-    /// The ICorDebugLoadedModule interface is implemented by a debugger and is used by the CLR debugging interfaces to
+    /// The <see cref="ICorDebugLoadedModule"/> interface is implemented by a debugger and is used by the CLR debugging interfaces to
     /// get information about the loaded module from the debugger.
     /// </remarks>
     [Guid("817F343A-6630-4578-96C5-D11BC0EC5EE2")]

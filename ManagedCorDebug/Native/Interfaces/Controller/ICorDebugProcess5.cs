@@ -4,10 +4,10 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Extends the ICorDebugProcess interface to support access to the managed heap, to provide information about garbage collection of managed objects, and to determine whether a debugger loads images from the application local native image cache.
+    /// Extends the <see cref="ICorDebugProcess"/> interface to support access to the managed heap, to provide information about garbage collection of managed objects, and to determine whether a debugger loads images from the application local native image cache.
     /// </summary>
     /// <remarks>
-    /// This interface logically extends the ICorDebugProcess, ICorDebugProcess2, and <see cref="ICorDebugProcess3"/> interfaces.
+    /// This interface logically extends the <see cref="ICorDebugProcess"/>, <see cref="ICorDebugProcess2"/>, and <see cref="ICorDebugProcess3"/> interfaces.
     /// </remarks>
     [Guid("21E9D9C0-FCB8-11DF-8CFF-0800200C9A66")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -19,7 +19,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pHeapInfo">[out] A pointer to a <see cref="COR_HEAPINFO"/> value that provides general information about the garbage collection heap.</param>
         /// <remarks>
-        /// The ICorDebugProcess5::GetGCHeapInformation method must be called before enumerating the heap or individual heap
+        /// The <see cref="GetGCHeapInformation"/> method must be called before enumerating the heap or individual heap
         /// regions to ensure that the garbage collection structures in the process are currently valid. The garbage collection
         /// heap cannot be walked while a collection is in progress. Otherwise, the enumeration may capture garbage collection
         /// structures that are invalid.
@@ -33,11 +33,11 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ppObjects">[out] A pointer to the address of an <see cref="ICorDebugHeapEnum"/> interface object that is an enumerator for the objects that reside on the managed heap.</param>
         /// <remarks>
-        /// Before calling the ICorDebugProcess5::EnumerateHeap method, you should call the <see cref="GetGCHeapInformation"/>
+        /// Before calling the <see cref="EnumerateHeap"/> method, you should call the <see cref="GetGCHeapInformation"/>
         /// method and examine the value of the areGCStructuresValid field of the returned <see cref="COR_HEAPINFO"/> object
         /// to ensure that the garbage collection heap in its current state is enumerable. In addition, the ICorDebugProcess5::EnumerateHeap
         /// returns E_FAIL if you attach too early in the lifetime of the process, before memory for the managed heap is allocated.
-        /// The <see cref="ICorDebugHeapEnum"/> interface object is a standard enumerator derived from the ICorDebugEnum interface
+        /// The <see cref="ICorDebugHeapEnum"/> interface object is a standard enumerator derived from the <see cref="ICorDebugEnum"/> interface
         /// that allows you to enumerate <see cref="COR_HEAPOBJECT"/> objects. This method populates the <see cref="ICorDebugHeapEnum"/>
         /// collection object with <see cref="COR_HEAPOBJECT"/> instances that provide information about all objects. The collection
         /// may also include <see cref="COR_HEAPOBJECT"/> instances that provide information about objects that are not rooted
@@ -52,14 +52,14 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ppRegions">[out] A pointer to the address of an <see cref="ICorDebugHeapSegmentEnum"/> interface object that is an enumerator for the ranges of memory in which objects reside in the managed heap.</param>
         /// <remarks>
-        /// Before calling the ICorDebugProcess5::EnumerateHeapRegions method, you should call the <see cref="GetGCHeapInformation"/>
+        /// Before calling the <see cref="EnumerateHeapRegions"/> method, you should call the <see cref="GetGCHeapInformation"/>
         /// method and examine the value of the areGCStructuresValid field of the returned <see cref="COR_HEAPINFO"/> object
         /// to ensure that the garbage collection heap in its current state is enumerable. In addition, the ICorDebugProcess5::EnumerateHeapRegions
         /// method returns E_FAIL if you attach too early in the lifetime of the process, before memory regions are created.
         /// This method is guaranteed to enumerate all memory regions that may contain managed objects, but it does not guarantee
         /// that managed objects actually reside in those regions. The <see cref="ICorDebugHeapSegmentEnum"/> collection object
         /// may include empty or reserved memory regions. The <see cref="ICorDebugHeapSegmentEnum"/> interface object is a
-        /// standard enumerator derived from the ICorDebugEnum interface that allows you to enumerate <see cref="COR_SEGMENT"/>
+        /// standard enumerator derived from the <see cref="ICorDebugEnum"/> interface that allows you to enumerate <see cref="COR_SEGMENT"/>
         /// objects. Each <see cref="COR_SEGMENT"/> object provides information about the memory range of a particular segment,
         /// along with the generation of the objects in that segment.
         /// </remarks>
@@ -121,12 +121,12 @@ namespace ManagedCorDebug
         HRESULT GetTypeID([In] ulong obj, out COR_TYPEID pId);
 
         /// <summary>
-        /// Converts a type identifier to an ICorDebugType value.
+        /// Converts a type identifier to an <see cref="ICorDebugType"/> value.
         /// </summary>
         /// <param name="id">[in] The type identifier.</param>
-        /// <param name="ppType">[out] A pointer to the address of an ICorDebugType object.</param>
+        /// <param name="ppType">[out] A pointer to the address of an <see cref="ICorDebugType"/> object.</param>
         /// <remarks>
-        /// In some cases, methods that return a type identifier may return a null COR_TYPEID value. If this value is passed
+        /// In some cases, methods that return a type identifier may return a null <see cref="COR_TYPEID"/> value. If this value is passed
         /// as the id argument, the GetTypeForTypeID method will fail and return E_FAIL.
         /// </remarks>
         [PreserveSig]
@@ -148,7 +148,7 @@ namespace ManagedCorDebug
         /// <param name="id">[in] A <see cref="COR_TYPEID"/> token that specifies the type whose layout is desired.</param>
         /// <param name="pLayout">[out] A pointer to a <see cref="COR_TYPE_LAYOUT"/> structure that contains information about the layout of the object in memory.</param>
         /// <remarks>
-        /// The ICorDebugProcess5::GetTypeLayout method provides information about an object based on its <see cref="COR_TYPEID"/>,
+        /// The <see cref="GetTypeLayout"/> method provides information about an object based on its <see cref="COR_TYPEID"/>,
         /// which is returned by a number of other <see cref="ICorDebugProcess5"/> methods. The information is provided by
         /// a <see cref="COR_TYPE_LAYOUT"/> structure that is populated by the method.
         /// </remarks>
@@ -165,7 +165,7 @@ namespace ManagedCorDebug
         /// <param name="pceltNeeded">[out] A pointer to the number of <see cref="COR_FIELD"/> objects included in fields.</param>
         /// <remarks>
         /// The celt parameter, which specifies the number of fields whose field information the method uses to populate fields,
-        /// should correspond to the value of the COR_TYPE_LAYOUT::numFields field.
+        /// should correspond to the value of the <see cref="COR_TYPE_LAYOUT.numFields"/> field.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

@@ -4,7 +4,7 @@
     /// Contains values that set the policy for reading program database (PDB) files.
     /// </summary>
     /// <remarks>
-    /// The ESymbolReadingPolicy enumeration is used with the <see cref="ICLRDebugManager.SetSymbolReadingPolicy"/> method.
+    /// The <see cref="ESymbolReadingPolicy"/> enumeration is used with the <see cref="ICLRDebugManager.SetSymbolReadingPolicy"/> method.
     /// </remarks>
     public enum ESymbolReadingPolicy
     {

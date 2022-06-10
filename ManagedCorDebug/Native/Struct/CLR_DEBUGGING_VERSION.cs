@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// Defines the product version of the common language runtime (CLR) for debugging purposes.
     /// </summary>
     /// <remarks>
-    /// The CLR_DEBUGGING_VERSION structure is the same as the COR_VERSION structure, however, the CLR_DEBUGGING_VERSION
+    /// The <see cref="CLR_DEBUGGING_VERSION"/> structure is the same as the <see cref="COR_VERSION"/> structure, however, the <see cref="CLR_DEBUGGING_VERSION"/>
     /// structure provides an additional structure version field (wStructVersion). Currently, this field must be set to
     /// zero.
     /// </remarks>

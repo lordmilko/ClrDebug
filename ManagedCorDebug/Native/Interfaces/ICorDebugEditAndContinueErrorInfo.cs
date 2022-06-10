@@ -5,7 +5,7 @@ using System.Text;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// ICorDebugEditAndContinueErrorInfo is obsolete. Do not use this interface.
+    /// <see cref="ICorDebugEditAndContinueErrorInfo"/> is obsolete. Do not use this interface.
     /// </summary>
     [Guid("8D600D41-F4F6-4CB3-B7EC-7BD164944036")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

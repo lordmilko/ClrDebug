@@ -4,7 +4,7 @@
     /// Specifies an interface, a version of the .NET Framework, or a version of the .NET Framework in which an interface was introduced.
     /// </summary>
     /// <remarks>
-    /// A debugger can use the CorDebugInterfaceVersion enumeration in the CreateDebuggingInterfaceFromVersion function
+    /// A debugger can use the <see cref="CorDebugInterfaceVersion"/> enumeration in the CreateDebuggingInterfaceFromVersion function
     /// to specify the highest version of the .NET Framework that the debugger supports.
     /// </remarks>
     public enum CorDebugInterfaceVersion
@@ -327,22 +327,22 @@
         ver_ICorDebugCode2 = CorDebugVersion_2_0,
 
         /// <summary>
-        /// "ICorDebugClass2"
+        /// <see cref="ICorDebugClass2"/>
         /// </summary>
         ver_ICorDebugClass2 = CorDebugVersion_2_0,
 
         /// <summary>
-        /// "ICorDebugValue2"
+        /// <see cref="ICorDebugValue2"/>
         /// </summary>
         ver_ICorDebugValue2 = CorDebugVersion_2_0,
 
         /// <summary>
-        /// The "ICorDebugEval2".
+        /// The <see cref="ICorDebugEval2"/>.
         /// </summary>
         ver_ICorDebugEval2 = CorDebugVersion_2_0,
 
         /// <summary>
-        /// "ICorDebugObjectValue2"
+        /// <see cref="ICorDebugObjectValue2"/>
         /// </summary>
         ver_ICorDebugObjectValue2 = CorDebugVersion_2_0,
 

@@ -9,7 +9,7 @@ namespace ManagedCorDebug
     public struct COR_FIELD
     {
         /// <summary>
-        /// An mdFieldDef token that can be used to get field information.
+        /// An <see cref="mdFieldDef"/> token that can be used to get field information.
         /// </summary>
         public uint token;
 
@@ -24,7 +24,7 @@ namespace ManagedCorDebug
         public COR_TYPEID id;
 
         /// <summary>
-        /// A CorElementType enumeration value that indicates the type of the field.
+        /// A <see cref="CorElementType"/> enumeration value that indicates the type of the field.
         /// </summary>
         public uint fieldType;
     }

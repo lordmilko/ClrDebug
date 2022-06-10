@@ -15,7 +15,7 @@ namespace ManagedCorDebug
         /// Checks if the method has async information or not. If this method returns FALSE then it is invalid to call any other methods in this interface.<para/>
         /// They will all return E_UNEXPECTED in this case.
         /// </summary>
-        /// <returns>Returns HRESULT.</returns>
+        /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsAsyncMethod();
@@ -23,7 +23,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// See <see cref="ISymUnmanagedAsyncMethodPropertiesWriter.DefineKickoffMethod"/>.
         /// </summary>
-        /// <returns>Returns HRESULT.</returns>
+        /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetKickoffMethod();
@@ -31,7 +31,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// See <see cref="ISymUnmanagedAsyncMethodPropertiesWriter.DefineCatchHandlerILOffset"/>.
         /// </summary>
-        /// <returns>Returns HRESULT.</returns>
+        /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT HasCatchHandlerILOffset();
@@ -39,7 +39,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// See <see cref="ISymUnmanagedAsyncMethodPropertiesWriter.DefineCatchHandlerILOffset"/>.
         /// </summary>
-        /// <returns>Returns HRESULT.</returns>
+        /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCatchHandlerILOffset();
@@ -47,7 +47,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// See <see cref="ISymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
         /// </summary>
-        /// <returns>Returns HRESULT.</returns>
+        /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetAsyncStepInfoCount();
@@ -55,7 +55,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// See <see cref="ISymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
         /// </summary>
-        /// <returns>Returns HRESULT.</returns>
+        /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetAsyncStepInfo(

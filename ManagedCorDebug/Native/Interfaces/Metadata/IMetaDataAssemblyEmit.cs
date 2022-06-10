@@ -18,7 +18,7 @@ namespace ManagedCorDebug
         /// <param name="cbPublicKey">[in] The size in bytes of pbPublicKey.</param>
         /// <param name="ulHashAlgId">[in] The identifier of the hashing algorithm to use to encrypt the files in the assembly, or NULL to specify the SHA-1 algorithm.</param>
         /// <param name="szName">[in] The human-readable text name of the assembly. This value must not exceed 1024 characters.</param>
-        /// <param name="pMetaData">[in] A pointer to an ASSEMBLYMETADATA instance that contains the version, platform, and locale information for the assembly.</param>
+        /// <param name="pMetaData">[in] A pointer to an <see cref="ASSEMBLYMETADATA"/> instance that contains the version, platform, and locale information for the assembly.</param>
         /// <param name="dwAssemblyFlags">[in] A combination of <see cref="CorAssemblyFlags"/> values that describe features of the assembly.</param>
         /// <param name="pma">[out] A pointer to the metadata token.</param>
         /// <remarks>
@@ -40,7 +40,7 @@ namespace ManagedCorDebug
         /// <param name="pbPublicKeyOrToken">[in] The public key of the publisher of the referenced assembly. The helper function StrongNameTokenFromAssembly can be used to get the hash of the public key to pass as this parameter.</param>
         /// <param name="cbPublicKeyOrToken">[in] The size in bytes of pbPublicKeyOrToken.</param>
         /// <param name="szName">[in] The human-readable text name of the assembly. This value must not exceed 1024 characters.</param>
-        /// <param name="pMetaData">[in] An ASSEMBLYMETADATA instance that contains the version, platform and locale information of the referenced assembly.</param>
+        /// <param name="pMetaData">[in] An <see cref="ASSEMBLYMETADATA"/> instance that contains the version, platform and locale information of the referenced assembly.</param>
         /// <param name="pbHashValue">[in] The hash data associated with the referenced assembly. Optional.</param>
         /// <param name="cbHashValue">[in] The size in bytes of pbHashValue.</param>
         /// <param name="dwAssemblyRefFlags">[in] A bitwise combination of <see cref="CorAssemblyFlags"/> values that influence the behavior of the execution engine.</param>
@@ -130,7 +130,7 @@ namespace ManagedCorDebug
         /// <param name="cbPublicKey">[in] The size in bytes of pbPublicKey.</param>
         /// <param name="ulHashAlgId">[in] The identifier for the hash algorithm used to hash the assembly files.</param>
         /// <param name="szName">[in] The human-readable text name of the assembly.</param>
-        /// <param name="pMetaData">[in] A pointer to the ASSEMBLYMETADATA that contains version, platform, and locale information for the assembly.</param>
+        /// <param name="pMetaData">[in] A pointer to the <see cref="ASSEMBLYMETADATA"/> that contains version, platform, and locale information for the assembly.</param>
         /// <param name="dwAssemblyFlags">[in] A bitwise combination of <see cref="AssemblyFlags"/> values that specify various attributes of the assembly.</param>
         /// <remarks>
         /// To create an Assembly metadata structure, use the <see cref="DefineAssembly"/> method.
@@ -151,7 +151,7 @@ namespace ManagedCorDebug
         /// <param name="pbPublicKeyOrToken">[in] The public key of the publisher of the referenced assembly.</param>
         /// <param name="cbPublicKeyOrToken">[in] The size in bytes of pbPublicKeyOrToken.</param>
         /// <param name="szName">[in] The human-readable text name of the assembly.</param>
-        /// <param name="pMetaData">[in] A pointer to an ASSEMBLYMETADATA instance that contains the version, platform, and locale information for the assembly.</param>
+        /// <param name="pMetaData">[in] A pointer to an <see cref="ASSEMBLYMETADATA"/> instance that contains the version, platform, and locale information for the assembly.</param>
         /// <param name="pbHashValue">[in] A pointer to the hash data associated with the assembly.</param>
         /// <param name="cbHashValue">[in] The size in bytes of pbHashValue.</param>
         /// <param name="dwAssemblyRefFlags">[in] A bitwise combination of <see cref="AssemblyRefFlags"/> values that specify attributes of the referenced assembly.</param>

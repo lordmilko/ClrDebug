@@ -7,7 +7,7 @@ namespace ManagedCorDebug
     /// Provides an enumerator to the local variables and arguments in a function.
     /// </summary>
     /// <remarks>
-    /// The ICorDebugVariableHomeEnum interface implements the ICorDebugEnum interface. An ICorDebugVariableHomeEnum instance
+    /// The <see cref="ICorDebugVariableHomeEnum"/> interface implements the <see cref="ICorDebugEnum"/> interface. An <see cref="ICorDebugVariableHomeEnum"/> instance
     /// is populated with <see cref="ICorDebugVariableHome"/> instances by calling the <see cref="ICorDebugCode4.EnumerateVariableHomes"/>
     /// method. Each <see cref="ICorDebugVariableHome"/> instance in the collection represents a local variable or argument
     /// in a function. The <see cref="ICorDebugVariableHome"/> objects in the collection can be enumerated by calling the
@@ -34,9 +34,9 @@ namespace ManagedCorDebug
         new HRESULT Reset();
 
         /// <summary>
-        /// Creates a copy of this ICorDebugEnum object.
+        /// Creates a copy of this <see cref="ICorDebugEnum"/> object.
         /// </summary>
-        /// <param name="ppEnum">[out] A pointer to the address of an ICorDebugEnum object that is a copy of this ICorDebugEnum object.</param>
+        /// <param name="ppEnum">[out] A pointer to the address of an <see cref="ICorDebugEnum"/> object that is a copy of this <see cref="ICorDebugEnum"/> object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Clone([MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);

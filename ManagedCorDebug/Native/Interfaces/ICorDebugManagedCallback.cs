@@ -12,8 +12,8 @@ namespace ManagedCorDebug
     /// All callbacks are serialized, called in the same thread, and called with the process in the synchronized state.
     /// Each callback implementation must call <see cref="ICorDebugController.Continue"/> to resume execution. If ICorDebugController::Continue
     /// is not called before the callback returns, the process will remain stopped and no more event callbacks will occur
-    /// until ICorDebugController::Continue is called. A debugger must implement <see cref="ICorDebugManagedCallback2"/>
-    /// if it is debugging .NET Framework version 2.0 applications. An instance of ICorDebugManagedCallback or ICorDebugManagedCallback2
+    /// until <see cref="ICorDebugController.Continue"/> is called. A debugger must implement <see cref="ICorDebugManagedCallback2"/>
+    /// if it is debugging .NET Framework version 2.0 applications. An instance of <see cref="ICorDebugManagedCallback"/> or <see cref="ICorDebugManagedCallback2"/>
     /// is passed as the callback object to <see cref="ICorDebug.SetManagedHandler"/>.
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -24,9 +24,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger when a breakpoint is encountered.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain that contains the breakpoint.</param>
-        /// <param name="pThread">[in] A pointer to an ICorDebugThread object that represents the thread that contains the breakpoint.</param>
-        /// <param name="pBreakpoint">[in] A pointer to an ICorDebugBreakpoint object that represents the breakpoint.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain that contains the breakpoint.</param>
+        /// <param name="pThread">[in] A pointer to an <see cref="ICorDebugThread"/> object that represents the thread that contains the breakpoint.</param>
+        /// <param name="pBreakpoint">[in] A pointer to an <see cref="ICorDebugBreakpoint"/> object that represents the breakpoint.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Breakpoint(
@@ -40,10 +40,10 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that a step has completed.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain containing the thread in which the step has completed.</param>
-        /// <param name="pThread">[in] A pointer to an ICorDebugThread object that represents the thread in which the step has completed.</param>
-        /// <param name="pStepper">[in] A pointer to an ICorDebugStepper object that represents the step in code execution.</param>
-        /// <param name="reason">[in] A value of the CorDebugStepReason enumeration that indicates the outcome of an individual step.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain containing the thread in which the step has completed.</param>
+        /// <param name="pThread">[in] A pointer to an <see cref="ICorDebugThread"/> object that represents the thread in which the step has completed.</param>
+        /// <param name="pStepper">[in] A pointer to an <see cref="ICorDebugStepper"/> object that represents the step in code execution.</param>
+        /// <param name="reason">[in] A value of the <see cref="CorDebugStepReason"/> enumeration that indicates the outcome of an individual step.</param>
         /// <remarks>
         /// The stepper may be used to continue stepping if desired, unless the debugging is terminated.
         /// </remarks>
@@ -61,8 +61,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger when a <see cref="OpCodes.Break"/> instruction in the code stream is executed.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain that contains the break instruction.</param>
-        /// <param name="thread">[in] A pointer to an ICorDebugThread object that represents the thread that contains the break instruction.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain that contains the break instruction.</param>
+        /// <param name="thread">[in] A pointer to an <see cref="ICorDebugThread"/> object that represents the thread that contains the break instruction.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Break([MarshalAs(UnmanagedType.Interface), In]
@@ -72,8 +72,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that an exception has been thrown from managed code.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain in which the exception was thrown.</param>
-        /// <param name="pThread">[in] A pointer to an ICorDebugThread object that represents the thread in which the exception was thrown.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain in which the exception was thrown.</param>
+        /// <param name="pThread">[in] A pointer to an <see cref="ICorDebugThread"/> object that represents the thread in which the exception was thrown.</param>
         /// <param name="unhandled">[in] If this value is false, the exception has not yet been processed by the application; otherwise, the exception is unhandled and will terminate the process.</param>
         /// <remarks>
         /// The specific exception can be retrieved from the thread object.
@@ -87,9 +87,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that an evaluation has been completed.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain in which the evaluation was performed.</param>
-        /// <param name="pThread">[in] A pointer to an ICorDebugThread object that represents the thread in which the evaluation was performed.</param>
-        /// <param name="pEval">[in] A pointer to an ICorDebugEval object that represents the code that performed the evaluation.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain in which the evaluation was performed.</param>
+        /// <param name="pThread">[in] A pointer to an <see cref="ICorDebugThread"/> object that represents the thread in which the evaluation was performed.</param>
+        /// <param name="pEval">[in] A pointer to an <see cref="ICorDebugEval"/> object that represents the code that performed the evaluation.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EvalComplete([MarshalAs(UnmanagedType.Interface), In]
@@ -100,9 +100,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that an evaluation has terminated with an unhandled exception.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain in which the evaluation terminated.</param>
-        /// <param name="pThread">[in] A pointer to an ICorDebugThread object that represents the thread in which the evaluation terminated.</param>
-        /// <param name="pEval">[in] A pointer to an ICorDebugEval object that represents the code that performed the evaluation.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain in which the evaluation terminated.</param>
+        /// <param name="pThread">[in] A pointer to an <see cref="ICorDebugThread"/> object that represents the thread in which the evaluation terminated.</param>
+        /// <param name="pEval">[in] A pointer to an <see cref="ICorDebugEval"/> object that represents the code that performed the evaluation.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EvalException([MarshalAs(UnmanagedType.Interface), In]
@@ -113,7 +113,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger when a process has been attached or started for the first time.
         /// </summary>
-        /// <param name="pProcess">[in] A pointer to an ICorDebugProcess object that represents the process that has been attached or started.</param>
+        /// <param name="pProcess">[in] A pointer to an <see cref="ICorDebugProcess"/> object that represents the process that has been attached or started.</param>
         /// <remarks>
         /// This method is not called until the common language runtime is initialized. Most of the <see cref="ICorDebug"/>
         /// methods will return CORDBG_E_NOTREADY before the CreateProcess callback.
@@ -126,7 +126,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that a process has exited.
         /// </summary>
-        /// <param name="pProcess">[in] A pointer to an ICorDebugProcess object that represents the process.</param>
+        /// <param name="pProcess">[in] A pointer to an <see cref="ICorDebugProcess"/> object that represents the process.</param>
         /// <remarks>
         /// You cannot continue from an ExitProcess event. This event may fire asynchronously to other events while the process
         /// appears to be stopped. This can occur if the process terminates while stopped, usually due to some external force.
@@ -142,8 +142,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that a thread has started executing managed code.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain that contains the thread.</param>
-        /// <param name="thread">[in] A pointer to an ICorDebugThread object that represents the thread.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain that contains the thread.</param>
+        /// <param name="thread">[in] A pointer to an <see cref="ICorDebugThread"/> object that represents the thread.</param>
         /// <remarks>
         /// The thread will be positioned at the first managed code instruction to be executed.
         /// </remarks>
@@ -156,8 +156,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that a thread that was executing managed code has exited.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain containing the managed thread.</param>
-        /// <param name="thread">[in] A pointer to an ICorDebugThread object that represents the managed thread.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain containing the managed thread.</param>
+        /// <param name="thread">[in] A pointer to an <see cref="ICorDebugThread"/> object that represents the managed thread.</param>
         /// <remarks>
         /// Once the ExitThread callback is fired, the thread will no longer appear in thread enumerations.
         /// </remarks>
@@ -170,8 +170,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that a common language runtime (CLR) module has been successfully loaded.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain into which the module has been loaded.</param>
-        /// <param name="pModule">[in] A pointer to an ICorDebugModule object that represents the CLR module.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain into which the module has been loaded.</param>
+        /// <param name="pModule">[in] A pointer to an <see cref="ICorDebugModule"/> object that represents the CLR module.</param>
         /// <remarks>
         /// The LoadModule callback provides an appropriate time to examine metadata for the module, set just-in-time (JIT)
         /// compiler flags, or enable or disable class loading callbacks for the module.
@@ -185,8 +185,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that a common language runtime module (DLL) has been unloaded.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain that contained the module.</param>
-        /// <param name="pModule">[in] A pointer to an ICorDebugModule object that represents the module.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain that contained the module.</param>
+        /// <param name="pModule">[in] A pointer to an <see cref="ICorDebugModule"/> object that represents the module.</param>
         /// <remarks>
         /// The module should not be used after this call.
         /// </remarks>
@@ -199,8 +199,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that a class has been loaded.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain into which the class has been loaded.</param>
-        /// <param name="c">[in] A pointer to an ICorDebugClass object that represents the class.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain into which the class has been loaded.</param>
+        /// <param name="c">[in] A pointer to an <see cref="ICorDebugClass"/> object that represents the class.</param>
         /// <remarks>
         /// This callback occurs only if class loading has been enabled for the module that contains the class. Class loading
         /// is always enabled for dynamic modules. The LoadClass callback provides an appropriate time to bind breakpoints
@@ -215,8 +215,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that a class is being unloaded.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain containing the class.</param>
-        /// <param name="c">[in] A pointer to an ICorDebugClass object that represents the class.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain containing the class.</param>
+        /// <param name="c">[in] A pointer to an <see cref="ICorDebugClass"/> object that represents the class.</param>
         /// <remarks>
         /// The class should not be referenced after this call.
         /// </remarks>
@@ -230,7 +230,7 @@ namespace ManagedCorDebug
         /// Notifies the debugger that an error has occurred while attempting to handle an event from the common language runtime (CLR).
         /// </summary>
         /// <param name="pProcess">[in] A pointer to an "ICorDebugProcess" object that represents the process in which the event occurred.</param>
-        /// <param name="errorHR">[in] The HRESULT value that was returned from the event handler.</param>
+        /// <param name="errorHR">[in] The <see cref="HRESULT"/> value that was returned from the event handler.</param>
         /// <param name="errorCode">[in] An integer that specifies the CLR error.</param>
         /// <remarks>
         /// The process may be placed into pass-through mode, depending on the nature of the error. The DebugError callback
@@ -247,8 +247,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that a common language runtime (CLR) managed thread has called a method in the <see cref="EventLog"/> class to log an event.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain containing the managed thread that logged the event.</param>
-        /// <param name="pThread">[in] A pointer to an ICorDebugThread object that represents the managed thread.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain containing the managed thread that logged the event.</param>
+        /// <param name="pThread">[in] A pointer to an <see cref="ICorDebugThread"/> object that represents the managed thread.</param>
         /// <param name="lLevel">[in] A value of the <see cref="LoggingLevelEnum"/> enumeration that indicates the severity level of the descriptive message that was written to the event log.</param>
         /// <param name="pLogSwitchName">[in] A pointer to the name of the tracing switch.</param>
         /// <param name="pMessage">[in] A pointer to the message that was written to the event log.</param>
@@ -266,8 +266,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that a common language runtime (CLR) managed thread has called a method in the <see cref="Switch"/> class to create, modify, or delete a debugging/tracing switch.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain containing the managed thread that created, modified, or deleted a debugging/tracing switch.</param>
-        /// <param name="pThread">[in] A pointer to an ICorDebugThread object that represents the managed thread.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain containing the managed thread that created, modified, or deleted a debugging/tracing switch.</param>
+        /// <param name="pThread">[in] A pointer to an <see cref="ICorDebugThread"/> object that represents the managed thread.</param>
         /// <param name="lLevel">[in] A value that indicates the severity level of the descriptive message that was written to the event log.</param>
         /// <param name="ulReason">[in] A value of the <see cref="LogSwitchCallReason"/> enumeration that indicates the operation performed on the debugging/tracing switch.</param>
         /// <param name="pLogSwitchName">[in] A pointer to the name of the debugging/tracing switch.</param>
@@ -287,8 +287,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that an application domain has been created.
         /// </summary>
-        /// <param name="pProcess">[in] A pointer to an ICorDebugProcess object that represents the process in which the application domain was created.</param>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain that has been created.</param>
+        /// <param name="pProcess">[in] A pointer to an <see cref="ICorDebugProcess"/> object that represents the process in which the application domain was created.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain that has been created.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateAppDomain([MarshalAs(UnmanagedType.Interface), In]
@@ -298,8 +298,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that an application domain has exited.
         /// </summary>
-        /// <param name="pProcess">[in] A pointer to an ICorDebugProcess object that represents the process that contains the given application domain.</param>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain that has exited.</param>
+        /// <param name="pProcess">[in] A pointer to an <see cref="ICorDebugProcess"/> object that represents the process that contains the given application domain.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain that has exited.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ExitAppDomain([MarshalAs(UnmanagedType.Interface), In]
@@ -309,8 +309,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that a common language runtime (CLR) assembly has been successfully loaded.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain into which the assembly has been loaded.</param>
-        /// <param name="pAssembly">[in] A pointer to an ICorDebugAssembly object that represents the assembly.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain into which the assembly has been loaded.</param>
+        /// <param name="pAssembly">[in] A pointer to an <see cref="ICorDebugAssembly"/> object that represents the assembly.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT LoadAssembly([MarshalAs(UnmanagedType.Interface), In]
@@ -320,8 +320,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that a common language runtime assembly has been unloaded.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain that contained the assembly.</param>
-        /// <param name="pAssembly">[in] A pointer to an ICorDebugAssembly object that represents the assembly.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain that contained the assembly.</param>
+        /// <param name="pAssembly">[in] A pointer to an <see cref="ICorDebugAssembly"/> object that represents the assembly.</param>
         /// <remarks>
         /// The assembly should not be used after this callback.
         /// </remarks>
@@ -334,7 +334,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that a CTRL+C is trapped in the process that is being debugged.
         /// </summary>
-        /// <param name="pProcess">[in] A pointer to an ICorDebugProcess object that represents the process in which the CTRL+C is trapped.</param>
+        /// <param name="pProcess">[in] A pointer to an <see cref="ICorDebugProcess"/> object that represents the process in which the CTRL+C is trapped.</param>
         /// <returns>
         /// | HRESULT | Description                                   |
         /// | ------- | --------------------------------------------- |
@@ -352,8 +352,8 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that the name of either an application domain or a thread has changed.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain that either had a name change or that contains the thread that had a name change.</param>
-        /// <param name="pThread">[in] A pointer to an ICorDebugThread object that represents the thread that had a name change.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain that either had a name change or that contains the thread that had a name change.</param>
+        /// <param name="pThread">[in] A pointer to an <see cref="ICorDebugThread"/> object that represents the thread that had a name change.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT NameChange([MarshalAs(UnmanagedType.Interface), In]
@@ -363,9 +363,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that the symbols for a common language runtime module have changed.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain containing the module in which the symbols have changed.</param>
-        /// <param name="pModule">[in] A pointer to an ICorDebugModule object that represents the module in which the symbols have changed.</param>
-        /// <param name="pSymbolStream">[in] A pointer to a Win32 COM IStream object that contains the modified symbols.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain containing the module in which the symbols have changed.</param>
+        /// <param name="pModule">[in] A pointer to an <see cref="ICorDebugModule"/> object that represents the module in which the symbols have changed.</param>
+        /// <param name="pSymbolStream">[in] A pointer to a Win32 COM <see cref="IStream"/> object that contains the modified symbols.</param>
         /// <remarks>
         /// This method provides an opportunity to update the debugger's view of a module's symbols by calling <see cref="ISymUnmanagedReader.UpdateSymbolStore"/>
         /// or <see cref="ISymUnmanagedReader.ReplaceSymbolStore"/>. This callback can occur multiple times for the same module.
@@ -403,9 +403,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// Notifies the debugger that the common language runtime was unable to accurately bind a breakpoint that was set before a function was just-in-time (JIT) compiled.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer to an ICorDebugAppDomain object that represents the application domain that contains the unbound breakpoint.</param>
-        /// <param name="pThread">[in] A pointer to an ICorDebugThread object that represents the thread that contains the unbound breakpoint.</param>
-        /// <param name="pBreakpoint">[in] A pointer to an ICorDebugBreakpoint object that represents the unbound breakpoint.</param>
+        /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain that contains the unbound breakpoint.</param>
+        /// <param name="pThread">[in] A pointer to an <see cref="ICorDebugThread"/> object that represents the thread that contains the unbound breakpoint.</param>
+        /// <param name="pBreakpoint">[in] A pointer to an <see cref="ICorDebugBreakpoint"/> object that represents the unbound breakpoint.</param>
         /// <param name="dwError">[in] An integer that indicates the error.</param>
         /// <remarks>
         /// The given breakpoint will never be hit. The debugger should deactivate and rebind it.

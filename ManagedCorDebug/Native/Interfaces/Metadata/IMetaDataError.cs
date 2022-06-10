@@ -13,7 +13,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Provides notification of errors that occur during the metadata merge.
         /// </summary>
-        /// <param name="hrError">[in] The HRESULT error value returned to the calling method.</param>
+        /// <param name="hrError">[in] The <see cref="HRESULT"/> error value returned to the calling method.</param>
         /// <param name="token">[in] The metadata token of the code object that was being merged when the error occurred.</param>
         [PreserveSig]
         HRESULT OnError(HRESULT hrError, mdToken token);

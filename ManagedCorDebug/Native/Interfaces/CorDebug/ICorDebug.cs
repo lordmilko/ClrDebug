@@ -8,12 +8,12 @@ namespace ManagedCorDebug
     /// Provides methods that allow developers to debug applications in the common language runtime (CLR) environment.
     /// </summary>
     /// <remarks>
-    /// ICorDebug represents an event processing loop for a debugger process. The debugger must wait for the <see cref="ICorDebugManagedCallback.ExitProcess"/>
-    /// callback from all processes being debugged before releasing this interface. The ICorDebug object is the initial
+    /// <see cref="ICorDebug"/> represents an event processing loop for a debugger process. The debugger must wait for the <see cref="ICorDebugManagedCallback.ExitProcess"/>
+    /// callback from all processes being debugged before releasing this interface. The <see cref="ICorDebug"/> object is the initial
     /// object to control all further managed debugging. In the .NET Framework versions 1.0 and 1.1, this object was a
     /// CoClass object created from COM. In the .NET Framework version 2.0, this object is no longer a CoClass object.
     /// It must be created by the CreateDebuggingInterfaceFromVersion function, which is more version-aware. This new creation
-    /// function enables clients to get a specific implementation of ICorDebug, which also emulates a specific version
+    /// function enables clients to get a specific implementation of <see cref="ICorDebug"/>, which also emulates a specific version
     /// of the debugging API.
     /// </remarks>
     [Guid("3D6F5F61-7538-11D3-8D5B-00104B35E7EF")]
@@ -22,21 +22,21 @@ namespace ManagedCorDebug
     public interface ICorDebug
     {
         /// <summary>
-        /// Initializes the ICorDebug object.
+        /// Initializes the <see cref="ICorDebug"/> object.
         /// </summary>
         /// <remarks>
         /// The debugger must call Initialize at creation time to initialize the debugging services. This method must be called
-        /// before any other method on ICorDebug is called.
+        /// before any other method on <see cref="ICorDebug"/> is called.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Initialize();
 
         /// <summary>
-        /// Terminates the ICorDebug object.
+        /// Terminates the <see cref="ICorDebug"/> object.
         /// </summary>
         /// <remarks>
-        /// Terminate must be called when the ICorDebug object is no longer needed.
+        /// Terminate must be called when the <see cref="ICorDebug"/> object is no longer needed.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -47,9 +47,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pCallback">[in] A pointer to an <see cref="ICorDebugManagedCallback"/> object, which is the event handler object.</param>
         /// <remarks>
-        /// SetManagedHandler must be called at creation time. If the ICorDebugManagedCallback implementation does not contain
+        /// SetManagedHandler must be called at creation time. If the <see cref="ICorDebugManagedCallback"/> implementation does not contain
         /// sufficient interfaces to handle debugging events for the application that is being debugged, SetManagedHandler
-        /// returns an HRESULT of E_NOINTERFACE.
+        /// returns an <see cref="HRESULT"/> of E_NOINTERFACE.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -64,7 +64,7 @@ namespace ManagedCorDebug
         /// The event handler object for unmanaged events must be set after a call to <see cref="Initialize"/> and before any
         /// calls to <see cref="CreateProcess"/> or <see cref="DebugActiveProcess"/>. However, for legacy purposes, you are
         /// not required to set the event handler object for unmanaged events until the first native debug event is raised.
-        /// Specifically, if ICorDebug::CreateProcess has set the CREATE_SUSPENDED flag, native debug events cannot be dispatched
+        /// Specifically, if <see cref="CreateProcess"/> has set the CREATE_SUSPENDED flag, native debug events cannot be dispatched
         /// until the main thread is resumed.
         /// </remarks>
         [PreserveSig]
@@ -78,8 +78,8 @@ namespace ManagedCorDebug
         /// <param name="lpApplicationName">[in] Pointer to a null-terminated string that specifies the module to be executed by the launched process. The module is executed in the security context of the calling process.</param>
         /// <param name="lpCommandLine">[in] Pointer to a null-terminated string that specifies the command line to be executed by the launched process.<para/>
         /// The application name (for example, "SomeApp.exe") must be the first argument.</param>
-        /// <param name="lpProcessAttributes">[in] Pointer to a Win32 SECURITY_ATTRIBUTES structure that specifies the security descriptor for the process. If lpProcessAttributes is null, the process gets a default security descriptor.</param>
-        /// <param name="lpThreadAttributes">[in] Pointer to a Win32 SECURITY_ATTRIBUTES structure that specifies the security descriptor for the primary thread of the process.<para/>
+        /// <param name="lpProcessAttributes">[in] Pointer to a Win32 <see cref="SECURITY_ATTRIBUTES"/> structure that specifies the security descriptor for the process. If lpProcessAttributes is null, the process gets a default security descriptor.</param>
+        /// <param name="lpThreadAttributes">[in] Pointer to a Win32 <see cref="SECURITY_ATTRIBUTES"/> structure that specifies the security descriptor for the primary thread of the process.<para/>
         /// If lpThreadAttributes is null, the thread gets a default security descriptor.</param>
         /// <param name="bInheritHandles">[in] Set to true to indicate that each inheritable handle in the calling process is inherited by the launched process, or false to indicate that the handles are not inherited.<para/>
         /// The inherited handles have the same value and access rights as the original handles.</param>
@@ -88,9 +88,9 @@ namespace ManagedCorDebug
         /// <param name="lpCurrentDirectory">[in] Pointer to a null-terminated string that specifies the full path to the current directory for the process.<para/>
         /// If this parameter is null, the new process will have the same current drive and directory as the calling process.</param>
         /// <param name="lpStartupInfo">[in] Pointer to a Win32 STARTUPINFOW structure that specifies the window station, desktop, standard handles, and appearance of the main window for the launched process.</param>
-        /// <param name="lpProcessInformation">[in] Pointer to a Win32 PROCESS_INFORMATION structure that specifies the identification information about the process to be launched.</param>
-        /// <param name="debuggingFlags">[in] A value of the CorDebugCreateProcessFlags enumeration that specifies the debugging options.</param>
-        /// <param name="ppProcess">[out] A pointer to the address of a ICorDebugProcess object that represents the process.</param>
+        /// <param name="lpProcessInformation">[in] Pointer to a Win32 <see cref="PROCESS_INFORMATION"/> structure that specifies the identification information about the process to be launched.</param>
+        /// <param name="debuggingFlags">[in] A value of the <see cref="CorDebugCreateProcessFlags"/> enumeration that specifies the debugging options.</param>
+        /// <param name="ppProcess">[out] A pointer to the address of a <see cref="ICorDebugProcess"/> object that represents the process.</param>
         /// <remarks>
         /// The parameters of this method are the same as those of the Win32 CreateProcess method. To enable unmanaged mixed-mode
         /// debugging, set dwCreationFlags to DEBUG_PROCESS DEBUG_ONLY_THIS_PROCESS. If you want to use only managed debugging,
@@ -133,7 +133,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets an enumerator for the processes that are being debugged.
         /// </summary>
-        /// <param name="ppProcess">A pointer to the address of an ICorDebugProcessEnum object that is the enumerator for the processes being debugged.</param>
+        /// <param name="ppProcess">A pointer to the address of an <see cref="ICorDebugProcessEnum"/> object that is the enumerator for the processes being debugged.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateProcesses([MarshalAs(UnmanagedType.Interface)] out ICorDebugProcessEnum ppProcess);
@@ -142,19 +142,19 @@ namespace ManagedCorDebug
         /// Gets a pointer to the "ICorDebugProcess" instance for the specified process.
         /// </summary>
         /// <param name="dwProcessId">[in] The ID of the process.</param>
-        /// <param name="ppProcess">[out] A pointer to the address of a ICorDebugProcess instance for the specified process.</param>
+        /// <param name="ppProcess">[out] A pointer to the address of a <see cref="ICorDebugProcess"/> instance for the specified process.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetProcess([In] uint dwProcessId, [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
         /// <summary>
-        /// Returns an HRESULT that indicates whether launching a new process or attaching to the specified existing process is possible within the context of the current machine and runtime configuration.
+        /// Returns an <see cref="HRESULT"/> that indicates whether launching a new process or attaching to the specified existing process is possible within the context of the current machine and runtime configuration.
         /// </summary>
         /// <param name="dwProcessId">[in] The ID of an existing process.</param>
         /// <param name="win32DebuggingEnabled">[in] Pass in true if you plan to launch with Win32 debugging enabled, or to attach with Win32 debugging enabled; otherwise, pass false.</param>
         /// <returns>
         /// S_OK if the debugging services determine that launching a new process or attaching to the given process is possible, given the information about the current machine and runtime configuration.
-        /// Possible HRESULT values are:
+        /// Possible <see cref="HRESULT"/> values are:
         /// * S_OK
         /// * CORDBG_E_DEBUGGING_NOT_POSSIBLE
         /// * CORDBG_E_KERNEL_DEBUGGER_PRESENT
@@ -163,7 +163,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// This method is purely informational. The interface will not stop you from launching or attaching to a process,
         /// regardless of the value returned by CanLaunchOrAttach. If you plan to launch with Win32 debugging enabled or attach
-        /// with Win32 debugging enabled, pass true for win32DebuggingEnabled. The HRESULT returned by CanLaunchOrAttach might
+        /// with Win32 debugging enabled, pass true for win32DebuggingEnabled. The <see cref="HRESULT"/> returned by CanLaunchOrAttach might
         /// differ if you use this option.
         /// </remarks>
         [PreserveSig]

@@ -7,7 +7,7 @@ namespace ManagedCorDebug
     /// Provides an enumerator for objects that will be garbage-collected.
     /// </summary>
     /// <remarks>
-    /// The ICorDebugGCReferenceEnum interface implements the "ICorDebugEnum" interface. An ICorDebugGCReferenceEnum instance
+    /// The <see cref="ICorDebugGCReferenceEnum"/> interface implements the "ICorDebugEnum" interface. An <see cref="ICorDebugGCReferenceEnum"/> instance
     /// is populated with <see cref="COR_GC_REFERENCE"/> instances by calling the <see cref="ICorDebugProcess5.EnumerateGCReferences"/>
     /// method. <see cref="COR_GC_REFERENCE"/> objects can be enumerated by calling the <see cref="Next"/> method. The
     /// <see cref="COR_GC_REFERENCE"/> objects in the collection populated by this method represent three kinds of objects:
@@ -33,9 +33,9 @@ namespace ManagedCorDebug
         new HRESULT Reset();
 
         /// <summary>
-        /// Creates a copy of this ICorDebugEnum object.
+        /// Creates a copy of this <see cref="ICorDebugEnum"/> object.
         /// </summary>
-        /// <param name="ppEnum">[out] A pointer to the address of an ICorDebugEnum object that is a copy of this ICorDebugEnum object.</param>
+        /// <param name="ppEnum">[out] A pointer to the address of an <see cref="ICorDebugEnum"/> object that is a copy of this <see cref="ICorDebugEnum"/> object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Clone([MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);

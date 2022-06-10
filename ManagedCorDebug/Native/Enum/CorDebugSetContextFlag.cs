@@ -4,7 +4,7 @@
     /// Indicates whether the context is from the active (or leaf) frame on the stack or has been computed by unwinding from another frame.
     /// </summary>
     /// <remarks>
-    /// CorDebugSetContextFlag provides values that are used by the <see cref="ICorDebugStackWalk.SetContext"/> method.
+    /// <see cref="CorDebugSetContextFlag"/> provides values that are used by the <see cref="ICorDebugStackWalk.SetContext"/> method.
     /// </remarks>
     public enum CorDebugSetContextFlag
     {

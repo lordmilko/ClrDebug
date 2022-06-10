@@ -5,12 +5,12 @@
     /// </summary>
     /// <remarks>
     /// <see cref="IMetaDataImport.GetClassLayout"/> and <see cref="IMetaDataEmit.SetClassLayout"/> methods take a parameter
-    /// of type COR_FIELD_OFFSET.
+    /// of type <see cref="COR_FIELD_OFFSET"/>.
     /// </remarks>
     public struct COR_FIELD_OFFSET
     {
         /// <summary>
-        /// An mdFieldDef metadata token that represents the field.
+        /// An <see cref="mdFieldDef"/> metadata token that represents the field.
         /// </summary>
         public mdFieldDef ridOfField;
 

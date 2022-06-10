@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// A logical extension of the ICorDebugILFrame interface.
+    /// A logical extension of the <see cref="ICorDebugILFrame"/> interface.
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("5D88A994-6C30-479B-890F-BCEF88B129A5")]
@@ -27,9 +27,9 @@ namespace ManagedCorDebug
         HRESULT RemapFunction([In] uint newILOffset);
 
         /// <summary>
-        /// Gets an ICorDebugTypeEnum object that contains the <see cref="Type"/> parameters in this frame.
+        /// Gets an <see cref="ICorDebugTypeEnum"/> object that contains the <see cref="Type"/> parameters in this frame.
         /// </summary>
-        /// <param name="ppTyParEnum">A pointer to the address of a ICorDebugTypeEnum interface object that allows enumeration of type parameters. The list of type parameters include the class type parameters (if any) followed by the method type parameters (if any).</param>
+        /// <param name="ppTyParEnum">A pointer to the address of a <see cref="ICorDebugTypeEnum"/> interface object that allows enumeration of type parameters. The list of type parameters include the class type parameters (if any) followed by the method type parameters (if any).</param>
         /// <remarks>
         /// Use the <see cref="IMetaDataImport2.EnumGenericParams"/> method to determine how many class type parameters and
         /// method type parameters this list contains. The type parameters are not always available.

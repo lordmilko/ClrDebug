@@ -8,7 +8,7 @@ namespace ManagedCorDebug
     /// </summary>
     /// <remarks>
     /// The host is not required to configure the thread pool by using the values specified in calls to the SetMaxThreads
-    /// and SetMinThreads methods. In this case, the host should return an HRESULT value of E_NOTIMPL from these methods.
+    /// and SetMinThreads methods. In this case, the host should return an <see cref="HRESULT"/> value of E_NOTIMPL from these methods.
     /// </remarks>
     [Guid("983D50E2-CB15-466B-80FC-845DC6E8C5FD")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -60,7 +60,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// A host is not required to allow the CLR to configure the size of the thread pool. Some hosts might want exclusive
         /// control over the thread pool, for reasons such as implementation, performance, or scalability. In this case, a
-        /// host should return an HRESULT value of E_NOTIMPL.
+        /// host should return an <see cref="HRESULT"/> value of E_NOTIMPL.
         /// </remarks>
         [PreserveSig]
         HRESULT SetMaxThreads(
@@ -85,7 +85,7 @@ namespace ManagedCorDebug
         /// The CLR calls GetMaxThreads to determine the total number of threads in the thread pool. The <see cref="GetAvailableThreads"/>
         /// method gets the number of threads that are not currently processing work items. All requests above the returned
         /// value of the pdwMaxWorkerThreads parameter remain queued until threads become available. If the host does not provide
-        /// an implementation of GetMaxThreads, it should return an HRESULT value of E_NOTIMPL.
+        /// an implementation of GetMaxThreads, it should return an <see cref="HRESULT"/> value of E_NOTIMPL.
         /// </remarks>
         [PreserveSig]
         HRESULT GetMaxThreads(
@@ -107,7 +107,7 @@ namespace ManagedCorDebug
         /// | E_NOTIMPL              | The host does not provide an implementation of GetAvailableThreads.                                                                                                                        |
         /// </returns>
         /// <remarks>
-        /// If the host does not provide an implementation of GetAvailableThreads, it should return an HRESULT value of E_NOTIMPL.
+        /// If the host does not provide an implementation of GetAvailableThreads, it should return an <see cref="HRESULT"/> value of E_NOTIMPL.
         /// </remarks>
         [PreserveSig]
         HRESULT GetAvailableThreads(
@@ -129,7 +129,7 @@ namespace ManagedCorDebug
         /// | E_NOTIMPL              | The host does not provide an implementation of SetMinThreads.                                                                                                                              |
         /// </returns>
         /// <remarks>
-        /// A host is not required to provide an implementation of SetMinThreads. In this case, it should return an HRESULT
+        /// A host is not required to provide an implementation of SetMinThreads. In this case, it should return an <see cref="HRESULT"/>
         /// value of E_NOTIMPL.
         /// </remarks>
         [PreserveSig]
@@ -152,7 +152,7 @@ namespace ManagedCorDebug
         /// | E_NOTIMPL              | The host does not provide an implementation of GetMinThreads.                                                                                                                              |
         /// </returns>
         /// <remarks>
-        /// The host is not required to provide an implementation of GetMinThreads. In this case, it should return an HRESULT
+        /// The host is not required to provide an implementation of GetMinThreads. In this case, it should return an <see cref="HRESULT"/>
         /// value of E_NOTIMPL.
         /// </remarks>
         [PreserveSig]

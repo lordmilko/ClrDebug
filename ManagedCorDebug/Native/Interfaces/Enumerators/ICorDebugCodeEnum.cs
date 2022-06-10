@@ -27,9 +27,9 @@ namespace ManagedCorDebug
         new HRESULT Reset();
 
         /// <summary>
-        /// Creates a copy of this ICorDebugEnum object.
+        /// Creates a copy of this <see cref="ICorDebugEnum"/> object.
         /// </summary>
-        /// <param name="ppEnum">[out] A pointer to the address of an ICorDebugEnum object that is a copy of this ICorDebugEnum object.</param>
+        /// <param name="ppEnum">[out] A pointer to the address of an <see cref="ICorDebugEnum"/> object that is a copy of this <see cref="ICorDebugEnum"/> object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Clone([MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);
@@ -45,9 +45,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the specified number of "ICorDebugCode" instances from the enumeration, starting at the current position.
         /// </summary>
-        /// <param name="celt">[in] The number of ICorDebugCode instances to be retrieved.</param>
-        /// <param name="values">[out] An array of pointers, each of which points to an ICorDebugCode object.</param>
-        /// <param name="pceltFetched">[out] A pointer to the number of ICorDebugCode instances actually returned. This value may be null if celt is one.</param>
+        /// <param name="celt">[in] The number of <see cref="ICorDebugCode"/> instances to be retrieved.</param>
+        /// <param name="values">[out] An array of pointers, each of which points to an <see cref="ICorDebugCode"/> object.</param>
+        /// <param name="pceltFetched">[out] A pointer to the number of <see cref="ICorDebugCode"/> instances actually returned. This value may be null if celt is one.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Next([In] uint celt, [MarshalAs(UnmanagedType.Interface), Out] out ICorDebugCode values, out uint pceltFetched);

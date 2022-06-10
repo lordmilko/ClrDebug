@@ -8,7 +8,7 @@ namespace ManagedCorDebug
     /// Controls custom debugger notifications.
     /// </summary>
     /// <remarks>
-    /// This interface logically extends the ICorDebugProcess and ICorDebugProcess2 interfaces.
+    /// This interface logically extends the <see cref="ICorDebugProcess"/> and <see cref="ICorDebugProcess2"/> interfaces.
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("2EE06488-C0D4-42B1-B26D-F3795EF606FB")]

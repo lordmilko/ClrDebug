@@ -14,7 +14,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Creates a generic instance of a method, and gets a token to the definition.
         /// </summary>
-        /// <param name="tkParent">[in] A token for the method of which to create the generic instance. The token must be of type mdMethodDef or mdMemberRef.</param>
+        /// <param name="tkParent">[in] A token for the method of which to create the generic instance. The token must be of type <see cref="mdMethodDef"/> or <see cref="mdMemberRef"/>.</param>
         /// <param name="pvSigBlob">[in] A pointer to the binary COM+ signature of the method.</param>
         /// <param name="cbSigBlob">[in] The size, in bytes, of pvSigBlob.</param>
         /// <param name="pmi">[out] A token to the metadata signature definition of the method.</param>
@@ -57,12 +57,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Creates a definition for a generic type parameter, and gets a token to that generic type parameter.
         /// </summary>
-        /// <param name="tk">[in] An mdTypeDef or mdMethodDef token that represents the method or constructor for which to define a generic parameter.</param>
+        /// <param name="tk">[in] An <see cref="mdTypeDef"/> or <see cref="mdMethodDef"/> token that represents the method or constructor for which to define a generic parameter.</param>
         /// <param name="ulParamSeq">[in] The index of the generic parameter.</param>
         /// <param name="dwParamFlags">[in] A value of the <see cref="CorGenericParamAttr"/> enumeration that describes the type for the generic parameter.</param>
         /// <param name="szname">[in] The name of the parameter.</param>
         /// <param name="tkKind">[in] This parameter is reserved for future extensibility.</param>
-        /// <param name="rtkConstraints">[in] A zero-terminated array of type constraints. Array members must be an mdTypeDef, mdTypeRef, or mdTypeSpec metadata token.</param>
+        /// <param name="rtkConstraints">[in] A zero-terminated array of type constraints. Array members must be an <see cref="mdTypeDef"/>, <see cref="mdTypeRef"/>, or <see cref="mdTypeSpec"/> metadata token.</param>
         /// <param name="pgp">[out] A token that represents the generic parameter.</param>
         [PreserveSig]
         HRESULT DefineGenericParam(
@@ -82,7 +82,7 @@ namespace ManagedCorDebug
         /// <param name="dwParamFlags">[in] A value of the <see cref="CorGenericParamAttr"/> enumeration that describes the type for the generic parameter.</param>
         /// <param name="szName">[in] Optional. The name of the parameter for which to set values.</param>
         /// <param name="tkKind">[in] Reserved for future extensibility.</param>
-        /// <param name="rtkConstraints">[in] Optional. A zero-terminated array of type constraints. Array members must be an mdTypeDef, mdTypeRef, or mdTypeSpec metadata token.</param>
+        /// <param name="rtkConstraints">[in] Optional. A zero-terminated array of type constraints. Array members must be an <see cref="mdTypeDef"/>, <see cref="mdTypeRef"/>, or <see cref="mdTypeSpec"/> metadata token.</param>
         [PreserveSig]
         HRESULT SetGenericParamProps(
             uint gp,
