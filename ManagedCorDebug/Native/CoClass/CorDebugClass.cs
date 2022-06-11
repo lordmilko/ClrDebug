@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace ManagedCorDebug
+namespace ManagedCorDebug.CoClass
 {
     [ClassInterface(ClassInterfaceType.None)]
     [Guid("6FEF44D0-39E7-4C77-BE8E-C9F8CF988630")]

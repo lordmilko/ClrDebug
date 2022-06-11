@@ -16,6 +16,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="lpString">[in] The string to emit.</param>
         /// <param name="RVA">[out] The relative virtual address of the emitted string.</param>
+        [Obsolete]
         [PreserveSig]
         HRESULT EmitString(
             [In, MarshalAs(UnmanagedType.LPWStr)] string lpString,
@@ -26,6 +27,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="RVA">[in] The relative virtual address of the string to return.</param>
         /// <param name="lpString">[out] The returned string.</param>
+        [Obsolete]
         [PreserveSig]
         HRESULT GetString(
             [In] ulong RVA,
@@ -37,6 +39,7 @@ namespace ManagedCorDebug
         /// <param name="cchBuffer">[in] The length of the buffer to create.</param>
         /// <param name="lpBuffer">[out] The returned buffer.</param>
         /// <param name="RVA">[out] The relative virtual address of the method.</param>
+        [Obsolete]
         [PreserveSig]
         HRESULT AllocateMethodBuffer(
             [In] uint cchBuffer,
@@ -48,6 +51,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="RVA">[in] The relative virtual address of the method for which to return a buffer.</param>
         /// <param name="lpBuffer">[out] A pointer to the returned buffer.</param>
+        [Obsolete]
         [PreserveSig]
         HRESULT GetMethodBuffer(
             [In] uint RVA,
@@ -57,6 +61,7 @@ namespace ManagedCorDebug
         /// Gets the interface referenced by the specified token. This method is obsolete and should not be used.
         /// </summary>
         /// <param name="pIMapToken">[in, out] The metadata token for the interface to be returned.</param>
+        [Obsolete]
         [PreserveSig]
         HRESULT GetIMapTokenIface(
             [In, Out, MarshalAs(UnmanagedType.Interface)] ref object pIMapToken);
@@ -65,6 +70,7 @@ namespace ManagedCorDebug
         /// Generates a code-base file that contains the code base currently loaded into this <see cref="ICeeGen"/> interface.<para/>
         /// This method is obsolete and should not be used.
         /// </summary>
+        [Obsolete]
         [PreserveSig]
         HRESULT GenerateCeeFile();
 
@@ -72,6 +78,7 @@ namespace ManagedCorDebug
         /// Gets the section of the intermediate language code base referenced by the specified handle. This method is obsolete and should not be used.
         /// </summary>
         /// <param name="section">[in] The handle to the section to get.</param>
+        [Obsolete]
         [PreserveSig]
         HRESULT GetIlSection([In] IntPtr section);
 
@@ -79,6 +86,7 @@ namespace ManagedCorDebug
         /// Gets a string representation of the code section referenced by the specified handle. This method is obsolete and should not be used.
         /// </summary>
         /// <param name="section">[in, out] The handle to the code section.</param>
+        [Obsolete]
         [PreserveSig]
         HRESULT GetStringSection([In, Out] ref IntPtr section);
 
@@ -89,6 +97,7 @@ namespace ManagedCorDebug
         /// <param name="offset">[in] The offset of the section.</param>
         /// <param name="relativeTo">[in] The section to which offset refers.</param>
         /// <param name="relocType">[in] One of the <see cref="CeeSectionRelocType"/> values, indicating the kind of .reloc instruction to add.</param>
+        [Obsolete]
         [PreserveSig]
         HRESULT AddSectionReloc(
             [In] IntPtr section,
@@ -105,6 +114,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Call GetSectionCreate only if you have special section requirements that are not handled by other methods.
         /// </remarks>
+        [Obsolete]
         [PreserveSig]
         HRESULT GetSectionCreate(
             [In] string name,
@@ -119,6 +129,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Call GetSectionDataLen only if you have special section requirements that are not handled by other methods.
         /// </remarks>
+        [Obsolete]
         [PreserveSig]
         HRESULT GetSectionDataLen(
             [In] IntPtr section,
@@ -134,6 +145,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Call GetSectionBlock only if you have special section requirements that are not handled by other methods.
         /// </remarks>
+        [Obsolete]
         [PreserveSig]
         HRESULT GetSectionBlock(
             [In] IntPtr section,
@@ -149,6 +161,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Call TruncateSection only if you have special section requirements that are not handled by other methods.
         /// </remarks>
+        [Obsolete]
         [PreserveSig]
         HRESULT TruncateSection(
             [In] IntPtr section,
@@ -158,6 +171,7 @@ namespace ManagedCorDebug
         /// Generates an image in memory for the code base. This method is obsolete and should not be used.
         /// </summary>
         /// <param name="ppImage">[out] A pointer to the generated image.</param>
+        [Obsolete]
         [PreserveSig]
         HRESULT GenerateCeeMemoryImage(
             [Out] IntPtr ppImage);
@@ -168,6 +182,7 @@ namespace ManagedCorDebug
         /// <param name="section">[in] The code section for which to return a buffer.</param>
         /// <param name="RVA">[in] The relative virtual address of the method for which to get a pointer.</param>
         /// <param name="lpBuffer">[out] A pointer to the returned buffer.</param>
+        [Obsolete]
         [PreserveSig]
         HRESULT ComputePointer(
             [In] IntPtr section,

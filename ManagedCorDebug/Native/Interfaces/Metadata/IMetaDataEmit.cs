@@ -171,7 +171,7 @@ namespace ManagedCorDebug
         /// <param name="ptr">[out] A pointer to the <see cref="mdTypeRef"/> token that is assigned to the type.</param>
         [PreserveSig]
         HRESULT DefineTypeRefByName(
-            uint tkResolutionScope,
+            mdToken tkResolutionScope,
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
             out mdTypeRef ptr);
 
@@ -414,7 +414,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="tkObj">[in] The token to be deleted.</param>
         [PreserveSig]
-        HRESULT DeleteToken(uint tkObj);
+        HRESULT DeleteToken(mdToken tkObj);
 
         /// <summary>
         /// Sets or updates the feature, stored at the specified relative virtual address, of a method defined by a prior call to <see cref="DefineMethod"/>.
@@ -475,7 +475,7 @@ namespace ManagedCorDebug
         /// <param name="ppm">[out] An <see cref="mdPermission"/> metadata token that represents the updated permissions.</param>
         [PreserveSig]
         HRESULT SetPermissionSetProps(
-            uint tk,
+            mdToken tk,
             CorDeclSecurity dwAction,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] byte[] pvPermission,
             uint cbPermission,
@@ -490,7 +490,7 @@ namespace ManagedCorDebug
         /// <param name="mrImportDLL">[in] The token for the target native DLL.</param>
         [PreserveSig]
         HRESULT DefinePinvokeMap(
-            uint tk,
+            mdToken tk,
             uint dwMappingFlags,
             [MarshalAs(UnmanagedType.LPWStr)] string szImportName,
             uint mrImportDLL);
@@ -526,8 +526,8 @@ namespace ManagedCorDebug
         /// <param name="pcv">[out] The <see cref="mdCustomAttribute"/> token assigned.</param>
         [PreserveSig]
         HRESULT DefineCustomAttribute(
-            uint tkObj,
-            uint tkType,
+            mdToken tkObj,
+            mdToken tkType,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] byte[] pCustomAttribute,
             uint cbCustomAttribute,
             out mdCustomAttribute pcv);
@@ -688,7 +688,7 @@ namespace ManagedCorDebug
         /// <param name="pulErrorAttr">[out] If the method fails, specifies the index in rSecAttrs of the element that caused the problem.</param>
         [PreserveSig]
         HRESULT DefineSecurityAttributeSet(
-            uint tkObj,
+            mdToken tkObj,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] COR_SECATTR[] rSecAttrs,
             uint cSecAttrs,
             out uint pulErrorAttr);

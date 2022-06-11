@@ -61,7 +61,7 @@ namespace ManagedCorDebug
         /// <param name="ulParamSeq">[in] The index of the generic parameter.</param>
         /// <param name="dwParamFlags">[in] A value of the <see cref="CorGenericParamAttr"/> enumeration that describes the type for the generic parameter.</param>
         /// <param name="szname">[in] The name of the parameter.</param>
-        /// <param name="tkKind">[in] This parameter is reserved for future extensibility.</param>
+        /// <param name="reserved">[in] This parameter is reserved for future extensibility.</param>
         /// <param name="rtkConstraints">[in] A zero-terminated array of type constraints. Array members must be an <see cref="mdTypeDef"/>, <see cref="mdTypeRef"/>, or <see cref="mdTypeSpec"/> metadata token.</param>
         /// <param name="pgp">[out] A token that represents the generic parameter.</param>
         [PreserveSig]
@@ -70,7 +70,7 @@ namespace ManagedCorDebug
             uint ulParamSeq,
             uint dwParamFlags,
             [MarshalAs(UnmanagedType.LPWStr)] string szname,
-            uint tkKind,
+            uint reserved,
             [MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkConstraints,
             out uint pgp
         );
@@ -81,14 +81,14 @@ namespace ManagedCorDebug
         /// <param name="gp">[in] The token for the generic parameter definition for which to set values.</param>
         /// <param name="dwParamFlags">[in] A value of the <see cref="CorGenericParamAttr"/> enumeration that describes the type for the generic parameter.</param>
         /// <param name="szName">[in] Optional. The name of the parameter for which to set values.</param>
-        /// <param name="tkKind">[in] Reserved for future extensibility.</param>
+        /// <param name="reserved">[in] Reserved for future extensibility.</param>
         /// <param name="rtkConstraints">[in] Optional. A zero-terminated array of type constraints. Array members must be an <see cref="mdTypeDef"/>, <see cref="mdTypeRef"/>, or <see cref="mdTypeSpec"/> metadata token.</param>
         [PreserveSig]
         HRESULT SetGenericParamProps(
             uint gp,
             uint dwParamFlags,
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            uint tkKind,
+            uint reserved,
             [MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkConstraints
         );
 

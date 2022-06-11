@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -113,6 +114,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// GetManagedCopy is obsolete. Do not call this method.
         /// </summary>
+        [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetManagedCopy([MarshalAs(UnmanagedType.IUnknown)] out object ppObject);
@@ -120,6 +122,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// SetFromManagedCopy is obsolete. Do not call this method.
         /// </summary>
+        [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT SetFromManagedCopy([MarshalAs(UnmanagedType.IUnknown), In]

@@ -52,6 +52,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="hFile">[in] The handle of the file to be mapped.</param>
         /// <param name="hMapAddress">[out] The starting memory address at which to begin mapping the file.</param>
+        [Obsolete]
         [PreserveSig]
         HRESULT MapFile(IntPtr hFile, out IntPtr hMapAddress);
 

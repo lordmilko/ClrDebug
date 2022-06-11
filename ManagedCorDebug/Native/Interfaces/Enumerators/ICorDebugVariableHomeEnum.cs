@@ -69,7 +69,9 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Next([In] uint celt, [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugVariableHome homes, out uint pceltFetched);
+        HRESULT Next(
+            [In] uint celt,
+            [MarshalAs(UnmanagedType.Interface), Out] out ICorDebugVariableHome homes,
+            out uint pceltFetched);
     }
 }

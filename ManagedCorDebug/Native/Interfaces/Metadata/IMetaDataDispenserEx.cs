@@ -130,9 +130,9 @@ namespace ManagedCorDebug
         /// <param name="pchBuffer">[out] The number of bytes actually returned in szBuffer.</param>
         [PreserveSig]
         HRESULT GetCORSystemDirectory(
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] StringBuilder szBuffer,
-            uint cchBuffer,
-            out uint pchBuffer);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] StringBuilder szBuffer,
+            [In] uint cchBuffer,
+            [Out] out uint pchBuffer);
 
         /// <summary>
         /// This method is not implemented. If called, it returns E_NOTIMPL.

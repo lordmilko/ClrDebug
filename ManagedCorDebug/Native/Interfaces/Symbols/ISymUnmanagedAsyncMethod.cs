@@ -26,7 +26,7 @@ namespace ManagedCorDebug
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetKickoffMethod();
+        HRESULT GetKickoffMethod([Out] out mdToken kickoffMethod);
 
         /// <summary>
         /// See <see cref="ISymUnmanagedAsyncMethodPropertiesWriter.DefineCatchHandlerILOffset"/>.
@@ -42,7 +42,7 @@ namespace ManagedCorDebug
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCatchHandlerILOffset();
+        HRESULT GetCatchHandlerILOffset([Out] out uint pRetVal);
 
         /// <summary>
         /// See <see cref="ISymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
@@ -50,7 +50,7 @@ namespace ManagedCorDebug
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAsyncStepInfoCount();
+        HRESULT GetAsyncStepInfoCount([Out] out uint pRetVal);
 
         /// <summary>
         /// See <see cref="ISymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.

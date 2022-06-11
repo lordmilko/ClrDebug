@@ -15,6 +15,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// CopyMetaData is obsolete. Do not call this method.
         /// </summary>
+        [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CopyMetaData([MarshalAs(UnmanagedType.Interface), In]
@@ -23,6 +24,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// GetMvid is obsolete. Do not call this method.
         /// </summary>
+        [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetMvid(out Guid pMvid);
@@ -30,6 +32,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// GetRoDataRVA is obsolete. Do not call this method.
         /// </summary>
+        [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRoDataRVA(out uint pRoDataRVA);
@@ -37,6 +40,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// GetRwDataRVA is obsolete. Do not call this method.
         /// </summary>
+        [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRwDataRVA(out uint pRwDataRVA);
@@ -44,6 +48,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// SetPEBytes is obsolete. Do not call this method.
         /// </summary>
+        [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetPEBytes([MarshalAs(UnmanagedType.Interface), In]
@@ -52,6 +57,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// SetILMap is obsolete. Do not call this method.
         /// </summary>
+        [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetILMap([In] uint mdFunction, [In] uint cMapSize, [In] ref COR_IL_MAP map);
@@ -59,6 +65,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// SetPESymbolBytes is obsolete. Do not call this method.
         /// </summary>
+        [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetPESymbolBytes([MarshalAs(UnmanagedType.Interface), In]

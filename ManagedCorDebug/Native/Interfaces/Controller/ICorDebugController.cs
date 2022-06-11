@@ -137,6 +137,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// CanCommitChanges is obsolete. Do not call this method.
         /// </summary>
+        [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CanCommitChanges(
@@ -148,6 +149,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// CommitChanges is obsolete. Do not call this method.
         /// </summary>
+        [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CommitChanges(

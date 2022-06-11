@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace ManagedCorDebug
+namespace ManagedCorDebug.CoClass
 {
     [CoClass(typeof(CorSymBinder_SxSClass))]
     [Guid("AA544D42-28CB-11D3-BD22-0000F80849BD")]

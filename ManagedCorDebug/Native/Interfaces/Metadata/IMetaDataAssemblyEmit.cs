@@ -96,8 +96,8 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT DefineExportedType(
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            uint tkImplementation,
-            uint tkTypeDef,
+            mdToken tkImplementation,
+            mdTypeDef tkTypeDef,
             uint dwExportedTypeFlags,
             out uint pmdct);
 
@@ -117,7 +117,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT DefineManifestResource(
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            uint tkImplementation,
+            mdToken tkImplementation,
             uint dwOffset,
             uint dwResourceFlags,
             out uint pmdmr);
@@ -198,8 +198,8 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT SetExportedTypeProps(
             uint ct,
-            uint tkImplementation,
-            uint tkTypeDef,
+            mdToken tkImplementation,
+            mdTypeDef tkTypeDef,
             uint dwExportedTypeFlags);
 
         /// <summary>
@@ -215,7 +215,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT SetManifestResourceProps(
             uint mr,
-            uint tkImplementation,
+            mdToken tkImplementation,
             uint dwOffset,
             uint dwResourceFlags);
 

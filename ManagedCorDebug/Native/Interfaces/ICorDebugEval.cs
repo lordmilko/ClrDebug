@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -36,6 +37,7 @@ namespace ManagedCorDebug
         /// If the function is virtual, CallFunction will perform virtual dispatch. If the function is in a different application
         /// domain, a transition will occur as long as all arguments are also in that application domain.
         /// </remarks>
+        [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CallFunction([MarshalAs(UnmanagedType.Interface), In]
@@ -49,6 +51,7 @@ namespace ManagedCorDebug
         /// <param name="pConstructor">[in] The constructor to be called.</param>
         /// <param name="nArgs">[in] The size of the ppArgs array.</param>
         /// <param name="ppArgs">[in] An array of <see cref="ICorDebugValue"/> objects, each of which represents an argument to be passed to the constructor.</param>
+        [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT NewObject([MarshalAs(UnmanagedType.Interface), In]
@@ -60,6 +63,7 @@ namespace ManagedCorDebug
         /// Use <see cref="ICorDebugEval2.NewParameterizedObjectNoConstructor"/> instead.
         /// </summary>
         /// <param name="pClass">[in] Pointer to an <see cref="ICorDebugClass"/> object that represents the type of object to be instantiated.</param>
+        [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT NewObjectNoConstructor([MarshalAs(UnmanagedType.Interface), In]
@@ -88,6 +92,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The array is always created in the application domain in which the thread is currently executing.
         /// </remarks>
+        [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT NewArray(
@@ -152,6 +157,7 @@ namespace ManagedCorDebug
         /// representing the null object reference. You can use this object to pass null to a function evaluation that has
         /// object reference parameters. You cannot set the <see cref="ICorDebugValue"/> to anything; it always remains null.
         /// </remarks>
+        [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateValue([In] uint elementType, [MarshalAs(UnmanagedType.Interface), In]

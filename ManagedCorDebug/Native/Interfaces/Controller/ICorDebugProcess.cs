@@ -132,6 +132,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// CanCommitChanges is obsolete. Do not call this method.
         /// </summary>
+        [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT CanCommitChanges(
@@ -143,6 +144,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// CommitChanges is obsolete. Do not call this method.
         /// </summary>
+        [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT CommitChanges(
@@ -232,7 +234,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetThreadContext([In] uint threadID, [In] uint contextSize, [In, Out] byte[] context);
+        HRESULT GetThreadContext([In] uint threadID, [In] uint contextSize, [In, Out] ref byte[] context);
 
         /// <summary>
         /// Sets the context for the given thread in this process.

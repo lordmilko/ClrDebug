@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace ManagedCorDebug
+namespace ManagedCorDebug.CoClass
 {
     [Guid("108296C1-281E-11D3-BD22-0000F80849BD")]
     [TypeLibType(TypeLibTypeFlags.FCanCreate)]

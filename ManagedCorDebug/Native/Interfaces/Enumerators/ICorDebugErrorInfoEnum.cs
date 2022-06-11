@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -45,6 +46,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// <see cref="Next"/> is obsolete. Do not call this method.
         /// </summary>
+        [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Next([In] uint celt, [MarshalAs(UnmanagedType.Interface), Out] out ICorDebugEditAndContinueErrorInfo errors, out uint pceltFetched);

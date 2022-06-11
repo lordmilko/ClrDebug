@@ -4,7 +4,7 @@ namespace ManagedCorDebug
 {
     public struct COR_SECATTR
     {
-        public uint tkCtor;
+        public mdMemberRef tkCtor;
         public IntPtr pCustomAttribute;
         public uint cbCustomAttribute;
     }

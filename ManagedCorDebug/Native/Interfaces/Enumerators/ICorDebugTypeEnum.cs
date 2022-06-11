@@ -50,7 +50,9 @@ namespace ManagedCorDebug
         /// <param name="pceltFetched">[out] Pointer to the number of <see cref="ICorDebugType"/> instances actually returned. This value may be null if celt is one.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Next([In] uint celt, [MarshalAs(UnmanagedType.Interface), Out]
-            ICorDebugType values, out uint pceltFetched);
+        HRESULT Next(
+            [In] uint celt,
+            [MarshalAs(UnmanagedType.Interface), Out] out ICorDebugType values,
+            out uint pceltFetched);
     }
 }
