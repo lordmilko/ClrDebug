@@ -225,7 +225,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT FindExportedTypeByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
-            [In] int mdtExportedType,
+            [In] mdToken mdtExportedType,
             [Out] out mdExportedType mdExportedType);
 
         /// <summary>

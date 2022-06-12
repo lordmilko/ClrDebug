@@ -20,7 +20,7 @@ namespace ManagedCorDebug
         /// <param name="pmi">[out] A token to the metadata signature definition of the method.</param>
         [PreserveSig]
         HRESULT DefineMethodSpec(mdToken tkParent, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)]
-            byte[] pvSigBlob, int cbSigBlob, out int pmi);
+            byte[] pvSigBlob, int cbSigBlob, out mdMethodSpec pmi);
 
         /// <summary>
         /// Gets a value indicating any change in metadata size that results from the current edit-and-continue session.
@@ -72,7 +72,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr)] string szname,
             int reserved,
             [MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkConstraints,
-            out int pgp
+            out mdGenericParam pgp
         );
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace ManagedCorDebug
         /// <param name="rtkConstraints">[in] Optional. A zero-terminated array of type constraints. Array members must be an <see cref="mdTypeDef"/>, <see cref="mdTypeRef"/>, or <see cref="mdTypeSpec"/> metadata token.</param>
         [PreserveSig]
         HRESULT SetGenericParamProps(
-            int gp,
+            mdGenericParam gp,
             int dwParamFlags,
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
             int reserved,

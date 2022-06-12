@@ -11,7 +11,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// The method's metadata token.
         /// </summary>
-        public uint mdMethod;
+        public mdMethodDef mdMethod;
 
         /// <summary>
         /// The number of lines the method was moved.

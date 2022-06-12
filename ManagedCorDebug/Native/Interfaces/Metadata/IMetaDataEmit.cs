@@ -69,7 +69,7 @@ namespace ManagedCorDebug
         /// Creates a type definition for a common language runtime type, and gets a metadata token for that type definition.
         /// </summary>
         /// <param name="szTypeDef">[in] The name of the type in Unicode.</param>
-        /// <param name="dwTypeDefFlags">[in] TypeDef attributes. This is a bitmask of CoreTypeAttr values.</param>
+        /// <param name="dwTypeDefFlags">[in] TypeDef attributes. This is a bitmask of <see cref="CorTypeAttr"/> values.</param>
         /// <param name="tkExtends">[in] The token of the base class. It must be either an <see cref="mdTypeDef"/> or an <see cref="mdTypeRef"/> token.</param>
         /// <param name="rtkImplements">[in] An array of tokens specifying the interfaces that this class or interface implements.</param>
         /// <param name="ptd">[out] The <see cref="mdTypeDef"/> token assigned.</param>
@@ -87,7 +87,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT DefineTypeDef(
             [MarshalAs(UnmanagedType.LPWStr)] string szTypeDef,
-            int dwTypeDefFlags,
+            CorTypeAttr dwTypeDefFlags,
             mdToken tkExtends,
             [MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkImplements,
             out mdTypeDef ptd);
@@ -107,7 +107,7 @@ namespace ManagedCorDebug
             CorTypeAttr dwTypeDefFlags,
             mdToken tkExtends,
             [MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkImplements,
-            mdToken tdEncloser,
+            mdTypeDef tdEncloser,
             out mdTypeDef ptd);
 
         /// <summary>
@@ -142,14 +142,14 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT DefineMethod(
-            mdToken td,
+            mdTypeDef td,
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
             MethodAttributes dwMethodFlags,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] pvSigBlob,
+            IntPtr pvSigBlob,
             int cbSigBlob,
             int ulCodeRVA,
             MethodImplAttributes dwImplFlags,
-            out int pmd);
+            out mdMethodDef pmd);
 
         /// <summary>
         /// Creates a definition for implementation of a method inherited from an interface, and returns a token to that method-implementation definition.
@@ -192,7 +192,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT DefineImportType(
             [MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyImport pAssemImport,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] pbHashValue,
+            IntPtr pbHashValue,
             int cbHashValue,
             [MarshalAs(UnmanagedType.Interface)] IMetaDataImport pImport,
             mdTypeDef tdImport,
@@ -211,7 +211,7 @@ namespace ManagedCorDebug
         HRESULT DefineMemberRef(
             mdModuleRef tkImport,
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] byte[] pvSigBlob,
+            IntPtr pvSigBlob,
             int cbSigBlob,
             out mdMemberRef pmr);
 
@@ -237,7 +237,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT DefineImportMember(
             [MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyImport pAssemImport,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] pbHashValue,
+            IntPtr pbHashValue,
             int cbHashValue,
             [MarshalAs(UnmanagedType.Interface)] IMetaDataImport pImport,
             mdToken mbMember,
@@ -259,13 +259,13 @@ namespace ManagedCorDebug
         /// <param name="pmdEvent">[out] The metadata token assigned to the event.</param>
         [PreserveSig]
         HRESULT DefineEvent(
-            mdToken td,
+            mdTypeDef td,
             [MarshalAs(UnmanagedType.LPWStr)] string szEvent,
             int dwEventFlags,
             mdToken tkEventType,
-            int mdAddOn,
-            int mdRemoveOn,
-            int mdFire,
+            mdMethodDef mdAddOn,
+            mdMethodDef mdRemoveOn,
+            mdMethodDef mdFire,
             [MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rmdOtherMethods,
             out mdToken pmdEvent);
 
@@ -307,7 +307,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT SetFieldMarshal(
             mdToken tk,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] pvNativeType,
+            IntPtr pvNativeType,
             int cbNativeType);
 
         /// <summary>
@@ -329,9 +329,9 @@ namespace ManagedCorDebug
         HRESULT DefinePermissionSet(
             mdToken tk,
             CorDeclSecurity dwAction,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] byte[] pvPermission,
+            IntPtr pvPermission,
             int cbPermission,
-            out int ppm);
+            out mdPermission ppm);
 
         /// <summary>
         /// Sets the relative virtual address of the specified method.
@@ -340,7 +340,7 @@ namespace ManagedCorDebug
         /// <param name="ulRVA">[in] The address of the code or data area.</param>
         [PreserveSig]
         HRESULT SetRVA(
-            int md,
+            mdMethodDef md,
             int ulRVA);
 
         /// <summary>
@@ -351,7 +351,7 @@ namespace ManagedCorDebug
         /// <param name="pmsig">[out] The <see cref="mdSignature"/> token assigned.</param>
         [PreserveSig]
         HRESULT GetTokenFromSig(
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] pvSig,
+            IntPtr pvSig,
             int cbSig,
             out mdSignature pmsig);
 
@@ -383,7 +383,7 @@ namespace ManagedCorDebug
         /// <param name="ptypespec">[out] The <see cref="mdTypeSpec"/> token assigned.</param>
         [PreserveSig]
         HRESULT GetTokenFromTypeSpec(
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] pvSig,
+            IntPtr pvSig,
             int cbSig,
             out mdTypeSpec ptypespec);
 
@@ -407,7 +407,7 @@ namespace ManagedCorDebug
         HRESULT DefineUserString(
             [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] string szString,
             int cchString,
-            out int pstk);
+            out mdString pstk);
 
         /// <summary>
         /// Deletes the specified token from the current metadata scope.
@@ -425,7 +425,7 @@ namespace ManagedCorDebug
         /// <param name="dwImplFlags">[in] The implementation flags for the method.</param>
         [PreserveSig]
         HRESULT SetMethodProps(
-            int md,
+            mdMethodDef md,
             int dwMethodFlags,
             int ulCodeRVA,
             int dwImplFlags);
@@ -457,12 +457,12 @@ namespace ManagedCorDebug
         /// <param name="rmdOtherMethods">[in] An array of tokens for other methods associated with the event. The last element of the array must be mdMethodDefNil.</param>
         [PreserveSig]
         HRESULT SetEventProps(
-            int ev,
+            mdEvent ev,
             CorEventAttr dwEventFlags,
             mdToken tkEventType,
-            int mdAddOn,
-            int mdRemoveOn,
-            int mdFire,
+            mdMethodDef mdAddOn,
+            mdMethodDef mdRemoveOn,
+            mdMethodDef mdFire,
             [MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rmdOtherMethods);
 
         /// <summary>
@@ -477,7 +477,7 @@ namespace ManagedCorDebug
         HRESULT SetPermissionSetProps(
             mdToken tk,
             CorDeclSecurity dwAction,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] byte[] pvPermission,
+            IntPtr pvPermission,
             int cbPermission,
             out mdPermission ppm);
 
@@ -493,7 +493,7 @@ namespace ManagedCorDebug
             mdToken tk,
             int dwMappingFlags,
             [MarshalAs(UnmanagedType.LPWStr)] string szImportName,
-            int mrImportDLL);
+            mdModuleRef mrImportDLL);
 
         /// <summary>
         /// Sets or changes features of a method's PInvoke signature, as defined by a prior call to <see cref="DefinePinvokeMap"/>.
@@ -528,7 +528,7 @@ namespace ManagedCorDebug
         HRESULT DefineCustomAttribute(
             mdToken tkObj,
             mdToken tkType,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] byte[] pCustomAttribute,
+            IntPtr pCustomAttribute,
             int cbCustomAttribute,
             out mdCustomAttribute pcv);
 
@@ -541,7 +541,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT SetCustomAttributeValue(
             int pcv,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] pCustomAttribute,
+            IntPtr pCustomAttribute,
             int cbCustomAttribute);
 
         /// <summary>
@@ -561,10 +561,10 @@ namespace ManagedCorDebug
             mdTypeDef td,
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
             CorFieldAttr dwFieldFlags,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] pvSigBlob,
+            IntPtr pvSigBlob,
             int cbSigBlob,
             CorElementType dwCPlusTypeFlag,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 7)] byte[] pValue,
+            IntPtr pValue,
             int cchValue,
             out mdFieldDef pmd);
 
@@ -585,16 +585,16 @@ namespace ManagedCorDebug
         /// <param name="pmdProp">[out] The <see cref="mdProperty"/> token assigned.</param>
         [PreserveSig]
         HRESULT DefineProperty(
-            int td,
+            mdTypeDef td,
             [MarshalAs(UnmanagedType.LPWStr)] string szProperty,
-            int dwPropFlags,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] pvSig,
+            CorPropertyAttr dwPropFlags,
+            IntPtr pvSig,
             int cbSig,
             int dwCPlusTypeFlag,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 7)] byte[] cvalue,
+            IntPtr cvalue,
             int cchValue,
-            int mdSetter,
-            int mdGetter,
+            mdMethodDef mdSetter,
+            mdMethodDef mdGetter,
             [MarshalAs(UnmanagedType.LPArray)] mdToken[] rmdOtherMethods,
             out mdProperty pmdProp);
 
@@ -614,12 +614,12 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT DefineParam(
-            int md,
+            mdMethodDef md,
             int ulParamSeq,
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
             CorParamAttr dwParamFlags,
             CorElementType dwCPlusTypeFlag,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] byte[] pValue,
+            IntPtr pValue,
             int cchValue,
             out mdParamDef ppd);
 
@@ -633,10 +633,10 @@ namespace ManagedCorDebug
         /// <param name="cchValue">[in] The size, in Unicode characters, of pValue.</param>
         [PreserveSig]
         HRESULT SetFieldProps(
-            int fd,
+            mdFieldDef fd,
             CorFieldAttr dwFieldFlags,
             CorElementType dwCPlusTypeFlag,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] pValue,
+            IntPtr pValue,
             int cchValue);
 
         /// <summary>
@@ -652,13 +652,13 @@ namespace ManagedCorDebug
         /// <param name="rmdOtherMethods">[in] An array of other methods associated with the property. Terminate this array with an mdTokenNil token.</param>
         [PreserveSig]
         HRESULT SetPropertyProps(
-            int pr,
-            int dwPropFlags,
+            mdProperty pr,
+            CorPropertyAttr dwPropFlags,
             int dwCPlusTypeFlag,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] pValue,
+            IntPtr pValue,
             int cchValue,
-            int mdSetter,
-            int mdGetter,
+            mdMethodDef mdSetter,
+            mdMethodDef mdGetter,
             [MarshalAs(UnmanagedType.LPArray)] mdToken[] rmdOtherMethods);
 
         /// <summary>
@@ -672,11 +672,11 @@ namespace ManagedCorDebug
         /// <param name="cchValue">[in] The size in (Unicode) characters of pValue.</param>
         [PreserveSig]
         HRESULT SetParamProps(
-            int pd,
+            mdParamDef pd,
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
             int dwParamFlags,
             int dwCPlusTypeFlag,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)] byte[] pValue,
+            IntPtr pValue,
             int cchValue);
 
         /// <summary>
@@ -717,14 +717,14 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT TranslateSigWithScope(
             [MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyImport pAssemImport,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] pbHashValue,
+            IntPtr pbHashValue,
             int cbHashValue,
             [MarshalAs(UnmanagedType.Interface)] IMetaDataImport import,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)] byte[] pbSigBlob,
+            IntPtr pbSigBlob,
             int cbSigBlob,
             [MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyEmit pAssemEmit,
             [MarshalAs(UnmanagedType.Interface)] IMetaDataEmit emit,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 9)] byte[] pvTranslatedSig,
+            IntPtr pvTranslatedSig,
             int cbTranslatedSigMax,
             out int pcbTranslatedSig);
 
@@ -735,7 +735,7 @@ namespace ManagedCorDebug
         /// <param name="dwImplFlags">[in] A combination of the values of the <see cref="CorMethodImpl"/> enumeration that specifies the method implementation features.</param>
         [PreserveSig]
         HRESULT SetMethodImplFlags(
-            int md,
+            mdMethodDef md,
             int dwImplFlags);
 
         /// <summary>
@@ -745,7 +745,7 @@ namespace ManagedCorDebug
         /// <param name="ulRVA">[in] The address of a code or data area.</param>
         [PreserveSig]
         HRESULT SetFieldRVA(
-            int fd,
+            mdFieldDef fd,
             int ulRVA);
 
         /// <summary>

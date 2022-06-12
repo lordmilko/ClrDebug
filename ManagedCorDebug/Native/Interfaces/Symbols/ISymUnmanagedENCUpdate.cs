@@ -33,7 +33,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetLocalVariableCount([In] int mdMethodToken, out int pcLocals);
+        HRESULT GetLocalVariableCount([In] mdMethodDef mdMethodToken, out int pcLocals);
 
         /// <summary>
         /// Gets the local variables.
@@ -46,7 +46,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLocalVariables(
-            [In] int mdMethodToken,
+            [In] mdMethodDef mdMethodToken,
             [In] int cLocals,
             [Out] IntPtr rgLocals, //ISymUnmanagedVariable
             out int pceltFetched);
@@ -69,6 +69,6 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT UpdateMethodLines([In] int mdMethodToken, [In] ref int pDeltas, [In] int cDeltas);
+        HRESULT UpdateMethodLines([In] mdMethodDef mdMethodToken, [In] ref int pDeltas, [In] int cDeltas);
     }
 }

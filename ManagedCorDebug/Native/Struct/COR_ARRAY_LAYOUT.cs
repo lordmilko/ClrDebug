@@ -21,7 +21,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// A <see cref="CorElementType"/> enumeration value that indicates whether the component is a garbage collection reference, a value class, or a primitive.
         /// </summary>
-        public uint componentType;
+        public CorElementType componentType;
 
         /// <summary>
         /// The offset to the first element in the array.

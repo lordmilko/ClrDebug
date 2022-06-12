@@ -60,7 +60,7 @@ namespace ManagedCorDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetILMap([In] int mdFunction, [In] int cMapSize, [In] ref COR_IL_MAP map);
+        HRESULT SetILMap([In] mdToken mdFunction, [In] int cMapSize, [In] ref COR_IL_MAP map);
 
         /// <summary>
         /// SetPESymbolBytes is obsolete. Do not call this method.
