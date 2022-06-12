@@ -40,7 +40,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Mixed-mode debugging is not supported in Silverlight.
         /// </remarks>
-        public CorDebugProcess CreateProcessEx(ICorDebugRemoteTarget pRemoteTarget, string lpApplicationName, string lpCommandLine, SECURITY_ATTRIBUTES lpProcessAttributes, SECURITY_ATTRIBUTES lpThreadAttributes, int bInheritHandles, int dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, long lpStartupInfo, long lpProcessInformation, CorDebugCreateProcessFlags debuggingFlags)
+        public CorDebugProcess CreateProcessEx(ICorDebugRemoteTarget pRemoteTarget, string lpApplicationName, string lpCommandLine, SECURITY_ATTRIBUTES lpProcessAttributes, SECURITY_ATTRIBUTES lpThreadAttributes, int bInheritHandles, int dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, STARTUPINFO lpStartupInfo, PROCESS_INFORMATION lpProcessInformation, CorDebugCreateProcessFlags debuggingFlags)
         {
             HRESULT hr;
             CorDebugProcess ppProcessResult;
@@ -75,7 +75,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Mixed-mode debugging is not supported in Silverlight.
         /// </remarks>
-        public HRESULT TryCreateProcessEx(ICorDebugRemoteTarget pRemoteTarget, string lpApplicationName, string lpCommandLine, SECURITY_ATTRIBUTES lpProcessAttributes, SECURITY_ATTRIBUTES lpThreadAttributes, int bInheritHandles, int dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, long lpStartupInfo, long lpProcessInformation, CorDebugCreateProcessFlags debuggingFlags, out CorDebugProcess ppProcessResult)
+        public HRESULT TryCreateProcessEx(ICorDebugRemoteTarget pRemoteTarget, string lpApplicationName, string lpCommandLine, SECURITY_ATTRIBUTES lpProcessAttributes, SECURITY_ATTRIBUTES lpThreadAttributes, int bInheritHandles, int dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, STARTUPINFO lpStartupInfo, PROCESS_INFORMATION lpProcessInformation, CorDebugCreateProcessFlags debuggingFlags, out CorDebugProcess ppProcessResult)
         {
             /*HRESULT CreateProcessEx(
             [MarshalAs(UnmanagedType.Interface), In]
@@ -88,12 +88,12 @@ namespace ManagedCorDebug
             [In] int dwCreationFlags,
             [In] IntPtr lpEnvironment,
             [MarshalAs(UnmanagedType.LPWStr), In] string lpCurrentDirectory,
-            [In] long lpStartupInfo,
-            [In] long lpProcessInformation,
+            [In] ref STARTUPINFO lpStartupInfo,
+            [In] ref PROCESS_INFORMATION lpProcessInformation,
             [In] CorDebugCreateProcessFlags debuggingFlags,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
             ICorDebugProcess ppProcess;
-            HRESULT hr = Raw.CreateProcessEx(pRemoteTarget, lpApplicationName, lpCommandLine, ref lpProcessAttributes, ref lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation, debuggingFlags, out ppProcess);
+            HRESULT hr = Raw.CreateProcessEx(pRemoteTarget, lpApplicationName, lpCommandLine, ref lpProcessAttributes, ref lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, ref lpStartupInfo, ref lpProcessInformation, debuggingFlags, out ppProcess);
 
             if (hr == HRESULT.S_OK)
                 ppProcessResult = new CorDebugProcess(ppProcess);

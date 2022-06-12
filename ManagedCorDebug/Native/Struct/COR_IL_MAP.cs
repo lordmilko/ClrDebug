@@ -17,12 +17,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// The old Microsoft intermediate language (MSIL) offset relative to the beginning of the function.
         /// </summary>
-        public uint oldOffset;
+        public int oldOffset;
 
         /// <summary>
         /// The new MSIL offset relative to the beginning of the function.
         /// </summary>
-        public uint newOffset;
+        public int newOffset;
 
         /// <summary>
         /// true if the mapping is known to be accurate; otherwise, false.

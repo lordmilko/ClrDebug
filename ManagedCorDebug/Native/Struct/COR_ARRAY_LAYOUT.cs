@@ -26,31 +26,31 @@ namespace ManagedCorDebug
         /// <summary>
         /// The offset to the first element in the array.
         /// </summary>
-        public uint firstElementOffset;
+        public int firstElementOffset;
 
         /// <summary>
         /// The size of each element.
         /// </summary>
-        public uint elementSize;
+        public int elementSize;
 
         /// <summary>
         /// The offset to the number of elements in the array.
         /// </summary>
-        public uint countOffset;
+        public int countOffset;
 
         /// <summary>
         /// The size of the rank, in bytes.
         /// </summary>
-        public uint rankSize;
+        public int rankSize;
 
         /// <summary>
         /// The number of ranks in the array.
         /// </summary>
-        public uint numRanks;
+        public int numRanks;
 
         /// <summary>
         /// The offset at which the ranks start.
         /// </summary>
-        public uint rankOffset;
+        public int rankOffset;
     }
 }

@@ -11,11 +11,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// The offset of the beginning of the range.
         /// </summary>
-        public uint startOffset;
+        public int startOffset;
 
         /// <summary>
         /// The offset of the end of the range.
         /// </summary>
-        public uint endOffset;
+        public int endOffset;
     }
 }

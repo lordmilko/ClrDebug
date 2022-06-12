@@ -23,6 +23,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumMemoryRegion([In] long address, [In] int size);
+        HRESULT EnumMemoryRegion([In] CLRDATA_ADDRESS address, [In] int size);
     }
 }

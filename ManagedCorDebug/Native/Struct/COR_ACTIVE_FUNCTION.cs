@@ -26,11 +26,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// The Microsoft intermediate language (MSIL) offset of the frame.
         /// </summary>
-        public uint ilOffset;
+        public int ilOffset;
 
         /// <summary>
         /// Reserved for future extensibility.
         /// </summary>
-        public uint flags;
+        public int flags;
     }
 }

@@ -53,8 +53,8 @@ namespace ManagedCorDebug
             [In] int dwCreationFlags,
             [In] IntPtr lpEnvironment,
             [MarshalAs(UnmanagedType.LPWStr), In] string lpCurrentDirectory,
-            [In] long lpStartupInfo,
-            [In] long lpProcessInformation,
+            [In] ref STARTUPINFO lpStartupInfo,
+            [In] ref PROCESS_INFORMATION lpProcessInformation,
             [In] CorDebugCreateProcessFlags debuggingFlags,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 

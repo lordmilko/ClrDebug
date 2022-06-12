@@ -627,7 +627,7 @@ namespace ManagedCorDebug
         /// The FindExportedTypeByName method uses the standard rules employed by the common language runtime for resolving
         /// references.
         /// </remarks>
-        public mdExportedType FindExportedTypeByName(string szName, int mdtExportedType)
+        public mdExportedType FindExportedTypeByName(string szName, mdToken mdtExportedType)
         {
             HRESULT hr;
             mdExportedType mdExportedType;
@@ -648,11 +648,11 @@ namespace ManagedCorDebug
         /// The FindExportedTypeByName method uses the standard rules employed by the common language runtime for resolving
         /// references.
         /// </remarks>
-        public HRESULT TryFindExportedTypeByName(string szName, int mdtExportedType, out mdExportedType mdExportedType)
+        public HRESULT TryFindExportedTypeByName(string szName, mdToken mdtExportedType, out mdExportedType mdExportedType)
         {
             /*HRESULT FindExportedTypeByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
-            [In] int mdtExportedType,
+            [In] mdToken mdtExportedType,
             [Out] out mdExportedType mdExportedType);*/
             return Raw.FindExportedTypeByName(szName, mdtExportedType, out mdExportedType);
         }

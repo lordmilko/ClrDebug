@@ -624,7 +624,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ccwPointer">[in] A COM callable wrapper (CCW) pointer.</param>
         /// <returns>[out] A pointer to the address of an "ICorDebugValue" object that represents the managed object that corresponds to the given CCW pointer.</returns>
-        public CorDebugValue GetObjectForCCW(long ccwPointer)
+        public CorDebugValue GetObjectForCCW(CORDB_ADDRESS ccwPointer)
         {
             HRESULT hr;
             CorDebugValue ppManagedObjectResult;
@@ -640,9 +640,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ccwPointer">[in] A COM callable wrapper (CCW) pointer.</param>
         /// <param name="ppManagedObjectResult">[out] A pointer to the address of an "ICorDebugValue" object that represents the managed object that corresponds to the given CCW pointer.</param>
-        public HRESULT TryGetObjectForCCW(long ccwPointer, out CorDebugValue ppManagedObjectResult)
+        public HRESULT TryGetObjectForCCW(CORDB_ADDRESS ccwPointer, out CorDebugValue ppManagedObjectResult)
         {
-            /*HRESULT GetObjectForCCW([In] long ccwPointer,
+            /*HRESULT GetObjectForCCW([In] CORDB_ADDRESS ccwPointer,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppManagedObject);*/
             ICorDebugValue ppManagedObject;
             HRESULT hr = Raw4.GetObjectForCCW(ccwPointer, out ppManagedObject);

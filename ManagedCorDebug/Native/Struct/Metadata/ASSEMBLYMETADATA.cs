@@ -38,13 +38,13 @@ namespace ManagedCorDebug
         /// <summary>
         /// The size in wide characters of szLocale.
         /// </summary>
-        public uint cbLocale;        // [IN/OUT] Size of the deployablesBuffer in wide chars/Actual size.
+        public int cbLocale;        // [IN/OUT] Size of the deployablesBuffer in wide chars/Actual size.
         public IntPtr rProcessor;        // Processor ID array.
 
         /// <summary>
         /// The length of the rdwProcessor array.
         /// </summary>
-        public uint ulProcessor;         // [IN/OUT] Size of the Processor ID array/Actual # of entries filled in.
+        public int ulProcessor;         // [IN/OUT] Size of the Processor ID array/Actual # of entries filled in.
 
         /// <summary>
         /// An array of <see cref="OSINFO"/> instances specifying the operating systems that are supported by the referenced assembly.<para/>
@@ -55,6 +55,6 @@ namespace ManagedCorDebug
         /// <summary>
         /// The length of the rOS array.
         /// </summary>
-        public uint ulOS;            // [IN/OUT]Size of the OSINFO array/Actual # of entries filled in.
+        public int ulOS;            // [IN/OUT]Size of the OSINFO array/Actual # of entries filled in.
     }
 }

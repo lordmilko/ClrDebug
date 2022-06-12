@@ -77,7 +77,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetObject([In] long addr, [MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectValue pObject);
+        HRESULT GetObject([In] CORDB_ADDRESS addr, [MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectValue pObject);
 
         /// <summary>
         /// Gets an enumerator for all objects that are to be garbage-collected in a process.
@@ -118,7 +118,7 @@ namespace ManagedCorDebug
         /// <param name="pId">A pointer to the <see cref="COR_TYPEID"/> value that identifies the object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetTypeID([In] long obj, out COR_TYPEID pId);
+        HRESULT GetTypeID([In] CORDB_ADDRESS obj, out COR_TYPEID pId);
 
         /// <summary>
         /// Converts a type identifier to an <see cref="ICorDebugType"/> value.

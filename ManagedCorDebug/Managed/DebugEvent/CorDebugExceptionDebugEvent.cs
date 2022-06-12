@@ -24,12 +24,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the stack pointer for this exception debug event.
         /// </summary>
-        public long StackPointer
+        public CORDB_ADDRESS StackPointer
         {
             get
             {
                 HRESULT hr;
-                long pStackPointer;
+                CORDB_ADDRESS pStackPointer;
 
                 if ((hr = TryGetStackPointer(out pStackPointer)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -46,9 +46,9 @@ namespace ManagedCorDebug
         /// The meaning of this stack pointer depends on the event type, as shown in the following table. The event type is
         /// available from the <see cref="CorDebugDebugEvent.EventKind"/> property.
         /// </remarks>
-        public HRESULT TryGetStackPointer(out long pStackPointer)
+        public HRESULT TryGetStackPointer(out CORDB_ADDRESS pStackPointer)
         {
-            /*HRESULT GetStackPointer(out long pStackPointer);*/
+            /*HRESULT GetStackPointer(out CORDB_ADDRESS pStackPointer);*/
             return Raw.GetStackPointer(out pStackPointer);
         }
 
@@ -58,12 +58,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the native instruction pointer for this exception debug event.
         /// </summary>
-        public long NativeIP
+        public CORDB_ADDRESS NativeIP
         {
             get
             {
                 HRESULT hr;
-                long pIP;
+                CORDB_ADDRESS pIP;
 
                 if ((hr = TryGetNativeIP(out pIP)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -80,9 +80,9 @@ namespace ManagedCorDebug
         /// The meaning of this instruction pointer depends on the event type, as shown in the following table. The event type
         /// is available from the <see cref="CorDebugDebugEvent.EventKind"/> property.
         /// </remarks>
-        public HRESULT TryGetNativeIP(out long pIP)
+        public HRESULT TryGetNativeIP(out CORDB_ADDRESS pIP)
         {
-            /*HRESULT GetNativeIP(out long pIP);*/
+            /*HRESULT GetNativeIP(out CORDB_ADDRESS pIP);*/
             return Raw.GetNativeIP(out pIP);
         }
 

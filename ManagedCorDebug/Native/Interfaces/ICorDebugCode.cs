@@ -41,7 +41,7 @@ namespace ManagedCorDebug
         /// <param name="pStart">[out] A pointer to the RVA of the code segment.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAddress(out long pStart);
+        HRESULT GetAddress(out CORDB_ADDRESS pStart);
 
         /// <summary>
         /// Gets the size, in bytes, of the binary code represented by this "ICorDebugCode".

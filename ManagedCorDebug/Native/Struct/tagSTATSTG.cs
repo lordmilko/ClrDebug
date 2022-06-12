@@ -7,15 +7,15 @@ namespace ManagedCorDebug
     public struct tagSTATSTG
     {
         [MarshalAs(UnmanagedType.LPWStr)] public string pwcsName;
-        public uint type;
+        public int type;
         public ULARGE_INTEGER cbSize;
         public FILETIME mtime;
         public FILETIME ctime;
         public FILETIME atime;
-        public uint grfMode;
-        public uint grfLocksSupported;
+        public int grfMode;
+        public int grfLocksSupported;
         public Guid clsid;
-        public uint grfStateBits;
-        public uint reserved;
+        public int grfStateBits;
+        public int reserved;
     }
 }

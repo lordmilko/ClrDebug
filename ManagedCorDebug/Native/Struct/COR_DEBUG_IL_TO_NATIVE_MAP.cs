@@ -11,16 +11,16 @@ namespace ManagedCorDebug
         /// <summary>
         /// The offset of the MSIL code.
         /// </summary>
-        public uint ilOffset;
+        public int ilOffset;
 
         /// <summary>
         /// The offset of the start of the native code.
         /// </summary>
-        public uint nativeStartOffset;
+        public int nativeStartOffset;
 
         /// <summary>
         /// The offset of the end of the native code.
         /// </summary>
-        public uint nativeEndOffset;
+        public int nativeEndOffset;
     }
 }

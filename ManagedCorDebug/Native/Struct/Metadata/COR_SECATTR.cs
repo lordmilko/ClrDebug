@@ -6,6 +6,6 @@ namespace ManagedCorDebug
     {
         public mdMemberRef tkCtor;
         public IntPtr pCustomAttribute;
-        public uint cbCustomAttribute;
+        public int cbCustomAttribute;
     }
 }

@@ -17,6 +17,6 @@
         /// <summary>
         /// The field's offset within its class.
         /// </summary>
-        public uint ulOffset;
+        public int ulOffset;
     }
 }

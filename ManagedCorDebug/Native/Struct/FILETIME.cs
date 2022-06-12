@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct FILETIME
     {
-        public uint dwLowDateTime;
-        public uint dwHighDateTime;
+        public int dwLowDateTime;
+        public int dwHighDateTime;
     }
 }

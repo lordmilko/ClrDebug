@@ -22,7 +22,7 @@ namespace ManagedCorDebug
         /// <param name="pAddress">[out] A pointer to the base address of the loaded module.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetBaseAddress(out long pAddress);
+        HRESULT GetBaseAddress(out CORDB_ADDRESS pAddress);
 
         /// <summary>
         /// Gets the name of the loaded module.

@@ -22,12 +22,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// The size, in bytes, of pointers on the target architecture.
         /// </summary>
-        public uint pointerSize;
+        public int pointerSize;
 
         /// <summary>
         /// The number of logical garbage collection heaps in the process.
         /// </summary>
-        public uint numHeaps;
+        public int numHeaps;
 
         /// <summary>
         /// TRUE if concurrent (background) garbage collection is enabled; otherwise, FALSE.

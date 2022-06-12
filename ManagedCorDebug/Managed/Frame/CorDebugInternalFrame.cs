@@ -57,12 +57,12 @@ namespace ManagedCorDebug
 
         #region GetAddress
 
-        public long Address
+        public CORDB_ADDRESS Address
         {
             get
             {
                 HRESULT hr;
-                long pAddress;
+                CORDB_ADDRESS pAddress;
 
                 if ((hr = TryGetAddress(out pAddress)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -71,9 +71,9 @@ namespace ManagedCorDebug
             }
         }
 
-        public HRESULT TryGetAddress(out long pAddress)
+        public HRESULT TryGetAddress(out CORDB_ADDRESS pAddress)
         {
-            /*HRESULT GetAddress(out long pAddress);*/
+            /*HRESULT GetAddress(out CORDB_ADDRESS pAddress);*/
             return Raw2.GetAddress(out pAddress);
         }
 

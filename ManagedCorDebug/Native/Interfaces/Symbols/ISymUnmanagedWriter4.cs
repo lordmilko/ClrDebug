@@ -314,7 +314,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetDebugInfo([In, Out]
-            ref long pIDD, [In] int cData, out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);
+            IntPtr pIDD, [In] int cData, out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);
 
         /// <summary>
         /// Defines a group of sequence points within the current method. Each starting line and starting column define the start of a statement within a method.<para/>
@@ -485,7 +485,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetDebugInfoWithPadding(
-            [In, Out] ref long pIDD,
+            [In, Out] IntPtr pIDD,
             [In] int cData,
             out int pcData,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);

@@ -53,7 +53,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ReadVirtual(
-            [In] long address,
+            [In] CORDB_ADDRESS address,
             out byte pBuffer,
             [In] int bytesRequested,
             out int pBytesRead);
@@ -91,7 +91,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT WriteVirtual([In] long address, [In] IntPtr pBuffer, [In] int bytesRequested);
+        HRESULT WriteVirtual([In] CORDB_ADDRESS address, [In] IntPtr pBuffer, [In] int bytesRequested);
 
         /// <summary>
         /// Sets the context (register values) for a thread.

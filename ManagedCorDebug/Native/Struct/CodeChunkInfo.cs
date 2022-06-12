@@ -14,11 +14,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// A <see cref="CORDB_ADDRESS"/> value that specifies the starting address of the chunk.
         /// </summary>
-        public ulong startAddr;
+        public CORDB_ADDRESS startAddr;
 
         /// <summary>
         /// The size, in bytes, of the chunk.
         /// </summary>
-        public uint length;
+        public int length;
     }
 }

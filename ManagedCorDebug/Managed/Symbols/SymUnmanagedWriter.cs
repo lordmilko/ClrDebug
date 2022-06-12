@@ -732,11 +732,11 @@ namespace ManagedCorDebug
         public HRESULT TryGetDebugInfo(int cData, out GetDebugInfoResult result)
         {
             /*HRESULT GetDebugInfo([In, Out]
-            ref long pIDD, [In] int cData, out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
-            long pIDD = default(long);
+            IntPtr pIDD, [In] int cData, out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
+            IntPtr pIDD = default(IntPtr);
             int pcData;
             byte[] data = null;
-            HRESULT hr = Raw.GetDebugInfo(ref pIDD, cData, out pcData, data);
+            HRESULT hr = Raw.GetDebugInfo(pIDD, cData, out pcData, data);
 
             if (hr == HRESULT.S_OK)
                 result = new GetDebugInfoResult(pIDD, pcData, data);
@@ -1156,14 +1156,14 @@ namespace ManagedCorDebug
         public HRESULT TryGetDebugInfoWithPadding(int cData, out GetDebugInfoWithPaddingResult result)
         {
             /*HRESULT GetDebugInfoWithPadding(
-            [In, Out] ref long pIDD,
+            [In, Out] IntPtr pIDD,
             [In] int cData,
             out int pcData,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
-            long pIDD = default(long);
+            IntPtr pIDD = default(IntPtr);
             int pcData;
             byte[] data = null;
-            HRESULT hr = Raw4.GetDebugInfoWithPadding(ref pIDD, cData, out pcData, data);
+            HRESULT hr = Raw4.GetDebugInfoWithPadding(pIDD, cData, out pcData, data);
 
             if (hr == HRESULT.S_OK)
                 result = new GetDebugInfoWithPaddingResult(pIDD, pcData, data);

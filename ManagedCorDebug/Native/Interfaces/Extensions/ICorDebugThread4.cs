@@ -15,9 +15,29 @@ namespace ManagedCorDebug
     [ComImport]
     public interface ICorDebugThread4
     {
+        /// <summary>
+        /// Indicates whether the thread has ever had an unhandled exception.
+        /// </summary>
+        /// <returns>
+        /// This method returns the following specific HRESULTs as well as <see cref="HRESULT"/> errors that indicate method failure.
+        /// 
+        /// | HRESULT | Description                                                   |
+        /// | ------- | ------------------------------------------------------------- |
+        /// | S_OK    | The thread has had an unhandled exception since its creation. |
+        /// | S_FALSE | The thread has never had an unhandled exception.              |
+        /// </returns>
+        /// <remarks>
+        /// This method indicates whether the thread has ever had an unhandled exception. By the time the unhandled exception
+        /// callback is triggered or native JIT-attach is initiated, this method is guaranteed to return S_OK. There is no
+        /// guarantee that the <see cref="ICorDebugThread.GetCurrentException"/> method will return the unhandled exception; however, it
+        /// will if the process has not yet been continued after getting the unhandled exception callback or upon native JIT-attach.
+        /// Furthermore, it is possible (although unlikely) to have more than one thread with an unhandled exception at the
+        /// time native JIT-attach is triggered. In such a case there is no way to determine which exception triggered the
+        /// JIT-attach.
+        /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT HasUnhandledException();
+        HRESULT HadUnhandledException();
 
         /// <summary>
         /// Provides an ordered enumeration of <see cref="CorDebugBlockingObject"/> structures that provide thread blocking information.

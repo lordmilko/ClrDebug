@@ -54,6 +54,6 @@ namespace ManagedCorDebug
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetRegisters([In] int maskCount, [In] byte[] mask, [In] int regCount, [In] ref long regBuffer);
+        HRESULT SetRegisters([In] int maskCount, [In] byte[] mask, [In] int regCount, [In] CORDB_REGISTER[] regBuffer);
     }
 }

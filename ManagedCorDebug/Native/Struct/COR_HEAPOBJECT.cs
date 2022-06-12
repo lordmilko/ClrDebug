@@ -24,12 +24,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// The address of the object in memory.
         /// </summary>
-        public ulong address;
+        public CORDB_ADDRESS address;
 
         /// <summary>
         /// The total size of the object, in bytes.
         /// </summary>
-        public ulong size;
+        public long size;
 
         /// <summary>
         /// A <see cref="COR_TYPEID"/> token that represents the type of the object.

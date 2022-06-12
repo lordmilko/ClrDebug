@@ -44,7 +44,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetStackPointer(out long pStackPointer);
+        HRESULT GetStackPointer(out CORDB_ADDRESS pStackPointer);
 
         /// <summary>
         /// Gets the native instruction pointer for this exception debug event.
@@ -56,7 +56,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetNativeIP(out long pIP);
+        HRESULT GetNativeIP(out CORDB_ADDRESS pIP);
 
         /// <summary>
         /// Gets a flag that indicates whether the exception can be intercepted.

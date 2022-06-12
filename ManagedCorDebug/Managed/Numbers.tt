@@ -13,7 +13,8 @@ namespace ManagedCorDebug
 var types = new[]
 {
     Tuple.Create("CORDB_ADDRESS", "long"),
-	Tuple.Create("CORDB_REGISTER", "long")
+	Tuple.Create("CORDB_REGISTER", "long"),
+	Tuple.Create("CLRDATA_ADDRESS", "long") //https://github.com/dotnet/runtime/blob/main/src/coreclr/debug/daccess/dacimpl.h
 };
 
 for(int i = 0; i < types.Length; i++)

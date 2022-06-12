@@ -14,36 +14,36 @@ namespace ManagedCorDebug
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct CorDebugEHClause
     {
-        public uint flags;
+        public int flags;
 
         /// <summary>
         /// The offset, in bytes, of the try block from the start of the method body.
         /// </summary>
-        public uint TryOffset;
+        public int TryOffset;
 
         /// <summary>
         /// The length, in bytes, of the try block.
         /// </summary>
-        public uint TryLength;
+        public int TryLength;
 
         /// <summary>
         /// The location of the handler for this try block.
         /// </summary>
-        public uint HandlerOffset;
+        public int HandlerOffset;
 
         /// <summary>
         /// The size of the handler code in bytes.
         /// </summary>
-        public uint HandlerLength;
+        public int HandlerLength;
 
         /// <summary>
         /// The metadata token for a type-based exception handler.
         /// </summary>
-        public uint ClassToken;
+        public int ClassToken;
 
         /// <summary>
         /// The offset, in bytes, from the start of the method body for a filter-based exception handler.
         /// </summary>
-        public uint FilterOffset;
+        public int FilterOffset;
     }
 }

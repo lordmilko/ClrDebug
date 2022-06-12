@@ -38,7 +38,7 @@ namespace ManagedCorDebug
         /// If any bytes cannot be written, the method call fails without changing any bytes in the target address space. (Otherwise,
         /// the target would be in an inconsistent state that makes further debugging unreliable.)
         /// </remarks>
-        public void WriteVirtual(long address, IntPtr pBuffer, int bytesRequested)
+        public void WriteVirtual(CORDB_ADDRESS address, IntPtr pBuffer, int bytesRequested)
         {
             HRESULT hr;
 
@@ -57,9 +57,9 @@ namespace ManagedCorDebug
         /// If any bytes cannot be written, the method call fails without changing any bytes in the target address space. (Otherwise,
         /// the target would be in an inconsistent state that makes further debugging unreliable.)
         /// </remarks>
-        public HRESULT TryWriteVirtual(long address, IntPtr pBuffer, int bytesRequested)
+        public HRESULT TryWriteVirtual(CORDB_ADDRESS address, IntPtr pBuffer, int bytesRequested)
         {
-            /*HRESULT WriteVirtual([In] long address, [In] IntPtr pBuffer, [In] int bytesRequested);*/
+            /*HRESULT WriteVirtual([In] CORDB_ADDRESS address, [In] IntPtr pBuffer, [In] int bytesRequested);*/
             return Raw.WriteVirtual(address, pBuffer, bytesRequested);
         }
 

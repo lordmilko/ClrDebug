@@ -1185,7 +1185,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// If addr does not point to a valid managed object, the GetObject method returns E_FAIL.
         /// </remarks>
-        public CorDebugObjectValue GetObject(long addr)
+        public CorDebugObjectValue GetObject(CORDB_ADDRESS addr)
         {
             HRESULT hr;
             CorDebugObjectValue pObjectResult;
@@ -1204,9 +1204,9 @@ namespace ManagedCorDebug
         /// <remarks>
         /// If addr does not point to a valid managed object, the GetObject method returns E_FAIL.
         /// </remarks>
-        public HRESULT TryGetObject(long addr, out CorDebugObjectValue pObjectResult)
+        public HRESULT TryGetObject(CORDB_ADDRESS addr, out CorDebugObjectValue pObjectResult)
         {
-            /*HRESULT GetObject([In] long addr, [MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectValue pObject);*/
+            /*HRESULT GetObject([In] CORDB_ADDRESS addr, [MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectValue pObject);*/
             ICorDebugObjectValue pObject;
             HRESULT hr = Raw5.GetObject(addr, out pObject);
 
@@ -1328,7 +1328,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="obj">[in] The object address.</param>
         /// <returns>A pointer to the <see cref="COR_TYPEID"/> value that identifies the object.</returns>
-        public COR_TYPEID GetTypeID(long obj)
+        public COR_TYPEID GetTypeID(CORDB_ADDRESS obj)
         {
             HRESULT hr;
             COR_TYPEID pId;
@@ -1344,9 +1344,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="obj">[in] The object address.</param>
         /// <param name="pId">A pointer to the <see cref="COR_TYPEID"/> value that identifies the object.</param>
-        public HRESULT TryGetTypeID(long obj, out COR_TYPEID pId)
+        public HRESULT TryGetTypeID(CORDB_ADDRESS obj, out COR_TYPEID pId)
         {
-            /*HRESULT GetTypeID([In] long obj, out COR_TYPEID pId);*/
+            /*HRESULT GetTypeID([In] CORDB_ADDRESS obj, out COR_TYPEID pId);*/
             return Raw5.GetTypeID(obj, out pId);
         }
 

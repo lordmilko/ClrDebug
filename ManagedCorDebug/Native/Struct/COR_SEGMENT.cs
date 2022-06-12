@@ -19,17 +19,17 @@ namespace ManagedCorDebug
         /// <summary>
         /// The starting address of the memory region.
         /// </summary>
-        public ulong start;
+        public CORDB_ADDRESS start;
 
         /// <summary>
         /// The ending address of the memory region.
         /// </summary>
-        public ulong end;
+        public CORDB_ADDRESS end;
         public CorDebugGenerationTypes type;
 
         /// <summary>
         /// The heap number in which the memory region resides. See the Remarks section for more information.
         /// </summary>
-        public uint heap;
+        public int heap;
     }
 }

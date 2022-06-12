@@ -124,10 +124,10 @@ namespace ManagedCorDebug
         /// The image file name may or may not have a path. If a path is specified, matching is done on the whole path; otherwise,
         /// matching is done only on the file name.
         /// </remarks>
-        public long GetImageBase(string imagePath)
+        public CLRDATA_ADDRESS GetImageBase(string imagePath)
         {
             HRESULT hr;
-            long baseAddress;
+            CLRDATA_ADDRESS baseAddress;
 
             if ((hr = TryGetImageBase(imagePath, out baseAddress)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -144,9 +144,9 @@ namespace ManagedCorDebug
         /// The image file name may or may not have a path. If a path is specified, matching is done on the whole path; otherwise,
         /// matching is done only on the file name.
         /// </remarks>
-        public HRESULT TryGetImageBase(string imagePath, out long baseAddress)
+        public HRESULT TryGetImageBase(string imagePath, out CLRDATA_ADDRESS baseAddress)
         {
-            /*HRESULT GetImageBase([MarshalAs(UnmanagedType.LPWStr), In] string imagePath, out long baseAddress);*/
+            /*HRESULT GetImageBase([MarshalAs(UnmanagedType.LPWStr), In] string imagePath, out CLRDATA_ADDRESS baseAddress);*/
             return Raw.GetImageBase(imagePath, out baseAddress);
         }
 
@@ -159,7 +159,7 @@ namespace ManagedCorDebug
         /// <param name="address">[in] A CLRDATA_ADDRESS that stores the virtual memory address.</param>
         /// <param name="bytesRequested">[in] The length of the buffer.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public ReadVirtualResult ReadVirtual(long address, int bytesRequested)
+        public ReadVirtualResult ReadVirtual(CLRDATA_ADDRESS address, int bytesRequested)
         {
             HRESULT hr;
             ReadVirtualResult result;
@@ -176,9 +176,9 @@ namespace ManagedCorDebug
         /// <param name="address">[in] A CLRDATA_ADDRESS that stores the virtual memory address.</param>
         /// <param name="bytesRequested">[in] The length of the buffer.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryReadVirtual(long address, int bytesRequested, out ReadVirtualResult result)
+        public HRESULT TryReadVirtual(CLRDATA_ADDRESS address, int bytesRequested, out ReadVirtualResult result)
         {
-            /*HRESULT ReadVirtual([In] long address, out byte buffer, [In] int bytesRequested, out int bytesRead);*/
+            /*HRESULT ReadVirtual([In] CLRDATA_ADDRESS address, out byte buffer, [In] int bytesRequested, out int bytesRead);*/
             byte buffer;
             int bytesRead;
             HRESULT hr = Raw.ReadVirtual(address, out buffer, bytesRequested, out bytesRead);
@@ -201,7 +201,7 @@ namespace ManagedCorDebug
         /// <param name="buffer">[in] A pointer to a buffer that stores the data to be written.</param>
         /// <param name="bytesRequested">[in] The number of bytes to be written.</param>
         /// <returns>[out] A pointer to the actual number of bytes that were written.</returns>
-        public int WriteVirtual(long address, IntPtr buffer, int bytesRequested)
+        public int WriteVirtual(CLRDATA_ADDRESS address, IntPtr buffer, int bytesRequested)
         {
             HRESULT hr;
             int bytesWritten;
@@ -219,9 +219,9 @@ namespace ManagedCorDebug
         /// <param name="buffer">[in] A pointer to a buffer that stores the data to be written.</param>
         /// <param name="bytesRequested">[in] The number of bytes to be written.</param>
         /// <param name="bytesWritten">[out] A pointer to the actual number of bytes that were written.</param>
-        public HRESULT TryWriteVirtual(long address, IntPtr buffer, int bytesRequested, out int bytesWritten)
+        public HRESULT TryWriteVirtual(CLRDATA_ADDRESS address, IntPtr buffer, int bytesRequested, out int bytesWritten)
         {
-            /*HRESULT WriteVirtual([In] long address, [In] IntPtr buffer, [In] int bytesRequested, out int bytesWritten);*/
+            /*HRESULT WriteVirtual([In] CLRDATA_ADDRESS address, [In] IntPtr buffer, [In] int bytesRequested, out int bytesWritten);*/
             return Raw.WriteVirtual(address, buffer, bytesRequested, out bytesWritten);
         }
 
@@ -237,10 +237,10 @@ namespace ManagedCorDebug
         /// <remarks>
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
-        public long GetTLSValue(int threadID, int index)
+        public CLRDATA_ADDRESS GetTLSValue(int threadID, int index)
         {
             HRESULT hr;
-            long value;
+            CLRDATA_ADDRESS value;
 
             if ((hr = TryGetTLSValue(threadID, index, out value)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -257,9 +257,9 @@ namespace ManagedCorDebug
         /// <remarks>
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
-        public HRESULT TryGetTLSValue(int threadID, int index, out long value)
+        public HRESULT TryGetTLSValue(int threadID, int index, out CLRDATA_ADDRESS value)
         {
-            /*HRESULT GetTLSValue([In] int threadID, [In] int index, out long value);*/
+            /*HRESULT GetTLSValue([In] int threadID, [In] int index, out CLRDATA_ADDRESS value);*/
             return Raw.GetTLSValue(threadID, index, out value);
         }
 
@@ -275,7 +275,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
-        public void SetTLSValue(int threadID, int index, long value)
+        public void SetTLSValue(int threadID, int index, CLRDATA_ADDRESS value)
         {
             HRESULT hr;
 
@@ -292,9 +292,9 @@ namespace ManagedCorDebug
         /// <remarks>
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
-        public HRESULT TrySetTLSValue(int threadID, int index, long value)
+        public HRESULT TrySetTLSValue(int threadID, int index, CLRDATA_ADDRESS value)
         {
-            /*HRESULT SetTLSValue([In] int threadID, [In] int index, [In] long value);*/
+            /*HRESULT SetTLSValue([In] int threadID, [In] int index, [In] CLRDATA_ADDRESS value);*/
             return Raw.SetTLSValue(threadID, index, value);
         }
 
@@ -452,10 +452,10 @@ namespace ManagedCorDebug
         /// The AllocVirtual method serves as a logical wrapper for the Win32 VirtualAlloc function. This method is implemented
         /// by the writer of the debugging application.
         /// </remarks>
-        public long AllocVirtual(long addr, int size, int typeFlags, int protectFlags)
+        public CLRDATA_ADDRESS AllocVirtual(CLRDATA_ADDRESS addr, int size, int typeFlags, int protectFlags)
         {
             HRESULT hr;
-            long virt;
+            CLRDATA_ADDRESS virt;
 
             if ((hr = TryAllocVirtual(addr, size, typeFlags, protectFlags, out virt)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -475,9 +475,9 @@ namespace ManagedCorDebug
         /// The AllocVirtual method serves as a logical wrapper for the Win32 VirtualAlloc function. This method is implemented
         /// by the writer of the debugging application.
         /// </remarks>
-        public HRESULT TryAllocVirtual(long addr, int size, int typeFlags, int protectFlags, out long virt)
+        public HRESULT TryAllocVirtual(CLRDATA_ADDRESS addr, int size, int typeFlags, int protectFlags, out CLRDATA_ADDRESS virt)
         {
-            /*HRESULT AllocVirtual([In] long addr, [In] int size, [In] int typeFlags, [In] int protectFlags, out long virt);*/
+            /*HRESULT AllocVirtual([In] CLRDATA_ADDRESS addr, [In] int size, [In] int typeFlags, [In] int protectFlags, out CLRDATA_ADDRESS virt);*/
             return Raw2.AllocVirtual(addr, size, typeFlags, protectFlags, out virt);
         }
 
@@ -494,7 +494,7 @@ namespace ManagedCorDebug
         /// The FreeVirtual method serves as a logical wrapper for the Win32 VirtualFree function. This method is implemented
         /// by the writer of the debugging application.
         /// </remarks>
-        public void FreeVirtual(long addr, int size, int typeFlags)
+        public void FreeVirtual(CLRDATA_ADDRESS addr, int size, int typeFlags)
         {
             HRESULT hr;
 
@@ -512,9 +512,9 @@ namespace ManagedCorDebug
         /// The FreeVirtual method serves as a logical wrapper for the Win32 VirtualFree function. This method is implemented
         /// by the writer of the debugging application.
         /// </remarks>
-        public HRESULT TryFreeVirtual(long addr, int size, int typeFlags)
+        public HRESULT TryFreeVirtual(CLRDATA_ADDRESS addr, int size, int typeFlags)
         {
-            /*HRESULT FreeVirtual([In] long addr, [In] int size, [In] int typeFlags);*/
+            /*HRESULT FreeVirtual([In] CLRDATA_ADDRESS addr, [In] int size, [In] int typeFlags);*/
             return Raw2.FreeVirtual(addr, size, typeFlags);
         }
 

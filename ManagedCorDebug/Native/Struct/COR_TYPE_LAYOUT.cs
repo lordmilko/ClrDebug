@@ -22,21 +22,21 @@ namespace ManagedCorDebug
         /// <summary>
         /// The base size of an object of this type. This is the total size for non-variable sized objects.
         /// </summary>
-        public uint objectSize;
+        public int objectSize;
 
         /// <summary>
         /// The number of fields included in objects of this type.
         /// </summary>
-        public uint numFields;
+        public int numFields;
 
         /// <summary>
         /// If this type is boxed, the beginning offset of an object's fields. This field is valid only for value types such as primitives and structures.
         /// </summary>
-        public uint boxOffset;
+        public int boxOffset;
 
         /// <summary>
         /// The <see cref="CorElementType"/> to which this type belongs.
         /// </summary>
-        public uint type;
+        public CorElementType type;
     }
 }

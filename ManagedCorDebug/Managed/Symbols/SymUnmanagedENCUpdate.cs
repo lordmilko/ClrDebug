@@ -54,7 +54,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="mdMethodToken">[in] The metadata token of methods.</param>
         /// <returns>[out] A pointer to a ULONG32 that receives the size, in characters, of the buffer required to contain the number of local variables.</returns>
-        public int GetLocalVariableCount(int mdMethodToken)
+        public int GetLocalVariableCount(mdMethodDef mdMethodToken)
         {
             HRESULT hr;
             int pcLocals;
@@ -71,9 +71,9 @@ namespace ManagedCorDebug
         /// <param name="mdMethodToken">[in] The metadata token of methods.</param>
         /// <param name="pcLocals">[out] A pointer to a ULONG32 that receives the size, in characters, of the buffer required to contain the number of local variables.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetLocalVariableCount(int mdMethodToken, out int pcLocals)
+        public HRESULT TryGetLocalVariableCount(mdMethodDef mdMethodToken, out int pcLocals)
         {
-            /*HRESULT GetLocalVariableCount([In] int mdMethodToken, out int pcLocals);*/
+            /*HRESULT GetLocalVariableCount([In] mdMethodDef mdMethodToken, out int pcLocals);*/
             return Raw.GetLocalVariableCount(mdMethodToken, out pcLocals);
         }
 
@@ -86,7 +86,7 @@ namespace ManagedCorDebug
         /// <param name="mdMethodToken">[in] The metadata token of the method.</param>
         /// <param name="cLocals">[in] A ULONG that indicates the size of the rgLocals parameter.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetLocalVariablesResult GetLocalVariables(int mdMethodToken, int cLocals)
+        public GetLocalVariablesResult GetLocalVariables(mdMethodDef mdMethodToken, int cLocals)
         {
             HRESULT hr;
             GetLocalVariablesResult result;
@@ -104,10 +104,10 @@ namespace ManagedCorDebug
         /// <param name="cLocals">[in] A ULONG that indicates the size of the rgLocals parameter.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetLocalVariables(int mdMethodToken, int cLocals, out GetLocalVariablesResult result)
+        public HRESULT TryGetLocalVariables(mdMethodDef mdMethodToken, int cLocals, out GetLocalVariablesResult result)
         {
             /*HRESULT GetLocalVariables(
-            [In] int mdMethodToken,
+            [In] mdMethodDef mdMethodToken,
             [In] int cLocals,
             [Out] IntPtr rgLocals, //ISymUnmanagedVariable
             out int pceltFetched);*/
@@ -157,7 +157,7 @@ namespace ManagedCorDebug
         /// <param name="mdMethodToken">[in] The metadata of the method token.</param>
         /// <param name="pDeltas">[in] An array of INT32 values that indicates deltas for each sequence point in the method.</param>
         /// <param name="cDeltas">[in] A ULONG containing the size of the pDeltas parameter.</param>
-        public void UpdateMethodLines(int mdMethodToken, int pDeltas, int cDeltas)
+        public void UpdateMethodLines(mdMethodDef mdMethodToken, int pDeltas, int cDeltas)
         {
             HRESULT hr;
 
@@ -173,9 +173,9 @@ namespace ManagedCorDebug
         /// <param name="pDeltas">[in] An array of INT32 values that indicates deltas for each sequence point in the method.</param>
         /// <param name="cDeltas">[in] A ULONG containing the size of the pDeltas parameter.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryUpdateMethodLines(int mdMethodToken, int pDeltas, int cDeltas)
+        public HRESULT TryUpdateMethodLines(mdMethodDef mdMethodToken, int pDeltas, int cDeltas)
         {
-            /*HRESULT UpdateMethodLines([In] int mdMethodToken, [In] ref int pDeltas, [In] int cDeltas);*/
+            /*HRESULT UpdateMethodLines([In] mdMethodDef mdMethodToken, [In] ref int pDeltas, [In] int cDeltas);*/
             return Raw.UpdateMethodLines(mdMethodToken, ref pDeltas, cDeltas);
         }
 

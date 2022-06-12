@@ -72,4 +72,37 @@ namespace ManagedCorDebug
 
         public override string ToString() => "0x" + Value.ToString("X");
     }
+
+    [DebuggerDisplay("{ToString(),nq}")]
+    public struct CLRDATA_ADDRESS : IComparable, IEquatable<CLRDATA_ADDRESS>
+    {
+        public ulong Value { get; }
+
+        public CLRDATA_ADDRESS(ulong value)
+        {
+            Value = value;
+        }
+
+        public CLRDATA_ADDRESS(long value) : this((ulong) value)
+        {
+        }
+
+        public static implicit operator long(CLRDATA_ADDRESS value) => (long) value.Value;
+
+        public static implicit operator ulong(CLRDATA_ADDRESS value) => value.Value;
+
+        public static implicit operator CLRDATA_ADDRESS(long value) => new CLRDATA_ADDRESS(value);
+
+        public static implicit operator CLRDATA_ADDRESS(ulong value) => new CLRDATA_ADDRESS(value);
+
+        public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<CLRDATA_ADDRESS>(Value, value);
+
+        public bool Equals(CLRDATA_ADDRESS other) => other.Value.Equals(Value);
+
+        public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public override int GetHashCode() => Value.GetHashCode();
+
+        public override string ToString() => "0x" + Value.ToString("X");
+    }
 }

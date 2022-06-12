@@ -18,16 +18,16 @@ namespace ManagedCorDebug
         /// -   VER_PLATFORM_WIN32_WINDOWS, or 0x0001, to specify Windows 95, Windows 98, or operating systems descended from them.<para/>
         /// -   VER_PLATFORM_WIN32_NT, or 0x0002, to specify Windows NT or operating systems descended from it.
         /// </summary>
-        public uint dwOSPlatformId;     // Operating system platform.
+        public int dwOSPlatformId;     // Operating system platform.
 
         /// <summary>
         /// The operating system major version, or a NULL value to indicate any version.
         /// </summary>
-        public uint dwOSMajorVersion;   // OS Major version.
+        public int dwOSMajorVersion;   // OS Major version.
 
         /// <summary>
         /// The operating system minor version, or a NULL value to indicate any version.
         /// </summary>
-        public uint dwOSMinorVersion;   // OS Minor version.
+        public int dwOSMinorVersion;   // OS Minor version.
     }
 }

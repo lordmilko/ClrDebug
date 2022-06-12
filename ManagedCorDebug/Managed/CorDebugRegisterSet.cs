@@ -313,7 +313,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// SetRegisters is not implemented in the .NET Framework version 2.0. Do not call this method.
         /// </summary>
-        public void SetRegisters(int maskCount, byte[] mask, int regCount, long regBuffer)
+        public void SetRegisters(int maskCount, byte[] mask, int regCount, CORDB_REGISTER[] regBuffer)
         {
             HRESULT hr;
 
@@ -324,10 +324,10 @@ namespace ManagedCorDebug
         /// <summary>
         /// SetRegisters is not implemented in the .NET Framework version 2.0. Do not call this method.
         /// </summary>
-        public HRESULT TrySetRegisters(int maskCount, byte[] mask, int regCount, long regBuffer)
+        public HRESULT TrySetRegisters(int maskCount, byte[] mask, int regCount, CORDB_REGISTER[] regBuffer)
         {
-            /*HRESULT SetRegisters([In] int maskCount, [In] byte[] mask, [In] int regCount, [In] ref long regBuffer);*/
-            return Raw2.SetRegisters(maskCount, mask, regCount, ref regBuffer);
+            /*HRESULT SetRegisters([In] int maskCount, [In] byte[] mask, [In] int regCount, [In] CORDB_REGISTER[] regBuffer);*/
+            return Raw2.SetRegisters(maskCount, mask, regCount, regBuffer);
         }
 
         #endregion

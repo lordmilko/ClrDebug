@@ -22,11 +22,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// The first token.
         /// </summary>
-        public ulong token1;
+        public long token1;
 
         /// <summary>
         /// The second token.
         /// </summary>
-        public ulong token2;
+        public long token2;
     }
 }

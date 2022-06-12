@@ -23,12 +23,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the base address of the loaded module.
         /// </summary>
-        public long BaseAddress
+        public CORDB_ADDRESS BaseAddress
         {
             get
             {
                 HRESULT hr;
-                long pAddress;
+                CORDB_ADDRESS pAddress;
 
                 if ((hr = TryGetBaseAddress(out pAddress)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -41,9 +41,9 @@ namespace ManagedCorDebug
         /// Gets the base address of the loaded module.
         /// </summary>
         /// <param name="pAddress">[out] A pointer to the base address of the loaded module.</param>
-        public HRESULT TryGetBaseAddress(out long pAddress)
+        public HRESULT TryGetBaseAddress(out CORDB_ADDRESS pAddress)
         {
-            /*HRESULT GetBaseAddress(out long pAddress);*/
+            /*HRESULT GetBaseAddress(out CORDB_ADDRESS pAddress);*/
             return Raw.GetBaseAddress(out pAddress);
         }
 

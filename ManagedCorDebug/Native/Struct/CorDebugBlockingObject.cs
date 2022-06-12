@@ -19,7 +19,7 @@ namespace ManagedCorDebug
         /// The number of milliseconds before the blocking operation will time out, or the value INFINITE, which indicates that it will not time out.<para/>
         /// The time-out value specifies the total length of time for the blocking operation, not the time that is still remaining.
         /// </summary>
-        public uint dwTimeout;
+        public int dwTimeout;
 
         /// <summary>
         /// The reason that the thread is blocked on this object.

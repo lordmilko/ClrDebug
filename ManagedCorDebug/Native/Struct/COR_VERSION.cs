@@ -15,21 +15,21 @@ namespace ManagedCorDebug
         /// <summary>
         /// The major version number.
         /// </summary>
-        public uint dwMajor;
+        public int dwMajor;
 
         /// <summary>
         /// The minor version number.
         /// </summary>
-        public uint dwMinor;
+        public int dwMinor;
 
         /// <summary>
         /// The build number.
         /// </summary>
-        public uint dwBuild;
+        public int dwBuild;
 
         /// <summary>
         /// The sub-build number.
         /// </summary>
-        public uint dwSubBuild;
+        public int dwSubBuild;
     }
 }

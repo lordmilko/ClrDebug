@@ -5,6 +5,6 @@ namespace ManagedCorDebug
     [StructLayout(LayoutKind.Sequential, Pack = 8)]
     public struct ULARGE_INTEGER
     {
-        public ulong QuadPart;
+        public long QuadPart;
     }
 }

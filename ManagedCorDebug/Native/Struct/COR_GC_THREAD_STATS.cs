@@ -15,11 +15,11 @@ namespace ManagedCorDebug
         /// The number of bytes of memory allocated on the thread that is associated with the current <see cref="COR_GC_THREAD_STATS"/> instance.<para/>
         /// This number is cleared to zero each time a generation-zero garbage collection occurs.
         /// </summary>
-        public ulong PerThreadAllocation;
+        public long PerThreadAllocation;
 
         /// <summary>
         /// The number of bytes promoted to a higher generation at the most recent garbage collection.
         /// </summary>
-        public ulong Flags;
+        public long Flags;
     }
 }

@@ -94,12 +94,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the relative virtual address (RVA) of the code segment that this "ICorDebugCode" interface represents.
         /// </summary>
-        public long Address
+        public CORDB_ADDRESS Address
         {
             get
             {
                 HRESULT hr;
-                long pStart;
+                CORDB_ADDRESS pStart;
 
                 if ((hr = TryGetAddress(out pStart)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -112,9 +112,9 @@ namespace ManagedCorDebug
         /// Gets the relative virtual address (RVA) of the code segment that this "ICorDebugCode" interface represents.
         /// </summary>
         /// <param name="pStart">[out] A pointer to the RVA of the code segment.</param>
-        public HRESULT TryGetAddress(out long pStart)
+        public HRESULT TryGetAddress(out CORDB_ADDRESS pStart)
         {
-            /*HRESULT GetAddress(out long pStart);*/
+            /*HRESULT GetAddress(out CORDB_ADDRESS pStart);*/
             return Raw.GetAddress(out pStart);
         }
 

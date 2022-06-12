@@ -47,7 +47,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ReadVirtual([In] long address, out byte pBuffer, [In] int bytesRequested, out int pBytesRead);
+        HRESULT ReadVirtual([In] CORDB_ADDRESS address, out byte pBuffer, [In] int bytesRequested, out int pBytesRead);
 
         /// <summary>
         /// Returns the current thread context for the specified thread.

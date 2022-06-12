@@ -79,7 +79,7 @@ namespace ManagedCorDebug
         /// If the first byte (at the specified start address) can be read, the call should return success (to support efficient
         /// reading of data structures with self-describing length, like null-terminated strings).
         /// </remarks>
-        public CorDebugDataTarget_ReadVirtualResult ReadVirtual(long address, int bytesRequested)
+        public CorDebugDataTarget_ReadVirtualResult ReadVirtual(CORDB_ADDRESS address, int bytesRequested)
         {
             HRESULT hr;
             CorDebugDataTarget_ReadVirtualResult result;
@@ -100,9 +100,9 @@ namespace ManagedCorDebug
         /// If the first byte (at the specified start address) can be read, the call should return success (to support efficient
         /// reading of data structures with self-describing length, like null-terminated strings).
         /// </remarks>
-        public HRESULT TryReadVirtual(long address, int bytesRequested, out CorDebugDataTarget_ReadVirtualResult result)
+        public HRESULT TryReadVirtual(CORDB_ADDRESS address, int bytesRequested, out CorDebugDataTarget_ReadVirtualResult result)
         {
-            /*HRESULT ReadVirtual([In] long address, out byte pBuffer, [In] int bytesRequested, out int pBytesRead);*/
+            /*HRESULT ReadVirtual([In] CORDB_ADDRESS address, out byte pBuffer, [In] int bytesRequested, out int pBytesRead);*/
             byte pBuffer;
             int pBytesRead;
             HRESULT hr = Raw.ReadVirtual(address, out pBuffer, bytesRequested, out pBytesRead);

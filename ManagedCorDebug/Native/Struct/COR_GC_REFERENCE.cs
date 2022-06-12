@@ -20,6 +20,6 @@ namespace ManagedCorDebug
         /// A <see cref="CorGCReferenceType"/> enumeration value that indicates where the root came from. For more information, see the Remarks section.
         /// </summary>
         public CorGCReferenceType type;
-        public ulong ExtraData;
+        public long ExtraData;
     }
 }

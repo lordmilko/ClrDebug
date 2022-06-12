@@ -12,17 +12,17 @@
         /// <summary>
         /// The identifier for the signature algorithm (of type ALG_ID, as defined in WinCrypt.h) of the public key.
         /// </summary>
-        public uint SigAlgId;
+        public int SigAlgId;
 
         /// <summary>
         /// The identifier for the hash algorithm (of type ALG_ID, as defined in WinCrypt.h) of the public key.
         /// </summary>
-        public uint HashAlgId;
+        public int HashAlgId;
 
         /// <summary>
         /// The length of the key in bytes.
         /// </summary>
-        public uint cbPublicKey;
+        public int cbPublicKey;
 
         /// <summary>
         /// A variable-length byte array that contains the key value in the format returned by the CryptoAPI.

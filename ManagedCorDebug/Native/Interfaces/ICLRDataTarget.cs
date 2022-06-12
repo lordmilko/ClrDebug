@@ -46,7 +46,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetImageBase([MarshalAs(UnmanagedType.LPWStr), In] string imagePath, out long baseAddress);
+        HRESULT GetImageBase([MarshalAs(UnmanagedType.LPWStr), In] string imagePath, out CLRDATA_ADDRESS baseAddress);
 
         /// <summary>
         /// Reads data from the specified virtual memory address into the specified buffer.
@@ -57,7 +57,7 @@ namespace ManagedCorDebug
         /// <param name="bytesRead">[out] A pointer to the number of bytes returned.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ReadVirtual([In] long address, out byte buffer, [In] int bytesRequested, out int bytesRead);
+        HRESULT ReadVirtual([In] CLRDATA_ADDRESS address, out byte buffer, [In] int bytesRequested, out int bytesRead);
 
         /// <summary>
         /// Writes data from the specified buffer to the specified virtual memory address.
@@ -68,7 +68,7 @@ namespace ManagedCorDebug
         /// <param name="bytesWritten">[out] A pointer to the actual number of bytes that were written.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT WriteVirtual([In] long address, [In] IntPtr buffer, [In] int bytesRequested, out int bytesWritten);
+        HRESULT WriteVirtual([In] CLRDATA_ADDRESS address, [In] IntPtr buffer, [In] int bytesRequested, out int bytesWritten);
 
         /// <summary>
         /// Gets a value from the thread local storage (TLS) of the specified thread in the target process. This method is called by the common language runtime (CLR) data access services.
@@ -81,7 +81,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetTLSValue([In] int threadID, [In] int index, out long value);
+        HRESULT GetTLSValue([In] int threadID, [In] int index, out CLRDATA_ADDRESS value);
 
         /// <summary>
         /// Sets a value in the thread local storage (TLS) of the specified thread in the target process. This method is called by the common language runtime (CLR) data access services.
@@ -94,7 +94,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetTLSValue([In] int threadID, [In] int index, [In] long value);
+        HRESULT SetTLSValue([In] int threadID, [In] int index, [In] CLRDATA_ADDRESS value);
 
         /// <summary>
         /// Gets the operating system identifier for the current thread.

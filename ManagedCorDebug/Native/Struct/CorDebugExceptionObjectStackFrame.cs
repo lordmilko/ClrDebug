@@ -19,12 +19,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// The value of the instruction pointer (EIP/RIP) for the current frame.
         /// </summary>
-        public ulong ip;
+        public long ip;
 
         /// <summary>
         /// The method token for the current frame.
         /// </summary>
-        public uint methodDef;
+        public int methodDef;
 
         /// <summary>
         /// A value that indicates whether the frame is the last frame in a foreign exception.

@@ -168,7 +168,7 @@ namespace ManagedCorDebug
         /// SetILMap is obsolete. Do not call this method.
         /// </summary>
         [Obsolete]
-        public void SetILMap(int mdFunction, int cMapSize, COR_IL_MAP map)
+        public void SetILMap(mdToken mdFunction, int cMapSize, COR_IL_MAP map)
         {
             HRESULT hr;
 
@@ -180,9 +180,9 @@ namespace ManagedCorDebug
         /// SetILMap is obsolete. Do not call this method.
         /// </summary>
         [Obsolete]
-        public HRESULT TrySetILMap(int mdFunction, int cMapSize, COR_IL_MAP map)
+        public HRESULT TrySetILMap(mdToken mdFunction, int cMapSize, COR_IL_MAP map)
         {
-            /*HRESULT SetILMap([In] int mdFunction, [In] int cMapSize, [In] ref COR_IL_MAP map);*/
+            /*HRESULT SetILMap([In] mdToken mdFunction, [In] int cMapSize, [In] ref COR_IL_MAP map);*/
             return Raw.SetILMap(mdFunction, cMapSize, ref map);
         }
 
