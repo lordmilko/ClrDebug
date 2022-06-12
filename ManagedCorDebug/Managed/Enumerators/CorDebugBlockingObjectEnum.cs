@@ -13,6 +13,10 @@ namespace ManagedCorDebug
     {
         private ICorDebugBlockingObjectEnum rawEnumerator;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebugBlockingObjectEnum"/> class.
+        /// </summary>
+        /// <param name="rawEnumerator">The raw COM interface that should be contained in this object.</param>
         public CorDebugBlockingObjectEnum(ICorDebugBlockingObjectEnum rawEnumerator)
         {
             this.rawEnumerator = rawEnumerator;

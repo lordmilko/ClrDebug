@@ -15,6 +15,10 @@ namespace ManagedCorDebug
     {
         private ICorDebugExceptionObjectCallStackEnum rawEnumerator;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebugExceptionObjectCallStackEnum"/> class.
+        /// </summary>
+        /// <param name="rawEnumerator">The raw COM interface that should be contained in this object.</param>
         public CorDebugExceptionObjectCallStackEnum(ICorDebugExceptionObjectCallStackEnum rawEnumerator)
         {
             this.rawEnumerator = rawEnumerator;

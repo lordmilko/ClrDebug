@@ -15,6 +15,10 @@ namespace ManagedCorDebug
     /// </remarks>
     public class HostSecurityContext : ComObject<IHostSecurityContext>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HostSecurityContext"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public HostSecurityContext(IHostSecurityContext raw) : base(raw)
         {
         }

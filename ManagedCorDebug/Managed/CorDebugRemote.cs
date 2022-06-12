@@ -13,6 +13,10 @@ namespace ManagedCorDebug
     /// </remarks>
     public class CorDebugRemote : ComObject<ICorDebugRemote>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebugRemote"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CorDebugRemote(ICorDebugRemote raw) : base(raw)
         {
         }

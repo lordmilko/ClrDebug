@@ -13,6 +13,10 @@ namespace ManagedCorDebug
     /// </remarks>
     public class CLRDataTarget : ComObject<ICLRDataTarget>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CLRDataTarget"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CLRDataTarget(ICLRDataTarget raw) : base(raw)
         {
         }

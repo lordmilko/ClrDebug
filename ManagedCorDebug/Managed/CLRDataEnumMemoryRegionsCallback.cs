@@ -9,6 +9,10 @@ namespace ManagedCorDebug
     /// </summary>
     public class CLRDataEnumMemoryRegionsCallback : ComObject<ICLRDataEnumMemoryRegionsCallback>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CLRDataEnumMemoryRegionsCallback"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CLRDataEnumMemoryRegionsCallback(ICLRDataEnumMemoryRegionsCallback raw) : base(raw)
         {
         }

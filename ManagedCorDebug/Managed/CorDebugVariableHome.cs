@@ -8,6 +8,10 @@ namespace ManagedCorDebug
     /// </summary>
     public class CorDebugVariableHome : ComObject<ICorDebugVariableHome>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebugVariableHome"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CorDebugVariableHome(ICorDebugVariableHome raw) : base(raw)
         {
         }

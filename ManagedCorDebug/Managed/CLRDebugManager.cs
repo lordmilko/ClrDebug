@@ -15,6 +15,10 @@ namespace ManagedCorDebug
     /// </remarks>
     public class CLRDebugManager : ComObject<ICLRDebugManager>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CLRDebugManager"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CLRDebugManager(ICLRDebugManager raw) : base(raw)
         {
         }

@@ -9,6 +9,10 @@ namespace ManagedCorDebug
     /// </summary>
     public class CorDebugEditAndContinueSnapshot : ComObject<ICorDebugEditAndContinueSnapshot>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebugEditAndContinueSnapshot"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CorDebugEditAndContinueSnapshot(ICorDebugEditAndContinueSnapshot raw) : base(raw)
         {
         }

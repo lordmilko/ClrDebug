@@ -8,6 +8,10 @@ namespace ManagedCorDebug
     /// </summary>
     public class GCHostControl : ComObject<IGCHostControl>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GCHostControl"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public GCHostControl(IGCHostControl raw) : base(raw)
         {
         }

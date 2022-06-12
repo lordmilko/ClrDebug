@@ -8,6 +8,10 @@ namespace ManagedCorDebug
     /// </summary>
     public class SymUnmanagedDocumentWriter : ComObject<ISymUnmanagedDocumentWriter>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SymUnmanagedDocumentWriter"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public SymUnmanagedDocumentWriter(ISymUnmanagedDocumentWriter raw) : base(raw)
         {
         }

@@ -22,6 +22,10 @@ namespace ManagedCorDebug
             throw new NotImplementedException("Encountered an ICorDebugDebugEvent' interface of an unknown type. Cannot create wrapper type.");
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebugDebugEvent"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         protected CorDebugDebugEvent(ICorDebugDebugEvent raw) : base(raw)
         {
         }

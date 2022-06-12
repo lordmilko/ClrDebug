@@ -12,6 +12,10 @@ namespace ManagedCorDebug
     /// </remarks>
     public class CLRStrongName : ComObject<ICLRStrongName>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CLRStrongName"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CLRStrongName(ICLRStrongName raw) : base(raw)
         {
         }

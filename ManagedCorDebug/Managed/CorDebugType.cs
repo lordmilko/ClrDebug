@@ -16,6 +16,10 @@ namespace ManagedCorDebug
     /// </remarks>
     public class CorDebugType : ComObject<ICorDebugType>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebugType"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CorDebugType(ICorDebugType raw) : base(raw)
         {
         }

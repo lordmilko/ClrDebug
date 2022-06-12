@@ -9,6 +9,10 @@ namespace ManagedCorDebug
     /// </summary>
     public class CorDebugMDA : ComObject<ICorDebugMDA>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebugMDA"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CorDebugMDA(ICorDebugMDA raw) : base(raw)
         {
         }

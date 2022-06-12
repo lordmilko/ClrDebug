@@ -17,6 +17,10 @@ namespace ManagedCorDebug
     /// </remarks>
     public class CorDebugStepper : ComObject<ICorDebugStepper>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebugStepper"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CorDebugStepper(ICorDebugStepper raw) : base(raw)
         {
         }

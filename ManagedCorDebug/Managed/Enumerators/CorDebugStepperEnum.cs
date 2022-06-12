@@ -10,6 +10,10 @@ namespace ManagedCorDebug
     {
         private ICorDebugStepperEnum rawEnumerator;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebugStepperEnum"/> class.
+        /// </summary>
+        /// <param name="rawEnumerator">The raw COM interface that should be contained in this object.</param>
         public CorDebugStepperEnum(ICorDebugStepperEnum rawEnumerator)
         {
             this.rawEnumerator = rawEnumerator;

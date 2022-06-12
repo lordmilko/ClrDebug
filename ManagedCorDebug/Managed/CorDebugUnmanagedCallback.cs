@@ -8,6 +8,10 @@ namespace ManagedCorDebug
     /// </summary>
     public class CorDebugUnmanagedCallback : ComObject<ICorDebugUnmanagedCallback>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebugUnmanagedCallback"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CorDebugUnmanagedCallback(ICorDebugUnmanagedCallback raw) : base(raw)
         {
         }

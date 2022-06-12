@@ -17,6 +17,10 @@ namespace ManagedCorDebug
     /// </remarks>
     public class CLRMetaHostPolicy : ComObject<ICLRMetaHostPolicy>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CLRMetaHostPolicy"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CLRMetaHostPolicy(ICLRMetaHostPolicy raw) : base(raw)
         {
         }

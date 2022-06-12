@@ -9,6 +9,10 @@ namespace ManagedCorDebug
     /// </summary>
     public class CorDebugVariableSymbol : ComObject<ICorDebugVariableSymbol>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebugVariableSymbol"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CorDebugVariableSymbol(ICorDebugVariableSymbol raw) : base(raw)
         {
         }

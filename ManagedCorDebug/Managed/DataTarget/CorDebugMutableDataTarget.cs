@@ -18,6 +18,10 @@ namespace ManagedCorDebug
     /// </remarks>
     public class CorDebugMutableDataTarget : CorDebugDataTarget
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebugMutableDataTarget"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CorDebugMutableDataTarget(ICorDebugMutableDataTarget raw) : base(raw)
         {
         }

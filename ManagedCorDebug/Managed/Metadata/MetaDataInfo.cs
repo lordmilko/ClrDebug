@@ -8,6 +8,10 @@ namespace ManagedCorDebug
     /// </summary>
     public class MetaDataInfo : ComObject<IMetaDataInfo>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MetaDataInfo"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public MetaDataInfo(IMetaDataInfo raw) : base(raw)
         {
         }

@@ -9,6 +9,10 @@ namespace ManagedCorDebug
     /// </summary>
     public class CorDebugNativeFrame : CorDebugFrame
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebugNativeFrame"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CorDebugNativeFrame(ICorDebugNativeFrame raw) : base(raw)
         {
         }

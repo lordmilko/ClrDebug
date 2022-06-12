@@ -12,6 +12,10 @@ namespace ManagedCorDebug
     /// </remarks>
     public class CorDebugInstanceFieldSymbol : ComObject<ICorDebugInstanceFieldSymbol>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebugInstanceFieldSymbol"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CorDebugInstanceFieldSymbol(ICorDebugInstanceFieldSymbol raw) : base(raw)
         {
         }

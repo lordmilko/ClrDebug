@@ -10,6 +10,10 @@ namespace ManagedCorDebug
     /// </summary>
     public class CorDebugMergedAssemblyRecord : ComObject<ICorDebugMergedAssemblyRecord>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebugMergedAssemblyRecord"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CorDebugMergedAssemblyRecord(ICorDebugMergedAssemblyRecord raw) : base(raw)
         {
         }

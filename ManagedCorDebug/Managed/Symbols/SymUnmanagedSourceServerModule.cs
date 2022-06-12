@@ -8,6 +8,10 @@ namespace ManagedCorDebug
     /// </summary>
     public class SymUnmanagedSourceServerModule : ComObject<ISymUnmanagedSourceServerModule>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SymUnmanagedSourceServerModule"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public SymUnmanagedSourceServerModule(ISymUnmanagedSourceServerModule raw) : base(raw)
         {
         }

@@ -8,6 +8,10 @@ namespace ManagedCorDebug
     /// </summary>
     public class CLRProfiling : ComObject<ICLRProfiling>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CLRProfiling"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CLRProfiling(ICLRProfiling raw) : base(raw)
         {
         }

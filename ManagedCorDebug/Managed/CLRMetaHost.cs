@@ -15,6 +15,10 @@ namespace ManagedCorDebug
     /// </remarks>
     public class CLRMetaHost : ComObject<ICLRMetaHost>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CLRMetaHost"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CLRMetaHost(ICLRMetaHost raw) : base(raw)
         {
         }

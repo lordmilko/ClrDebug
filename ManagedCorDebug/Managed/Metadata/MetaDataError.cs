@@ -8,6 +8,10 @@ namespace ManagedCorDebug
     /// </summary>
     public class MetaDataError : ComObject<IMetaDataError>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MetaDataError"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public MetaDataError(IMetaDataError raw) : base(raw)
         {
         }

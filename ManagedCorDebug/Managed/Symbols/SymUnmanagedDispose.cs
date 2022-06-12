@@ -8,6 +8,10 @@ namespace ManagedCorDebug
     /// </summary>
     public class SymUnmanagedDispose : ComObject<ISymUnmanagedDispose>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SymUnmanagedDispose"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public SymUnmanagedDispose(ISymUnmanagedDispose raw) : base(raw)
         {
         }

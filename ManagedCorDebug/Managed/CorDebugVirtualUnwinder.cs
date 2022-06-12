@@ -11,6 +11,10 @@ namespace ManagedCorDebug
     /// </remarks>
     public class CorDebugVirtualUnwinder : ComObject<ICorDebugVirtualUnwinder>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebugVirtualUnwinder"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CorDebugVirtualUnwinder(ICorDebugVirtualUnwinder raw) : base(raw)
         {
         }

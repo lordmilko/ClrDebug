@@ -12,6 +12,10 @@ namespace ManagedCorDebug
     /// </remarks>
     public class HostThreadPoolManager : ComObject<IHostThreadPoolManager>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HostThreadPoolManager"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public HostThreadPoolManager(IHostThreadPoolManager raw) : base(raw)
         {
         }

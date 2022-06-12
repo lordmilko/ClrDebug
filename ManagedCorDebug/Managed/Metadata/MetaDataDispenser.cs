@@ -16,6 +16,10 @@ namespace ManagedCorDebug
             throw new NotImplementedException("Encountered an IMetaDataDispenser' interface of an unknown type. Cannot create wrapper type.");
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MetaDataDispenser"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         protected MetaDataDispenser(IMetaDataDispenser raw) : base(raw)
         {
         }

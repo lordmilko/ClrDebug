@@ -23,6 +23,10 @@ namespace ManagedCorDebug
     /// </remarks>
     public class CLRTask : ComObject<ICLRTask>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CLRTask"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CLRTask(ICLRTask raw) : base(raw)
         {
         }

@@ -11,6 +11,10 @@ namespace ManagedCorDebug
     /// </remarks>
     public class CorDebugExceptionDebugEvent : CorDebugDebugEvent
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebugExceptionDebugEvent"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CorDebugExceptionDebugEvent(ICorDebugExceptionDebugEvent raw) : base(raw)
         {
         }

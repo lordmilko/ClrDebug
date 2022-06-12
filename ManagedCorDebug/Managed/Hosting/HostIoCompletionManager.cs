@@ -13,6 +13,10 @@ namespace ManagedCorDebug
     /// </remarks>
     public class HostIoCompletionManager : ComObject<IHostIoCompletionManager>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HostIoCompletionManager"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public HostIoCompletionManager(IHostIoCompletionManager raw) : base(raw)
         {
         }

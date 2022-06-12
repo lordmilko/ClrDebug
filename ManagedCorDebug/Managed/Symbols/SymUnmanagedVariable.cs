@@ -9,6 +9,10 @@ namespace ManagedCorDebug
     /// </summary>
     public class SymUnmanagedVariable : ComObject<ISymUnmanagedVariable>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SymUnmanagedVariable"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public SymUnmanagedVariable(ISymUnmanagedVariable raw) : base(raw)
         {
         }

@@ -9,6 +9,10 @@ namespace ManagedCorDebug
     /// </summary>
     public class SymUnmanagedScope : ComObject<ISymUnmanagedScope>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SymUnmanagedScope"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public SymUnmanagedScope(ISymUnmanagedScope raw) : base(raw)
         {
         }

@@ -13,6 +13,10 @@ namespace ManagedCorDebug
     /// </remarks>
     public class CorDebugRegisterSet : ComObject<ICorDebugRegisterSet>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebugRegisterSet"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CorDebugRegisterSet(ICorDebugRegisterSet raw) : base(raw)
         {
         }

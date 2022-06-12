@@ -11,6 +11,10 @@ namespace ManagedCorDebug
     /// </remarks>
     public class CorDebugArrayValue : CorDebugHeapValue
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebugArrayValue"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CorDebugArrayValue(ICorDebugArrayValue raw) : base(raw)
         {
         }

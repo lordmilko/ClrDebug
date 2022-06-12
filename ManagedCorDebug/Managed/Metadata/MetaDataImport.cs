@@ -17,6 +17,10 @@ namespace ManagedCorDebug
     /// </remarks>
     public class MetaDataImport : ComObject<IMetaDataImport>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MetaDataImport"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public MetaDataImport(IMetaDataImport raw) : base(raw)
         {
         }

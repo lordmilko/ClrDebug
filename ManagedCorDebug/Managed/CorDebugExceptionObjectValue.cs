@@ -11,6 +11,10 @@ namespace ManagedCorDebug
     /// </remarks>
     public class CorDebugExceptionObjectValue : ComObject<ICorDebugExceptionObjectValue>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebugExceptionObjectValue"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CorDebugExceptionObjectValue(ICorDebugExceptionObjectValue raw) : base(raw)
         {
         }

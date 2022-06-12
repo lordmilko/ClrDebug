@@ -12,6 +12,10 @@ namespace ManagedCorDebug
     /// </remarks>
     public class CLRMetadataLocator : ComObject<ICLRMetadataLocator>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CLRMetadataLocator"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CLRMetadataLocator(ICLRMetadataLocator raw) : base(raw)
         {
         }

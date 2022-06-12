@@ -8,6 +8,10 @@ namespace ManagedCorDebug
     /// </summary>
     public class CorDebugStackWalk : ComObject<ICorDebugStackWalk>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebugStackWalk"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CorDebugStackWalk(ICorDebugStackWalk raw) : base(raw)
         {
         }

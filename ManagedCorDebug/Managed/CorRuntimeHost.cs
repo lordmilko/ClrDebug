@@ -11,6 +11,10 @@ namespace ManagedCorDebug
     /// </summary>
     public class CorRuntimeHost : ComObject<ICorRuntimeHost>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorRuntimeHost"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CorRuntimeHost(ICorRuntimeHost raw) : base(raw)
         {
         }

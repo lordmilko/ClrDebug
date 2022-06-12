@@ -16,6 +16,10 @@ namespace ManagedCorDebug
     /// </remarks>
     public class CorDebugRuntimeUnwindableFrame : CorDebugFrame
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebugRuntimeUnwindableFrame"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CorDebugRuntimeUnwindableFrame(ICorDebugRuntimeUnwindableFrame raw) : base(raw)
         {
         }

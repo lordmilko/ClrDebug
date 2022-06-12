@@ -8,6 +8,10 @@ namespace ManagedCorDebug
     /// </summary>
     public class CeeGen : ComObject<ICeeGen>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CeeGen"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
         public CeeGen(ICeeGen raw) : base(raw)
         {
         }
