@@ -161,7 +161,7 @@ namespace ManagedCorDebug
 
         public new ICorDebugHeapValue3 Raw3 => (ICorDebugHeapValue3) Raw;
 
-        #region GetThreadOwningMonitorLock
+        #region ThreadOwningMonitorLock
 
         /// <summary>
         /// Returns the managed thread that owns the monitor lock on this object.
@@ -215,7 +215,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetMonitorEventWaitList
+        #region MonitorEventWaitList
 
         /// <summary>
         /// Provides an ordered list of threads that are queued on the event that is associated with a monitor lock.

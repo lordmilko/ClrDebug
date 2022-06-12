@@ -20,7 +20,7 @@ namespace ManagedCorDebug
 
         public new ICorDebugModuleDebugEvent Raw => (ICorDebugModuleDebugEvent) base.Raw;
 
-        #region GetModule
+        #region Module
 
         /// <summary>
         /// Gets the merged module that was just loaded or unloaded.

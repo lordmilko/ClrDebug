@@ -14,7 +14,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugVariableSymbol
-        #region GetSize
+        #region Size
 
         /// <summary>
         /// Gets the size of a variable in bytes.
@@ -44,7 +44,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetSlotIndex
+        #region SlotIndex
 
         /// <summary>
         /// Gets the managed slot index of a local variable.

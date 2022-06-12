@@ -58,7 +58,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetResult
+        #region Result
 
         /// <summary>
         /// Gets the results of this evaluation.
@@ -101,7 +101,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetThread
+        #region Thread
 
         /// <summary>
         /// Gets the thread in which this evaluation is executing or will execute.

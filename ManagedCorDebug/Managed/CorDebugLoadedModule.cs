@@ -18,7 +18,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugLoadedModule
-        #region GetBaseAddress
+        #region BaseAddress
 
         /// <summary>
         /// Gets the base address of the loaded module.
@@ -48,7 +48,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetSize
+        #region Size
 
         /// <summary>
         /// Gets the size in bytes of the loaded module.

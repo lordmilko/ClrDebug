@@ -14,7 +14,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugAssembly
-        #region GetProcess
+        #region Process
 
         /// <summary>
         /// Gets an interface pointer to the process in which this <see cref="ICorDebugAssembly"/> instance is running.
@@ -52,7 +52,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetAppDomain
+        #region AppDomain
 
         /// <summary>
         /// Gets an interface pointer to the application domain that contains this <see cref="ICorDebugAssembly"/> instance.
@@ -277,7 +277,7 @@ namespace ManagedCorDebug
 
         public ICorDebugAssembly3 Raw3 => (ICorDebugAssembly3) Raw;
 
-        #region GetContainerAssembly
+        #region ContainerAssembly
 
         /// <summary>
         /// Returns the container assembly of this <see cref="ICorDebugAssembly3"/> object.

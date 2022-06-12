@@ -17,7 +17,7 @@ namespace ManagedCorDebug
         }
 
         #region IHostThreadPoolManager
-        #region GetMaxThreads
+        #region MaxThreads
 
         /// <summary>
         /// Gets or sets the maximum number of threads that the host maintains concurrently in the thread pool.
@@ -99,7 +99,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetAvailableThreads
+        #region AvailableThreads
 
         /// <summary>
         /// Gets the number of threads in the thread pool that are not currently processing work items.
@@ -144,7 +144,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetMinThreads
+        #region MinThreads
 
         /// <summary>
         /// Gets or sets the minimum number of idle threads that the host maintains in the thread pool in anticipation of requests.

@@ -15,7 +15,7 @@ namespace ManagedCorDebug
         }
 
         #region ISymUnmanagedDocument
-        #region GetDocumentType
+        #region DocumentType
 
         /// <summary>
         /// Gets the document type of this document.
@@ -47,7 +47,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetLanguage
+        #region Language
 
         /// <summary>
         /// Gets the language identifier of this document
@@ -79,7 +79,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetLanguageVendor
+        #region LanguageVendor
 
         /// <summary>
         /// Gets the language vendor of this document.
@@ -111,7 +111,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetCheckSumAlgorithmId
+        #region CheckSumAlgorithmId
 
         /// <summary>
         /// Gets the checksum algorithm identifier, or returns a GUID of all zeros if there is no checksum.
@@ -143,7 +143,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetSourceLength
+        #region SourceLength
 
         /// <summary>
         /// Gets the length, in bytes, of the embedded source.

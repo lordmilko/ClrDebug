@@ -13,7 +13,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugSymbolProvider
-        #region GetAssemblyImageMetadata
+        #region AssemblyImageMetadata
 
         /// <summary>
         /// Returns the metadata from a merged assembly.
@@ -507,7 +507,7 @@ namespace ManagedCorDebug
 
         public ICorDebugSymbolProvider2 Raw2 => (ICorDebugSymbolProvider2) Raw;
 
-        #region GetGenericDictionaryInfo
+        #region GenericDictionaryInfo
 
         /// <summary>
         /// Retrieves a generic dictionary map.

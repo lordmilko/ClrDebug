@@ -19,7 +19,7 @@ namespace ManagedCorDebug
 
         public new ICorDebugArrayValue Raw => (ICorDebugArrayValue) base.Raw;
 
-        #region GetElementType
+        #region ElementType
 
         /// <summary>
         /// Gets a value that indicates the simple type of the elements in the array.
@@ -49,7 +49,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetRank
+        #region Rank
 
         /// <summary>
         /// Gets the number of dimensions in the array.
@@ -79,7 +79,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetCount
+        #region Count
 
         /// <summary>
         /// Gets the total number of elements in the array.

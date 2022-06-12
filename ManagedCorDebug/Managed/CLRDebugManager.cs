@@ -20,7 +20,7 @@ namespace ManagedCorDebug
         }
 
         #region ICLRDebugManager
-        #region GetDacl
+        #region Dacl
 
         /// <summary>
         /// This method is not implemented.

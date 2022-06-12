@@ -17,7 +17,7 @@ namespace ManagedCorDebug
         }
 
         #region IHostTask
-        #region GetPriority
+        #region Priority
 
         /// <summary>
         /// Gets or sets the thread priority level of the task represented by the current <see cref="IHostTask"/> instance.

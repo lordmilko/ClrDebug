@@ -27,7 +27,7 @@ namespace ManagedCorDebug
 
         public new ICorDebugObjectValue Raw => (ICorDebugObjectValue) base.Raw;
 
-        #region GetClass
+        #region Class
 
         /// <summary>
         /// Gets the class of this object value.
@@ -69,7 +69,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetContext
+        #region Context
 
         /// <summary>
         /// GetContext is not implemented in this version of the .NET Framework.
@@ -136,7 +136,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetManagedCopy
+        #region ManagedCopy
 
         /// <summary>
         /// GetManagedCopy is obsolete. Do not call this method.

@@ -14,7 +14,7 @@ namespace ManagedCorDebug
         }
 
         #region ISymUnmanagedSymbolSearchInfo
-        #region GetSearchPathLength
+        #region SearchPathLength
 
         /// <summary>
         /// Gets the search path length.
@@ -45,7 +45,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetHRESULT
+        #region HRESULT
 
         /// <summary>
         /// Gets the <see cref="HRESULT"/>.

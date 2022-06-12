@@ -15,7 +15,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugMergedAssemblyRecord
-        #region GetVersion
+        #region Version
 
         /// <summary>
         /// Gets the assembly's version information.
@@ -59,7 +59,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetIndex
+        #region Index
 
         /// <summary>
         /// Gets the assembly's prefix index.

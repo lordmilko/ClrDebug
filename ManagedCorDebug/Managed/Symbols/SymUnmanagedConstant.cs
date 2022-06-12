@@ -14,7 +14,7 @@ namespace ManagedCorDebug
         }
 
         #region ISymUnmanagedConstant
-        #region GetValue
+        #region Value
 
         /// <summary>
         /// Gets the value of the constant.

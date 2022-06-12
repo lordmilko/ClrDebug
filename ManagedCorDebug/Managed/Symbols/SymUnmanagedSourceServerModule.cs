@@ -13,7 +13,7 @@ namespace ManagedCorDebug
         }
 
         #region ISymUnmanagedSourceServerModule
-        #region GetSourceServerData
+        #region SourceServerData
 
         /// <summary>
         /// Returns the source server data for the module. The caller must free resources by using CoTaskMemFree.

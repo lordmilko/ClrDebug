@@ -20,7 +20,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugType
-        #region GetType
+        #region Type
 
         /// <summary>
         /// Gets a <see cref="CorElementType"/> value that describes the native type of the common language runtime (CLR) <see cref="Type"/> represented by this <see cref="ICorDebugType"/>.
@@ -54,7 +54,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetClass
+        #region Class
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugClass"/> that represents the uninstantiated generic type.
@@ -97,7 +97,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetFirstTypeParameter
+        #region FirstTypeParameter
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugType"/> that represents the first <see cref="Type"/> parameter of the type represented by this <see cref="ICorDebugType"/>.
@@ -140,7 +140,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetBase
+        #region Base
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugType"/> that represents the base type, if one exists, of the type represented by this <see cref="ICorDebugType"/>.
@@ -182,7 +182,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetRank
+        #region Rank
 
         /// <summary>
         /// Gets the number of dimensions in an array type.
@@ -322,7 +322,7 @@ namespace ManagedCorDebug
 
         public ICorDebugType2 Raw2 => (ICorDebugType2) Raw;
 
-        #region GetTypeID
+        #region TypeID
 
         /// <summary>
         /// Gets a <see cref="COR_TYPEID"/> for this type.

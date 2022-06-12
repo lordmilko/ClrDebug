@@ -70,7 +70,7 @@ namespace ManagedCorDebug
 
         public ICorDebugILCode2 Raw2 => (ICorDebugILCode2) Raw;
 
-        #region GetLocalVarSigToken
+        #region LocalVarSigToken
 
         /// <summary>
         /// [Supported in the .NET Framework 4.5.2 and later versions] Gets the metadata token for the local variable signature for the function that is represented by this instance.

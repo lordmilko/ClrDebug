@@ -14,7 +14,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugEditAndContinueErrorInfo
-        #region GetModule
+        #region Module
 
         /// <summary>
         /// GetModule is obsolete. Do not call this method.
@@ -53,7 +53,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetToken
+        #region Token
 
         /// <summary>
         /// GetToken is obsolete. Do not call this method.
@@ -84,7 +84,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetErrorCode
+        #region ErrorCode
 
         /// <summary>
         /// GetErrorCode is obsolete. Do not call this method.

@@ -44,7 +44,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetKickoffMethod
+        #region KickoffMethod
 
         /// <summary>
         /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineKickoffMethod"/>.
@@ -74,7 +74,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetCatchHandlerILOffset
+        #region CatchHandlerILOffset
 
         /// <summary>
         /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineCatchHandlerILOffset"/>.
@@ -104,7 +104,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetAsyncStepInfoCount
+        #region AsyncStepInfoCount
 
         /// <summary>
         /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.

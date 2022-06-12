@@ -62,7 +62,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetValue
+        #region Value
 
         /// <summary>
         /// Gets or sets the current memory address of the referenced object.

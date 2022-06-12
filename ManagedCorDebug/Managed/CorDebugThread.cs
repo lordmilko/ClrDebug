@@ -13,7 +13,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugThread
-        #region GetProcess
+        #region Process
 
         /// <summary>
         /// Gets an interface pointer to the process of which this <see cref="ICorDebugThread"/> forms a part.
@@ -51,7 +51,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetID
+        #region Id
 
         /// <summary>
         /// Gets the current operating system identifier of the active part of this <see cref="ICorDebugThread"/>.
@@ -85,7 +85,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetHandle
+        #region Handle
 
         /// <summary>
         /// Gets the current handle for the active part of this <see cref="ICorDebugThread"/>.
@@ -119,7 +119,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetAppDomain
+        #region AppDomain
 
         /// <summary>
         /// Gets an interface pointer to the application domain in which this <see cref="ICorDebugThread"/> is currently executing.
@@ -157,7 +157,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetDebugState
+        #region DebugState
 
         /// <summary>
         /// Gets or sets the current debug state of this <see cref="ICorDebugThread"/> object.
@@ -220,7 +220,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetUserState
+        #region UserState
 
         /// <summary>
         /// Gets the current user state of this <see cref="ICorDebugThread"/>.
@@ -254,7 +254,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetCurrentException
+        #region CurrentException
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugValue"/> object that represents an exception that is currently being thrown by managed code.
@@ -301,7 +301,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetActiveChain
+        #region ActiveChain
 
         /// <summary>
         /// Gets an interface pointer to the active (most recent) stack chain on this <see cref="ICorDebugThread"/> object.
@@ -342,7 +342,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetActiveFrame
+        #region ActiveFrame
 
         /// <summary>
         /// Gets an interface pointer to the active (most recent) frame on this <see cref="ICorDebugThread"/> object.
@@ -383,7 +383,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetRegisterSet
+        #region RegisterSet
 
         /// <summary>
         /// Gets an interface pointer to the register set that is associated with the active part of this <see cref="ICorDebugThread"/> object.
@@ -421,7 +421,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetObject
+        #region Object
 
         /// <summary>
         /// Gets an interface pointer to the common language runtime (CLR) thread.
@@ -623,7 +623,7 @@ namespace ManagedCorDebug
 
         public ICorDebugThread2 Raw2 => (ICorDebugThread2) Raw;
 
-        #region GetConnectionID
+        #region ConnectionID
 
         /// <summary>
         /// Gets the connection identifier for this <see cref="ICorDebugThread2"/> object.
@@ -658,7 +658,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetTaskID
+        #region TaskID
 
         /// <summary>
         /// Gets the identifier of the task running on this thread.
@@ -692,7 +692,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetVolatileOSThreadID
+        #region VolatileOSThreadID
 
         /// <summary>
         /// Gets the operating system thread identifier for this <see cref="ICorDebugThread2"/>.
@@ -937,7 +937,7 @@ namespace ManagedCorDebug
 
         public ICorDebugThread4 Raw4 => (ICorDebugThread4) Raw;
 
-        #region GetBlockingObjects
+        #region BlockingObjects
 
         /// <summary>
         /// Provides an ordered enumeration of <see cref="CorDebugBlockingObject"/> structures that provide thread blocking information.
@@ -984,7 +984,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetCurrentCustomDebuggerNotification
+        #region CurrentCustomDebuggerNotification
 
         /// <summary>
         /// Gets the current <see cref="CorDebugManagedCallback.CustomNotification"/> object on the current thread.

@@ -13,7 +13,7 @@ namespace ManagedCorDebug
         }
 
         #region ICeeGen
-        #region GetIMapTokenIface
+        #region IMapTokenIface
 
         /// <summary>
         /// Gets the interface referenced by the specified token. This method is obsolete and should not be used.
@@ -46,7 +46,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetStringSection
+        #region StringSection
 
         /// <summary>
         /// Gets a string representation of the code section referenced by the specified handle. This method is obsolete and should not be used.

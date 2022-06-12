@@ -13,7 +13,7 @@ namespace ManagedCorDebug
         }
 
         #region ISymUnmanagedScope
-        #region GetMethod
+        #region Method
 
         /// <summary>
         /// Gets the method that contains this scope.
@@ -44,7 +44,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetParent
+        #region Parent
 
         /// <summary>
         /// Gets the parent scope of this scope.
@@ -75,7 +75,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetStartOffset
+        #region StartOffset
 
         /// <summary>
         /// Gets the start offset for this scope.
@@ -106,7 +106,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetEndOffset
+        #region EndOffset
 
         /// <summary>
         /// Gets the end offset for this scope.
@@ -137,7 +137,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetLocalCount
+        #region LocalCount
 
         /// <summary>
         /// Gets a count of the local variables defined within this scope.
@@ -302,7 +302,7 @@ namespace ManagedCorDebug
 
         public ISymUnmanagedScope2 Raw2 => (ISymUnmanagedScope2) Raw;
 
-        #region GetConstantCount
+        #region ConstantCount
 
         /// <summary>
         /// Gets a count of the constants defined within this scope.

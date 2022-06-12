@@ -21,7 +21,7 @@ namespace ManagedCorDebug
         }
 
         #region ICLRRuntimeHost
-        #region GetCLRControl
+        #region CLRControl
 
         /// <summary>
         /// Gets an interface pointer of type <see cref="ICLRControl"/> that hosts can use to customize aspects of the common language runtime (CLR).
@@ -74,7 +74,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetCurrentAppDomainId
+        #region CurrentAppDomainId
 
         /// <summary>
         /// Gets the numeric identifier of the <see cref="AppDomain"/> that is currently executing.

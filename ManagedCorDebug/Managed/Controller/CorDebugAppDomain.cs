@@ -17,7 +17,7 @@ namespace ManagedCorDebug
 
         public new ICorDebugAppDomain Raw => (ICorDebugAppDomain) base.Raw;
 
-        #region GetProcess
+        #region Process
 
         /// <summary>
         /// Gets the process containing the application domain.
@@ -88,7 +88,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetObject
+        #region Object
 
         /// <summary>
         /// Gets an interface pointer to the common language runtime (CLR) application domain.
@@ -132,7 +132,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetID
+        #region Id
 
         /// <summary>
         /// Gets the unique identifier of the application domain.
@@ -520,7 +520,7 @@ namespace ManagedCorDebug
 
         public ICorDebugAppDomain3 Raw3 => (ICorDebugAppDomain3) Raw;
 
-        #region GetCachedWinRTTypes
+        #region CachedWinRTTypes
 
         /// <summary>
         /// Gets an enumerator for all cached Windows Runtime types.

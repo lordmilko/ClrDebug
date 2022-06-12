@@ -20,7 +20,7 @@ namespace ManagedCorDebug
 
         public new ICorDebugHandleValue Raw => (ICorDebugHandleValue) base.Raw;
 
-        #region GetHandleType
+        #region HandleType
 
         /// <summary>
         /// Gets a value that indicates the kind of handle referenced by this <see cref="ICorDebugHandleValue"/> object.

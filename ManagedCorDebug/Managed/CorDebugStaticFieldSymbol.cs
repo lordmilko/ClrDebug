@@ -17,7 +17,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugStaticFieldSymbol
-        #region GetSize
+        #region Size
 
         /// <summary>
         /// Gets the size in bytes of the static field.
@@ -47,7 +47,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetAddress
+        #region Address
 
         /// <summary>
         /// Gets the address of a static field.

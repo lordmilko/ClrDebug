@@ -20,7 +20,7 @@ namespace ManagedCorDebug
         }
 
         #region ICLRTaskManager
-        #region GetCurrentTask
+        #region CurrentTask
 
         /// <summary>
         /// Gets the <see cref="ICLRTask"/> instance that is currently running on the operating system thread from which the method call originated.
@@ -73,7 +73,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetCurrentTaskType
+        #region CurrentTaskType
 
         /// <summary>
         /// Gets the type of the task that is currently executing.

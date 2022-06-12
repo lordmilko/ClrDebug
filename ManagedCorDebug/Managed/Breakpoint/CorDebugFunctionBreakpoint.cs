@@ -16,7 +16,7 @@ namespace ManagedCorDebug
 
         public new ICorDebugFunctionBreakpoint Raw => (ICorDebugFunctionBreakpoint) base.Raw;
 
-        #region GetFunction
+        #region Function
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugFunction"/> that references the function in which the breakpoint is set.
@@ -54,7 +54,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetOffset
+        #region Offset
 
         /// <summary>
         /// Gets the offset of the breakpoint within the function.

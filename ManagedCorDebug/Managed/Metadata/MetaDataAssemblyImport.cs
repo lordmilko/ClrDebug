@@ -15,7 +15,7 @@ namespace ManagedCorDebug
         }
 
         #region IMetaDataAssemblyImport
-        #region GetAssemblyFromScope
+        #region AssemblyFromScope
 
         /// <summary>
         /// Gets a pointer to the assembly in the current scope.

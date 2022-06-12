@@ -16,7 +16,7 @@ namespace ManagedCorDebug
 
         public new ICorDebugValueBreakpoint Raw => (ICorDebugValueBreakpoint) base.Raw;
 
-        #region GetValue
+        #region Value
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugValue"/> object that represents the value of the object on which the breakpoint is set.

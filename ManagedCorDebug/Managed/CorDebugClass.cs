@@ -20,7 +20,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugClass
-        #region GetModule
+        #region Module
 
         /// <summary>
         /// Gets the module that defines this class.
@@ -58,7 +58,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetToken
+        #region Token
 
         /// <summary>
         /// Gets the TypeDef metadata token that references the definition of this class.

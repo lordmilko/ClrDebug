@@ -17,7 +17,7 @@ namespace ManagedCorDebug
 
         public new ICorDebugProcess Raw => (ICorDebugProcess) base.Raw;
 
-        #region GetID
+        #region Id
 
         /// <summary>
         /// Gets the operating system (OS) ID of the process.
@@ -47,7 +47,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetHandle
+        #region Handle
 
         /// <summary>
         /// Gets a handle to the process.
@@ -81,7 +81,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetObject
+        #region Object
 
         /// <summary>
         /// This method has not been implemented.
@@ -118,7 +118,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetHelperThreadID
+        #region HelperThreadID
 
         /// <summary>
         /// Gets the operating system (OS) thread ID of the debugger's internal helper thread.
@@ -690,7 +690,7 @@ namespace ManagedCorDebug
 
         public ICorDebugProcess2 Raw2 => (ICorDebugProcess2) Raw;
 
-        #region GetVersion
+        #region Version
 
         /// <summary>
         /// Gets the version number of the common language runtime (CLR) that is running in this process.
@@ -723,7 +723,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetDesiredNGENCompilerFlags
+        #region DesiredNGENCompilerFlags
 
         /// <summary>
         /// Gets or sets the current compiler flag settings that the common language runtime (CLR) uses to select the correct precompiled (that is, native) image to be loaded into this process.
@@ -1021,7 +1021,7 @@ namespace ManagedCorDebug
 
         public ICorDebugProcess5 Raw5 => (ICorDebugProcess5) Raw;
 
-        #region GetGCHeapInformation
+        #region GCHeapInformation
 
         /// <summary>
         /// Provides general information about the garbage collection heap, including whether it is currently enumerable.

@@ -14,7 +14,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugEditAndContinueSnapshot
-        #region GetMvid
+        #region Mvid
 
         /// <summary>
         /// GetMvid is obsolete. Do not call this method.
@@ -45,7 +45,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetRoDataRVA
+        #region RoDataRVA
 
         /// <summary>
         /// GetRoDataRVA is obsolete. Do not call this method.
@@ -76,7 +76,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetRwDataRVA
+        #region RwDataRVA
 
         /// <summary>
         /// GetRwDataRVA is obsolete. Do not call this method.

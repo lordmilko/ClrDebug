@@ -48,7 +48,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetFunction
+        #region Function
 
         /// <summary>
         /// Gets the "ICorDebugFunction" associated with this "ICorDebugCode".
@@ -89,7 +89,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetAddress
+        #region Address
 
         /// <summary>
         /// Gets the relative virtual address (RVA) of the code segment that this "ICorDebugCode" interface represents.
@@ -119,7 +119,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetSize
+        #region Size
 
         /// <summary>
         /// Gets the size, in bytes, of the binary code represented by this "ICorDebugCode".
@@ -149,7 +149,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetVersionNumber
+        #region VersionNumber
 
         /// <summary>
         /// Gets the one-based number that identifies the version of the code that this "ICorDebugCode" represents.
@@ -380,7 +380,7 @@ namespace ManagedCorDebug
 
         public ICorDebugCode2 Raw2 => (ICorDebugCode2) Raw;
 
-        #region GetCompilerFlags
+        #region CompilerFlags
 
         /// <summary>
         /// Gets the flags that specify the conditions under which this code object was either just-in-time (JIT) compiled or generated using the native image generator (Ngen.exe).

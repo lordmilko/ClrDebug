@@ -28,7 +28,7 @@ namespace ManagedCorDebug
         }
 
         #region ICLRTask
-        #region GetMemStats
+        #region MemStats
 
         /// <summary>
         /// Gets statistical memory usage information related to the task that the current <see cref="ICLRTask"/> instance represents.

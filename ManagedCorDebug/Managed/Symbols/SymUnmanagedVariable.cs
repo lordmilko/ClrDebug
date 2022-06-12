@@ -14,7 +14,7 @@ namespace ManagedCorDebug
         }
 
         #region ISymUnmanagedVariable
-        #region GetAttributes
+        #region Attributes
 
         /// <summary>
         /// Gets the attribute flags for this variable.
@@ -45,7 +45,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetAddressKind
+        #region AddressKind
 
         /// <summary>
         /// Gets the kind of address of this variable.
@@ -76,7 +76,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetAddressField1
+        #region AddressField1
 
         /// <summary>
         /// Gets the first address field for this variable. Its meaning depends on the kind of address.
@@ -107,7 +107,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetAddressField2
+        #region AddressField2
 
         /// <summary>
         /// Gets the second address field for this variable. Its meaning depends on the kind of address.
@@ -138,7 +138,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetAddressField3
+        #region AddressField3
 
         /// <summary>
         /// Gets the third address field for this variable. Its meaning depends on the kind of address.
@@ -169,7 +169,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetStartOffset
+        #region StartOffset
 
         /// <summary>
         /// Gets the start offset of this variable within its parent. If this is a local variable within a scope, the start offset will fall within the offsets defined for the scope.
@@ -200,7 +200,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetEndOffset
+        #region EndOffset
 
         /// <summary>
         /// Gets the end offset of this variable within its parent. If this is a local variable within a scope, the end offset will fall within the offsets defined for the scope.

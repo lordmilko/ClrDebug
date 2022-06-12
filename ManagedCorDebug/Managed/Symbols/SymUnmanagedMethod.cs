@@ -13,7 +13,7 @@ namespace ManagedCorDebug
         }
 
         #region ISymUnmanagedMethod
-        #region GetToken
+        #region Token
 
         /// <summary>
         /// Returns the metadata token for this method.
@@ -44,7 +44,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetSequencePointCount
+        #region SequencePointCount
 
         /// <summary>
         /// Gets the count of sequence points within this method.
@@ -75,7 +75,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetRootScope
+        #region RootScope
 
         /// <summary>
         /// Gets the root lexical scope within this method. This scope encloses the entire method.
@@ -106,7 +106,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetNamespace
+        #region Namespace
 
         /// <summary>
         /// Gets the namespace within which this method is defined.

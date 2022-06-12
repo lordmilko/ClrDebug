@@ -19,7 +19,7 @@ namespace ManagedCorDebug
 
         public new ICorDebugExceptionDebugEvent Raw => (ICorDebugExceptionDebugEvent) base.Raw;
 
-        #region GetStackPointer
+        #region StackPointer
 
         /// <summary>
         /// Gets the stack pointer for this exception debug event.
@@ -53,7 +53,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetNativeIP
+        #region NativeIP
 
         /// <summary>
         /// Gets the native instruction pointer for this exception debug event.
@@ -87,7 +87,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetFlags
+        #region Flags
 
         /// <summary>
         /// Gets a flag that indicates whether the exception can be intercepted.

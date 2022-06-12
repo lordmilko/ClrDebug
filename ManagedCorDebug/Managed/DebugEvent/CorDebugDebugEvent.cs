@@ -27,7 +27,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugDebugEvent
-        #region GetEventKind
+        #region EventKind
 
         /// <summary>
         /// Indicates what kind of event this <see cref="ICorDebugDebugEvent"/> object represents.
@@ -61,7 +61,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetThread
+        #region Thread
 
         /// <summary>
         /// Gets the thread on which the event occurred.

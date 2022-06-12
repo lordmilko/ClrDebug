@@ -16,7 +16,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorRuntimeHost
-        #region GetConfiguration
+        #region Configuration
 
         /// <summary>
         /// Gets an object that allows the host to specify the callback configuration of the common language runtime (CLR).
@@ -50,7 +50,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetDefaultDomain
+        #region DefaultDomain
 
         /// <summary>
         /// Gets an interface pointer of type <see cref="_AppDomain"/> that represents the default domain for the current process.

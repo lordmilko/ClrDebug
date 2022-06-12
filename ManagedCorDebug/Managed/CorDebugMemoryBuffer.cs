@@ -13,7 +13,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugMemoryBuffer
-        #region GetStartAddress
+        #region StartAddress
 
         /// <summary>
         /// Gets the starting address of the memory buffer.
@@ -43,7 +43,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetSize
+        #region Size
 
         /// <summary>
         /// Gets the size of the memory buffer in bytes.

@@ -15,7 +15,7 @@ namespace ManagedCorDebug
         }
 
         #region ICLRRuntimeInfo
-        #region GetVersionString
+        #region VersionString
 
         /// <summary>
         /// Gets common language runtime (CLR) version information associated with a given <see cref="ICLRRuntimeInfo"/> interface.<para/>
@@ -78,7 +78,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetRuntimeDirectory
+        #region RuntimeDirectory
 
         /// <summary>
         /// Gets the installation directory of the common language runtime (CLR) associated with this interface. This method supersedes the GetCORSystemDirectory function provided in the .NET Framework versions 2.0, 3.0, and 3.5.

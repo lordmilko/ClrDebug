@@ -17,7 +17,7 @@ namespace ManagedCorDebug
         }
 
         #region ICLRDataTarget
-        #region GetMachineType
+        #region MachineType
 
         /// <summary>
         /// Gets the identifier for the kind of instruction set that the target process is using.
@@ -47,7 +47,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetPointerSize
+        #region PointerSize
 
         /// <summary>
         /// Gets the size, in bytes, of the pointer type that the target process uses. This method is called by the common language runtime data access services.
@@ -80,7 +80,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetCurrentThreadID
+        #region CurrentThreadID
 
         /// <summary>
         /// Gets the operating system identifier for the current thread.
@@ -524,7 +524,7 @@ namespace ManagedCorDebug
 
         public ICLRDataTarget3 Raw3 => (ICLRDataTarget3) Raw;
 
-        #region GetExceptionThreadID
+        #region ExceptionThreadID
 
         /// <summary>
         /// Called by the common language runtime (CLR) data access services to get the ID of the thread that threw the exception.

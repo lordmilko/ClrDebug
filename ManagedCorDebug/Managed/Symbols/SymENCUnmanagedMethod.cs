@@ -14,7 +14,7 @@ namespace ManagedCorDebug
         }
 
         #region ISymENCUnmanagedMethod
-        #region GetDocumentsForMethodCount
+        #region DocumentsForMethodCount
 
         /// <summary>
         /// Gets the number of documents that this method has lines in.

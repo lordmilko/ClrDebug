@@ -16,7 +16,7 @@ namespace ManagedCorDebug
 
         public new ICorDebugNativeFrame Raw => (ICorDebugNativeFrame) base.Raw;
 
-        #region GetIP
+        #region IP
 
         /// <summary>
         /// Gets or sets the native code offset location to which the instruction pointer is currently set.
@@ -77,7 +77,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetRegisterSet
+        #region RegisterSet
 
         /// <summary>
         /// Gets the register set for this stack frame.
@@ -449,7 +449,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetStackParameterSize
+        #region StackParameterSize
 
         /// <summary>
         /// Returns the cumulative size of the parameters on the stack on x86 operating systems.

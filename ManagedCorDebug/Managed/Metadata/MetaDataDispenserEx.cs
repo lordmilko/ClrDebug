@@ -18,7 +18,7 @@ namespace ManagedCorDebug
 
         public new IMetaDataDispenserEx Raw => (IMetaDataDispenserEx) base.Raw;
 
-        #region GetCORSystemDirectory
+        #region CORSystemDirectory
 
         /// <summary>
         /// Gets the directory that holds the current common language runtime (CLR). This method is supported only for use by out-of-process debuggers.<para/>

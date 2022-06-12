@@ -18,7 +18,7 @@ namespace ManagedCorDebug
         }
 
         #region IHostIoCompletionManager
-        #region GetMaxThreads
+        #region MaxThreads
 
         /// <summary>
         /// Gets or sets the maximum number of threads that the host can allot to service I/O requests.
@@ -98,7 +98,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetAvailableThreads
+        #region AvailableThreads
 
         /// <summary>
         /// Gets the number of I/O completion threads, of the total number of threads managed by the host, that are not currently servicing requests.
@@ -144,7 +144,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetHostOverlappedSize
+        #region HostOverlappedSize
 
         /// <summary>
         /// Gets the size of any custom data the host intends to append to I/O requests.
@@ -192,7 +192,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetMinThreads
+        #region MinThreads
 
         /// <summary>
         /// Gets or sets the minimum number of threads that the host provides for processing I/O requests.

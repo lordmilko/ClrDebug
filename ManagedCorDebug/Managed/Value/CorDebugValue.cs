@@ -42,7 +42,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugValue
-        #region GetType
+        #region Type
 
         /// <summary>
         /// Gets the primitive type of this "ICorDebugValue" object.
@@ -78,7 +78,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetSize
+        #region Size
 
         /// <summary>
         /// Gets the size, in bytes, of this "ICorDebugValue" object.
@@ -113,7 +113,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetAddress
+        #region Address
 
         /// <summary>
         /// Gets the address of this "ICorDebugValue" object, which is in the process of being debugged.
@@ -186,7 +186,7 @@ namespace ManagedCorDebug
 
         public ICorDebugValue2 Raw2 => (ICorDebugValue2) Raw;
 
-        #region GetExactType
+        #region ExactType
 
         /// <summary>
         /// Gets an interface pointer to an "ICorDebugType" object that represents the <see cref="Type"/> of this value.
@@ -234,7 +234,7 @@ namespace ManagedCorDebug
 
         public ICorDebugValue3 Raw3 => (ICorDebugValue3) Raw;
 
-        #region GetSize64
+        #region Size64
 
         /// <summary>
         /// Gets the size, in bytes, of this <see cref="ICorDebugValue3"/> object.

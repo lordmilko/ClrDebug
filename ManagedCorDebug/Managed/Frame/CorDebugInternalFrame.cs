@@ -16,7 +16,7 @@ namespace ManagedCorDebug
 
         public new ICorDebugInternalFrame Raw => (ICorDebugInternalFrame) base.Raw;
 
-        #region GetFrameType
+        #region FrameType
 
         /// <summary>
         /// Gets the type of this internal frame.
@@ -55,7 +55,7 @@ namespace ManagedCorDebug
 
         public ICorDebugInternalFrame2 Raw2 => (ICorDebugInternalFrame2) Raw;
 
-        #region GetAddress
+        #region Address
 
         /// <summary>
         /// Returns the stack address of the internal frame.

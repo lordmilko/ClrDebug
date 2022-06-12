@@ -19,7 +19,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugFunction
-        #region GetModule
+        #region Module
 
         /// <summary>
         /// Gets the module in which this function is defined.
@@ -57,7 +57,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetClass
+        #region Class
 
         /// <summary>
         /// Gets an <see cref="ICorDebugClass"/> object that represents the class this function is a member of.
@@ -95,7 +95,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetToken
+        #region Token
 
         /// <summary>
         /// Gets the metadata token for this function.
@@ -125,7 +125,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetILCode
+        #region ILCode
 
         /// <summary>
         /// Gets the <see cref="ICorDebugCode"/> instance that represents the Microsoft intermediate language (MSIL) code associated with this <see cref="ICorDebugFunction"/> object.
@@ -167,7 +167,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetNativeCode
+        #region NativeCode
 
         /// <summary>
         /// Gets the native code for the function that is represented by this <see cref="ICorDebugFunction"/> instance.
@@ -209,7 +209,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetLocalVarSigToken
+        #region LocalVarSigToken
 
         /// <summary>
         /// Gets the metadata token for the local variable signature of the function that is represented by this <see cref="ICorDebugFunction"/> instance.
@@ -239,7 +239,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetCurrentVersionNumber
+        #region CurrentVersionNumber
 
         /// <summary>
         /// Gets the version number of the latest edit made to the function represented by this <see cref="ICorDebugFunction"/> object.
@@ -315,7 +315,7 @@ namespace ManagedCorDebug
 
         public ICorDebugFunction2 Raw2 => (ICorDebugFunction2) Raw;
 
-        #region GetJMCStatus
+        #region JMCStatus
 
         /// <summary>
         /// Gets or sets a value that indicates whether the function that is represented by this <see cref="ICorDebugFunction2"/> object is marked as user code.
@@ -374,7 +374,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetVersionNumber
+        #region VersionNumber
 
         /// <summary>
         /// Gets the Edit and Continue version of this function.
@@ -455,7 +455,7 @@ namespace ManagedCorDebug
 
         public ICorDebugFunction3 Raw3 => (ICorDebugFunction3) Raw;
 
-        #region GetActiveReJitRequestILCode
+        #region ActiveReJitRequestILCode
 
         /// <summary>
         /// [Supported in the .NET Framework 4.5.2 and later versions] Gets an interface pointer to an <see cref="ICorDebugILCode"/> that contains the IL from an active ReJIT request.

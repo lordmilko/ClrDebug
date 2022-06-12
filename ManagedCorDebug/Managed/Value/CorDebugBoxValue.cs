@@ -16,7 +16,7 @@ namespace ManagedCorDebug
 
         public new ICorDebugBoxValue Raw => (ICorDebugBoxValue) base.Raw;
 
-        #region GetObject
+        #region Object
 
         /// <summary>
         /// Gets the boxed value.

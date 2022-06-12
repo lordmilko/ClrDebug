@@ -14,7 +14,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugMDA
-        #region GetOSThreadId
+        #region OSThreadId
 
         /// <summary>
         /// Gets the operating system (OS) thread identifier upon which the managed debugging assistant (MDA) represented by <see cref="ICorDebugMDA"/> is executing.

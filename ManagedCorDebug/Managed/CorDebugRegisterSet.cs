@@ -17,7 +17,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugRegisterSet
-        #region GetRegistersAvailable
+        #region RegistersAvailable
 
         /// <summary>
         /// Gets a bit mask indicating which registers in this <see cref="ICorDebugRegisterSet"/> are currently available.

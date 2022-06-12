@@ -17,7 +17,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugChain
-        #region GetThread
+        #region Thread
 
         /// <summary>
         /// Gets the physical thread this call chain is part of.
@@ -55,7 +55,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetStackRange
+        #region StackRange
 
         /// <summary>
         /// Gets the address range of the stack segment for this chain.
@@ -98,7 +98,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetContext
+        #region Context
 
         /// <summary>
         /// This method is not implemented in the current version of the .NET Framework.
@@ -135,7 +135,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetCaller
+        #region Caller
 
         /// <summary>
         /// Gets the chain that called this chain.
@@ -176,7 +176,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetCallee
+        #region Callee
 
         /// <summary>
         /// Gets the chain that was called by this chain.
@@ -218,7 +218,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetPrevious
+        #region Previous
 
         /// <summary>
         /// Gets the previous chain of frames for the thread.
@@ -257,7 +257,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetNext
+        #region Next
 
         /// <summary>
         /// Gets the next chain of frames for the thread.
@@ -326,7 +326,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetActiveFrame
+        #region ActiveFrame
 
         /// <summary>
         /// Gets the active (that is, most recent) frame on the chain.
@@ -369,7 +369,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetRegisterSet
+        #region RegisterSet
 
         /// <summary>
         /// Gets the register set for the active part of this chain.
@@ -407,7 +407,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetReason
+        #region Reason
 
         /// <summary>
         /// Gets the reason for the genesis of this calling chain.

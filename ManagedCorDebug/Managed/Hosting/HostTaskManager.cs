@@ -19,7 +19,7 @@ namespace ManagedCorDebug
         }
 
         #region IHostTaskManager
-        #region GetStackGuarantee
+        #region StackGuarantee
 
         /// <summary>
         /// Gets or sets the amount of stack space that is guaranteed to be available after a stack operation completes, but before the closing of a process.

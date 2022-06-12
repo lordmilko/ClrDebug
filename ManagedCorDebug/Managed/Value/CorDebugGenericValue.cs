@@ -21,7 +21,7 @@ namespace ManagedCorDebug
 
         public new ICorDebugGenericValue Raw => (ICorDebugGenericValue) base.Raw;
 
-        #region GetValue
+        #region Value
 
         /// <summary>
         /// Copies the value of this generic into the specified buffer.

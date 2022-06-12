@@ -15,7 +15,7 @@ namespace ManagedCorDebug
         }
 
         #region ISymUnmanagedReader
-        #region GetUserEntryPoint
+        #region UserEntryPoint
 
         /// <summary>
         /// Returns the method that was specified as the user entry point for the module, if any. For example, this method could be the user's main method rather than compiler-generated stubs before the main method.

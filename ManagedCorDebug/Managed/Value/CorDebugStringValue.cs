@@ -17,7 +17,7 @@ namespace ManagedCorDebug
 
         public new ICorDebugStringValue Raw => (ICorDebugStringValue) base.Raw;
 
-        #region GetLength
+        #region Length
 
         /// <summary>
         /// Gets the number of characters in the string referenced by this <see cref="ICorDebugStringValue"/>.

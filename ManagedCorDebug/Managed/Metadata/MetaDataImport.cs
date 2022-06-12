@@ -21,7 +21,7 @@ namespace ManagedCorDebug
         }
 
         #region IMetaDataImport
-        #region GetModuleFromScope
+        #region ModuleFromScope
 
         /// <summary>
         /// Gets a metadata token for the module referenced in the current metadata scope.
@@ -3286,7 +3286,7 @@ namespace ManagedCorDebug
 
         public IMetaDataImport2 Raw2 => (IMetaDataImport2) Raw;
 
-        #region GetPEKind
+        #region PEKind
 
         /// <summary>
         /// Gets a value identifying the nature of the code in the portable executable (PE) file, typically a DLL or EXE file, that is defined in the current metadata scope.
@@ -3330,7 +3330,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetVersionString
+        #region VersionString
 
         /// <summary>
         /// Gets the version number of the runtime that was used to build the assembly.

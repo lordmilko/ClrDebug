@@ -13,7 +13,7 @@ namespace ManagedCorDebug
         }
 
         #region IMetaDataTables
-        #region GetStringHeapSize
+        #region StringHeapSize
 
         /// <summary>
         /// Gets the size, in bytes, of the string heap.
@@ -43,7 +43,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetBlobHeapSize
+        #region BlobHeapSize
 
         /// <summary>
         /// Gets the size, in bytes, of the binary large object (BLOB) heap.
@@ -73,7 +73,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetGuidHeapSize
+        #region GuidHeapSize
 
         /// <summary>
         /// Gets the size, in bytes, of the GUID heap.
@@ -103,7 +103,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetUserStringHeapSize
+        #region UserStringHeapSize
 
         /// <summary>
         /// Gets the size, in bytes, of the user string heap.
@@ -133,7 +133,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetNumTables
+        #region NumTables
 
         /// <summary>
         /// Gets the number of tables in the scope of the current <see cref="IMetaDataTables"/> instance.
@@ -716,7 +716,7 @@ namespace ManagedCorDebug
 
         public IMetaDataTables2 Raw2 => (IMetaDataTables2) Raw;
 
-        #region GetMetaDataStorage
+        #region MetaDataStorage
 
         /// <summary>
         /// Gets the size and contents of the metadata stored in the specified section.

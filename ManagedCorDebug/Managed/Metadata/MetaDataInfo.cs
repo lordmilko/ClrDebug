@@ -13,7 +13,7 @@ namespace ManagedCorDebug
         }
 
         #region IMetaDataInfo
-        #region GetFileMapping
+        #region FileMapping
 
         /// <summary>
         /// Gets the memory region of the mapped file, and the type of mapping.

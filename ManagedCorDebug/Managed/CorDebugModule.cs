@@ -14,7 +14,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugModule
-        #region GetProcess
+        #region Process
 
         /// <summary>
         /// Gets the containing process of this module.
@@ -52,7 +52,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetBaseAddress
+        #region BaseAddress
 
         /// <summary>
         /// Gets the base address of the module.
@@ -86,7 +86,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetAssembly
+        #region Assembly
 
         /// <summary>
         /// Gets the containing assembly for this module.
@@ -124,7 +124,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetEditAndContinueSnapshot
+        #region EditAndContinueSnapshot
 
         /// <summary>
         /// Deprecated.
@@ -162,7 +162,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetToken
+        #region Token
 
         /// <summary>
         /// Gets the token for the table entry for this module.
@@ -231,7 +231,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetSize
+        #region Size
 
         /// <summary>
         /// Gets the size, in bytes, of the module.
@@ -662,7 +662,7 @@ namespace ManagedCorDebug
 
         public ICorDebugModule2 Raw2 => (ICorDebugModule2) Raw;
 
-        #region GetJITCompilerFlags
+        #region JITCompilerFlags
 
         /// <summary>
         /// Gets or sets the flags that control the just-in-time (JIT) compilation of this <see cref="ICorDebugModule2"/>.

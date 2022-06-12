@@ -28,7 +28,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugDataTarget
-        #region GetPlatform
+        #region Platform
 
         /// <summary>
         /// Provides information about the platform, including processor architecture and operating system, on which the target process is running.

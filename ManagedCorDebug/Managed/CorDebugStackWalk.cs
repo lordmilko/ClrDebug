@@ -13,7 +13,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugStackWalk
-        #region GetFrame
+        #region Frame
 
         /// <summary>
         /// Gets the current frame in the <see cref="ICorDebugStackWalk"/> object.

@@ -13,7 +13,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugVariableHome
-        #region GetCode
+        #region Code
 
         /// <summary>
         /// Gets the "ICorDebugCode" instance that contains this <see cref="ICorDebugVariableHome"/> object.
@@ -51,7 +51,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetSlotIndex
+        #region SlotIndex
 
         /// <summary>
         /// Gets the managed slot-index of a local variable.
@@ -92,7 +92,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetArgumentIndex
+        #region ArgumentIndex
 
         /// <summary>
         /// Gets the index of a function argument.
@@ -133,7 +133,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetLiveRange
+        #region LiveRange
 
         /// <summary>
         /// Gets the native range over which this variable is live.
@@ -172,7 +172,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetLocationType
+        #region LocationType
 
         /// <summary>
         /// Gets the type of the variable's native location.
@@ -202,7 +202,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetRegister
+        #region Register
 
         /// <summary>
         /// Gets the register that contains a variable with a location type of VLT_REGISTER, and the base register for a variable with a location type of VLT_REGISTER_RELATIVE.
@@ -240,7 +240,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetOffset
+        #region Offset
 
         /// <summary>
         /// Gets the offset from the base register for a variable.

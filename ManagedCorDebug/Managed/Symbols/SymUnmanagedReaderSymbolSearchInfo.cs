@@ -13,7 +13,7 @@ namespace ManagedCorDebug
         }
 
         #region ISymUnmanagedReaderSymbolSearchInfo
-        #region GetSymbolSearchInfoCount
+        #region SymbolSearchInfoCount
 
         /// <summary>
         /// Gets a count of symbol search information.

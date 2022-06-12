@@ -16,7 +16,7 @@ namespace ManagedCorDebug
 
         public new ICorDebugModuleBreakpoint Raw => (ICorDebugModuleBreakpoint) base.Raw;
 
-        #region GetModule
+        #region Module
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugModule"/> that references the module in which this breakpoint is set.

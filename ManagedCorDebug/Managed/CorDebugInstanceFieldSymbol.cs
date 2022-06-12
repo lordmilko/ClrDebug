@@ -17,7 +17,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugInstanceFieldSymbol
-        #region GetSize
+        #region Size
 
         /// <summary>
         /// Gets the size in bytes of the instance field.
@@ -47,7 +47,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetOffset
+        #region Offset
 
         /// <summary>
         /// Gets the offset in bytes of this instance field in its parent class.

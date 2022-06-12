@@ -30,7 +30,7 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugFrame
-        #region GetChain
+        #region Chain
 
         /// <summary>
         /// Gets a pointer to the chain this frame is a part of.
@@ -68,7 +68,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetCode
+        #region Code
 
         /// <summary>
         /// Gets a pointer to the code associated with this stack frame.
@@ -106,7 +106,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetFunction
+        #region Function
 
         /// <summary>
         /// Gets the function that contains the code associated with this stack frame.
@@ -147,7 +147,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetFunctionToken
+        #region FunctionToken
 
         /// <summary>
         /// Gets the metadata token for the function that contains the code associated with this stack frame.
@@ -177,7 +177,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetStackRange
+        #region StackRange
 
         /// <summary>
         /// Gets the absolute address range of this stack frame.
@@ -221,7 +221,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetCaller
+        #region Caller
 
         /// <summary>
         /// Gets a pointer to the <see cref="ICorDebugFrame"/> object in the current chain that called this frame.
@@ -259,7 +259,7 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetCallee
+        #region Callee
 
         /// <summary>
         /// Gets a pointer to the <see cref="ICorDebugFrame"/> object in the current chain that this frame called.

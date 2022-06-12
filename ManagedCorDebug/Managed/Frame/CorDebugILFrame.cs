@@ -21,7 +21,7 @@ namespace ManagedCorDebug
 
         public new ICorDebugILFrame Raw => (ICorDebugILFrame) base.Raw;
 
-        #region GetStackDepth
+        #region StackDepth
 
         /// <summary>
         /// This method has not been implemented.
