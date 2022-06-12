@@ -1027,20 +1027,52 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region HasUnhandledException
+        #region HadUnhandledException
 
-        public void HasUnhandledException()
+        /// <summary>
+        /// Indicates whether the thread has ever had an unhandled exception.
+        /// </summary>
+        /// <remarks>
+        /// This method indicates whether the thread has ever had an unhandled exception. By the time the unhandled exception
+        /// callback is triggered or native JIT-attach is initiated, this method is guaranteed to return S_OK. There is no
+        /// guarantee that the <see cref="CurrentException"/> property will return the unhandled exception; however, it
+        /// will if the process has not yet been continued after getting the unhandled exception callback or upon native JIT-attach.
+        /// Furthermore, it is possible (although unlikely) to have more than one thread with an unhandled exception at the
+        /// time native JIT-attach is triggered. In such a case there is no way to determine which exception triggered the
+        /// JIT-attach.
+        /// </remarks>
+        public void HadUnhandledException()
         {
             HRESULT hr;
 
-            if ((hr = TryHasUnhandledException()) != HRESULT.S_OK)
+            if ((hr = TryHadUnhandledException()) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
-        public HRESULT TryHasUnhandledException()
+        /// <summary>
+        /// Indicates whether the thread has ever had an unhandled exception.
+        /// </summary>
+        /// <returns>
+        /// This method returns the following specific HRESULTs as well as <see cref="HRESULT"/> errors that indicate method failure.
+        /// 
+        /// | HRESULT | Description                                                   |
+        /// | ------- | ------------------------------------------------------------- |
+        /// | S_OK    | The thread has had an unhandled exception since its creation. |
+        /// | S_FALSE | The thread has never had an unhandled exception.              |
+        /// </returns>
+        /// <remarks>
+        /// This method indicates whether the thread has ever had an unhandled exception. By the time the unhandled exception
+        /// callback is triggered or native JIT-attach is initiated, this method is guaranteed to return S_OK. There is no
+        /// guarantee that the <see cref="CurrentException"/> property will return the unhandled exception; however, it
+        /// will if the process has not yet been continued after getting the unhandled exception callback or upon native JIT-attach.
+        /// Furthermore, it is possible (although unlikely) to have more than one thread with an unhandled exception at the
+        /// time native JIT-attach is triggered. In such a case there is no way to determine which exception triggered the
+        /// JIT-attach.
+        /// </remarks>
+        public HRESULT TryHadUnhandledException()
         {
-            /*HRESULT HasUnhandledException();*/
-            return Raw4.HasUnhandledException();
+            /*HRESULT HadUnhandledException();*/
+            return Raw4.HadUnhandledException();
         }
 
         #endregion

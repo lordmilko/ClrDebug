@@ -2,31 +2,55 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataAssemblyImport.GetAssemblyRefProps"/> method.
+    /// </summary>
     public struct GetAssemblyRefPropsResult
     {
-        public IntPtr PpbPublicKeyOrToken { get; }
+        /// <summary>
+        /// [out] A pointer to the public key or the metadata token.
+        /// </summary>
+        public IntPtr ppbPublicKeyOrToken { get; }
 
-        public int PcbPublicKeyOrToken { get; }
+        /// <summary>
+        /// [out] The number of bytes in the returned public key or token.
+        /// </summary>
+        public int pcbPublicKeyOrToken { get; }
 
-        public string SzName { get; }
+        /// <summary>
+        /// [out] The simple name of the assembly.
+        /// </summary>
+        public string szName { get; }
 
-        public ASSEMBLYMETADATA PMetaData { get; }
+        /// <summary>
+        /// [out] A pointer to an <see cref="ASSEMBLYMETADATA"/> structure that contains the assembly metadata.
+        /// </summary>
+        public ASSEMBLYMETADATA pMetaData { get; }
 
-        public IntPtr PpbHashValue { get; }
+        /// <summary>
+        /// [out] A pointer to the hash value. This is the hash, using the SHA-1 algorithm, of the PublicKey property of the assembly being referenced, unless the arfFullOriginator flag of the <see cref="AssemblyRefFlags"/> enumeration is set.
+        /// </summary>
+        public IntPtr ppbHashValue { get; }
 
-        public int PcbHashValue { get; }
+        /// <summary>
+        /// [out] The number of wide chars in the returned hash value.
+        /// </summary>
+        public int pcbHashValue { get; }
 
-        public CorAssemblyFlags PdwAssemblyFlags { get; }
+        /// <summary>
+        /// [out] A pointer to flags that describe the metadata applied to an assembly. The flags value is a combination of one or more <see cref="CorAssemblyFlags"/> values.
+        /// </summary>
+        public CorAssemblyFlags pdwAssemblyFlags { get; }
 
         public GetAssemblyRefPropsResult(IntPtr ppbPublicKeyOrToken, int pcbPublicKeyOrToken, string szName, ASSEMBLYMETADATA pMetaData, IntPtr ppbHashValue, int pcbHashValue, CorAssemblyFlags pdwAssemblyFlags)
         {
-            PpbPublicKeyOrToken = ppbPublicKeyOrToken;
-            PcbPublicKeyOrToken = pcbPublicKeyOrToken;
-            SzName = szName;
-            PMetaData = pMetaData;
-            PpbHashValue = ppbHashValue;
-            PcbHashValue = pcbHashValue;
-            PdwAssemblyFlags = pdwAssemblyFlags;
+            this.ppbPublicKeyOrToken = ppbPublicKeyOrToken;
+            this.pcbPublicKeyOrToken = pcbPublicKeyOrToken;
+            this.szName = szName;
+            this.pMetaData = pMetaData;
+            this.ppbHashValue = ppbHashValue;
+            this.pcbHashValue = pcbHashValue;
+            this.pdwAssemblyFlags = pdwAssemblyFlags;
         }
     }
 }

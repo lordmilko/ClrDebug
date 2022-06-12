@@ -1,21 +1,24 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CLRMetaHostPolicy.GetRequestedRuntime"/> method.
+    /// </summary>
     public struct GetRequestedRuntimeResult
     {
-        public string PwzVersion { get; }
+        public string pwzVersion { get; }
 
-        public string PwzImageVersion { get; }
+        public string pwzImageVersion { get; }
 
-        public METAHOST_CONFIG_FLAGS PdwConfigFlags { get; }
+        public METAHOST_CONFIG_FLAGS pdwConfigFlags { get; }
 
-        public object PpRuntime { get; }
+        public object ppRuntime { get; }
 
         public GetRequestedRuntimeResult(string pwzVersion, string pwzImageVersion, METAHOST_CONFIG_FLAGS pdwConfigFlags, object ppRuntime)
         {
-            PwzVersion = pwzVersion;
-            PwzImageVersion = pwzImageVersion;
-            PdwConfigFlags = pdwConfigFlags;
-            PpRuntime = ppRuntime;
+            this.pwzVersion = pwzVersion;
+            this.pwzImageVersion = pwzImageVersion;
+            this.pdwConfigFlags = pdwConfigFlags;
+            this.ppRuntime = ppRuntime;
         }
     }
 }

@@ -1,15 +1,24 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CorDebugVariableSymbol.GetValue"/> method.
+    /// </summary>
     public struct GetValueResult
     {
-        public int PcbValue { get; }
+        /// <summary>
+        /// [out] The number of bytes actually written to the pValue buffer.
+        /// </summary>
+        public int pcbValue { get; }
 
-        public byte[] PValue { get; }
+        /// <summary>
+        /// [out] A byte array that contains the value of the variable.
+        /// </summary>
+        public byte[] pValue { get; }
 
         public GetValueResult(int pcbValue, byte[] pValue)
         {
-            PcbValue = pcbValue;
-            PValue = pValue;
+            this.pcbValue = pcbValue;
+            this.pValue = pValue;
         }
     }
 }

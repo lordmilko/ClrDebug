@@ -1,42 +1,74 @@
 using System;
-using System.Reflection;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataImport.GetMemberProps"/> method.
+    /// </summary>
     public struct GetMemberPropsResult
     {
-        public mdTypeDef PClass { get; }
+        /// <summary>
+        /// [out] A pointer to the metadata token that represents the class of the member.
+        /// </summary>
+        public mdTypeDef pClass { get; }
 
-        public string SzMember { get; }
+        /// <summary>
+        /// [out] The name of the member.
+        /// </summary>
+        public string szMember { get; }
 
-        public int PdwAttr { get; }
+        /// <summary>
+        /// [out] Any flag values applied to the member.
+        /// </summary>
+        public int pdwAttr { get; }
 
-        public IntPtr PpvSigBlob { get; }
+        /// <summary>
+        /// [out] A pointer to the binary metadata signature of the member.
+        /// </summary>
+        public IntPtr ppvSigBlob { get; }
 
-        public int PcbSigBlob { get; }
+        /// <summary>
+        /// [out] The size in bytes of ppvSigBlob.
+        /// </summary>
+        public int pcbSigBlob { get; }
 
-        public int PulCodeRVA { get; }
+        /// <summary>
+        /// [out] A pointer to the relative virtual address of the member.
+        /// </summary>
+        public int pulCodeRVA { get; }
 
-        public int PdwImplFlags { get; }
+        /// <summary>
+        /// [out] Any method implementation flags associated with the member.
+        /// </summary>
+        public int pdwImplFlags { get; }
 
-        public CorElementType PdwCPlusTypeFlag { get; }
+        /// <summary>
+        /// [out] A flag that marks a <see cref="ValueType"/>. It is one of the ELEMENT_TYPE_* values.
+        /// </summary>
+        public CorElementType pdwCPlusTypeFlag { get; }
 
-        public IntPtr PpValue { get; }
+        /// <summary>
+        /// [out] A constant string value returned by this member.
+        /// </summary>
+        public IntPtr ppValue { get; }
 
-        public int PcchValue { get; }
+        /// <summary>
+        /// [out] The size in characters of ppValue, or zero if ppValue does not hold a string.
+        /// </summary>
+        public int pcchValue { get; }
 
         public GetMemberPropsResult(mdTypeDef pClass, string szMember, int pdwAttr, IntPtr ppvSigBlob, int pcbSigBlob, int pulCodeRVA, int pdwImplFlags, CorElementType pdwCPlusTypeFlag, IntPtr ppValue, int pcchValue)
         {
-            PClass = pClass;
-            SzMember = szMember;
-            PdwAttr = pdwAttr;
-            PpvSigBlob = ppvSigBlob;
-            PcbSigBlob = pcbSigBlob;
-            PulCodeRVA = pulCodeRVA;
-            PdwImplFlags = pdwImplFlags;
-            PdwCPlusTypeFlag = pdwCPlusTypeFlag;
-            PpValue = ppValue;
-            PcchValue = pcchValue;
+            this.pClass = pClass;
+            this.szMember = szMember;
+            this.pdwAttr = pdwAttr;
+            this.ppvSigBlob = ppvSigBlob;
+            this.pcbSigBlob = pcbSigBlob;
+            this.pulCodeRVA = pulCodeRVA;
+            this.pdwImplFlags = pdwImplFlags;
+            this.pdwCPlusTypeFlag = pdwCPlusTypeFlag;
+            this.ppValue = ppValue;
+            this.pcchValue = pcchValue;
         }
     }
 }

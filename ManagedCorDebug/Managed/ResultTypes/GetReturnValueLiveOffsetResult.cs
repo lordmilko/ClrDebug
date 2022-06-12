@@ -1,15 +1,24 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CorDebugCode.GetReturnValueLiveOffset"/> method.
+    /// </summary>
     public struct GetReturnValueLiveOffsetResult
     {
-        public int PFetched { get; }
+        /// <summary>
+        /// A pointer to the number of offsets actually returned. Usually, its value is 1, but a single IL instruction can map to multiple CALL assembly instructions.
+        /// </summary>
+        public int pFetched { get; }
 
-        public int POffsets { get; }
+        /// <summary>
+        /// An array of native offsets. Typically, pOffsets contains a single offset, although a single IL instruction can map to multiple map to multiple CALL assembly instructions.
+        /// </summary>
+        public int pOffsets { get; }
 
         public GetReturnValueLiveOffsetResult(int pFetched, int pOffsets)
         {
-            PFetched = pFetched;
-            POffsets = pOffsets;
+            this.pFetched = pFetched;
+            this.pOffsets = pOffsets;
         }
     }
 }

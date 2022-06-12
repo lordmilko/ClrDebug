@@ -2,16 +2,25 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataImport.GetFieldMarshal"/> method.
+    /// </summary>
     public struct GetFieldMarshalResult
     {
-        public IntPtr PpvNativeType { get; }
+        /// <summary>
+        /// [out] A pointer to the metadata signature of the field's native type.
+        /// </summary>
+        public IntPtr ppvNativeType { get; }
 
-        public int PcbNativeType { get; }
+        /// <summary>
+        /// [out] The size in bytes of ppvNativeType.
+        /// </summary>
+        public int pcbNativeType { get; }
 
         public GetFieldMarshalResult(IntPtr ppvNativeType, int pcbNativeType)
         {
-            PpvNativeType = ppvNativeType;
-            PcbNativeType = pcbNativeType;
+            this.ppvNativeType = ppvNativeType;
+            this.pcbNativeType = pcbNativeType;
         }
     }
 }

@@ -259,7 +259,7 @@ namespace ManagedCorDebug
         /// <param name="szAssemblyName">[in] The name of the assembly to find. The format of this string is defined in the class reference page for <see cref="AssemblyName"/>.</param>
         /// <param name="ppIUnk">[out] An array that holds the <see cref="IMetaDataAssemblyImport"/> interface pointers.</param>
         /// <param name="cMax">[in] The maximum number of interface pointers to place in ppIUnk.</param>
-        /// <param name="pcAssemblies">[out] The number of interface pointers returnedthat is, the number of interface pointers actually placed in ppIUnk.</param>
+        /// <param name="pcAssemblies">[out] The number of interface pointers returned - that is, the number of interface pointers actually placed in ppIUnk.</param>
         /// <returns>
         /// | HRESULT | Description                                 |
         /// | ------- | ------------------------------------------- |

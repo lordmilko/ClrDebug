@@ -1,15 +1,24 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CorDebugILCode.GetInstrumentedILMap"/> method.
+    /// </summary>
     public struct GetInstrumentedILMapResult
     {
-        public int PcMap { get; }
+        /// <summary>
+        /// [out] The number of <see cref="COR_IL_MAP"/> values written to the map array.
+        /// </summary>
+        public int pcMap { get; }
 
-        public COR_IL_MAP[] Map { get; }
+        /// <summary>
+        /// [out] An array of <see cref="COR_IL_MAP"/> values that provide information on mappings from profiler-instrumented IL to the IL of the original method.
+        /// </summary>
+        public COR_IL_MAP[] map { get; }
 
         public GetInstrumentedILMapResult(int pcMap, COR_IL_MAP[] map)
         {
-            PcMap = pcMap;
-            Map = map;
+            this.pcMap = pcMap;
+            this.map = map;
         }
     }
 }

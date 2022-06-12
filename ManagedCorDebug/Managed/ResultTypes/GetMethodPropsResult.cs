@@ -1,23 +1,36 @@
-using System;
-
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CorDebugSymbolProvider.GetMethodProps"/> method.
+    /// </summary>
     public struct GetMethodPropsResult
     {
-        public int PMethodToken { get; }
+        /// <summary>
+        /// [out] A pointer to the method's metadata token.
+        /// </summary>
+        public int pMethodToken { get; }
 
-        public int PcGenericParams { get; }
+        /// <summary>
+        /// [out] A pointer to the number of generic parameters associated with this method.
+        /// </summary>
+        public int pcGenericParams { get; }
 
-        public int PcbSignature { get; }
+        /// <summary>
+        /// [out] A pointer to the size of the returned signature array.
+        /// </summary>
+        public int pcbSignature { get; }
 
-        public byte[] Signature { get; }
+        /// <summary>
+        /// [out] A buffer that holds the typespec signatures of all generic parameters.
+        /// </summary>
+        public byte[] signature { get; }
 
         public GetMethodPropsResult(int pMethodToken, int pcGenericParams, int pcbSignature, byte[] signature)
         {
-            PMethodToken = pMethodToken;
-            PcGenericParams = pcGenericParams;
-            PcbSignature = pcbSignature;
-            Signature = signature;
+            this.pMethodToken = pMethodToken;
+            this.pcGenericParams = pcGenericParams;
+            this.pcbSignature = pcbSignature;
+            this.signature = signature;
         }
     }
 }

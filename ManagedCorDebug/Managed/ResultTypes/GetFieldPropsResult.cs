@@ -1,36 +1,62 @@
 using System;
-using System.Reflection;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataImport.GetFieldProps"/> method.
+    /// </summary>
     public struct GetFieldPropsResult
     {
-        public mdTypeDef PClass { get; }
+        /// <summary>
+        /// [out] A pointer to a TypeDef token that represents the type of the class that the field belongs to.
+        /// </summary>
+        public mdTypeDef pClass { get; }
 
-        public string SzField { get; }
+        /// <summary>
+        /// [out] The name of the field.
+        /// </summary>
+        public string szField { get; }
 
-        public CorFieldAttr PdwAttr { get; }
+        /// <summary>
+        /// [out] Flags associated with the field's metadata.
+        /// </summary>
+        public CorFieldAttr pdwAttr { get; }
 
-        public IntPtr PpvSigBlob { get; }
+        /// <summary>
+        /// [out] A pointer to the binary metadata value that describes the field.
+        /// </summary>
+        public IntPtr ppvSigBlob { get; }
 
-        public int PcbSigBlob { get; }
+        /// <summary>
+        /// [out] The size in bytes of ppvSigBlob.
+        /// </summary>
+        public int pcbSigBlob { get; }
 
-        public CorElementType PdwCPlusTypeFlag { get; }
+        /// <summary>
+        /// [out] A flag that specifies the value type of the field.
+        /// </summary>
+        public CorElementType pdwCPlusTypeFlag { get; }
 
-        public IntPtr PpValue { get; }
+        /// <summary>
+        /// [out] A constant value for the field.
+        /// </summary>
+        public IntPtr ppValue { get; }
 
-        public int PcchValue { get; }
+        /// <summary>
+        /// [out] The size in chars of ppValue, or zero if no string exists.
+        /// </summary>
+        public int pcchValue { get; }
 
         public GetFieldPropsResult(mdTypeDef pClass, string szField, CorFieldAttr pdwAttr, IntPtr ppvSigBlob, int pcbSigBlob, CorElementType pdwCPlusTypeFlag, IntPtr ppValue, int pcchValue)
         {
-            PClass = pClass;
-            SzField = szField;
-            PdwAttr = pdwAttr;
-            PpvSigBlob = ppvSigBlob;
-            PcbSigBlob = pcbSigBlob;
-            PdwCPlusTypeFlag = pdwCPlusTypeFlag;
-            PpValue = ppValue;
-            PcchValue = pcchValue;
+            this.pClass = pClass;
+            this.szField = szField;
+            this.pdwAttr = pdwAttr;
+            this.ppvSigBlob = ppvSigBlob;
+            this.pcbSigBlob = pcbSigBlob;
+            this.pdwCPlusTypeFlag = pdwCPlusTypeFlag;
+            this.ppValue = ppValue;
+            this.pcchValue = pcchValue;
         }
     }
 }

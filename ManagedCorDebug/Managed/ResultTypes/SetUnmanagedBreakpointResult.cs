@@ -1,17 +1,24 @@
-using System;
-
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CorDebugProcess.SetUnmanagedBreakpoint"/> method.
+    /// </summary>
     public struct SetUnmanagedBreakpointResult
     {
-        public byte[] Buffer { get; }
+        /// <summary>
+        /// [out] An array that contains the opcode that is replaced by the breakpoint.
+        /// </summary>
+        public byte[] buffer { get; }
 
-        public int BufLen { get; }
+        /// <summary>
+        /// [out] A pointer to the number of bytes returned in the buffer array.
+        /// </summary>
+        public int bufLen { get; }
 
         public SetUnmanagedBreakpointResult(byte[] buffer, int bufLen)
         {
-            Buffer = buffer;
-            BufLen = bufLen;
+            this.buffer = buffer;
+            this.bufLen = bufLen;
         }
     }
 }

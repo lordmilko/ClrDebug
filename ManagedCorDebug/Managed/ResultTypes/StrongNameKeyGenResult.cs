@@ -2,16 +2,25 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CLRStrongName.StrongNameKeyGen"/> method.
+    /// </summary>
     public struct StrongNameKeyGenResult
     {
-        public IntPtr PpbKeyBlob { get; }
+        /// <summary>
+        /// [out] The returned public/private key pair.
+        /// </summary>
+        public IntPtr ppbKeyBlob { get; }
 
-        public int PcbKeyBlob { get; }
+        /// <summary>
+        /// [out] The size, in bytes, of ppbKeyBlob.
+        /// </summary>
+        public int pcbKeyBlob { get; }
 
         public StrongNameKeyGenResult(IntPtr ppbKeyBlob, int pcbKeyBlob)
         {
-            PpbKeyBlob = ppbKeyBlob;
-            PcbKeyBlob = pcbKeyBlob;
+            this.ppbKeyBlob = ppbKeyBlob;
+            this.pcbKeyBlob = pcbKeyBlob;
         }
     }
 }

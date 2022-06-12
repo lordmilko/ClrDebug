@@ -1,15 +1,24 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CorDebugProcess.GetExportStepInfo"/> method.
+    /// </summary>
     public struct GetExportStepInfoResult
     {
-        public CorDebugCodeInvokeKind PInvokeKind { get; }
+        /// <summary>
+        /// [out] A pointer to a member of the <see cref="CorDebugCodeInvokeKind"/> enumeration that describes how the exported function will invoke managed code.
+        /// </summary>
+        public CorDebugCodeInvokeKind pInvokeKind { get; }
 
-        public CorDebugCodeInvokePurpose PInvokePurpose { get; }
+        /// <summary>
+        /// [out] A pointer to a member of the <see cref="CorDebugCodeInvokePurpose"/> enumeration that describes why the exported function will call managed code.
+        /// </summary>
+        public CorDebugCodeInvokePurpose pInvokePurpose { get; }
 
         public GetExportStepInfoResult(CorDebugCodeInvokeKind pInvokeKind, CorDebugCodeInvokePurpose pInvokePurpose)
         {
-            PInvokeKind = pInvokeKind;
-            PInvokePurpose = pInvokePurpose;
+            this.pInvokeKind = pInvokeKind;
+            this.pInvokePurpose = pInvokePurpose;
         }
     }
 }

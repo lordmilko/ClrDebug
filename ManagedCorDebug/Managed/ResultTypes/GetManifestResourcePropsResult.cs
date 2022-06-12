@@ -1,21 +1,36 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataAssemblyImport.GetManifestResourceProps"/> method.
+    /// </summary>
     public struct GetManifestResourcePropsResult
     {
-        public string SzName { get; }
+        /// <summary>
+        /// [out] The name of the resource.
+        /// </summary>
+        public string szName { get; }
 
-        public int PtkImplementation { get; }
+        /// <summary>
+        /// [out] A pointer to an <see cref="mdFile"/> token or an <see cref="mdAssemblyRef"/> token that represents the file or assembly, respectively, that contains the resource.
+        /// </summary>
+        public int ptkImplementation { get; }
 
-        public int PdwOffset { get; }
+        /// <summary>
+        /// [out] A pointer to a value that specifies the offset to the beginning of the resource within the file.
+        /// </summary>
+        public int pdwOffset { get; }
 
-        public CorManifestResourceFlags PdwResourceFlags { get; }
+        /// <summary>
+        /// [out] A pointer to flags that describe the metadata applied to a resource. The flags value is a combination of one or more <see cref="CorManifestResourceFlags"/> values.
+        /// </summary>
+        public CorManifestResourceFlags pdwResourceFlags { get; }
 
         public GetManifestResourcePropsResult(string szName, int ptkImplementation, int pdwOffset, CorManifestResourceFlags pdwResourceFlags)
         {
-            SzName = szName;
-            PtkImplementation = ptkImplementation;
-            PdwOffset = pdwOffset;
-            PdwResourceFlags = pdwResourceFlags;
+            this.szName = szName;
+            this.ptkImplementation = ptkImplementation;
+            this.pdwOffset = pdwOffset;
+            this.pdwResourceFlags = pdwResourceFlags;
         }
     }
 }

@@ -2,19 +2,31 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataImport.EnumTypeRefs"/> method.
+    /// </summary>
     public struct EnumTypeRefsResult
     {
-        public IntPtr PhEnum { get; }
+        /// <summary>
+        /// [in, out] A pointer to the enumerator. This must be NULL for the first call of this method.
+        /// </summary>
+        public IntPtr phEnum { get; }
 
-        public mdTypeRef[] RTypeRefs { get; }
+        /// <summary>
+        /// [out] The array used to store the TypeRef tokens.
+        /// </summary>
+        public mdTypeRef[] rTypeRefs { get; }
 
-        public int PcTypeRefs { get; }
+        /// <summary>
+        /// [out] A pointer to the number of TypeRef tokens returned in rTypeRefs.
+        /// </summary>
+        public int pcTypeRefs { get; }
 
         public EnumTypeRefsResult(IntPtr phEnum, mdTypeRef[] rTypeRefs, int pcTypeRefs)
         {
-            PhEnum = phEnum;
-            RTypeRefs = rTypeRefs;
-            PcTypeRefs = pcTypeRefs;
+            this.phEnum = phEnum;
+            this.rTypeRefs = rTypeRefs;
+            this.pcTypeRefs = pcTypeRefs;
         }
     }
 }

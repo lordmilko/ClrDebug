@@ -2,16 +2,25 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="SymUnmanagedScope.GetNamespaces"/> method.
+    /// </summary>
     public struct GetNamespacesResult
     {
-        public int PcNameSpaces { get; }
+        /// <summary>
+        /// [out] A pointer to a ULONG32 that receives the size of the buffer required to contain the namespaces.
+        /// </summary>
+        public int pcNameSpaces { get; }
 
-        public IntPtr Namespaces { get; }
+        /// <summary>
+        /// [out] The array that receives the namespaces.
+        /// </summary>
+        public IntPtr namespaces { get; }
 
         public GetNamespacesResult(int pcNameSpaces, IntPtr namespaces)
         {
-            PcNameSpaces = pcNameSpaces;
-            Namespaces = namespaces;
+            this.pcNameSpaces = pcNameSpaces;
+            this.namespaces = namespaces;
         }
     }
 }

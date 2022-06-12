@@ -1,15 +1,18 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CorDebugObjectValue.GetVirtualMethodAndType"/> method.
+    /// </summary>
     public struct GetVirtualMethodAndTypeResult
     {
-        public CorDebugFunction PpFunction { get; }
+        public CorDebugFunction ppFunction { get; }
 
-        public CorDebugType PpType { get; }
+        public CorDebugType ppType { get; }
 
         public GetVirtualMethodAndTypeResult(CorDebugFunction ppFunction, CorDebugType ppType)
         {
-            PpFunction = ppFunction;
-            PpType = ppType;
+            this.ppFunction = ppFunction;
+            this.ppType = ppType;
         }
     }
 }

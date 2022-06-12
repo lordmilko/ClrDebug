@@ -2,22 +2,37 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataImport.EnumMethodsWithName"/> method.
+    /// </summary>
     public struct EnumMethodsWithNameResult
     {
-        public IntPtr PhEnum { get; }
+        /// <summary>
+        /// [in, out] A pointer to the enumerator. This must be NULL for the first call of this method.
+        /// </summary>
+        public IntPtr phEnum { get; }
 
-        public string SzName { get; }
+        /// <summary>
+        /// [in] The name that limits the scope of the enumeration.
+        /// </summary>
+        public string szName { get; }
 
-        public mdMethodDef[] RMethods { get; }
+        /// <summary>
+        /// [out] The array used to store the MethodDef tokens.
+        /// </summary>
+        public mdMethodDef[] rMethods { get; }
 
-        public int PcTokens { get; }
+        /// <summary>
+        /// [out] The number of MethodDef tokens returned in rMethods.
+        /// </summary>
+        public int pcTokens { get; }
 
         public EnumMethodsWithNameResult(IntPtr phEnum, string szName, mdMethodDef[] rMethods, int pcTokens)
         {
-            PhEnum = phEnum;
-            SzName = szName;
-            RMethods = rMethods;
-            PcTokens = pcTokens;
+            this.phEnum = phEnum;
+            this.szName = szName;
+            this.rMethods = rMethods;
+            this.pcTokens = pcTokens;
         }
     }
 }

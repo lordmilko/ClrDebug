@@ -1,21 +1,36 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataAssemblyImport.GetExportedTypeProps"/> method.
+    /// </summary>
     public struct GetExportedTypePropsResult
     {
-        public string SzName { get; }
+        /// <summary>
+        /// [out] The name of the exported type.
+        /// </summary>
+        public string szName { get; }
 
-        public int PtkImplementation { get; }
+        /// <summary>
+        /// [out] An <see cref="mdFile"/>, <see cref="mdAssemblyRef"/>, or <see cref="mdExportedType"/> metadata token that contains or allows access to the properties of the exported type.
+        /// </summary>
+        public int ptkImplementation { get; }
 
-        public mdTypeDef PtkTypeDef { get; }
+        /// <summary>
+        /// [out] A pointer to an <see cref="mdTypeDef"/> token that represents a type in the file.
+        /// </summary>
+        public mdTypeDef ptkTypeDef { get; }
 
-        public CorTypeAttr PdwExportedTypeFlags { get; }
+        /// <summary>
+        /// [out] A pointer to the flags that describe the metadata applied to the exported type. The flags value can be one or more <see cref="CorTypeAttr"/> values.
+        /// </summary>
+        public CorTypeAttr pdwExportedTypeFlags { get; }
 
         public GetExportedTypePropsResult(string szName, int ptkImplementation, mdTypeDef ptkTypeDef, CorTypeAttr pdwExportedTypeFlags)
         {
-            SzName = szName;
-            PtkImplementation = ptkImplementation;
-            PtkTypeDef = ptkTypeDef;
-            PdwExportedTypeFlags = pdwExportedTypeFlags;
+            this.szName = szName;
+            this.ptkImplementation = ptkImplementation;
+            this.ptkTypeDef = ptkTypeDef;
+            this.pdwExportedTypeFlags = pdwExportedTypeFlags;
         }
     }
 }

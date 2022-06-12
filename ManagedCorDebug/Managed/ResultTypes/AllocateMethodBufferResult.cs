@@ -2,16 +2,25 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CeeGen.AllocateMethodBuffer"/> method.
+    /// </summary>
     public struct AllocateMethodBufferResult
     {
-        public IntPtr LpBuffer { get; }
+        /// <summary>
+        /// [out] The returned buffer.
+        /// </summary>
+        public IntPtr lpBuffer { get; }
 
-        public int RVA { get; }
+        /// <summary>
+        /// [out] The relative virtual address of the method.
+        /// </summary>
+        public int rVA { get; }
 
         public AllocateMethodBufferResult(IntPtr lpBuffer, int rVA)
         {
-            LpBuffer = lpBuffer;
-            RVA = rVA;
+            this.lpBuffer = lpBuffer;
+            this.rVA = rVA;
         }
     }
 }

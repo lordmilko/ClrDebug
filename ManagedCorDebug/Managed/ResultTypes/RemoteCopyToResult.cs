@@ -1,15 +1,18 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="Stream.RemoteCopyTo"/> method.
+    /// </summary>
     public struct RemoteCopyToResult
     {
-        public ULARGE_INTEGER PcbRead { get; }
+        public ULARGE_INTEGER pcbRead { get; }
 
-        public ULARGE_INTEGER PcbWritten { get; }
+        public ULARGE_INTEGER pcbWritten { get; }
 
         public RemoteCopyToResult(ULARGE_INTEGER pcbRead, ULARGE_INTEGER pcbWritten)
         {
-            PcbRead = pcbRead;
-            PcbWritten = pcbWritten;
+            this.pcbRead = pcbRead;
+            this.pcbWritten = pcbWritten;
         }
     }
 }

@@ -2,16 +2,25 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="SymUnmanagedScope.GetLocals"/> method.
+    /// </summary>
     public struct GetLocalsResult
     {
-        public int PcLocals { get; }
+        /// <summary>
+        /// [out] A pointer to a ULONG32 that receives the size of the buffer required to contain the local variables.
+        /// </summary>
+        public int pcLocals { get; }
 
-        public IntPtr Locals { get; }
+        /// <summary>
+        /// [out] The array that receives the local variables.
+        /// </summary>
+        public IntPtr locals { get; }
 
         public GetLocalsResult(int pcLocals, IntPtr locals)
         {
-            PcLocals = pcLocals;
-            Locals = locals;
+            this.pcLocals = pcLocals;
+            this.locals = locals;
         }
     }
 }

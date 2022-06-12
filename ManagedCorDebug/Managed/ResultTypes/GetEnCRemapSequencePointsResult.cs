@@ -1,15 +1,18 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CorDebugCode.GetEnCRemapSequencePoints"/> method.
+    /// </summary>
     public struct GetEnCRemapSequencePointsResult
     {
-        public int PcMap { get; }
+        public int pcMap { get; }
 
-        public int[] Offsets { get; }
+        public int[] offsets { get; }
 
         public GetEnCRemapSequencePointsResult(int pcMap, int[] offsets)
         {
-            PcMap = pcMap;
-            Offsets = offsets;
+            this.pcMap = pcMap;
+            this.offsets = offsets;
         }
     }
 }

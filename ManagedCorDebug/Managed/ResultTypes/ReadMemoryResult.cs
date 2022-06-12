@@ -1,17 +1,24 @@
-using System;
-
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CorDebugProcess.ReadMemory"/> method.
+    /// </summary>
     public struct ReadMemoryResult
     {
-        public byte[] Buffer { get; }
+        /// <summary>
+        /// [out] A buffer that receives the contents of the memory.
+        /// </summary>
+        public byte[] buffer { get; }
 
-        public long Read { get; }
+        /// <summary>
+        /// [out] A pointer to the number of bytes transferred into the specified buffer.
+        /// </summary>
+        public long read { get; }
 
         public ReadMemoryResult(byte[] buffer, long read)
         {
-            Buffer = buffer;
-            Read = read;
+            this.buffer = buffer;
+            this.read = read;
         }
     }
 }

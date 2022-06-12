@@ -1,18 +1,31 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CLRDebugging.OpenVirtualProcess"/> method.
+    /// </summary>
     public struct OpenVirtualProcessResult
     {
-        public object PpProcess { get; }
+        /// <summary>
+        /// [out] A pointer to the COM interface that is identified by riidProcess.
+        /// </summary>
+        public object ppProcess { get; }
 
-        public CLR_DEBUGGING_VERSION PVersion { get; }
+        /// <summary>
+        /// [in, out] The version of the CLR. On input, this value can be null. It can also point to a <see cref="CLR_DEBUGGING_VERSION"/> structure, in which case the structure's wStructVersion field must be initialized to 0 (zero).<para/>
+        /// On output, the returned <see cref="CLR_DEBUGGING_VERSION"/> structure will be filled in with the version information for the CLR.
+        /// </summary>
+        public CLR_DEBUGGING_VERSION pVersion { get; }
 
-        public CLR_DEBUGGING_PROCESS_FLAGS PdwFlags { get; }
+        /// <summary>
+        /// [out] Informational flags about the specified runtime. See the <see cref="CLR_DEBUGGING_PROCESS_FLAGS"/> topic for a description of the flags.
+        /// </summary>
+        public CLR_DEBUGGING_PROCESS_FLAGS pdwFlags { get; }
 
         public OpenVirtualProcessResult(object ppProcess, CLR_DEBUGGING_VERSION pVersion, CLR_DEBUGGING_PROCESS_FLAGS pdwFlags)
         {
-            PpProcess = ppProcess;
-            PVersion = pVersion;
-            PdwFlags = pdwFlags;
+            this.ppProcess = ppProcess;
+            this.pVersion = pVersion;
+            this.pdwFlags = pdwFlags;
         }
     }
 }

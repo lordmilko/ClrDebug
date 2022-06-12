@@ -2,19 +2,31 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataImport.EnumCustomAttributes"/> method.
+    /// </summary>
     public struct EnumCustomAttributesResult
     {
-        public IntPtr PhEnum { get; }
+        /// <summary>
+        /// [in, out] A pointer to the returned enumerator.
+        /// </summary>
+        public IntPtr phEnum { get; }
 
-        public mdCustomAttribute[] RCustomAttributes { get; }
+        /// <summary>
+        /// [out] An array of custom attribute tokens.
+        /// </summary>
+        public mdCustomAttribute[] rCustomAttributes { get; }
 
-        public int PcCustomAttributes { get; }
+        /// <summary>
+        /// [out, optional] The actual number of token values returned in rCustomAttributes.
+        /// </summary>
+        public int pcCustomAttributes { get; }
 
         public EnumCustomAttributesResult(IntPtr phEnum, mdCustomAttribute[] rCustomAttributes, int pcCustomAttributes)
         {
-            PhEnum = phEnum;
-            RCustomAttributes = rCustomAttributes;
-            PcCustomAttributes = pcCustomAttributes;
+            this.phEnum = phEnum;
+            this.rCustomAttributes = rCustomAttributes;
+            this.pcCustomAttributes = pcCustomAttributes;
         }
     }
 }

@@ -2,19 +2,31 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataImport.EnumEvents"/> method.
+    /// </summary>
     public struct EnumEventsResult
     {
-        public IntPtr PhEnum { get; }
+        /// <summary>
+        /// [in, out] A pointer to the enumerator.
+        /// </summary>
+        public IntPtr phEnum { get; }
 
-        public mdEvent[] REvents { get; }
+        /// <summary>
+        /// [out] The array of returned events.
+        /// </summary>
+        public mdEvent[] rEvents { get; }
 
-        public int PcEvents { get; }
+        /// <summary>
+        /// [out] The actual number of events returned in rEvents.
+        /// </summary>
+        public int pcEvents { get; }
 
         public EnumEventsResult(IntPtr phEnum, mdEvent[] rEvents, int pcEvents)
         {
-            PhEnum = phEnum;
-            REvents = rEvents;
-            PcEvents = pcEvents;
+            this.phEnum = phEnum;
+            this.rEvents = rEvents;
+            this.pcEvents = pcEvents;
         }
     }
 }

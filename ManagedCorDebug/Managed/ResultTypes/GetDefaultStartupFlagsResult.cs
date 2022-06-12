@@ -1,15 +1,24 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CLRRuntimeInfo.GetDefaultStartupFlags"/> method.
+    /// </summary>
     public struct GetDefaultStartupFlagsResult
     {
-        public int PdwStartupFlags { get; }
+        /// <summary>
+        /// [out] A pointer to the host startup flags that are currently set.
+        /// </summary>
+        public int pdwStartupFlags { get; }
 
-        public string PwzHostConfigFile { get; }
+        /// <summary>
+        /// [out] A pointer to the directory path of the current host configuration file.
+        /// </summary>
+        public string pwzHostConfigFile { get; }
 
         public GetDefaultStartupFlagsResult(int pdwStartupFlags, string pwzHostConfigFile)
         {
-            PdwStartupFlags = pdwStartupFlags;
-            PwzHostConfigFile = pwzHostConfigFile;
+            this.pdwStartupFlags = pdwStartupFlags;
+            this.pwzHostConfigFile = pwzHostConfigFile;
         }
     }
 }

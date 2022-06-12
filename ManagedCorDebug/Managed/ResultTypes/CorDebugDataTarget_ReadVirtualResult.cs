@@ -1,15 +1,24 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CorDebugDataTarget.ReadVirtual"/> method.
+    /// </summary>
     public struct CorDebugDataTarget_ReadVirtualResult
     {
-        public byte PBuffer { get; }
+        /// <summary>
+        /// [out] The buffer where the memory will be stored.
+        /// </summary>
+        public byte pBuffer { get; }
 
-        public int PBytesRead { get; }
+        /// <summary>
+        /// [out] The number of bytes actually read from the target address. This can be fewer than bytesRequested.
+        /// </summary>
+        public int pBytesRead { get; }
 
         public CorDebugDataTarget_ReadVirtualResult(byte pBuffer, int pBytesRead)
         {
-            PBuffer = pBuffer;
-            PBytesRead = pBytesRead;
+            this.pBuffer = pBuffer;
+            this.pBytesRead = pBytesRead;
         }
     }
 }

@@ -1,24 +1,42 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataImport.GetGenericParamProps"/> method.
+    /// </summary>
     public struct GetGenericParamPropsResult
     {
-        public int PulParamSeq { get; }
+        /// <summary>
+        /// [out] The ordinal position of the Type parameter in the parent constructor or method.
+        /// </summary>
+        public int pulParamSeq { get; }
 
-        public CorGenericParamAttr PdwParamFlags { get; }
+        /// <summary>
+        /// [out] A value of the <see cref="CorGenericParamAttr"/> enumeration that describes the Type for the generic parameter.
+        /// </summary>
+        public CorGenericParamAttr pdwParamFlags { get; }
 
-        public mdToken PtOwner { get; }
+        /// <summary>
+        /// [out] A TypeDef or MethodDef token that represents the owner of the parameter.
+        /// </summary>
+        public mdToken ptOwner { get; }
 
-        public int Reserved { get; }
+        /// <summary>
+        /// [out] Reserved for future extensibility.
+        /// </summary>
+        public int reserved { get; }
 
-        public string Wzname { get; }
+        /// <summary>
+        /// [out] The name of the generic parameter.
+        /// </summary>
+        public string wzname { get; }
 
         public GetGenericParamPropsResult(int pulParamSeq, CorGenericParamAttr pdwParamFlags, mdToken ptOwner, int reserved, string wzname)
         {
-            PulParamSeq = pulParamSeq;
-            PdwParamFlags = pdwParamFlags;
-            PtOwner = ptOwner;
-            Reserved = reserved;
-            Wzname = wzname;
+            this.pulParamSeq = pulParamSeq;
+            this.pdwParamFlags = pdwParamFlags;
+            this.ptOwner = ptOwner;
+            this.reserved = reserved;
+            this.wzname = wzname;
         }
     }
 }

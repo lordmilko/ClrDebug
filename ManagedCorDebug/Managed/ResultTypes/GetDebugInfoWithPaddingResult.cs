@@ -2,19 +2,22 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="SymUnmanagedWriter.GetDebugInfoWithPadding"/> method.
+    /// </summary>
     public struct GetDebugInfoWithPaddingResult
     {
-        public IntPtr PIDD { get; }
+        public IntPtr pIDD { get; }
 
-        public int PcData { get; }
+        public int pcData { get; }
 
-        public byte[] Data { get; }
+        public byte[] data { get; }
 
         public GetDebugInfoWithPaddingResult(IntPtr pIDD, int pcData, byte[] data)
         {
-            PIDD = pIDD;
-            PcData = pcData;
-            Data = data;
+            this.pIDD = pIDD;
+            this.pcData = pcData;
+            this.data = data;
         }
     }
 }

@@ -1,21 +1,36 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CorDebugMergedAssemblyRecord.Version"/> property.
+    /// </summary>
     public struct GetVersionResult
     {
-        public ushort PMajor { get; }
+        /// <summary>
+        /// [out] A pointer to the major version number.
+        /// </summary>
+        public ushort pMajor { get; }
 
-        public ushort PMinor { get; }
+        /// <summary>
+        /// [out] A pointer to the minor version number.
+        /// </summary>
+        public ushort pMinor { get; }
 
-        public ushort PBuild { get; }
+        /// <summary>
+        /// [out] A pointer to the build number.
+        /// </summary>
+        public ushort pBuild { get; }
 
-        public ushort PRevision { get; }
+        /// <summary>
+        /// [out] A pointer to the revision number.
+        /// </summary>
+        public ushort pRevision { get; }
 
         public GetVersionResult(ushort pMajor, ushort pMinor, ushort pBuild, ushort pRevision)
         {
-            PMajor = pMajor;
-            PMinor = pMinor;
-            PBuild = pBuild;
-            PRevision = pRevision;
+            this.pMajor = pMajor;
+            this.pMinor = pMinor;
+            this.pBuild = pBuild;
+            this.pRevision = pRevision;
         }
     }
 }

@@ -1,15 +1,24 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CLRStrongName.StrongNameGetBlobFromImage"/> method.
+    /// </summary>
     public struct StrongNameGetBlobFromImageResult
     {
-        public byte PbBlob { get; }
+        /// <summary>
+        /// [in] A buffer to contain the binary representation of the image.
+        /// </summary>
+        public byte pbBlob { get; }
 
-        public int PcbBlob { get; }
+        /// <summary>
+        /// [in, out] The requested maximum size, in bytes, of pbBlob. Upon return, the actual size, in bytes, of pbBlob.
+        /// </summary>
+        public int pcbBlob { get; }
 
         public StrongNameGetBlobFromImageResult(byte pbBlob, int pcbBlob)
         {
-            PbBlob = pbBlob;
-            PcbBlob = pcbBlob;
+            this.pbBlob = pbBlob;
+            this.pcbBlob = pcbBlob;
         }
     }
 }

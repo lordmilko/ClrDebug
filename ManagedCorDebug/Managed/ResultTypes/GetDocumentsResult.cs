@@ -2,16 +2,25 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="SymUnmanagedReader.GetDocuments"/> method.
+    /// </summary>
     public struct GetDocumentsResult
     {
-        public int PcDocs { get; }
+        /// <summary>
+        /// [out] A pointer to a variable that receives the array length.
+        /// </summary>
+        public int pcDocs { get; }
 
-        public IntPtr PDocs { get; }
+        /// <summary>
+        /// [out] A pointer to a variable that receives the document array.
+        /// </summary>
+        public IntPtr pDocs { get; }
 
         public GetDocumentsResult(int pcDocs, IntPtr pDocs)
         {
-            PcDocs = pcDocs;
-            PDocs = pDocs;
+            this.pcDocs = pcDocs;
+            this.pDocs = pDocs;
         }
     }
 }

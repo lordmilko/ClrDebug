@@ -1,18 +1,31 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CLRStrongName.GetHashFromFileW"/> method.
+    /// </summary>
     public struct GetHashFromFileWResult
     {
-        public int PiHashAlg { get; }
+        /// <summary>
+        /// [in, out] The algorithm to use when generating the hash. Valid algorithms are those defined by the Win32 CryptoAPI.<para/>
+        /// If piHashAlg is set to 0, the default algorithm CALG_SHA-1 is used.
+        /// </summary>
+        public int piHashAlg { get; }
 
-        public byte PbHash { get; }
+        /// <summary>
+        /// [out] A byte array containing the generated hash.
+        /// </summary>
+        public byte pbHash { get; }
 
-        public int PchHash { get; }
+        /// <summary>
+        /// [out] The size, in bytes, of pbHash.
+        /// </summary>
+        public int pchHash { get; }
 
         public GetHashFromFileWResult(int piHashAlg, byte pbHash, int pchHash)
         {
-            PiHashAlg = piHashAlg;
-            PbHash = pbHash;
-            PchHash = pchHash;
+            this.piHashAlg = piHashAlg;
+            this.pbHash = pbHash;
+            this.pchHash = pchHash;
         }
     }
 }

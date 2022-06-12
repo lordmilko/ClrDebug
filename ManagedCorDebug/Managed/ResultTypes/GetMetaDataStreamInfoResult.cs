@@ -2,16 +2,25 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataTables.GetMetaDataStreamInfo"/> method.
+    /// </summary>
     public struct GetMetaDataStreamInfoResult
     {
-        public IntPtr Ppv { get; }
+        /// <summary>
+        /// [out] A pointer to the metadata stream.
+        /// </summary>
+        public IntPtr ppv { get; }
 
-        public int Pcb { get; }
+        /// <summary>
+        /// [out] The size, in bytes, of ppv.
+        /// </summary>
+        public int pcb { get; }
 
         public GetMetaDataStreamInfoResult(IntPtr ppv, int pcb)
         {
-            Ppv = ppv;
-            Pcb = pcb;
+            this.ppv = ppv;
+            this.pcb = pcb;
         }
     }
 }

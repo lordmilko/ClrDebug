@@ -1,15 +1,24 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="SymENCUnmanagedMethod.GetSourceExtentInDocument"/> method.
+    /// </summary>
     public struct GetSourceExtentInDocumentResult
     {
-        public int PstartLine { get; }
+        /// <summary>
+        /// [out] A pointer to a ULONG32 that receives the start line.
+        /// </summary>
+        public int pstartLine { get; }
 
-        public int PendLine { get; }
+        /// <summary>
+        /// [out] A pointer to a ULONG32 that receives the end line.
+        /// </summary>
+        public int pendLine { get; }
 
         public GetSourceExtentInDocumentResult(int pstartLine, int pendLine)
         {
-            PstartLine = pstartLine;
-            PendLine = pendLine;
+            this.pstartLine = pstartLine;
+            this.pendLine = pendLine;
         }
     }
 }

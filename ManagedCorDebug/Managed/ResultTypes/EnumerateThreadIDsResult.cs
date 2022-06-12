@@ -1,15 +1,24 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CorDebugDataTarget.EnumerateThreadIDs"/> method.
+    /// </summary>
     public struct EnumerateThreadIDsResult
     {
-        public int PcThreadIds { get; }
+        /// <summary>
+        /// [out] A pointer to a ULONG32 that indicates the actual number of thread IDs written to the pThreadIds array.
+        /// </summary>
+        public int pcThreadIds { get; }
 
-        public int[] PThreadIds { get; }
+        /// <summary>
+        /// An array of thread identifiers.
+        /// </summary>
+        public int[] pThreadIds { get; }
 
         public EnumerateThreadIDsResult(int pcThreadIds, int[] pThreadIds)
         {
-            PcThreadIds = pcThreadIds;
-            PThreadIds = pThreadIds;
+            this.pcThreadIds = pcThreadIds;
+            this.pThreadIds = pThreadIds;
         }
     }
 }

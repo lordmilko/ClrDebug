@@ -1,15 +1,24 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CorDebugProcess.GetTypeFields"/> method.
+    /// </summary>
     public struct GetTypeFieldsResult
     {
-        public COR_FIELD Fields { get; }
+        /// <summary>
+        /// [out] An array of <see cref="COR_FIELD"/> objects that provide information about the fields that belong to the type.
+        /// </summary>
+        public COR_FIELD fields { get; }
 
-        public int PceltNeeded { get; }
+        /// <summary>
+        /// [out] A pointer to the number of <see cref="COR_FIELD"/> objects included in fields.
+        /// </summary>
+        public int pceltNeeded { get; }
 
         public GetTypeFieldsResult(COR_FIELD fields, int pceltNeeded)
         {
-            Fields = fields;
-            PceltNeeded = pceltNeeded;
+            this.fields = fields;
+            this.pceltNeeded = pceltNeeded;
         }
     }
 }

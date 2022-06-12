@@ -2,19 +2,31 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataImport.EnumMethodSpecs"/> method.
+    /// </summary>
     public struct EnumMethodSpecsResult
     {
-        public IntPtr PhEnum { get; }
+        /// <summary>
+        /// [in, out] A pointer to the enumerator for rMethodSpecs.
+        /// </summary>
+        public IntPtr phEnum { get; }
 
-        public mdMethodSpec[] RMethodSpecs { get; }
+        /// <summary>
+        /// [out] The array of MethodSpec tokens to enumerate.
+        /// </summary>
+        public mdMethodSpec[] rMethodSpecs { get; }
 
-        public int PcMethodSpecs { get; }
+        /// <summary>
+        /// [out] The returned number of tokens placed in rMethodSpecs.
+        /// </summary>
+        public int pcMethodSpecs { get; }
 
         public EnumMethodSpecsResult(IntPtr phEnum, mdMethodSpec[] rMethodSpecs, int pcMethodSpecs)
         {
-            PhEnum = phEnum;
-            RMethodSpecs = rMethodSpecs;
-            PcMethodSpecs = pcMethodSpecs;
+            this.phEnum = phEnum;
+            this.rMethodSpecs = rMethodSpecs;
+            this.pcMethodSpecs = pcMethodSpecs;
         }
     }
 }

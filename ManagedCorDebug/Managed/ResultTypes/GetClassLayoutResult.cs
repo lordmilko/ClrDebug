@@ -1,18 +1,30 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataImport.GetClassLayout"/> method.
+    /// </summary>
     public struct GetClassLayoutResult
     {
-        public int PdwPackSize { get; }
+        /// <summary>
+        /// [out] One of the values 1, 2, 4, 8, or 16, representing the pack size of the class.
+        /// </summary>
+        public int pdwPackSize { get; }
 
-        public COR_FIELD_OFFSET[] RFieldOffset { get; }
+        /// <summary>
+        /// [out] An array of <see cref="COR_FIELD_OFFSET"/> values.
+        /// </summary>
+        public COR_FIELD_OFFSET[] rFieldOffset { get; }
 
-        public int PulClassSize { get; }
+        /// <summary>
+        /// [out] The size in bytes of the class represented by td.
+        /// </summary>
+        public int pulClassSize { get; }
 
         public GetClassLayoutResult(int pdwPackSize, COR_FIELD_OFFSET[] rFieldOffset, int pulClassSize)
         {
-            PdwPackSize = pdwPackSize;
-            RFieldOffset = rFieldOffset;
-            PulClassSize = pulClassSize;
+            this.pdwPackSize = pdwPackSize;
+            this.rFieldOffset = rFieldOffset;
+            this.pulClassSize = pulClassSize;
         }
     }
 }

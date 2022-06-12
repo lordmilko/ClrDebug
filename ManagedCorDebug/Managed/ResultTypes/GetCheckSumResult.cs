@@ -1,15 +1,24 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="SymUnmanagedDocument.GetCheckSum"/> method.
+    /// </summary>
     public struct GetCheckSumResult
     {
-        public int PcData { get; }
+        /// <summary>
+        /// [out] The size and length of the checksum, in bytes.
+        /// </summary>
+        public int pcData { get; }
 
-        public byte[] Data { get; }
+        /// <summary>
+        /// [out] The buffer that receives the checksum.
+        /// </summary>
+        public byte[] data { get; }
 
         public GetCheckSumResult(int pcData, byte[] data)
         {
-            PcData = pcData;
-            Data = data;
+            this.pcData = pcData;
+            this.data = data;
         }
     }
 }

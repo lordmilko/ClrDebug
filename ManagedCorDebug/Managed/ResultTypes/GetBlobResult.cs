@@ -2,16 +2,25 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataTables.GetBlob"/> method.
+    /// </summary>
     public struct GetBlobResult
     {
-        public int PcbData { get; }
+        /// <summary>
+        /// [out] A pointer to the size, in bytes, of ppData.
+        /// </summary>
+        public int pcbData { get; }
 
-        public IntPtr PpData { get; }
+        /// <summary>
+        /// [out] A pointer to a pointer to the binary data retrieved.
+        /// </summary>
+        public IntPtr ppData { get; }
 
         public GetBlobResult(int pcbData, IntPtr ppData)
         {
-            PcbData = pcbData;
-            PpData = ppData;
+            this.pcbData = pcbData;
+            this.ppData = ppData;
         }
     }
 }

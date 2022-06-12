@@ -2,19 +2,31 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataImport.EnumGenericParamConstraints"/> method.
+    /// </summary>
     public struct EnumGenericParamConstraintsResult
     {
-        public IntPtr PhEnum { get; }
+        /// <summary>
+        /// [in, out] A pointer to the enumerator.
+        /// </summary>
+        public IntPtr phEnum { get; }
 
-        public mdGenericParamConstraint[] RGenericParamConstraints { get; }
+        /// <summary>
+        /// [out] The array of generic parameter constraints to enumerate.
+        /// </summary>
+        public mdGenericParamConstraint[] rGenericParamConstraints { get; }
 
-        public int PcGenericParamConstraints { get; }
+        /// <summary>
+        /// [out] A pointer to the number of tokens placed in rGenericParamConstraints.
+        /// </summary>
+        public int pcGenericParamConstraints { get; }
 
         public EnumGenericParamConstraintsResult(IntPtr phEnum, mdGenericParamConstraint[] rGenericParamConstraints, int pcGenericParamConstraints)
         {
-            PhEnum = phEnum;
-            RGenericParamConstraints = rGenericParamConstraints;
-            PcGenericParamConstraints = pcGenericParamConstraints;
+            this.phEnum = phEnum;
+            this.rGenericParamConstraints = rGenericParamConstraints;
+            this.pcGenericParamConstraints = pcGenericParamConstraints;
         }
     }
 }

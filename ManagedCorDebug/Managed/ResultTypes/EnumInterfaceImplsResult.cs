@@ -2,19 +2,31 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataImport.EnumInterfaceImpls"/> method.
+    /// </summary>
     public struct EnumInterfaceImplsResult
     {
-        public IntPtr PhEnum { get; }
+        /// <summary>
+        /// [in, out] A pointer to the enumerator.
+        /// </summary>
+        public IntPtr phEnum { get; }
 
-        public mdInterfaceImpl[] RImpls { get; }
+        /// <summary>
+        /// [out] The array used to store the MethodDef tokens.
+        /// </summary>
+        public mdInterfaceImpl[] rImpls { get; }
 
-        public int PcImpls { get; }
+        /// <summary>
+        /// [out] The actual number of tokens returned in rImpls.
+        /// </summary>
+        public int pcImpls { get; }
 
         public EnumInterfaceImplsResult(IntPtr phEnum, mdInterfaceImpl[] rImpls, int pcImpls)
         {
-            PhEnum = phEnum;
-            RImpls = rImpls;
-            PcImpls = pcImpls;
+            this.phEnum = phEnum;
+            this.rImpls = rImpls;
+            this.pcImpls = pcImpls;
         }
     }
 }

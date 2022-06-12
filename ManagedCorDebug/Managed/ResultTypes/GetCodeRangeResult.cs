@@ -1,15 +1,24 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CorDebugSymbolProvider.GetCodeRange"/> method.
+    /// </summary>
     public struct GetCodeRangeResult
     {
-        public int PCodeStartAddress { get; }
+        /// <summary>
+        /// [out] A pointer to the starting address of the method.
+        /// </summary>
+        public int pCodeStartAddress { get; }
 
-        public int PCodeSize { get; }
+        /// <summary>
+        /// A pointer to the method code size (the number of bytes of the method's code).
+        /// </summary>
+        public int pCodeSize { get; }
 
         public GetCodeRangeResult(int pCodeStartAddress, int pCodeSize)
         {
-            PCodeStartAddress = pCodeStartAddress;
-            PCodeSize = pCodeSize;
+            this.pCodeStartAddress = pCodeStartAddress;
+            this.pCodeSize = pCodeSize;
         }
     }
 }

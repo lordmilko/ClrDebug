@@ -1,15 +1,24 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CorDebugILCode.GetEHClauses"/> method.
+    /// </summary>
     public struct GetEHClausesResult
     {
-        public int PcClauses { get; }
+        /// <summary>
+        /// [out] The number of clauses about which information is written to the clauses array.
+        /// </summary>
+        public int pcClauses { get; }
 
-        public CorDebugEHClause[] Clauses { get; }
+        /// <summary>
+        /// [out] An array of <see cref="CorDebugEHClause"/> objects that contain information on exception handling clauses defined for this IL.
+        /// </summary>
+        public CorDebugEHClause[] clauses { get; }
 
         public GetEHClausesResult(int pcClauses, CorDebugEHClause[] clauses)
         {
-            PcClauses = pcClauses;
-            Clauses = clauses;
+            this.pcClauses = pcClauses;
+            this.clauses = clauses;
         }
     }
 }

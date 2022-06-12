@@ -1,18 +1,30 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataImport.GetPinvokeMap"/> method.
+    /// </summary>
     public struct GetPinvokeMapResult
     {
-        public CorPinvokeMap PdwMappingFlags { get; }
+        /// <summary>
+        /// [out] A pointer to flags used for mapping. This value is a bitmask from the <see cref="CorPinvokeMap"/> enumeration.
+        /// </summary>
+        public CorPinvokeMap pdwMappingFlags { get; }
 
-        public string SzImportName { get; }
+        /// <summary>
+        /// [out] The name of the unmanaged target DLL.
+        /// </summary>
+        public string szImportName { get; }
 
-        public mdModuleRef PmrImportDLL { get; }
+        /// <summary>
+        /// [out] A pointer to a ModuleRef token that represents the unmanaged target object library.
+        /// </summary>
+        public mdModuleRef pmrImportDLL { get; }
 
         public GetPinvokeMapResult(CorPinvokeMap pdwMappingFlags, string szImportName, mdModuleRef pmrImportDLL)
         {
-            PdwMappingFlags = pdwMappingFlags;
-            SzImportName = szImportName;
-            PmrImportDLL = pmrImportDLL;
+            this.pdwMappingFlags = pdwMappingFlags;
+            this.szImportName = szImportName;
+            this.pmrImportDLL = pmrImportDLL;
         }
     }
 }

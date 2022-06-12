@@ -1,15 +1,18 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="SequentialStream.RemoteRead"/> method.
+    /// </summary>
     public struct RemoteReadResult
     {
-        public byte Pv { get; }
+        public byte pv { get; }
 
-        public int PcbRead { get; }
+        public int pcbRead { get; }
 
         public RemoteReadResult(byte pv, int pcbRead)
         {
-            Pv = pv;
-            PcbRead = pcbRead;
+            this.pv = pv;
+            this.pcbRead = pcbRead;
         }
     }
 }

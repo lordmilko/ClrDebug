@@ -2,16 +2,25 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CLRStrongName.StrongNameTokenFromAssembly"/> method.
+    /// </summary>
     public struct StrongNameTokenFromAssemblyResult
     {
-        public IntPtr PpbStrongNameToken { get; }
+        /// <summary>
+        /// [out] The returned strong name token.
+        /// </summary>
+        public IntPtr ppbStrongNameToken { get; }
 
-        public int PcbStrongNameToken { get; }
+        /// <summary>
+        /// [out] The size, in bytes, of the strong name token.
+        /// </summary>
+        public int pcbStrongNameToken { get; }
 
         public StrongNameTokenFromAssemblyResult(IntPtr ppbStrongNameToken, int pcbStrongNameToken)
         {
-            PpbStrongNameToken = ppbStrongNameToken;
-            PcbStrongNameToken = pcbStrongNameToken;
+            this.ppbStrongNameToken = ppbStrongNameToken;
+            this.pcbStrongNameToken = pcbStrongNameToken;
         }
     }
 }

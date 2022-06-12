@@ -2,19 +2,31 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataImport.GetPermissionSetProps"/> method.
+    /// </summary>
     public struct GetPermissionSetPropsResult
     {
-        public int PdwAction { get; }
+        /// <summary>
+        /// [out] A pointer to the permission set.
+        /// </summary>
+        public int pdwAction { get; }
 
-        public IntPtr PpvPermission { get; }
+        /// <summary>
+        /// [out] A pointer to the binary metadata signature of the permission set.
+        /// </summary>
+        public IntPtr ppvPermission { get; }
 
-        public int PcbPermission { get; }
+        /// <summary>
+        /// [out] The size in bytes of ppvPermission.
+        /// </summary>
+        public int pcbPermission { get; }
 
         public GetPermissionSetPropsResult(int pdwAction, IntPtr ppvPermission, int pcbPermission)
         {
-            PdwAction = pdwAction;
-            PpvPermission = ppvPermission;
-            PcbPermission = pcbPermission;
+            this.pdwAction = pdwAction;
+            this.ppvPermission = ppvPermission;
+            this.pcbPermission = pcbPermission;
         }
     }
 }

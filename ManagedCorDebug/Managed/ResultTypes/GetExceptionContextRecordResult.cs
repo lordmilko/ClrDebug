@@ -1,17 +1,24 @@
-using System;
-
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CLRDataTarget.GetExceptionContextRecord"/> method.
+    /// </summary>
     public struct GetExceptionContextRecordResult
     {
-        public int BufferUsed { get; }
+        /// <summary>
+        /// [out] A pointer to a ULONG32 type that receives the number of bytes actually written to the buffer.
+        /// </summary>
+        public int bufferUsed { get; }
 
-        public byte Buffer { get; }
+        /// <summary>
+        /// [out] A pointer to a memory buffer that receives a copy of the context record. The exception record is returned as a CONTEXT type.
+        /// </summary>
+        public byte buffer { get; }
 
         public GetExceptionContextRecordResult(int bufferUsed, byte buffer)
         {
-            BufferUsed = bufferUsed;
-            Buffer = buffer;
+            this.bufferUsed = bufferUsed;
+            this.buffer = buffer;
         }
     }
 }

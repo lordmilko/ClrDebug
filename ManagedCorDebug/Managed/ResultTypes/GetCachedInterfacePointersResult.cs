@@ -1,15 +1,24 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CorDebugComObjectValue.GetCachedInterfacePointers"/> method.
+    /// </summary>
     public struct GetCachedInterfacePointersResult
     {
-        public int PceltFetched { get; }
+        /// <summary>
+        /// [out] A pointer to the number of <see cref="CORDB_ADDRESS"/> values actually returned in ptrs.
+        /// </summary>
+        public int pceltFetched { get; }
 
-        public CORDB_ADDRESS[] Ptrs { get; }
+        /// <summary>
+        /// A pointer to the starting address of an array of <see cref="CORDB_ADDRESS"/> values that contain the addresses of cached interface objects.
+        /// </summary>
+        public CORDB_ADDRESS[] ptrs { get; }
 
         public GetCachedInterfacePointersResult(int pceltFetched, CORDB_ADDRESS[] ptrs)
         {
-            PceltFetched = pceltFetched;
-            Ptrs = ptrs;
+            this.pceltFetched = pceltFetched;
+            this.ptrs = ptrs;
         }
     }
 }

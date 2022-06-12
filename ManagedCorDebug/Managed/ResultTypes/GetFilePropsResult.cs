@@ -2,22 +2,37 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataAssemblyImport.GetFileProps"/> method.
+    /// </summary>
     public struct GetFilePropsResult
     {
-        public string SzName { get; }
+        /// <summary>
+        /// [out] The simple name of the file.
+        /// </summary>
+        public string szName { get; }
 
-        public IntPtr PpbHashValue { get; }
+        /// <summary>
+        /// [out] A pointer to the hash value. This is the hash, using the SHA-1 algorithm, of the file.
+        /// </summary>
+        public IntPtr ppbHashValue { get; }
 
-        public int PcbHashValue { get; }
+        /// <summary>
+        /// [out] The number of wide chars in the returned hash value.
+        /// </summary>
+        public int pcbHashValue { get; }
 
-        public CorFileFlags PdwFileFlags { get; }
+        /// <summary>
+        /// [out] A pointer to the flags that describe the metadata applied to a file. The flags value is a combination of one or more <see cref="CorFileFlags"/> values.
+        /// </summary>
+        public CorFileFlags pdwFileFlags { get; }
 
         public GetFilePropsResult(string szName, IntPtr ppbHashValue, int pcbHashValue, CorFileFlags pdwFileFlags)
         {
-            SzName = szName;
-            PpbHashValue = ppbHashValue;
-            PcbHashValue = pcbHashValue;
-            PdwFileFlags = pdwFileFlags;
+            this.szName = szName;
+            this.ppbHashValue = ppbHashValue;
+            this.pcbHashValue = pcbHashValue;
+            this.pdwFileFlags = pdwFileFlags;
         }
     }
 }

@@ -2,19 +2,31 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataImport.EnumMemberRefs"/> method.
+    /// </summary>
     public struct EnumMemberRefsResult
     {
-        public IntPtr PhEnum { get; }
+        /// <summary>
+        /// [in, out] A pointer to the enumerator.
+        /// </summary>
+        public IntPtr phEnum { get; }
 
-        public mdMemberRef[] RMemberRefs { get; }
+        /// <summary>
+        /// [out] The array used to store MemberRef tokens.
+        /// </summary>
+        public mdMemberRef[] rMemberRefs { get; }
 
-        public int PcTokens { get; }
+        /// <summary>
+        /// [out] The actual number of MemberRef tokens returned in rMemberRefs.
+        /// </summary>
+        public int pcTokens { get; }
 
         public EnumMemberRefsResult(IntPtr phEnum, mdMemberRef[] rMemberRefs, int pcTokens)
         {
-            PhEnum = phEnum;
-            RMemberRefs = rMemberRefs;
-            PcTokens = pcTokens;
+            this.phEnum = phEnum;
+            this.rMemberRefs = rMemberRefs;
+            this.pcTokens = pcTokens;
         }
     }
 }

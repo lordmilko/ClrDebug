@@ -2,19 +2,31 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataImport.EnumModuleRefs"/> method.
+    /// </summary>
     public struct EnumModuleRefsResult
     {
-        public IntPtr PhEnum { get; }
+        /// <summary>
+        /// [in, out] A pointer to the enumerator. This must be NULL for the first call of this method.
+        /// </summary>
+        public IntPtr phEnum { get; }
 
-        public mdModuleRef[] RModuleRefs { get; }
+        /// <summary>
+        /// [out] The array used to store the ModuleRef tokens.
+        /// </summary>
+        public mdModuleRef[] rModuleRefs { get; }
 
-        public int PcModuleRefs { get; }
+        /// <summary>
+        /// [out] The number of ModuleRef tokens returned in rModuleRefs.
+        /// </summary>
+        public int pcModuleRefs { get; }
 
         public EnumModuleRefsResult(IntPtr phEnum, mdModuleRef[] rModuleRefs, int pcModuleRefs)
         {
-            PhEnum = phEnum;
-            RModuleRefs = rModuleRefs;
-            PcModuleRefs = pcModuleRefs;
+            this.phEnum = phEnum;
+            this.rModuleRefs = rModuleRefs;
+            this.pcModuleRefs = pcModuleRefs;
         }
     }
 }

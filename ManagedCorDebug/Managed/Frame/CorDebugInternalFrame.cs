@@ -57,6 +57,9 @@ namespace ManagedCorDebug
 
         #region GetAddress
 
+        /// <summary>
+        /// Returns the stack address of the internal frame.
+        /// </summary>
         public CORDB_ADDRESS Address
         {
             get
@@ -71,6 +74,24 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Returns the stack address of the internal frame.
+        /// </summary>
+        /// <param name="pAddress">[out] Pointer to the <see cref="CORDB_ADDRESS"/> for the internal frame.</param>
+        /// <returns>
+        /// This method returns the following specific HRESULTs as well as <see cref="HRESULT"/> errors that indicate method failure.
+        /// 
+        /// | HRESULT      | Description                                                  |
+        /// | ------------ | ------------------------------------------------------------ |
+        /// | S_OK         | The address of the internal frame was successfully returned. |
+        /// | E_FAIL       | The address of the internal frame could not be returned.     |
+        /// | E_INVALIDARG | pAddress is null.                                            |
+        /// </returns>
+        /// <remarks>
+        /// The value returned in pAddress can be used to determine the location of the internal frame relative to other frames
+        /// on the stack. Even on IA-64-based computers, the internal frame lives on the stack only, and there is no corresponding
+        /// pointer to a backing store.
+        /// </remarks>
         public HRESULT TryGetAddress(out CORDB_ADDRESS pAddress)
         {
             /*HRESULT GetAddress(out CORDB_ADDRESS pAddress);*/

@@ -1,17 +1,24 @@
-using System;
-
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="CorDebugSymbolProvider.GetTypeProps"/> method.
+    /// </summary>
     public struct GetTypePropsResult
     {
-        public int PcbSignature { get; }
+        /// <summary>
+        /// [out] [out] A pointer to the size of the returned signature array.
+        /// </summary>
+        public int pcbSignature { get; }
 
-        public byte[] Signature { get; }
+        /// <summary>
+        /// [out] A buffer that holds the typespec signatures of all generic parameters.
+        /// </summary>
+        public byte[] signature { get; }
 
         public GetTypePropsResult(int pcbSignature, byte[] signature)
         {
-            PcbSignature = pcbSignature;
-            Signature = signature;
+            this.pcbSignature = pcbSignature;
+            this.signature = signature;
         }
     }
 }

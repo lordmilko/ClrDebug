@@ -1,15 +1,24 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataImport.GetInterfaceImplProps"/> method.
+    /// </summary>
     public struct GetInterfaceImplPropsResult
     {
-        public mdTypeDef PClass { get; }
+        /// <summary>
+        /// [out] The metadata token representing the class that implements the method.
+        /// </summary>
+        public mdTypeDef pClass { get; }
 
-        public mdToken PtkIface { get; }
+        /// <summary>
+        /// [out] The metadata token representing the interface that defines the implemented method.
+        /// </summary>
+        public mdToken ptkIface { get; }
 
         public GetInterfaceImplPropsResult(mdTypeDef pClass, mdToken ptkIface)
         {
-            PClass = pClass;
-            PtkIface = ptkIface;
+            this.pClass = pClass;
+            this.ptkIface = ptkIface;
         }
     }
 }

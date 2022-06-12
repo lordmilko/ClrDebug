@@ -1,15 +1,24 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataImport.ResolveTypeRef"/> method.
+    /// </summary>
     public struct ResolveTypeRefResult
     {
-        public object PpIScope { get; }
+        /// <summary>
+        /// [out] An interface to the module scope in which the referenced type is defined.
+        /// </summary>
+        public object ppIScope { get; }
 
-        public mdTypeDef Ptd { get; }
+        /// <summary>
+        /// [out] A pointer to a TypeDef token that represents the referenced type.
+        /// </summary>
+        public mdTypeDef ptd { get; }
 
         public ResolveTypeRefResult(object ppIScope, mdTypeDef ptd)
         {
-            PpIScope = ppIScope;
-            Ptd = ptd;
+            this.ppIScope = ppIScope;
+            this.ptd = ptd;
         }
     }
 }

@@ -2,28 +2,49 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataAssemblyImport.GetAssemblyProps"/> method.
+    /// </summary>
     public struct GetAssemblyPropsResult
     {
-        public IntPtr PpbPublicKey { get; }
+        /// <summary>
+        /// [out] A pointer to the public key or the metadata token.
+        /// </summary>
+        public IntPtr ppbPublicKey { get; }
 
-        public int PcbPublicKey { get; }
+        /// <summary>
+        /// [out] The number of bytes in the returned public key.
+        /// </summary>
+        public int pcbPublicKey { get; }
 
-        public int PulHashAlgId { get; }
+        /// <summary>
+        /// [out] A pointer to the algorithm used to hash the files in the assembly.
+        /// </summary>
+        public int pulHashAlgId { get; }
 
-        public string SzName { get; }
+        /// <summary>
+        /// [out] The simple name of the assembly.
+        /// </summary>
+        public string szName { get; }
 
-        public ASSEMBLYMETADATA PMetaData { get; }
+        /// <summary>
+        /// [out] A pointer to an <see cref="ASSEMBLYMETADATA"/> structure that contains the assembly metadata.
+        /// </summary>
+        public ASSEMBLYMETADATA pMetaData { get; }
 
-        public CorAssemblyFlags PdwAssemblyFlags { get; }
+        /// <summary>
+        /// [out] Flags that describe the metadata applied to an assembly. This value is a combination of one or more <see cref="CorAssemblyFlags"/> values.
+        /// </summary>
+        public CorAssemblyFlags pdwAssemblyFlags { get; }
 
         public GetAssemblyPropsResult(IntPtr ppbPublicKey, int pcbPublicKey, int pulHashAlgId, string szName, ASSEMBLYMETADATA pMetaData, CorAssemblyFlags pdwAssemblyFlags)
         {
-            PpbPublicKey = ppbPublicKey;
-            PcbPublicKey = pcbPublicKey;
-            PulHashAlgId = pulHashAlgId;
-            SzName = szName;
-            PMetaData = pMetaData;
-            PdwAssemblyFlags = pdwAssemblyFlags;
+            this.ppbPublicKey = ppbPublicKey;
+            this.pcbPublicKey = pcbPublicKey;
+            this.pulHashAlgId = pulHashAlgId;
+            this.szName = szName;
+            this.pMetaData = pMetaData;
+            this.pdwAssemblyFlags = pdwAssemblyFlags;
         }
     }
 }

@@ -1,21 +1,36 @@
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataTables.GetTableInfo"/> method.
+    /// </summary>
     public struct GetTableInfoResult
     {
-        public int PcbRow { get; }
+        /// <summary>
+        /// [out] A pointer to the size, in bytes, of a table row.
+        /// </summary>
+        public int pcbRow { get; }
 
-        public int PcRows { get; }
+        /// <summary>
+        /// [out] A pointer to the number of rows in the table.
+        /// </summary>
+        public int pcRows { get; }
 
-        public int PcCols { get; }
+        /// <summary>
+        /// [out] A pointer to the number of columns in the table.
+        /// </summary>
+        public int pcCols { get; }
 
-        public int PiKey { get; }
+        /// <summary>
+        /// [out] A pointer to the index of the key column, or -1 if the table has no key column.
+        /// </summary>
+        public int piKey { get; }
 
         public GetTableInfoResult(int pcbRow, int pcRows, int pcCols, int piKey)
         {
-            PcbRow = pcbRow;
-            PcRows = pcRows;
-            PcCols = pcCols;
-            PiKey = piKey;
+            this.pcbRow = pcbRow;
+            this.pcRows = pcRows;
+            this.pcCols = pcCols;
+            this.piKey = piKey;
         }
     }
 }

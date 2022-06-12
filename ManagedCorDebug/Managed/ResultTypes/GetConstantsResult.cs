@@ -1,18 +1,26 @@
 using System;
-using System.Security.Cryptography;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="SymUnmanagedScope.GetConstants"/> method.
+    /// </summary>
     public struct GetConstantsResult
     {
-        public int PcConstants { get; }
+        /// <summary>
+        /// [out] A pointer to a ULONG32 that receives the size, in characters, of the buffer required to contain the constants.
+        /// </summary>
+        public int pcConstants { get; }
 
-        public IntPtr Constants { get; }
+        /// <summary>
+        /// [out] The buffer that stores the constants.
+        /// </summary>
+        public IntPtr constants { get; }
 
         public GetConstantsResult(int pcConstants, IntPtr constants)
         {
-            PcConstants = pcConstants;
-            Constants = constants;
+            this.pcConstants = pcConstants;
+            this.constants = constants;
         }
     }
 }

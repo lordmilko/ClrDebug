@@ -1,39 +1,68 @@
 using System;
-using System.Reflection;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataImport.GetParamProps"/> method.
+    /// </summary>
     public struct GetParamPropsResult
     {
-        public mdMethodDef Pmd { get; }
+        /// <summary>
+        /// [out] A pointer to a MethodDef token representing the method that takes the parameter.
+        /// </summary>
+        public mdMethodDef pmd { get; }
 
-        public int PulSequence { get; }
+        /// <summary>
+        /// [out] The ordinal position of the parameter in the method argument list.
+        /// </summary>
+        public int pulSequence { get; }
 
-        public string SzName { get; }
+        /// <summary>
+        /// [out] A buffer to hold the name of the parameter.
+        /// </summary>
+        public string szName { get; }
 
-        public int CchName { get; }
+        /// <summary>
+        /// [in] The requested size in wide characters of szName.
+        /// </summary>
+        public int cchName { get; }
 
-        public int PchName { get; }
+        /// <summary>
+        /// [out] The returned size in wide characters of szName.
+        /// </summary>
+        public int pchName { get; }
 
-        public CorParamAttr PdwAttr { get; }
+        /// <summary>
+        /// [out] A pointer to any attribute flags associated with the parameter. This is a bitmask of <see cref="CorParamAttr"/> values.
+        /// </summary>
+        public CorParamAttr pdwAttr { get; }
 
-        public CorElementType PdwCPlusTypeFlag { get; }
+        /// <summary>
+        /// [out] A pointer to a flag specifying that the parameter is a <see cref="ValueType"/>.
+        /// </summary>
+        public CorElementType pdwCPlusTypeFlag { get; }
 
-        public IntPtr PpValue { get; }
+        /// <summary>
+        /// [out] A pointer to a constant string returned by the parameter.
+        /// </summary>
+        public IntPtr ppValue { get; }
 
-        public IntPtr PcchValue { get; }
+        /// <summary>
+        /// [out] The size of ppValue in wide characters, or zero if ppValue does not hold a string.
+        /// </summary>
+        public IntPtr pcchValue { get; }
 
         public GetParamPropsResult(mdMethodDef pmd, int pulSequence, string szName, int cchName, int pchName, CorParamAttr pdwAttr, CorElementType pdwCPlusTypeFlag, IntPtr ppValue, IntPtr pcchValue)
         {
-            Pmd = pmd;
-            PulSequence = pulSequence;
-            SzName = szName;
-            CchName = cchName;
-            PchName = pchName;
-            PdwAttr = pdwAttr;
-            PdwCPlusTypeFlag = pdwCPlusTypeFlag;
-            PpValue = ppValue;
-            PcchValue = pcchValue;
+            this.pmd = pmd;
+            this.pulSequence = pulSequence;
+            this.szName = szName;
+            this.cchName = cchName;
+            this.pchName = pchName;
+            this.pdwAttr = pdwAttr;
+            this.pdwCPlusTypeFlag = pdwCPlusTypeFlag;
+            this.ppValue = ppValue;
+            this.pcchValue = pcchValue;
         }
     }
 }

@@ -2,19 +2,31 @@ using System;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Encapsulates the results of the <see cref="MetaDataImport.EnumSignatures"/> method.
+    /// </summary>
     public struct EnumSignaturesResult
     {
-        public IntPtr PhEnum { get; }
+        /// <summary>
+        /// [in, out] A pointer to the enumerator. This must be NULL for the first call of this method.
+        /// </summary>
+        public IntPtr phEnum { get; }
 
-        public mdSignature[] RSignatures { get; }
+        /// <summary>
+        /// [out] The array used to store the Signature tokens.
+        /// </summary>
+        public mdSignature[] rSignatures { get; }
 
-        public int PcSignatures { get; }
+        /// <summary>
+        /// [out] The number of Signature tokens returned in rSignatures.
+        /// </summary>
+        public int pcSignatures { get; }
 
         public EnumSignaturesResult(IntPtr phEnum, mdSignature[] rSignatures, int pcSignatures)
         {
-            PhEnum = phEnum;
-            RSignatures = rSignatures;
-            PcSignatures = pcSignatures;
+            this.phEnum = phEnum;
+            this.rSignatures = rSignatures;
+            this.pcSignatures = pcSignatures;
         }
     }
 }
