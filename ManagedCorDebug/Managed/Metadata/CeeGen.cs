@@ -89,26 +89,26 @@ namespace ManagedCorDebug
         public int EmitString(string lpString)
         {
             HRESULT hr;
-            int rVA;
+            int RVA;
 
-            if ((hr = TryEmitString(lpString, out rVA)) != HRESULT.S_OK)
+            if ((hr = TryEmitString(lpString, out RVA)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return rVA;
+            return RVA;
         }
 
         /// <summary>
         /// Emits the specified string into the code base. This method is obsolete and should not be used.
         /// </summary>
         /// <param name="lpString">[in] The string to emit.</param>
-        /// <param name="rVA">[out] The relative virtual address of the emitted string.</param>
+        /// <param name="RVA">[out] The relative virtual address of the emitted string.</param>
         [Obsolete]
-        public HRESULT TryEmitString(string lpString, out int rVA)
+        public HRESULT TryEmitString(string lpString, out int RVA)
         {
             /*HRESULT EmitString(
             [In, MarshalAs(UnmanagedType.LPWStr)] string lpString,
             [Out] out int RVA);*/
-            return Raw.EmitString(lpString, out rVA);
+            return Raw.EmitString(lpString, out RVA);
         }
 
         #endregion
@@ -117,15 +117,15 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the string stored at the specified relative virtual address. This method is obsolete and should not be used.
         /// </summary>
-        /// <param name="rVA">[in] The relative virtual address of the string to return.</param>
+        /// <param name="RVA">[in] The relative virtual address of the string to return.</param>
         /// <returns>[out] The returned string.</returns>
         [Obsolete]
-        public string GetString(long rVA)
+        public string GetString(long RVA)
         {
             HRESULT hr;
             string lpString = default(string);
 
-            if ((hr = TryGetString(rVA, ref lpString)) != HRESULT.S_OK)
+            if ((hr = TryGetString(RVA, ref lpString)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return lpString;
@@ -134,15 +134,15 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the string stored at the specified relative virtual address. This method is obsolete and should not be used.
         /// </summary>
-        /// <param name="rVA">[in] The relative virtual address of the string to return.</param>
+        /// <param name="RVA">[in] The relative virtual address of the string to return.</param>
         /// <param name="lpString">[out] The returned string.</param>
         [Obsolete]
-        public HRESULT TryGetString(long rVA, ref string lpString)
+        public HRESULT TryGetString(long RVA, ref string lpString)
         {
             /*HRESULT GetString(
             [In] long RVA,
             [Out, MarshalAs(UnmanagedType.LPWStr)] string lpString);*/
-            return Raw.GetString(rVA, lpString);
+            return Raw.GetString(RVA, lpString);
         }
 
         #endregion
@@ -178,11 +178,11 @@ namespace ManagedCorDebug
             [Out] IntPtr lpBuffer,
             [Out] out int RVA);*/
             IntPtr lpBuffer = default(IntPtr);
-            int rVA;
-            HRESULT hr = Raw.AllocateMethodBuffer(cchBuffer, lpBuffer, out rVA);
+            int RVA;
+            HRESULT hr = Raw.AllocateMethodBuffer(cchBuffer, lpBuffer, out RVA);
 
             if (hr == HRESULT.S_OK)
-                result = new AllocateMethodBufferResult(lpBuffer, rVA);
+                result = new AllocateMethodBufferResult(lpBuffer, RVA);
             else
                 result = default(AllocateMethodBufferResult);
 
@@ -195,15 +195,15 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets a buffer of the appropriate size for the method at the specified relative virtual address. This method is obsolete and should not be used.
         /// </summary>
-        /// <param name="rVA">[in] The relative virtual address of the method for which to return a buffer.</param>
+        /// <param name="RVA">[in] The relative virtual address of the method for which to return a buffer.</param>
         /// <returns>[out] A pointer to the returned buffer.</returns>
         [Obsolete]
-        public IntPtr GetMethodBuffer(int rVA)
+        public IntPtr GetMethodBuffer(int RVA)
         {
             HRESULT hr;
             IntPtr lpBuffer = default(IntPtr);
 
-            if ((hr = TryGetMethodBuffer(rVA, ref lpBuffer)) != HRESULT.S_OK)
+            if ((hr = TryGetMethodBuffer(RVA, ref lpBuffer)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return lpBuffer;
@@ -212,15 +212,15 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets a buffer of the appropriate size for the method at the specified relative virtual address. This method is obsolete and should not be used.
         /// </summary>
-        /// <param name="rVA">[in] The relative virtual address of the method for which to return a buffer.</param>
+        /// <param name="RVA">[in] The relative virtual address of the method for which to return a buffer.</param>
         /// <param name="lpBuffer">[out] A pointer to the returned buffer.</param>
         [Obsolete]
-        public HRESULT TryGetMethodBuffer(int rVA, ref IntPtr lpBuffer)
+        public HRESULT TryGetMethodBuffer(int RVA, ref IntPtr lpBuffer)
         {
             /*HRESULT GetMethodBuffer(
             [In] int RVA,
             [Out] IntPtr lpBuffer);*/
-            return Raw.GetMethodBuffer(rVA, lpBuffer);
+            return Raw.GetMethodBuffer(RVA, lpBuffer);
         }
 
         #endregion
@@ -518,15 +518,15 @@ namespace ManagedCorDebug
         /// Determines the buffer for the specified code section. This method is obsolete and should not be used.
         /// </summary>
         /// <param name="section">[in] The code section for which to return a buffer.</param>
-        /// <param name="rVA">[in] The relative virtual address of the method for which to get a pointer.</param>
+        /// <param name="RVA">[in] The relative virtual address of the method for which to get a pointer.</param>
         /// <returns>[out] A pointer to the returned buffer.</returns>
         [Obsolete]
-        public IntPtr ComputePointer(IntPtr section, int rVA)
+        public IntPtr ComputePointer(IntPtr section, int RVA)
         {
             HRESULT hr;
             IntPtr lpBuffer = default(IntPtr);
 
-            if ((hr = TryComputePointer(section, rVA, ref lpBuffer)) != HRESULT.S_OK)
+            if ((hr = TryComputePointer(section, RVA, ref lpBuffer)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return lpBuffer;
@@ -536,16 +536,16 @@ namespace ManagedCorDebug
         /// Determines the buffer for the specified code section. This method is obsolete and should not be used.
         /// </summary>
         /// <param name="section">[in] The code section for which to return a buffer.</param>
-        /// <param name="rVA">[in] The relative virtual address of the method for which to get a pointer.</param>
+        /// <param name="RVA">[in] The relative virtual address of the method for which to get a pointer.</param>
         /// <param name="lpBuffer">[out] A pointer to the returned buffer.</param>
         [Obsolete]
-        public HRESULT TryComputePointer(IntPtr section, int rVA, ref IntPtr lpBuffer)
+        public HRESULT TryComputePointer(IntPtr section, int RVA, ref IntPtr lpBuffer)
         {
             /*HRESULT ComputePointer(
             [In] IntPtr section,
             [In] int RVA,
             [Out] IntPtr lpBuffer);*/
-            return Raw.ComputePointer(section, rVA, lpBuffer);
+            return Raw.ComputePointer(section, RVA, lpBuffer);
         }
 
         #endregion

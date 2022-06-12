@@ -15,12 +15,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// [out] The relative virtual address of the method.
         /// </summary>
-        public int rVA { get; }
+        public int RVA { get; }
 
-        public AllocateMethodBufferResult(IntPtr lpBuffer, int rVA)
+        public AllocateMethodBufferResult(IntPtr lpBuffer, int RVA)
         {
             this.lpBuffer = lpBuffer;
-            this.rVA = rVA;
+            this.RVA = RVA;
         }
     }
 }
