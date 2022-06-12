@@ -19,12 +19,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the operating system (OS) thread identifier upon which the managed debugging assistant (MDA) represented by <see cref="ICorDebugMDA"/> is executing.
         /// </summary>
-        public uint OSThreadId
+        public int OSThreadId
         {
             get
             {
                 HRESULT hr;
-                uint pOsTid;
+                int pOsTid;
 
                 if ((hr = TryGetOSThreadId(out pOsTid)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -41,9 +41,9 @@ namespace ManagedCorDebug
         /// The OS thread is used instead of an <see cref="ICorDebugThread"/> to allow for situations in which an MDA is fired either on
         /// a native thread or on a managed thread that has not yet entered managed code.
         /// </remarks>
-        public HRESULT TryGetOSThreadId(out uint pOsTid)
+        public HRESULT TryGetOSThreadId(out int pOsTid)
         {
-            /*HRESULT GetOSThreadId(out uint pOsTid);*/
+            /*HRESULT GetOSThreadId(out int pOsTid);*/
             return Raw.GetOSThreadId(out pOsTid);
         }
 
@@ -79,9 +79,9 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);*/
-            uint cchName = 0;
-            uint pcchName;
+            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            int cchName = 0;
+            int pcchName;
             StringBuilder szName = null;
             HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
 
@@ -89,7 +89,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder((int) pcchName);
+            szName = new StringBuilder(pcchName);
             hr = Raw.GetName(cchName, out pcchName, szName);
 
             if (hr == HRESULT.S_OK)
@@ -135,9 +135,9 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetDescription(out string szNameResult)
         {
-            /*HRESULT GetDescription([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);*/
-            uint cchName = 0;
-            uint pcchName;
+            /*HRESULT GetDescription([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            int cchName = 0;
+            int pcchName;
             StringBuilder szName = null;
             HRESULT hr = Raw.GetDescription(cchName, out pcchName, szName);
 
@@ -145,7 +145,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder((int) pcchName);
+            szName = new StringBuilder(pcchName);
             hr = Raw.GetDescription(cchName, out pcchName, szName);
 
             if (hr == HRESULT.S_OK)
@@ -191,9 +191,9 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetXML(out string szNameResult)
         {
-            /*HRESULT GetXML([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);*/
-            uint cchName = 0;
-            uint pcchName;
+            /*HRESULT GetXML([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            int cchName = 0;
+            int pcchName;
             StringBuilder szName = null;
             HRESULT hr = Raw.GetXML(cchName, out pcchName, szName);
 
@@ -201,7 +201,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder((int) pcchName);
+            szName = new StringBuilder(pcchName);
             hr = Raw.GetXML(cchName, out pcchName, szName);
 
             if (hr == HRESULT.S_OK)

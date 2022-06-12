@@ -8,9 +8,9 @@ namespace ManagedCorDebug
 
         public mdToken[] RMethods { get; }
 
-        public uint PcTokens { get; }
+        public int PcTokens { get; }
 
-        public EnumUnresolvedMethodsResult(IntPtr phEnum, mdToken[] rMethods, uint pcTokens)
+        public EnumUnresolvedMethodsResult(IntPtr phEnum, mdToken[] rMethods, int pcTokens)
         {
             PhEnum = phEnum;
             RMethods = rMethods;

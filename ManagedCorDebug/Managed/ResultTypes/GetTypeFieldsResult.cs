@@ -4,9 +4,9 @@ namespace ManagedCorDebug
     {
         public COR_FIELD Fields { get; }
 
-        public uint PceltNeeded { get; }
+        public int PceltNeeded { get; }
 
-        public GetTypeFieldsResult(COR_FIELD fields, uint pceltNeeded)
+        public GetTypeFieldsResult(COR_FIELD fields, int pceltNeeded)
         {
             Fields = fields;
             PceltNeeded = pceltNeeded;

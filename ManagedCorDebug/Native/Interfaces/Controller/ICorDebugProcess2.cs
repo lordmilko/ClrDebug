@@ -22,7 +22,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetThreadForTaskID([In] ulong taskid, [MarshalAs(UnmanagedType.Interface)] out ICorDebugThread2 ppThread);
+        HRESULT GetThreadForTaskID([In] long taskid, [MarshalAs(UnmanagedType.Interface)] out ICorDebugThread2 ppThread);
 
         /// <summary>
         /// Gets the version number of the common language runtime (CLR) that is running in this process.
@@ -50,9 +50,9 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetUnmanagedBreakpoint(
             [In] CORDB_ADDRESS address,
-            [In] uint bufsize,
+            [In] int bufsize,
             [Out] byte[] buffer,
-            out uint bufLen);
+            out int bufLen);
 
         /// <summary>
         /// Removes a previously set breakpoint at the given address.
@@ -86,7 +86,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetDesiredNGENCompilerFlags([In] uint pdwFlags);
+        HRESULT SetDesiredNGENCompilerFlags([In] int pdwFlags);
 
         /// <summary>
         /// Gets the current compiler flag settings that the common language runtime (CLR) uses to select the correct precompiled (that is, native) image to be loaded into this process.
@@ -98,7 +98,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetDesiredNGENCompilerFlags(out uint pdwFlags);
+        HRESULT GetDesiredNGENCompilerFlags(out int pdwFlags);
 
         /// <summary>
         /// Gets a reference pointer to the specified managed object that has a garbage collection handle.

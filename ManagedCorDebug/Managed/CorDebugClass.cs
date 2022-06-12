@@ -103,7 +103,7 @@ namespace ManagedCorDebug
         /// the class constructor takes parameters of type <see cref="Type"/>, call <see cref="CorDebugType.GetStaticFieldValue"/>
         /// instead of ICorDebugClass::GetStaticFieldValue.
         /// </remarks>
-        public CorDebugValue GetStaticFieldValue(uint fieldDef, ICorDebugFrame pFrame)
+        public CorDebugValue GetStaticFieldValue(int fieldDef, ICorDebugFrame pFrame)
         {
             HRESULT hr;
             CorDebugValue ppValueResult;
@@ -126,9 +126,9 @@ namespace ManagedCorDebug
         /// the class constructor takes parameters of type <see cref="Type"/>, call <see cref="CorDebugType.GetStaticFieldValue"/>
         /// instead of ICorDebugClass::GetStaticFieldValue.
         /// </remarks>
-        public HRESULT TryGetStaticFieldValue(uint fieldDef, ICorDebugFrame pFrame, out CorDebugValue ppValueResult)
+        public HRESULT TryGetStaticFieldValue(int fieldDef, ICorDebugFrame pFrame, out CorDebugValue ppValueResult)
         {
-            /*HRESULT GetStaticFieldValue([In] uint fieldDef, [MarshalAs(UnmanagedType.Interface), In]
+            /*HRESULT GetStaticFieldValue([In] int fieldDef, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugFrame pFrame, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetStaticFieldValue(fieldDef, pFrame, out ppValue);
@@ -164,7 +164,7 @@ namespace ManagedCorDebug
         /// type parameters (for example, ArrayList&lt;T&gt;), you can use GetParameterizedType to construct a type object
         /// for an instantiated type such as ArrayList&lt;int&gt;.
         /// </remarks>
-        public CorDebugType GetParameterizedType(CorElementType elementType, uint nTypeArgs, ICorDebugType ppTypeArgs)
+        public CorDebugType GetParameterizedType(CorElementType elementType, int nTypeArgs, ICorDebugType ppTypeArgs)
         {
             HRESULT hr;
             CorDebugType ppTypeResult;
@@ -190,11 +190,11 @@ namespace ManagedCorDebug
         /// type parameters (for example, ArrayList&lt;T&gt;), you can use GetParameterizedType to construct a type object
         /// for an instantiated type such as ArrayList&lt;int&gt;.
         /// </remarks>
-        public HRESULT TryGetParameterizedType(CorElementType elementType, uint nTypeArgs, ICorDebugType ppTypeArgs, out CorDebugType ppTypeResult)
+        public HRESULT TryGetParameterizedType(CorElementType elementType, int nTypeArgs, ICorDebugType ppTypeArgs, out CorDebugType ppTypeResult)
         {
             /*HRESULT GetParameterizedType(
             [In] CorElementType elementType,
-            [In] uint nTypeArgs,
+            [In] int nTypeArgs,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugType ppTypeArgs,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);*/

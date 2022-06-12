@@ -22,12 +22,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the operating system (OS) ID of the process.
         /// </summary>
-        public uint Id
+        public int Id
         {
             get
             {
                 HRESULT hr;
-                uint pdwProcessId;
+                int pdwProcessId;
 
                 if ((hr = TryGetID(out pdwProcessId)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -40,9 +40,9 @@ namespace ManagedCorDebug
         /// Gets the operating system (OS) ID of the process.
         /// </summary>
         /// <param name="pdwProcessId">[out] The unique ID of the process.</param>
-        public HRESULT TryGetID(out uint pdwProcessId)
+        public HRESULT TryGetID(out int pdwProcessId)
         {
-            /*HRESULT GetID(out uint pdwProcessId);*/
+            /*HRESULT GetID(out int pdwProcessId);*/
             return Raw.GetID(out pdwProcessId);
         }
 
@@ -123,12 +123,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the operating system (OS) thread ID of the debugger's internal helper thread.
         /// </summary>
-        public uint HelperThreadID
+        public int HelperThreadID
         {
             get
             {
                 HRESULT hr;
-                uint pThreadID;
+                int pThreadID;
 
                 if ((hr = TryGetHelperThreadID(out pThreadID)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -151,9 +151,9 @@ namespace ManagedCorDebug
         /// of its helper thread and hide it from the user. A thread that is identified as a helper thread during an unmanaged
         /// <see cref="CorDebugManagedCallback.CreateThread"/> event will never run managed user code.
         /// </remarks>
-        public HRESULT TryGetHelperThreadID(out uint pThreadID)
+        public HRESULT TryGetHelperThreadID(out int pThreadID)
         {
-            /*HRESULT GetHelperThreadID(out uint pThreadID);*/
+            /*HRESULT GetHelperThreadID(out int pThreadID);*/
             return Raw.GetHelperThreadID(out pThreadID);
         }
 
@@ -165,7 +165,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="dwThreadId">[in] The OS thread ID of the thread to be retrieved.</param>
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugThread"/> object that represents the thread.</returns>
-        public CorDebugThread GetThread(uint dwThreadId)
+        public CorDebugThread GetThread(int dwThreadId)
         {
             HRESULT hr;
             CorDebugThread ppThreadResult;
@@ -181,9 +181,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="dwThreadId">[in] The OS thread ID of the thread to be retrieved.</param>
         /// <param name="ppThreadResult">[out] A pointer to the address of an <see cref="ICorDebugThread"/> object that represents the thread.</param>
-        public HRESULT TryGetThread(uint dwThreadId, out CorDebugThread ppThreadResult)
+        public HRESULT TryGetThread(int dwThreadId, out CorDebugThread ppThreadResult)
         {
-            /*HRESULT GetThread([In] uint dwThreadId, [MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);*/
+            /*HRESULT GetThread([In] int dwThreadId, [MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);*/
             ICorDebugThread ppThread;
             HRESULT hr = Raw.GetThread(dwThreadId, out ppThread);
 
@@ -284,7 +284,7 @@ namespace ManagedCorDebug
         /// makes sense only in the context of unmanaged debugging. During managed debugging, threads are cooperatively suspended
         /// rather than OS-suspended.
         /// </remarks>
-        public int IsOSSuspended(uint threadID)
+        public int IsOSSuspended(int threadID)
         {
             HRESULT hr;
             int pbSuspended;
@@ -307,9 +307,9 @@ namespace ManagedCorDebug
         /// makes sense only in the context of unmanaged debugging. During managed debugging, threads are cooperatively suspended
         /// rather than OS-suspended.
         /// </remarks>
-        public HRESULT TryIsOSSuspended(uint threadID, out int pbSuspended)
+        public HRESULT TryIsOSSuspended(int threadID, out int pbSuspended)
         {
-            /*HRESULT IsOSSuspended([In] uint threadID, out int pbSuspended);*/
+            /*HRESULT IsOSSuspended([In] int threadID, out int pbSuspended);*/
             return Raw.IsOSSuspended(threadID, out pbSuspended);
         }
 
@@ -329,7 +329,7 @@ namespace ManagedCorDebug
         /// is a context structure for the current platform. Just as with the Win32 GetThreadContext method, the caller should
         /// initialize the context parameter before calling this method.
         /// </remarks>
-        public byte[] GetThreadContext(uint threadID, uint contextSize)
+        public byte[] GetThreadContext(int threadID, int contextSize)
         {
             HRESULT hr;
             byte[] context = default(byte[]);
@@ -353,9 +353,9 @@ namespace ManagedCorDebug
         /// is a context structure for the current platform. Just as with the Win32 GetThreadContext method, the caller should
         /// initialize the context parameter before calling this method.
         /// </remarks>
-        public HRESULT TryGetThreadContext(uint threadID, uint contextSize, ref byte[] context)
+        public HRESULT TryGetThreadContext(int threadID, int contextSize, ref byte[] context)
         {
-            /*HRESULT GetThreadContext([In] uint threadID, [In] uint contextSize, [In, Out] ref byte[] context);*/
+            /*HRESULT GetThreadContext([In] int threadID, [In] int contextSize, [In, Out] ref byte[] context);*/
             return Raw.GetThreadContext(threadID, contextSize, ref context);
         }
 
@@ -375,7 +375,7 @@ namespace ManagedCorDebug
         /// need to modify the context of a thread during an out-of-band (OOB) debug event. The data passed must be a context
         /// structure for the current platform. This method can corrupt the runtime if used improperly.
         /// </remarks>
-        public void SetThreadContext(uint threadID, uint contextSize, byte[] context)
+        public void SetThreadContext(int threadID, int contextSize, byte[] context)
         {
             HRESULT hr;
 
@@ -396,9 +396,9 @@ namespace ManagedCorDebug
         /// need to modify the context of a thread during an out-of-band (OOB) debug event. The data passed must be a context
         /// structure for the current platform. This method can corrupt the runtime if used improperly.
         /// </remarks>
-        public HRESULT TrySetThreadContext(uint threadID, uint contextSize, byte[] context)
+        public HRESULT TrySetThreadContext(int threadID, int contextSize, byte[] context)
         {
-            /*HRESULT SetThreadContext([In] uint threadID, [In] uint contextSize, [In] byte[] context);*/
+            /*HRESULT SetThreadContext([In] int threadID, [In] int contextSize, [In] byte[] context);*/
             return Raw.SetThreadContext(threadID, contextSize, context);
         }
 
@@ -418,7 +418,7 @@ namespace ManagedCorDebug
         /// returned in the buffer parameter. No adjustments will be made for native breakpoints set by <see cref="SetUnmanagedBreakpoint"/>.
         /// No caching of process memory is performed.
         /// </remarks>
-        public ReadMemoryResult ReadMemory(CORDB_ADDRESS address, uint size)
+        public ReadMemoryResult ReadMemory(CORDB_ADDRESS address, int size)
         {
             HRESULT hr;
             ReadMemoryResult result;
@@ -442,11 +442,11 @@ namespace ManagedCorDebug
         /// returned in the buffer parameter. No adjustments will be made for native breakpoints set by <see cref="SetUnmanagedBreakpoint"/>.
         /// No caching of process memory is performed.
         /// </remarks>
-        public HRESULT TryReadMemory(CORDB_ADDRESS address, uint size, out ReadMemoryResult result)
+        public HRESULT TryReadMemory(CORDB_ADDRESS address, int size, out ReadMemoryResult result)
         {
-            /*HRESULT ReadMemory([In] CORDB_ADDRESS address, [In] uint size, [Out] byte[] buffer, out ulong read);*/
+            /*HRESULT ReadMemory([In] CORDB_ADDRESS address, [In] int size, [Out] byte[] buffer, out long read);*/
             byte[] buffer = default(byte[]);
-            ulong read;
+            long read;
             HRESULT hr = Raw.ReadMemory(address, size, buffer, out read);
 
             if (hr == HRESULT.S_OK)
@@ -474,10 +474,10 @@ namespace ManagedCorDebug
         /// instead. The WriteMemory method should be used only outside of managed code. This method can corrupt the runtime
         /// if used improperly.
         /// </remarks>
-        public ulong WriteMemory(CORDB_ADDRESS address, uint size, IntPtr buffer)
+        public long WriteMemory(CORDB_ADDRESS address, int size, IntPtr buffer)
         {
             HRESULT hr;
-            ulong written;
+            long written;
 
             if ((hr = TryWriteMemory(address, size, buffer, out written)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -499,10 +499,10 @@ namespace ManagedCorDebug
         /// instead. The WriteMemory method should be used only outside of managed code. This method can corrupt the runtime
         /// if used improperly.
         /// </remarks>
-        public HRESULT TryWriteMemory(CORDB_ADDRESS address, uint size, IntPtr buffer, out ulong written)
+        public HRESULT TryWriteMemory(CORDB_ADDRESS address, int size, IntPtr buffer, out long written)
         {
-            /*HRESULT WriteMemory([In] CORDB_ADDRESS address, [In] uint size, [In] IntPtr buffer,
-            out ulong written);*/
+            /*HRESULT WriteMemory([In] CORDB_ADDRESS address, [In] int size, [In] IntPtr buffer,
+            out long written);*/
             return Raw.WriteMemory(address, size, buffer, out written);
         }
 
@@ -519,7 +519,7 @@ namespace ManagedCorDebug
         /// (OOB) events on the given thread. All OOB breakpoints and single-step exceptions are automatically cleared. Use
         /// <see cref="CorDebugThread.InterceptCurrentException"/> to intercept the current managed exception on a thread.
         /// </remarks>
-        public void ClearCurrentException(uint threadID)
+        public void ClearCurrentException(int threadID)
         {
             HRESULT hr;
 
@@ -537,9 +537,9 @@ namespace ManagedCorDebug
         /// (OOB) events on the given thread. All OOB breakpoints and single-step exceptions are automatically cleared. Use
         /// <see cref="CorDebugThread.InterceptCurrentException"/> to intercept the current managed exception on a thread.
         /// </remarks>
-        public HRESULT TryClearCurrentException(uint threadID)
+        public HRESULT TryClearCurrentException(int threadID)
         {
-            /*HRESULT ClearCurrentException([In] uint threadID);*/
+            /*HRESULT ClearCurrentException([In] int threadID);*/
             return Raw.ClearCurrentException(threadID);
         }
 
@@ -655,7 +655,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// This method is not implemented.
         /// </summary>
-        public CorDebugThread ThreadForFiberCookie(uint fiberCookie)
+        public CorDebugThread ThreadForFiberCookie(int fiberCookie)
         {
             HRESULT hr;
             CorDebugThread ppThreadResult;
@@ -669,9 +669,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// This method is not implemented.
         /// </summary>
-        public HRESULT TryThreadForFiberCookie(uint fiberCookie, out CorDebugThread ppThreadResult)
+        public HRESULT TryThreadForFiberCookie(int fiberCookie, out CorDebugThread ppThreadResult)
         {
-            /*HRESULT ThreadForFiberCookie([In] uint fiberCookie,
+            /*HRESULT ThreadForFiberCookie([In] int fiberCookie,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);*/
             ICorDebugThread ppThread;
             HRESULT hr = Raw.ThreadForFiberCookie(fiberCookie, out ppThread);
@@ -728,12 +728,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets or sets the current compiler flag settings that the common language runtime (CLR) uses to select the correct precompiled (that is, native) image to be loaded into this process.
         /// </summary>
-        public uint DesiredNGENCompilerFlags
+        public int DesiredNGENCompilerFlags
         {
             get
             {
                 HRESULT hr;
-                uint pdwFlags;
+                int pdwFlags;
 
                 if ((hr = TryGetDesiredNGENCompilerFlags(out pdwFlags)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -757,9 +757,9 @@ namespace ManagedCorDebug
         /// Use the <see cref="DesiredNGENCompilerFlags"/> property to set the flags that the CLR will use to select the correct
         /// pre-compiled image to load.
         /// </remarks>
-        public HRESULT TryGetDesiredNGENCompilerFlags(out uint pdwFlags)
+        public HRESULT TryGetDesiredNGENCompilerFlags(out int pdwFlags)
         {
-            /*HRESULT GetDesiredNGENCompilerFlags(out uint pdwFlags);*/
+            /*HRESULT GetDesiredNGENCompilerFlags(out int pdwFlags);*/
             return Raw2.GetDesiredNGENCompilerFlags(out pdwFlags);
         }
 
@@ -779,9 +779,9 @@ namespace ManagedCorDebug
         /// the SetDesiredNGENCompilerFlags method afterwards will fail. Also, attempts to set flags that are either not defined
         /// in the <see cref="CorDebugJITCompilerFlags"/> enumeration or are not legal for the given process will fail.
         /// </remarks>
-        public HRESULT TrySetDesiredNGENCompilerFlags(uint pdwFlags)
+        public HRESULT TrySetDesiredNGENCompilerFlags(int pdwFlags)
         {
-            /*HRESULT SetDesiredNGENCompilerFlags([In] uint pdwFlags);*/
+            /*HRESULT SetDesiredNGENCompilerFlags([In] int pdwFlags);*/
             return Raw2.SetDesiredNGENCompilerFlags(pdwFlags);
         }
 
@@ -796,7 +796,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The host can set the task identifier by using the <see cref="CLRTask.SetTaskIdentifier"/> method.
         /// </remarks>
-        public CorDebugThread GetThreadForTaskID(ulong taskid)
+        public CorDebugThread GetThreadForTaskID(long taskid)
         {
             HRESULT hr;
             CorDebugThread ppThreadResult;
@@ -815,9 +815,9 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The host can set the task identifier by using the <see cref="CLRTask.SetTaskIdentifier"/> method.
         /// </remarks>
-        public HRESULT TryGetThreadForTaskID(ulong taskid, out CorDebugThread ppThreadResult)
+        public HRESULT TryGetThreadForTaskID(long taskid, out CorDebugThread ppThreadResult)
         {
-            /*HRESULT GetThreadForTaskID([In] ulong taskid, [MarshalAs(UnmanagedType.Interface)] out ICorDebugThread2 ppThread);*/
+            /*HRESULT GetThreadForTaskID([In] long taskid, [MarshalAs(UnmanagedType.Interface)] out ICorDebugThread2 ppThread);*/
             ICorDebugThread2 ppThread;
             HRESULT hr = Raw2.GetThreadForTaskID(taskid, out ppThread);
 
@@ -842,7 +842,7 @@ namespace ManagedCorDebug
         /// If the native image offset is within the common language runtime (CLR), the breakpoint will be ignored. This allows
         /// the CLR to avoid dispatching an out-of-band breakpoint, when the breakpoint is set by the debugger.
         /// </remarks>
-        public SetUnmanagedBreakpointResult SetUnmanagedBreakpoint(CORDB_ADDRESS address, uint bufsize)
+        public SetUnmanagedBreakpointResult SetUnmanagedBreakpoint(CORDB_ADDRESS address, int bufsize)
         {
             HRESULT hr;
             SetUnmanagedBreakpointResult result;
@@ -863,15 +863,15 @@ namespace ManagedCorDebug
         /// If the native image offset is within the common language runtime (CLR), the breakpoint will be ignored. This allows
         /// the CLR to avoid dispatching an out-of-band breakpoint, when the breakpoint is set by the debugger.
         /// </remarks>
-        public HRESULT TrySetUnmanagedBreakpoint(CORDB_ADDRESS address, uint bufsize, out SetUnmanagedBreakpointResult result)
+        public HRESULT TrySetUnmanagedBreakpoint(CORDB_ADDRESS address, int bufsize, out SetUnmanagedBreakpointResult result)
         {
             /*HRESULT SetUnmanagedBreakpoint(
             [In] CORDB_ADDRESS address,
-            [In] uint bufsize,
+            [In] int bufsize,
             [Out] byte[] buffer,
-            out uint bufLen);*/
+            out int bufLen);*/
             byte[] buffer = default(byte[]);
-            uint bufLen;
+            int bufLen;
             HRESULT hr = Raw2.SetUnmanagedBreakpoint(address, bufsize, buffer, out bufLen);
 
             if (hr == HRESULT.S_OK)
@@ -1185,7 +1185,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// If addr does not point to a valid managed object, the GetObject method returns E_FAIL.
         /// </remarks>
-        public CorDebugObjectValue GetObject(ulong addr)
+        public CorDebugObjectValue GetObject(long addr)
         {
             HRESULT hr;
             CorDebugObjectValue pObjectResult;
@@ -1204,9 +1204,9 @@ namespace ManagedCorDebug
         /// <remarks>
         /// If addr does not point to a valid managed object, the GetObject method returns E_FAIL.
         /// </remarks>
-        public HRESULT TryGetObject(ulong addr, out CorDebugObjectValue pObjectResult)
+        public HRESULT TryGetObject(long addr, out CorDebugObjectValue pObjectResult)
         {
-            /*HRESULT GetObject([In] ulong addr, [MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectValue pObject);*/
+            /*HRESULT GetObject([In] long addr, [MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectValue pObject);*/
             ICorDebugObjectValue pObject;
             HRESULT hr = Raw5.GetObject(addr, out pObject);
 
@@ -1328,7 +1328,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="obj">[in] The object address.</param>
         /// <returns>A pointer to the <see cref="COR_TYPEID"/> value that identifies the object.</returns>
-        public COR_TYPEID GetTypeID(ulong obj)
+        public COR_TYPEID GetTypeID(long obj)
         {
             HRESULT hr;
             COR_TYPEID pId;
@@ -1344,9 +1344,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="obj">[in] The object address.</param>
         /// <param name="pId">A pointer to the <see cref="COR_TYPEID"/> value that identifies the object.</param>
-        public HRESULT TryGetTypeID(ulong obj, out COR_TYPEID pId)
+        public HRESULT TryGetTypeID(long obj, out COR_TYPEID pId)
         {
-            /*HRESULT GetTypeID([In] ulong obj, out COR_TYPEID pId);*/
+            /*HRESULT GetTypeID([In] long obj, out COR_TYPEID pId);*/
             return Raw5.GetTypeID(obj, out pId);
         }
 
@@ -1479,7 +1479,7 @@ namespace ManagedCorDebug
         /// The celt parameter, which specifies the number of fields whose field information the method uses to populate fields,
         /// should correspond to the value of the <see cref="COR_TYPE_LAYOUT.numFields"/> field.
         /// </remarks>
-        public GetTypeFieldsResult GetTypeFields(COR_TYPEID id, uint celt)
+        public GetTypeFieldsResult GetTypeFields(COR_TYPEID id, int celt)
         {
             HRESULT hr;
             GetTypeFieldsResult result;
@@ -1500,11 +1500,11 @@ namespace ManagedCorDebug
         /// The celt parameter, which specifies the number of fields whose field information the method uses to populate fields,
         /// should correspond to the value of the <see cref="COR_TYPE_LAYOUT.numFields"/> field.
         /// </remarks>
-        public HRESULT TryGetTypeFields(COR_TYPEID id, uint celt, out GetTypeFieldsResult result)
+        public HRESULT TryGetTypeFields(COR_TYPEID id, int celt, out GetTypeFieldsResult result)
         {
-            /*HRESULT GetTypeFields([In] COR_TYPEID id, uint celt, ref COR_FIELD fields, ref uint pceltNeeded);*/
+            /*HRESULT GetTypeFields([In] COR_TYPEID id, int celt, ref COR_FIELD fields, ref int pceltNeeded);*/
             COR_FIELD fields = default(COR_FIELD);
-            uint pceltNeeded = default(uint);
+            int pceltNeeded = default(int);
             HRESULT hr = Raw5.GetTypeFields(id, celt, ref fields, ref pceltNeeded);
 
             if (hr == HRESULT.S_OK)
@@ -1572,7 +1572,7 @@ namespace ManagedCorDebug
         /// For Windows systems, it can be a member of the <see cref="CorDebugDecodeEventFlagsWindows"/> enumeration.</param>
         /// <param name="dwThreadId">[in] The operating system identifier of the thread on which the exception was thrown.</param>
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugDebugEvent"/> object that represents a decoded managed debug event.</returns>
-        public CorDebugDebugEvent DecodeEvent(byte[] pRecord, uint countBytes, CorDebugRecordFormat format, uint dwFlags, uint dwThreadId)
+        public CorDebugDebugEvent DecodeEvent(byte[] pRecord, int countBytes, CorDebugRecordFormat format, int dwFlags, int dwThreadId)
         {
             HRESULT hr;
             CorDebugDebugEvent ppEventResult;
@@ -1593,14 +1593,14 @@ namespace ManagedCorDebug
         /// For Windows systems, it can be a member of the <see cref="CorDebugDecodeEventFlagsWindows"/> enumeration.</param>
         /// <param name="dwThreadId">[in] The operating system identifier of the thread on which the exception was thrown.</param>
         /// <param name="ppEventResult">[out] A pointer to the address of an <see cref="ICorDebugDebugEvent"/> object that represents a decoded managed debug event.</param>
-        public HRESULT TryDecodeEvent(byte[] pRecord, uint countBytes, CorDebugRecordFormat format, uint dwFlags, uint dwThreadId, out CorDebugDebugEvent ppEventResult)
+        public HRESULT TryDecodeEvent(byte[] pRecord, int countBytes, CorDebugRecordFormat format, int dwFlags, int dwThreadId, out CorDebugDebugEvent ppEventResult)
         {
             /*HRESULT DecodeEvent(
             [In] byte[] pRecord,
-            [In] uint countBytes,
+            [In] int countBytes,
             [In] CorDebugRecordFormat format,
-            [In] uint dwFlags,
-            [In] uint dwThreadId,
+            [In] int dwFlags,
+            [In] int dwThreadId,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugDebugEvent ppEvent);*/
             ICorDebugDebugEvent ppEvent;
             HRESULT hr = Raw6.DecodeEvent(pRecord, countBytes, format, dwFlags, dwThreadId, out ppEvent);

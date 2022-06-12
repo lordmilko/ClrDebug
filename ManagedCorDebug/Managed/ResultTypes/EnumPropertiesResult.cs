@@ -8,9 +8,9 @@ namespace ManagedCorDebug
 
         public mdProperty[] RProperties { get; }
 
-        public uint PcProperties { get; }
+        public int PcProperties { get; }
 
-        public EnumPropertiesResult(IntPtr phEnum, mdProperty[] rProperties, uint pcProperties)
+        public EnumPropertiesResult(IntPtr phEnum, mdProperty[] rProperties, int pcProperties)
         {
             PhEnum = phEnum;
             RProperties = rProperties;

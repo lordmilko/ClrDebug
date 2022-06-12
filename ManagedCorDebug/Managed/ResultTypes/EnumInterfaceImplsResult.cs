@@ -8,9 +8,9 @@ namespace ManagedCorDebug
 
         public mdInterfaceImpl[] RImpls { get; }
 
-        public uint PcImpls { get; }
+        public int PcImpls { get; }
 
-        public EnumInterfaceImplsResult(IntPtr phEnum, mdInterfaceImpl[] rImpls, uint pcImpls)
+        public EnumInterfaceImplsResult(IntPtr phEnum, mdInterfaceImpl[] rImpls, int pcImpls)
         {
             PhEnum = phEnum;
             RImpls = rImpls;

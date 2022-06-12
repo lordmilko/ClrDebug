@@ -29,11 +29,11 @@ namespace ManagedCorDebug
         HRESULT GetAssemblyProps(
             [In] mdAssembly mda,
             [Out] out IntPtr ppbPublicKey,
-            [Out] out uint pcbPublicKey,
-            [Out] out uint pulHashAlgId,
+            [Out] out int pcbPublicKey,
+            [Out] out int pulHashAlgId,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
-            [In] uint cchName,
-            [Out] out uint pchName,
+            [In] int cchName,
+            [Out] out int pchName,
             [Out] out ASSEMBLYMETADATA pMetaData,
             [Out] out CorAssemblyFlags pdwAssemblyFlags);
 
@@ -55,13 +55,13 @@ namespace ManagedCorDebug
         HRESULT GetAssemblyRefProps(
             [In] mdAssemblyRef mdar,
             [Out] IntPtr ppbPublicKeyOrToken,
-            [Out] out uint pcbPublicKeyOrToken,
+            [Out] out int pcbPublicKeyOrToken,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
-            [In] uint cchName,
-            [Out] out uint pchName,
+            [In] int cchName,
+            [Out] out int pchName,
             [Out] out ASSEMBLYMETADATA pMetaData,
             [Out] IntPtr ppbHashValue,
-            [Out] out uint pcbHashValue,
+            [Out] out int pcbHashValue,
             [Out] out CorAssemblyFlags pdwAssemblyFlags);
 
         /// <summary>
@@ -78,10 +78,10 @@ namespace ManagedCorDebug
         HRESULT GetFileProps(
             [In] mdFile mdf,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
-            [In] uint cchName,
-            [Out] out uint pchName,
+            [In] int cchName,
+            [Out] out int pchName,
             [Out] IntPtr ppbHashValue,
-            [Out] out uint pcbHashValue,
+            [Out] out int pcbHashValue,
             [Out] out CorFileFlags pdwFileFlags);
 
         /// <summary>
@@ -98,9 +98,9 @@ namespace ManagedCorDebug
         HRESULT GetExportedTypeProps(
             [In] mdExportedType mdct,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
-            [In] uint cchName,
-            [Out] out uint pchName,
-            [Out] out uint ptkImplementation,
+            [In] int cchName,
+            [Out] out int pchName,
+            [Out] out int ptkImplementation,
             [Out] out mdTypeDef ptkTypeDef,
             [Out] out CorTypeAttr pdwExportedTypeFlags);
 
@@ -118,10 +118,10 @@ namespace ManagedCorDebug
         HRESULT GetManifestResourceProps(
             [In] mdManifestResource mdmr,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
-            [In] uint cchName,
-            [Out] out uint pchName,
-            [Out] out uint ptkImplementation,
-            [Out] out uint pdwOffset,
+            [In] int cchName,
+            [Out] out int pchName,
+            [Out] out int ptkImplementation,
+            [Out] out int pdwOffset,
             [Out] out CorManifestResourceFlags pdwResourceFlags);
 
         /// <summary>
@@ -141,8 +141,8 @@ namespace ManagedCorDebug
         HRESULT EnumAssemblyRefs(
             [In] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdAssemblyRef[] rAssemblyRefs,
-            [In] uint cMax,
-            [Out] out uint pcTokens);
+            [In] int cMax,
+            [Out] out int pcTokens);
 
         /// <summary>
         /// Enumerates the files referenced in the current assembly manifest.
@@ -161,8 +161,8 @@ namespace ManagedCorDebug
         HRESULT EnumFiles(
             [In] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdFile[] rFiles,
-            [In] uint cMax,
-            [Out] out uint pcTokens);
+            [In] int cMax,
+            [Out] out int pcTokens);
 
         /// <summary>
         /// Enumerates the exported types referenced in the assembly manifest in the current metadata scope.
@@ -181,8 +181,8 @@ namespace ManagedCorDebug
         HRESULT EnumExportedTypes(
             [In] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdExportedType[] rExportedTypes,
-            [In] uint cMax,
-            [Out] out uint pcTokens);
+            [In] int cMax,
+            [Out] out int pcTokens);
 
         /// <summary>
         /// Gets a pointer to an enumerator for the resources referenced in the current assembly manifest.
@@ -201,8 +201,8 @@ namespace ManagedCorDebug
         HRESULT EnumManifestResources(
             [In] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdManifestResource[] rManifestResources,
-            [In] uint cMax,
-            [Out] out uint pcTokens);
+            [In] int cMax,
+            [Out] out int pcTokens);
 
         /// <summary>
         /// Gets a pointer to the assembly in the current scope.
@@ -225,7 +225,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT FindExportedTypeByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
-            [In] uint mdtExportedType,
+            [In] int mdtExportedType,
             [Out] out mdExportedType mdExportedType);
 
         /// <summary>
@@ -283,7 +283,7 @@ namespace ManagedCorDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string szPrivateBin,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAssemblyName,
             [Out, MarshalAs(UnmanagedType.Interface)] out object[] ppIUnk,
-            [In] uint cMax,
-            [Out] out uint pcAssemblies);
+            [In] int cMax,
+            [Out] out int pcAssemblies);
     }
 }

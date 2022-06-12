@@ -4,15 +4,15 @@ namespace ManagedCorDebug
 {
     public struct GetMethodPropsResult
     {
-        public uint PMethodToken { get; }
+        public int PMethodToken { get; }
 
-        public uint PcGenericParams { get; }
+        public int PcGenericParams { get; }
 
-        public uint PcbSignature { get; }
+        public int PcbSignature { get; }
 
         public byte[] Signature { get; }
 
-        public GetMethodPropsResult(uint pMethodToken, uint pcGenericParams, uint pcbSignature, byte[] signature)
+        public GetMethodPropsResult(int pMethodToken, int pcGenericParams, int pcbSignature, byte[] signature)
         {
             PMethodToken = pMethodToken;
             PcGenericParams = pcGenericParams;

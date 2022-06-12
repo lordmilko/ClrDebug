@@ -36,9 +36,9 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetContext(
-            [In] uint contextFlags,
-            [In] uint contextBufSize,
-            out uint contextSize,
+            [In] int contextFlags,
+            [In] int contextBufSize,
+            out int contextSize,
             out byte contextBuf);
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetContext([In] CorDebugSetContextFlag flag, [In] uint contextSize, [In] IntPtr context);
+        HRESULT SetContext([In] CorDebugSetContextFlag flag, [In] int contextSize, [In] IntPtr context);
 
         /// <summary>
         /// Moves the <see cref="ICorDebugStackWalk"/> object to the next frame.

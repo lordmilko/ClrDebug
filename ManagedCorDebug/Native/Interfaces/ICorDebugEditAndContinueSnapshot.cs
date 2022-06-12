@@ -35,7 +35,7 @@ namespace ManagedCorDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRoDataRVA(out uint pRoDataRVA);
+        HRESULT GetRoDataRVA(out int pRoDataRVA);
 
         /// <summary>
         /// GetRwDataRVA is obsolete. Do not call this method.
@@ -43,7 +43,7 @@ namespace ManagedCorDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRwDataRVA(out uint pRwDataRVA);
+        HRESULT GetRwDataRVA(out int pRwDataRVA);
 
         /// <summary>
         /// SetPEBytes is obsolete. Do not call this method.
@@ -60,7 +60,7 @@ namespace ManagedCorDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetILMap([In] uint mdFunction, [In] uint cMapSize, [In] ref COR_IL_MAP map);
+        HRESULT SetILMap([In] int mdFunction, [In] int cMapSize, [In] ref COR_IL_MAP map);
 
         /// <summary>
         /// SetPESymbolBytes is obsolete. Do not call this method.

@@ -42,7 +42,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSize(out uint pSize);
+        HRESULT GetSize(out int pSize);
 
         /// <summary>
         /// Gets the address of this "ICorDebugValue" object, which is in the process of being debugged.

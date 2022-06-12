@@ -31,6 +31,6 @@ namespace ManagedCorDebug
         /// <param name="pParentFrameStartRva">[out] A pointer to the frame's starting relative virtual address.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetFrameProps([In] uint codeRva, out uint pCodeStartRva, out uint pParentFrameStartRva);
+        HRESULT GetFrameProps([In] int codeRva, out int pCodeStartRva, out int pParentFrameStartRva);
     }
 }

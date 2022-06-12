@@ -8,11 +8,11 @@ namespace ManagedCorDebug
 
         public IntPtr PpbHashValue { get; }
 
-        public uint PcbHashValue { get; }
+        public int PcbHashValue { get; }
 
         public CorFileFlags PdwFileFlags { get; }
 
-        public GetFilePropsResult(string szName, IntPtr ppbHashValue, uint pcbHashValue, CorFileFlags pdwFileFlags)
+        public GetFilePropsResult(string szName, IntPtr ppbHashValue, int pcbHashValue, CorFileFlags pdwFileFlags)
         {
             SzName = szName;
             PpbHashValue = ppbHashValue;

@@ -6,11 +6,11 @@ namespace ManagedCorDebug
     {
         public IntPtr PpvData { get; }
 
-        public ulong PcbData { get; }
+        public long PcbData { get; }
 
         public CorFileMapping PdwMappingType { get; }
 
-        public GetFileMappingResult(IntPtr ppvData, ulong pcbData, CorFileMapping pdwMappingType)
+        public GetFileMappingResult(IntPtr ppvData, long pcbData, CorFileMapping pdwMappingType)
         {
             PpvData = ppvData;
             PcbData = pcbData;

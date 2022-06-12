@@ -4,11 +4,11 @@ namespace ManagedCorDebug
 {
     public struct GetLoadedModulesResult
     {
-        public uint PcFetchedModules { get; }
+        public int PcFetchedModules { get; }
 
         public IntPtr PLoadedModules { get; }
 
-        public GetLoadedModulesResult(uint pcFetchedModules, IntPtr pLoadedModules)
+        public GetLoadedModulesResult(int pcFetchedModules, IntPtr pLoadedModules)
         {
             PcFetchedModules = pcFetchedModules;
             PLoadedModules = pLoadedModules;

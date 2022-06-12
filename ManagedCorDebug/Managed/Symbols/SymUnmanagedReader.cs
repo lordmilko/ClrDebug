@@ -20,12 +20,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Returns the method that was specified as the user entry point for the module, if any. For example, this method could be the user's main method rather than compiler-generated stubs before the main method.
         /// </summary>
-        public uint UserEntryPoint
+        public int UserEntryPoint
         {
             get
             {
                 HRESULT hr;
-                uint pToken;
+                int pToken;
 
                 if ((hr = TryGetUserEntryPoint(out pToken)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -39,9 +39,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pToken">[out] A pointer to a variable that receives the entry point.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetUserEntryPoint(out uint pToken)
+        public HRESULT TryGetUserEntryPoint(out int pToken)
         {
-            /*HRESULT GetUserEntryPoint([Out] out uint pToken);*/
+            /*HRESULT GetUserEntryPoint([Out] out int pToken);*/
             return Raw.GetUserEntryPoint(out pToken);
         }
 
@@ -103,7 +103,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cDocs">[in] The size of the pDocs array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetDocumentsResult GetDocuments(uint cDocs)
+        public GetDocumentsResult GetDocuments(int cDocs)
         {
             HRESULT hr;
             GetDocumentsResult result;
@@ -120,13 +120,13 @@ namespace ManagedCorDebug
         /// <param name="cDocs">[in] The size of the pDocs array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetDocuments(uint cDocs, out GetDocumentsResult result)
+        public HRESULT TryGetDocuments(int cDocs, out GetDocumentsResult result)
         {
             /*HRESULT GetDocuments(
-            [In] uint cDocs,
-            out uint pcDocs,
+            [In] int cDocs,
+            out int pcDocs,
             [Out] IntPtr pDocs);*/
-            uint pcDocs;
+            int pcDocs;
             IntPtr pDocs = default(IntPtr);
             HRESULT hr = Raw.GetDocuments(cDocs, out pcDocs, pDocs);
 
@@ -146,7 +146,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="token">[in] The method token.</param>
         /// <returns>[out] A pointer to the returned interface.</returns>
-        public ISymUnmanagedMethod GetMethod(uint token)
+        public ISymUnmanagedMethod GetMethod(int token)
         {
             HRESULT hr;
             ISymUnmanagedMethod pRetVal = default(ISymUnmanagedMethod);
@@ -163,9 +163,9 @@ namespace ManagedCorDebug
         /// <param name="token">[in] The method token.</param>
         /// <param name="pRetVal">[out] A pointer to the returned interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetMethod(uint token, ref ISymUnmanagedMethod pRetVal)
+        public HRESULT TryGetMethod(int token, ref ISymUnmanagedMethod pRetVal)
         {
-            /*HRESULT GetMethod([In] uint token, [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);*/
+            /*HRESULT GetMethod([In] int token, [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);*/
             return Raw.GetMethod(token, pRetVal);
         }
 
@@ -178,7 +178,7 @@ namespace ManagedCorDebug
         /// <param name="token">[in] The method token.</param>
         /// <param name="version">[in] The method version.</param>
         /// <returns>[out] A pointer to the returned interface.</returns>
-        public ISymUnmanagedMethod GetMethodByVersion(uint token, int version)
+        public ISymUnmanagedMethod GetMethodByVersion(int token, int version)
         {
             HRESULT hr;
             ISymUnmanagedMethod pRetVal = default(ISymUnmanagedMethod);
@@ -196,10 +196,10 @@ namespace ManagedCorDebug
         /// <param name="version">[in] The method version.</param>
         /// <param name="pRetVal">[out] A pointer to the returned interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetMethodByVersion(uint token, int version, ref ISymUnmanagedMethod pRetVal)
+        public HRESULT TryGetMethodByVersion(int token, int version, ref ISymUnmanagedMethod pRetVal)
         {
             /*HRESULT GetMethodByVersion(
-            [In] uint token,
+            [In] int token,
             [In] int version,
             [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);*/
             return Raw.GetMethodByVersion(token, version, pRetVal);
@@ -214,7 +214,7 @@ namespace ManagedCorDebug
         /// <param name="parent">[in] The parent of the variable.</param>
         /// <param name="cVars">[in] The size of the pVars array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetVariablesResult GetVariables(uint parent, uint cVars)
+        public GetVariablesResult GetVariables(int parent, int cVars)
         {
             HRESULT hr;
             GetVariablesResult result;
@@ -232,14 +232,14 @@ namespace ManagedCorDebug
         /// <param name="cVars">[in] The size of the pVars array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetVariables(uint parent, uint cVars, out GetVariablesResult result)
+        public HRESULT TryGetVariables(int parent, int cVars, out GetVariablesResult result)
         {
             /*HRESULT GetVariables(
-            [In] uint parent,
-            [In] uint cVars,
-            out uint pcVars,
+            [In] int parent,
+            [In] int cVars,
+            out int pcVars,
             [Out] IntPtr pVars);*/
-            uint pcVars;
+            int pcVars;
             IntPtr pVars = default(IntPtr);
             HRESULT hr = Raw.GetVariables(parent, cVars, out pcVars, pVars);
 
@@ -259,7 +259,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cVars">[in] The length of the buffer pointed to by pcVars.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetGlobalVariablesResult GetGlobalVariables(uint cVars)
+        public GetGlobalVariablesResult GetGlobalVariables(int cVars)
         {
             HRESULT hr;
             GetGlobalVariablesResult result;
@@ -276,13 +276,13 @@ namespace ManagedCorDebug
         /// <param name="cVars">[in] The length of the buffer pointed to by pcVars.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetGlobalVariables(uint cVars, out GetGlobalVariablesResult result)
+        public HRESULT TryGetGlobalVariables(int cVars, out GetGlobalVariablesResult result)
         {
             /*HRESULT GetGlobalVariables(
-            [In] uint cVars,
-            out uint pcVars,
+            [In] int cVars,
+            out int pcVars,
             [Out] IntPtr pVars);*/
-            uint pcVars;
+            int pcVars;
             IntPtr pVars = default(IntPtr);
             HRESULT hr = Raw.GetGlobalVariables(cVars, out pcVars, pVars);
 
@@ -304,7 +304,7 @@ namespace ManagedCorDebug
         /// <param name="line">[in] The line of the specified document.</param>
         /// <param name="column">[in] The column of the specified document.</param>
         /// <returns>[out] A pointer to the address of a <see cref="ISymUnmanagedMethod"/> object that represents the method containing the breakpoint.</returns>
-        public ISymUnmanagedMethod GetMethodFromDocumentPosition(ISymUnmanagedDocument document, uint line, uint column)
+        public ISymUnmanagedMethod GetMethodFromDocumentPosition(ISymUnmanagedDocument document, int line, int column)
         {
             HRESULT hr;
             ISymUnmanagedMethod pRetVal = default(ISymUnmanagedMethod);
@@ -323,13 +323,13 @@ namespace ManagedCorDebug
         /// <param name="column">[in] The column of the specified document.</param>
         /// <param name="pRetVal">[out] A pointer to the address of a <see cref="ISymUnmanagedMethod"/> object that represents the method containing the breakpoint.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetMethodFromDocumentPosition(ISymUnmanagedDocument document, uint line, uint column, ref ISymUnmanagedMethod pRetVal)
+        public HRESULT TryGetMethodFromDocumentPosition(ISymUnmanagedDocument document, int line, int column, ref ISymUnmanagedMethod pRetVal)
         {
             /*HRESULT GetMethodFromDocumentPosition(
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocument document,
-            [In] uint line,
-            [In] uint column,
+            [In] int line,
+            [In] int column,
             [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);*/
             return Raw.GetMethodFromDocumentPosition(document, line, column, pRetVal);
         }
@@ -344,7 +344,7 @@ namespace ManagedCorDebug
         /// <param name="name">[in] A pointer to the variable that indicates the attribute to retrieve.</param>
         /// <param name="cBuffer">[in] The size of the buffer array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetSymAttributeResult GetSymAttribute(uint parent, string name, uint cBuffer)
+        public GetSymAttributeResult GetSymAttribute(int parent, string name, int cBuffer)
         {
             HRESULT hr;
             GetSymAttributeResult result;
@@ -363,15 +363,15 @@ namespace ManagedCorDebug
         /// <param name="cBuffer">[in] The size of the buffer array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSymAttribute(uint parent, string name, uint cBuffer, out GetSymAttributeResult result)
+        public HRESULT TryGetSymAttribute(int parent, string name, int cBuffer, out GetSymAttributeResult result)
         {
             /*HRESULT GetSymAttribute(
-            [In] uint parent,
+            [In] int parent,
             [In] string name,
-            [In] uint cBuffer,
-            out uint pcBuffer,
+            [In] int cBuffer,
+            out int pcBuffer,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] buffer);*/
-            uint pcBuffer;
+            int pcBuffer;
             byte[] buffer = null;
             HRESULT hr = Raw.GetSymAttribute(parent, name, cBuffer, out pcBuffer, buffer);
 
@@ -391,7 +391,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cNameSpaces">[in] The size of the namespaces array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetNamespacesResult GetNamespaces(uint cNameSpaces)
+        public GetNamespacesResult GetNamespaces(int cNameSpaces)
         {
             HRESULT hr;
             GetNamespacesResult result;
@@ -408,13 +408,13 @@ namespace ManagedCorDebug
         /// <param name="cNameSpaces">[in] The size of the namespaces array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetNamespaces(uint cNameSpaces, out GetNamespacesResult result)
+        public HRESULT TryGetNamespaces(int cNameSpaces, out GetNamespacesResult result)
         {
             /*HRESULT GetNamespaces(
-            [In] uint cNameSpaces,
-            out uint pcNameSpaces,
+            [In] int cNameSpaces,
+            out int pcNameSpaces,
             [Out] IntPtr namespaces);*/
-            uint pcNameSpaces;
+            int pcNameSpaces;
             IntPtr namespaces = default(IntPtr);
             HRESULT hr = Raw.GetNamespaces(cNameSpaces, out pcNameSpaces, namespaces);
 
@@ -553,11 +553,11 @@ namespace ManagedCorDebug
         public HRESULT TryGetSymbolStoreFileName(out string szNameResult)
         {
             /*HRESULT GetSymbolStoreFileName(
-            [In] uint cchName,
-            out uint pcchName,
+            [In] int cchName,
+            out int pcchName,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);*/
-            uint cchName = 0;
-            uint pcchName;
+            int cchName = 0;
+            int pcchName;
             StringBuilder szName = null;
             HRESULT hr = Raw.GetSymbolStoreFileName(cchName, out pcchName, szName);
 
@@ -565,7 +565,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder((int) pcchName);
+            szName = new StringBuilder(pcchName);
             hr = Raw.GetSymbolStoreFileName(cchName, out pcchName, szName);
 
             if (hr == HRESULT.S_OK)
@@ -592,7 +592,7 @@ namespace ManagedCorDebug
         /// <param name="column">[in] The column of the specified document.</param>
         /// <param name="cMethod">[in] The size of the pRetVal array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetMethodsFromDocumentPositionResult GetMethodsFromDocumentPosition(ISymUnmanagedDocument document, uint line, uint column, uint cMethod)
+        public GetMethodsFromDocumentPositionResult GetMethodsFromDocumentPosition(ISymUnmanagedDocument document, int line, int column, int cMethod)
         {
             HRESULT hr;
             GetMethodsFromDocumentPositionResult result;
@@ -612,16 +612,16 @@ namespace ManagedCorDebug
         /// <param name="cMethod">[in] The size of the pRetVal array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetMethodsFromDocumentPosition(ISymUnmanagedDocument document, uint line, uint column, uint cMethod, out GetMethodsFromDocumentPositionResult result)
+        public HRESULT TryGetMethodsFromDocumentPosition(ISymUnmanagedDocument document, int line, int column, int cMethod, out GetMethodsFromDocumentPositionResult result)
         {
             /*HRESULT GetMethodsFromDocumentPosition(
             [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument document,
-            [In] uint line,
-            [In] uint column,
-            [In] uint cMethod,
-            [Out] out uint pcMethod,
+            [In] int line,
+            [In] int column,
+            [In] int cMethod,
+            [Out] out int pcMethod,
             [Out] IntPtr pRetVal);*/
-            uint pcMethod;
+            int pcMethod;
             IntPtr pRetVal = default(IntPtr);
             HRESULT hr = Raw.GetMethodsFromDocumentPosition(document, line, column, cMethod, out pcMethod, pRetVal);
 
@@ -722,7 +722,7 @@ namespace ManagedCorDebug
         /// <param name="token">[in] The method metadata token.</param>
         /// <param name="version">[in] The method version.</param>
         /// <returns>[out] A pointer to the returned <see cref="ISymUnmanagedMethod"/> interface.</returns>
-        public ISymUnmanagedMethod GetMethodByVersionPreRemap(uint token, int version)
+        public ISymUnmanagedMethod GetMethodByVersionPreRemap(int token, int version)
         {
             HRESULT hr;
             ISymUnmanagedMethod pRetVal = default(ISymUnmanagedMethod);
@@ -740,10 +740,10 @@ namespace ManagedCorDebug
         /// <param name="version">[in] The method version.</param>
         /// <param name="pRetVal">[out] A pointer to the returned <see cref="ISymUnmanagedMethod"/> interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetMethodByVersionPreRemap(uint token, int version, ref ISymUnmanagedMethod pRetVal)
+        public HRESULT TryGetMethodByVersionPreRemap(int token, int version, ref ISymUnmanagedMethod pRetVal)
         {
             /*HRESULT GetMethodByVersionPreRemap(
-            [In] uint token,
+            [In] int token,
             [In] int version,
             [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);*/
             return Raw2.GetMethodByVersionPreRemap(token, version, pRetVal);
@@ -759,7 +759,7 @@ namespace ManagedCorDebug
         /// <param name="name">[in] A pointer to a WCHAR that contains the name.</param>
         /// <param name="cBuffer">[in] A ULONG32 that indicates the size of the buffer array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetSymAttributePreRemapResult GetSymAttributePreRemap(uint parent, string name, uint cBuffer)
+        public GetSymAttributePreRemapResult GetSymAttributePreRemap(int parent, string name, int cBuffer)
         {
             HRESULT hr;
             GetSymAttributePreRemapResult result;
@@ -778,15 +778,15 @@ namespace ManagedCorDebug
         /// <param name="cBuffer">[in] A ULONG32 that indicates the size of the buffer array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSymAttributePreRemap(uint parent, string name, uint cBuffer, out GetSymAttributePreRemapResult result)
+        public HRESULT TryGetSymAttributePreRemap(int parent, string name, int cBuffer, out GetSymAttributePreRemapResult result)
         {
             /*HRESULT GetSymAttributePreRemap(
-            [In] uint parent,
+            [In] int parent,
             [In] string name,
-            [In] uint cBuffer,
-            out uint pcBuffer,
+            [In] int cBuffer,
+            out int pcBuffer,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] buffer);*/
-            uint pcBuffer;
+            int pcBuffer;
             byte[] buffer = null;
             HRESULT hr = Raw2.GetSymAttributePreRemap(parent, name, cBuffer, out pcBuffer, buffer);
 
@@ -807,7 +807,7 @@ namespace ManagedCorDebug
         /// <param name="document">[in] A pointer to the document.</param>
         /// <param name="cMethod">[in] A ULONG32 that indicates the size of the pRetVal array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetMethodsInDocumentResult GetMethodsInDocument(ISymUnmanagedDocument document, uint cMethod)
+        public GetMethodsInDocumentResult GetMethodsInDocument(ISymUnmanagedDocument document, int cMethod)
         {
             HRESULT hr;
             GetMethodsInDocumentResult result;
@@ -825,16 +825,16 @@ namespace ManagedCorDebug
         /// <param name="cMethod">[in] A ULONG32 that indicates the size of the pRetVal array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetMethodsInDocument(ISymUnmanagedDocument document, uint cMethod, out GetMethodsInDocumentResult result)
+        public HRESULT TryGetMethodsInDocument(ISymUnmanagedDocument document, int cMethod, out GetMethodsInDocumentResult result)
         {
             /*HRESULT GetMethodsInDocument(
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocument document,
-            [In] uint cMethod,
-            out uint pcMethod,
+            [In] int cMethod,
+            out int pcMethod,
             [MarshalAs(UnmanagedType.Interface), Out]
             IntPtr pRetVal);*/
-            uint pcMethod;
+            int pcMethod;
             IntPtr pRetVal = default(IntPtr);
             HRESULT hr = Raw2.GetMethodsInDocument(document, cMethod, out pcMethod, pRetVal);
 

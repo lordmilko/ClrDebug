@@ -23,10 +23,10 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetStaticFieldSymbols(
-            [In] uint cbSignature,
+            [In] int cbSignature,
             [In] IntPtr typeSig,
-            [In] uint cRequestedSymbols,
-            out uint pcFetchedSymbols,
+            [In] int cRequestedSymbols,
+            out int pcFetchedSymbols,
             [Out] IntPtr pSymbols); //ICorDebugStaticFieldSymbol
 
         /// <summary>
@@ -40,10 +40,10 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetInstanceFieldSymbols(
-            [In] uint cbSignature,
+            [In] int cbSignature,
             [In] IntPtr typeSig,
-            [In] uint cRequestedSymbols,
-            out uint pcFetchedSymbols,
+            [In] int cRequestedSymbols,
+            out int pcFetchedSymbols,
             [Out] IntPtr pSymbols); //ICorDebugInstanceFieldSymbol
 
         /// <summary>
@@ -56,9 +56,9 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetMethodLocalSymbols(
-            [In] uint nativeRVA,
-            [In] uint cRequestedSymbols,
-            out uint pcFetchedSymbols,
+            [In] int nativeRVA,
+            [In] int cRequestedSymbols,
+            out int pcFetchedSymbols,
             [Out] IntPtr pSymbols); //ICorDebugVariableSymbol
 
         /// <summary>
@@ -71,9 +71,9 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetMethodParameterSymbols(
-            [In] uint nativeRVA,
-            [In] uint cRequestedSymbols,
-            out uint pcFetchedSymbols,
+            [In] int nativeRVA,
+            [In] int cRequestedSymbols,
+            out int pcFetchedSymbols,
             [Out] IntPtr pSymbols); //ICorDebugVariableSymbol
 
         /// <summary>
@@ -85,8 +85,8 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetMergedAssemblyRecords(
-            [In] uint cRequestedRecords,
-            out uint pcFetchedRecords,
+            [In] int cRequestedRecords,
+            out int pcFetchedRecords,
             [MarshalAs(UnmanagedType.Interface), Out]
             IntPtr pRecords); //ICorDebugMergedAssemblyRecord
 
@@ -106,11 +106,11 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetMethodProps(
-            [In] uint codeRva,
-            out uint pMethodToken,
-            out uint pcGenericParams,
-            [In] uint cbSignature,
-            out uint pcbSignature,
+            [In] int codeRva,
+            out int pMethodToken,
+            out int pcGenericParams,
+            [In] int cbSignature,
+            out int pcbSignature,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] signature);
 
         /// <summary>
@@ -127,9 +127,9 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetTypeProps(
-            [In] uint vtableRva,
-            [In] uint cbSignature,
-            out uint pcbSignature,
+            [In] int vtableRva,
+            [In] int cbSignature,
+            out int pcbSignature,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] signature);
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace ManagedCorDebug
         /// <param name="pCodeSize">A pointer to the method code size (the number of bytes of the method's code).</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCodeRange([In] uint codeRva, out uint pCodeStartAddress, ref uint pCodeSize);
+        HRESULT GetCodeRange([In] int codeRva, out int pCodeStartAddress, ref int pCodeSize);
 
         /// <summary>
         /// Reads data from a merged assembly given a relative virtual address (RVA) in the merged assembly.
@@ -150,7 +150,7 @@ namespace ManagedCorDebug
         /// <param name="ppMemoryBuffer">A pointer to the address of an <see cref="ICorDebugMemoryBuffer"/> object that contains information about the memory buffer with merged assembly metadata.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAssemblyImageBytes([In] ulong rva, [In] uint length,
+        HRESULT GetAssemblyImageBytes([In] long rva, [In] int length,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryBuffer ppMemoryBuffer);
 
         /// <summary>
@@ -161,7 +161,7 @@ namespace ManagedCorDebug
         /// <param name="pObjectSize">[out] A pointer to the size of the object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetObjectSize([In] uint cbSignature, [In] IntPtr typeSig, out uint pObjectSize);
+        HRESULT GetObjectSize([In] int cbSignature, [In] IntPtr typeSig, out int pObjectSize);
 
         /// <summary>
         /// Returns the metadata from a merged assembly.

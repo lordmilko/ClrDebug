@@ -34,6 +34,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetHostName([In] uint cchHostName, out uint pcchHostName, [Out] StringBuilder szHostName);
+        HRESULT GetHostName([In] int cchHostName, out int pcchHostName, [Out] StringBuilder szHostName);
     }
 }

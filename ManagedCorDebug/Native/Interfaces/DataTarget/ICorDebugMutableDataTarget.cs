@@ -53,10 +53,10 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ReadVirtual(
-            [In] ulong address,
+            [In] long address,
             out byte pBuffer,
-            [In] uint bytesRequested,
-            out uint pBytesRead);
+            [In] int bytesRequested,
+            out int pBytesRead);
 
         /// <summary>
         /// Returns the current thread context for the specified thread.
@@ -73,9 +73,9 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetThreadContext(
-            [In] uint dwThreadId,
-            [In] uint contextFlags,
-            [In] uint contextSize,
+            [In] int dwThreadId,
+            [In] int contextFlags,
+            [In] int contextSize,
             out byte pContext);
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT WriteVirtual([In] ulong address, [In] IntPtr pBuffer, [In] uint bytesRequested);
+        HRESULT WriteVirtual([In] long address, [In] IntPtr pBuffer, [In] int bytesRequested);
 
         /// <summary>
         /// Sets the context (register values) for a thread.
@@ -106,7 +106,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetThreadContext([In] uint dwThreadId, [In] uint contextSize, [In] IntPtr pContext);
+        HRESULT SetThreadContext([In] int dwThreadId, [In] int contextSize, [In] IntPtr pContext);
 
         /// <summary>
         /// Changes the continuation status for the outstanding debug event on the specified thread.
@@ -122,6 +122,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ContinueStatusChanged([In] uint dwThreadId, [In] uint continueStatus);
+        HRESULT ContinueStatusChanged([In] int dwThreadId, [In] int continueStatus);
     }
 }

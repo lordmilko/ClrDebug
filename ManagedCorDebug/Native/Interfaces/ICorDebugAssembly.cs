@@ -44,7 +44,7 @@ namespace ManagedCorDebug
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCodeBase([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);
+        HRESULT GetCodeBase([In] int cchName, out int pcchName, [Out] StringBuilder szName);
 
         /// <summary>
         /// Gets the name of the assembly that this <see cref="ICorDebugAssembly"/> instance represents.
@@ -57,6 +57,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);
+        HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);
     }
 }

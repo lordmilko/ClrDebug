@@ -4,11 +4,11 @@ namespace ManagedCorDebug
 {
     public struct GetMethodsFromDocumentPositionResult
     {
-        public uint PcMethod { get; }
+        public int PcMethod { get; }
 
         public IntPtr PRetVal { get; }
 
-        public GetMethodsFromDocumentPositionResult(uint pcMethod, IntPtr pRetVal)
+        public GetMethodsFromDocumentPositionResult(int pcMethod, IntPtr pRetVal)
         {
             PcMethod = pcMethod;
             PRetVal = pRetVal;

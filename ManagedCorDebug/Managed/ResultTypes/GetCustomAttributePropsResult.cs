@@ -10,9 +10,9 @@ namespace ManagedCorDebug
 
         public IntPtr PpBlob { get; }
 
-        public uint PcbSize { get; }
+        public int PcbSize { get; }
 
-        public GetCustomAttributePropsResult(mdToken ptkObj, mdToken ptkType, IntPtr ppBlob, uint pcbSize)
+        public GetCustomAttributePropsResult(mdToken ptkObj, mdToken ptkType, IntPtr ppBlob, int pcbSize)
         {
             PtkObj = ptkObj;
             PtkType = ptkType;

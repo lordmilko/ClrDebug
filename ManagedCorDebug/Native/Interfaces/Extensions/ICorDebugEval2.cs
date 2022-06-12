@@ -33,10 +33,10 @@ namespace ManagedCorDebug
         HRESULT CallParameterizedFunction(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugFunction pFunction,
-            [In] uint nTypeArgs,
+            [In] int nTypeArgs,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugType ppTypeArgs,
-            [In] uint nArgs,
+            [In] int nArgs,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugValue ppArgs);
 
@@ -72,10 +72,10 @@ namespace ManagedCorDebug
         HRESULT NewParameterizedObject(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugFunction pConstructor,
-            [In] uint nTypeArgs,
+            [In] int nTypeArgs,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugType ppTypeArgs,
-            [In] uint nArgs,
+            [In] int nArgs,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugValue ppArgs);
 
@@ -94,7 +94,7 @@ namespace ManagedCorDebug
         HRESULT NewParameterizedObjectNoConstructor(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugClass pClass,
-            [In] uint nTypeArgs,
+            [In] int nTypeArgs,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugType ppTypeArgs);
 
@@ -114,9 +114,9 @@ namespace ManagedCorDebug
         HRESULT NewParameterizedArray(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugType pElementType,
-            [In] uint rank,
-            [In] ref uint dims,
-            [In] ref uint lowBounds);
+            [In] int rank,
+            [In] ref int dims,
+            [In] ref int lowBounds);
 
         /// <summary>
         /// Creates a string of the specified length, with the specified contents.
@@ -130,7 +130,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT NewStringWithLength([MarshalAs(UnmanagedType.LPWStr), In] string @string, [In] uint uiLength);
+        HRESULT NewStringWithLength([MarshalAs(UnmanagedType.LPWStr), In] string @string, [In] int uiLength);
 
         /// <summary>
         /// Aborts the computation that this <see cref="ICorDebugEval2"/> is currently performing.

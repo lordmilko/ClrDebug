@@ -4,11 +4,11 @@ namespace ManagedCorDebug
 {
     public struct GetSymAttributeResult
     {
-        public uint PcBuffer { get; }
+        public int PcBuffer { get; }
 
         public byte[] Buffer { get; }
 
-        public GetSymAttributeResult(uint pcBuffer, byte[] buffer)
+        public GetSymAttributeResult(int pcBuffer, byte[] buffer)
         {
             PcBuffer = pcBuffer;
             Buffer = buffer;

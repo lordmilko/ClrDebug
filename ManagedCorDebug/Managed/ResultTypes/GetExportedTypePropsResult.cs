@@ -4,13 +4,13 @@ namespace ManagedCorDebug
     {
         public string SzName { get; }
 
-        public uint PtkImplementation { get; }
+        public int PtkImplementation { get; }
 
         public mdTypeDef PtkTypeDef { get; }
 
         public CorTypeAttr PdwExportedTypeFlags { get; }
 
-        public GetExportedTypePropsResult(string szName, uint ptkImplementation, mdTypeDef ptkTypeDef, CorTypeAttr pdwExportedTypeFlags)
+        public GetExportedTypePropsResult(string szName, int ptkImplementation, mdTypeDef ptkTypeDef, CorTypeAttr pdwExportedTypeFlags)
         {
             SzName = szName;
             PtkImplementation = ptkImplementation;

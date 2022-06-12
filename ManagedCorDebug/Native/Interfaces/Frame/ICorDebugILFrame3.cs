@@ -37,7 +37,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetReturnValueForILOffset(uint ilOffset,
+        HRESULT GetReturnValueForILOffset(int ilOffset,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppReturnValue);
     }
 }

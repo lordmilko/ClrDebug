@@ -21,7 +21,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetVirtualMethodAndType(
-            [In] uint memberRef,
+            [In] int memberRef,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);
     }

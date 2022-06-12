@@ -20,7 +20,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="dwModuleType">[in] A value of the <see cref="CorValidatorModuleType"/> enumeration that specifies the type of the module in the current metadata scope.</param>
         /// <param name="pUnk">[in] A pointer to an IUnknown instance that serves as a function callback for validation errors.</param>
-        public void ValidatorInit(uint dwModuleType, object pUnk)
+        public void ValidatorInit(int dwModuleType, object pUnk)
         {
             HRESULT hr;
 
@@ -33,9 +33,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="dwModuleType">[in] A value of the <see cref="CorValidatorModuleType"/> enumeration that specifies the type of the module in the current metadata scope.</param>
         /// <param name="pUnk">[in] A pointer to an IUnknown instance that serves as a function callback for validation errors.</param>
-        public HRESULT TryValidatorInit(uint dwModuleType, object pUnk)
+        public HRESULT TryValidatorInit(int dwModuleType, object pUnk)
         {
-            /*HRESULT ValidatorInit(uint dwModuleType, [MarshalAs(UnmanagedType.Interface)] object pUnk);*/
+            /*HRESULT ValidatorInit(int dwModuleType, [MarshalAs(UnmanagedType.Interface)] object pUnk);*/
             return Raw.ValidatorInit(dwModuleType, pUnk);
         }
 

@@ -56,12 +56,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the managed slot-index of a local variable.
         /// </summary>
-        public uint SlotIndex
+        public int SlotIndex
         {
             get
             {
                 HRESULT hr;
-                uint pSlotIndex;
+                int pSlotIndex;
 
                 if ((hr = TryGetSlotIndex(out pSlotIndex)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -85,9 +85,9 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The slot-index can be used to retrieve the metadata for this local variable.
         /// </remarks>
-        public HRESULT TryGetSlotIndex(out uint pSlotIndex)
+        public HRESULT TryGetSlotIndex(out int pSlotIndex)
         {
-            /*HRESULT GetSlotIndex(out uint pSlotIndex);*/
+            /*HRESULT GetSlotIndex(out int pSlotIndex);*/
             return Raw.GetSlotIndex(out pSlotIndex);
         }
 
@@ -97,12 +97,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the index of a function argument.
         /// </summary>
-        public uint ArgumentIndex
+        public int ArgumentIndex
         {
             get
             {
                 HRESULT hr;
-                uint pArgumentIndex;
+                int pArgumentIndex;
 
                 if ((hr = TryGetArgumentIndex(out pArgumentIndex)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -126,9 +126,9 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The argument index can be used to retrieve metadata for this argument.
         /// </remarks>
-        public HRESULT TryGetArgumentIndex(out uint pArgumentIndex)
+        public HRESULT TryGetArgumentIndex(out int pArgumentIndex)
         {
-            /*HRESULT GetArgumentIndex(out uint pArgumentIndex);*/
+            /*HRESULT GetArgumentIndex(out int pArgumentIndex);*/
             return Raw.GetArgumentIndex(out pArgumentIndex);
         }
 
@@ -158,9 +158,9 @@ namespace ManagedCorDebug
         /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetLiveRange(out GetLiveRangeResult result)
         {
-            /*HRESULT GetLiveRange(out uint pStartOffset, out uint pEndOffset);*/
-            uint pStartOffset;
-            uint pEndOffset;
+            /*HRESULT GetLiveRange(out int pStartOffset, out int pEndOffset);*/
+            int pStartOffset;
+            int pEndOffset;
             HRESULT hr = Raw.GetLiveRange(out pStartOffset, out pEndOffset);
 
             if (hr == HRESULT.S_OK)

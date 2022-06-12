@@ -6,9 +6,9 @@ namespace ManagedCorDebug
     {
         public byte[] Buffer { get; }
 
-        public ulong Read { get; }
+        public long Read { get; }
 
-        public ReadMemoryResult(byte[] buffer, ulong read)
+        public ReadMemoryResult(byte[] buffer, long read)
         {
             Buffer = buffer;
             Read = read;

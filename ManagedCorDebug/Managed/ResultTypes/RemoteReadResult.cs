@@ -4,9 +4,9 @@ namespace ManagedCorDebug
     {
         public byte Pv { get; }
 
-        public uint PcbRead { get; }
+        public int PcbRead { get; }
 
-        public RemoteReadResult(byte pv, uint pcbRead)
+        public RemoteReadResult(byte pv, int pcbRead)
         {
             Pv = pv;
             PcbRead = pcbRead;

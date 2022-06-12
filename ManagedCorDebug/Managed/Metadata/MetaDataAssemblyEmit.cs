@@ -28,7 +28,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Only one Assembly metadata structure can be defined within a manifest.
         /// </remarks>
-        public int DefineAssembly(byte[] pbPublicKey, uint cbPublicKey, uint ulHashAlgId, string szName, IntPtr pMetaData, CorAssemblyFlags dwAssemblyFlags)
+        public int DefineAssembly(byte[] pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, IntPtr pMetaData, CorAssemblyFlags dwAssemblyFlags)
         {
             HRESULT hr;
             int pma;
@@ -52,12 +52,12 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Only one Assembly metadata structure can be defined within a manifest.
         /// </remarks>
-        public HRESULT TryDefineAssembly(byte[] pbPublicKey, uint cbPublicKey, uint ulHashAlgId, string szName, IntPtr pMetaData, CorAssemblyFlags dwAssemblyFlags, out int pma)
+        public HRESULT TryDefineAssembly(byte[] pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, IntPtr pMetaData, CorAssemblyFlags dwAssemblyFlags, out int pma)
         {
             /*HRESULT DefineAssembly(
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] pbPublicKey,
-            uint cbPublicKey,
-            uint ulHashAlgId,
+            int cbPublicKey,
+            int ulHashAlgId,
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
             IntPtr pMetaData,
             CorAssemblyFlags dwAssemblyFlags,
@@ -84,10 +84,10 @@ namespace ManagedCorDebug
         /// the details of a referenced assembly are passed to the assembly resolver with an indication that they represent
         /// the "as built" information. The assembly resolver then applies policy.
         /// </remarks>
-        public uint DefineAssemblyRef(byte[] pbPublicKeyOrToken, uint cbPublicKeyOrToken, string szName, ASSEMBLYMETADATA pMetaData, byte[] pbHashValue, uint cbHashValue, CorAssemblyFlags dwAssemblyRefFlags)
+        public int DefineAssemblyRef(byte[] pbPublicKeyOrToken, int cbPublicKeyOrToken, string szName, ASSEMBLYMETADATA pMetaData, byte[] pbHashValue, int cbHashValue, CorAssemblyFlags dwAssemblyRefFlags)
         {
             HRESULT hr;
-            uint assemblyRefToken;
+            int assemblyRefToken;
 
             if ((hr = TryDefineAssemblyRef(pbPublicKeyOrToken, cbPublicKeyOrToken, szName, pMetaData, pbHashValue, cbHashValue, dwAssemblyRefFlags, out assemblyRefToken)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -111,17 +111,17 @@ namespace ManagedCorDebug
         /// the details of a referenced assembly are passed to the assembly resolver with an indication that they represent
         /// the "as built" information. The assembly resolver then applies policy.
         /// </remarks>
-        public HRESULT TryDefineAssemblyRef(byte[] pbPublicKeyOrToken, uint cbPublicKeyOrToken, string szName, ASSEMBLYMETADATA pMetaData, byte[] pbHashValue, uint cbHashValue, CorAssemblyFlags dwAssemblyRefFlags, out uint assemblyRefToken)
+        public HRESULT TryDefineAssemblyRef(byte[] pbPublicKeyOrToken, int cbPublicKeyOrToken, string szName, ASSEMBLYMETADATA pMetaData, byte[] pbHashValue, int cbHashValue, CorAssemblyFlags dwAssemblyRefFlags, out int assemblyRefToken)
         {
             /*HRESULT DefineAssemblyRef(
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] pbPublicKeyOrToken,
-            uint cbPublicKeyOrToken,
+            int cbPublicKeyOrToken,
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] ASSEMBLYMETADATA pMetaData,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] pbHashValue,
-            uint cbHashValue,
+            int cbHashValue,
             CorAssemblyFlags dwAssemblyRefFlags,
-            out uint assemblyRefToken);*/
+            out int assemblyRefToken);*/
             return Raw.DefineAssemblyRef(pbPublicKeyOrToken, cbPublicKeyOrToken, szName, pMetaData, pbHashValue, cbHashValue, dwAssemblyRefFlags, out assemblyRefToken);
         }
 
@@ -140,10 +140,10 @@ namespace ManagedCorDebug
         /// One File metadata structure must be defined for each file that was part of this assembly at the time that this
         /// assembly was built, excluding the file that contains the metadata.
         /// </remarks>
-        public uint DefineFile(string szName, byte[] pbHashValue, uint cbHashValue, uint dwFileFlags)
+        public int DefineFile(string szName, byte[] pbHashValue, int cbHashValue, int dwFileFlags)
         {
             HRESULT hr;
-            uint fileToken;
+            int fileToken;
 
             if ((hr = TryDefineFile(szName, pbHashValue, cbHashValue, dwFileFlags, out fileToken)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -163,14 +163,14 @@ namespace ManagedCorDebug
         /// One File metadata structure must be defined for each file that was part of this assembly at the time that this
         /// assembly was built, excluding the file that contains the metadata.
         /// </remarks>
-        public HRESULT TryDefineFile(string szName, byte[] pbHashValue, uint cbHashValue, uint dwFileFlags, out uint fileToken)
+        public HRESULT TryDefineFile(string szName, byte[] pbHashValue, int cbHashValue, int dwFileFlags, out int fileToken)
         {
             /*HRESULT DefineFile(
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] pbHashValue,
-            uint cbHashValue,
-            uint dwFileFlags,
-            out uint fileToken);*/
+            int cbHashValue,
+            int dwFileFlags,
+            out int fileToken);*/
             return Raw.DefineFile(szName, pbHashValue, cbHashValue, dwFileFlags, out fileToken);
         }
 
@@ -189,10 +189,10 @@ namespace ManagedCorDebug
         /// An ExportedType metadata structure must be defined for each type that is exposed by this assembly and that is implemented
         /// in a module other than the one containing the manifest.
         /// </remarks>
-        public uint DefineExportedType(string szName, mdToken tkImplementation, mdTypeDef tkTypeDef, uint dwExportedTypeFlags)
+        public int DefineExportedType(string szName, mdToken tkImplementation, mdTypeDef tkTypeDef, int dwExportedTypeFlags)
         {
             HRESULT hr;
-            uint pmdct;
+            int pmdct;
 
             if ((hr = TryDefineExportedType(szName, tkImplementation, tkTypeDef, dwExportedTypeFlags, out pmdct)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -212,14 +212,14 @@ namespace ManagedCorDebug
         /// An ExportedType metadata structure must be defined for each type that is exposed by this assembly and that is implemented
         /// in a module other than the one containing the manifest.
         /// </remarks>
-        public HRESULT TryDefineExportedType(string szName, mdToken tkImplementation, mdTypeDef tkTypeDef, uint dwExportedTypeFlags, out uint pmdct)
+        public HRESULT TryDefineExportedType(string szName, mdToken tkImplementation, mdTypeDef tkTypeDef, int dwExportedTypeFlags, out int pmdct)
         {
             /*HRESULT DefineExportedType(
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
             mdToken tkImplementation,
             mdTypeDef tkTypeDef,
-            uint dwExportedTypeFlags,
-            out uint pmdct);*/
+            int dwExportedTypeFlags,
+            out int pmdct);*/
             return Raw.DefineExportedType(szName, tkImplementation, tkTypeDef, dwExportedTypeFlags, out pmdct);
         }
 
@@ -239,10 +239,10 @@ namespace ManagedCorDebug
         /// One ManifestResource metadata structure must be defined for each resource that is implemented in each of the assembly's
         /// files.
         /// </remarks>
-        public uint DefineManifestResource(string szName, mdToken tkImplementation, uint dwOffset, uint dwResourceFlags)
+        public int DefineManifestResource(string szName, mdToken tkImplementation, int dwOffset, int dwResourceFlags)
         {
             HRESULT hr;
-            uint pmdmr;
+            int pmdmr;
 
             if ((hr = TryDefineManifestResource(szName, tkImplementation, dwOffset, dwResourceFlags, out pmdmr)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -263,14 +263,14 @@ namespace ManagedCorDebug
         /// One ManifestResource metadata structure must be defined for each resource that is implemented in each of the assembly's
         /// files.
         /// </remarks>
-        public HRESULT TryDefineManifestResource(string szName, mdToken tkImplementation, uint dwOffset, uint dwResourceFlags, out uint pmdmr)
+        public HRESULT TryDefineManifestResource(string szName, mdToken tkImplementation, int dwOffset, int dwResourceFlags, out int pmdmr)
         {
             /*HRESULT DefineManifestResource(
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
             mdToken tkImplementation,
-            uint dwOffset,
-            uint dwResourceFlags,
-            out uint pmdmr);*/
+            int dwOffset,
+            int dwResourceFlags,
+            out int pmdmr);*/
             return Raw.DefineManifestResource(szName, tkImplementation, dwOffset, dwResourceFlags, out pmdmr);
         }
 
@@ -290,7 +290,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// To create an Assembly metadata structure, use the <see cref="DefineAssembly"/> method.
         /// </remarks>
-        public void SetAssemblyProps(uint pma, byte[] pbPublicKey, uint cbPublicKey, uint ulHashAlgId, string szName, IntPtr pMetaData, uint dwAssemblyFlags)
+        public void SetAssemblyProps(int pma, byte[] pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, IntPtr pMetaData, int dwAssemblyFlags)
         {
             HRESULT hr;
 
@@ -311,15 +311,15 @@ namespace ManagedCorDebug
         /// <remarks>
         /// To create an Assembly metadata structure, use the <see cref="DefineAssembly"/> method.
         /// </remarks>
-        public HRESULT TrySetAssemblyProps(uint pma, byte[] pbPublicKey, uint cbPublicKey, uint ulHashAlgId, string szName, IntPtr pMetaData, uint dwAssemblyFlags)
+        public HRESULT TrySetAssemblyProps(int pma, byte[] pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, IntPtr pMetaData, int dwAssemblyFlags)
         {
-            /*HRESULT SetAssemblyProps(uint pma,
+            /*HRESULT SetAssemblyProps(int pma,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] pbPublicKey,
-            uint cbPublicKey,
-            uint ulHashAlgId,
+            int cbPublicKey,
+            int ulHashAlgId,
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
             IntPtr pMetaData,
-            uint dwAssemblyFlags);*/
+            int dwAssemblyFlags);*/
             return Raw.SetAssemblyProps(pma, pbPublicKey, cbPublicKey, ulHashAlgId, szName, pMetaData, dwAssemblyFlags);
         }
 
@@ -340,7 +340,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// To create an AssemblyRef metadata structure, use the <see cref="DefineAssemblyRef"/> method.
         /// </remarks>
-        public void SetAssemblyRefProps(uint ar, byte[] pbPublicKeyOrToken, uint cbPublicKeyOrToken, string szName, IntPtr pMetaData, byte[] pbHashValue, uint cbHashValue, AssemblyRefFlags dwAssemblyRefFlags)
+        public void SetAssemblyRefProps(int ar, byte[] pbPublicKeyOrToken, int cbPublicKeyOrToken, string szName, IntPtr pMetaData, byte[] pbHashValue, int cbHashValue, AssemblyRefFlags dwAssemblyRefFlags)
         {
             HRESULT hr;
 
@@ -362,15 +362,15 @@ namespace ManagedCorDebug
         /// <remarks>
         /// To create an AssemblyRef metadata structure, use the <see cref="DefineAssemblyRef"/> method.
         /// </remarks>
-        public HRESULT TrySetAssemblyRefProps(uint ar, byte[] pbPublicKeyOrToken, uint cbPublicKeyOrToken, string szName, IntPtr pMetaData, byte[] pbHashValue, uint cbHashValue, AssemblyRefFlags dwAssemblyRefFlags)
+        public HRESULT TrySetAssemblyRefProps(int ar, byte[] pbPublicKeyOrToken, int cbPublicKeyOrToken, string szName, IntPtr pMetaData, byte[] pbHashValue, int cbHashValue, AssemblyRefFlags dwAssemblyRefFlags)
         {
             /*HRESULT SetAssemblyRefProps(
-            uint ar,
+            int ar,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)]
-            byte[] pbPublicKeyOrToken, uint cbPublicKeyOrToken, [MarshalAs(UnmanagedType.LPWStr)] string szName, IntPtr pMetaData,
+            byte[] pbPublicKeyOrToken, int cbPublicKeyOrToken, [MarshalAs(UnmanagedType.LPWStr)] string szName, IntPtr pMetaData,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)]
             byte[] pbHashValue,
-            uint cbHashValue,
+            int cbHashValue,
             AssemblyRefFlags dwAssemblyRefFlags);*/
             return Raw.SetAssemblyRefProps(ar, pbPublicKeyOrToken, cbPublicKeyOrToken, szName, pMetaData, pbHashValue, cbHashValue, dwAssemblyRefFlags);
         }
@@ -388,7 +388,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// To create a File metadata structure, use the <see cref="DefineFile"/> method.
         /// </remarks>
-        public void SetFileProps(uint file, byte[] pbHashValue, uint cbHashValue, uint dwFileFlags)
+        public void SetFileProps(int file, byte[] pbHashValue, int cbHashValue, int dwFileFlags)
         {
             HRESULT hr;
 
@@ -406,13 +406,13 @@ namespace ManagedCorDebug
         /// <remarks>
         /// To create a File metadata structure, use the <see cref="DefineFile"/> method.
         /// </remarks>
-        public HRESULT TrySetFileProps(uint file, byte[] pbHashValue, uint cbHashValue, uint dwFileFlags)
+        public HRESULT TrySetFileProps(int file, byte[] pbHashValue, int cbHashValue, int dwFileFlags)
         {
             /*HRESULT SetFileProps(
-            uint file,
+            int file,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] pbHashValue,
-            uint cbHashValue,
-            uint dwFileFlags);*/
+            int cbHashValue,
+            int dwFileFlags);*/
             return Raw.SetFileProps(file, pbHashValue, cbHashValue, dwFileFlags);
         }
 
@@ -429,7 +429,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// To create an ExportedType metadata structure, use the <see cref="DefineExportedType"/> method.
         /// </remarks>
-        public void SetExportedTypeProps(uint ct, mdToken tkImplementation, mdTypeDef tkTypeDef, uint dwExportedTypeFlags)
+        public void SetExportedTypeProps(int ct, mdToken tkImplementation, mdTypeDef tkTypeDef, int dwExportedTypeFlags)
         {
             HRESULT hr;
 
@@ -447,13 +447,13 @@ namespace ManagedCorDebug
         /// <remarks>
         /// To create an ExportedType metadata structure, use the <see cref="DefineExportedType"/> method.
         /// </remarks>
-        public HRESULT TrySetExportedTypeProps(uint ct, mdToken tkImplementation, mdTypeDef tkTypeDef, uint dwExportedTypeFlags)
+        public HRESULT TrySetExportedTypeProps(int ct, mdToken tkImplementation, mdTypeDef tkTypeDef, int dwExportedTypeFlags)
         {
             /*HRESULT SetExportedTypeProps(
-            uint ct,
+            int ct,
             mdToken tkImplementation,
             mdTypeDef tkTypeDef,
-            uint dwExportedTypeFlags);*/
+            int dwExportedTypeFlags);*/
             return Raw.SetExportedTypeProps(ct, tkImplementation, tkTypeDef, dwExportedTypeFlags);
         }
 
@@ -470,7 +470,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// To create a ManifestResource metadata structure, use the <see cref="DefineManifestResource"/> method.
         /// </remarks>
-        public void SetManifestResourceProps(uint mr, mdToken tkImplementation, uint dwOffset, uint dwResourceFlags)
+        public void SetManifestResourceProps(int mr, mdToken tkImplementation, int dwOffset, int dwResourceFlags)
         {
             HRESULT hr;
 
@@ -488,13 +488,13 @@ namespace ManagedCorDebug
         /// <remarks>
         /// To create a ManifestResource metadata structure, use the <see cref="DefineManifestResource"/> method.
         /// </remarks>
-        public HRESULT TrySetManifestResourceProps(uint mr, mdToken tkImplementation, uint dwOffset, uint dwResourceFlags)
+        public HRESULT TrySetManifestResourceProps(int mr, mdToken tkImplementation, int dwOffset, int dwResourceFlags)
         {
             /*HRESULT SetManifestResourceProps(
-            uint mr,
+            int mr,
             mdToken tkImplementation,
-            uint dwOffset,
-            uint dwResourceFlags);*/
+            int dwOffset,
+            int dwResourceFlags);*/
             return Raw.SetManifestResourceProps(mr, tkImplementation, dwOffset, dwResourceFlags);
         }
 

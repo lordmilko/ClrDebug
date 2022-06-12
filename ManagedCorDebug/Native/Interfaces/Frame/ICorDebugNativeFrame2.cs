@@ -80,6 +80,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetStackParameterSize(out uint pSize);
+        HRESULT GetStackParameterSize(out int pSize);
     }
 }

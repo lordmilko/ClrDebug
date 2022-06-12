@@ -27,7 +27,7 @@ namespace ManagedCorDebug
         HRESULT EnumMemoryRegions(
             [MarshalAs(UnmanagedType.Interface), In]
             ICLRDataEnumMemoryRegionsCallback callback,
-            [In] uint miniDumpFlags,
+            [In] int miniDumpFlags,
             [In] CLRDataEnumMemoryFlags clrFlags);
     }
 }

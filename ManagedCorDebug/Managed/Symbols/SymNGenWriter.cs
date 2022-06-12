@@ -12,7 +12,7 @@ namespace ManagedCorDebug
         #region ISymNGenWriter
         #region AddSymbol
 
-        public void AddSymbol(string pSymbol, ushort iSection, ulong rva)
+        public void AddSymbol(string pSymbol, ushort iSection, long rva)
         {
             HRESULT hr;
 
@@ -20,9 +20,9 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
-        public HRESULT TryAddSymbol(string pSymbol, ushort iSection, ulong rva)
+        public HRESULT TryAddSymbol(string pSymbol, ushort iSection, long rva)
         {
-            /*HRESULT AddSymbol([MarshalAs(UnmanagedType.BStr), In] string pSymbol, [In] ushort iSection, [In] ulong rva);*/
+            /*HRESULT AddSymbol([MarshalAs(UnmanagedType.BStr), In] string pSymbol, [In] ushort iSection, [In] long rva);*/
             return Raw.AddSymbol(pSymbol, iSection, rva);
         }
 
@@ -105,7 +105,7 @@ namespace ManagedCorDebug
         #endregion
         #region ModAddSecContribEx
 
-        public void ModAddSecContribEx(IntPtr pmod, ushort isect, int off, int cb, uint dwCharacteristics, uint dwDataCrc, uint dwRelocCrc)
+        public void ModAddSecContribEx(IntPtr pmod, ushort isect, int off, int cb, int dwCharacteristics, int dwDataCrc, int dwRelocCrc)
         {
             HRESULT hr;
 
@@ -113,23 +113,23 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
-        public HRESULT TryModAddSecContribEx(IntPtr pmod, ushort isect, int off, int cb, uint dwCharacteristics, uint dwDataCrc, uint dwRelocCrc)
+        public HRESULT TryModAddSecContribEx(IntPtr pmod, ushort isect, int off, int cb, int dwCharacteristics, int dwDataCrc, int dwRelocCrc)
         {
             /*HRESULT ModAddSecContribEx(
             [In] IntPtr pmod,
             [In] ushort isect,
             [In] int off,
             [In] int cb,
-            [In] uint dwCharacteristics,
-            [In] uint dwDataCrc,
-            [In] uint dwRelocCrc);*/
+            [In] int dwCharacteristics,
+            [In] int dwDataCrc,
+            [In] int dwRelocCrc);*/
             return Raw2.ModAddSecContribEx(pmod, isect, off, cb, dwCharacteristics, dwDataCrc, dwRelocCrc);
         }
 
         #endregion
         #region QueryPDBNameExW
 
-        public ushort QueryPDBNameExW(ulong cchMax)
+        public ushort QueryPDBNameExW(long cchMax)
         {
             HRESULT hr;
             ushort wszPDB;
@@ -140,9 +140,9 @@ namespace ManagedCorDebug
             return wszPDB;
         }
 
-        public HRESULT TryQueryPDBNameExW(out ushort wszPDB, ulong cchMax)
+        public HRESULT TryQueryPDBNameExW(out ushort wszPDB, long cchMax)
         {
-            /*HRESULT QueryPDBNameExW(out ushort wszPDB, [In] ulong cchMax);*/
+            /*HRESULT QueryPDBNameExW(out ushort wszPDB, [In] long cchMax);*/
             return Raw2.QueryPDBNameExW(out wszPDB, cchMax);
         }
 

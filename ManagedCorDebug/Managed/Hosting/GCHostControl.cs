@@ -20,10 +20,10 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="sztMaxVirtualMemMB">[in] The requested size of memory to be allocated.</param>
         /// <returns>[in, out] A pointer to the actual size of memory allocated.</returns>
-        public uint RequestVirtualMemLimit(uint sztMaxVirtualMemMB)
+        public int RequestVirtualMemLimit(int sztMaxVirtualMemMB)
         {
             HRESULT hr;
-            uint psztNewMaxVirtualMemMB = default(uint);
+            int psztNewMaxVirtualMemMB = default(int);
 
             if ((hr = TryRequestVirtualMemLimit(sztMaxVirtualMemMB, ref psztNewMaxVirtualMemMB)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -36,9 +36,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="sztMaxVirtualMemMB">[in] The requested size of memory to be allocated.</param>
         /// <param name="psztNewMaxVirtualMemMB">[in, out] A pointer to the actual size of memory allocated.</param>
-        public HRESULT TryRequestVirtualMemLimit(uint sztMaxVirtualMemMB, ref uint psztNewMaxVirtualMemMB)
+        public HRESULT TryRequestVirtualMemLimit(int sztMaxVirtualMemMB, ref int psztNewMaxVirtualMemMB)
         {
-            /*HRESULT RequestVirtualMemLimit([In] uint sztMaxVirtualMemMB, [In, Out] ref uint psztNewMaxVirtualMemMB);*/
+            /*HRESULT RequestVirtualMemLimit([In] int sztMaxVirtualMemMB, [In, Out] ref int psztNewMaxVirtualMemMB);*/
             return Raw.RequestVirtualMemLimit(sztMaxVirtualMemMB, ref psztNewMaxVirtualMemMB);
         }
 

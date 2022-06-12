@@ -27,7 +27,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT Stop([In] uint dwTimeoutIgnored);
+        new HRESULT Stop([In] int dwTimeoutIgnored);
 
         /// <summary>
         /// Resumes execution of managed threads after a call to <see cref="Stop"/>.
@@ -127,7 +127,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT Terminate([In] uint exitCode);
+        new HRESULT Terminate([In] int exitCode);
 
         /// <summary>
         /// CanCommitChanges is obsolete. Do not call this method.
@@ -136,7 +136,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT CanCommitChanges(
-            [In] uint cSnapshots,
+            [In] int cSnapshots,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugEditAndContinueSnapshot pSnapshots,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugErrorInfoEnum pError);
@@ -148,7 +148,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT CommitChanges(
-            [In] uint cSnapshots,
+            [In] int cSnapshots,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugEditAndContinueSnapshot pSnapshots,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugErrorInfoEnum pError);
@@ -159,7 +159,7 @@ namespace ManagedCorDebug
         /// <param name="pdwProcessId">[out] The unique ID of the process.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetID(out uint pdwProcessId);
+        HRESULT GetID(out int pdwProcessId);
 
         /// <summary>
         /// Gets a handle to the process.
@@ -180,7 +180,7 @@ namespace ManagedCorDebug
         /// <param name="ppThread">[out] A pointer to the address of an <see cref="ICorDebugThread"/> object that represents the thread.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetThread([In] uint dwThreadId, [MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
+        HRESULT GetThread([In] int dwThreadId, [MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
 
         /// <summary>
         /// This method has not been implemented.
@@ -217,7 +217,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsOSSuspended([In] uint threadID, out int pbSuspended);
+        HRESULT IsOSSuspended([In] int threadID, out int pbSuspended);
 
         /// <summary>
         /// Gets the context for the given thread in this process.
@@ -234,7 +234,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetThreadContext([In] uint threadID, [In] uint contextSize, [In, Out] ref byte[] context);
+        HRESULT GetThreadContext([In] int threadID, [In] int contextSize, [In, Out] ref byte[] context);
 
         /// <summary>
         /// Sets the context for the given thread in this process.
@@ -251,7 +251,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetThreadContext([In] uint threadID, [In] uint contextSize, [In] byte[] context);
+        HRESULT SetThreadContext([In] int threadID, [In] int contextSize, [In] byte[] context);
 
         /// <summary>
         /// Reads a specified area of memory for this process.
@@ -269,7 +269,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ReadMemory([In] CORDB_ADDRESS address, [In] uint size, [Out] byte[] buffer, out ulong read);
+        HRESULT ReadMemory([In] CORDB_ADDRESS address, [In] int size, [Out] byte[] buffer, out long read);
 
         /// <summary>
         /// Writes data to an area of memory in this process.
@@ -287,8 +287,8 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT WriteMemory([In] CORDB_ADDRESS address, [In] uint size, [In] IntPtr buffer,
-            out ulong written);
+        HRESULT WriteMemory([In] CORDB_ADDRESS address, [In] int size, [In] IntPtr buffer,
+            out long written);
 
         /// <summary>
         /// Clears the current unmanaged exception on the given thread.
@@ -302,7 +302,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ClearCurrentException([In] uint threadID);
+        HRESULT ClearCurrentException([In] int threadID);
 
         /// <summary>
         /// Enables and disables the transmission of log messages to the debugger.
@@ -350,7 +350,7 @@ namespace ManagedCorDebug
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ThreadForFiberCookie([In] uint fiberCookie,
+        HRESULT ThreadForFiberCookie([In] int fiberCookie,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
 
         /// <summary>
@@ -369,6 +369,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetHelperThreadID(out uint pThreadID);
+        HRESULT GetHelperThreadID(out int pThreadID);
     }
 }

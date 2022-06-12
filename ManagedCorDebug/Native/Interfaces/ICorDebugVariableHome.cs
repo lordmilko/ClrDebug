@@ -36,7 +36,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSlotIndex(out uint pSlotIndex);
+        HRESULT GetSlotIndex(out int pSlotIndex);
 
         /// <summary>
         /// Gets the index of a function argument.
@@ -55,7 +55,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetArgumentIndex(out uint pArgumentIndex);
+        HRESULT GetArgumentIndex(out int pArgumentIndex);
 
         /// <summary>
         /// Gets the native range over which this variable is live.
@@ -64,7 +64,7 @@ namespace ManagedCorDebug
         /// <param name="pEndOffset">[out] The logical offset immediately after the point at which the variable is last live.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetLiveRange(out uint pStartOffset, out uint pEndOffset);
+        HRESULT GetLiveRange(out int pStartOffset, out int pEndOffset);
 
         /// <summary>
         /// Gets the type of the variable's native location.

@@ -150,9 +150,9 @@ namespace ManagedCorDebug
         /// </summary>
         public HRESULT TryGetCodeBase(out string szNameResult)
         {
-            /*HRESULT GetCodeBase([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);*/
-            uint cchName = 0;
-            uint pcchName;
+            /*HRESULT GetCodeBase([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            int cchName = 0;
+            int pcchName;
             StringBuilder szName = null;
             HRESULT hr = Raw.GetCodeBase(cchName, out pcchName, szName);
 
@@ -160,7 +160,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder((int) pcchName);
+            szName = new StringBuilder(pcchName);
             hr = Raw.GetCodeBase(cchName, out pcchName, szName);
 
             if (hr == HRESULT.S_OK)
@@ -206,9 +206,9 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);*/
-            uint cchName = 0;
-            uint pcchName;
+            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            int cchName = 0;
+            int pcchName;
             StringBuilder szName = null;
             HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
 
@@ -216,7 +216,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder((int) pcchName);
+            szName = new StringBuilder(pcchName);
             hr = Raw.GetName(cchName, out pcchName, szName);
 
             if (hr == HRESULT.S_OK)

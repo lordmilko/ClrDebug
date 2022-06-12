@@ -20,7 +20,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT EmitString(
             [In, MarshalAs(UnmanagedType.LPWStr)] string lpString,
-            [Out] out uint RVA);
+            [Out] out int RVA);
 
         /// <summary>
         /// Gets the string stored at the specified relative virtual address. This method is obsolete and should not be used.
@@ -30,7 +30,7 @@ namespace ManagedCorDebug
         [Obsolete]
         [PreserveSig]
         HRESULT GetString(
-            [In] ulong RVA,
+            [In] long RVA,
             [Out, MarshalAs(UnmanagedType.LPWStr)] string lpString);
 
         /// <summary>
@@ -42,9 +42,9 @@ namespace ManagedCorDebug
         [Obsolete]
         [PreserveSig]
         HRESULT AllocateMethodBuffer(
-            [In] uint cchBuffer,
+            [In] int cchBuffer,
             [Out] IntPtr lpBuffer,
-            [Out] out uint RVA);
+            [Out] out int RVA);
 
         /// <summary>
         /// Gets a buffer of the appropriate size for the method at the specified relative virtual address. This method is obsolete and should not be used.
@@ -54,7 +54,7 @@ namespace ManagedCorDebug
         [Obsolete]
         [PreserveSig]
         HRESULT GetMethodBuffer(
-            [In] uint RVA,
+            [In] int RVA,
             [Out] IntPtr lpBuffer);
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT AddSectionReloc(
             [In] IntPtr section,
-            [In] uint offset,
+            [In] int offset,
             [In] IntPtr relativeTo,
             [In] CeeSectionRelocType relocType);
 
@@ -118,7 +118,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT GetSectionCreate(
             [In] string name,
-            [In] uint flags,
+            [In] int flags,
             [Out] IntPtr section);
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT GetSectionDataLen(
             [In] IntPtr section,
-            [Out] out uint dataLen);
+            [Out] out int dataLen);
 
         /// <summary>
         /// Gets a section block of the code base. This method is obsolete and should not be used.
@@ -149,8 +149,8 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT GetSectionBlock(
             [In] IntPtr section,
-            [In] uint len,
-            [In] uint align,
+            [In] int len,
+            [In] int align,
             [Out] IntPtr ppBytes);
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT TruncateSection(
             [In] IntPtr section,
-            [In] uint len);
+            [In] int len);
 
         /// <summary>
         /// Generates an image in memory for the code base. This method is obsolete and should not be used.
@@ -186,7 +186,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT ComputePointer(
             [In] IntPtr section,
-            [In] uint RVA,
+            [In] int RVA,
             [Out] IntPtr lpBuffer);
     }
 }

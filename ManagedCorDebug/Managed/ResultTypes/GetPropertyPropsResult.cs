@@ -13,13 +13,13 @@ namespace ManagedCorDebug
 
         public IntPtr PpvSig { get; }
 
-        public uint PbSig { get; }
+        public int PbSig { get; }
 
         public CorElementType PdwCPlusTypeFlag { get; }
 
         public IntPtr PpDefaultValue { get; }
 
-        public uint PcchDefaultValue { get; }
+        public int PcchDefaultValue { get; }
 
         public mdMethodDef PmdSetter { get; }
 
@@ -27,7 +27,7 @@ namespace ManagedCorDebug
 
         public mdMethodDef[] RmdOtherMethod { get; }
 
-        public GetPropertyPropsResult(mdTypeDef pClass, string szProperty, CorPropertyAttr pdwPropFlags, IntPtr ppvSig, uint pbSig, CorElementType pdwCPlusTypeFlag, IntPtr ppDefaultValue, uint pcchDefaultValue, mdMethodDef pmdSetter, mdMethodDef pmdGetter, mdMethodDef[] rmdOtherMethod)
+        public GetPropertyPropsResult(mdTypeDef pClass, string szProperty, CorPropertyAttr pdwPropFlags, IntPtr ppvSig, int pbSig, CorElementType pdwCPlusTypeFlag, IntPtr ppDefaultValue, int pcchDefaultValue, mdMethodDef pmdSetter, mdMethodDef pmdGetter, mdMethodDef[] rmdOtherMethod)
         {
             PClass = pClass;
             SzProperty = szProperty;

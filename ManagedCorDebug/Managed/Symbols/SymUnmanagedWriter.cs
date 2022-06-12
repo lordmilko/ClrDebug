@@ -70,7 +70,7 @@ namespace ManagedCorDebug
         /// Specifies the user-defined method that is the entry point for this module. For example, this entry point could be the user's main method instead of compiler-generated stubs before main.
         /// </summary>
         /// <param name="entryMethod">[in] The metadata token for the method that is the user entry point.</param>
-        public void SetUserEntryPoint(uint entryMethod)
+        public void SetUserEntryPoint(int entryMethod)
         {
             HRESULT hr;
 
@@ -83,9 +83,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="entryMethod">[in] The metadata token for the method that is the user entry point.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TrySetUserEntryPoint(uint entryMethod)
+        public HRESULT TrySetUserEntryPoint(int entryMethod)
         {
-            /*HRESULT SetUserEntryPoint([In] uint entryMethod);*/
+            /*HRESULT SetUserEntryPoint([In] int entryMethod);*/
             return Raw.SetUserEntryPoint(entryMethod);
         }
 
@@ -98,7 +98,7 @@ namespace ManagedCorDebug
         /// There can be only one open method at a time.
         /// </summary>
         /// <param name="method">[in] The metadata token for the method to be opened.</param>
-        public void OpenMethod(uint method)
+        public void OpenMethod(int method)
         {
             HRESULT hr;
 
@@ -113,9 +113,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="method">[in] The metadata token for the method to be opened.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryOpenMethod(uint method)
+        public HRESULT TryOpenMethod(int method)
         {
-            /*HRESULT OpenMethod([In] uint method);*/
+            /*HRESULT OpenMethod([In] int method);*/
             return Raw.OpenMethod(method);
         }
 
@@ -157,10 +157,10 @@ namespace ManagedCorDebug
         /// to define a scope's starting and ending offset at a later time. In this case, the offsets passed to ISymUnmanagedWriter::OpenScope
         /// and <see cref="CloseScope"/> are ignored. Scope identifiers are valid only in the current method.
         /// </remarks>
-        public uint OpenScope(uint startOffset)
+        public int OpenScope(int startOffset)
         {
             HRESULT hr;
-            uint pRetVal;
+            int pRetVal;
 
             if ((hr = TryOpenScope(startOffset, out pRetVal)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -180,9 +180,9 @@ namespace ManagedCorDebug
         /// to define a scope's starting and ending offset at a later time. In this case, the offsets passed to ISymUnmanagedWriter::OpenScope
         /// and <see cref="CloseScope"/> are ignored. Scope identifiers are valid only in the current method.
         /// </remarks>
-        public HRESULT TryOpenScope(uint startOffset, out uint pRetVal)
+        public HRESULT TryOpenScope(int startOffset, out int pRetVal)
         {
-            /*HRESULT OpenScope([In] uint startOffset, [Out] out uint pRetVal);*/
+            /*HRESULT OpenScope([In] int startOffset, [Out] out int pRetVal);*/
             return Raw.OpenScope(startOffset, out pRetVal);
         }
 
@@ -199,7 +199,7 @@ namespace ManagedCorDebug
         /// In this case, the offsets passed to <see cref="OpenScope"/> and <see cref="CloseScope"/> are ignored.
         /// Scope identifiers are valid only in the current method.
         /// </remarks>
-        public void CloseScope(uint endOffset)
+        public void CloseScope(int endOffset)
         {
             HRESULT hr;
 
@@ -218,9 +218,9 @@ namespace ManagedCorDebug
         /// In this case, the offsets passed to <see cref="OpenScope"/> and <see cref="CloseScope"/> are ignored.
         /// Scope identifiers are valid only in the current method.
         /// </remarks>
-        public HRESULT TryCloseScope(uint endOffset)
+        public HRESULT TryCloseScope(int endOffset)
         {
-            /*HRESULT CloseScope([In] uint endOffset);*/
+            /*HRESULT CloseScope([In] int endOffset);*/
             return Raw.CloseScope(endOffset);
         }
 
@@ -239,7 +239,7 @@ namespace ManagedCorDebug
         /// to define a scope's starting and ending offset at a later time. In this case, the offsets passed to ISymUnmanagedWriter::OpenScope
         /// and <see cref="CloseScope"/> are ignored. Scope identifiers are only valid in the current method.
         /// </remarks>
-        public void SetScopeRange(uint scopeID, uint startOffset, uint endOffset)
+        public void SetScopeRange(int scopeID, int startOffset, int endOffset)
         {
             HRESULT hr;
 
@@ -260,9 +260,9 @@ namespace ManagedCorDebug
         /// to define a scope's starting and ending offset at a later time. In this case, the offsets passed to ISymUnmanagedWriter::OpenScope
         /// and <see cref="CloseScope"/> are ignored. Scope identifiers are only valid in the current method.
         /// </remarks>
-        public HRESULT TrySetScopeRange(uint scopeID, uint startOffset, uint endOffset)
+        public HRESULT TrySetScopeRange(int scopeID, int startOffset, int endOffset)
         {
-            /*HRESULT SetScopeRange([In] uint scopeID, [In] uint startOffset, [In] uint endOffset);*/
+            /*HRESULT SetScopeRange([In] int scopeID, [In] int startOffset, [In] int endOffset);*/
             return Raw.SetScopeRange(scopeID, startOffset, endOffset);
         }
 
@@ -285,7 +285,7 @@ namespace ManagedCorDebug
         /// If it is a nonzero value, the variable falls within the offsets of the current scope.</param>
         /// <param name="endOffset">[in] The end offset for the variable. This parameter is optional. If it is 0, this parameter is ignored and the variable is defined throughout the entire scope.<para/>
         /// If it is a nonzero value, the variable falls within the offsets of the current scope.</param>
-        public void DefineLocalVariable(string name, uint attributes, uint cSig, IntPtr signature, uint addrKind, uint addr1, uint addr2, uint addr3, uint startOffset, uint endOffset)
+        public void DefineLocalVariable(string name, int attributes, int cSig, IntPtr signature, int addrKind, int addr1, int addr2, int addr3, int startOffset, int endOffset)
         {
             HRESULT hr;
 
@@ -310,19 +310,19 @@ namespace ManagedCorDebug
         /// <param name="endOffset">[in] The end offset for the variable. This parameter is optional. If it is 0, this parameter is ignored and the variable is defined throughout the entire scope.<para/>
         /// If it is a nonzero value, the variable falls within the offsets of the current scope.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryDefineLocalVariable(string name, uint attributes, uint cSig, IntPtr signature, uint addrKind, uint addr1, uint addr2, uint addr3, uint startOffset, uint endOffset)
+        public HRESULT TryDefineLocalVariable(string name, int attributes, int cSig, IntPtr signature, int addrKind, int addr1, int addr2, int addr3, int startOffset, int endOffset)
         {
             /*HRESULT DefineLocalVariable(
             [In] string name,
-            [In] uint attributes,
-            [In] uint cSig,
+            [In] int attributes,
+            [In] int cSig,
             [In] IntPtr signature,
-            [In] uint addrKind,
-            [In] uint addr1,
-            [In] uint addr2,
-            [In] uint addr3,
-            [In] uint startOffset,
-            [In] uint endOffset);*/
+            [In] int addrKind,
+            [In] int addr1,
+            [In] int addr2,
+            [In] int addr3,
+            [In] int startOffset,
+            [In] int endOffset);*/
             return Raw.DefineLocalVariable(name, attributes, cSig, signature, addrKind, addr1, addr2, addr3, startOffset, endOffset);
         }
 
@@ -341,7 +341,7 @@ namespace ManagedCorDebug
         /// <param name="addr1">[in] The first address for the parameter specification.</param>
         /// <param name="addr2">[in] The second address for the parameter specification.</param>
         /// <param name="addr3">[in] The third address for the parameter specification.</param>
-        public void DefineParameter(string name, uint attributes, uint sequence, uint addrKind, uint addr1, uint addr2, uint addr3)
+        public void DefineParameter(string name, int attributes, int sequence, int addrKind, int addr1, int addr2, int addr3)
         {
             HRESULT hr;
 
@@ -362,16 +362,16 @@ namespace ManagedCorDebug
         /// <param name="addr2">[in] The second address for the parameter specification.</param>
         /// <param name="addr3">[in] The third address for the parameter specification.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryDefineParameter(string name, uint attributes, uint sequence, uint addrKind, uint addr1, uint addr2, uint addr3)
+        public HRESULT TryDefineParameter(string name, int attributes, int sequence, int addrKind, int addr1, int addr2, int addr3)
         {
             /*HRESULT DefineParameter(
             [In] string name,
-            [In] uint attributes,
-            [In] uint sequence,
-            [In] uint addrKind,
-            [In] uint addr1,
-            [In] uint addr2,
-            [In] uint addr3);*/
+            [In] int attributes,
+            [In] int sequence,
+            [In] int addrKind,
+            [In] int addr1,
+            [In] int addr2,
+            [In] int addr3);*/
             return Raw.DefineParameter(name, attributes, sequence, addrKind, addr1, addr2, addr3);
         }
 
@@ -390,7 +390,7 @@ namespace ManagedCorDebug
         /// <param name="addr1">[in] The first address for the field specification.</param>
         /// <param name="addr2">[in] The second address for the field specification.</param>
         /// <param name="addr3">[in] The third address for the field specification.</param>
-        public void DefineField(uint parent, string name, uint attributes, uint cSig, IntPtr signature, uint addrKind, uint addr1, uint addr2, uint addr3)
+        public void DefineField(int parent, string name, int attributes, int cSig, IntPtr signature, int addrKind, int addr1, int addr2, int addr3)
         {
             HRESULT hr;
 
@@ -411,18 +411,18 @@ namespace ManagedCorDebug
         /// <param name="addr2">[in] The second address for the field specification.</param>
         /// <param name="addr3">[in] The third address for the field specification.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryDefineField(uint parent, string name, uint attributes, uint cSig, IntPtr signature, uint addrKind, uint addr1, uint addr2, uint addr3)
+        public HRESULT TryDefineField(int parent, string name, int attributes, int cSig, IntPtr signature, int addrKind, int addr1, int addr2, int addr3)
         {
             /*HRESULT DefineField(
-            [In] uint parent,
+            [In] int parent,
             [In] string name,
-            [In] uint attributes,
-            [In] uint cSig,
+            [In] int attributes,
+            [In] int cSig,
             [In] IntPtr signature,
-            [In] uint addrKind,
-            [In] uint addr1,
-            [In] uint addr2,
-            [In] uint addr3);*/
+            [In] int addrKind,
+            [In] int addr1,
+            [In] int addr2,
+            [In] int addr3);*/
             return Raw.DefineField(parent, name, attributes, cSig, signature, addrKind, addr1, addr2, addr3);
         }
 
@@ -440,7 +440,7 @@ namespace ManagedCorDebug
         /// <param name="addr1">[in] The first address for the parameter specification.</param>
         /// <param name="addr2">[in] The second address for the parameter specification.</param>
         /// <param name="addr3">[in] The third address for the parameter specification.</param>
-        public void DefineGlobalVariable(string name, uint attributes, uint cSig, IntPtr signature, uint addrKind, uint addr1, uint addr2, uint addr3)
+        public void DefineGlobalVariable(string name, int attributes, int cSig, IntPtr signature, int addrKind, int addr1, int addr2, int addr3)
         {
             HRESULT hr;
 
@@ -460,17 +460,17 @@ namespace ManagedCorDebug
         /// <param name="addr2">[in] The second address for the parameter specification.</param>
         /// <param name="addr3">[in] The third address for the parameter specification.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryDefineGlobalVariable(string name, uint attributes, uint cSig, IntPtr signature, uint addrKind, uint addr1, uint addr2, uint addr3)
+        public HRESULT TryDefineGlobalVariable(string name, int attributes, int cSig, IntPtr signature, int addrKind, int addr1, int addr2, int addr3)
         {
             /*HRESULT DefineGlobalVariable(
             [In] string name,
-            [In] uint attributes,
-            [In] uint cSig,
+            [In] int attributes,
+            [In] int cSig,
             [In] IntPtr signature,
-            [In] uint addrKind,
-            [In] uint addr1,
-            [In] uint addr2,
-            [In] uint addr3);*/
+            [In] int addrKind,
+            [In] int addr1,
+            [In] int addr2,
+            [In] int addr3);*/
             return Raw.DefineGlobalVariable(name, attributes, cSig, signature, addrKind, addr1, addr2, addr3);
         }
 
@@ -516,7 +516,7 @@ namespace ManagedCorDebug
         /// <param name="name">[in] A pointer to a WCHAR that contains the attribute name.</param>
         /// <param name="cData">[in] A ULONG32 that indicates the size of the data array.</param>
         /// <param name="data">[in] The attribute value.</param>
-        public void SetSymAttribute(uint parent, string name, uint cData, IntPtr data)
+        public void SetSymAttribute(int parent, string name, int cData, IntPtr data)
         {
             HRESULT hr;
 
@@ -532,9 +532,9 @@ namespace ManagedCorDebug
         /// <param name="cData">[in] A ULONG32 that indicates the size of the data array.</param>
         /// <param name="data">[in] The attribute value.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TrySetSymAttribute(uint parent, string name, uint cData, IntPtr data)
+        public HRESULT TrySetSymAttribute(int parent, string name, int cData, IntPtr data)
         {
-            /*HRESULT SetSymAttribute([In] uint parent, [In] string name, [In] uint cData, [In] IntPtr data);*/
+            /*HRESULT SetSymAttribute([In] int parent, [In] string name, [In] int cData, [In] IntPtr data);*/
             return Raw.SetSymAttribute(parent, name, cData, data);
         }
 
@@ -628,7 +628,7 @@ namespace ManagedCorDebug
         /// <param name="endDoc">[in] A pointer to the document containing the ending position.</param>
         /// <param name="endLine">[in] The ending line number.</param>
         /// <param name="endColumn">[in] The ending column number.</param>
-        public void SetMethodSourceRange(ISymUnmanagedDocumentWriter startDoc, uint startLine, uint startColumn, ISymUnmanagedDocumentWriter endDoc, uint endLine, uint endColumn)
+        public void SetMethodSourceRange(ISymUnmanagedDocumentWriter startDoc, int startLine, int startColumn, ISymUnmanagedDocumentWriter endDoc, int endLine, int endColumn)
         {
             HRESULT hr;
 
@@ -646,17 +646,17 @@ namespace ManagedCorDebug
         /// <param name="endLine">[in] The ending line number.</param>
         /// <param name="endColumn">[in] The ending column number.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TrySetMethodSourceRange(ISymUnmanagedDocumentWriter startDoc, uint startLine, uint startColumn, ISymUnmanagedDocumentWriter endDoc, uint endLine, uint endColumn)
+        public HRESULT TrySetMethodSourceRange(ISymUnmanagedDocumentWriter startDoc, int startLine, int startColumn, ISymUnmanagedDocumentWriter endDoc, int endLine, int endColumn)
         {
             /*HRESULT SetMethodSourceRange(
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocumentWriter startDoc,
-            [In] uint startLine,
-            [In] uint startColumn,
+            [In] int startLine,
+            [In] int startColumn,
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocumentWriter endDoc,
-            [In] uint endLine,
-            [In] uint endColumn);*/
+            [In] int endLine,
+            [In] int endColumn);*/
             return Raw.SetMethodSourceRange(startDoc, startLine, startColumn, endDoc, endLine, endColumn);
         }
 
@@ -710,7 +710,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cData">[in] A DWORD that contains the size of the debug data.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetDebugInfoResult GetDebugInfo(uint cData)
+        public GetDebugInfoResult GetDebugInfo(int cData)
         {
             HRESULT hr;
             GetDebugInfoResult result;
@@ -729,12 +729,12 @@ namespace ManagedCorDebug
         /// <param name="cData">[in] A DWORD that contains the size of the debug data.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetDebugInfo(uint cData, out GetDebugInfoResult result)
+        public HRESULT TryGetDebugInfo(int cData, out GetDebugInfoResult result)
         {
             /*HRESULT GetDebugInfo([In, Out]
-            ref ulong pIDD, [In] uint cData, out uint pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
-            ulong pIDD = default(ulong);
-            uint pcData;
+            ref long pIDD, [In] int cData, out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
+            long pIDD = default(long);
+            int pcData;
             byte[] data = null;
             HRESULT hr = Raw.GetDebugInfo(ref pIDD, cData, out pcData, data);
 
@@ -761,7 +761,7 @@ namespace ManagedCorDebug
         /// <param name="columns">[in] The starting column numbers of the sequence points.</param>
         /// <param name="endLines">[in] The ending line numbers of the sequence points. This parameter is optional.</param>
         /// <param name="endColumns">[in] The ending column numbers of the sequence points. This parameter is optional.</param>
-        public void DefineSequencePoints(ISymUnmanagedDocumentWriter document, uint spCount, uint offsets, uint lines, uint columns, uint endLines, uint endColumns)
+        public void DefineSequencePoints(ISymUnmanagedDocumentWriter document, int spCount, int offsets, int lines, int columns, int endLines, int endColumns)
         {
             HRESULT hr;
 
@@ -782,17 +782,17 @@ namespace ManagedCorDebug
         /// <param name="endLines">[in] The ending line numbers of the sequence points. This parameter is optional.</param>
         /// <param name="endColumns">[in] The ending column numbers of the sequence points. This parameter is optional.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryDefineSequencePoints(ISymUnmanagedDocumentWriter document, uint spCount, uint offsets, uint lines, uint columns, uint endLines, uint endColumns)
+        public HRESULT TryDefineSequencePoints(ISymUnmanagedDocumentWriter document, int spCount, int offsets, int lines, int columns, int endLines, int endColumns)
         {
             /*HRESULT DefineSequencePoints(
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocumentWriter document,
-            [In] uint spCount,
-            [In] ref uint offsets,
-            [In] ref uint lines,
-            [In] ref uint columns,
-            [In] ref uint endLines,
-            [In] ref uint endColumns);*/
+            [In] int spCount,
+            [In] ref int offsets,
+            [In] ref int lines,
+            [In] ref int columns,
+            [In] ref int endLines,
+            [In] ref int endColumns);*/
             return Raw.DefineSequencePoints(document, spCount, ref offsets, ref lines, ref columns, ref endLines, ref endColumns);
         }
 
@@ -804,7 +804,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="oldToken">[in] The metadata token that was remapped.</param>
         /// <param name="newToken">[in] The new metadata token to which oldToken was remapped.</param>
-        public void RemapToken(uint oldToken, uint newToken)
+        public void RemapToken(int oldToken, int newToken)
         {
             HRESULT hr;
 
@@ -818,9 +818,9 @@ namespace ManagedCorDebug
         /// <param name="oldToken">[in] The metadata token that was remapped.</param>
         /// <param name="newToken">[in] The new metadata token to which oldToken was remapped.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryRemapToken(uint oldToken, uint newToken)
+        public HRESULT TryRemapToken(int oldToken, int newToken)
         {
-            /*HRESULT RemapToken([In] uint oldToken, [In] uint newToken);*/
+            /*HRESULT RemapToken([In] int oldToken, [In] int newToken);*/
             return Raw.RemapToken(oldToken, newToken);
         }
 
@@ -879,7 +879,7 @@ namespace ManagedCorDebug
         /// <param name="value">[in] The value of the constant.</param>
         /// <param name="cSig">[in] The size of the signature array.</param>
         /// <param name="signature">[in] The type signature for the constant.</param>
-        public void DefineConstant(string name, object value, uint cSig, IntPtr signature)
+        public void DefineConstant(string name, object value, int cSig, IntPtr signature)
         {
             HRESULT hr;
 
@@ -895,9 +895,9 @@ namespace ManagedCorDebug
         /// <param name="cSig">[in] The size of the signature array.</param>
         /// <param name="signature">[in] The type signature for the constant.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryDefineConstant(string name, object value, uint cSig, IntPtr signature)
+        public HRESULT TryDefineConstant(string name, object value, int cSig, IntPtr signature)
         {
-            /*HRESULT DefineConstant([In] string name, [MarshalAs(UnmanagedType.Struct), In] object value, [In] uint cSig,
+            /*HRESULT DefineConstant([In] string name, [MarshalAs(UnmanagedType.Struct), In] object value, [In] int cSig,
             [In] IntPtr signature);*/
             return Raw.DefineConstant(name, value, cSig, signature);
         }
@@ -951,7 +951,7 @@ namespace ManagedCorDebug
         /// If it is a nonzero value, the variable falls within the offsets of the current scope.</param>
         /// <param name="endOffset">[in] The end offset for the variable. This parameter is optional. If it is 0, this parameter is ignored and the variable is defined throughout the entire scope.<para/>
         /// If it is a nonzero value, the variable falls within the offsets of the current scope.</param>
-        public void DefineLocalVariable2(string name, uint attributes, uint sigToken, uint addrKind, uint addr1, uint addr2, uint addr3, uint startOffset, uint endOffset)
+        public void DefineLocalVariable2(string name, int attributes, int sigToken, int addrKind, int addr1, int addr2, int addr3, int startOffset, int endOffset)
         {
             HRESULT hr;
 
@@ -975,18 +975,18 @@ namespace ManagedCorDebug
         /// <param name="endOffset">[in] The end offset for the variable. This parameter is optional. If it is 0, this parameter is ignored and the variable is defined throughout the entire scope.<para/>
         /// If it is a nonzero value, the variable falls within the offsets of the current scope.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryDefineLocalVariable2(string name, uint attributes, uint sigToken, uint addrKind, uint addr1, uint addr2, uint addr3, uint startOffset, uint endOffset)
+        public HRESULT TryDefineLocalVariable2(string name, int attributes, int sigToken, int addrKind, int addr1, int addr2, int addr3, int startOffset, int endOffset)
         {
             /*HRESULT DefineLocalVariable2(
             [In] string name,
-            [In] uint attributes,
-            [In] uint sigToken,
-            [In] uint addrKind,
-            [In] uint addr1,
-            [In] uint addr2,
-            [In] uint addr3,
-            [In] uint startOffset,
-            [In] uint endOffset);*/
+            [In] int attributes,
+            [In] int sigToken,
+            [In] int addrKind,
+            [In] int addr1,
+            [In] int addr2,
+            [In] int addr3,
+            [In] int startOffset,
+            [In] int endOffset);*/
             return Raw2.DefineLocalVariable2(name, attributes, sigToken, addrKind, addr1, addr2, addr3, startOffset, endOffset);
         }
 
@@ -1003,7 +1003,7 @@ namespace ManagedCorDebug
         /// <param name="addr1">[in] The first address for the parameter specification.</param>
         /// <param name="addr2">[in] The second address for the parameter specification.</param>
         /// <param name="addr3">[in] The third address for the parameter specification.</param>
-        public void DefineGlobalVariable2(string name, uint attributes, uint sigToken, uint addrKind, uint addr1, uint addr2, uint addr3)
+        public void DefineGlobalVariable2(string name, int attributes, int sigToken, int addrKind, int addr1, int addr2, int addr3)
         {
             HRESULT hr;
 
@@ -1022,16 +1022,16 @@ namespace ManagedCorDebug
         /// <param name="addr2">[in] The second address for the parameter specification.</param>
         /// <param name="addr3">[in] The third address for the parameter specification.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryDefineGlobalVariable2(string name, uint attributes, uint sigToken, uint addrKind, uint addr1, uint addr2, uint addr3)
+        public HRESULT TryDefineGlobalVariable2(string name, int attributes, int sigToken, int addrKind, int addr1, int addr2, int addr3)
         {
             /*HRESULT DefineGlobalVariable2(
             [In] string name,
-            [In] uint attributes,
-            [In] uint sigToken,
-            [In] uint addrKind,
-            [In] uint addr1,
-            [In] uint addr2,
-            [In] uint addr3);*/
+            [In] int attributes,
+            [In] int sigToken,
+            [In] int addrKind,
+            [In] int addr1,
+            [In] int addr2,
+            [In] int addr3);*/
             return Raw2.DefineGlobalVariable2(name, attributes, sigToken, addrKind, addr1, addr2, addr3);
         }
 
@@ -1044,7 +1044,7 @@ namespace ManagedCorDebug
         /// <param name="name">[in] The constant name.</param>
         /// <param name="value">[in] The value of the constant.</param>
         /// <param name="sigToken">[in] The metadata token of the constant.</param>
-        public void DefineConstant2(string name, object value, uint sigToken)
+        public void DefineConstant2(string name, object value, int sigToken)
         {
             HRESULT hr;
 
@@ -1059,10 +1059,10 @@ namespace ManagedCorDebug
         /// <param name="value">[in] The value of the constant.</param>
         /// <param name="sigToken">[in] The metadata token of the constant.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryDefineConstant2(string name, object value, uint sigToken)
+        public HRESULT TryDefineConstant2(string name, object value, int sigToken)
         {
             /*HRESULT DefineConstant2([In] string name, [MarshalAs(UnmanagedType.Struct), In] object value,
-            [In] uint sigToken);*/
+            [In] int sigToken);*/
             return Raw2.DefineConstant2(name, value, sigToken);
         }
 
@@ -1080,7 +1080,7 @@ namespace ManagedCorDebug
         /// <param name="method">[in] The metadata token for the method to be opened.</param>
         /// <param name="isect">[in] The section offset in the image.</param>
         /// <param name="offset">[in] The offset in the image.</param>
-        public void OpenMethod2(uint method, uint isect, uint offset)
+        public void OpenMethod2(int method, int isect, int offset)
         {
             HRESULT hr;
 
@@ -1095,9 +1095,9 @@ namespace ManagedCorDebug
         /// <param name="isect">[in] The section offset in the image.</param>
         /// <param name="offset">[in] The offset in the image.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryOpenMethod2(uint method, uint isect, uint offset)
+        public HRESULT TryOpenMethod2(int method, int isect, int offset)
         {
-            /*HRESULT OpenMethod2([In] uint method, [In] uint isect, [In] uint offset);*/
+            /*HRESULT OpenMethod2([In] int method, [In] int isect, [In] int offset);*/
             return Raw3.OpenMethod2(method, isect, offset);
         }
 
@@ -1137,7 +1137,7 @@ namespace ManagedCorDebug
         /// Functions the same as <see cref="GetDebugInfo"/> except that the path string is padded with zeros following the terminating null character to make the string data a fixed size of MAX_PATH.<para/>
         /// Padding is only given if the path string length itself is less than MAX_PATH. This makes it easier to write tools that difference PE files.
         /// </summary>
-        public GetDebugInfoWithPaddingResult GetDebugInfoWithPadding(uint cData)
+        public GetDebugInfoWithPaddingResult GetDebugInfoWithPadding(int cData)
         {
             HRESULT hr;
             GetDebugInfoWithPaddingResult result;
@@ -1153,15 +1153,15 @@ namespace ManagedCorDebug
         /// Padding is only given if the path string length itself is less than MAX_PATH. This makes it easier to write tools that difference PE files.
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
-        public HRESULT TryGetDebugInfoWithPadding(uint cData, out GetDebugInfoWithPaddingResult result)
+        public HRESULT TryGetDebugInfoWithPadding(int cData, out GetDebugInfoWithPaddingResult result)
         {
             /*HRESULT GetDebugInfoWithPadding(
-            [In, Out] ref ulong pIDD,
-            [In] uint cData,
-            out uint pcData,
+            [In, Out] ref long pIDD,
+            [In] int cData,
+            out int pcData,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
-            ulong pIDD = default(ulong);
-            uint pcData;
+            long pIDD = default(long);
+            int pcData;
             byte[] data = null;
             HRESULT hr = Raw4.GetDebugInfoWithPadding(ref pIDD, cData, out pcData, data);
 
@@ -1232,7 +1232,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Maps the given metadata token to the given source line span in the specified source file. Must be called between calls to <see cref="OpenMapTokensToSourceSpans"/> and <see cref="CloseMapTokensToSourceSpans"/>.
         /// </summary>
-        public void MapTokenToSourceSpan(uint token, ISymUnmanagedDocumentWriter document, uint line, uint column, uint endLine, uint endColumn)
+        public void MapTokenToSourceSpan(int token, ISymUnmanagedDocumentWriter document, int line, int column, int endLine, int endColumn)
         {
             HRESULT hr;
 
@@ -1244,16 +1244,16 @@ namespace ManagedCorDebug
         /// Maps the given metadata token to the given source line span in the specified source file. Must be called between calls to <see cref="OpenMapTokensToSourceSpans"/> and <see cref="CloseMapTokensToSourceSpans"/>.
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
-        public HRESULT TryMapTokenToSourceSpan(uint token, ISymUnmanagedDocumentWriter document, uint line, uint column, uint endLine, uint endColumn)
+        public HRESULT TryMapTokenToSourceSpan(int token, ISymUnmanagedDocumentWriter document, int line, int column, int endLine, int endColumn)
         {
             /*HRESULT MapTokenToSourceSpan(
-            [In] uint token,
+            [In] int token,
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocumentWriter document,
-            [In] uint line,
-            [In] uint column,
-            [In] uint endLine,
-            [In] uint endColumn);*/
+            [In] int line,
+            [In] int column,
+            [In] int endLine,
+            [In] int endColumn);*/
             return Raw5.MapTokenToSourceSpan(token, document, line, column, endLine, endColumn);
         }
 

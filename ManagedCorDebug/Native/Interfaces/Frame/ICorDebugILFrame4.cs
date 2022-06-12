@@ -53,7 +53,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLocalVariableEx(
             [In] ILCodeKind flags,
-            [In] uint dwIndex,
+            [In] int dwIndex,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         /// <summary>

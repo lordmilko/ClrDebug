@@ -28,7 +28,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT Stop([In] uint dwTimeoutIgnored);
+        new HRESULT Stop([In] int dwTimeoutIgnored);
 
         /// <summary>
         /// Resumes execution of managed threads after a call to <see cref="Stop"/>.
@@ -128,7 +128,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT Terminate([In] uint exitCode);
+        new HRESULT Terminate([In] int exitCode);
 
         /// <summary>
         /// CanCommitChanges is obsolete. Do not call this method.
@@ -137,7 +137,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT CanCommitChanges(
-            [In] uint cSnapshots,
+            [In] int cSnapshots,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugEditAndContinueSnapshot pSnapshots,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugErrorInfoEnum pError);
@@ -149,7 +149,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT CommitChanges(
-            [In] uint cSnapshots,
+            [In] int cSnapshots,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugEditAndContinueSnapshot pSnapshots,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugErrorInfoEnum pError);
@@ -223,7 +223,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);
+        HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);
 
         /// <summary>
         /// Gets an interface pointer to the common language runtime (CLR) application domain.
@@ -259,6 +259,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetID(out uint pId);
+        HRESULT GetID(out int pId);
     }
 }

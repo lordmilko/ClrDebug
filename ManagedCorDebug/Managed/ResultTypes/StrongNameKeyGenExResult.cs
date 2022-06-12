@@ -6,9 +6,9 @@ namespace ManagedCorDebug
     {
         public IntPtr PpbKeyBlob { get; }
 
-        public uint PcbKeyBlob { get; }
+        public int PcbKeyBlob { get; }
 
-        public StrongNameKeyGenExResult(IntPtr ppbKeyBlob, uint pcbKeyBlob)
+        public StrongNameKeyGenExResult(IntPtr ppbKeyBlob, int pcbKeyBlob)
         {
             PpbKeyBlob = ppbKeyBlob;
             PcbKeyBlob = pcbKeyBlob;

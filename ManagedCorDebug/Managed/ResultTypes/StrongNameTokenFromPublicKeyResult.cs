@@ -6,9 +6,9 @@ namespace ManagedCorDebug
     {
         public IntPtr PpbStrongNameToken { get; }
 
-        public uint PcbStrongNameToken { get; }
+        public int PcbStrongNameToken { get; }
 
-        public StrongNameTokenFromPublicKeyResult(IntPtr ppbStrongNameToken, uint pcbStrongNameToken)
+        public StrongNameTokenFromPublicKeyResult(IntPtr ppbStrongNameToken, int pcbStrongNameToken)
         {
             PpbStrongNameToken = ppbStrongNameToken;
             PcbStrongNameToken = pcbStrongNameToken;

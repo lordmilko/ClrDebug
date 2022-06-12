@@ -35,13 +35,13 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetMetadata(
             [MarshalAs(UnmanagedType.LPWStr), In] string imagePath,
-            [In] uint imageTimestamp,
-            [In] uint imageSize,
+            [In] int imageTimestamp,
+            [In] int imageSize,
             [In] ref Guid mvid,
-            [In] uint mdRva,
-            [In] uint flags,
-            [In] uint bufferSize,
+            [In] int mdRva,
+            [In] int flags,
+            [In] int bufferSize,
             out IntPtr buffer,
-            out uint dataSize);
+            out int dataSize);
     }
 }

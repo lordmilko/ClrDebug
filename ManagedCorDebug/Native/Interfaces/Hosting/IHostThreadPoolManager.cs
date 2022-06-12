@@ -40,7 +40,7 @@ namespace ManagedCorDebug
         HRESULT QueueUserWorkItem(
             [In, MarshalAs(UnmanagedType.FunctionPtr)] LPTHREAD_START_ROUTINE Function,
             [In] IntPtr Context,
-            [In] uint Flags);
+            [In] int Flags);
 
         /// <summary>
         /// Sets the maximum number of threads that the host can maintain in the thread pool.
@@ -64,7 +64,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT SetMaxThreads(
-            [In] uint dwMaxWorkerThreads);
+            [In] int dwMaxWorkerThreads);
 
         /// <summary>
         /// Gets the maximum number of threads that the host maintains concurrently in the thread pool.
@@ -89,7 +89,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT GetMaxThreads(
-            [Out] out uint pdwMaxWorkerThreads);
+            [Out] out int pdwMaxWorkerThreads);
 
         /// <summary>
         /// Gets the number of threads in the thread pool that are not currently processing work items.
@@ -111,7 +111,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT GetAvailableThreads(
-            [Out] out uint pdwAvailableWorkerThreads);
+            [Out] out int pdwAvailableWorkerThreads);
 
         /// <summary>
         /// Sets the minimum number of idle threads that the host must maintain in anticipation of requests.
@@ -134,7 +134,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT SetMinThreads(
-            [In] uint dwMinIOCompletionThreads);
+            [In] int dwMinIOCompletionThreads);
 
         /// <summary>
         /// Gets the minimum number of idle threads that the host maintains in the thread pool in anticipation of requests.
@@ -157,6 +157,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT GetMinThreads(
-            [Out] out uint pdwMinIOCompletionThreads);
+            [Out] out int pdwMinIOCompletionThreads);
     }
 }

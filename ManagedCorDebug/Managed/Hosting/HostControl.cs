@@ -83,7 +83,7 @@ namespace ManagedCorDebug
         /// implementation of the SetAppDomainManager method, the host can set the assembly name and type for the application
         /// domain manager.
         /// </remarks>
-        public void SetAppDomainManager(uint dwAppDomainID, object pUnkAppDomainManager)
+        public void SetAppDomainManager(int dwAppDomainID, object pUnkAppDomainManager)
         {
             HRESULT hr;
 
@@ -114,10 +114,10 @@ namespace ManagedCorDebug
         /// implementation of the SetAppDomainManager method, the host can set the assembly name and type for the application
         /// domain manager.
         /// </remarks>
-        public HRESULT TrySetAppDomainManager(uint dwAppDomainID, object pUnkAppDomainManager)
+        public HRESULT TrySetAppDomainManager(int dwAppDomainID, object pUnkAppDomainManager)
         {
             /*HRESULT SetAppDomainManager(
-            [In] uint dwAppDomainID,
+            [In] int dwAppDomainID,
             [MarshalAs(UnmanagedType.IUnknown)] [In] object pUnkAppDomainManager);*/
             return Raw.SetAppDomainManager(dwAppDomainID, pUnkAppDomainManager);
         }

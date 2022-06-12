@@ -79,7 +79,7 @@ namespace ManagedCorDebug
         /// If the first byte (at the specified start address) can be read, the call should return success (to support efficient
         /// reading of data structures with self-describing length, like null-terminated strings).
         /// </remarks>
-        public CorDebugDataTarget_ReadVirtualResult ReadVirtual(ulong address, uint bytesRequested)
+        public CorDebugDataTarget_ReadVirtualResult ReadVirtual(long address, int bytesRequested)
         {
             HRESULT hr;
             CorDebugDataTarget_ReadVirtualResult result;
@@ -100,11 +100,11 @@ namespace ManagedCorDebug
         /// If the first byte (at the specified start address) can be read, the call should return success (to support efficient
         /// reading of data structures with self-describing length, like null-terminated strings).
         /// </remarks>
-        public HRESULT TryReadVirtual(ulong address, uint bytesRequested, out CorDebugDataTarget_ReadVirtualResult result)
+        public HRESULT TryReadVirtual(long address, int bytesRequested, out CorDebugDataTarget_ReadVirtualResult result)
         {
-            /*HRESULT ReadVirtual([In] ulong address, out byte pBuffer, [In] uint bytesRequested, out uint pBytesRead);*/
+            /*HRESULT ReadVirtual([In] long address, out byte pBuffer, [In] int bytesRequested, out int pBytesRead);*/
             byte pBuffer;
-            uint pBytesRead;
+            int pBytesRead;
             HRESULT hr = Raw.ReadVirtual(address, out pBuffer, bytesRequested, out pBytesRead);
 
             if (hr == HRESULT.S_OK)
@@ -130,7 +130,7 @@ namespace ManagedCorDebug
         /// type specified by the <see cref="Platform"/> property. contextFlags must have the same values as the ContextFlags
         /// field of the CONTEXT structure. The CONTEXT structure is processor-specific; refer to the WinNT.h file for details.
         /// </remarks>
-        public byte GetThreadContext(uint dwThreadId, uint contextFlags, uint contextSize)
+        public byte GetThreadContext(int dwThreadId, int contextFlags, int contextSize)
         {
             HRESULT hr;
             byte pContext;
@@ -153,9 +153,9 @@ namespace ManagedCorDebug
         /// type specified by the <see cref="Platform"/> property. contextFlags must have the same values as the ContextFlags
         /// field of the CONTEXT structure. The CONTEXT structure is processor-specific; refer to the WinNT.h file for details.
         /// </remarks>
-        public HRESULT TryGetThreadContext(uint dwThreadId, uint contextFlags, uint contextSize, out byte pContext)
+        public HRESULT TryGetThreadContext(int dwThreadId, int contextFlags, int contextSize, out byte pContext)
         {
-            /*HRESULT GetThreadContext([In] uint dwThreadId, [In] uint contextFlags, [In] uint contextSize, out byte pContext);*/
+            /*HRESULT GetThreadContext([In] int dwThreadId, [In] int contextFlags, [In] int contextSize, out byte pContext);*/
             return Raw.GetThreadContext(dwThreadId, contextFlags, contextSize, out pContext);
         }
 
@@ -190,9 +190,9 @@ namespace ManagedCorDebug
         /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetImageFromPointer(CORDB_ADDRESS addr, out GetImageFromPointerResult result)
         {
-            /*HRESULT GetImageFromPointer([In] CORDB_ADDRESS addr, out CORDB_ADDRESS pImageBase, out uint pSize);*/
+            /*HRESULT GetImageFromPointer([In] CORDB_ADDRESS addr, out CORDB_ADDRESS pImageBase, out int pSize);*/
             CORDB_ADDRESS pImageBase;
-            uint pSize;
+            int pSize;
             HRESULT hr = Raw2.GetImageFromPointer(addr, out pImageBase, out pSize);
 
             if (hr == HRESULT.S_OK)
@@ -231,11 +231,11 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetImageLocation(
             [In] CORDB_ADDRESS baseAddress,
-            [In] uint cchName,
-            out uint pcchName,
+            [In] int cchName,
+            out int pcchName,
             [Out] StringBuilder szName);*/
-            uint cchName = 0;
-            uint pcchName;
+            int cchName = 0;
+            int pcchName;
             StringBuilder szName = null;
             HRESULT hr = Raw2.GetImageLocation(baseAddress, cchName, out pcchName, szName);
 
@@ -243,7 +243,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder((int) pcchName);
+            szName = new StringBuilder(pcchName);
             hr = Raw2.GetImageLocation(baseAddress, cchName, out pcchName, szName);
 
             if (hr == HRESULT.S_OK)
@@ -307,7 +307,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cThreadIds">[in] The maximum number of threads whose IDs can be returned.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumerateThreadIDsResult EnumerateThreadIDs(uint cThreadIds)
+        public EnumerateThreadIDsResult EnumerateThreadIDs(int cThreadIds)
         {
             HRESULT hr;
             EnumerateThreadIDsResult result;
@@ -323,11 +323,11 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cThreadIds">[in] The maximum number of threads whose IDs can be returned.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryEnumerateThreadIDs(uint cThreadIds, out EnumerateThreadIDsResult result)
+        public HRESULT TryEnumerateThreadIDs(int cThreadIds, out EnumerateThreadIDsResult result)
         {
-            /*HRESULT EnumerateThreadIDs([In] uint cThreadIds, out uint pcThreadIds, [Out] uint[] pThreadIds);*/
-            uint pcThreadIds;
-            uint[] pThreadIds = default(uint[]);
+            /*HRESULT EnumerateThreadIDs([In] int cThreadIds, out int pcThreadIds, [Out] int[] pThreadIds);*/
+            int pcThreadIds;
+            int[] pThreadIds = default(int[]);
             HRESULT hr = Raw2.EnumerateThreadIDs(cThreadIds, out pcThreadIds, pThreadIds);
 
             if (hr == HRESULT.S_OK)
@@ -349,7 +349,7 @@ namespace ManagedCorDebug
         /// <param name="cbContext">[in] The size of initialContext.</param>
         /// <param name="initialContext">[in] The data in the context.</param>
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugVirtualUnwinder"/> interface object.</returns>
-        public CorDebugVirtualUnwinder CreateVirtualUnwinder(uint nativeThreadID, uint contextFlags, uint cbContext, IntPtr initialContext)
+        public CorDebugVirtualUnwinder CreateVirtualUnwinder(int nativeThreadID, int contextFlags, int cbContext, IntPtr initialContext)
         {
             HRESULT hr;
             CorDebugVirtualUnwinder ppUnwinderResult;
@@ -369,12 +369,12 @@ namespace ManagedCorDebug
         /// <param name="initialContext">[in] The data in the context.</param>
         /// <param name="ppUnwinderResult">[out] A pointer to the address of an <see cref="ICorDebugVirtualUnwinder"/> interface object.</param>
         /// <returns>S_OK if successful. Any other <see cref="HRESULT"/> indicates failure. Any failing <see cref="HRESULT"/> received by mscordbi is considered fatal and causes <see cref="ICorDebug"/> methods to return CORDBG_E_DATA_TARGET_ERROR.</returns>
-        public HRESULT TryCreateVirtualUnwinder(uint nativeThreadID, uint contextFlags, uint cbContext, IntPtr initialContext, out CorDebugVirtualUnwinder ppUnwinderResult)
+        public HRESULT TryCreateVirtualUnwinder(int nativeThreadID, int contextFlags, int cbContext, IntPtr initialContext, out CorDebugVirtualUnwinder ppUnwinderResult)
         {
             /*HRESULT CreateVirtualUnwinder(
-            [In] uint nativeThreadID,
-            [In] uint contextFlags,
-            [In] uint cbContext,
+            [In] int nativeThreadID,
+            [In] int contextFlags,
+            [In] int cbContext,
             [In] IntPtr initialContext,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugVirtualUnwinder ppUnwinder);*/
             ICorDebugVirtualUnwinder ppUnwinder;
@@ -401,7 +401,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cRequestedModules">[in] The number of modules for which information is requested.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetLoadedModulesResult GetLoadedModules(uint cRequestedModules)
+        public GetLoadedModulesResult GetLoadedModules(int cRequestedModules)
         {
             HRESULT hr;
             GetLoadedModulesResult result;
@@ -417,13 +417,13 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cRequestedModules">[in] The number of modules for which information is requested.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetLoadedModules(uint cRequestedModules, out GetLoadedModulesResult result)
+        public HRESULT TryGetLoadedModules(int cRequestedModules, out GetLoadedModulesResult result)
         {
             /*HRESULT GetLoadedModules(
-            [In] uint cRequestedModules,
-            out uint pcFetchedModules,
+            [In] int cRequestedModules,
+            out int pcFetchedModules,
             [Out] IntPtr pLoadedModules);*/
-            uint pcFetchedModules;
+            int pcFetchedModules;
             IntPtr pLoadedModules = default(IntPtr);
             HRESULT hr = Raw3.GetLoadedModules(cRequestedModules, out pcFetchedModules, pLoadedModules);
 

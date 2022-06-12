@@ -33,7 +33,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
-        public GetMetadataResult GetMetadata(string imagePath, uint imageTimestamp, uint imageSize, Guid mvid, uint mdRva, uint flags, uint bufferSize)
+        public GetMetadataResult GetMetadata(string imagePath, int imageTimestamp, int imageSize, Guid mvid, int mdRva, int flags, int bufferSize)
         {
             HRESULT hr;
             GetMetadataResult result;
@@ -58,20 +58,20 @@ namespace ManagedCorDebug
         /// <remarks>
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
-        public HRESULT TryGetMetadata(string imagePath, uint imageTimestamp, uint imageSize, Guid mvid, uint mdRva, uint flags, uint bufferSize, out GetMetadataResult result)
+        public HRESULT TryGetMetadata(string imagePath, int imageTimestamp, int imageSize, Guid mvid, int mdRva, int flags, int bufferSize, out GetMetadataResult result)
         {
             /*HRESULT GetMetadata(
             [MarshalAs(UnmanagedType.LPWStr), In] string imagePath,
-            [In] uint imageTimestamp,
-            [In] uint imageSize,
+            [In] int imageTimestamp,
+            [In] int imageSize,
             [In] ref Guid mvid,
-            [In] uint mdRva,
-            [In] uint flags,
-            [In] uint bufferSize,
+            [In] int mdRva,
+            [In] int flags,
+            [In] int bufferSize,
             out IntPtr buffer,
-            out uint dataSize);*/
+            out int dataSize);*/
             IntPtr buffer;
-            uint dataSize;
+            int dataSize;
             HRESULT hr = Raw.GetMetadata(imagePath, imageTimestamp, imageSize, ref mvid, mdRva, flags, bufferSize, out buffer, out dataSize);
 
             if (hr == HRESULT.S_OK)

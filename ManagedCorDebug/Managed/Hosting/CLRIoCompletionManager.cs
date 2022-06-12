@@ -31,7 +31,7 @@ namespace ManagedCorDebug
         /// of <see cref="IHostIoCompletionManager"/>. The host then calls the OnComplete method to notify the runtime of the
         /// outcome of such requests.
         /// </remarks>
-        public void OnComplete(HRESULT dwErrorCode, uint numberOfBytesTransferred, IntPtr pvOverlapped)
+        public void OnComplete(HRESULT dwErrorCode, int numberOfBytesTransferred, IntPtr pvOverlapped)
         {
             HRESULT hr;
 
@@ -60,11 +60,11 @@ namespace ManagedCorDebug
         /// of <see cref="IHostIoCompletionManager"/>. The host then calls the OnComplete method to notify the runtime of the
         /// outcome of such requests.
         /// </remarks>
-        public HRESULT TryOnComplete(HRESULT dwErrorCode, uint numberOfBytesTransferred, IntPtr pvOverlapped)
+        public HRESULT TryOnComplete(HRESULT dwErrorCode, int numberOfBytesTransferred, IntPtr pvOverlapped)
         {
             /*HRESULT OnComplete(
             [In] HRESULT dwErrorCode,
-            [In] uint NumberOfBytesTransferred,
+            [In] int NumberOfBytesTransferred,
             [In] IntPtr pvOverlapped);*/
             return Raw.OnComplete(dwErrorCode, numberOfBytesTransferred, pvOverlapped);
         }

@@ -6,9 +6,9 @@ namespace ManagedCorDebug
     {
         public IntPtr LpBuffer { get; }
 
-        public uint RVA { get; }
+        public int RVA { get; }
 
-        public AllocateMethodBufferResult(IntPtr lpBuffer, uint rVA)
+        public AllocateMethodBufferResult(IntPtr lpBuffer, int rVA)
         {
             LpBuffer = lpBuffer;
             RVA = rVA;

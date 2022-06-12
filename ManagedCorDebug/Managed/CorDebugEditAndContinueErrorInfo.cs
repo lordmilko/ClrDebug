@@ -59,12 +59,12 @@ namespace ManagedCorDebug
         /// GetToken is obsolete. Do not call this method.
         /// </summary>
         [Obsolete]
-        public uint Token
+        public int Token
         {
             get
             {
                 HRESULT hr;
-                uint pToken;
+                int pToken;
 
                 if ((hr = TryGetToken(out pToken)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -77,9 +77,9 @@ namespace ManagedCorDebug
         /// GetToken is obsolete. Do not call this method.
         /// </summary>
         [Obsolete]
-        public HRESULT TryGetToken(out uint pToken)
+        public HRESULT TryGetToken(out int pToken)
         {
-            /*HRESULT GetToken(out uint pToken);*/
+            /*HRESULT GetToken(out int pToken);*/
             return Raw.GetToken(out pToken);
         }
 
@@ -138,9 +138,9 @@ namespace ManagedCorDebug
         [Obsolete]
         public HRESULT TryGetString(out string szStringResult)
         {
-            /*HRESULT GetString([In] uint cchString, out uint pcchString, [Out] StringBuilder szString);*/
-            uint cchString = 0;
-            uint pcchString;
+            /*HRESULT GetString([In] int cchString, out int pcchString, [Out] StringBuilder szString);*/
+            int cchString = 0;
+            int pcchString;
             StringBuilder szString = null;
             HRESULT hr = Raw.GetString(cchString, out pcchString, szString);
 
@@ -148,7 +148,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchString = pcchString;
-            szString = new StringBuilder((int) pcchString);
+            szString = new StringBuilder(pcchString);
             hr = Raw.GetString(cchString, out pcchString, szString);
 
             if (hr == HRESULT.S_OK)

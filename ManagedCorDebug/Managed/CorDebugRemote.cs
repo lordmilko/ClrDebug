@@ -40,7 +40,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Mixed-mode debugging is not supported in Silverlight.
         /// </remarks>
-        public CorDebugProcess CreateProcessEx(ICorDebugRemoteTarget pRemoteTarget, string lpApplicationName, string lpCommandLine, SECURITY_ATTRIBUTES lpProcessAttributes, SECURITY_ATTRIBUTES lpThreadAttributes, int bInheritHandles, uint dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, ulong lpStartupInfo, ulong lpProcessInformation, CorDebugCreateProcessFlags debuggingFlags)
+        public CorDebugProcess CreateProcessEx(ICorDebugRemoteTarget pRemoteTarget, string lpApplicationName, string lpCommandLine, SECURITY_ATTRIBUTES lpProcessAttributes, SECURITY_ATTRIBUTES lpThreadAttributes, int bInheritHandles, int dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, long lpStartupInfo, long lpProcessInformation, CorDebugCreateProcessFlags debuggingFlags)
         {
             HRESULT hr;
             CorDebugProcess ppProcessResult;
@@ -75,7 +75,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Mixed-mode debugging is not supported in Silverlight.
         /// </remarks>
-        public HRESULT TryCreateProcessEx(ICorDebugRemoteTarget pRemoteTarget, string lpApplicationName, string lpCommandLine, SECURITY_ATTRIBUTES lpProcessAttributes, SECURITY_ATTRIBUTES lpThreadAttributes, int bInheritHandles, uint dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, ulong lpStartupInfo, ulong lpProcessInformation, CorDebugCreateProcessFlags debuggingFlags, out CorDebugProcess ppProcessResult)
+        public HRESULT TryCreateProcessEx(ICorDebugRemoteTarget pRemoteTarget, string lpApplicationName, string lpCommandLine, SECURITY_ATTRIBUTES lpProcessAttributes, SECURITY_ATTRIBUTES lpThreadAttributes, int bInheritHandles, int dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, long lpStartupInfo, long lpProcessInformation, CorDebugCreateProcessFlags debuggingFlags, out CorDebugProcess ppProcessResult)
         {
             /*HRESULT CreateProcessEx(
             [MarshalAs(UnmanagedType.Interface), In]
@@ -85,11 +85,11 @@ namespace ManagedCorDebug
             [In] ref SECURITY_ATTRIBUTES lpProcessAttributes,
             [In] ref SECURITY_ATTRIBUTES lpThreadAttributes,
             [In] int bInheritHandles,
-            [In] uint dwCreationFlags,
+            [In] int dwCreationFlags,
             [In] IntPtr lpEnvironment,
             [MarshalAs(UnmanagedType.LPWStr), In] string lpCurrentDirectory,
-            [In] ulong lpStartupInfo,
-            [In] ulong lpProcessInformation,
+            [In] long lpStartupInfo,
+            [In] long lpProcessInformation,
             [In] CorDebugCreateProcessFlags debuggingFlags,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
             ICorDebugProcess ppProcess;
@@ -116,7 +116,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Mixed-mode debugging is not supported in Silverlight.
         /// </remarks>
-        public CorDebugProcess DebugActiveProcessEx(ICorDebugRemoteTarget pRemoteTarget, uint dwProcessId, int fWin32Attach)
+        public CorDebugProcess DebugActiveProcessEx(ICorDebugRemoteTarget pRemoteTarget, int dwProcessId, int fWin32Attach)
         {
             HRESULT hr;
             CorDebugProcess ppProcessResult;
@@ -141,12 +141,12 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Mixed-mode debugging is not supported in Silverlight.
         /// </remarks>
-        public HRESULT TryDebugActiveProcessEx(ICorDebugRemoteTarget pRemoteTarget, uint dwProcessId, int fWin32Attach, out CorDebugProcess ppProcessResult)
+        public HRESULT TryDebugActiveProcessEx(ICorDebugRemoteTarget pRemoteTarget, int dwProcessId, int fWin32Attach, out CorDebugProcess ppProcessResult)
         {
             /*HRESULT DebugActiveProcessEx(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugRemoteTarget pRemoteTarget,
-            [In] uint dwProcessId,
+            [In] int dwProcessId,
             [In] int fWin32Attach,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
             ICorDebugProcess ppProcess;

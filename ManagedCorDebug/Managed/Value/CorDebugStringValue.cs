@@ -22,12 +22,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the number of characters in the string referenced by this <see cref="ICorDebugStringValue"/>.
         /// </summary>
-        public uint Length
+        public int Length
         {
             get
             {
                 HRESULT hr;
-                uint pcchString;
+                int pcchString;
 
                 if ((hr = TryGetLength(out pcchString)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -40,9 +40,9 @@ namespace ManagedCorDebug
         /// Gets the number of characters in the string referenced by this <see cref="ICorDebugStringValue"/>.
         /// </summary>
         /// <param name="pcchString">[out] A pointer to a value that specifies the length of the string referenced by this <see cref="ICorDebugStringValue"/> object.</param>
-        public HRESULT TryGetLength(out uint pcchString)
+        public HRESULT TryGetLength(out int pcchString)
         {
-            /*HRESULT GetLength(out uint pcchString);*/
+            /*HRESULT GetLength(out int pcchString);*/
             return Raw.GetLength(out pcchString);
         }
 
@@ -70,9 +70,9 @@ namespace ManagedCorDebug
         /// <param name="szStringResult">[out] An array that stores the retrieved string.</param>
         public HRESULT TryGetString(out string szStringResult)
         {
-            /*HRESULT GetString([In] uint cchString, out uint pcchString, [Out] StringBuilder szString);*/
-            uint cchString = 0;
-            uint pcchString;
+            /*HRESULT GetString([In] int cchString, out int pcchString, [Out] StringBuilder szString);*/
+            int cchString = 0;
+            int pcchString;
             StringBuilder szString = null;
             HRESULT hr = Raw.GetString(cchString, out pcchString, szString);
 
@@ -80,7 +80,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchString = pcchString;
-            szString = new StringBuilder((int) pcchString);
+            szString = new StringBuilder(pcchString);
             hr = Raw.GetString(cchString, out pcchString, szString);
 
             if (hr == HRESULT.S_OK)

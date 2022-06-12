@@ -4,9 +4,9 @@ namespace ManagedCorDebug
     {
         public byte PBuffer { get; }
 
-        public uint PBytesRead { get; }
+        public int PBytesRead { get; }
 
-        public CorDebugDataTarget_ReadVirtualResult(byte pBuffer, uint pBytesRead)
+        public CorDebugDataTarget_ReadVirtualResult(byte pBuffer, int pBytesRead)
         {
             PBuffer = pBuffer;
             PBytesRead = pBytesRead;

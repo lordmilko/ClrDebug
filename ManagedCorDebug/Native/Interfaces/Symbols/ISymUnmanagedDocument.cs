@@ -24,8 +24,8 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetURL(
-            [In] uint cchUrl,
-            out uint pcchUrl,
+            [In] int cchUrl,
+            out int pcchUrl,
             [Out] StringBuilder szUrl);
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCheckSum([In] uint cData, out uint pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);
+        HRESULT GetCheckSum([In] int cData, out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);
 
         /// <summary>
         /// Returns the closest line that is a sequence point, given a line in this document that may or may not be a sequence point.
@@ -87,7 +87,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT FindClosestLine([In] uint line, [Out] out uint pRetVal);
+        HRESULT FindClosestLine([In] int line, [Out] out int pRetVal);
 
         /// <summary>
         /// Returns true if the document has source embedded in the debugging symbols; otherwise, returns false.
@@ -105,7 +105,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSourceLength([Out] out uint pRetVal);
+        HRESULT GetSourceLength([Out] out int pRetVal);
 
         /// <summary>
         /// Returns the specified range of the embedded source into the given buffer. The buffer must be large enough to hold the source.
@@ -121,12 +121,12 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSourceRange(
-            [In] uint startLine,
-            [In] uint startColumn,
-            [In] uint endLine,
-            [In] uint endColumn,
-            [In] uint cSourceBytes,
-            out uint pcSourceBytes,
+            [In] int startLine,
+            [In] int startColumn,
+            [In] int endLine,
+            [In] int endColumn,
+            [In] int cSourceBytes,
+            out int pcSourceBytes,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] source);
     }
 }

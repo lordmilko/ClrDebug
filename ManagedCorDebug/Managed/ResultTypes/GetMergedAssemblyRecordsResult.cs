@@ -4,11 +4,11 @@ namespace ManagedCorDebug
 {
     public struct GetMergedAssemblyRecordsResult
     {
-        public uint PcFetchedRecords { get; }
+        public int PcFetchedRecords { get; }
 
         public IntPtr PRecords { get; }
 
-        public GetMergedAssemblyRecordsResult(uint pcFetchedRecords, IntPtr pRecords)
+        public GetMergedAssemblyRecordsResult(int pcFetchedRecords, IntPtr pRecords)
         {
             PcFetchedRecords = pcFetchedRecords;
             PRecords = pRecords;

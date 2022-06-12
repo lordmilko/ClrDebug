@@ -77,17 +77,17 @@ namespace ManagedCorDebug
             IStream pCfgStream,
             [MarshalAs(UnmanagedType.LPWStr), In] [Out]
             StringBuilder pwzVersion,
-            [In] [Out] ref uint pcchVersion,
+            [In] [Out] ref int pcchVersion,
             [MarshalAs(UnmanagedType.LPWStr), Out]
             StringBuilder pwzImageVersion,
-            [In] [Out] ref uint pcchImageVersion,
+            [In] [Out] ref int pcchImageVersion,
             out METAHOST_CONFIG_FLAGS pdwConfigFlags,
             [In] ref Guid riid,
             [Out] out object ppRuntime);*/
             StringBuilder pwzVersion = null;
-            uint pcchVersion = default(uint);
+            int pcchVersion = default(int);
             StringBuilder pwzImageVersion = null;
-            uint pcchImageVersion = default(uint);
+            int pcchImageVersion = default(int);
             METAHOST_CONFIG_FLAGS pdwConfigFlags;
             object ppRuntime;
             HRESULT hr = Raw.GetRequestedRuntime(dwPolicyFlags, pwzBinary, pCfgStream, pwzVersion, ref pcchVersion, pwzImageVersion, ref pcchImageVersion, out pdwConfigFlags, ref riid, out ppRuntime);
@@ -95,8 +95,8 @@ namespace ManagedCorDebug
             if (hr != HRESULT.S_FALSE)
                 goto fail;
 
-            pwzVersion = new StringBuilder((int) pcchVersion);
-            pwzImageVersion = new StringBuilder((int) pcchImageVersion);
+            pwzVersion = new StringBuilder(pcchVersion);
+            pwzImageVersion = new StringBuilder(pcchImageVersion);
             hr = Raw.GetRequestedRuntime(dwPolicyFlags, pwzBinary, pCfgStream, pwzVersion, ref pcchVersion, pwzImageVersion, ref pcchImageVersion, out pdwConfigFlags, ref riid, out ppRuntime);
 
             if (hr == HRESULT.S_OK)

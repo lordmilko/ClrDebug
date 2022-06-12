@@ -8,9 +8,9 @@ namespace ManagedCorDebug
 
         public mdPermission[] RPermission { get; }
 
-        public uint PcTokens { get; }
+        public int PcTokens { get; }
 
-        public EnumPermissionSetsResult(IntPtr phEnum, mdPermission[] rPermission, uint pcTokens)
+        public EnumPermissionSetsResult(IntPtr phEnum, mdPermission[] rPermission, int pcTokens)
         {
             PhEnum = phEnum;
             RPermission = rPermission;

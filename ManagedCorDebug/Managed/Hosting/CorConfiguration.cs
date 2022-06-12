@@ -106,7 +106,7 @@ namespace ManagedCorDebug
         /// The specified thread will not be allowed to run managed code or enter the runtime in any way. An example of such
         /// a thread would be an in-process thread to support legacy script debuggers.
         /// </remarks>
-        public void AddDebuggerSpecialThread(uint dwSpecialThreadId)
+        public void AddDebuggerSpecialThread(int dwSpecialThreadId)
         {
             HRESULT hr;
 
@@ -122,9 +122,9 @@ namespace ManagedCorDebug
         /// The specified thread will not be allowed to run managed code or enter the runtime in any way. An example of such
         /// a thread would be an in-process thread to support legacy script debuggers.
         /// </remarks>
-        public HRESULT TryAddDebuggerSpecialThread(uint dwSpecialThreadId)
+        public HRESULT TryAddDebuggerSpecialThread(int dwSpecialThreadId)
         {
-            /*HRESULT AddDebuggerSpecialThread([In] uint dwSpecialThreadId);*/
+            /*HRESULT AddDebuggerSpecialThread([In] int dwSpecialThreadId);*/
             return Raw.AddDebuggerSpecialThread(dwSpecialThreadId);
         }
 

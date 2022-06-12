@@ -31,21 +31,21 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pFiberCookie">[in] Cookie that indicates the fiber to use.</param>
         [PreserveSig]
-        HRESULT SwitchInLogicalThreadState([In] ref uint pFiberCookie);
+        HRESULT SwitchInLogicalThreadState([In] ref int pFiberCookie);
 
         /// <summary>
         /// This method supports the .NET Framework infrastructure and is not intended to be used directly from your code.
         /// </summary>
         /// <param name="FiberCookie">[out] Cookie that indicates the fiber being switched out.</param>
         [PreserveSig]
-        HRESULT SwitchOutLogicalThreadState(out uint FiberCookie);
+        HRESULT SwitchOutLogicalThreadState(out int FiberCookie);
 
         /// <summary>
         /// Retrieves the number of locks that current thread holds. This method supports the .NET Framework infrastructure and is not intended to be used directly from your code.
         /// </summary>
         /// <param name="pCount">[out] A pointer to the number of locks that the current thread holds.</param>
         [PreserveSig]
-        HRESULT LocksHeldByLogicalThread(out uint pCount);
+        HRESULT LocksHeldByLogicalThread(out int pCount);
 
         /// <summary>
         /// Maps the specified file into memory. This method is obsolete.

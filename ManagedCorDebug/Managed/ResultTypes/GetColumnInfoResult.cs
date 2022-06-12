@@ -2,13 +2,13 @@ namespace ManagedCorDebug
 {
     public struct GetColumnInfoResult
     {
-        public uint PoCol { get; }
+        public int PoCol { get; }
 
-        public uint PcbCol { get; }
+        public int PcbCol { get; }
 
-        public uint PType { get; }
+        public int PType { get; }
 
-        public GetColumnInfoResult(uint poCol, uint pcbCol, uint pType)
+        public GetColumnInfoResult(int poCol, int pcbCol, int pType)
         {
             PoCol = poCol;
             PcbCol = pcbCol;

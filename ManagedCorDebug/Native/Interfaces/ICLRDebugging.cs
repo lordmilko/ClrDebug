@@ -47,7 +47,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT OpenVirtualProcess(
-            [In] ulong moduleBaseAddress,
+            [In] long moduleBaseAddress,
             [MarshalAs(UnmanagedType.IUnknown), In]
             object pDataTarget,
             [MarshalAs(UnmanagedType.Interface), In]

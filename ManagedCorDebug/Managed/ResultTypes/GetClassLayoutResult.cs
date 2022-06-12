@@ -2,13 +2,13 @@ namespace ManagedCorDebug
 {
     public struct GetClassLayoutResult
     {
-        public uint PdwPackSize { get; }
+        public int PdwPackSize { get; }
 
         public COR_FIELD_OFFSET[] RFieldOffset { get; }
 
-        public uint PulClassSize { get; }
+        public int PulClassSize { get; }
 
-        public GetClassLayoutResult(uint pdwPackSize, COR_FIELD_OFFSET[] rFieldOffset, uint pulClassSize)
+        public GetClassLayoutResult(int pdwPackSize, COR_FIELD_OFFSET[] rFieldOffset, int pulClassSize)
         {
             PdwPackSize = pdwPackSize;
             RFieldOffset = rFieldOffset;

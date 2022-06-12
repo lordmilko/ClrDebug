@@ -8,9 +8,9 @@ namespace ManagedCorDebug
 
         public mdFieldDef[] RFields { get; }
 
-        public uint PcTokens { get; }
+        public int PcTokens { get; }
 
-        public EnumFieldsWithNameResult(IntPtr phEnum, mdFieldDef[] rFields, uint pcTokens)
+        public EnumFieldsWithNameResult(IntPtr phEnum, mdFieldDef[] rFields, int pcTokens)
         {
             PhEnum = phEnum;
             RFields = rFields;

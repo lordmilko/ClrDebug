@@ -6,9 +6,9 @@ namespace ManagedCorDebug
     {
         public IntPtr PpbPublicKey { get; }
 
-        public uint PcbPublicKey { get; }
+        public int PcbPublicKey { get; }
 
-        public uint PulHashAlgId { get; }
+        public int PulHashAlgId { get; }
 
         public string SzName { get; }
 
@@ -16,7 +16,7 @@ namespace ManagedCorDebug
 
         public CorAssemblyFlags PdwAssemblyFlags { get; }
 
-        public GetAssemblyPropsResult(IntPtr ppbPublicKey, uint pcbPublicKey, uint pulHashAlgId, string szName, ASSEMBLYMETADATA pMetaData, CorAssemblyFlags pdwAssemblyFlags)
+        public GetAssemblyPropsResult(IntPtr ppbPublicKey, int pcbPublicKey, int pulHashAlgId, string szName, ASSEMBLYMETADATA pMetaData, CorAssemblyFlags pdwAssemblyFlags)
         {
             PpbPublicKey = ppbPublicKey;
             PcbPublicKey = pcbPublicKey;

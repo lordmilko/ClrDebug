@@ -2,11 +2,11 @@ namespace ManagedCorDebug
 {
     public struct GetPublicKeyTokenResult
     {
-        public uint PcbPublicKeyToken { get; }
+        public int PcbPublicKeyToken { get; }
 
         public byte[] PbPublicKeyToken { get; }
 
-        public GetPublicKeyTokenResult(uint pcbPublicKeyToken, byte[] pbPublicKeyToken)
+        public GetPublicKeyTokenResult(int pcbPublicKeyToken, byte[] pbPublicKeyToken)
         {
             PcbPublicKeyToken = pcbPublicKeyToken;
             PbPublicKeyToken = pbPublicKeyToken;

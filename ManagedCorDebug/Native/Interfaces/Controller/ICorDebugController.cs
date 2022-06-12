@@ -32,7 +32,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Stop([In] uint dwTimeoutIgnored);
+        HRESULT Stop([In] int dwTimeoutIgnored);
 
         /// <summary>
         /// Resumes execution of managed threads after a call to <see cref="Stop"/>.
@@ -132,7 +132,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Terminate([In] uint exitCode);
+        HRESULT Terminate([In] int exitCode);
 
         /// <summary>
         /// CanCommitChanges is obsolete. Do not call this method.
@@ -141,7 +141,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CanCommitChanges(
-            [In] uint cSnapshots,
+            [In] int cSnapshots,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugEditAndContinueSnapshot pSnapshots,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugErrorInfoEnum pError);
@@ -153,7 +153,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CommitChanges(
-            [In] uint cSnapshots,
+            [In] int cSnapshots,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugEditAndContinueSnapshot pSnapshots,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugErrorInfoEnum pError);

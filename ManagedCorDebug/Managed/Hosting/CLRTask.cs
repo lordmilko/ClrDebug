@@ -438,10 +438,10 @@ namespace ManagedCorDebug
         /// Gets the number of locks currently held on the task.
         /// </summary>
         /// <returns>[out] The number of locks held on the task at the time of the method call.</returns>
-        public uint LocksHeld()
+        public int LocksHeld()
         {
             HRESULT hr;
-            uint pLockCount;
+            int pLockCount;
 
             if ((hr = TryLocksHeld(out pLockCount)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -463,9 +463,9 @@ namespace ManagedCorDebug
         /// | HOST_E_ABANDONED       | An event was canceled while a blocked thread or fiber was waiting on it.                                                                                                                   |
         /// | E_FAIL                 | An unknown catastrophic failure occurred. When a method returns E_FAIL, the CLR is no longer usable within the process. Subsequent calls to hosting methods return HOST_E_CLRNOTAVAILABLE. |
         /// </returns>
-        public HRESULT TryLocksHeld(out uint pLockCount)
+        public HRESULT TryLocksHeld(out int pLockCount)
         {
-            /*HRESULT LocksHeld([Out] out uint pLockCount);*/
+            /*HRESULT LocksHeld([Out] out int pLockCount);*/
             return Raw.LocksHeld(out pLockCount);
         }
 
@@ -482,7 +482,7 @@ namespace ManagedCorDebug
         /// use this identifier to associate a CLR call stack with a host call stack, and enable their respective trace information
         /// to be unified when viewed in the debugger's user interface.
         /// </remarks>
-        public void SetTaskIdentifier(ulong asked)
+        public void SetTaskIdentifier(long asked)
         {
             HRESULT hr;
 
@@ -510,9 +510,9 @@ namespace ManagedCorDebug
         /// use this identifier to associate a CLR call stack with a host call stack, and enable their respective trace information
         /// to be unified when viewed in the debugger's user interface.
         /// </remarks>
-        public HRESULT TrySetTaskIdentifier(ulong asked)
+        public HRESULT TrySetTaskIdentifier(long asked)
         {
-            /*HRESULT SetTaskIdentifier([In] ulong asked);*/
+            /*HRESULT SetTaskIdentifier([In] long asked);*/
             return Raw.SetTaskIdentifier(asked);
         }
 

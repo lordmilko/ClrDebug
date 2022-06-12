@@ -27,8 +27,8 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT DefineAssembly(
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] pbPublicKey,
-            uint cbPublicKey,
-            uint ulHashAlgId,
+            int cbPublicKey,
+            int ulHashAlgId,
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
             IntPtr pMetaData,
             CorAssemblyFlags dwAssemblyFlags,
@@ -53,13 +53,13 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT DefineAssemblyRef(
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] pbPublicKeyOrToken,
-            uint cbPublicKeyOrToken,
+            int cbPublicKeyOrToken,
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] ASSEMBLYMETADATA pMetaData,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] pbHashValue,
-            uint cbHashValue,
+            int cbHashValue,
             CorAssemblyFlags dwAssemblyRefFlags,
-            out uint assemblyRefToken);
+            out int assemblyRefToken);
 
         /// <summary>
         /// Creates a File metadata structure containing metadata for assembly referenced by this assembly, and returns the associated metadata token.
@@ -77,9 +77,9 @@ namespace ManagedCorDebug
         HRESULT DefineFile(
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] pbHashValue,
-            uint cbHashValue,
-            uint dwFileFlags,
-            out uint fileToken);
+            int cbHashValue,
+            int dwFileFlags,
+            out int fileToken);
 
         /// <summary>
         /// Creates an ExportedType structure containing metadata for the specified exported type, and returns the associated metadata token.
@@ -98,8 +98,8 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
             mdToken tkImplementation,
             mdTypeDef tkTypeDef,
-            uint dwExportedTypeFlags,
-            out uint pmdct);
+            int dwExportedTypeFlags,
+            out int pmdct);
 
         /// <summary>
         /// Creates a ManifestResource structure containing metadata for the specified manifest resource, and returns the associated metadata token.
@@ -118,9 +118,9 @@ namespace ManagedCorDebug
         HRESULT DefineManifestResource(
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
             mdToken tkImplementation,
-            uint dwOffset,
-            uint dwResourceFlags,
-            out uint pmdmr);
+            int dwOffset,
+            int dwResourceFlags,
+            out int pmdmr);
 
         /// <summary>
         /// Modifies the specified Assembly metadata structure.
@@ -136,13 +136,13 @@ namespace ManagedCorDebug
         /// To create an Assembly metadata structure, use the <see cref="DefineAssembly"/> method.
         /// </remarks>
         [PreserveSig]
-        HRESULT SetAssemblyProps(uint pma,
+        HRESULT SetAssemblyProps(int pma,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] pbPublicKey,
-            uint cbPublicKey,
-            uint ulHashAlgId,
+            int cbPublicKey,
+            int ulHashAlgId,
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
             IntPtr pMetaData,
-            uint dwAssemblyFlags);
+            int dwAssemblyFlags);
 
         /// <summary>
         /// Modifies the specified AssemblyRef metadata structure.
@@ -160,12 +160,12 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT SetAssemblyRefProps(
-            uint ar,
+            int ar,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)]
-            byte[] pbPublicKeyOrToken, uint cbPublicKeyOrToken, [MarshalAs(UnmanagedType.LPWStr)] string szName, IntPtr pMetaData,
+            byte[] pbPublicKeyOrToken, int cbPublicKeyOrToken, [MarshalAs(UnmanagedType.LPWStr)] string szName, IntPtr pMetaData,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)]
             byte[] pbHashValue,
-            uint cbHashValue,
+            int cbHashValue,
             AssemblyRefFlags dwAssemblyRefFlags);
 
         /// <summary>
@@ -180,10 +180,10 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT SetFileProps(
-            uint file,
+            int file,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] pbHashValue,
-            uint cbHashValue,
-            uint dwFileFlags);
+            int cbHashValue,
+            int dwFileFlags);
 
         /// <summary>
         /// Modifies the specified ExportedType metadata structure.
@@ -197,10 +197,10 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT SetExportedTypeProps(
-            uint ct,
+            int ct,
             mdToken tkImplementation,
             mdTypeDef tkTypeDef,
-            uint dwExportedTypeFlags);
+            int dwExportedTypeFlags);
 
         /// <summary>
         /// Modifies the specified ManifestResource metadata structure.
@@ -214,10 +214,10 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT SetManifestResourceProps(
-            uint mr,
+            int mr,
             mdToken tkImplementation,
-            uint dwOffset,
-            uint dwResourceFlags);
+            int dwOffset,
+            int dwResourceFlags);
 
     };
 }

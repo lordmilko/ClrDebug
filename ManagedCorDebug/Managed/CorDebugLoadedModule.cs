@@ -23,12 +23,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the base address of the loaded module.
         /// </summary>
-        public ulong BaseAddress
+        public long BaseAddress
         {
             get
             {
                 HRESULT hr;
-                ulong pAddress;
+                long pAddress;
 
                 if ((hr = TryGetBaseAddress(out pAddress)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -41,9 +41,9 @@ namespace ManagedCorDebug
         /// Gets the base address of the loaded module.
         /// </summary>
         /// <param name="pAddress">[out] A pointer to the base address of the loaded module.</param>
-        public HRESULT TryGetBaseAddress(out ulong pAddress)
+        public HRESULT TryGetBaseAddress(out long pAddress)
         {
-            /*HRESULT GetBaseAddress(out ulong pAddress);*/
+            /*HRESULT GetBaseAddress(out long pAddress);*/
             return Raw.GetBaseAddress(out pAddress);
         }
 
@@ -53,12 +53,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the size in bytes of the loaded module.
         /// </summary>
-        public uint Size
+        public int Size
         {
             get
             {
                 HRESULT hr;
-                uint pcBytes;
+                int pcBytes;
 
                 if ((hr = TryGetSize(out pcBytes)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -71,9 +71,9 @@ namespace ManagedCorDebug
         /// Gets the size in bytes of the loaded module.
         /// </summary>
         /// <param name="pcBytes">[out] A pointer to the number of bytes in the loaded module.</param>
-        public HRESULT TryGetSize(out uint pcBytes)
+        public HRESULT TryGetSize(out int pcBytes)
         {
-            /*HRESULT GetSize(out uint pcBytes);*/
+            /*HRESULT GetSize(out int pcBytes);*/
             return Raw.GetSize(out pcBytes);
         }
 
@@ -101,9 +101,9 @@ namespace ManagedCorDebug
         /// <param name="szNameResult">[out] An array of characters that contain the name of the loaded module.</param>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);*/
-            uint cchName = 0;
-            uint pcchName;
+            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            int cchName = 0;
+            int pcchName;
             StringBuilder szName = null;
             HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
 
@@ -111,7 +111,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder((int) pcchName);
+            szName = new StringBuilder(pcchName);
             hr = Raw.GetName(cchName, out pcchName, szName);
 
             if (hr == HRESULT.S_OK)

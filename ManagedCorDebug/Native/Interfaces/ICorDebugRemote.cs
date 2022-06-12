@@ -50,11 +50,11 @@ namespace ManagedCorDebug
             [In] ref SECURITY_ATTRIBUTES lpProcessAttributes,
             [In] ref SECURITY_ATTRIBUTES lpThreadAttributes,
             [In] int bInheritHandles,
-            [In] uint dwCreationFlags,
+            [In] int dwCreationFlags,
             [In] IntPtr lpEnvironment,
             [MarshalAs(UnmanagedType.LPWStr), In] string lpCurrentDirectory,
-            [In] ulong lpStartupInfo,
-            [In] ulong lpProcessInformation,
+            [In] long lpStartupInfo,
+            [In] long lpProcessInformation,
             [In] CorDebugCreateProcessFlags debuggingFlags,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
@@ -77,7 +77,7 @@ namespace ManagedCorDebug
         HRESULT DebugActiveProcessEx(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugRemoteTarget pRemoteTarget,
-            [In] uint dwProcessId,
+            [In] int dwProcessId,
             [In] int fWin32Attach,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
     }

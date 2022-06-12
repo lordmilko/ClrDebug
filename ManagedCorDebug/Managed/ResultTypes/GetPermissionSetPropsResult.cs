@@ -4,13 +4,13 @@ namespace ManagedCorDebug
 {
     public struct GetPermissionSetPropsResult
     {
-        public uint PdwAction { get; }
+        public int PdwAction { get; }
 
         public IntPtr PpvPermission { get; }
 
-        public uint PcbPermission { get; }
+        public int PcbPermission { get; }
 
-        public GetPermissionSetPropsResult(uint pdwAction, IntPtr ppvPermission, uint pcbPermission)
+        public GetPermissionSetPropsResult(int pdwAction, IntPtr ppvPermission, int pcbPermission)
         {
             PdwAction = pdwAction;
             PpvPermission = ppvPermission;

@@ -81,12 +81,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the first address field for this variable. Its meaning depends on the kind of address.
         /// </summary>
-        public uint AddressField1
+        public int AddressField1
         {
             get
             {
                 HRESULT hr;
-                uint pRetVal;
+                int pRetVal;
 
                 if ((hr = TryGetAddressField1(out pRetVal)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -100,9 +100,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the first address field.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetAddressField1(out uint pRetVal)
+        public HRESULT TryGetAddressField1(out int pRetVal)
         {
-            /*HRESULT GetAddressField1([Out] out uint pRetVal);*/
+            /*HRESULT GetAddressField1([Out] out int pRetVal);*/
             return Raw.GetAddressField1(out pRetVal);
         }
 
@@ -112,12 +112,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the second address field for this variable. Its meaning depends on the kind of address.
         /// </summary>
-        public uint AddressField2
+        public int AddressField2
         {
             get
             {
                 HRESULT hr;
-                uint pRetVal;
+                int pRetVal;
 
                 if ((hr = TryGetAddressField2(out pRetVal)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -131,9 +131,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the second address field.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetAddressField2(out uint pRetVal)
+        public HRESULT TryGetAddressField2(out int pRetVal)
         {
-            /*HRESULT GetAddressField2([Out] out uint pRetVal);*/
+            /*HRESULT GetAddressField2([Out] out int pRetVal);*/
             return Raw.GetAddressField2(out pRetVal);
         }
 
@@ -143,12 +143,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the third address field for this variable. Its meaning depends on the kind of address.
         /// </summary>
-        public uint AddressField3
+        public int AddressField3
         {
             get
             {
                 HRESULT hr;
-                uint pRetVal;
+                int pRetVal;
 
                 if ((hr = TryGetAddressField3(out pRetVal)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -162,9 +162,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the third address field.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetAddressField3(out uint pRetVal)
+        public HRESULT TryGetAddressField3(out int pRetVal)
         {
-            /*HRESULT GetAddressField3([Out] out uint pRetVal);*/
+            /*HRESULT GetAddressField3([Out] out int pRetVal);*/
             return Raw.GetAddressField3(out pRetVal);
         }
 
@@ -174,12 +174,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the start offset of this variable within its parent. If this is a local variable within a scope, the start offset will fall within the offsets defined for the scope.
         /// </summary>
-        public uint StartOffset
+        public int StartOffset
         {
             get
             {
                 HRESULT hr;
-                uint pRetVal;
+                int pRetVal;
 
                 if ((hr = TryGetStartOffset(out pRetVal)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -193,9 +193,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the start offset.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetStartOffset(out uint pRetVal)
+        public HRESULT TryGetStartOffset(out int pRetVal)
         {
-            /*HRESULT GetStartOffset([Out] out uint pRetVal);*/
+            /*HRESULT GetStartOffset([Out] out int pRetVal);*/
             return Raw.GetStartOffset(out pRetVal);
         }
 
@@ -205,12 +205,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the end offset of this variable within its parent. If this is a local variable within a scope, the end offset will fall within the offsets defined for the scope.
         /// </summary>
-        public uint EndOffset
+        public int EndOffset
         {
             get
             {
                 HRESULT hr;
-                uint pRetVal;
+                int pRetVal;
 
                 if ((hr = TryGetEndOffset(out pRetVal)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -224,9 +224,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the end offset.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetEndOffset(out uint pRetVal)
+        public HRESULT TryGetEndOffset(out int pRetVal)
         {
-            /*HRESULT GetEndOffset([Out] out uint pRetVal);*/
+            /*HRESULT GetEndOffset([Out] out int pRetVal);*/
             return Raw.GetEndOffset(out pRetVal);
         }
 
@@ -255,9 +255,9 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);*/
-            uint cchName = 0;
-            uint pcchName;
+            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            int cchName = 0;
+            int pcchName;
             StringBuilder szName = null;
             HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
 
@@ -265,7 +265,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder((int) pcchName);
+            szName = new StringBuilder(pcchName);
             hr = Raw.GetName(cchName, out pcchName, szName);
 
             if (hr == HRESULT.S_OK)
@@ -289,7 +289,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cSig">[in] The length of the buffer pointed to by the sig parameter.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetSignatureResult GetSignature(uint cSig)
+        public GetSignatureResult GetSignature(int cSig)
         {
             HRESULT hr;
             GetSignatureResult result;
@@ -306,10 +306,10 @@ namespace ManagedCorDebug
         /// <param name="cSig">[in] The length of the buffer pointed to by the sig parameter.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSignature(uint cSig, out GetSignatureResult result)
+        public HRESULT TryGetSignature(int cSig, out GetSignatureResult result)
         {
-            /*HRESULT GetSignature([In] uint cSig, out uint pcSig, [MarshalAs(UnmanagedType.LPArray), Out] byte[] sig);*/
-            uint pcSig;
+            /*HRESULT GetSignature([In] int cSig, out int pcSig, [MarshalAs(UnmanagedType.LPArray), Out] byte[] sig);*/
+            int pcSig;
             byte[] sig = null;
             HRESULT hr = Raw.GetSignature(cSig, out pcSig, sig);
 

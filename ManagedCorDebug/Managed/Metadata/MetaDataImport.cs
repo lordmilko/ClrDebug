@@ -78,10 +78,10 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The handle specified by hEnum is obtained from a previous EnumName call (for example, <see cref="EnumTypeDefs"/>).
         /// </remarks>
-        public uint CountEnum(IntPtr hEnum)
+        public int CountEnum(IntPtr hEnum)
         {
             HRESULT hr;
-            uint pulCount;
+            int pulCount;
 
             if ((hr = TryCountEnum(hEnum, out pulCount)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -97,9 +97,9 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The handle specified by hEnum is obtained from a previous EnumName call (for example, <see cref="EnumTypeDefs"/>).
         /// </remarks>
-        public HRESULT TryCountEnum(IntPtr hEnum, out uint pulCount)
+        public HRESULT TryCountEnum(IntPtr hEnum, out int pulCount)
         {
-            /*HRESULT CountEnum([In] IntPtr hEnum, [Out] out uint pulCount);*/
+            /*HRESULT CountEnum([In] IntPtr hEnum, [Out] out int pulCount);*/
             return Raw.CountEnum(hEnum, out pulCount);
         }
 
@@ -111,7 +111,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="hEnum">[in] The enumerator to reset.</param>
         /// <param name="ulPos">[in] The new position at which to place the enumerator.</param>
-        public void ResetEnum(IntPtr hEnum, uint ulPos)
+        public void ResetEnum(IntPtr hEnum, int ulPos)
         {
             HRESULT hr;
 
@@ -124,9 +124,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="hEnum">[in] The enumerator to reset.</param>
         /// <param name="ulPos">[in] The new position at which to place the enumerator.</param>
-        public HRESULT TryResetEnum(IntPtr hEnum, uint ulPos)
+        public HRESULT TryResetEnum(IntPtr hEnum, int ulPos)
         {
-            /*HRESULT ResetEnum([In] IntPtr hEnum, [In] uint ulPos);*/
+            /*HRESULT ResetEnum([In] IntPtr hEnum, [In] int ulPos);*/
             return Raw.ResetEnum(hEnum, ulPos);
         }
 
@@ -142,7 +142,7 @@ namespace ManagedCorDebug
         /// The TypeDef token represents a type such as a class or an interface, as well as any type added via an extensibility
         /// mechanism.
         /// </remarks>
-        public EnumTypeDefsResult EnumTypeDefs(uint cMax)
+        public EnumTypeDefsResult EnumTypeDefs(int cMax)
         {
             HRESULT hr;
             EnumTypeDefsResult result;
@@ -168,16 +168,16 @@ namespace ManagedCorDebug
         /// The TypeDef token represents a type such as a class or an interface, as well as any type added via an extensibility
         /// mechanism.
         /// </remarks>
-        public HRESULT TryEnumTypeDefs(uint cMax, out EnumTypeDefsResult result)
+        public HRESULT TryEnumTypeDefs(int cMax, out EnumTypeDefsResult result)
         {
             /*HRESULT EnumTypeDefs(
             [In, Out] ref IntPtr phEnum,
             [Out] out mdTypeDef[] typeDefs,
-            [In] uint cMax,
-            [Out] out uint pcTypeDefs);*/
+            [In] int cMax,
+            [Out] out int pcTypeDefs);*/
             IntPtr phEnum = default(IntPtr);
             mdTypeDef[] typeDefs;
-            uint pcTypeDefs;
+            int pcTypeDefs;
             HRESULT hr = Raw.EnumTypeDefs(ref phEnum, out typeDefs, cMax, out pcTypeDefs);
 
             if (hr == HRESULT.S_OK)
@@ -202,7 +202,7 @@ namespace ManagedCorDebug
         /// TypeDef. Interface tokens are returned in the order the interfaces were specified (through DefineTypeDef or SetTypeDefProps).
         /// Properties of the returned <see cref="mdInterfaceImpl"/> tokens can be queried using <see cref="GetInterfaceImplProps"/>.
         /// </remarks>
-        public EnumInterfaceImplsResult EnumInterfaceImpls(mdTypeDef td, uint cMax)
+        public EnumInterfaceImplsResult EnumInterfaceImpls(mdTypeDef td, int cMax)
         {
             HRESULT hr;
             EnumInterfaceImplsResult result;
@@ -230,17 +230,17 @@ namespace ManagedCorDebug
         /// TypeDef. Interface tokens are returned in the order the interfaces were specified (through DefineTypeDef or SetTypeDefProps).
         /// Properties of the returned <see cref="mdInterfaceImpl"/> tokens can be queried using <see cref="GetInterfaceImplProps"/>.
         /// </remarks>
-        public HRESULT TryEnumInterfaceImpls(mdTypeDef td, uint cMax, out EnumInterfaceImplsResult result)
+        public HRESULT TryEnumInterfaceImpls(mdTypeDef td, int cMax, out EnumInterfaceImplsResult result)
         {
             /*HRESULT EnumInterfaceImpls(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef td,
             [Out] out mdInterfaceImpl[] rImpls,
-            [In] uint cMax,
-            [Out] out uint pcImpls);*/
+            [In] int cMax,
+            [Out] out int pcImpls);*/
             IntPtr phEnum = default(IntPtr);
             mdInterfaceImpl[] rImpls;
-            uint pcImpls;
+            int pcImpls;
             HRESULT hr = Raw.EnumInterfaceImpls(ref phEnum, td, out rImpls, cMax, out pcImpls);
 
             if (hr == HRESULT.S_OK)
@@ -262,7 +262,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// A TypeRef token represents a reference to a type.
         /// </remarks>
-        public EnumTypeRefsResult EnumTypeRefs(uint cMax)
+        public EnumTypeRefsResult EnumTypeRefs(int cMax)
         {
             HRESULT hr;
             EnumTypeRefsResult result;
@@ -287,16 +287,16 @@ namespace ManagedCorDebug
         /// <remarks>
         /// A TypeRef token represents a reference to a type.
         /// </remarks>
-        public HRESULT TryEnumTypeRefs(uint cMax, out EnumTypeRefsResult result)
+        public HRESULT TryEnumTypeRefs(int cMax, out EnumTypeRefsResult result)
         {
             /*HRESULT EnumTypeRefs(
             [In, Out] ref IntPtr phEnum,
             [Out] out mdTypeRef[] rTypeRefs,
-            [In] uint cMax,
-            [Out] out uint pcTypeRefs);*/
+            [In] int cMax,
+            [Out] out int pcTypeRefs);*/
             IntPtr phEnum = default(IntPtr);
             mdTypeRef[] rTypeRefs;
-            uint pcTypeRefs;
+            int pcTypeRefs;
             HRESULT hr = Raw.EnumTypeRefs(ref phEnum, out rTypeRefs, cMax, out pcTypeRefs);
 
             if (hr == HRESULT.S_OK)
@@ -655,7 +655,7 @@ namespace ManagedCorDebug
         /// the language or compiler that emitted the original metadata. Properties and events are not enumerated by EnumMembers.
         /// To enumerate those, use <see cref="EnumProperties"/> or <see cref="EnumEvents"/>.
         /// </remarks>
-        public EnumMembersResult EnumMembers(mdTypeDef cl, uint cMax)
+        public EnumMembersResult EnumMembers(mdTypeDef cl, int cMax)
         {
             HRESULT hr;
             EnumMembersResult result;
@@ -686,17 +686,17 @@ namespace ManagedCorDebug
         /// the language or compiler that emitted the original metadata. Properties and events are not enumerated by EnumMembers.
         /// To enumerate those, use <see cref="EnumProperties"/> or <see cref="EnumEvents"/>.
         /// </remarks>
-        public HRESULT TryEnumMembers(mdTypeDef cl, uint cMax, out EnumMembersResult result)
+        public HRESULT TryEnumMembers(mdTypeDef cl, int cMax, out EnumMembersResult result)
         {
             /*HRESULT EnumMembers(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
             [Out] out mdToken[] rMembers,
-            [In] uint cMax,
-            [Out] out uint pcTokens);*/
+            [In] int cMax,
+            [Out] out int pcTokens);*/
             IntPtr phEnum = default(IntPtr);
             mdToken[] rMembers;
-            uint pcTokens;
+            int pcTokens;
             HRESULT hr = Raw.EnumMembers(ref phEnum, cl, out rMembers, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
@@ -721,7 +721,7 @@ namespace ManagedCorDebug
         /// This method enumerates fields and methods, but not properties or events. Unlike <see cref="EnumMembers"/>, EnumMembersWithName
         /// discards all field and member tokens that do not have the specified name.
         /// </remarks>
-        public EnumMembersWithNameResult EnumMembersWithName(mdTypeDef cl, string szName, uint cMax)
+        public EnumMembersWithNameResult EnumMembersWithName(mdTypeDef cl, string szName, int cMax)
         {
             HRESULT hr;
             EnumMembersWithNameResult result;
@@ -749,18 +749,18 @@ namespace ManagedCorDebug
         /// This method enumerates fields and methods, but not properties or events. Unlike <see cref="EnumMembers"/>, EnumMembersWithName
         /// discards all field and member tokens that do not have the specified name.
         /// </remarks>
-        public HRESULT TryEnumMembersWithName(mdTypeDef cl, string szName, uint cMax, out EnumMembersWithNameResult result)
+        public HRESULT TryEnumMembersWithName(mdTypeDef cl, string szName, int cMax, out EnumMembersWithNameResult result)
         {
             /*HRESULT EnumMembersWithName(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
             [Out] out mdToken[] rMembers,
-            [In] uint cMax,
-            [Out] out uint pcTokens);*/
+            [In] int cMax,
+            [Out] out int pcTokens);*/
             IntPtr phEnum = default(IntPtr);
             mdToken[] rMembers;
-            uint pcTokens;
+            int pcTokens;
             HRESULT hr = Raw.EnumMembersWithName(ref phEnum, cl, szName, out rMembers, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
@@ -780,7 +780,7 @@ namespace ManagedCorDebug
         /// <param name="cl">[in] A TypeDef token representing the type with the methods to enumerate.</param>
         /// <param name="cMax">[in] The maximum size of the MethodDef rMethods array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumMethodsResult EnumMethods(mdTypeDef cl, uint cMax)
+        public EnumMethodsResult EnumMethods(mdTypeDef cl, int cMax)
         {
             HRESULT hr;
             EnumMethodsResult result;
@@ -803,17 +803,17 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumMethods returned successfully.                                          |
         /// | S_FALSE | There are no MethodDef tokens to enumerate. In that case, pcTokens is zero. |
         /// </returns>
-        public HRESULT TryEnumMethods(mdTypeDef cl, uint cMax, out EnumMethodsResult result)
+        public HRESULT TryEnumMethods(mdTypeDef cl, int cMax, out EnumMethodsResult result)
         {
             /*HRESULT EnumMethods(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
             [Out] out mdMethodDef[] rMethods,
-            [In] uint cMax,
-            [Out] out uint pcTokens);*/
+            [In] int cMax,
+            [Out] out int pcTokens);*/
             IntPtr phEnum = default(IntPtr);
             mdMethodDef[] rMethods;
-            uint pcTokens;
+            int pcTokens;
             HRESULT hr = Raw.EnumMethods(ref phEnum, cl, out rMethods, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
@@ -837,7 +837,7 @@ namespace ManagedCorDebug
         /// This method enumerates fields and methods, but not properties or events. Unlike <see cref="EnumMethods"/>, EnumMethodsWithName
         /// discards all method tokens that do not have the specified name.
         /// </remarks>
-        public EnumMethodsWithNameResult EnumMethodsWithName(mdTypeDef cl, uint cMax)
+        public EnumMethodsWithNameResult EnumMethodsWithName(mdTypeDef cl, int cMax)
         {
             HRESULT hr;
             EnumMethodsWithNameResult result;
@@ -864,19 +864,19 @@ namespace ManagedCorDebug
         /// This method enumerates fields and methods, but not properties or events. Unlike <see cref="EnumMethods"/>, EnumMethodsWithName
         /// discards all method tokens that do not have the specified name.
         /// </remarks>
-        public HRESULT TryEnumMethodsWithName(mdTypeDef cl, uint cMax, out EnumMethodsWithNameResult result)
+        public HRESULT TryEnumMethodsWithName(mdTypeDef cl, int cMax, out EnumMethodsWithNameResult result)
         {
             /*HRESULT EnumMethodsWithName(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
             [Out, MarshalAs(UnmanagedType.LPWStr), In] string szName,
             [Out] out mdMethodDef[] rMethods,
-            [In] uint cMax,
-            [Out] out uint pcTokens);*/
+            [In] int cMax,
+            [Out] out int pcTokens);*/
             IntPtr phEnum = default(IntPtr);
             string szName = default(string);
             mdMethodDef[] rMethods;
-            uint pcTokens;
+            int pcTokens;
             HRESULT hr = Raw.EnumMethodsWithName(ref phEnum, cl, szName, out rMethods, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
@@ -896,7 +896,7 @@ namespace ManagedCorDebug
         /// <param name="cl">[in] The TypeDef token of the class whose fields are to be enumerated.</param>
         /// <param name="cMax">[in] The maximum size of the rFields array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumFieldsResult EnumFields(mdTypeDef cl, uint cMax)
+        public EnumFieldsResult EnumFields(mdTypeDef cl, int cMax)
         {
             HRESULT hr;
             EnumFieldsResult result;
@@ -919,17 +919,17 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumFields returned successfully.                                 |
         /// | S_FALSE | There are no fields to enumerate. In that case, pcTokens is zero. |
         /// </returns>
-        public HRESULT TryEnumFields(mdTypeDef cl, uint cMax, out EnumFieldsResult result)
+        public HRESULT TryEnumFields(mdTypeDef cl, int cMax, out EnumFieldsResult result)
         {
             /*HRESULT EnumFields(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
             [Out] out mdFieldDef[] rFields,
-            [In] uint cMax,
-            [Out] out uint pcTokens);*/
+            [In] int cMax,
+            [Out] out int pcTokens);*/
             IntPtr phEnum = default(IntPtr);
             mdFieldDef[] rFields;
-            uint pcTokens;
+            int pcTokens;
             HRESULT hr = Raw.EnumFields(ref phEnum, cl, out rFields, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
@@ -953,7 +953,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Unlike <see cref="EnumFields"/>, EnumFieldsWithName discards all field tokens that do not have the specified name.
         /// </remarks>
-        public EnumFieldsWithNameResult EnumFieldsWithName(mdTypeDef cl, string szName, uint cMax)
+        public EnumFieldsWithNameResult EnumFieldsWithName(mdTypeDef cl, string szName, int cMax)
         {
             HRESULT hr;
             EnumFieldsWithNameResult result;
@@ -980,18 +980,18 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Unlike <see cref="EnumFields"/>, EnumFieldsWithName discards all field tokens that do not have the specified name.
         /// </remarks>
-        public HRESULT TryEnumFieldsWithName(mdTypeDef cl, string szName, uint cMax, out EnumFieldsWithNameResult result)
+        public HRESULT TryEnumFieldsWithName(mdTypeDef cl, string szName, int cMax, out EnumFieldsWithNameResult result)
         {
             /*HRESULT EnumFieldsWithName(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
             [Out] out mdFieldDef[] rFields,
-            [In] uint cMax,
-            [Out] out uint pcTokens);*/
+            [In] int cMax,
+            [Out] out int pcTokens);*/
             IntPtr phEnum = default(IntPtr);
             mdFieldDef[] rFields;
-            uint pcTokens;
+            int pcTokens;
             HRESULT hr = Raw.EnumFieldsWithName(ref phEnum, cl, szName, out rFields, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
@@ -1011,7 +1011,7 @@ namespace ManagedCorDebug
         /// <param name="mb">[in] A MethodDef token representing the method with the parameters to enumerate.</param>
         /// <param name="cMax">[in] The maximum size of the rParams array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumParamsResult EnumParams(mdMethodDef mb, uint cMax)
+        public EnumParamsResult EnumParams(mdMethodDef mb, int cMax)
         {
             HRESULT hr;
             EnumParamsResult result;
@@ -1034,17 +1034,17 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumParams returned successfully.                                 |
         /// | S_FALSE | There are no tokens to enumerate. In that case, pcTokens is zero. |
         /// </returns>
-        public HRESULT TryEnumParams(mdMethodDef mb, uint cMax, out EnumParamsResult result)
+        public HRESULT TryEnumParams(mdMethodDef mb, int cMax, out EnumParamsResult result)
         {
             /*HRESULT EnumParams(
             [In, Out] ref IntPtr phEnum,
             [In] mdMethodDef mb,
             [Out] out mdParamDef[] rParams,
-            [In] uint cMax,
-            [Out] out uint pcTokens);*/
+            [In] int cMax,
+            [Out] out int pcTokens);*/
             IntPtr phEnum = default(IntPtr);
             mdParamDef[] rParams;
-            uint pcTokens;
+            int pcTokens;
             HRESULT hr = Raw.EnumParams(ref phEnum, mb, out rParams, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
@@ -1064,7 +1064,7 @@ namespace ManagedCorDebug
         /// <param name="tkParent">[in] A TypeDef, TypeRef, MethodDef, or ModuleRef token for the type whose members are to be enumerated.</param>
         /// <param name="cMax">[in] The maximum size of the rMemberRefs array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumMemberRefsResult EnumMemberRefs(mdToken tkParent, uint cMax)
+        public EnumMemberRefsResult EnumMemberRefs(mdToken tkParent, int cMax)
         {
             HRESULT hr;
             EnumMemberRefsResult result;
@@ -1087,17 +1087,17 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumMemberRefs returned successfully.                                          |
         /// | S_FALSE | There are no MemberRef tokens to enumerate. In that case, pcTokens is to zero. |
         /// </returns>
-        public HRESULT TryEnumMemberRefs(mdToken tkParent, uint cMax, out EnumMemberRefsResult result)
+        public HRESULT TryEnumMemberRefs(mdToken tkParent, int cMax, out EnumMemberRefsResult result)
         {
             /*HRESULT EnumMemberRefs(
             [In, Out] ref IntPtr phEnum,
             [In] mdToken tkParent,
             [Out] out mdMemberRef[] rMemberRefs,
-            [In] uint cMax,
-            [Out] out uint pcTokens);*/
+            [In] int cMax,
+            [Out] out int pcTokens);*/
             IntPtr phEnum = default(IntPtr);
             mdMemberRef[] rMemberRefs;
-            uint pcTokens;
+            int pcTokens;
             HRESULT hr = Raw.EnumMemberRefs(ref phEnum, tkParent, out rMemberRefs, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
@@ -1117,7 +1117,7 @@ namespace ManagedCorDebug
         /// <param name="td">[in] A TypeDef token for the type whose method implementations to enumerate.</param>
         /// <param name="cMax">[in] The maximum size of the rMethodBody and rMethodDecl arrays.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumMethodImplsResult EnumMethodImpls(mdTypeDef td, uint cMax)
+        public EnumMethodImplsResult EnumMethodImpls(mdTypeDef td, int cMax)
         {
             HRESULT hr;
             EnumMethodImplsResult result;
@@ -1140,19 +1140,19 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumMethodImpls returned successfully.                                   |
         /// | S_FALSE | There are no method tokens to enumerate. In that case, pcTokens is zero. |
         /// </returns>
-        public HRESULT TryEnumMethodImpls(mdTypeDef td, uint cMax, out EnumMethodImplsResult result)
+        public HRESULT TryEnumMethodImpls(mdTypeDef td, int cMax, out EnumMethodImplsResult result)
         {
             /*HRESULT EnumMethodImpls(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef td,
             [Out] out mdToken[] rMethodBody,
             [Out] out mdToken[] rMethodDecl,
-            [In] uint cMax,
-            [Out] out uint pcTokens);*/
+            [In] int cMax,
+            [Out] out int pcTokens);*/
             IntPtr phEnum = default(IntPtr);
             mdToken[] rMethodBody;
             mdToken[] rMethodDecl;
-            uint pcTokens;
+            int pcTokens;
             HRESULT hr = Raw.EnumMethodImpls(ref phEnum, td, out rMethodBody, out rMethodDecl, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
@@ -1173,7 +1173,7 @@ namespace ManagedCorDebug
         /// <param name="dwActions">[in] Flags representing the <see cref="SecurityAction"/> values to include in rPermission, or zero to return all actions.</param>
         /// <param name="cMax">[in] The maximum size of the rPermission array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumPermissionSetsResult EnumPermissionSets(mdToken tk, SecurityAction dwActions, uint cMax)
+        public EnumPermissionSetsResult EnumPermissionSets(mdToken tk, SecurityAction dwActions, int cMax)
         {
             HRESULT hr;
             EnumPermissionSetsResult result;
@@ -1197,18 +1197,18 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumPermissionSets returned successfully.                         |
         /// | S_FALSE | There are no tokens to enumerate. In that case, pcTokens is zero. |
         /// </returns>
-        public HRESULT TryEnumPermissionSets(mdToken tk, SecurityAction dwActions, uint cMax, out EnumPermissionSetsResult result)
+        public HRESULT TryEnumPermissionSets(mdToken tk, SecurityAction dwActions, int cMax, out EnumPermissionSetsResult result)
         {
             /*HRESULT EnumPermissionSets(
             [In, Out] ref IntPtr phEnum,
             [In] mdToken tk,
             [In] SecurityAction dwActions,
             [Out] out mdPermission[] rPermission,
-            [In] uint cMax,
-            [Out] out uint pcTokens);*/
+            [In] int cMax,
+            [Out] out int pcTokens);*/
             IntPtr phEnum = default(IntPtr);
             mdPermission[] rPermission;
-            uint pcTokens;
+            int pcTokens;
             HRESULT hr = Raw.EnumPermissionSets(ref phEnum, tk, dwActions, out rPermission, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
@@ -1239,7 +1239,7 @@ namespace ManagedCorDebug
         /// signature outside the context of the current scope and use that signature as input to input to FindMember. FindMember
         /// finds only members that were defined directly in the class or interface; it does not find inherited members.
         /// </remarks>
-        public mdToken FindMember(mdToken td, string szName, IntPtr pvSigBlob, uint cbSigBlob)
+        public mdToken FindMember(mdToken td, string szName, IntPtr pvSigBlob, int cbSigBlob)
         {
             HRESULT hr;
             mdToken pmb;
@@ -1267,13 +1267,13 @@ namespace ManagedCorDebug
         /// signature outside the context of the current scope and use that signature as input to input to FindMember. FindMember
         /// finds only members that were defined directly in the class or interface; it does not find inherited members.
         /// </remarks>
-        public HRESULT TryFindMember(mdToken td, string szName, IntPtr pvSigBlob, uint cbSigBlob, out mdToken pmb)
+        public HRESULT TryFindMember(mdToken td, string szName, IntPtr pvSigBlob, int cbSigBlob, out mdToken pmb)
         {
             /*HRESULT FindMember(
             [In] mdToken td,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
             [In] IntPtr pvSigBlob,
-            [In] uint cbSigBlob,
+            [In] int cbSigBlob,
             [Out] out mdToken pmb);*/
             return Raw.FindMember(td, szName, pvSigBlob, cbSigBlob, out pmb);
         }
@@ -1298,7 +1298,7 @@ namespace ManagedCorDebug
         /// signature outside the context of the current scope and use that signature as input to input to FindMethod. FindMethod
         /// finds only methods that were defined directly in the class or interface; it does not find inherited methods.
         /// </remarks>
-        public mdMethodDef FindMethod(mdToken td, string szName, IntPtr pvSigBlob, uint cbSigBlob)
+        public mdMethodDef FindMethod(mdToken td, string szName, IntPtr pvSigBlob, int cbSigBlob)
         {
             HRESULT hr;
             mdMethodDef pmb;
@@ -1326,13 +1326,13 @@ namespace ManagedCorDebug
         /// signature outside the context of the current scope and use that signature as input to input to FindMethod. FindMethod
         /// finds only methods that were defined directly in the class or interface; it does not find inherited methods.
         /// </remarks>
-        public HRESULT TryFindMethod(mdToken td, string szName, IntPtr pvSigBlob, uint cbSigBlob, out mdMethodDef pmb)
+        public HRESULT TryFindMethod(mdToken td, string szName, IntPtr pvSigBlob, int cbSigBlob, out mdMethodDef pmb)
         {
             /*HRESULT FindMethod(
             [In] mdToken td,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
             [In] IntPtr pvSigBlob,
-            [In] uint cbSigBlob,
+            [In] int cbSigBlob,
             [Out] out mdMethodDef pmb);*/
             return Raw.FindMethod(td, szName, pvSigBlob, cbSigBlob, out pmb);
         }
@@ -1356,7 +1356,7 @@ namespace ManagedCorDebug
         /// of the current scope and use that signature as input to FindField. FindField finds only fields that were defined
         /// directly in the class or interface; it does not find inherited fields.
         /// </remarks>
-        public mdFieldDef FindField(mdToken td, string szName, IntPtr pvSigBlob, uint cbSigBlob)
+        public mdFieldDef FindField(mdToken td, string szName, IntPtr pvSigBlob, int cbSigBlob)
         {
             HRESULT hr;
             mdFieldDef pmb;
@@ -1383,13 +1383,13 @@ namespace ManagedCorDebug
         /// of the current scope and use that signature as input to FindField. FindField finds only fields that were defined
         /// directly in the class or interface; it does not find inherited fields.
         /// </remarks>
-        public HRESULT TryFindField(mdToken td, string szName, IntPtr pvSigBlob, uint cbSigBlob, out mdFieldDef pmb)
+        public HRESULT TryFindField(mdToken td, string szName, IntPtr pvSigBlob, int cbSigBlob, out mdFieldDef pmb)
         {
             /*HRESULT FindField(
             [In] mdToken td,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
             [In] IntPtr pvSigBlob,
-            [In] uint cbSigBlob,
+            [In] int cbSigBlob,
             [Out] out mdFieldDef pmb);*/
             return Raw.FindField(td, szName, pvSigBlob, cbSigBlob, out pmb);
         }
@@ -1413,7 +1413,7 @@ namespace ManagedCorDebug
         /// the current scope and use that signature as input to FindMemberRef. FindMemberRef finds only member references
         /// that were defined directly in the class or interface; it does not find inherited member references.
         /// </remarks>
-        public mdMemberRef FindMemberRef(mdToken td, string szName, IntPtr pvSigBlob, uint cbSigBlob)
+        public mdMemberRef FindMemberRef(mdToken td, string szName, IntPtr pvSigBlob, int cbSigBlob)
         {
             HRESULT hr;
             mdMemberRef pmr;
@@ -1440,12 +1440,12 @@ namespace ManagedCorDebug
         /// the current scope and use that signature as input to FindMemberRef. FindMemberRef finds only member references
         /// that were defined directly in the class or interface; it does not find inherited member references.
         /// </remarks>
-        public HRESULT TryFindMemberRef(mdToken td, string szName, IntPtr pvSigBlob, uint cbSigBlob, out mdMemberRef pmr)
+        public HRESULT TryFindMemberRef(mdToken td, string szName, IntPtr pvSigBlob, int cbSigBlob, out mdMemberRef pmr)
         {
             /*HRESULT FindMemberRef(
             [In] mdToken td,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
-            [In] IntPtr pvSigBlob, [In] uint cbSigBlob,
+            [In] IntPtr pvSigBlob, [In] int cbSigBlob,
             [Out] out mdMemberRef pmr);*/
             return Raw.FindMemberRef(td, szName, pvSigBlob, cbSigBlob, out pmr);
         }
@@ -1480,28 +1480,28 @@ namespace ManagedCorDebug
             [In] mdMethodDef mb,
             [Out] out mdTypeDef pClass,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szMethod,
-            [In] uint cchMethod,
+            [In] int cchMethod,
             [Out] out int pchMethod,
             [Out] out CorMethodAttr pdwAttr,
             [Out] out IntPtr ppvSigBlob,
-            [Out] out uint pcbSigBlob,
-            [Out] out uint pulCodeRVA,
-            [Out] out uint pdwImplFlags);*/
+            [Out] out int pcbSigBlob,
+            [Out] out int pulCodeRVA,
+            [Out] out int pdwImplFlags);*/
             mdTypeDef pClass;
             StringBuilder szMethod = null;
-            uint cchMethod = 0;
+            int cchMethod = 0;
             int pchMethod;
             CorMethodAttr pdwAttr;
             IntPtr ppvSigBlob;
-            uint pcbSigBlob;
-            uint pulCodeRVA;
-            uint pdwImplFlags;
+            int pcbSigBlob;
+            int pulCodeRVA;
+            int pdwImplFlags;
             HRESULT hr = Raw.GetMethodProps(mb, out pClass, szMethod, cchMethod, out pchMethod, out pdwAttr, out ppvSigBlob, out pcbSigBlob, out pulCodeRVA, out pdwImplFlags);
 
             if (hr != HRESULT.S_FALSE)
                 goto fail;
 
-            cchMethod = (uint) pchMethod;
+            cchMethod = pchMethod;
             szMethod = new StringBuilder(pchMethod);
             hr = Raw.GetMethodProps(mb, out pClass, szMethod, cchMethod, out pchMethod, out pdwAttr, out ppvSigBlob, out pcbSigBlob, out pulCodeRVA, out pdwImplFlags);
 
@@ -1548,23 +1548,23 @@ namespace ManagedCorDebug
             [In] mdMemberRef mr,
             [Out] out mdToken ptk,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szMember,
-            [In] uint cchMember,
-            [Out] out uint pchMember,
+            [In] int cchMember,
+            [Out] out int pchMember,
             [Out] out IntPtr ppvSigBlob,
-            [Out] out uint pbSig);*/
+            [Out] out int pbSig);*/
             mdToken ptk;
             StringBuilder szMember = null;
-            uint cchMember = 0;
-            uint pchMember;
+            int cchMember = 0;
+            int pchMember;
             IntPtr ppvSigBlob;
-            uint pbSig;
+            int pbSig;
             HRESULT hr = Raw.GetMemberRefProps(mr, out ptk, szMember, cchMember, out pchMember, out ppvSigBlob, out pbSig);
 
             if (hr != HRESULT.S_FALSE)
                 goto fail;
 
             cchMember = pchMember;
-            szMember = new StringBuilder((int) pchMember);
+            szMember = new StringBuilder(pchMember);
             hr = Raw.GetMemberRefProps(mr, out ptk, szMember, cchMember, out pchMember, out ppvSigBlob, out pbSig);
 
             if (hr == HRESULT.S_OK)
@@ -1589,7 +1589,7 @@ namespace ManagedCorDebug
         /// <param name="td">[in] A TypeDef token representing the type with properties to enumerate.</param>
         /// <param name="cMax">[in] The maximum size of the rProperties array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumPropertiesResult EnumProperties(mdTypeDef td, uint cMax)
+        public EnumPropertiesResult EnumProperties(mdTypeDef td, int cMax)
         {
             HRESULT hr;
             EnumPropertiesResult result;
@@ -1612,17 +1612,17 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumProperties returned successfully.                                 |
         /// | S_FALSE | There are no tokens to enumerate. In that case, pcProperties is zero. |
         /// </returns>
-        public HRESULT TryEnumProperties(mdTypeDef td, uint cMax, out EnumPropertiesResult result)
+        public HRESULT TryEnumProperties(mdTypeDef td, int cMax, out EnumPropertiesResult result)
         {
             /*HRESULT EnumProperties(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef td,
             [Out] mdProperty[] rProperties,
-            [In] uint cMax,
-            [Out] out uint pcProperties);*/
+            [In] int cMax,
+            [Out] out int pcProperties);*/
             IntPtr phEnum = default(IntPtr);
             mdProperty[] rProperties = default(mdProperty[]);
-            uint pcProperties;
+            int pcProperties;
             HRESULT hr = Raw.EnumProperties(ref phEnum, td, rProperties, cMax, out pcProperties);
 
             if (hr == HRESULT.S_OK)
@@ -1642,7 +1642,7 @@ namespace ManagedCorDebug
         /// <param name="td">[in] The TypeDef token whose event definitions are to be enumerated.</param>
         /// <param name="cMax">[in] The maximum size of the rEvents array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumEventsResult EnumEvents(mdTypeDef td, uint cMax)
+        public EnumEventsResult EnumEvents(mdTypeDef td, int cMax)
         {
             HRESULT hr;
             EnumEventsResult result;
@@ -1665,17 +1665,17 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumEvents returned successfully.                                 |
         /// | S_FALSE | There are no events to enumerate. In that case, pcEvents is zero. |
         /// </returns>
-        public HRESULT TryEnumEvents(mdTypeDef td, uint cMax, out EnumEventsResult result)
+        public HRESULT TryEnumEvents(mdTypeDef td, int cMax, out EnumEventsResult result)
         {
             /*HRESULT EnumEvents(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef td,
             [Out] out mdEvent[] rEvents,
-            [In] uint cMax,
-            [Out] out uint pcEvents);*/
+            [In] int cMax,
+            [Out] out int pcEvents);*/
             IntPtr phEnum = default(IntPtr);
             mdEvent[] rEvents;
-            uint pcEvents;
+            int pcEvents;
             HRESULT hr = Raw.EnumEvents(ref phEnum, td, out rEvents, cMax, out pcEvents);
 
             if (hr == HRESULT.S_OK)
@@ -1695,7 +1695,7 @@ namespace ManagedCorDebug
         /// <param name="ev">[in] The event metadata token representing the event to get metadata for.</param>
         /// <param name="cMax">[in] The maximum size of the rmdOtherMethod array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetEventPropsResult GetEventProps(mdEvent ev, uint cMax)
+        public GetEventPropsResult GetEventProps(mdEvent ev, int cMax)
         {
             HRESULT hr;
             GetEventPropsResult result;
@@ -1712,40 +1712,40 @@ namespace ManagedCorDebug
         /// <param name="ev">[in] The event metadata token representing the event to get metadata for.</param>
         /// <param name="cMax">[in] The maximum size of the rmdOtherMethod array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetEventProps(mdEvent ev, uint cMax, out GetEventPropsResult result)
+        public HRESULT TryGetEventProps(mdEvent ev, int cMax, out GetEventPropsResult result)
         {
             /*HRESULT GetEventProps(
             [In] mdEvent ev,
             [Out] mdTypeDef pClass,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szEvent,
-            [In] uint cchEvent,
-            [Out] out uint pchEvent,
-            [Out] out uint pdwEventFlags,
+            [In] int cchEvent,
+            [Out] out int pchEvent,
+            [Out] out int pdwEventFlags,
             [Out] out mdToken ptkEventType,
             [Out] out mdMethodDef pmdAddOn,
             [Out] out mdMethodDef pmdRemoveOn,
             [Out] out mdMethodDef pmdFire,
             [Out] out mdMethodDef[] rmdOtherMethod,
-            [In] uint cMax,
-            [Out] uint pcOtherMethod);*/
+            [In] int cMax,
+            [Out] int pcOtherMethod);*/
             mdTypeDef pClass = default(mdTypeDef);
             StringBuilder szEvent = null;
-            uint cchEvent = 0;
-            uint pchEvent;
-            uint pdwEventFlags;
+            int cchEvent = 0;
+            int pchEvent;
+            int pdwEventFlags;
             mdToken ptkEventType;
             mdMethodDef pmdAddOn;
             mdMethodDef pmdRemoveOn;
             mdMethodDef pmdFire;
             mdMethodDef[] rmdOtherMethod;
-            uint pcOtherMethod = default(uint);
+            int pcOtherMethod = default(int);
             HRESULT hr = Raw.GetEventProps(ev, pClass, szEvent, cchEvent, out pchEvent, out pdwEventFlags, out ptkEventType, out pmdAddOn, out pmdRemoveOn, out pmdFire, out rmdOtherMethod, cMax, pcOtherMethod);
 
             if (hr != HRESULT.S_FALSE)
                 goto fail;
 
             cchEvent = pchEvent;
-            szEvent = new StringBuilder((int) pchEvent);
+            szEvent = new StringBuilder(pchEvent);
             hr = Raw.GetEventProps(ev, pClass, szEvent, cchEvent, out pchEvent, out pdwEventFlags, out ptkEventType, out pmdAddOn, out pmdRemoveOn, out pmdFire, out rmdOtherMethod, cMax, pcOtherMethod);
 
             if (hr == HRESULT.S_OK)
@@ -1779,7 +1779,7 @@ namespace ManagedCorDebug
         /// using the MethodDef for System.Windows.Forms.Control.OnFontChanged to get references to the System.Windows.Forms.Control.Font
         /// property and the System.Windows.Forms.Control.FontChanged event.
         /// </remarks>
-        public EnumMethodSemanticsResult EnumMethodSemantics(mdMethodDef mb, uint cMax)
+        public EnumMethodSemanticsResult EnumMethodSemantics(mdMethodDef mb, int cMax)
         {
             HRESULT hr;
             EnumMethodSemanticsResult result;
@@ -1811,17 +1811,17 @@ namespace ManagedCorDebug
         /// using the MethodDef for System.Windows.Forms.Control.OnFontChanged to get references to the System.Windows.Forms.Control.Font
         /// property and the System.Windows.Forms.Control.FontChanged event.
         /// </remarks>
-        public HRESULT TryEnumMethodSemantics(mdMethodDef mb, uint cMax, out EnumMethodSemanticsResult result)
+        public HRESULT TryEnumMethodSemantics(mdMethodDef mb, int cMax, out EnumMethodSemanticsResult result)
         {
             /*HRESULT EnumMethodSemantics(
             [In, Out] ref IntPtr phEnum,
             [In] mdMethodDef mb,
             [Out] out mdToken[] rEventProp,
-            [In] uint cMax,
-            [Out] out uint pcEventProp);*/
+            [In] int cMax,
+            [Out] out int pcEventProp);*/
             IntPtr phEnum = default(IntPtr);
             mdToken[] rEventProp;
-            uint pcEventProp;
+            int pcEventProp;
             HRESULT hr = Raw.EnumMethodSemantics(ref phEnum, mb, out rEventProp, cMax, out pcEventProp);
 
             if (hr == HRESULT.S_OK)
@@ -1901,23 +1901,23 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetClassLayout(
             [In] mdTypeDef td,
-            [Out] uint pdwPackSize,
+            [Out] int pdwPackSize,
             [MarshalAs(UnmanagedType.LPArray), Out] COR_FIELD_OFFSET[] rFieldOffset,
             [In] int cMax,
-            [Out] uint pcFieldOffset,
-            [Out] uint pulClassSize);*/
-            uint pdwPackSize = default(uint);
+            [Out] int pcFieldOffset,
+            [Out] int pulClassSize);*/
+            int pdwPackSize = default(int);
             COR_FIELD_OFFSET[] rFieldOffset = null;
             int cMax = 0;
-            uint pcFieldOffset = default(uint);
-            uint pulClassSize = default(uint);
+            int pcFieldOffset = default(int);
+            int pulClassSize = default(int);
             HRESULT hr = Raw.GetClassLayout(td, pdwPackSize, rFieldOffset, cMax, pcFieldOffset, pulClassSize);
 
             if (hr != HRESULT.S_FALSE)
                 goto fail;
 
-            cMax = (int) pcFieldOffset;
-            rFieldOffset = new COR_FIELD_OFFSET[(int) pcFieldOffset];
+            cMax = pcFieldOffset;
+            rFieldOffset = new COR_FIELD_OFFSET[pcFieldOffset];
             hr = Raw.GetClassLayout(td, pdwPackSize, rFieldOffset, cMax, pcFieldOffset, pulClassSize);
 
             if (hr == HRESULT.S_OK)
@@ -1962,9 +1962,9 @@ namespace ManagedCorDebug
             /*HRESULT GetFieldMarshal(
             [In] mdToken tk,
             [Out] out IntPtr ppvNativeType,
-            [Out] out uint pcbNativeType);*/
+            [Out] out int pcbNativeType);*/
             IntPtr ppvNativeType;
-            uint pcbNativeType;
+            int pcbNativeType;
             HRESULT hr = Raw.GetFieldMarshal(tk, out ppvNativeType, out pcbNativeType);
 
             if (hr == HRESULT.S_OK)
@@ -2003,9 +2003,9 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetRVA(
             [In] mdToken tk,
-            [Out] out uint pulCodeRVA,
+            [Out] out int pulCodeRVA,
             [Out] out CorMethodImpl pdwImplFlags);*/
-            uint pulCodeRVA;
+            int pulCodeRVA;
             CorMethodImpl pdwImplFlags;
             HRESULT hr = Raw.GetRVA(tk, out pulCodeRVA, out pdwImplFlags);
 
@@ -2045,12 +2045,12 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetPermissionSetProps(
             [In] mdPermission pm,
-            [Out] out uint pdwAction,
+            [Out] out int pdwAction,
             [Out] IntPtr ppvPermission,
-            [Out] out uint pcbPermission);*/
-            uint pdwAction;
+            [Out] out int pcbPermission);*/
+            int pdwAction;
             IntPtr ppvPermission = default(IntPtr);
-            uint pcbPermission;
+            int pcbPermission;
             HRESULT hr = Raw.GetPermissionSetProps(pm, out pdwAction, ppvPermission, out pcbPermission);
 
             if (hr == HRESULT.S_OK)
@@ -2090,9 +2090,9 @@ namespace ManagedCorDebug
             /*HRESULT GetSigFromToken(
             [In] mdSignature mdSig,
             [Out] out IntPtr ppvSig,
-            [Out] out uint pcbSig);*/
+            [Out] out int pcbSig);*/
             IntPtr ppvSig;
-            uint pcbSig;
+            int pcbSig;
             HRESULT hr = Raw.GetSigFromToken(mdSig, out ppvSig, out pcbSig);
 
             if (hr == HRESULT.S_OK)
@@ -2132,18 +2132,18 @@ namespace ManagedCorDebug
             /*HRESULT GetModuleRefProps(
             [In] mdModuleRef mur,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName,
-            [In] uint cchName,
-            [Out] out uint pchName);*/
+            [In] int cchName,
+            [Out] out int pchName);*/
             StringBuilder szName = null;
-            uint cchName = 0;
-            uint pchName;
+            int cchName = 0;
+            int pchName;
             HRESULT hr = Raw.GetModuleRefProps(mur, szName, cchName, out pchName);
 
             if (hr != HRESULT.S_FALSE)
                 goto fail;
 
             cchName = pchName;
-            szName = new StringBuilder((int) pchName);
+            szName = new StringBuilder(pchName);
             hr = Raw.GetModuleRefProps(mur, szName, cchName, out pchName);
 
             if (hr == HRESULT.S_OK)
@@ -2167,7 +2167,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cmax">[in] The maximum size of the rModuleRefs array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumModuleRefsResult EnumModuleRefs(uint cmax)
+        public EnumModuleRefsResult EnumModuleRefs(int cmax)
         {
             HRESULT hr;
             EnumModuleRefsResult result;
@@ -2189,16 +2189,16 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumModuleRefs returned successfully.                                 |
         /// | S_FALSE | There are no tokens to enumerate. In that case, pcModuleRefs is zero. |
         /// </returns>
-        public HRESULT TryEnumModuleRefs(uint cmax, out EnumModuleRefsResult result)
+        public HRESULT TryEnumModuleRefs(int cmax, out EnumModuleRefsResult result)
         {
             /*HRESULT EnumModuleRefs(
             [In, Out] ref IntPtr phEnum,
             [Out] out mdModuleRef[] rModuleRefs,
-            [In] uint cmax,
-            [Out] out uint pcModuleRefs);*/
+            [In] int cmax,
+            [Out] out int pcModuleRefs);*/
             IntPtr phEnum = default(IntPtr);
             mdModuleRef[] rModuleRefs;
-            uint pcModuleRefs;
+            int pcModuleRefs;
             HRESULT hr = Raw.EnumModuleRefs(ref phEnum, out rModuleRefs, cmax, out pcModuleRefs);
 
             if (hr == HRESULT.S_OK)
@@ -2239,9 +2239,9 @@ namespace ManagedCorDebug
             /*HRESULT GetTypeSpecFromToken(
             [In] mdTypeSpec typespec,
             [Out] out IntPtr ppvSig,
-            [Out] out uint pcbSig);*/
+            [Out] out int pcbSig);*/
             IntPtr ppvSig;
-            uint pcbSig;
+            int pcbSig;
             HRESULT hr = Raw.GetTypeSpecFromToken(typespec, out ppvSig, out pcbSig);
 
             if (hr == HRESULT.S_OK)
@@ -2309,7 +2309,7 @@ namespace ManagedCorDebug
         /// PInvoke) nor implemented internally by the runtime itself The enumeration excludes all methods that are defined
         /// either at module scope (globals) or in interfaces or abstract classes.
         /// </remarks>
-        public EnumUnresolvedMethodsResult EnumUnresolvedMethods(uint cMax)
+        public EnumUnresolvedMethodsResult EnumUnresolvedMethods(int cMax)
         {
             HRESULT hr;
             EnumUnresolvedMethodsResult result;
@@ -2338,16 +2338,16 @@ namespace ManagedCorDebug
         /// PInvoke) nor implemented internally by the runtime itself The enumeration excludes all methods that are defined
         /// either at module scope (globals) or in interfaces or abstract classes.
         /// </remarks>
-        public HRESULT TryEnumUnresolvedMethods(uint cMax, out EnumUnresolvedMethodsResult result)
+        public HRESULT TryEnumUnresolvedMethods(int cMax, out EnumUnresolvedMethodsResult result)
         {
             /*HRESULT EnumUnresolvedMethods(
             [In, Out] ref IntPtr phEnum,
             [Out] out mdToken[] rMethods,
-            [In] uint cMax,
-            [Out] out uint pcTokens);*/
+            [In] int cMax,
+            [Out] out int pcTokens);*/
             IntPtr phEnum = default(IntPtr);
             mdToken[] rMethods;
-            uint pcTokens;
+            int pcTokens;
             HRESULT hr = Raw.EnumUnresolvedMethods(ref phEnum, out rMethods, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
@@ -2485,7 +2485,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The Signature tokens are created by the <see cref="MetaDataEmit.GetTokenFromSig"/> method.
         /// </remarks>
-        public EnumSignaturesResult EnumSignatures(uint cmax)
+        public EnumSignaturesResult EnumSignatures(int cmax)
         {
             HRESULT hr;
             EnumSignaturesResult result;
@@ -2510,16 +2510,16 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The Signature tokens are created by the <see cref="MetaDataEmit.GetTokenFromSig"/> method.
         /// </remarks>
-        public HRESULT TryEnumSignatures(uint cmax, out EnumSignaturesResult result)
+        public HRESULT TryEnumSignatures(int cmax, out EnumSignaturesResult result)
         {
             /*HRESULT EnumSignatures(
             [In, Out] ref IntPtr phEnum,
             [Out] out mdSignature[] rSignatures,
-            [In] uint cmax,
-            [Out] out uint pcSignatures);*/
+            [In] int cmax,
+            [Out] out int pcSignatures);*/
             IntPtr phEnum = default(IntPtr);
             mdSignature[] rSignatures;
-            uint pcSignatures;
+            int pcSignatures;
             HRESULT hr = Raw.EnumSignatures(ref phEnum, out rSignatures, cmax, out pcSignatures);
 
             if (hr == HRESULT.S_OK)
@@ -2541,7 +2541,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The TypeSpec tokens are created by the <see cref="MetaDataEmit.GetTokenFromTypeSpec"/> method.
         /// </remarks>
-        public EnumTypeSpecsResult EnumTypeSpecs(uint cmax)
+        public EnumTypeSpecsResult EnumTypeSpecs(int cmax)
         {
             HRESULT hr;
             EnumTypeSpecsResult result;
@@ -2566,16 +2566,16 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The TypeSpec tokens are created by the <see cref="MetaDataEmit.GetTokenFromTypeSpec"/> method.
         /// </remarks>
-        public HRESULT TryEnumTypeSpecs(uint cmax, out EnumTypeSpecsResult result)
+        public HRESULT TryEnumTypeSpecs(int cmax, out EnumTypeSpecsResult result)
         {
             /*HRESULT EnumTypeSpecs(
             [In, Out] ref IntPtr phEnum,
             [Out] out mdTypeSpec[] rTypeSpecs,
-            [In] uint cmax,
-            [Out] out uint pcTypeSpecs);*/
+            [In] int cmax,
+            [Out] out int pcTypeSpecs);*/
             IntPtr phEnum = default(IntPtr);
             mdTypeSpec[] rTypeSpecs;
-            uint pcTypeSpecs;
+            int pcTypeSpecs;
             HRESULT hr = Raw.EnumTypeSpecs(ref phEnum, out rTypeSpecs, cmax, out pcTypeSpecs);
 
             if (hr == HRESULT.S_OK)
@@ -2598,7 +2598,7 @@ namespace ManagedCorDebug
         /// The String tokens are created by the <see cref="MetaDataEmit.DefineUserString"/> method. This method is designed
         /// to be used by a metadata browser rather than by a compiler.
         /// </remarks>
-        public EnumUserStringsResult EnumUserStrings(uint cmax)
+        public EnumUserStringsResult EnumUserStrings(int cmax)
         {
             HRESULT hr;
             EnumUserStringsResult result;
@@ -2624,16 +2624,16 @@ namespace ManagedCorDebug
         /// The String tokens are created by the <see cref="MetaDataEmit.DefineUserString"/> method. This method is designed
         /// to be used by a metadata browser rather than by a compiler.
         /// </remarks>
-        public HRESULT TryEnumUserStrings(uint cmax, out EnumUserStringsResult result)
+        public HRESULT TryEnumUserStrings(int cmax, out EnumUserStringsResult result)
         {
             /*HRESULT EnumUserStrings(
             [In, Out] ref IntPtr phEnum,
             [Out] out mdString[] rStrings,
-            [In] uint cmax,
-            [Out] out uint pcStrings);*/
+            [In] int cmax,
+            [Out] out int pcStrings);*/
             IntPtr phEnum = default(IntPtr);
             mdString[] rStrings;
-            uint pcStrings;
+            int pcStrings;
             HRESULT hr = Raw.EnumUserStrings(ref phEnum, out rStrings, cmax, out pcStrings);
 
             if (hr == HRESULT.S_OK)
@@ -2689,7 +2689,7 @@ namespace ManagedCorDebug
         /// <param name="tkType">[in] A token for the constructor of the type of the attributes to be enumerated, or null for all types.</param>
         /// <param name="cMax">[in] The maximum size of the rCustomAttributes array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumCustomAttributesResult EnumCustomAttributes(mdToken tk, mdToken tkType, uint cMax)
+        public EnumCustomAttributesResult EnumCustomAttributes(mdToken tk, mdToken tkType, int cMax)
         {
             HRESULT hr;
             EnumCustomAttributesResult result;
@@ -2713,18 +2713,18 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumCustomAttributes returned successfully.                                            |
         /// | S_FALSE | There are no custom attributes to enumerate. In that case, pcCustomAttributes is zero. |
         /// </returns>
-        public HRESULT TryEnumCustomAttributes(mdToken tk, mdToken tkType, uint cMax, out EnumCustomAttributesResult result)
+        public HRESULT TryEnumCustomAttributes(mdToken tk, mdToken tkType, int cMax, out EnumCustomAttributesResult result)
         {
             /*HRESULT EnumCustomAttributes(
             [In, Out] ref IntPtr phEnum,
             [In] mdToken tk,
             [In] mdToken tkType,
             [Out] out mdCustomAttribute[] rCustomAttributes,
-            [In] uint cMax,
-            [Out] out uint pcCustomAttributes);*/
+            [In] int cMax,
+            [Out] out int pcCustomAttributes);*/
             IntPtr phEnum = default(IntPtr);
             mdCustomAttribute[] rCustomAttributes;
-            uint pcCustomAttributes;
+            int pcCustomAttributes;
             HRESULT hr = Raw.EnumCustomAttributes(ref phEnum, tk, tkType, out rCustomAttributes, cMax, out pcCustomAttributes);
 
             if (hr == HRESULT.S_OK)
@@ -2772,11 +2772,11 @@ namespace ManagedCorDebug
             [Out] out mdToken ptkObj,
             [Out] out mdToken ptkType,
             [Out] out IntPtr ppBlob,
-            [Out] out uint pcbSize);*/
+            [Out] out int pcbSize);*/
             mdToken ptkObj;
             mdToken ptkType;
             IntPtr ppBlob;
-            uint pcbSize;
+            int pcbSize;
             HRESULT hr = Raw.GetCustomAttributeProps(cv, out ptkObj, out ptkType, out ppBlob, out pcbSize);
 
             if (hr == HRESULT.S_OK)
@@ -2856,35 +2856,35 @@ namespace ManagedCorDebug
             [In] mdToken mb,
             [Out] out mdTypeDef pClass,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szMember,
-            [In] uint cchMember,
-            [Out] out uint pchMember,
-            [Out] out uint pdwAttr, //if its a method is it cormethodattr?
+            [In] int cchMember,
+            [Out] out int pchMember,
+            [Out] out int pdwAttr, //if its a method is it cormethodattr?
             [Out] out IntPtr ppvSigBlob,
-            [Out] out uint pcbSigBlob,
-            [Out] out uint pulCodeRVA,
-            [Out] out uint pdwImplFlags,
+            [Out] out int pcbSigBlob,
+            [Out] out int pulCodeRVA,
+            [Out] out int pdwImplFlags,
             [Out] out CorElementType pdwCPlusTypeFlag,
             [Out] out IntPtr ppValue,
-            [Out] out uint pcchValue);*/
+            [Out] out int pcchValue);*/
             mdTypeDef pClass;
             StringBuilder szMember = null;
-            uint cchMember = 0;
-            uint pchMember;
-            uint pdwAttr;
+            int cchMember = 0;
+            int pchMember;
+            int pdwAttr;
             IntPtr ppvSigBlob;
-            uint pcbSigBlob;
-            uint pulCodeRVA;
-            uint pdwImplFlags;
+            int pcbSigBlob;
+            int pulCodeRVA;
+            int pdwImplFlags;
             CorElementType pdwCPlusTypeFlag;
             IntPtr ppValue;
-            uint pcchValue;
+            int pcchValue;
             HRESULT hr = Raw.GetMemberProps(mb, out pClass, szMember, cchMember, out pchMember, out pdwAttr, out ppvSigBlob, out pcbSigBlob, out pulCodeRVA, out pdwImplFlags, out pdwCPlusTypeFlag, out ppValue, out pcchValue);
 
             if (hr != HRESULT.S_FALSE)
                 goto fail;
 
             cchMember = pchMember;
-            szMember = new StringBuilder((int) pchMember);
+            szMember = new StringBuilder(pchMember);
             hr = Raw.GetMemberProps(mb, out pClass, szMember, cchMember, out pchMember, out pdwAttr, out ppvSigBlob, out pcbSigBlob, out pulCodeRVA, out pdwImplFlags, out pdwCPlusTypeFlag, out ppValue, out pcchValue);
 
             if (hr == HRESULT.S_OK)
@@ -2930,31 +2930,31 @@ namespace ManagedCorDebug
             [In] mdFieldDef mb,
             [Out] mdTypeDef pClass,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szField,
-            [In] uint cchField,
-            [Out] uint pchField,
+            [In] int cchField,
+            [Out] int pchField,
             [Out] CorFieldAttr pdwAttr,
             [Out] IntPtr ppvSigBlob,
-            [Out] uint pcbSigBlob,
+            [Out] int pcbSigBlob,
             [Out] CorElementType pdwCPlusTypeFlag,
             [Out] IntPtr ppValue,
-            [Out] uint pcchValue);*/
+            [Out] int pcchValue);*/
             mdTypeDef pClass = default(mdTypeDef);
             StringBuilder szField = null;
-            uint cchField = 0;
-            uint pchField = default(uint);
+            int cchField = 0;
+            int pchField = default(int);
             CorFieldAttr pdwAttr = default(CorFieldAttr);
             IntPtr ppvSigBlob = default(IntPtr);
-            uint pcbSigBlob = default(uint);
+            int pcbSigBlob = default(int);
             CorElementType pdwCPlusTypeFlag = default(CorElementType);
             IntPtr ppValue = default(IntPtr);
-            uint pcchValue = default(uint);
+            int pcchValue = default(int);
             HRESULT hr = Raw.GetFieldProps(mb, pClass, szField, cchField, pchField, pdwAttr, ppvSigBlob, pcbSigBlob, pdwCPlusTypeFlag, ppValue, pcchValue);
 
             if (hr != HRESULT.S_FALSE)
                 goto fail;
 
             cchField = pchField;
-            szField = new StringBuilder((int) pchField);
+            szField = new StringBuilder(pchField);
             hr = Raw.GetFieldProps(mb, pClass, szField, cchField, pchField, pdwAttr, ppvSigBlob, pcbSigBlob, pdwCPlusTypeFlag, ppValue, pcchValue);
 
             if (hr == HRESULT.S_OK)
@@ -3000,43 +3000,43 @@ namespace ManagedCorDebug
             [In] mdProperty prop,
             [Out] mdTypeDef pClass,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szProperty,
-            [In] uint cchProperty,
-            [Out] uint pchProperty,
+            [In] int cchProperty,
+            [Out] int pchProperty,
             [Out] CorPropertyAttr pdwPropFlags,
             [Out] IntPtr ppvSig,
-            [Out] uint pbSig,
+            [Out] int pbSig,
             [Out] CorElementType pdwCPlusTypeFlag,
             [Out] IntPtr ppDefaultValue,
-            [Out] uint pcchDefaultValue,
+            [Out] int pcchDefaultValue,
             [Out] mdMethodDef pmdSetter,
             [Out] mdMethodDef pmdGetter,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rmdOtherMethod,
-            [In] uint cMax,
-            [Out] uint pcOtherMethod);*/
+            [In] int cMax,
+            [Out] int pcOtherMethod);*/
             mdTypeDef pClass = default(mdTypeDef);
             StringBuilder szProperty = null;
-            uint cchProperty = 0;
-            uint pchProperty = default(uint);
+            int cchProperty = 0;
+            int pchProperty = default(int);
             CorPropertyAttr pdwPropFlags = default(CorPropertyAttr);
             IntPtr ppvSig = default(IntPtr);
-            uint pbSig = default(uint);
+            int pbSig = default(int);
             CorElementType pdwCPlusTypeFlag = default(CorElementType);
             IntPtr ppDefaultValue = default(IntPtr);
-            uint pcchDefaultValue = default(uint);
+            int pcchDefaultValue = default(int);
             mdMethodDef pmdSetter = default(mdMethodDef);
             mdMethodDef pmdGetter = default(mdMethodDef);
             mdMethodDef[] rmdOtherMethod = null;
-            uint cMax = 0;
-            uint pcOtherMethod = default(uint);
+            int cMax = 0;
+            int pcOtherMethod = default(int);
             HRESULT hr = Raw.GetPropertyProps(prop, pClass, szProperty, cchProperty, pchProperty, pdwPropFlags, ppvSig, pbSig, pdwCPlusTypeFlag, ppDefaultValue, pcchDefaultValue, pmdSetter, pmdGetter, rmdOtherMethod, cMax, pcOtherMethod);
 
             if (hr != HRESULT.S_FALSE)
                 goto fail;
 
             cchProperty = pchProperty;
-            szProperty = new StringBuilder((int) pchProperty);
+            szProperty = new StringBuilder(pchProperty);
             cMax = pcOtherMethod;
-            rmdOtherMethod = new mdMethodDef[(int) pcOtherMethod];
+            rmdOtherMethod = new mdMethodDef[pcOtherMethod];
             hr = Raw.GetPropertyProps(prop, pClass, szProperty, cchProperty, pchProperty, pdwPropFlags, ppvSig, pbSig, pdwCPlusTypeFlag, ppDefaultValue, pcchDefaultValue, pmdSetter, pmdGetter, rmdOtherMethod, cMax, pcOtherMethod);
 
             if (hr == HRESULT.S_OK)
@@ -3087,19 +3087,19 @@ namespace ManagedCorDebug
             /*HRESULT GetParamProps(
             [In] mdParamDef tk,
             [Out] mdMethodDef pmd,
-            [Out] uint pulSequence,
+            [Out] int pulSequence,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName,
-            [Out] uint cchName,
-            [Out] uint pchName,
+            [Out] int cchName,
+            [Out] int pchName,
             [Out] CorParamAttr pdwAttr,
             [Out] CorElementType pdwCPlusTypeFlag,
             [Out] IntPtr ppValue,
             [Out] IntPtr pcchValue);*/
             mdMethodDef pmd = default(mdMethodDef);
-            uint pulSequence = default(uint);
+            int pulSequence = default(int);
             StringBuilder szName = null;
-            uint cchName = default(uint);
-            uint pchName = default(uint);
+            int cchName = default(int);
+            int pchName = default(int);
             CorParamAttr pdwAttr = default(CorParamAttr);
             CorElementType pdwCPlusTypeFlag = default(CorElementType);
             IntPtr ppValue = default(IntPtr);
@@ -3156,9 +3156,9 @@ namespace ManagedCorDebug
             [In] mdToken tkObj,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
             [Out] IntPtr ppData,
-            [Out] uint pcbData);*/
+            [Out] int pcbData);*/
             IntPtr ppData = default(IntPtr);
-            uint pcbData = default(uint);
+            int pcbData = default(int);
             HRESULT hr = Raw.GetCustomAttributeByName(tkObj, szName, ppData, pcbData);
 
             if (hr == HRESULT.S_OK)
@@ -3223,10 +3223,10 @@ namespace ManagedCorDebug
         /// <param name="pvSig">[in] A pointer to the metadata signature of the method to return the calling convention for.</param>
         /// <param name="cbSig">[in] The size in bytes of pvSig.</param>
         /// <returns>[out] A pointer to the native calling convention.</returns>
-        public uint GetNativeCallConvFromSig(IntPtr pvSig, uint cbSig)
+        public int GetNativeCallConvFromSig(IntPtr pvSig, int cbSig)
         {
             HRESULT hr;
-            uint pCallConv;
+            int pCallConv;
 
             if ((hr = TryGetNativeCallConvFromSig(pvSig, cbSig, out pCallConv)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -3240,12 +3240,12 @@ namespace ManagedCorDebug
         /// <param name="pvSig">[in] A pointer to the metadata signature of the method to return the calling convention for.</param>
         /// <param name="cbSig">[in] The size in bytes of pvSig.</param>
         /// <param name="pCallConv">[out] A pointer to the native calling convention.</param>
-        public HRESULT TryGetNativeCallConvFromSig(IntPtr pvSig, uint cbSig, out uint pCallConv)
+        public HRESULT TryGetNativeCallConvFromSig(IntPtr pvSig, int cbSig, out int pCallConv)
         {
             /*HRESULT GetNativeCallConvFromSig(
             [In] IntPtr pvSig,
-            [In] uint cbSig,
-            [Out] out uint pCallConv);*/
+            [In] int cbSig,
+            [Out] out int pCallConv);*/
             return Raw.GetNativeCallConvFromSig(pvSig, cbSig, out pCallConv);
         }
 
@@ -3317,9 +3317,9 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetPEKind(
             [Out] out CorPEKind pdwPEKind,
-            [Out] out uint pdwMachine);*/
+            [Out] out int pdwMachine);*/
             CorPEKind pdwPEKind;
-            uint pdwMachine;
+            int pdwMachine;
             HRESULT hr = Raw2.GetPEKind(out pdwPEKind, out pdwMachine);
 
             if (hr == HRESULT.S_OK)
@@ -3362,18 +3362,18 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetVersionString(
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pwzBuf,
-            [In] uint ccBufSize,
-            [Out] out uint pccBufSize);*/
+            [In] int ccBufSize,
+            [Out] out int pccBufSize);*/
             StringBuilder pwzBuf = null;
-            uint ccBufSize = 0;
-            uint pccBufSize;
+            int ccBufSize = 0;
+            int pccBufSize;
             HRESULT hr = Raw2.GetVersionString(pwzBuf, ccBufSize, out pccBufSize);
 
             if (hr != HRESULT.S_FALSE)
                 goto fail;
 
             ccBufSize = pccBufSize;
-            pwzBuf = new StringBuilder((int) pccBufSize);
+            pwzBuf = new StringBuilder(pccBufSize);
             hr = Raw2.GetVersionString(pwzBuf, ccBufSize, out pccBufSize);
 
             if (hr == HRESULT.S_OK)
@@ -3398,7 +3398,7 @@ namespace ManagedCorDebug
         /// <param name="tk">[in] The TypeDef or MethodDef token whose generic parameters are to be enumerated.</param>
         /// <param name="cMax">[in] The requested maximum number of tokens to place in rGenericParams.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumGenericParamsResult EnumGenericParams(mdToken tk, uint cMax)
+        public EnumGenericParamsResult EnumGenericParams(mdToken tk, int cMax)
         {
             HRESULT hr;
             EnumGenericParamsResult result;
@@ -3421,17 +3421,17 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumGenericParams returned successfully.                                         |
         /// | S_FALSE | phEnum has no member elements. In this case, pcGenericParams is set to 0 (zero). |
         /// </returns>
-        public HRESULT TryEnumGenericParams(mdToken tk, uint cMax, out EnumGenericParamsResult result)
+        public HRESULT TryEnumGenericParams(mdToken tk, int cMax, out EnumGenericParamsResult result)
         {
             /*HRESULT EnumGenericParams(
             [In, Out] ref IntPtr phEnum,
             [In] mdToken tk,
             [Out] out mdGenericParam[] rGenericParams,
-            [In] uint cMax,
-            [Out] out uint pcGenericParams);*/
+            [In] int cMax,
+            [Out] out int pcGenericParams);*/
             IntPtr phEnum = default(IntPtr);
             mdGenericParam[] rGenericParams;
-            uint pcGenericParams;
+            int pcGenericParams;
             HRESULT hr = Raw2.EnumGenericParams(ref phEnum, tk, out rGenericParams, cMax, out pcGenericParams);
 
             if (hr == HRESULT.S_OK)
@@ -3470,27 +3470,27 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetGenericParamProps(
             [In] mdGenericParam gp,
-            [Out] out uint pulParamSeq,
+            [Out] out int pulParamSeq,
             [Out] out CorGenericParamAttr pdwParamFlags,
             [Out] mdToken ptOwner,
-            [Out] uint reserved,
+            [Out] int reserved,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder wzname,
-            [In] uint cchName,
-            [Out] out uint pchName);*/
-            uint pulParamSeq;
+            [In] int cchName,
+            [Out] out int pchName);*/
+            int pulParamSeq;
             CorGenericParamAttr pdwParamFlags;
             mdToken ptOwner = default(mdToken);
-            uint reserved = default(uint);
+            int reserved = default(int);
             StringBuilder wzname = null;
-            uint cchName = 0;
-            uint pchName;
+            int cchName = 0;
+            int pchName;
             HRESULT hr = Raw2.GetGenericParamProps(gp, out pulParamSeq, out pdwParamFlags, ptOwner, reserved, wzname, cchName, out pchName);
 
             if (hr != HRESULT.S_FALSE)
                 goto fail;
 
             cchName = pchName;
-            wzname = new StringBuilder((int) pchName);
+            wzname = new StringBuilder(pchName);
             hr = Raw2.GetGenericParamProps(gp, out pulParamSeq, out pdwParamFlags, ptOwner, reserved, wzname, cchName, out pchName);
 
             if (hr == HRESULT.S_OK)
@@ -3536,10 +3536,10 @@ namespace ManagedCorDebug
             [In] mdMethodSpec mi,
             [Out] out mdToken tkParent,
             [Out] out IntPtr ppvSigBlob,
-            [Out] out uint pcbSigBlob);*/
+            [Out] out int pcbSigBlob);*/
             mdToken tkParent;
             IntPtr ppvSigBlob;
-            uint pcbSigBlob;
+            int pcbSigBlob;
             HRESULT hr = Raw2.GetMethodSpecProps(mi, out tkParent, out ppvSigBlob, out pcbSigBlob);
 
             if (hr == HRESULT.S_OK)
@@ -3559,7 +3559,7 @@ namespace ManagedCorDebug
         /// <param name="tk">[in] A token that represents the generic parameter whose constraints are to be enumerated.</param>
         /// <param name="cMax">[in] The requested maximum number of tokens to place in rGenericParamConstraints.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumGenericParamConstraintsResult EnumGenericParamConstraints(mdGenericParam tk, uint cMax)
+        public EnumGenericParamConstraintsResult EnumGenericParamConstraints(mdGenericParam tk, int cMax)
         {
             HRESULT hr;
             EnumGenericParamConstraintsResult result;
@@ -3582,17 +3582,17 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumGenericParameterConstraints returned successfully.                                         |
         /// | S_FALSE | phEnum has no member elements. In this case, pcGenericParameterConstraints is set to 0 (zero). |
         /// </returns>
-        public HRESULT TryEnumGenericParamConstraints(mdGenericParam tk, uint cMax, out EnumGenericParamConstraintsResult result)
+        public HRESULT TryEnumGenericParamConstraints(mdGenericParam tk, int cMax, out EnumGenericParamConstraintsResult result)
         {
             /*HRESULT EnumGenericParamConstraints(
             [In, Out] ref IntPtr phEnum,
             [In] mdGenericParam tk,
             [Out] mdGenericParamConstraint[] rGenericParamConstraints,
-            [In] uint cMax,
-            [Out] out uint pcGenericParamConstraints);*/
+            [In] int cMax,
+            [Out] out int pcGenericParamConstraints);*/
             IntPtr phEnum = default(IntPtr);
             mdGenericParamConstraint[] rGenericParamConstraints = default(mdGenericParamConstraint[]);
-            uint pcGenericParamConstraints;
+            int pcGenericParamConstraints;
             HRESULT hr = Raw2.EnumGenericParamConstraints(ref phEnum, tk, rGenericParamConstraints, cMax, out pcGenericParamConstraints);
 
             if (hr == HRESULT.S_OK)
@@ -3654,7 +3654,7 @@ namespace ManagedCorDebug
         /// <param name="tk">[in] The MemberRef or MethodDef token that represents the method whose MethodSpec tokens are to be enumerated. If the value of tk is 0 (zero), all MethodSpec tokens in the scope will be enumerated.</param>
         /// <param name="cMax">[in] The requested maximum number of tokens to place in rMethodSpecs.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumMethodSpecsResult EnumMethodSpecs(mdToken tk, uint cMax)
+        public EnumMethodSpecsResult EnumMethodSpecs(mdToken tk, int cMax)
         {
             HRESULT hr;
             EnumMethodSpecsResult result;
@@ -3677,17 +3677,17 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumMethodSpecs returned successfully.                                         |
         /// | S_FALSE | phEnum has no member elements. In this case, pcMethodSpecs is set to 0 (zero). |
         /// </returns>
-        public HRESULT TryEnumMethodSpecs(mdToken tk, uint cMax, out EnumMethodSpecsResult result)
+        public HRESULT TryEnumMethodSpecs(mdToken tk, int cMax, out EnumMethodSpecsResult result)
         {
             /*HRESULT EnumMethodSpecs(
             [In, Out] ref IntPtr phEnum,
             [In] mdToken tk,
             [Out] mdMethodSpec[] rMethodSpecs,
-            [In] uint cMax,
-            [Out] out uint pcMethodSpecs);*/
+            [In] int cMax,
+            [Out] out int pcMethodSpecs);*/
             IntPtr phEnum = default(IntPtr);
             mdMethodSpec[] rMethodSpecs = default(mdMethodSpec[]);
-            uint pcMethodSpecs;
+            int pcMethodSpecs;
             HRESULT hr = Raw2.EnumMethodSpecs(ref phEnum, tk, rMethodSpecs, cMax, out pcMethodSpecs);
 
             if (hr == HRESULT.S_OK)

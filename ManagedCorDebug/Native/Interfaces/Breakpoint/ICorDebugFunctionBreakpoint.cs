@@ -41,6 +41,6 @@ namespace ManagedCorDebug
         /// <param name="pnOffset">[out] A pointer to the offset of the breakpoint.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetOffset(out uint pnOffset);
+        HRESULT GetOffset(out int pnOffset);
     }
 }

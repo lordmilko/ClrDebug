@@ -42,7 +42,7 @@ namespace ManagedCorDebug
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCatchHandlerILOffset([Out] out uint pRetVal);
+        HRESULT GetCatchHandlerILOffset([Out] out int pRetVal);
 
         /// <summary>
         /// See <see cref="ISymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
@@ -50,7 +50,7 @@ namespace ManagedCorDebug
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAsyncStepInfoCount([Out] out uint pRetVal);
+        HRESULT GetAsyncStepInfoCount([Out] out int pRetVal);
 
         /// <summary>
         /// See <see cref="ISymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
@@ -59,10 +59,10 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetAsyncStepInfo(
-            [In] uint cStepInfo,
-            out uint pcStepInfo,
-            [In] ref uint yieldOffsets,
-            [In] ref uint breakpointOffset,
-            [In] ref uint breakpointMethod);
+            [In] int cStepInfo,
+            out int pcStepInfo,
+            [In] ref int yieldOffsets,
+            [In] ref int breakpointOffset,
+            [In] ref int breakpointMethod);
     }
 }

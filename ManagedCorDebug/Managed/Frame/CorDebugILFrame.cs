@@ -26,12 +26,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// This method has not been implemented.
         /// </summary>
-        public uint StackDepth
+        public int StackDepth
         {
             get
             {
                 HRESULT hr;
-                uint pDepth;
+                int pDepth;
 
                 if ((hr = TryGetStackDepth(out pDepth)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -43,9 +43,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// This method has not been implemented.
         /// </summary>
-        public HRESULT TryGetStackDepth(out uint pDepth)
+        public HRESULT TryGetStackDepth(out int pDepth)
         {
-            /*HRESULT GetStackDepth(out uint pDepth);*/
+            /*HRESULT GetStackDepth(out int pDepth);*/
             return Raw.GetStackDepth(out pDepth);
         }
 
@@ -87,8 +87,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetIP(out GetIPResult result)
         {
-            /*HRESULT GetIP(out uint pnOffset, out CorDebugMappingResult pMappingResult);*/
-            uint pnOffset;
+            /*HRESULT GetIP(out int pnOffset, out CorDebugMappingResult pMappingResult);*/
+            int pnOffset;
             CorDebugMappingResult pMappingResult;
             HRESULT hr = Raw.GetIP(out pnOffset, out pMappingResult);
 
@@ -115,7 +115,7 @@ namespace ManagedCorDebug
         /// On 64-bit platforms, the instruction pointer cannot be moved out of a catch or finally block. If SetIP is called
         /// to make such a move on a 64-bit platform, it will return an <see cref="HRESULT"/> indicating failure.
         /// </remarks>
-        public void SetIP(uint nOffset)
+        public void SetIP(int nOffset)
         {
             HRESULT hr;
 
@@ -135,9 +135,9 @@ namespace ManagedCorDebug
         /// On 64-bit platforms, the instruction pointer cannot be moved out of a catch or finally block. If SetIP is called
         /// to make such a move on a 64-bit platform, it will return an <see cref="HRESULT"/> indicating failure.
         /// </remarks>
-        public HRESULT TrySetIP(uint nOffset)
+        public HRESULT TrySetIP(int nOffset)
         {
-            /*HRESULT SetIP([In] uint nOffset);*/
+            /*HRESULT SetIP([In] int nOffset);*/
             return Raw.SetIP(nOffset);
         }
 
@@ -198,7 +198,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The GetLocalVariable method can be used either in an MSIL stack frame or in a just-in-time (JIT) compiled frame.
         /// </remarks>
-        public CorDebugValue GetLocalVariable(uint dwIndex)
+        public CorDebugValue GetLocalVariable(int dwIndex)
         {
             HRESULT hr;
             CorDebugValue ppValueResult;
@@ -217,9 +217,9 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The GetLocalVariable method can be used either in an MSIL stack frame or in a just-in-time (JIT) compiled frame.
         /// </remarks>
-        public HRESULT TryGetLocalVariable(uint dwIndex, out CorDebugValue ppValueResult)
+        public HRESULT TryGetLocalVariable(int dwIndex, out CorDebugValue ppValueResult)
         {
-            /*HRESULT GetLocalVariable([In] uint dwIndex, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            /*HRESULT GetLocalVariable([In] int dwIndex, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetLocalVariable(dwIndex, out ppValue);
 
@@ -288,7 +288,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The GetArgument method can be used either in an MSIL stack frame or in a just-in-time (JIT) compiled frame.
         /// </remarks>
-        public CorDebugValue GetArgument(uint dwIndex)
+        public CorDebugValue GetArgument(int dwIndex)
         {
             HRESULT hr;
             CorDebugValue ppValueResult;
@@ -307,9 +307,9 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The GetArgument method can be used either in an MSIL stack frame or in a just-in-time (JIT) compiled frame.
         /// </remarks>
-        public HRESULT TryGetArgument(uint dwIndex, out CorDebugValue ppValueResult)
+        public HRESULT TryGetArgument(int dwIndex, out CorDebugValue ppValueResult)
         {
-            /*HRESULT GetArgument([In] uint dwIndex, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            /*HRESULT GetArgument([In] int dwIndex, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetArgument(dwIndex, out ppValue);
 
@@ -327,7 +327,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// This method has not been implemented.
         /// </summary>
-        public CorDebugValue GetStackValue(uint dwIndex)
+        public CorDebugValue GetStackValue(int dwIndex)
         {
             HRESULT hr;
             CorDebugValue ppValueResult;
@@ -341,9 +341,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// This method has not been implemented.
         /// </summary>
-        public HRESULT TryGetStackValue(uint dwIndex, out CorDebugValue ppValueResult)
+        public HRESULT TryGetStackValue(int dwIndex, out CorDebugValue ppValueResult)
         {
-            /*HRESULT GetStackValue([In] uint dwIndex, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            /*HRESULT GetStackValue([In] int dwIndex, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetStackValue(dwIndex, out ppValue);
 
@@ -367,7 +367,7 @@ namespace ManagedCorDebug
         /// S_OK, you can still invoke <see cref="SetIP"/>, but there is no guarantee that the debugger will continue the
         /// safe and correct execution of the code being debugged.
         /// </remarks>
-        public void CanSetIP(uint nOffset)
+        public void CanSetIP(int nOffset)
         {
             HRESULT hr;
 
@@ -384,9 +384,9 @@ namespace ManagedCorDebug
         /// S_OK, you can still invoke <see cref="SetIP"/>, but there is no guarantee that the debugger will continue the
         /// safe and correct execution of the code being debugged.
         /// </remarks>
-        public HRESULT TryCanSetIP(uint nOffset)
+        public HRESULT TryCanSetIP(int nOffset)
         {
-            /*HRESULT CanSetIP([In] uint nOffset);*/
+            /*HRESULT CanSetIP([In] int nOffset);*/
             return Raw.CanSetIP(nOffset);
         }
 
@@ -408,7 +408,7 @@ namespace ManagedCorDebug
         /// of the frame's function so it can be executed. The code execution will begin at the given MSIL offset. The RemapFunction
         /// method can be called only in the context of the current frame, and only in one of the following cases:
         /// </remarks>
-        public void RemapFunction(uint newILOffset)
+        public void RemapFunction(int newILOffset)
         {
             HRESULT hr;
 
@@ -426,9 +426,9 @@ namespace ManagedCorDebug
         /// of the frame's function so it can be executed. The code execution will begin at the given MSIL offset. The RemapFunction
         /// method can be called only in the context of the current frame, and only in one of the following cases:
         /// </remarks>
-        public HRESULT TryRemapFunction(uint newILOffset)
+        public HRESULT TryRemapFunction(int newILOffset)
         {
-            /*HRESULT RemapFunction([In] uint newILOffset);*/
+            /*HRESULT RemapFunction([In] int newILOffset);*/
             return Raw2.RemapFunction(newILOffset);
         }
 
@@ -507,7 +507,7 @@ namespace ManagedCorDebug
         /// If the function call doesn't return a value, the API will fail. The ICorDebugILFrame3::GetReturnValueForILOffset
         /// method is available only on x86-based and AMD64 systems.
         /// </remarks>
-        public CorDebugValue GetReturnValueForILOffset(uint ilOffset)
+        public CorDebugValue GetReturnValueForILOffset(int ilOffset)
         {
             HRESULT hr;
             CorDebugValue ppReturnValueResult;
@@ -541,9 +541,9 @@ namespace ManagedCorDebug
         /// If the function call doesn't return a value, the API will fail. The ICorDebugILFrame3::GetReturnValueForILOffset
         /// method is available only on x86-based and AMD64 systems.
         /// </remarks>
-        public HRESULT TryGetReturnValueForILOffset(uint ilOffset, out CorDebugValue ppReturnValueResult)
+        public HRESULT TryGetReturnValueForILOffset(int ilOffset, out CorDebugValue ppReturnValueResult)
         {
-            /*HRESULT GetReturnValueForILOffset(uint ilOffset,
+            /*HRESULT GetReturnValueForILOffset(int ilOffset,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppReturnValue);*/
             ICorDebugValue ppReturnValue;
             HRESULT hr = Raw3.GetReturnValueForILOffset(ilOffset, out ppReturnValue);
@@ -632,7 +632,7 @@ namespace ManagedCorDebug
         /// local variables, those variables cannot be accessed. ILCODE_REJIT_IL allows the debugger to access the local variables
         /// added in profiler ReJIT instrumentation. If the IL is not instrumented, the method returns E_INVALIDARG.
         /// </remarks>
-        public CorDebugValue GetLocalVariableEx(ILCodeKind flags, uint dwIndex)
+        public CorDebugValue GetLocalVariableEx(ILCodeKind flags, int dwIndex)
         {
             HRESULT hr;
             CorDebugValue ppValueResult;
@@ -656,11 +656,11 @@ namespace ManagedCorDebug
         /// local variables, those variables cannot be accessed. ILCODE_REJIT_IL allows the debugger to access the local variables
         /// added in profiler ReJIT instrumentation. If the IL is not instrumented, the method returns E_INVALIDARG.
         /// </remarks>
-        public HRESULT TryGetLocalVariableEx(ILCodeKind flags, uint dwIndex, out CorDebugValue ppValueResult)
+        public HRESULT TryGetLocalVariableEx(ILCodeKind flags, int dwIndex, out CorDebugValue ppValueResult)
         {
             /*HRESULT GetLocalVariableEx(
             [In] ILCodeKind flags,
-            [In] uint dwIndex,
+            [In] int dwIndex,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw4.GetLocalVariableEx(flags, dwIndex, out ppValue);

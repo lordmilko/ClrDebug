@@ -40,6 +40,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
-        HRESULT SuspensionEnding(uint Generation);
+        HRESULT SuspensionEnding(int Generation);
     }
 }

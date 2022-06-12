@@ -2,17 +2,17 @@ namespace ManagedCorDebug
 {
     public struct GetLineFromOffsetResult
     {
-        public uint Pline { get; }
+        public int Pline { get; }
 
-        public uint Pcolumn { get; }
+        public int Pcolumn { get; }
 
-        public uint PendLine { get; }
+        public int PendLine { get; }
 
-        public uint PendColumn { get; }
+        public int PendColumn { get; }
 
-        public uint PdwStartOffset { get; }
+        public int PdwStartOffset { get; }
 
-        public GetLineFromOffsetResult(uint pline, uint pcolumn, uint pendLine, uint pendColumn, uint pdwStartOffset)
+        public GetLineFromOffsetResult(int pline, int pcolumn, int pendLine, int pendColumn, int pdwStartOffset)
         {
             Pline = pline;
             Pcolumn = pcolumn;

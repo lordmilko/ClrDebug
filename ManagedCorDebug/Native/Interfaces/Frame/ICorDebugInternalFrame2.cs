@@ -16,7 +16,7 @@ namespace ManagedCorDebug
     {
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAddress(out ulong pAddress);
+        HRESULT GetAddress(out long pAddress);
 
         /// <summary>
         /// Checks whether the this internal frame is closer to the leaf than the specified <see cref="ICorDebugFrame"/> object.

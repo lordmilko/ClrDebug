@@ -24,7 +24,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRegistersAvailable([In] uint numChunks, out byte availableRegChunks);
+        HRESULT GetRegistersAvailable([In] int numChunks, out byte availableRegChunks);
 
         /// <summary>
         /// Gets the value of each register (for the platform on which code is currently executing) that is specified by the given bit mask.
@@ -47,13 +47,13 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRegisters([In] uint maskCount, [In] byte[] mask, [In] uint regCount, out CORDB_REGISTER[] regBuffer);
+        HRESULT GetRegisters([In] int maskCount, [In] byte[] mask, [In] int regCount, out CORDB_REGISTER[] regBuffer);
 
         /// <summary>
         /// SetRegisters is not implemented in the .NET Framework version 2.0. Do not call this method.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetRegisters([In] uint maskCount, [In] byte[] mask, [In] uint regCount, [In] ref ulong regBuffer);
+        HRESULT SetRegisters([In] int maskCount, [In] byte[] mask, [In] int regCount, [In] ref long regBuffer);
     }
 }

@@ -6,9 +6,9 @@ namespace ManagedCorDebug
     {
         public IntPtr RgLocals { get; }
 
-        public uint PceltFetched { get; }
+        public int PceltFetched { get; }
 
-        public GetLocalVariablesResult(IntPtr rgLocals, uint pceltFetched)
+        public GetLocalVariablesResult(IntPtr rgLocals, int pceltFetched)
         {
             RgLocals = rgLocals;
             PceltFetched = pceltFetched;

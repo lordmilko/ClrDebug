@@ -201,9 +201,9 @@ namespace ManagedCorDebug
         public HRESULT TryGetThreadOwningMonitorLock(out GetThreadOwningMonitorLockResult result)
         {
             /*HRESULT GetThreadOwningMonitorLock([MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread,
-            out uint pAcquisitionCount);*/
+            out int pAcquisitionCount);*/
             ICorDebugThread ppThread;
-            uint pAcquisitionCount;
+            int pAcquisitionCount;
             HRESULT hr = Raw3.GetThreadOwningMonitorLock(out ppThread, out pAcquisitionCount);
 
             if (hr == HRESULT.S_OK)

@@ -38,9 +38,9 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);*/
-            uint cchName = 0;
-            uint pcchName;
+            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            int cchName = 0;
+            int pcchName;
             StringBuilder szName = null;
             HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
 
@@ -48,7 +48,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder((int) pcchName);
+            szName = new StringBuilder(pcchName);
             hr = Raw.GetName(cchName, out pcchName, szName);
 
             if (hr == HRESULT.S_OK)
@@ -72,7 +72,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cNameSpaces">[in] A ULONG32 that indicates the size of the namespaces array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetNamespacesResult GetNamespaces(uint cNameSpaces)
+        public GetNamespacesResult GetNamespaces(int cNameSpaces)
         {
             HRESULT hr;
             GetNamespacesResult result;
@@ -89,11 +89,11 @@ namespace ManagedCorDebug
         /// <param name="cNameSpaces">[in] A ULONG32 that indicates the size of the namespaces array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetNamespaces(uint cNameSpaces, out GetNamespacesResult result)
+        public HRESULT TryGetNamespaces(int cNameSpaces, out GetNamespacesResult result)
         {
-            /*HRESULT GetNamespaces([In] uint cNameSpaces, out uint pcNameSpaces, [MarshalAs(UnmanagedType.Interface), Out]
+            /*HRESULT GetNamespaces([In] int cNameSpaces, out int pcNameSpaces, [MarshalAs(UnmanagedType.Interface), Out]
             IntPtr namespaces);*/
-            uint pcNameSpaces;
+            int pcNameSpaces;
             IntPtr namespaces = default(IntPtr);
             HRESULT hr = Raw.GetNamespaces(cNameSpaces, out pcNameSpaces, namespaces);
 
@@ -113,7 +113,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cVars">[in] A ULONG32 that indicates the size of the pVars array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetVariablesResult GetVariables(uint cVars)
+        public GetVariablesResult GetVariables(int cVars)
         {
             HRESULT hr;
             GetVariablesResult result;
@@ -130,10 +130,10 @@ namespace ManagedCorDebug
         /// <param name="cVars">[in] A ULONG32 that indicates the size of the pVars array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetVariables(uint cVars, out GetVariablesResult result)
+        public HRESULT TryGetVariables(int cVars, out GetVariablesResult result)
         {
-            /*HRESULT GetVariables([In] uint cVars, out uint pcVars, [Out] IntPtr pVars);*/
-            uint pcVars;
+            /*HRESULT GetVariables([In] int cVars, out int pcVars, [Out] IntPtr pVars);*/
+            int pcVars;
             IntPtr pVars = default(IntPtr);
             HRESULT hr = Raw.GetVariables(cVars, out pcVars, pVars);
 

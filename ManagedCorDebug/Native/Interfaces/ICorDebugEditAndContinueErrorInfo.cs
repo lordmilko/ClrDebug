@@ -27,7 +27,7 @@ namespace ManagedCorDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetToken(out uint pToken);
+        HRESULT GetToken(out int pToken);
 
         /// <summary>
         /// GetErrorCode is obsolete. Do not call this method.
@@ -43,6 +43,6 @@ namespace ManagedCorDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetString([In] uint cchString, out uint pcchString, [Out] StringBuilder szString);
+        HRESULT GetString([In] int cchString, out int pcchString, [Out] StringBuilder szString);
     }
 }

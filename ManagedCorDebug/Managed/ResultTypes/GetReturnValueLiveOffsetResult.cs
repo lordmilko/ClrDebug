@@ -2,11 +2,11 @@ namespace ManagedCorDebug
 {
     public struct GetReturnValueLiveOffsetResult
     {
-        public uint PFetched { get; }
+        public int PFetched { get; }
 
-        public uint POffsets { get; }
+        public int POffsets { get; }
 
-        public GetReturnValueLiveOffsetResult(uint pFetched, uint pOffsets)
+        public GetReturnValueLiveOffsetResult(int pFetched, int pOffsets)
         {
             PFetched = pFetched;
             POffsets = pOffsets;

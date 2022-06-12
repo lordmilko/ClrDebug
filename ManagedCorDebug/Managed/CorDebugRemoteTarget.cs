@@ -57,9 +57,9 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetHostName(out string szHostNameResult)
         {
-            /*HRESULT GetHostName([In] uint cchHostName, out uint pcchHostName, [Out] StringBuilder szHostName);*/
-            uint cchHostName = 0;
-            uint pcchHostName;
+            /*HRESULT GetHostName([In] int cchHostName, out int pcchHostName, [Out] StringBuilder szHostName);*/
+            int cchHostName = 0;
+            int pcchHostName;
             StringBuilder szHostName = null;
             HRESULT hr = Raw.GetHostName(cchHostName, out pcchHostName, szHostName);
 
@@ -67,7 +67,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchHostName = pcchHostName;
-            szHostName = new StringBuilder((int) pcchHostName);
+            szHostName = new StringBuilder(pcchHostName);
             hr = Raw.GetHostName(cchHostName, out pcchHostName, szHostName);
 
             if (hr == HRESULT.S_OK)

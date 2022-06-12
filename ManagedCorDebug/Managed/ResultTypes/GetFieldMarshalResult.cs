@@ -6,9 +6,9 @@ namespace ManagedCorDebug
     {
         public IntPtr PpvNativeType { get; }
 
-        public uint PcbNativeType { get; }
+        public int PcbNativeType { get; }
 
-        public GetFieldMarshalResult(IntPtr ppvNativeType, uint pcbNativeType)
+        public GetFieldMarshalResult(IntPtr ppvNativeType, int pcbNativeType)
         {
             PpvNativeType = ppvNativeType;
             PcbNativeType = pcbNativeType;

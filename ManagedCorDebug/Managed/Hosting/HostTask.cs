@@ -182,7 +182,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="dwMilliseconds">[in] The time interval, in milliseconds, to wait for the task to terminate. If this interval elapses before the task terminates, the calling task unblocks.</param>
         /// <param name="option">[in] One of the <see cref="WAIT_OPTION"/> values. A value of WAIT_ALERTABLE instructs the host to wake the task if Alert is called before milliseconds elapses.</param>
-        public void Join(uint dwMilliseconds, uint option)
+        public void Join(int dwMilliseconds, int option)
         {
             HRESULT hr;
 
@@ -205,9 +205,9 @@ namespace ManagedCorDebug
         /// | HOST_E_ABANDONED       | An event was canceled while a blocked thread or fiber was waiting on it, or the current IHostTask instance is not associated with a task.                                                  |
         /// | E_FAIL                 | An unknown catastrophic failure occurred. When a method returns E_FAIL, the CLR is no longer usable within the process. Subsequent calls to hosting methods return HOST_E_CLRNOTAVAILABLE. |
         /// </returns>
-        public HRESULT TryJoin(uint dwMilliseconds, uint option)
+        public HRESULT TryJoin(int dwMilliseconds, int option)
         {
-            /*HRESULT Join([In] uint dwMilliseconds, [In] uint option);*/
+            /*HRESULT Join([In] int dwMilliseconds, [In] int option);*/
             return Raw.Join(dwMilliseconds, option);
         }
 

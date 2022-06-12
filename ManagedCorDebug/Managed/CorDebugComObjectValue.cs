@@ -64,7 +64,7 @@ namespace ManagedCorDebug
         /// <param name="bIInspectableOnly">[in] A value that indicates whether the method will return only Windows Runtime interfaces (IInspectable interfaces) or all COM interfaces that are cached by the runtime callable wrapper (RCW).</param>
         /// <param name="celt">[in] The number of objects whose addresses are to be retrieved.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetCachedInterfacePointersResult GetCachedInterfacePointers(int bIInspectableOnly, uint celt)
+        public GetCachedInterfacePointersResult GetCachedInterfacePointers(int bIInspectableOnly, int celt)
         {
             HRESULT hr;
             GetCachedInterfacePointersResult result;
@@ -81,14 +81,14 @@ namespace ManagedCorDebug
         /// <param name="bIInspectableOnly">[in] A value that indicates whether the method will return only Windows Runtime interfaces (IInspectable interfaces) or all COM interfaces that are cached by the runtime callable wrapper (RCW).</param>
         /// <param name="celt">[in] The number of objects whose addresses are to be retrieved.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetCachedInterfacePointers(int bIInspectableOnly, uint celt, out GetCachedInterfacePointersResult result)
+        public HRESULT TryGetCachedInterfacePointers(int bIInspectableOnly, int celt, out GetCachedInterfacePointersResult result)
         {
             /*HRESULT GetCachedInterfacePointers(
             [In] int bIInspectableOnly,
-            [In] uint celt,
-            out uint pceltFetched,
+            [In] int celt,
+            out int pceltFetched,
             out CORDB_ADDRESS[] ptrs);*/
-            uint pceltFetched;
+            int pceltFetched;
             CORDB_ADDRESS[] ptrs;
             HRESULT hr = Raw.GetCachedInterfacePointers(bIInspectableOnly, celt, out pceltFetched, out ptrs);
 

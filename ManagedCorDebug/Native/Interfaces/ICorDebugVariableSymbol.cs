@@ -21,7 +21,7 @@ namespace ManagedCorDebug
         /// <param name="szName">A pointer to a character array that contains the variable name.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);
+        HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);
 
         /// <summary>
         /// Gets the size of a variable in bytes.
@@ -29,7 +29,7 @@ namespace ManagedCorDebug
         /// <param name="pcbValue">A pointer to a 32-bit unsigned integer containing the size of the variable.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSize(out uint pcbValue);
+        HRESULT GetSize(out int pcbValue);
 
         /// <summary>
         /// Gets the value of a variable as a byte array.
@@ -43,11 +43,11 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetValue(
-            [In] uint offset,
-            [In] uint cbContext,
+            [In] int offset,
+            [In] int cbContext,
             [In] IntPtr context,
-            [In] uint cbValue,
-            out uint pcbValue,
+            [In] int cbValue,
+            out int pcbValue,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] pValue);
 
         /// <summary>
@@ -62,11 +62,11 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetValue(
-            [In] uint offset,
-            [In] uint threadID,
-            [In] uint cbContext,
+            [In] int offset,
+            [In] int threadID,
+            [In] int cbContext,
             [In] IntPtr context,
-            [In] uint cbValue,
+            [In] int cbValue,
             [In] IntPtr pValue);
 
         /// <summary>
@@ -79,6 +79,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSlotIndex(out uint pSlotIndex);
+        HRESULT GetSlotIndex(out int pSlotIndex);
     }
 }

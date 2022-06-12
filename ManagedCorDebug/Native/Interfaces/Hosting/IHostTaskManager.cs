@@ -42,7 +42,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT CreateTask(
-            [In] uint dwStackSize,
+            [In] int dwStackSize,
             [In, MarshalAs(UnmanagedType.FunctionPtr)] LPTHREAD_START_ROUTINE pStartAddress,
             [In] IntPtr pParameter,
             [Out] out IHostTaskManager ppTask);
@@ -67,8 +67,8 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT Sleep(
-            [In] uint dwMilliseconds,
-            [In] uint option);
+            [In] int dwMilliseconds,
+            [In] int option);
 
         /// <summary>
         /// Notifies the host that it should switch out the current task.
@@ -89,7 +89,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT SwitchToTask(
-            [In] uint option);
+            [In] int option);
 
         /// <summary>
         /// Notifies the host that the common language runtime (CLR) has changed the user interface (UI) locale, or culture, on the currently executing task.
@@ -168,7 +168,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT CallNeedsHostHook(
-            [In] uint target,
+            [In] int target,
             [Out] out int pbCallNeedsHostHook);
 
         /// <summary>
@@ -192,7 +192,7 @@ namespace ManagedCorDebug
         /// and <see cref="EnterRuntime"/> allows the host to identify the nested layers.
         /// </remarks>
         [PreserveSig]
-        HRESULT LeaveRuntime([In] uint target);
+        HRESULT LeaveRuntime([In] int target);
 
         /// <summary>
         /// Notifies the host that a call to an unmanaged method, such as a platform invoke method, is returning execution control to the common language runtime (CLR).
@@ -351,14 +351,14 @@ namespace ManagedCorDebug
         /// Reserved for internal use only.
         /// </summary>
         [PreserveSig]
-        HRESULT SetStackGuarantee([In] uint guarantee);
+        HRESULT SetStackGuarantee([In] int guarantee);
 
         /// <summary>
         /// Gets the amount of stack space that is guaranteed to be available after a stack operation completes, but before the closing of a process.
         /// </summary>
         /// <param name="pGuarantee">[out] A pointer to the number of bytes that are available.</param>
         [PreserveSig]
-        HRESULT GetStackGuarantee([Out] out uint pGuarantee);
+        HRESULT GetStackGuarantee([Out] out int pGuarantee);
 
         /// <summary>
         /// Provides the host with an interface pointer to an <see cref="ICLRTaskManager"/> instance implemented by the common language runtime (CLR).

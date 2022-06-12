@@ -4,11 +4,11 @@ namespace ManagedCorDebug
 {
     public struct GetLocalsResult
     {
-        public uint PcLocals { get; }
+        public int PcLocals { get; }
 
         public IntPtr Locals { get; }
 
-        public GetLocalsResult(uint pcLocals, IntPtr locals)
+        public GetLocalsResult(int pcLocals, IntPtr locals)
         {
             PcLocals = pcLocals;
             Locals = locals;

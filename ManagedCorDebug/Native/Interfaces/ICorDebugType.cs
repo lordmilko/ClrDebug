@@ -108,6 +108,6 @@ namespace ManagedCorDebug
         /// <param name="pnRank">[out] A pointer to the number of dimensions.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRank(out uint pnRank);
+        HRESULT GetRank(out int pnRank);
     }
 }

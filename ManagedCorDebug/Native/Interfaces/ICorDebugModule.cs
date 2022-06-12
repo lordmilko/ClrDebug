@@ -53,7 +53,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetName([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);
+        HRESULT GetName([In] int cchName, out int pcchName, [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);
 
         /// <summary>
         /// Controls whether the just-in-time (JIT) compiler preserves debugging information for methods within this module.
@@ -100,7 +100,7 @@ namespace ManagedCorDebug
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetFunctionFromRVA([In] ulong rva, [MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
+        HRESULT GetFunctionFromRVA([In] long rva, [MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
 
         /// <summary>
         /// Gets the class specified by the metadata token.
@@ -182,7 +182,7 @@ namespace ManagedCorDebug
         /// <param name="pcBytes">[out] The size of the module in bytes. If the module was produced from the native image generator (NGen.exe), the size of the module will be zero.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSize(out uint pcBytes);
+        HRESULT GetSize(out int pcBytes);
 
         /// <summary>
         /// Gets a value that indicates whether this module exists only in memory.

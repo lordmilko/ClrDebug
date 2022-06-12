@@ -31,7 +31,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetParameterizedType(
             [In] CorElementType elementType,
-            [In] uint nTypeArgs,
+            [In] int nTypeArgs,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugType ppTypeArgs,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);

@@ -24,7 +24,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);
+        HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);
 
         /// <summary>
         /// Gets a string containing the description of the managed debugging assistant (MDA) represented by <see cref="ICorDebugMDA"/>.
@@ -37,7 +37,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetDescription([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);
+        HRESULT GetDescription([In] int cchName, out int pcchName, [Out] StringBuilder szName);
 
         /// <summary>
         /// Gets the full XML stream associated with the managed debugging assistant (MDA) represented by <see cref="ICorDebugMDA"/>.
@@ -50,7 +50,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetXML([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);
+        HRESULT GetXML([In] int cchName, out int pcchName, [Out] StringBuilder szName);
 
         /// <summary>
         /// Gets the flags associated with the managed debugging assistant (MDA) represented by <see cref="ICorDebugMDA"/>.
@@ -70,6 +70,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetOSThreadId(out uint pOsTid);
+        HRESULT GetOSThreadId(out int pOsTid);
     }
 }

@@ -36,8 +36,8 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCachedInterfacePointers(
             [In] int bIInspectableOnly,
-            [In] uint celt,
-            out uint pceltFetched,
+            [In] int celt,
+            out int pceltFetched,
             out CORDB_ADDRESS[] ptrs);
     }
 }

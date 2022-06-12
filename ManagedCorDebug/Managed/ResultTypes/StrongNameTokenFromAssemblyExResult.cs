@@ -6,13 +6,13 @@ namespace ManagedCorDebug
     {
         public IntPtr PpbStrongNameToken { get; }
 
-        public uint PcbStrongNameToken { get; }
+        public int PcbStrongNameToken { get; }
 
         public IntPtr PpbPublicKeyBlob { get; }
 
-        public uint PcbPublicKeyBlob { get; }
+        public int PcbPublicKeyBlob { get; }
 
-        public StrongNameTokenFromAssemblyExResult(IntPtr ppbStrongNameToken, uint pcbStrongNameToken, IntPtr ppbPublicKeyBlob, uint pcbPublicKeyBlob)
+        public StrongNameTokenFromAssemblyExResult(IntPtr ppbStrongNameToken, int pcbStrongNameToken, IntPtr ppbPublicKeyBlob, int pcbPublicKeyBlob)
         {
             PpbStrongNameToken = ppbStrongNameToken;
             PcbStrongNameToken = pcbStrongNameToken;

@@ -236,12 +236,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the size, in bytes, of the module.
         /// </summary>
-        public uint Size
+        public int Size
         {
             get
             {
                 HRESULT hr;
-                uint pcBytes;
+                int pcBytes;
 
                 if ((hr = TryGetSize(out pcBytes)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -254,9 +254,9 @@ namespace ManagedCorDebug
         /// Gets the size, in bytes, of the module.
         /// </summary>
         /// <param name="pcBytes">[out] The size of the module in bytes. If the module was produced from the native image generator (NGen.exe), the size of the module will be zero.</param>
-        public HRESULT TryGetSize(out uint pcBytes)
+        public HRESULT TryGetSize(out int pcBytes)
         {
-            /*HRESULT GetSize(out uint pcBytes);*/
+            /*HRESULT GetSize(out int pcBytes);*/
             return Raw.GetSize(out pcBytes);
         }
 
@@ -326,9 +326,9 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);*/
-            uint cchName = 0;
-            uint pcchName;
+            /*HRESULT GetName([In] int cchName, out int pcchName, [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);*/
+            int cchName = 0;
+            int pcchName;
             StringBuilder szName = null;
             HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
 
@@ -336,7 +336,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder((int) pcchName);
+            szName = new StringBuilder(pcchName);
             hr = Raw.GetName(cchName, out pcchName, szName);
 
             if (hr == HRESULT.S_OK)
@@ -475,7 +475,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// This method has not been implemented in the current version of the .NET Framework.
         /// </summary>
-        public CorDebugFunction GetFunctionFromRVA(ulong rva)
+        public CorDebugFunction GetFunctionFromRVA(long rva)
         {
             HRESULT hr;
             CorDebugFunction ppFunctionResult;
@@ -489,9 +489,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// This method has not been implemented in the current version of the .NET Framework.
         /// </summary>
-        public HRESULT TryGetFunctionFromRVA(ulong rva, out CorDebugFunction ppFunctionResult)
+        public HRESULT TryGetFunctionFromRVA(long rva, out CorDebugFunction ppFunctionResult)
         {
-            /*HRESULT GetFunctionFromRVA([In] ulong rva, [MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
+            /*HRESULT GetFunctionFromRVA([In] long rva, [MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
             ICorDebugFunction ppFunction;
             HRESULT hr = Raw.GetFunctionFromRVA(rva, out ppFunction);
 
@@ -664,12 +664,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets or sets the flags that control the just-in-time (JIT) compilation of this <see cref="ICorDebugModule2"/>.
         /// </summary>
-        public uint JITCompilerFlags
+        public int JITCompilerFlags
         {
             get
             {
                 HRESULT hr;
-                uint pdwFlags;
+                int pdwFlags;
 
                 if ((hr = TryGetJITCompilerFlags(out pdwFlags)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -689,9 +689,9 @@ namespace ManagedCorDebug
         /// Gets the flags that control the just-in-time (JIT) compilation of this <see cref="ICorDebugModule2"/>.
         /// </summary>
         /// <param name="pdwFlags">[out] A pointer to a value of the <see cref="CorDebugJITCompilerFlags"/> enumeration that controls the JIT compilation.</param>
-        public HRESULT TryGetJITCompilerFlags(out uint pdwFlags)
+        public HRESULT TryGetJITCompilerFlags(out int pdwFlags)
         {
-            /*HRESULT GetJITCompilerFlags(out uint pdwFlags);*/
+            /*HRESULT GetJITCompilerFlags(out int pdwFlags);*/
             return Raw2.GetJITCompilerFlags(out pdwFlags);
         }
 
@@ -707,9 +707,9 @@ namespace ManagedCorDebug
         /// of these two platforms with the CORDEBUG_JIT_ENABLE_ENC flag set in dwFlags, the SetJITCompilerFlags method and
         /// all methods specific to Edit and Continue, such as <see cref="ApplyChanges"/>, will fail.
         /// </remarks>
-        public HRESULT TrySetJITCompilerFlags(uint dwFlags)
+        public HRESULT TrySetJITCompilerFlags(int dwFlags)
         {
-            /*HRESULT SetJITCompilerFlags([In] uint dwFlags);*/
+            /*HRESULT SetJITCompilerFlags([In] int dwFlags);*/
             return Raw2.SetJITCompilerFlags(dwFlags);
         }
 
@@ -729,7 +729,7 @@ namespace ManagedCorDebug
         /// were set successfully. It returns a CORDBG_E_FUNCTION_NOT_DEBUGGABLE <see cref="HRESULT"/> if some functions that are marked
         /// true are not debuggable.
         /// </remarks>
-        public void SetJMCStatus(int bIsJustMyCode, uint cTokens, mdToken[] pTokens)
+        public void SetJMCStatus(int bIsJustMyCode, int cTokens, mdToken[] pTokens)
         {
             HRESULT hr;
 
@@ -750,9 +750,9 @@ namespace ManagedCorDebug
         /// were set successfully. It returns a CORDBG_E_FUNCTION_NOT_DEBUGGABLE <see cref="HRESULT"/> if some functions that are marked
         /// true are not debuggable.
         /// </remarks>
-        public HRESULT TrySetJMCStatus(int bIsJustMyCode, uint cTokens, mdToken[] pTokens)
+        public HRESULT TrySetJMCStatus(int bIsJustMyCode, int cTokens, mdToken[] pTokens)
         {
-            /*HRESULT SetJMCStatus([In] int bIsJustMyCode, [In] uint cTokens, [In] mdToken[] pTokens);*/
+            /*HRESULT SetJMCStatus([In] int bIsJustMyCode, [In] int cTokens, [In] mdToken[] pTokens);*/
             return Raw2.SetJMCStatus(bIsJustMyCode, cTokens, pTokens);
         }
 
@@ -782,7 +782,7 @@ namespace ManagedCorDebug
         /// that copy and obtain a new copy. If the ApplyChanges method fails, the debug session is in an invalid state and
         /// must be restarted.
         /// </remarks>
-        public void ApplyChanges(uint cbMetadata, IntPtr pbMetadata, uint cbIL, IntPtr pbIL)
+        public void ApplyChanges(int cbMetadata, IntPtr pbMetadata, int cbIL, IntPtr pbIL)
         {
             HRESULT hr;
 
@@ -813,9 +813,9 @@ namespace ManagedCorDebug
         /// that copy and obtain a new copy. If the ApplyChanges method fails, the debug session is in an invalid state and
         /// must be restarted.
         /// </remarks>
-        public HRESULT TryApplyChanges(uint cbMetadata, IntPtr pbMetadata, uint cbIL, IntPtr pbIL)
+        public HRESULT TryApplyChanges(int cbMetadata, IntPtr pbMetadata, int cbIL, IntPtr pbIL)
         {
-            /*HRESULT ApplyChanges([In] uint cbMetadata, [In] IntPtr pbMetadata, [In] uint cbIL, [In] IntPtr pbIL);*/
+            /*HRESULT ApplyChanges([In] int cbMetadata, [In] IntPtr pbMetadata, [In] int cbIL, [In] IntPtr pbIL);*/
             return Raw2.ApplyChanges(cbMetadata, pbMetadata, cbIL, pbIL);
         }
 

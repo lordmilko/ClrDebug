@@ -6,7 +6,7 @@ namespace ManagedCorDebug
 
         public string SzEvent { get; }
 
-        public uint PdwEventFlags { get; }
+        public int PdwEventFlags { get; }
 
         public mdToken PtkEventType { get; }
 
@@ -18,9 +18,9 @@ namespace ManagedCorDebug
 
         public mdMethodDef[] RmdOtherMethod { get; }
 
-        public uint PcOtherMethod { get; }
+        public int PcOtherMethod { get; }
 
-        public GetEventPropsResult(mdTypeDef pClass, string szEvent, uint pdwEventFlags, mdToken ptkEventType, mdMethodDef pmdAddOn, mdMethodDef pmdRemoveOn, mdMethodDef pmdFire, mdMethodDef[] rmdOtherMethod, uint pcOtherMethod)
+        public GetEventPropsResult(mdTypeDef pClass, string szEvent, int pdwEventFlags, mdToken ptkEventType, mdMethodDef pmdAddOn, mdMethodDef pmdRemoveOn, mdMethodDef pmdFire, mdMethodDef[] rmdOtherMethod, int pcOtherMethod)
         {
             PClass = pClass;
             SzEvent = szEvent;

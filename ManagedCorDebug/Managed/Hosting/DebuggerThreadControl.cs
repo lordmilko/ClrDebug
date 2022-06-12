@@ -84,7 +84,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The StartBlockingForDebugger method could be called on a runtime thread.
         /// </remarks>
-        public void StartBlockingForDebugger(uint dwUnused)
+        public void StartBlockingForDebugger(int dwUnused)
         {
             HRESULT hr;
 
@@ -99,9 +99,9 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The StartBlockingForDebugger method could be called on a runtime thread.
         /// </remarks>
-        public HRESULT TryStartBlockingForDebugger(uint dwUnused)
+        public HRESULT TryStartBlockingForDebugger(int dwUnused)
         {
-            /*HRESULT StartBlockingForDebugger(uint dwUnused);*/
+            /*HRESULT StartBlockingForDebugger(int dwUnused);*/
             return Raw.StartBlockingForDebugger(dwUnused);
         }
 

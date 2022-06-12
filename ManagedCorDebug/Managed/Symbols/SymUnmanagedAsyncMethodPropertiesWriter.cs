@@ -18,7 +18,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Sets the starting method that initiates the async operation.
         /// </summary>
-        public void DefineKickoffMethod(uint kickoffMethod)
+        public void DefineKickoffMethod(int kickoffMethod)
         {
             HRESULT hr;
 
@@ -30,9 +30,9 @@ namespace ManagedCorDebug
         /// Sets the starting method that initiates the async operation.
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
-        public HRESULT TryDefineKickoffMethod(uint kickoffMethod)
+        public HRESULT TryDefineKickoffMethod(int kickoffMethod)
         {
-            /*HRESULT DefineKickoffMethod([In] uint kickoffMethod);*/
+            /*HRESULT DefineKickoffMethod([In] int kickoffMethod);*/
             return Raw.DefineKickoffMethod(kickoffMethod);
         }
 
@@ -43,7 +43,7 @@ namespace ManagedCorDebug
         /// Sets the IL offset for the compiler-generated catch handler that wraps an async method. The IL offset of the generated catch is used by the debugger to handle the catch as if it were non-user code even though it might occur in a user code method.<para/>
         /// In particular, it is used in response to a CatchHandlerFound exception event.
         /// </summary>
-        public void DefineCatchHandlerILOffset(uint catchHandlerOffset)
+        public void DefineCatchHandlerILOffset(int catchHandlerOffset)
         {
             HRESULT hr;
 
@@ -56,9 +56,9 @@ namespace ManagedCorDebug
         /// In particular, it is used in response to a CatchHandlerFound exception event.
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
-        public HRESULT TryDefineCatchHandlerILOffset(uint catchHandlerOffset)
+        public HRESULT TryDefineCatchHandlerILOffset(int catchHandlerOffset)
         {
-            /*HRESULT DefineCatchHandlerILOffset([In] uint catchHandlerOffset);*/
+            /*HRESULT DefineCatchHandlerILOffset([In] int catchHandlerOffset);*/
             return Raw.DefineCatchHandlerILOffset(catchHandlerOffset);
         }
 
@@ -69,7 +69,7 @@ namespace ManagedCorDebug
         /// Define a group of async await operations in the current method. Each yield offset matches an await's return instruction, identifying a potential yield.<para/>
         /// Each breakpointMethod/breakpointOffset pair tells us where the asynchronous operation will resume which could be in a different method.
         /// </summary>
-        public void DefineAsyncStepInfo(uint count, uint yieldOffsets, uint breakpointOffset, uint breakpointMethod)
+        public void DefineAsyncStepInfo(int count, int yieldOffsets, int breakpointOffset, int breakpointMethod)
         {
             HRESULT hr;
 
@@ -82,13 +82,13 @@ namespace ManagedCorDebug
         /// Each breakpointMethod/breakpointOffset pair tells us where the asynchronous operation will resume which could be in a different method.
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
-        public HRESULT TryDefineAsyncStepInfo(uint count, uint yieldOffsets, uint breakpointOffset, uint breakpointMethod)
+        public HRESULT TryDefineAsyncStepInfo(int count, int yieldOffsets, int breakpointOffset, int breakpointMethod)
         {
             /*HRESULT DefineAsyncStepInfo(
-            [In] uint count,
-            [In] ref uint yieldOffsets,
-            [In] ref uint breakpointOffset,
-            [In] ref uint breakpointMethod);*/
+            [In] int count,
+            [In] ref int yieldOffsets,
+            [In] ref int breakpointOffset,
+            [In] ref int breakpointMethod);*/
             return Raw.DefineAsyncStepInfo(count, ref yieldOffsets, ref breakpointOffset, ref breakpointMethod);
         }
 

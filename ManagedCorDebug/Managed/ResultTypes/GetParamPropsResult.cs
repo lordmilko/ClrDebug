@@ -7,13 +7,13 @@ namespace ManagedCorDebug
     {
         public mdMethodDef Pmd { get; }
 
-        public uint PulSequence { get; }
+        public int PulSequence { get; }
 
         public string SzName { get; }
 
-        public uint CchName { get; }
+        public int CchName { get; }
 
-        public uint PchName { get; }
+        public int PchName { get; }
 
         public CorParamAttr PdwAttr { get; }
 
@@ -23,7 +23,7 @@ namespace ManagedCorDebug
 
         public IntPtr PcchValue { get; }
 
-        public GetParamPropsResult(mdMethodDef pmd, uint pulSequence, string szName, uint cchName, uint pchName, CorParamAttr pdwAttr, CorElementType pdwCPlusTypeFlag, IntPtr ppValue, IntPtr pcchValue)
+        public GetParamPropsResult(mdMethodDef pmd, int pulSequence, string szName, int cchName, int pchName, CorParamAttr pdwAttr, CorElementType pdwCPlusTypeFlag, IntPtr ppValue, IntPtr pcchValue)
         {
             Pmd = pmd;
             PulSequence = pulSequence;

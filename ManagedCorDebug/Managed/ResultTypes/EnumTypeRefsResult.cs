@@ -8,9 +8,9 @@ namespace ManagedCorDebug
 
         public mdTypeRef[] RTypeRefs { get; }
 
-        public uint PcTypeRefs { get; }
+        public int PcTypeRefs { get; }
 
-        public EnumTypeRefsResult(IntPtr phEnum, mdTypeRef[] rTypeRefs, uint pcTypeRefs)
+        public EnumTypeRefsResult(IntPtr phEnum, mdTypeRef[] rTypeRefs, int pcTypeRefs)
         {
             PhEnum = phEnum;
             RTypeRefs = rTypeRefs;

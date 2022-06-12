@@ -30,9 +30,9 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetReturnValueLiveOffset(
-            [In] uint ilOffset,
-            [In] uint bufferSize,
-            out uint pFetched,
-            [Out] uint pOffsets);
+            [In] int ilOffset,
+            [In] int bufferSize,
+            out int pFetched,
+            [Out] int pOffsets);
     }
 }

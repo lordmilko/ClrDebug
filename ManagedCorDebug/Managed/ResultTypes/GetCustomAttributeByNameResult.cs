@@ -6,9 +6,9 @@ namespace ManagedCorDebug
     {
         public IntPtr PpData { get; }
 
-        public uint PcbData { get; }
+        public int PcbData { get; }
 
-        public GetCustomAttributeByNameResult(IntPtr ppData, uint pcbData)
+        public GetCustomAttributeByNameResult(IntPtr ppData, int pcbData)
         {
             PpData = ppData;
             PcbData = pcbData;

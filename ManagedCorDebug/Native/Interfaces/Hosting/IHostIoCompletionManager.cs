@@ -82,7 +82,7 @@ namespace ManagedCorDebug
         /// In this case, a host should return E_NOTIMPL from this method.
         /// </remarks>
         [PreserveSig]
-        HRESULT SetMaxThreads([In] uint dwMaxIOCompletionThreads);
+        HRESULT SetMaxThreads([In] int dwMaxIOCompletionThreads);
 
         /// <summary>
         /// Gets the maximum number of threads that the host can allot to service I/O requests.
@@ -105,7 +105,7 @@ namespace ManagedCorDebug
         /// GetMaxThreads. In this case, the host should return E_NOTIMPL from this method.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetMaxThreads([Out] out uint pdwMaxIOCompletionThreads);
+        HRESULT GetMaxThreads([Out] out int pdwMaxIOCompletionThreads);
 
         /// <summary>
         /// Gets the number of I/O completion threads, of the total number of threads managed by the host, that are not currently servicing requests.
@@ -128,7 +128,7 @@ namespace ManagedCorDebug
         /// the host should return E_NOTIMPL from this method.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetAvailableThreads([Out] out uint pdwAvailableIOCompletionThreads);
+        HRESULT GetAvailableThreads([Out] out int pdwAvailableIOCompletionThreads);
 
         /// <summary>
         /// Gets the size of any custom data the host intends to append to I/O requests.
@@ -153,7 +153,7 @@ namespace ManagedCorDebug
         /// structure, see the Windows Platform documentation.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetHostOverlappedSize([Out] out uint pcbSize);
+        HRESULT GetHostOverlappedSize([Out] out int pcbSize);
 
         /// <summary>
         /// Provides the host with an interface pointer to the <see cref="ICLRIoCompletionManager"/> instance implemented by the common language runtime (CLR).
@@ -248,7 +248,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT SetMinThreads(
-            [In] uint dwMinIOCompletionThreads);
+            [In] int dwMinIOCompletionThreads);
 
         /// <summary>
         /// Gets the minimum number of threads that the host provides for processing I/O requests.
@@ -272,6 +272,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT GetMinThreads(
-            [Out] out uint pdwMinIOCompletionThreads);
+            [Out] out int pdwMinIOCompletionThreads);
     }
 }

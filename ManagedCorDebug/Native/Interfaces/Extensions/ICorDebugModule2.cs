@@ -27,7 +27,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetJMCStatus([In] int bIsJustMyCode, [In] uint cTokens, [In] mdToken[] pTokens);
+        HRESULT SetJMCStatus([In] int bIsJustMyCode, [In] int cTokens, [In] mdToken[] pTokens);
 
         /// <summary>
         /// Applies the changes in the metadata and the changes in the Microsoft intermediate language (MSIL) code to the running process.
@@ -54,7 +54,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ApplyChanges([In] uint cbMetadata, [In] IntPtr pbMetadata, [In] uint cbIL, [In] IntPtr pbIL);
+        HRESULT ApplyChanges([In] int cbMetadata, [In] IntPtr pbMetadata, [In] int cbIL, [In] IntPtr pbIL);
 
         /// <summary>
         /// Sets the flags that control the just-in-time (JIT) compilation of this <see cref="ICorDebugModule2"/>.
@@ -70,7 +70,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetJITCompilerFlags([In] uint dwFlags);
+        HRESULT SetJITCompilerFlags([In] int dwFlags);
 
         /// <summary>
         /// Gets the flags that control the just-in-time (JIT) compilation of this <see cref="ICorDebugModule2"/>.
@@ -78,7 +78,7 @@ namespace ManagedCorDebug
         /// <param name="pdwFlags">[out] A pointer to a value of the <see cref="CorDebugJITCompilerFlags"/> enumeration that controls the JIT compilation.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetJITCompilerFlags(out uint pdwFlags);
+        HRESULT GetJITCompilerFlags(out int pdwFlags);
 
         /// <summary>
         /// Resolves the assembly referenced by the specified metadata token.

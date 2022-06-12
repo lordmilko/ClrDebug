@@ -6,9 +6,9 @@ namespace ManagedCorDebug
     {
         public IntPtr Buffer { get; }
 
-        public uint DataSize { get; }
+        public int DataSize { get; }
 
-        public GetMetadataResult(IntPtr buffer, uint dataSize)
+        public GetMetadataResult(IntPtr buffer, int dataSize)
         {
             Buffer = buffer;
             DataSize = dataSize;

@@ -2,11 +2,11 @@ namespace ManagedCorDebug
 {
     public struct GetFramePropsResult
     {
-        public uint PCodeStartRva { get; }
+        public int PCodeStartRva { get; }
 
-        public uint PParentFrameStartRva { get; }
+        public int PParentFrameStartRva { get; }
 
-        public GetFramePropsResult(uint pCodeStartRva, uint pParentFrameStartRva)
+        public GetFramePropsResult(int pCodeStartRva, int pParentFrameStartRva)
         {
             PCodeStartRva = pCodeStartRva;
             PParentFrameStartRva = pParentFrameStartRva;

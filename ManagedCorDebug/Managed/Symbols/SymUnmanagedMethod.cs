@@ -49,12 +49,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the count of sequence points within this method.
         /// </summary>
-        public uint SequencePointCount
+        public int SequencePointCount
         {
             get
             {
                 HRESULT hr;
-                uint pRetVal;
+                int pRetVal;
 
                 if ((hr = TryGetSequencePointCount(out pRetVal)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -68,9 +68,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the size of the buffer required to contain the sequence points.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSequencePointCount(out uint pRetVal)
+        public HRESULT TryGetSequencePointCount(out int pRetVal)
         {
-            /*HRESULT GetSequencePointCount([Out] out uint pRetVal);*/
+            /*HRESULT GetSequencePointCount([Out] out int pRetVal);*/
             return Raw.GetSequencePointCount(out pRetVal);
         }
 
@@ -152,7 +152,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="offset">[in] A ULONG that contains the offset.</param>
         /// <returns>[out] A pointer that is set to the returned <see cref="ISymUnmanagedScope"/> interface.</returns>
-        public ISymUnmanagedScope GetScopeFromOffset(uint offset)
+        public ISymUnmanagedScope GetScopeFromOffset(int offset)
         {
             HRESULT hr;
             ISymUnmanagedScope pRetVal = default(ISymUnmanagedScope);
@@ -169,9 +169,9 @@ namespace ManagedCorDebug
         /// <param name="offset">[in] A ULONG that contains the offset.</param>
         /// <param name="pRetVal">[out] A pointer that is set to the returned <see cref="ISymUnmanagedScope"/> interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetScopeFromOffset(uint offset, ref ISymUnmanagedScope pRetVal)
+        public HRESULT TryGetScopeFromOffset(int offset, ref ISymUnmanagedScope pRetVal)
         {
-            /*HRESULT GetScopeFromOffset([In] uint offset, [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedScope pRetVal);*/
+            /*HRESULT GetScopeFromOffset([In] int offset, [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedScope pRetVal);*/
             return Raw.GetScopeFromOffset(offset, pRetVal);
         }
 
@@ -185,10 +185,10 @@ namespace ManagedCorDebug
         /// <param name="line">[in] The document line for which the offset is requested.</param>
         /// <param name="column">[in] The document column for which the offset is requested.</param>
         /// <returns>[out] A pointer to a ULONG32 that receives the offsets.</returns>
-        public uint GetOffset(ISymUnmanagedDocument document, uint line, uint column)
+        public int GetOffset(ISymUnmanagedDocument document, int line, int column)
         {
             HRESULT hr;
-            uint pRetVal;
+            int pRetVal;
 
             if ((hr = TryGetOffset(document, line, column, out pRetVal)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -204,13 +204,13 @@ namespace ManagedCorDebug
         /// <param name="column">[in] The document column for which the offset is requested.</param>
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the offsets.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetOffset(ISymUnmanagedDocument document, uint line, uint column, out uint pRetVal)
+        public HRESULT TryGetOffset(ISymUnmanagedDocument document, int line, int column, out int pRetVal)
         {
             /*HRESULT GetOffset(
             [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument document,
-            [In] uint line,
-            [In] uint column,
-            [Out] out uint pRetVal);*/
+            [In] int line,
+            [In] int column,
+            [Out] out int pRetVal);*/
             return Raw.GetOffset(document, line, column, out pRetVal);
         }
 
@@ -226,7 +226,7 @@ namespace ManagedCorDebug
         /// <param name="column">[in] The document column corresponding to the ranges.</param>
         /// <param name="cRanges">[in] The size of the ranges array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetRangesResult GetRanges(ISymUnmanagedDocument document, uint line, uint column, uint cRanges)
+        public GetRangesResult GetRanges(ISymUnmanagedDocument document, int line, int column, int cRanges)
         {
             HRESULT hr;
             GetRangesResult result;
@@ -247,18 +247,18 @@ namespace ManagedCorDebug
         /// <param name="cRanges">[in] The size of the ranges array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetRanges(ISymUnmanagedDocument document, uint line, uint column, uint cRanges, out GetRangesResult result)
+        public HRESULT TryGetRanges(ISymUnmanagedDocument document, int line, int column, int cRanges, out GetRangesResult result)
         {
             /*HRESULT GetRanges(
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocument document,
-            [In] uint line,
-            [In] uint column,
-            [In] uint cRanges,
-            out uint pcRanges,
-            [MarshalAs(UnmanagedType.LPArray), Out] uint[] ranges);*/
-            uint pcRanges;
-            uint[] ranges = null;
+            [In] int line,
+            [In] int column,
+            [In] int cRanges,
+            out int pcRanges,
+            [MarshalAs(UnmanagedType.LPArray), Out] int[] ranges);*/
+            int pcRanges;
+            int[] ranges = null;
             HRESULT hr = Raw.GetRanges(document, line, column, cRanges, out pcRanges, ranges);
 
             if (hr == HRESULT.S_OK)
@@ -277,7 +277,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cParams">[in] The size of the params array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetParametersResult GetParameters(uint cParams)
+        public GetParametersResult GetParameters(int cParams)
         {
             HRESULT hr;
             GetParametersResult result;
@@ -294,11 +294,11 @@ namespace ManagedCorDebug
         /// <param name="cParams">[in] The size of the params array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetParameters(uint cParams, out GetParametersResult result)
+        public HRESULT TryGetParameters(int cParams, out GetParametersResult result)
         {
-            /*HRESULT GetParameters([In] uint cParams, out uint pcParams, [MarshalAs(UnmanagedType.Interface), Out]
+            /*HRESULT GetParameters([In] int cParams, out int pcParams, [MarshalAs(UnmanagedType.Interface), Out]
             IntPtr @params);*/
-            uint pcParams;
+            int pcParams;
             IntPtr @params = default(IntPtr);
             HRESULT hr = Raw.GetParameters(cParams, out pcParams, @params);
 
@@ -320,7 +320,7 @@ namespace ManagedCorDebug
         /// <param name="lines">[in] The starting and ending lines in the corresponding source documents.</param>
         /// <param name="columns">[in] The starting and ending columns in the corresponding source documents.</param>
         /// <returns>[out] true if positions were defined; otherwise, false.</returns>
-        public int GetSourceStartEnd(ISymUnmanagedDocument[] docs, uint[] lines, uint[] columns)
+        public int GetSourceStartEnd(ISymUnmanagedDocument[] docs, int[] lines, int[] columns)
         {
             HRESULT hr;
             int pRetVal;
@@ -339,15 +339,15 @@ namespace ManagedCorDebug
         /// <param name="columns">[in] The starting and ending columns in the corresponding source documents.</param>
         /// <param name="pRetVal">[out] true if positions were defined; otherwise, false.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSourceStartEnd(ISymUnmanagedDocument[] docs, uint[] lines, uint[] columns, out int pRetVal)
+        public HRESULT TryGetSourceStartEnd(ISymUnmanagedDocument[] docs, int[] lines, int[] columns, out int pRetVal)
         {
             /*HRESULT GetSourceStartEnd(
             [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In]
             ISymUnmanagedDocument[] docs,
             [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In]
-            uint[] lines,
+            int[] lines,
             [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In]
-            uint[] columns,
+            int[] columns,
             out int pRetVal);*/
             return Raw.GetSourceStartEnd(docs, lines, columns, out pRetVal);
         }
@@ -365,7 +365,7 @@ namespace ManagedCorDebug
         /// <param name="columns">[in] An array in which to store the columns in the documents at which the sequence points are located.</param>
         /// <param name="endLines">[in] The array of lines in the documents at which the sequence points end.</param>
         /// <param name="endColumns">[in] The array of columns in the documents at which the sequence points end.</param>
-        public void GetSequencePoints(uint cPoints, uint offsets, ISymUnmanagedDocument documents, uint lines, uint columns, uint endLines, uint endColumns)
+        public void GetSequencePoints(int cPoints, int offsets, ISymUnmanagedDocument documents, int lines, int columns, int endLines, int endColumns)
         {
             HRESULT hr;
 
@@ -384,19 +384,19 @@ namespace ManagedCorDebug
         /// <param name="endLines">[in] The array of lines in the documents at which the sequence points end.</param>
         /// <param name="endColumns">[in] The array of columns in the documents at which the sequence points end.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSequencePoints(uint cPoints, uint offsets, ISymUnmanagedDocument documents, uint lines, uint columns, uint endLines, uint endColumns)
+        public HRESULT TryGetSequencePoints(int cPoints, int offsets, ISymUnmanagedDocument documents, int lines, int columns, int endLines, int endColumns)
         {
             /*HRESULT GetSequencePoints(
-            [In] uint cPoints,
-            out uint pcPoints,
-            [In] ref uint offsets,
+            [In] int cPoints,
+            out int pcPoints,
+            [In] ref int offsets,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ISymUnmanagedDocument documents,
-            [In] ref uint lines,
-            [In] ref uint columns,
-            [In] ref uint endLines,
-            [In] ref uint endColumns);*/
-            uint pcPoints;
+            [In] ref int lines,
+            [In] ref int columns,
+            [In] ref int endLines,
+            [In] ref int endColumns);*/
+            int pcPoints;
 
             return Raw.GetSequencePoints(cPoints, out pcPoints, ref offsets, ref documents, ref lines, ref columns, ref endLines, ref endColumns);
         }

@@ -10,11 +10,11 @@ namespace ManagedCorDebug
     {
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Next([In] uint celt, [MarshalAs(UnmanagedType.IUnknown)] out object rgelt, out uint pceltFetched);
+        HRESULT Next([In] int celt, [MarshalAs(UnmanagedType.IUnknown)] out object rgelt, out int pceltFetched);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Skip([In] uint celt);
+        HRESULT Skip([In] int celt);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

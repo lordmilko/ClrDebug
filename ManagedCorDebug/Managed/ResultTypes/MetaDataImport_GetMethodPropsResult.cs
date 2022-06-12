@@ -12,13 +12,13 @@ namespace ManagedCorDebug
 
         public IntPtr PpvSigBlob { get; }
 
-        public uint PcbSigBlob { get; }
+        public int PcbSigBlob { get; }
 
-        public uint PulCodeRVA { get; }
+        public int PulCodeRVA { get; }
 
-        public uint PdwImplFlags { get; }
+        public int PdwImplFlags { get; }
 
-        public MetaDataImport_GetMethodPropsResult(mdTypeDef pClass, string szMethod, CorMethodAttr pdwAttr, IntPtr ppvSigBlob, uint pcbSigBlob, uint pulCodeRVA, uint pdwImplFlags)
+        public MetaDataImport_GetMethodPropsResult(mdTypeDef pClass, string szMethod, CorMethodAttr pdwAttr, IntPtr ppvSigBlob, int pcbSigBlob, int pulCodeRVA, int pdwImplFlags)
         {
             PClass = pClass;
             SzMethod = szMethod;

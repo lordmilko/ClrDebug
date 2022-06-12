@@ -30,9 +30,9 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetContext(
-            [In] uint contextFlags,
-            [In] uint cbContextBuf,
-            out uint contextSize,
+            [In] int contextFlags,
+            [In] int cbContextBuf,
+            out int contextSize,
             out byte contextBuf);
 
         /// <summary>

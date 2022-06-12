@@ -2,11 +2,11 @@ namespace ManagedCorDebug
 {
     public struct GetSourceRangeResult
     {
-        public uint PcSourceBytes { get; }
+        public int PcSourceBytes { get; }
 
         public byte[] Source { get; }
 
-        public GetSourceRangeResult(uint pcSourceBytes, byte[] source)
+        public GetSourceRangeResult(int pcSourceBytes, byte[] source)
         {
             PcSourceBytes = pcSourceBytes;
             Source = source;

@@ -28,7 +28,7 @@ namespace ManagedCorDebug
         /// method indicates that they may be freed, at which point it is the caller’s responsibility to free the handles.
         /// The debugger may use any available means to locate or procure the debugging module.
         /// </remarks>
-        public IntPtr ProvideLibrary(string pwszFileName, uint dwTimestamp, uint dwSizeOfImage)
+        public IntPtr ProvideLibrary(string pwszFileName, int dwTimestamp, int dwSizeOfImage)
         {
             HRESULT hr;
             IntPtr phModule;
@@ -59,12 +59,12 @@ namespace ManagedCorDebug
         /// method indicates that they may be freed, at which point it is the caller’s responsibility to free the handles.
         /// The debugger may use any available means to locate or procure the debugging module.
         /// </remarks>
-        public HRESULT TryProvideLibrary(string pwszFileName, uint dwTimestamp, uint dwSizeOfImage, out IntPtr phModule)
+        public HRESULT TryProvideLibrary(string pwszFileName, int dwTimestamp, int dwSizeOfImage, out IntPtr phModule)
         {
             /*HRESULT ProvideLibrary(
             [In] string pwszFileName,
-            [In] uint dwTimestamp,
-            [In] uint dwSizeOfImage,
+            [In] int dwTimestamp,
+            [In] int dwSizeOfImage,
             out IntPtr phModule);*/
             return Raw.ProvideLibrary(pwszFileName, dwTimestamp, dwSizeOfImage, out phModule);
         }

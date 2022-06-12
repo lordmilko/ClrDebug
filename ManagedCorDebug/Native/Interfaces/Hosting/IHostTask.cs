@@ -68,7 +68,7 @@ namespace ManagedCorDebug
         /// | E_FAIL                 | An unknown catastrophic failure occurred. When a method returns E_FAIL, the CLR is no longer usable within the process. Subsequent calls to hosting methods return HOST_E_CLRNOTAVAILABLE. |
         /// </returns>
         [PreserveSig]
-        HRESULT Join([In] uint dwMilliseconds, [In] uint option);
+        HRESULT Join([In] int dwMilliseconds, [In] int option);
 
         /// <summary>
         /// Requests that the host adjust the thread priority level for the task represented by the current <see cref="IHostTask"/> instance.

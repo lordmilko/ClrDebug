@@ -12,7 +12,7 @@ namespace ManagedCorDebug
     {
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT AddSymbol([MarshalAs(UnmanagedType.BStr), In] string pSymbol, [In] ushort iSection, [In] ulong rva);
+        new HRESULT AddSymbol([MarshalAs(UnmanagedType.BStr), In] string pSymbol, [In] ushort iSection, [In] long rva);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -37,12 +37,12 @@ namespace ManagedCorDebug
             [In] ushort isect,
             [In] int off,
             [In] int cb,
-            [In] uint dwCharacteristics,
-            [In] uint dwDataCrc,
-            [In] uint dwRelocCrc);
+            [In] int dwCharacteristics,
+            [In] int dwDataCrc,
+            [In] int dwRelocCrc);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT QueryPDBNameExW(out ushort wszPDB, [In] ulong cchMax);
+        HRESULT QueryPDBNameExW(out ushort wszPDB, [In] long cchMax);
     }
 }

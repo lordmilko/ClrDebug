@@ -64,6 +64,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetVersionNumber(out uint pnVersion);
+        HRESULT GetVersionNumber(out int pnVersion);
     }
 }

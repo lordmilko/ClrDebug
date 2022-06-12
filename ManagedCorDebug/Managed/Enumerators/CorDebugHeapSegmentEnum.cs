@@ -60,7 +60,7 @@ namespace ManagedCorDebug
             if (rawEnumerator == null)
                 return false;
 
-            uint fetched;
+            int fetched;
             COR_SEGMENT result;
             var hr = rawEnumerator.Next(1, out result, out fetched);
 

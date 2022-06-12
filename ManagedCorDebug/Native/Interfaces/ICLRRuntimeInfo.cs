@@ -33,7 +33,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetVersionString([MarshalAs(UnmanagedType.LPWStr), Out]
-            StringBuilder pwzBuffer, [In] [Out] ref uint pcchBuffer);
+            StringBuilder pwzBuffer, [In] [Out] ref int pcchBuffer);
 
         /// <summary>
         /// Gets the installation directory of the common language runtime (CLR) associated with this interface. This method supersedes the GetCORSystemDirectory function provided in the .NET Framework versions 2.0, 3.0, and 3.5.
@@ -51,7 +51,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRuntimeDirectory([MarshalAs(UnmanagedType.LPWStr), Out]
-            StringBuilder pwzBuffer, [In] [Out] ref uint pcchBuffer);
+            StringBuilder pwzBuffer, [In] [Out] ref int pcchBuffer);
 
         /// <summary>
         /// Indicates whether the common language runtime (CLR) associated with the <see cref="ICLRRuntimeInfo"/> interface is loaded into a process.<para/>
@@ -102,7 +102,7 @@ namespace ManagedCorDebug
         HRESULT LoadErrorString(
             [In] HRESULT iResourceID,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder pwzBuffer,
-            [In, Out] ref uint pcchBuffer,
+            [In, Out] ref int pcchBuffer,
             [In] int iLocaleID);
 
         /// <summary>
@@ -224,7 +224,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetDefaultStartupFlags([In] uint dwStartupFlags,
+        HRESULT SetDefaultStartupFlags([In] int dwStartupFlags,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzHostConfigFile);
 
         /// <summary>
@@ -248,10 +248,10 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetDefaultStartupFlags(
-            out uint pdwStartupFlags,
+            out int pdwStartupFlags,
             [MarshalAs(UnmanagedType.LPWStr), Out]
             StringBuilder pwzHostConfigFile,
-            [In] [Out] ref uint pcchHostConfigFile);
+            [In] [Out] ref int pcchHostConfigFile);
 
         /// <summary>
         /// Binds the current runtime for all legacy common language runtime (CLR) version 2 activation policy decisions.
@@ -292,6 +292,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsStarted(out int pbStarted, out uint pdwStartupFlags);
+        HRESULT IsStarted(out int pbStarted, out int pdwStartupFlags);
     }
 }

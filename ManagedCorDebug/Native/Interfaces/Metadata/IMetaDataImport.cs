@@ -38,7 +38,7 @@ namespace ManagedCorDebug
         /// The handle specified by hEnum is obtained from a previous EnumName call (for example, <see cref="EnumTypeDefs"/>).
         /// </remarks>
         [PreserveSig]
-        HRESULT CountEnum([In] IntPtr hEnum, [Out] out uint pulCount);
+        HRESULT CountEnum([In] IntPtr hEnum, [Out] out int pulCount);
 
         /// <summary>
         /// Resets the specified enumerator to the specified position.
@@ -46,7 +46,7 @@ namespace ManagedCorDebug
         /// <param name="hEnum">[in] The enumerator to reset.</param>
         /// <param name="ulPos">[in] The new position at which to place the enumerator.</param>
         [PreserveSig]
-        HRESULT ResetEnum([In] IntPtr hEnum, [In] uint ulPos);
+        HRESULT ResetEnum([In] IntPtr hEnum, [In] int ulPos);
 
         /// <summary>
         /// Enumerates TypeDef tokens representing all types within the current scope.
@@ -69,8 +69,8 @@ namespace ManagedCorDebug
         HRESULT EnumTypeDefs(
             [In, Out] ref IntPtr phEnum,
             [Out] out mdTypeDef[] typeDefs,
-            [In] uint cMax,
-            [Out] out uint pcTypeDefs);
+            [In] int cMax,
+            [Out] out int pcTypeDefs);
 
         /// <summary>
         /// Enumerates all interfaces implemented by the specified TypeDef.
@@ -96,8 +96,8 @@ namespace ManagedCorDebug
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef td,
             [Out] out mdInterfaceImpl[] rImpls,
-            [In] uint cMax,
-            [Out] out uint pcImpls);
+            [In] int cMax,
+            [Out] out int pcImpls);
 
         /// <summary>
         /// Enumerates TypeRef tokens defined in the current metadata scope.
@@ -119,8 +119,8 @@ namespace ManagedCorDebug
         HRESULT EnumTypeRefs(
             [In, Out] ref IntPtr phEnum,
             [Out] out mdTypeRef[] rTypeRefs,
-            [In] uint cMax,
-            [Out] out uint pcTypeRefs);
+            [In] int cMax,
+            [Out] out int pcTypeRefs);
 
         /// <summary>
         /// Gets a pointer to the TypeDef metadata token for the <see cref="Type"/> with the specified name.
@@ -260,8 +260,8 @@ namespace ManagedCorDebug
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
             [Out] out mdToken[] rMembers,
-            [In] uint cMax,
-            [Out] out uint pcTokens);
+            [In] int cMax,
+            [Out] out int pcTokens);
 
         /// <summary>
         /// Enumerates MemberDef tokens representing members of the specified type with the specified name.
@@ -288,8 +288,8 @@ namespace ManagedCorDebug
             [In] mdTypeDef cl,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
             [Out] out mdToken[] rMembers,
-            [In] uint cMax,
-            [Out] out uint pcTokens);
+            [In] int cMax,
+            [Out] out int pcTokens);
 
         /// <summary>
         /// Enumerates MethodDef tokens representing methods of the specified type.
@@ -310,8 +310,8 @@ namespace ManagedCorDebug
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
             [Out] out mdMethodDef[] rMethods,
-            [In] uint cMax,
-            [Out] out uint pcTokens);
+            [In] int cMax,
+            [Out] out int pcTokens);
 
         /// <summary>
         /// Enumerates methods that have the specified name and that are defined by the type referenced by the specified TypeDef token.
@@ -338,8 +338,8 @@ namespace ManagedCorDebug
             [In] mdTypeDef cl,
             [Out, MarshalAs(UnmanagedType.LPWStr), In] string szName,
             [Out] out mdMethodDef[] rMethods,
-            [In] uint cMax,
-            [Out] out uint pcTokens);
+            [In] int cMax,
+            [Out] out int pcTokens);
 
         /// <summary>
         /// Enumerates FieldDef tokens for the type referenced by the specified TypeDef token.
@@ -360,8 +360,8 @@ namespace ManagedCorDebug
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
             [Out] out mdFieldDef[] rFields,
-            [In] uint cMax,
-            [Out] out uint pcTokens);
+            [In] int cMax,
+            [Out] out int pcTokens);
 
         /// <summary>
         /// Enumerates FieldDef tokens of the specified type with the specified name.
@@ -387,8 +387,8 @@ namespace ManagedCorDebug
             [In] mdTypeDef cl,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
             [Out] out mdFieldDef[] rFields,
-            [In] uint cMax,
-            [Out] out uint pcTokens);
+            [In] int cMax,
+            [Out] out int pcTokens);
 
         /// <summary>
         /// Enumerates ParamDef tokens representing the parameters of the method referenced by the specified MethodDef token.
@@ -409,8 +409,8 @@ namespace ManagedCorDebug
             [In, Out] ref IntPtr phEnum,
             [In] mdMethodDef mb,
             [Out] out mdParamDef[] rParams,
-            [In] uint cMax,
-            [Out] out uint pcTokens);
+            [In] int cMax,
+            [Out] out int pcTokens);
 
         /// <summary>
         /// Enumerates MemberRef tokens representing members of the specified type.
@@ -431,8 +431,8 @@ namespace ManagedCorDebug
             [In, Out] ref IntPtr phEnum,
             [In] mdToken tkParent,
             [Out] out mdMemberRef[] rMemberRefs,
-            [In] uint cMax,
-            [Out] out uint pcTokens);
+            [In] int cMax,
+            [Out] out int pcTokens);
 
         /// <summary>
         /// Enumerates MethodBody and MethodDeclaration tokens representing methods of the specified type.
@@ -455,8 +455,8 @@ namespace ManagedCorDebug
             [In] mdTypeDef td,
             [Out] out mdToken[] rMethodBody,
             [Out] out mdToken[] rMethodDecl,
-            [In] uint cMax,
-            [Out] out uint pcTokens);
+            [In] int cMax,
+            [Out] out int pcTokens);
 
         /// <summary>
         /// Enumerates permissions for the objects in a specified metadata scope.
@@ -479,8 +479,8 @@ namespace ManagedCorDebug
             [In] mdToken tk,
             [In] SecurityAction dwActions,
             [Out] out mdPermission[] rPermission,
-            [In] uint cMax,
-            [Out] out uint pcTokens);
+            [In] int cMax,
+            [Out] out int pcTokens);
 
         /// <summary>
         /// Gets a pointer to the MemberDef token for field or method that is enclosed by the specified <see cref="Type"/> and that has the specified name and metadata signature.
@@ -504,7 +504,7 @@ namespace ManagedCorDebug
             [In] mdToken td,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
             [In] IntPtr pvSigBlob,
-            [In] uint cbSigBlob,
+            [In] int cbSigBlob,
             [Out] out mdToken pmb);
 
         /// <summary>
@@ -529,7 +529,7 @@ namespace ManagedCorDebug
             [In] mdToken td,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
             [In] IntPtr pvSigBlob,
-            [In] uint cbSigBlob,
+            [In] int cbSigBlob,
             [Out] out mdMethodDef pmb);
 
         /// <summary>
@@ -553,7 +553,7 @@ namespace ManagedCorDebug
             [In] mdToken td,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
             [In] IntPtr pvSigBlob,
-            [In] uint cbSigBlob,
+            [In] int cbSigBlob,
             [Out] out mdFieldDef pmb);
 
         /// <summary>
@@ -576,7 +576,7 @@ namespace ManagedCorDebug
         HRESULT FindMemberRef(
             [In] mdToken td,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
-            [In] IntPtr pvSigBlob, [In] uint cbSigBlob,
+            [In] IntPtr pvSigBlob, [In] int cbSigBlob,
             [Out] out mdMemberRef pmr);
 
         /// <summary>
@@ -597,13 +597,13 @@ namespace ManagedCorDebug
             [In] mdMethodDef mb,
             [Out] out mdTypeDef pClass,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szMethod,
-            [In] uint cchMethod,
+            [In] int cchMethod,
             [Out] out int pchMethod,
             [Out] out CorMethodAttr pdwAttr,
             [Out] out IntPtr ppvSigBlob,
-            [Out] out uint pcbSigBlob,
-            [Out] out uint pulCodeRVA,
-            [Out] out uint pdwImplFlags);
+            [Out] out int pcbSigBlob,
+            [Out] out int pulCodeRVA,
+            [Out] out int pdwImplFlags);
 
         /// <summary>
         /// Gets metadata associated with the member referenced by the specified token.
@@ -620,10 +620,10 @@ namespace ManagedCorDebug
             [In] mdMemberRef mr,
             [Out] out mdToken ptk,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szMember,
-            [In] uint cchMember,
-            [Out] out uint pchMember,
+            [In] int cchMember,
+            [Out] out int pchMember,
             [Out] out IntPtr ppvSigBlob,
-            [Out] out uint pbSig);
+            [Out] out int pbSig);
 
         /// <summary>
         /// Enumerates PropertyDef tokens representing the properties of the type referenced by the specified TypeDef token.
@@ -644,8 +644,8 @@ namespace ManagedCorDebug
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef td,
             [Out] mdProperty[] rProperties,
-            [In] uint cMax,
-            [Out] out uint pcProperties);
+            [In] int cMax,
+            [Out] out int pcProperties);
 
         /// <summary>
         /// Enumerates event definition tokens for the specified TypeDef token.
@@ -666,8 +666,8 @@ namespace ManagedCorDebug
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef td,
             [Out] out mdEvent[] rEvents,
-            [In] uint cMax,
-            [Out] out uint pcEvents);
+            [In] int cMax,
+            [Out] out int pcEvents);
 
         /// <summary>
         /// Gets metadata information for the event represented by the specified event token, including the declaring type, the add and remove methods for delegates, and any flags and other associated data.
@@ -690,16 +690,16 @@ namespace ManagedCorDebug
             [In] mdEvent ev,
             [Out] mdTypeDef pClass,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szEvent,
-            [In] uint cchEvent,
-            [Out] out uint pchEvent,
-            [Out] out uint pdwEventFlags,
+            [In] int cchEvent,
+            [Out] out int pchEvent,
+            [Out] out int pdwEventFlags,
             [Out] out mdToken ptkEventType,
             [Out] out mdMethodDef pmdAddOn,
             [Out] out mdMethodDef pmdRemoveOn,
             [Out] out mdMethodDef pmdFire,
             [Out] out mdMethodDef[] rmdOtherMethod,
-            [In] uint cMax,
-            [Out] uint pcOtherMethod);
+            [In] int cMax,
+            [Out] int pcOtherMethod);
 
         /// <summary>
         /// Enumerates the properties and the property-change events to which the specified method is related.
@@ -729,8 +729,8 @@ namespace ManagedCorDebug
             [In, Out] ref IntPtr phEnum,
             [In] mdMethodDef mb,
             [Out] out mdToken[] rEventProp,
-            [In] uint cMax,
-            [Out] out uint pcEventProp);
+            [In] int cMax,
+            [Out] out int pcEventProp);
 
         /// <summary>
         /// Gets flags indicating the relationship between the method referenced by the specified MethodDef token and the paired property and event referenced by the specified EventProp token.
@@ -759,11 +759,11 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT GetClassLayout(
             [In] mdTypeDef td,
-            [Out] uint pdwPackSize,
+            [Out] int pdwPackSize,
             [MarshalAs(UnmanagedType.LPArray), Out] COR_FIELD_OFFSET[] rFieldOffset,
             [In] int cMax,
-            [Out] uint pcFieldOffset,
-            [Out] uint pulClassSize);
+            [Out] int pcFieldOffset,
+            [Out] int pulClassSize);
 
         /// <summary>
         /// Gets a pointer to the native, unmanaged type of the field represented by the specified field metadata token.
@@ -775,7 +775,7 @@ namespace ManagedCorDebug
         HRESULT GetFieldMarshal(
             [In] mdToken tk,
             [Out] out IntPtr ppvNativeType,
-            [Out] out uint pcbNativeType);
+            [Out] out int pcbNativeType);
 
         /// <summary>
         /// Gets the relative virtual address (RVA) and the implementation flags of the method or field represented by the specified token.
@@ -787,7 +787,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT GetRVA(
             [In] mdToken tk,
-            [Out] out uint pulCodeRVA,
+            [Out] out int pulCodeRVA,
             [Out] out CorMethodImpl pdwImplFlags);
 
         /// <summary>
@@ -800,9 +800,9 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT GetPermissionSetProps(
             [In] mdPermission pm,
-            [Out] out uint pdwAction,
+            [Out] out int pdwAction,
             [Out] IntPtr ppvPermission,
-            [Out] out uint pcbPermission);
+            [Out] out int pcbPermission);
 
         /// <summary>
         /// Gets the binary metadata signature associated with the specified token.
@@ -814,7 +814,7 @@ namespace ManagedCorDebug
         HRESULT GetSigFromToken(
             [In] mdSignature mdSig,
             [Out] out IntPtr ppvSig,
-            [Out] out uint pcbSig);
+            [Out] out int pcbSig);
 
         /// <summary>
         /// Gets the name of the module referenced by the specified metadata token.
@@ -827,8 +827,8 @@ namespace ManagedCorDebug
         HRESULT GetModuleRefProps(
             [In] mdModuleRef mur,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName,
-            [In] uint cchName,
-            [Out] out uint pchName);
+            [In] int cchName,
+            [Out] out int pchName);
 
         /// <summary>
         /// Enumerates ModuleRef tokens that represent imported modules.
@@ -847,8 +847,8 @@ namespace ManagedCorDebug
         HRESULT EnumModuleRefs(
             [In, Out] ref IntPtr phEnum,
             [Out] out mdModuleRef[] rModuleRefs,
-            [In] uint cmax,
-            [Out] out uint pcModuleRefs);
+            [In] int cmax,
+            [Out] out int pcModuleRefs);
 
         /// <summary>
         /// Gets the binary metadata signature of the type specification represented by the specified token.
@@ -861,7 +861,7 @@ namespace ManagedCorDebug
         HRESULT GetTypeSpecFromToken(
             [In] mdTypeSpec typespec,
             [Out] out IntPtr ppvSig,
-            [Out] out uint pcbSig);
+            [Out] out int pcbSig);
 
         /// <summary>
         /// Gets the UTF-8 name of the object referenced by the specified metadata token. This method is obsolete.
@@ -902,8 +902,8 @@ namespace ManagedCorDebug
         HRESULT EnumUnresolvedMethods(
             [In, Out] ref IntPtr phEnum,
             [Out] out mdToken[] rMethods,
-            [In] uint cMax,
-            [Out] out uint pcTokens);
+            [In] int cMax,
+            [Out] out int pcTokens);
 
         /// <summary>
         /// Gets the literal string represented by the specified metadata token.
@@ -957,8 +957,8 @@ namespace ManagedCorDebug
         HRESULT EnumSignatures(
             [In, Out] ref IntPtr phEnum,
             [Out] out mdSignature[] rSignatures,
-            [In] uint cmax,
-            [Out] out uint pcSignatures);
+            [In] int cmax,
+            [Out] out int pcSignatures);
 
         /// <summary>
         /// Enumerates TypeSpec tokens defined in the current metadata scope.
@@ -980,8 +980,8 @@ namespace ManagedCorDebug
         HRESULT EnumTypeSpecs(
             [In, Out] ref IntPtr phEnum,
             [Out] out mdTypeSpec[] rTypeSpecs,
-            [In] uint cmax,
-            [Out] out uint pcTypeSpecs);
+            [In] int cmax,
+            [Out] out int pcTypeSpecs);
 
         /// <summary>
         /// Enumerates String tokens representing hard-coded strings in the current metadata scope.
@@ -1004,8 +1004,8 @@ namespace ManagedCorDebug
         HRESULT EnumUserStrings(
             [In, Out] ref IntPtr phEnum,
             [Out] out mdString[] rStrings,
-            [In] uint cmax,
-            [Out] out uint pcStrings);
+            [In] int cmax,
+            [Out] out int pcStrings);
 
         /// <summary>
         /// Gets the token that represents a specified parameter of the method represented by the specified MethodDef token.
@@ -1040,8 +1040,8 @@ namespace ManagedCorDebug
             [In] mdToken tk,
             [In] mdToken tkType,
             [Out] out mdCustomAttribute[] rCustomAttributes,
-            [In] uint cMax,
-            [Out] out uint pcCustomAttributes);
+            [In] int cMax,
+            [Out] out int pcCustomAttributes);
 
         /// <summary>
         /// Gets the value of the custom attribute, given its metadata token.
@@ -1060,7 +1060,7 @@ namespace ManagedCorDebug
             [Out] out mdToken ptkObj,
             [Out] out mdToken ptkType,
             [Out] out IntPtr ppBlob,
-            [Out] out uint pcbSize);
+            [Out] out int pcbSize);
 
         /// <summary>
         /// Gets a pointer to the TypeRef token for the <see cref="Type"/> reference that is in the specified scope and that has the specified name.
@@ -1097,16 +1097,16 @@ namespace ManagedCorDebug
             [In] mdToken mb,
             [Out] out mdTypeDef pClass,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szMember,
-            [In] uint cchMember,
-            [Out] out uint pchMember,
-            [Out] out uint pdwAttr, //if its a method is it cormethodattr?
+            [In] int cchMember,
+            [Out] out int pchMember,
+            [Out] out int pdwAttr, //if its a method is it cormethodattr?
             [Out] out IntPtr ppvSigBlob,
-            [Out] out uint pcbSigBlob,
-            [Out] out uint pulCodeRVA,
-            [Out] out uint pdwImplFlags,
+            [Out] out int pcbSigBlob,
+            [Out] out int pulCodeRVA,
+            [Out] out int pdwImplFlags,
             [Out] out CorElementType pdwCPlusTypeFlag,
             [Out] out IntPtr ppValue,
-            [Out] out uint pcchValue);
+            [Out] out int pcchValue);
 
         /// <summary>
         /// Gets metadata associated with the field referenced by the specified FieldDef token.
@@ -1127,14 +1127,14 @@ namespace ManagedCorDebug
             [In] mdFieldDef mb,
             [Out] mdTypeDef pClass,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szField,
-            [In] uint cchField,
-            [Out] uint pchField,
+            [In] int cchField,
+            [Out] int pchField,
             [Out] CorFieldAttr pdwAttr,
             [Out] IntPtr ppvSigBlob,
-            [Out] uint pcbSigBlob,
+            [Out] int pcbSigBlob,
             [Out] CorElementType pdwCPlusTypeFlag,
             [Out] IntPtr ppValue,
-            [Out] uint pcchValue);
+            [Out] int pcchValue);
 
         /// <summary>
         /// Gets the metadata for the property represented by the specified token.
@@ -1161,19 +1161,19 @@ namespace ManagedCorDebug
             [In] mdProperty prop,
             [Out] mdTypeDef pClass,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szProperty,
-            [In] uint cchProperty,
-            [Out] uint pchProperty,
+            [In] int cchProperty,
+            [Out] int pchProperty,
             [Out] CorPropertyAttr pdwPropFlags,
             [Out] IntPtr ppvSig,
-            [Out] uint pbSig,
+            [Out] int pbSig,
             [Out] CorElementType pdwCPlusTypeFlag,
             [Out] IntPtr ppDefaultValue,
-            [Out] uint pcchDefaultValue,
+            [Out] int pcchDefaultValue,
             [Out] mdMethodDef pmdSetter,
             [Out] mdMethodDef pmdGetter,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rmdOtherMethod,
-            [In] uint cMax,
-            [Out] uint pcOtherMethod);
+            [In] int cMax,
+            [Out] int pcOtherMethod);
 
         /// <summary>
         /// Gets metadata values for the parameter referenced by the specified ParamDef token.
@@ -1195,10 +1195,10 @@ namespace ManagedCorDebug
         HRESULT GetParamProps(
             [In] mdParamDef tk,
             [Out] mdMethodDef pmd,
-            [Out] uint pulSequence,
+            [Out] int pulSequence,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName,
-            [Out] uint cchName,
-            [Out] uint pchName,
+            [Out] int cchName,
+            [Out] int pchName,
             [Out] CorParamAttr pdwAttr,
             [Out] CorElementType pdwCPlusTypeFlag,
             [Out] IntPtr ppValue,
@@ -1221,7 +1221,7 @@ namespace ManagedCorDebug
             [In] mdToken tkObj,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
             [Out] IntPtr ppData,
-            [Out] uint pcbData);
+            [Out] int pcbData);
 
         /// <summary>
         /// Gets a value indicating whether the specified token holds a valid reference to a code object.
@@ -1249,8 +1249,8 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT GetNativeCallConvFromSig(
             [In] IntPtr pvSig,
-            [In] uint cbSig,
-            [Out] out uint pCallConv);
+            [In] int cbSig,
+            [Out] out int pCallConv);
 
         /// <summary>
         /// Gets a value indicating whether the field, method, or type represented by the specified metadata token has global scope.

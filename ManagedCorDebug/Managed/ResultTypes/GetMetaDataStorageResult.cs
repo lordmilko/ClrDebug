@@ -6,9 +6,9 @@ namespace ManagedCorDebug
     {
         public IntPtr PpvMd { get; }
 
-        public uint PcbMd { get; }
+        public int PcbMd { get; }
 
-        public GetMetaDataStorageResult(IntPtr ppvMd, uint pcbMd)
+        public GetMetaDataStorageResult(IntPtr ppvMd, int pcbMd)
         {
             PpvMd = ppvMd;
             PcbMd = pcbMd;

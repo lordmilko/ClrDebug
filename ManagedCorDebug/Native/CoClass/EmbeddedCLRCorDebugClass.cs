@@ -41,7 +41,7 @@ namespace ManagedCorDebug.CoClass
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT DebugActiveProcess(
-            [In] uint id,
+            [In] int id,
             [In] int win32Attach,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
@@ -50,10 +50,10 @@ namespace ManagedCorDebug.CoClass
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcessEnum ppProcess);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern HRESULT GetProcess([In] uint dwProcessId,
+        public virtual extern HRESULT GetProcess([In] int dwProcessId,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern HRESULT CanLaunchOrAttach([In] uint dwProcessId, [In] int win32DebuggingEnabled);
+        public virtual extern HRESULT CanLaunchOrAttach([In] int dwProcessId, [In] int win32DebuggingEnabled);
     }
 }

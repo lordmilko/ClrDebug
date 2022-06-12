@@ -21,7 +21,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);
+        HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);
 
         /// <summary>
         /// Gets the attribute flags for this variable.
@@ -41,7 +41,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSignature([In] uint cSig, out uint pcSig, [MarshalAs(UnmanagedType.LPArray), Out] byte[] sig);
+        HRESULT GetSignature([In] int cSig, out int pcSig, [MarshalAs(UnmanagedType.LPArray), Out] byte[] sig);
 
         /// <summary>
         /// Gets the kind of address of this variable.
@@ -59,7 +59,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAddressField1([Out] out uint pRetVal);
+        HRESULT GetAddressField1([Out] out int pRetVal);
 
         /// <summary>
         /// Gets the second address field for this variable. Its meaning depends on the kind of address.
@@ -68,7 +68,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAddressField2([Out] out uint pRetVal);
+        HRESULT GetAddressField2([Out] out int pRetVal);
 
         /// <summary>
         /// Gets the third address field for this variable. Its meaning depends on the kind of address.
@@ -77,7 +77,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAddressField3([Out] out uint pRetVal);
+        HRESULT GetAddressField3([Out] out int pRetVal);
 
         /// <summary>
         /// Gets the start offset of this variable within its parent. If this is a local variable within a scope, the start offset will fall within the offsets defined for the scope.
@@ -86,7 +86,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetStartOffset([Out] out uint pRetVal);
+        HRESULT GetStartOffset([Out] out int pRetVal);
 
         /// <summary>
         /// Gets the end offset of this variable within its parent. If this is a local variable within a scope, the end offset will fall within the offsets defined for the scope.
@@ -95,6 +95,6 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetEndOffset([Out] out uint pRetVal);
+        HRESULT GetEndOffset([Out] out int pRetVal);
     }
 }

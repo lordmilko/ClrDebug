@@ -39,10 +39,10 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetMetaData(
             [MarshalAs(UnmanagedType.LPWStr), In] string wszImagePath,
-            [In] uint dwImageTimeStamp,
-            [In] uint dwImageSize,
-            [In] uint cchPathBuffer,
-            out uint pcchPathBuffer,
+            [In] int dwImageTimeStamp,
+            [In] int dwImageSize,
+            [In] int cchPathBuffer,
+            out int pcchPathBuffer,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder wszPathBuffer);
     }
 }

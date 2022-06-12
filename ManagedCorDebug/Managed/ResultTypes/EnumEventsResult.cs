@@ -8,9 +8,9 @@ namespace ManagedCorDebug
 
         public mdEvent[] REvents { get; }
 
-        public uint PcEvents { get; }
+        public int PcEvents { get; }
 
-        public EnumEventsResult(IntPtr phEnum, mdEvent[] rEvents, uint pcEvents)
+        public EnumEventsResult(IntPtr phEnum, mdEvent[] rEvents, int pcEvents)
         {
             PhEnum = phEnum;
             REvents = rEvents;

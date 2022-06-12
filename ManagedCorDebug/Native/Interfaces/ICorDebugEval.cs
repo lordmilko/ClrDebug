@@ -41,7 +41,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CallFunction([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFunction pFunction, [In] uint nArgs, [MarshalAs(UnmanagedType.Interface), In]
+            ICorDebugFunction pFunction, [In] int nArgs, [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugValue ppArgs);
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT NewObject([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFunction pConstructor, [In] uint nArgs, [MarshalAs(UnmanagedType.Interface), In]
+            ICorDebugFunction pConstructor, [In] int nArgs, [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugValue ppArgs);
 
         /// <summary>
@@ -99,9 +99,9 @@ namespace ManagedCorDebug
             [In] CorElementType elementType,
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugClass pElementClass,
-            [In] uint rank,
-            [In] ref uint dims,
-            [In] ref uint lowBounds);
+            [In] int rank,
+            [In] ref int dims,
+            [In] ref int lowBounds);
 
         /// <summary>
         /// Gets a value that indicates whether this <see cref="ICorDebugEval"/> object is currently executing.
@@ -160,7 +160,7 @@ namespace ManagedCorDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CreateValue([In] uint elementType, [MarshalAs(UnmanagedType.Interface), In]
+        HRESULT CreateValue([In] int elementType, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugClass pElementClass, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
     }
 }

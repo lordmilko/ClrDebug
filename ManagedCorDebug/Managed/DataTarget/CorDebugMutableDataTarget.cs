@@ -38,7 +38,7 @@ namespace ManagedCorDebug
         /// If any bytes cannot be written, the method call fails without changing any bytes in the target address space. (Otherwise,
         /// the target would be in an inconsistent state that makes further debugging unreliable.)
         /// </remarks>
-        public void WriteVirtual(ulong address, IntPtr pBuffer, uint bytesRequested)
+        public void WriteVirtual(long address, IntPtr pBuffer, int bytesRequested)
         {
             HRESULT hr;
 
@@ -57,9 +57,9 @@ namespace ManagedCorDebug
         /// If any bytes cannot be written, the method call fails without changing any bytes in the target address space. (Otherwise,
         /// the target would be in an inconsistent state that makes further debugging unreliable.)
         /// </remarks>
-        public HRESULT TryWriteVirtual(ulong address, IntPtr pBuffer, uint bytesRequested)
+        public HRESULT TryWriteVirtual(long address, IntPtr pBuffer, int bytesRequested)
         {
-            /*HRESULT WriteVirtual([In] ulong address, [In] IntPtr pBuffer, [In] uint bytesRequested);*/
+            /*HRESULT WriteVirtual([In] long address, [In] IntPtr pBuffer, [In] int bytesRequested);*/
             return Raw.WriteVirtual(address, pBuffer, bytesRequested);
         }
 
@@ -77,7 +77,7 @@ namespace ManagedCorDebug
         /// dwThreadID argument. The format of the context record is determined by the platform indicated by the <see cref="CorDebugDataTarget.Platform"/>
         /// property. On Windows, this is a CONTEXT structure.
         /// </remarks>
-        public void SetThreadContext(uint dwThreadId, uint contextSize, IntPtr pContext)
+        public void SetThreadContext(int dwThreadId, int contextSize, IntPtr pContext)
         {
             HRESULT hr;
 
@@ -96,9 +96,9 @@ namespace ManagedCorDebug
         /// dwThreadID argument. The format of the context record is determined by the platform indicated by the <see cref="CorDebugDataTarget.Platform"/>
         /// property. On Windows, this is a CONTEXT structure.
         /// </remarks>
-        public HRESULT TrySetThreadContext(uint dwThreadId, uint contextSize, IntPtr pContext)
+        public HRESULT TrySetThreadContext(int dwThreadId, int contextSize, IntPtr pContext)
         {
-            /*HRESULT SetThreadContext([In] uint dwThreadId, [In] uint contextSize, [In] IntPtr pContext);*/
+            /*HRESULT SetThreadContext([In] int dwThreadId, [In] int contextSize, [In] IntPtr pContext);*/
             return Raw.SetThreadContext(dwThreadId, contextSize, pContext);
         }
 
@@ -117,7 +117,7 @@ namespace ManagedCorDebug
         /// exception (such as <see cref="CorDebugILFrame.SetIP"/> or FuncEval), this API is used to request that the exception
         /// be cancelled.
         /// </remarks>
-        public void ContinueStatusChanged(uint dwThreadId, uint continueStatus)
+        public void ContinueStatusChanged(int dwThreadId, int continueStatus)
         {
             HRESULT hr;
 
@@ -137,9 +137,9 @@ namespace ManagedCorDebug
         /// exception (such as <see cref="CorDebugILFrame.SetIP"/> or FuncEval), this API is used to request that the exception
         /// be cancelled.
         /// </remarks>
-        public HRESULT TryContinueStatusChanged(uint dwThreadId, uint continueStatus)
+        public HRESULT TryContinueStatusChanged(int dwThreadId, int continueStatus)
         {
-            /*HRESULT ContinueStatusChanged([In] uint dwThreadId, [In] uint continueStatus);*/
+            /*HRESULT ContinueStatusChanged([In] int dwThreadId, [In] int continueStatus);*/
             return Raw.ContinueStatusChanged(dwThreadId, continueStatus);
         }
 

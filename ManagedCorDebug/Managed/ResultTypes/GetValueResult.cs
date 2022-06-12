@@ -2,11 +2,11 @@ namespace ManagedCorDebug
 {
     public struct GetValueResult
     {
-        public uint PcbValue { get; }
+        public int PcbValue { get; }
 
         public byte[] PValue { get; }
 
-        public GetValueResult(uint pcbValue, byte[] pValue)
+        public GetValueResult(int pcbValue, byte[] pValue)
         {
             PcbValue = pcbValue;
             PValue = pValue;

@@ -24,12 +24,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the stack pointer for this exception debug event.
         /// </summary>
-        public ulong StackPointer
+        public long StackPointer
         {
             get
             {
                 HRESULT hr;
-                ulong pStackPointer;
+                long pStackPointer;
 
                 if ((hr = TryGetStackPointer(out pStackPointer)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -46,9 +46,9 @@ namespace ManagedCorDebug
         /// The meaning of this stack pointer depends on the event type, as shown in the following table. The event type is
         /// available from the <see cref="CorDebugDebugEvent.EventKind"/> property.
         /// </remarks>
-        public HRESULT TryGetStackPointer(out ulong pStackPointer)
+        public HRESULT TryGetStackPointer(out long pStackPointer)
         {
-            /*HRESULT GetStackPointer(out ulong pStackPointer);*/
+            /*HRESULT GetStackPointer(out long pStackPointer);*/
             return Raw.GetStackPointer(out pStackPointer);
         }
 
@@ -58,12 +58,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the native instruction pointer for this exception debug event.
         /// </summary>
-        public ulong NativeIP
+        public long NativeIP
         {
             get
             {
                 HRESULT hr;
-                ulong pIP;
+                long pIP;
 
                 if ((hr = TryGetNativeIP(out pIP)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -80,9 +80,9 @@ namespace ManagedCorDebug
         /// The meaning of this instruction pointer depends on the event type, as shown in the following table. The event type
         /// is available from the <see cref="CorDebugDebugEvent.EventKind"/> property.
         /// </remarks>
-        public HRESULT TryGetNativeIP(out ulong pIP)
+        public HRESULT TryGetNativeIP(out long pIP)
         {
-            /*HRESULT GetNativeIP(out ulong pIP);*/
+            /*HRESULT GetNativeIP(out long pIP);*/
             return Raw.GetNativeIP(out pIP);
         }
 

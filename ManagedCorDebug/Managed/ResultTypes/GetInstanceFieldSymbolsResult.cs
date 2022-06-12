@@ -4,11 +4,11 @@ namespace ManagedCorDebug
 {
     public struct GetInstanceFieldSymbolsResult
     {
-        public uint PcFetchedSymbols { get; }
+        public int PcFetchedSymbols { get; }
 
         public IntPtr PSymbols { get; }
 
-        public GetInstanceFieldSymbolsResult(uint pcFetchedSymbols, IntPtr pSymbols)
+        public GetInstanceFieldSymbolsResult(int pcFetchedSymbols, IntPtr pSymbols)
         {
             PcFetchedSymbols = pcFetchedSymbols;
             PSymbols = pSymbols;

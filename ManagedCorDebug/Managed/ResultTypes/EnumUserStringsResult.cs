@@ -8,9 +8,9 @@ namespace ManagedCorDebug
 
         public mdString[] RStrings { get; }
 
-        public uint PcStrings { get; }
+        public int PcStrings { get; }
 
-        public EnumUserStringsResult(IntPtr phEnum, mdString[] rStrings, uint pcStrings)
+        public EnumUserStringsResult(IntPtr phEnum, mdString[] rStrings, int pcStrings)
         {
             PhEnum = phEnum;
             RStrings = rStrings;

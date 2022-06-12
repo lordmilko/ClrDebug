@@ -2,11 +2,11 @@ namespace ManagedCorDebug
 {
     public struct GetLiveRangeResult
     {
-        public uint PStartOffset { get; }
+        public int PStartOffset { get; }
 
-        public uint PEndOffset { get; }
+        public int PEndOffset { get; }
 
-        public GetLiveRangeResult(uint pStartOffset, uint pEndOffset)
+        public GetLiveRangeResult(int pStartOffset, int pEndOffset)
         {
             PStartOffset = pStartOffset;
             PEndOffset = pEndOffset;

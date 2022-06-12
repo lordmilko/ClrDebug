@@ -8,9 +8,9 @@ namespace ManagedCorDebug
 
         public mdSignature[] RSignatures { get; }
 
-        public uint PcSignatures { get; }
+        public int PcSignatures { get; }
 
-        public EnumSignaturesResult(IntPtr phEnum, mdSignature[] rSignatures, uint pcSignatures)
+        public EnumSignaturesResult(IntPtr phEnum, mdSignature[] rSignatures, int pcSignatures)
         {
             PhEnum = phEnum;
             RSignatures = rSignatures;

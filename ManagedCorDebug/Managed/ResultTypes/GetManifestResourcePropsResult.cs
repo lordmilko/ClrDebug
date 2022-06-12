@@ -4,13 +4,13 @@ namespace ManagedCorDebug
     {
         public string SzName { get; }
 
-        public uint PtkImplementation { get; }
+        public int PtkImplementation { get; }
 
-        public uint PdwOffset { get; }
+        public int PdwOffset { get; }
 
         public CorManifestResourceFlags PdwResourceFlags { get; }
 
-        public GetManifestResourcePropsResult(string szName, uint ptkImplementation, uint pdwOffset, CorManifestResourceFlags pdwResourceFlags)
+        public GetManifestResourcePropsResult(string szName, int ptkImplementation, int pdwOffset, CorManifestResourceFlags pdwResourceFlags)
         {
             SzName = szName;
             PtkImplementation = ptkImplementation;

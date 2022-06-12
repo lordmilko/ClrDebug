@@ -188,12 +188,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the number of dimensions in an array type.
         /// </summary>
-        public uint Rank
+        public int Rank
         {
             get
             {
                 HRESULT hr;
-                uint pnRank;
+                int pnRank;
 
                 if ((hr = TryGetRank(out pnRank)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -206,9 +206,9 @@ namespace ManagedCorDebug
         /// Gets the number of dimensions in an array type.
         /// </summary>
         /// <param name="pnRank">[out] A pointer to the number of dimensions.</param>
-        public HRESULT TryGetRank(out uint pnRank)
+        public HRESULT TryGetRank(out int pnRank)
         {
-            /*HRESULT GetRank(out uint pnRank);*/
+            /*HRESULT GetRank(out int pnRank);*/
             return Raw.GetRank(out pnRank);
         }
 

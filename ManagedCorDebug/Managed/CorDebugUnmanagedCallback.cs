@@ -38,7 +38,7 @@ namespace ManagedCorDebug
         /// Do not try to use <see cref="CorDebugProcess.ClearCurrentException"/>, <see cref="CorDebugProcess.GetThreadContext"/>, <see 
         ///cref="CorDebugProcess.SetThreadContext"/>, or any other member of the debugging API.
         /// </remarks>
-        public void DebugEvent(ulong pDebugEvent, int fOutOfBand)
+        public void DebugEvent(long pDebugEvent, int fOutOfBand)
         {
             HRESULT hr;
 
@@ -69,9 +69,9 @@ namespace ManagedCorDebug
         /// Do not try to use <see cref="CorDebugProcess.ClearCurrentException"/>, <see cref="CorDebugProcess.GetThreadContext"/>, <see 
         ///cref="CorDebugProcess.SetThreadContext"/>, or any other member of the debugging API.
         /// </remarks>
-        public HRESULT TryDebugEvent(ulong pDebugEvent, int fOutOfBand)
+        public HRESULT TryDebugEvent(long pDebugEvent, int fOutOfBand)
         {
-            /*HRESULT DebugEvent([In] ulong pDebugEvent, [In] int fOutOfBand);*/
+            /*HRESULT DebugEvent([In] long pDebugEvent, [In] int fOutOfBand);*/
             return Raw.DebugEvent(pDebugEvent, fOutOfBand);
         }
 

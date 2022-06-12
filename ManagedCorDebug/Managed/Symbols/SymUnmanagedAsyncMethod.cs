@@ -79,12 +79,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineCatchHandlerILOffset"/>.
         /// </summary>
-        public uint CatchHandlerILOffset
+        public int CatchHandlerILOffset
         {
             get
             {
                 HRESULT hr;
-                uint pRetVal;
+                int pRetVal;
 
                 if ((hr = TryGetCatchHandlerILOffset(out pRetVal)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -97,9 +97,9 @@ namespace ManagedCorDebug
         /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineCatchHandlerILOffset"/>.
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
-        public HRESULT TryGetCatchHandlerILOffset(out uint pRetVal)
+        public HRESULT TryGetCatchHandlerILOffset(out int pRetVal)
         {
-            /*HRESULT GetCatchHandlerILOffset([Out] out uint pRetVal);*/
+            /*HRESULT GetCatchHandlerILOffset([Out] out int pRetVal);*/
             return Raw.GetCatchHandlerILOffset(out pRetVal);
         }
 
@@ -109,12 +109,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
         /// </summary>
-        public uint AsyncStepInfoCount
+        public int AsyncStepInfoCount
         {
             get
             {
                 HRESULT hr;
-                uint pRetVal;
+                int pRetVal;
 
                 if ((hr = TryGetAsyncStepInfoCount(out pRetVal)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -127,9 +127,9 @@ namespace ManagedCorDebug
         /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
-        public HRESULT TryGetAsyncStepInfoCount(out uint pRetVal)
+        public HRESULT TryGetAsyncStepInfoCount(out int pRetVal)
         {
-            /*HRESULT GetAsyncStepInfoCount([Out] out uint pRetVal);*/
+            /*HRESULT GetAsyncStepInfoCount([Out] out int pRetVal);*/
             return Raw.GetAsyncStepInfoCount(out pRetVal);
         }
 
@@ -163,7 +163,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
         /// </summary>
-        public void GetAsyncStepInfo(uint cStepInfo, uint yieldOffsets, uint breakpointOffset, uint breakpointMethod)
+        public void GetAsyncStepInfo(int cStepInfo, int yieldOffsets, int breakpointOffset, int breakpointMethod)
         {
             HRESULT hr;
 
@@ -175,15 +175,15 @@ namespace ManagedCorDebug
         /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
-        public HRESULT TryGetAsyncStepInfo(uint cStepInfo, uint yieldOffsets, uint breakpointOffset, uint breakpointMethod)
+        public HRESULT TryGetAsyncStepInfo(int cStepInfo, int yieldOffsets, int breakpointOffset, int breakpointMethod)
         {
             /*HRESULT GetAsyncStepInfo(
-            [In] uint cStepInfo,
-            out uint pcStepInfo,
-            [In] ref uint yieldOffsets,
-            [In] ref uint breakpointOffset,
-            [In] ref uint breakpointMethod);*/
-            uint pcStepInfo;
+            [In] int cStepInfo,
+            out int pcStepInfo,
+            [In] ref int yieldOffsets,
+            [In] ref int breakpointOffset,
+            [In] ref int breakpointMethod);*/
+            int pcStepInfo;
 
             return Raw.GetAsyncStepInfo(cStepInfo, out pcStepInfo, ref yieldOffsets, ref breakpointOffset, ref breakpointMethod);
         }

@@ -115,15 +115,15 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetVersionFromFile([MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [MarshalAs(UnmanagedType.LPWStr), Out]
-            StringBuilder pwzBuffer, [In] [Out] ref uint pcchBuffer);*/
+            StringBuilder pwzBuffer, [In] [Out] ref int pcchBuffer);*/
             StringBuilder pwzBuffer = null;
-            uint pcchBuffer = default(uint);
+            int pcchBuffer = default(int);
             HRESULT hr = Raw.GetVersionFromFile(pwzFilePath, pwzBuffer, ref pcchBuffer);
 
             if (hr != HRESULT.S_FALSE)
                 goto fail;
 
-            pwzBuffer = new StringBuilder((int) pcchBuffer);
+            pwzBuffer = new StringBuilder(pcchBuffer);
             hr = Raw.GetVersionFromFile(pwzFilePath, pwzBuffer, ref pcchBuffer);
 
             if (hr == HRESULT.S_OK)

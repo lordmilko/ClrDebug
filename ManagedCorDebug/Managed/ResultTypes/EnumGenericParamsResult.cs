@@ -8,9 +8,9 @@ namespace ManagedCorDebug
 
         public mdGenericParam[] RGenericParams { get; }
 
-        public uint PcGenericParams { get; }
+        public int PcGenericParams { get; }
 
-        public EnumGenericParamsResult(IntPtr phEnum, mdGenericParam[] rGenericParams, uint pcGenericParams)
+        public EnumGenericParamsResult(IntPtr phEnum, mdGenericParam[] rGenericParams, int pcGenericParams)
         {
             PhEnum = phEnum;
             RGenericParams = rGenericParams;

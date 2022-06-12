@@ -11,15 +11,15 @@ namespace ManagedCorDebug
     {
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT RemoteRead(out byte pv, [In] uint cb, out uint pcbRead);
+        new HRESULT RemoteRead(out byte pv, [In] int cb, out int pcbRead);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT RemoteWrite([In] IntPtr pv, [In] uint cb, out uint pcbWritten);
+        new HRESULT RemoteWrite([In] IntPtr pv, [In] int cb, out int pcbWritten);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT RemoteSeek([In] LARGE_INTEGER dlibMove, [In] uint dwOrigin, out ULARGE_INTEGER plibNewPosition);
+        HRESULT RemoteSeek([In] LARGE_INTEGER dlibMove, [In] int dwOrigin, out ULARGE_INTEGER plibNewPosition);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -36,7 +36,7 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Commit([In] uint grfCommitFlags);
+        HRESULT Commit([In] int grfCommitFlags);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -44,15 +44,15 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT LockRegion([In] ULARGE_INTEGER libOffset, [In] ULARGE_INTEGER cb, [In] uint dwLockType);
+        HRESULT LockRegion([In] ULARGE_INTEGER libOffset, [In] ULARGE_INTEGER cb, [In] int dwLockType);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT UnlockRegion([In] ULARGE_INTEGER libOffset, [In] ULARGE_INTEGER cb, [In] uint dwLockType);
+        HRESULT UnlockRegion([In] ULARGE_INTEGER libOffset, [In] ULARGE_INTEGER cb, [In] int dwLockType);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Stat(out tagSTATSTG pstatstg, [In] uint grfStatFlag);
+        HRESULT Stat(out tagSTATSTG pstatstg, [In] int grfStatFlag);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

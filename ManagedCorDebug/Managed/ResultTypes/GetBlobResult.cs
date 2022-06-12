@@ -4,11 +4,11 @@ namespace ManagedCorDebug
 {
     public struct GetBlobResult
     {
-        public uint PcbData { get; }
+        public int PcbData { get; }
 
         public IntPtr PpData { get; }
 
-        public GetBlobResult(uint pcbData, IntPtr ppData)
+        public GetBlobResult(int pcbData, IntPtr ppData)
         {
             PcbData = pcbData;
             PpData = ppData;

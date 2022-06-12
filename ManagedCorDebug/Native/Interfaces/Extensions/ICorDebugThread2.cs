@@ -26,7 +26,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetActiveFunctions([In] uint cFunctions, out uint pcFunctions,
+        HRESULT GetActiveFunctions([In] int cFunctions, out int pcFunctions,
             [MarshalAs(UnmanagedType.LPArray), In, Out] COR_ACTIVE_FUNCTION[] pFunctions);
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetConnectionID(out uint pdwConnectionId);
+        HRESULT GetConnectionID(out int pdwConnectionId);
 
         /// <summary>
         /// Gets the identifier of the task running on this thread.
@@ -52,7 +52,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetTaskID(out ulong pTaskId);
+        HRESULT GetTaskID(out long pTaskId);
 
         /// <summary>
         /// Gets the operating system thread identifier for this <see cref="ICorDebugThread2"/>.
@@ -60,7 +60,7 @@ namespace ManagedCorDebug
         /// <param name="pdwTid">[out] The operating system thread identifier for this thread.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetVolatileOSThreadID(out uint pdwTid);
+        HRESULT GetVolatileOSThreadID(out int pdwTid);
 
         /// <summary>
         /// Allows a debugger to intercept the current exception on this thread.

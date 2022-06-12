@@ -18,7 +18,7 @@ namespace ManagedCorDebug
         /// <param name="ppManagedObject">[out] A pointer to the address of an "ICorDebugValue" object that represents the managed object that corresponds to the given CCW pointer.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetObjectForCCW([In] ulong ccwPointer,
+        HRESULT GetObjectForCCW([In] long ccwPointer,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppManagedObject);
     }
 }

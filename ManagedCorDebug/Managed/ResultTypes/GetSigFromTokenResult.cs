@@ -6,9 +6,9 @@ namespace ManagedCorDebug
     {
         public IntPtr PpvSig { get; }
 
-        public uint PcbSig { get; }
+        public int PcbSig { get; }
 
-        public GetSigFromTokenResult(IntPtr ppvSig, uint pcbSig)
+        public GetSigFromTokenResult(IntPtr ppvSig, int pcbSig)
         {
             PpvSig = ppvSig;
             PcbSig = pcbSig;

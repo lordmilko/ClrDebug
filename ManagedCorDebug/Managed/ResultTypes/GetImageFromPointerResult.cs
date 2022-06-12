@@ -4,9 +4,9 @@ namespace ManagedCorDebug
     {
         public CORDB_ADDRESS PImageBase { get; }
 
-        public uint PSize { get; }
+        public int PSize { get; }
 
-        public GetImageFromPointerResult(CORDB_ADDRESS pImageBase, uint pSize)
+        public GetImageFromPointerResult(CORDB_ADDRESS pImageBase, int pSize)
         {
             PImageBase = pImageBase;
             PSize = pSize;

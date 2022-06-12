@@ -4,11 +4,11 @@ namespace ManagedCorDebug
 {
     public struct GetDocumentsResult
     {
-        public uint PcDocs { get; }
+        public int PcDocs { get; }
 
         public IntPtr PDocs { get; }
 
-        public GetDocumentsResult(uint pcDocs, IntPtr pDocs)
+        public GetDocumentsResult(int pcDocs, IntPtr pDocs)
         {
             PcDocs = pcDocs;
             PDocs = pDocs;

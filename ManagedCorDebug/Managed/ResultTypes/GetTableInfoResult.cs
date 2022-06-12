@@ -2,15 +2,15 @@ namespace ManagedCorDebug
 {
     public struct GetTableInfoResult
     {
-        public uint PcbRow { get; }
+        public int PcbRow { get; }
 
-        public uint PcRows { get; }
+        public int PcRows { get; }
 
-        public uint PcCols { get; }
+        public int PcCols { get; }
 
-        public uint PiKey { get; }
+        public int PiKey { get; }
 
-        public GetTableInfoResult(uint pcbRow, uint pcRows, uint pcCols, uint piKey)
+        public GetTableInfoResult(int pcbRow, int pcRows, int pcCols, int piKey)
         {
             PcbRow = pcbRow;
             PcRows = pcRows;

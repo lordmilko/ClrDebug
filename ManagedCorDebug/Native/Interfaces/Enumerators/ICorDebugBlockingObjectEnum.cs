@@ -20,7 +20,7 @@ namespace ManagedCorDebug
         /// <param name="celt">[in] The number of items by which to move the cursor forward.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT Skip([In] uint celt);
+        new HRESULT Skip([In] int celt);
 
         /// <summary>
         /// Moves the cursor to the beginning of the enumeration.
@@ -43,7 +43,7 @@ namespace ManagedCorDebug
         /// <param name="pcelt">[out] A pointer to the number of items in the enumeration.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetCount(out uint pcelt);
+        new HRESULT GetCount(out int pcelt);
 
         /// <summary>
         /// Gets the specified number of <see cref="CorDebugBlockingObject"/> objects from the enumeration, starting at the current position.
@@ -68,6 +68,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Next([In] uint celt, [MarshalAs(UnmanagedType.Interface), Out] out CorDebugBlockingObject values, out uint pceltFetched);
+        HRESULT Next([In] int celt, [MarshalAs(UnmanagedType.Interface), Out] out CorDebugBlockingObject values, out int pceltFetched);
     }
 }

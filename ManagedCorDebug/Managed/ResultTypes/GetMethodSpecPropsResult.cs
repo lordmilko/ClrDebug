@@ -8,9 +8,9 @@ namespace ManagedCorDebug
 
         public IntPtr PpvSigBlob { get; }
 
-        public uint PcbSigBlob { get; }
+        public int PcbSigBlob { get; }
 
-        public GetMethodSpecPropsResult(mdToken tkParent, IntPtr ppvSigBlob, uint pcbSigBlob)
+        public GetMethodSpecPropsResult(mdToken tkParent, IntPtr ppvSigBlob, int pcbSigBlob)
         {
             TkParent = tkParent;
             PpvSigBlob = ppvSigBlob;

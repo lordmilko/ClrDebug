@@ -4,11 +4,11 @@ namespace ManagedCorDebug
 {
     public struct GetActiveInternalFramesResult
     {
-        public uint PcInternalFrames { get; }
+        public int PcInternalFrames { get; }
 
         public IntPtr PpInternalFrames { get; }
 
-        public GetActiveInternalFramesResult(uint pcInternalFrames, IntPtr ppInternalFrames)
+        public GetActiveInternalFramesResult(int pcInternalFrames, IntPtr ppInternalFrames)
         {
             PcInternalFrames = pcInternalFrames;
             PpInternalFrames = ppInternalFrames;

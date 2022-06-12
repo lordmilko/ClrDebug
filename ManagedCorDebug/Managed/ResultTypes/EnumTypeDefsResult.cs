@@ -8,9 +8,9 @@ namespace ManagedCorDebug
 
         public mdTypeDef[] TypeDefs { get; }
 
-        public uint PcTypeDefs { get; }
+        public int PcTypeDefs { get; }
 
-        public EnumTypeDefsResult(IntPtr phEnum, mdTypeDef[] typeDefs, uint pcTypeDefs)
+        public EnumTypeDefsResult(IntPtr phEnum, mdTypeDef[] typeDefs, int pcTypeDefs)
         {
             PhEnum = phEnum;
             TypeDefs = typeDefs;

@@ -4,11 +4,11 @@ namespace ManagedCorDebug
 {
     public struct GetUserStringResult
     {
-        public uint PcbData { get; }
+        public int PcbData { get; }
 
         public IntPtr PpData { get; }
 
-        public GetUserStringResult(uint pcbData, IntPtr ppData)
+        public GetUserStringResult(int pcbData, IntPtr ppData)
         {
             PcbData = pcbData;
             PpData = ppData;

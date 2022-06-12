@@ -19,12 +19,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the search path length.
         /// </summary>
-        public uint SearchPathLength
+        public int SearchPathLength
         {
             get
             {
                 HRESULT hr;
-                uint pcchPath;
+                int pcchPath;
 
                 if ((hr = TryGetSearchPathLength(out pcchPath)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -38,9 +38,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pcchPath">[out] A pointer to a ULONG32 that receives the size, in characters, of the buffer required to contain the search path length.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSearchPathLength(out uint pcchPath)
+        public HRESULT TryGetSearchPathLength(out int pcchPath)
         {
-            /*HRESULT GetSearchPathLength(out uint pcchPath);*/
+            /*HRESULT GetSearchPathLength(out int pcchPath);*/
             return Raw.GetSearchPathLength(out pcchPath);
         }
 
@@ -101,11 +101,11 @@ namespace ManagedCorDebug
         public HRESULT TryGetSearchPath(out string szPathResult)
         {
             /*HRESULT GetSearchPath(
-            [In] uint cchPath,
-            out uint pcchPath,
+            [In] int cchPath,
+            out int pcchPath,
             [Out] StringBuilder szPath);*/
-            uint cchPath = 0;
-            uint pcchPath;
+            int cchPath = 0;
+            int pcchPath;
             StringBuilder szPath = null;
             HRESULT hr = Raw.GetSearchPath(cchPath, out pcchPath, szPath);
 
@@ -113,7 +113,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchPath = pcchPath;
-            szPath = new StringBuilder((int) pcchPath);
+            szPath = new StringBuilder(pcchPath);
             hr = Raw.GetSearchPath(cchPath, out pcchPath, szPath);
 
             if (hr == HRESULT.S_OK)

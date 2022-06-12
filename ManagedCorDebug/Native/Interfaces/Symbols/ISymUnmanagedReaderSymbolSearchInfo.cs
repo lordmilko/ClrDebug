@@ -18,7 +18,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSymbolSearchInfoCount(out uint pcSearchInfo);
+        HRESULT GetSymbolSearchInfoCount(out int pcSearchInfo);
 
         /// <summary>
         /// Gets symbol search information.
@@ -30,8 +30,8 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSymbolSearchInfo(
-            [In] uint cSearchInfo,
-            out uint pcSearchInfo,
+            [In] int cSearchInfo,
+            out int pcSearchInfo,
             [MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedSymbolSearchInfo rgpSearchInfo);
     }
 }

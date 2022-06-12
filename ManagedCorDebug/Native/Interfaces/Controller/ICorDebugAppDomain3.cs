@@ -34,7 +34,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCachedWinRTTypesForIIDs(
-            [In] uint cReqTypes,
+            [In] int cReqTypes,
             [In] ref Guid iidsToResolve,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppTypesEnum);
 

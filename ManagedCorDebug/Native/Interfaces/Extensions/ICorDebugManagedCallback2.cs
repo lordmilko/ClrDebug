@@ -44,7 +44,7 @@ namespace ManagedCorDebug
             ICorDebugFunction pOldFunction,
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugFunction pNewFunction,
-            [In] uint oldILOffset);
+            [In] int oldILOffset);
 
         /// <summary>
         /// Notifies the debugger that a new connection has been created.
@@ -58,7 +58,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateConnection([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugProcess pProcess, [In] uint dwConnectionId, [MarshalAs(UnmanagedType.LPWStr), In] string pConnName);
+            ICorDebugProcess pProcess, [In] int dwConnectionId, [MarshalAs(UnmanagedType.LPWStr), In] string pConnName);
 
         /// <summary>
         /// Notifies the debugger that the set of tasks associated with the specified connection has changed.
@@ -72,7 +72,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ChangeConnection([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugProcess pProcess, [In] uint dwConnectionId);
+            ICorDebugProcess pProcess, [In] int dwConnectionId);
 
         /// <summary>
         /// Notifies the debugger that the specified connection has been terminated.
@@ -86,7 +86,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT DestroyConnection([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugProcess pProcess, [In] uint dwConnectionId);
+            ICorDebugProcess pProcess, [In] int dwConnectionId);
 
         /// <summary>
         /// Notifies the debugger that a search for an exception handler has started.
@@ -113,9 +113,9 @@ namespace ManagedCorDebug
             ICorDebugThread pThread,
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugFrame pFrame,
-            [In] uint nOffset,
+            [In] int nOffset,
             [In] CorDebugExceptionCallbackType dwEventType,
-            [In] uint dwFlags);
+            [In] int dwFlags);
 
         /// <summary>
         /// Provides a status notification during the exception unwinding process.
@@ -138,7 +138,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugThread pThread,
             [In] CorDebugExceptionUnwindCallbackType dwEventType,
-            [In] uint dwFlags);
+            [In] int dwFlags);
 
         /// <summary>
         /// Notifies the debugger that code execution has switched to a new version of an edited function.

@@ -18,12 +18,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the size, in bytes, of the string heap.
         /// </summary>
-        public uint StringHeapSize
+        public int StringHeapSize
         {
             get
             {
                 HRESULT hr;
-                uint pcbStrings;
+                int pcbStrings;
 
                 if ((hr = TryGetStringHeapSize(out pcbStrings)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -36,9 +36,9 @@ namespace ManagedCorDebug
         /// Gets the size, in bytes, of the string heap.
         /// </summary>
         /// <param name="pcbStrings">[out] A pointer to the size, in bytes, of the string heap.</param>
-        public HRESULT TryGetStringHeapSize(out uint pcbStrings)
+        public HRESULT TryGetStringHeapSize(out int pcbStrings)
         {
-            /*HRESULT GetStringHeapSize(out uint pcbStrings);*/
+            /*HRESULT GetStringHeapSize(out int pcbStrings);*/
             return Raw.GetStringHeapSize(out pcbStrings);
         }
 
@@ -48,12 +48,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the size, in bytes, of the binary large object (BLOB) heap.
         /// </summary>
-        public uint BlobHeapSize
+        public int BlobHeapSize
         {
             get
             {
                 HRESULT hr;
-                uint pcbBlobs;
+                int pcbBlobs;
 
                 if ((hr = TryGetBlobHeapSize(out pcbBlobs)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -66,9 +66,9 @@ namespace ManagedCorDebug
         /// Gets the size, in bytes, of the binary large object (BLOB) heap.
         /// </summary>
         /// <param name="pcbBlobs">[out] A pointer to the size, in bytes, of the BLOB heap.</param>
-        public HRESULT TryGetBlobHeapSize(out uint pcbBlobs)
+        public HRESULT TryGetBlobHeapSize(out int pcbBlobs)
         {
-            /*HRESULT GetBlobHeapSize(out uint pcbBlobs);*/
+            /*HRESULT GetBlobHeapSize(out int pcbBlobs);*/
             return Raw.GetBlobHeapSize(out pcbBlobs);
         }
 
@@ -78,12 +78,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the size, in bytes, of the GUID heap.
         /// </summary>
-        public uint GuidHeapSize
+        public int GuidHeapSize
         {
             get
             {
                 HRESULT hr;
-                uint pcbGuids;
+                int pcbGuids;
 
                 if ((hr = TryGetGuidHeapSize(out pcbGuids)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -96,9 +96,9 @@ namespace ManagedCorDebug
         /// Gets the size, in bytes, of the GUID heap.
         /// </summary>
         /// <param name="pcbGuids">[out] A pointer to the size, in bytes, of the GUID heap.</param>
-        public HRESULT TryGetGuidHeapSize(out uint pcbGuids)
+        public HRESULT TryGetGuidHeapSize(out int pcbGuids)
         {
-            /*HRESULT GetGuidHeapSize(out uint pcbGuids);*/
+            /*HRESULT GetGuidHeapSize(out int pcbGuids);*/
             return Raw.GetGuidHeapSize(out pcbGuids);
         }
 
@@ -108,12 +108,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the size, in bytes, of the user string heap.
         /// </summary>
-        public uint UserStringHeapSize
+        public int UserStringHeapSize
         {
             get
             {
                 HRESULT hr;
-                uint pcbBlobs;
+                int pcbBlobs;
 
                 if ((hr = TryGetUserStringHeapSize(out pcbBlobs)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -126,9 +126,9 @@ namespace ManagedCorDebug
         /// Gets the size, in bytes, of the user string heap.
         /// </summary>
         /// <param name="pcbBlobs">[out] A pointer to the size, in bytes, of the user string heap.</param>
-        public HRESULT TryGetUserStringHeapSize(out uint pcbBlobs)
+        public HRESULT TryGetUserStringHeapSize(out int pcbBlobs)
         {
-            /*HRESULT GetUserStringHeapSize(out uint pcbBlobs);*/
+            /*HRESULT GetUserStringHeapSize(out int pcbBlobs);*/
             return Raw.GetUserStringHeapSize(out pcbBlobs);
         }
 
@@ -138,12 +138,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the number of tables in the scope of the current <see cref="IMetaDataTables"/> instance.
         /// </summary>
-        public uint NumTables
+        public int NumTables
         {
             get
             {
                 HRESULT hr;
-                uint pcTables;
+                int pcTables;
 
                 if ((hr = TryGetNumTables(out pcTables)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -156,9 +156,9 @@ namespace ManagedCorDebug
         /// Gets the number of tables in the scope of the current <see cref="IMetaDataTables"/> instance.
         /// </summary>
         /// <param name="pcTables">[out] A pointer to the number of tables in the current instance scope.</param>
-        public HRESULT TryGetNumTables(out uint pcTables)
+        public HRESULT TryGetNumTables(out int pcTables)
         {
-            /*HRESULT GetNumTables(out uint pcTables);*/
+            /*HRESULT GetNumTables(out int pcTables);*/
             return Raw.GetNumTables(out pcTables);
         }
 
@@ -176,10 +176,10 @@ namespace ManagedCorDebug
         /// Definition and Semantics". The documentation is available online; see ECMA C# and Common Language Infrastructure
         /// Standards and Standard ECMA-335 - Common Language Infrastructure (CLI).
         /// </remarks>
-        public uint GetTableIndex(uint token)
+        public int GetTableIndex(int token)
         {
             HRESULT hr;
-            uint pixTbl;
+            int pixTbl;
 
             if ((hr = TryGetTableIndex(token, out pixTbl)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -198,9 +198,9 @@ namespace ManagedCorDebug
         /// Definition and Semantics". The documentation is available online; see ECMA C# and Common Language Infrastructure
         /// Standards and Standard ECMA-335 - Common Language Infrastructure (CLI).
         /// </remarks>
-        public HRESULT TryGetTableIndex(uint token, out uint pixTbl)
+        public HRESULT TryGetTableIndex(int token, out int pixTbl)
         {
-            /*HRESULT GetTableIndex(uint token, out uint pixTbl);*/
+            /*HRESULT GetTableIndex(int token, out int pixTbl);*/
             return Raw.GetTableIndex(token, out pixTbl);
         }
 
@@ -213,7 +213,7 @@ namespace ManagedCorDebug
         /// <param name="ixTbl">[in] The identifier of the table whose properties to return.</param>
         /// <param name="ppName">[out] A pointer to a pointer to the table name.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetTableInfoResult GetTableInfo(uint ixTbl, char[] ppName)
+        public GetTableInfoResult GetTableInfo(int ixTbl, char[] ppName)
         {
             HRESULT hr;
             GetTableInfoResult result;
@@ -230,13 +230,13 @@ namespace ManagedCorDebug
         /// <param name="ixTbl">[in] The identifier of the table whose properties to return.</param>
         /// <param name="ppName">[out] A pointer to a pointer to the table name.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetTableInfo(uint ixTbl, char[] ppName, out GetTableInfoResult result)
+        public HRESULT TryGetTableInfo(int ixTbl, char[] ppName, out GetTableInfoResult result)
         {
-            /*HRESULT GetTableInfo(uint ixTbl, out uint pcbRow, out uint pcRows, out uint pcCols, out uint piKey, [MarshalAs(UnmanagedType.LPArray)] char[] ppName);*/
-            uint pcbRow;
-            uint pcRows;
-            uint pcCols;
-            uint piKey;
+            /*HRESULT GetTableInfo(int ixTbl, out int pcbRow, out int pcRows, out int pcCols, out int piKey, [MarshalAs(UnmanagedType.LPArray)] char[] ppName);*/
+            int pcbRow;
+            int pcRows;
+            int pcCols;
+            int piKey;
             HRESULT hr = Raw.GetTableInfo(ixTbl, out pcbRow, out pcRows, out pcCols, out piKey, ppName);
 
             if (hr == HRESULT.S_OK)
@@ -261,7 +261,7 @@ namespace ManagedCorDebug
         /// The returned column type falls within a range of values: Values that are stored in the heap (that is, IsHeapType
         /// == true) can be read using:
         /// </remarks>
-        public GetColumnInfoResult GetColumnInfo(uint ixTbl, uint ixCol, char[] ppName)
+        public GetColumnInfoResult GetColumnInfo(int ixTbl, int ixCol, char[] ppName)
         {
             HRESULT hr;
             GetColumnInfoResult result;
@@ -283,12 +283,12 @@ namespace ManagedCorDebug
         /// The returned column type falls within a range of values: Values that are stored in the heap (that is, IsHeapType
         /// == true) can be read using:
         /// </remarks>
-        public HRESULT TryGetColumnInfo(uint ixTbl, uint ixCol, char[] ppName, out GetColumnInfoResult result)
+        public HRESULT TryGetColumnInfo(int ixTbl, int ixCol, char[] ppName, out GetColumnInfoResult result)
         {
-            /*HRESULT GetColumnInfo(uint ixTbl, uint ixCol, out uint poCol, out uint pcbCol, out uint pType, [MarshalAs(UnmanagedType.LPArray)] char[] ppName);*/
-            uint poCol;
-            uint pcbCol;
-            uint pType;
+            /*HRESULT GetColumnInfo(int ixTbl, int ixCol, out int poCol, out int pcbCol, out int pType, [MarshalAs(UnmanagedType.LPArray)] char[] ppName);*/
+            int poCol;
+            int pcbCol;
+            int pType;
             HRESULT hr = Raw.GetColumnInfo(ixTbl, ixCol, out poCol, out pcbCol, out pType, ppName);
 
             if (hr == HRESULT.S_OK)
@@ -309,10 +309,10 @@ namespace ManagedCorDebug
         /// <param name="ppTokens">[out] A pointer to a pointer to an array that contains the list of returned tokens.</param>
         /// <param name="ppName">[out] A pointer to a pointer to the name of the token at ixCdTkn.</param>
         /// <returns>[out] A pointer to the length of ppTokens.</returns>
-        public uint GetCodedTokenInfo(uint ixCdTkn, uint[] ppTokens, char[] ppName)
+        public int GetCodedTokenInfo(int ixCdTkn, int[] ppTokens, char[] ppName)
         {
             HRESULT hr;
-            uint pcTokens;
+            int pcTokens;
 
             if ((hr = TryGetCodedTokenInfo(ixCdTkn, out pcTokens, ppTokens, ppName)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -327,9 +327,9 @@ namespace ManagedCorDebug
         /// <param name="pcTokens">[out] A pointer to the length of ppTokens.</param>
         /// <param name="ppTokens">[out] A pointer to a pointer to an array that contains the list of returned tokens.</param>
         /// <param name="ppName">[out] A pointer to a pointer to the name of the token at ixCdTkn.</param>
-        public HRESULT TryGetCodedTokenInfo(uint ixCdTkn, out uint pcTokens, uint[] ppTokens, char[] ppName)
+        public HRESULT TryGetCodedTokenInfo(int ixCdTkn, out int pcTokens, int[] ppTokens, char[] ppName)
         {
-            /*HRESULT GetCodedTokenInfo(uint ixCdTkn, out uint pcTokens, [MarshalAs(UnmanagedType.LPArray)] uint[] ppTokens, [MarshalAs(UnmanagedType.LPArray)] char[] ppName);*/
+            /*HRESULT GetCodedTokenInfo(int ixCdTkn, out int pcTokens, [MarshalAs(UnmanagedType.LPArray)] int[] ppTokens, [MarshalAs(UnmanagedType.LPArray)] char[] ppName);*/
             return Raw.GetCodedTokenInfo(ixCdTkn, out pcTokens, ppTokens, ppName);
         }
 
@@ -348,7 +348,7 @@ namespace ManagedCorDebug
         /// Definition and Semantics". The documentation is available online; see ECMA C# and Common Language Infrastructure
         /// Standards and Standard ECMA-335 - Common Language Infrastructure (CLI).
         /// </remarks>
-        public IntPtr GetRow(uint ixTbl, uint rid)
+        public IntPtr GetRow(int ixTbl, int rid)
         {
             HRESULT hr;
             IntPtr ppRow;
@@ -371,9 +371,9 @@ namespace ManagedCorDebug
         /// Definition and Semantics". The documentation is available online; see ECMA C# and Common Language Infrastructure
         /// Standards and Standard ECMA-335 - Common Language Infrastructure (CLI).
         /// </remarks>
-        public HRESULT TryGetRow(uint ixTbl, uint rid, out IntPtr ppRow)
+        public HRESULT TryGetRow(int ixTbl, int rid, out IntPtr ppRow)
         {
-            /*HRESULT GetRow(uint ixTbl, uint rid, out IntPtr ppRow);*/
+            /*HRESULT GetRow(int ixTbl, int rid, out IntPtr ppRow);*/
             return Raw.GetRow(ixTbl, rid, out ppRow);
         }
 
@@ -391,10 +391,10 @@ namespace ManagedCorDebug
         /// The interpretation of the value returned through pVal depends on the column's type. The column type can be determined
         /// by calling <see cref="GetColumnInfo"/>.
         /// </remarks>
-        public uint GetColumn(uint ixTbl, uint ixCol, uint rid)
+        public int GetColumn(int ixTbl, int ixCol, int rid)
         {
             HRESULT hr;
-            uint pVal;
+            int pVal;
 
             if ((hr = TryGetColumn(ixTbl, ixCol, rid, out pVal)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -413,9 +413,9 @@ namespace ManagedCorDebug
         /// The interpretation of the value returned through pVal depends on the column's type. The column type can be determined
         /// by calling <see cref="GetColumnInfo"/>.
         /// </remarks>
-        public HRESULT TryGetColumn(uint ixTbl, uint ixCol, uint rid, out uint pVal)
+        public HRESULT TryGetColumn(int ixTbl, int ixCol, int rid, out int pVal)
         {
-            /*HRESULT GetColumn(uint ixTbl, uint ixCol, uint rid, out uint pVal);*/
+            /*HRESULT GetColumn(int ixTbl, int ixCol, int rid, out int pVal);*/
             return Raw.GetColumn(ixTbl, ixCol, rid, out pVal);
         }
 
@@ -427,7 +427,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ixString">[in] The index at which to start to search for the next value.</param>
         /// <param name="ppString">[out] A pointer to a pointer to the returned string value.</param>
-        public void GetString(uint ixString, char[] ppString)
+        public void GetString(int ixString, char[] ppString)
         {
             HRESULT hr;
 
@@ -440,9 +440,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ixString">[in] The index at which to start to search for the next value.</param>
         /// <param name="ppString">[out] A pointer to a pointer to the returned string value.</param>
-        public HRESULT TryGetString(uint ixString, char[] ppString)
+        public HRESULT TryGetString(int ixString, char[] ppString)
         {
-            /*HRESULT GetString(uint ixString, [MarshalAs(UnmanagedType.LPArray)] char[] ppString);*/
+            /*HRESULT GetString(int ixString, [MarshalAs(UnmanagedType.LPArray)] char[] ppString);*/
             return Raw.GetString(ixString, ppString);
         }
 
@@ -454,7 +454,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ixBlob">[in] The memory address from which to get ppData.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetBlobResult GetBlob(uint ixBlob)
+        public GetBlobResult GetBlob(int ixBlob)
         {
             HRESULT hr;
             GetBlobResult result;
@@ -470,10 +470,10 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ixBlob">[in] The memory address from which to get ppData.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetBlob(uint ixBlob, out GetBlobResult result)
+        public HRESULT TryGetBlob(int ixBlob, out GetBlobResult result)
         {
-            /*HRESULT GetBlob(uint ixBlob, out uint pcbData, out IntPtr ppData);*/
-            uint pcbData;
+            /*HRESULT GetBlob(int ixBlob, out int pcbData, out IntPtr ppData);*/
+            int pcbData;
             IntPtr ppData;
             HRESULT hr = Raw.GetBlob(ixBlob, out pcbData, out ppData);
 
@@ -499,7 +499,7 @@ namespace ManagedCorDebug
         /// Definition and Semantics". The documentation is available online; see ECMA C# and Common Language Infrastructure
         /// Standards and Standard ECMA-335 - Common Language Infrastructure (CLI).
         /// </remarks>
-        public Guid GetGuid(uint ixGuid)
+        public Guid GetGuid(int ixGuid)
         {
             HRESULT hr;
             Guid ppGUID;
@@ -521,9 +521,9 @@ namespace ManagedCorDebug
         /// Definition and Semantics". The documentation is available online; see ECMA C# and Common Language Infrastructure
         /// Standards and Standard ECMA-335 - Common Language Infrastructure (CLI).
         /// </remarks>
-        public HRESULT TryGetGuid(uint ixGuid, out Guid ppGUID)
+        public HRESULT TryGetGuid(int ixGuid, out Guid ppGUID)
         {
-            /*HRESULT GetGuid(uint ixGuid, out Guid ppGUID);*/
+            /*HRESULT GetGuid(int ixGuid, out Guid ppGUID);*/
             return Raw.GetGuid(ixGuid, out ppGUID);
         }
 
@@ -535,7 +535,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ixUserString">[in] The index value from which the hard-coded string will be retrieved.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetUserStringResult GetUserString(uint ixUserString)
+        public GetUserStringResult GetUserString(int ixUserString)
         {
             HRESULT hr;
             GetUserStringResult result;
@@ -551,10 +551,10 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ixUserString">[in] The index value from which the hard-coded string will be retrieved.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetUserString(uint ixUserString, out GetUserStringResult result)
+        public HRESULT TryGetUserString(int ixUserString, out GetUserStringResult result)
         {
-            /*HRESULT GetUserString(uint ixUserString, out uint pcbData, out IntPtr ppData);*/
-            uint pcbData;
+            /*HRESULT GetUserString(int ixUserString, out int pcbData, out IntPtr ppData);*/
+            int pcbData;
             IntPtr ppData;
             HRESULT hr = Raw.GetUserString(ixUserString, out pcbData, out ppData);
 
@@ -574,10 +574,10 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ixString">[in] The index value from a string table column.</param>
         /// <returns>[out] A pointer to the index of the next string in the column.</returns>
-        public uint GetNextString(uint ixString)
+        public int GetNextString(int ixString)
         {
             HRESULT hr;
-            uint pNext;
+            int pNext;
 
             if ((hr = TryGetNextString(ixString, out pNext)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -590,9 +590,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ixString">[in] The index value from a string table column.</param>
         /// <param name="pNext">[out] A pointer to the index of the next string in the column.</param>
-        public HRESULT TryGetNextString(uint ixString, out uint pNext)
+        public HRESULT TryGetNextString(int ixString, out int pNext)
         {
-            /*HRESULT GetNextString(uint ixString, out uint pNext);*/
+            /*HRESULT GetNextString(int ixString, out int pNext);*/
             return Raw.GetNextString(ixString, out pNext);
         }
 
@@ -604,10 +604,10 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ixBlob">[in] The index, as returned from a column of BLOBs.</param>
         /// <returns>[out] A pointer to the index of the next BLOB.</returns>
-        public uint GetNextBlob(uint ixBlob)
+        public int GetNextBlob(int ixBlob)
         {
             HRESULT hr;
-            uint pNext;
+            int pNext;
 
             if ((hr = TryGetNextBlob(ixBlob, out pNext)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -620,9 +620,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ixBlob">[in] The index, as returned from a column of BLOBs.</param>
         /// <param name="pNext">[out] A pointer to the index of the next BLOB.</param>
-        public HRESULT TryGetNextBlob(uint ixBlob, out uint pNext)
+        public HRESULT TryGetNextBlob(int ixBlob, out int pNext)
         {
-            /*HRESULT GetNextBlob(uint ixBlob, out uint pNext);*/
+            /*HRESULT GetNextBlob(int ixBlob, out int pNext);*/
             return Raw.GetNextBlob(ixBlob, out pNext);
         }
 
@@ -640,10 +640,10 @@ namespace ManagedCorDebug
         /// Definition and Semantics". The documentation is available online; see ECMA C# and Common Language Infrastructure
         /// Standards and Standard ECMA-335 - Common Language Infrastructure (CLI).
         /// </remarks>
-        public uint GetNextGuid(uint ixGuid)
+        public int GetNextGuid(int ixGuid)
         {
             HRESULT hr;
-            uint pNext;
+            int pNext;
 
             if ((hr = TryGetNextGuid(ixGuid, out pNext)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -662,9 +662,9 @@ namespace ManagedCorDebug
         /// Definition and Semantics". The documentation is available online; see ECMA C# and Common Language Infrastructure
         /// Standards and Standard ECMA-335 - Common Language Infrastructure (CLI).
         /// </remarks>
-        public HRESULT TryGetNextGuid(uint ixGuid, out uint pNext)
+        public HRESULT TryGetNextGuid(int ixGuid, out int pNext)
         {
-            /*HRESULT GetNextGuid(uint ixGuid, out uint pNext);*/
+            /*HRESULT GetNextGuid(int ixGuid, out int pNext);*/
             return Raw.GetNextGuid(ixGuid, out pNext);
         }
 
@@ -682,10 +682,10 @@ namespace ManagedCorDebug
         /// Definition and Semantics". The documentation is available online; see ECMA C# and Common Language Infrastructure
         /// Standards and Standard ECMA-335 - Common Language Infrastructure (CLI).
         /// </remarks>
-        public uint GetNextUserString(uint ixUserString)
+        public int GetNextUserString(int ixUserString)
         {
             HRESULT hr;
-            uint pNext;
+            int pNext;
 
             if ((hr = TryGetNextUserString(ixUserString, out pNext)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -704,9 +704,9 @@ namespace ManagedCorDebug
         /// Definition and Semantics". The documentation is available online; see ECMA C# and Common Language Infrastructure
         /// Standards and Standard ECMA-335 - Common Language Infrastructure (CLI).
         /// </remarks>
-        public HRESULT TryGetNextUserString(uint ixUserString, out uint pNext)
+        public HRESULT TryGetNextUserString(int ixUserString, out int pNext)
         {
-            /*HRESULT GetNextUserString(uint ixUserString, out uint pNext);*/
+            /*HRESULT GetNextUserString(int ixUserString, out int pNext);*/
             return Raw.GetNextUserString(ixUserString, out pNext);
         }
 
@@ -741,9 +741,9 @@ namespace ManagedCorDebug
         /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetMetaDataStorage(out GetMetaDataStorageResult result)
         {
-            /*HRESULT GetMetaDataStorage(out IntPtr ppvMd, out uint pcbMd);*/
+            /*HRESULT GetMetaDataStorage(out IntPtr ppvMd, out int pcbMd);*/
             IntPtr ppvMd;
-            uint pcbMd;
+            int pcbMd;
             HRESULT hr = Raw2.GetMetaDataStorage(out ppvMd, out pcbMd);
 
             if (hr == HRESULT.S_OK)
@@ -763,7 +763,7 @@ namespace ManagedCorDebug
         /// <param name="ix">[in] The index of the requested metadata stream.</param>
         /// <param name="ppchName">[out] A pointer to the name of the stream.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetMetaDataStreamInfoResult GetMetaDataStreamInfo(uint ix, char[] ppchName)
+        public GetMetaDataStreamInfoResult GetMetaDataStreamInfo(int ix, char[] ppchName)
         {
             HRESULT hr;
             GetMetaDataStreamInfoResult result;
@@ -780,11 +780,11 @@ namespace ManagedCorDebug
         /// <param name="ix">[in] The index of the requested metadata stream.</param>
         /// <param name="ppchName">[out] A pointer to the name of the stream.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetMetaDataStreamInfo(uint ix, char[] ppchName, out GetMetaDataStreamInfoResult result)
+        public HRESULT TryGetMetaDataStreamInfo(int ix, char[] ppchName, out GetMetaDataStreamInfoResult result)
         {
-            /*HRESULT GetMetaDataStreamInfo(uint ix, [MarshalAs(UnmanagedType.LPArray)] char[] ppchName, out IntPtr ppv, out uint pcb);*/
+            /*HRESULT GetMetaDataStreamInfo(int ix, [MarshalAs(UnmanagedType.LPArray)] char[] ppchName, out IntPtr ppv, out int pcb);*/
             IntPtr ppv;
-            uint pcb;
+            int pcb;
             HRESULT hr = Raw2.GetMetaDataStreamInfo(ix, ppchName, out ppv, out pcb);
 
             if (hr == HRESULT.S_OK)

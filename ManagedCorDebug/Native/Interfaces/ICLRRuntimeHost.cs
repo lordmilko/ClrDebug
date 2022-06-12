@@ -130,7 +130,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
-        HRESULT UnloadAppDomain([In] uint dwAppDomainID, [In] int fWaitUntilDone);
+        HRESULT UnloadAppDomain([In] int dwAppDomainID, [In] int fWaitUntilDone);
 
         /// <summary>
         /// Specifies the <see cref="AppDomain"/> in which to execute the specified managed code.
@@ -157,7 +157,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT ExecuteInAppDomain(
-            [In] uint dwAppDomainID,
+            [In] int dwAppDomainID,
             [MarshalAs(UnmanagedType.FunctionPtr)] [In] FExecuteInAppDomainCallback pCallback,
             [In] IntPtr cookie);
 
@@ -181,7 +181,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
-        HRESULT GetCurrentAppDomainId(out uint pdwAppDomainId);
+        HRESULT GetCurrentAppDomainId(out int pdwAppDomainId);
 
         /// <summary>
         /// Used in manifest-based ClickOnce deployment scenarios to specify the application to be activated in a new domain.<para/>
@@ -212,9 +212,9 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT ExecuteApplication(
             [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzAppFullName,
-            [In] uint dwManifestPaths,
+            [In] int dwManifestPaths,
             [MarshalAs(UnmanagedType.LPWStr)] [In] ref string ppwzManifestPaths,
-            [In] uint dwActivationData,
+            [In] int dwActivationData,
             [MarshalAs(UnmanagedType.LPWStr)] [In] ref string ppwzActivationData,
             out int pReturnValue);
 
@@ -247,7 +247,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzAssemblyPath,
             [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzTypeName,
             [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzMethodName,
-            [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzArgument, out uint pReturnValue);
+            [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzArgument, out int pReturnValue);
 
     }
 }

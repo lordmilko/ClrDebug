@@ -217,7 +217,7 @@ namespace ManagedCorDebug
         /// language (MSIL) code of a method. Call <see cref="SetRangeIL"/> with false to make the ranges relative to the native
         /// code of a method.
         /// </remarks>
-        public void StepRange(int bStepIn, COR_DEBUG_STEP_RANGE ranges, uint cRangeCount)
+        public void StepRange(int bStepIn, COR_DEBUG_STEP_RANGE ranges, int cRangeCount)
         {
             HRESULT hr;
 
@@ -238,9 +238,9 @@ namespace ManagedCorDebug
         /// language (MSIL) code of a method. Call <see cref="SetRangeIL"/> with false to make the ranges relative to the native
         /// code of a method.
         /// </remarks>
-        public HRESULT TryStepRange(int bStepIn, COR_DEBUG_STEP_RANGE ranges, uint cRangeCount)
+        public HRESULT TryStepRange(int bStepIn, COR_DEBUG_STEP_RANGE ranges, int cRangeCount)
         {
-            /*HRESULT StepRange([In] int bStepIn, [In] ref COR_DEBUG_STEP_RANGE ranges, [In] uint cRangeCount);*/
+            /*HRESULT StepRange([In] int bStepIn, [In] ref COR_DEBUG_STEP_RANGE ranges, [In] int cRangeCount);*/
             return Raw.StepRange(bStepIn, ref ranges, cRangeCount);
         }
 

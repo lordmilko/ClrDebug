@@ -84,12 +84,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the size, in bytes, of this "ICorDebugValue" object.
         /// </summary>
-        public uint Size
+        public int Size
         {
             get
             {
                 HRESULT hr;
-                uint pSize;
+                int pSize;
 
                 if ((hr = TryGetSize(out pSize)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -107,9 +107,9 @@ namespace ManagedCorDebug
         /// object. The <see cref="Size"/> property returns COR_E_OVERFLOW for objects that are larger than 4 GB on 64-bit
         /// platforms. Use the <see cref="Size64"/> property instead for objects that are larger than 4 GB.
         /// </remarks>
-        public HRESULT TryGetSize(out uint pSize)
+        public HRESULT TryGetSize(out int pSize)
         {
-            /*HRESULT GetSize(out uint pSize);*/
+            /*HRESULT GetSize(out int pSize);*/
             return Raw.GetSize(out pSize);
         }
 
@@ -240,12 +240,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the size, in bytes, of this <see cref="ICorDebugValue3"/> object.
         /// </summary>
-        public ulong Size64
+        public long Size64
         {
             get
             {
                 HRESULT hr;
-                ulong pSize;
+                long pSize;
 
                 if ((hr = TryGetSize64(out pSize)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -265,9 +265,9 @@ namespace ManagedCorDebug
         /// it is a ULONG64. This enables the <see cref="ICorDebugValue3"/> interface to report the size of arrays that exceed
         /// 2GB.
         /// </remarks>
-        public HRESULT TryGetSize64(out ulong pSize)
+        public HRESULT TryGetSize64(out long pSize)
         {
-            /*HRESULT GetSize64(out ulong pSize);*/
+            /*HRESULT GetSize64(out long pSize);*/
             return Raw3.GetSize64(out pSize);
         }
 

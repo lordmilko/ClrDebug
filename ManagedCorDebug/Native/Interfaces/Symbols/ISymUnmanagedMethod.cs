@@ -28,7 +28,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSequencePointCount([Out] out uint pRetVal);
+        HRESULT GetSequencePointCount([Out] out int pRetVal);
 
         /// <summary>
         /// Gets the root lexical scope within this method. This scope encloses the entire method.
@@ -47,7 +47,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetScopeFromOffset([In] uint offset, [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedScope pRetVal);
+        HRESULT GetScopeFromOffset([In] int offset, [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedScope pRetVal);
 
         /// <summary>
         /// Returns the offset within this method that corresponds to a given position within a document.
@@ -61,9 +61,9 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetOffset(
             [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument document,
-            [In] uint line,
-            [In] uint column,
-            [Out] out uint pRetVal);
+            [In] int line,
+            [In] int column,
+            [Out] out int pRetVal);
 
         /// <summary>
         /// Given a position in a document, returns an array of start and end offset pairs that correspond to the ranges of Microsoft intermediate language (MSIL) that the position covers within this method.<para/>
@@ -81,11 +81,11 @@ namespace ManagedCorDebug
         HRESULT GetRanges(
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocument document,
-            [In] uint line,
-            [In] uint column,
-            [In] uint cRanges,
-            out uint pcRanges,
-            [MarshalAs(UnmanagedType.LPArray), Out] uint[] ranges);
+            [In] int line,
+            [In] int column,
+            [In] int cRanges,
+            out int pcRanges,
+            [MarshalAs(UnmanagedType.LPArray), Out] int[] ranges);
 
         /// <summary>
         /// Gets the parameters for this method. The parameters are returned in the order in which they are defined within the method's signature.
@@ -96,7 +96,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetParameters([In] uint cParams, out uint pcParams, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetParameters([In] int cParams, out int pcParams, [MarshalAs(UnmanagedType.Interface), Out]
             IntPtr @params); //ISymUnmanagedVariable
 
         /// <summary>
@@ -122,9 +122,9 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In]
             ISymUnmanagedDocument[] docs,
             [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In]
-            uint[] lines,
+            int[] lines,
             [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In]
-            uint[] columns,
+            int[] columns,
             out int pRetVal);
 
         /// <summary>
@@ -142,14 +142,14 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSequencePoints(
-            [In] uint cPoints,
-            out uint pcPoints,
-            [In] ref uint offsets,
+            [In] int cPoints,
+            out int pcPoints,
+            [In] ref int offsets,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ISymUnmanagedDocument documents,
-            [In] ref uint lines,
-            [In] ref uint columns,
-            [In] ref uint endLines,
-            [In] ref uint endColumns);
+            [In] ref int lines,
+            [In] ref int columns,
+            [In] ref int endLines,
+            [In] ref int endColumns);
     }
 }

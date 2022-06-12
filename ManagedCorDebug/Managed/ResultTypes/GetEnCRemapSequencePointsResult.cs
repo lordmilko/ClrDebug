@@ -2,11 +2,11 @@ namespace ManagedCorDebug
 {
     public struct GetEnCRemapSequencePointsResult
     {
-        public uint PcMap { get; }
+        public int PcMap { get; }
 
-        public uint[] Offsets { get; }
+        public int[] Offsets { get; }
 
-        public GetEnCRemapSequencePointsResult(uint pcMap, uint[] offsets)
+        public GetEnCRemapSequencePointsResult(int pcMap, int[] offsets)
         {
             PcMap = pcMap;
             Offsets = offsets;

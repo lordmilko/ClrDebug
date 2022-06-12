@@ -26,7 +26,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetArrayOrPointerType(
             [In] CorElementType elementType,
-            [In] uint nRank,
+            [In] int nRank,
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugType pTypeArg,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);
@@ -41,7 +41,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetFunctionPointerType(
-            [In] uint nTypeArgs,
+            [In] int nTypeArgs,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugType ppTypeArgs,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);

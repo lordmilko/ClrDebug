@@ -68,7 +68,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT SetAppDomainManager(
-            [In] uint dwAppDomainID,
+            [In] int dwAppDomainID,
             [MarshalAs(UnmanagedType.IUnknown)] [In] object pUnkAppDomainManager);
 
     }

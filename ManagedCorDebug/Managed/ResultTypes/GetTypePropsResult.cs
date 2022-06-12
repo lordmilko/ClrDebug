@@ -4,11 +4,11 @@ namespace ManagedCorDebug
 {
     public struct GetTypePropsResult
     {
-        public uint PcbSignature { get; }
+        public int PcbSignature { get; }
 
         public byte[] Signature { get; }
 
-        public GetTypePropsResult(uint pcbSignature, byte[] signature)
+        public GetTypePropsResult(int pcbSignature, byte[] signature)
         {
             PcbSignature = pcbSignature;
             Signature = signature;

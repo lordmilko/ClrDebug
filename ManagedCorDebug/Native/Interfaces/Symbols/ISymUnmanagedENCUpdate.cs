@@ -23,7 +23,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT UpdateSymbolStore2([MarshalAs(UnmanagedType.Interface), In]
-            IStream pIStream, [In] ref SYMLINEDELTA pDeltaLines, [In] uint cDeltaLines);
+            IStream pIStream, [In] ref SYMLINEDELTA pDeltaLines, [In] int cDeltaLines);
 
         /// <summary>
         /// Gets the number of local variables.
@@ -33,7 +33,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetLocalVariableCount([In] uint mdMethodToken, out uint pcLocals);
+        HRESULT GetLocalVariableCount([In] int mdMethodToken, out int pcLocals);
 
         /// <summary>
         /// Gets the local variables.
@@ -46,10 +46,10 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLocalVariables(
-            [In] uint mdMethodToken,
-            [In] uint cLocals,
+            [In] int mdMethodToken,
+            [In] int cLocals,
             [Out] IntPtr rgLocals, //ISymUnmanagedVariable
-            out uint pceltFetched);
+            out int pceltFetched);
 
         /// <summary>
         /// Allows method boundaries to be computed before the first call to the <see cref="UpdateSymbolStore2"/> method.
@@ -69,6 +69,6 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT UpdateMethodLines([In] uint mdMethodToken, [In] ref int pDeltas, [In] uint cDeltas);
+        HRESULT UpdateMethodLines([In] int mdMethodToken, [In] ref int pDeltas, [In] int cDeltas);
     }
 }

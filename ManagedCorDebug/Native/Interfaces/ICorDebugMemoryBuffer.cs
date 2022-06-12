@@ -26,6 +26,6 @@ namespace ManagedCorDebug
         /// <param name="pcbBufferLength">[out] A pointer to the size of the memory buffer.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSize(out uint pcbBufferLength);
+        HRESULT GetSize(out int pcbBufferLength);
     }
 }

@@ -2,11 +2,11 @@ namespace ManagedCorDebug
 {
     public struct GetRangesResult
     {
-        public uint PcRanges { get; }
+        public int PcRanges { get; }
 
-        public uint[] Ranges { get; }
+        public int[] Ranges { get; }
 
-        public GetRangesResult(uint pcRanges, uint[] ranges)
+        public GetRangesResult(int pcRanges, int[] ranges)
         {
             PcRanges = pcRanges;
             Ranges = ranges;

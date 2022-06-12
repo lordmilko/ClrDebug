@@ -153,7 +153,7 @@ namespace ManagedCorDebug
         /// domain, a transition will occur as long as all arguments are also in that application domain.
         /// </remarks>
         [Obsolete]
-        public void CallFunction(ICorDebugFunction pFunction, uint nArgs, ICorDebugValue ppArgs)
+        public void CallFunction(ICorDebugFunction pFunction, int nArgs, ICorDebugValue ppArgs)
         {
             HRESULT hr;
 
@@ -172,10 +172,10 @@ namespace ManagedCorDebug
         /// domain, a transition will occur as long as all arguments are also in that application domain.
         /// </remarks>
         [Obsolete]
-        public HRESULT TryCallFunction(ICorDebugFunction pFunction, uint nArgs, ICorDebugValue ppArgs)
+        public HRESULT TryCallFunction(ICorDebugFunction pFunction, int nArgs, ICorDebugValue ppArgs)
         {
             /*HRESULT CallFunction([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFunction pFunction, [In] uint nArgs, [MarshalAs(UnmanagedType.Interface), In]
+            ICorDebugFunction pFunction, [In] int nArgs, [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugValue ppArgs);*/
             return Raw.CallFunction(pFunction, nArgs, ref ppArgs);
         }
@@ -191,7 +191,7 @@ namespace ManagedCorDebug
         /// <param name="nArgs">[in] The size of the ppArgs array.</param>
         /// <param name="ppArgs">[in] An array of <see cref="ICorDebugValue"/> objects, each of which represents an argument to be passed to the constructor.</param>
         [Obsolete]
-        public void NewObject(ICorDebugFunction pConstructor, uint nArgs, ICorDebugValue ppArgs)
+        public void NewObject(ICorDebugFunction pConstructor, int nArgs, ICorDebugValue ppArgs)
         {
             HRESULT hr;
 
@@ -207,10 +207,10 @@ namespace ManagedCorDebug
         /// <param name="nArgs">[in] The size of the ppArgs array.</param>
         /// <param name="ppArgs">[in] An array of <see cref="ICorDebugValue"/> objects, each of which represents an argument to be passed to the constructor.</param>
         [Obsolete]
-        public HRESULT TryNewObject(ICorDebugFunction pConstructor, uint nArgs, ICorDebugValue ppArgs)
+        public HRESULT TryNewObject(ICorDebugFunction pConstructor, int nArgs, ICorDebugValue ppArgs)
         {
             /*HRESULT NewObject([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFunction pConstructor, [In] uint nArgs, [MarshalAs(UnmanagedType.Interface), In]
+            ICorDebugFunction pConstructor, [In] int nArgs, [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugValue ppArgs);*/
             return Raw.NewObject(pConstructor, nArgs, ref ppArgs);
         }
@@ -292,7 +292,7 @@ namespace ManagedCorDebug
         /// The array is always created in the application domain in which the thread is currently executing.
         /// </remarks>
         [Obsolete]
-        public void NewArray(CorElementType elementType, ICorDebugClass pElementClass, uint rank, uint dims, uint lowBounds)
+        public void NewArray(CorElementType elementType, ICorDebugClass pElementClass, int rank, int dims, int lowBounds)
         {
             HRESULT hr;
 
@@ -313,15 +313,15 @@ namespace ManagedCorDebug
         /// The array is always created in the application domain in which the thread is currently executing.
         /// </remarks>
         [Obsolete]
-        public HRESULT TryNewArray(CorElementType elementType, ICorDebugClass pElementClass, uint rank, uint dims, uint lowBounds)
+        public HRESULT TryNewArray(CorElementType elementType, ICorDebugClass pElementClass, int rank, int dims, int lowBounds)
         {
             /*HRESULT NewArray(
             [In] CorElementType elementType,
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugClass pElementClass,
-            [In] uint rank,
-            [In] ref uint dims,
-            [In] ref uint lowBounds);*/
+            [In] int rank,
+            [In] ref int dims,
+            [In] ref int lowBounds);*/
             return Raw.NewArray(elementType, pElementClass, rank, ref dims, ref lowBounds);
         }
 
@@ -373,7 +373,7 @@ namespace ManagedCorDebug
         /// object reference parameters. You cannot set the <see cref="ICorDebugValue"/> to anything; it always remains null.
         /// </remarks>
         [Obsolete]
-        public CorDebugValue CreateValue(uint elementType, ICorDebugClass pElementClass)
+        public CorDebugValue CreateValue(int elementType, ICorDebugClass pElementClass)
         {
             HRESULT hr;
             CorDebugValue ppValueResult;
@@ -400,9 +400,9 @@ namespace ManagedCorDebug
         /// object reference parameters. You cannot set the <see cref="ICorDebugValue"/> to anything; it always remains null.
         /// </remarks>
         [Obsolete]
-        public HRESULT TryCreateValue(uint elementType, ICorDebugClass pElementClass, out CorDebugValue ppValueResult)
+        public HRESULT TryCreateValue(int elementType, ICorDebugClass pElementClass, out CorDebugValue ppValueResult)
         {
-            /*HRESULT CreateValue([In] uint elementType, [MarshalAs(UnmanagedType.Interface), In]
+            /*HRESULT CreateValue([In] int elementType, [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugClass pElementClass, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.CreateValue(elementType, pElementClass, out ppValue);
@@ -439,7 +439,7 @@ namespace ManagedCorDebug
         /// be performed only in limited scenarios. If CallParameterizedFunction or <see cref="CallFunction"/> fails, the
         /// returned <see cref="HRESULT"/> will indicate the most general possible reason for failure.
         /// </remarks>
-        public void CallParameterizedFunction(ICorDebugFunction pFunction, uint nTypeArgs, ICorDebugType ppTypeArgs, uint nArgs, ICorDebugValue ppArgs)
+        public void CallParameterizedFunction(ICorDebugFunction pFunction, int nTypeArgs, ICorDebugType ppTypeArgs, int nArgs, ICorDebugValue ppArgs)
         {
             HRESULT hr;
 
@@ -463,15 +463,15 @@ namespace ManagedCorDebug
         /// be performed only in limited scenarios. If CallParameterizedFunction or <see cref="CallFunction"/> fails, the
         /// returned <see cref="HRESULT"/> will indicate the most general possible reason for failure.
         /// </remarks>
-        public HRESULT TryCallParameterizedFunction(ICorDebugFunction pFunction, uint nTypeArgs, ICorDebugType ppTypeArgs, uint nArgs, ICorDebugValue ppArgs)
+        public HRESULT TryCallParameterizedFunction(ICorDebugFunction pFunction, int nTypeArgs, ICorDebugType ppTypeArgs, int nArgs, ICorDebugValue ppArgs)
         {
             /*HRESULT CallParameterizedFunction(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugFunction pFunction,
-            [In] uint nTypeArgs,
+            [In] int nTypeArgs,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugType ppTypeArgs,
-            [In] uint nArgs,
+            [In] int nArgs,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugValue ppArgs);*/
             return Raw2.CallParameterizedFunction(pFunction, nTypeArgs, ref ppTypeArgs, nArgs, ref ppArgs);
@@ -542,7 +542,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The object's constructor may take <see cref="Type"/> parameters.
         /// </remarks>
-        public void NewParameterizedObject(ICorDebugFunction pConstructor, uint nTypeArgs, ICorDebugType ppTypeArgs, uint nArgs, ICorDebugValue ppArgs)
+        public void NewParameterizedObject(ICorDebugFunction pConstructor, int nTypeArgs, ICorDebugType ppTypeArgs, int nArgs, ICorDebugValue ppArgs)
         {
             HRESULT hr;
 
@@ -561,15 +561,15 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The object's constructor may take <see cref="Type"/> parameters.
         /// </remarks>
-        public HRESULT TryNewParameterizedObject(ICorDebugFunction pConstructor, uint nTypeArgs, ICorDebugType ppTypeArgs, uint nArgs, ICorDebugValue ppArgs)
+        public HRESULT TryNewParameterizedObject(ICorDebugFunction pConstructor, int nTypeArgs, ICorDebugType ppTypeArgs, int nArgs, ICorDebugValue ppArgs)
         {
             /*HRESULT NewParameterizedObject(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugFunction pConstructor,
-            [In] uint nTypeArgs,
+            [In] int nTypeArgs,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugType ppTypeArgs,
-            [In] uint nArgs,
+            [In] int nArgs,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugValue ppArgs);*/
             return Raw2.NewParameterizedObject(pConstructor, nTypeArgs, ref ppTypeArgs, nArgs, ref ppArgs);
@@ -588,7 +588,7 @@ namespace ManagedCorDebug
         /// The NewParameterizedObjectNoConstructor method will fail if an incorrect number of type arguments or the wrong
         /// types of type arguments are passed.
         /// </remarks>
-        public void NewParameterizedObjectNoConstructor(ICorDebugClass pClass, uint nTypeArgs, ICorDebugType ppTypeArgs)
+        public void NewParameterizedObjectNoConstructor(ICorDebugClass pClass, int nTypeArgs, ICorDebugType ppTypeArgs)
         {
             HRESULT hr;
 
@@ -606,12 +606,12 @@ namespace ManagedCorDebug
         /// The NewParameterizedObjectNoConstructor method will fail if an incorrect number of type arguments or the wrong
         /// types of type arguments are passed.
         /// </remarks>
-        public HRESULT TryNewParameterizedObjectNoConstructor(ICorDebugClass pClass, uint nTypeArgs, ICorDebugType ppTypeArgs)
+        public HRESULT TryNewParameterizedObjectNoConstructor(ICorDebugClass pClass, int nTypeArgs, ICorDebugType ppTypeArgs)
         {
             /*HRESULT NewParameterizedObjectNoConstructor(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugClass pClass,
-            [In] uint nTypeArgs,
+            [In] int nTypeArgs,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugType ppTypeArgs);*/
             return Raw2.NewParameterizedObjectNoConstructor(pClass, nTypeArgs, ref ppTypeArgs);
@@ -631,7 +631,7 @@ namespace ManagedCorDebug
         /// The elements of the array may be instances of a generic type. The array is always created in the application domain
         /// in which the thread is currently running. In the .NET Framework 2.0, the value of rank must be 1.
         /// </remarks>
-        public void NewParameterizedArray(ICorDebugType pElementType, uint rank, uint dims, uint lowBounds)
+        public void NewParameterizedArray(ICorDebugType pElementType, int rank, int dims, int lowBounds)
         {
             HRESULT hr;
 
@@ -650,14 +650,14 @@ namespace ManagedCorDebug
         /// The elements of the array may be instances of a generic type. The array is always created in the application domain
         /// in which the thread is currently running. In the .NET Framework 2.0, the value of rank must be 1.
         /// </remarks>
-        public HRESULT TryNewParameterizedArray(ICorDebugType pElementType, uint rank, uint dims, uint lowBounds)
+        public HRESULT TryNewParameterizedArray(ICorDebugType pElementType, int rank, int dims, int lowBounds)
         {
             /*HRESULT NewParameterizedArray(
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugType pElementType,
-            [In] uint rank,
-            [In] ref uint dims,
-            [In] ref uint lowBounds);*/
+            [In] int rank,
+            [In] ref int dims,
+            [In] ref int lowBounds);*/
             return Raw2.NewParameterizedArray(pElementType, rank, ref dims, ref lowBounds);
         }
 
@@ -674,7 +674,7 @@ namespace ManagedCorDebug
         /// method must ensure that the string length includes the trailing null character. The string is always created in
         /// the application domain in which the thread is currently executing.
         /// </remarks>
-        public void NewStringWithLength(string @string, uint uiLength)
+        public void NewStringWithLength(string @string, int uiLength)
         {
             HRESULT hr;
 
@@ -692,9 +692,9 @@ namespace ManagedCorDebug
         /// method must ensure that the string length includes the trailing null character. The string is always created in
         /// the application domain in which the thread is currently executing.
         /// </remarks>
-        public HRESULT TryNewStringWithLength(string @string, uint uiLength)
+        public HRESULT TryNewStringWithLength(string @string, int uiLength)
         {
-            /*HRESULT NewStringWithLength([MarshalAs(UnmanagedType.LPWStr), In] string @string, [In] uint uiLength);*/
+            /*HRESULT NewStringWithLength([MarshalAs(UnmanagedType.LPWStr), In] string @string, [In] int uiLength);*/
             return Raw2.NewStringWithLength(@string, uiLength);
         }
 

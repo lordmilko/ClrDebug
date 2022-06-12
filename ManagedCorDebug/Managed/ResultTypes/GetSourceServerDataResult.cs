@@ -4,11 +4,11 @@ namespace ManagedCorDebug
 {
     public struct GetSourceServerDataResult
     {
-        public uint PDataByteCount { get; }
+        public int PDataByteCount { get; }
 
         public IntPtr PpData { get; }
 
-        public GetSourceServerDataResult(uint pDataByteCount, IntPtr ppData)
+        public GetSourceServerDataResult(int pDataByteCount, IntPtr ppData)
         {
             PDataByteCount = pDataByteCount;
             PpData = ppData;

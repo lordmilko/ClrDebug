@@ -6,9 +6,9 @@ namespace ManagedCorDebug
     {
         public byte Buffer { get; }
 
-        public uint BytesRead { get; }
+        public int BytesRead { get; }
 
-        public ReadVirtualResult(byte buffer, uint bytesRead)
+        public ReadVirtualResult(byte buffer, int bytesRead)
         {
             Buffer = buffer;
             BytesRead = bytesRead;

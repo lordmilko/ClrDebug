@@ -77,7 +77,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetObject([In] ulong addr, [MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectValue pObject);
+        HRESULT GetObject([In] long addr, [MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectValue pObject);
 
         /// <summary>
         /// Gets an enumerator for all objects that are to be garbage-collected in a process.
@@ -118,7 +118,7 @@ namespace ManagedCorDebug
         /// <param name="pId">A pointer to the <see cref="COR_TYPEID"/> value that identifies the object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetTypeID([In] ulong obj, out COR_TYPEID pId);
+        HRESULT GetTypeID([In] long obj, out COR_TYPEID pId);
 
         /// <summary>
         /// Converts a type identifier to an <see cref="ICorDebugType"/> value.
@@ -169,7 +169,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetTypeFields([In] COR_TYPEID id, uint celt, ref COR_FIELD fields, ref uint pceltNeeded);
+        HRESULT GetTypeFields([In] COR_TYPEID id, int celt, ref COR_FIELD fields, ref int pceltNeeded);
 
         /// <summary>
         /// Sets a value that determines how an application loads native images while running under a managed debugger.

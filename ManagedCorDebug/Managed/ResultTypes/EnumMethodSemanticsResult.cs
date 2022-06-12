@@ -8,9 +8,9 @@ namespace ManagedCorDebug
 
         public mdToken[] REventProp { get; }
 
-        public uint PcEventProp { get; }
+        public int PcEventProp { get; }
 
-        public EnumMethodSemanticsResult(IntPtr phEnum, mdToken[] rEventProp, uint pcEventProp)
+        public EnumMethodSemanticsResult(IntPtr phEnum, mdToken[] rEventProp, int pcEventProp)
         {
             PhEnum = phEnum;
             REventProp = rEventProp;

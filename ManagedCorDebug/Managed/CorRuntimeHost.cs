@@ -141,7 +141,7 @@ namespace ManagedCorDebug
         /// This method supports the .NET Framework infrastructure and is not intended to be used directly from your code.
         /// </summary>
         /// <param name="pFiberCookie">[in] Cookie that indicates the fiber to use.</param>
-        public void SwitchInLogicalThreadState(uint pFiberCookie)
+        public void SwitchInLogicalThreadState(int pFiberCookie)
         {
             HRESULT hr;
 
@@ -153,9 +153,9 @@ namespace ManagedCorDebug
         /// This method supports the .NET Framework infrastructure and is not intended to be used directly from your code.
         /// </summary>
         /// <param name="pFiberCookie">[in] Cookie that indicates the fiber to use.</param>
-        public HRESULT TrySwitchInLogicalThreadState(uint pFiberCookie)
+        public HRESULT TrySwitchInLogicalThreadState(int pFiberCookie)
         {
-            /*HRESULT SwitchInLogicalThreadState([In] ref uint pFiberCookie);*/
+            /*HRESULT SwitchInLogicalThreadState([In] ref int pFiberCookie);*/
             return Raw.SwitchInLogicalThreadState(ref pFiberCookie);
         }
 
@@ -166,10 +166,10 @@ namespace ManagedCorDebug
         /// This method supports the .NET Framework infrastructure and is not intended to be used directly from your code.
         /// </summary>
         /// <returns>[out] Cookie that indicates the fiber being switched out.</returns>
-        public uint SwitchOutLogicalThreadState()
+        public int SwitchOutLogicalThreadState()
         {
             HRESULT hr;
-            uint fiberCookie;
+            int fiberCookie;
 
             if ((hr = TrySwitchOutLogicalThreadState(out fiberCookie)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -181,9 +181,9 @@ namespace ManagedCorDebug
         /// This method supports the .NET Framework infrastructure and is not intended to be used directly from your code.
         /// </summary>
         /// <param name="fiberCookie">[out] Cookie that indicates the fiber being switched out.</param>
-        public HRESULT TrySwitchOutLogicalThreadState(out uint fiberCookie)
+        public HRESULT TrySwitchOutLogicalThreadState(out int fiberCookie)
         {
-            /*HRESULT SwitchOutLogicalThreadState(out uint FiberCookie);*/
+            /*HRESULT SwitchOutLogicalThreadState(out int FiberCookie);*/
             return Raw.SwitchOutLogicalThreadState(out fiberCookie);
         }
 
@@ -194,10 +194,10 @@ namespace ManagedCorDebug
         /// Retrieves the number of locks that current thread holds. This method supports the .NET Framework infrastructure and is not intended to be used directly from your code.
         /// </summary>
         /// <returns>[out] A pointer to the number of locks that the current thread holds.</returns>
-        public uint LocksHeldByLogicalThread()
+        public int LocksHeldByLogicalThread()
         {
             HRESULT hr;
-            uint pCount;
+            int pCount;
 
             if ((hr = TryLocksHeldByLogicalThread(out pCount)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -209,9 +209,9 @@ namespace ManagedCorDebug
         /// Retrieves the number of locks that current thread holds. This method supports the .NET Framework infrastructure and is not intended to be used directly from your code.
         /// </summary>
         /// <param name="pCount">[out] A pointer to the number of locks that the current thread holds.</param>
-        public HRESULT TryLocksHeldByLogicalThread(out uint pCount)
+        public HRESULT TryLocksHeldByLogicalThread(out int pCount)
         {
-            /*HRESULT LocksHeldByLogicalThread(out uint pCount);*/
+            /*HRESULT LocksHeldByLogicalThread(out int pCount);*/
             return Raw.LocksHeldByLogicalThread(out pCount);
         }
 

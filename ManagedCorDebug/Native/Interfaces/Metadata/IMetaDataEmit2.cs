@@ -20,7 +20,7 @@ namespace ManagedCorDebug
         /// <param name="pmi">[out] A token to the metadata signature definition of the method.</param>
         [PreserveSig]
         HRESULT DefineMethodSpec(mdToken tkParent, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)]
-            byte[] pvSigBlob, uint cbSigBlob, out uint pmi);
+            byte[] pvSigBlob, int cbSigBlob, out int pmi);
 
         /// <summary>
         /// Gets a value indicating any change in metadata size that results from the current edit-and-continue session.
@@ -28,7 +28,7 @@ namespace ManagedCorDebug
         /// <param name="fSave">[in] One of the <see cref="CorSaveSize"/> values, indicating the level of precision desired. For the .NET Framework version 2.0, this parameter is ignored.</param>
         /// <param name="pdwSaveSize">[out] The change in the size of the metadata.</param>
         [PreserveSig]
-        HRESULT GetDeltaSaveSize(CorSaveSize fSave, out uint pdwSaveSize);
+        HRESULT GetDeltaSaveSize(CorSaveSize fSave, out int pdwSaveSize);
 
         /// <summary>
         /// Saves changes from the current edit-and-continue session to the specified file.
@@ -36,7 +36,7 @@ namespace ManagedCorDebug
         /// <param name="szFile">[in] The file name under which to save changes.</param>
         /// <param name="dwSaveFlags">[in] Reserved. Must be zero.</param>
         [PreserveSig]
-        HRESULT SaveDelta([MarshalAs(UnmanagedType.LPWStr)] string szFile, uint dwSaveFlags);
+        HRESULT SaveDelta([MarshalAs(UnmanagedType.LPWStr)] string szFile, int dwSaveFlags);
 
         /// <summary>
         /// Saves changes from the current edit-and-continue session to the specified stream.
@@ -44,7 +44,7 @@ namespace ManagedCorDebug
         /// <param name="pIStream">[in] An interface pointer to the writable stream to which to save changes.</param>
         /// <param name="dwSaveFlags">[in] Reserved. This value must be zero.</param>
         [PreserveSig]
-        HRESULT SaveDeltaToStream([MarshalAs(UnmanagedType.Interface)] object pIStream, uint dwSaveFlags);
+        HRESULT SaveDeltaToStream([MarshalAs(UnmanagedType.Interface)] object pIStream, int dwSaveFlags);
 
         /// <summary>
         /// Saves changes from the current edit-and-continue session to memory.
@@ -52,7 +52,7 @@ namespace ManagedCorDebug
         /// <param name="pbData">[out] The address at which to begin writing the metadata delta.</param>
         /// <param name="cbData">[in] The size of the changes. Use <see cref="GetDeltaSaveSize"/> to determine the size.</param>
         [PreserveSig]
-        HRESULT SaveDeltaToMemory(IntPtr pbData, uint cbData);
+        HRESULT SaveDeltaToMemory(IntPtr pbData, int cbData);
 
         /// <summary>
         /// Creates a definition for a generic type parameter, and gets a token to that generic type parameter.
@@ -67,12 +67,12 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT DefineGenericParam(
             mdToken tk,
-            uint ulParamSeq,
-            uint dwParamFlags,
+            int ulParamSeq,
+            int dwParamFlags,
             [MarshalAs(UnmanagedType.LPWStr)] string szname,
-            uint reserved,
+            int reserved,
             [MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkConstraints,
-            out uint pgp
+            out int pgp
         );
 
         /// <summary>
@@ -85,10 +85,10 @@ namespace ManagedCorDebug
         /// <param name="rtkConstraints">[in] Optional. A zero-terminated array of type constraints. Array members must be an <see cref="mdTypeDef"/>, <see cref="mdTypeRef"/>, or <see cref="mdTypeSpec"/> metadata token.</param>
         [PreserveSig]
         HRESULT SetGenericParamProps(
-            uint gp,
-            uint dwParamFlags,
+            int gp,
+            int dwParamFlags,
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            uint reserved,
+            int reserved,
             [MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkConstraints
         );
 

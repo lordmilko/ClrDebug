@@ -6,9 +6,9 @@ namespace ManagedCorDebug
     {
         public IntPtr PpbSignatureBlob { get; }
 
-        public uint PcbSignatureBlob { get; }
+        public int PcbSignatureBlob { get; }
 
-        public StrongNameSignatureGenerationResult(IntPtr ppbSignatureBlob, uint pcbSignatureBlob)
+        public StrongNameSignatureGenerationResult(IntPtr ppbSignatureBlob, int pcbSignatureBlob)
         {
             PpbSignatureBlob = ppbSignatureBlob;
             PcbSignatureBlob = pcbSignatureBlob;

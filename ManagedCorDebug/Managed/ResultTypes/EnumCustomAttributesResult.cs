@@ -8,9 +8,9 @@ namespace ManagedCorDebug
 
         public mdCustomAttribute[] RCustomAttributes { get; }
 
-        public uint PcCustomAttributes { get; }
+        public int PcCustomAttributes { get; }
 
-        public EnumCustomAttributesResult(IntPtr phEnum, mdCustomAttribute[] rCustomAttributes, uint pcCustomAttributes)
+        public EnumCustomAttributesResult(IntPtr phEnum, mdCustomAttribute[] rCustomAttributes, int pcCustomAttributes)
         {
             PhEnum = phEnum;
             RCustomAttributes = rCustomAttributes;

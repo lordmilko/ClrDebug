@@ -51,12 +51,12 @@ namespace ManagedCorDebug
         /// GetRoDataRVA is obsolete. Do not call this method.
         /// </summary>
         [Obsolete]
-        public uint RoDataRVA
+        public int RoDataRVA
         {
             get
             {
                 HRESULT hr;
-                uint pRoDataRVA;
+                int pRoDataRVA;
 
                 if ((hr = TryGetRoDataRVA(out pRoDataRVA)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -69,9 +69,9 @@ namespace ManagedCorDebug
         /// GetRoDataRVA is obsolete. Do not call this method.
         /// </summary>
         [Obsolete]
-        public HRESULT TryGetRoDataRVA(out uint pRoDataRVA)
+        public HRESULT TryGetRoDataRVA(out int pRoDataRVA)
         {
-            /*HRESULT GetRoDataRVA(out uint pRoDataRVA);*/
+            /*HRESULT GetRoDataRVA(out int pRoDataRVA);*/
             return Raw.GetRoDataRVA(out pRoDataRVA);
         }
 
@@ -82,12 +82,12 @@ namespace ManagedCorDebug
         /// GetRwDataRVA is obsolete. Do not call this method.
         /// </summary>
         [Obsolete]
-        public uint RwDataRVA
+        public int RwDataRVA
         {
             get
             {
                 HRESULT hr;
-                uint pRwDataRVA;
+                int pRwDataRVA;
 
                 if ((hr = TryGetRwDataRVA(out pRwDataRVA)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -100,9 +100,9 @@ namespace ManagedCorDebug
         /// GetRwDataRVA is obsolete. Do not call this method.
         /// </summary>
         [Obsolete]
-        public HRESULT TryGetRwDataRVA(out uint pRwDataRVA)
+        public HRESULT TryGetRwDataRVA(out int pRwDataRVA)
         {
-            /*HRESULT GetRwDataRVA(out uint pRwDataRVA);*/
+            /*HRESULT GetRwDataRVA(out int pRwDataRVA);*/
             return Raw.GetRwDataRVA(out pRwDataRVA);
         }
 
@@ -168,7 +168,7 @@ namespace ManagedCorDebug
         /// SetILMap is obsolete. Do not call this method.
         /// </summary>
         [Obsolete]
-        public void SetILMap(uint mdFunction, uint cMapSize, COR_IL_MAP map)
+        public void SetILMap(int mdFunction, int cMapSize, COR_IL_MAP map)
         {
             HRESULT hr;
 
@@ -180,9 +180,9 @@ namespace ManagedCorDebug
         /// SetILMap is obsolete. Do not call this method.
         /// </summary>
         [Obsolete]
-        public HRESULT TrySetILMap(uint mdFunction, uint cMapSize, COR_IL_MAP map)
+        public HRESULT TrySetILMap(int mdFunction, int cMapSize, COR_IL_MAP map)
         {
-            /*HRESULT SetILMap([In] uint mdFunction, [In] uint cMapSize, [In] ref COR_IL_MAP map);*/
+            /*HRESULT SetILMap([In] int mdFunction, [In] int cMapSize, [In] ref COR_IL_MAP map);*/
             return Raw.SetILMap(mdFunction, cMapSize, ref map);
         }
 

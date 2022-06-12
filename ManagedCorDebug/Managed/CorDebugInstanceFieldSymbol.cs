@@ -22,12 +22,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the size in bytes of the instance field.
         /// </summary>
-        public uint Size
+        public int Size
         {
             get
             {
                 HRESULT hr;
-                uint pcbSize;
+                int pcbSize;
 
                 if ((hr = TryGetSize(out pcbSize)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -40,9 +40,9 @@ namespace ManagedCorDebug
         /// Gets the size in bytes of the instance field.
         /// </summary>
         /// <param name="pcbSize">[out] A pointer to length of the field.</param>
-        public HRESULT TryGetSize(out uint pcbSize)
+        public HRESULT TryGetSize(out int pcbSize)
         {
-            /*HRESULT GetSize(out uint pcbSize);*/
+            /*HRESULT GetSize(out int pcbSize);*/
             return Raw.GetSize(out pcbSize);
         }
 
@@ -52,12 +52,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the offset in bytes of this instance field in its parent class.
         /// </summary>
-        public uint Offset
+        public int Offset
         {
             get
             {
                 HRESULT hr;
-                uint pcbOffset;
+                int pcbOffset;
 
                 if ((hr = TryGetOffset(out pcbOffset)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -70,9 +70,9 @@ namespace ManagedCorDebug
         /// Gets the offset in bytes of this instance field in its parent class.
         /// </summary>
         /// <param name="pcbOffset">A pointer to the number of bytes that this instance field is offset in its parent class.</param>
-        public HRESULT TryGetOffset(out uint pcbOffset)
+        public HRESULT TryGetOffset(out int pcbOffset)
         {
-            /*HRESULT GetOffset(out uint pcbOffset);*/
+            /*HRESULT GetOffset(out int pcbOffset);*/
             return Raw.GetOffset(out pcbOffset);
         }
 
@@ -100,9 +100,9 @@ namespace ManagedCorDebug
         /// <param name="szNameResult">[out] A character array that stores the returned name.</param>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);*/
-            uint cchName = 0;
-            uint pcchName;
+            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            int cchName = 0;
+            int pcchName;
             StringBuilder szName = null;
             HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
 
@@ -110,7 +110,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder((int) pcchName);
+            szName = new StringBuilder(pcchName);
             hr = Raw.GetName(cchName, out pcchName, szName);
 
             if (hr == HRESULT.S_OK)

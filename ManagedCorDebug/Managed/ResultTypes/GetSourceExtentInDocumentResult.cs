@@ -2,11 +2,11 @@ namespace ManagedCorDebug
 {
     public struct GetSourceExtentInDocumentResult
     {
-        public uint PstartLine { get; }
+        public int PstartLine { get; }
 
-        public uint PendLine { get; }
+        public int PendLine { get; }
 
-        public GetSourceExtentInDocumentResult(uint pstartLine, uint pendLine)
+        public GetSourceExtentInDocumentResult(int pstartLine, int pendLine)
         {
             PstartLine = pstartLine;
             PendLine = pendLine;

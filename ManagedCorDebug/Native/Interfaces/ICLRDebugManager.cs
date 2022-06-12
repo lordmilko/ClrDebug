@@ -43,7 +43,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT BeginConnection(
-            [In] uint dwConnectionId,
+            [In] int dwConnectionId,
             [In] string szConnectionName);
 
         /// <summary>
@@ -70,8 +70,8 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetConnectionTasks(
-            [In] uint id,
-            [In] uint dwCount,
+            [In] int id,
+            [In] int dwCount,
             [In] IntPtr ppCLRTask);
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EndConnection([In] uint dwConnectionId);
+        HRESULT EndConnection([In] int dwConnectionId);
 
         /// <summary>
         /// This method is not implemented.

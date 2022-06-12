@@ -21,10 +21,10 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT EnumMemoryRegion([In] ulong address, [In] uint size);
+        new HRESULT EnumMemoryRegion([In] long address, [In] int size);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT UpdateMemoryRegion([In] ulong address, [In] uint bufferSize, [In] IntPtr buffer);
+        HRESULT UpdateMemoryRegion([In] long address, [In] int bufferSize, [In] IntPtr buffer);
     }
 }

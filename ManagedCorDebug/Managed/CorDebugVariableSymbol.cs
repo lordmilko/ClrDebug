@@ -19,12 +19,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the size of a variable in bytes.
         /// </summary>
-        public uint Size
+        public int Size
         {
             get
             {
                 HRESULT hr;
-                uint pcbValue;
+                int pcbValue;
 
                 if ((hr = TryGetSize(out pcbValue)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -37,9 +37,9 @@ namespace ManagedCorDebug
         /// Gets the size of a variable in bytes.
         /// </summary>
         /// <param name="pcbValue">A pointer to a 32-bit unsigned integer containing the size of the variable.</param>
-        public HRESULT TryGetSize(out uint pcbValue)
+        public HRESULT TryGetSize(out int pcbValue)
         {
-            /*HRESULT GetSize(out uint pcbValue);*/
+            /*HRESULT GetSize(out int pcbValue);*/
             return Raw.GetSize(out pcbValue);
         }
 
@@ -49,12 +49,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the managed slot index of a local variable.
         /// </summary>
-        public uint SlotIndex
+        public int SlotIndex
         {
             get
             {
                 HRESULT hr;
-                uint pSlotIndex;
+                int pSlotIndex;
 
                 if ((hr = TryGetSlotIndex(out pSlotIndex)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -71,9 +71,9 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The managed slot index of a local variable can be used to retrieve the variable's metadata information
         /// </remarks>
-        public HRESULT TryGetSlotIndex(out uint pSlotIndex)
+        public HRESULT TryGetSlotIndex(out int pSlotIndex)
         {
-            /*HRESULT GetSlotIndex(out uint pSlotIndex);*/
+            /*HRESULT GetSlotIndex(out int pSlotIndex);*/
             return Raw.GetSlotIndex(out pSlotIndex);
         }
 
@@ -101,9 +101,9 @@ namespace ManagedCorDebug
         /// <param name="szNameResult">A pointer to a character array that contains the variable name.</param>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);*/
-            uint cchName = 0;
-            uint pcchName;
+            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            int cchName = 0;
+            int pcchName;
             StringBuilder szName = null;
             HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
 
@@ -111,7 +111,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder((int) pcchName);
+            szName = new StringBuilder(pcchName);
             hr = Raw.GetName(cchName, out pcchName, szName);
 
             if (hr == HRESULT.S_OK)
@@ -138,7 +138,7 @@ namespace ManagedCorDebug
         /// <param name="context">[in] The thread context used to read the value.</param>
         /// <param name="cbValue">[in] The size in bytes of the pValue buffer.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetValueResult GetValue(uint offset, uint cbContext, IntPtr context, uint cbValue)
+        public GetValueResult GetValue(int offset, int cbContext, IntPtr context, int cbValue)
         {
             HRESULT hr;
             GetValueResult result;
@@ -157,16 +157,16 @@ namespace ManagedCorDebug
         /// <param name="context">[in] The thread context used to read the value.</param>
         /// <param name="cbValue">[in] The size in bytes of the pValue buffer.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetValue(uint offset, uint cbContext, IntPtr context, uint cbValue, out GetValueResult result)
+        public HRESULT TryGetValue(int offset, int cbContext, IntPtr context, int cbValue, out GetValueResult result)
         {
             /*HRESULT GetValue(
-            [In] uint offset,
-            [In] uint cbContext,
+            [In] int offset,
+            [In] int cbContext,
             [In] IntPtr context,
-            [In] uint cbValue,
-            out uint pcbValue,
+            [In] int cbValue,
+            out int pcbValue,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] pValue);*/
-            uint pcbValue;
+            int pcbValue;
             byte[] pValue = null;
             HRESULT hr = Raw.GetValue(offset, cbContext, context, cbValue, out pcbValue, pValue);
 
@@ -190,7 +190,7 @@ namespace ManagedCorDebug
         /// <param name="context">[in] The thread context used to write the value.</param>
         /// <param name="cbValue">[in] The size in bytes of the pValue buffer.</param>
         /// <param name="pValue">[in] The buffer that contains the value to set.</param>
-        public void SetValue(uint offset, uint threadID, uint cbContext, IntPtr context, uint cbValue, IntPtr pValue)
+        public void SetValue(int offset, int threadID, int cbContext, IntPtr context, int cbValue, IntPtr pValue)
         {
             HRESULT hr;
 
@@ -207,14 +207,14 @@ namespace ManagedCorDebug
         /// <param name="context">[in] The thread context used to write the value.</param>
         /// <param name="cbValue">[in] The size in bytes of the pValue buffer.</param>
         /// <param name="pValue">[in] The buffer that contains the value to set.</param>
-        public HRESULT TrySetValue(uint offset, uint threadID, uint cbContext, IntPtr context, uint cbValue, IntPtr pValue)
+        public HRESULT TrySetValue(int offset, int threadID, int cbContext, IntPtr context, int cbValue, IntPtr pValue)
         {
             /*HRESULT SetValue(
-            [In] uint offset,
-            [In] uint threadID,
-            [In] uint cbContext,
+            [In] int offset,
+            [In] int threadID,
+            [In] int cbContext,
             [In] IntPtr context,
-            [In] uint cbValue,
+            [In] int cbValue,
             [In] IntPtr pValue);*/
             return Raw.SetValue(offset, threadID, cbContext, context, cbValue, pValue);
         }

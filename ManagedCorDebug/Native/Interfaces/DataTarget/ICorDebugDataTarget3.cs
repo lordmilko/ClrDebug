@@ -21,8 +21,8 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLoadedModules(
-            [In] uint cRequestedModules,
-            out uint pcFetchedModules,
+            [In] int cRequestedModules,
+            out int pcFetchedModules,
             [Out] IntPtr pLoadedModules); //ICorDebugLoadedModule
     }
 }

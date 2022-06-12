@@ -138,12 +138,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the unique identifier of the application domain.
         /// </summary>
-        public uint Id
+        public int Id
         {
             get
             {
                 HRESULT hr;
-                uint pId;
+                int pId;
 
                 if ((hr = TryGetID(out pId)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -159,9 +159,9 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The identifier for the application domain is unique within the containing process.
         /// </remarks>
-        public HRESULT TryGetID(out uint pId)
+        public HRESULT TryGetID(out int pId)
         {
-            /*HRESULT GetID(out uint pId);*/
+            /*HRESULT GetID(out int pId);*/
             return Raw.GetID(out pId);
         }
 
@@ -352,9 +352,9 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);*/
-            uint cchName = 0;
-            uint pcchName;
+            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            int cchName = 0;
+            int pcchName;
             StringBuilder szName = null;
             HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
 
@@ -362,7 +362,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder((int) pcchName);
+            szName = new StringBuilder(pcchName);
             hr = Raw.GetName(cchName, out pcchName, szName);
 
             if (hr == HRESULT.S_OK)
@@ -428,7 +428,7 @@ namespace ManagedCorDebug
         /// The value of elementType must be one of the following: If the value of elementType is ELEMENT_TYPE_PTR or ELEMENT_TYPE_BYREF,
         /// nRank must be zero.
         /// </remarks>
-        public CorDebugType GetArrayOrPointerType(CorElementType elementType, uint nRank, ICorDebugType pTypeArg)
+        public CorDebugType GetArrayOrPointerType(CorElementType elementType, int nRank, ICorDebugType pTypeArg)
         {
             HRESULT hr;
             CorDebugType ppTypeResult;
@@ -450,11 +450,11 @@ namespace ManagedCorDebug
         /// The value of elementType must be one of the following: If the value of elementType is ELEMENT_TYPE_PTR or ELEMENT_TYPE_BYREF,
         /// nRank must be zero.
         /// </remarks>
-        public HRESULT TryGetArrayOrPointerType(CorElementType elementType, uint nRank, ICorDebugType pTypeArg, out CorDebugType ppTypeResult)
+        public HRESULT TryGetArrayOrPointerType(CorElementType elementType, int nRank, ICorDebugType pTypeArg, out CorDebugType ppTypeResult)
         {
             /*HRESULT GetArrayOrPointerType(
             [In] CorElementType elementType,
-            [In] uint nRank,
+            [In] int nRank,
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugType pTypeArg,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);*/
@@ -479,7 +479,7 @@ namespace ManagedCorDebug
         /// <param name="ppTypeArgs">[in] An array of pointers, each of which points to an <see cref="ICorDebugType"/> object that represents a type argument of the function.<para/>
         /// The first element is the return type; each of the other elements is a parameter type.</param>
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugType"/> object that represents the pointer to the function.</returns>
-        public CorDebugType GetFunctionPointerType(uint nTypeArgs, ICorDebugType ppTypeArgs)
+        public CorDebugType GetFunctionPointerType(int nTypeArgs, ICorDebugType ppTypeArgs)
         {
             HRESULT hr;
             CorDebugType ppTypeResult;
@@ -497,10 +497,10 @@ namespace ManagedCorDebug
         /// <param name="ppTypeArgs">[in] An array of pointers, each of which points to an <see cref="ICorDebugType"/> object that represents a type argument of the function.<para/>
         /// The first element is the return type; each of the other elements is a parameter type.</param>
         /// <param name="ppTypeResult">[out] A pointer to the address of an <see cref="ICorDebugType"/> object that represents the pointer to the function.</param>
-        public HRESULT TryGetFunctionPointerType(uint nTypeArgs, ICorDebugType ppTypeArgs, out CorDebugType ppTypeResult)
+        public HRESULT TryGetFunctionPointerType(int nTypeArgs, ICorDebugType ppTypeArgs, out CorDebugType ppTypeResult)
         {
             /*HRESULT GetFunctionPointerType(
-            [In] uint nTypeArgs,
+            [In] int nTypeArgs,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugType ppTypeArgs,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);*/
@@ -572,7 +572,7 @@ namespace ManagedCorDebug
         /// "ICorDebugTypeEnum" collection will have a type of ELEMENT_TYPE_END for errors due to data retrieval issues, or
         /// ELEMENT_TYPE_VOID for unknown interface identifiers.
         /// </remarks>
-        public CorDebugTypeEnum GetCachedWinRTTypesForIIDs(uint cReqTypes, Guid iidsToResolve)
+        public CorDebugTypeEnum GetCachedWinRTTypesForIIDs(int cReqTypes, Guid iidsToResolve)
         {
             HRESULT hr;
             CorDebugTypeEnum ppTypesEnumResult;
@@ -594,10 +594,10 @@ namespace ManagedCorDebug
         /// "ICorDebugTypeEnum" collection will have a type of ELEMENT_TYPE_END for errors due to data retrieval issues, or
         /// ELEMENT_TYPE_VOID for unknown interface identifiers.
         /// </remarks>
-        public HRESULT TryGetCachedWinRTTypesForIIDs(uint cReqTypes, Guid iidsToResolve, out CorDebugTypeEnum ppTypesEnumResult)
+        public HRESULT TryGetCachedWinRTTypesForIIDs(int cReqTypes, Guid iidsToResolve, out CorDebugTypeEnum ppTypesEnumResult)
         {
             /*HRESULT GetCachedWinRTTypesForIIDs(
-            [In] uint cReqTypes,
+            [In] int cReqTypes,
             [In] ref Guid iidsToResolve,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppTypesEnum);*/
             ICorDebugTypeEnum ppTypesEnum;
@@ -624,7 +624,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ccwPointer">[in] A COM callable wrapper (CCW) pointer.</param>
         /// <returns>[out] A pointer to the address of an "ICorDebugValue" object that represents the managed object that corresponds to the given CCW pointer.</returns>
-        public CorDebugValue GetObjectForCCW(ulong ccwPointer)
+        public CorDebugValue GetObjectForCCW(long ccwPointer)
         {
             HRESULT hr;
             CorDebugValue ppManagedObjectResult;
@@ -640,9 +640,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ccwPointer">[in] A COM callable wrapper (CCW) pointer.</param>
         /// <param name="ppManagedObjectResult">[out] A pointer to the address of an "ICorDebugValue" object that represents the managed object that corresponds to the given CCW pointer.</param>
-        public HRESULT TryGetObjectForCCW(ulong ccwPointer, out CorDebugValue ppManagedObjectResult)
+        public HRESULT TryGetObjectForCCW(long ccwPointer, out CorDebugValue ppManagedObjectResult)
         {
-            /*HRESULT GetObjectForCCW([In] ulong ccwPointer,
+            /*HRESULT GetObjectForCCW([In] long ccwPointer,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppManagedObject);*/
             ICorDebugValue ppManagedObject;
             HRESULT hr = Raw4.GetObjectForCCW(ccwPointer, out ppManagedObject);

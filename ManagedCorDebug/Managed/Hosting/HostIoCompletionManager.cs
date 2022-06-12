@@ -23,12 +23,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets or sets the maximum number of threads that the host can allot to service I/O requests.
         /// </summary>
-        public uint MaxThreads
+        public int MaxThreads
         {
             get
             {
                 HRESULT hr;
-                uint pdwMaxIOCompletionThreads;
+                int pdwMaxIOCompletionThreads;
 
                 if ((hr = TryGetMaxThreads(out pdwMaxIOCompletionThreads)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -64,9 +64,9 @@ namespace ManagedCorDebug
         /// reasons such as implementation, performance, or scalability. For this reason, the host is not required to implement
         /// GetMaxThreads. In this case, the host should return E_NOTIMPL from this method.
         /// </remarks>
-        public HRESULT TryGetMaxThreads(out uint pdwMaxIOCompletionThreads)
+        public HRESULT TryGetMaxThreads(out int pdwMaxIOCompletionThreads)
         {
-            /*HRESULT GetMaxThreads([Out] out uint pdwMaxIOCompletionThreads);*/
+            /*HRESULT GetMaxThreads([Out] out int pdwMaxIOCompletionThreads);*/
             return Raw.GetMaxThreads(out pdwMaxIOCompletionThreads);
         }
 
@@ -91,9 +91,9 @@ namespace ManagedCorDebug
         /// implementation, performance, or scalability. For this reason, the host is not required to implement SetMaxThreads.
         /// In this case, a host should return E_NOTIMPL from this method.
         /// </remarks>
-        public HRESULT TrySetMaxThreads(uint dwMaxIOCompletionThreads)
+        public HRESULT TrySetMaxThreads(int dwMaxIOCompletionThreads)
         {
-            /*HRESULT SetMaxThreads([In] uint dwMaxIOCompletionThreads);*/
+            /*HRESULT SetMaxThreads([In] int dwMaxIOCompletionThreads);*/
             return Raw.SetMaxThreads(dwMaxIOCompletionThreads);
         }
 
@@ -103,12 +103,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the number of I/O completion threads, of the total number of threads managed by the host, that are not currently servicing requests.
         /// </summary>
-        public uint AvailableThreads
+        public int AvailableThreads
         {
             get
             {
                 HRESULT hr;
-                uint pdwAvailableIOCompletionThreads;
+                int pdwAvailableIOCompletionThreads;
 
                 if ((hr = TryGetAvailableThreads(out pdwAvailableIOCompletionThreads)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -137,9 +137,9 @@ namespace ManagedCorDebug
         /// performance, or scalability. Therefore, the host is not required to implement GetAvailableThreads. In this case,
         /// the host should return E_NOTIMPL from this method.
         /// </remarks>
-        public HRESULT TryGetAvailableThreads(out uint pdwAvailableIOCompletionThreads)
+        public HRESULT TryGetAvailableThreads(out int pdwAvailableIOCompletionThreads)
         {
-            /*HRESULT GetAvailableThreads([Out] out uint pdwAvailableIOCompletionThreads);*/
+            /*HRESULT GetAvailableThreads([Out] out int pdwAvailableIOCompletionThreads);*/
             return Raw.GetAvailableThreads(out pdwAvailableIOCompletionThreads);
         }
 
@@ -149,12 +149,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the size of any custom data the host intends to append to I/O requests.
         /// </summary>
-        public uint HostOverlappedSize
+        public int HostOverlappedSize
         {
             get
             {
                 HRESULT hr;
-                uint pcbSize;
+                int pcbSize;
 
                 if ((hr = TryGetHostOverlappedSize(out pcbSize)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -185,9 +185,9 @@ namespace ManagedCorDebug
         /// of the custom data that the host intends to append to the OVERLAPPED object. For more information about the OVERLAPPED
         /// structure, see the Windows Platform documentation.
         /// </remarks>
-        public HRESULT TryGetHostOverlappedSize(out uint pcbSize)
+        public HRESULT TryGetHostOverlappedSize(out int pcbSize)
         {
-            /*HRESULT GetHostOverlappedSize([Out] out uint pcbSize);*/
+            /*HRESULT GetHostOverlappedSize([Out] out int pcbSize);*/
             return Raw.GetHostOverlappedSize(out pcbSize);
         }
 
@@ -197,12 +197,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets or sets the minimum number of threads that the host provides for processing I/O requests.
         /// </summary>
-        public uint MinThreads
+        public int MinThreads
         {
             get
             {
                 HRESULT hr;
-                uint pdwMinIOCompletionThreads;
+                int pdwMinIOCompletionThreads;
 
                 if ((hr = TryGetMinThreads(out pdwMinIOCompletionThreads)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -238,10 +238,10 @@ namespace ManagedCorDebug
         /// as implementation, performance, or scalability. For this reason, the host is not required to implement GetMinThreads.
         /// In this case, the host should return E_NOTIMPL from this method.
         /// </remarks>
-        public HRESULT TryGetMinThreads(out uint pdwMinIOCompletionThreads)
+        public HRESULT TryGetMinThreads(out int pdwMinIOCompletionThreads)
         {
             /*HRESULT GetMinThreads(
-            [Out] out uint pdwMinIOCompletionThreads);*/
+            [Out] out int pdwMinIOCompletionThreads);*/
             return Raw.GetMinThreads(out pdwMinIOCompletionThreads);
         }
 
@@ -265,10 +265,10 @@ namespace ManagedCorDebug
         /// reasons such as implementation, performance, or scalability. For this reason, the host is not required to implement
         /// SetMinThreads. In this case, the host should return E_NOTIMPL from this method.
         /// </remarks>
-        public HRESULT TrySetMinThreads(uint dwMinIOCompletionThreads)
+        public HRESULT TrySetMinThreads(int dwMinIOCompletionThreads)
         {
             /*HRESULT SetMinThreads(
-            [In] uint dwMinIOCompletionThreads);*/
+            [In] int dwMinIOCompletionThreads);*/
             return Raw.SetMinThreads(dwMinIOCompletionThreads);
         }
 

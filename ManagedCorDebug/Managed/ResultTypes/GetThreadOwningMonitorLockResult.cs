@@ -4,9 +4,9 @@ namespace ManagedCorDebug
     {
         public CorDebugThread PpThread { get; }
 
-        public uint PAcquisitionCount { get; }
+        public int PAcquisitionCount { get; }
 
-        public GetThreadOwningMonitorLockResult(CorDebugThread ppThread, uint pAcquisitionCount)
+        public GetThreadOwningMonitorLockResult(CorDebugThread ppThread, int pAcquisitionCount)
         {
             PpThread = ppThread;
             PAcquisitionCount = pAcquisitionCount;

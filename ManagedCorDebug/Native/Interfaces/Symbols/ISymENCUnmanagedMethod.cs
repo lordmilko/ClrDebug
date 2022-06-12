@@ -23,9 +23,9 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetFileNameFromOffset(
-            [In] uint dwOffset,
-            [In] uint cchName,
-            out uint pcchName,
+            [In] int dwOffset,
+            [In] int cchName,
+            out int pcchName,
             [Out] StringBuilder szName);
 
         /// <summary>
@@ -41,12 +41,12 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLineFromOffset(
-            [In] uint dwOffset,
-            out uint pline,
-            out uint pcolumn,
-            out uint pendLine,
-            out uint pendColumn,
-            out uint pdwStartOffset);
+            [In] int dwOffset,
+            out int pline,
+            out int pcolumn,
+            out int pendLine,
+            out int pendColumn,
+            out int pdwStartOffset);
 
         /// <summary>
         /// Gets the number of documents that this method has lines in.
@@ -56,7 +56,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetDocumentsForMethodCount(
-            [Out] out uint pRetVal);
+            [Out] out int pRetVal);
 
         /// <summary>
         /// Gets the documents that this method has lines in.
@@ -67,7 +67,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetDocumentsForMethod([In] uint cDocs, out uint pcDocs, [MarshalAs(UnmanagedType.Interface), In]
+        HRESULT GetDocumentsForMethod([In] int cDocs, out int pcDocs, [MarshalAs(UnmanagedType.Interface), In]
             ref ISymUnmanagedDocument documents);
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace ManagedCorDebug
         HRESULT GetSourceExtentInDocument(
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocument document,
-            out uint pstartLine,
-            out uint pendLine);
+            out int pstartLine,
+            out int pendLine);
     }
 }

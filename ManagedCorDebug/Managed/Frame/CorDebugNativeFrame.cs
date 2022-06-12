@@ -21,12 +21,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets or sets the native code offset location to which the instruction pointer is currently set.
         /// </summary>
-        public uint IP
+        public int IP
         {
             get
             {
                 HRESULT hr;
-                uint pnOffset;
+                int pnOffset;
 
                 if ((hr = TryGetIP(out pnOffset)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -51,9 +51,9 @@ namespace ManagedCorDebug
         /// next instruction to be executed. If this stack frame is not active, the offset is the address of the next instruction
         /// to be executed when the stack frame is reactivated.
         /// </remarks>
-        public HRESULT TryGetIP(out uint pnOffset)
+        public HRESULT TryGetIP(out int pnOffset)
         {
-            /*HRESULT GetIP(out uint pnOffset);*/
+            /*HRESULT GetIP(out int pnOffset);*/
             return Raw.GetIP(out pnOffset);
         }
 
@@ -70,9 +70,9 @@ namespace ManagedCorDebug
         /// finally block. If SetIP is called to make such a move on a 64-bit platform, it will return an <see cref="HRESULT"/> indicating
         /// failure.
         /// </remarks>
-        public HRESULT TrySetIP(uint nOffset)
+        public HRESULT TrySetIP(int nOffset)
         {
-            /*HRESULT SetIP([In] uint nOffset);*/
+            /*HRESULT SetIP([In] int nOffset);*/
             return Raw.SetIP(nOffset);
         }
 
@@ -127,7 +127,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The GetLocalRegisterValue method can be used either in a native frame or a just-in-time (JIT)-compiled frame.
         /// </remarks>
-        public CorDebugValue GetLocalRegisterValue(CorDebugRegister reg, uint cbSigBlob, IntPtr pvSigBlob)
+        public CorDebugValue GetLocalRegisterValue(CorDebugRegister reg, int cbSigBlob, IntPtr pvSigBlob)
         {
             HRESULT hr;
             CorDebugValue ppValueResult;
@@ -148,11 +148,11 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The GetLocalRegisterValue method can be used either in a native frame or a just-in-time (JIT)-compiled frame.
         /// </remarks>
-        public HRESULT TryGetLocalRegisterValue(CorDebugRegister reg, uint cbSigBlob, IntPtr pvSigBlob, out CorDebugValue ppValueResult)
+        public HRESULT TryGetLocalRegisterValue(CorDebugRegister reg, int cbSigBlob, IntPtr pvSigBlob, out CorDebugValue ppValueResult)
         {
             /*HRESULT GetLocalRegisterValue(
             [In] CorDebugRegister reg,
-            [In] uint cbSigBlob,
+            [In] int cbSigBlob,
             [In] IntPtr pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
@@ -180,7 +180,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The GetLocalDoubleRegisterValue method can be used either in a native frame or a just-in-time (JIT)-compiled frame.
         /// </remarks>
-        public CorDebugValue GetLocalDoubleRegisterValue(CorDebugRegister highWordReg, CorDebugRegister lowWordReg, uint cbSigBlob, IntPtr pvSigBlob)
+        public CorDebugValue GetLocalDoubleRegisterValue(CorDebugRegister highWordReg, CorDebugRegister lowWordReg, int cbSigBlob, IntPtr pvSigBlob)
         {
             HRESULT hr;
             CorDebugValue ppValueResult;
@@ -202,12 +202,12 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The GetLocalDoubleRegisterValue method can be used either in a native frame or a just-in-time (JIT)-compiled frame.
         /// </remarks>
-        public HRESULT TryGetLocalDoubleRegisterValue(CorDebugRegister highWordReg, CorDebugRegister lowWordReg, uint cbSigBlob, IntPtr pvSigBlob, out CorDebugValue ppValueResult)
+        public HRESULT TryGetLocalDoubleRegisterValue(CorDebugRegister highWordReg, CorDebugRegister lowWordReg, int cbSigBlob, IntPtr pvSigBlob, out CorDebugValue ppValueResult)
         {
             /*HRESULT GetLocalDoubleRegisterValue(
             [In] CorDebugRegister highWordReg,
             [In] CorDebugRegister lowWordReg,
-            [In] uint cbSigBlob,
+            [In] int cbSigBlob,
             [In] IntPtr pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
@@ -231,7 +231,7 @@ namespace ManagedCorDebug
         /// <param name="cbSigBlob">[in] An integer that specifies the size of the binary metadata signature which is referenced by the pvSigBlob parameter.</param>
         /// <param name="pvSigBlob">[in] A PCCOR_SIGNATURE value that points to the binary metadata signature of the value's type.</param>
         /// <returns>[out] A pointer to the address of an "ICorDebugValue" object representing the retrieved value that is stored in the specified memory location.</returns>
-        public CorDebugValue GetLocalMemoryValue(CORDB_ADDRESS address, uint cbSigBlob, IntPtr pvSigBlob)
+        public CorDebugValue GetLocalMemoryValue(CORDB_ADDRESS address, int cbSigBlob, IntPtr pvSigBlob)
         {
             HRESULT hr;
             CorDebugValue ppValueResult;
@@ -249,11 +249,11 @@ namespace ManagedCorDebug
         /// <param name="cbSigBlob">[in] An integer that specifies the size of the binary metadata signature which is referenced by the pvSigBlob parameter.</param>
         /// <param name="pvSigBlob">[in] A PCCOR_SIGNATURE value that points to the binary metadata signature of the value's type.</param>
         /// <param name="ppValueResult">[out] A pointer to the address of an "ICorDebugValue" object representing the retrieved value that is stored in the specified memory location.</param>
-        public HRESULT TryGetLocalMemoryValue(CORDB_ADDRESS address, uint cbSigBlob, IntPtr pvSigBlob, out CorDebugValue ppValueResult)
+        public HRESULT TryGetLocalMemoryValue(CORDB_ADDRESS address, int cbSigBlob, IntPtr pvSigBlob, out CorDebugValue ppValueResult)
         {
             /*HRESULT GetLocalMemoryValue(
             [In] CORDB_ADDRESS address,
-            [In] uint cbSigBlob,
+            [In] int cbSigBlob,
             [In] IntPtr pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
@@ -278,7 +278,7 @@ namespace ManagedCorDebug
         /// <param name="cbSigBlob">[in] An integer that specifies the size of the binary metadata signature which is referenced by the pvSigBlob parameter.</param>
         /// <param name="pvSigBlob">[in] A PCCOR_SIGNATURE value that points to the binary metadata signature of the value's type.</param>
         /// <returns>[out] A pointer to the address of an "ICorDebugValue" object representing the retrieved value that is stored in the specified register and memory location.</returns>
-        public CorDebugValue GetLocalRegisterMemoryValue(CorDebugRegister highWordReg, CORDB_ADDRESS lowWordAddress, uint cbSigBlob, IntPtr pvSigBlob)
+        public CorDebugValue GetLocalRegisterMemoryValue(CorDebugRegister highWordReg, CORDB_ADDRESS lowWordAddress, int cbSigBlob, IntPtr pvSigBlob)
         {
             HRESULT hr;
             CorDebugValue ppValueResult;
@@ -297,12 +297,12 @@ namespace ManagedCorDebug
         /// <param name="cbSigBlob">[in] An integer that specifies the size of the binary metadata signature which is referenced by the pvSigBlob parameter.</param>
         /// <param name="pvSigBlob">[in] A PCCOR_SIGNATURE value that points to the binary metadata signature of the value's type.</param>
         /// <param name="ppValueResult">[out] A pointer to the address of an "ICorDebugValue" object representing the retrieved value that is stored in the specified register and memory location.</param>
-        public HRESULT TryGetLocalRegisterMemoryValue(CorDebugRegister highWordReg, CORDB_ADDRESS lowWordAddress, uint cbSigBlob, IntPtr pvSigBlob, out CorDebugValue ppValueResult)
+        public HRESULT TryGetLocalRegisterMemoryValue(CorDebugRegister highWordReg, CORDB_ADDRESS lowWordAddress, int cbSigBlob, IntPtr pvSigBlob, out CorDebugValue ppValueResult)
         {
             /*HRESULT GetLocalRegisterMemoryValue(
             [In] CorDebugRegister highWordReg,
             [In] CORDB_ADDRESS lowWordAddress,
-            [In] uint cbSigBlob,
+            [In] int cbSigBlob,
             [In] IntPtr pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
@@ -327,7 +327,7 @@ namespace ManagedCorDebug
         /// <param name="cbSigBlob">[in] An integer that specifies the size of the binary metadata signature which is referenced by the pvSigBlob parameter.</param>
         /// <param name="pvSigBlob">[in] A PCCOR_SIGNATURE value that points to the binary metadata signature of the value's type.</param>
         /// <returns>[out] A pointer to the address of an "ICorDebugValue" object representing the retrieved value that is stored in the specified register and memory location.</returns>
-        public CorDebugValue GetLocalMemoryRegisterValue(CORDB_ADDRESS highWordAddress, CorDebugRegister lowWordRegister, uint cbSigBlob, IntPtr pvSigBlob)
+        public CorDebugValue GetLocalMemoryRegisterValue(CORDB_ADDRESS highWordAddress, CorDebugRegister lowWordRegister, int cbSigBlob, IntPtr pvSigBlob)
         {
             HRESULT hr;
             CorDebugValue ppValueResult;
@@ -346,12 +346,12 @@ namespace ManagedCorDebug
         /// <param name="cbSigBlob">[in] An integer that specifies the size of the binary metadata signature which is referenced by the pvSigBlob parameter.</param>
         /// <param name="pvSigBlob">[in] A PCCOR_SIGNATURE value that points to the binary metadata signature of the value's type.</param>
         /// <param name="ppValueResult">[out] A pointer to the address of an "ICorDebugValue" object representing the retrieved value that is stored in the specified register and memory location.</param>
-        public HRESULT TryGetLocalMemoryRegisterValue(CORDB_ADDRESS highWordAddress, CorDebugRegister lowWordRegister, uint cbSigBlob, IntPtr pvSigBlob, out CorDebugValue ppValueResult)
+        public HRESULT TryGetLocalMemoryRegisterValue(CORDB_ADDRESS highWordAddress, CorDebugRegister lowWordRegister, int cbSigBlob, IntPtr pvSigBlob, out CorDebugValue ppValueResult)
         {
             /*HRESULT GetLocalMemoryRegisterValue(
             [In] CORDB_ADDRESS highWordAddress,
             [In] CorDebugRegister lowWordRegister,
-            [In] uint cbSigBlob,
+            [In] int cbSigBlob,
             [In] IntPtr pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
@@ -377,7 +377,7 @@ namespace ManagedCorDebug
         /// than S_OK, you can still invoke <see cref="IP"/>, but there is no guarantee that the debugger will continue
         /// the safe and correct execution of the code being debugged.
         /// </remarks>
-        public void CanSetIP(uint nOffset)
+        public void CanSetIP(int nOffset)
         {
             HRESULT hr;
 
@@ -394,9 +394,9 @@ namespace ManagedCorDebug
         /// than S_OK, you can still invoke <see cref="IP"/>, but there is no guarantee that the debugger will continue
         /// the safe and correct execution of the code being debugged.
         /// </remarks>
-        public HRESULT TryCanSetIP(uint nOffset)
+        public HRESULT TryCanSetIP(int nOffset)
         {
-            /*HRESULT CanSetIP([In] uint nOffset);*/
+            /*HRESULT CanSetIP([In] int nOffset);*/
             return Raw.CanSetIP(nOffset);
         }
 
@@ -454,12 +454,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Returns the cumulative size of the parameters on the stack on x86 operating systems.
         /// </summary>
-        public uint StackParameterSize
+        public int StackParameterSize
         {
             get
             {
                 HRESULT hr;
-                uint pSize;
+                int pSize;
 
                 if ((hr = TryGetStackParameterSize(out pSize)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -487,9 +487,9 @@ namespace ManagedCorDebug
         /// the stack. Instead, you can use the value returned by GetStackParameterSize to adjust the stack pointer to seed
         /// a native unwinder, which does adjust for the parameters.
         /// </remarks>
-        public HRESULT TryGetStackParameterSize(out uint pSize)
+        public HRESULT TryGetStackParameterSize(out int pSize)
         {
-            /*HRESULT GetStackParameterSize(out uint pSize);*/
+            /*HRESULT GetStackParameterSize(out int pSize);*/
             return Raw2.GetStackParameterSize(out pSize);
         }
 

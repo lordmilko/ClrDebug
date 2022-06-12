@@ -26,7 +26,7 @@ namespace ManagedCorDebug
         /// contains a maximum of cClauses items, and pcClauses is set to the number of clauses actually written to the clauses
         /// array.
         /// </remarks>
-        public GetEHClausesResult GetEHClauses(uint cClauses)
+        public GetEHClausesResult GetEHClauses(int cClauses)
         {
             HRESULT hr;
             GetEHClausesResult result;
@@ -48,11 +48,11 @@ namespace ManagedCorDebug
         /// contains a maximum of cClauses items, and pcClauses is set to the number of clauses actually written to the clauses
         /// array.
         /// </remarks>
-        public HRESULT TryGetEHClauses(uint cClauses, out GetEHClausesResult result)
+        public HRESULT TryGetEHClauses(int cClauses, out GetEHClausesResult result)
         {
-            /*HRESULT GetEHClauses([In] uint cClauses, out uint pcClauses, [MarshalAs(UnmanagedType.LPArray), Out]
+            /*HRESULT GetEHClauses([In] int cClauses, out int pcClauses, [MarshalAs(UnmanagedType.LPArray), Out]
             CorDebugEHClause[] clauses);*/
-            uint pcClauses;
+            int pcClauses;
             CorDebugEHClause[] clauses = null;
             HRESULT hr = Raw.GetEHClauses(cClauses, out pcClauses, clauses);
 
@@ -116,7 +116,7 @@ namespace ManagedCorDebug
         /// map array. If the IL hasn't been instrumented or the mapping wasn't provided by a profiler, this method returns
         /// S_OK and sets pcMap to 0.
         /// </remarks>
-        public GetInstrumentedILMapResult GetInstrumentedILMap(uint cMap)
+        public GetInstrumentedILMapResult GetInstrumentedILMap(int cMap)
         {
             HRESULT hr;
             GetInstrumentedILMapResult result;
@@ -141,10 +141,10 @@ namespace ManagedCorDebug
         /// map array. If the IL hasn't been instrumented or the mapping wasn't provided by a profiler, this method returns
         /// S_OK and sets pcMap to 0.
         /// </remarks>
-        public HRESULT TryGetInstrumentedILMap(uint cMap, out GetInstrumentedILMapResult result)
+        public HRESULT TryGetInstrumentedILMap(int cMap, out GetInstrumentedILMapResult result)
         {
-            /*HRESULT GetInstrumentedILMap([In] uint cMap, out uint pcMap, [MarshalAs(UnmanagedType.LPArray), Out] COR_IL_MAP[] map);*/
-            uint pcMap;
+            /*HRESULT GetInstrumentedILMap([In] int cMap, out int pcMap, [MarshalAs(UnmanagedType.LPArray), Out] COR_IL_MAP[] map);*/
+            int pcMap;
             COR_IL_MAP[] map = null;
             HRESULT hr = Raw2.GetInstrumentedILMap(cMap, out pcMap, map);
 

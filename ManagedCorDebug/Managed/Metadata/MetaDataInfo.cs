@@ -63,10 +63,10 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetFileMapping(
             [Out] IntPtr ppvData,
-            [Out] out ulong pcbData,
+            [Out] out long pcbData,
             [Out] out CorFileMapping pdwMappingType);*/
             IntPtr ppvData = default(IntPtr);
-            ulong pcbData;
+            long pcbData;
             CorFileMapping pdwMappingType;
             HRESULT hr = Raw.GetFileMapping(ppvData, out pcbData, out pdwMappingType);
 

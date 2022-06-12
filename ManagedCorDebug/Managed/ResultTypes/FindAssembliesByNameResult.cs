@@ -4,9 +4,9 @@ namespace ManagedCorDebug
     {
         public object[] PpIUnk { get; }
 
-        public uint PcAssemblies { get; }
+        public int PcAssemblies { get; }
 
-        public FindAssembliesByNameResult(object[] ppIUnk, uint pcAssemblies)
+        public FindAssembliesByNameResult(object[] ppIUnk, int pcAssemblies)
         {
             PpIUnk = ppIUnk;
             PcAssemblies = pcAssemblies;

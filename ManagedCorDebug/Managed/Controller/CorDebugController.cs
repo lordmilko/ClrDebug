@@ -74,7 +74,7 @@ namespace ManagedCorDebug
         /// call to Stop or each dispatched callback increments the counter. Each call to <see cref="Continue"/> decrements
         /// the counter.
         /// </remarks>
-        public void Stop(uint dwTimeoutIgnored)
+        public void Stop(int dwTimeoutIgnored)
         {
             HRESULT hr;
 
@@ -95,9 +95,9 @@ namespace ManagedCorDebug
         /// call to Stop or each dispatched callback increments the counter. Each call to <see cref="Continue"/> decrements
         /// the counter.
         /// </remarks>
-        public HRESULT TryStop(uint dwTimeoutIgnored)
+        public HRESULT TryStop(int dwTimeoutIgnored)
         {
-            /*HRESULT Stop([In] uint dwTimeoutIgnored);*/
+            /*HRESULT Stop([In] int dwTimeoutIgnored);*/
             return Raw.Stop(dwTimeoutIgnored);
         }
 
@@ -328,7 +328,7 @@ namespace ManagedCorDebug
         /// method so that the debugger receives confirmation of the termination through the <see cref="CorDebugManagedCallback.ExitProcess"/>
         /// or <see cref="CorDebugManagedCallback.ExitAppDomain"/> callback.
         /// </remarks>
-        public void Terminate(uint exitCode)
+        public void Terminate(int exitCode)
         {
             HRESULT hr;
 
@@ -345,9 +345,9 @@ namespace ManagedCorDebug
         /// method so that the debugger receives confirmation of the termination through the <see cref="CorDebugManagedCallback.ExitProcess"/>
         /// or <see cref="CorDebugManagedCallback.ExitAppDomain"/> callback.
         /// </remarks>
-        public HRESULT TryTerminate(uint exitCode)
+        public HRESULT TryTerminate(int exitCode)
         {
-            /*HRESULT Terminate([In] uint exitCode);*/
+            /*HRESULT Terminate([In] int exitCode);*/
             return Raw.Terminate(exitCode);
         }
 
@@ -358,7 +358,7 @@ namespace ManagedCorDebug
         /// CanCommitChanges is obsolete. Do not call this method.
         /// </summary>
         [Obsolete]
-        public CorDebugErrorInfoEnum CanCommitChanges(uint cSnapshots, ICorDebugEditAndContinueSnapshot pSnapshots)
+        public CorDebugErrorInfoEnum CanCommitChanges(int cSnapshots, ICorDebugEditAndContinueSnapshot pSnapshots)
         {
             HRESULT hr;
             CorDebugErrorInfoEnum pErrorResult;
@@ -373,10 +373,10 @@ namespace ManagedCorDebug
         /// CanCommitChanges is obsolete. Do not call this method.
         /// </summary>
         [Obsolete]
-        public HRESULT TryCanCommitChanges(uint cSnapshots, ICorDebugEditAndContinueSnapshot pSnapshots, out CorDebugErrorInfoEnum pErrorResult)
+        public HRESULT TryCanCommitChanges(int cSnapshots, ICorDebugEditAndContinueSnapshot pSnapshots, out CorDebugErrorInfoEnum pErrorResult)
         {
             /*HRESULT CanCommitChanges(
-            [In] uint cSnapshots,
+            [In] int cSnapshots,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugEditAndContinueSnapshot pSnapshots,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugErrorInfoEnum pError);*/
@@ -398,7 +398,7 @@ namespace ManagedCorDebug
         /// CommitChanges is obsolete. Do not call this method.
         /// </summary>
         [Obsolete]
-        public CorDebugErrorInfoEnum CommitChanges(uint cSnapshots, ICorDebugEditAndContinueSnapshot pSnapshots)
+        public CorDebugErrorInfoEnum CommitChanges(int cSnapshots, ICorDebugEditAndContinueSnapshot pSnapshots)
         {
             HRESULT hr;
             CorDebugErrorInfoEnum pErrorResult;
@@ -413,10 +413,10 @@ namespace ManagedCorDebug
         /// CommitChanges is obsolete. Do not call this method.
         /// </summary>
         [Obsolete]
-        public HRESULT TryCommitChanges(uint cSnapshots, ICorDebugEditAndContinueSnapshot pSnapshots, out CorDebugErrorInfoEnum pErrorResult)
+        public HRESULT TryCommitChanges(int cSnapshots, ICorDebugEditAndContinueSnapshot pSnapshots, out CorDebugErrorInfoEnum pErrorResult)
         {
             /*HRESULT CommitChanges(
-            [In] uint cSnapshots,
+            [In] int cSnapshots,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugEditAndContinueSnapshot pSnapshots,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugErrorInfoEnum pError);*/

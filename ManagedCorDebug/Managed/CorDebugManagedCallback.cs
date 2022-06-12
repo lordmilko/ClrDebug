@@ -538,7 +538,7 @@ namespace ManagedCorDebug
         /// <see cref="CorDebug.Terminate"/>, should not be called. The debugger should use operating-system facilities for
         /// terminating processes.
         /// </remarks>
-        public void DebuggerError(ICorDebugProcess pProcess, HRESULT errorHR, uint errorCode)
+        public void DebuggerError(ICorDebugProcess pProcess, HRESULT errorHR, int errorCode)
         {
             HRESULT hr;
 
@@ -559,10 +559,10 @@ namespace ManagedCorDebug
         /// <see cref="CorDebug.Terminate"/>, should not be called. The debugger should use operating-system facilities for
         /// terminating processes.
         /// </remarks>
-        public HRESULT TryDebuggerError(ICorDebugProcess pProcess, HRESULT errorHR, uint errorCode)
+        public HRESULT TryDebuggerError(ICorDebugProcess pProcess, HRESULT errorHR, int errorCode)
         {
             /*HRESULT DebuggerError([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugProcess pProcess, [MarshalAs(UnmanagedType.Error), In] HRESULT errorHR, [In] uint errorCode);*/
+            ICorDebugProcess pProcess, [MarshalAs(UnmanagedType.Error), In] HRESULT errorHR, [In] int errorCode);*/
             return Raw.DebuggerError(pProcess, errorHR, errorCode);
         }
 
@@ -936,7 +936,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The given breakpoint will never be hit. The debugger should deactivate and rebind it.
         /// </remarks>
-        public void BreakpointSetError(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugBreakpoint pBreakpoint, uint dwError)
+        public void BreakpointSetError(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugBreakpoint pBreakpoint, int dwError)
         {
             HRESULT hr;
 
@@ -954,7 +954,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The given breakpoint will never be hit. The debugger should deactivate and rebind it.
         /// </remarks>
-        public HRESULT TryBreakpointSetError(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugBreakpoint pBreakpoint, uint dwError)
+        public HRESULT TryBreakpointSetError(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugBreakpoint pBreakpoint, int dwError)
         {
             /*HRESULT BreakpointSetError(
             [MarshalAs(UnmanagedType.Interface), In]
@@ -963,7 +963,7 @@ namespace ManagedCorDebug
             ICorDebugThread pThread,
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugBreakpoint pBreakpoint,
-            [In] uint dwError);*/
+            [In] int dwError);*/
             return Raw.BreakpointSetError(pAppDomain, pThread, pBreakpoint, dwError);
         }
 
@@ -991,7 +991,7 @@ namespace ManagedCorDebug
         /// This callback will be invoked for every frame that is executing an older version of the given function until the
         /// debugger returns S_OK.
         /// </remarks>
-        public void FunctionRemapOpportunity(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugFunction pOldFunction, ICorDebugFunction pNewFunction, uint oldILOffset)
+        public void FunctionRemapOpportunity(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugFunction pOldFunction, ICorDebugFunction pNewFunction, int oldILOffset)
         {
             HRESULT hr;
 
@@ -1015,7 +1015,7 @@ namespace ManagedCorDebug
         /// This callback will be invoked for every frame that is executing an older version of the given function until the
         /// debugger returns S_OK.
         /// </remarks>
-        public HRESULT TryFunctionRemapOpportunity(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugFunction pOldFunction, ICorDebugFunction pNewFunction, uint oldILOffset)
+        public HRESULT TryFunctionRemapOpportunity(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugFunction pOldFunction, ICorDebugFunction pNewFunction, int oldILOffset)
         {
             /*HRESULT FunctionRemapOpportunity(
             [MarshalAs(UnmanagedType.Interface), In]
@@ -1026,7 +1026,7 @@ namespace ManagedCorDebug
             ICorDebugFunction pOldFunction,
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugFunction pNewFunction,
-            [In] uint oldILOffset);*/
+            [In] int oldILOffset);*/
             return Raw2.FunctionRemapOpportunity(pAppDomain, pThread, pOldFunction, pNewFunction, oldILOffset);
         }
 
@@ -1042,7 +1042,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// A CreateConnection callback will be fired in either of the following cases:
         /// </remarks>
-        public void CreateConnection(ICorDebugProcess pProcess, uint dwConnectionId, string pConnName)
+        public void CreateConnection(ICorDebugProcess pProcess, int dwConnectionId, string pConnName)
         {
             HRESULT hr;
 
@@ -1059,10 +1059,10 @@ namespace ManagedCorDebug
         /// <remarks>
         /// A CreateConnection callback will be fired in either of the following cases:
         /// </remarks>
-        public HRESULT TryCreateConnection(ICorDebugProcess pProcess, uint dwConnectionId, string pConnName)
+        public HRESULT TryCreateConnection(ICorDebugProcess pProcess, int dwConnectionId, string pConnName)
         {
             /*HRESULT CreateConnection([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugProcess pProcess, [In] uint dwConnectionId, [MarshalAs(UnmanagedType.LPWStr), In] string pConnName);*/
+            ICorDebugProcess pProcess, [In] int dwConnectionId, [MarshalAs(UnmanagedType.LPWStr), In] string pConnName);*/
             return Raw2.CreateConnection(pProcess, dwConnectionId, pConnName);
         }
 
@@ -1078,7 +1078,7 @@ namespace ManagedCorDebug
         /// A ChangeConnection callback will be fired in either of the following cases: The debugger should scan all threads
         /// in the process to pick up the new changes.
         /// </remarks>
-        public void ChangeConnection(ICorDebugProcess pProcess, uint dwConnectionId)
+        public void ChangeConnection(ICorDebugProcess pProcess, int dwConnectionId)
         {
             HRESULT hr;
 
@@ -1095,10 +1095,10 @@ namespace ManagedCorDebug
         /// A ChangeConnection callback will be fired in either of the following cases: The debugger should scan all threads
         /// in the process to pick up the new changes.
         /// </remarks>
-        public HRESULT TryChangeConnection(ICorDebugProcess pProcess, uint dwConnectionId)
+        public HRESULT TryChangeConnection(ICorDebugProcess pProcess, int dwConnectionId)
         {
             /*HRESULT ChangeConnection([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugProcess pProcess, [In] uint dwConnectionId);*/
+            ICorDebugProcess pProcess, [In] int dwConnectionId);*/
             return Raw2.ChangeConnection(pProcess, dwConnectionId);
         }
 
@@ -1114,7 +1114,7 @@ namespace ManagedCorDebug
         /// A DestroyConnection callback will be fired when a host calls <see cref="CLRDebugManager.EndConnection"/> in the
         /// Hosting API.
         /// </remarks>
-        public void DestroyConnection(ICorDebugProcess pProcess, uint dwConnectionId)
+        public void DestroyConnection(ICorDebugProcess pProcess, int dwConnectionId)
         {
             HRESULT hr;
 
@@ -1131,10 +1131,10 @@ namespace ManagedCorDebug
         /// A DestroyConnection callback will be fired when a host calls <see cref="CLRDebugManager.EndConnection"/> in the
         /// Hosting API.
         /// </remarks>
-        public HRESULT TryDestroyConnection(ICorDebugProcess pProcess, uint dwConnectionId)
+        public HRESULT TryDestroyConnection(ICorDebugProcess pProcess, int dwConnectionId)
         {
             /*HRESULT DestroyConnection([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugProcess pProcess, [In] uint dwConnectionId);*/
+            ICorDebugProcess pProcess, [In] int dwConnectionId);*/
             return Raw2.DestroyConnection(pProcess, dwConnectionId);
         }
 
@@ -1157,7 +1157,7 @@ namespace ManagedCorDebug
         /// from the <see cref="ICorDebugThread"/> object referenced by the pThread parameter. The particular frame and offset are determined
         /// by the dwEventType parameter as follows:
         /// </remarks>
-        public void Exception(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugFrame pFrame, uint nOffset, CorDebugExceptionCallbackType dwEventType, uint dwFlags)
+        public void Exception(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugFrame pFrame, int nOffset, CorDebugExceptionCallbackType dwEventType, int dwFlags)
         {
             HRESULT hr;
 
@@ -1181,7 +1181,7 @@ namespace ManagedCorDebug
         /// from the <see cref="ICorDebugThread"/> object referenced by the pThread parameter. The particular frame and offset are determined
         /// by the dwEventType parameter as follows:
         /// </remarks>
-        public HRESULT TryException(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugFrame pFrame, uint nOffset, CorDebugExceptionCallbackType dwEventType, uint dwFlags)
+        public HRESULT TryException(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugFrame pFrame, int nOffset, CorDebugExceptionCallbackType dwEventType, int dwFlags)
         {
             /*HRESULT Exception(
             [MarshalAs(UnmanagedType.Interface), In]
@@ -1190,9 +1190,9 @@ namespace ManagedCorDebug
             ICorDebugThread pThread,
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugFrame pFrame,
-            [In] uint nOffset,
+            [In] int nOffset,
             [In] CorDebugExceptionCallbackType dwEventType,
-            [In] uint dwFlags);*/
+            [In] int dwFlags);*/
             return Raw2.Exception(pAppDomain, pThread, pFrame, nOffset, dwEventType, dwFlags);
         }
 
@@ -1212,7 +1212,7 @@ namespace ManagedCorDebug
         /// the instruction pointer will be in the leaf frame of the thread, at the sequence point before (this may be several
         /// instructions before) the instruction that led to the exception.
         /// </remarks>
-        public void ExceptionUnwind(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, CorDebugExceptionUnwindCallbackType dwEventType, uint dwFlags)
+        public void ExceptionUnwind(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, CorDebugExceptionUnwindCallbackType dwEventType, int dwFlags)
         {
             HRESULT hr;
 
@@ -1233,7 +1233,7 @@ namespace ManagedCorDebug
         /// the instruction pointer will be in the leaf frame of the thread, at the sequence point before (this may be several
         /// instructions before) the instruction that led to the exception.
         /// </remarks>
-        public HRESULT TryExceptionUnwind(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, CorDebugExceptionUnwindCallbackType dwEventType, uint dwFlags)
+        public HRESULT TryExceptionUnwind(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, CorDebugExceptionUnwindCallbackType dwEventType, int dwFlags)
         {
             /*HRESULT ExceptionUnwind(
             [MarshalAs(UnmanagedType.Interface), In]
@@ -1241,7 +1241,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugThread pThread,
             [In] CorDebugExceptionUnwindCallbackType dwEventType,
-            [In] uint dwFlags);*/
+            [In] int dwFlags);*/
             return Raw2.ExceptionUnwind(pAppDomain, pThread, dwEventType, dwFlags);
         }
 

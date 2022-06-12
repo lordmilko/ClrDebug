@@ -99,7 +99,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetIP(out uint pnOffset);
+        HRESULT GetIP(out int pnOffset);
 
         /// <summary>
         /// Sets the instruction pointer to the specified offset location in native code.
@@ -116,7 +116,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetIP([In] uint nOffset);
+        HRESULT SetIP([In] int nOffset);
 
         /// <summary>
         /// Gets the register set for this stack frame.
@@ -140,7 +140,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLocalRegisterValue(
             [In] CorDebugRegister reg,
-            [In] uint cbSigBlob,
+            [In] int cbSigBlob,
             [In] IntPtr pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
@@ -160,7 +160,7 @@ namespace ManagedCorDebug
         HRESULT GetLocalDoubleRegisterValue(
             [In] CorDebugRegister highWordReg,
             [In] CorDebugRegister lowWordReg,
-            [In] uint cbSigBlob,
+            [In] int cbSigBlob,
             [In] IntPtr pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
@@ -175,7 +175,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLocalMemoryValue(
             [In] CORDB_ADDRESS address,
-            [In] uint cbSigBlob,
+            [In] int cbSigBlob,
             [In] IntPtr pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
@@ -192,7 +192,7 @@ namespace ManagedCorDebug
         HRESULT GetLocalRegisterMemoryValue(
             [In] CorDebugRegister highWordReg,
             [In] CORDB_ADDRESS lowWordAddress,
-            [In] uint cbSigBlob,
+            [In] int cbSigBlob,
             [In] IntPtr pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
@@ -209,7 +209,7 @@ namespace ManagedCorDebug
         HRESULT GetLocalMemoryRegisterValue(
             [In] CORDB_ADDRESS highWordAddress,
             [In] CorDebugRegister lowWordRegister,
-            [In] uint cbSigBlob,
+            [In] int cbSigBlob,
             [In] IntPtr pvSigBlob,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
@@ -224,6 +224,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CanSetIP([In] uint nOffset);
+        HRESULT CanSetIP([In] int nOffset);
     }
 }

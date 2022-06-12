@@ -79,12 +79,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the numeric identifier of the <see cref="AppDomain"/> that is currently executing.
         /// </summary>
-        public uint CurrentAppDomainId
+        public int CurrentAppDomainId
         {
             get
             {
                 HRESULT hr;
-                uint pdwAppDomainId;
+                int pdwAppDomainId;
 
                 if ((hr = TryGetCurrentAppDomainId(out pdwAppDomainId)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -111,9 +111,9 @@ namespace ManagedCorDebug
         /// The pdwAppDomainId parameter is set to the value of the <see cref="AppDomain.Id"/> property of the <see cref="AppDomain"/>
         /// in which the current thread is executing.
         /// </remarks>
-        public HRESULT TryGetCurrentAppDomainId(out uint pdwAppDomainId)
+        public HRESULT TryGetCurrentAppDomainId(out int pdwAppDomainId)
         {
-            /*HRESULT GetCurrentAppDomainId(out uint pdwAppDomainId);*/
+            /*HRESULT GetCurrentAppDomainId(out int pdwAppDomainId);*/
             return Raw.GetCurrentAppDomainId(out pdwAppDomainId);
         }
 
@@ -252,7 +252,7 @@ namespace ManagedCorDebug
         /// <see cref="CurrentAppDomainId"/>. This identifier corresponds to the <see cref="AppDomain.Id"/> property of
         /// the managed <see cref="AppDomain"/> type.
         /// </remarks>
-        public void UnloadAppDomain(uint dwAppDomainID, int fWaitUntilDone)
+        public void UnloadAppDomain(int dwAppDomainID, int fWaitUntilDone)
         {
             HRESULT hr;
 
@@ -280,9 +280,9 @@ namespace ManagedCorDebug
         /// <see cref="CurrentAppDomainId"/>. This identifier corresponds to the <see cref="AppDomain.Id"/> property of
         /// the managed <see cref="AppDomain"/> type.
         /// </remarks>
-        public HRESULT TryUnloadAppDomain(uint dwAppDomainID, int fWaitUntilDone)
+        public HRESULT TryUnloadAppDomain(int dwAppDomainID, int fWaitUntilDone)
         {
-            /*HRESULT UnloadAppDomain([In] uint dwAppDomainID, [In] int fWaitUntilDone);*/
+            /*HRESULT UnloadAppDomain([In] int dwAppDomainID, [In] int fWaitUntilDone);*/
             return Raw.UnloadAppDomain(dwAppDomainID, fWaitUntilDone);
         }
 
@@ -301,7 +301,7 @@ namespace ManagedCorDebug
         /// managed method should be executed in. You can get the value of an application domain's identifier, which corresponds
         /// to the value of the <see cref="AppDomain.Id"/> property, by calling <see cref="CurrentAppDomainId"/>.
         /// </remarks>
-        public void ExecuteInAppDomain(uint dwAppDomainID, FExecuteInAppDomainCallback pCallback, IntPtr cookie)
+        public void ExecuteInAppDomain(int dwAppDomainID, FExecuteInAppDomainCallback pCallback, IntPtr cookie)
         {
             HRESULT hr;
 
@@ -331,10 +331,10 @@ namespace ManagedCorDebug
         /// managed method should be executed in. You can get the value of an application domain's identifier, which corresponds
         /// to the value of the <see cref="AppDomain.Id"/> property, by calling <see cref="CurrentAppDomainId"/>.
         /// </remarks>
-        public HRESULT TryExecuteInAppDomain(uint dwAppDomainID, FExecuteInAppDomainCallback pCallback, IntPtr cookie)
+        public HRESULT TryExecuteInAppDomain(int dwAppDomainID, FExecuteInAppDomainCallback pCallback, IntPtr cookie)
         {
             /*HRESULT ExecuteInAppDomain(
-            [In] uint dwAppDomainID,
+            [In] int dwAppDomainID,
             [MarshalAs(UnmanagedType.FunctionPtr)] [In] FExecuteInAppDomainCallback pCallback,
             [In] IntPtr cookie);*/
             return Raw.ExecuteInAppDomain(dwAppDomainID, pCallback, cookie);
@@ -357,7 +357,7 @@ namespace ManagedCorDebug
         /// output parameter is set to the value returned by the application. If you supply a value of null for pReturnValue,
         /// ExecuteApplication does not fail, but it does not return a value.
         /// </remarks>
-        public void ExecuteApplication(string pwzAppFullName, uint dwManifestPaths, string ppwzManifestPaths, uint dwActivationData, string ppwzActivationData)
+        public void ExecuteApplication(string pwzAppFullName, int dwManifestPaths, string ppwzManifestPaths, int dwActivationData, string ppwzActivationData)
         {
             HRESULT hr;
 
@@ -389,13 +389,13 @@ namespace ManagedCorDebug
         /// output parameter is set to the value returned by the application. If you supply a value of null for pReturnValue,
         /// ExecuteApplication does not fail, but it does not return a value.
         /// </remarks>
-        public HRESULT TryExecuteApplication(string pwzAppFullName, uint dwManifestPaths, string ppwzManifestPaths, uint dwActivationData, string ppwzActivationData)
+        public HRESULT TryExecuteApplication(string pwzAppFullName, int dwManifestPaths, string ppwzManifestPaths, int dwActivationData, string ppwzActivationData)
         {
             /*HRESULT ExecuteApplication(
             [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzAppFullName,
-            [In] uint dwManifestPaths,
+            [In] int dwManifestPaths,
             [MarshalAs(UnmanagedType.LPWStr)] [In] ref string ppwzManifestPaths,
-            [In] uint dwActivationData,
+            [In] int dwActivationData,
             [MarshalAs(UnmanagedType.LPWStr)] [In] ref string ppwzActivationData,
             out int pReturnValue);*/
             int pReturnValue;
@@ -419,10 +419,10 @@ namespace ManagedCorDebug
         /// and pwzArgument represents the string value passed as a parameter to that method. If the <see cref="HRESULT"/> value is set to
         /// S_OK, pReturnValue is set to the integer value returned by the invoked method. Otherwise, pReturnValue is not set.
         /// </remarks>
-        public uint ExecuteInDefaultAppDomain(string pwzAssemblyPath, string pwzTypeName, string pwzMethodName, string pwzArgument)
+        public int ExecuteInDefaultAppDomain(string pwzAssemblyPath, string pwzTypeName, string pwzMethodName, string pwzArgument)
         {
             HRESULT hr;
-            uint pReturnValue;
+            int pReturnValue;
 
             if ((hr = TryExecuteInDefaultAppDomain(pwzAssemblyPath, pwzTypeName, pwzMethodName, pwzArgument, out pReturnValue)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -453,13 +453,13 @@ namespace ManagedCorDebug
         /// and pwzArgument represents the string value passed as a parameter to that method. If the <see cref="HRESULT"/> value is set to
         /// S_OK, pReturnValue is set to the integer value returned by the invoked method. Otherwise, pReturnValue is not set.
         /// </remarks>
-        public HRESULT TryExecuteInDefaultAppDomain(string pwzAssemblyPath, string pwzTypeName, string pwzMethodName, string pwzArgument, out uint pReturnValue)
+        public HRESULT TryExecuteInDefaultAppDomain(string pwzAssemblyPath, string pwzTypeName, string pwzMethodName, string pwzArgument, out int pReturnValue)
         {
             /*HRESULT ExecuteInDefaultAppDomain(
             [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzAssemblyPath,
             [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzTypeName,
             [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzMethodName,
-            [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzArgument, out uint pReturnValue);*/
+            [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzArgument, out int pReturnValue);*/
             return Raw.ExecuteInDefaultAppDomain(pwzAssemblyPath, pwzTypeName, pwzMethodName, pwzArgument, out pReturnValue);
         }
 

@@ -10,9 +10,9 @@ namespace ManagedCorDebug
 
         public IntPtr PpvSigBlob { get; }
 
-        public uint PbSig { get; }
+        public int PbSig { get; }
 
-        public GetMemberRefPropsResult(mdToken ptk, string szMember, IntPtr ppvSigBlob, uint pbSig)
+        public GetMemberRefPropsResult(mdToken ptk, string szMember, IntPtr ppvSigBlob, int pbSig)
         {
             Ptk = ptk;
             SzMember = szMember;

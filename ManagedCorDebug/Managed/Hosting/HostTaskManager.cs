@@ -24,12 +24,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets or sets the amount of stack space that is guaranteed to be available after a stack operation completes, but before the closing of a process.
         /// </summary>
-        public uint StackGuarantee
+        public int StackGuarantee
         {
             get
             {
                 HRESULT hr;
-                uint pGuarantee;
+                int pGuarantee;
 
                 if ((hr = TryGetStackGuarantee(out pGuarantee)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -49,18 +49,18 @@ namespace ManagedCorDebug
         /// Gets the amount of stack space that is guaranteed to be available after a stack operation completes, but before the closing of a process.
         /// </summary>
         /// <param name="pGuarantee">[out] A pointer to the number of bytes that are available.</param>
-        public HRESULT TryGetStackGuarantee(out uint pGuarantee)
+        public HRESULT TryGetStackGuarantee(out int pGuarantee)
         {
-            /*HRESULT GetStackGuarantee([Out] out uint pGuarantee);*/
+            /*HRESULT GetStackGuarantee([Out] out int pGuarantee);*/
             return Raw.GetStackGuarantee(out pGuarantee);
         }
 
         /// <summary>
         /// Reserved for internal use only.
         /// </summary>
-        public HRESULT TrySetStackGuarantee(uint guarantee)
+        public HRESULT TrySetStackGuarantee(int guarantee)
         {
-            /*HRESULT SetStackGuarantee([In] uint guarantee);*/
+            /*HRESULT SetStackGuarantee([In] int guarantee);*/
             return Raw.SetStackGuarantee(guarantee);
         }
 
@@ -79,7 +79,7 @@ namespace ManagedCorDebug
         /// The CLR calls CreateTask to request that the host create a new task. The host returns an interface pointer to an
         /// <see cref="IHostTask"/> instance. The returned task must remain suspended until it is explicitly started by a call to IHostTask::Start.
         /// </remarks>
-        public HostTaskManager CreateTask(uint dwStackSize, LPTHREAD_START_ROUTINE pStartAddress, IntPtr pParameter)
+        public HostTaskManager CreateTask(int dwStackSize, LPTHREAD_START_ROUTINE pStartAddress, IntPtr pParameter)
         {
             HRESULT hr;
             HostTaskManager ppTaskResult;
@@ -113,10 +113,10 @@ namespace ManagedCorDebug
         /// The CLR calls CreateTask to request that the host create a new task. The host returns an interface pointer to an
         /// <see cref="IHostTask"/> instance. The returned task must remain suspended until it is explicitly started by a call to IHostTask::Start.
         /// </remarks>
-        public HRESULT TryCreateTask(uint dwStackSize, LPTHREAD_START_ROUTINE pStartAddress, IntPtr pParameter, out HostTaskManager ppTaskResult)
+        public HRESULT TryCreateTask(int dwStackSize, LPTHREAD_START_ROUTINE pStartAddress, IntPtr pParameter, out HostTaskManager ppTaskResult)
         {
             /*HRESULT CreateTask(
-            [In] uint dwStackSize,
+            [In] int dwStackSize,
             [In, MarshalAs(UnmanagedType.FunctionPtr)] LPTHREAD_START_ROUTINE pStartAddress,
             [In] IntPtr pParameter,
             [Out] out IHostTaskManager ppTask);*/
@@ -142,7 +142,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The CLR typically calls <see cref="Sleep"/> when <see cref="Thread.Sleep(int)"/> is called from user code.
         /// </remarks>
-        public void Sleep(uint dwMilliseconds, uint option)
+        public void Sleep(int dwMilliseconds, int option)
         {
             HRESULT hr;
 
@@ -168,11 +168,11 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The CLR typically calls <see cref="Sleep"/> when <see cref="Thread.Sleep(int)"/> is called from user code.
         /// </remarks>
-        public HRESULT TrySleep(uint dwMilliseconds, uint option)
+        public HRESULT TrySleep(int dwMilliseconds, int option)
         {
             /*HRESULT Sleep(
-            [In] uint dwMilliseconds,
-            [In] uint option);*/
+            [In] int dwMilliseconds,
+            [In] int option);*/
             return Raw.Sleep(dwMilliseconds, option);
         }
 
@@ -186,7 +186,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The host can switch in another task as desired or needed.
         /// </remarks>
-        public void SwitchToTask(uint option)
+        public void SwitchToTask(int option)
         {
             HRESULT hr;
 
@@ -211,10 +211,10 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The host can switch in another task as desired or needed.
         /// </remarks>
-        public HRESULT TrySwitchToTask(uint option)
+        public HRESULT TrySwitchToTask(int option)
         {
             /*HRESULT SwitchToTask(
-            [In] uint option);*/
+            [In] int option);*/
             return Raw.SwitchToTask(option);
         }
 
@@ -334,7 +334,7 @@ namespace ManagedCorDebug
         /// code by using calls to <see cref="EnterRuntime"/>, <see cref="LeaveRuntime"/>, <see cref="ReverseEnterRuntime"/>,
         /// and <see cref="ReverseLeaveRuntime"/>.
         /// </remarks>
-        public int CallNeedsHostHook(uint target)
+        public int CallNeedsHostHook(int target)
         {
             HRESULT hr;
             int pbCallNeedsHostHook;
@@ -370,10 +370,10 @@ namespace ManagedCorDebug
         /// code by using calls to <see cref="EnterRuntime"/>, <see cref="LeaveRuntime"/>, <see cref="ReverseEnterRuntime"/>,
         /// and <see cref="ReverseLeaveRuntime"/>.
         /// </remarks>
-        public HRESULT TryCallNeedsHostHook(uint target, out int pbCallNeedsHostHook)
+        public HRESULT TryCallNeedsHostHook(int target, out int pbCallNeedsHostHook)
         {
             /*HRESULT CallNeedsHostHook(
-            [In] uint target,
+            [In] int target,
             [Out] out int pbCallNeedsHostHook);*/
             return Raw.CallNeedsHostHook(target, out pbCallNeedsHostHook);
         }
@@ -390,7 +390,7 @@ namespace ManagedCorDebug
         /// in which the sequence of calls to LeaveRuntime, <see cref="ReverseEnterRuntime"/>, <see cref="ReverseLeaveRuntime"/>,
         /// and <see cref="EnterRuntime"/> allows the host to identify the nested layers.
         /// </remarks>
-        public void LeaveRuntime(uint target)
+        public void LeaveRuntime(int target)
         {
             HRESULT hr;
 
@@ -418,9 +418,9 @@ namespace ManagedCorDebug
         /// in which the sequence of calls to LeaveRuntime, <see cref="ReverseEnterRuntime"/>, <see cref="ReverseLeaveRuntime"/>,
         /// and <see cref="EnterRuntime"/> allows the host to identify the nested layers.
         /// </remarks>
-        public HRESULT TryLeaveRuntime(uint target)
+        public HRESULT TryLeaveRuntime(int target)
         {
-            /*HRESULT LeaveRuntime([In] uint target);*/
+            /*HRESULT LeaveRuntime([In] int target);*/
             return Raw.LeaveRuntime(target);
         }
 

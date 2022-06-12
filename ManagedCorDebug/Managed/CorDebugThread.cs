@@ -56,12 +56,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the current operating system identifier of the active part of this <see cref="ICorDebugThread"/>.
         /// </summary>
-        public uint Id
+        public int Id
         {
             get
             {
                 HRESULT hr;
-                uint pdwThreadId;
+                int pdwThreadId;
 
                 if ((hr = TryGetID(out pdwThreadId)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -78,9 +78,9 @@ namespace ManagedCorDebug
         /// The operating system identifier can potentially change during execution of a process, and can be a different value
         /// for different parts of the thread.
         /// </remarks>
-        public HRESULT TryGetID(out uint pdwThreadId)
+        public HRESULT TryGetID(out int pdwThreadId)
         {
-            /*HRESULT GetID(out uint pdwThreadId);*/
+            /*HRESULT GetID(out int pdwThreadId);*/
             return Raw.GetID(out pdwThreadId);
         }
 
@@ -628,12 +628,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the connection identifier for this <see cref="ICorDebugThread2"/> object.
         /// </summary>
-        public uint ConnectionID
+        public int ConnectionID
         {
             get
             {
                 HRESULT hr;
-                uint pdwConnectionId;
+                int pdwConnectionId;
 
                 if ((hr = TryGetConnectionID(out pdwConnectionId)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -651,9 +651,9 @@ namespace ManagedCorDebug
         /// If this thread is connected to an instance of Microsoft SQL Server 2005 Analysis Services (SSAS), the CONNID maps
         /// to a server process identifier (SPID).
         /// </remarks>
-        public HRESULT TryGetConnectionID(out uint pdwConnectionId)
+        public HRESULT TryGetConnectionID(out int pdwConnectionId)
         {
-            /*HRESULT GetConnectionID(out uint pdwConnectionId);*/
+            /*HRESULT GetConnectionID(out int pdwConnectionId);*/
             return Raw2.GetConnectionID(out pdwConnectionId);
         }
 
@@ -663,12 +663,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the identifier of the task running on this thread.
         /// </summary>
-        public ulong TaskID
+        public long TaskID
         {
             get
             {
                 HRESULT hr;
-                ulong pTaskId;
+                long pTaskId;
 
                 if ((hr = TryGetTaskID(out pTaskId)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -685,9 +685,9 @@ namespace ManagedCorDebug
         /// A task can only be running on the thread if the thread is associated with a connection. GetTaskID returns zero
         /// in pTaskId if the thread is not associated with a connection.
         /// </remarks>
-        public HRESULT TryGetTaskID(out ulong pTaskId)
+        public HRESULT TryGetTaskID(out long pTaskId)
         {
-            /*HRESULT GetTaskID(out ulong pTaskId);*/
+            /*HRESULT GetTaskID(out long pTaskId);*/
             return Raw2.GetTaskID(out pTaskId);
         }
 
@@ -697,12 +697,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the operating system thread identifier for this <see cref="ICorDebugThread2"/>.
         /// </summary>
-        public uint VolatileOSThreadID
+        public int VolatileOSThreadID
         {
             get
             {
                 HRESULT hr;
-                uint pdwTid;
+                int pdwTid;
 
                 if ((hr = TryGetVolatileOSThreadID(out pdwTid)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -715,9 +715,9 @@ namespace ManagedCorDebug
         /// Gets the operating system thread identifier for this <see cref="ICorDebugThread2"/>.
         /// </summary>
         /// <param name="pdwTid">[out] The operating system thread identifier for this thread.</param>
-        public HRESULT TryGetVolatileOSThreadID(out uint pdwTid)
+        public HRESULT TryGetVolatileOSThreadID(out int pdwTid)
         {
-            /*HRESULT GetVolatileOSThreadID(out uint pdwTid);*/
+            /*HRESULT GetVolatileOSThreadID(out int pdwTid);*/
             return Raw2.GetVolatileOSThreadID(out pdwTid);
         }
 
@@ -735,7 +735,7 @@ namespace ManagedCorDebug
         /// method is intended as an optimization over getting the same information from frames in a stack trace, and includes
         /// only frames that would have had an <see cref="ICorDebugILFrame"/> object for them in the full stack trace.
         /// </remarks>
-        public GetActiveFunctionsResult GetActiveFunctions(uint cFunctions)
+        public GetActiveFunctionsResult GetActiveFunctions(int cFunctions)
         {
             HRESULT hr;
             GetActiveFunctionsResult result;
@@ -757,11 +757,11 @@ namespace ManagedCorDebug
         /// method is intended as an optimization over getting the same information from frames in a stack trace, and includes
         /// only frames that would have had an <see cref="ICorDebugILFrame"/> object for them in the full stack trace.
         /// </remarks>
-        public HRESULT TryGetActiveFunctions(uint cFunctions, out GetActiveFunctionsResult result)
+        public HRESULT TryGetActiveFunctions(int cFunctions, out GetActiveFunctionsResult result)
         {
-            /*HRESULT GetActiveFunctions([In] uint cFunctions, out uint pcFunctions,
+            /*HRESULT GetActiveFunctions([In] int cFunctions, out int pcFunctions,
             [MarshalAs(UnmanagedType.LPArray), In, Out] COR_ACTIVE_FUNCTION[] pFunctions);*/
-            uint pcFunctions;
+            int pcFunctions;
             COR_ACTIVE_FUNCTION[] pFunctions = null;
             HRESULT hr = Raw2.GetActiveFunctions(cFunctions, out pcFunctions, pFunctions);
 
@@ -782,7 +782,7 @@ namespace ManagedCorDebug
         /// <param name="pFrame">[in] A pointer to an <see cref="ICorDebugFrame"/> that represents the active stack frame.</param>
         /// <remarks>
         /// The InterceptCurrentException method can be called between an exception callback (<see cref="CorDebugManagedCallback.Exception(ICorDebugAppDomain, ICorDebugThread, int)"/>
-        /// or <see cref="CorDebugManagedCallback.Exception(ICorDebugAppDomain, ICorDebugThread, ICorDebugFrame, uint, CorDebugExceptionCallbackType, uint)"/>) and the associated call to <see cref="CorDebugController.Continue"/>.
+        /// or <see cref="CorDebugManagedCallback.Exception(ICorDebugAppDomain, ICorDebugThread, ICorDebugFrame, int, CorDebugExceptionCallbackType, int)"/>) and the associated call to <see cref="CorDebugController.Continue"/>.
         /// </remarks>
         public void InterceptCurrentException(ICorDebugFrame pFrame)
         {
@@ -798,7 +798,7 @@ namespace ManagedCorDebug
         /// <param name="pFrame">[in] A pointer to an <see cref="ICorDebugFrame"/> that represents the active stack frame.</param>
         /// <remarks>
         /// The InterceptCurrentException method can be called between an exception callback (<see cref="CorDebugManagedCallback.Exception(ICorDebugAppDomain, ICorDebugThread, int)"/>
-        /// or <see cref="CorDebugManagedCallback.Exception(ICorDebugAppDomain, ICorDebugThread, ICorDebugFrame, uint, CorDebugExceptionCallbackType, uint)"/>) and the associated call to <see cref="CorDebugController.Continue"/>.
+        /// or <see cref="CorDebugManagedCallback.Exception(ICorDebugAppDomain, ICorDebugThread, ICorDebugFrame, int, CorDebugExceptionCallbackType, int)"/>) and the associated call to <see cref="CorDebugController.Continue"/>.
         /// </remarks>
         public HRESULT TryInterceptCurrentException(ICorDebugFrame pFrame)
         {
@@ -880,7 +880,7 @@ namespace ManagedCorDebug
         /// (pcInternalFrames) in the cInternalFrames parameter, and specify a pointer to an appropriately sized array in ppInternalFrames.
         /// Use the <see cref="GetActiveInternalFrames"/> method to return actual stack frames.
         /// </remarks>
-        public GetActiveInternalFramesResult GetActiveInternalFrames(uint cInternalFrames)
+        public GetActiveInternalFramesResult GetActiveInternalFrames(int cInternalFrames)
         {
             HRESULT hr;
             GetActiveInternalFramesResult result;
@@ -913,13 +913,13 @@ namespace ManagedCorDebug
         /// (pcInternalFrames) in the cInternalFrames parameter, and specify a pointer to an appropriately sized array in ppInternalFrames.
         /// Use the <see cref="GetActiveInternalFrames"/> method to return actual stack frames.
         /// </remarks>
-        public HRESULT TryGetActiveInternalFrames(uint cInternalFrames, out GetActiveInternalFramesResult result)
+        public HRESULT TryGetActiveInternalFrames(int cInternalFrames, out GetActiveInternalFramesResult result)
         {
             /*HRESULT GetActiveInternalFrames(
-            [In] uint cInternalFrames,
-            out uint pcInternalFrames,
+            [In] int cInternalFrames,
+            out int pcInternalFrames,
             [In, Out] IntPtr ppInternalFrames);*/
-            uint pcInternalFrames;
+            int pcInternalFrames;
             IntPtr ppInternalFrames = default(IntPtr);
             HRESULT hr = Raw3.GetActiveInternalFrames(cInternalFrames, out pcInternalFrames, ppInternalFrames);
 

@@ -30,7 +30,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetID(out uint pdwThreadId);
+        HRESULT GetID(out int pdwThreadId);
 
         /// <summary>
         /// Gets the current handle for the active part of this <see cref="ICorDebugThread"/>.

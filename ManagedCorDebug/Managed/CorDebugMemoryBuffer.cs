@@ -48,12 +48,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the size of the memory buffer in bytes.
         /// </summary>
-        public uint Size
+        public int Size
         {
             get
             {
                 HRESULT hr;
-                uint pcbBufferLength;
+                int pcbBufferLength;
 
                 if ((hr = TryGetSize(out pcbBufferLength)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -66,9 +66,9 @@ namespace ManagedCorDebug
         /// Gets the size of the memory buffer in bytes.
         /// </summary>
         /// <param name="pcbBufferLength">[out] A pointer to the size of the memory buffer.</param>
-        public HRESULT TryGetSize(out uint pcbBufferLength)
+        public HRESULT TryGetSize(out int pcbBufferLength)
         {
-            /*HRESULT GetSize(out uint pcbBufferLength);*/
+            /*HRESULT GetSize(out int pcbBufferLength);*/
             return Raw.GetSize(out pcbBufferLength);
         }
 

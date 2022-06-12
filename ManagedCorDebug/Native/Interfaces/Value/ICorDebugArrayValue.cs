@@ -39,7 +39,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetSize(out uint pSize);
+        new HRESULT GetSize(out int pSize);
 
         /// <summary>
         /// Gets the address of this "ICorDebugValue" object, which is in the process of being debugged.
@@ -94,7 +94,7 @@ namespace ManagedCorDebug
         /// <param name="pnRank">[out] A pointer to the number of dimensions in this <see cref="ICorDebugArrayValue"/> object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRank(out uint pnRank);
+        HRESULT GetRank(out int pnRank);
 
         /// <summary>
         /// Gets the total number of elements in the array.
@@ -102,7 +102,7 @@ namespace ManagedCorDebug
         /// <param name="pnCount">[out] A pointer to the total number of elements in the array.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCount(out uint pnCount);
+        HRESULT GetCount(out int pnCount);
 
         /// <summary>
         /// Gets the number of elements in each dimension of this array.
@@ -111,7 +111,7 @@ namespace ManagedCorDebug
         /// <param name="dims">[out] An array of integers, each of which specifies the number of elements in a dimension in this <see cref="ICorDebugArrayValue"/> object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetDimensions([In] uint cdim, [MarshalAs(UnmanagedType.LPArray), Out] uint[] dims);
+        HRESULT GetDimensions([In] int cdim, [MarshalAs(UnmanagedType.LPArray), Out] int[] dims);
 
         /// <summary>
         /// Gets a value that indicates whether any dimensions of this array have a base index of non-zero.
@@ -128,7 +128,7 @@ namespace ManagedCorDebug
         /// <param name="indicies">[out] An array of integers, each of which is the base index (that is, the starting index) of a dimension of this <see cref="ICorDebugArrayValue"/> object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetBaseIndicies([In] uint cdim, [MarshalAs(UnmanagedType.LPArray), Out] uint[] indicies);
+        HRESULT GetBaseIndicies([In] int cdim, [MarshalAs(UnmanagedType.LPArray), Out] int[] indicies);
 
         /// <summary>
         /// Gets the value of the given array element.
@@ -140,8 +140,8 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetElement(
-            [In] uint cdim,
-            [MarshalAs(UnmanagedType.LPArray), In] uint indices,
+            [In] int cdim,
+            [MarshalAs(UnmanagedType.LPArray), In] int indices,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         /// <summary>
@@ -154,6 +154,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetElementAtPosition([In] uint nPosition, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
+        HRESULT GetElementAtPosition([In] int nPosition, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
     }
 }

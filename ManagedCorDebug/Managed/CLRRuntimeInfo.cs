@@ -53,15 +53,15 @@ namespace ManagedCorDebug
         public HRESULT TryGetVersionString(out string pwzBufferResult)
         {
             /*HRESULT GetVersionString([MarshalAs(UnmanagedType.LPWStr), Out]
-            StringBuilder pwzBuffer, [In] [Out] ref uint pcchBuffer);*/
+            StringBuilder pwzBuffer, [In] [Out] ref int pcchBuffer);*/
             StringBuilder pwzBuffer = null;
-            uint pcchBuffer = default(uint);
+            int pcchBuffer = default(int);
             HRESULT hr = Raw.GetVersionString(pwzBuffer, ref pcchBuffer);
 
             if (hr != HRESULT.S_FALSE)
                 goto fail;
 
-            pwzBuffer = new StringBuilder((int) pcchBuffer);
+            pwzBuffer = new StringBuilder(pcchBuffer);
             hr = Raw.GetVersionString(pwzBuffer, ref pcchBuffer);
 
             if (hr == HRESULT.S_OK)
@@ -112,15 +112,15 @@ namespace ManagedCorDebug
         public HRESULT TryGetRuntimeDirectory(out string pwzBufferResult)
         {
             /*HRESULT GetRuntimeDirectory([MarshalAs(UnmanagedType.LPWStr), Out]
-            StringBuilder pwzBuffer, [In] [Out] ref uint pcchBuffer);*/
+            StringBuilder pwzBuffer, [In] [Out] ref int pcchBuffer);*/
             StringBuilder pwzBuffer = null;
-            uint pcchBuffer = default(uint);
+            int pcchBuffer = default(int);
             HRESULT hr = Raw.GetRuntimeDirectory(pwzBuffer, ref pcchBuffer);
 
             if (hr != HRESULT.S_FALSE)
                 goto fail;
 
-            pwzBuffer = new StringBuilder((int) pcchBuffer);
+            pwzBuffer = new StringBuilder(pcchBuffer);
             hr = Raw.GetRuntimeDirectory(pwzBuffer, ref pcchBuffer);
 
             if (hr == HRESULT.S_OK)
@@ -219,9 +219,9 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryIsStarted(out IsStartedResult result)
         {
-            /*HRESULT IsStarted(out int pbStarted, out uint pdwStartupFlags);*/
+            /*HRESULT IsStarted(out int pbStarted, out int pdwStartupFlags);*/
             int pbStarted;
-            uint pdwStartupFlags;
+            int pdwStartupFlags;
             HRESULT hr = Raw.IsStarted(out pbStarted, out pdwStartupFlags);
 
             if (hr == HRESULT.S_OK)
@@ -328,16 +328,16 @@ namespace ManagedCorDebug
             /*HRESULT LoadErrorString(
             [In] HRESULT iResourceID,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder pwzBuffer,
-            [In, Out] ref uint pcchBuffer,
+            [In, Out] ref int pcchBuffer,
             [In] int iLocaleID);*/
             StringBuilder pwzBuffer = null;
-            uint pcchBuffer = default(uint);
+            int pcchBuffer = default(int);
             HRESULT hr = Raw.LoadErrorString(iResourceID, pwzBuffer, ref pcchBuffer, iLocaleID);
 
             if (hr != HRESULT.S_FALSE)
                 goto fail;
 
-            pwzBuffer = new StringBuilder((int) pcchBuffer);
+            pwzBuffer = new StringBuilder(pcchBuffer);
             hr = Raw.LoadErrorString(iResourceID, pwzBuffer, ref pcchBuffer, iLocaleID);
 
             if (hr == HRESULT.S_OK)
@@ -517,7 +517,7 @@ namespace ManagedCorDebug
         /// A multithreaded host should synchronize calls to this method. Otherwise, thread A might call the SetStartupFlags
         /// method after thread B completes a call to SetStartupFlags and before thread B starts the runtime.
         /// </remarks>
-        public void SetDefaultStartupFlags(uint dwStartupFlags, string pwzHostConfigFile)
+        public void SetDefaultStartupFlags(int dwStartupFlags, string pwzHostConfigFile)
         {
             HRESULT hr;
 
@@ -541,9 +541,9 @@ namespace ManagedCorDebug
         /// A multithreaded host should synchronize calls to this method. Otherwise, thread A might call the SetStartupFlags
         /// method after thread B completes a call to SetStartupFlags and before thread B starts the runtime.
         /// </remarks>
-        public HRESULT TrySetDefaultStartupFlags(uint dwStartupFlags, string pwzHostConfigFile)
+        public HRESULT TrySetDefaultStartupFlags(int dwStartupFlags, string pwzHostConfigFile)
         {
-            /*HRESULT SetDefaultStartupFlags([In] uint dwStartupFlags,
+            /*HRESULT SetDefaultStartupFlags([In] int dwStartupFlags,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzHostConfigFile);*/
             return Raw.SetDefaultStartupFlags(dwStartupFlags, pwzHostConfigFile);
         }
@@ -590,19 +590,19 @@ namespace ManagedCorDebug
         public HRESULT TryGetDefaultStartupFlags(out GetDefaultStartupFlagsResult result)
         {
             /*HRESULT GetDefaultStartupFlags(
-            out uint pdwStartupFlags,
+            out int pdwStartupFlags,
             [MarshalAs(UnmanagedType.LPWStr), Out]
             StringBuilder pwzHostConfigFile,
-            [In] [Out] ref uint pcchHostConfigFile);*/
-            uint pdwStartupFlags;
+            [In] [Out] ref int pcchHostConfigFile);*/
+            int pdwStartupFlags;
             StringBuilder pwzHostConfigFile = null;
-            uint pcchHostConfigFile = default(uint);
+            int pcchHostConfigFile = default(int);
             HRESULT hr = Raw.GetDefaultStartupFlags(out pdwStartupFlags, pwzHostConfigFile, ref pcchHostConfigFile);
 
             if (hr != HRESULT.S_FALSE)
                 goto fail;
 
-            pwzHostConfigFile = new StringBuilder((int) pcchHostConfigFile);
+            pwzHostConfigFile = new StringBuilder(pcchHostConfigFile);
             hr = Raw.GetDefaultStartupFlags(out pdwStartupFlags, pwzHostConfigFile, ref pcchHostConfigFile);
 
             if (hr == HRESULT.S_OK)

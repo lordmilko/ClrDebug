@@ -244,12 +244,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the version number of the latest edit made to the function represented by this <see cref="ICorDebugFunction"/> object.
         /// </summary>
-        public uint CurrentVersionNumber
+        public int CurrentVersionNumber
         {
             get
             {
                 HRESULT hr;
-                uint pnCurrentVersion;
+                int pnCurrentVersion;
 
                 if ((hr = TryGetCurrentVersionNumber(out pnCurrentVersion)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -267,9 +267,9 @@ namespace ManagedCorDebug
         /// itself. Use either the <see cref="VersionNumber"/> property or the <see cref="CorDebugCode.VersionNumber"/>
         /// property to retrieve the version number of the function.
         /// </remarks>
-        public HRESULT TryGetCurrentVersionNumber(out uint pnCurrentVersion)
+        public HRESULT TryGetCurrentVersionNumber(out int pnCurrentVersion)
         {
-            /*HRESULT GetCurrentVersionNumber(out uint pnCurrentVersion);*/
+            /*HRESULT GetCurrentVersionNumber(out int pnCurrentVersion);*/
             return Raw.GetCurrentVersionNumber(out pnCurrentVersion);
         }
 
@@ -379,12 +379,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the Edit and Continue version of this function.
         /// </summary>
-        public uint VersionNumber
+        public int VersionNumber
         {
             get
             {
                 HRESULT hr;
-                uint pnVersion;
+                int pnVersion;
 
                 if ((hr = TryGetVersionNumber(out pnVersion)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -409,9 +409,9 @@ namespace ManagedCorDebug
         /// number obtained by the GetVersionNumber method may be lower than that obtained by <see cref="CurrentVersionNumber"/>.
         /// The <see cref="CorDebugCode.VersionNumber"/> property performs the same operation as ICorDebugFunction2::GetVersionNumber.
         /// </remarks>
-        public HRESULT TryGetVersionNumber(out uint pnVersion)
+        public HRESULT TryGetVersionNumber(out int pnVersion)
         {
-            /*HRESULT GetVersionNumber(out uint pnVersion);*/
+            /*HRESULT GetVersionNumber(out int pnVersion);*/
             return Raw2.GetVersionNumber(out pnVersion);
         }
 

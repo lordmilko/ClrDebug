@@ -29,6 +29,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSize64(out ulong pSize);
+        HRESULT GetSize64(out long pSize);
     }
 }

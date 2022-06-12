@@ -25,7 +25,7 @@ namespace ManagedCorDebug
         /// a memory region. The enumeration will continue even if this method returns an <see cref="HRESULT"/> indicating failure. Regions
         /// reported by this callback may be duplicates or overlapping regions.
         /// </remarks>
-        public void EnumMemoryRegion(ulong address, uint size)
+        public void EnumMemoryRegion(long address, int size)
         {
             HRESULT hr;
 
@@ -43,9 +43,9 @@ namespace ManagedCorDebug
         /// a memory region. The enumeration will continue even if this method returns an <see cref="HRESULT"/> indicating failure. Regions
         /// reported by this callback may be duplicates or overlapping regions.
         /// </remarks>
-        public HRESULT TryEnumMemoryRegion(ulong address, uint size)
+        public HRESULT TryEnumMemoryRegion(long address, int size)
         {
-            /*HRESULT EnumMemoryRegion([In] ulong address, [In] uint size);*/
+            /*HRESULT EnumMemoryRegion([In] long address, [In] int size);*/
             return Raw.EnumMemoryRegion(address, size);
         }
 
@@ -57,7 +57,7 @@ namespace ManagedCorDebug
 
         #region UpdateMemoryRegion
 
-        public void UpdateMemoryRegion(ulong address, uint bufferSize, IntPtr buffer)
+        public void UpdateMemoryRegion(long address, int bufferSize, IntPtr buffer)
         {
             HRESULT hr;
 
@@ -65,9 +65,9 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
-        public HRESULT TryUpdateMemoryRegion(ulong address, uint bufferSize, IntPtr buffer)
+        public HRESULT TryUpdateMemoryRegion(long address, int bufferSize, IntPtr buffer)
         {
-            /*HRESULT UpdateMemoryRegion([In] ulong address, [In] uint bufferSize, [In] IntPtr buffer);*/
+            /*HRESULT UpdateMemoryRegion([In] long address, [In] int bufferSize, [In] IntPtr buffer);*/
             return Raw2.UpdateMemoryRegion(address, bufferSize, buffer);
         }
 

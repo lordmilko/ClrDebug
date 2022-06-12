@@ -148,12 +148,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the length, in bytes, of the embedded source.
         /// </summary>
-        public uint SourceLength
+        public int SourceLength
         {
             get
             {
                 HRESULT hr;
-                uint pRetVal;
+                int pRetVal;
 
                 if ((hr = TryGetSourceLength(out pRetVal)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -167,9 +167,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pRetVal">[out] A pointer to a variable that indicates the length, in bytes, of the embedded source.</param>
         /// <returns>S_OK if the method succeeds.</returns>
-        public HRESULT TryGetSourceLength(out uint pRetVal)
+        public HRESULT TryGetSourceLength(out int pRetVal)
         {
-            /*HRESULT GetSourceLength([Out] out uint pRetVal);*/
+            /*HRESULT GetSourceLength([Out] out int pRetVal);*/
             return Raw.GetSourceLength(out pRetVal);
         }
 
@@ -199,11 +199,11 @@ namespace ManagedCorDebug
         public HRESULT TryGetURL(out string szUrlResult)
         {
             /*HRESULT GetURL(
-            [In] uint cchUrl,
-            out uint pcchUrl,
+            [In] int cchUrl,
+            out int pcchUrl,
             [Out] StringBuilder szUrl);*/
-            uint cchUrl = 0;
-            uint pcchUrl;
+            int cchUrl = 0;
+            int pcchUrl;
             StringBuilder szUrl = null;
             HRESULT hr = Raw.GetURL(cchUrl, out pcchUrl, szUrl);
 
@@ -211,7 +211,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchUrl = pcchUrl;
-            szUrl = new StringBuilder((int) pcchUrl);
+            szUrl = new StringBuilder(pcchUrl);
             hr = Raw.GetURL(cchUrl, out pcchUrl, szUrl);
 
             if (hr == HRESULT.S_OK)
@@ -235,7 +235,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cData">[in] The length of the buffer provided by the data parameter</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetCheckSumResult GetCheckSum(uint cData)
+        public GetCheckSumResult GetCheckSum(int cData)
         {
             HRESULT hr;
             GetCheckSumResult result;
@@ -252,10 +252,10 @@ namespace ManagedCorDebug
         /// <param name="cData">[in] The length of the buffer provided by the data parameter</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
-        public HRESULT TryGetCheckSum(uint cData, out GetCheckSumResult result)
+        public HRESULT TryGetCheckSum(int cData, out GetCheckSumResult result)
         {
-            /*HRESULT GetCheckSum([In] uint cData, out uint pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
-            uint pcData;
+            /*HRESULT GetCheckSum([In] int cData, out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
+            int pcData;
             byte[] data = null;
             HRESULT hr = Raw.GetCheckSum(cData, out pcData, data);
 
@@ -275,10 +275,10 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="line">[in] A line in this document.</param>
         /// <returns>[out] A pointer to a variable that receives the line.</returns>
-        public uint FindClosestLine(uint line)
+        public int FindClosestLine(int line)
         {
             HRESULT hr;
-            uint pRetVal;
+            int pRetVal;
 
             if ((hr = TryFindClosestLine(line, out pRetVal)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -292,9 +292,9 @@ namespace ManagedCorDebug
         /// <param name="line">[in] A line in this document.</param>
         /// <param name="pRetVal">[out] A pointer to a variable that receives the line.</param>
         /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
-        public HRESULT TryFindClosestLine(uint line, out uint pRetVal)
+        public HRESULT TryFindClosestLine(int line, out int pRetVal)
         {
-            /*HRESULT FindClosestLine([In] uint line, [Out] out uint pRetVal);*/
+            /*HRESULT FindClosestLine([In] int line, [Out] out int pRetVal);*/
             return Raw.FindClosestLine(line, out pRetVal);
         }
 
@@ -339,7 +339,7 @@ namespace ManagedCorDebug
         /// <param name="endColumn">[in] The final column in the current document.</param>
         /// <param name="cSourceBytes">[in] The size of the source, in bytes.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetSourceRangeResult GetSourceRange(uint startLine, uint startColumn, uint endLine, uint endColumn, uint cSourceBytes)
+        public GetSourceRangeResult GetSourceRange(int startLine, int startColumn, int endLine, int endColumn, int cSourceBytes)
         {
             HRESULT hr;
             GetSourceRangeResult result;
@@ -360,17 +360,17 @@ namespace ManagedCorDebug
         /// <param name="cSourceBytes">[in] The size of the source, in bytes.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds.</returns>
-        public HRESULT TryGetSourceRange(uint startLine, uint startColumn, uint endLine, uint endColumn, uint cSourceBytes, out GetSourceRangeResult result)
+        public HRESULT TryGetSourceRange(int startLine, int startColumn, int endLine, int endColumn, int cSourceBytes, out GetSourceRangeResult result)
         {
             /*HRESULT GetSourceRange(
-            [In] uint startLine,
-            [In] uint startColumn,
-            [In] uint endLine,
-            [In] uint endColumn,
-            [In] uint cSourceBytes,
-            out uint pcSourceBytes,
+            [In] int startLine,
+            [In] int startColumn,
+            [In] int endLine,
+            [In] int endColumn,
+            [In] int cSourceBytes,
+            out int pcSourceBytes,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] source);*/
-            uint pcSourceBytes;
+            int pcSourceBytes;
             byte[] source = null;
             HRESULT hr = Raw.GetSourceRange(startLine, startColumn, endLine, endColumn, cSourceBytes, out pcSourceBytes, source);
 

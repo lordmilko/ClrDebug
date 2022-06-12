@@ -30,7 +30,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         new HRESULT DefineScope(
             [In] ref Guid rclsid,
-            [In] uint dwCreateFlags,
+            [In] int dwCreateFlags,
             [In] ref Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);
 
@@ -77,7 +77,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         new HRESULT OpenScopeOnMemory(
             [In] IntPtr pData,
-            [In] uint cbData,
+            [In] int cbData,
             [In] CorOpenFlags dwOpenFlags,
             [In] ref Guid riid,
             [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppIUnk);
@@ -116,7 +116,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT OpenScopeOnITypeInfo(
             [MarshalAs(UnmanagedType.Interface)] ITypeInfo pITI,
-            uint dwOpenFlags,
+            int dwOpenFlags,
             ref Guid riid,
             [MarshalAs(UnmanagedType.Interface, IidParameterIndex = 2)] out object ppIUnk
         );
@@ -131,8 +131,8 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT GetCORSystemDirectory(
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] StringBuilder szBuffer,
-            [In] uint cchBuffer,
-            [Out] out uint pchBuffer);
+            [In] int cchBuffer,
+            [Out] out int pchBuffer);
 
         /// <summary>
         /// This method is not implemented. If called, it returns E_NOTIMPL.
@@ -151,8 +151,8 @@ namespace ManagedCorDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string szGlobalBin,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAssemblyName,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)] StringBuilder szName,
-            uint cchName,
-            out uint pcName);
+            int cchName,
+            out int pcName);
 
         /// <summary>
         /// This method is not implemented. If called, it returns E_NOTIMPL.
@@ -173,7 +173,7 @@ namespace ManagedCorDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAssemblyName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szModuleName,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] StringBuilder szName,
-            [In] uint cchName,
-            [Out] out uint pcName);
+            [In] int cchName,
+            [Out] out int pcName);
     }
 }

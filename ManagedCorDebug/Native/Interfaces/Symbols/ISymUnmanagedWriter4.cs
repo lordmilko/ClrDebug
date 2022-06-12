@@ -37,7 +37,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT SetUserEntryPoint([In] uint entryMethod);
+        new HRESULT SetUserEntryPoint([In] int entryMethod);
 
         /// <summary>
         /// Opens a method into which symbol information is emitted. The given method becomes the current method for calls to define sequence points, parameters, and lexical scopes.<para/>
@@ -48,7 +48,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT OpenMethod([In] uint method);
+        new HRESULT OpenMethod([In] int method);
 
         /// <summary>
         /// Closes the current method. Once a method is closed, no more symbols can be defined within it.
@@ -72,7 +72,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT OpenScope([In] uint startOffset, [Out] out uint pRetVal);
+        new HRESULT OpenScope([In] int startOffset, [Out] out int pRetVal);
 
         /// <summary>
         /// Closes the current lexical scope.
@@ -87,7 +87,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT CloseScope([In] uint endOffset);
+        new HRESULT CloseScope([In] int endOffset);
 
         /// <summary>
         /// Defines the offset range for the specified lexical scope. The scope becomes the new current scope and is pushed onto a stack of scopes.<para/>
@@ -104,7 +104,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT SetScopeRange([In] uint scopeID, [In] uint startOffset, [In] uint endOffset);
+        new HRESULT SetScopeRange([In] int scopeID, [In] int startOffset, [In] int endOffset);
 
         /// <summary>
         /// Defines a single variable in the current lexical scope. This method can be called multiple times for a variable of the same name that has multiple homes throughout a scope.<para/>
@@ -127,15 +127,15 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineLocalVariable(
             [In] string name,
-            [In] uint attributes,
-            [In] uint cSig,
+            [In] int attributes,
+            [In] int cSig,
             [In] IntPtr signature,
-            [In] uint addrKind,
-            [In] uint addr1,
-            [In] uint addr2,
-            [In] uint addr3,
-            [In] uint startOffset,
-            [In] uint endOffset);
+            [In] int addrKind,
+            [In] int addr1,
+            [In] int addr2,
+            [In] int addr3,
+            [In] int startOffset,
+            [In] int endOffset);
 
         /// <summary>
         /// Defines a single parameter in the current method. The parameter type is taken from the parameter's position (sequence) within the method's signature.<para/>
@@ -154,12 +154,12 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineParameter(
             [In] string name,
-            [In] uint attributes,
-            [In] uint sequence,
-            [In] uint addrKind,
-            [In] uint addr1,
-            [In] uint addr2,
-            [In] uint addr3);
+            [In] int attributes,
+            [In] int sequence,
+            [In] int addrKind,
+            [In] int addr1,
+            [In] int addr2,
+            [In] int addr3);
 
         /// <summary>
         /// Defines a single variable that is not within a method. This method is used for certain fields in classes, bit fields, and so on.
@@ -177,15 +177,15 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineField(
-            [In] uint parent,
+            [In] int parent,
             [In] string name,
-            [In] uint attributes,
-            [In] uint cSig,
+            [In] int attributes,
+            [In] int cSig,
             [In] IntPtr signature,
-            [In] uint addrKind,
-            [In] uint addr1,
-            [In] uint addr2,
-            [In] uint addr3);
+            [In] int addrKind,
+            [In] int addr1,
+            [In] int addr2,
+            [In] int addr3);
 
         /// <summary>
         /// Defines a single global variable.
@@ -203,13 +203,13 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineGlobalVariable(
             [In] string name,
-            [In] uint attributes,
-            [In] uint cSig,
+            [In] int attributes,
+            [In] int cSig,
             [In] IntPtr signature,
-            [In] uint addrKind,
-            [In] uint addr1,
-            [In] uint addr2,
-            [In] uint addr3);
+            [In] int addrKind,
+            [In] int addr1,
+            [In] int addr2,
+            [In] int addr3);
 
         /// <summary>
         /// Closes the symbol writer after committing the symbols to the symbol store.
@@ -233,7 +233,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT SetSymAttribute([In] uint parent, [In] string name, [In] uint cData, [In] IntPtr data);
+        new HRESULT SetSymAttribute([In] int parent, [In] string name, [In] int cData, [In] IntPtr data);
 
         /// <summary>
         /// Opens a new namespace. Call this method before defining methods or variables that occupy a namespace. Namespaces can be nested.
@@ -277,12 +277,12 @@ namespace ManagedCorDebug
         new HRESULT SetMethodSourceRange(
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocumentWriter startDoc,
-            [In] uint startLine,
-            [In] uint startColumn,
+            [In] int startLine,
+            [In] int startColumn,
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocumentWriter endDoc,
-            [In] uint endLine,
-            [In] uint endColumn);
+            [In] int endLine,
+            [In] int endColumn);
 
         /// <summary>
         /// Sets the metadata emitter interface with which this writer will be associated, and sets the output file name to which the debugging symbols will be written.<para/>
@@ -314,7 +314,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetDebugInfo([In, Out]
-            ref ulong pIDD, [In] uint cData, out uint pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);
+            ref long pIDD, [In] int cData, out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);
 
         /// <summary>
         /// Defines a group of sequence points within the current method. Each starting line and starting column define the start of a statement within a method.<para/>
@@ -334,12 +334,12 @@ namespace ManagedCorDebug
         new HRESULT DefineSequencePoints(
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocumentWriter document,
-            [In] uint spCount,
-            [In] ref uint offsets,
-            [In] ref uint lines,
-            [In] ref uint columns,
-            [In] ref uint endLines,
-            [In] ref uint endColumns);
+            [In] int spCount,
+            [In] ref int offsets,
+            [In] ref int lines,
+            [In] ref int columns,
+            [In] ref int endLines,
+            [In] ref int endColumns);
 
         /// <summary>
         /// Notifies the symbol writer that a metadata token has been remapped as the metadata was emitted. If the symbol writer has stored the old token within the symbol store, it must either update the stored token with the new value, or it must save the map for the corresponding symbol reader to remap during the read phase.
@@ -349,7 +349,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT RemapToken([In] uint oldToken, [In] uint newToken);
+        new HRESULT RemapToken([In] int oldToken, [In] int newToken);
 
         /// <summary>
         /// Sets the metadata emitter interface with which this writer will be associated, and sets the output file name to which the debugging symbols will be written.<para/>
@@ -384,7 +384,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineConstant([In] string name, [MarshalAs(UnmanagedType.Struct), In] object value,
-            [In] uint cSig, [In] IntPtr signature);
+            [In] int cSig, [In] IntPtr signature);
 
         /// <summary>
         /// Closes the symbol writer without committing the symbols to the symbol store. After this call, the symbol writer becomes invalid for further updates.<para/>
@@ -415,14 +415,14 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineLocalVariable2(
             [In] string name,
-            [In] uint attributes,
-            [In] uint sigToken,
-            [In] uint addrKind,
-            [In] uint addr1,
-            [In] uint addr2,
-            [In] uint addr3,
-            [In] uint startOffset,
-            [In] uint endOffset);
+            [In] int attributes,
+            [In] int sigToken,
+            [In] int addrKind,
+            [In] int addr1,
+            [In] int addr2,
+            [In] int addr3,
+            [In] int startOffset,
+            [In] int endOffset);
 
         /// <summary>
         /// Defines a single global variable.
@@ -439,12 +439,12 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineGlobalVariable2(
             [In] string name,
-            [In] uint attributes,
-            [In] uint sigToken,
-            [In] uint addrKind,
-            [In] uint addr1,
-            [In] uint addr2,
-            [In] uint addr3);
+            [In] int attributes,
+            [In] int sigToken,
+            [In] int addrKind,
+            [In] int addr1,
+            [In] int addr2,
+            [In] int addr3);
 
         /// <summary>
         /// Defines a name for a constant value.
@@ -456,7 +456,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineConstant2([In] string name, [MarshalAs(UnmanagedType.Struct), In] object value,
-            [In] uint sigToken);
+            [In] int sigToken);
 
         /// <summary>
         /// Opens a method and provides its real section offset in the image.
@@ -467,7 +467,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT OpenMethod2([In] uint method, [In] uint isect, [In] uint offset);
+        new HRESULT OpenMethod2([In] int method, [In] int isect, [In] int offset);
 
         /// <summary>
         /// Commits the changes written so far to the stream.
@@ -485,9 +485,9 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetDebugInfoWithPadding(
-            [In, Out] ref ulong pIDD,
-            [In] uint cData,
-            out uint pcData,
+            [In, Out] ref long pIDD,
+            [In] int cData,
+            out int pcData,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);
     }
 }

@@ -22,7 +22,7 @@ namespace ManagedCorDebug
         #region ISequentialStream
         #region RemoteRead
 
-        public RemoteReadResult RemoteRead(uint cb)
+        public RemoteReadResult RemoteRead(int cb)
         {
             HRESULT hr;
             RemoteReadResult result;
@@ -33,11 +33,11 @@ namespace ManagedCorDebug
             return result;
         }
 
-        public HRESULT TryRemoteRead(uint cb, out RemoteReadResult result)
+        public HRESULT TryRemoteRead(int cb, out RemoteReadResult result)
         {
-            /*HRESULT RemoteRead(out byte pv, [In] uint cb, out uint pcbRead);*/
+            /*HRESULT RemoteRead(out byte pv, [In] int cb, out int pcbRead);*/
             byte pv;
-            uint pcbRead;
+            int pcbRead;
             HRESULT hr = Raw.RemoteRead(out pv, cb, out pcbRead);
 
             if (hr == HRESULT.S_OK)
@@ -51,10 +51,10 @@ namespace ManagedCorDebug
         #endregion
         #region RemoteWrite
 
-        public uint RemoteWrite(IntPtr pv, uint cb)
+        public int RemoteWrite(IntPtr pv, int cb)
         {
             HRESULT hr;
-            uint pcbWritten;
+            int pcbWritten;
 
             if ((hr = TryRemoteWrite(pv, cb, out pcbWritten)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -62,9 +62,9 @@ namespace ManagedCorDebug
             return pcbWritten;
         }
 
-        public HRESULT TryRemoteWrite(IntPtr pv, uint cb, out uint pcbWritten)
+        public HRESULT TryRemoteWrite(IntPtr pv, int cb, out int pcbWritten)
         {
-            /*HRESULT RemoteWrite([In] IntPtr pv, [In] uint cb, out uint pcbWritten);*/
+            /*HRESULT RemoteWrite([In] IntPtr pv, [In] int cb, out int pcbWritten);*/
             return Raw.RemoteWrite(pv, cb, out pcbWritten);
         }
 

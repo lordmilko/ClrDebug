@@ -8,9 +8,9 @@ namespace ManagedCorDebug
 
         public mdMethodSpec[] RMethodSpecs { get; }
 
-        public uint PcMethodSpecs { get; }
+        public int PcMethodSpecs { get; }
 
-        public EnumMethodSpecsResult(IntPtr phEnum, mdMethodSpec[] rMethodSpecs, uint pcMethodSpecs)
+        public EnumMethodSpecsResult(IntPtr phEnum, mdMethodSpec[] rMethodSpecs, int pcMethodSpecs)
         {
             PhEnum = phEnum;
             RMethodSpecs = rMethodSpecs;

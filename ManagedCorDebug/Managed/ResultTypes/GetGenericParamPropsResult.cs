@@ -2,17 +2,17 @@ namespace ManagedCorDebug
 {
     public struct GetGenericParamPropsResult
     {
-        public uint PulParamSeq { get; }
+        public int PulParamSeq { get; }
 
         public CorGenericParamAttr PdwParamFlags { get; }
 
         public mdToken PtOwner { get; }
 
-        public uint Reserved { get; }
+        public int Reserved { get; }
 
         public string Wzname { get; }
 
-        public GetGenericParamPropsResult(uint pulParamSeq, CorGenericParamAttr pdwParamFlags, mdToken ptOwner, uint reserved, string wzname)
+        public GetGenericParamPropsResult(int pulParamSeq, CorGenericParamAttr pdwParamFlags, mdToken ptOwner, int reserved, string wzname)
         {
             PulParamSeq = pulParamSeq;
             PdwParamFlags = pdwParamFlags;

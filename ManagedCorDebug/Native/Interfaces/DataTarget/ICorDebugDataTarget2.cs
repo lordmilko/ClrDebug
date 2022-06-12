@@ -21,7 +21,7 @@ namespace ManagedCorDebug
         /// <param name="pSize">A pointer to the module size.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetImageFromPointer([In] CORDB_ADDRESS addr, out CORDB_ADDRESS pImageBase, out uint pSize);
+        HRESULT GetImageFromPointer([In] CORDB_ADDRESS addr, out CORDB_ADDRESS pImageBase, out int pSize);
 
         /// <summary>
         /// Returns the path of a module from the module's base address.
@@ -34,8 +34,8 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetImageLocation(
             [In] CORDB_ADDRESS baseAddress,
-            [In] uint cchName,
-            out uint pcchName,
+            [In] int cchName,
+            out int pcchName,
             [Out] StringBuilder szName);
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace ManagedCorDebug
         /// <param name="pThreadIds">An array of thread identifiers.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateThreadIDs([In] uint cThreadIds, out uint pcThreadIds, [Out] uint[] pThreadIds);
+        HRESULT EnumerateThreadIDs([In] int cThreadIds, out int pcThreadIds, [Out] int[] pThreadIds);
 
         /// <summary>
         /// Creates a new stack unwinder that starts unwinding from an initial context (which isn't necessarily the leaf of a thread).
@@ -71,9 +71,9 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateVirtualUnwinder(
-            [In] uint nativeThreadID,
-            [In] uint contextFlags,
-            [In] uint cbContext,
+            [In] int nativeThreadID,
+            [In] int contextFlags,
+            [In] int cbContext,
             [In] IntPtr initialContext,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugVirtualUnwinder ppUnwinder);
     }

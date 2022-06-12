@@ -40,8 +40,8 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetChildren(
-            [In] uint cChildren,
-            out uint pcChildren,
+            [In] int cChildren,
+            out int pcChildren,
             [Out] IntPtr children); //ISymUnmanagedScope
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetStartOffset([Out] out uint pRetVal);
+        HRESULT GetStartOffset([Out] out int pRetVal);
 
         /// <summary>
         /// Gets the end offset for this scope.
@@ -60,7 +60,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetEndOffset([Out] out uint pRetVal);
+        HRESULT GetEndOffset([Out] out int pRetVal);
 
         /// <summary>
         /// Gets a count of the local variables defined within this scope.
@@ -69,7 +69,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetLocalCount([Out] out uint pRetVal);
+        HRESULT GetLocalCount([Out] out int pRetVal);
 
         /// <summary>
         /// Gets the local variables defined within this scope.
@@ -81,8 +81,8 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLocals(
-            [In] uint cLocals,
-            out uint pcLocals,
+            [In] int cLocals,
+            out int pcLocals,
             [Out] IntPtr locals); //ISymUnmanagedVariable
 
         /// <summary>
@@ -95,8 +95,8 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetNamespaces(
-            [In] uint cNameSpaces,
-            out uint pcNameSpaces,
+            [In] int cNameSpaces,
+            out int pcNameSpaces,
             [Out] IntPtr namespaces); //ISymUnmanagedNamespace
     }
 }

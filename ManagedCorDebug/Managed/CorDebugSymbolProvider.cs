@@ -60,7 +60,7 @@ namespace ManagedCorDebug
         /// <param name="typeSig">[in] A byte array that contains the typespec signature.</param>
         /// <param name="cRequestedSymbols">[in] The number of symbols requested.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetStaticFieldSymbolsResult GetStaticFieldSymbols(uint cbSignature, IntPtr typeSig, uint cRequestedSymbols)
+        public GetStaticFieldSymbolsResult GetStaticFieldSymbols(int cbSignature, IntPtr typeSig, int cRequestedSymbols)
         {
             HRESULT hr;
             GetStaticFieldSymbolsResult result;
@@ -78,15 +78,15 @@ namespace ManagedCorDebug
         /// <param name="typeSig">[in] A byte array that contains the typespec signature.</param>
         /// <param name="cRequestedSymbols">[in] The number of symbols requested.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetStaticFieldSymbols(uint cbSignature, IntPtr typeSig, uint cRequestedSymbols, out GetStaticFieldSymbolsResult result)
+        public HRESULT TryGetStaticFieldSymbols(int cbSignature, IntPtr typeSig, int cRequestedSymbols, out GetStaticFieldSymbolsResult result)
         {
             /*HRESULT GetStaticFieldSymbols(
-            [In] uint cbSignature,
+            [In] int cbSignature,
             [In] IntPtr typeSig,
-            [In] uint cRequestedSymbols,
-            out uint pcFetchedSymbols,
+            [In] int cRequestedSymbols,
+            out int pcFetchedSymbols,
             [Out] IntPtr pSymbols);*/
-            uint pcFetchedSymbols;
+            int pcFetchedSymbols;
             IntPtr pSymbols = default(IntPtr);
             HRESULT hr = Raw.GetStaticFieldSymbols(cbSignature, typeSig, cRequestedSymbols, out pcFetchedSymbols, pSymbols);
 
@@ -108,7 +108,7 @@ namespace ManagedCorDebug
         /// <param name="typeSig">[in] A byte array that contains the typespec signature.</param>
         /// <param name="cRequestedSymbols">[in] The number of symbols requested.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetInstanceFieldSymbolsResult GetInstanceFieldSymbols(uint cbSignature, IntPtr typeSig, uint cRequestedSymbols)
+        public GetInstanceFieldSymbolsResult GetInstanceFieldSymbols(int cbSignature, IntPtr typeSig, int cRequestedSymbols)
         {
             HRESULT hr;
             GetInstanceFieldSymbolsResult result;
@@ -126,15 +126,15 @@ namespace ManagedCorDebug
         /// <param name="typeSig">[in] A byte array that contains the typespec signature.</param>
         /// <param name="cRequestedSymbols">[in] The number of symbols requested.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetInstanceFieldSymbols(uint cbSignature, IntPtr typeSig, uint cRequestedSymbols, out GetInstanceFieldSymbolsResult result)
+        public HRESULT TryGetInstanceFieldSymbols(int cbSignature, IntPtr typeSig, int cRequestedSymbols, out GetInstanceFieldSymbolsResult result)
         {
             /*HRESULT GetInstanceFieldSymbols(
-            [In] uint cbSignature,
+            [In] int cbSignature,
             [In] IntPtr typeSig,
-            [In] uint cRequestedSymbols,
-            out uint pcFetchedSymbols,
+            [In] int cRequestedSymbols,
+            out int pcFetchedSymbols,
             [Out] IntPtr pSymbols);*/
-            uint pcFetchedSymbols;
+            int pcFetchedSymbols;
             IntPtr pSymbols = default(IntPtr);
             HRESULT hr = Raw.GetInstanceFieldSymbols(cbSignature, typeSig, cRequestedSymbols, out pcFetchedSymbols, pSymbols);
 
@@ -155,7 +155,7 @@ namespace ManagedCorDebug
         /// <param name="nativeRVA">[in] The native relative virtual address of the method.</param>
         /// <param name="cRequestedSymbols">[in] The number of local symbols requested.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetMethodLocalSymbolsResult GetMethodLocalSymbols(uint nativeRVA, uint cRequestedSymbols)
+        public GetMethodLocalSymbolsResult GetMethodLocalSymbols(int nativeRVA, int cRequestedSymbols)
         {
             HRESULT hr;
             GetMethodLocalSymbolsResult result;
@@ -172,14 +172,14 @@ namespace ManagedCorDebug
         /// <param name="nativeRVA">[in] The native relative virtual address of the method.</param>
         /// <param name="cRequestedSymbols">[in] The number of local symbols requested.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetMethodLocalSymbols(uint nativeRVA, uint cRequestedSymbols, out GetMethodLocalSymbolsResult result)
+        public HRESULT TryGetMethodLocalSymbols(int nativeRVA, int cRequestedSymbols, out GetMethodLocalSymbolsResult result)
         {
             /*HRESULT GetMethodLocalSymbols(
-            [In] uint nativeRVA,
-            [In] uint cRequestedSymbols,
-            out uint pcFetchedSymbols,
+            [In] int nativeRVA,
+            [In] int cRequestedSymbols,
+            out int pcFetchedSymbols,
             [Out] IntPtr pSymbols);*/
-            uint pcFetchedSymbols;
+            int pcFetchedSymbols;
             IntPtr pSymbols = default(IntPtr);
             HRESULT hr = Raw.GetMethodLocalSymbols(nativeRVA, cRequestedSymbols, out pcFetchedSymbols, pSymbols);
 
@@ -200,7 +200,7 @@ namespace ManagedCorDebug
         /// <param name="nativeRVA">[in] The native relative virtual address of the method.</param>
         /// <param name="cRequestedSymbols">[in] The number of local symbols requested.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetMethodParameterSymbolsResult GetMethodParameterSymbols(uint nativeRVA, uint cRequestedSymbols)
+        public GetMethodParameterSymbolsResult GetMethodParameterSymbols(int nativeRVA, int cRequestedSymbols)
         {
             HRESULT hr;
             GetMethodParameterSymbolsResult result;
@@ -217,14 +217,14 @@ namespace ManagedCorDebug
         /// <param name="nativeRVA">[in] The native relative virtual address of the method.</param>
         /// <param name="cRequestedSymbols">[in] The number of local symbols requested.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetMethodParameterSymbols(uint nativeRVA, uint cRequestedSymbols, out GetMethodParameterSymbolsResult result)
+        public HRESULT TryGetMethodParameterSymbols(int nativeRVA, int cRequestedSymbols, out GetMethodParameterSymbolsResult result)
         {
             /*HRESULT GetMethodParameterSymbols(
-            [In] uint nativeRVA,
-            [In] uint cRequestedSymbols,
-            out uint pcFetchedSymbols,
+            [In] int nativeRVA,
+            [In] int cRequestedSymbols,
+            out int pcFetchedSymbols,
             [Out] IntPtr pSymbols);*/
-            uint pcFetchedSymbols;
+            int pcFetchedSymbols;
             IntPtr pSymbols = default(IntPtr);
             HRESULT hr = Raw.GetMethodParameterSymbols(nativeRVA, cRequestedSymbols, out pcFetchedSymbols, pSymbols);
 
@@ -244,7 +244,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cRequestedRecords">[in] The number of symbol records requested.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetMergedAssemblyRecordsResult GetMergedAssemblyRecords(uint cRequestedRecords)
+        public GetMergedAssemblyRecordsResult GetMergedAssemblyRecords(int cRequestedRecords)
         {
             HRESULT hr;
             GetMergedAssemblyRecordsResult result;
@@ -260,14 +260,14 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cRequestedRecords">[in] The number of symbol records requested.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetMergedAssemblyRecords(uint cRequestedRecords, out GetMergedAssemblyRecordsResult result)
+        public HRESULT TryGetMergedAssemblyRecords(int cRequestedRecords, out GetMergedAssemblyRecordsResult result)
         {
             /*HRESULT GetMergedAssemblyRecords(
-            [In] uint cRequestedRecords,
-            out uint pcFetchedRecords,
+            [In] int cRequestedRecords,
+            out int pcFetchedRecords,
             [MarshalAs(UnmanagedType.Interface), Out]
             IntPtr pRecords);*/
-            uint pcFetchedRecords;
+            int pcFetchedRecords;
             IntPtr pRecords = default(IntPtr);
             HRESULT hr = Raw.GetMergedAssemblyRecords(cRequestedRecords, out pcFetchedRecords, pRecords);
 
@@ -292,7 +292,7 @@ namespace ManagedCorDebug
         /// To get the required size of the method's signature array, set the cbSignature argument to 0 and signature to null.
         /// When the method returns, pcbSignature will contain the number of bytes required for the signature array.
         /// </remarks>
-        public GetMethodPropsResult GetMethodProps(uint codeRva, uint cbSignature)
+        public GetMethodPropsResult GetMethodProps(int codeRva, int cbSignature)
         {
             HRESULT hr;
             GetMethodPropsResult result;
@@ -313,18 +313,18 @@ namespace ManagedCorDebug
         /// To get the required size of the method's signature array, set the cbSignature argument to 0 and signature to null.
         /// When the method returns, pcbSignature will contain the number of bytes required for the signature array.
         /// </remarks>
-        public HRESULT TryGetMethodProps(uint codeRva, uint cbSignature, out GetMethodPropsResult result)
+        public HRESULT TryGetMethodProps(int codeRva, int cbSignature, out GetMethodPropsResult result)
         {
             /*HRESULT GetMethodProps(
-            [In] uint codeRva,
-            out uint pMethodToken,
-            out uint pcGenericParams,
-            [In] uint cbSignature,
-            out uint pcbSignature,
+            [In] int codeRva,
+            out int pMethodToken,
+            out int pcGenericParams,
+            [In] int cbSignature,
+            out int pcbSignature,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] signature);*/
-            uint pMethodToken;
-            uint pcGenericParams;
-            uint pcbSignature;
+            int pMethodToken;
+            int pcGenericParams;
+            int pcbSignature;
             byte[] signature = null;
             HRESULT hr = Raw.GetMethodProps(codeRva, out pMethodToken, out pcGenericParams, cbSignature, out pcbSignature, signature);
 
@@ -349,7 +349,7 @@ namespace ManagedCorDebug
         /// To get the required size of the type's signature array, set the cbSignature argument to 0 and signature to null.
         /// When the method returns, pcbSignature will contain the number of bytes required for the signature array.
         /// </remarks>
-        public GetTypePropsResult GetTypeProps(uint vtableRva, uint cbSignature)
+        public GetTypePropsResult GetTypeProps(int vtableRva, int cbSignature)
         {
             HRESULT hr;
             GetTypePropsResult result;
@@ -370,14 +370,14 @@ namespace ManagedCorDebug
         /// To get the required size of the type's signature array, set the cbSignature argument to 0 and signature to null.
         /// When the method returns, pcbSignature will contain the number of bytes required for the signature array.
         /// </remarks>
-        public HRESULT TryGetTypeProps(uint vtableRva, uint cbSignature, out GetTypePropsResult result)
+        public HRESULT TryGetTypeProps(int vtableRva, int cbSignature, out GetTypePropsResult result)
         {
             /*HRESULT GetTypeProps(
-            [In] uint vtableRva,
-            [In] uint cbSignature,
-            out uint pcbSignature,
+            [In] int vtableRva,
+            [In] int cbSignature,
+            out int pcbSignature,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] signature);*/
-            uint pcbSignature;
+            int pcbSignature;
             byte[] signature = null;
             HRESULT hr = Raw.GetTypeProps(vtableRva, cbSignature, out pcbSignature, signature);
 
@@ -397,7 +397,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="codeRva">[in] The relative virtual address (RVA) in a method.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetCodeRangeResult GetCodeRange(uint codeRva)
+        public GetCodeRangeResult GetCodeRange(int codeRva)
         {
             HRESULT hr;
             GetCodeRangeResult result;
@@ -413,11 +413,11 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="codeRva">[in] The relative virtual address (RVA) in a method.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetCodeRange(uint codeRva, out GetCodeRangeResult result)
+        public HRESULT TryGetCodeRange(int codeRva, out GetCodeRangeResult result)
         {
-            /*HRESULT GetCodeRange([In] uint codeRva, out uint pCodeStartAddress, ref uint pCodeSize);*/
-            uint pCodeStartAddress;
-            uint pCodeSize = default(uint);
+            /*HRESULT GetCodeRange([In] int codeRva, out int pCodeStartAddress, ref int pCodeSize);*/
+            int pCodeStartAddress;
+            int pCodeSize = default(int);
             HRESULT hr = Raw.GetCodeRange(codeRva, out pCodeStartAddress, ref pCodeSize);
 
             if (hr == HRESULT.S_OK)
@@ -437,7 +437,7 @@ namespace ManagedCorDebug
         /// <param name="rva">[in] A relative virtual address (RVA) in a merged assembly.</param>
         /// <param name="length">The number of bytes to read from the merged assembly.</param>
         /// <returns>A pointer to the address of an <see cref="ICorDebugMemoryBuffer"/> object that contains information about the memory buffer with merged assembly metadata.</returns>
-        public CorDebugMemoryBuffer GetAssemblyImageBytes(ulong rva, uint length)
+        public CorDebugMemoryBuffer GetAssemblyImageBytes(long rva, int length)
         {
             HRESULT hr;
             CorDebugMemoryBuffer ppMemoryBufferResult;
@@ -454,9 +454,9 @@ namespace ManagedCorDebug
         /// <param name="rva">[in] A relative virtual address (RVA) in a merged assembly.</param>
         /// <param name="length">The number of bytes to read from the merged assembly.</param>
         /// <param name="ppMemoryBufferResult">A pointer to the address of an <see cref="ICorDebugMemoryBuffer"/> object that contains information about the memory buffer with merged assembly metadata.</param>
-        public HRESULT TryGetAssemblyImageBytes(ulong rva, uint length, out CorDebugMemoryBuffer ppMemoryBufferResult)
+        public HRESULT TryGetAssemblyImageBytes(long rva, int length, out CorDebugMemoryBuffer ppMemoryBufferResult)
         {
-            /*HRESULT GetAssemblyImageBytes([In] ulong rva, [In] uint length,
+            /*HRESULT GetAssemblyImageBytes([In] long rva, [In] int length,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryBuffer ppMemoryBuffer);*/
             ICorDebugMemoryBuffer ppMemoryBuffer;
             HRESULT hr = Raw.GetAssemblyImageBytes(rva, length, out ppMemoryBuffer);
@@ -478,10 +478,10 @@ namespace ManagedCorDebug
         /// <param name="cbSignature">[in] The number of bytes in the typespec signature.</param>
         /// <param name="typeSig">[in] The typespec signature.</param>
         /// <returns>[out] A pointer to the size of the object.</returns>
-        public uint GetObjectSize(uint cbSignature, IntPtr typeSig)
+        public int GetObjectSize(int cbSignature, IntPtr typeSig)
         {
             HRESULT hr;
-            uint pObjectSize;
+            int pObjectSize;
 
             if ((hr = TryGetObjectSize(cbSignature, typeSig, out pObjectSize)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -495,9 +495,9 @@ namespace ManagedCorDebug
         /// <param name="cbSignature">[in] The number of bytes in the typespec signature.</param>
         /// <param name="typeSig">[in] The typespec signature.</param>
         /// <param name="pObjectSize">[out] A pointer to the size of the object.</param>
-        public HRESULT TryGetObjectSize(uint cbSignature, IntPtr typeSig, out uint pObjectSize)
+        public HRESULT TryGetObjectSize(int cbSignature, IntPtr typeSig, out int pObjectSize)
         {
-            /*HRESULT GetObjectSize([In] uint cbSignature, [In] IntPtr typeSig, out uint pObjectSize);*/
+            /*HRESULT GetObjectSize([In] int cbSignature, [In] IntPtr typeSig, out int pObjectSize);*/
             return Raw.GetObjectSize(cbSignature, typeSig, out pObjectSize);
         }
 
@@ -556,7 +556,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="codeRva">[in] A code relative virtual address.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetFramePropsResult GetFrameProps(uint codeRva)
+        public GetFramePropsResult GetFrameProps(int codeRva)
         {
             HRESULT hr;
             GetFramePropsResult result;
@@ -572,11 +572,11 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="codeRva">[in] A code relative virtual address.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetFrameProps(uint codeRva, out GetFramePropsResult result)
+        public HRESULT TryGetFrameProps(int codeRva, out GetFramePropsResult result)
         {
-            /*HRESULT GetFrameProps([In] uint codeRva, out uint pCodeStartRva, out uint pParentFrameStartRva);*/
-            uint pCodeStartRva;
-            uint pParentFrameStartRva;
+            /*HRESULT GetFrameProps([In] int codeRva, out int pCodeStartRva, out int pParentFrameStartRva);*/
+            int pCodeStartRva;
+            int pParentFrameStartRva;
             HRESULT hr = Raw2.GetFrameProps(codeRva, out pCodeStartRva, out pParentFrameStartRva);
 
             if (hr == HRESULT.S_OK)

@@ -20,77 +20,77 @@ namespace ManagedCorDebug.CoClass
             [Out] out ISymUnmanagedDocumentWriter pRetVal);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern HRESULT SetUserEntryPoint([In] uint entryMethod);
+        public virtual extern HRESULT SetUserEntryPoint([In] int entryMethod);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern HRESULT OpenMethod([In] uint method);
+        public virtual extern HRESULT OpenMethod([In] int method);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT CloseMethod();
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern HRESULT OpenScope([In] uint startOffset, [Out] out uint pRetVal);
+        public virtual extern HRESULT OpenScope([In] int startOffset, [Out] out int pRetVal);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern HRESULT CloseScope([In] uint endOffset);
+        public virtual extern HRESULT CloseScope([In] int endOffset);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern HRESULT SetScopeRange([In] uint scopeID, [In] uint startOffset, [In] uint endOffset);
+        public virtual extern HRESULT SetScopeRange([In] int scopeID, [In] int startOffset, [In] int endOffset);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT DefineLocalVariable(
             [In] string name,
-            [In] uint attributes,
-            [In] uint cSig,
+            [In] int attributes,
+            [In] int cSig,
             [In] IntPtr signature,
-            [In] uint addrKind,
-            [In] uint addr1,
-            [In] uint addr2,
-            [In] uint addr3,
-            [In] uint startOffset,
-            [In] uint endOffset);
+            [In] int addrKind,
+            [In] int addr1,
+            [In] int addr2,
+            [In] int addr3,
+            [In] int startOffset,
+            [In] int endOffset);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT DefineParameter(
             [In] string name,
-            [In] uint attributes,
-            [In] uint sequence,
-            [In] uint addrKind,
-            [In] uint addr1,
-            [In] uint addr2,
-            [In] uint addr3);
+            [In] int attributes,
+            [In] int sequence,
+            [In] int addrKind,
+            [In] int addr1,
+            [In] int addr2,
+            [In] int addr3);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT DefineField(
-            [In] uint parent,
+            [In] int parent,
             [In] string name,
-            [In] uint attributes,
-            [In] uint cSig,
+            [In] int attributes,
+            [In] int cSig,
             [In] IntPtr signature,
-            [In] uint addrKind,
-            [In] uint addr1,
-            [In] uint addr2,
-            [In] uint addr3);
+            [In] int addrKind,
+            [In] int addr1,
+            [In] int addr2,
+            [In] int addr3);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT DefineGlobalVariable(
             [In] string name,
-            [In] uint attributes,
-            [In] uint cSig,
+            [In] int attributes,
+            [In] int cSig,
             [In] IntPtr signature,
-            [In] uint addrKind,
-            [In] uint addr1,
-            [In] uint addr2,
-            [In] uint addr3);
+            [In] int addrKind,
+            [In] int addr1,
+            [In] int addr2,
+            [In] int addr3);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT Close();
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT SetSymAttribute(
-            [In] uint parent,
+            [In] int parent,
             [In] string name,
-            [In] uint cData,
+            [In] int cData,
             [In] IntPtr data);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -106,12 +106,12 @@ namespace ManagedCorDebug.CoClass
         public virtual extern HRESULT SetMethodSourceRange(
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocumentWriter startDoc,
-            [In] uint startLine,
-            [In] uint startColumn,
+            [In] int startLine,
+            [In] int startColumn,
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocumentWriter endDoc,
-            [In] uint endLine,
-            [In] uint endColumn);
+            [In] int endLine,
+            [In] int endColumn);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT Initialize(
@@ -124,24 +124,24 @@ namespace ManagedCorDebug.CoClass
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetDebugInfo(
-            [In, Out] ref ulong pIDD,
-            [In] uint cData,
-            out uint pcData,
+            [In, Out] ref long pIDD,
+            [In] int cData,
+            out int pcData,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT DefineSequencePoints(
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocumentWriter document,
-            [In] uint spCount,
-            [In] ref uint offsets,
-            [In] ref uint lines,
-            [In] ref uint columns,
-            [In] ref uint endLines,
-            [In] ref uint endColumns);
+            [In] int spCount,
+            [In] ref int offsets,
+            [In] ref int lines,
+            [In] ref int columns,
+            [In] ref int endLines,
+            [In] ref int endColumns);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern HRESULT RemapToken([In] uint oldToken, [In] uint newToken);
+        public virtual extern HRESULT RemapToken([In] int oldToken, [In] int newToken);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT Initialize2(
@@ -157,7 +157,7 @@ namespace ManagedCorDebug.CoClass
         public virtual extern HRESULT DefineConstant(
             [In] string name,
             [MarshalAs(UnmanagedType.Struct), In] object value,
-            [In] uint cSig,
+            [In] int cSig,
             [In] IntPtr signature);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

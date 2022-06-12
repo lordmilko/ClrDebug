@@ -4,9 +4,9 @@ namespace ManagedCorDebug
     {
         public int PbStarted { get; }
 
-        public uint PdwStartupFlags { get; }
+        public int PdwStartupFlags { get; }
 
-        public IsStartedResult(int pbStarted, uint pdwStartupFlags)
+        public IsStartedResult(int pbStarted, int pdwStartupFlags)
         {
             PbStarted = pbStarted;
             PdwStartupFlags = pdwStartupFlags;

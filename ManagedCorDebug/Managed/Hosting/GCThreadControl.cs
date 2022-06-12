@@ -80,7 +80,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Do not reschedule any threads during the SuspensionEnding callback.
         /// </remarks>
-        public void SuspensionEnding(uint generation)
+        public void SuspensionEnding(int generation)
         {
             HRESULT hr;
 
@@ -95,9 +95,9 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Do not reschedule any threads during the SuspensionEnding callback.
         /// </remarks>
-        public HRESULT TrySuspensionEnding(uint generation)
+        public HRESULT TrySuspensionEnding(int generation)
         {
-            /*HRESULT SuspensionEnding(uint Generation);*/
+            /*HRESULT SuspensionEnding(int Generation);*/
             return Raw.SuspensionEnding(generation);
         }
 

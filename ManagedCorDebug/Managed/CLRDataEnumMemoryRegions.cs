@@ -26,7 +26,7 @@ namespace ManagedCorDebug
         /// This method uses the specified <see cref="ICLRDataEnumMemoryRegionsCallback"/> instance to notify the caller of
         /// results.
         /// </remarks>
-        public void EnumMemoryRegions(ICLRDataEnumMemoryRegionsCallback callback, uint miniDumpFlags, CLRDataEnumMemoryFlags clrFlags)
+        public void EnumMemoryRegions(ICLRDataEnumMemoryRegionsCallback callback, int miniDumpFlags, CLRDataEnumMemoryFlags clrFlags)
         {
             HRESULT hr;
 
@@ -45,12 +45,12 @@ namespace ManagedCorDebug
         /// This method uses the specified <see cref="ICLRDataEnumMemoryRegionsCallback"/> instance to notify the caller of
         /// results.
         /// </remarks>
-        public HRESULT TryEnumMemoryRegions(ICLRDataEnumMemoryRegionsCallback callback, uint miniDumpFlags, CLRDataEnumMemoryFlags clrFlags)
+        public HRESULT TryEnumMemoryRegions(ICLRDataEnumMemoryRegionsCallback callback, int miniDumpFlags, CLRDataEnumMemoryFlags clrFlags)
         {
             /*HRESULT EnumMemoryRegions(
             [MarshalAs(UnmanagedType.Interface), In]
             ICLRDataEnumMemoryRegionsCallback callback,
-            [In] uint miniDumpFlags,
+            [In] int miniDumpFlags,
             [In] CLRDataEnumMemoryFlags clrFlags);*/
             return Raw.EnumMemoryRegions(callback, miniDumpFlags, clrFlags);
         }

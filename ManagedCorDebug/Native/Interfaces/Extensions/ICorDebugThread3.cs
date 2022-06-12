@@ -61,8 +61,8 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetActiveInternalFrames(
-            [In] uint cInternalFrames,
-            out uint pcInternalFrames,
+            [In] int cInternalFrames,
+            out int pcInternalFrames,
             [In, Out] IntPtr ppInternalFrames); //ICorDebugInternalFrame2
     }
 }

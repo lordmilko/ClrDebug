@@ -2,11 +2,11 @@ namespace ManagedCorDebug
 {
     public struct GetDefaultStartupFlagsResult
     {
-        public uint PdwStartupFlags { get; }
+        public int PdwStartupFlags { get; }
 
         public string PwzHostConfigFile { get; }
 
-        public GetDefaultStartupFlagsResult(uint pdwStartupFlags, string pwzHostConfigFile)
+        public GetDefaultStartupFlagsResult(int pdwStartupFlags, string pwzHostConfigFile)
         {
             PdwStartupFlags = pdwStartupFlags;
             PwzHostConfigFile = pwzHostConfigFile;

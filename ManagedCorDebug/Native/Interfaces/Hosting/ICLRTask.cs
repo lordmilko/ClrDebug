@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace ManagedCorDebug
 {
-    public delegate uint LPTHREAD_START_ROUTINE(IntPtr lpThreadParameter);
+    public delegate int LPTHREAD_START_ROUTINE(IntPtr lpThreadParameter);
 
     /// <summary>
     /// Provides methods that allow the host to make requests of the common language runtime (CLR), or to provide notification to the CLR about the associated task.
@@ -237,7 +237,7 @@ namespace ManagedCorDebug
         /// | E_FAIL                 | An unknown catastrophic failure occurred. When a method returns E_FAIL, the CLR is no longer usable within the process. Subsequent calls to hosting methods return HOST_E_CLRNOTAVAILABLE. |
         /// </returns>
         [PreserveSig]
-        HRESULT LocksHeld([Out] out uint pLockCount);
+        HRESULT LocksHeld([Out] out int pLockCount);
 
         /// <summary>
         /// Instructs the common language runtime (CLR) to associate the specified identifier value with the task represented by the current <see cref="ICLRTask"/> instance.
@@ -260,6 +260,6 @@ namespace ManagedCorDebug
         /// to be unified when viewed in the debugger's user interface.
         /// </remarks>
         [PreserveSig]
-        HRESULT SetTaskIdentifier([In] ulong asked);
+        HRESULT SetTaskIdentifier([In] long asked);
     }
 }

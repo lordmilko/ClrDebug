@@ -64,12 +64,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the assembly's prefix index.
         /// </summary>
-        public uint Index
+        public int Index
         {
             get
             {
                 HRESULT hr;
-                uint pIndex;
+                int pIndex;
 
                 if ((hr = TryGetIndex(out pIndex)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -85,9 +85,9 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The prefix index is used to prevent name collisions in the merged metadata type names.
         /// </remarks>
-        public HRESULT TryGetIndex(out uint pIndex)
+        public HRESULT TryGetIndex(out int pIndex)
         {
-            /*HRESULT GetIndex(out uint pIndex);*/
+            /*HRESULT GetIndex(out int pIndex);*/
             return Raw.GetIndex(out pIndex);
         }
 
@@ -125,9 +125,9 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetSimpleName(out string szNameResult)
         {
-            /*HRESULT GetSimpleName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);*/
-            uint cchName = 0;
-            uint pcchName;
+            /*HRESULT GetSimpleName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            int cchName = 0;
+            int pcchName;
             StringBuilder szName = null;
             HRESULT hr = Raw.GetSimpleName(cchName, out pcchName, szName);
 
@@ -135,7 +135,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder((int) pcchName);
+            szName = new StringBuilder(pcchName);
             hr = Raw.GetSimpleName(cchName, out pcchName, szName);
 
             if (hr == HRESULT.S_OK)
@@ -183,9 +183,9 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetCulture(out string szCultureResult)
         {
-            /*HRESULT GetCulture([In] uint cchCulture, out uint pcchCulture, [Out] StringBuilder szCulture);*/
-            uint cchCulture = 0;
-            uint pcchCulture;
+            /*HRESULT GetCulture([In] int cchCulture, out int pcchCulture, [Out] StringBuilder szCulture);*/
+            int cchCulture = 0;
+            int pcchCulture;
             StringBuilder szCulture = null;
             HRESULT hr = Raw.GetCulture(cchCulture, out pcchCulture, szCulture);
 
@@ -193,7 +193,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchCulture = pcchCulture;
-            szCulture = new StringBuilder((int) pcchCulture);
+            szCulture = new StringBuilder(pcchCulture);
             hr = Raw.GetCulture(cchCulture, out pcchCulture, szCulture);
 
             if (hr == HRESULT.S_OK)
@@ -217,7 +217,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cbPublicKey">[in] The maximum number of bytes in the pbPublicKey array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetPublicKeyResult GetPublicKey(uint cbPublicKey)
+        public GetPublicKeyResult GetPublicKey(int cbPublicKey)
         {
             HRESULT hr;
             GetPublicKeyResult result;
@@ -233,14 +233,14 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cbPublicKey">[in] The maximum number of bytes in the pbPublicKey array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetPublicKey(uint cbPublicKey, out GetPublicKeyResult result)
+        public HRESULT TryGetPublicKey(int cbPublicKey, out GetPublicKeyResult result)
         {
             /*HRESULT GetPublicKey(
-            [In] uint cbPublicKey,
-            out uint pcbPublicKey,
+            [In] int cbPublicKey,
+            out int pcbPublicKey,
             [MarshalAs(UnmanagedType.LPArray), Out]
             byte[] pbPublicKey);*/
-            uint pcbPublicKey;
+            int pcbPublicKey;
             byte[] pbPublicKey = null;
             HRESULT hr = Raw.GetPublicKey(cbPublicKey, out pcbPublicKey, pbPublicKey);
 
@@ -263,7 +263,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// An assembly's public key token is the last eight bytes of a SHA1 hash of its public key.
         /// </remarks>
-        public GetPublicKeyTokenResult GetPublicKeyToken(uint cbPublicKeyToken)
+        public GetPublicKeyTokenResult GetPublicKeyToken(int cbPublicKeyToken)
         {
             HRESULT hr;
             GetPublicKeyTokenResult result;
@@ -282,14 +282,14 @@ namespace ManagedCorDebug
         /// <remarks>
         /// An assembly's public key token is the last eight bytes of a SHA1 hash of its public key.
         /// </remarks>
-        public HRESULT TryGetPublicKeyToken(uint cbPublicKeyToken, out GetPublicKeyTokenResult result)
+        public HRESULT TryGetPublicKeyToken(int cbPublicKeyToken, out GetPublicKeyTokenResult result)
         {
             /*HRESULT GetPublicKeyToken(
-            [In] uint cbPublicKeyToken,
-            out uint pcbPublicKeyToken,
+            [In] int cbPublicKeyToken,
+            out int pcbPublicKeyToken,
             [MarshalAs(UnmanagedType.LPArray), Out]
             byte[] pbPublicKeyToken);*/
-            uint pcbPublicKeyToken;
+            int pcbPublicKeyToken;
             byte[] pbPublicKeyToken = null;
             HRESULT hr = Raw.GetPublicKeyToken(cbPublicKeyToken, out pcbPublicKeyToken, pbPublicKeyToken);
 

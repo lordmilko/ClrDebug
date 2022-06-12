@@ -4,9 +4,9 @@ namespace ManagedCorDebug
     {
         public byte PbBlob { get; }
 
-        public uint PcbBlob { get; }
+        public int PcbBlob { get; }
 
-        public StrongNameGetBlobFromImageResult(byte pbBlob, uint pcbBlob)
+        public StrongNameGetBlobFromImageResult(byte pbBlob, int pcbBlob)
         {
             PbBlob = pbBlob;
             PcbBlob = pcbBlob;

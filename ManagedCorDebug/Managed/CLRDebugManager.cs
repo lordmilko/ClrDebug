@@ -131,7 +131,7 @@ namespace ManagedCorDebug
         /// <see cref="ICLRDebugManager"/> provides three methods, BeginConnection, <see cref="SetConnectionTasks"/>, and <see 
         ///cref="EndConnection"/>, for associating task lists with identifiers and friendly names.
         /// </remarks>
-        public void BeginConnection(uint dwConnectionId, string szConnectionName)
+        public void BeginConnection(int dwConnectionId, string szConnectionName)
         {
             HRESULT hr;
 
@@ -160,10 +160,10 @@ namespace ManagedCorDebug
         /// <see cref="ICLRDebugManager"/> provides three methods, BeginConnection, <see cref="SetConnectionTasks"/>, and <see 
         ///cref="EndConnection"/>, for associating task lists with identifiers and friendly names.
         /// </remarks>
-        public HRESULT TryBeginConnection(uint dwConnectionId, string szConnectionName)
+        public HRESULT TryBeginConnection(int dwConnectionId, string szConnectionName)
         {
             /*HRESULT BeginConnection(
-            [In] uint dwConnectionId,
+            [In] int dwConnectionId,
             [In] string szConnectionName);*/
             return Raw.BeginConnection(dwConnectionId, szConnectionName);
         }
@@ -181,7 +181,7 @@ namespace ManagedCorDebug
         /// <see cref="ICLRDebugManager"/> provides three methods, BeginConnection, SetConnectionTasks, and <see cref="EndConnection"/>,
         /// for associating task lists with identifiers and friendly names.
         /// </remarks>
-        public void SetConnectionTasks(uint id, uint dwCount, IntPtr ppCLRTask)
+        public void SetConnectionTasks(int id, int dwCount, IntPtr ppCLRTask)
         {
             HRESULT hr;
 
@@ -210,11 +210,11 @@ namespace ManagedCorDebug
         /// <see cref="ICLRDebugManager"/> provides three methods, BeginConnection, SetConnectionTasks, and <see cref="EndConnection"/>,
         /// for associating task lists with identifiers and friendly names.
         /// </remarks>
-        public HRESULT TrySetConnectionTasks(uint id, uint dwCount, IntPtr ppCLRTask)
+        public HRESULT TrySetConnectionTasks(int id, int dwCount, IntPtr ppCLRTask)
         {
             /*HRESULT SetConnectionTasks(
-            [In] uint id,
-            [In] uint dwCount,
+            [In] int id,
+            [In] int dwCount,
             [In] IntPtr ppCLRTask);*/
             return Raw.SetConnectionTasks(id, dwCount, ppCLRTask);
         }
@@ -230,7 +230,7 @@ namespace ManagedCorDebug
         /// <see cref="ICLRDebugManager"/> provides three methods, BeginConnection, <see cref="SetConnectionTasks"/>, and EndConnection,
         /// for associating task lists with identifiers and friendly names.
         /// </remarks>
-        public void EndConnection(uint dwConnectionId)
+        public void EndConnection(int dwConnectionId)
         {
             HRESULT hr;
 
@@ -257,9 +257,9 @@ namespace ManagedCorDebug
         /// <see cref="ICLRDebugManager"/> provides three methods, BeginConnection, <see cref="SetConnectionTasks"/>, and EndConnection,
         /// for associating task lists with identifiers and friendly names.
         /// </remarks>
-        public HRESULT TryEndConnection(uint dwConnectionId)
+        public HRESULT TryEndConnection(int dwConnectionId)
         {
-            /*HRESULT EndConnection([In] uint dwConnectionId);*/
+            /*HRESULT EndConnection([In] int dwConnectionId);*/
             return Raw.EndConnection(dwConnectionId);
         }
 

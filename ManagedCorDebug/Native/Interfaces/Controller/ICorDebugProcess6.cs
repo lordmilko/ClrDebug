@@ -26,10 +26,10 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT DecodeEvent(
             [In] byte[] pRecord,
-            [In] uint countBytes,
+            [In] int countBytes,
             [In] CorDebugRecordFormat format,
-            [In] uint dwFlags,
-            [In] uint dwThreadId,
+            [In] int dwFlags,
+            [In] int dwThreadId,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugDebugEvent ppEvent);
 
         /// <summary>

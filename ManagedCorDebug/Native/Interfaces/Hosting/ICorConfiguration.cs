@@ -49,6 +49,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
-        HRESULT AddDebuggerSpecialThread([In] uint dwSpecialThreadId);
+        HRESULT AddDebuggerSpecialThread([In] int dwSpecialThreadId);
     }
 }

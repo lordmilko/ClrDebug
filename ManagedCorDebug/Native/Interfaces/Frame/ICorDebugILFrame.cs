@@ -106,7 +106,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetIP(out uint pnOffset, out CorDebugMappingResult pMappingResult);
+        HRESULT GetIP(out int pnOffset, out CorDebugMappingResult pMappingResult);
 
         /// <summary>
         /// Sets the instruction pointer to the specified offset location in the Microsoft intermediate language (MSIL) code.
@@ -122,7 +122,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetIP([In] uint nOffset);
+        HRESULT SetIP([In] int nOffset);
 
         /// <summary>
         /// Gets an enumerator for the local variables in this frame.
@@ -147,7 +147,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetLocalVariable([In] uint dwIndex, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
+        HRESULT GetLocalVariable([In] int dwIndex, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         /// <summary>
         /// Gets an enumerator for the arguments in this frame.
@@ -172,21 +172,21 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetArgument([In] uint dwIndex, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
+        HRESULT GetArgument([In] int dwIndex, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         /// <summary>
         /// This method has not been implemented.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetStackDepth(out uint pDepth);
+        HRESULT GetStackDepth(out int pDepth);
 
         /// <summary>
         /// This method has not been implemented.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetStackValue([In] uint dwIndex, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
+        HRESULT GetStackValue([In] int dwIndex, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         /// <summary>
         /// Gets an <see cref="HRESULT"/> that indicates whether it is safe to set the instruction pointer to the specified offset location in Microsoft Intermediate Language (MSIL) code.
@@ -199,6 +199,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CanSetIP([In] uint nOffset);
+        HRESULT CanSetIP([In] int nOffset);
     }
 }

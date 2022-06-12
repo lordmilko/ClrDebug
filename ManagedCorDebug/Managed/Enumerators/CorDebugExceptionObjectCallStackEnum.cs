@@ -57,7 +57,7 @@ namespace ManagedCorDebug
             if (rawEnumerator == null)
                 return false;
 
-            uint fetched;
+            int fetched;
             CorDebugExceptionObjectStackFrame result;
             var hr = rawEnumerator.Next(1, out result, out fetched);
 

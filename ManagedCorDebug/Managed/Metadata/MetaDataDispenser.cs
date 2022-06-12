@@ -36,7 +36,7 @@ namespace ManagedCorDebug
         /// attach attributes to the metadata scope as a whole by using the <see cref="MetaDataEmit.SetModuleProps"/> or <see 
         ///cref="MetaDataEmit.DefineCustomAttribute"/> method, as appropriate.
         /// </remarks>
-        public void DefineScope(Guid rclsid, uint dwCreateFlags, Guid riid)
+        public void DefineScope(Guid rclsid, int dwCreateFlags, Guid riid)
         {
             HRESULT hr;
 
@@ -57,11 +57,11 @@ namespace ManagedCorDebug
         /// attach attributes to the metadata scope as a whole by using the <see cref="MetaDataEmit.SetModuleProps"/> or <see 
         ///cref="MetaDataEmit.DefineCustomAttribute"/> method, as appropriate.
         /// </remarks>
-        public HRESULT TryDefineScope(Guid rclsid, uint dwCreateFlags, Guid riid)
+        public HRESULT TryDefineScope(Guid rclsid, int dwCreateFlags, Guid riid)
         {
             /*HRESULT DefineScope(
             [In] ref Guid rclsid,
-            [In] uint dwCreateFlags,
+            [In] int dwCreateFlags,
             [In] ref Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);*/
             object ppIUnk;
@@ -146,7 +146,7 @@ namespace ManagedCorDebug
         /// method, except that the metadata of interest already exists in memory, rather than in a file on disk. If the target
         /// area of memory does not contain common language runtime (CLR) metadata, the OpenScopeOnMemory method will fail.
         /// </remarks>
-        public void OpenScopeOnMemory(IntPtr pData, uint cbData, CorOpenFlags dwOpenFlags, Guid riid)
+        public void OpenScopeOnMemory(IntPtr pData, int cbData, CorOpenFlags dwOpenFlags, Guid riid)
         {
             HRESULT hr;
 
@@ -168,11 +168,11 @@ namespace ManagedCorDebug
         /// method, except that the metadata of interest already exists in memory, rather than in a file on disk. If the target
         /// area of memory does not contain common language runtime (CLR) metadata, the OpenScopeOnMemory method will fail.
         /// </remarks>
-        public HRESULT TryOpenScopeOnMemory(IntPtr pData, uint cbData, CorOpenFlags dwOpenFlags, Guid riid)
+        public HRESULT TryOpenScopeOnMemory(IntPtr pData, int cbData, CorOpenFlags dwOpenFlags, Guid riid)
         {
             /*HRESULT OpenScopeOnMemory(
             [In] IntPtr pData,
-            [In] uint cbData,
+            [In] int cbData,
             [In] CorOpenFlags dwOpenFlags,
             [In] ref Guid riid,
             [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppIUnk);*/

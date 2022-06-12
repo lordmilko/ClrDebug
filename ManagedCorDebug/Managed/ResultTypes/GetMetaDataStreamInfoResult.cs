@@ -6,9 +6,9 @@ namespace ManagedCorDebug
     {
         public IntPtr Ppv { get; }
 
-        public uint Pcb { get; }
+        public int Pcb { get; }
 
-        public GetMetaDataStreamInfoResult(IntPtr ppv, uint pcb)
+        public GetMetaDataStreamInfoResult(IntPtr ppv, int pcb)
         {
             Ppv = ppv;
             Pcb = pcb;

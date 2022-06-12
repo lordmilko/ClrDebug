@@ -28,7 +28,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT DefineScope(
             [In] ref Guid rclsid,
-            [In] uint dwCreateFlags,
+            [In] int dwCreateFlags,
             [In] ref Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);
 
@@ -75,7 +75,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT OpenScopeOnMemory(
             [In] IntPtr pData,
-            [In] uint cbData,
+            [In] int cbData,
             [In] CorOpenFlags dwOpenFlags,
             [In] ref Guid riid,
             [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppIUnk);

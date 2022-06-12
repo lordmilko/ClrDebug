@@ -2,11 +2,11 @@ namespace ManagedCorDebug
 {
     public struct EnumerateThreadIDsResult
     {
-        public uint PcThreadIds { get; }
+        public int PcThreadIds { get; }
 
-        public uint[] PThreadIds { get; }
+        public int[] PThreadIds { get; }
 
-        public EnumerateThreadIDsResult(uint pcThreadIds, uint[] pThreadIds)
+        public EnumerateThreadIDsResult(int pcThreadIds, int[] pThreadIds)
         {
             PcThreadIds = pcThreadIds;
             PThreadIds = pThreadIds;

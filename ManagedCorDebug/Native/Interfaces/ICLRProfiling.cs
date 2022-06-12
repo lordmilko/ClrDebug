@@ -46,11 +46,11 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT AttachProfiler(
-            [In] uint dwProfileeProcessID,
-            [In] uint dwMillisecondsMax,
+            [In] int dwProfileeProcessID,
+            [In] int dwMillisecondsMax,
             [In] ref Guid pClsidProfiler,
             [MarshalAs(UnmanagedType.LPWStr), In] string wszProfilerPath,
             [In] IntPtr pvClientData,
-            [In] uint cbClientData);
+            [In] int cbClientData);
     }
 }

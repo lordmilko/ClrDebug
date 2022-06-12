@@ -2,13 +2,13 @@ namespace ManagedCorDebug
 {
     public struct GetDebugInfoWithPaddingResult
     {
-        public ulong PIDD { get; }
+        public long PIDD { get; }
 
-        public uint PcData { get; }
+        public int PcData { get; }
 
         public byte[] Data { get; }
 
-        public GetDebugInfoWithPaddingResult(ulong pIDD, uint pcData, byte[] data)
+        public GetDebugInfoWithPaddingResult(long pIDD, int pcData, byte[] data)
         {
             PIDD = pIDD;
             PcData = pcData;

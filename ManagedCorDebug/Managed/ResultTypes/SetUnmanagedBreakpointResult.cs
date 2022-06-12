@@ -6,9 +6,9 @@ namespace ManagedCorDebug
     {
         public byte[] Buffer { get; }
 
-        public uint BufLen { get; }
+        public int BufLen { get; }
 
-        public SetUnmanagedBreakpointResult(byte[] buffer, uint bufLen)
+        public SetUnmanagedBreakpointResult(byte[] buffer, int bufLen)
         {
             Buffer = buffer;
             BufLen = bufLen;

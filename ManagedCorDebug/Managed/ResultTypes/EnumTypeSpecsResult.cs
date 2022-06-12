@@ -8,9 +8,9 @@ namespace ManagedCorDebug
 
         public mdTypeSpec[] RTypeSpecs { get; }
 
-        public uint PcTypeSpecs { get; }
+        public int PcTypeSpecs { get; }
 
-        public EnumTypeSpecsResult(IntPtr phEnum, mdTypeSpec[] rTypeSpecs, uint pcTypeSpecs)
+        public EnumTypeSpecsResult(IntPtr phEnum, mdTypeSpec[] rTypeSpecs, int pcTypeSpecs)
         {
             PhEnum = phEnum;
             RTypeSpecs = rTypeSpecs;

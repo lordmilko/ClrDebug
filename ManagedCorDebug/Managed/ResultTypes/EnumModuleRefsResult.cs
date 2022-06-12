@@ -8,9 +8,9 @@ namespace ManagedCorDebug
 
         public mdModuleRef[] RModuleRefs { get; }
 
-        public uint PcModuleRefs { get; }
+        public int PcModuleRefs { get; }
 
-        public EnumModuleRefsResult(IntPtr phEnum, mdModuleRef[] rModuleRefs, uint pcModuleRefs)
+        public EnumModuleRefsResult(IntPtr phEnum, mdModuleRef[] rModuleRefs, int pcModuleRefs)
         {
             PhEnum = phEnum;
             RModuleRefs = rModuleRefs;

@@ -28,7 +28,7 @@ namespace ManagedCorDebug
         /// <param name="pvClientData">[in] A pointer to data to be passed to the profiler by the ICorProfilerCallback3.InitializeForAttach method. The trigger process can reuse this memory after AttachProfiler returns.<para/>
         /// If pvClientData is null, cbClientData must be 0 (zero).</param>
         /// <param name="cbClientData">[in] The size, in bytes, of the data that pvClientData points to.</param>
-        public void AttachProfiler(uint dwProfileeProcessID, uint dwMillisecondsMax, Guid pClsidProfiler, string wszProfilerPath, IntPtr pvClientData, uint cbClientData)
+        public void AttachProfiler(int dwProfileeProcessID, int dwMillisecondsMax, Guid pClsidProfiler, string wszProfilerPath, IntPtr pvClientData, int cbClientData)
         {
             HRESULT hr;
 
@@ -67,15 +67,15 @@ namespace ManagedCorDebug
         /// | E_FAIL                                       | Some other, unspecified failure occurred.                                                                                                                                                                                          |
         /// | Other error codes                            | If the profiler’s ICorProfilerCallback3.InitializeForAttach method returns an HRESULT that indicates failure, AttachProfiler returns that same HRESULT. In this case, E_NOTIMPL is converted to CORPROF_E_PROFILER_NOT_ATTACHABLE. |
         /// </returns>
-        public HRESULT TryAttachProfiler(uint dwProfileeProcessID, uint dwMillisecondsMax, Guid pClsidProfiler, string wszProfilerPath, IntPtr pvClientData, uint cbClientData)
+        public HRESULT TryAttachProfiler(int dwProfileeProcessID, int dwMillisecondsMax, Guid pClsidProfiler, string wszProfilerPath, IntPtr pvClientData, int cbClientData)
         {
             /*HRESULT AttachProfiler(
-            [In] uint dwProfileeProcessID,
-            [In] uint dwMillisecondsMax,
+            [In] int dwProfileeProcessID,
+            [In] int dwMillisecondsMax,
             [In] ref Guid pClsidProfiler,
             [MarshalAs(UnmanagedType.LPWStr), In] string wszProfilerPath,
             [In] IntPtr pvClientData,
-            [In] uint cbClientData);*/
+            [In] int cbClientData);*/
             return Raw.AttachProfiler(dwProfileeProcessID, dwMillisecondsMax, ref pClsidProfiler, wszProfilerPath, pvClientData, cbClientData);
         }
 

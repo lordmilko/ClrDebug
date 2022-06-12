@@ -74,19 +74,19 @@ namespace ManagedCorDebug
             /*HRESULT GetAssemblyProps(
             [In] mdAssembly mda,
             [Out] out IntPtr ppbPublicKey,
-            [Out] out uint pcbPublicKey,
-            [Out] out uint pulHashAlgId,
+            [Out] out int pcbPublicKey,
+            [Out] out int pulHashAlgId,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
-            [In] uint cchName,
-            [Out] out uint pchName,
+            [In] int cchName,
+            [Out] out int pchName,
             [Out] out ASSEMBLYMETADATA pMetaData,
             [Out] out CorAssemblyFlags pdwAssemblyFlags);*/
             IntPtr ppbPublicKey;
-            uint pcbPublicKey;
-            uint pulHashAlgId;
+            int pcbPublicKey;
+            int pulHashAlgId;
             StringBuilder szName = null;
-            uint cchName = 0;
-            uint pchName;
+            int cchName = 0;
+            int pchName;
             ASSEMBLYMETADATA pMetaData;
             CorAssemblyFlags pdwAssemblyFlags;
             HRESULT hr = Raw.GetAssemblyProps(mda, out ppbPublicKey, out pcbPublicKey, out pulHashAlgId, szName, cchName, out pchName, out pMetaData, out pdwAssemblyFlags);
@@ -95,7 +95,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchName = pchName;
-            szName = new StringBuilder((int) pchName);
+            szName = new StringBuilder(pchName);
             hr = Raw.GetAssemblyProps(mda, out ppbPublicKey, out pcbPublicKey, out pulHashAlgId, szName, cchName, out pchName, out pMetaData, out pdwAssemblyFlags);
 
             if (hr == HRESULT.S_OK)
@@ -141,22 +141,22 @@ namespace ManagedCorDebug
             /*HRESULT GetAssemblyRefProps(
             [In] mdAssemblyRef mdar,
             [Out] IntPtr ppbPublicKeyOrToken,
-            [Out] out uint pcbPublicKeyOrToken,
+            [Out] out int pcbPublicKeyOrToken,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
-            [In] uint cchName,
-            [Out] out uint pchName,
+            [In] int cchName,
+            [Out] out int pchName,
             [Out] out ASSEMBLYMETADATA pMetaData,
             [Out] IntPtr ppbHashValue,
-            [Out] out uint pcbHashValue,
+            [Out] out int pcbHashValue,
             [Out] out CorAssemblyFlags pdwAssemblyFlags);*/
             IntPtr ppbPublicKeyOrToken = default(IntPtr);
-            uint pcbPublicKeyOrToken;
+            int pcbPublicKeyOrToken;
             StringBuilder szName = null;
-            uint cchName = 0;
-            uint pchName;
+            int cchName = 0;
+            int pchName;
             ASSEMBLYMETADATA pMetaData;
             IntPtr ppbHashValue = default(IntPtr);
-            uint pcbHashValue;
+            int pcbHashValue;
             CorAssemblyFlags pdwAssemblyFlags;
             HRESULT hr = Raw.GetAssemblyRefProps(mdar, ppbPublicKeyOrToken, out pcbPublicKeyOrToken, szName, cchName, out pchName, out pMetaData, ppbHashValue, out pcbHashValue, out pdwAssemblyFlags);
 
@@ -164,7 +164,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchName = pchName;
-            szName = new StringBuilder((int) pchName);
+            szName = new StringBuilder(pchName);
             hr = Raw.GetAssemblyRefProps(mdar, ppbPublicKeyOrToken, out pcbPublicKeyOrToken, szName, cchName, out pchName, out pMetaData, ppbHashValue, out pcbHashValue, out pdwAssemblyFlags);
 
             if (hr == HRESULT.S_OK)
@@ -209,16 +209,16 @@ namespace ManagedCorDebug
             /*HRESULT GetFileProps(
             [In] mdFile mdf,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
-            [In] uint cchName,
-            [Out] out uint pchName,
+            [In] int cchName,
+            [Out] out int pchName,
             [Out] IntPtr ppbHashValue,
-            [Out] out uint pcbHashValue,
+            [Out] out int pcbHashValue,
             [Out] out CorFileFlags pdwFileFlags);*/
             StringBuilder szName = null;
-            uint cchName = 0;
-            uint pchName;
+            int cchName = 0;
+            int pchName;
             IntPtr ppbHashValue = default(IntPtr);
-            uint pcbHashValue;
+            int pcbHashValue;
             CorFileFlags pdwFileFlags;
             HRESULT hr = Raw.GetFileProps(mdf, szName, cchName, out pchName, ppbHashValue, out pcbHashValue, out pdwFileFlags);
 
@@ -226,7 +226,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchName = pchName;
-            szName = new StringBuilder((int) pchName);
+            szName = new StringBuilder(pchName);
             hr = Raw.GetFileProps(mdf, szName, cchName, out pchName, ppbHashValue, out pcbHashValue, out pdwFileFlags);
 
             if (hr == HRESULT.S_OK)
@@ -271,15 +271,15 @@ namespace ManagedCorDebug
             /*HRESULT GetExportedTypeProps(
             [In] mdExportedType mdct,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
-            [In] uint cchName,
-            [Out] out uint pchName,
-            [Out] out uint ptkImplementation,
+            [In] int cchName,
+            [Out] out int pchName,
+            [Out] out int ptkImplementation,
             [Out] out mdTypeDef ptkTypeDef,
             [Out] out CorTypeAttr pdwExportedTypeFlags);*/
             StringBuilder szName = null;
-            uint cchName = 0;
-            uint pchName;
-            uint ptkImplementation;
+            int cchName = 0;
+            int pchName;
+            int ptkImplementation;
             mdTypeDef ptkTypeDef;
             CorTypeAttr pdwExportedTypeFlags;
             HRESULT hr = Raw.GetExportedTypeProps(mdct, szName, cchName, out pchName, out ptkImplementation, out ptkTypeDef, out pdwExportedTypeFlags);
@@ -288,7 +288,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchName = pchName;
-            szName = new StringBuilder((int) pchName);
+            szName = new StringBuilder(pchName);
             hr = Raw.GetExportedTypeProps(mdct, szName, cchName, out pchName, out ptkImplementation, out ptkTypeDef, out pdwExportedTypeFlags);
 
             if (hr == HRESULT.S_OK)
@@ -333,16 +333,16 @@ namespace ManagedCorDebug
             /*HRESULT GetManifestResourceProps(
             [In] mdManifestResource mdmr,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
-            [In] uint cchName,
-            [Out] out uint pchName,
-            [Out] out uint ptkImplementation,
-            [Out] out uint pdwOffset,
+            [In] int cchName,
+            [Out] out int pchName,
+            [Out] out int ptkImplementation,
+            [Out] out int pdwOffset,
             [Out] out CorManifestResourceFlags pdwResourceFlags);*/
             StringBuilder szName = null;
-            uint cchName = 0;
-            uint pchName;
-            uint ptkImplementation;
-            uint pdwOffset;
+            int cchName = 0;
+            int pchName;
+            int ptkImplementation;
+            int pdwOffset;
             CorManifestResourceFlags pdwResourceFlags;
             HRESULT hr = Raw.GetManifestResourceProps(mdmr, szName, cchName, out pchName, out ptkImplementation, out pdwOffset, out pdwResourceFlags);
 
@@ -350,7 +350,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchName = pchName;
-            szName = new StringBuilder((int) pchName);
+            szName = new StringBuilder(pchName);
             hr = Raw.GetManifestResourceProps(mdmr, szName, cchName, out pchName, out ptkImplementation, out pdwOffset, out pdwResourceFlags);
 
             if (hr == HRESULT.S_OK)
@@ -401,18 +401,18 @@ namespace ManagedCorDebug
             /*HRESULT EnumAssemblyRefs(
             [In] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdAssemblyRef[] rAssemblyRefs,
-            [In] uint cMax,
-            [Out] out uint pcTokens);*/
+            [In] int cMax,
+            [Out] out int pcTokens);*/
             mdAssemblyRef[] rAssemblyRefs = null;
-            uint cMax = 0;
-            uint pcTokens;
+            int cMax = 0;
+            int pcTokens;
             HRESULT hr = Raw.EnumAssemblyRefs(ref phEnum, rAssemblyRefs, cMax, out pcTokens);
 
             if (hr != HRESULT.S_FALSE)
                 goto fail;
 
             cMax = pcTokens;
-            rAssemblyRefs = new mdAssemblyRef[(int) pcTokens];
+            rAssemblyRefs = new mdAssemblyRef[pcTokens];
             hr = Raw.EnumAssemblyRefs(ref phEnum, rAssemblyRefs, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
@@ -463,18 +463,18 @@ namespace ManagedCorDebug
             /*HRESULT EnumFiles(
             [In] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdFile[] rFiles,
-            [In] uint cMax,
-            [Out] out uint pcTokens);*/
+            [In] int cMax,
+            [Out] out int pcTokens);*/
             mdFile[] rFiles = null;
-            uint cMax = 0;
-            uint pcTokens;
+            int cMax = 0;
+            int pcTokens;
             HRESULT hr = Raw.EnumFiles(ref phEnum, rFiles, cMax, out pcTokens);
 
             if (hr != HRESULT.S_FALSE)
                 goto fail;
 
             cMax = pcTokens;
-            rFiles = new mdFile[(int) pcTokens];
+            rFiles = new mdFile[pcTokens];
             hr = Raw.EnumFiles(ref phEnum, rFiles, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
@@ -525,18 +525,18 @@ namespace ManagedCorDebug
             /*HRESULT EnumExportedTypes(
             [In] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdExportedType[] rExportedTypes,
-            [In] uint cMax,
-            [Out] out uint pcTokens);*/
+            [In] int cMax,
+            [Out] out int pcTokens);*/
             mdExportedType[] rExportedTypes = null;
-            uint cMax = 0;
-            uint pcTokens;
+            int cMax = 0;
+            int pcTokens;
             HRESULT hr = Raw.EnumExportedTypes(ref phEnum, rExportedTypes, cMax, out pcTokens);
 
             if (hr != HRESULT.S_FALSE)
                 goto fail;
 
             cMax = pcTokens;
-            rExportedTypes = new mdExportedType[(int) pcTokens];
+            rExportedTypes = new mdExportedType[pcTokens];
             hr = Raw.EnumExportedTypes(ref phEnum, rExportedTypes, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
@@ -587,18 +587,18 @@ namespace ManagedCorDebug
             /*HRESULT EnumManifestResources(
             [In] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdManifestResource[] rManifestResources,
-            [In] uint cMax,
-            [Out] out uint pcTokens);*/
+            [In] int cMax,
+            [Out] out int pcTokens);*/
             mdManifestResource[] rManifestResources = null;
-            uint cMax = 0;
-            uint pcTokens;
+            int cMax = 0;
+            int pcTokens;
             HRESULT hr = Raw.EnumManifestResources(ref phEnum, rManifestResources, cMax, out pcTokens);
 
             if (hr != HRESULT.S_FALSE)
                 goto fail;
 
             cMax = pcTokens;
-            rManifestResources = new mdManifestResource[(int) pcTokens];
+            rManifestResources = new mdManifestResource[pcTokens];
             hr = Raw.EnumManifestResources(ref phEnum, rManifestResources, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
@@ -627,7 +627,7 @@ namespace ManagedCorDebug
         /// The FindExportedTypeByName method uses the standard rules employed by the common language runtime for resolving
         /// references.
         /// </remarks>
-        public mdExportedType FindExportedTypeByName(string szName, uint mdtExportedType)
+        public mdExportedType FindExportedTypeByName(string szName, int mdtExportedType)
         {
             HRESULT hr;
             mdExportedType mdExportedType;
@@ -648,11 +648,11 @@ namespace ManagedCorDebug
         /// The FindExportedTypeByName method uses the standard rules employed by the common language runtime for resolving
         /// references.
         /// </remarks>
-        public HRESULT TryFindExportedTypeByName(string szName, uint mdtExportedType, out mdExportedType mdExportedType)
+        public HRESULT TryFindExportedTypeByName(string szName, int mdtExportedType, out mdExportedType mdExportedType)
         {
             /*HRESULT FindExportedTypeByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
-            [In] uint mdtExportedType,
+            [In] int mdtExportedType,
             [Out] out mdExportedType mdExportedType);*/
             return Raw.FindExportedTypeByName(szName, mdtExportedType, out mdExportedType);
         }
@@ -746,7 +746,7 @@ namespace ManagedCorDebug
         /// name is not fully specified (for example, if it does not include a version), multiple assemblies might be returned.
         /// FindAssembliesByName is commonly used by a compiler that attempts to find a referenced assembly at compile time.
         /// </remarks>
-        public FindAssembliesByNameResult FindAssembliesByName(string szAppBase, string szPrivateBin, string szAssemblyName, uint cMax)
+        public FindAssembliesByNameResult FindAssembliesByName(string szAppBase, string szPrivateBin, string szAssemblyName, int cMax)
         {
             HRESULT hr;
             FindAssembliesByNameResult result;
@@ -783,17 +783,17 @@ namespace ManagedCorDebug
         /// name is not fully specified (for example, if it does not include a version), multiple assemblies might be returned.
         /// FindAssembliesByName is commonly used by a compiler that attempts to find a referenced assembly at compile time.
         /// </remarks>
-        public HRESULT TryFindAssembliesByName(string szAppBase, string szPrivateBin, string szAssemblyName, uint cMax, out FindAssembliesByNameResult result)
+        public HRESULT TryFindAssembliesByName(string szAppBase, string szPrivateBin, string szAssemblyName, int cMax, out FindAssembliesByNameResult result)
         {
             /*HRESULT FindAssembliesByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAppBase,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szPrivateBin,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAssemblyName,
             [Out, MarshalAs(UnmanagedType.Interface)] out object[] ppIUnk,
-            [In] uint cMax,
-            [Out] out uint pcAssemblies);*/
+            [In] int cMax,
+            [Out] out int pcAssemblies);*/
             object[] ppIUnk;
-            uint pcAssemblies;
+            int pcAssemblies;
             HRESULT hr = Raw.FindAssembliesByName(szAppBase, szPrivateBin, szAssemblyName, out ppIUnk, cMax, out pcAssemblies);
 
             if (hr == HRESULT.S_OK)

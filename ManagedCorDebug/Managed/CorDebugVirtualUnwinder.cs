@@ -29,7 +29,7 @@ namespace ManagedCorDebug
         /// method. Because unwinding may only restore a subset of the registers, such as the non-volatile registers only,
         /// the context may not exactly match the register state at the time of the actual method call.
         /// </remarks>
-        public GetContextResult GetContext(uint contextFlags, uint cbContextBuf)
+        public GetContextResult GetContext(int contextFlags, int cbContextBuf)
         {
             HRESULT hr;
             GetContextResult result;
@@ -52,14 +52,14 @@ namespace ManagedCorDebug
         /// method. Because unwinding may only restore a subset of the registers, such as the non-volatile registers only,
         /// the context may not exactly match the register state at the time of the actual method call.
         /// </remarks>
-        public HRESULT TryGetContext(uint contextFlags, uint cbContextBuf, out GetContextResult result)
+        public HRESULT TryGetContext(int contextFlags, int cbContextBuf, out GetContextResult result)
         {
             /*HRESULT GetContext(
-            [In] uint contextFlags,
-            [In] uint cbContextBuf,
-            out uint contextSize,
+            [In] int contextFlags,
+            [In] int cbContextBuf,
+            out int contextSize,
             out byte contextBuf);*/
-            uint contextSize;
+            int contextSize;
             byte contextBuf;
             HRESULT hr = Raw.GetContext(contextFlags, cbContextBuf, out contextSize, out contextBuf);
 

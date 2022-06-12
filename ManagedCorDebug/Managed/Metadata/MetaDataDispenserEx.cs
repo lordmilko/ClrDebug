@@ -47,18 +47,18 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetCORSystemDirectory(
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] StringBuilder szBuffer,
-            [In] uint cchBuffer,
-            [Out] out uint pchBuffer);*/
+            [In] int cchBuffer,
+            [Out] out int pchBuffer);*/
             StringBuilder szBuffer = null;
-            uint cchBuffer = 0;
-            uint pchBuffer;
+            int cchBuffer = 0;
+            int pchBuffer;
             HRESULT hr = Raw.GetCORSystemDirectory(szBuffer, cchBuffer, out pchBuffer);
 
             if (hr != HRESULT.S_FALSE)
                 goto fail;
 
             cchBuffer = pchBuffer;
-            szBuffer = new StringBuilder((int) pchBuffer);
+            szBuffer = new StringBuilder(pchBuffer);
             hr = Raw.GetCORSystemDirectory(szBuffer, cchBuffer, out pchBuffer);
 
             if (hr == HRESULT.S_OK)
@@ -156,7 +156,7 @@ namespace ManagedCorDebug
         /// <param name="pITI">[in] Pointer to an ITypeInfo interface that provides the type information on which to open the scope.</param>
         /// <param name="dwOpenFlags">[in] The open mode flags.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public OpenScopeOnITypeInfoResult OpenScopeOnITypeInfo(ITypeInfo pITI, uint dwOpenFlags)
+        public OpenScopeOnITypeInfoResult OpenScopeOnITypeInfo(ITypeInfo pITI, int dwOpenFlags)
         {
             HRESULT hr;
             OpenScopeOnITypeInfoResult result;
@@ -173,11 +173,11 @@ namespace ManagedCorDebug
         /// <param name="pITI">[in] Pointer to an ITypeInfo interface that provides the type information on which to open the scope.</param>
         /// <param name="dwOpenFlags">[in] The open mode flags.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryOpenScopeOnITypeInfo(ITypeInfo pITI, uint dwOpenFlags, out OpenScopeOnITypeInfoResult result)
+        public HRESULT TryOpenScopeOnITypeInfo(ITypeInfo pITI, int dwOpenFlags, out OpenScopeOnITypeInfoResult result)
         {
             /*HRESULT OpenScopeOnITypeInfo(
             [MarshalAs(UnmanagedType.Interface)] ITypeInfo pITI,
-            uint dwOpenFlags,
+            int dwOpenFlags,
             ref Guid riid,
             [MarshalAs(UnmanagedType.Interface, IidParameterIndex = 2)] out object ppIUnk
         );*/
@@ -231,18 +231,18 @@ namespace ManagedCorDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string szGlobalBin,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAssemblyName,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)] StringBuilder szName,
-            uint cchName,
-            out uint pcName);*/
+            int cchName,
+            out int pcName);*/
             StringBuilder szName = null;
-            uint cchName = 0;
-            uint pcName;
+            int cchName = 0;
+            int pcName;
             HRESULT hr = Raw.FindAssembly(szAppBase, szPrivateBin, szGlobalBin, szAssemblyName, szName, cchName, out pcName);
 
             if (hr != HRESULT.S_FALSE)
                 goto fail;
 
             cchName = pcName;
-            szName = new StringBuilder((int) pcName);
+            szName = new StringBuilder(pcName);
             hr = Raw.FindAssembly(szAppBase, szPrivateBin, szGlobalBin, szAssemblyName, szName, cchName, out pcName);
 
             if (hr == HRESULT.S_OK)
@@ -299,18 +299,18 @@ namespace ManagedCorDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAssemblyName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szModuleName,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] StringBuilder szName,
-            [In] uint cchName,
-            [Out] out uint pcName);*/
+            [In] int cchName,
+            [Out] out int pcName);*/
             StringBuilder szName = null;
-            uint cchName = 0;
-            uint pcName;
+            int cchName = 0;
+            int pcName;
             HRESULT hr = Raw.FindAssemblyModule(szAppBase, szPrivateBin, szGlobalBin, szAssemblyName, szModuleName, szName, cchName, out pcName);
 
             if (hr != HRESULT.S_FALSE)
                 goto fail;
 
             cchName = pcName;
-            szName = new StringBuilder((int) pcName);
+            szName = new StringBuilder(pcName);
             hr = Raw.FindAssemblyModule(szAppBase, szPrivateBin, szGlobalBin, szAssemblyName, szModuleName, szName, cchName, out pcName);
 
             if (hr == HRESULT.S_OK)

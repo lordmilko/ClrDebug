@@ -266,7 +266,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Interop debugging is not supported on Win9x and non-x86 platforms, such as IA-64-based and AMD64-based platforms.
         /// </remarks>
-        public CorDebugProcess DebugActiveProcess(uint id, int win32Attach)
+        public CorDebugProcess DebugActiveProcess(int id, int win32Attach)
         {
             HRESULT hr;
             CorDebugProcess ppProcessResult;
@@ -286,9 +286,9 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Interop debugging is not supported on Win9x and non-x86 platforms, such as IA-64-based and AMD64-based platforms.
         /// </remarks>
-        public HRESULT TryDebugActiveProcess(uint id, int win32Attach, out CorDebugProcess ppProcessResult)
+        public HRESULT TryDebugActiveProcess(int id, int win32Attach, out CorDebugProcess ppProcessResult)
         {
-            /*HRESULT DebugActiveProcess([In] uint id, [In] int win32Attach,
+            /*HRESULT DebugActiveProcess([In] int id, [In] int win32Attach,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
             ICorDebugProcess ppProcess;
             HRESULT hr = Raw.DebugActiveProcess(id, win32Attach, out ppProcess);
@@ -345,7 +345,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="dwProcessId">[in] The ID of the process.</param>
         /// <returns>[out] A pointer to the address of a <see cref="ICorDebugProcess"/> instance for the specified process.</returns>
-        public CorDebugProcess GetProcess(uint dwProcessId)
+        public CorDebugProcess GetProcess(int dwProcessId)
         {
             HRESULT hr;
             CorDebugProcess ppProcessResult;
@@ -361,9 +361,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="dwProcessId">[in] The ID of the process.</param>
         /// <param name="ppProcessResult">[out] A pointer to the address of a <see cref="ICorDebugProcess"/> instance for the specified process.</param>
-        public HRESULT TryGetProcess(uint dwProcessId, out CorDebugProcess ppProcessResult)
+        public HRESULT TryGetProcess(int dwProcessId, out CorDebugProcess ppProcessResult)
         {
-            /*HRESULT GetProcess([In] uint dwProcessId, [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
+            /*HRESULT GetProcess([In] int dwProcessId, [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
             ICorDebugProcess ppProcess;
             HRESULT hr = Raw.GetProcess(dwProcessId, out ppProcess);
 
@@ -389,7 +389,7 @@ namespace ManagedCorDebug
         /// with Win32 debugging enabled, pass true for win32DebuggingEnabled. The <see cref="HRESULT"/> returned by CanLaunchOrAttach might
         /// differ if you use this option.
         /// </remarks>
-        public void CanLaunchOrAttach(uint dwProcessId, int win32DebuggingEnabled)
+        public void CanLaunchOrAttach(int dwProcessId, int win32DebuggingEnabled)
         {
             HRESULT hr;
 
@@ -416,9 +416,9 @@ namespace ManagedCorDebug
         /// with Win32 debugging enabled, pass true for win32DebuggingEnabled. The <see cref="HRESULT"/> returned by CanLaunchOrAttach might
         /// differ if you use this option.
         /// </remarks>
-        public HRESULT TryCanLaunchOrAttach(uint dwProcessId, int win32DebuggingEnabled)
+        public HRESULT TryCanLaunchOrAttach(int dwProcessId, int win32DebuggingEnabled)
         {
-            /*HRESULT CanLaunchOrAttach([In] uint dwProcessId, [In] int win32DebuggingEnabled);*/
+            /*HRESULT CanLaunchOrAttach([In] int dwProcessId, [In] int win32DebuggingEnabled);*/
             return Raw.CanLaunchOrAttach(dwProcessId, win32DebuggingEnabled);
         }
 

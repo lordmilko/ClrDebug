@@ -69,9 +69,9 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);*/
-            uint cchName = 0;
-            uint pcchName;
+            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            int cchName = 0;
+            int pcchName;
             StringBuilder szName = null;
             HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
 
@@ -79,7 +79,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder((int) pcchName);
+            szName = new StringBuilder(pcchName);
             hr = Raw.GetName(cchName, out pcchName, szName);
 
             if (hr == HRESULT.S_OK)
@@ -103,7 +103,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cSig">[in] The length of the buffer that the pcSig parameter points to.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetSignatureResult GetSignature(uint cSig)
+        public GetSignatureResult GetSignature(int cSig)
         {
             HRESULT hr;
             GetSignatureResult result;
@@ -120,10 +120,10 @@ namespace ManagedCorDebug
         /// <param name="cSig">[in] The length of the buffer that the pcSig parameter points to.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSignature(uint cSig, out GetSignatureResult result)
+        public HRESULT TryGetSignature(int cSig, out GetSignatureResult result)
         {
-            /*HRESULT GetSignature([In] uint cSig, out uint pcSig, [MarshalAs(UnmanagedType.LPArray), Out] byte[] sig);*/
-            uint pcSig;
+            /*HRESULT GetSignature([In] int cSig, out int pcSig, [MarshalAs(UnmanagedType.LPArray), Out] byte[] sig);*/
+            int pcSig;
             byte[] sig = null;
             HRESULT hr = Raw.GetSignature(cSig, out pcSig, sig);
 

@@ -37,7 +37,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetSize(out uint pSize);
+        new HRESULT GetSize(out int pSize);
 
         /// <summary>
         /// Gets the address of this "ICorDebugValue" object, which is in the process of being debugged.
@@ -84,7 +84,7 @@ namespace ManagedCorDebug
         /// <param name="pcchString">[out] A pointer to a value that specifies the length of the string referenced by this <see cref="ICorDebugStringValue"/> object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetLength(out uint pcchString);
+        HRESULT GetLength(out int pcchString);
 
         /// <summary>
         /// Gets the string referenced by this <see cref="ICorDebugStringValue"/>.
@@ -94,6 +94,6 @@ namespace ManagedCorDebug
         /// <param name="szString">[out] An array that stores the retrieved string.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetString([In] uint cchString, out uint pcchString, [Out] StringBuilder szString);
+        HRESULT GetString([In] int cchString, out int pcchString, [Out] StringBuilder szString);
     }
 }

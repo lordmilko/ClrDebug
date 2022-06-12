@@ -80,12 +80,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the start offset for this scope.
         /// </summary>
-        public uint StartOffset
+        public int StartOffset
         {
             get
             {
                 HRESULT hr;
-                uint pRetVal;
+                int pRetVal;
 
                 if ((hr = TryGetStartOffset(out pRetVal)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -99,9 +99,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that contains the starting offset.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetStartOffset(out uint pRetVal)
+        public HRESULT TryGetStartOffset(out int pRetVal)
         {
-            /*HRESULT GetStartOffset([Out] out uint pRetVal);*/
+            /*HRESULT GetStartOffset([Out] out int pRetVal);*/
             return Raw.GetStartOffset(out pRetVal);
         }
 
@@ -111,12 +111,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the end offset for this scope.
         /// </summary>
-        public uint EndOffset
+        public int EndOffset
         {
             get
             {
                 HRESULT hr;
-                uint pRetVal;
+                int pRetVal;
 
                 if ((hr = TryGetEndOffset(out pRetVal)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -130,9 +130,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the end offset.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetEndOffset(out uint pRetVal)
+        public HRESULT TryGetEndOffset(out int pRetVal)
         {
-            /*HRESULT GetEndOffset([Out] out uint pRetVal);*/
+            /*HRESULT GetEndOffset([Out] out int pRetVal);*/
             return Raw.GetEndOffset(out pRetVal);
         }
 
@@ -142,12 +142,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets a count of the local variables defined within this scope.
         /// </summary>
-        public uint LocalCount
+        public int LocalCount
         {
             get
             {
                 HRESULT hr;
-                uint pRetVal;
+                int pRetVal;
 
                 if ((hr = TryGetLocalCount(out pRetVal)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -161,9 +161,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the count of local variables.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetLocalCount(out uint pRetVal)
+        public HRESULT TryGetLocalCount(out int pRetVal)
         {
-            /*HRESULT GetLocalCount([Out] out uint pRetVal);*/
+            /*HRESULT GetLocalCount([Out] out int pRetVal);*/
             return Raw.GetLocalCount(out pRetVal);
         }
 
@@ -175,7 +175,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cChildren">[in] A ULONG32 that indicates the size of the children array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetChildrenResult GetChildren(uint cChildren)
+        public GetChildrenResult GetChildren(int cChildren)
         {
             HRESULT hr;
             GetChildrenResult result;
@@ -192,13 +192,13 @@ namespace ManagedCorDebug
         /// <param name="cChildren">[in] A ULONG32 that indicates the size of the children array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetChildren(uint cChildren, out GetChildrenResult result)
+        public HRESULT TryGetChildren(int cChildren, out GetChildrenResult result)
         {
             /*HRESULT GetChildren(
-            [In] uint cChildren,
-            out uint pcChildren,
+            [In] int cChildren,
+            out int pcChildren,
             [Out] IntPtr children);*/
-            uint pcChildren;
+            int pcChildren;
             IntPtr children = default(IntPtr);
             HRESULT hr = Raw.GetChildren(cChildren, out pcChildren, children);
 
@@ -218,7 +218,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cLocals">[in] A ULONG32 that indicates the size of the locals array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetLocalsResult GetLocals(uint cLocals)
+        public GetLocalsResult GetLocals(int cLocals)
         {
             HRESULT hr;
             GetLocalsResult result;
@@ -235,13 +235,13 @@ namespace ManagedCorDebug
         /// <param name="cLocals">[in] A ULONG32 that indicates the size of the locals array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetLocals(uint cLocals, out GetLocalsResult result)
+        public HRESULT TryGetLocals(int cLocals, out GetLocalsResult result)
         {
             /*HRESULT GetLocals(
-            [In] uint cLocals,
-            out uint pcLocals,
+            [In] int cLocals,
+            out int pcLocals,
             [Out] IntPtr locals);*/
-            uint pcLocals;
+            int pcLocals;
             IntPtr locals = default(IntPtr);
             HRESULT hr = Raw.GetLocals(cLocals, out pcLocals, locals);
 
@@ -261,7 +261,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cNameSpaces">[in] The size of the namespaces array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetNamespacesResult GetNamespaces(uint cNameSpaces)
+        public GetNamespacesResult GetNamespaces(int cNameSpaces)
         {
             HRESULT hr;
             GetNamespacesResult result;
@@ -278,13 +278,13 @@ namespace ManagedCorDebug
         /// <param name="cNameSpaces">[in] The size of the namespaces array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetNamespaces(uint cNameSpaces, out GetNamespacesResult result)
+        public HRESULT TryGetNamespaces(int cNameSpaces, out GetNamespacesResult result)
         {
             /*HRESULT GetNamespaces(
-            [In] uint cNameSpaces,
-            out uint pcNameSpaces,
+            [In] int cNameSpaces,
+            out int pcNameSpaces,
             [Out] IntPtr namespaces);*/
-            uint pcNameSpaces;
+            int pcNameSpaces;
             IntPtr namespaces = default(IntPtr);
             HRESULT hr = Raw.GetNamespaces(cNameSpaces, out pcNameSpaces, namespaces);
 
@@ -307,12 +307,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets a count of the constants defined within this scope.
         /// </summary>
-        public uint ConstantCount
+        public int ConstantCount
         {
             get
             {
                 HRESULT hr;
-                uint pRetVal;
+                int pRetVal;
 
                 if ((hr = TryGetConstantCount(out pRetVal)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -326,9 +326,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the size, in characters, of the buffer required to contain the constants.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetConstantCount(out uint pRetVal)
+        public HRESULT TryGetConstantCount(out int pRetVal)
         {
-            /*HRESULT GetConstantCount([Out] out uint pRetVal);*/
+            /*HRESULT GetConstantCount([Out] out int pRetVal);*/
             return Raw2.GetConstantCount(out pRetVal);
         }
 
@@ -340,7 +340,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cConstants">[in] The length of the buffer that the pcConstants parameter points to.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetConstantsResult GetConstants(uint cConstants)
+        public GetConstantsResult GetConstants(int cConstants)
         {
             HRESULT hr;
             GetConstantsResult result;
@@ -357,11 +357,11 @@ namespace ManagedCorDebug
         /// <param name="cConstants">[in] The length of the buffer that the pcConstants parameter points to.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetConstants(uint cConstants, out GetConstantsResult result)
+        public HRESULT TryGetConstants(int cConstants, out GetConstantsResult result)
         {
-            /*HRESULT GetConstants([In] uint cConstants, out uint pcConstants, [MarshalAs(UnmanagedType.Interface), Out]
+            /*HRESULT GetConstants([In] int cConstants, out int pcConstants, [MarshalAs(UnmanagedType.Interface), Out]
             IntPtr constants);*/
-            uint pcConstants;
+            int pcConstants;
             IntPtr constants = default(IntPtr);
             HRESULT hr = Raw2.GetConstants(cConstants, out pcConstants, constants);
 

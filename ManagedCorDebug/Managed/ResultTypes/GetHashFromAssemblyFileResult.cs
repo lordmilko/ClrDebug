@@ -2,13 +2,13 @@ namespace ManagedCorDebug
 {
     public struct GetHashFromAssemblyFileResult
     {
-        public uint PiHashAlg { get; }
+        public int PiHashAlg { get; }
 
         public byte PbHash { get; }
 
-        public uint PchHash { get; }
+        public int PchHash { get; }
 
-        public GetHashFromAssemblyFileResult(uint piHashAlg, byte pbHash, uint pchHash)
+        public GetHashFromAssemblyFileResult(int piHashAlg, byte pbHash, int pchHash)
         {
             PiHashAlg = piHashAlg;
             PbHash = pbHash;

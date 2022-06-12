@@ -27,7 +27,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSimpleName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);
+        HRESULT GetSimpleName([In] int cchName, out int pcchName, [Out] StringBuilder szName);
 
         /// <summary>
         /// Gets the assembly's version information.
@@ -55,7 +55,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCulture([In] uint cchCulture, out uint pcchCulture, [Out] StringBuilder szCulture);
+        HRESULT GetCulture([In] int cchCulture, out int pcchCulture, [Out] StringBuilder szCulture);
 
         /// <summary>
         /// Gets the assembly's public key.
@@ -66,8 +66,8 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetPublicKey(
-            [In] uint cbPublicKey,
-            out uint pcbPublicKey,
+            [In] int cbPublicKey,
+            out int pcbPublicKey,
             [MarshalAs(UnmanagedType.LPArray), Out]
             byte[] pbPublicKey);
 
@@ -83,8 +83,8 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetPublicKeyToken(
-            [In] uint cbPublicKeyToken,
-            out uint pcbPublicKeyToken,
+            [In] int cbPublicKeyToken,
+            out int pcbPublicKeyToken,
             [MarshalAs(UnmanagedType.LPArray), Out]
             byte[] pbPublicKeyToken);
 
@@ -97,6 +97,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetIndex(out uint pIndex);
+        HRESULT GetIndex(out int pIndex);
     }
 }

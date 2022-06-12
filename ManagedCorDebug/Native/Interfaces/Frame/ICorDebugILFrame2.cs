@@ -24,7 +24,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT RemapFunction([In] uint newILOffset);
+        HRESULT RemapFunction([In] int newILOffset);
 
         /// <summary>
         /// Gets an <see cref="ICorDebugTypeEnum"/> object that contains the <see cref="Type"/> parameters in this frame.

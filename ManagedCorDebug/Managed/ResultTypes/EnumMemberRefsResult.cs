@@ -8,9 +8,9 @@ namespace ManagedCorDebug
 
         public mdMemberRef[] RMemberRefs { get; }
 
-        public uint PcTokens { get; }
+        public int PcTokens { get; }
 
-        public EnumMemberRefsResult(IntPtr phEnum, mdMemberRef[] rMemberRefs, uint pcTokens)
+        public EnumMemberRefsResult(IntPtr phEnum, mdMemberRef[] rMemberRefs, int pcTokens)
         {
             PhEnum = phEnum;
             RMemberRefs = rMemberRefs;

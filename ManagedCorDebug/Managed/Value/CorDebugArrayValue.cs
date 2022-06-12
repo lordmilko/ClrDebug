@@ -55,12 +55,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the number of dimensions in the array.
         /// </summary>
-        public uint Rank
+        public int Rank
         {
             get
             {
                 HRESULT hr;
-                uint pnRank;
+                int pnRank;
 
                 if ((hr = TryGetRank(out pnRank)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -73,9 +73,9 @@ namespace ManagedCorDebug
         /// Gets the number of dimensions in the array.
         /// </summary>
         /// <param name="pnRank">[out] A pointer to the number of dimensions in this <see cref="ICorDebugArrayValue"/> object.</param>
-        public HRESULT TryGetRank(out uint pnRank)
+        public HRESULT TryGetRank(out int pnRank)
         {
-            /*HRESULT GetRank(out uint pnRank);*/
+            /*HRESULT GetRank(out int pnRank);*/
             return Raw.GetRank(out pnRank);
         }
 
@@ -85,12 +85,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the total number of elements in the array.
         /// </summary>
-        public uint Count
+        public int Count
         {
             get
             {
                 HRESULT hr;
-                uint pnCount;
+                int pnCount;
 
                 if ((hr = TryGetCount(out pnCount)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -103,9 +103,9 @@ namespace ManagedCorDebug
         /// Gets the total number of elements in the array.
         /// </summary>
         /// <param name="pnCount">[out] A pointer to the total number of elements in the array.</param>
-        public HRESULT TryGetCount(out uint pnCount)
+        public HRESULT TryGetCount(out int pnCount)
         {
-            /*HRESULT GetCount(out uint pnCount);*/
+            /*HRESULT GetCount(out int pnCount);*/
             return Raw.GetCount(out pnCount);
         }
 
@@ -117,10 +117,10 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cdim">[in] The number of dimensions of this <see cref="ICorDebugArrayValue"/> object. This value is also the size of the dims array because its size is equal to the number of dimensions of the <see cref="ICorDebugArrayValue"/> object.</param>
         /// <returns>[out] An array of integers, each of which specifies the number of elements in a dimension in this <see cref="ICorDebugArrayValue"/> object.</returns>
-        public uint[] GetDimensions(uint cdim)
+        public int[] GetDimensions(int cdim)
         {
             HRESULT hr;
-            uint[] dimsResult;
+            int[] dimsResult;
 
             if ((hr = TryGetDimensions(cdim, out dimsResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -133,16 +133,16 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cdim">[in] The number of dimensions of this <see cref="ICorDebugArrayValue"/> object. This value is also the size of the dims array because its size is equal to the number of dimensions of the <see cref="ICorDebugArrayValue"/> object.</param>
         /// <param name="dimsResult">[out] An array of integers, each of which specifies the number of elements in a dimension in this <see cref="ICorDebugArrayValue"/> object.</param>
-        public HRESULT TryGetDimensions(uint cdim, out uint[] dimsResult)
+        public HRESULT TryGetDimensions(int cdim, out int[] dimsResult)
         {
-            /*HRESULT GetDimensions([In] uint cdim, [MarshalAs(UnmanagedType.LPArray), Out] uint[] dims);*/
-            uint[] dims = null;
+            /*HRESULT GetDimensions([In] int cdim, [MarshalAs(UnmanagedType.LPArray), Out] int[] dims);*/
+            int[] dims = null;
             HRESULT hr = Raw.GetDimensions(cdim, dims);
 
             if (hr == HRESULT.S_OK)
                 dimsResult = dims;
             else
-                dimsResult = default(uint[]);
+                dimsResult = default(int[]);
 
             return hr;
         }
@@ -183,10 +183,10 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cdim">[in] The number of dimensions of this <see cref="ICorDebugArrayValue"/> object. This value is also the size of the indicies array because its size is equal to the number of dimensions of the <see cref="ICorDebugArrayValue"/> object.</param>
         /// <returns>[out] An array of integers, each of which is the base index (that is, the starting index) of a dimension of this <see cref="ICorDebugArrayValue"/> object.</returns>
-        public uint[] GetBaseIndicies(uint cdim)
+        public int[] GetBaseIndicies(int cdim)
         {
             HRESULT hr;
-            uint[] indiciesResult;
+            int[] indiciesResult;
 
             if ((hr = TryGetBaseIndicies(cdim, out indiciesResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -199,16 +199,16 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cdim">[in] The number of dimensions of this <see cref="ICorDebugArrayValue"/> object. This value is also the size of the indicies array because its size is equal to the number of dimensions of the <see cref="ICorDebugArrayValue"/> object.</param>
         /// <param name="indiciesResult">[out] An array of integers, each of which is the base index (that is, the starting index) of a dimension of this <see cref="ICorDebugArrayValue"/> object.</param>
-        public HRESULT TryGetBaseIndicies(uint cdim, out uint[] indiciesResult)
+        public HRESULT TryGetBaseIndicies(int cdim, out int[] indiciesResult)
         {
-            /*HRESULT GetBaseIndicies([In] uint cdim, [MarshalAs(UnmanagedType.LPArray), Out] uint[] indicies);*/
-            uint[] indicies = null;
+            /*HRESULT GetBaseIndicies([In] int cdim, [MarshalAs(UnmanagedType.LPArray), Out] int[] indicies);*/
+            int[] indicies = null;
             HRESULT hr = Raw.GetBaseIndicies(cdim, indicies);
 
             if (hr == HRESULT.S_OK)
                 indiciesResult = indicies;
             else
-                indiciesResult = default(uint[]);
+                indiciesResult = default(int[]);
 
             return hr;
         }
@@ -223,7 +223,7 @@ namespace ManagedCorDebug
         /// <param name="indices">[in] An array of index values, each of which specifies a position within a dimension of the <see cref="ICorDebugArrayValue"/> object.<para/>
         /// This value must not be null.</param>
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugValue"/> object that represents the value of the specified element.</returns>
-        public CorDebugValue GetElement(uint cdim, uint indices)
+        public CorDebugValue GetElement(int cdim, int indices)
         {
             HRESULT hr;
             CorDebugValue ppValueResult;
@@ -241,11 +241,11 @@ namespace ManagedCorDebug
         /// <param name="indices">[in] An array of index values, each of which specifies a position within a dimension of the <see cref="ICorDebugArrayValue"/> object.<para/>
         /// This value must not be null.</param>
         /// <param name="ppValueResult">[out] A pointer to the address of an <see cref="ICorDebugValue"/> object that represents the value of the specified element.</param>
-        public HRESULT TryGetElement(uint cdim, uint indices, out CorDebugValue ppValueResult)
+        public HRESULT TryGetElement(int cdim, int indices, out CorDebugValue ppValueResult)
         {
             /*HRESULT GetElement(
-            [In] uint cdim,
-            [MarshalAs(UnmanagedType.LPArray), In] uint indices,
+            [In] int cdim,
+            [MarshalAs(UnmanagedType.LPArray), In] int indices,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetElement(cdim, indices, out ppValue);
@@ -269,7 +269,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The layout of a multi-dimension array follows the C++ style of array layout.
         /// </remarks>
-        public CorDebugValue GetElementAtPosition(uint nPosition)
+        public CorDebugValue GetElementAtPosition(int nPosition)
         {
             HRESULT hr;
             CorDebugValue ppValueResult;
@@ -288,9 +288,9 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The layout of a multi-dimension array follows the C++ style of array layout.
         /// </remarks>
-        public HRESULT TryGetElementAtPosition(uint nPosition, out CorDebugValue ppValueResult)
+        public HRESULT TryGetElementAtPosition(int nPosition, out CorDebugValue ppValueResult)
         {
-            /*HRESULT GetElementAtPosition([In] uint nPosition, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            /*HRESULT GetElementAtPosition([In] int nPosition, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetElementAtPosition(nPosition, out ppValue);
 

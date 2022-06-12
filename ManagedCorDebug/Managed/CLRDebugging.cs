@@ -29,7 +29,7 @@ namespace ManagedCorDebug
         /// <param name="pMaxDebuggerSupportedVersion">[in] The highest version of the CLR that this debugger can debug. You should specify the major, minor, and build versions from the latest CLR version this debugger supports, and set the revision number to 65535 to accommodate future in-place CLR servicing releases.</param>
         /// <param name="riidProcess">[in] The ID of the <see cref="ICorDebugProcess"/> interface to retrieve. Currently, the only accepted values are IID_CORDEBUGPROCESS3, IID_CORDEBUGPROCESS2, and IID_CORDEBUGPROCESS.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public OpenVirtualProcessResult OpenVirtualProcess(ulong moduleBaseAddress, object pDataTarget, ICLRDebuggingLibraryProvider pLibraryProvider, CLR_DEBUGGING_VERSION pMaxDebuggerSupportedVersion, Guid riidProcess)
+        public OpenVirtualProcessResult OpenVirtualProcess(long moduleBaseAddress, object pDataTarget, ICLRDebuggingLibraryProvider pLibraryProvider, CLR_DEBUGGING_VERSION pMaxDebuggerSupportedVersion, Guid riidProcess)
         {
             HRESULT hr;
             OpenVirtualProcessResult result;
@@ -66,10 +66,10 @@ namespace ManagedCorDebug
         /// | E_NO_INTERFACE                         | The riidProcess interface is not available.                                                                                                                                                                                                   |
         /// | CORDBG_E_UNSUPPORTED_VERSION_STRUCT    | The CLR_DEBUGGING_VERSION structure does not have a recognized value for wStructVersion. The only accepted value at this time is 0.                                                                                                           |
         /// </returns>
-        public HRESULT TryOpenVirtualProcess(ulong moduleBaseAddress, object pDataTarget, ICLRDebuggingLibraryProvider pLibraryProvider, CLR_DEBUGGING_VERSION pMaxDebuggerSupportedVersion, Guid riidProcess, out OpenVirtualProcessResult result)
+        public HRESULT TryOpenVirtualProcess(long moduleBaseAddress, object pDataTarget, ICLRDebuggingLibraryProvider pLibraryProvider, CLR_DEBUGGING_VERSION pMaxDebuggerSupportedVersion, Guid riidProcess, out OpenVirtualProcessResult result)
         {
             /*HRESULT OpenVirtualProcess(
-            [In] ulong moduleBaseAddress,
+            [In] long moduleBaseAddress,
             [MarshalAs(UnmanagedType.IUnknown), In]
             object pDataTarget,
             [MarshalAs(UnmanagedType.Interface), In]

@@ -22,12 +22,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets or sets the maximum number of threads that the host maintains concurrently in the thread pool.
         /// </summary>
-        public uint MaxThreads
+        public int MaxThreads
         {
             get
             {
                 HRESULT hr;
-                uint pdwMaxWorkerThreads;
+                int pdwMaxWorkerThreads;
 
                 if ((hr = TryGetMaxThreads(out pdwMaxWorkerThreads)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -64,10 +64,10 @@ namespace ManagedCorDebug
         /// value of the pdwMaxWorkerThreads parameter remain queued until threads become available. If the host does not provide
         /// an implementation of GetMaxThreads, it should return an <see cref="HRESULT"/> value of E_NOTIMPL.
         /// </remarks>
-        public HRESULT TryGetMaxThreads(out uint pdwMaxWorkerThreads)
+        public HRESULT TryGetMaxThreads(out int pdwMaxWorkerThreads)
         {
             /*HRESULT GetMaxThreads(
-            [Out] out uint pdwMaxWorkerThreads);*/
+            [Out] out int pdwMaxWorkerThreads);*/
             return Raw.GetMaxThreads(out pdwMaxWorkerThreads);
         }
 
@@ -91,10 +91,10 @@ namespace ManagedCorDebug
         /// control over the thread pool, for reasons such as implementation, performance, or scalability. In this case, a
         /// host should return an <see cref="HRESULT"/> value of E_NOTIMPL.
         /// </remarks>
-        public HRESULT TrySetMaxThreads(uint dwMaxWorkerThreads)
+        public HRESULT TrySetMaxThreads(int dwMaxWorkerThreads)
         {
             /*HRESULT SetMaxThreads(
-            [In] uint dwMaxWorkerThreads);*/
+            [In] int dwMaxWorkerThreads);*/
             return Raw.SetMaxThreads(dwMaxWorkerThreads);
         }
 
@@ -104,12 +104,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the number of threads in the thread pool that are not currently processing work items.
         /// </summary>
-        public uint AvailableThreads
+        public int AvailableThreads
         {
             get
             {
                 HRESULT hr;
-                uint pdwAvailableWorkerThreads;
+                int pdwAvailableWorkerThreads;
 
                 if ((hr = TryGetAvailableThreads(out pdwAvailableWorkerThreads)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -136,10 +136,10 @@ namespace ManagedCorDebug
         /// <remarks>
         /// If the host does not provide an implementation of GetAvailableThreads, it should return an <see cref="HRESULT"/> value of E_NOTIMPL.
         /// </remarks>
-        public HRESULT TryGetAvailableThreads(out uint pdwAvailableWorkerThreads)
+        public HRESULT TryGetAvailableThreads(out int pdwAvailableWorkerThreads)
         {
             /*HRESULT GetAvailableThreads(
-            [Out] out uint pdwAvailableWorkerThreads);*/
+            [Out] out int pdwAvailableWorkerThreads);*/
             return Raw.GetAvailableThreads(out pdwAvailableWorkerThreads);
         }
 
@@ -149,12 +149,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets or sets the minimum number of idle threads that the host maintains in the thread pool in anticipation of requests.
         /// </summary>
-        public uint MinThreads
+        public int MinThreads
         {
             get
             {
                 HRESULT hr;
-                uint pdwMinIOCompletionThreads;
+                int pdwMinIOCompletionThreads;
 
                 if ((hr = TryGetMinThreads(out pdwMinIOCompletionThreads)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -189,10 +189,10 @@ namespace ManagedCorDebug
         /// The host is not required to provide an implementation of GetMinThreads. In this case, it should return an <see cref="HRESULT"/>
         /// value of E_NOTIMPL.
         /// </remarks>
-        public HRESULT TryGetMinThreads(out uint pdwMinIOCompletionThreads)
+        public HRESULT TryGetMinThreads(out int pdwMinIOCompletionThreads)
         {
             /*HRESULT GetMinThreads(
-            [Out] out uint pdwMinIOCompletionThreads);*/
+            [Out] out int pdwMinIOCompletionThreads);*/
             return Raw.GetMinThreads(out pdwMinIOCompletionThreads);
         }
 
@@ -215,10 +215,10 @@ namespace ManagedCorDebug
         /// A host is not required to provide an implementation of SetMinThreads. In this case, it should return an <see cref="HRESULT"/>
         /// value of E_NOTIMPL.
         /// </remarks>
-        public HRESULT TrySetMinThreads(uint dwMinIOCompletionThreads)
+        public HRESULT TrySetMinThreads(int dwMinIOCompletionThreads)
         {
             /*HRESULT SetMinThreads(
-            [In] uint dwMinIOCompletionThreads);*/
+            [In] int dwMinIOCompletionThreads);*/
             return Raw.SetMinThreads(dwMinIOCompletionThreads);
         }
 
@@ -236,7 +236,7 @@ namespace ManagedCorDebug
         /// identical to those of the corresponding Win32 function, which has the same name. For more information, see the
         /// Windows Platform documentation.
         /// </remarks>
-        public void QueueUserWorkItem(LPTHREAD_START_ROUTINE function, IntPtr context, uint flags)
+        public void QueueUserWorkItem(LPTHREAD_START_ROUTINE function, IntPtr context, int flags)
         {
             HRESULT hr;
 
@@ -265,12 +265,12 @@ namespace ManagedCorDebug
         /// identical to those of the corresponding Win32 function, which has the same name. For more information, see the
         /// Windows Platform documentation.
         /// </remarks>
-        public HRESULT TryQueueUserWorkItem(LPTHREAD_START_ROUTINE function, IntPtr context, uint flags)
+        public HRESULT TryQueueUserWorkItem(LPTHREAD_START_ROUTINE function, IntPtr context, int flags)
         {
             /*HRESULT QueueUserWorkItem(
             [In, MarshalAs(UnmanagedType.FunctionPtr)] LPTHREAD_START_ROUTINE Function,
             [In] IntPtr Context,
-            [In] uint Flags);*/
+            [In] int Flags);*/
             return Raw.QueueUserWorkItem(function, context, flags);
         }
 

@@ -19,12 +19,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the number of documents that this method has lines in.
         /// </summary>
-        public uint DocumentsForMethodCount
+        public int DocumentsForMethodCount
         {
             get
             {
                 HRESULT hr;
-                uint pRetVal;
+                int pRetVal;
 
                 if ((hr = TryGetDocumentsForMethodCount(out pRetVal)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -38,10 +38,10 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the size of the buffer required to contain the documents.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetDocumentsForMethodCount(out uint pRetVal)
+        public HRESULT TryGetDocumentsForMethodCount(out int pRetVal)
         {
             /*HRESULT GetDocumentsForMethodCount(
-            [Out] out uint pRetVal);*/
+            [Out] out int pRetVal);*/
             return Raw.GetDocumentsForMethodCount(out pRetVal);
         }
 
@@ -53,7 +53,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="dwOffset">[in] A ULONG32 that contains the offset.</param>
         /// <returns>[out] The buffer that contains the file names.</returns>
-        public string GetFileNameFromOffset(uint dwOffset)
+        public string GetFileNameFromOffset(int dwOffset)
         {
             HRESULT hr;
             string szNameResult;
@@ -70,15 +70,15 @@ namespace ManagedCorDebug
         /// <param name="dwOffset">[in] A ULONG32 that contains the offset.</param>
         /// <param name="szNameResult">[out] The buffer that contains the file names.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetFileNameFromOffset(uint dwOffset, out string szNameResult)
+        public HRESULT TryGetFileNameFromOffset(int dwOffset, out string szNameResult)
         {
             /*HRESULT GetFileNameFromOffset(
-            [In] uint dwOffset,
-            [In] uint cchName,
-            out uint pcchName,
+            [In] int dwOffset,
+            [In] int cchName,
+            out int pcchName,
             [Out] StringBuilder szName);*/
-            uint cchName = 0;
-            uint pcchName;
+            int cchName = 0;
+            int pcchName;
             StringBuilder szName = null;
             HRESULT hr = Raw.GetFileNameFromOffset(dwOffset, cchName, out pcchName, szName);
 
@@ -86,7 +86,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder((int) pcchName);
+            szName = new StringBuilder(pcchName);
             hr = Raw.GetFileNameFromOffset(dwOffset, cchName, out pcchName, szName);
 
             if (hr == HRESULT.S_OK)
@@ -110,7 +110,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="dwOffset">[in] A ULONG32 that contains the offset.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetLineFromOffsetResult GetLineFromOffset(uint dwOffset)
+        public GetLineFromOffsetResult GetLineFromOffset(int dwOffset)
         {
             HRESULT hr;
             GetLineFromOffsetResult result;
@@ -127,20 +127,20 @@ namespace ManagedCorDebug
         /// <param name="dwOffset">[in] A ULONG32 that contains the offset.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetLineFromOffset(uint dwOffset, out GetLineFromOffsetResult result)
+        public HRESULT TryGetLineFromOffset(int dwOffset, out GetLineFromOffsetResult result)
         {
             /*HRESULT GetLineFromOffset(
-            [In] uint dwOffset,
-            out uint pline,
-            out uint pcolumn,
-            out uint pendLine,
-            out uint pendColumn,
-            out uint pdwStartOffset);*/
-            uint pline;
-            uint pcolumn;
-            uint pendLine;
-            uint pendColumn;
-            uint pdwStartOffset;
+            [In] int dwOffset,
+            out int pline,
+            out int pcolumn,
+            out int pendLine,
+            out int pendColumn,
+            out int pdwStartOffset);*/
+            int pline;
+            int pcolumn;
+            int pendLine;
+            int pendColumn;
+            int pdwStartOffset;
             HRESULT hr = Raw.GetLineFromOffset(dwOffset, out pline, out pcolumn, out pendLine, out pendColumn, out pdwStartOffset);
 
             if (hr == HRESULT.S_OK)
@@ -159,7 +159,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cDocs">[in] The length of the buffer pointed to by pcDocs.</param>
         /// <param name="documents">[in] The buffer that contains the documents.</param>
-        public void GetDocumentsForMethod(uint cDocs, ISymUnmanagedDocument documents)
+        public void GetDocumentsForMethod(int cDocs, ISymUnmanagedDocument documents)
         {
             HRESULT hr;
 
@@ -173,11 +173,11 @@ namespace ManagedCorDebug
         /// <param name="cDocs">[in] The length of the buffer pointed to by pcDocs.</param>
         /// <param name="documents">[in] The buffer that contains the documents.</param>
         /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
-        public HRESULT TryGetDocumentsForMethod(uint cDocs, ISymUnmanagedDocument documents)
+        public HRESULT TryGetDocumentsForMethod(int cDocs, ISymUnmanagedDocument documents)
         {
-            /*HRESULT GetDocumentsForMethod([In] uint cDocs, out uint pcDocs, [MarshalAs(UnmanagedType.Interface), In]
+            /*HRESULT GetDocumentsForMethod([In] int cDocs, out int pcDocs, [MarshalAs(UnmanagedType.Interface), In]
             ref ISymUnmanagedDocument documents);*/
-            uint pcDocs;
+            int pcDocs;
 
             return Raw.GetDocumentsForMethod(cDocs, out pcDocs, ref documents);
         }
@@ -212,10 +212,10 @@ namespace ManagedCorDebug
             /*HRESULT GetSourceExtentInDocument(
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocument document,
-            out uint pstartLine,
-            out uint pendLine);*/
-            uint pstartLine;
-            uint pendLine;
+            out int pstartLine,
+            out int pendLine);*/
+            int pstartLine;
+            int pendLine;
             HRESULT hr = Raw.GetSourceExtentInDocument(document, out pstartLine, out pendLine);
 
             if (hr == HRESULT.S_OK)

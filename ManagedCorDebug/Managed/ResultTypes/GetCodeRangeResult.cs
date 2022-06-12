@@ -2,11 +2,11 @@ namespace ManagedCorDebug
 {
     public struct GetCodeRangeResult
     {
-        public uint PCodeStartAddress { get; }
+        public int PCodeStartAddress { get; }
 
-        public uint PCodeSize { get; }
+        public int PCodeSize { get; }
 
-        public GetCodeRangeResult(uint pCodeStartAddress, uint pCodeSize)
+        public GetCodeRangeResult(int pCodeStartAddress, int pCodeSize)
         {
             PCodeStartAddress = pCodeStartAddress;
             PCodeSize = pCodeSize;

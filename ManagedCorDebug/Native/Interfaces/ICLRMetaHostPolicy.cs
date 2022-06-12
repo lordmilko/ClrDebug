@@ -51,10 +51,10 @@ namespace ManagedCorDebug
             IStream pCfgStream,
             [MarshalAs(UnmanagedType.LPWStr), In] [Out]
             StringBuilder pwzVersion,
-            [In] [Out] ref uint pcchVersion,
+            [In] [Out] ref int pcchVersion,
             [MarshalAs(UnmanagedType.LPWStr), Out]
             StringBuilder pwzImageVersion,
-            [In] [Out] ref uint pcchImageVersion,
+            [In] [Out] ref int pcchImageVersion,
             out METAHOST_CONFIG_FLAGS pdwConfigFlags,
             [In] ref Guid riid,
             [Out] out object ppRuntime);

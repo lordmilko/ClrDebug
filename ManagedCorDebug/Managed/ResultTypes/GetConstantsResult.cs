@@ -5,11 +5,11 @@ namespace ManagedCorDebug
 {
     public struct GetConstantsResult
     {
-        public uint PcConstants { get; }
+        public int PcConstants { get; }
 
         public IntPtr Constants { get; }
 
-        public GetConstantsResult(uint pcConstants, IntPtr constants)
+        public GetConstantsResult(int pcConstants, IntPtr constants)
         {
             PcConstants = pcConstants;
             Constants = constants;

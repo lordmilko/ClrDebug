@@ -29,7 +29,7 @@ namespace ManagedCorDebug
         /// dump was collected. The file may not exist at this location, or an incorrect file with the same name may be stored
         /// on the path.
         /// </remarks>
-        public string GetMetaData(string wszImagePath, uint dwImageTimeStamp, uint dwImageSize)
+        public string GetMetaData(string wszImagePath, int dwImageTimeStamp, int dwImageSize)
         {
             HRESULT hr;
             string wszPathBufferResult;
@@ -61,17 +61,17 @@ namespace ManagedCorDebug
         /// dump was collected. The file may not exist at this location, or an incorrect file with the same name may be stored
         /// on the path.
         /// </remarks>
-        public HRESULT TryGetMetaData(string wszImagePath, uint dwImageTimeStamp, uint dwImageSize, out string wszPathBufferResult)
+        public HRESULT TryGetMetaData(string wszImagePath, int dwImageTimeStamp, int dwImageSize, out string wszPathBufferResult)
         {
             /*HRESULT GetMetaData(
             [MarshalAs(UnmanagedType.LPWStr), In] string wszImagePath,
-            [In] uint dwImageTimeStamp,
-            [In] uint dwImageSize,
-            [In] uint cchPathBuffer,
-            out uint pcchPathBuffer,
+            [In] int dwImageTimeStamp,
+            [In] int dwImageSize,
+            [In] int cchPathBuffer,
+            out int pcchPathBuffer,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder wszPathBuffer);*/
-            uint cchPathBuffer = 0;
-            uint pcchPathBuffer;
+            int cchPathBuffer = 0;
+            int pcchPathBuffer;
             StringBuilder wszPathBuffer = null;
             HRESULT hr = Raw.GetMetaData(wszImagePath, dwImageTimeStamp, dwImageSize, cchPathBuffer, out pcchPathBuffer, wszPathBuffer);
 
@@ -79,7 +79,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cchPathBuffer = pcchPathBuffer;
-            wszPathBuffer = new StringBuilder((int) pcchPathBuffer);
+            wszPathBuffer = new StringBuilder(pcchPathBuffer);
             hr = Raw.GetMetaData(wszImagePath, dwImageTimeStamp, dwImageSize, cchPathBuffer, out pcchPathBuffer, wszPathBuffer);
 
             if (hr == HRESULT.S_OK)

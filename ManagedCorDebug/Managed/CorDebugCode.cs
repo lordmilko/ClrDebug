@@ -94,12 +94,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the relative virtual address (RVA) of the code segment that this "ICorDebugCode" interface represents.
         /// </summary>
-        public ulong Address
+        public long Address
         {
             get
             {
                 HRESULT hr;
-                ulong pStart;
+                long pStart;
 
                 if ((hr = TryGetAddress(out pStart)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -112,9 +112,9 @@ namespace ManagedCorDebug
         /// Gets the relative virtual address (RVA) of the code segment that this "ICorDebugCode" interface represents.
         /// </summary>
         /// <param name="pStart">[out] A pointer to the RVA of the code segment.</param>
-        public HRESULT TryGetAddress(out ulong pStart)
+        public HRESULT TryGetAddress(out long pStart)
         {
-            /*HRESULT GetAddress(out ulong pStart);*/
+            /*HRESULT GetAddress(out long pStart);*/
             return Raw.GetAddress(out pStart);
         }
 
@@ -124,12 +124,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the size, in bytes, of the binary code represented by this "ICorDebugCode".
         /// </summary>
-        public uint Size
+        public int Size
         {
             get
             {
                 HRESULT hr;
-                uint pcBytes;
+                int pcBytes;
 
                 if ((hr = TryGetSize(out pcBytes)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -142,9 +142,9 @@ namespace ManagedCorDebug
         /// Gets the size, in bytes, of the binary code represented by this "ICorDebugCode".
         /// </summary>
         /// <param name="pcBytes">[out] A pointer to the size, in bytes, of the binary code that this <see cref="ICorDebugCode"/> object represents.</param>
-        public HRESULT TryGetSize(out uint pcBytes)
+        public HRESULT TryGetSize(out int pcBytes)
         {
-            /*HRESULT GetSize(out uint pcBytes);*/
+            /*HRESULT GetSize(out int pcBytes);*/
             return Raw.GetSize(out pcBytes);
         }
 
@@ -154,12 +154,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the one-based number that identifies the version of the code that this "ICorDebugCode" represents.
         /// </summary>
-        public uint VersionNumber
+        public int VersionNumber
         {
             get
             {
                 HRESULT hr;
-                uint nVersion;
+                int nVersion;
 
                 if ((hr = TryGetVersionNumber(out nVersion)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -175,9 +175,9 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The version number is incremented each time an edit-and-continue (EnC) operation is performed on the code.
         /// </remarks>
-        public HRESULT TryGetVersionNumber(out uint nVersion)
+        public HRESULT TryGetVersionNumber(out int nVersion)
         {
-            /*HRESULT GetVersionNumber(out uint nVersion);*/
+            /*HRESULT GetVersionNumber(out int nVersion);*/
             return Raw.GetVersionNumber(out nVersion);
         }
 
@@ -194,7 +194,7 @@ namespace ManagedCorDebug
         /// language (MSIL) code, and there is a just-in-time (JIT)-compiled, native version of the code, the breakpoint will
         /// be applied in the JIT-compiled code as well. (The same is true if the code is JIT-compiled later.)
         /// </remarks>
-        public CorDebugFunctionBreakpoint CreateBreakpoint(uint offset)
+        public CorDebugFunctionBreakpoint CreateBreakpoint(int offset)
         {
             HRESULT hr;
             CorDebugFunctionBreakpoint ppBreakpointResult;
@@ -215,9 +215,9 @@ namespace ManagedCorDebug
         /// language (MSIL) code, and there is a just-in-time (JIT)-compiled, native version of the code, the breakpoint will
         /// be applied in the JIT-compiled code as well. (The same is true if the code is JIT-compiled later.)
         /// </remarks>
-        public HRESULT TryCreateBreakpoint(uint offset, out CorDebugFunctionBreakpoint ppBreakpointResult)
+        public HRESULT TryCreateBreakpoint(int offset, out CorDebugFunctionBreakpoint ppBreakpointResult)
         {
-            /*HRESULT CreateBreakpoint([In] uint offset,
+            /*HRESULT CreateBreakpoint([In] int offset,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugFunctionBreakpoint ppBreakpoint);*/
             ICorDebugFunctionBreakpoint ppBreakpoint;
             HRESULT hr = Raw.CreateBreakpoint(offset, out ppBreakpoint);
@@ -245,7 +245,7 @@ namespace ManagedCorDebug
         /// If the function's code has been divided into multiple chunks, they are concatenated in order of increasing native
         /// offset. Instruction boundaries are not checked.
         /// </remarks>
-        public GetCodeResult GetCode(uint startOffset, uint endOffset, uint cBufferAlloc)
+        public GetCodeResult GetCode(int startOffset, int endOffset, int cBufferAlloc)
         {
             HRESULT hr;
             GetCodeResult result;
@@ -268,16 +268,16 @@ namespace ManagedCorDebug
         /// If the function's code has been divided into multiple chunks, they are concatenated in order of increasing native
         /// offset. Instruction boundaries are not checked.
         /// </remarks>
-        public HRESULT TryGetCode(uint startOffset, uint endOffset, uint cBufferAlloc, out GetCodeResult result)
+        public HRESULT TryGetCode(int startOffset, int endOffset, int cBufferAlloc, out GetCodeResult result)
         {
             /*HRESULT GetCode(
-            [In] uint startOffset,
-            [In] uint endOffset,
-            [In] uint cBufferAlloc,
+            [In] int startOffset,
+            [In] int endOffset,
+            [In] int cBufferAlloc,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] buffer,
-            out uint pcBufferSize);*/
+            out int pcBufferSize);*/
             byte[] buffer = null;
-            uint pcBufferSize;
+            int pcBufferSize;
             HRESULT hr = Raw.GetCode(startOffset, endOffset, cBufferAlloc, buffer, out pcBufferSize);
 
             if (hr == HRESULT.S_OK)
@@ -300,7 +300,7 @@ namespace ManagedCorDebug
         /// The GetILToNativeMapping method returns meaningful results only if this "ICorDebugCode" instance represents native
         /// code that was just-in-time (JIT) compiled from MSIL code.
         /// </remarks>
-        public GetILToNativeMappingResult GetILToNativeMapping(uint cMap)
+        public GetILToNativeMappingResult GetILToNativeMapping(int cMap)
         {
             HRESULT hr;
             GetILToNativeMappingResult result;
@@ -320,11 +320,11 @@ namespace ManagedCorDebug
         /// The GetILToNativeMapping method returns meaningful results only if this "ICorDebugCode" instance represents native
         /// code that was just-in-time (JIT) compiled from MSIL code.
         /// </remarks>
-        public HRESULT TryGetILToNativeMapping(uint cMap, out GetILToNativeMappingResult result)
+        public HRESULT TryGetILToNativeMapping(int cMap, out GetILToNativeMappingResult result)
         {
-            /*HRESULT GetILToNativeMapping([In] uint cMap, out uint pcMap, [MarshalAs(UnmanagedType.LPArray), Out]
+            /*HRESULT GetILToNativeMapping([In] int cMap, out int pcMap, [MarshalAs(UnmanagedType.LPArray), Out]
             COR_DEBUG_IL_TO_NATIVE_MAP[] map);*/
-            uint pcMap;
+            int pcMap;
             COR_DEBUG_IL_TO_NATIVE_MAP[] map = null;
             HRESULT hr = Raw.GetILToNativeMapping(cMap, out pcMap, map);
 
@@ -342,7 +342,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// This method is not implemented in the current version of the .NET Framework.
         /// </summary>
-        public GetEnCRemapSequencePointsResult GetEnCRemapSequencePoints(uint cMap)
+        public GetEnCRemapSequencePointsResult GetEnCRemapSequencePoints(int cMap)
         {
             HRESULT hr;
             GetEnCRemapSequencePointsResult result;
@@ -356,14 +356,14 @@ namespace ManagedCorDebug
         /// <summary>
         /// This method is not implemented in the current version of the .NET Framework.
         /// </summary>
-        public HRESULT TryGetEnCRemapSequencePoints(uint cMap, out GetEnCRemapSequencePointsResult result)
+        public HRESULT TryGetEnCRemapSequencePoints(int cMap, out GetEnCRemapSequencePointsResult result)
         {
             /*HRESULT GetEnCRemapSequencePoints(
-            [In] uint cMap,
-            out uint pcMap,
-            [MarshalAs(UnmanagedType.LPArray), Out] uint[] offsets);*/
-            uint pcMap;
-            uint[] offsets = null;
+            [In] int cMap,
+            out int pcMap,
+            [MarshalAs(UnmanagedType.LPArray), Out] int[] offsets);*/
+            int pcMap;
+            int[] offsets = null;
             HRESULT hr = Raw.GetEnCRemapSequencePoints(cMap, out pcMap, offsets);
 
             if (hr == HRESULT.S_OK)
@@ -422,7 +422,7 @@ namespace ManagedCorDebug
         /// <see cref="GetCode"/>. A Microsoft intermediate language (MSIL) code object in the .NET Framework
         /// version 2.0 will comprise a single code chunk.
         /// </remarks>
-        public GetCodeChunksResult GetCodeChunks(uint cbufSize)
+        public GetCodeChunksResult GetCodeChunks(int cbufSize)
         {
             HRESULT hr;
             GetCodeChunksResult result;
@@ -443,10 +443,10 @@ namespace ManagedCorDebug
         /// <see cref="GetCode"/>. A Microsoft intermediate language (MSIL) code object in the .NET Framework
         /// version 2.0 will comprise a single code chunk.
         /// </remarks>
-        public HRESULT TryGetCodeChunks(uint cbufSize, out GetCodeChunksResult result)
+        public HRESULT TryGetCodeChunks(int cbufSize, out GetCodeChunksResult result)
         {
-            /*HRESULT GetCodeChunks([In] uint cbufSize, out uint pcnumChunks, [MarshalAs(UnmanagedType.LPArray), Out] CodeChunkInfo[] chunks);*/
-            uint pcnumChunks;
+            /*HRESULT GetCodeChunks([In] int cbufSize, out int pcnumChunks, [MarshalAs(UnmanagedType.LPArray), Out] CodeChunkInfo[] chunks);*/
+            int pcnumChunks;
             CodeChunkInfo[] chunks = null;
             HRESULT hr = Raw2.GetCodeChunks(cbufSize, out pcnumChunks, chunks);
 
@@ -481,7 +481,7 @@ namespace ManagedCorDebug
         /// then clear all the breakpoints that it set. The function returns the <see cref="HRESULT"/> values shown in the following table.
         /// The <see cref="GetReturnValueLiveOffset"/> method is available only on x86-based and AMD64 systems.
         /// </remarks>
-        public GetReturnValueLiveOffsetResult GetReturnValueLiveOffset(uint ilOffset, uint bufferSize)
+        public GetReturnValueLiveOffsetResult GetReturnValueLiveOffset(int ilOffset, int bufferSize)
         {
             HRESULT hr;
             GetReturnValueLiveOffsetResult result;
@@ -507,15 +507,15 @@ namespace ManagedCorDebug
         /// then clear all the breakpoints that it set. The function returns the <see cref="HRESULT"/> values shown in the following table.
         /// The <see cref="GetReturnValueLiveOffset"/> method is available only on x86-based and AMD64 systems.
         /// </remarks>
-        public HRESULT TryGetReturnValueLiveOffset(uint ilOffset, uint bufferSize, out GetReturnValueLiveOffsetResult result)
+        public HRESULT TryGetReturnValueLiveOffset(int ilOffset, int bufferSize, out GetReturnValueLiveOffsetResult result)
         {
             /*HRESULT GetReturnValueLiveOffset(
-            [In] uint ilOffset,
-            [In] uint bufferSize,
-            out uint pFetched,
-            [Out] uint pOffsets);*/
-            uint pFetched;
-            uint pOffsets = default(uint);
+            [In] int ilOffset,
+            [In] int bufferSize,
+            out int pFetched,
+            [Out] int pOffsets);*/
+            int pFetched;
+            int pOffsets = default(int);
             HRESULT hr = Raw3.GetReturnValueLiveOffset(ilOffset, bufferSize, out pFetched, pOffsets);
 
             if (hr == HRESULT.S_OK)

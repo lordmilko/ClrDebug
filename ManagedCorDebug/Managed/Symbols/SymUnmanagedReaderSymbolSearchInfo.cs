@@ -18,12 +18,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets a count of symbol search information.
         /// </summary>
-        public uint SymbolSearchInfoCount
+        public int SymbolSearchInfoCount
         {
             get
             {
                 HRESULT hr;
-                uint pcSearchInfo;
+                int pcSearchInfo;
 
                 if ((hr = TryGetSymbolSearchInfoCount(out pcSearchInfo)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -37,9 +37,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pcSearchInfo">]out] A pointer to a ULONG32 that receives the size of the buffer required to contain the search information.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSymbolSearchInfoCount(out uint pcSearchInfo)
+        public HRESULT TryGetSymbolSearchInfoCount(out int pcSearchInfo)
         {
-            /*HRESULT GetSymbolSearchInfoCount(out uint pcSearchInfo);*/
+            /*HRESULT GetSymbolSearchInfoCount(out int pcSearchInfo);*/
             return Raw.GetSymbolSearchInfoCount(out pcSearchInfo);
         }
 
@@ -51,7 +51,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cSearchInfo">[in] A ULONG32 that indicates the size of rgpSearchInfo.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetSymbolSearchInfoResult GetSymbolSearchInfo(uint cSearchInfo)
+        public GetSymbolSearchInfoResult GetSymbolSearchInfo(int cSearchInfo)
         {
             HRESULT hr;
             GetSymbolSearchInfoResult result;
@@ -68,13 +68,13 @@ namespace ManagedCorDebug
         /// <param name="cSearchInfo">[in] A ULONG32 that indicates the size of rgpSearchInfo.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSymbolSearchInfo(uint cSearchInfo, out GetSymbolSearchInfoResult result)
+        public HRESULT TryGetSymbolSearchInfo(int cSearchInfo, out GetSymbolSearchInfoResult result)
         {
             /*HRESULT GetSymbolSearchInfo(
-            [In] uint cSearchInfo,
-            out uint pcSearchInfo,
+            [In] int cSearchInfo,
+            out int pcSearchInfo,
             [MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedSymbolSearchInfo rgpSearchInfo);*/
-            uint pcSearchInfo;
+            int pcSearchInfo;
             ISymUnmanagedSymbolSearchInfo rgpSearchInfo;
             HRESULT hr = Raw.GetSymbolSearchInfo(cSearchInfo, out pcSearchInfo, out rgpSearchInfo);
 

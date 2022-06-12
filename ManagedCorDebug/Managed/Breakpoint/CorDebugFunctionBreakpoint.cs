@@ -59,12 +59,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the offset of the breakpoint within the function.
         /// </summary>
-        public uint Offset
+        public int Offset
         {
             get
             {
                 HRESULT hr;
-                uint pnOffset;
+                int pnOffset;
 
                 if ((hr = TryGetOffset(out pnOffset)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -77,9 +77,9 @@ namespace ManagedCorDebug
         /// Gets the offset of the breakpoint within the function.
         /// </summary>
         /// <param name="pnOffset">[out] A pointer to the offset of the breakpoint.</param>
-        public HRESULT TryGetOffset(out uint pnOffset)
+        public HRESULT TryGetOffset(out int pnOffset)
         {
-            /*HRESULT GetOffset(out uint pnOffset);*/
+            /*HRESULT GetOffset(out int pnOffset);*/
             return Raw.GetOffset(out pnOffset);
         }
 

@@ -22,7 +22,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);
+        HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);
 
         /// <summary>
         /// Gets the children of this namespace.
@@ -33,7 +33,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetNamespaces([In] uint cNameSpaces, out uint pcNameSpaces, [MarshalAs(UnmanagedType.Interface), Out]
+        HRESULT GetNamespaces([In] int cNameSpaces, out int pcNameSpaces, [MarshalAs(UnmanagedType.Interface), Out]
             IntPtr namespaces); //ISymUnmanagedNamespace
 
         /// <summary>
@@ -45,6 +45,6 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetVariables([In] uint cVars, out uint pcVars, [Out] IntPtr pVars); //ISymUnmanagedVariable
+        HRESULT GetVariables([In] int cVars, out int pcVars, [Out] IntPtr pVars); //ISymUnmanagedVariable
     }
 }

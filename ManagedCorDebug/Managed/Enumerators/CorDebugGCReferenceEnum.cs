@@ -58,7 +58,7 @@ namespace ManagedCorDebug
             if (rawEnumerator == null)
                 return false;
 
-            uint fetched;
+            int fetched;
             COR_GC_REFERENCE result;
             var hr = rawEnumerator.Next(1, out result, out fetched);
 

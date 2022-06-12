@@ -22,12 +22,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets a bit mask indicating which registers in this <see cref="ICorDebugRegisterSet"/> are currently available.
         /// </summary>
-        public ulong RegistersAvailable
+        public long RegistersAvailable
         {
             get
             {
                 HRESULT hr;
-                ulong pAvailable;
+                long pAvailable;
 
                 if ((hr = TryGetRegistersAvailable(out pAvailable)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -45,9 +45,9 @@ namespace ManagedCorDebug
         /// a bit for each register (1 &lt; &lt; the register index). The bit value is 1 if the register is available, or 0
         /// if it is not available.
         /// </remarks>
-        public HRESULT TryGetRegistersAvailable(out ulong pAvailable)
+        public HRESULT TryGetRegistersAvailable(out long pAvailable)
         {
-            /*HRESULT GetRegistersAvailable(out ulong pAvailable);*/
+            /*HRESULT GetRegistersAvailable(out long pAvailable);*/
             return Raw.GetRegistersAvailable(out pAvailable);
         }
 
@@ -67,7 +67,7 @@ namespace ManagedCorDebug
         /// the set. If the regCount value is too large, the unused regBuffer elements will be unmodified. If the bit mask
         /// specifies a register that is unavailable, GetRegisters returns an indeterminate value for that register.
         /// </remarks>
-        public CORDB_REGISTER[] GetRegisters(ulong mask, uint regCount)
+        public CORDB_REGISTER[] GetRegisters(long mask, int regCount)
         {
             HRESULT hr;
             CORDB_REGISTER[] regBufferResult;
@@ -91,9 +91,9 @@ namespace ManagedCorDebug
         /// the set. If the regCount value is too large, the unused regBuffer elements will be unmodified. If the bit mask
         /// specifies a register that is unavailable, GetRegisters returns an indeterminate value for that register.
         /// </remarks>
-        public HRESULT TryGetRegisters(ulong mask, uint regCount, out CORDB_REGISTER[] regBufferResult)
+        public HRESULT TryGetRegisters(long mask, int regCount, out CORDB_REGISTER[] regBufferResult)
         {
-            /*HRESULT GetRegisters([In] ulong mask, [In] uint regCount, [MarshalAs(UnmanagedType.LPArray), Out]
+            /*HRESULT GetRegisters([In] long mask, [In] int regCount, [MarshalAs(UnmanagedType.LPArray), Out]
             CORDB_REGISTER[] regBuffer);*/
             CORDB_REGISTER[] regBuffer = null;
             HRESULT hr = Raw.GetRegisters(mask, regCount, regBuffer);
@@ -112,7 +112,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// SetRegisters is not implemented in the .NET Framework version 2.0. Do not call this method.
         /// </summary>
-        public void SetRegisters(ulong mask, uint regCount, IntPtr regBuffer)
+        public void SetRegisters(long mask, int regCount, IntPtr regBuffer)
         {
             HRESULT hr;
 
@@ -123,9 +123,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// SetRegisters is not implemented in the .NET Framework version 2.0. Do not call this method.
         /// </summary>
-        public HRESULT TrySetRegisters(ulong mask, uint regCount, IntPtr regBuffer)
+        public HRESULT TrySetRegisters(long mask, int regCount, IntPtr regBuffer)
         {
-            /*HRESULT SetRegisters([In] ulong mask, [In] uint regCount, [In] IntPtr regBuffer);*/
+            /*HRESULT SetRegisters([In] long mask, [In] int regCount, [In] IntPtr regBuffer);*/
             return Raw.SetRegisters(mask, regCount, regBuffer);
         }
 
@@ -142,7 +142,7 @@ namespace ManagedCorDebug
         /// in a "hijacked" state where its context has been temporarily changed. The data returned is a Win32 CONTEXT structure
         /// for the current platform. For non-leaf frames, clients should check which registers are valid by using <see cref="GetRegistersAvailable"/>.
         /// </remarks>
-        public byte[] GetThreadContext(uint contextSize)
+        public byte[] GetThreadContext(int contextSize)
         {
             HRESULT hr;
             byte[] contextResult;
@@ -163,9 +163,9 @@ namespace ManagedCorDebug
         /// in a "hijacked" state where its context has been temporarily changed. The data returned is a Win32 CONTEXT structure
         /// for the current platform. For non-leaf frames, clients should check which registers are valid by using <see cref="GetRegistersAvailable"/>.
         /// </remarks>
-        public HRESULT TryGetThreadContext(uint contextSize, out byte[] contextResult)
+        public HRESULT TryGetThreadContext(int contextSize, out byte[] contextResult)
         {
-            /*HRESULT GetThreadContext([In] uint contextSize, [MarshalAs(UnmanagedType.LPArray), In, Out]
+            /*HRESULT GetThreadContext([In] int contextSize, [MarshalAs(UnmanagedType.LPArray), In, Out]
             byte[] context);*/
             byte[] context = null;
             HRESULT hr = Raw.GetThreadContext(contextSize, context);
@@ -184,7 +184,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// SetThreadContext is not implemented in the .NET Framework version 2.0. Do not call this method.
         /// </summary>
-        public void SetThreadContext(uint contextSize, byte[] context)
+        public void SetThreadContext(int contextSize, byte[] context)
         {
             HRESULT hr;
 
@@ -195,9 +195,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// SetThreadContext is not implemented in the .NET Framework version 2.0. Do not call this method.
         /// </summary>
-        public HRESULT TrySetThreadContext(uint contextSize, byte[] context)
+        public HRESULT TrySetThreadContext(int contextSize, byte[] context)
         {
-            /*HRESULT SetThreadContext([In] uint contextSize, [MarshalAs(UnmanagedType.Interface), In]
+            /*HRESULT SetThreadContext([In] int contextSize, [MarshalAs(UnmanagedType.Interface), In]
             byte[] context);*/
             return Raw.SetThreadContext(contextSize, context);
         }
@@ -221,7 +221,7 @@ namespace ManagedCorDebug
         /// identify the bit position within the indexed byte. Given a <see cref="CorDebugRegister"/> value that specifies a particular register,
         /// the register's position in the mask is determined as follows:
         /// </remarks>
-        public byte GetRegistersAvailable(uint numChunks)
+        public byte GetRegistersAvailable(int numChunks)
         {
             HRESULT hr;
             byte availableRegChunks;
@@ -243,9 +243,9 @@ namespace ManagedCorDebug
         /// identify the bit position within the indexed byte. Given a <see cref="CorDebugRegister"/> value that specifies a particular register,
         /// the register's position in the mask is determined as follows:
         /// </remarks>
-        public HRESULT TryGetRegistersAvailable(uint numChunks, out byte availableRegChunks)
+        public HRESULT TryGetRegistersAvailable(int numChunks, out byte availableRegChunks)
         {
-            /*HRESULT GetRegistersAvailable([In] uint numChunks, out byte availableRegChunks);*/
+            /*HRESULT GetRegistersAvailable([In] int numChunks, out byte availableRegChunks);*/
             return Raw2.GetRegistersAvailable(numChunks, out availableRegChunks);
         }
 
@@ -265,13 +265,13 @@ namespace ManagedCorDebug
         /// to the number of 1's in the mask. If the value of regCount is too small for the number of registers indicated by
         /// the mask, the values of the higher numbered registers will be truncated from the set. If regCount is too large,
         /// the unused regBuffer elements will be unmodified. If an unavailable register is indicated by the mask, an indeterminate
-        /// value will be returned for that register. The <see cref="GetRegisters(uint, byte[], uint)"/> method is necessary for platforms
+        /// value will be returned for that register. The <see cref="GetRegisters(int, byte[], int)"/> method is necessary for platforms
         /// that have more than 64 registers. For example, IA64 has 128 general purpose registers and 128 floating-point registers,
         /// so you need more than 64 bits in the bit mask. If you don't have more than 64 registers, as is the case on platforms
         /// such as x86, the GetRegisters method just translates the bytes in the mask byte array into a ULONG64 and then calls
-        /// the <see cref="GetRegisters(uint, byte[], uint)"/> method, which takes the ULONG64 mask.
+        /// the <see cref="GetRegisters(int, byte[], int)"/> method, which takes the ULONG64 mask.
         /// </remarks>
-        public CORDB_REGISTER[] GetRegisters(uint maskCount, byte[] mask, uint regCount)
+        public CORDB_REGISTER[] GetRegisters(int maskCount, byte[] mask, int regCount)
         {
             HRESULT hr;
             CORDB_REGISTER[] regBuffer;
@@ -295,15 +295,15 @@ namespace ManagedCorDebug
         /// to the number of 1's in the mask. If the value of regCount is too small for the number of registers indicated by
         /// the mask, the values of the higher numbered registers will be truncated from the set. If regCount is too large,
         /// the unused regBuffer elements will be unmodified. If an unavailable register is indicated by the mask, an indeterminate
-        /// value will be returned for that register. The <see cref="GetRegisters(uint, byte[], uint)"/> method is necessary for platforms
+        /// value will be returned for that register. The <see cref="GetRegisters(int, byte[], int)"/> method is necessary for platforms
         /// that have more than 64 registers. For example, IA64 has 128 general purpose registers and 128 floating-point registers,
         /// so you need more than 64 bits in the bit mask. If you don't have more than 64 registers, as is the case on platforms
         /// such as x86, the GetRegisters method just translates the bytes in the mask byte array into a ULONG64 and then calls
-        /// the <see cref="GetRegisters(uint, byte[], uint)"/> method, which takes the ULONG64 mask.
+        /// the <see cref="GetRegisters(int, byte[], int)"/> method, which takes the ULONG64 mask.
         /// </remarks>
-        public HRESULT TryGetRegisters(uint maskCount, byte[] mask, uint regCount, out CORDB_REGISTER[] regBuffer)
+        public HRESULT TryGetRegisters(int maskCount, byte[] mask, int regCount, out CORDB_REGISTER[] regBuffer)
         {
-            /*HRESULT GetRegisters([In] uint maskCount, [In] byte[] mask, [In] uint regCount, out CORDB_REGISTER[] regBuffer);*/
+            /*HRESULT GetRegisters([In] int maskCount, [In] byte[] mask, [In] int regCount, out CORDB_REGISTER[] regBuffer);*/
             return Raw2.GetRegisters(maskCount, mask, regCount, out regBuffer);
         }
 
@@ -313,7 +313,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// SetRegisters is not implemented in the .NET Framework version 2.0. Do not call this method.
         /// </summary>
-        public void SetRegisters(uint maskCount, byte[] mask, uint regCount, ulong regBuffer)
+        public void SetRegisters(int maskCount, byte[] mask, int regCount, long regBuffer)
         {
             HRESULT hr;
 
@@ -324,9 +324,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// SetRegisters is not implemented in the .NET Framework version 2.0. Do not call this method.
         /// </summary>
-        public HRESULT TrySetRegisters(uint maskCount, byte[] mask, uint regCount, ulong regBuffer)
+        public HRESULT TrySetRegisters(int maskCount, byte[] mask, int regCount, long regBuffer)
         {
-            /*HRESULT SetRegisters([In] uint maskCount, [In] byte[] mask, [In] uint regCount, [In] ref ulong regBuffer);*/
+            /*HRESULT SetRegisters([In] int maskCount, [In] byte[] mask, [In] int regCount, [In] ref long regBuffer);*/
             return Raw2.SetRegisters(maskCount, mask, regCount, ref regBuffer);
         }
 

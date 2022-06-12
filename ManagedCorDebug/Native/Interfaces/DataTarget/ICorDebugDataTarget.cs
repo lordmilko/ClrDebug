@@ -47,7 +47,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ReadVirtual([In] ulong address, out byte pBuffer, [In] uint bytesRequested, out uint pBytesRead);
+        HRESULT ReadVirtual([In] long address, out byte pBuffer, [In] int bytesRequested, out int pBytesRead);
 
         /// <summary>
         /// Returns the current thread context for the specified thread.
@@ -63,6 +63,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetThreadContext([In] uint dwThreadId, [In] uint contextFlags, [In] uint contextSize, out byte pContext);
+        HRESULT GetThreadContext([In] int dwThreadId, [In] int contextFlags, [In] int contextSize, out byte pContext);
     }
 }

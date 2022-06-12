@@ -79,7 +79,7 @@ namespace ManagedCorDebug
         /// Because unwinding restores only a subset of the registers, such as non-volatile registers, the context may not
         /// exactly match the register state at the time of the call.
         /// </remarks>
-        public GetContextResult GetContext(uint contextFlags, uint contextBufSize)
+        public GetContextResult GetContext(int contextFlags, int contextBufSize)
         {
             HRESULT hr;
             GetContextResult result;
@@ -110,14 +110,14 @@ namespace ManagedCorDebug
         /// Because unwinding restores only a subset of the registers, such as non-volatile registers, the context may not
         /// exactly match the register state at the time of the call.
         /// </remarks>
-        public HRESULT TryGetContext(uint contextFlags, uint contextBufSize, out GetContextResult result)
+        public HRESULT TryGetContext(int contextFlags, int contextBufSize, out GetContextResult result)
         {
             /*HRESULT GetContext(
-            [In] uint contextFlags,
-            [In] uint contextBufSize,
-            out uint contextSize,
+            [In] int contextFlags,
+            [In] int contextBufSize,
+            out int contextSize,
             out byte contextBuf);*/
-            uint contextSize;
+            int contextSize;
             byte contextBuf;
             HRESULT hr = Raw.GetContext(contextFlags, contextBufSize, out contextSize, out contextBuf);
 
@@ -143,7 +143,7 @@ namespace ManagedCorDebug
         /// may cause unpredictable results from the stack walker. You can retrieve an exact bitwise copy of this context by
         /// immediately calling the <see cref="GetContext"/> method.
         /// </remarks>
-        public void SetContext(CorDebugSetContextFlag flag, uint contextSize, IntPtr context)
+        public void SetContext(CorDebugSetContextFlag flag, int contextSize, IntPtr context)
         {
             HRESULT hr;
 
@@ -172,9 +172,9 @@ namespace ManagedCorDebug
         /// may cause unpredictable results from the stack walker. You can retrieve an exact bitwise copy of this context by
         /// immediately calling the <see cref="GetContext"/> method.
         /// </remarks>
-        public HRESULT TrySetContext(CorDebugSetContextFlag flag, uint contextSize, IntPtr context)
+        public HRESULT TrySetContext(CorDebugSetContextFlag flag, int contextSize, IntPtr context)
         {
-            /*HRESULT SetContext([In] CorDebugSetContextFlag flag, [In] uint contextSize, [In] IntPtr context);*/
+            /*HRESULT SetContext([In] CorDebugSetContextFlag flag, [In] int contextSize, [In] IntPtr context);*/
             return Raw.SetContext(flag, contextSize, context);
         }
 

@@ -127,7 +127,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT DebugActiveProcess([In] uint id, [In] int win32Attach,
+        HRESULT DebugActiveProcess([In] int id, [In] int win32Attach,
             [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace ManagedCorDebug
         /// <param name="ppProcess">[out] A pointer to the address of a <see cref="ICorDebugProcess"/> instance for the specified process.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetProcess([In] uint dwProcessId, [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
+        HRESULT GetProcess([In] int dwProcessId, [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
         /// <summary>
         /// Returns an <see cref="HRESULT"/> that indicates whether launching a new process or attaching to the specified existing process is possible within the context of the current machine and runtime configuration.
@@ -168,6 +168,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CanLaunchOrAttach([In] uint dwProcessId, [In] int win32DebuggingEnabled);
+        HRESULT CanLaunchOrAttach([In] int dwProcessId, [In] int win32DebuggingEnabled);
     }
 }

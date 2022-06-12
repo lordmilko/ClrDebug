@@ -6,9 +6,9 @@ namespace ManagedCorDebug
     {
         public IntPtr PbBlob { get; }
 
-        public uint PcbBlob { get; }
+        public int PcbBlob { get; }
 
-        public StrongNameGetBlobResult(IntPtr pbBlob, uint pcbBlob)
+        public StrongNameGetBlobResult(IntPtr pbBlob, int pcbBlob)
         {
             PbBlob = pbBlob;
             PcbBlob = pcbBlob;

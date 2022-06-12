@@ -8,9 +8,9 @@ namespace ManagedCorDebug
 
         public mdGenericParamConstraint[] RGenericParamConstraints { get; }
 
-        public uint PcGenericParamConstraints { get; }
+        public int PcGenericParamConstraints { get; }
 
-        public EnumGenericParamConstraintsResult(IntPtr phEnum, mdGenericParamConstraint[] rGenericParamConstraints, uint pcGenericParamConstraints)
+        public EnumGenericParamConstraintsResult(IntPtr phEnum, mdGenericParamConstraint[] rGenericParamConstraints, int pcGenericParamConstraints)
         {
             PhEnum = phEnum;
             RGenericParamConstraints = rGenericParamConstraints;

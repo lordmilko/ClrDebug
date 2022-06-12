@@ -30,10 +30,10 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHashFromAssemblyFile(
             [MarshalAs(UnmanagedType.LPStr), In] string pszFilePath,
-            [In] [Out] ref uint piHashAlg,
+            [In] [Out] ref int piHashAlg,
             out byte pbHash,
-            [In] uint cchHash,
-            out uint pchHash);
+            [In] int cchHash,
+            out int pchHash);
 
         /// <summary>
         /// Generates a hash over the contents of the file specified by a Unicode string.
@@ -48,10 +48,10 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHashFromAssemblyFileW(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
-            [In] [Out] ref uint piHashAlg,
+            [In] [Out] ref int piHashAlg,
             out byte pbHash,
-            [In] uint cchHash,
-            out uint pchHash);
+            [In] int cchHash,
+            out int pchHash);
 
         /// <summary>
         /// Gets a hash of the assembly at the specified memory address, using the specified hash algorithm.
@@ -67,11 +67,11 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHashFromBlob(
             [In] IntPtr pbBlob,
-            [In] uint cchBlob,
-            [In] [Out] ref uint piHashAlg,
+            [In] int cchBlob,
+            [In] [Out] ref int piHashAlg,
             out byte pbHash,
-            [In] uint cchHash,
-            out uint pchHash);
+            [In] int cchHash,
+            out int pchHash);
 
         /// <summary>
         /// Generates a hash over the contents of the specified file.
@@ -91,10 +91,10 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHashFromFile(
             [MarshalAs(UnmanagedType.LPStr), In] string pszFilePath,
-            [In] [Out] ref uint piHashAlg,
+            [In] [Out] ref int piHashAlg,
             out byte pbHash,
-            [In] uint cchHash,
-            out uint pchHash);
+            [In] int cchHash,
+            out int pchHash);
 
         /// <summary>
         /// Generates a hash over the contents of the file specified by a Unicode string.
@@ -114,10 +114,10 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHashFromFileW(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
-            [In] [Out] ref uint piHashAlg,
+            [In] [Out] ref int piHashAlg,
             out byte pbHash,
-            [In] uint cchHash,
-            out uint pchHash);
+            [In] int cchHash,
+            out int pchHash);
 
         /// <summary>
         /// Generates a hash over the contents of the file that has the specified file handle, using the specified hash algorithm.
@@ -132,10 +132,10 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHashFromHandle(
             [In] IntPtr hFile,
-            [In] [Out] ref uint piHashAlg,
+            [In] [Out] ref int piHashAlg,
             out byte pbHash,
-            [In] uint cchHash,
-            out uint pchHash);
+            [In] int cchHash,
+            out int pchHash);
 
         /// <summary>
         /// Determines whether two assemblies differ only by their strong name signatures.
@@ -153,7 +153,7 @@ namespace ManagedCorDebug
         HRESULT StrongNameCompareAssemblies(
             [MarshalAs(UnmanagedType.LPWStr), In] string wszAssembly1,
             [MarshalAs(UnmanagedType.LPWStr), In] string wszAssembly2,
-            [Out] out uint pdwResult);
+            [Out] out int pdwResult);
 
         /// <summary>
         /// Frees memory that was allocated with a previous call to a strong name method such as <see cref="StrongNameGetPublicKey"/>, <see cref="StrongNameTokenFromPublicKey"/>, or <see cref="StrongNameSignatureGeneration"/>.
@@ -174,7 +174,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameGetBlob([MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath, [In] [Out] IntPtr pbBlob,
-            [In] [Out] ref uint pcbBlob);
+            [In] [Out] ref int pcbBlob);
 
         /// <summary>
         /// Gets a binary representation of the assembly image at the specified memory address.
@@ -188,9 +188,9 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameGetBlobFromImage(
             [In] IntPtr pbBase,
-            [In] uint dwLength,
+            [In] int dwLength,
             out byte pbBlob,
-            [In] [Out] ref uint pcbBlob);
+            [In] [Out] ref int pcbBlob);
 
         /// <summary>
         /// Gets the public key from a public/private key pair. The key pair can be supplied either as a key container name within a cryptographic service provider (CSP) or as a raw collection of bytes.
@@ -214,9 +214,9 @@ namespace ManagedCorDebug
         HRESULT StrongNameGetPublicKey(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
             [In] IntPtr pbKeyBlob,
-            [In] uint cbKeyBlob,
+            [In] int cbKeyBlob,
             [Out] IntPtr ppbPublicKeyBlob,
-            out uint pcbPublicKeyBlob);
+            out int pcbPublicKeyBlob);
 
         /// <summary>
         /// Gets the buffer size required for a hash, using the specified hash algorithm.
@@ -226,7 +226,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT StrongNameHashSize([In] uint ulHashAlg, [Out] out uint pcbSize);
+        HRESULT StrongNameHashSize([In] int ulHashAlg, [Out] out int pcbSize);
 
         /// <summary>
         /// Deletes the specified key container.
@@ -256,9 +256,9 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameKeyGen(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
-            [In] uint dwFlags,
+            [In] int dwFlags,
             [Out] IntPtr ppbKeyBlob,
-            out uint pcbKeyBlob);
+            out int pcbKeyBlob);
 
         /// <summary>
         /// Generates a new public/private key pair with the specified key size, for strong name use.
@@ -278,10 +278,10 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameKeyGenEx(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
-            [In] uint dwFlags,
-            [In] uint dwKeySize,
+            [In] int dwFlags,
+            [In] int dwKeySize,
             [Out] IntPtr ppbKeyBlob,
-            out uint pcbKeyBlob);
+            out int pcbKeyBlob);
 
         /// <summary>
         /// Imports a public/private key pair into a container.
@@ -296,7 +296,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameKeyInstall([MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
-            [In] IntPtr pbKeyBlob, [In] uint cbKeyBlob);
+            [In] IntPtr pbKeyBlob, [In] int cbKeyBlob);
 
         /// <summary>
         /// Generates a strong name signature for the specified assembly.
@@ -322,9 +322,9 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
             [In] IntPtr pbKeyBlob,
-            [In] uint cbKeyBlob,
+            [In] int cbKeyBlob,
             [Out] IntPtr ppbSignatureBlob,
-            out uint pcbSignatureBlob);
+            out int pcbSignatureBlob);
 
         /// <summary>
         /// Generates a strong name signature for the specified assembly, according to the specified flags.
@@ -353,10 +353,10 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string wszFilePath,
             [MarshalAs(UnmanagedType.LPWStr), In] string wszKeyContainer,
             [In] IntPtr pbKeyBlob,
-            [In] uint cbKeyBlob,
+            [In] int cbKeyBlob,
             [Out] IntPtr ppbSignatureBlob,
-            out uint pcbSignatureBlob,
-            [In] uint dwFlags);
+            out int pcbSignatureBlob,
+            [In] int dwFlags);
 
         /// <summary>
         /// Returns the size of the strong name signature. This method is typically used by compilers to determine how much space to reserve in the file when creating a delay-signed assembly.
@@ -367,7 +367,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT StrongNameSignatureSize([In] IntPtr pbPublicKeyBlob, [In] PublicKeyBlob cbPublicKeyBlob, [In] ref uint pcbSize);
+        HRESULT StrongNameSignatureSize([In] IntPtr pbPublicKeyBlob, [In] PublicKeyBlob cbPublicKeyBlob, [In] ref int pcbSize);
 
         /// <summary>
         /// Gets a value that indicates whether the assembly manifest at the supplied path contains a strong name signature, which is verified according to the specified flags.
@@ -380,8 +380,8 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameSignatureVerification(
             [MarshalAs(UnmanagedType.LPWStr), In] string wszFilePath,
-            [In] uint dwInFlags,
-            [Out] out uint pdwOutFlags);
+            [In] int dwInFlags,
+            [Out] out int pdwOutFlags);
 
         /// <summary>
         /// Gets a value that indicates whether the assembly manifest at the supplied path contains a strong name signature.
@@ -414,9 +414,9 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameSignatureVerificationFromImage(
             [In] IntPtr pbBase,
-            [In] uint dwLength,
-            [In] uint dwInFlags,
-            [Out] out uint pdwOutFlags);
+            [In] int dwLength,
+            [In] int dwInFlags,
+            [Out] out int pdwOutFlags);
 
         /// <summary>
         /// Creates a strong name token from the specified assembly file.
@@ -436,7 +436,7 @@ namespace ManagedCorDebug
         HRESULT StrongNameTokenFromAssembly(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [Out] IntPtr ppbStrongNameToken,
-            out uint pcbStrongNameToken);
+            out int pcbStrongNameToken);
 
         /// <summary>
         /// Creates a strong name token from the specified assembly file, and returns the public key that the token represents.
@@ -458,9 +458,9 @@ namespace ManagedCorDebug
         HRESULT StrongNameTokenFromAssemblyEx(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [Out] IntPtr ppbStrongNameToken,
-            out uint pcbStrongNameToken,
+            out int pcbStrongNameToken,
             [Out] IntPtr ppbPublicKeyBlob,
-            out uint pcbPublicKeyBlob);
+            out int pcbPublicKeyBlob);
 
         /// <summary>
         /// Gets a token that represents a public key. A strong name token is the shortened form of a public key.
@@ -481,6 +481,6 @@ namespace ManagedCorDebug
             [In] IntPtr pbPublicKeyBlob,
             [In] PublicKeyBlob cbPublicKeyBlob,
             [Out] IntPtr ppbStrongNameToken,
-            out uint pcbStrongNameToken);
+            out int pcbStrongNameToken);
     }
 }

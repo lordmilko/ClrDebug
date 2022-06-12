@@ -13,15 +13,15 @@ namespace ManagedCorDebug
 
         public IntPtr PpvSigBlob { get; }
 
-        public uint PcbSigBlob { get; }
+        public int PcbSigBlob { get; }
 
         public CorElementType PdwCPlusTypeFlag { get; }
 
         public IntPtr PpValue { get; }
 
-        public uint PcchValue { get; }
+        public int PcchValue { get; }
 
-        public GetFieldPropsResult(mdTypeDef pClass, string szField, CorFieldAttr pdwAttr, IntPtr ppvSigBlob, uint pcbSigBlob, CorElementType pdwCPlusTypeFlag, IntPtr ppValue, uint pcchValue)
+        public GetFieldPropsResult(mdTypeDef pClass, string szField, CorFieldAttr pdwAttr, IntPtr ppvSigBlob, int pcbSigBlob, CorElementType pdwCPlusTypeFlag, IntPtr ppValue, int pcchValue)
         {
             PClass = pClass;
             SzField = szField;

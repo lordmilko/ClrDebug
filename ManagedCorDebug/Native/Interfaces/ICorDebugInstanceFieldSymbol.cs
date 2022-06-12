@@ -23,7 +23,7 @@ namespace ManagedCorDebug
         /// <param name="szName">[out] A character array that stores the returned name.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);
+        HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);
 
         /// <summary>
         /// Gets the size in bytes of the instance field.
@@ -31,7 +31,7 @@ namespace ManagedCorDebug
         /// <param name="pcbSize">[out] A pointer to length of the field.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSize(out uint pcbSize);
+        HRESULT GetSize(out int pcbSize);
 
         /// <summary>
         /// Gets the offset in bytes of this instance field in its parent class.
@@ -39,6 +39,6 @@ namespace ManagedCorDebug
         /// <param name="pcbOffset">A pointer to the number of bytes that this instance field is offset in its parent class.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetOffset(out uint pcbOffset);
+        HRESULT GetOffset(out int pcbOffset);
     }
 }

@@ -17,7 +17,7 @@ namespace ManagedCorDebug
 
         #region RemoteSeek
 
-        public ULARGE_INTEGER RemoteSeek(LARGE_INTEGER dlibMove, uint dwOrigin)
+        public ULARGE_INTEGER RemoteSeek(LARGE_INTEGER dlibMove, int dwOrigin)
         {
             HRESULT hr;
             ULARGE_INTEGER plibNewPosition;
@@ -28,9 +28,9 @@ namespace ManagedCorDebug
             return plibNewPosition;
         }
 
-        public HRESULT TryRemoteSeek(LARGE_INTEGER dlibMove, uint dwOrigin, out ULARGE_INTEGER plibNewPosition)
+        public HRESULT TryRemoteSeek(LARGE_INTEGER dlibMove, int dwOrigin, out ULARGE_INTEGER plibNewPosition)
         {
-            /*HRESULT RemoteSeek([In] LARGE_INTEGER dlibMove, [In] uint dwOrigin, out ULARGE_INTEGER plibNewPosition);*/
+            /*HRESULT RemoteSeek([In] LARGE_INTEGER dlibMove, [In] int dwOrigin, out ULARGE_INTEGER plibNewPosition);*/
             return Raw.RemoteSeek(dlibMove, dwOrigin, out plibNewPosition);
         }
 
@@ -88,7 +88,7 @@ namespace ManagedCorDebug
         #endregion
         #region Commit
 
-        public void Commit(uint grfCommitFlags)
+        public void Commit(int grfCommitFlags)
         {
             HRESULT hr;
 
@@ -96,9 +96,9 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
-        public HRESULT TryCommit(uint grfCommitFlags)
+        public HRESULT TryCommit(int grfCommitFlags)
         {
-            /*HRESULT Commit([In] uint grfCommitFlags);*/
+            /*HRESULT Commit([In] int grfCommitFlags);*/
             return Raw.Commit(grfCommitFlags);
         }
 
@@ -122,7 +122,7 @@ namespace ManagedCorDebug
         #endregion
         #region LockRegion
 
-        public void LockRegion(ULARGE_INTEGER libOffset, ULARGE_INTEGER cb, uint dwLockType)
+        public void LockRegion(ULARGE_INTEGER libOffset, ULARGE_INTEGER cb, int dwLockType)
         {
             HRESULT hr;
 
@@ -130,16 +130,16 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
-        public HRESULT TryLockRegion(ULARGE_INTEGER libOffset, ULARGE_INTEGER cb, uint dwLockType)
+        public HRESULT TryLockRegion(ULARGE_INTEGER libOffset, ULARGE_INTEGER cb, int dwLockType)
         {
-            /*HRESULT LockRegion([In] ULARGE_INTEGER libOffset, [In] ULARGE_INTEGER cb, [In] uint dwLockType);*/
+            /*HRESULT LockRegion([In] ULARGE_INTEGER libOffset, [In] ULARGE_INTEGER cb, [In] int dwLockType);*/
             return Raw.LockRegion(libOffset, cb, dwLockType);
         }
 
         #endregion
         #region UnlockRegion
 
-        public void UnlockRegion(ULARGE_INTEGER libOffset, ULARGE_INTEGER cb, uint dwLockType)
+        public void UnlockRegion(ULARGE_INTEGER libOffset, ULARGE_INTEGER cb, int dwLockType)
         {
             HRESULT hr;
 
@@ -147,16 +147,16 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
-        public HRESULT TryUnlockRegion(ULARGE_INTEGER libOffset, ULARGE_INTEGER cb, uint dwLockType)
+        public HRESULT TryUnlockRegion(ULARGE_INTEGER libOffset, ULARGE_INTEGER cb, int dwLockType)
         {
-            /*HRESULT UnlockRegion([In] ULARGE_INTEGER libOffset, [In] ULARGE_INTEGER cb, [In] uint dwLockType);*/
+            /*HRESULT UnlockRegion([In] ULARGE_INTEGER libOffset, [In] ULARGE_INTEGER cb, [In] int dwLockType);*/
             return Raw.UnlockRegion(libOffset, cb, dwLockType);
         }
 
         #endregion
         #region Stat
 
-        public tagSTATSTG Stat(uint grfStatFlag)
+        public tagSTATSTG Stat(int grfStatFlag)
         {
             HRESULT hr;
             tagSTATSTG pstatstg;
@@ -167,9 +167,9 @@ namespace ManagedCorDebug
             return pstatstg;
         }
 
-        public HRESULT TryStat(out tagSTATSTG pstatstg, uint grfStatFlag)
+        public HRESULT TryStat(out tagSTATSTG pstatstg, int grfStatFlag)
         {
-            /*HRESULT Stat(out tagSTATSTG pstatstg, [In] uint grfStatFlag);*/
+            /*HRESULT Stat(out tagSTATSTG pstatstg, [In] int grfStatFlag);*/
             return Raw.Stat(out pstatstg, grfStatFlag);
         }
 

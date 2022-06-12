@@ -6,9 +6,9 @@ namespace ManagedCorDebug
     {
         public byte[] Buffer { get; }
 
-        public uint PcBufferSize { get; }
+        public int PcBufferSize { get; }
 
-        public GetCodeResult(byte[] buffer, uint pcBufferSize)
+        public GetCodeResult(byte[] buffer, int pcBufferSize)
         {
             Buffer = buffer;
             PcBufferSize = pcBufferSize;
