@@ -30,18 +30,22 @@ namespace ManagedCorDebug
         /// <param name="dwCreateFlags">[in] Flags that specify options. This value must be zero for the .NET Framework 2.0.</param>
         /// <param name="riid">[in] The IID of the desired metadata interface to be returned; the caller will use the interface to create the new metadata.<para/>
         /// The value of riid must specify one of the "emit" interfaces. Valid values are IID_IMetaDataEmit, IID_IMetaDataAssemblyEmit, or IID_IMetaDataEmit2.</param>
+        /// <returns>[out] The pointer to the returned interface.</returns>
         /// <remarks>
         /// DefineScope creates a set of in-memory metadata tables, generates a unique GUID (module version identifier, or
         /// MVID) for the metadata, and creates an entry in the module table for the compilation unit being emitted. You can
         /// attach attributes to the metadata scope as a whole by using the <see cref="MetaDataEmit.SetModuleProps"/> or <see 
         ///cref="MetaDataEmit.DefineCustomAttribute"/> method, as appropriate.
         /// </remarks>
-        public void DefineScope(Guid rclsid, int dwCreateFlags, Guid riid)
+        public object DefineScope(Guid rclsid, int dwCreateFlags, Guid riid)
         {
             HRESULT hr;
+            object ppIUnk;
 
-            if ((hr = TryDefineScope(rclsid, dwCreateFlags, riid)) != HRESULT.S_OK)
+            if ((hr = TryDefineScope(rclsid, dwCreateFlags, riid, out ppIUnk)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
+
+            return ppIUnk;
         }
 
         /// <summary>
@@ -51,21 +55,20 @@ namespace ManagedCorDebug
         /// <param name="dwCreateFlags">[in] Flags that specify options. This value must be zero for the .NET Framework 2.0.</param>
         /// <param name="riid">[in] The IID of the desired metadata interface to be returned; the caller will use the interface to create the new metadata.<para/>
         /// The value of riid must specify one of the "emit" interfaces. Valid values are IID_IMetaDataEmit, IID_IMetaDataAssemblyEmit, or IID_IMetaDataEmit2.</param>
+        /// <param name="ppIUnk">[out] The pointer to the returned interface.</param>
         /// <remarks>
         /// DefineScope creates a set of in-memory metadata tables, generates a unique GUID (module version identifier, or
         /// MVID) for the metadata, and creates an entry in the module table for the compilation unit being emitted. You can
         /// attach attributes to the metadata scope as a whole by using the <see cref="MetaDataEmit.SetModuleProps"/> or <see 
         ///cref="MetaDataEmit.DefineCustomAttribute"/> method, as appropriate.
         /// </remarks>
-        public HRESULT TryDefineScope(Guid rclsid, int dwCreateFlags, Guid riid)
+        public HRESULT TryDefineScope(Guid rclsid, int dwCreateFlags, Guid riid, out object ppIUnk)
         {
             /*HRESULT DefineScope(
             [In] ref Guid rclsid,
             [In] int dwCreateFlags,
             [In] ref Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);*/
-            object ppIUnk;
-
             return Raw.DefineScope(ref rclsid, dwCreateFlags, ref riid, out ppIUnk);
         }
 
@@ -140,18 +143,22 @@ namespace ManagedCorDebug
         /// <param name="dwOpenFlags">[in] A value of the <see cref="CorOpenFlags"/> enumeration to specify the mode (read, write, and so on) for opening.</param>
         /// <param name="riid">[in] The IID of the desired metadata interface to be returned; the caller will use the interface to import (read) or emit (write) metadata.<para/>
         /// The value of riid must specify one of the "import" or "emit" interfaces. Valid values are IID_IMetaDataEmit, IID_IMetaDataImport, IID_IMetaDataAssemblyEmit, IID_IMetaDataAssemblyImport, IID_IMetaDataEmit2, or IID_IMetaDataImport2.</param>
+        /// <returns>[out] The pointer to the returned interface.</returns>
         /// <remarks>
         /// The in-memory copy of the metadata can be queried using methods from one of the "import" interfaces, or added to
         /// using methods from the one of the "emit" interfaces. The OpenScopeOnMemory method is similar to the <see cref="OpenScope"/>
         /// method, except that the metadata of interest already exists in memory, rather than in a file on disk. If the target
         /// area of memory does not contain common language runtime (CLR) metadata, the OpenScopeOnMemory method will fail.
         /// </remarks>
-        public void OpenScopeOnMemory(IntPtr pData, int cbData, CorOpenFlags dwOpenFlags, Guid riid)
+        public object OpenScopeOnMemory(IntPtr pData, int cbData, CorOpenFlags dwOpenFlags, Guid riid)
         {
             HRESULT hr;
+            object ppIUnk;
 
-            if ((hr = TryOpenScopeOnMemory(pData, cbData, dwOpenFlags, riid)) != HRESULT.S_OK)
+            if ((hr = TryOpenScopeOnMemory(pData, cbData, dwOpenFlags, riid, out ppIUnk)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
+
+            return ppIUnk;
         }
 
         /// <summary>
@@ -162,13 +169,14 @@ namespace ManagedCorDebug
         /// <param name="dwOpenFlags">[in] A value of the <see cref="CorOpenFlags"/> enumeration to specify the mode (read, write, and so on) for opening.</param>
         /// <param name="riid">[in] The IID of the desired metadata interface to be returned; the caller will use the interface to import (read) or emit (write) metadata.<para/>
         /// The value of riid must specify one of the "import" or "emit" interfaces. Valid values are IID_IMetaDataEmit, IID_IMetaDataImport, IID_IMetaDataAssemblyEmit, IID_IMetaDataAssemblyImport, IID_IMetaDataEmit2, or IID_IMetaDataImport2.</param>
+        /// <param name="ppIUnk">[out] The pointer to the returned interface.</param>
         /// <remarks>
         /// The in-memory copy of the metadata can be queried using methods from one of the "import" interfaces, or added to
         /// using methods from the one of the "emit" interfaces. The OpenScopeOnMemory method is similar to the <see cref="OpenScope"/>
         /// method, except that the metadata of interest already exists in memory, rather than in a file on disk. If the target
         /// area of memory does not contain common language runtime (CLR) metadata, the OpenScopeOnMemory method will fail.
         /// </remarks>
-        public HRESULT TryOpenScopeOnMemory(IntPtr pData, int cbData, CorOpenFlags dwOpenFlags, Guid riid)
+        public HRESULT TryOpenScopeOnMemory(IntPtr pData, int cbData, CorOpenFlags dwOpenFlags, Guid riid, out object ppIUnk)
         {
             /*HRESULT OpenScopeOnMemory(
             [In] IntPtr pData,
@@ -176,8 +184,6 @@ namespace ManagedCorDebug
             [In] CorOpenFlags dwOpenFlags,
             [In] ref Guid riid,
             [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppIUnk);*/
-            object ppIUnk;
-
             return Raw.OpenScopeOnMemory(pData, cbData, dwOpenFlags, ref riid, out ppIUnk);
         }
 

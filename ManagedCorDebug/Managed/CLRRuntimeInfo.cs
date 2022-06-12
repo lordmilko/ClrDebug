@@ -462,16 +462,20 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="rclsid">[in] The CLSID interface for the coclass.</param>
         /// <param name="riid">[in] The IID of the requested rclsid interface.</param>
+        /// <returns>[out] A pointer to the queried interface.</returns>
         /// <remarks>
         /// This method causes the CLR to be loaded but not initialized. The following table shows the supported combinations
         /// for rclsid and riid.
         /// </remarks>
-        public void GetInterface(Guid rclsid, Guid riid)
+        public object GetInterface(Guid rclsid, Guid riid)
         {
             HRESULT hr;
+            object ppUnk;
 
-            if ((hr = TryGetInterface(rclsid, riid)) != HRESULT.S_OK)
+            if ((hr = TryGetInterface(rclsid, riid, out ppUnk)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
+
+            return ppUnk;
         }
 
         /// <summary>
@@ -480,6 +484,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="rclsid">[in] The CLSID interface for the coclass.</param>
         /// <param name="riid">[in] The IID of the requested rclsid interface.</param>
+        /// <param name="ppUnk">[out] A pointer to the queried interface.</param>
         /// <returns>
         /// This method returns the following specific HRESULTs as well as HRESULT errors that indicate method failure.
         /// 
@@ -494,14 +499,12 @@ namespace ManagedCorDebug
         /// This method causes the CLR to be loaded but not initialized. The following table shows the supported combinations
         /// for rclsid and riid.
         /// </remarks>
-        public HRESULT TryGetInterface(Guid rclsid, Guid riid)
+        public HRESULT TryGetInterface(Guid rclsid, Guid riid, out object ppUnk)
         {
             /*HRESULT GetInterface(
             [In] ref Guid rclsid,
             [In] ref Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppUnk);*/
-            object ppUnk;
-
             return Raw.GetInterface(ref rclsid, ref riid, out ppUnk);
         }
 

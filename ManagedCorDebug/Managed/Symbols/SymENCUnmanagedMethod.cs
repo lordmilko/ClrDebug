@@ -158,28 +158,40 @@ namespace ManagedCorDebug
         /// Gets the documents that this method has lines in.
         /// </summary>
         /// <param name="cDocs">[in] The length of the buffer pointed to by pcDocs.</param>
-        /// <param name="documents">[in] The buffer that contains the documents.</param>
-        public void GetDocumentsForMethod(int cDocs, ISymUnmanagedDocument documents)
+        /// <returns>The values that were emitted from the COM method.</returns>
+        public GetDocumentsForMethodResult GetDocumentsForMethod(int cDocs)
         {
             HRESULT hr;
+            GetDocumentsForMethodResult result;
 
-            if ((hr = TryGetDocumentsForMethod(cDocs, documents)) != HRESULT.S_OK)
+            if ((hr = TryGetDocumentsForMethod(cDocs, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
+
+            return result;
         }
 
         /// <summary>
         /// Gets the documents that this method has lines in.
         /// </summary>
         /// <param name="cDocs">[in] The length of the buffer pointed to by pcDocs.</param>
-        /// <param name="documents">[in] The buffer that contains the documents.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
-        public HRESULT TryGetDocumentsForMethod(int cDocs, ISymUnmanagedDocument documents)
+        public HRESULT TryGetDocumentsForMethod(int cDocs, out GetDocumentsForMethodResult result)
         {
-            /*HRESULT GetDocumentsForMethod([In] int cDocs, out int pcDocs, [MarshalAs(UnmanagedType.Interface), In]
-            ref ISymUnmanagedDocument documents);*/
+            /*HRESULT GetDocumentsForMethod(
+            [In] int cDocs,
+            out int pcDocs,
+            [In, Out] ref IntPtr documents);*/
             int pcDocs;
+            IntPtr documents = default(IntPtr);
+            HRESULT hr = Raw.GetDocumentsForMethod(cDocs, out pcDocs, ref documents);
 
-            return Raw.GetDocumentsForMethod(cDocs, out pcDocs, ref documents);
+            if (hr == HRESULT.S_OK)
+                result = new GetDocumentsForMethodResult(pcDocs, documents);
+            else
+                result = default(GetDocumentsForMethodResult);
+
+            return hr;
         }
 
         #endregion
@@ -210,8 +222,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetSourceExtentInDocument(ISymUnmanagedDocument document, out GetSourceExtentInDocumentResult result)
         {
             /*HRESULT GetSourceExtentInDocument(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocument document,
+            [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument document,
             out int pstartLine,
             out int pendLine);*/
             int pstartLine;

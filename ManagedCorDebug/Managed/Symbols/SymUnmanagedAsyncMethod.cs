@@ -163,29 +163,41 @@ namespace ManagedCorDebug
         /// <summary>
         /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
         /// </summary>
-        public void GetAsyncStepInfo(int cStepInfo, int yieldOffsets, int breakpointOffset, int breakpointMethod)
+        public GetAsyncStepInfoResult GetAsyncStepInfo(int cStepInfo)
         {
             HRESULT hr;
+            GetAsyncStepInfoResult result;
 
-            if ((hr = TryGetAsyncStepInfo(cStepInfo, yieldOffsets, breakpointOffset, breakpointMethod)) != HRESULT.S_OK)
+            if ((hr = TryGetAsyncStepInfo(cStepInfo, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
+
+            return result;
         }
 
         /// <summary>
         /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
-        public HRESULT TryGetAsyncStepInfo(int cStepInfo, int yieldOffsets, int breakpointOffset, int breakpointMethod)
+        public HRESULT TryGetAsyncStepInfo(int cStepInfo, out GetAsyncStepInfoResult result)
         {
             /*HRESULT GetAsyncStepInfo(
             [In] int cStepInfo,
             out int pcStepInfo,
-            [In] ref int yieldOffsets,
-            [In] ref int breakpointOffset,
-            [In] ref int breakpointMethod);*/
+            [In, Out] ref int[] yieldOffsets,
+            [In, Out] ref int[] breakpointOffset,
+            [In, Out] ref int[] breakpointMethod);*/
             int pcStepInfo;
+            int[] yieldOffsets = default(int[]);
+            int[] breakpointOffset = default(int[]);
+            int[] breakpointMethod = default(int[]);
+            HRESULT hr = Raw.GetAsyncStepInfo(cStepInfo, out pcStepInfo, ref yieldOffsets, ref breakpointOffset, ref breakpointMethod);
 
-            return Raw.GetAsyncStepInfo(cStepInfo, out pcStepInfo, ref yieldOffsets, ref breakpointOffset, ref breakpointMethod);
+            if (hr == HRESULT.S_OK)
+                result = new GetAsyncStepInfoResult(pcStepInfo, yieldOffsets, breakpointOffset, breakpointMethod);
+            else
+                result = default(GetAsyncStepInfoResult);
+
+            return hr;
         }
 
         #endregion

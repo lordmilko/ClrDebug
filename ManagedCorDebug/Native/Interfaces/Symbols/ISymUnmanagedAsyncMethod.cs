@@ -61,8 +61,8 @@ namespace ManagedCorDebug
         HRESULT GetAsyncStepInfo(
             [In] int cStepInfo,
             out int pcStepInfo,
-            [In] ref int yieldOffsets,
-            [In] ref int breakpointOffset,
-            [In] ref int breakpointMethod);
+            [In, Out] ref int[] yieldOffsets,
+            [In, Out] ref int[] breakpointOffset,
+            [In, Out] ref int[] breakpointMethod);
     }
 }

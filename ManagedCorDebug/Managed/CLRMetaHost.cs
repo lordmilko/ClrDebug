@@ -30,18 +30,22 @@ namespace ManagedCorDebug
         /// Example values are "v1.0.3705", "v1.1.4322", "v2.0.50727", and "v4.0.X", where X depends on the build number installed.<para/>
         /// The "v" prefix is required.</param>
         /// <param name="riid">[in] The identifier for the desired interface. Currently, the only valid value for this parameter is IID_ICLRRuntimeInfo.</param>
+        /// <returns>[out] A pointer to the <see cref="ICLRRuntimeInfo"/> interface that corresponds to the requested runtime.</returns>
         /// <remarks>
         /// This method interacts consistently with legacy interfaces such as the <see cref="ICorRuntimeHost"/> interface and
         /// legacy functions such as the deprecated CorBindTo* functions (see Deprecated CLR Hosting Functions in the .NET
         /// Framework 2.0 hosting API). That is, runtimes that are loaded with the legacy API are visible to the new API, and
         /// runtimes that are loaded with the new API are visible to the legacy API.
         /// </remarks>
-        public void GetRuntime(string pwzVersion, Guid riid)
+        public object GetRuntime(string pwzVersion, Guid riid)
         {
             HRESULT hr;
+            object ppRuntime;
 
-            if ((hr = TryGetRuntime(pwzVersion, riid)) != HRESULT.S_OK)
+            if ((hr = TryGetRuntime(pwzVersion, riid, out ppRuntime)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
+
+            return ppRuntime;
         }
 
         /// <summary>
@@ -52,6 +56,7 @@ namespace ManagedCorDebug
         /// Example values are "v1.0.3705", "v1.1.4322", "v2.0.50727", and "v4.0.X", where X depends on the build number installed.<para/>
         /// The "v" prefix is required.</param>
         /// <param name="riid">[in] The identifier for the desired interface. Currently, the only valid value for this parameter is IID_ICLRRuntimeInfo.</param>
+        /// <param name="ppRuntime">[out] A pointer to the <see cref="ICLRRuntimeInfo"/> interface that corresponds to the requested runtime.</param>
         /// <returns>
         /// This method returns the following specific HRESULTs as well as HRESULT errors that indicate method failure.
         /// 
@@ -66,11 +71,9 @@ namespace ManagedCorDebug
         /// Framework 2.0 hosting API). That is, runtimes that are loaded with the legacy API are visible to the new API, and
         /// runtimes that are loaded with the new API are visible to the legacy API.
         /// </remarks>
-        public HRESULT TryGetRuntime(string pwzVersion, Guid riid)
+        public HRESULT TryGetRuntime(string pwzVersion, Guid riid, out object ppRuntime)
         {
             /*HRESULT GetRuntime([MarshalAs(UnmanagedType.LPWStr), In] string pwzVersion, [In] ref Guid riid, [Out] out object ppRuntime);*/
-            object ppRuntime;
-
             return Raw.GetRuntime(pwzVersion, ref riid, out ppRuntime);
         }
 
@@ -292,18 +295,23 @@ namespace ManagedCorDebug
         /// Returns an interface that represents a runtime to which legacy activation policy has been bound, for example, by using the useLegacyV2RuntimeActivationPolicy attribute on the &lt;startup&gt; element configuration file entry, by direct use of the legacy activation APIs, or by calling the <see cref="CLRRuntimeInfo.BindAsLegacyV2Runtime"/> method.
         /// </summary>
         /// <param name="riid">[in] Required.Currently the only valid value for this parameter is IID_ICLRRuntimeInfo.</param>
-        public void QueryLegacyV2RuntimeBinding(Guid riid)
+        /// <returns>[out] Required. When this method returns, contains a pointer to the <see cref="ICLRRuntimeInfo"/> interface that represents a runtime that has been bound to legacy activation policy.</returns>
+        public object QueryLegacyV2RuntimeBinding(Guid riid)
         {
             HRESULT hr;
+            object ppUnk;
 
-            if ((hr = TryQueryLegacyV2RuntimeBinding(riid)) != HRESULT.S_OK)
+            if ((hr = TryQueryLegacyV2RuntimeBinding(riid, out ppUnk)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
+
+            return ppUnk;
         }
 
         /// <summary>
         /// Returns an interface that represents a runtime to which legacy activation policy has been bound, for example, by using the useLegacyV2RuntimeActivationPolicy attribute on the &lt;startup&gt; element configuration file entry, by direct use of the legacy activation APIs, or by calling the <see cref="CLRRuntimeInfo.BindAsLegacyV2Runtime"/> method.
         /// </summary>
         /// <param name="riid">[in] Required.Currently the only valid value for this parameter is IID_ICLRRuntimeInfo.</param>
+        /// <param name="ppUnk">[out] Required. When this method returns, contains a pointer to the <see cref="ICLRRuntimeInfo"/> interface that represents a runtime that has been bound to legacy activation policy.</param>
         /// <returns>
         /// This method returns the following specific HRESULTs as well as HRESULT errors that indicate method failure.
         /// 
@@ -313,14 +321,12 @@ namespace ManagedCorDebug
         /// | S_FALSE       | The method completed successfully, but a legacy runtime has not yet been bound.                                   |
         /// | E_NOINTERFACE | The method found a runtime that was bound to legacy activation policy, but riid is not supported by that runtime. |
         /// </returns>
-        public HRESULT TryQueryLegacyV2RuntimeBinding(Guid riid)
+        public HRESULT TryQueryLegacyV2RuntimeBinding(Guid riid, out object ppUnk)
         {
             /*HRESULT QueryLegacyV2RuntimeBinding(
             [In] ref Guid riid,
-            [Out] IntPtr ppUnk);*/
-            IntPtr ppUnk = default(IntPtr);
-
-            return Raw.QueryLegacyV2RuntimeBinding(ref riid, ppUnk);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppUnk);*/
+            return Raw.QueryLegacyV2RuntimeBinding(ref riid, out ppUnk);
         }
 
         #endregion

@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -67,8 +68,10 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetDocumentsForMethod([In] int cDocs, out int pcDocs, [MarshalAs(UnmanagedType.Interface), In]
-            ref ISymUnmanagedDocument documents);
+        HRESULT GetDocumentsForMethod(
+            [In] int cDocs,
+            out int pcDocs,
+            [In, Out] ref IntPtr documents);
 
         /// <summary>
         /// Gets the smallest start line and largest end line for the method in a specific document.
@@ -80,8 +83,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSourceExtentInDocument(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocument document,
+            [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument document,
             out int pstartLine,
             out int pendLine);
     }

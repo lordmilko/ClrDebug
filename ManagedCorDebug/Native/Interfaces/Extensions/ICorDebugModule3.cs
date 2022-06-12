@@ -36,6 +36,8 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CreateReaderForInMemorySymbols([In] ref Guid riid, out IntPtr ppObj);
+        HRESULT CreateReaderForInMemorySymbols(
+            [In] ref Guid riid,
+            [MarshalAs(UnmanagedType.Interface), Out] out object ppObj);
     }
 }

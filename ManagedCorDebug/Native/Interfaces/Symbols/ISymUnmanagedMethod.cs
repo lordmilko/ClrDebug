@@ -145,11 +145,10 @@ namespace ManagedCorDebug
             [In] int cPoints,
             out int pcPoints,
             [In] ref int offsets,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ref ISymUnmanagedDocument documents,
-            [In] ref int lines,
-            [In] ref int columns,
-            [In] ref int endLines,
-            [In] ref int endColumns);
+            [In, Out] ref IntPtr documents,
+            [In, Out] ref int[] lines,
+            [In, Out] ref int[] columns,
+            [In, Out] ref int[] endLines,
+            [In, Out] ref int[] endColumns);
     }
 }

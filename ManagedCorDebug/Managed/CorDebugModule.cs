@@ -582,35 +582,38 @@ namespace ManagedCorDebug
         /// Gets a metadata interface object that can be used to examine the metadata for the module.
         /// </summary>
         /// <param name="riid">[in] The reference ID that specifies the metadata interface.</param>
+        /// <returns>[out] A pointer to the address of an T:IUnknown object that is one of the metadata interfaces.</returns>
         /// <remarks>
         /// The debugger can use the GetMetaDataInterface method to make a copy of the original metadata for a module, which
         /// it must do in order to edit that module. The debugger calls GetMetaDataInterface to get an <see cref="IMetaDataEmit"/>
         /// interface object for the module, then calls <see cref="MetaDataEmit.SaveToMemory"/> to save a copy of the module's
         /// metadata to memory.
         /// </remarks>
-        public void GetMetaDataInterface(Guid riid)
+        public object GetMetaDataInterface(Guid riid)
         {
             HRESULT hr;
+            object ppObj;
 
-            if ((hr = TryGetMetaDataInterface(riid)) != HRESULT.S_OK)
+            if ((hr = TryGetMetaDataInterface(riid, out ppObj)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
+
+            return ppObj;
         }
 
         /// <summary>
         /// Gets a metadata interface object that can be used to examine the metadata for the module.
         /// </summary>
         /// <param name="riid">[in] The reference ID that specifies the metadata interface.</param>
+        /// <param name="ppObj">[out] A pointer to the address of an T:IUnknown object that is one of the metadata interfaces.</param>
         /// <remarks>
         /// The debugger can use the GetMetaDataInterface method to make a copy of the original metadata for a module, which
         /// it must do in order to edit that module. The debugger calls GetMetaDataInterface to get an <see cref="IMetaDataEmit"/>
         /// interface object for the module, then calls <see cref="MetaDataEmit.SaveToMemory"/> to save a copy of the module's
         /// metadata to memory.
         /// </remarks>
-        public HRESULT TryGetMetaDataInterface(Guid riid)
+        public HRESULT TryGetMetaDataInterface(Guid riid, out object ppObj)
         {
             /*HRESULT GetMetaDataInterface([In] ref Guid riid, [MarshalAs(UnmanagedType.IUnknown)] out object ppObj);*/
-            object ppObj;
-
             return Raw.GetMetaDataInterface(ref riid, out ppObj);
         }
 
@@ -878,6 +881,7 @@ namespace ManagedCorDebug
         /// Creates a debug symbol reader for a dynamic module.
         /// </summary>
         /// <param name="riid">[in] The IID of the COM interface to return. Typically, this is an <see cref="ISymUnmanagedReader"/>.</param>
+        /// <returns>[out] Pointer to a pointer to the returned interface.</returns>
         /// <remarks>
         /// This method can also be used to create a symbol reader object for in-memory (non-dynamic) modules, but only after
         /// the symbols are first available (indicated by the <see cref="CorDebugManagedCallback.UpdateModuleSymbols"/> callback).
@@ -886,18 +890,22 @@ namespace ManagedCorDebug
         ///cref="CorDebugManagedCallback.LoadClass"/> callback is received). Dynamic modules do not have any symbols available
         /// until the first type has been loaded (as indicated by the <see cref="CorDebugManagedCallback.LoadClass"/> callback).
         /// </remarks>
-        public void CreateReaderForInMemorySymbols(Guid riid)
+        public object CreateReaderForInMemorySymbols(Guid riid)
         {
             HRESULT hr;
+            object ppObj;
 
-            if ((hr = TryCreateReaderForInMemorySymbols(riid)) != HRESULT.S_OK)
+            if ((hr = TryCreateReaderForInMemorySymbols(riid, out ppObj)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
+
+            return ppObj;
         }
 
         /// <summary>
         /// Creates a debug symbol reader for a dynamic module.
         /// </summary>
         /// <param name="riid">[in] The IID of the COM interface to return. Typically, this is an <see cref="ISymUnmanagedReader"/>.</param>
+        /// <param name="ppObj">[out] Pointer to a pointer to the returned interface.</param>
         /// <returns>
         /// * S_OK - Successfully created the reader.
         /// * CORDBG_E_MODULE_LOADED_FROM_DISK - The module is not an in-memory or dynamic module.
@@ -912,11 +920,11 @@ namespace ManagedCorDebug
         ///cref="CorDebugManagedCallback.LoadClass"/> callback is received). Dynamic modules do not have any symbols available
         /// until the first type has been loaded (as indicated by the <see cref="CorDebugManagedCallback.LoadClass"/> callback).
         /// </remarks>
-        public HRESULT TryCreateReaderForInMemorySymbols(Guid riid)
+        public HRESULT TryCreateReaderForInMemorySymbols(Guid riid, out object ppObj)
         {
-            /*HRESULT CreateReaderForInMemorySymbols([In] ref Guid riid, out IntPtr ppObj);*/
-            IntPtr ppObj;
-
+            /*HRESULT CreateReaderForInMemorySymbols(
+            [In] ref Guid riid,
+            [MarshalAs(UnmanagedType.Interface), Out] out object ppObj);*/
             return Raw3.CreateReaderForInMemorySymbols(ref riid, out ppObj);
         }
 

@@ -198,6 +198,7 @@
     <Compile Include="Managed\ResultTypes\GetActiveInternalFramesResult.cs" />
     <Compile Include="Managed\ResultTypes\GetAssemblyPropsResult.cs" />
     <Compile Include="Managed\ResultTypes\GetAssemblyRefPropsResult.cs" />
+    <Compile Include="Managed\ResultTypes\GetAsyncStepInfoResult.cs" />
     <Compile Include="Managed\ResultTypes\GetBlobResult.cs" />
     <Compile Include="Managed\ResultTypes\GetCachedInterfacePointersResult.cs" />
     <Compile Include="Managed\ResultTypes\GetCheckSumResult.cs" />
@@ -214,6 +215,7 @@
     <Compile Include="Managed\ResultTypes\GetDebugInfoResult.cs" />
     <Compile Include="Managed\ResultTypes\GetDebugInfoWithPaddingResult.cs" />
     <Compile Include="Managed\ResultTypes\GetDefaultStartupFlagsResult.cs" />
+    <Compile Include="Managed\ResultTypes\GetDocumentsForMethodResult.cs" />
     <Compile Include="Managed\ResultTypes\GetDocumentsResult.cs" />
     <Compile Include="Managed\ResultTypes\GetDocumentVersionResult.cs" />
     <Compile Include="Managed\ResultTypes\GetEHClausesResult.cs" />
@@ -275,6 +277,7 @@
     <Compile Include="Managed\ResultTypes\GetReturnValueLiveOffsetResult.cs" />
     <Compile Include="Managed\ResultTypes\GetRVAResult.cs" />
     <Compile Include="Managed\ResultTypes\GetScopePropsResult.cs" />
+    <Compile Include="Managed\ResultTypes\GetSequencePointsResult.cs" />
     <Compile Include="Managed\ResultTypes\GetSigFromTokenResult.cs" />
     <Compile Include="Managed\ResultTypes\GetSignatureResult.cs" />
     <Compile Include="Managed\ResultTypes\GetSourceExtentInDocumentResult.cs" />

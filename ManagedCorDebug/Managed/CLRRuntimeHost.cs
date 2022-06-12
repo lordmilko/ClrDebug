@@ -352,17 +352,21 @@ namespace ManagedCorDebug
         /// <param name="ppwzManifestPaths">[in] Optional. A string array that contains manifest paths for the application.</param>
         /// <param name="dwActivationData">[in] The number of strings contained in the ppwzActivationData array.</param>
         /// <param name="ppwzActivationData">[in] Optional. A string array that contains the application's activation data, such as the query string portion of the URL for applications deployed over the Web.</param>
+        /// <returns>[out] The value returned from the entry point of the application.</returns>
         /// <remarks>
         /// ExecuteApplication is used to activate ClickOnce applications in a newly created application domain. The pReturnValue
         /// output parameter is set to the value returned by the application. If you supply a value of null for pReturnValue,
         /// ExecuteApplication does not fail, but it does not return a value.
         /// </remarks>
-        public void ExecuteApplication(string pwzAppFullName, int dwManifestPaths, string ppwzManifestPaths, int dwActivationData, string ppwzActivationData)
+        public int ExecuteApplication(string pwzAppFullName, int dwManifestPaths, string ppwzManifestPaths, int dwActivationData, string ppwzActivationData)
         {
             HRESULT hr;
+            int pReturnValue;
 
-            if ((hr = TryExecuteApplication(pwzAppFullName, dwManifestPaths, ppwzManifestPaths, dwActivationData, ppwzActivationData)) != HRESULT.S_OK)
+            if ((hr = TryExecuteApplication(pwzAppFullName, dwManifestPaths, ppwzManifestPaths, dwActivationData, ppwzActivationData, out pReturnValue)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
+
+            return pReturnValue;
         }
 
         /// <summary>
@@ -374,6 +378,7 @@ namespace ManagedCorDebug
         /// <param name="ppwzManifestPaths">[in] Optional. A string array that contains manifest paths for the application.</param>
         /// <param name="dwActivationData">[in] The number of strings contained in the ppwzActivationData array.</param>
         /// <param name="ppwzActivationData">[in] Optional. A string array that contains the application's activation data, such as the query string portion of the URL for applications deployed over the Web.</param>
+        /// <param name="pReturnValue">[out] The value returned from the entry point of the application.</param>
         /// <returns>
         /// | HRESULT                | Description                                                                                                                                                                              |
         /// | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -389,18 +394,16 @@ namespace ManagedCorDebug
         /// output parameter is set to the value returned by the application. If you supply a value of null for pReturnValue,
         /// ExecuteApplication does not fail, but it does not return a value.
         /// </remarks>
-        public HRESULT TryExecuteApplication(string pwzAppFullName, int dwManifestPaths, string ppwzManifestPaths, int dwActivationData, string ppwzActivationData)
+        public HRESULT TryExecuteApplication(string pwzAppFullName, int dwManifestPaths, string ppwzManifestPaths, int dwActivationData, string ppwzActivationData, out int pReturnValue)
         {
             /*HRESULT ExecuteApplication(
             [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzAppFullName,
             [In] int dwManifestPaths,
-            [MarshalAs(UnmanagedType.LPWStr)] [In] ref string ppwzManifestPaths,
+            [MarshalAs(UnmanagedType.LPWStr)] [In] string ppwzManifestPaths,
             [In] int dwActivationData,
-            [MarshalAs(UnmanagedType.LPWStr)] [In] ref string ppwzActivationData,
+            [MarshalAs(UnmanagedType.LPWStr)] [In] string ppwzActivationData,
             out int pReturnValue);*/
-            int pReturnValue;
-
-            return Raw.ExecuteApplication(pwzAppFullName, dwManifestPaths, ref ppwzManifestPaths, dwActivationData, ref ppwzActivationData, out pReturnValue);
+            return Raw.ExecuteApplication(pwzAppFullName, dwManifestPaths, ppwzManifestPaths, dwActivationData, ppwzActivationData, out pReturnValue);
         }
 
         #endregion

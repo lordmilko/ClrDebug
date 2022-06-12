@@ -360,17 +360,16 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cPoints">[in] A ULONG32 that receives the size of the offsets, documents, lines, columns, endLines, and endColumns arrays.</param>
         /// <param name="offsets">[in] An array in which to store the Microsoft intermediate language (MSIL) offsets from the beginning of the method for the sequence points.</param>
-        /// <param name="documents">[in] An array in which to store the documents in which the sequence points are located.</param>
-        /// <param name="lines">[in] An array in which to store the lines in the documents at which the sequence points are located.</param>
-        /// <param name="columns">[in] An array in which to store the columns in the documents at which the sequence points are located.</param>
-        /// <param name="endLines">[in] The array of lines in the documents at which the sequence points end.</param>
-        /// <param name="endColumns">[in] The array of columns in the documents at which the sequence points end.</param>
-        public void GetSequencePoints(int cPoints, int offsets, ISymUnmanagedDocument documents, int lines, int columns, int endLines, int endColumns)
+        /// <returns>The values that were emitted from the COM method.</returns>
+        public GetSequencePointsResult GetSequencePoints(int cPoints, int offsets)
         {
             HRESULT hr;
+            GetSequencePointsResult result;
 
-            if ((hr = TryGetSequencePoints(cPoints, offsets, documents, lines, columns, endLines, endColumns)) != HRESULT.S_OK)
+            if ((hr = TryGetSequencePoints(cPoints, offsets, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
+
+            return result;
         }
 
         /// <summary>
@@ -378,27 +377,33 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cPoints">[in] A ULONG32 that receives the size of the offsets, documents, lines, columns, endLines, and endColumns arrays.</param>
         /// <param name="offsets">[in] An array in which to store the Microsoft intermediate language (MSIL) offsets from the beginning of the method for the sequence points.</param>
-        /// <param name="documents">[in] An array in which to store the documents in which the sequence points are located.</param>
-        /// <param name="lines">[in] An array in which to store the lines in the documents at which the sequence points are located.</param>
-        /// <param name="columns">[in] An array in which to store the columns in the documents at which the sequence points are located.</param>
-        /// <param name="endLines">[in] The array of lines in the documents at which the sequence points end.</param>
-        /// <param name="endColumns">[in] The array of columns in the documents at which the sequence points end.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSequencePoints(int cPoints, int offsets, ISymUnmanagedDocument documents, int lines, int columns, int endLines, int endColumns)
+        public HRESULT TryGetSequencePoints(int cPoints, int offsets, out GetSequencePointsResult result)
         {
             /*HRESULT GetSequencePoints(
             [In] int cPoints,
             out int pcPoints,
             [In] ref int offsets,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ref ISymUnmanagedDocument documents,
-            [In] ref int lines,
-            [In] ref int columns,
-            [In] ref int endLines,
-            [In] ref int endColumns);*/
+            [In, Out] ref IntPtr documents,
+            [In, Out] ref int[] lines,
+            [In, Out] ref int[] columns,
+            [In, Out] ref int[] endLines,
+            [In, Out] ref int[] endColumns);*/
             int pcPoints;
+            IntPtr documents = default(IntPtr);
+            int[] lines = default(int[]);
+            int[] columns = default(int[]);
+            int[] endLines = default(int[]);
+            int[] endColumns = default(int[]);
+            HRESULT hr = Raw.GetSequencePoints(cPoints, out pcPoints, ref offsets, ref documents, ref lines, ref columns, ref endLines, ref endColumns);
 
-            return Raw.GetSequencePoints(cPoints, out pcPoints, ref offsets, ref documents, ref lines, ref columns, ref endLines, ref endColumns);
+            if (hr == HRESULT.S_OK)
+                result = new GetSequencePointsResult(pcPoints, documents, lines, columns, endLines, endColumns);
+            else
+                result = default(GetSequencePointsResult);
+
+            return hr;
         }
 
         #endregion

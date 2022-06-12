@@ -157,7 +157,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT QueryLegacyV2RuntimeBinding(
             [In] ref Guid riid,
-            [Out] IntPtr ppUnk);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppUnk);
 
         /// <summary>
         /// Attempts to shut down all loaded runtimes gracefully and then terminates the process. Supersedes the CorExitProcess function.

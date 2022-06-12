@@ -213,9 +213,9 @@ namespace ManagedCorDebug
         HRESULT ExecuteApplication(
             [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzAppFullName,
             [In] int dwManifestPaths,
-            [MarshalAs(UnmanagedType.LPWStr)] [In] ref string ppwzManifestPaths,
+            [MarshalAs(UnmanagedType.LPWStr)] [In] string ppwzManifestPaths,
             [In] int dwActivationData,
-            [MarshalAs(UnmanagedType.LPWStr)] [In] ref string ppwzActivationData,
+            [MarshalAs(UnmanagedType.LPWStr)] [In] string ppwzActivationData,
             out int pReturnValue);
 
         /// <summary>
