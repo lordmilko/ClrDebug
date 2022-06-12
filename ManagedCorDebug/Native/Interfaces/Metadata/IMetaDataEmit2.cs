@@ -19,8 +19,11 @@ namespace ManagedCorDebug
         /// <param name="cbSigBlob">[in] The size, in bytes, of pvSigBlob.</param>
         /// <param name="pmi">[out] A token to the metadata signature definition of the method.</param>
         [PreserveSig]
-        HRESULT DefineMethodSpec(mdToken tkParent, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)]
-            byte[] pvSigBlob, int cbSigBlob, out mdMethodSpec pmi);
+        HRESULT DefineMethodSpec(
+            mdToken tkParent,
+            IntPtr pvSigBlob,
+            int cbSigBlob,
+            out mdMethodSpec pmi);
 
         /// <summary>
         /// Gets a value indicating any change in metadata size that results from the current edit-and-continue session.

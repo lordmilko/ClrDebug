@@ -1957,7 +1957,7 @@ namespace ManagedCorDebug
         /// <param name="pvSigBlob">[in] A pointer to the binary COM+ signature of the method.</param>
         /// <param name="cbSigBlob">[in] The size, in bytes, of pvSigBlob.</param>
         /// <returns>[out] A token to the metadata signature definition of the method.</returns>
-        public mdMethodSpec DefineMethodSpec(mdToken tkParent, byte[] pvSigBlob, int cbSigBlob)
+        public mdMethodSpec DefineMethodSpec(mdToken tkParent, IntPtr pvSigBlob, int cbSigBlob)
         {
             HRESULT hr;
             mdMethodSpec pmi;
@@ -1975,10 +1975,13 @@ namespace ManagedCorDebug
         /// <param name="pvSigBlob">[in] A pointer to the binary COM+ signature of the method.</param>
         /// <param name="cbSigBlob">[in] The size, in bytes, of pvSigBlob.</param>
         /// <param name="pmi">[out] A token to the metadata signature definition of the method.</param>
-        public HRESULT TryDefineMethodSpec(mdToken tkParent, byte[] pvSigBlob, int cbSigBlob, out mdMethodSpec pmi)
+        public HRESULT TryDefineMethodSpec(mdToken tkParent, IntPtr pvSigBlob, int cbSigBlob, out mdMethodSpec pmi)
         {
-            /*HRESULT DefineMethodSpec(mdToken tkParent, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)]
-            byte[] pvSigBlob, int cbSigBlob, out mdMethodSpec pmi);*/
+            /*HRESULT DefineMethodSpec(
+            mdToken tkParent,
+            IntPtr pvSigBlob,
+            int cbSigBlob,
+            out mdMethodSpec pmi);*/
             return Raw2.DefineMethodSpec(tkParent, pvSigBlob, cbSigBlob, out pmi);
         }
 

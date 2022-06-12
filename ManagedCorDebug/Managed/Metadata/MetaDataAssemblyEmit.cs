@@ -28,7 +28,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Only one Assembly metadata structure can be defined within a manifest.
         /// </remarks>
-        public int DefineAssembly(byte[] pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, IntPtr pMetaData, CorAssemblyFlags dwAssemblyFlags)
+        public int DefineAssembly(IntPtr pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, IntPtr pMetaData, CorAssemblyFlags dwAssemblyFlags)
         {
             HRESULT hr;
             int pma;
@@ -52,10 +52,10 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Only one Assembly metadata structure can be defined within a manifest.
         /// </remarks>
-        public HRESULT TryDefineAssembly(byte[] pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, IntPtr pMetaData, CorAssemblyFlags dwAssemblyFlags, out int pma)
+        public HRESULT TryDefineAssembly(IntPtr pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, IntPtr pMetaData, CorAssemblyFlags dwAssemblyFlags, out int pma)
         {
             /*HRESULT DefineAssembly(
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] pbPublicKey,
+            IntPtr pbPublicKey,
             int cbPublicKey,
             int ulHashAlgId,
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
@@ -84,7 +84,7 @@ namespace ManagedCorDebug
         /// the details of a referenced assembly are passed to the assembly resolver with an indication that they represent
         /// the "as built" information. The assembly resolver then applies policy.
         /// </remarks>
-        public int DefineAssemblyRef(byte[] pbPublicKeyOrToken, int cbPublicKeyOrToken, string szName, ASSEMBLYMETADATA pMetaData, byte[] pbHashValue, int cbHashValue, CorAssemblyFlags dwAssemblyRefFlags)
+        public int DefineAssemblyRef(IntPtr pbPublicKeyOrToken, int cbPublicKeyOrToken, string szName, ASSEMBLYMETADATA pMetaData, IntPtr pbHashValue, int cbHashValue, CorAssemblyFlags dwAssemblyRefFlags)
         {
             HRESULT hr;
             int assemblyRefToken;
@@ -111,14 +111,14 @@ namespace ManagedCorDebug
         /// the details of a referenced assembly are passed to the assembly resolver with an indication that they represent
         /// the "as built" information. The assembly resolver then applies policy.
         /// </remarks>
-        public HRESULT TryDefineAssemblyRef(byte[] pbPublicKeyOrToken, int cbPublicKeyOrToken, string szName, ASSEMBLYMETADATA pMetaData, byte[] pbHashValue, int cbHashValue, CorAssemblyFlags dwAssemblyRefFlags, out int assemblyRefToken)
+        public HRESULT TryDefineAssemblyRef(IntPtr pbPublicKeyOrToken, int cbPublicKeyOrToken, string szName, ASSEMBLYMETADATA pMetaData, IntPtr pbHashValue, int cbHashValue, CorAssemblyFlags dwAssemblyRefFlags, out int assemblyRefToken)
         {
             /*HRESULT DefineAssemblyRef(
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] pbPublicKeyOrToken,
+            IntPtr pbPublicKeyOrToken,
             int cbPublicKeyOrToken,
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] ASSEMBLYMETADATA pMetaData,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] pbHashValue,
+            IntPtr pbHashValue,
             int cbHashValue,
             CorAssemblyFlags dwAssemblyRefFlags,
             out int assemblyRefToken);*/
@@ -140,7 +140,7 @@ namespace ManagedCorDebug
         /// One File metadata structure must be defined for each file that was part of this assembly at the time that this
         /// assembly was built, excluding the file that contains the metadata.
         /// </remarks>
-        public int DefineFile(string szName, byte[] pbHashValue, int cbHashValue, int dwFileFlags)
+        public int DefineFile(string szName, IntPtr pbHashValue, int cbHashValue, int dwFileFlags)
         {
             HRESULT hr;
             int fileToken;
@@ -163,11 +163,11 @@ namespace ManagedCorDebug
         /// One File metadata structure must be defined for each file that was part of this assembly at the time that this
         /// assembly was built, excluding the file that contains the metadata.
         /// </remarks>
-        public HRESULT TryDefineFile(string szName, byte[] pbHashValue, int cbHashValue, int dwFileFlags, out int fileToken)
+        public HRESULT TryDefineFile(string szName, IntPtr pbHashValue, int cbHashValue, int dwFileFlags, out int fileToken)
         {
             /*HRESULT DefineFile(
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] pbHashValue,
+            IntPtr pbHashValue,
             int cbHashValue,
             int dwFileFlags,
             out int fileToken);*/
@@ -290,7 +290,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// To create an Assembly metadata structure, use the <see cref="DefineAssembly"/> method.
         /// </remarks>
-        public void SetAssemblyProps(int pma, byte[] pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, IntPtr pMetaData, int dwAssemblyFlags)
+        public void SetAssemblyProps(int pma, IntPtr pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, IntPtr pMetaData, int dwAssemblyFlags)
         {
             HRESULT hr;
 
@@ -311,10 +311,10 @@ namespace ManagedCorDebug
         /// <remarks>
         /// To create an Assembly metadata structure, use the <see cref="DefineAssembly"/> method.
         /// </remarks>
-        public HRESULT TrySetAssemblyProps(int pma, byte[] pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, IntPtr pMetaData, int dwAssemblyFlags)
+        public HRESULT TrySetAssemblyProps(int pma, IntPtr pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, IntPtr pMetaData, int dwAssemblyFlags)
         {
             /*HRESULT SetAssemblyProps(int pma,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] pbPublicKey,
+            IntPtr pbPublicKey,
             int cbPublicKey,
             int ulHashAlgId,
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
@@ -340,7 +340,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// To create an AssemblyRef metadata structure, use the <see cref="DefineAssemblyRef"/> method.
         /// </remarks>
-        public void SetAssemblyRefProps(int ar, byte[] pbPublicKeyOrToken, int cbPublicKeyOrToken, string szName, IntPtr pMetaData, byte[] pbHashValue, int cbHashValue, AssemblyRefFlags dwAssemblyRefFlags)
+        public void SetAssemblyRefProps(int ar, IntPtr pbPublicKeyOrToken, int cbPublicKeyOrToken, string szName, IntPtr pMetaData, IntPtr pbHashValue, int cbHashValue, AssemblyRefFlags dwAssemblyRefFlags)
         {
             HRESULT hr;
 
@@ -362,14 +362,14 @@ namespace ManagedCorDebug
         /// <remarks>
         /// To create an AssemblyRef metadata structure, use the <see cref="DefineAssemblyRef"/> method.
         /// </remarks>
-        public HRESULT TrySetAssemblyRefProps(int ar, byte[] pbPublicKeyOrToken, int cbPublicKeyOrToken, string szName, IntPtr pMetaData, byte[] pbHashValue, int cbHashValue, AssemblyRefFlags dwAssemblyRefFlags)
+        public HRESULT TrySetAssemblyRefProps(int ar, IntPtr pbPublicKeyOrToken, int cbPublicKeyOrToken, string szName, IntPtr pMetaData, IntPtr pbHashValue, int cbHashValue, AssemblyRefFlags dwAssemblyRefFlags)
         {
             /*HRESULT SetAssemblyRefProps(
             int ar,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)]
-            byte[] pbPublicKeyOrToken, int cbPublicKeyOrToken, [MarshalAs(UnmanagedType.LPWStr)] string szName, IntPtr pMetaData,
+            IntPtr pbPublicKeyOrToken, int cbPublicKeyOrToken, [MarshalAs(UnmanagedType.LPWStr)] string szName, IntPtr pMetaData,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)]
-            byte[] pbHashValue,
+            IntPtr pbHashValue,
             int cbHashValue,
             AssemblyRefFlags dwAssemblyRefFlags);*/
             return Raw.SetAssemblyRefProps(ar, pbPublicKeyOrToken, cbPublicKeyOrToken, szName, pMetaData, pbHashValue, cbHashValue, dwAssemblyRefFlags);
@@ -388,7 +388,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// To create a File metadata structure, use the <see cref="DefineFile"/> method.
         /// </remarks>
-        public void SetFileProps(int file, byte[] pbHashValue, int cbHashValue, int dwFileFlags)
+        public void SetFileProps(int file, IntPtr pbHashValue, int cbHashValue, int dwFileFlags)
         {
             HRESULT hr;
 
@@ -406,11 +406,11 @@ namespace ManagedCorDebug
         /// <remarks>
         /// To create a File metadata structure, use the <see cref="DefineFile"/> method.
         /// </remarks>
-        public HRESULT TrySetFileProps(int file, byte[] pbHashValue, int cbHashValue, int dwFileFlags)
+        public HRESULT TrySetFileProps(int file, IntPtr pbHashValue, int cbHashValue, int dwFileFlags)
         {
             /*HRESULT SetFileProps(
             int file,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] pbHashValue,
+            IntPtr pbHashValue,
             int cbHashValue,
             int dwFileFlags);*/
             return Raw.SetFileProps(file, pbHashValue, cbHashValue, dwFileFlags);

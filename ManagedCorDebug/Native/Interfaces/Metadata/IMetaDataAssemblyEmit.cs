@@ -26,7 +26,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT DefineAssembly(
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] pbPublicKey,
+            IntPtr pbPublicKey,
             int cbPublicKey,
             int ulHashAlgId,
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
@@ -52,11 +52,11 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT DefineAssemblyRef(
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] pbPublicKeyOrToken,
+            IntPtr pbPublicKeyOrToken,
             int cbPublicKeyOrToken,
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] ASSEMBLYMETADATA pMetaData,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] pbHashValue,
+            IntPtr pbHashValue,
             int cbHashValue,
             CorAssemblyFlags dwAssemblyRefFlags,
             out int assemblyRefToken);
@@ -76,7 +76,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT DefineFile(
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] pbHashValue,
+            IntPtr pbHashValue,
             int cbHashValue,
             int dwFileFlags,
             out int fileToken);
@@ -137,7 +137,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT SetAssemblyProps(int pma,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] pbPublicKey,
+            IntPtr pbPublicKey,
             int cbPublicKey,
             int ulHashAlgId,
             [MarshalAs(UnmanagedType.LPWStr)] string szName,
@@ -162,9 +162,9 @@ namespace ManagedCorDebug
         HRESULT SetAssemblyRefProps(
             int ar,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)]
-            byte[] pbPublicKeyOrToken, int cbPublicKeyOrToken, [MarshalAs(UnmanagedType.LPWStr)] string szName, IntPtr pMetaData,
+            IntPtr pbPublicKeyOrToken, int cbPublicKeyOrToken, [MarshalAs(UnmanagedType.LPWStr)] string szName, IntPtr pMetaData,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)]
-            byte[] pbHashValue,
+            IntPtr pbHashValue,
             int cbHashValue,
             AssemblyRefFlags dwAssemblyRefFlags);
 
@@ -181,7 +181,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT SetFileProps(
             int file,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] pbHashValue,
+            IntPtr pbHashValue,
             int cbHashValue,
             int dwFileFlags);
 
