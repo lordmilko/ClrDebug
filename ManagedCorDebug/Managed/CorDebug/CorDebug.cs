@@ -9,7 +9,7 @@ namespace ManagedCorDebug
     /// Provides methods that allow developers to debug applications in the common language runtime (CLR) environment.
     /// </summary>
     /// <remarks>
-    /// <see cref="ICorDebug"/> represents an event processing loop for a debugger process. The debugger must wait for the <see cref="CorDebugManagedCallback.ExitProcess"/>
+    /// <see cref="ICorDebug"/> represents an event processing loop for a debugger process. The debugger must wait for the <see cref="ICorDebugManagedCallback.ExitProcess"/>
     /// callback from all processes being debugged before releasing this interface. The <see cref="ICorDebug"/> object is the initial
     /// object to control all further managed debugging. In the .NET Framework versions 1.0 and 1.1, this object was a
     /// CoClass object created from COM. In the .NET Framework version 2.0, this object is no longer a CoClass object.

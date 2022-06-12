@@ -49,7 +49,6 @@
     <Compile Include="Managed\Breakpoint\CorDebugValueBreakpoint.cs" />
     <Compile Include="Managed\CLRControl.cs" />
     <Compile Include="Managed\CLRDataEnumMemoryRegions.cs" />
-    <Compile Include="Managed\CLRDataEnumMemoryRegionsCallback.cs" />
     <Compile Include="Managed\CLRDataTarget.cs" />
     <Compile Include="Managed\CLRDebugging.cs" />
     <Compile Include="Managed\CLRDebuggingLibraryProvider.cs" />
@@ -78,7 +77,6 @@
     <Compile Include="Managed\CorDebugILCode.cs" />
     <Compile Include="Managed\CorDebugInstanceFieldSymbol.cs" />
     <Compile Include="Managed\CorDebugLoadedModule.cs" />
-    <Compile Include="Managed\CorDebugManagedCallback.cs" />
     <Compile Include="Managed\CorDebugMDA.cs" />
     <Compile Include="Managed\CorDebugMemoryBuffer.cs" />
     <Compile Include="Managed\CorDebugMergedAssemblyRecord.cs" />
@@ -93,7 +91,6 @@
     <Compile Include="Managed\CorDebugSymbolProvider.cs" />
     <Compile Include="Managed\CorDebugThread.cs" />
     <Compile Include="Managed\CorDebugType.cs" />
-    <Compile Include="Managed\CorDebugUnmanagedCallback.cs" />
     <Compile Include="Managed\CorDebugVariableHome.cs" />
     <Compile Include="Managed\CorDebugVariableSymbol.cs" />
     <Compile Include="Managed\CorDebugVirtualUnwinder.cs" />

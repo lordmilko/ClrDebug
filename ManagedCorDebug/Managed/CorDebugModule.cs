@@ -226,7 +226,7 @@ namespace ManagedCorDebug
         /// <param name="pDynamicResult">[out] true if this module is dynamic; otherwise, false.</param>
         /// <remarks>
         /// A dynamic module can add new classes and delete existing classes even after the module has been loaded. The <see 
-        ///cref="CorDebugManagedCallback.LoadClass"/> and <see cref="CorDebugManagedCallback.UnloadClass"/> callbacks inform
+        ///cref="ICorDebugManagedCallback.LoadClass"/> and <see cref="ICorDebugManagedCallback.UnloadClass"/> callbacks inform
         /// the debugger when a class has been added or deleted.
         /// </remarks>
         public HRESULT TryIsDynamic(out bool pDynamicResult)
@@ -412,12 +412,12 @@ namespace ManagedCorDebug
         #region EnableClassLoadCallbacks
 
         /// <summary>
-        /// Controls whether the <see cref="CorDebugManagedCallback.LoadClass"/> and <see cref="CorDebugManagedCallback.UnloadClass"/> callbacks are called for this module.
+        /// Controls whether the <see cref="ICorDebugManagedCallback.LoadClass"/> and <see cref="ICorDebugManagedCallback.UnloadClass"/> callbacks are called for this module.
         /// </summary>
-        /// <param name="bClassLoadCallbacks">[in] Set this value to true to enable the common language runtime (CLR) to call the <see cref="CorDebugManagedCallback.LoadClass"/> and <see cref="CorDebugManagedCallback.UnloadClass"/> methods when their associated events occur.<para/>
+        /// <param name="bClassLoadCallbacks">[in] Set this value to true to enable the common language runtime (CLR) to call the <see cref="ICorDebugManagedCallback.LoadClass"/> and <see cref="ICorDebugManagedCallback.UnloadClass"/> methods when their associated events occur.<para/>
         /// The default value is false for non-dynamic modules. The value is always true for dynamic modules and cannot be changed.</param>
         /// <remarks>
-        /// The <see cref="CorDebugManagedCallback.LoadClass"/> and <see cref="CorDebugManagedCallback.UnloadClass"/> callbacks are always enabled
+        /// The <see cref="ICorDebugManagedCallback.LoadClass"/> and <see cref="ICorDebugManagedCallback.UnloadClass"/> callbacks are always enabled
         /// for dynamic modules and cannot be disabled.
         /// </remarks>
         public void EnableClassLoadCallbacks(int bClassLoadCallbacks)
@@ -429,12 +429,12 @@ namespace ManagedCorDebug
         }
 
         /// <summary>
-        /// Controls whether the <see cref="CorDebugManagedCallback.LoadClass"/> and <see cref="CorDebugManagedCallback.UnloadClass"/> callbacks are called for this module.
+        /// Controls whether the <see cref="ICorDebugManagedCallback.LoadClass"/> and <see cref="ICorDebugManagedCallback.UnloadClass"/> callbacks are called for this module.
         /// </summary>
-        /// <param name="bClassLoadCallbacks">[in] Set this value to true to enable the common language runtime (CLR) to call the <see cref="CorDebugManagedCallback.LoadClass"/> and <see cref="CorDebugManagedCallback.UnloadClass"/> methods when their associated events occur.<para/>
+        /// <param name="bClassLoadCallbacks">[in] Set this value to true to enable the common language runtime (CLR) to call the <see cref="ICorDebugManagedCallback.LoadClass"/> and <see cref="ICorDebugManagedCallback.UnloadClass"/> methods when their associated events occur.<para/>
         /// The default value is false for non-dynamic modules. The value is always true for dynamic modules and cannot be changed.</param>
         /// <remarks>
-        /// The <see cref="CorDebugManagedCallback.LoadClass"/> and <see cref="CorDebugManagedCallback.UnloadClass"/> callbacks are always enabled
+        /// The <see cref="ICorDebugManagedCallback.LoadClass"/> and <see cref="ICorDebugManagedCallback.UnloadClass"/> callbacks are always enabled
         /// for dynamic modules and cannot be disabled.
         /// </remarks>
         public HRESULT TryEnableClassLoadCallbacks(int bClassLoadCallbacks)
@@ -726,8 +726,8 @@ namespace ManagedCorDebug
         /// <param name="dwFlags">[in] A bitwise combination of the <see cref="CorDebugJITCompilerFlags"/> enumeration values.</param>
         /// <remarks>
         /// If the dwFlags value is invalid, the SetJITCompilerFlags method will fail. The SetJITCompilerFlags method can be
-        /// called only from within the <see cref="CorDebugManagedCallback.LoadModule"/> callback for this module. Attempts
-        /// to call it after the <see cref="CorDebugManagedCallback.LoadModule"/> callback has been delivered will fail. Edit and Continue
+        /// called only from within the <see cref="ICorDebugManagedCallback.LoadModule"/> callback for this module. Attempts
+        /// to call it after the <see cref="ICorDebugManagedCallback.LoadModule"/> callback has been delivered will fail. Edit and Continue
         /// is not supported on 64-bit or Win9x platforms. Therefore, if you call the SetJITCompilerFlags method on either
         /// of these two platforms with the CORDEBUG_JIT_ENABLE_ENC flag set in dwFlags, the SetJITCompilerFlags method and
         /// all methods specific to Edit and Continue, such as <see cref="ApplyChanges"/>, will fail.
@@ -907,11 +907,11 @@ namespace ManagedCorDebug
         /// <returns>[out] Pointer to a pointer to the returned interface.</returns>
         /// <remarks>
         /// This method can also be used to create a symbol reader object for in-memory (non-dynamic) modules, but only after
-        /// the symbols are first available (indicated by the <see cref="CorDebugManagedCallback.UpdateModuleSymbols"/> callback).
+        /// the symbols are first available (indicated by the <see cref="ICorDebugManagedCallback.UpdateModuleSymbols"/> callback).
         /// This method returns a new reader instance every time it is called (like CComPtrBase). Therefore, the debugger should
         /// cache the result and request a new instance only when the underlying data may have changed (that is, when a <see 
-        ///cref="CorDebugManagedCallback.LoadClass"/> callback is received). Dynamic modules do not have any symbols available
-        /// until the first type has been loaded (as indicated by the <see cref="CorDebugManagedCallback.LoadClass"/> callback).
+        ///cref="ICorDebugManagedCallback.LoadClass"/> callback is received). Dynamic modules do not have any symbols available
+        /// until the first type has been loaded (as indicated by the <see cref="ICorDebugManagedCallback.LoadClass"/> callback).
         /// </remarks>
         public object CreateReaderForInMemorySymbols(Guid riid)
         {
@@ -937,11 +937,11 @@ namespace ManagedCorDebug
         /// </returns>
         /// <remarks>
         /// This method can also be used to create a symbol reader object for in-memory (non-dynamic) modules, but only after
-        /// the symbols are first available (indicated by the <see cref="CorDebugManagedCallback.UpdateModuleSymbols"/> callback).
+        /// the symbols are first available (indicated by the <see cref="ICorDebugManagedCallback.UpdateModuleSymbols"/> callback).
         /// This method returns a new reader instance every time it is called (like CComPtrBase). Therefore, the debugger should
         /// cache the result and request a new instance only when the underlying data may have changed (that is, when a <see 
-        ///cref="CorDebugManagedCallback.LoadClass"/> callback is received). Dynamic modules do not have any symbols available
-        /// until the first type has been loaded (as indicated by the <see cref="CorDebugManagedCallback.LoadClass"/> callback).
+        ///cref="ICorDebugManagedCallback.LoadClass"/> callback is received). Dynamic modules do not have any symbols available
+        /// until the first type has been loaded (as indicated by the <see cref="ICorDebugManagedCallback.LoadClass"/> callback).
         /// </remarks>
         public HRESULT TryCreateReaderForInMemorySymbols(Guid riid, out object ppObj)
         {

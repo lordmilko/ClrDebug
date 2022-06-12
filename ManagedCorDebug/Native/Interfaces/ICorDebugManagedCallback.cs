@@ -10,7 +10,7 @@ namespace ManagedCorDebug
     /// </summary>
     /// <remarks>
     /// All callbacks are serialized, called in the same thread, and called with the process in the synchronized state.
-    /// Each callback implementation must call <see cref="ICorDebugController.Continue"/> to resume execution. If ICorDebugController::Continue
+    /// Each callback implementation must call <see cref="ICorDebugController.Continue"/> to resume execution. If <see cref="ICorDebugController.Continue"/>
     /// is not called before the callback returns, the process will remain stopped and no more event callbacks will occur
     /// until <see cref="ICorDebugController.Continue"/> is called. A debugger must implement <see cref="ICorDebugManagedCallback2"/>
     /// if it is debugging .NET Framework version 2.0 applications. An instance of <see cref="ICorDebugManagedCallback"/> or <see cref="ICorDebugManagedCallback2"/>

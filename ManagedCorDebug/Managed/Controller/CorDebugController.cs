@@ -124,10 +124,10 @@ namespace ManagedCorDebug
         /// Continue continues the process after a call to the <see cref="Stop"/> method. When doing mixed-mode debugging,
         /// do not call Continue on the Win32 event thread unless you are continuing from an out-of-band event. An in-band
         /// event is either a managed event or a normal unmanaged event during which the debugger supports interaction with
-        /// the managed state of the process. In this case, the debugger receives the <see cref="CorDebugUnmanagedCallback.DebugEvent"/>
+        /// the managed state of the process. In this case, the debugger receives the <see cref="ICorDebugUnmanagedCallback.DebugEvent"/>
         /// callback with its fOutOfBand parameter set to false. An out-of-band event is an unmanaged event during which interaction
         /// with the managed state of the process is impossible while the process is stopped due to the event. In this case,
-        /// the debugger receives the <see cref="CorDebugUnmanagedCallback.DebugEvent"/> callback with its fOutOfBand parameter set to
+        /// the debugger receives the <see cref="ICorDebugUnmanagedCallback.DebugEvent"/> callback with its fOutOfBand parameter set to
         /// true.
         /// </remarks>
         public void Continue(int fIsOutOfBand)
@@ -146,10 +146,10 @@ namespace ManagedCorDebug
         /// Continue continues the process after a call to the <see cref="Stop"/> method. When doing mixed-mode debugging,
         /// do not call Continue on the Win32 event thread unless you are continuing from an out-of-band event. An in-band
         /// event is either a managed event or a normal unmanaged event during which the debugger supports interaction with
-        /// the managed state of the process. In this case, the debugger receives the <see cref="CorDebugUnmanagedCallback.DebugEvent"/>
+        /// the managed state of the process. In this case, the debugger receives the <see cref="ICorDebugUnmanagedCallback.DebugEvent"/>
         /// callback with its fOutOfBand parameter set to false. An out-of-band event is an unmanaged event during which interaction
         /// with the managed state of the process is impossible while the process is stopped due to the event. In this case,
-        /// the debugger receives the <see cref="CorDebugUnmanagedCallback.DebugEvent"/> callback with its fOutOfBand parameter set to
+        /// the debugger receives the <see cref="ICorDebugUnmanagedCallback.DebugEvent"/> callback with its fOutOfBand parameter set to
         /// true.
         /// </remarks>
         public HRESULT TryContinue(int fIsOutOfBand)
@@ -215,9 +215,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <returns>[out] A pointer to the address of an "ICorDebugThreadEnum" object that represents an enumerator for all managed threads that are active in the process.</returns>
         /// <remarks>
-        /// A thread is considered active after the <see cref="CorDebugManagedCallback.CreateThread"/> callback has been dispatched
-        /// and before the <see cref="CorDebugManagedCallback.ExitThread"/> callback has been dispatched. A managed thread
-        /// may not necessarily have any managed frames on its stack. Threads can be enumerated even before the <see cref="CorDebugManagedCallback.CreateProcess"/>
+        /// A thread is considered active after the <see cref="ICorDebugManagedCallback.CreateThread"/> callback has been dispatched
+        /// and before the <see cref="ICorDebugManagedCallback.ExitThread"/> callback has been dispatched. A managed thread
+        /// may not necessarily have any managed frames on its stack. Threads can be enumerated even before the <see cref="ICorDebugManagedCallback.CreateProcess"/>
         /// callback. The enumeration will naturally be empty.
         /// </remarks>
         public CorDebugThreadEnum EnumerateThreads()
@@ -236,9 +236,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ppThreadsResult">[out] A pointer to the address of an "ICorDebugThreadEnum" object that represents an enumerator for all managed threads that are active in the process.</param>
         /// <remarks>
-        /// A thread is considered active after the <see cref="CorDebugManagedCallback.CreateThread"/> callback has been dispatched
-        /// and before the <see cref="CorDebugManagedCallback.ExitThread"/> callback has been dispatched. A managed thread
-        /// may not necessarily have any managed frames on its stack. Threads can be enumerated even before the <see cref="CorDebugManagedCallback.CreateProcess"/>
+        /// A thread is considered active after the <see cref="ICorDebugManagedCallback.CreateThread"/> callback has been dispatched
+        /// and before the <see cref="ICorDebugManagedCallback.ExitThread"/> callback has been dispatched. A managed thread
+        /// may not necessarily have any managed frames on its stack. Threads can be enumerated even before the <see cref="ICorDebugManagedCallback.CreateProcess"/>
         /// callback. The enumeration will naturally be empty.
         /// </remarks>
         public HRESULT TryEnumerateThreads(out CorDebugThreadEnum ppThreadsResult)
@@ -337,8 +337,8 @@ namespace ManagedCorDebug
         /// <param name="exitCode">[in] A numeric value that is the exit code. The valid numeric values are defined in Winbase.h.</param>
         /// <remarks>
         /// If the process is stopped when Terminate is called, the process should be continued by using the <see cref="Continue"/>
-        /// method so that the debugger receives confirmation of the termination through the <see cref="CorDebugManagedCallback.ExitProcess"/>
-        /// or <see cref="CorDebugManagedCallback.ExitAppDomain"/> callback.
+        /// method so that the debugger receives confirmation of the termination through the <see cref="ICorDebugManagedCallback.ExitProcess"/>
+        /// or <see cref="ICorDebugManagedCallback.ExitAppDomain"/> callback.
         /// </remarks>
         public void Terminate(int exitCode)
         {
@@ -354,8 +354,8 @@ namespace ManagedCorDebug
         /// <param name="exitCode">[in] A numeric value that is the exit code. The valid numeric values are defined in Winbase.h.</param>
         /// <remarks>
         /// If the process is stopped when Terminate is called, the process should be continued by using the <see cref="Continue"/>
-        /// method so that the debugger receives confirmation of the termination through the <see cref="CorDebugManagedCallback.ExitProcess"/>
-        /// or <see cref="CorDebugManagedCallback.ExitAppDomain"/> callback.
+        /// method so that the debugger receives confirmation of the termination through the <see cref="ICorDebugManagedCallback.ExitProcess"/>
+        /// or <see cref="ICorDebugManagedCallback.ExitAppDomain"/> callback.
         /// </remarks>
         public HRESULT TryTerminate(int exitCode)
         {

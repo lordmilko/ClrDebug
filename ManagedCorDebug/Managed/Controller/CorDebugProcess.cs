@@ -151,9 +151,9 @@ namespace ManagedCorDebug
         /// thread from the user. If no helper thread exists in the process yet, the GetHelperThreadID method returns zero
         /// in *pThreadID. You cannot cache the thread ID of the helper thread, because it may change over time. You must re-query
         /// the thread ID at every stopping event. The thread ID of the debugger's helper thread will be correct on every unmanaged
-        /// <see cref="CorDebugManagedCallback.CreateThread"/> event, thus allowing a debugger to determine the thread ID
+        /// <see cref="ICorDebugManagedCallback.CreateThread"/> event, thus allowing a debugger to determine the thread ID
         /// of its helper thread and hide it from the user. A thread that is identified as a helper thread during an unmanaged
-        /// <see cref="CorDebugManagedCallback.CreateThread"/> event will never run managed user code.
+        /// <see cref="ICorDebugManagedCallback.CreateThread"/> event will never run managed user code.
         /// </remarks>
         public HRESULT TryGetHelperThreadID(out int pThreadID)
         {
@@ -555,7 +555,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="fOnOff">[in] true enables the transmission of log messages; false disables the transmission.</param>
         /// <remarks>
-        /// This method is valid only after the <see cref="CorDebugManagedCallback.CreateProcess"/> callback occurs.
+        /// This method is valid only after the <see cref="ICorDebugManagedCallback.CreateProcess"/> callback occurs.
         /// </remarks>
         public void EnableLogMessages(int fOnOff)
         {
@@ -570,7 +570,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="fOnOff">[in] true enables the transmission of log messages; false disables the transmission.</param>
         /// <remarks>
-        /// This method is valid only after the <see cref="CorDebugManagedCallback.CreateProcess"/> callback occurs.
+        /// This method is valid only after the <see cref="ICorDebugManagedCallback.CreateProcess"/> callback occurs.
         /// </remarks>
         public HRESULT TryEnableLogMessages(int fOnOff)
         {
@@ -587,7 +587,7 @@ namespace ManagedCorDebug
         /// <param name="pLogSwitchName">[in] A pointer to a string that specifies the name of the log switch.</param>
         /// <param name="lLevel">[in] The severity level to be set for the specified log switch.</param>
         /// <remarks>
-        /// This method is valid only after the <see cref="CorDebugManagedCallback.CreateProcess"/> callback has occurred.
+        /// This method is valid only after the <see cref="ICorDebugManagedCallback.CreateProcess"/> callback has occurred.
         /// </remarks>
         public void ModifyLogSwitch(string pLogSwitchName, int lLevel)
         {
@@ -603,7 +603,7 @@ namespace ManagedCorDebug
         /// <param name="pLogSwitchName">[in] A pointer to a string that specifies the name of the log switch.</param>
         /// <param name="lLevel">[in] The severity level to be set for the specified log switch.</param>
         /// <remarks>
-        /// This method is valid only after the <see cref="CorDebugManagedCallback.CreateProcess"/> callback has occurred.
+        /// This method is valid only after the <see cref="ICorDebugManagedCallback.CreateProcess"/> callback has occurred.
         /// </remarks>
         public HRESULT TryModifyLogSwitch(string pLogSwitchName, int lLevel)
         {
@@ -619,7 +619,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugAppDomainEnum"/> that is an enumerator for the application domains in this process.</returns>
         /// <remarks>
-        /// This method can be used before the <see cref="CorDebugManagedCallback.CreateProcess"/> callback.
+        /// This method can be used before the <see cref="ICorDebugManagedCallback.CreateProcess"/> callback.
         /// </remarks>
         public CorDebugAppDomainEnum EnumerateAppDomains()
         {
@@ -637,7 +637,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ppAppDomainsResult">[out] A pointer to the address of an <see cref="ICorDebugAppDomainEnum"/> that is an enumerator for the application domains in this process.</param>
         /// <remarks>
-        /// This method can be used before the <see cref="CorDebugManagedCallback.CreateProcess"/> callback.
+        /// This method can be used before the <see cref="ICorDebugManagedCallback.CreateProcess"/> callback.
         /// </remarks>
         public HRESULT TryEnumerateAppDomains(out CorDebugAppDomainEnum ppAppDomainsResult)
         {
@@ -780,7 +780,7 @@ namespace ManagedCorDebug
         /// property to set the flags as desired for the JIT compilation. If an image is loaded, but some JIT compiling must
         /// take place for that image (which will be the case if the image contains generics), the compiler flags specified
         /// by the SetDesiredNGENCompilerFlags method will apply to the extra JIT compilation. The SetDesiredNGENCompilerFlags
-        /// method must be called during the <see cref="CorDebugManagedCallback.CreateProcess"/> callback. Attempts to call
+        /// method must be called during the <see cref="ICorDebugManagedCallback.CreateProcess"/> callback. Attempts to call
         /// the SetDesiredNGENCompilerFlags method afterwards will fail. Also, attempts to set flags that are either not defined
         /// in the <see cref="CorDebugJITCompilerFlags"/> enumeration or are not legal for the given process will fail.
         /// </remarks>
@@ -988,7 +988,7 @@ namespace ManagedCorDebug
         /// <param name="fEnable">[in] true to enable custom debugger notifications; false to disable notifications. The default value is false.</param>
         /// <remarks>
         /// When fEnable is set to true, calls to the <see cref="Debugger.NotifyOfCrossThreadDependency"/> method trigger an
-        /// <see cref="CorDebugManagedCallback.CustomNotification"/> callback. Notifications are disabled by default; therefore,
+        /// <see cref="ICorDebugManagedCallback3.CustomNotification"/> callback. Notifications are disabled by default; therefore,
         /// the debugger must specify any notification types it knows about and wants to handle. Because the <see cref="ICorDebug"/>
         /// class is scoped by application domain, the debugger must call SetEnableCustomNotification for every application
         /// domain in the process if it wants to receive the notification across the entire process. Starting with the .NET
@@ -1009,7 +1009,7 @@ namespace ManagedCorDebug
         /// <param name="fEnable">[in] true to enable custom debugger notifications; false to disable notifications. The default value is false.</param>
         /// <remarks>
         /// When fEnable is set to true, calls to the <see cref="Debugger.NotifyOfCrossThreadDependency"/> method trigger an
-        /// <see cref="CorDebugManagedCallback.CustomNotification"/> callback. Notifications are disabled by default; therefore,
+        /// <see cref="ICorDebugManagedCallback3.CustomNotification"/> callback. Notifications are disabled by default; therefore,
         /// the debugger must specify any notification types it knows about and wants to handle. Because the <see cref="ICorDebug"/>
         /// class is scoped by application domain, the debugger must call SetEnableCustomNotification for every application
         /// domain in the process if it wants to receive the notification across the entire process. Starting with the .NET

@@ -12,7 +12,7 @@ namespace ManagedCorDebug
     /// All objects and types used in a given evaluation must reside within the same application domain. That application
     /// domain need not be the same as the current application domain of the thread. Evaluations can be nested. The evaluation's
     /// operations do not complete until the debugger calls <see cref="CorDebugController.Continue"/>, and then receives
-    /// an <see cref="CorDebugManagedCallback.EvalComplete"/> callback. If you need to use the evaluation functionality
+    /// an <see cref="ICorDebugManagedCallback.EvalComplete"/> callback. If you need to use the evaluation functionality
     /// without allowing other threads to run, suspend the threads by using either <see cref="CorDebugController.SetAllThreadsDebugState"/>
     /// or <see cref="CorDebugController.Stop"/> before calling <see cref="CorDebugController.Continue"/>. Because user
     /// code is running when the evaluation is in progress, any debug events can occur, including class loads and breakpoints.

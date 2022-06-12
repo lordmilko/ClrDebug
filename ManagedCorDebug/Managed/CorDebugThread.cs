@@ -787,8 +787,8 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pFrame">[in] A pointer to an <see cref="ICorDebugFrame"/> that represents the active stack frame.</param>
         /// <remarks>
-        /// The InterceptCurrentException method can be called between an exception callback (<see cref="CorDebugManagedCallback.Exception(ICorDebugAppDomain, ICorDebugThread, int)"/>
-        /// or <see cref="CorDebugManagedCallback.Exception(ICorDebugAppDomain, ICorDebugThread, ICorDebugFrame, int, CorDebugExceptionCallbackType, int)"/>) and the associated call to <see cref="CorDebugController.Continue"/>.
+        /// The InterceptCurrentException method can be called between an exception callback (<see cref="ICorDebugManagedCallback.Exception"/>
+        /// or <see cref="ICorDebugManagedCallback2.Exception"/>) and the associated call to <see cref="CorDebugController.Continue"/>.
         /// </remarks>
         public void InterceptCurrentException(ICorDebugFrame pFrame)
         {
@@ -803,8 +803,8 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pFrame">[in] A pointer to an <see cref="ICorDebugFrame"/> that represents the active stack frame.</param>
         /// <remarks>
-        /// The InterceptCurrentException method can be called between an exception callback (<see cref="CorDebugManagedCallback.Exception(ICorDebugAppDomain, ICorDebugThread, int)"/>
-        /// or <see cref="CorDebugManagedCallback.Exception(ICorDebugAppDomain, ICorDebugThread, ICorDebugFrame, int, CorDebugExceptionCallbackType, int)"/>) and the associated call to <see cref="CorDebugController.Continue"/>.
+        /// The InterceptCurrentException method can be called between an exception callback (<see cref="ICorDebugManagedCallback.Exception"/>
+        /// or <see cref="ICorDebugManagedCallback2.Exception"/>) and the associated call to <see cref="CorDebugController.Continue"/>.
         /// </remarks>
         public HRESULT TryInterceptCurrentException(ICorDebugFrame pFrame)
         {
@@ -995,7 +995,7 @@ namespace ManagedCorDebug
         #region CurrentCustomDebuggerNotification
 
         /// <summary>
-        /// Gets the current <see cref="CorDebugManagedCallback.CustomNotification"/> object on the current thread.
+        /// Gets the current <see cref="ICorDebugManagedCallback3.CustomNotification"/> object on the current thread.
         /// </summary>
         public CorDebugValue CurrentCustomDebuggerNotification
         {
@@ -1012,9 +1012,9 @@ namespace ManagedCorDebug
         }
 
         /// <summary>
-        /// Gets the current <see cref="CorDebugManagedCallback.CustomNotification"/> object on the current thread.
+        /// Gets the current <see cref="ICorDebugManagedCallback3.CustomNotification"/> object on the current thread.
         /// </summary>
-        /// <param name="ppNotificationObjectResult">[out] A pointer to the current <see cref="CorDebugManagedCallback.CustomNotification"/> object on the current thread.</param>
+        /// <param name="ppNotificationObjectResult">[out] A pointer to the current <see cref="ICorDebugManagedCallback3.CustomNotification"/> object on the current thread.</param>
         /// <remarks>
         /// The value of ppNotificationObject is null if the method is not called from within a ICorDebugManagedCallback3::CustomNotification
         /// callback, or if no current notification object exists.

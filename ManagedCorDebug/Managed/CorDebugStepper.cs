@@ -50,7 +50,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pbActiveResult">[out] Returns true if the stepper is currently executing a step; otherwise, returns false.</param>
         /// <remarks>
-        /// Any step action remains active until the debugger receives a <see cref="CorDebugManagedCallback.StepComplete"/>
+        /// Any step action remains active until the debugger receives a <see cref="ICorDebugManagedCallback.StepComplete"/>
         /// call, which automatically deactivates the stepper. A stepper may also be deactivated prematurely by calling <see 
         ///cref="Deactivate"/> before the callback condition is reached.
         /// </remarks>
