@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -412,6 +413,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugAppDomain2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugAppDomain2 Raw2 => (ICorDebugAppDomain2) Raw;
 
         #region GetArrayOrPointerType
@@ -518,6 +520,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugAppDomain3
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugAppDomain3 Raw3 => (ICorDebugAppDomain3) Raw;
 
         #region CachedWinRTTypes
@@ -614,6 +617,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugAppDomain4
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugAppDomain4 Raw4 => (ICorDebugAppDomain4) Raw;
 
         #region GetObjectForCCW

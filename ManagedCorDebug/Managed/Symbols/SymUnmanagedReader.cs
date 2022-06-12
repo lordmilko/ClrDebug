@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
@@ -712,6 +713,7 @@ namespace ManagedCorDebug
         #endregion
         #region ISymUnmanagedReader2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ISymUnmanagedReader2 Raw2 => (ISymUnmanagedReader2) Raw;
 
         #region GetMethodByVersionPreRemap

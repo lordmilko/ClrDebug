@@ -688,6 +688,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugProcess2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugProcess2 Raw2 => (ICorDebugProcess2) Raw;
 
         #region Version
@@ -971,6 +972,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugProcess3
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugProcess3 Raw3 => (ICorDebugProcess3) Raw;
 
         #region SetEnableCustomNotification
@@ -1019,6 +1021,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugProcess5
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugProcess5 Raw5 => (ICorDebugProcess5) Raw;
 
         #region GCHeapInformation
@@ -1558,6 +1561,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugProcess6
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugProcess6 Raw6 => (ICorDebugProcess6) Raw;
 
         #region DecodeEvent
@@ -1818,6 +1822,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugProcess7
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugProcess7 Raw7 => (ICorDebugProcess7) Raw;
 
         #region SetWriteableMetadataUpdateMode
@@ -1854,6 +1859,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugProcess8
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugProcess8 Raw8 => (ICorDebugProcess8) Raw;
 
         #region EnableExceptionCallbacksOutsideOfMyCode

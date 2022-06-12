@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Permissions;
@@ -3284,6 +3285,7 @@ namespace ManagedCorDebug
         #endregion
         #region IMetaDataImport2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public IMetaDataImport2 Raw2 => (IMetaDataImport2) Raw;
 
         #region PEKind

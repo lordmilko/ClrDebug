@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -404,6 +405,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugNativeFrame2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugNativeFrame2 Raw2 => (ICorDebugNativeFrame2) Raw;
 
         #region IsChild

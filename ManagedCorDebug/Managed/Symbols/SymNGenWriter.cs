@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -47,6 +48,7 @@ namespace ManagedCorDebug
         #endregion
         #region ISymNGenWriter2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ISymNGenWriter2 Raw2 => (ISymNGenWriter2) Raw;
 
         #region OpenModW

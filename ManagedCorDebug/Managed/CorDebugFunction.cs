@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -313,6 +314,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugFunction2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugFunction2 Raw2 => (ICorDebugFunction2) Raw;
 
         #region JMCStatus
@@ -453,6 +455,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugFunction3
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugFunction3 Raw3 => (ICorDebugFunction3) Raw;
 
         #region ActiveReJitRequestILCode

@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -206,6 +207,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugRegisterSet2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugRegisterSet2 Raw2 => (ICorDebugRegisterSet2) Raw;
 
         #region GetRegistersAvailable

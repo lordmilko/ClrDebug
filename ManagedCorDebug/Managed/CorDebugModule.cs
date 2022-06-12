@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -660,6 +661,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugModule2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugModule2 Raw2 => (ICorDebugModule2) Raw;
 
         #region JITCompilerFlags
@@ -873,6 +875,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugModule3
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugModule3 Raw3 => (ICorDebugModule3) Raw;
 
         #region CreateReaderForInMemorySymbols

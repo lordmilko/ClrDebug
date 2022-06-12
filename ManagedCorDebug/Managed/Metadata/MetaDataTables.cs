@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -714,6 +715,7 @@ namespace ManagedCorDebug
         #endregion
         #region IMetaDataTables2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public IMetaDataTables2 Raw2 => (IMetaDataTables2) Raw;
 
         #region MetaDataStorage

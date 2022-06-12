@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -236,6 +237,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugAssembly2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugAssembly2 Raw2 => (ICorDebugAssembly2) Raw;
 
         #region IsFullyTrusted
@@ -275,6 +277,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugAssembly3
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugAssembly3 Raw3 => (ICorDebugAssembly3) Raw;
 
         #region ContainerAssembly

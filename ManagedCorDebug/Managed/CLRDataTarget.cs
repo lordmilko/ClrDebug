@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -436,6 +437,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICLRDataTarget2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICLRDataTarget2 Raw2 => (ICLRDataTarget2) Raw;
 
         #region AllocVirtual
@@ -522,6 +524,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICLRDataTarget3
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICLRDataTarget3 Raw3 => (ICLRDataTarget3) Raw;
 
         #region ExceptionThreadID

@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -621,6 +622,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugThread2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugThread2 Raw2 => (ICorDebugThread2) Raw;
 
         #region ConnectionID
@@ -811,6 +813,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugThread3
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugThread3 Raw3 => (ICorDebugThread3) Raw;
 
         #region CreateStackWalk
@@ -935,6 +938,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugThread4
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugThread4 Raw4 => (ICorDebugThread4) Raw;
 
         #region BlockingObjects

@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 
@@ -104,6 +105,7 @@ namespace ManagedCorDebug
         #endregion
         #region ISymUnmanagedBinder2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ISymUnmanagedBinder2 Raw2 => (ISymUnmanagedBinder2) Raw;
 
         #region GetReaderForFile2
@@ -167,6 +169,7 @@ namespace ManagedCorDebug
         #endregion
         #region ISymUnmanagedBinder3
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ISymUnmanagedBinder3 Raw3 => (ISymUnmanagedBinder3) Raw;
 
         #region GetReaderFromCallback

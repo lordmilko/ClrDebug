@@ -971,6 +971,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugManagedCallback2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugManagedCallback2 Raw2 => (ICorDebugManagedCallback2) Raw;
 
         #region FunctionRemapOpportunity
@@ -1351,6 +1352,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugManagedCallback3
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugManagedCallback3 Raw3 => (ICorDebugManagedCallback3) Raw;
 
         #region CustomNotification

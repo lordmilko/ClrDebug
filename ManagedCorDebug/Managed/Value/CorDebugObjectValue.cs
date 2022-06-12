@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -286,6 +287,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugObjectValue2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public new ICorDebugObjectValue2 Raw2 => (ICorDebugObjectValue2) Raw;
 
         #region GetVirtualMethodAndType

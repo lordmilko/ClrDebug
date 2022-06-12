@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -68,6 +69,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugILCode2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugILCode2 Raw2 => (ICorDebugILCode2) Raw;
 
         #region LocalVarSigToken

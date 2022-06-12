@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 
@@ -932,6 +933,7 @@ namespace ManagedCorDebug
         #endregion
         #region ISymUnmanagedWriter2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ISymUnmanagedWriter2 Raw2 => (ISymUnmanagedWriter2) Raw;
 
         #region DefineLocalVariable2
@@ -1070,6 +1072,7 @@ namespace ManagedCorDebug
         #endregion
         #region ISymUnmanagedWriter3
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ISymUnmanagedWriter3 Raw3 => (ISymUnmanagedWriter3) Raw;
 
         #region OpenMethod2
@@ -1129,6 +1132,7 @@ namespace ManagedCorDebug
         #endregion
         #region ISymUnmanagedWriter4
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ISymUnmanagedWriter4 Raw4 => (ISymUnmanagedWriter4) Raw;
 
         #region GetDebugInfoWithPadding
@@ -1177,6 +1181,7 @@ namespace ManagedCorDebug
         #endregion
         #region ISymUnmanagedWriter5
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ISymUnmanagedWriter5 Raw5 => (ISymUnmanagedWriter5) Raw;
 
         #region OpenMapTokensToSourceSpans

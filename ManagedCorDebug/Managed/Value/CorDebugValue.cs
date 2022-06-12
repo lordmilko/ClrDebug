@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -184,6 +185,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugValue2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugValue2 Raw2 => (ICorDebugValue2) Raw;
 
         #region ExactType
@@ -232,6 +234,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugValue3
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugValue3 Raw3 => (ICorDebugValue3) Raw;
 
         #region Size64

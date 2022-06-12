@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 
@@ -103,6 +104,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugHeapValue2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public new ICorDebugHeapValue2 Raw2 => (ICorDebugHeapValue2) Raw;
 
         #region CreateHandle
@@ -159,6 +161,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugHeapValue3
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public new ICorDebugHeapValue3 Raw3 => (ICorDebugHeapValue3) Raw;
 
         #region ThreadOwningMonitorLock

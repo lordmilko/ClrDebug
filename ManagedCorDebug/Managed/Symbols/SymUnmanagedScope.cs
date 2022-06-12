@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -300,6 +301,7 @@ namespace ManagedCorDebug
         #endregion
         #region ISymUnmanagedScope2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ISymUnmanagedScope2 Raw2 => (ISymUnmanagedScope2) Raw;
 
         #region ConstantCount

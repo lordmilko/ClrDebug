@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -53,6 +54,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICLRDataEnumMemoryRegionsCallback2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICLRDataEnumMemoryRegionsCallback2 Raw2 => (ICLRDataEnumMemoryRegionsCallback2) Raw;
 
         #region UpdateMemoryRegion

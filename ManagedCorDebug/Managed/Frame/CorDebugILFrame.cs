@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -394,6 +395,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugILFrame2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugILFrame2 Raw2 => (ICorDebugILFrame2) Raw;
 
         #region RemapFunction
@@ -480,6 +482,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugILFrame3
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugILFrame3 Raw3 => (ICorDebugILFrame3) Raw;
 
         #region GetReturnValueForILOffset
@@ -560,6 +563,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugILFrame4
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugILFrame4 Raw4 => (ICorDebugILFrame4) Raw;
 
         #region EnumerateLocalVariablesEx

@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -53,6 +54,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugInternalFrame2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugInternalFrame2 Raw2 => (ICorDebugInternalFrame2) Raw;
 
         #region Address

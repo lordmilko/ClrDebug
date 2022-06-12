@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -378,6 +379,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugCode2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugCode2 Raw2 => (ICorDebugCode2) Raw;
 
         #region CompilerFlags
@@ -462,6 +464,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugCode3
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugCode3 Raw3 => (ICorDebugCode3) Raw;
 
         #region GetReturnValueLiveOffset
@@ -530,6 +533,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugCode4
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugCode4 Raw4 => (ICorDebugCode4) Raw;
 
         #region EnumerateVariableHomes

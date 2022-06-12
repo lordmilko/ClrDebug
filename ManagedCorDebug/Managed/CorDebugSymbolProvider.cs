@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -505,6 +506,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugSymbolProvider2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugSymbolProvider2 Raw2 => (ICorDebugSymbolProvider2) Raw;
 
         #region GenericDictionaryInfo

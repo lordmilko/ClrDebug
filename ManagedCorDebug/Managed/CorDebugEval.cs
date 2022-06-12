@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -418,6 +419,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugEval2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugEval2 Raw2 => (ICorDebugEval2) Raw;
 
         #region CallParameterizedFunction

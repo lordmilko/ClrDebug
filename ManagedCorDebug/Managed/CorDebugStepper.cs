@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -312,6 +313,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugStepper2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugStepper2 Raw2 => (ICorDebugStepper2) Raw;
 
         #region SetJMC

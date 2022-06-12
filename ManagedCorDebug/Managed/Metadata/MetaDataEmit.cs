@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -1944,6 +1945,7 @@ namespace ManagedCorDebug
         #endregion
         #region IMetaDataEmit2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public IMetaDataEmit2 Raw2 => (IMetaDataEmit2) Raw;
 
         #region DefineMethodSpec

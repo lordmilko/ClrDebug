@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -163,6 +164,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugDataTarget2
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugDataTarget2 Raw2 => (ICorDebugDataTarget2) Raw;
 
         #region GetImageFromPointer
@@ -392,6 +394,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugDataTarget3
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugDataTarget3 Raw3 => (ICorDebugDataTarget3) Raw;
 
         #region GetLoadedModules
