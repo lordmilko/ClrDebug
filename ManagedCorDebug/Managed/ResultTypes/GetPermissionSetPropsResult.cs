@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetPermissionSetProps"/> method.
     /// </summary>
+    [DebuggerDisplay("pdwAction = {pdwAction}, ppvPermission = {ppvPermission}, pcbPermission = {pcbPermission}")]
     public struct GetPermissionSetPropsResult
     {
         /// <summary>

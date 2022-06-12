@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataTables.GetColumnInfo"/> method.
     /// </summary>
+    [DebuggerDisplay("poCol = {poCol}, pcbCol = {pcbCol}, pType = {pType}")]
     public struct GetColumnInfoResult
     {
         /// <summary>

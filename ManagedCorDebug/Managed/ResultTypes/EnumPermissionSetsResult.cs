@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.EnumPermissionSets"/> method.
     /// </summary>
+    [DebuggerDisplay("phEnum = {phEnum}, rPermission = {rPermission}, pcTokens = {pcTokens}")]
     public struct EnumPermissionSetsResult
     {
         /// <summary>

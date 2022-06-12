@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CLRStrongName.GetHashFromFile"/> method.
     /// </summary>
+    [DebuggerDisplay("piHashAlg = {piHashAlg}, pbHash = {pbHash}, pchHash = {pchHash}")]
     public struct GetHashFromFileResult
     {
         /// <summary>

@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CeeGen.AllocateMethodBuffer"/> method.
     /// </summary>
+    [DebuggerDisplay("lpBuffer = {lpBuffer}, RVA = {RVA}")]
     public struct AllocateMethodBufferResult
     {
         /// <summary>

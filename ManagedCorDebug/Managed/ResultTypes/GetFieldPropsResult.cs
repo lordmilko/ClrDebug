@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetFieldProps"/> method.
     /// </summary>
+    [DebuggerDisplay("pClass = {pClass}, szField = {szField}, pdwAttr = {pdwAttr}, ppvSigBlob = {ppvSigBlob}, pcbSigBlob = {pcbSigBlob}, pdwCPlusTypeFlag = {pdwCPlusTypeFlag}, ppValue = {ppValue}, pcchValue = {pcchValue}")]
     public struct GetFieldPropsResult
     {
         /// <summary>

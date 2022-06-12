@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataInfo.FileMapping"/> property.
     /// </summary>
+    [DebuggerDisplay("ppvData = {ppvData}, pcbData = {pcbData}, pdwMappingType = {pdwMappingType}")]
     public struct GetFileMappingResult
     {
         /// <summary>

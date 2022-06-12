@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugProcess.GetExportStepInfo"/> method.
     /// </summary>
+    [DebuggerDisplay("pInvokeKind = {pInvokeKind}, pInvokePurpose = {pInvokePurpose}")]
     public struct GetExportStepInfoResult
     {
         /// <summary>

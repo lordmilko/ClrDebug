@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="SymUnmanagedAsyncMethod.GetAsyncStepInfo"/> method.
     /// </summary>
+    [DebuggerDisplay("pcStepInfo = {pcStepInfo}, yieldOffsets = {yieldOffsets}, breakpointOffset = {breakpointOffset}, breakpointMethod = {breakpointMethod}")]
     public struct GetAsyncStepInfoResult
     {
         public int pcStepInfo { get; }

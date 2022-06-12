@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugVariableSymbol.GetValue"/> method.
     /// </summary>
+    [DebuggerDisplay("pcbValue = {pcbValue}, pValue = {pValue}")]
     public struct GetValueResult
     {
         /// <summary>

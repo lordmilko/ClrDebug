@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugCode.GetCode"/> method.
     /// </summary>
+    [DebuggerDisplay("buffer = {buffer}, pcBufferSize = {pcBufferSize}")]
     public struct GetCodeResult
     {
         /// <summary>

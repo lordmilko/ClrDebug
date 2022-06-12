@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.EnumGenericParamConstraints"/> method.
     /// </summary>
+    [DebuggerDisplay("phEnum = {phEnum}, rGenericParamConstraints = {rGenericParamConstraints}, pcGenericParamConstraints = {pcGenericParamConstraints}")]
     public struct EnumGenericParamConstraintsResult
     {
         /// <summary>

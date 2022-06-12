@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="SymUnmanagedScope.GetConstants"/> method.
     /// </summary>
+    [DebuggerDisplay("pcConstants = {pcConstants}, constants = {constants}")]
     public struct GetConstantsResult
     {
         /// <summary>

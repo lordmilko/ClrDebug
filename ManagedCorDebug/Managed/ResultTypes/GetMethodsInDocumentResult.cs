@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="SymUnmanagedReader.GetMethodsInDocument"/> method.
     /// </summary>
+    [DebuggerDisplay("pcMethod = {pcMethod}, pRetVal = {pRetVal}")]
     public struct GetMethodsInDocumentResult
     {
         /// <summary>

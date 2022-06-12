@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugVirtualUnwinder.GetContext"/> method.
     /// </summary>
+    [DebuggerDisplay("contextSize = {contextSize}, contextBuf = {contextBuf}")]
     public struct GetContextResult
     {
         /// <summary>

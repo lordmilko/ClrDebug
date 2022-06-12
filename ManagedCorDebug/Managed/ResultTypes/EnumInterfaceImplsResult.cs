@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.EnumInterfaceImpls"/> method.
     /// </summary>
+    [DebuggerDisplay("phEnum = {phEnum}, rImpls = {rImpls}, pcImpls = {pcImpls}")]
     public struct EnumInterfaceImplsResult
     {
         /// <summary>

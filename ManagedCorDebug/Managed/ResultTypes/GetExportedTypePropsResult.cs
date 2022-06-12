@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataAssemblyImport.GetExportedTypeProps"/> method.
     /// </summary>
+    [DebuggerDisplay("szName = {szName}, ptkImplementation = {ptkImplementation}, ptkTypeDef = {ptkTypeDef}, pdwExportedTypeFlags = {pdwExportedTypeFlags}")]
     public struct GetExportedTypePropsResult
     {
         /// <summary>

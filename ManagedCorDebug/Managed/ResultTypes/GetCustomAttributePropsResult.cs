@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetCustomAttributeProps"/> method.
     /// </summary>
+    [DebuggerDisplay("ptkObj = {ptkObj}, ptkType = {ptkType}, ppBlob = {ppBlob}, pcbSize = {pcbSize}")]
     public struct GetCustomAttributePropsResult
     {
         /// <summary>

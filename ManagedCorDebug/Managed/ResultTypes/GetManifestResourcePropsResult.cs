@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataAssemblyImport.GetManifestResourceProps"/> method.
     /// </summary>
+    [DebuggerDisplay("szName = {szName}, ptkImplementation = {ptkImplementation}, pdwOffset = {pdwOffset}, pdwResourceFlags = {pdwResourceFlags}")]
     public struct GetManifestResourcePropsResult
     {
         /// <summary>

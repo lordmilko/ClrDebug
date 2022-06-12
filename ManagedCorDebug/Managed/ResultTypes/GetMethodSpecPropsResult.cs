@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetMethodSpecProps"/> method.
     /// </summary>
+    [DebuggerDisplay("tkParent = {tkParent}, ppvSigBlob = {ppvSigBlob}, pcbSigBlob = {pcbSigBlob}")]
     public struct GetMethodSpecPropsResult
     {
         /// <summary>

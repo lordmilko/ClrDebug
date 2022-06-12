@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CLRDebugging.OpenVirtualProcess"/> method.
     /// </summary>
+    [DebuggerDisplay("ppProcess = {ppProcess}, pVersion = {pVersion}, pdwFlags = {pdwFlags}")]
     public struct OpenVirtualProcessResult
     {
         /// <summary>

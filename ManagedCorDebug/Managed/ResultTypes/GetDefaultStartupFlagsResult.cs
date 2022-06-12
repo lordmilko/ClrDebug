@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CLRRuntimeInfo.GetDefaultStartupFlags"/> method.
     /// </summary>
+    [DebuggerDisplay("pdwStartupFlags = {pdwStartupFlags}, pwzHostConfigFile = {pwzHostConfigFile}")]
     public struct GetDefaultStartupFlagsResult
     {
         /// <summary>

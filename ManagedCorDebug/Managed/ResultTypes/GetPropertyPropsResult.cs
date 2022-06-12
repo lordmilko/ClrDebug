@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetPropertyProps"/> method.
     /// </summary>
+    [DebuggerDisplay("pClass = {pClass}, szProperty = {szProperty}, pdwPropFlags = {pdwPropFlags}, ppvSig = {ppvSig}, pbSig = {pbSig}, pdwCPlusTypeFlag = {pdwCPlusTypeFlag}, ppDefaultValue = {ppDefaultValue}, pcchDefaultValue = {pcchDefaultValue}, pmdSetter = {pmdSetter}, pmdGetter = {pmdGetter}, rmdOtherMethod = {rmdOtherMethod}")]
     public struct GetPropertyPropsResult
     {
         /// <summary>

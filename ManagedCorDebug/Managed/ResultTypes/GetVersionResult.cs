@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugMergedAssemblyRecord.Version"/> property.
     /// </summary>
+    [DebuggerDisplay("pMajor = {pMajor}, pMinor = {pMinor}, pBuild = {pBuild}, pRevision = {pRevision}")]
     public struct GetVersionResult
     {
         /// <summary>

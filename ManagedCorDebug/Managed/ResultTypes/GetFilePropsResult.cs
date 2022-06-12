@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataAssemblyImport.GetFileProps"/> method.
     /// </summary>
+    [DebuggerDisplay("szName = {szName}, ppbHashValue = {ppbHashValue}, pcbHashValue = {pcbHashValue}, pdwFileFlags = {pdwFileFlags}")]
     public struct GetFilePropsResult
     {
         /// <summary>

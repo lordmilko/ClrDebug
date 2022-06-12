@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugDataTarget.EnumerateThreadIDs"/> method.
     /// </summary>
+    [DebuggerDisplay("pcThreadIds = {pcThreadIds}, pThreadIds = {pThreadIds}")]
     public struct EnumerateThreadIDsResult
     {
         /// <summary>

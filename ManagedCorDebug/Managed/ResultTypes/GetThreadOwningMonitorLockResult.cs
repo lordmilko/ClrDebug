@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugHeapValue.ThreadOwningMonitorLock"/> property.
     /// </summary>
+    [DebuggerDisplay("ppThread = {ppThread}, pAcquisitionCount = {pAcquisitionCount}")]
     public struct GetThreadOwningMonitorLockResult
     {
         /// <summary>

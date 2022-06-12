@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataTables.GetMetaDataStreamInfo"/> method.
     /// </summary>
+    [DebuggerDisplay("ppv = {ppv}, pcb = {pcb}")]
     public struct GetMetaDataStreamInfoResult
     {
         /// <summary>

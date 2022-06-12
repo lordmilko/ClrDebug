@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="SymUnmanagedScope.GetLocals"/> method.
     /// </summary>
+    [DebuggerDisplay("pcLocals = {pcLocals}, locals = {locals}")]
     public struct GetLocalsResult
     {
         /// <summary>

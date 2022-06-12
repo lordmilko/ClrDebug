@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetClassLayout"/> method.
     /// </summary>
+    [DebuggerDisplay("pdwPackSize = {pdwPackSize}, rFieldOffset = {rFieldOffset}, pulClassSize = {pulClassSize}")]
     public struct GetClassLayoutResult
     {
         /// <summary>

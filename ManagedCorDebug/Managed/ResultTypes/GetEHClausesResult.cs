@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugILCode.GetEHClauses"/> method.
     /// </summary>
+    [DebuggerDisplay("pcClauses = {pcClauses}, clauses = {clauses}")]
     public struct GetEHClausesResult
     {
         /// <summary>

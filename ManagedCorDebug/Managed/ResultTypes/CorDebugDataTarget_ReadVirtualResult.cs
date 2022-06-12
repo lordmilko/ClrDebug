@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugDataTarget.ReadVirtual"/> method.
     /// </summary>
+    [DebuggerDisplay("pBuffer = {pBuffer}, pBytesRead = {pBytesRead}")]
     public struct CorDebugDataTarget_ReadVirtualResult
     {
         /// <summary>

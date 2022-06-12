@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="SymENCUnmanagedMethod.GetDocumentsForMethod"/> method.
     /// </summary>
+    [DebuggerDisplay("pcDocs = {pcDocs}, documents = {documents}")]
     public struct GetDocumentsForMethodResult
     {
         /// <summary>

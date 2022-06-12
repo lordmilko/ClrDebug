@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="SymUnmanagedReader.GetDocumentVersion"/> method.
     /// </summary>
+    [DebuggerDisplay("version = {version}, pbCurrent = {pbCurrent}")]
     public struct GetDocumentVersionResult
     {
         /// <summary>

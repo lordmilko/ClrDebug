@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugVariableHome.LiveRange"/> property.
     /// </summary>
+    [DebuggerDisplay("pStartOffset = {pStartOffset}, pEndOffset = {pEndOffset}")]
     public struct GetLiveRangeResult
     {
         /// <summary>

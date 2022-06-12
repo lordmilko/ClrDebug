@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CLRStrongName.StrongNameGetBlob"/> method.
     /// </summary>
+    [DebuggerDisplay("pbBlob = {pbBlob}, pcbBlob = {pcbBlob}")]
     public struct StrongNameGetBlobResult
     {
         /// <summary>

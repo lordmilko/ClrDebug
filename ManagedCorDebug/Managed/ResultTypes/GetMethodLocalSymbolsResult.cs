@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugSymbolProvider.GetMethodLocalSymbols"/> method.
     /// </summary>
+    [DebuggerDisplay("pcFetchedSymbols = {pcFetchedSymbols}, pSymbols = {pSymbols}")]
     public struct GetMethodLocalSymbolsResult
     {
         /// <summary>

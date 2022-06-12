@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataAssemblyImport.FindAssembliesByName"/> method.
     /// </summary>
+    [DebuggerDisplay("ppIUnk = {ppIUnk}, pcAssemblies = {pcAssemblies}")]
     public struct FindAssembliesByNameResult
     {
         /// <summary>

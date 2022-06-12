@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.EnumUnresolvedMethods"/> method.
     /// </summary>
+    [DebuggerDisplay("phEnum = {phEnum}, rMethods = {rMethods}, pcTokens = {pcTokens}")]
     public struct EnumUnresolvedMethodsResult
     {
         /// <summary>

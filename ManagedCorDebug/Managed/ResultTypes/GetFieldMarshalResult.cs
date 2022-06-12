@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetFieldMarshal"/> method.
     /// </summary>
+    [DebuggerDisplay("ppvNativeType = {ppvNativeType}, pcbNativeType = {pcbNativeType}")]
     public struct GetFieldMarshalResult
     {
         /// <summary>

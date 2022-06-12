@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugCode.GetILToNativeMapping"/> method.
     /// </summary>
+    [DebuggerDisplay("pcMap = {pcMap}, map = {map}")]
     public struct GetILToNativeMappingResult
     {
         /// <summary>

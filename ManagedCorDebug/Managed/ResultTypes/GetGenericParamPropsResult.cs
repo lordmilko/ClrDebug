@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetGenericParamProps"/> method.
     /// </summary>
+    [DebuggerDisplay("pulParamSeq = {pulParamSeq}, pdwParamFlags = {pdwParamFlags}, ptOwner = {ptOwner}, reserved = {reserved}, wzname = {wzname}")]
     public struct GetGenericParamPropsResult
     {
         /// <summary>

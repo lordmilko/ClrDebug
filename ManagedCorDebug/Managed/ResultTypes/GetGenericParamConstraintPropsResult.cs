@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetGenericParamConstraintProps"/> method.
     /// </summary>
+    [DebuggerDisplay("ptGenericParam = {ptGenericParam}, ptkConstraintType = {ptkConstraintType}")]
     public struct GetGenericParamConstraintPropsResult
     {
         /// <summary>

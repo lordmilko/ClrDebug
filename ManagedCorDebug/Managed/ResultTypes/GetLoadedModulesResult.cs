@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugDataTarget.GetLoadedModules"/> method.
     /// </summary>
+    [DebuggerDisplay("pcFetchedModules = {pcFetchedModules}, pLoadedModules = {pLoadedModules}")]
     public struct GetLoadedModulesResult
     {
         /// <summary>

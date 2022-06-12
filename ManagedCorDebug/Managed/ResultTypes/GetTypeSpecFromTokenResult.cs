@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetTypeSpecFromToken"/> method.
     /// </summary>
+    [DebuggerDisplay("ppvSig = {ppvSig}, pcbSig = {pcbSig}")]
     public struct GetTypeSpecFromTokenResult
     {
         /// <summary>

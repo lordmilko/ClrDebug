@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugCode.GetReturnValueLiveOffset"/> method.
     /// </summary>
+    [DebuggerDisplay("pFetched = {pFetched}, pOffsets = {pOffsets}")]
     public struct GetReturnValueLiveOffsetResult
     {
         /// <summary>

@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="SymUnmanagedMethod.GetParameters"/> method.
     /// </summary>
+    [DebuggerDisplay("pcParams = {pcParams}, @params = {@params}")]
     public struct GetParametersResult
     {
         /// <summary>

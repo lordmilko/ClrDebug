@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugFrame.StackRange"/> property.
     /// </summary>
+    [DebuggerDisplay("pStart = {pStart}, pEnd = {pEnd}")]
     public struct GetStackRangeResult
     {
         /// <summary>

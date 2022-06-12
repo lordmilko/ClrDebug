@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugSymbolProvider.GetTypeProps"/> method.
     /// </summary>
+    [DebuggerDisplay("pcbSignature = {pcbSignature}, signature = {signature}")]
     public struct GetTypePropsResult
     {
         /// <summary>

@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.ResolveTypeRef"/> method.
     /// </summary>
+    [DebuggerDisplay("ppIScope = {ppIScope}, ptd = {ptd}")]
     public struct ResolveTypeRefResult
     {
         /// <summary>

@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="SymUnmanagedDocument.GetCheckSum"/> method.
     /// </summary>
+    [DebuggerDisplay("pcData = {pcData}, data = {data}")]
     public struct GetCheckSumResult
     {
         /// <summary>

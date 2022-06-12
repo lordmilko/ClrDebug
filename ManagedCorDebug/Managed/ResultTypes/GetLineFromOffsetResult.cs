@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="SymENCUnmanagedMethod.GetLineFromOffset"/> method.
     /// </summary>
+    [DebuggerDisplay("pline = {pline}, pcolumn = {pcolumn}, pendLine = {pendLine}, pendColumn = {pendColumn}, pdwStartOffset = {pdwStartOffset}")]
     public struct GetLineFromOffsetResult
     {
         /// <summary>

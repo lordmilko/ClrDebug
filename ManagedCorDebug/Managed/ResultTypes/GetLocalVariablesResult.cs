@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="SymUnmanagedENCUpdate.GetLocalVariables"/> method.
     /// </summary>
+    [DebuggerDisplay("rgLocals = {rgLocals}, pceltFetched = {pceltFetched}")]
     public struct GetLocalVariablesResult
     {
         /// <summary>

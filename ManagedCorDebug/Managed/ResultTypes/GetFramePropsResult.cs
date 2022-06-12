@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugSymbolProvider.GetFrameProps"/> method.
     /// </summary>
+    [DebuggerDisplay("pCodeStartRva = {pCodeStartRva}, pParentFrameStartRva = {pParentFrameStartRva}")]
     public struct GetFramePropsResult
     {
         /// <summary>

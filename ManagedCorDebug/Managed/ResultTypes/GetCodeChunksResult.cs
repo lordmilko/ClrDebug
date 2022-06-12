@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugCode.GetCodeChunks"/> method.
     /// </summary>
+    [DebuggerDisplay("pcnumChunks = {pcnumChunks}, chunks = {chunks}")]
     public struct GetCodeChunksResult
     {
         /// <summary>

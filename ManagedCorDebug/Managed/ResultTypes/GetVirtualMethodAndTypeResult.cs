@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugObjectValue.GetVirtualMethodAndType"/> method.
     /// </summary>
+    [DebuggerDisplay("ppFunction = {ppFunction}, ppType = {ppType}")]
     public struct GetVirtualMethodAndTypeResult
     {
         public CorDebugFunction ppFunction { get; }

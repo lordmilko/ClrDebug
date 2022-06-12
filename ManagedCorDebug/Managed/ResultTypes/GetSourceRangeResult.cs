@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="SymUnmanagedDocument.GetSourceRange"/> method.
     /// </summary>
+    [DebuggerDisplay("pcSourceBytes = {pcSourceBytes}, source = {source}")]
     public struct GetSourceRangeResult
     {
         /// <summary>

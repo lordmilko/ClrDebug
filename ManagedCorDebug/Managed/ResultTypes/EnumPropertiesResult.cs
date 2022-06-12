@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.EnumProperties"/> method.
     /// </summary>
+    [DebuggerDisplay("phEnum = {phEnum}, rProperties = {rProperties}, pcProperties = {pcProperties}")]
     public struct EnumPropertiesResult
     {
         /// <summary>

@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetMemberProps"/> method.
     /// </summary>
+    [DebuggerDisplay("pClass = {pClass}, szMember = {szMember}, pdwAttr = {pdwAttr}, ppvSigBlob = {ppvSigBlob}, pcbSigBlob = {pcbSigBlob}, pulCodeRVA = {pulCodeRVA}, pdwImplFlags = {pdwImplFlags}, pdwCPlusTypeFlag = {pdwCPlusTypeFlag}, ppValue = {ppValue}, pcchValue = {pcchValue}")]
     public struct GetMemberPropsResult
     {
         /// <summary>

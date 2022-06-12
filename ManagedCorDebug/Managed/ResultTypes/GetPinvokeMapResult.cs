@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetPinvokeMap"/> method.
     /// </summary>
+    [DebuggerDisplay("pdwMappingFlags = {pdwMappingFlags}, szImportName = {szImportName}, pmrImportDLL = {pmrImportDLL}")]
     public struct GetPinvokeMapResult
     {
         /// <summary>

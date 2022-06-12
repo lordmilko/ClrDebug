@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataAssemblyImport.GetAssemblyRefProps"/> method.
     /// </summary>
+    [DebuggerDisplay("ppbPublicKeyOrToken = {ppbPublicKeyOrToken}, pcbPublicKeyOrToken = {pcbPublicKeyOrToken}, szName = {szName}, pMetaData = {pMetaData}, ppbHashValue = {ppbHashValue}, pcbHashValue = {pcbHashValue}, pdwAssemblyFlags = {pdwAssemblyFlags}")]
     public struct GetAssemblyRefPropsResult
     {
         /// <summary>

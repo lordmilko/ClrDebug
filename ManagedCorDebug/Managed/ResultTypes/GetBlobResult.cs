@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataTables.GetBlob"/> method.
     /// </summary>
+    [DebuggerDisplay("pcbData = {pcbData}, ppData = {ppData}")]
     public struct GetBlobResult
     {
         /// <summary>

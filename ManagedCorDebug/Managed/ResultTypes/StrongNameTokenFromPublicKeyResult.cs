@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CLRStrongName.StrongNameTokenFromPublicKey"/> method.
     /// </summary>
+    [DebuggerDisplay("ppbStrongNameToken = {ppbStrongNameToken}, pcbStrongNameToken = {pcbStrongNameToken}")]
     public struct StrongNameTokenFromPublicKeyResult
     {
         /// <summary>

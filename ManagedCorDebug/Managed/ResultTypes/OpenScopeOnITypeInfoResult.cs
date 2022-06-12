@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataDispenserEx.OpenScopeOnITypeInfo"/> method.
     /// </summary>
+    [DebuggerDisplay("riid = {riid}, ppIUnk = {ppIUnk}")]
     public struct OpenScopeOnITypeInfoResult
     {
         /// <summary>

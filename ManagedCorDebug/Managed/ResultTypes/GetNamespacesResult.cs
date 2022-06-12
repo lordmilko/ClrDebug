@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="SymUnmanagedScope.GetNamespaces"/> method.
     /// </summary>
+    [DebuggerDisplay("pcNameSpaces = {pcNameSpaces}, namespaces = {namespaces}")]
     public struct GetNamespacesResult
     {
         /// <summary>

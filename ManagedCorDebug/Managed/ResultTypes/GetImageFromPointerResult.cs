@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugDataTarget.GetImageFromPointer"/> method.
     /// </summary>
+    [DebuggerDisplay("pImageBase = {pImageBase}, pSize = {pSize}")]
     public struct GetImageFromPointerResult
     {
         /// <summary>

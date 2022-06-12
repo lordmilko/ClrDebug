@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.EnumModuleRefs"/> method.
     /// </summary>
+    [DebuggerDisplay("phEnum = {phEnum}, rModuleRefs = {rModuleRefs}, pcModuleRefs = {pcModuleRefs}")]
     public struct EnumModuleRefsResult
     {
         /// <summary>

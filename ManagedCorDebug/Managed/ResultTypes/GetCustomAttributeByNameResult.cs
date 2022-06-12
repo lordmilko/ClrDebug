@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetCustomAttributeByName"/> method.
     /// </summary>
+    [DebuggerDisplay("ppData = {ppData}, pcbData = {pcbData}")]
     public struct GetCustomAttributeByNameResult
     {
         /// <summary>

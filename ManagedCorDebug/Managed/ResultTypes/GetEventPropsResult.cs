@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetEventProps"/> method.
     /// </summary>
+    [DebuggerDisplay("pClass = {pClass}, szEvent = {szEvent}, pdwEventFlags = {pdwEventFlags}, ptkEventType = {ptkEventType}, pmdAddOn = {pmdAddOn}, pmdRemoveOn = {pmdRemoveOn}, pmdFire = {pmdFire}, rmdOtherMethod = {rmdOtherMethod}, pcOtherMethod = {pcOtherMethod}")]
     public struct GetEventPropsResult
     {
         /// <summary>

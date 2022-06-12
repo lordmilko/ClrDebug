@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataTables.GetUserString"/> method.
     /// </summary>
+    [DebuggerDisplay("pcbData = {pcbData}, ppData = {ppData}")]
     public struct GetUserStringResult
     {
         /// <summary>

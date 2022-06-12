@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="SymUnmanagedVariable.GetSignature"/> method.
     /// </summary>
+    [DebuggerDisplay("pcSig = {pcSig}, sig = {sig}")]
     public struct GetSignatureResult
     {
         /// <summary>

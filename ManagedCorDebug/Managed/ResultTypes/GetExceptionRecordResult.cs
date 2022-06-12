@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CLRDataTarget.GetExceptionRecord"/> method.
     /// </summary>
+    [DebuggerDisplay("bufferUsed = {bufferUsed}, buffer = {buffer}")]
     public struct GetExceptionRecordResult
     {
         /// <summary>

@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.EnumSignatures"/> method.
     /// </summary>
+    [DebuggerDisplay("phEnum = {phEnum}, rSignatures = {rSignatures}, pcSignatures = {pcSignatures}")]
     public struct EnumSignaturesResult
     {
         /// <summary>

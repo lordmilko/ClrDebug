@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugSymbolProvider.GetCodeRange"/> method.
     /// </summary>
+    [DebuggerDisplay("pCodeStartAddress = {pCodeStartAddress}, pCodeSize = {pCodeSize}")]
     public struct GetCodeRangeResult
     {
         /// <summary>

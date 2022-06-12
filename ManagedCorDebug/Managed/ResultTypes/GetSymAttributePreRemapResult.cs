@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="SymUnmanagedReader.GetSymAttributePreRemap"/> method.
     /// </summary>
+    [DebuggerDisplay("pcBuffer = {pcBuffer}, buffer = {buffer}")]
     public struct GetSymAttributePreRemapResult
     {
         /// <summary>

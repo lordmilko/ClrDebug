@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugComObjectValue.GetCachedInterfacePointers"/> method.
     /// </summary>
+    [DebuggerDisplay("pceltFetched = {pceltFetched}, ptrs = {ptrs}")]
     public struct GetCachedInterfacePointersResult
     {
         /// <summary>

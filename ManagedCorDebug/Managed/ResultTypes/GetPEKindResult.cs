@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.PEKind"/> property.
     /// </summary>
+    [DebuggerDisplay("pdwPEKind = {pdwPEKind}, pdwMachine = {pdwMachine}")]
     public struct GetPEKindResult
     {
         /// <summary>

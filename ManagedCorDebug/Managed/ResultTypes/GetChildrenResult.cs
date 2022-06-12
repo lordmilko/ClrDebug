@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="SymUnmanagedScope.GetChildren"/> method.
     /// </summary>
+    [DebuggerDisplay("pcChildren = {pcChildren}, children = {children}")]
     public struct GetChildrenResult
     {
         /// <summary>

@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataTables.GetTableInfo"/> method.
     /// </summary>
+    [DebuggerDisplay("pcbRow = {pcbRow}, pcRows = {pcRows}, pcCols = {pcCols}, piKey = {piKey}")]
     public struct GetTableInfoResult
     {
         /// <summary>

@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugProcess.GetTypeFields"/> method.
     /// </summary>
+    [DebuggerDisplay("fields = {fields}, pceltNeeded = {pceltNeeded}")]
     public struct GetTypeFieldsResult
     {
         /// <summary>

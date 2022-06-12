@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetTypeDefProps"/> method.
     /// </summary>
+    [DebuggerDisplay("szTypeDef = {szTypeDef}, pdwTypeDefFlags = {pdwTypeDefFlags}, ptkExtends = {ptkExtends}")]
     public struct GetTypeDefPropsResult
     {
         /// <summary>

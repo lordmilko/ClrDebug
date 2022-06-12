@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugThread.GetActiveFunctions"/> method.
     /// </summary>
+    [DebuggerDisplay("pcFunctions = {pcFunctions}, pFunctions = {pFunctions}")]
     public struct GetActiveFunctionsResult
     {
         /// <summary>

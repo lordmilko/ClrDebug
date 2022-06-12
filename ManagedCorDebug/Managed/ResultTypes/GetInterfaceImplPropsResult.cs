@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetInterfaceImplProps"/> method.
     /// </summary>
+    [DebuggerDisplay("pClass = {pClass}, ptkIface = {ptkIface}")]
     public struct GetInterfaceImplPropsResult
     {
         /// <summary>

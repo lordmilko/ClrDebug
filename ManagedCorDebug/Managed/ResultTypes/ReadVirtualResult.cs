@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CLRDataTarget.ReadVirtual"/> method.
     /// </summary>
+    [DebuggerDisplay("buffer = {buffer}, bytesRead = {bytesRead}")]
     public struct ReadVirtualResult
     {
         /// <summary>

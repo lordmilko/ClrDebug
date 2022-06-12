@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="SymUnmanagedMethod.GetSequencePoints"/> method.
     /// </summary>
+    [DebuggerDisplay("pcPoints = {pcPoints}, documents = {documents}, lines = {lines}, columns = {columns}, endLines = {endLines}, endColumns = {endColumns}")]
     public struct GetSequencePointsResult
     {
         /// <summary>

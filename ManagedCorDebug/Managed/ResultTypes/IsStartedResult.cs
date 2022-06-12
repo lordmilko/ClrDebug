@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CLRRuntimeInfo.IsStarted"/> property.
     /// </summary>
+    [DebuggerDisplay("pbStarted = {pbStarted}, pdwStartupFlags = {pdwStartupFlags}")]
     public struct IsStartedResult
     {
         /// <summary>

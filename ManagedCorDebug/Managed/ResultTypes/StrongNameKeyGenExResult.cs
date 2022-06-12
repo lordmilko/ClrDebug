@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CLRStrongName.StrongNameKeyGenEx"/> method.
     /// </summary>
+    [DebuggerDisplay("ppbKeyBlob = {ppbKeyBlob}, pcbKeyBlob = {pcbKeyBlob}")]
     public struct StrongNameKeyGenExResult
     {
         /// <summary>

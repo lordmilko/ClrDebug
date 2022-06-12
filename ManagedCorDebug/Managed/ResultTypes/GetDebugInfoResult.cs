@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="SymUnmanagedWriter.GetDebugInfo"/> method.
     /// </summary>
+    [DebuggerDisplay("pIDD = {pIDD}, pcData = {pcData}, data = {data}")]
     public struct GetDebugInfoResult
     {
         /// <summary>

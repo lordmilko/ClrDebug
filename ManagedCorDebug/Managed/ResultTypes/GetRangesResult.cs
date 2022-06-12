@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="SymUnmanagedMethod.GetRanges"/> method.
     /// </summary>
+    [DebuggerDisplay("pcRanges = {pcRanges}, ranges = {ranges}")]
     public struct GetRangesResult
     {
         /// <summary>

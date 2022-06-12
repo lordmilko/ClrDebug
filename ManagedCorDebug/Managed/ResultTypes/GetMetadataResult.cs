@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CLRMetadataLocator.GetMetadata"/> method.
     /// </summary>
+    [DebuggerDisplay("buffer = {buffer}, dataSize = {dataSize}")]
     public struct GetMetadataResult
     {
         /// <summary>

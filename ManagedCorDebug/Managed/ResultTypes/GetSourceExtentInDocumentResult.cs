@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="SymENCUnmanagedMethod.GetSourceExtentInDocument"/> method.
     /// </summary>
+    [DebuggerDisplay("pstartLine = {pstartLine}, pendLine = {pendLine}")]
     public struct GetSourceExtentInDocumentResult
     {
         /// <summary>

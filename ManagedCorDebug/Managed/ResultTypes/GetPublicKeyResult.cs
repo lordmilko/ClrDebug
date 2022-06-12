@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugMergedAssemblyRecord.GetPublicKey"/> method.
     /// </summary>
+    [DebuggerDisplay("pcbPublicKey = {pcbPublicKey}, pbPublicKey = {pbPublicKey}")]
     public struct GetPublicKeyResult
     {
         /// <summary>

@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetMethodProps"/> method.
     /// </summary>
+    [DebuggerDisplay("pClass = {pClass}, szMethod = {szMethod}, pdwAttr = {pdwAttr}, ppvSigBlob = {ppvSigBlob}, pcbSigBlob = {pcbSigBlob}, pulCodeRVA = {pulCodeRVA}, pdwImplFlags = {pdwImplFlags}")]
     public struct MetaDataImport_GetMethodPropsResult
     {
         /// <summary>

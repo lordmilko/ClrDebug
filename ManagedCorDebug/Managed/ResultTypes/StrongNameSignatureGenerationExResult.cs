@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CLRStrongName.StrongNameSignatureGenerationEx"/> method.
     /// </summary>
+    [DebuggerDisplay("ppbSignatureBlob = {ppbSignatureBlob}, pcbSignatureBlob = {pcbSignatureBlob}")]
     public struct StrongNameSignatureGenerationExResult
     {
         /// <summary>

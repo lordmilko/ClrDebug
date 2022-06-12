@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugSymbolProvider.GetMethodProps"/> method.
     /// </summary>
+    [DebuggerDisplay("pMethodToken = {pMethodToken}, pcGenericParams = {pcGenericParams}, pcbSignature = {pcbSignature}, signature = {signature}")]
     public struct GetMethodPropsResult
     {
         /// <summary>

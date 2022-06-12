@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataTables.MetaDataStorage"/> property.
     /// </summary>
+    [DebuggerDisplay("ppvMd = {ppvMd}, pcbMd = {pcbMd}")]
     public struct GetMetaDataStorageResult
     {
         /// <summary>

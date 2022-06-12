@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetTypeRefProps"/> method.
     /// </summary>
+    [DebuggerDisplay("ptkResolutionScope = {ptkResolutionScope}, szName = {szName}")]
     public struct GetTypeRefPropsResult
     {
         /// <summary>

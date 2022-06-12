@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="SymUnmanagedSourceServerModule.SourceServerData"/> property.
     /// </summary>
+    [DebuggerDisplay("pDataByteCount = {pDataByteCount}, ppData = {ppData}")]
     public struct GetSourceServerDataResult
     {
         /// <summary>

@@ -1,8 +1,11 @@
+using System.Diagnostics;
+
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetRVA"/> method.
     /// </summary>
+    [DebuggerDisplay("pulCodeRVA = {pulCodeRVA}, pdwImplFlags = {pdwImplFlags}")]
     public struct GetRVAResult
     {
         /// <summary>
