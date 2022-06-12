@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Represents a variable, such as a parameter, a local variable, or a field.
+    /// </summary>
     public class SymUnmanagedVariable : ComObject<ISymUnmanagedVariable>
     {
         public SymUnmanagedVariable(ISymUnmanagedVariable raw) : base(raw)
@@ -13,6 +16,9 @@ namespace ManagedCorDebug
         #region ISymUnmanagedVariable
         #region GetAttributes
 
+        /// <summary>
+        /// Gets the attribute flags for this variable.
+        /// </summary>
         public CorSymVarFlag Attributes
         {
             get
@@ -27,6 +33,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the attribute flags for this variable.
+        /// </summary>
+        /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the attributes. The returned value will be one of the values defined in the <see cref="CorSymVarFlag"/> enumeration.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetAttributes(out CorSymVarFlag pRetVal)
         {
             /*HRESULT GetAttributes([Out] out CorSymVarFlag pRetVal);*/
@@ -36,6 +47,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetAddressKind
 
+        /// <summary>
+        /// Gets the kind of address of this variable.
+        /// </summary>
         public CorSymAddrKind AddressKind
         {
             get
@@ -50,6 +64,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the kind of address of this variable.
+        /// </summary>
+        /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the value. The possible values are defined in the <see cref="CorSymAddrKind"/> enumeration.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetAddressKind(out CorSymAddrKind pRetVal)
         {
             /*HRESULT GetAddressKind([Out] out CorSymAddrKind pRetVal);*/
@@ -59,6 +78,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetAddressField1
 
+        /// <summary>
+        /// Gets the first address field for this variable. Its meaning depends on the kind of address.
+        /// </summary>
         public uint AddressField1
         {
             get
@@ -73,6 +95,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the first address field for this variable. Its meaning depends on the kind of address.
+        /// </summary>
+        /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the first address field.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetAddressField1(out uint pRetVal)
         {
             /*HRESULT GetAddressField1([Out] out uint pRetVal);*/
@@ -82,6 +109,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetAddressField2
 
+        /// <summary>
+        /// Gets the second address field for this variable. Its meaning depends on the kind of address.
+        /// </summary>
         public uint AddressField2
         {
             get
@@ -96,6 +126,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the second address field for this variable. Its meaning depends on the kind of address.
+        /// </summary>
+        /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the second address field.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetAddressField2(out uint pRetVal)
         {
             /*HRESULT GetAddressField2([Out] out uint pRetVal);*/
@@ -105,6 +140,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetAddressField3
 
+        /// <summary>
+        /// Gets the third address field for this variable. Its meaning depends on the kind of address.
+        /// </summary>
         public uint AddressField3
         {
             get
@@ -119,6 +157,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the third address field for this variable. Its meaning depends on the kind of address.
+        /// </summary>
+        /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the third address field.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetAddressField3(out uint pRetVal)
         {
             /*HRESULT GetAddressField3([Out] out uint pRetVal);*/
@@ -128,6 +171,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetStartOffset
 
+        /// <summary>
+        /// Gets the start offset of this variable within its parent. If this is a local variable within a scope, the start offset will fall within the offsets defined for the scope.
+        /// </summary>
         public uint StartOffset
         {
             get
@@ -142,6 +188,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the start offset of this variable within its parent. If this is a local variable within a scope, the start offset will fall within the offsets defined for the scope.
+        /// </summary>
+        /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the start offset.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetStartOffset(out uint pRetVal)
         {
             /*HRESULT GetStartOffset([Out] out uint pRetVal);*/
@@ -151,6 +202,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetEndOffset
 
+        /// <summary>
+        /// Gets the end offset of this variable within its parent. If this is a local variable within a scope, the end offset will fall within the offsets defined for the scope.
+        /// </summary>
         public uint EndOffset
         {
             get
@@ -165,6 +219,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the end offset of this variable within its parent. If this is a local variable within a scope, the end offset will fall within the offsets defined for the scope.
+        /// </summary>
+        /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the end offset.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetEndOffset(out uint pRetVal)
         {
             /*HRESULT GetEndOffset([Out] out uint pRetVal);*/
@@ -174,6 +233,10 @@ namespace ManagedCorDebug
         #endregion
         #region GetName
 
+        /// <summary>
+        /// Gets the name of this variable.
+        /// </summary>
+        /// <returns>[out] The buffer that stores the name.</returns>
         public string GetName()
         {
             HRESULT hr;
@@ -185,6 +248,11 @@ namespace ManagedCorDebug
             return szNameResult;
         }
 
+        /// <summary>
+        /// Gets the name of this variable.
+        /// </summary>
+        /// <param name="szNameResult">[out] The buffer that stores the name.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetName(out string szNameResult)
         {
             /*HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);*/
@@ -216,6 +284,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetSignature
 
+        /// <summary>
+        /// Gets the signature of this variable.
+        /// </summary>
+        /// <param name="cSig">[in] The length of the buffer pointed to by the sig parameter.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetSignatureResult GetSignature(uint cSig)
         {
             HRESULT hr;
@@ -227,6 +300,12 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the signature of this variable.
+        /// </summary>
+        /// <param name="cSig">[in] The length of the buffer pointed to by the sig parameter.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetSignature(uint cSig, out GetSignatureResult result)
         {
             /*HRESULT GetSignature([In] uint cSig, out uint pcSig, [MarshalAs(UnmanagedType.LPArray), Out] byte[] sig);*/

@@ -3,6 +3,16 @@ using System.Collections.Generic;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Provides an enumerator that defines the mapping between a set of GUIDs and their corresponding types, which are represented by <see cref="ICorDebugType"/> instances.<para/>
+    /// This interface inherits the methods from the <see cref="ICorDebugEnum"/> interface.
+    /// </summary>
+    /// <remarks>
+    /// An <see cref="ICorDebugGuidToTypeEnum"/> interface object can be retrieved by calling the <see cref="CorDebugAppDomain.CachedWinRTTypes"/>
+    /// property. A debugger can call this interface's <see cref="MoveNext"/> method to retrieve <see cref="CorDebugGuidToTypeMapping"/>
+    /// objects that represent mappings of managed representations of Windows Runtime types loaded in the application domain
+    /// used for the call to the <see cref="CorDebugAppDomain.CachedWinRTTypes"/> property.
+    /// </remarks>
     public class CorDebugGuidToTypeEnum : IEnumerable<CorDebugGuidToTypeMapping>, IEnumerator<CorDebugGuidToTypeMapping>
     {
         private ICorDebugGuidToTypeEnum rawEnumerator;

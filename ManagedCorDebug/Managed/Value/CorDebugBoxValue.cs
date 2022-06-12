@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// A subclass of "ICorDebugHeapValue" that represents a boxed value class object.
+    /// </summary>
     public class CorDebugBoxValue : CorDebugHeapValue
     {
         public CorDebugBoxValue(ICorDebugBoxValue raw) : base(raw)
@@ -15,6 +18,9 @@ namespace ManagedCorDebug
 
         #region GetObject
 
+        /// <summary>
+        /// Gets the boxed value.
+        /// </summary>
         public CorDebugObjectValue Object
         {
             get
@@ -29,6 +35,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the boxed value.
+        /// </summary>
+        /// <param name="ppObjectResult">[out] A pointer to the address of an <see cref="ICorDebugObjectValue"/> object that represents the boxed value.</param>
         public HRESULT TryGetObject(out CorDebugObjectValue ppObjectResult)
         {
             /*HRESULT GetObject([MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectValue ppObject);*/

@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Extends the <see cref="ICorDebugBreakpoint"/> interface to provide access to specific values.
+    /// </summary>
     public class CorDebugValueBreakpoint : CorDebugBreakpoint
     {
         public CorDebugValueBreakpoint(ICorDebugValueBreakpoint raw) : base(raw)
@@ -15,6 +18,9 @@ namespace ManagedCorDebug
 
         #region GetValue
 
+        /// <summary>
+        /// Gets an interface pointer to an <see cref="ICorDebugValue"/> object that represents the value of the object on which the breakpoint is set.
+        /// </summary>
         public CorDebugValue Value
         {
             get
@@ -29,6 +35,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets an interface pointer to an <see cref="ICorDebugValue"/> object that represents the value of the object on which the breakpoint is set.
+        /// </summary>
+        /// <param name="ppValueResult">[out] A pointer to the address of an <see cref="ICorDebugValue"/> object.</param>
         public HRESULT TryGetValue(out CorDebugValue ppValueResult)
         {
             /*HRESULT GetValue([MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/

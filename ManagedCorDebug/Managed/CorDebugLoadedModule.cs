@@ -4,6 +4,13 @@ using System.Text;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Provides information about a loaded module.
+    /// </summary>
+    /// <remarks>
+    /// The <see cref="ICorDebugLoadedModule"/> interface is implemented by a debugger and is used by the CLR debugging interfaces to
+    /// get information about the loaded module from the debugger.
+    /// </remarks>
     public class CorDebugLoadedModule : ComObject<ICorDebugLoadedModule>
     {
         public CorDebugLoadedModule(ICorDebugLoadedModule raw) : base(raw)
@@ -13,6 +20,9 @@ namespace ManagedCorDebug
         #region ICorDebugLoadedModule
         #region GetBaseAddress
 
+        /// <summary>
+        /// Gets the base address of the loaded module.
+        /// </summary>
         public ulong BaseAddress
         {
             get
@@ -27,6 +37,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the base address of the loaded module.
+        /// </summary>
+        /// <param name="pAddress">[out] A pointer to the base address of the loaded module.</param>
         public HRESULT TryGetBaseAddress(out ulong pAddress)
         {
             /*HRESULT GetBaseAddress(out ulong pAddress);*/
@@ -36,6 +50,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetSize
 
+        /// <summary>
+        /// Gets the size in bytes of the loaded module.
+        /// </summary>
         public uint Size
         {
             get
@@ -50,6 +67,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the size in bytes of the loaded module.
+        /// </summary>
+        /// <param name="pcBytes">[out] A pointer to the number of bytes in the loaded module.</param>
         public HRESULT TryGetSize(out uint pcBytes)
         {
             /*HRESULT GetSize(out uint pcBytes);*/
@@ -59,6 +80,10 @@ namespace ManagedCorDebug
         #endregion
         #region GetName
 
+        /// <summary>
+        /// Gets the name of the loaded module.
+        /// </summary>
+        /// <returns>[out] An array of characters that contain the name of the loaded module.</returns>
         public string GetName()
         {
             HRESULT hr;
@@ -70,6 +95,10 @@ namespace ManagedCorDebug
             return szNameResult;
         }
 
+        /// <summary>
+        /// Gets the name of the loaded module.
+        /// </summary>
+        /// <param name="szNameResult">[out] An array of characters that contain the name of the loaded module.</param>
         public HRESULT TryGetName(out string szNameResult)
         {
             /*HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);*/

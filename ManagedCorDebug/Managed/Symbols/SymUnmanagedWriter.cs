@@ -4,6 +4,9 @@ using System.Runtime.InteropServices.ComTypes;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Represents a symbol writer, and provides methods to define documents, sequence points, lexical scopes, and variables.
+    /// </summary>
     public class SymUnmanagedWriter : ComObject<ISymUnmanagedWriter>
     {
         public SymUnmanagedWriter(ISymUnmanagedWriter raw) : base(raw)
@@ -13,6 +16,14 @@ namespace ManagedCorDebug
         #region ISymUnmanagedWriter
         #region DefineDocument
 
+        /// <summary>
+        /// Defines a source document. GUIDs are provided for known languages, vendors, and document types.
+        /// </summary>
+        /// <param name="url">[in] A pointer to a WCHAR that defines the uniform resource locator (URL) that identifies the document.</param>
+        /// <param name="language">[in] A pointer to a GUID that defines the document language.</param>
+        /// <param name="languageVendor">[in] A pointer to a GUID that defines the identity of the vendor for the document language.</param>
+        /// <param name="documentType">[in] A pointer to a GUID that defines the type of the document.</param>
+        /// <returns>[out] A pointer to the returned <see cref="ISymUnmanagedWriter"/> interface.</returns>
         public SymUnmanagedDocumentWriter DefineDocument(string url, Guid language, Guid languageVendor, Guid documentType)
         {
             HRESULT hr;
@@ -24,6 +35,15 @@ namespace ManagedCorDebug
             return pRetValResult;
         }
 
+        /// <summary>
+        /// Defines a source document. GUIDs are provided for known languages, vendors, and document types.
+        /// </summary>
+        /// <param name="url">[in] A pointer to a WCHAR that defines the uniform resource locator (URL) that identifies the document.</param>
+        /// <param name="language">[in] A pointer to a GUID that defines the document language.</param>
+        /// <param name="languageVendor">[in] A pointer to a GUID that defines the identity of the vendor for the document language.</param>
+        /// <param name="documentType">[in] A pointer to a GUID that defines the type of the document.</param>
+        /// <param name="pRetValResult">[out] A pointer to the returned <see cref="ISymUnmanagedWriter"/> interface.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryDefineDocument(string url, Guid language, Guid languageVendor, Guid documentType, out SymUnmanagedDocumentWriter pRetValResult)
         {
             /*HRESULT DefineDocument(
@@ -46,6 +66,10 @@ namespace ManagedCorDebug
         #endregion
         #region SetUserEntryPoint
 
+        /// <summary>
+        /// Specifies the user-defined method that is the entry point for this module. For example, this entry point could be the user's main method instead of compiler-generated stubs before main.
+        /// </summary>
+        /// <param name="entryMethod">[in] The metadata token for the method that is the user entry point.</param>
         public void SetUserEntryPoint(uint entryMethod)
         {
             HRESULT hr;
@@ -54,6 +78,11 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Specifies the user-defined method that is the entry point for this module. For example, this entry point could be the user's main method instead of compiler-generated stubs before main.
+        /// </summary>
+        /// <param name="entryMethod">[in] The metadata token for the method that is the user entry point.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TrySetUserEntryPoint(uint entryMethod)
         {
             /*HRESULT SetUserEntryPoint([In] uint entryMethod);*/
@@ -63,6 +92,12 @@ namespace ManagedCorDebug
         #endregion
         #region OpenMethod
 
+        /// <summary>
+        /// Opens a method into which symbol information is emitted. The given method becomes the current method for calls to define sequence points, parameters, and lexical scopes.<para/>
+        /// There is an implicit lexical scope around the entire method. Reopening a method that was previously closed erases any previously defined symbols for that method.<para/>
+        /// There can be only one open method at a time.
+        /// </summary>
+        /// <param name="method">[in] The metadata token for the method to be opened.</param>
         public void OpenMethod(uint method)
         {
             HRESULT hr;
@@ -71,6 +106,13 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Opens a method into which symbol information is emitted. The given method becomes the current method for calls to define sequence points, parameters, and lexical scopes.<para/>
+        /// There is an implicit lexical scope around the entire method. Reopening a method that was previously closed erases any previously defined symbols for that method.<para/>
+        /// There can be only one open method at a time.
+        /// </summary>
+        /// <param name="method">[in] The metadata token for the method to be opened.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryOpenMethod(uint method)
         {
             /*HRESULT OpenMethod([In] uint method);*/
@@ -80,6 +122,9 @@ namespace ManagedCorDebug
         #endregion
         #region CloseMethod
 
+        /// <summary>
+        /// Closes the current method. Once a method is closed, no more symbols can be defined within it.
+        /// </summary>
         public void CloseMethod()
         {
             HRESULT hr;
@@ -88,6 +133,10 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Closes the current method. Once a method is closed, no more symbols can be defined within it.
+        /// </summary>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryCloseMethod()
         {
             /*HRESULT CloseMethod();*/
@@ -97,6 +146,17 @@ namespace ManagedCorDebug
         #endregion
         #region OpenScope
 
+        /// <summary>
+        /// Opens a new lexical scope in the current method. The scope becomes the new current scope and is pushed onto a stack of scopes.<para/>
+        /// Scopes must form a hierarchy. Siblings are not allowed to overlap.
+        /// </summary>
+        /// <param name="startOffset">[in] The offset of the first instruction in the lexical scope, in bytes, from the beginning of the method.</param>
+        /// <returns>[out] A pointer to a ULONG32 that receives the scope identifier.</returns>
+        /// <remarks>
+        /// <see cref="OpenScope"/> returns an opaque scope identifier that can be used with <see cref="SetScopeRange"/>
+        /// to define a scope's starting and ending offset at a later time. In this case, the offsets passed to ISymUnmanagedWriter::OpenScope
+        /// and <see cref="CloseScope"/> are ignored. Scope identifiers are valid only in the current method.
+        /// </remarks>
         public uint OpenScope(uint startOffset)
         {
             HRESULT hr;
@@ -108,6 +168,18 @@ namespace ManagedCorDebug
             return pRetVal;
         }
 
+        /// <summary>
+        /// Opens a new lexical scope in the current method. The scope becomes the new current scope and is pushed onto a stack of scopes.<para/>
+        /// Scopes must form a hierarchy. Siblings are not allowed to overlap.
+        /// </summary>
+        /// <param name="startOffset">[in] The offset of the first instruction in the lexical scope, in bytes, from the beginning of the method.</param>
+        /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the scope identifier.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
+        /// <remarks>
+        /// <see cref="OpenScope"/> returns an opaque scope identifier that can be used with <see cref="SetScopeRange"/>
+        /// to define a scope's starting and ending offset at a later time. In this case, the offsets passed to ISymUnmanagedWriter::OpenScope
+        /// and <see cref="CloseScope"/> are ignored. Scope identifiers are valid only in the current method.
+        /// </remarks>
         public HRESULT TryOpenScope(uint startOffset, out uint pRetVal)
         {
             /*HRESULT OpenScope([In] uint startOffset, [Out] out uint pRetVal);*/
@@ -117,6 +189,16 @@ namespace ManagedCorDebug
         #endregion
         #region CloseScope
 
+        /// <summary>
+        /// Closes the current lexical scope.
+        /// </summary>
+        /// <param name="endOffset">[in] The offset from the beginning of the method of the point at the end of the last instruction in the lexical scope, in bytes.</param>
+        /// <remarks>
+        /// Once a scope is closed, no more variables can be defined within it. <see cref="OpenScope"/> returns an opaque scope
+        /// identifier that can be used with <see cref="SetScopeRange"/> to later define a scope's starting and ending offset.
+        /// In this case, the offsets passed to <see cref="OpenScope"/> and <see cref="CloseScope"/> are ignored.
+        /// Scope identifiers are valid only in the current method.
+        /// </remarks>
         public void CloseScope(uint endOffset)
         {
             HRESULT hr;
@@ -125,6 +207,17 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Closes the current lexical scope.
+        /// </summary>
+        /// <param name="endOffset">[in] The offset from the beginning of the method of the point at the end of the last instruction in the lexical scope, in bytes.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
+        /// <remarks>
+        /// Once a scope is closed, no more variables can be defined within it. <see cref="OpenScope"/> returns an opaque scope
+        /// identifier that can be used with <see cref="SetScopeRange"/> to later define a scope's starting and ending offset.
+        /// In this case, the offsets passed to <see cref="OpenScope"/> and <see cref="CloseScope"/> are ignored.
+        /// Scope identifiers are valid only in the current method.
+        /// </remarks>
         public HRESULT TryCloseScope(uint endOffset)
         {
             /*HRESULT CloseScope([In] uint endOffset);*/
@@ -134,6 +227,18 @@ namespace ManagedCorDebug
         #endregion
         #region SetScopeRange
 
+        /// <summary>
+        /// Defines the offset range for the specified lexical scope. The scope becomes the new current scope and is pushed onto a stack of scopes.<para/>
+        /// Scopes must form a hierarchy. Siblings are not allowed to overlap.
+        /// </summary>
+        /// <param name="scopeID">[in] The scope identifier for the scope.</param>
+        /// <param name="startOffset">[in] The offset, in bytes, of the first instruction in the lexical scope from the beginning of the method.</param>
+        /// <param name="endOffset">[in] The offset, in bytes, of the last instruction in the lexical scope from the beginning of the method.</param>
+        /// <remarks>
+        /// <see cref="OpenScope"/> returns an opaque scope identifier that can be used with ISymUnmanagedWriter::SetScopeRange
+        /// to define a scope's starting and ending offset at a later time. In this case, the offsets passed to ISymUnmanagedWriter::OpenScope
+        /// and <see cref="CloseScope"/> are ignored. Scope identifiers are only valid in the current method.
+        /// </remarks>
         public void SetScopeRange(uint scopeID, uint startOffset, uint endOffset)
         {
             HRESULT hr;
@@ -142,6 +247,19 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Defines the offset range for the specified lexical scope. The scope becomes the new current scope and is pushed onto a stack of scopes.<para/>
+        /// Scopes must form a hierarchy. Siblings are not allowed to overlap.
+        /// </summary>
+        /// <param name="scopeID">[in] The scope identifier for the scope.</param>
+        /// <param name="startOffset">[in] The offset, in bytes, of the first instruction in the lexical scope from the beginning of the method.</param>
+        /// <param name="endOffset">[in] The offset, in bytes, of the last instruction in the lexical scope from the beginning of the method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
+        /// <remarks>
+        /// <see cref="OpenScope"/> returns an opaque scope identifier that can be used with ISymUnmanagedWriter::SetScopeRange
+        /// to define a scope's starting and ending offset at a later time. In this case, the offsets passed to ISymUnmanagedWriter::OpenScope
+        /// and <see cref="CloseScope"/> are ignored. Scope identifiers are only valid in the current method.
+        /// </remarks>
         public HRESULT TrySetScopeRange(uint scopeID, uint startOffset, uint endOffset)
         {
             /*HRESULT SetScopeRange([In] uint scopeID, [In] uint startOffset, [In] uint endOffset);*/
@@ -151,6 +269,22 @@ namespace ManagedCorDebug
         #endregion
         #region DefineLocalVariable
 
+        /// <summary>
+        /// Defines a single variable in the current lexical scope. This method can be called multiple times for a variable of the same name that has multiple homes throughout a scope.<para/>
+        /// In this case, however, the values of the startOffset and endOffset parameters must not overlap.
+        /// </summary>
+        /// <param name="name">[in] A pointer to a WCHAR that defines the local variable name.</param>
+        /// <param name="attributes">[in] The local variable attributes.</param>
+        /// <param name="cSig">[in] A ULONG32 that indicates the size, in bytes, of the signature buffer.</param>
+        /// <param name="signature">[in] The local variable signature.</param>
+        /// <param name="addrKind">[in] The address type.</param>
+        /// <param name="addr1">[in] The first address for the parameter specification.</param>
+        /// <param name="addr2">[in] The second address for the parameter specification.</param>
+        /// <param name="addr3">[in] The third address for the parameter specification.</param>
+        /// <param name="startOffset">[in] The start offset for the variable. This parameter is optional. If it is 0, this parameter is ignored and the variable is defined throughout the entire scope.<para/>
+        /// If it is a nonzero value, the variable falls within the offsets of the current scope.</param>
+        /// <param name="endOffset">[in] The end offset for the variable. This parameter is optional. If it is 0, this parameter is ignored and the variable is defined throughout the entire scope.<para/>
+        /// If it is a nonzero value, the variable falls within the offsets of the current scope.</param>
         public void DefineLocalVariable(string name, uint attributes, uint cSig, IntPtr signature, uint addrKind, uint addr1, uint addr2, uint addr3, uint startOffset, uint endOffset)
         {
             HRESULT hr;
@@ -159,6 +293,23 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Defines a single variable in the current lexical scope. This method can be called multiple times for a variable of the same name that has multiple homes throughout a scope.<para/>
+        /// In this case, however, the values of the startOffset and endOffset parameters must not overlap.
+        /// </summary>
+        /// <param name="name">[in] A pointer to a WCHAR that defines the local variable name.</param>
+        /// <param name="attributes">[in] The local variable attributes.</param>
+        /// <param name="cSig">[in] A ULONG32 that indicates the size, in bytes, of the signature buffer.</param>
+        /// <param name="signature">[in] The local variable signature.</param>
+        /// <param name="addrKind">[in] The address type.</param>
+        /// <param name="addr1">[in] The first address for the parameter specification.</param>
+        /// <param name="addr2">[in] The second address for the parameter specification.</param>
+        /// <param name="addr3">[in] The third address for the parameter specification.</param>
+        /// <param name="startOffset">[in] The start offset for the variable. This parameter is optional. If it is 0, this parameter is ignored and the variable is defined throughout the entire scope.<para/>
+        /// If it is a nonzero value, the variable falls within the offsets of the current scope.</param>
+        /// <param name="endOffset">[in] The end offset for the variable. This parameter is optional. If it is 0, this parameter is ignored and the variable is defined throughout the entire scope.<para/>
+        /// If it is a nonzero value, the variable falls within the offsets of the current scope.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryDefineLocalVariable(string name, uint attributes, uint cSig, IntPtr signature, uint addrKind, uint addr1, uint addr2, uint addr3, uint startOffset, uint endOffset)
         {
             /*HRESULT DefineLocalVariable(
@@ -178,6 +329,18 @@ namespace ManagedCorDebug
         #endregion
         #region DefineParameter
 
+        /// <summary>
+        /// Defines a single parameter in the current method. The parameter type is taken from the parameter's position (sequence) within the method's signature.<para/>
+        /// If parameters are defined in the metadata for a given method, you do not have to define them again by using this method.<para/>
+        /// The symbol readers must check the normal metadata for the parameters before checking the symbol store.
+        /// </summary>
+        /// <param name="name">[in] The parameter name.</param>
+        /// <param name="attributes">[in] The parameter attributes.</param>
+        /// <param name="sequence">[in] The parameter signature.</param>
+        /// <param name="addrKind">[in] The address type.</param>
+        /// <param name="addr1">[in] The first address for the parameter specification.</param>
+        /// <param name="addr2">[in] The second address for the parameter specification.</param>
+        /// <param name="addr3">[in] The third address for the parameter specification.</param>
         public void DefineParameter(string name, uint attributes, uint sequence, uint addrKind, uint addr1, uint addr2, uint addr3)
         {
             HRESULT hr;
@@ -186,6 +349,19 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Defines a single parameter in the current method. The parameter type is taken from the parameter's position (sequence) within the method's signature.<para/>
+        /// If parameters are defined in the metadata for a given method, you do not have to define them again by using this method.<para/>
+        /// The symbol readers must check the normal metadata for the parameters before checking the symbol store.
+        /// </summary>
+        /// <param name="name">[in] The parameter name.</param>
+        /// <param name="attributes">[in] The parameter attributes.</param>
+        /// <param name="sequence">[in] The parameter signature.</param>
+        /// <param name="addrKind">[in] The address type.</param>
+        /// <param name="addr1">[in] The first address for the parameter specification.</param>
+        /// <param name="addr2">[in] The second address for the parameter specification.</param>
+        /// <param name="addr3">[in] The third address for the parameter specification.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryDefineParameter(string name, uint attributes, uint sequence, uint addrKind, uint addr1, uint addr2, uint addr3)
         {
             /*HRESULT DefineParameter(
@@ -202,6 +378,18 @@ namespace ManagedCorDebug
         #endregion
         #region DefineField
 
+        /// <summary>
+        /// Defines a single variable that is not within a method. This method is used for certain fields in classes, bit fields, and so on.
+        /// </summary>
+        /// <param name="parent">[in] The metadata type or method token.</param>
+        /// <param name="name">[in] The field name.</param>
+        /// <param name="attributes">[in] The field attributes.</param>
+        /// <param name="cSig">[in] A ULONG32 that is the size, in characters, of the buffer required to contain the field signature.</param>
+        /// <param name="signature">[in] The array of field signatures.</param>
+        /// <param name="addrKind">[in] The address type.</param>
+        /// <param name="addr1">[in] The first address for the field specification.</param>
+        /// <param name="addr2">[in] The second address for the field specification.</param>
+        /// <param name="addr3">[in] The third address for the field specification.</param>
         public void DefineField(uint parent, string name, uint attributes, uint cSig, IntPtr signature, uint addrKind, uint addr1, uint addr2, uint addr3)
         {
             HRESULT hr;
@@ -210,6 +398,19 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Defines a single variable that is not within a method. This method is used for certain fields in classes, bit fields, and so on.
+        /// </summary>
+        /// <param name="parent">[in] The metadata type or method token.</param>
+        /// <param name="name">[in] The field name.</param>
+        /// <param name="attributes">[in] The field attributes.</param>
+        /// <param name="cSig">[in] A ULONG32 that is the size, in characters, of the buffer required to contain the field signature.</param>
+        /// <param name="signature">[in] The array of field signatures.</param>
+        /// <param name="addrKind">[in] The address type.</param>
+        /// <param name="addr1">[in] The first address for the field specification.</param>
+        /// <param name="addr2">[in] The second address for the field specification.</param>
+        /// <param name="addr3">[in] The third address for the field specification.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryDefineField(uint parent, string name, uint attributes, uint cSig, IntPtr signature, uint addrKind, uint addr1, uint addr2, uint addr3)
         {
             /*HRESULT DefineField(
@@ -228,6 +429,17 @@ namespace ManagedCorDebug
         #endregion
         #region DefineGlobalVariable
 
+        /// <summary>
+        /// Defines a single global variable.
+        /// </summary>
+        /// <param name="name">[in] A pointer to a WCHAR that defines the global variable name.</param>
+        /// <param name="attributes">[in] The global variable attributes.</param>
+        /// <param name="cSig">[in] A ULONG32 that indicates the size, in characters, of the signature buffer.</param>
+        /// <param name="signature">[in] The global variable signature.</param>
+        /// <param name="addrKind">[in] The address type.</param>
+        /// <param name="addr1">[in] The first address for the parameter specification.</param>
+        /// <param name="addr2">[in] The second address for the parameter specification.</param>
+        /// <param name="addr3">[in] The third address for the parameter specification.</param>
         public void DefineGlobalVariable(string name, uint attributes, uint cSig, IntPtr signature, uint addrKind, uint addr1, uint addr2, uint addr3)
         {
             HRESULT hr;
@@ -236,6 +448,18 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Defines a single global variable.
+        /// </summary>
+        /// <param name="name">[in] A pointer to a WCHAR that defines the global variable name.</param>
+        /// <param name="attributes">[in] The global variable attributes.</param>
+        /// <param name="cSig">[in] A ULONG32 that indicates the size, in characters, of the signature buffer.</param>
+        /// <param name="signature">[in] The global variable signature.</param>
+        /// <param name="addrKind">[in] The address type.</param>
+        /// <param name="addr1">[in] The first address for the parameter specification.</param>
+        /// <param name="addr2">[in] The second address for the parameter specification.</param>
+        /// <param name="addr3">[in] The third address for the parameter specification.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryDefineGlobalVariable(string name, uint attributes, uint cSig, IntPtr signature, uint addrKind, uint addr1, uint addr2, uint addr3)
         {
             /*HRESULT DefineGlobalVariable(
@@ -253,6 +477,13 @@ namespace ManagedCorDebug
         #endregion
         #region Close
 
+        /// <summary>
+        /// Closes the symbol writer after committing the symbols to the symbol store.
+        /// </summary>
+        /// <remarks>
+        /// After this call, the symbol writer becomes invalid for further updates. To close the symbol writer without committing
+        /// the symbols, use the <see cref="Abort"/> method instead.
+        /// </remarks>
         public void Close()
         {
             HRESULT hr;
@@ -261,6 +492,14 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Closes the symbol writer after committing the symbols to the symbol store.
+        /// </summary>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
+        /// <remarks>
+        /// After this call, the symbol writer becomes invalid for further updates. To close the symbol writer without committing
+        /// the symbols, use the <see cref="Abort"/> method instead.
+        /// </remarks>
         public HRESULT TryClose()
         {
             /*HRESULT Close();*/
@@ -270,6 +509,13 @@ namespace ManagedCorDebug
         #endregion
         #region SetSymAttribute
 
+        /// <summary>
+        /// Defines a custom attribute based upon its name. These attributes are held in the symbol store, unlike metadata custom attributes.
+        /// </summary>
+        /// <param name="parent">[in] The metadata token for which the attribute is being defined.</param>
+        /// <param name="name">[in] A pointer to a WCHAR that contains the attribute name.</param>
+        /// <param name="cData">[in] A ULONG32 that indicates the size of the data array.</param>
+        /// <param name="data">[in] The attribute value.</param>
         public void SetSymAttribute(uint parent, string name, uint cData, IntPtr data)
         {
             HRESULT hr;
@@ -278,6 +524,14 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Defines a custom attribute based upon its name. These attributes are held in the symbol store, unlike metadata custom attributes.
+        /// </summary>
+        /// <param name="parent">[in] The metadata token for which the attribute is being defined.</param>
+        /// <param name="name">[in] A pointer to a WCHAR that contains the attribute name.</param>
+        /// <param name="cData">[in] A ULONG32 that indicates the size of the data array.</param>
+        /// <param name="data">[in] The attribute value.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TrySetSymAttribute(uint parent, string name, uint cData, IntPtr data)
         {
             /*HRESULT SetSymAttribute([In] uint parent, [In] string name, [In] uint cData, [In] IntPtr data);*/
@@ -287,6 +541,10 @@ namespace ManagedCorDebug
         #endregion
         #region OpenNamespace
 
+        /// <summary>
+        /// Opens a new namespace. Call this method before defining methods or variables that occupy a namespace. Namespaces can be nested.
+        /// </summary>
+        /// <param name="name">[in] A pointer to the name of the new namespace.</param>
         public void OpenNamespace(string name)
         {
             HRESULT hr;
@@ -295,6 +553,11 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Opens a new namespace. Call this method before defining methods or variables that occupy a namespace. Namespaces can be nested.
+        /// </summary>
+        /// <param name="name">[in] A pointer to the name of the new namespace.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryOpenNamespace(string name)
         {
             /*HRESULT OpenNamespace([In] string name);*/
@@ -304,6 +567,9 @@ namespace ManagedCorDebug
         #endregion
         #region CloseNamespace
 
+        /// <summary>
+        /// Closes the most recently opened namespace.
+        /// </summary>
         public void CloseNamespace()
         {
             HRESULT hr;
@@ -312,6 +578,10 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Closes the most recently opened namespace.
+        /// </summary>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryCloseNamespace()
         {
             /*HRESULT CloseNamespace();*/
@@ -321,6 +591,11 @@ namespace ManagedCorDebug
         #endregion
         #region UsingNamespace
 
+        /// <summary>
+        /// Specifies that the given fully qualified namespace name is being used within the currently open lexical scope. The namespace will be used within all scopes that inherit from the currently open scope.<para/>
+        /// Closing the current scope will also stop the use of the namespace.
+        /// </summary>
+        /// <param name="fullName">[in] A pointer to the fully qualified name of the namespace.</param>
         public void UsingNamespace(string fullName)
         {
             HRESULT hr;
@@ -329,6 +604,12 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Specifies that the given fully qualified namespace name is being used within the currently open lexical scope. The namespace will be used within all scopes that inherit from the currently open scope.<para/>
+        /// Closing the current scope will also stop the use of the namespace.
+        /// </summary>
+        /// <param name="fullName">[in] A pointer to the fully qualified name of the namespace.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryUsingNamespace(string fullName)
         {
             /*HRESULT UsingNamespace([In] string fullName);*/
@@ -338,6 +619,15 @@ namespace ManagedCorDebug
         #endregion
         #region SetMethodSourceRange
 
+        /// <summary>
+        /// Specifies the true start and end of a method within a source file. Use this method to specify the extent of a method independently of the sequence points that exist within the method.
+        /// </summary>
+        /// <param name="startDoc">[in] A pointer to the document containing the starting position.</param>
+        /// <param name="startLine">[in] The starting line number.</param>
+        /// <param name="startColumn">[in] The starting column.</param>
+        /// <param name="endDoc">[in] A pointer to the document containing the ending position.</param>
+        /// <param name="endLine">[in] The ending line number.</param>
+        /// <param name="endColumn">[in] The ending column number.</param>
         public void SetMethodSourceRange(ISymUnmanagedDocumentWriter startDoc, uint startLine, uint startColumn, ISymUnmanagedDocumentWriter endDoc, uint endLine, uint endColumn)
         {
             HRESULT hr;
@@ -346,6 +636,16 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Specifies the true start and end of a method within a source file. Use this method to specify the extent of a method independently of the sequence points that exist within the method.
+        /// </summary>
+        /// <param name="startDoc">[in] A pointer to the document containing the starting position.</param>
+        /// <param name="startLine">[in] The starting line number.</param>
+        /// <param name="startColumn">[in] The starting column.</param>
+        /// <param name="endDoc">[in] A pointer to the document containing the ending position.</param>
+        /// <param name="endLine">[in] The ending line number.</param>
+        /// <param name="endColumn">[in] The ending column number.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TrySetMethodSourceRange(ISymUnmanagedDocumentWriter startDoc, uint startLine, uint startColumn, ISymUnmanagedDocumentWriter endDoc, uint endLine, uint endColumn)
         {
             /*HRESULT SetMethodSourceRange(
@@ -363,6 +663,16 @@ namespace ManagedCorDebug
         #endregion
         #region Initialize
 
+        /// <summary>
+        /// Sets the metadata emitter interface with which this writer will be associated, and sets the output file name to which the debugging symbols will be written.<para/>
+        /// This method can be called only once, and it must be called before any other writer methods. Some writers may require a file name.<para/>
+        /// However, you can always pass a file name to this method without any negative effect on writers that do not use the file name.
+        /// </summary>
+        /// <param name="emitter">[in] A pointer to the metadata emitter interface.</param>
+        /// <param name="filename">[in] The file name to which the debugging symbols are written. If a file name is specified for a writer that does not use file names, this parameter is ignored.</param>
+        /// <param name="pIStream">[in] If specified, the symbol writer will emit the symbols into the given <see cref="IStream"/> rather than to the file specified in the filename parameter.<para/>
+        /// The pIStream parameter is optional.</param>
+        /// <param name="fFullBuild">[in] true if this is a full rebuild; false if this is an incremental compilation.</param>
         public void Initialize(object emitter, string filename, IStream pIStream, int fFullBuild)
         {
             HRESULT hr;
@@ -371,6 +681,17 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Sets the metadata emitter interface with which this writer will be associated, and sets the output file name to which the debugging symbols will be written.<para/>
+        /// This method can be called only once, and it must be called before any other writer methods. Some writers may require a file name.<para/>
+        /// However, you can always pass a file name to this method without any negative effect on writers that do not use the file name.
+        /// </summary>
+        /// <param name="emitter">[in] A pointer to the metadata emitter interface.</param>
+        /// <param name="filename">[in] The file name to which the debugging symbols are written. If a file name is specified for a writer that does not use file names, this parameter is ignored.</param>
+        /// <param name="pIStream">[in] If specified, the symbol writer will emit the symbols into the given <see cref="IStream"/> rather than to the file specified in the filename parameter.<para/>
+        /// The pIStream parameter is optional.</param>
+        /// <param name="fFullBuild">[in] true if this is a full rebuild; false if this is an incremental compilation.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryInitialize(object emitter, string filename, IStream pIStream, int fFullBuild)
         {
             /*HRESULT Initialize([MarshalAs(UnmanagedType.IUnknown), In]
@@ -382,6 +703,13 @@ namespace ManagedCorDebug
         #endregion
         #region GetDebugInfo
 
+        /// <summary>
+        /// Returns the information necessary for a compiler to write the debug directory entry in the portable executable (PE) file header.<para/>
+        /// The symbol writer fills out all fields except for TimeDateStamp and PointerToRawData. (The compiler is responsible for setting these two fields appropriately.) A compiler should call this method, emit the data blob to the PE file, set the PointerToRawData field in the IMAGE_DEBUG_DIRECTORY to point to the emitted data, and write the IMAGE_DEBUG_DIRECTORY to the PE file.<para/>
+        /// The compiler should also set the TimeDateStamp field to equal the TimeDateStamp of the PE file being generated.
+        /// </summary>
+        /// <param name="cData">[in] A DWORD that contains the size of the debug data.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetDebugInfoResult GetDebugInfo(uint cData)
         {
             HRESULT hr;
@@ -393,6 +721,14 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Returns the information necessary for a compiler to write the debug directory entry in the portable executable (PE) file header.<para/>
+        /// The symbol writer fills out all fields except for TimeDateStamp and PointerToRawData. (The compiler is responsible for setting these two fields appropriately.) A compiler should call this method, emit the data blob to the PE file, set the PointerToRawData field in the IMAGE_DEBUG_DIRECTORY to point to the emitted data, and write the IMAGE_DEBUG_DIRECTORY to the PE file.<para/>
+        /// The compiler should also set the TimeDateStamp field to equal the TimeDateStamp of the PE file being generated.
+        /// </summary>
+        /// <param name="cData">[in] A DWORD that contains the size of the debug data.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetDebugInfo(uint cData, out GetDebugInfoResult result)
         {
             /*HRESULT GetDebugInfo([In, Out]
@@ -413,6 +749,18 @@ namespace ManagedCorDebug
         #endregion
         #region DefineSequencePoints
 
+        /// <summary>
+        /// Defines a group of sequence points within the current method. Each starting line and starting column define the start of a statement within a method.<para/>
+        /// Each ending line and ending column define the end of a statement within a method. The arrays should be sorted in increasing order of offsets.<para/>
+        /// The offset is always measured from the start of the method, in bytes.
+        /// </summary>
+        /// <param name="document">[in] The document object for which the sequence points are being defined.</param>
+        /// <param name="spCount">[in] A ULONG32 that indicates the size of each of the offsets, lines, columns, endLines, and endColumns buffers.</param>
+        /// <param name="offsets">[in] The offset of the sequence points measured from the beginning of the method.</param>
+        /// <param name="lines">[in] The starting line numbers of the sequence points.</param>
+        /// <param name="columns">[in] The starting column numbers of the sequence points.</param>
+        /// <param name="endLines">[in] The ending line numbers of the sequence points. This parameter is optional.</param>
+        /// <param name="endColumns">[in] The ending column numbers of the sequence points. This parameter is optional.</param>
         public void DefineSequencePoints(ISymUnmanagedDocumentWriter document, uint spCount, uint offsets, uint lines, uint columns, uint endLines, uint endColumns)
         {
             HRESULT hr;
@@ -421,6 +769,19 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Defines a group of sequence points within the current method. Each starting line and starting column define the start of a statement within a method.<para/>
+        /// Each ending line and ending column define the end of a statement within a method. The arrays should be sorted in increasing order of offsets.<para/>
+        /// The offset is always measured from the start of the method, in bytes.
+        /// </summary>
+        /// <param name="document">[in] The document object for which the sequence points are being defined.</param>
+        /// <param name="spCount">[in] A ULONG32 that indicates the size of each of the offsets, lines, columns, endLines, and endColumns buffers.</param>
+        /// <param name="offsets">[in] The offset of the sequence points measured from the beginning of the method.</param>
+        /// <param name="lines">[in] The starting line numbers of the sequence points.</param>
+        /// <param name="columns">[in] The starting column numbers of the sequence points.</param>
+        /// <param name="endLines">[in] The ending line numbers of the sequence points. This parameter is optional.</param>
+        /// <param name="endColumns">[in] The ending column numbers of the sequence points. This parameter is optional.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryDefineSequencePoints(ISymUnmanagedDocumentWriter document, uint spCount, uint offsets, uint lines, uint columns, uint endLines, uint endColumns)
         {
             /*HRESULT DefineSequencePoints(
@@ -438,6 +799,11 @@ namespace ManagedCorDebug
         #endregion
         #region RemapToken
 
+        /// <summary>
+        /// Notifies the symbol writer that a metadata token has been remapped as the metadata was emitted. If the symbol writer has stored the old token within the symbol store, it must either update the stored token with the new value, or it must save the map for the corresponding symbol reader to remap during the read phase.
+        /// </summary>
+        /// <param name="oldToken">[in] The metadata token that was remapped.</param>
+        /// <param name="newToken">[in] The new metadata token to which oldToken was remapped.</param>
         public void RemapToken(uint oldToken, uint newToken)
         {
             HRESULT hr;
@@ -446,6 +812,12 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Notifies the symbol writer that a metadata token has been remapped as the metadata was emitted. If the symbol writer has stored the old token within the symbol store, it must either update the stored token with the new value, or it must save the map for the corresponding symbol reader to remap during the read phase.
+        /// </summary>
+        /// <param name="oldToken">[in] The metadata token that was remapped.</param>
+        /// <param name="newToken">[in] The new metadata token to which oldToken was remapped.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryRemapToken(uint oldToken, uint newToken)
         {
             /*HRESULT RemapToken([In] uint oldToken, [In] uint newToken);*/
@@ -455,6 +827,16 @@ namespace ManagedCorDebug
         #endregion
         #region Initialize2
 
+        /// <summary>
+        /// Sets the metadata emitter interface with which this writer will be associated, and sets the output file name to which the debugging symbols will be written.<para/>
+        /// This method also lets you set the final location of the program database (PDB) file.
+        /// </summary>
+        /// <param name="emitter">[in] A pointer to the metadata emitter interface.</param>
+        /// <param name="tempfilename">[in] A pointer to a WCHAR that contains the file name to which the debugging symbols are written. If a file name is specified for a writer that does not use file names, this parameter is ignored.</param>
+        /// <param name="pIStream">[in] If specified, the symbol writer emits the symbols into the given <see cref="IStream"/> rather than to the file specified in the filename parameter.<para/>
+        /// The pIStream parameter is optional.</param>
+        /// <param name="fFullBuild">[in] true if this is a full rebuild; false if this is an incremental compilation.</param>
+        /// <param name="finalfilename">[in] A pointer to a WCHAR that is the path string to the final location of the PDB file.</param>
         public void Initialize2(object emitter, string tempfilename, IStream pIStream, int fFullBuild, string finalfilename)
         {
             HRESULT hr;
@@ -463,6 +845,17 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Sets the metadata emitter interface with which this writer will be associated, and sets the output file name to which the debugging symbols will be written.<para/>
+        /// This method also lets you set the final location of the program database (PDB) file.
+        /// </summary>
+        /// <param name="emitter">[in] A pointer to the metadata emitter interface.</param>
+        /// <param name="tempfilename">[in] A pointer to a WCHAR that contains the file name to which the debugging symbols are written. If a file name is specified for a writer that does not use file names, this parameter is ignored.</param>
+        /// <param name="pIStream">[in] If specified, the symbol writer emits the symbols into the given <see cref="IStream"/> rather than to the file specified in the filename parameter.<para/>
+        /// The pIStream parameter is optional.</param>
+        /// <param name="fFullBuild">[in] true if this is a full rebuild; false if this is an incremental compilation.</param>
+        /// <param name="finalfilename">[in] A pointer to a WCHAR that is the path string to the final location of the PDB file.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryInitialize2(object emitter, string tempfilename, IStream pIStream, int fFullBuild, string finalfilename)
         {
             /*HRESULT Initialize2(
@@ -479,6 +872,13 @@ namespace ManagedCorDebug
         #endregion
         #region DefineConstant
 
+        /// <summary>
+        /// Defines a name for a constant value.
+        /// </summary>
+        /// <param name="name">[in] A pointer to a WCHAR that defines the constant name.</param>
+        /// <param name="value">[in] The value of the constant.</param>
+        /// <param name="cSig">[in] The size of the signature array.</param>
+        /// <param name="signature">[in] The type signature for the constant.</param>
         public void DefineConstant(string name, object value, uint cSig, IntPtr signature)
         {
             HRESULT hr;
@@ -487,6 +887,14 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Defines a name for a constant value.
+        /// </summary>
+        /// <param name="name">[in] A pointer to a WCHAR that defines the constant name.</param>
+        /// <param name="value">[in] The value of the constant.</param>
+        /// <param name="cSig">[in] The size of the signature array.</param>
+        /// <param name="signature">[in] The type signature for the constant.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryDefineConstant(string name, object value, uint cSig, IntPtr signature)
         {
             /*HRESULT DefineConstant([In] string name, [MarshalAs(UnmanagedType.Struct), In] object value, [In] uint cSig,
@@ -497,6 +905,10 @@ namespace ManagedCorDebug
         #endregion
         #region Abort
 
+        /// <summary>
+        /// Closes the symbol writer without committing the symbols to the symbol store. After this call, the symbol writer becomes invalid for further updates.<para/>
+        /// To commit the symbols and close the symbol writer, use the <see cref="Close"/> method instead.
+        /// </summary>
         public void Abort()
         {
             HRESULT hr;
@@ -505,6 +917,11 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Closes the symbol writer without committing the symbols to the symbol store. After this call, the symbol writer becomes invalid for further updates.<para/>
+        /// To commit the symbols and close the symbol writer, use the <see cref="Close"/> method instead.
+        /// </summary>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryAbort()
         {
             /*HRESULT Abort();*/
@@ -519,6 +936,21 @@ namespace ManagedCorDebug
 
         #region DefineLocalVariable2
 
+        /// <summary>
+        /// Defines a single variable in the current lexical scope. This method can be called multiple times for a variable of the same name that has multiple homes throughout a scope.<para/>
+        /// In this case, however, the values of the startOffset and endOffset parameters must not overlap.
+        /// </summary>
+        /// <param name="name">[in] The local variable name.</param>
+        /// <param name="attributes">[in] The local variable attributes.</param>
+        /// <param name="sigToken">[in] The metadata token of the signature.</param>
+        /// <param name="addrKind">[in] The address type.</param>
+        /// <param name="addr1">[in] The first address for the parameter specification.</param>
+        /// <param name="addr2">[in] The second address for the parameter specification.</param>
+        /// <param name="addr3">[in] The third address for the parameter specification.</param>
+        /// <param name="startOffset">[in] The start offset for the variable. This parameter is optional. If it is 0, this parameter is ignored and the variable is defined throughout the entire scope.<para/>
+        /// If it is a nonzero value, the variable falls within the offsets of the current scope.</param>
+        /// <param name="endOffset">[in] The end offset for the variable. This parameter is optional. If it is 0, this parameter is ignored and the variable is defined throughout the entire scope.<para/>
+        /// If it is a nonzero value, the variable falls within the offsets of the current scope.</param>
         public void DefineLocalVariable2(string name, uint attributes, uint sigToken, uint addrKind, uint addr1, uint addr2, uint addr3, uint startOffset, uint endOffset)
         {
             HRESULT hr;
@@ -527,6 +959,22 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Defines a single variable in the current lexical scope. This method can be called multiple times for a variable of the same name that has multiple homes throughout a scope.<para/>
+        /// In this case, however, the values of the startOffset and endOffset parameters must not overlap.
+        /// </summary>
+        /// <param name="name">[in] The local variable name.</param>
+        /// <param name="attributes">[in] The local variable attributes.</param>
+        /// <param name="sigToken">[in] The metadata token of the signature.</param>
+        /// <param name="addrKind">[in] The address type.</param>
+        /// <param name="addr1">[in] The first address for the parameter specification.</param>
+        /// <param name="addr2">[in] The second address for the parameter specification.</param>
+        /// <param name="addr3">[in] The third address for the parameter specification.</param>
+        /// <param name="startOffset">[in] The start offset for the variable. This parameter is optional. If it is 0, this parameter is ignored and the variable is defined throughout the entire scope.<para/>
+        /// If it is a nonzero value, the variable falls within the offsets of the current scope.</param>
+        /// <param name="endOffset">[in] The end offset for the variable. This parameter is optional. If it is 0, this parameter is ignored and the variable is defined throughout the entire scope.<para/>
+        /// If it is a nonzero value, the variable falls within the offsets of the current scope.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryDefineLocalVariable2(string name, uint attributes, uint sigToken, uint addrKind, uint addr1, uint addr2, uint addr3, uint startOffset, uint endOffset)
         {
             /*HRESULT DefineLocalVariable2(
@@ -545,6 +993,16 @@ namespace ManagedCorDebug
         #endregion
         #region DefineGlobalVariable2
 
+        /// <summary>
+        /// Defines a single global variable.
+        /// </summary>
+        /// <param name="name">[in] The global variable name.</param>
+        /// <param name="attributes">[in] The global variable attributes.</param>
+        /// <param name="sigToken">[in] The metadata token of the signature.</param>
+        /// <param name="addrKind">[in] The address type.</param>
+        /// <param name="addr1">[in] The first address for the parameter specification.</param>
+        /// <param name="addr2">[in] The second address for the parameter specification.</param>
+        /// <param name="addr3">[in] The third address for the parameter specification.</param>
         public void DefineGlobalVariable2(string name, uint attributes, uint sigToken, uint addrKind, uint addr1, uint addr2, uint addr3)
         {
             HRESULT hr;
@@ -553,6 +1011,17 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Defines a single global variable.
+        /// </summary>
+        /// <param name="name">[in] The global variable name.</param>
+        /// <param name="attributes">[in] The global variable attributes.</param>
+        /// <param name="sigToken">[in] The metadata token of the signature.</param>
+        /// <param name="addrKind">[in] The address type.</param>
+        /// <param name="addr1">[in] The first address for the parameter specification.</param>
+        /// <param name="addr2">[in] The second address for the parameter specification.</param>
+        /// <param name="addr3">[in] The third address for the parameter specification.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryDefineGlobalVariable2(string name, uint attributes, uint sigToken, uint addrKind, uint addr1, uint addr2, uint addr3)
         {
             /*HRESULT DefineGlobalVariable2(
@@ -569,6 +1038,12 @@ namespace ManagedCorDebug
         #endregion
         #region DefineConstant2
 
+        /// <summary>
+        /// Defines a name for a constant value.
+        /// </summary>
+        /// <param name="name">[in] The constant name.</param>
+        /// <param name="value">[in] The value of the constant.</param>
+        /// <param name="sigToken">[in] The metadata token of the constant.</param>
         public void DefineConstant2(string name, object value, uint sigToken)
         {
             HRESULT hr;
@@ -577,6 +1052,13 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Defines a name for a constant value.
+        /// </summary>
+        /// <param name="name">[in] The constant name.</param>
+        /// <param name="value">[in] The value of the constant.</param>
+        /// <param name="sigToken">[in] The metadata token of the constant.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryDefineConstant2(string name, object value, uint sigToken)
         {
             /*HRESULT DefineConstant2([In] string name, [MarshalAs(UnmanagedType.Struct), In] object value,
@@ -592,6 +1074,12 @@ namespace ManagedCorDebug
 
         #region OpenMethod2
 
+        /// <summary>
+        /// Opens a method and provides its real section offset in the image.
+        /// </summary>
+        /// <param name="method">[in] The metadata token for the method to be opened.</param>
+        /// <param name="isect">[in] The section offset in the image.</param>
+        /// <param name="offset">[in] The offset in the image.</param>
         public void OpenMethod2(uint method, uint isect, uint offset)
         {
             HRESULT hr;
@@ -600,6 +1088,13 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Opens a method and provides its real section offset in the image.
+        /// </summary>
+        /// <param name="method">[in] The metadata token for the method to be opened.</param>
+        /// <param name="isect">[in] The section offset in the image.</param>
+        /// <param name="offset">[in] The offset in the image.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryOpenMethod2(uint method, uint isect, uint offset)
         {
             /*HRESULT OpenMethod2([In] uint method, [In] uint isect, [In] uint offset);*/
@@ -609,6 +1104,9 @@ namespace ManagedCorDebug
         #endregion
         #region Commit
 
+        /// <summary>
+        /// Commits the changes written so far to the stream.
+        /// </summary>
         public void Commit()
         {
             HRESULT hr;
@@ -617,6 +1115,10 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Commits the changes written so far to the stream.
+        /// </summary>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryCommit()
         {
             /*HRESULT Commit();*/
@@ -631,6 +1133,10 @@ namespace ManagedCorDebug
 
         #region GetDebugInfoWithPadding
 
+        /// <summary>
+        /// Functions the same as <see cref="GetDebugInfo"/> except that the path string is padded with zeros following the terminating null character to make the string data a fixed size of MAX_PATH.<para/>
+        /// Padding is only given if the path string length itself is less than MAX_PATH. This makes it easier to write tools that difference PE files.
+        /// </summary>
         public GetDebugInfoWithPaddingResult GetDebugInfoWithPadding(uint cData)
         {
             HRESULT hr;
@@ -642,6 +1148,11 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Functions the same as <see cref="GetDebugInfo"/> except that the path string is padded with zeros following the terminating null character to make the string data a fixed size of MAX_PATH.<para/>
+        /// Padding is only given if the path string length itself is less than MAX_PATH. This makes it easier to write tools that difference PE files.
+        /// </summary>
+        /// <returns>Returns <see cref="HRESULT"/>.</returns>
         public HRESULT TryGetDebugInfoWithPadding(uint cData, out GetDebugInfoWithPaddingResult result)
         {
             /*HRESULT GetDebugInfoWithPadding(
@@ -670,6 +1181,9 @@ namespace ManagedCorDebug
 
         #region OpenMapTokensToSourceSpans
 
+        /// <summary>
+        /// Open a special custom data section to emit token-to-source span mapping information into. Opening this section when a method is already open, or vice versa, is an error.
+        /// </summary>
         public void OpenMapTokensToSourceSpans()
         {
             HRESULT hr;
@@ -678,6 +1192,10 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Open a special custom data section to emit token-to-source span mapping information into. Opening this section when a method is already open, or vice versa, is an error.
+        /// </summary>
+        /// <returns>Returns <see cref="HRESULT"/>.</returns>
         public HRESULT TryOpenMapTokensToSourceSpans()
         {
             /*HRESULT OpenMapTokensToSourceSpans();*/
@@ -687,6 +1205,9 @@ namespace ManagedCorDebug
         #endregion
         #region CloseMapTokensToSourceSpans
 
+        /// <summary>
+        /// Close the special custom data section for token-to-source span mapping information. After it is closed, no more mapping information can be added.
+        /// </summary>
         public void CloseMapTokensToSourceSpans()
         {
             HRESULT hr;
@@ -695,6 +1216,10 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Close the special custom data section for token-to-source span mapping information. After it is closed, no more mapping information can be added.
+        /// </summary>
+        /// <returns>Returns <see cref="HRESULT"/>.</returns>
         public HRESULT TryCloseMapTokensToSourceSpans()
         {
             /*HRESULT CloseMapTokensToSourceSpans();*/
@@ -704,6 +1229,9 @@ namespace ManagedCorDebug
         #endregion
         #region MapTokenToSourceSpan
 
+        /// <summary>
+        /// Maps the given metadata token to the given source line span in the specified source file. Must be called between calls to <see cref="OpenMapTokensToSourceSpans"/> and <see cref="CloseMapTokensToSourceSpans"/>.
+        /// </summary>
         public void MapTokenToSourceSpan(uint token, ISymUnmanagedDocumentWriter document, uint line, uint column, uint endLine, uint endColumn)
         {
             HRESULT hr;
@@ -712,6 +1240,10 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Maps the given metadata token to the given source line span in the specified source file. Must be called between calls to <see cref="OpenMapTokensToSourceSpans"/> and <see cref="CloseMapTokensToSourceSpans"/>.
+        /// </summary>
+        /// <returns>Returns <see cref="HRESULT"/>.</returns>
         public HRESULT TryMapTokenToSourceSpan(uint token, ISymUnmanagedDocumentWriter document, uint line, uint column, uint endLine, uint endColumn)
         {
             /*HRESULT MapTokenToSourceSpan(

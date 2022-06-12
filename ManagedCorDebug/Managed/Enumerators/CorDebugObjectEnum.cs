@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Implements <see cref="ICorDebugEnum"/> methods, and enumerates arrays of objects by their relative virtual addresses (RVAs).
+    /// </summary>
     public class CorDebugObjectEnum : IEnumerable<CORDB_ADDRESS>, IEnumerator<CORDB_ADDRESS>
     {
         private ICorDebugObjectEnum rawEnumerator;

@@ -3,6 +3,15 @@ using System.Collections.Generic;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Provides an enumerator for objects that will be garbage-collected.
+    /// </summary>
+    /// <remarks>
+    /// The <see cref="ICorDebugGCReferenceEnum"/> interface implements the "ICorDebugEnum" interface. An <see cref="ICorDebugGCReferenceEnum"/> instance
+    /// is populated with <see cref="COR_GC_REFERENCE"/> instances by calling the <see cref="CorDebugProcess.EnumerateGCReferences"/>
+    /// method. <see cref="COR_GC_REFERENCE"/> objects can be enumerated by calling the <see cref="MoveNext"/> method. The
+    /// <see cref="COR_GC_REFERENCE"/> objects in the collection populated by this method represent three kinds of objects:
+    /// </remarks>
     public class CorDebugGCReferenceEnum : IEnumerable<COR_GC_REFERENCE>, IEnumerator<COR_GC_REFERENCE>
     {
         private ICorDebugGCReferenceEnum rawEnumerator;

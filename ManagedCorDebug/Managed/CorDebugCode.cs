@@ -3,6 +3,14 @@ using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Represents a segment of either Microsoft intermediate language (MSIL) code or native code.
+    /// </summary>
+    /// <remarks>
+    /// <see cref="ICorDebugCode"/> can represent either MSIL or native code. An "ICorDebugFunction" object that represents MSIL code
+    /// can have either zero or one <see cref="ICorDebugCode"/> objects associated with it. An "ICorDebugFunction" object that represents
+    /// native code can have any number of <see cref="ICorDebugCode"/> objects associated with it.
+    /// </remarks>
     public class CorDebugCode : ComObject<ICorDebugCode>
     {
         public CorDebugCode(ICorDebugCode raw) : base(raw)
@@ -12,6 +20,9 @@ namespace ManagedCorDebug
         #region ICorDebugCode
         #region IsIL
 
+        /// <summary>
+        /// Gets a value that indicates whether this "ICorDebugCode" represents code that was compiled in Microsoft intermediate language (MSIL).
+        /// </summary>
         public int IsIL
         {
             get
@@ -26,6 +37,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets a value that indicates whether this "ICorDebugCode" represents code that was compiled in Microsoft intermediate language (MSIL).
+        /// </summary>
+        /// <param name="pbIL">[out] true if this <see cref="ICorDebugCode"/> represents code that was compiled in MSIL; otherwise, false.</param>
         public HRESULT TryIsIL(out int pbIL)
         {
             /*HRESULT IsIL(out int pbIL);*/
@@ -35,6 +50,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetFunction
 
+        /// <summary>
+        /// Gets the "ICorDebugFunction" associated with this "ICorDebugCode".
+        /// </summary>
         public CorDebugFunction Function
         {
             get
@@ -49,6 +67,13 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the "ICorDebugFunction" associated with this "ICorDebugCode".
+        /// </summary>
+        /// <param name="ppFunctionResult">[out] A pointer to the address of the function.</param>
+        /// <remarks>
+        /// <see cref="ICorDebugCode"/> and <see cref="ICorDebugFunction"/> maintain a one-to-one relationship.
+        /// </remarks>
         public HRESULT TryGetFunction(out CorDebugFunction ppFunctionResult)
         {
             /*HRESULT GetFunction([MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
@@ -66,6 +91,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetAddress
 
+        /// <summary>
+        /// Gets the relative virtual address (RVA) of the code segment that this "ICorDebugCode" interface represents.
+        /// </summary>
         public ulong Address
         {
             get
@@ -80,6 +108,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the relative virtual address (RVA) of the code segment that this "ICorDebugCode" interface represents.
+        /// </summary>
+        /// <param name="pStart">[out] A pointer to the RVA of the code segment.</param>
         public HRESULT TryGetAddress(out ulong pStart)
         {
             /*HRESULT GetAddress(out ulong pStart);*/
@@ -89,6 +121,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetSize
 
+        /// <summary>
+        /// Gets the size, in bytes, of the binary code represented by this "ICorDebugCode".
+        /// </summary>
         public uint Size
         {
             get
@@ -103,6 +138,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the size, in bytes, of the binary code represented by this "ICorDebugCode".
+        /// </summary>
+        /// <param name="pcBytes">[out] A pointer to the size, in bytes, of the binary code that this <see cref="ICorDebugCode"/> object represents.</param>
         public HRESULT TryGetSize(out uint pcBytes)
         {
             /*HRESULT GetSize(out uint pcBytes);*/
@@ -112,6 +151,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetVersionNumber
 
+        /// <summary>
+        /// Gets the one-based number that identifies the version of the code that this "ICorDebugCode" represents.
+        /// </summary>
         public uint VersionNumber
         {
             get
@@ -126,6 +168,13 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the one-based number that identifies the version of the code that this "ICorDebugCode" represents.
+        /// </summary>
+        /// <param name="nVersion">[out] A pointer to the version number of the code.</param>
+        /// <remarks>
+        /// The version number is incremented each time an edit-and-continue (EnC) operation is performed on the code.
+        /// </remarks>
         public HRESULT TryGetVersionNumber(out uint nVersion)
         {
             /*HRESULT GetVersionNumber(out uint nVersion);*/
@@ -135,6 +184,16 @@ namespace ManagedCorDebug
         #endregion
         #region CreateBreakpoint
 
+        /// <summary>
+        /// Creates a breakpoint in this code segment at the specified offset.
+        /// </summary>
+        /// <param name="offset">[in] The offset at which to create the breakpoint.</param>
+        /// <returns>[out] A pointer to the address of an "ICorDebugFunctionBreakpoint" object that represents the breakpoint.</returns>
+        /// <remarks>
+        /// Before the breakpoint is active, it must be added to the process object. If this code is Microsoft intermediate
+        /// language (MSIL) code, and there is a just-in-time (JIT)-compiled, native version of the code, the breakpoint will
+        /// be applied in the JIT-compiled code as well. (The same is true if the code is JIT-compiled later.)
+        /// </remarks>
         public CorDebugFunctionBreakpoint CreateBreakpoint(uint offset)
         {
             HRESULT hr;
@@ -146,6 +205,16 @@ namespace ManagedCorDebug
             return ppBreakpointResult;
         }
 
+        /// <summary>
+        /// Creates a breakpoint in this code segment at the specified offset.
+        /// </summary>
+        /// <param name="offset">[in] The offset at which to create the breakpoint.</param>
+        /// <param name="ppBreakpointResult">[out] A pointer to the address of an "ICorDebugFunctionBreakpoint" object that represents the breakpoint.</param>
+        /// <remarks>
+        /// Before the breakpoint is active, it must be added to the process object. If this code is Microsoft intermediate
+        /// language (MSIL) code, and there is a just-in-time (JIT)-compiled, native version of the code, the breakpoint will
+        /// be applied in the JIT-compiled code as well. (The same is true if the code is JIT-compiled later.)
+        /// </remarks>
         public HRESULT TryCreateBreakpoint(uint offset, out CorDebugFunctionBreakpoint ppBreakpointResult)
         {
             /*HRESULT CreateBreakpoint([In] uint offset,
@@ -164,6 +233,18 @@ namespace ManagedCorDebug
         #endregion
         #region GetCode
 
+        /// <summary>
+        /// Gets all the code for the specified function, formatted for disassembly. This method has been deprecated in the .NET Framework version 2.0.<para/>
+        /// Use <see cref="GetCodeChunks"/> instead.
+        /// </summary>
+        /// <param name="startOffset">[in] The offset of the beginning of the function.</param>
+        /// <param name="endOffset">[in] The offset of the end of the function.</param>
+        /// <param name="cBufferAlloc">[in] The size of the buffer array into which the code will be returned.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// If the function's code has been divided into multiple chunks, they are concatenated in order of increasing native
+        /// offset. Instruction boundaries are not checked.
+        /// </remarks>
         public GetCodeResult GetCode(uint startOffset, uint endOffset, uint cBufferAlloc)
         {
             HRESULT hr;
@@ -175,6 +256,18 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets all the code for the specified function, formatted for disassembly. This method has been deprecated in the .NET Framework version 2.0.<para/>
+        /// Use <see cref="GetCodeChunks"/> instead.
+        /// </summary>
+        /// <param name="startOffset">[in] The offset of the beginning of the function.</param>
+        /// <param name="endOffset">[in] The offset of the end of the function.</param>
+        /// <param name="cBufferAlloc">[in] The size of the buffer array into which the code will be returned.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <remarks>
+        /// If the function's code has been divided into multiple chunks, they are concatenated in order of increasing native
+        /// offset. Instruction boundaries are not checked.
+        /// </remarks>
         public HRESULT TryGetCode(uint startOffset, uint endOffset, uint cBufferAlloc, out GetCodeResult result)
         {
             /*HRESULT GetCode(
@@ -198,6 +291,15 @@ namespace ManagedCorDebug
         #endregion
         #region GetILToNativeMapping
 
+        /// <summary>
+        /// Gets an array of "COR_DEBUG_IL_TO_NATIVE_MAP" instances that represent mappings from Microsoft intermediate language (MSIL) offsets to native offsets.
+        /// </summary>
+        /// <param name="cMap">[in] The size of the map array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// The GetILToNativeMapping method returns meaningful results only if this "ICorDebugCode" instance represents native
+        /// code that was just-in-time (JIT) compiled from MSIL code.
+        /// </remarks>
         public GetILToNativeMappingResult GetILToNativeMapping(uint cMap)
         {
             HRESULT hr;
@@ -209,6 +311,15 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets an array of "COR_DEBUG_IL_TO_NATIVE_MAP" instances that represent mappings from Microsoft intermediate language (MSIL) offsets to native offsets.
+        /// </summary>
+        /// <param name="cMap">[in] The size of the map array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <remarks>
+        /// The GetILToNativeMapping method returns meaningful results only if this "ICorDebugCode" instance represents native
+        /// code that was just-in-time (JIT) compiled from MSIL code.
+        /// </remarks>
         public HRESULT TryGetILToNativeMapping(uint cMap, out GetILToNativeMappingResult result)
         {
             /*HRESULT GetILToNativeMapping([In] uint cMap, out uint pcMap, [MarshalAs(UnmanagedType.LPArray), Out]
@@ -228,6 +339,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetEnCRemapSequencePoints
 
+        /// <summary>
+        /// This method is not implemented in the current version of the .NET Framework.
+        /// </summary>
         public GetEnCRemapSequencePointsResult GetEnCRemapSequencePoints(uint cMap)
         {
             HRESULT hr;
@@ -239,6 +353,9 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// This method is not implemented in the current version of the .NET Framework.
+        /// </summary>
         public HRESULT TryGetEnCRemapSequencePoints(uint cMap, out GetEnCRemapSequencePointsResult result)
         {
             /*HRESULT GetEnCRemapSequencePoints(
@@ -265,6 +382,9 @@ namespace ManagedCorDebug
 
         #region GetCompilerFlags
 
+        /// <summary>
+        /// Gets the flags that specify the conditions under which this code object was either just-in-time (JIT) compiled or generated using the native image generator (Ngen.exe).
+        /// </summary>
         public CorDebugJITCompilerFlags CompilerFlags
         {
             get
@@ -279,6 +399,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the flags that specify the conditions under which this code object was either just-in-time (JIT) compiled or generated using the native image generator (Ngen.exe).
+        /// </summary>
+        /// <param name="pdwFlags">[out] A pointer to a value of the <see cref="CorDebugJITCompilerFlags"/> enumeration that specifies the behavior of the JIT compiler or the native image generator.</param>
         public HRESULT TryGetCompilerFlags(out CorDebugJITCompilerFlags pdwFlags)
         {
             /*HRESULT GetCompilerFlags(out CorDebugJITCompilerFlags pdwFlags);*/
@@ -288,6 +412,16 @@ namespace ManagedCorDebug
         #endregion
         #region GetCodeChunks
 
+        /// <summary>
+        /// Gets the chunks of code that this code object is composed of.
+        /// </summary>
+        /// <param name="cbufSize">[in] Size of the chunks array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// The code chunks will never overlap, and they will follow the order in which they would have been concatenated by
+        /// <see cref="GetCode"/>. A Microsoft intermediate language (MSIL) code object in the .NET Framework
+        /// version 2.0 will comprise a single code chunk.
+        /// </remarks>
         public GetCodeChunksResult GetCodeChunks(uint cbufSize)
         {
             HRESULT hr;
@@ -299,6 +433,16 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the chunks of code that this code object is composed of.
+        /// </summary>
+        /// <param name="cbufSize">[in] Size of the chunks array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <remarks>
+        /// The code chunks will never overlap, and they will follow the order in which they would have been concatenated by
+        /// <see cref="GetCode"/>. A Microsoft intermediate language (MSIL) code object in the .NET Framework
+        /// version 2.0 will comprise a single code chunk.
+        /// </remarks>
         public HRESULT TryGetCodeChunks(uint cbufSize, out GetCodeChunksResult result)
         {
             /*HRESULT GetCodeChunks([In] uint cbufSize, out uint pcnumChunks, [MarshalAs(UnmanagedType.LPArray), Out] CodeChunkInfo[] chunks);*/
@@ -322,6 +466,21 @@ namespace ManagedCorDebug
 
         #region GetReturnValueLiveOffset
 
+        /// <summary>
+        /// For a specified IL offset, gets the native offsets where a breakpoint should be placed so that the debugger can obtain the return value from a function.
+        /// </summary>
+        /// <param name="ilOffset">The IL offset. It must be a function call site or the function call will fail.</param>
+        /// <param name="bufferSize">The number of bytes available to store pOffsets.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// This method is used along with the <see cref="CorDebugILFrame.GetReturnValueForILOffset"/> method to get the
+        /// return value of a method that returns a reference type. Passing an IL offset to a function call site to this method
+        /// returns one or more native offsets. The debugger can then set breakpoints on these native offsets in the function.
+        /// When the debugger hits one of the breakpoints, you can then pass the same IL offset that you passed to this method
+        /// to the <see cref="CorDebugILFrame.GetReturnValueForILOffset"/> method to get the return value. The debugger should
+        /// then clear all the breakpoints that it set. The function returns the <see cref="HRESULT"/> values shown in the following table.
+        /// The <see cref="GetReturnValueLiveOffset"/> method is available only on x86-based and AMD64 systems.
+        /// </remarks>
         public GetReturnValueLiveOffsetResult GetReturnValueLiveOffset(uint ilOffset, uint bufferSize)
         {
             HRESULT hr;
@@ -333,6 +492,21 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// For a specified IL offset, gets the native offsets where a breakpoint should be placed so that the debugger can obtain the return value from a function.
+        /// </summary>
+        /// <param name="ilOffset">The IL offset. It must be a function call site or the function call will fail.</param>
+        /// <param name="bufferSize">The number of bytes available to store pOffsets.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <remarks>
+        /// This method is used along with the <see cref="CorDebugILFrame.GetReturnValueForILOffset"/> method to get the
+        /// return value of a method that returns a reference type. Passing an IL offset to a function call site to this method
+        /// returns one or more native offsets. The debugger can then set breakpoints on these native offsets in the function.
+        /// When the debugger hits one of the breakpoints, you can then pass the same IL offset that you passed to this method
+        /// to the <see cref="CorDebugILFrame.GetReturnValueForILOffset"/> method to get the return value. The debugger should
+        /// then clear all the breakpoints that it set. The function returns the <see cref="HRESULT"/> values shown in the following table.
+        /// The <see cref="GetReturnValueLiveOffset"/> method is available only on x86-based and AMD64 systems.
+        /// </remarks>
         public HRESULT TryGetReturnValueLiveOffset(uint ilOffset, uint bufferSize, out GetReturnValueLiveOffsetResult result)
         {
             /*HRESULT GetReturnValueLiveOffset(
@@ -360,6 +534,16 @@ namespace ManagedCorDebug
 
         #region EnumerateVariableHomes
 
+        /// <summary>
+        /// Gets an enumerator to the local variables and arguments in a function.
+        /// </summary>
+        /// <returns>A pointer to the address of an <see cref="ICorDebugVariableHomeEnum"/> interface object that is an enumerator for the local variables and arguments in a function.</returns>
+        /// <remarks>
+        /// The <see cref="ICorDebugVariableHomeEnum"/> interface object is a standard enumerator derived from the "ICorDebugEnum"
+        /// interface that allows you to enumerate <see cref="ICorDebugVariableHome"/> objects. The collection may include
+        /// multiple <see cref="ICorDebugVariableHome"/> objects for the same slot or argument index if they have different
+        /// homes at different points in the function.
+        /// </remarks>
         public CorDebugVariableHomeEnum EnumerateVariableHomes()
         {
             HRESULT hr;
@@ -371,6 +555,16 @@ namespace ManagedCorDebug
             return ppEnumResult;
         }
 
+        /// <summary>
+        /// Gets an enumerator to the local variables and arguments in a function.
+        /// </summary>
+        /// <param name="ppEnumResult">A pointer to the address of an <see cref="ICorDebugVariableHomeEnum"/> interface object that is an enumerator for the local variables and arguments in a function.</param>
+        /// <remarks>
+        /// The <see cref="ICorDebugVariableHomeEnum"/> interface object is a standard enumerator derived from the "ICorDebugEnum"
+        /// interface that allows you to enumerate <see cref="ICorDebugVariableHome"/> objects. The collection may include
+        /// multiple <see cref="ICorDebugVariableHome"/> objects for the same slot or argument index if they have different
+        /// homes at different points in the function.
+        /// </remarks>
         public HRESULT TryEnumerateVariableHomes(out CorDebugVariableHomeEnum ppEnumResult)
         {
             /*HRESULT EnumerateVariableHomes([MarshalAs(UnmanagedType.Interface)] out ICorDebugVariableHomeEnum ppEnum);*/

@@ -4,6 +4,9 @@ using System.Runtime.InteropServices.ComTypes;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// <see cref="ICorDebugEditAndContinueSnapshot"/> is obsolete. Do not use this interface.
+    /// </summary>
     public class CorDebugEditAndContinueSnapshot : ComObject<ICorDebugEditAndContinueSnapshot>
     {
         public CorDebugEditAndContinueSnapshot(ICorDebugEditAndContinueSnapshot raw) : base(raw)
@@ -13,6 +16,9 @@ namespace ManagedCorDebug
         #region ICorDebugEditAndContinueSnapshot
         #region GetMvid
 
+        /// <summary>
+        /// GetMvid is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public Guid Mvid
         {
@@ -28,6 +34,9 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// GetMvid is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public HRESULT TryGetMvid(out Guid pMvid)
         {
@@ -38,6 +47,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetRoDataRVA
 
+        /// <summary>
+        /// GetRoDataRVA is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public uint RoDataRVA
         {
@@ -53,6 +65,9 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// GetRoDataRVA is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public HRESULT TryGetRoDataRVA(out uint pRoDataRVA)
         {
@@ -63,6 +78,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetRwDataRVA
 
+        /// <summary>
+        /// GetRwDataRVA is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public uint RwDataRVA
         {
@@ -78,6 +96,9 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// GetRwDataRVA is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public HRESULT TryGetRwDataRVA(out uint pRwDataRVA)
         {
@@ -88,6 +109,9 @@ namespace ManagedCorDebug
         #endregion
         #region CopyMetaData
 
+        /// <summary>
+        /// CopyMetaData is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public Guid CopyMetaData(IStream pIStream)
         {
@@ -100,6 +124,9 @@ namespace ManagedCorDebug
             return pMvid;
         }
 
+        /// <summary>
+        /// CopyMetaData is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public HRESULT TryCopyMetaData(IStream pIStream, out Guid pMvid)
         {
@@ -111,6 +138,9 @@ namespace ManagedCorDebug
         #endregion
         #region SetPEBytes
 
+        /// <summary>
+        /// SetPEBytes is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public void SetPEBytes(IStream pIStream)
         {
@@ -120,6 +150,9 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// SetPEBytes is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public HRESULT TrySetPEBytes(IStream pIStream)
         {
@@ -131,6 +164,9 @@ namespace ManagedCorDebug
         #endregion
         #region SetILMap
 
+        /// <summary>
+        /// SetILMap is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public void SetILMap(uint mdFunction, uint cMapSize, COR_IL_MAP map)
         {
@@ -140,6 +176,9 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// SetILMap is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public HRESULT TrySetILMap(uint mdFunction, uint cMapSize, COR_IL_MAP map)
         {
@@ -150,6 +189,9 @@ namespace ManagedCorDebug
         #endregion
         #region SetPESymbolBytes
 
+        /// <summary>
+        /// SetPESymbolBytes is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public void SetPESymbolBytes(IStream pIStream)
         {
@@ -159,6 +201,9 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// SetPESymbolBytes is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public HRESULT TrySetPESymbolBytes(IStream pIStream)
         {

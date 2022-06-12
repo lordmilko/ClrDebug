@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Provides information for the Edit and Continue feature.
+    /// </summary>
     public class SymENCUnmanagedMethod : ComObject<ISymENCUnmanagedMethod>
     {
         public SymENCUnmanagedMethod(ISymENCUnmanagedMethod raw) : base(raw)
@@ -13,6 +16,9 @@ namespace ManagedCorDebug
         #region ISymENCUnmanagedMethod
         #region GetDocumentsForMethodCount
 
+        /// <summary>
+        /// Gets the number of documents that this method has lines in.
+        /// </summary>
         public uint DocumentsForMethodCount
         {
             get
@@ -27,6 +33,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the number of documents that this method has lines in.
+        /// </summary>
+        /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the size of the buffer required to contain the documents.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetDocumentsForMethodCount(out uint pRetVal)
         {
             /*HRESULT GetDocumentsForMethodCount(
@@ -37,6 +48,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetFileNameFromOffset
 
+        /// <summary>
+        /// Gets the file name for the line associated with an offset.
+        /// </summary>
+        /// <param name="dwOffset">[in] A ULONG32 that contains the offset.</param>
+        /// <returns>[out] The buffer that contains the file names.</returns>
         public string GetFileNameFromOffset(uint dwOffset)
         {
             HRESULT hr;
@@ -48,6 +64,12 @@ namespace ManagedCorDebug
             return szNameResult;
         }
 
+        /// <summary>
+        /// Gets the file name for the line associated with an offset.
+        /// </summary>
+        /// <param name="dwOffset">[in] A ULONG32 that contains the offset.</param>
+        /// <param name="szNameResult">[out] The buffer that contains the file names.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetFileNameFromOffset(uint dwOffset, out string szNameResult)
         {
             /*HRESULT GetFileNameFromOffset(
@@ -83,6 +105,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetLineFromOffset
 
+        /// <summary>
+        /// Gets the line information associated with an offset. If the offset parameter (dwOffset) is not a sequence point, this method gets the line information associated with the previous offset.
+        /// </summary>
+        /// <param name="dwOffset">[in] A ULONG32 that contains the offset.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetLineFromOffsetResult GetLineFromOffset(uint dwOffset)
         {
             HRESULT hr;
@@ -94,6 +121,12 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the line information associated with an offset. If the offset parameter (dwOffset) is not a sequence point, this method gets the line information associated with the previous offset.
+        /// </summary>
+        /// <param name="dwOffset">[in] A ULONG32 that contains the offset.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetLineFromOffset(uint dwOffset, out GetLineFromOffsetResult result)
         {
             /*HRESULT GetLineFromOffset(
@@ -121,6 +154,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetDocumentsForMethod
 
+        /// <summary>
+        /// Gets the documents that this method has lines in.
+        /// </summary>
+        /// <param name="cDocs">[in] The length of the buffer pointed to by pcDocs.</param>
+        /// <param name="documents">[in] The buffer that contains the documents.</param>
         public void GetDocumentsForMethod(uint cDocs, ISymUnmanagedDocument documents)
         {
             HRESULT hr;
@@ -129,6 +167,12 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Gets the documents that this method has lines in.
+        /// </summary>
+        /// <param name="cDocs">[in] The length of the buffer pointed to by pcDocs.</param>
+        /// <param name="documents">[in] The buffer that contains the documents.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
         public HRESULT TryGetDocumentsForMethod(uint cDocs, ISymUnmanagedDocument documents)
         {
             /*HRESULT GetDocumentsForMethod([In] uint cDocs, out uint pcDocs, [MarshalAs(UnmanagedType.Interface), In]
@@ -141,6 +185,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetSourceExtentInDocument
 
+        /// <summary>
+        /// Gets the smallest start line and largest end line for the method in a specific document.
+        /// </summary>
+        /// <param name="document">[in] A pointer to the document.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetSourceExtentInDocumentResult GetSourceExtentInDocument(ISymUnmanagedDocument document)
         {
             HRESULT hr;
@@ -152,6 +201,12 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the smallest start line and largest end line for the method in a specific document.
+        /// </summary>
+        /// <param name="document">[in] A pointer to the document.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetSourceExtentInDocument(ISymUnmanagedDocument document, out GetSourceExtentInDocumentResult result)
         {
             /*HRESULT GetSourceExtentInDocument(

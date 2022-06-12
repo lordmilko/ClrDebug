@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Provides access to unmanaged constants.
+    /// </summary>
     public class SymUnmanagedConstant : ComObject<ISymUnmanagedConstant>
     {
         public SymUnmanagedConstant(ISymUnmanagedConstant raw) : base(raw)
@@ -13,6 +16,9 @@ namespace ManagedCorDebug
         #region ISymUnmanagedConstant
         #region GetValue
 
+        /// <summary>
+        /// Gets the value of the constant.
+        /// </summary>
         public object Value
         {
             get
@@ -27,6 +33,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the value of the constant.
+        /// </summary>
+        /// <param name="pValue">[out] A pointer to a variable that receives the value.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetValue(ref object pValue)
         {
             /*HRESULT GetValue([MarshalAs(UnmanagedType.Struct)] ref object pValue);*/
@@ -36,6 +47,10 @@ namespace ManagedCorDebug
         #endregion
         #region GetName
 
+        /// <summary>
+        /// Gets the name of the constant.
+        /// </summary>
+        /// <returns>[out] The buffer that stores the name.</returns>
         public string GetName()
         {
             HRESULT hr;
@@ -47,6 +62,11 @@ namespace ManagedCorDebug
             return szNameResult;
         }
 
+        /// <summary>
+        /// Gets the name of the constant.
+        /// </summary>
+        /// <param name="szNameResult">[out] The buffer that stores the name.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetName(out string szNameResult)
         {
             /*HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);*/
@@ -78,6 +98,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetSignature
 
+        /// <summary>
+        /// Gets the signature of the constant.
+        /// </summary>
+        /// <param name="cSig">[in] The length of the buffer that the pcSig parameter points to.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetSignatureResult GetSignature(uint cSig)
         {
             HRESULT hr;
@@ -89,6 +114,12 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the signature of the constant.
+        /// </summary>
+        /// <param name="cSig">[in] The length of the buffer that the pcSig parameter points to.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetSignature(uint cSig, out GetSignatureResult result)
         {
             /*HRESULT GetSignature([In] uint cSig, out uint pcSig, [MarshalAs(UnmanagedType.LPArray), Out] byte[] sig);*/

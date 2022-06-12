@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Provides source server data for a module. Obtain this interface by calling QueryInterface on an object that implements the <see cref="ISymUnmanagedReader"/> interface.
+    /// </summary>
     public class SymUnmanagedSourceServerModule : ComObject<ISymUnmanagedSourceServerModule>
     {
         public SymUnmanagedSourceServerModule(ISymUnmanagedSourceServerModule raw) : base(raw)
@@ -12,6 +15,9 @@ namespace ManagedCorDebug
         #region ISymUnmanagedSourceServerModule
         #region GetSourceServerData
 
+        /// <summary>
+        /// Returns the source server data for the module. The caller must free resources by using CoTaskMemFree.
+        /// </summary>
         public GetSourceServerDataResult SourceServerData
         {
             get
@@ -26,6 +32,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Returns the source server data for the module. The caller must free resources by using CoTaskMemFree.
+        /// </summary>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetSourceServerData(out GetSourceServerDataResult result)
         {
             /*HRESULT GetSourceServerData(out uint pDataByteCount, [Out] IntPtr ppData);*/

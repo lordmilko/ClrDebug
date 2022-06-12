@@ -1,11 +1,20 @@
 using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Security;
 using System.Security.Permissions;
 using System.Text;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Provides methods for importing and manipulating existing metadata from a portable executable (PE) file or other source, such as a type library or a stand-alone, run-time metadata binary.
+    /// </summary>
+    /// <remarks>
+    /// The design of the <see cref="IMetaDataImport"/> interface is intended primarily to be used by tools and services that will be
+    /// importing type information (for example, development tools) or managing deployed components (for example, resolution/activation
+    /// services). The methods in <see cref="IMetaDataImport"/> fall into the following task categories:
+    /// </remarks>
     public class MetaDataImport : ComObject<IMetaDataImport>
     {
         public MetaDataImport(IMetaDataImport raw) : base(raw)
@@ -15,6 +24,9 @@ namespace ManagedCorDebug
         #region IMetaDataImport
         #region GetModuleFromScope
 
+        /// <summary>
+        /// Gets a metadata token for the module referenced in the current metadata scope.
+        /// </summary>
         public mdModule ModuleFromScope
         {
             get
@@ -29,6 +41,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets a metadata token for the module referenced in the current metadata scope.
+        /// </summary>
+        /// <param name="pmd">[out] A pointer to the token representing the module referenced in the current metadata scope.</param>
         public HRESULT TryGetModuleFromScope(out mdModule pmd)
         {
             /*HRESULT GetModuleFromScope([Out] out mdModule pmd);*/
@@ -38,6 +54,13 @@ namespace ManagedCorDebug
         #endregion
         #region CloseEnum
 
+        /// <summary>
+        /// Closes the enumerator that is identified by the specified handle.
+        /// </summary>
+        /// <param name="hEnum">[in] The handle for the enumerator to close.</param>
+        /// <remarks>
+        /// The handle specified by hEnum is obtained from a previous EnumName call (for example, <see cref="EnumTypeDefs"/>).
+        /// </remarks>
         public void CloseEnum(IntPtr hEnum)
         {
             /*void CloseEnum([In] IntPtr hEnum);*/
@@ -47,6 +70,14 @@ namespace ManagedCorDebug
         #endregion
         #region CountEnum
 
+        /// <summary>
+        /// Gets the number of elements in the enumeration that was retrieved by the specified enumerator.
+        /// </summary>
+        /// <param name="hEnum">[in] The handle for the enumerator.</param>
+        /// <returns>[out] The number of elements enumerated.</returns>
+        /// <remarks>
+        /// The handle specified by hEnum is obtained from a previous EnumName call (for example, <see cref="EnumTypeDefs"/>).
+        /// </remarks>
         public uint CountEnum(IntPtr hEnum)
         {
             HRESULT hr;
@@ -58,6 +89,14 @@ namespace ManagedCorDebug
             return pulCount;
         }
 
+        /// <summary>
+        /// Gets the number of elements in the enumeration that was retrieved by the specified enumerator.
+        /// </summary>
+        /// <param name="hEnum">[in] The handle for the enumerator.</param>
+        /// <param name="pulCount">[out] The number of elements enumerated.</param>
+        /// <remarks>
+        /// The handle specified by hEnum is obtained from a previous EnumName call (for example, <see cref="EnumTypeDefs"/>).
+        /// </remarks>
         public HRESULT TryCountEnum(IntPtr hEnum, out uint pulCount)
         {
             /*HRESULT CountEnum([In] IntPtr hEnum, [Out] out uint pulCount);*/
@@ -67,6 +106,11 @@ namespace ManagedCorDebug
         #endregion
         #region ResetEnum
 
+        /// <summary>
+        /// Resets the specified enumerator to the specified position.
+        /// </summary>
+        /// <param name="hEnum">[in] The enumerator to reset.</param>
+        /// <param name="ulPos">[in] The new position at which to place the enumerator.</param>
         public void ResetEnum(IntPtr hEnum, uint ulPos)
         {
             HRESULT hr;
@@ -75,6 +119,11 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Resets the specified enumerator to the specified position.
+        /// </summary>
+        /// <param name="hEnum">[in] The enumerator to reset.</param>
+        /// <param name="ulPos">[in] The new position at which to place the enumerator.</param>
         public HRESULT TryResetEnum(IntPtr hEnum, uint ulPos)
         {
             /*HRESULT ResetEnum([In] IntPtr hEnum, [In] uint ulPos);*/
@@ -84,6 +133,15 @@ namespace ManagedCorDebug
         #endregion
         #region EnumTypeDefs
 
+        /// <summary>
+        /// Enumerates TypeDef tokens representing all types within the current scope.
+        /// </summary>
+        /// <param name="cMax">[in] The maximum size of the rTypeDefs array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// The TypeDef token represents a type such as a class or an interface, as well as any type added via an extensibility
+        /// mechanism.
+        /// </remarks>
         public EnumTypeDefsResult EnumTypeDefs(uint cMax)
         {
             HRESULT hr;
@@ -95,6 +153,21 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Enumerates TypeDef tokens representing all types within the current scope.
+        /// </summary>
+        /// <param name="cMax">[in] The maximum size of the rTypeDefs array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                         |
+        /// | ------- | ------------------------------------------------------------------- |
+        /// | S_OK    | EnumTypeDefs returned successfully.                                 |
+        /// | S_FALSE | There are no tokens to enumerate. In that case, pcTypeDefs is zero. |
+        /// </returns>
+        /// <remarks>
+        /// The TypeDef token represents a type such as a class or an interface, as well as any type added via an extensibility
+        /// mechanism.
+        /// </remarks>
         public HRESULT TryEnumTypeDefs(uint cMax, out EnumTypeDefsResult result)
         {
             /*HRESULT EnumTypeDefs(
@@ -118,6 +191,17 @@ namespace ManagedCorDebug
         #endregion
         #region EnumInterfaceImpls
 
+        /// <summary>
+        /// Enumerates all interfaces implemented by the specified TypeDef.
+        /// </summary>
+        /// <param name="td">[in] The token of the TypeDef whose MethodDef tokens representing interface implementations are to be enumerated.</param>
+        /// <param name="cMax">[in] The maximum length of the rImpls array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// The enumeration returns a collection of <see cref="mdInterfaceImpl"/> tokens for each interface implemented by the specified
+        /// TypeDef. Interface tokens are returned in the order the interfaces were specified (through DefineTypeDef or SetTypeDefProps).
+        /// Properties of the returned <see cref="mdInterfaceImpl"/> tokens can be queried using <see cref="GetInterfaceImplProps"/>.
+        /// </remarks>
         public EnumInterfaceImplsResult EnumInterfaceImpls(mdTypeDef td, uint cMax)
         {
             HRESULT hr;
@@ -129,6 +213,23 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Enumerates all interfaces implemented by the specified TypeDef.
+        /// </summary>
+        /// <param name="td">[in] The token of the TypeDef whose MethodDef tokens representing interface implementations are to be enumerated.</param>
+        /// <param name="cMax">[in] The maximum length of the rImpls array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                                       |
+        /// | ------- | --------------------------------------------------------------------------------- |
+        /// | S_OK    | EnumInterfaceImpls returned successfully.                                         |
+        /// | S_FALSE | There are no MethodDef tokens to enumerate. In that case, pcImpls is set to zero. |
+        /// </returns>
+        /// <remarks>
+        /// The enumeration returns a collection of <see cref="mdInterfaceImpl"/> tokens for each interface implemented by the specified
+        /// TypeDef. Interface tokens are returned in the order the interfaces were specified (through DefineTypeDef or SetTypeDefProps).
+        /// Properties of the returned <see cref="mdInterfaceImpl"/> tokens can be queried using <see cref="GetInterfaceImplProps"/>.
+        /// </remarks>
         public HRESULT TryEnumInterfaceImpls(mdTypeDef td, uint cMax, out EnumInterfaceImplsResult result)
         {
             /*HRESULT EnumInterfaceImpls(
@@ -153,6 +254,14 @@ namespace ManagedCorDebug
         #endregion
         #region EnumTypeRefs
 
+        /// <summary>
+        /// Enumerates TypeRef tokens defined in the current metadata scope.
+        /// </summary>
+        /// <param name="cMax">[in] The maximum size of the rTypeRefs array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// A TypeRef token represents a reference to a type.
+        /// </remarks>
         public EnumTypeRefsResult EnumTypeRefs(uint cMax)
         {
             HRESULT hr;
@@ -164,6 +273,20 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Enumerates TypeRef tokens defined in the current metadata scope.
+        /// </summary>
+        /// <param name="cMax">[in] The maximum size of the rTypeRefs array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                         |
+        /// | ------- | ------------------------------------------------------------------- |
+        /// | S_OK    | EnumTypeRefs returned successfully.                                 |
+        /// | S_FALSE | There are no tokens to enumerate. In that case, pcTypeRefs is zero. |
+        /// </returns>
+        /// <remarks>
+        /// A TypeRef token represents a reference to a type.
+        /// </remarks>
         public HRESULT TryEnumTypeRefs(uint cMax, out EnumTypeRefsResult result)
         {
             /*HRESULT EnumTypeRefs(
@@ -187,6 +310,12 @@ namespace ManagedCorDebug
         #endregion
         #region FindTypeDefByName
 
+        /// <summary>
+        /// Gets a pointer to the TypeDef metadata token for the <see cref="Type"/> with the specified name.
+        /// </summary>
+        /// <param name="szTypeDef">[in] The name of the type for which to get the TypeDef token.</param>
+        /// <param name="tkEnclosingClass">[in] A TypeDef or TypeRef token representing the enclosing class. If the type to find is not a nested class, set this value to NULL.</param>
+        /// <returns>[out] A pointer to the matching TypeDef token.</returns>
         public mdTypeDef FindTypeDefByName(string szTypeDef, mdToken tkEnclosingClass)
         {
             HRESULT hr;
@@ -198,6 +327,12 @@ namespace ManagedCorDebug
             return typeDef;
         }
 
+        /// <summary>
+        /// Gets a pointer to the TypeDef metadata token for the <see cref="Type"/> with the specified name.
+        /// </summary>
+        /// <param name="szTypeDef">[in] The name of the type for which to get the TypeDef token.</param>
+        /// <param name="tkEnclosingClass">[in] A TypeDef or TypeRef token representing the enclosing class. If the type to find is not a nested class, set this value to NULL.</param>
+        /// <param name="typeDef">[out] A pointer to the matching TypeDef token.</param>
         public HRESULT TryFindTypeDefByName(string szTypeDef, mdToken tkEnclosingClass, out mdTypeDef typeDef)
         {
             /*HRESULT FindTypeDefByName(
@@ -210,6 +345,13 @@ namespace ManagedCorDebug
         #endregion
         #region GetScopeProps
 
+        /// <summary>
+        /// Gets the name and optionally the version identifier of the assembly or module in the current metadata scope.
+        /// </summary>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// The <see cref="MetaDataEmit.SetModuleProps"/> method is used to set these properties.
+        /// </remarks>
         public GetScopePropsResult GetScopeProps()
         {
             HRESULT hr;
@@ -221,6 +363,13 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the name and optionally the version identifier of the assembly or module in the current metadata scope.
+        /// </summary>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <remarks>
+        /// The <see cref="MetaDataEmit.SetModuleProps"/> method is used to set these properties.
+        /// </remarks>
         public HRESULT TryGetScopeProps(out GetScopePropsResult result)
         {
             /*HRESULT GetScopeProps(
@@ -257,6 +406,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetTypeDefProps
 
+        /// <summary>
+        /// Returns metadata information for the <see cref="Type"/> represented by the specified TypeDef token.
+        /// </summary>
+        /// <param name="td">[in] The TypeDef token that represents the type to return metadata for.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetTypeDefPropsResult GetTypeDefProps(mdTypeDef td)
         {
             HRESULT hr;
@@ -268,6 +422,11 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Returns metadata information for the <see cref="Type"/> represented by the specified TypeDef token.
+        /// </summary>
+        /// <param name="td">[in] The TypeDef token that represents the type to return metadata for.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetTypeDefProps(mdTypeDef td, out GetTypeDefPropsResult result)
         {
             /*HRESULT GetTypeDefProps(
@@ -307,6 +466,17 @@ namespace ManagedCorDebug
         #endregion
         #region GetInterfaceImplProps
 
+        /// <summary>
+        /// Gets a pointer to the metadata tokens for the <see cref="Type"/> that implements the specified method, and for the interface that declares that method.
+        /// </summary>
+        /// <param name="iiImpl">[in] The metadata token representing the method to return the class and interface tokens for.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// You obtain the value for iImpl by calling the <see cref="EnumInterfaceImpls"/> method. For example, suppose that
+        /// a class has an <see cref="mdTypeDef"/> token value of 0x02000007 and that it implements threeinterfaces whose types have tokens:
+        /// Conceptually, this information is stored into an interface implementation table as: Recall, the token is a 4-byte
+        /// value: GetInterfaceImplProps returns the information held in the row whose token you provide in the iImpl argument.
+        /// </remarks>
         public GetInterfaceImplPropsResult GetInterfaceImplProps(mdInterfaceImpl iiImpl)
         {
             HRESULT hr;
@@ -318,6 +488,17 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets a pointer to the metadata tokens for the <see cref="Type"/> that implements the specified method, and for the interface that declares that method.
+        /// </summary>
+        /// <param name="iiImpl">[in] The metadata token representing the method to return the class and interface tokens for.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <remarks>
+        /// You obtain the value for iImpl by calling the <see cref="EnumInterfaceImpls"/> method. For example, suppose that
+        /// a class has an <see cref="mdTypeDef"/> token value of 0x02000007 and that it implements threeinterfaces whose types have tokens:
+        /// Conceptually, this information is stored into an interface implementation table as: Recall, the token is a 4-byte
+        /// value: GetInterfaceImplProps returns the information held in the row whose token you provide in the iImpl argument.
+        /// </remarks>
         public HRESULT TryGetInterfaceImplProps(mdInterfaceImpl iiImpl, out GetInterfaceImplPropsResult result)
         {
             /*HRESULT GetInterfaceImplProps(
@@ -339,6 +520,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetTypeRefProps
 
+        /// <summary>
+        /// Gets the metadata associated with the <see cref="Type"/> referenced by the specified TypeRef token.
+        /// </summary>
+        /// <param name="tr">[in] The TypeRef token that represents the type to return metadata for.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetTypeRefPropsResult GetTypeRefProps(mdTypeRef tr)
         {
             HRESULT hr;
@@ -350,6 +536,11 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the metadata associated with the <see cref="Type"/> referenced by the specified TypeRef token.
+        /// </summary>
+        /// <param name="tr">[in] The TypeRef token that represents the type to return metadata for.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetTypeRefProps(mdTypeRef tr, out GetTypeRefPropsResult result)
         {
             /*HRESULT GetTypeRefProps(
@@ -387,6 +578,20 @@ namespace ManagedCorDebug
         #endregion
         #region ResolveTypeRef
 
+        /// <summary>
+        /// Resolves a <see cref="Type"/> reference represented by the specified TypeRef token.
+        /// </summary>
+        /// <param name="tr">[in] The TypeRef metadata token to return the referenced type information for.</param>
+        /// <param name="riid">[in] The IID of the interface to return in ppIScope. Typically, this would be IID_IMetaDataImport.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// The ResolveTypeRef method searches for the type definition in other modules. If the type definition is found, ResolveTypeRef
+        /// returns an interface to that module scope as well as the TypeDef token for the type. If the type reference to be
+        /// resolved has a resolution scope of AssemblyRef, the ResolveTypeRef method searches for a match only in the metadata
+        /// scopes that have already been opened with calls to either the <see cref="MetaDataDispenser.OpenScope"/> method
+        /// or the <see cref="MetaDataDispenser.OpenScopeOnMemory"/> method. This is because ResolveTypeRef cannot determine
+        /// from only the AssemblyRef scope where on disk or in the global assembly cache the assembly is stored.
+        /// </remarks>
         [Obsolete("This method no longer appears to exist in the IMetaDataImport vtable.")]
         public ResolveTypeRefResult ResolveTypeRef(mdTypeRef tr, Guid riid)
         {
@@ -399,6 +604,20 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Resolves a <see cref="Type"/> reference represented by the specified TypeRef token.
+        /// </summary>
+        /// <param name="tr">[in] The TypeRef metadata token to return the referenced type information for.</param>
+        /// <param name="riid">[in] The IID of the interface to return in ppIScope. Typically, this would be IID_IMetaDataImport.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <remarks>
+        /// The ResolveTypeRef method searches for the type definition in other modules. If the type definition is found, ResolveTypeRef
+        /// returns an interface to that module scope as well as the TypeDef token for the type. If the type reference to be
+        /// resolved has a resolution scope of AssemblyRef, the ResolveTypeRef method searches for a match only in the metadata
+        /// scopes that have already been opened with calls to either the <see cref="MetaDataDispenser.OpenScope"/> method
+        /// or the <see cref="MetaDataDispenser.OpenScopeOnMemory"/> method. This is because ResolveTypeRef cannot determine
+        /// from only the AssemblyRef scope where on disk or in the global assembly cache the assembly is stored.
+        /// </remarks>
         [Obsolete("This method no longer appears to exist in the IMetaDataImport vtable.")]
         public HRESULT TryResolveTypeRef(mdTypeRef tr, Guid riid, out ResolveTypeRefResult result)
         {
@@ -422,6 +641,20 @@ namespace ManagedCorDebug
         #endregion
         #region EnumMembers
 
+        /// <summary>
+        /// Enumerates MemberDef tokens representing members of the specified type.
+        /// </summary>
+        /// <param name="cl">[in] A TypeDef token representing the type whose members are to be enumerated.</param>
+        /// <param name="cMax">[in] The maximum size of the rMembers array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// When enumerating collections of members for a class, EnumMembers returns only members (fields and methods, but
+        /// not properties or events) defined directly on the class. It does not return any members that the class inherits,
+        /// even if the class provides an implementation for those inherited members. To enumerate inherited members, the caller
+        /// must explicitly walk the inheritance chain. Note that the rules for the inheritance chain may vary depending on
+        /// the language or compiler that emitted the original metadata. Properties and events are not enumerated by EnumMembers.
+        /// To enumerate those, use <see cref="EnumProperties"/> or <see cref="EnumEvents"/>.
+        /// </remarks>
         public EnumMembersResult EnumMembers(mdTypeDef cl, uint cMax)
         {
             HRESULT hr;
@@ -433,6 +666,26 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Enumerates MemberDef tokens representing members of the specified type.
+        /// </summary>
+        /// <param name="cl">[in] A TypeDef token representing the type whose members are to be enumerated.</param>
+        /// <param name="cMax">[in] The maximum size of the rMembers array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                                 |
+        /// | ------- | --------------------------------------------------------------------------- |
+        /// | S_OK    | EnumMembers returned successfully.                                          |
+        /// | S_FALSE | There are no MemberDef tokens to enumerate. In that case, pcTokens is zero. |
+        /// </returns>
+        /// <remarks>
+        /// When enumerating collections of members for a class, EnumMembers returns only members (fields and methods, but
+        /// not properties or events) defined directly on the class. It does not return any members that the class inherits,
+        /// even if the class provides an implementation for those inherited members. To enumerate inherited members, the caller
+        /// must explicitly walk the inheritance chain. Note that the rules for the inheritance chain may vary depending on
+        /// the language or compiler that emitted the original metadata. Properties and events are not enumerated by EnumMembers.
+        /// To enumerate those, use <see cref="EnumProperties"/> or <see cref="EnumEvents"/>.
+        /// </remarks>
         public HRESULT TryEnumMembers(mdTypeDef cl, uint cMax, out EnumMembersResult result)
         {
             /*HRESULT EnumMembers(
@@ -457,6 +710,17 @@ namespace ManagedCorDebug
         #endregion
         #region EnumMembersWithName
 
+        /// <summary>
+        /// Enumerates MemberDef tokens representing members of the specified type with the specified name.
+        /// </summary>
+        /// <param name="cl">[in] A TypeDef token representing the type with members to enumerate.</param>
+        /// <param name="szName">[in] The member name that limits the scope of the enumerator.</param>
+        /// <param name="cMax">[in] The maximum size of the rMembers array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// This method enumerates fields and methods, but not properties or events. Unlike <see cref="EnumMembers"/>, EnumMembersWithName
+        /// discards all field and member tokens that do not have the specified name.
+        /// </remarks>
         public EnumMembersWithNameResult EnumMembersWithName(mdTypeDef cl, string szName, uint cMax)
         {
             HRESULT hr;
@@ -468,6 +732,23 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Enumerates MemberDef tokens representing members of the specified type with the specified name.
+        /// </summary>
+        /// <param name="cl">[in] A TypeDef token representing the type with members to enumerate.</param>
+        /// <param name="szName">[in] The member name that limits the scope of the enumerator.</param>
+        /// <param name="cMax">[in] The maximum size of the rMembers array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                                 |
+        /// | ------- | --------------------------------------------------------------------------- |
+        /// | S_OK    | EnumTypeDefs returned successfully.                                         |
+        /// | S_FALSE | There are no MemberDef tokens to enumerate. In that case, pcTokens is zero. |
+        /// </returns>
+        /// <remarks>
+        /// This method enumerates fields and methods, but not properties or events. Unlike <see cref="EnumMembers"/>, EnumMembersWithName
+        /// discards all field and member tokens that do not have the specified name.
+        /// </remarks>
         public HRESULT TryEnumMembersWithName(mdTypeDef cl, string szName, uint cMax, out EnumMembersWithNameResult result)
         {
             /*HRESULT EnumMembersWithName(
@@ -493,6 +774,12 @@ namespace ManagedCorDebug
         #endregion
         #region EnumMethods
 
+        /// <summary>
+        /// Enumerates MethodDef tokens representing methods of the specified type.
+        /// </summary>
+        /// <param name="cl">[in] A TypeDef token representing the type with the methods to enumerate.</param>
+        /// <param name="cMax">[in] The maximum size of the MethodDef rMethods array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public EnumMethodsResult EnumMethods(mdTypeDef cl, uint cMax)
         {
             HRESULT hr;
@@ -504,6 +791,18 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Enumerates MethodDef tokens representing methods of the specified type.
+        /// </summary>
+        /// <param name="cl">[in] A TypeDef token representing the type with the methods to enumerate.</param>
+        /// <param name="cMax">[in] The maximum size of the MethodDef rMethods array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                                 |
+        /// | ------- | --------------------------------------------------------------------------- |
+        /// | S_OK    | EnumMethods returned successfully.                                          |
+        /// | S_FALSE | There are no MethodDef tokens to enumerate. In that case, pcTokens is zero. |
+        /// </returns>
         public HRESULT TryEnumMethods(mdTypeDef cl, uint cMax, out EnumMethodsResult result)
         {
             /*HRESULT EnumMethods(
@@ -528,6 +827,16 @@ namespace ManagedCorDebug
         #endregion
         #region EnumMethodsWithName
 
+        /// <summary>
+        /// Enumerates methods that have the specified name and that are defined by the type referenced by the specified TypeDef token.
+        /// </summary>
+        /// <param name="cl">[in] A TypeDef token representing the type whose methods to enumerate.</param>
+        /// <param name="cMax">[in] The maximum size of the rMethods array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// This method enumerates fields and methods, but not properties or events. Unlike <see cref="EnumMethods"/>, EnumMethodsWithName
+        /// discards all method tokens that do not have the specified name.
+        /// </remarks>
         public EnumMethodsWithNameResult EnumMethodsWithName(mdTypeDef cl, uint cMax)
         {
             HRESULT hr;
@@ -539,6 +848,22 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Enumerates methods that have the specified name and that are defined by the type referenced by the specified TypeDef token.
+        /// </summary>
+        /// <param name="cl">[in] A TypeDef token representing the type whose methods to enumerate.</param>
+        /// <param name="cMax">[in] The maximum size of the rMethods array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                       |
+        /// | ------- | ----------------------------------------------------------------- |
+        /// | S_OK    | EnumMethodsWithName returned successfully.                        |
+        /// | S_FALSE | There are no tokens to enumerate. In that case, pcTokens is zero. |
+        /// </returns>
+        /// <remarks>
+        /// This method enumerates fields and methods, but not properties or events. Unlike <see cref="EnumMethods"/>, EnumMethodsWithName
+        /// discards all method tokens that do not have the specified name.
+        /// </remarks>
         public HRESULT TryEnumMethodsWithName(mdTypeDef cl, uint cMax, out EnumMethodsWithNameResult result)
         {
             /*HRESULT EnumMethodsWithName(
@@ -565,6 +890,12 @@ namespace ManagedCorDebug
         #endregion
         #region EnumFields
 
+        /// <summary>
+        /// Enumerates FieldDef tokens for the type referenced by the specified TypeDef token.
+        /// </summary>
+        /// <param name="cl">[in] The TypeDef token of the class whose fields are to be enumerated.</param>
+        /// <param name="cMax">[in] The maximum size of the rFields array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public EnumFieldsResult EnumFields(mdTypeDef cl, uint cMax)
         {
             HRESULT hr;
@@ -576,6 +907,18 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Enumerates FieldDef tokens for the type referenced by the specified TypeDef token.
+        /// </summary>
+        /// <param name="cl">[in] The TypeDef token of the class whose fields are to be enumerated.</param>
+        /// <param name="cMax">[in] The maximum size of the rFields array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                       |
+        /// | ------- | ----------------------------------------------------------------- |
+        /// | S_OK    | EnumFields returned successfully.                                 |
+        /// | S_FALSE | There are no fields to enumerate. In that case, pcTokens is zero. |
+        /// </returns>
         public HRESULT TryEnumFields(mdTypeDef cl, uint cMax, out EnumFieldsResult result)
         {
             /*HRESULT EnumFields(
@@ -600,6 +943,16 @@ namespace ManagedCorDebug
         #endregion
         #region EnumFieldsWithName
 
+        /// <summary>
+        /// Enumerates FieldDef tokens of the specified type with the specified name.
+        /// </summary>
+        /// <param name="cl">[in] The token of the type whose fields are to be enumerated.</param>
+        /// <param name="szName">[in] The field name that limits the scope of the enumeration.</param>
+        /// <param name="cMax">[in] The maximum size of the rFields array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// Unlike <see cref="EnumFields"/>, EnumFieldsWithName discards all field tokens that do not have the specified name.
+        /// </remarks>
         public EnumFieldsWithNameResult EnumFieldsWithName(mdTypeDef cl, string szName, uint cMax)
         {
             HRESULT hr;
@@ -611,6 +964,22 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Enumerates FieldDef tokens of the specified type with the specified name.
+        /// </summary>
+        /// <param name="cl">[in] The token of the type whose fields are to be enumerated.</param>
+        /// <param name="szName">[in] The field name that limits the scope of the enumeration.</param>
+        /// <param name="cMax">[in] The maximum size of the rFields array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                       |
+        /// | ------- | ----------------------------------------------------------------- |
+        /// | S_OK    | EnumFieldsWithName returned successfully.                         |
+        /// | S_FALSE | There are no fields to enumerate. In that case, pcTokens is zero. |
+        /// </returns>
+        /// <remarks>
+        /// Unlike <see cref="EnumFields"/>, EnumFieldsWithName discards all field tokens that do not have the specified name.
+        /// </remarks>
         public HRESULT TryEnumFieldsWithName(mdTypeDef cl, string szName, uint cMax, out EnumFieldsWithNameResult result)
         {
             /*HRESULT EnumFieldsWithName(
@@ -636,6 +1005,12 @@ namespace ManagedCorDebug
         #endregion
         #region EnumParams
 
+        /// <summary>
+        /// Enumerates ParamDef tokens representing the parameters of the method referenced by the specified MethodDef token.
+        /// </summary>
+        /// <param name="mb">[in] A MethodDef token representing the method with the parameters to enumerate.</param>
+        /// <param name="cMax">[in] The maximum size of the rParams array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public EnumParamsResult EnumParams(mdMethodDef mb, uint cMax)
         {
             HRESULT hr;
@@ -647,6 +1022,18 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Enumerates ParamDef tokens representing the parameters of the method referenced by the specified MethodDef token.
+        /// </summary>
+        /// <param name="mb">[in] A MethodDef token representing the method with the parameters to enumerate.</param>
+        /// <param name="cMax">[in] The maximum size of the rParams array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                       |
+        /// | ------- | ----------------------------------------------------------------- |
+        /// | S_OK    | EnumParams returned successfully.                                 |
+        /// | S_FALSE | There are no tokens to enumerate. In that case, pcTokens is zero. |
+        /// </returns>
         public HRESULT TryEnumParams(mdMethodDef mb, uint cMax, out EnumParamsResult result)
         {
             /*HRESULT EnumParams(
@@ -671,6 +1058,12 @@ namespace ManagedCorDebug
         #endregion
         #region EnumMemberRefs
 
+        /// <summary>
+        /// Enumerates MemberRef tokens representing members of the specified type.
+        /// </summary>
+        /// <param name="tkParent">[in] A TypeDef, TypeRef, MethodDef, or ModuleRef token for the type whose members are to be enumerated.</param>
+        /// <param name="cMax">[in] The maximum size of the rMemberRefs array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public EnumMemberRefsResult EnumMemberRefs(mdToken tkParent, uint cMax)
         {
             HRESULT hr;
@@ -682,6 +1075,18 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Enumerates MemberRef tokens representing members of the specified type.
+        /// </summary>
+        /// <param name="tkParent">[in] A TypeDef, TypeRef, MethodDef, or ModuleRef token for the type whose members are to be enumerated.</param>
+        /// <param name="cMax">[in] The maximum size of the rMemberRefs array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                                    |
+        /// | ------- | ------------------------------------------------------------------------------ |
+        /// | S_OK    | EnumMemberRefs returned successfully.                                          |
+        /// | S_FALSE | There are no MemberRef tokens to enumerate. In that case, pcTokens is to zero. |
+        /// </returns>
         public HRESULT TryEnumMemberRefs(mdToken tkParent, uint cMax, out EnumMemberRefsResult result)
         {
             /*HRESULT EnumMemberRefs(
@@ -706,6 +1111,12 @@ namespace ManagedCorDebug
         #endregion
         #region EnumMethodImpls
 
+        /// <summary>
+        /// Enumerates MethodBody and MethodDeclaration tokens representing methods of the specified type.
+        /// </summary>
+        /// <param name="td">[in] A TypeDef token for the type whose method implementations to enumerate.</param>
+        /// <param name="cMax">[in] The maximum size of the rMethodBody and rMethodDecl arrays.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public EnumMethodImplsResult EnumMethodImpls(mdTypeDef td, uint cMax)
         {
             HRESULT hr;
@@ -717,6 +1128,18 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Enumerates MethodBody and MethodDeclaration tokens representing methods of the specified type.
+        /// </summary>
+        /// <param name="td">[in] A TypeDef token for the type whose method implementations to enumerate.</param>
+        /// <param name="cMax">[in] The maximum size of the rMethodBody and rMethodDecl arrays.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                              |
+        /// | ------- | ------------------------------------------------------------------------ |
+        /// | S_OK    | EnumMethodImpls returned successfully.                                   |
+        /// | S_FALSE | There are no method tokens to enumerate. In that case, pcTokens is zero. |
+        /// </returns>
         public HRESULT TryEnumMethodImpls(mdTypeDef td, uint cMax, out EnumMethodImplsResult result)
         {
             /*HRESULT EnumMethodImpls(
@@ -743,6 +1166,13 @@ namespace ManagedCorDebug
         #endregion
         #region EnumPermissionSets
 
+        /// <summary>
+        /// Enumerates permissions for the objects in a specified metadata scope.
+        /// </summary>
+        /// <param name="tk">[in] A metadata token that limits the scope of the search, or NULL to search the widest scope possible.</param>
+        /// <param name="dwActions">[in] Flags representing the <see cref="SecurityAction"/> values to include in rPermission, or zero to return all actions.</param>
+        /// <param name="cMax">[in] The maximum size of the rPermission array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public EnumPermissionSetsResult EnumPermissionSets(mdToken tk, SecurityAction dwActions, uint cMax)
         {
             HRESULT hr;
@@ -754,6 +1184,19 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Enumerates permissions for the objects in a specified metadata scope.
+        /// </summary>
+        /// <param name="tk">[in] A metadata token that limits the scope of the search, or NULL to search the widest scope possible.</param>
+        /// <param name="dwActions">[in] Flags representing the <see cref="SecurityAction"/> values to include in rPermission, or zero to return all actions.</param>
+        /// <param name="cMax">[in] The maximum size of the rPermission array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                       |
+        /// | ------- | ----------------------------------------------------------------- |
+        /// | S_OK    | EnumPermissionSets returned successfully.                         |
+        /// | S_FALSE | There are no tokens to enumerate. In that case, pcTokens is zero. |
+        /// </returns>
         public HRESULT TryEnumPermissionSets(mdToken tk, SecurityAction dwActions, uint cMax, out EnumPermissionSetsResult result)
         {
             /*HRESULT EnumPermissionSets(
@@ -779,6 +1222,23 @@ namespace ManagedCorDebug
         #endregion
         #region FindMember
 
+        /// <summary>
+        /// Gets a pointer to the MemberDef token for field or method that is enclosed by the specified <see cref="Type"/> and that has the specified name and metadata signature.
+        /// </summary>
+        /// <param name="td">[in] The TypeDef token for the class or interface that encloses the member to search for. If this value is mdTokenNil, the lookup is done for a global-variable or global-function.</param>
+        /// <param name="szName">[in] The name of the member to search for.</param>
+        /// <param name="pvSigBlob">[in] A pointer to the binary metadata signature of the member.</param>
+        /// <param name="cbSigBlob">[in] The size in bytes of pvSigBlob.</param>
+        /// <returns>[out] A pointer to the matching MemberDef token.</returns>
+        /// <remarks>
+        /// You specify the member using its enclosing class or interface (td), its name (szName), and optionally its signature
+        /// (pvSigBlob). There might be multiple members with the same name in a class or interface. In that case, pass the
+        /// member's signature to find the unique match. The signature passed to FindMember must have been generated in the
+        /// current scope, because signatures are bound to a particular scope. A signature can embed a token that identifies
+        /// the enclosing class or value type. The token is an index into the local TypeDef table. You cannot build a run-time
+        /// signature outside the context of the current scope and use that signature as input to input to FindMember. FindMember
+        /// finds only members that were defined directly in the class or interface; it does not find inherited members.
+        /// </remarks>
         public mdToken FindMember(mdToken td, string szName, IntPtr pvSigBlob, uint cbSigBlob)
         {
             HRESULT hr;
@@ -790,6 +1250,23 @@ namespace ManagedCorDebug
             return pmb;
         }
 
+        /// <summary>
+        /// Gets a pointer to the MemberDef token for field or method that is enclosed by the specified <see cref="Type"/> and that has the specified name and metadata signature.
+        /// </summary>
+        /// <param name="td">[in] The TypeDef token for the class or interface that encloses the member to search for. If this value is mdTokenNil, the lookup is done for a global-variable or global-function.</param>
+        /// <param name="szName">[in] The name of the member to search for.</param>
+        /// <param name="pvSigBlob">[in] A pointer to the binary metadata signature of the member.</param>
+        /// <param name="cbSigBlob">[in] The size in bytes of pvSigBlob.</param>
+        /// <param name="pmb">[out] A pointer to the matching MemberDef token.</param>
+        /// <remarks>
+        /// You specify the member using its enclosing class or interface (td), its name (szName), and optionally its signature
+        /// (pvSigBlob). There might be multiple members with the same name in a class or interface. In that case, pass the
+        /// member's signature to find the unique match. The signature passed to FindMember must have been generated in the
+        /// current scope, because signatures are bound to a particular scope. A signature can embed a token that identifies
+        /// the enclosing class or value type. The token is an index into the local TypeDef table. You cannot build a run-time
+        /// signature outside the context of the current scope and use that signature as input to input to FindMember. FindMember
+        /// finds only members that were defined directly in the class or interface; it does not find inherited members.
+        /// </remarks>
         public HRESULT TryFindMember(mdToken td, string szName, IntPtr pvSigBlob, uint cbSigBlob, out mdToken pmb)
         {
             /*HRESULT FindMember(
@@ -804,6 +1281,23 @@ namespace ManagedCorDebug
         #endregion
         #region FindMethod
 
+        /// <summary>
+        /// Gets a pointer to the MethodDef token for the method that is enclosed by the specified <see cref="Type"/> and that has the specified name and metadata signature.
+        /// </summary>
+        /// <param name="td">[in] The <see cref="mdTypeDef"/> token for the type (a class or interface) that encloses the member to search for. If this value is mdTokenNil, then the lookup is done for a global function.</param>
+        /// <param name="szName">[in] The name of the method to search for.</param>
+        /// <param name="pvSigBlob">[in] A pointer to the binary metadata signature of the method.</param>
+        /// <param name="cbSigBlob">[in] The size in bytes of pvSigBlob.</param>
+        /// <returns>[out] A pointer to the matching MethodDef token.</returns>
+        /// <remarks>
+        /// You specify the method using its enclosing class or interface (td), its name (szName), and optionally its signature
+        /// (pvSigBlob). There might be multiple methods with the same name in a class or interface. In that case, pass the
+        /// method's signature to find the unique match. The signature passed to FindMethod must have been generated in the
+        /// current scope, because signatures are bound to a particular scope. A signature can embed a token that identifies
+        /// the enclosing class or value type. The token is an index into the local TypeDef table. You cannot build a run-time
+        /// signature outside the context of the current scope and use that signature as input to input to FindMethod. FindMethod
+        /// finds only methods that were defined directly in the class or interface; it does not find inherited methods.
+        /// </remarks>
         public mdMethodDef FindMethod(mdToken td, string szName, IntPtr pvSigBlob, uint cbSigBlob)
         {
             HRESULT hr;
@@ -815,6 +1309,23 @@ namespace ManagedCorDebug
             return pmb;
         }
 
+        /// <summary>
+        /// Gets a pointer to the MethodDef token for the method that is enclosed by the specified <see cref="Type"/> and that has the specified name and metadata signature.
+        /// </summary>
+        /// <param name="td">[in] The <see cref="mdTypeDef"/> token for the type (a class or interface) that encloses the member to search for. If this value is mdTokenNil, then the lookup is done for a global function.</param>
+        /// <param name="szName">[in] The name of the method to search for.</param>
+        /// <param name="pvSigBlob">[in] A pointer to the binary metadata signature of the method.</param>
+        /// <param name="cbSigBlob">[in] The size in bytes of pvSigBlob.</param>
+        /// <param name="pmb">[out] A pointer to the matching MethodDef token.</param>
+        /// <remarks>
+        /// You specify the method using its enclosing class or interface (td), its name (szName), and optionally its signature
+        /// (pvSigBlob). There might be multiple methods with the same name in a class or interface. In that case, pass the
+        /// method's signature to find the unique match. The signature passed to FindMethod must have been generated in the
+        /// current scope, because signatures are bound to a particular scope. A signature can embed a token that identifies
+        /// the enclosing class or value type. The token is an index into the local TypeDef table. You cannot build a run-time
+        /// signature outside the context of the current scope and use that signature as input to input to FindMethod. FindMethod
+        /// finds only methods that were defined directly in the class or interface; it does not find inherited methods.
+        /// </remarks>
         public HRESULT TryFindMethod(mdToken td, string szName, IntPtr pvSigBlob, uint cbSigBlob, out mdMethodDef pmb)
         {
             /*HRESULT FindMethod(
@@ -829,6 +1340,22 @@ namespace ManagedCorDebug
         #endregion
         #region FindField
 
+        /// <summary>
+        /// Gets a pointer to the FieldDef token for the field that is enclosed by the specified <see cref="Type"/> and that has the specified name and metadata signature.
+        /// </summary>
+        /// <param name="td">[in] The TypeDef token for the class or interface that encloses the field to search for. If this value is mdTokenNil, the lookup is done for a global variable.</param>
+        /// <param name="szName">[in] The name of the field to search for.</param>
+        /// <param name="pvSigBlob">[in] A pointer to the binary metadata signature of the field.</param>
+        /// <param name="cbSigBlob">[in] The size in bytes of pvSigBlob.</param>
+        /// <returns>[out] A pointer to the matching FieldDef token.</returns>
+        /// <remarks>
+        /// You specify the field using its enclosing class or interface (td), its name (szName), and optionally its signature
+        /// (pvSigBlob). The signature passed to FindField must have been generated in the current scope, because signatures
+        /// are bound to a particular scope. A signature can embed a token that identifies the enclosing class or value type.
+        /// (The token is an index into the local TypeDef table). You cannot build a run-time signature outside the context
+        /// of the current scope and use that signature as input to FindField. FindField finds only fields that were defined
+        /// directly in the class or interface; it does not find inherited fields.
+        /// </remarks>
         public mdFieldDef FindField(mdToken td, string szName, IntPtr pvSigBlob, uint cbSigBlob)
         {
             HRESULT hr;
@@ -840,6 +1367,22 @@ namespace ManagedCorDebug
             return pmb;
         }
 
+        /// <summary>
+        /// Gets a pointer to the FieldDef token for the field that is enclosed by the specified <see cref="Type"/> and that has the specified name and metadata signature.
+        /// </summary>
+        /// <param name="td">[in] The TypeDef token for the class or interface that encloses the field to search for. If this value is mdTokenNil, the lookup is done for a global variable.</param>
+        /// <param name="szName">[in] The name of the field to search for.</param>
+        /// <param name="pvSigBlob">[in] A pointer to the binary metadata signature of the field.</param>
+        /// <param name="cbSigBlob">[in] The size in bytes of pvSigBlob.</param>
+        /// <param name="pmb">[out] A pointer to the matching FieldDef token.</param>
+        /// <remarks>
+        /// You specify the field using its enclosing class or interface (td), its name (szName), and optionally its signature
+        /// (pvSigBlob). The signature passed to FindField must have been generated in the current scope, because signatures
+        /// are bound to a particular scope. A signature can embed a token that identifies the enclosing class or value type.
+        /// (The token is an index into the local TypeDef table). You cannot build a run-time signature outside the context
+        /// of the current scope and use that signature as input to FindField. FindField finds only fields that were defined
+        /// directly in the class or interface; it does not find inherited fields.
+        /// </remarks>
         public HRESULT TryFindField(mdToken td, string szName, IntPtr pvSigBlob, uint cbSigBlob, out mdFieldDef pmb)
         {
             /*HRESULT FindField(
@@ -854,6 +1397,22 @@ namespace ManagedCorDebug
         #endregion
         #region FindMemberRef
 
+        /// <summary>
+        /// Gets a pointer to the MemberRef token for the member reference that is enclosed by the specified <see cref="Type"/> and that has the specified name and metadata signature.
+        /// </summary>
+        /// <param name="td">[in] The TypeRef token for the class or interface that encloses the member reference to search for. If this value is mdTokenNil, the lookup is done for a global variable or a global-function reference.</param>
+        /// <param name="szName">[in] The name of the member reference to search for.</param>
+        /// <param name="pvSigBlob">[in] A pointer to the binary metadata signature of the member reference.</param>
+        /// <param name="cbSigBlob">[in] The size in bytes of pvSigBlob.</param>
+        /// <returns>[out] A pointer to the matching MemberRef token.</returns>
+        /// <remarks>
+        /// You specify the member using its enclosing class or interface (td), its name (szName), and optionally its signature
+        /// (pvSigBlob). The signature passed to FindMemberRef must have been generated in the current scope, because signatures
+        /// are bound to a particular scope. A signature can embed a token that identifies the enclosing class or value type.
+        /// The token is an index into the local TypeDef table. You cannot build a run-time signature outside the context of
+        /// the current scope and use that signature as input to FindMemberRef. FindMemberRef finds only member references
+        /// that were defined directly in the class or interface; it does not find inherited member references.
+        /// </remarks>
         public mdMemberRef FindMemberRef(mdToken td, string szName, IntPtr pvSigBlob, uint cbSigBlob)
         {
             HRESULT hr;
@@ -865,6 +1424,22 @@ namespace ManagedCorDebug
             return pmr;
         }
 
+        /// <summary>
+        /// Gets a pointer to the MemberRef token for the member reference that is enclosed by the specified <see cref="Type"/> and that has the specified name and metadata signature.
+        /// </summary>
+        /// <param name="td">[in] The TypeRef token for the class or interface that encloses the member reference to search for. If this value is mdTokenNil, the lookup is done for a global variable or a global-function reference.</param>
+        /// <param name="szName">[in] The name of the member reference to search for.</param>
+        /// <param name="pvSigBlob">[in] A pointer to the binary metadata signature of the member reference.</param>
+        /// <param name="cbSigBlob">[in] The size in bytes of pvSigBlob.</param>
+        /// <param name="pmr">[out] A pointer to the matching MemberRef token.</param>
+        /// <remarks>
+        /// You specify the member using its enclosing class or interface (td), its name (szName), and optionally its signature
+        /// (pvSigBlob). The signature passed to FindMemberRef must have been generated in the current scope, because signatures
+        /// are bound to a particular scope. A signature can embed a token that identifies the enclosing class or value type.
+        /// The token is an index into the local TypeDef table. You cannot build a run-time signature outside the context of
+        /// the current scope and use that signature as input to FindMemberRef. FindMemberRef finds only member references
+        /// that were defined directly in the class or interface; it does not find inherited member references.
+        /// </remarks>
         public HRESULT TryFindMemberRef(mdToken td, string szName, IntPtr pvSigBlob, uint cbSigBlob, out mdMemberRef pmr)
         {
             /*HRESULT FindMemberRef(
@@ -878,6 +1453,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetMethodProps
 
+        /// <summary>
+        /// Gets the metadata associated with the method referenced by the specified MethodDef token.
+        /// </summary>
+        /// <param name="mb">[in] The MethodDef token that represents the method to return metadata for.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public MetaDataImport_GetMethodPropsResult GetMethodProps(mdMethodDef mb)
         {
             HRESULT hr;
@@ -889,6 +1469,11 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the metadata associated with the method referenced by the specified MethodDef token.
+        /// </summary>
+        /// <param name="mb">[in] The MethodDef token that represents the method to return metadata for.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetMethodProps(mdMethodDef mb, out MetaDataImport_GetMethodPropsResult result)
         {
             /*HRESULT GetMethodProps(
@@ -936,6 +1521,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetMemberRefProps
 
+        /// <summary>
+        /// Gets metadata associated with the member referenced by the specified token.
+        /// </summary>
+        /// <param name="mr">[in] The MemberRef token to return associated metadata for.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetMemberRefPropsResult GetMemberRefProps(mdMemberRef mr)
         {
             HRESULT hr;
@@ -947,6 +1537,11 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets metadata associated with the member referenced by the specified token.
+        /// </summary>
+        /// <param name="mr">[in] The MemberRef token to return associated metadata for.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetMemberRefProps(mdMemberRef mr, out GetMemberRefPropsResult result)
         {
             /*HRESULT GetMemberRefProps(
@@ -988,6 +1583,12 @@ namespace ManagedCorDebug
         #endregion
         #region EnumProperties
 
+        /// <summary>
+        /// Enumerates PropertyDef tokens representing the properties of the type referenced by the specified TypeDef token.
+        /// </summary>
+        /// <param name="td">[in] A TypeDef token representing the type with properties to enumerate.</param>
+        /// <param name="cMax">[in] The maximum size of the rProperties array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public EnumPropertiesResult EnumProperties(mdTypeDef td, uint cMax)
         {
             HRESULT hr;
@@ -999,6 +1600,18 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Enumerates PropertyDef tokens representing the properties of the type referenced by the specified TypeDef token.
+        /// </summary>
+        /// <param name="td">[in] A TypeDef token representing the type with properties to enumerate.</param>
+        /// <param name="cMax">[in] The maximum size of the rProperties array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                           |
+        /// | ------- | --------------------------------------------------------------------- |
+        /// | S_OK    | EnumProperties returned successfully.                                 |
+        /// | S_FALSE | There are no tokens to enumerate. In that case, pcProperties is zero. |
+        /// </returns>
         public HRESULT TryEnumProperties(mdTypeDef td, uint cMax, out EnumPropertiesResult result)
         {
             /*HRESULT EnumProperties(
@@ -1023,6 +1636,12 @@ namespace ManagedCorDebug
         #endregion
         #region EnumEvents
 
+        /// <summary>
+        /// Enumerates event definition tokens for the specified TypeDef token.
+        /// </summary>
+        /// <param name="td">[in] The TypeDef token whose event definitions are to be enumerated.</param>
+        /// <param name="cMax">[in] The maximum size of the rEvents array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public EnumEventsResult EnumEvents(mdTypeDef td, uint cMax)
         {
             HRESULT hr;
@@ -1034,6 +1653,18 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Enumerates event definition tokens for the specified TypeDef token.
+        /// </summary>
+        /// <param name="td">[in] The TypeDef token whose event definitions are to be enumerated.</param>
+        /// <param name="cMax">[in] The maximum size of the rEvents array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                       |
+        /// | ------- | ----------------------------------------------------------------- |
+        /// | S_OK    | EnumEvents returned successfully.                                 |
+        /// | S_FALSE | There are no events to enumerate. In that case, pcEvents is zero. |
+        /// </returns>
         public HRESULT TryEnumEvents(mdTypeDef td, uint cMax, out EnumEventsResult result)
         {
             /*HRESULT EnumEvents(
@@ -1058,6 +1689,12 @@ namespace ManagedCorDebug
         #endregion
         #region GetEventProps
 
+        /// <summary>
+        /// Gets metadata information for the event represented by the specified event token, including the declaring type, the add and remove methods for delegates, and any flags and other associated data.
+        /// </summary>
+        /// <param name="ev">[in] The event metadata token representing the event to get metadata for.</param>
+        /// <param name="cMax">[in] The maximum size of the rmdOtherMethod array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetEventPropsResult GetEventProps(mdEvent ev, uint cMax)
         {
             HRESULT hr;
@@ -1069,6 +1706,12 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets metadata information for the event represented by the specified event token, including the declaring type, the add and remove methods for delegates, and any flags and other associated data.
+        /// </summary>
+        /// <param name="ev">[in] The event metadata token representing the event to get metadata for.</param>
+        /// <param name="cMax">[in] The maximum size of the rmdOtherMethod array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetEventProps(mdEvent ev, uint cMax, out GetEventPropsResult result)
         {
             /*HRESULT GetEventProps(
@@ -1121,6 +1764,21 @@ namespace ManagedCorDebug
         #endregion
         #region EnumMethodSemantics
 
+        /// <summary>
+        /// Enumerates the properties and the property-change events to which the specified method is related.
+        /// </summary>
+        /// <param name="mb">[in] A MethodDef token that limits the scope of the enumeration.</param>
+        /// <param name="cMax">[in] The maximum size of the rEventProp array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// Many common language runtime types define PropertyChanged events and OnPropertyChanged methods related to their
+        /// properties. For example, the System.Windows.Forms.Control type defines a System.Windows.Forms.Control.Font property,
+        /// a System.Windows.Forms.Control.FontChanged event, and an System.Windows.Forms.Control.OnFontChanged method. The
+        /// set accessor method of the System.Windows.Forms.Control.Font property calls System.Windows.Forms.Control.OnFontChanged
+        /// method, which in turn raises the System.Windows.Forms.Control.FontChanged event. You would call EnumMethodSemantics
+        /// using the MethodDef for System.Windows.Forms.Control.OnFontChanged to get references to the System.Windows.Forms.Control.Font
+        /// property and the System.Windows.Forms.Control.FontChanged event.
+        /// </remarks>
         public EnumMethodSemanticsResult EnumMethodSemantics(mdMethodDef mb, uint cMax)
         {
             HRESULT hr;
@@ -1132,6 +1790,27 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Enumerates the properties and the property-change events to which the specified method is related.
+        /// </summary>
+        /// <param name="mb">[in] A MethodDef token that limits the scope of the enumeration.</param>
+        /// <param name="cMax">[in] The maximum size of the rEventProp array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                                        |
+        /// | ------- | ---------------------------------------------------------------------------------- |
+        /// | S_OK    | EnumMethodSemantics returned successfully.                                         |
+        /// | S_FALSE | There are no events or properties to enumerate. In that case, pcEventProp is zero. |
+        /// </returns>
+        /// <remarks>
+        /// Many common language runtime types define PropertyChanged events and OnPropertyChanged methods related to their
+        /// properties. For example, the System.Windows.Forms.Control type defines a System.Windows.Forms.Control.Font property,
+        /// a System.Windows.Forms.Control.FontChanged event, and an System.Windows.Forms.Control.OnFontChanged method. The
+        /// set accessor method of the System.Windows.Forms.Control.Font property calls System.Windows.Forms.Control.OnFontChanged
+        /// method, which in turn raises the System.Windows.Forms.Control.FontChanged event. You would call EnumMethodSemantics
+        /// using the MethodDef for System.Windows.Forms.Control.OnFontChanged to get references to the System.Windows.Forms.Control.Font
+        /// property and the System.Windows.Forms.Control.FontChanged event.
+        /// </remarks>
         public HRESULT TryEnumMethodSemantics(mdMethodDef mb, uint cMax, out EnumMethodSemanticsResult result)
         {
             /*HRESULT EnumMethodSemantics(
@@ -1156,6 +1835,15 @@ namespace ManagedCorDebug
         #endregion
         #region GetMethodSemantics
 
+        /// <summary>
+        /// Gets flags indicating the relationship between the method referenced by the specified MethodDef token and the paired property and event referenced by the specified EventProp token.
+        /// </summary>
+        /// <param name="mb">[in] A MethodDef token representing the method to get the semantic role information for.</param>
+        /// <param name="tkEventProp">[in] A token representing the paired property and event for which to get the method's role.</param>
+        /// <returns>[out] A pointer to the associated semantics flags. This value is a bitmask from the <see cref="CorMethodSemanticsAttr"/> enumeration.</returns>
+        /// <remarks>
+        /// The <see cref="MetaDataEmit.DefineProperty"/> method sets a method's semantics flags.
+        /// </remarks>
         public CorMethodSemanticsAttr GetMethodSemantics(mdMethodDef mb, mdToken tkEventProp)
         {
             HRESULT hr;
@@ -1167,6 +1855,15 @@ namespace ManagedCorDebug
             return pdwSemanticsFlags;
         }
 
+        /// <summary>
+        /// Gets flags indicating the relationship between the method referenced by the specified MethodDef token and the paired property and event referenced by the specified EventProp token.
+        /// </summary>
+        /// <param name="mb">[in] A MethodDef token representing the method to get the semantic role information for.</param>
+        /// <param name="tkEventProp">[in] A token representing the paired property and event for which to get the method's role.</param>
+        /// <param name="pdwSemanticsFlags">[out] A pointer to the associated semantics flags. This value is a bitmask from the <see cref="CorMethodSemanticsAttr"/> enumeration.</param>
+        /// <remarks>
+        /// The <see cref="MetaDataEmit.DefineProperty"/> method sets a method's semantics flags.
+        /// </remarks>
         public HRESULT TryGetMethodSemantics(mdMethodDef mb, mdToken tkEventProp, out CorMethodSemanticsAttr pdwSemanticsFlags)
         {
             /*HRESULT GetMethodSemantics(
@@ -1179,6 +1876,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetClassLayout
 
+        /// <summary>
+        /// Gets layout information for the class referenced by the specified TypeDef token.
+        /// </summary>
+        /// <param name="td">[in] The TypeDef token for the class with the layout to return.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetClassLayoutResult GetClassLayout(mdTypeDef td)
         {
             HRESULT hr;
@@ -1190,6 +1892,11 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets layout information for the class referenced by the specified TypeDef token.
+        /// </summary>
+        /// <param name="td">[in] The TypeDef token for the class with the layout to return.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetClassLayout(mdTypeDef td, out GetClassLayoutResult result)
         {
             /*HRESULT GetClassLayout(
@@ -1229,6 +1936,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetFieldMarshal
 
+        /// <summary>
+        /// Gets a pointer to the native, unmanaged type of the field represented by the specified field metadata token.
+        /// </summary>
+        /// <param name="tk">[in] The metadata token that represents the field to get interop marshalling information for.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetFieldMarshalResult GetFieldMarshal(mdToken tk)
         {
             HRESULT hr;
@@ -1240,6 +1952,11 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets a pointer to the native, unmanaged type of the field represented by the specified field metadata token.
+        /// </summary>
+        /// <param name="tk">[in] The metadata token that represents the field to get interop marshalling information for.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetFieldMarshal(mdToken tk, out GetFieldMarshalResult result)
         {
             /*HRESULT GetFieldMarshal(
@@ -1261,6 +1978,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetRVA
 
+        /// <summary>
+        /// Gets the relative virtual address (RVA) and the implementation flags of the method or field represented by the specified token.
+        /// </summary>
+        /// <param name="tk">[in] A MethodDef or FieldDef metadata token that represents the code object to return the RVA for. If the token is a FieldDef, the field must be a global variable.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetRVAResult GetRVA(mdToken tk)
         {
             HRESULT hr;
@@ -1272,6 +1994,11 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the relative virtual address (RVA) and the implementation flags of the method or field represented by the specified token.
+        /// </summary>
+        /// <param name="tk">[in] A MethodDef or FieldDef metadata token that represents the code object to return the RVA for. If the token is a FieldDef, the field must be a global variable.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetRVA(mdToken tk, out GetRVAResult result)
         {
             /*HRESULT GetRVA(
@@ -1293,6 +2020,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetPermissionSetProps
 
+        /// <summary>
+        /// Gets the metadata associated with the <see cref="PermissionSet"/> represented by the specified Permission token.
+        /// </summary>
+        /// <param name="pm">[in] The Permission metadata token that represents the permission set to get the metadata properties for.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetPermissionSetPropsResult GetPermissionSetProps(mdPermission pm)
         {
             HRESULT hr;
@@ -1304,6 +2036,11 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the metadata associated with the <see cref="PermissionSet"/> represented by the specified Permission token.
+        /// </summary>
+        /// <param name="pm">[in] The Permission metadata token that represents the permission set to get the metadata properties for.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetPermissionSetProps(mdPermission pm, out GetPermissionSetPropsResult result)
         {
             /*HRESULT GetPermissionSetProps(
@@ -1327,6 +2064,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetSigFromToken
 
+        /// <summary>
+        /// Gets the binary metadata signature associated with the specified token.
+        /// </summary>
+        /// <param name="mdSig">[in] The token to return the binary metadata signature for.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetSigFromTokenResult GetSigFromToken(mdSignature mdSig)
         {
             HRESULT hr;
@@ -1338,6 +2080,11 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the binary metadata signature associated with the specified token.
+        /// </summary>
+        /// <param name="mdSig">[in] The token to return the binary metadata signature for.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetSigFromToken(mdSignature mdSig, out GetSigFromTokenResult result)
         {
             /*HRESULT GetSigFromToken(
@@ -1359,6 +2106,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetModuleRefProps
 
+        /// <summary>
+        /// Gets the name of the module referenced by the specified metadata token.
+        /// </summary>
+        /// <param name="mur">[in] The ModuleRef metadata token that references the module to get metadata information for.</param>
+        /// <returns>[out] A buffer to hold the module name.</returns>
         public string GetModuleRefProps(mdModuleRef mur)
         {
             HRESULT hr;
@@ -1370,6 +2122,11 @@ namespace ManagedCorDebug
             return szNameResult;
         }
 
+        /// <summary>
+        /// Gets the name of the module referenced by the specified metadata token.
+        /// </summary>
+        /// <param name="mur">[in] The ModuleRef metadata token that references the module to get metadata information for.</param>
+        /// <param name="szNameResult">[out] A buffer to hold the module name.</param>
         public HRESULT TryGetModuleRefProps(mdModuleRef mur, out string szNameResult)
         {
             /*HRESULT GetModuleRefProps(
@@ -1405,6 +2162,11 @@ namespace ManagedCorDebug
         #endregion
         #region EnumModuleRefs
 
+        /// <summary>
+        /// Enumerates ModuleRef tokens that represent imported modules.
+        /// </summary>
+        /// <param name="cmax">[in] The maximum size of the rModuleRefs array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public EnumModuleRefsResult EnumModuleRefs(uint cmax)
         {
             HRESULT hr;
@@ -1416,6 +2178,17 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Enumerates ModuleRef tokens that represent imported modules.
+        /// </summary>
+        /// <param name="cmax">[in] The maximum size of the rModuleRefs array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                           |
+        /// | ------- | --------------------------------------------------------------------- |
+        /// | S_OK    | EnumModuleRefs returned successfully.                                 |
+        /// | S_FALSE | There are no tokens to enumerate. In that case, pcModuleRefs is zero. |
+        /// </returns>
         public HRESULT TryEnumModuleRefs(uint cmax, out EnumModuleRefsResult result)
         {
             /*HRESULT EnumModuleRefs(
@@ -1439,6 +2212,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetTypeSpecFromToken
 
+        /// <summary>
+        /// Gets the binary metadata signature of the type specification represented by the specified token.
+        /// </summary>
+        /// <param name="typespec">[in] The TypeSpec token associated with the requested metadata signature.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetTypeSpecFromTokenResult GetTypeSpecFromToken(mdTypeSpec typespec)
         {
             HRESULT hr;
@@ -1450,6 +2228,12 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the binary metadata signature of the type specification represented by the specified token.
+        /// </summary>
+        /// <param name="typespec">[in] The TypeSpec token associated with the requested metadata signature.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>An <see cref="HRESULT"/> that indicates success or failure. Failures can be tested with the FAILED macro.</returns>
         public HRESULT TryGetTypeSpecFromToken(mdTypeSpec typespec, out GetTypeSpecFromTokenResult result)
         {
             /*HRESULT GetTypeSpecFromToken(
@@ -1471,6 +2255,15 @@ namespace ManagedCorDebug
         #endregion
         #region GetNameFromToken
 
+        /// <summary>
+        /// Gets the UTF-8 name of the object referenced by the specified metadata token. This method is obsolete.
+        /// </summary>
+        /// <param name="tk">[in] The token representing the object to return the name for.</param>
+        /// <returns>[out] A pointer to the UTF-8 object name in the heap.</returns>
+        /// <remarks>
+        /// GetNameFromToken is obsolete. As an alternative, call a method to get the properties of the particular type of
+        /// token required, such as GetFieldProps for a field or GetMethodProps for a method.
+        /// </remarks>
         [Obsolete]
         public IntPtr GetNameFromToken(mdToken tk)
         {
@@ -1483,6 +2276,15 @@ namespace ManagedCorDebug
             return pszUtf8NamePtr;
         }
 
+        /// <summary>
+        /// Gets the UTF-8 name of the object referenced by the specified metadata token. This method is obsolete.
+        /// </summary>
+        /// <param name="tk">[in] The token representing the object to return the name for.</param>
+        /// <param name="pszUtf8NamePtr">[out] A pointer to the UTF-8 object name in the heap.</param>
+        /// <remarks>
+        /// GetNameFromToken is obsolete. As an alternative, call a method to get the properties of the particular type of
+        /// token required, such as GetFieldProps for a field or GetMethodProps for a method.
+        /// </remarks>
         [Obsolete]
         public HRESULT TryGetNameFromToken(mdToken tk, out IntPtr pszUtf8NamePtr)
         {
@@ -1495,6 +2297,18 @@ namespace ManagedCorDebug
         #endregion
         #region EnumUnresolvedMethods
 
+        /// <summary>
+        /// Enumerates MemberDef tokens representing the unresolved methods in the current metadata scope.
+        /// </summary>
+        /// <param name="cMax">[in] The maximum size of the rMethods array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// An unresolved method is one that has been declared but not implemented. A method is included in the enumeration
+        /// if the method is marked miForwardRef and either mdPinvokeImpl or miRuntime is set to zero. In other words, an unresolved
+        /// method is a class method that is marked miForwardRef but which is not implemented in unmanaged code (reached via
+        /// PInvoke) nor implemented internally by the runtime itself The enumeration excludes all methods that are defined
+        /// either at module scope (globals) or in interfaces or abstract classes.
+        /// </remarks>
         public EnumUnresolvedMethodsResult EnumUnresolvedMethods(uint cMax)
         {
             HRESULT hr;
@@ -1506,6 +2320,24 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Enumerates MemberDef tokens representing the unresolved methods in the current metadata scope.
+        /// </summary>
+        /// <param name="cMax">[in] The maximum size of the rMethods array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                       |
+        /// | ------- | ----------------------------------------------------------------- |
+        /// | S_OK    | EnumUnresolvedMethods returned successfully.                      |
+        /// | S_FALSE | There are no tokens to enumerate. In that case, pcTokens is zero. |
+        /// </returns>
+        /// <remarks>
+        /// An unresolved method is one that has been declared but not implemented. A method is included in the enumeration
+        /// if the method is marked miForwardRef and either mdPinvokeImpl or miRuntime is set to zero. In other words, an unresolved
+        /// method is a class method that is marked miForwardRef but which is not implemented in unmanaged code (reached via
+        /// PInvoke) nor implemented internally by the runtime itself The enumeration excludes all methods that are defined
+        /// either at module scope (globals) or in interfaces or abstract classes.
+        /// </remarks>
         public HRESULT TryEnumUnresolvedMethods(uint cMax, out EnumUnresolvedMethodsResult result)
         {
             /*HRESULT EnumUnresolvedMethods(
@@ -1529,6 +2361,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetUserString
 
+        /// <summary>
+        /// Gets the literal string represented by the specified metadata token.
+        /// </summary>
+        /// <param name="stk">[in] The String token to return the associated string for.</param>
+        /// <returns>[out] A copy of the requested string.</returns>
         public string GetUserString(mdString stk)
         {
             HRESULT hr;
@@ -1540,6 +2377,11 @@ namespace ManagedCorDebug
             return szStringResult;
         }
 
+        /// <summary>
+        /// Gets the literal string represented by the specified metadata token.
+        /// </summary>
+        /// <param name="stk">[in] The String token to return the associated string for.</param>
+        /// <param name="szStringResult">[out] A copy of the requested string.</param>
         public HRESULT TryGetUserString(mdString stk, out string szStringResult)
         {
             /*HRESULT GetUserString(
@@ -1575,6 +2417,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetPinvokeMap
 
+        /// <summary>
+        /// Gets a ModuleRef token to represent the target assembly of a PInvoke call.
+        /// </summary>
+        /// <param name="tk">[in] A FieldDef or MethodDef token to get the PInvoke mapping metadata for.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetPinvokeMapResult GetPinvokeMap(mdToken tk)
         {
             HRESULT hr;
@@ -1586,6 +2433,11 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets a ModuleRef token to represent the target assembly of a PInvoke call.
+        /// </summary>
+        /// <param name="tk">[in] A FieldDef or MethodDef token to get the PInvoke mapping metadata for.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetPinvokeMap(mdToken tk, out GetPinvokeMapResult result)
         {
             /*HRESULT GetPinvokeMap(
@@ -1625,6 +2477,14 @@ namespace ManagedCorDebug
         #endregion
         #region EnumSignatures
 
+        /// <summary>
+        /// Enumerates Signature tokens representing stand-alone signatures in the current scope.
+        /// </summary>
+        /// <param name="cmax">[in] The maximum size of the rSignatures array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// The Signature tokens are created by the <see cref="MetaDataEmit.GetTokenFromSig"/> method.
+        /// </remarks>
         public EnumSignaturesResult EnumSignatures(uint cmax)
         {
             HRESULT hr;
@@ -1636,6 +2496,20 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Enumerates Signature tokens representing stand-alone signatures in the current scope.
+        /// </summary>
+        /// <param name="cmax">[in] The maximum size of the rSignatures array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                           |
+        /// | ------- | --------------------------------------------------------------------- |
+        /// | S_OK    | EnumSignatures returned successfully.                                 |
+        /// | S_FALSE | There are no tokens to enumerate. In that case, pcSignatures is zero. |
+        /// </returns>
+        /// <remarks>
+        /// The Signature tokens are created by the <see cref="MetaDataEmit.GetTokenFromSig"/> method.
+        /// </remarks>
         public HRESULT TryEnumSignatures(uint cmax, out EnumSignaturesResult result)
         {
             /*HRESULT EnumSignatures(
@@ -1659,6 +2533,14 @@ namespace ManagedCorDebug
         #endregion
         #region EnumTypeSpecs
 
+        /// <summary>
+        /// Enumerates TypeSpec tokens defined in the current metadata scope.
+        /// </summary>
+        /// <param name="cmax">[in] The maximum size of the rTypeSpecs array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// The TypeSpec tokens are created by the <see cref="MetaDataEmit.GetTokenFromTypeSpec"/> method.
+        /// </remarks>
         public EnumTypeSpecsResult EnumTypeSpecs(uint cmax)
         {
             HRESULT hr;
@@ -1670,6 +2552,20 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Enumerates TypeSpec tokens defined in the current metadata scope.
+        /// </summary>
+        /// <param name="cmax">[in] The maximum size of the rTypeSpecs array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                          |
+        /// | ------- | -------------------------------------------------------------------- |
+        /// | S_OK    | EnumTypeSpecs returned successfully.                                 |
+        /// | S_FALSE | There are no tokens to enumerate. In that case, pcTypeSpecs is zero. |
+        /// </returns>
+        /// <remarks>
+        /// The TypeSpec tokens are created by the <see cref="MetaDataEmit.GetTokenFromTypeSpec"/> method.
+        /// </remarks>
         public HRESULT TryEnumTypeSpecs(uint cmax, out EnumTypeSpecsResult result)
         {
             /*HRESULT EnumTypeSpecs(
@@ -1693,6 +2589,15 @@ namespace ManagedCorDebug
         #endregion
         #region EnumUserStrings
 
+        /// <summary>
+        /// Enumerates String tokens representing hard-coded strings in the current metadata scope.
+        /// </summary>
+        /// <param name="cmax">[in] The maximum size of the rStrings array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// The String tokens are created by the <see cref="MetaDataEmit.DefineUserString"/> method. This method is designed
+        /// to be used by a metadata browser rather than by a compiler.
+        /// </remarks>
         public EnumUserStringsResult EnumUserStrings(uint cmax)
         {
             HRESULT hr;
@@ -1704,6 +2609,21 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Enumerates String tokens representing hard-coded strings in the current metadata scope.
+        /// </summary>
+        /// <param name="cmax">[in] The maximum size of the rStrings array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                        |
+        /// | ------- | ------------------------------------------------------------------ |
+        /// | S_OK    | EnumUserStrings returned successfully.                             |
+        /// | S_FALSE | There are no tokens to enumerate. In that case, pcStrings is zero. |
+        /// </returns>
+        /// <remarks>
+        /// The String tokens are created by the <see cref="MetaDataEmit.DefineUserString"/> method. This method is designed
+        /// to be used by a metadata browser rather than by a compiler.
+        /// </remarks>
         public HRESULT TryEnumUserStrings(uint cmax, out EnumUserStringsResult result)
         {
             /*HRESULT EnumUserStrings(
@@ -1727,6 +2647,12 @@ namespace ManagedCorDebug
         #endregion
         #region GetParamForMethodIndex
 
+        /// <summary>
+        /// Gets the token that represents a specified parameter of the method represented by the specified MethodDef token.
+        /// </summary>
+        /// <param name="md">[in] A token that represents the method to return the parameter token for.</param>
+        /// <param name="ulParamSeq">[in] The ordinal position in the parameter list where the requested parameter occurs. Parameters are numbered starting from one, with the method's return value in position zero.</param>
+        /// <returns>[out] A pointer to a ParamDef token that represents the requested parameter.</returns>
         public mdParamDef GetParamForMethodIndex(mdMethodDef md, int ulParamSeq)
         {
             HRESULT hr;
@@ -1738,6 +2664,12 @@ namespace ManagedCorDebug
             return ppd;
         }
 
+        /// <summary>
+        /// Gets the token that represents a specified parameter of the method represented by the specified MethodDef token.
+        /// </summary>
+        /// <param name="md">[in] A token that represents the method to return the parameter token for.</param>
+        /// <param name="ulParamSeq">[in] The ordinal position in the parameter list where the requested parameter occurs. Parameters are numbered starting from one, with the method's return value in position zero.</param>
+        /// <param name="ppd">[out] A pointer to a ParamDef token that represents the requested parameter.</param>
         public HRESULT TryGetParamForMethodIndex(mdMethodDef md, int ulParamSeq, out mdParamDef ppd)
         {
             /*HRESULT GetParamForMethodIndex(
@@ -1750,6 +2682,13 @@ namespace ManagedCorDebug
         #endregion
         #region EnumCustomAttributes
 
+        /// <summary>
+        /// Enumerates custom attribute-definition tokens associated with the specified type or member.
+        /// </summary>
+        /// <param name="tk">[in] A token for the scope of the enumeration, or zero for all custom attributes.</param>
+        /// <param name="tkType">[in] A token for the constructor of the type of the attributes to be enumerated, or null for all types.</param>
+        /// <param name="cMax">[in] The maximum size of the rCustomAttributes array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public EnumCustomAttributesResult EnumCustomAttributes(mdToken tk, mdToken tkType, uint cMax)
         {
             HRESULT hr;
@@ -1761,6 +2700,19 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Enumerates custom attribute-definition tokens associated with the specified type or member.
+        /// </summary>
+        /// <param name="tk">[in] A token for the scope of the enumeration, or zero for all custom attributes.</param>
+        /// <param name="tkType">[in] A token for the constructor of the type of the attributes to be enumerated, or null for all types.</param>
+        /// <param name="cMax">[in] The maximum size of the rCustomAttributes array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                                            |
+        /// | ------- | -------------------------------------------------------------------------------------- |
+        /// | S_OK    | EnumCustomAttributes returned successfully.                                            |
+        /// | S_FALSE | There are no custom attributes to enumerate. In that case, pcCustomAttributes is zero. |
+        /// </returns>
         public HRESULT TryEnumCustomAttributes(mdToken tk, mdToken tkType, uint cMax, out EnumCustomAttributesResult result)
         {
             /*HRESULT EnumCustomAttributes(
@@ -1786,6 +2738,14 @@ namespace ManagedCorDebug
         #endregion
         #region GetCustomAttributeProps
 
+        /// <summary>
+        /// Gets the value of the custom attribute, given its metadata token.
+        /// </summary>
+        /// <param name="cv">[in] A metadata token that represents the custom attribute to be retrieved.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// A custom attribute is stored as an array of data, the format which is understood by the metadata engine.
+        /// </remarks>
         public GetCustomAttributePropsResult GetCustomAttributeProps(mdCustomAttribute cv)
         {
             HRESULT hr;
@@ -1797,6 +2757,14 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the value of the custom attribute, given its metadata token.
+        /// </summary>
+        /// <param name="cv">[in] A metadata token that represents the custom attribute to be retrieved.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <remarks>
+        /// A custom attribute is stored as an array of data, the format which is understood by the metadata engine.
+        /// </remarks>
         public HRESULT TryGetCustomAttributeProps(mdCustomAttribute cv, out GetCustomAttributePropsResult result)
         {
             /*HRESULT GetCustomAttributeProps(
@@ -1822,6 +2790,12 @@ namespace ManagedCorDebug
         #endregion
         #region FindTypeRef
 
+        /// <summary>
+        /// Gets a pointer to the TypeRef token for the <see cref="Type"/> reference that is in the specified scope and that has the specified name.
+        /// </summary>
+        /// <param name="tkResolutionScope">[in] A ModuleRef, AssemblyRef, or TypeRef token that specifies the module, assembly, or type, respectively, in which the type reference is defined.</param>
+        /// <param name="szName">[in] The name of the type reference to search for.</param>
+        /// <returns>[out] A pointer to the matching TypeRef token.</returns>
         public mdTypeRef FindTypeRef(mdToken tkResolutionScope, string szName)
         {
             HRESULT hr;
@@ -1833,6 +2807,12 @@ namespace ManagedCorDebug
             return ptr;
         }
 
+        /// <summary>
+        /// Gets a pointer to the TypeRef token for the <see cref="Type"/> reference that is in the specified scope and that has the specified name.
+        /// </summary>
+        /// <param name="tkResolutionScope">[in] A ModuleRef, AssemblyRef, or TypeRef token that specifies the module, assembly, or type, respectively, in which the type reference is defined.</param>
+        /// <param name="szName">[in] The name of the type reference to search for.</param>
+        /// <param name="ptr">[out] A pointer to the matching TypeRef token.</param>
         public HRESULT TryFindTypeRef(mdToken tkResolutionScope, string szName, out mdTypeRef ptr)
         {
             /*HRESULT FindTypeRef(
@@ -1845,6 +2825,13 @@ namespace ManagedCorDebug
         #endregion
         #region GetMemberProps
 
+        /// <summary>
+        /// Gets information stored in the metadata for a specified member definition, including the name, binary signature, and relative virtual address, of the <see cref="Type"/> member referenced by the specified metadata token.<para/>
+        /// This is a simple helper method: if mb is a MethodDef, then GetMethodProps is called; if mb is a FieldDef, then GetFieldProps is called.<para/>
+        /// See these other methods for details.
+        /// </summary>
+        /// <param name="mb">[in] The token that references the member to get the associated metadata for.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetMemberPropsResult GetMemberProps(mdToken mb)
         {
             HRESULT hr;
@@ -1856,6 +2843,13 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets information stored in the metadata for a specified member definition, including the name, binary signature, and relative virtual address, of the <see cref="Type"/> member referenced by the specified metadata token.<para/>
+        /// This is a simple helper method: if mb is a MethodDef, then GetMethodProps is called; if mb is a FieldDef, then GetFieldProps is called.<para/>
+        /// See these other methods for details.
+        /// </summary>
+        /// <param name="mb">[in] The token that references the member to get the associated metadata for.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetMemberProps(mdToken mb, out GetMemberPropsResult result)
         {
             /*HRESULT GetMemberProps(
@@ -1909,6 +2903,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetFieldProps
 
+        /// <summary>
+        /// Gets metadata associated with the field referenced by the specified FieldDef token.
+        /// </summary>
+        /// <param name="mb">[in] A FieldDef token that represents the field to get associated metadata for.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetFieldPropsResult GetFieldProps(mdFieldDef mb)
         {
             HRESULT hr;
@@ -1920,6 +2919,11 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets metadata associated with the field referenced by the specified FieldDef token.
+        /// </summary>
+        /// <param name="mb">[in] A FieldDef token that represents the field to get associated metadata for.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetFieldProps(mdFieldDef mb, out GetFieldPropsResult result)
         {
             /*HRESULT GetFieldProps(
@@ -1969,6 +2973,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetPropertyProps
 
+        /// <summary>
+        /// Gets the metadata for the property represented by the specified token.
+        /// </summary>
+        /// <param name="prop">[in] A token that represents the property to return metadata for.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetPropertyPropsResult GetPropertyProps(mdProperty prop)
         {
             HRESULT hr;
@@ -1980,6 +2989,11 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the metadata for the property represented by the specified token.
+        /// </summary>
+        /// <param name="prop">[in] A token that represents the property to return metadata for.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetPropertyProps(mdProperty prop, out GetPropertyPropsResult result)
         {
             /*HRESULT GetPropertyProps(
@@ -2041,6 +3055,14 @@ namespace ManagedCorDebug
         #endregion
         #region GetParamProps
 
+        /// <summary>
+        /// Gets metadata values for the parameter referenced by the specified ParamDef token.
+        /// </summary>
+        /// <param name="tk">[in] A ParamDef token that represents the parameter to return metadata for.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// The sequence values in pulSequence begin with 1 for parameters. A return value has a sequence number of 0.
+        /// </remarks>
         public GetParamPropsResult GetParamProps(mdParamDef tk)
         {
             HRESULT hr;
@@ -2052,6 +3074,14 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets metadata values for the parameter referenced by the specified ParamDef token.
+        /// </summary>
+        /// <param name="tk">[in] A ParamDef token that represents the parameter to return metadata for.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <remarks>
+        /// The sequence values in pulSequence begin with 1 for parameters. A return value has a sequence number of 0.
+        /// </remarks>
         public HRESULT TryGetParamProps(mdParamDef tk, out GetParamPropsResult result)
         {
             /*HRESULT GetParamProps(
@@ -2087,6 +3117,17 @@ namespace ManagedCorDebug
         #endregion
         #region GetCustomAttributeByName
 
+        /// <summary>
+        /// Gets the custom attribute, given its name and owner.
+        /// </summary>
+        /// <param name="tkObj">[in] A metadata token representing the object that owns the custom attribute.</param>
+        /// <param name="szName">[in] The name of the custom attribute.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// It is legal to define multiple custom attributes for the same owner; they may even have the same name. However,
+        /// GetCustomAttributeByName returns only one instance. (GetCustomAttributeByName returns the first instance that it
+        /// encounters.) To find all instances of a custom attribute, call the <see cref="EnumCustomAttributes"/> method.
+        /// </remarks>
         public GetCustomAttributeByNameResult GetCustomAttributeByName(mdToken tkObj, string szName)
         {
             HRESULT hr;
@@ -2098,6 +3139,17 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the custom attribute, given its name and owner.
+        /// </summary>
+        /// <param name="tkObj">[in] A metadata token representing the object that owns the custom attribute.</param>
+        /// <param name="szName">[in] The name of the custom attribute.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <remarks>
+        /// It is legal to define multiple custom attributes for the same owner; they may even have the same name. However,
+        /// GetCustomAttributeByName returns only one instance. (GetCustomAttributeByName returns the first instance that it
+        /// encounters.) To find all instances of a custom attribute, call the <see cref="EnumCustomAttributes"/> method.
+        /// </remarks>
         public HRESULT TryGetCustomAttributeByName(mdToken tkObj, string szName, out GetCustomAttributeByNameResult result)
         {
             /*HRESULT GetCustomAttributeByName(
@@ -2120,6 +3172,10 @@ namespace ManagedCorDebug
         #endregion
         #region IsValidToken
 
+        /// <summary>
+        /// Gets a value indicating whether the specified token holds a valid reference to a code object.
+        /// </summary>
+        /// <param name="tk">[in] The token to check the reference validity for.</param>
         public bool IsValidToken(mdToken tk)
         {
             /*bool IsValidToken([In] mdToken tk);*/
@@ -2129,6 +3185,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetNestedClassProps
 
+        /// <summary>
+        /// Gets the TypeDef token for the parent <see cref="Type"/> of the specified nested type.
+        /// </summary>
+        /// <param name="tdNestedClass">[in] A TypeDef token representing the <see cref="Type"/> to return the parent class token for.</param>
+        /// <returns>[out] A pointer to the TypeDef token for the <see cref="Type"/> that tdNestedClass is nested in.</returns>
         public mdTypeDef GetNestedClassProps(mdTypeDef tdNestedClass)
         {
             HRESULT hr;
@@ -2140,6 +3201,11 @@ namespace ManagedCorDebug
             return ptdEnclosingClass;
         }
 
+        /// <summary>
+        /// Gets the TypeDef token for the parent <see cref="Type"/> of the specified nested type.
+        /// </summary>
+        /// <param name="tdNestedClass">[in] A TypeDef token representing the <see cref="Type"/> to return the parent class token for.</param>
+        /// <param name="ptdEnclosingClass">[out] A pointer to the TypeDef token for the <see cref="Type"/> that tdNestedClass is nested in.</param>
         public HRESULT TryGetNestedClassProps(mdTypeDef tdNestedClass, out mdTypeDef ptdEnclosingClass)
         {
             /*HRESULT GetNestedClassProps(
@@ -2151,6 +3217,12 @@ namespace ManagedCorDebug
         #endregion
         #region GetNativeCallConvFromSig
 
+        /// <summary>
+        /// Gets the native calling convention for the method that is represented by the specified signature pointer.
+        /// </summary>
+        /// <param name="pvSig">[in] A pointer to the metadata signature of the method to return the calling convention for.</param>
+        /// <param name="cbSig">[in] The size in bytes of pvSig.</param>
+        /// <returns>[out] A pointer to the native calling convention.</returns>
         public uint GetNativeCallConvFromSig(IntPtr pvSig, uint cbSig)
         {
             HRESULT hr;
@@ -2162,6 +3234,12 @@ namespace ManagedCorDebug
             return pCallConv;
         }
 
+        /// <summary>
+        /// Gets the native calling convention for the method that is represented by the specified signature pointer.
+        /// </summary>
+        /// <param name="pvSig">[in] A pointer to the metadata signature of the method to return the calling convention for.</param>
+        /// <param name="cbSig">[in] The size in bytes of pvSig.</param>
+        /// <param name="pCallConv">[out] A pointer to the native calling convention.</param>
         public HRESULT TryGetNativeCallConvFromSig(IntPtr pvSig, uint cbSig, out uint pCallConv)
         {
             /*HRESULT GetNativeCallConvFromSig(
@@ -2174,6 +3252,11 @@ namespace ManagedCorDebug
         #endregion
         #region IsGlobal
 
+        /// <summary>
+        /// Gets a value indicating whether the field, method, or type represented by the specified metadata token has global scope.
+        /// </summary>
+        /// <param name="pd">[in] A metadata token that represents a type, field, or method.</param>
+        /// <returns>[out] 1 if the object has global scope; otherwise, 0 (zero).</returns>
         public int IsGlobal(mdToken pd)
         {
             HRESULT hr;
@@ -2185,6 +3268,11 @@ namespace ManagedCorDebug
             return pbGlobal;
         }
 
+        /// <summary>
+        /// Gets a value indicating whether the field, method, or type represented by the specified metadata token has global scope.
+        /// </summary>
+        /// <param name="pd">[in] A metadata token that represents a type, field, or method.</param>
+        /// <param name="pbGlobal">[out] 1 if the object has global scope; otherwise, 0 (zero).</param>
         public HRESULT TryIsGlobal(mdToken pd, out int pbGlobal)
         {
             /*HRESULT IsGlobal(
@@ -2201,6 +3289,9 @@ namespace ManagedCorDebug
 
         #region GetPEKind
 
+        /// <summary>
+        /// Gets a value identifying the nature of the code in the portable executable (PE) file, typically a DLL or EXE file, that is defined in the current metadata scope.
+        /// </summary>
         public GetPEKindResult PEKind
         {
             get
@@ -2215,6 +3306,13 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets a value identifying the nature of the code in the portable executable (PE) file, typically a DLL or EXE file, that is defined in the current metadata scope.
+        /// </summary>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <remarks>
+        /// The value referenced by the pdwMachine parameter can be one of the following.
+        /// </remarks>
         public HRESULT TryGetPEKind(out GetPEKindResult result)
         {
             /*HRESULT GetPEKind(
@@ -2235,6 +3333,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetVersionString
 
+        /// <summary>
+        /// Gets the version number of the runtime that was used to build the assembly.
+        /// </summary>
         public string VersionString
         {
             get
@@ -2249,6 +3350,14 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the version number of the runtime that was used to build the assembly.
+        /// </summary>
+        /// <param name="pwzBufResult">[out] An array to store the string that specifies the version.</param>
+        /// <remarks>
+        /// The GetVersionString method gets the built-for version of the current metadata scope. If the scope has never been
+        /// saved, it will not have a built-for version, and an empty string will be returned.
+        /// </remarks>
         public HRESULT TryGetVersionString(out string pwzBufResult)
         {
             /*HRESULT GetVersionString(
@@ -2283,6 +3392,12 @@ namespace ManagedCorDebug
         #endregion
         #region EnumGenericParams
 
+        /// <summary>
+        /// Gets an enumerator for an array of generic parameter tokens associated with the specified TypeDef or MethodDef token.
+        /// </summary>
+        /// <param name="tk">[in] The TypeDef or MethodDef token whose generic parameters are to be enumerated.</param>
+        /// <param name="cMax">[in] The requested maximum number of tokens to place in rGenericParams.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public EnumGenericParamsResult EnumGenericParams(mdToken tk, uint cMax)
         {
             HRESULT hr;
@@ -2294,6 +3409,18 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets an enumerator for an array of generic parameter tokens associated with the specified TypeDef or MethodDef token.
+        /// </summary>
+        /// <param name="tk">[in] The TypeDef or MethodDef token whose generic parameters are to be enumerated.</param>
+        /// <param name="cMax">[in] The requested maximum number of tokens to place in rGenericParams.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                                      |
+        /// | ------- | -------------------------------------------------------------------------------- |
+        /// | S_OK    | EnumGenericParams returned successfully.                                         |
+        /// | S_FALSE | phEnum has no member elements. In this case, pcGenericParams is set to 0 (zero). |
+        /// </returns>
         public HRESULT TryEnumGenericParams(mdToken tk, uint cMax, out EnumGenericParamsResult result)
         {
             /*HRESULT EnumGenericParams(
@@ -2318,6 +3445,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetGenericParamProps
 
+        /// <summary>
+        /// Gets the metadata associated with the generic parameter represented by the specified token.
+        /// </summary>
+        /// <param name="gp">[in] The token that represents the generic parameter for which to return metadata.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetGenericParamPropsResult GetGenericParamProps(mdGenericParam gp)
         {
             HRESULT hr;
@@ -2329,6 +3461,11 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the metadata associated with the generic parameter represented by the specified token.
+        /// </summary>
+        /// <param name="gp">[in] The token that represents the generic parameter for which to return metadata.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetGenericParamProps(mdGenericParam gp, out GetGenericParamPropsResult result)
         {
             /*HRESULT GetGenericParamProps(
@@ -2372,6 +3509,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetMethodSpecProps
 
+        /// <summary>
+        /// Gets the metadata signature of the method referenced by the specified MethodSpec token.
+        /// </summary>
+        /// <param name="mi">[in] A MethodSpec token that represents the instantiation of the method.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetMethodSpecPropsResult GetMethodSpecProps(mdMethodSpec mi)
         {
             HRESULT hr;
@@ -2383,6 +3525,11 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the metadata signature of the method referenced by the specified MethodSpec token.
+        /// </summary>
+        /// <param name="mi">[in] A MethodSpec token that represents the instantiation of the method.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetMethodSpecProps(mdMethodSpec mi, out GetMethodSpecPropsResult result)
         {
             /*HRESULT GetMethodSpecProps(
@@ -2406,6 +3553,12 @@ namespace ManagedCorDebug
         #endregion
         #region EnumGenericParamConstraints
 
+        /// <summary>
+        /// Gets an enumerator for an array of generic parameter constraints associated with the generic parameter represented by the specified token.
+        /// </summary>
+        /// <param name="tk">[in] A token that represents the generic parameter whose constraints are to be enumerated.</param>
+        /// <param name="cMax">[in] The requested maximum number of tokens to place in rGenericParamConstraints.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public EnumGenericParamConstraintsResult EnumGenericParamConstraints(mdGenericParam tk, uint cMax)
         {
             HRESULT hr;
@@ -2417,6 +3570,18 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets an enumerator for an array of generic parameter constraints associated with the generic parameter represented by the specified token.
+        /// </summary>
+        /// <param name="tk">[in] A token that represents the generic parameter whose constraints are to be enumerated.</param>
+        /// <param name="cMax">[in] The requested maximum number of tokens to place in rGenericParamConstraints.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                                                    |
+        /// | ------- | ---------------------------------------------------------------------------------------------- |
+        /// | S_OK    | EnumGenericParameterConstraints returned successfully.                                         |
+        /// | S_FALSE | phEnum has no member elements. In this case, pcGenericParameterConstraints is set to 0 (zero). |
+        /// </returns>
         public HRESULT TryEnumGenericParamConstraints(mdGenericParam tk, uint cMax, out EnumGenericParamConstraintsResult result)
         {
             /*HRESULT EnumGenericParamConstraints(
@@ -2441,6 +3606,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetGenericParamConstraintProps
 
+        /// <summary>
+        /// Gets the metadata associated with the generic parameter constraint represented by the specified constraint token.
+        /// </summary>
+        /// <param name="gpc">[in] The token to the generic parameter constraint for which to return the metadata.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetGenericParamConstraintPropsResult GetGenericParamConstraintProps(mdGenericParamConstraint gpc)
         {
             HRESULT hr;
@@ -2452,6 +3622,11 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the metadata associated with the generic parameter constraint represented by the specified constraint token.
+        /// </summary>
+        /// <param name="gpc">[in] The token to the generic parameter constraint for which to return the metadata.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetGenericParamConstraintProps(mdGenericParamConstraint gpc, out GetGenericParamConstraintPropsResult result)
         {
             /*HRESULT GetGenericParamConstraintProps(
@@ -2473,6 +3648,12 @@ namespace ManagedCorDebug
         #endregion
         #region EnumMethodSpecs
 
+        /// <summary>
+        /// Gets an enumerator for an array of MethodSpec tokens associated with the specified MethodDef or MemberRef token.
+        /// </summary>
+        /// <param name="tk">[in] The MemberRef or MethodDef token that represents the method whose MethodSpec tokens are to be enumerated. If the value of tk is 0 (zero), all MethodSpec tokens in the scope will be enumerated.</param>
+        /// <param name="cMax">[in] The requested maximum number of tokens to place in rMethodSpecs.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public EnumMethodSpecsResult EnumMethodSpecs(mdToken tk, uint cMax)
         {
             HRESULT hr;
@@ -2484,6 +3665,18 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets an enumerator for an array of MethodSpec tokens associated with the specified MethodDef or MemberRef token.
+        /// </summary>
+        /// <param name="tk">[in] The MemberRef or MethodDef token that represents the method whose MethodSpec tokens are to be enumerated. If the value of tk is 0 (zero), all MethodSpec tokens in the scope will be enumerated.</param>
+        /// <param name="cMax">[in] The requested maximum number of tokens to place in rMethodSpecs.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// | HRESULT | Description                                                                    |
+        /// | ------- | ------------------------------------------------------------------------------ |
+        /// | S_OK    | EnumMethodSpecs returned successfully.                                         |
+        /// | S_FALSE | phEnum has no member elements. In this case, pcMethodSpecs is set to 0 (zero). |
+        /// </returns>
         public HRESULT TryEnumMethodSpecs(mdToken tk, uint cMax, out EnumMethodSpecsResult result)
         {
             /*HRESULT EnumMethodSpecs(

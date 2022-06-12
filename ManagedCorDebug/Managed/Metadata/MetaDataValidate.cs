@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Provides methods to validate metadata signatures.
+    /// </summary>
     public class MetaDataValidate : ComObject<IMetaDataValidate>
     {
         public MetaDataValidate(IMetaDataValidate raw) : base(raw)
@@ -12,6 +15,11 @@ namespace ManagedCorDebug
         #region IMetaDataValidate
         #region ValidatorInit
 
+        /// <summary>
+        /// Sets a flag that specifies the type of the module in the current metadata scope, and registers the specified callback method for validation errors.
+        /// </summary>
+        /// <param name="dwModuleType">[in] A value of the <see cref="CorValidatorModuleType"/> enumeration that specifies the type of the module in the current metadata scope.</param>
+        /// <param name="pUnk">[in] A pointer to an IUnknown instance that serves as a function callback for validation errors.</param>
         public void ValidatorInit(uint dwModuleType, object pUnk)
         {
             HRESULT hr;
@@ -20,6 +28,11 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Sets a flag that specifies the type of the module in the current metadata scope, and registers the specified callback method for validation errors.
+        /// </summary>
+        /// <param name="dwModuleType">[in] A value of the <see cref="CorValidatorModuleType"/> enumeration that specifies the type of the module in the current metadata scope.</param>
+        /// <param name="pUnk">[in] A pointer to an IUnknown instance that serves as a function callback for validation errors.</param>
         public HRESULT TryValidatorInit(uint dwModuleType, object pUnk)
         {
             /*HRESULT ValidatorInit(uint dwModuleType, [MarshalAs(UnmanagedType.Interface)] object pUnk);*/
@@ -29,6 +42,9 @@ namespace ManagedCorDebug
         #endregion
         #region ValidateMetaData
 
+        /// <summary>
+        /// Validates the metadata signatures of the objects in the current metadata scope.
+        /// </summary>
         public void ValidateMetaData()
         {
             HRESULT hr;
@@ -37,6 +53,9 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Validates the metadata signatures of the objects in the current metadata scope.
+        /// </summary>
         public HRESULT TryValidateMetaData()
         {
             /*HRESULT ValidateMetaData();*/

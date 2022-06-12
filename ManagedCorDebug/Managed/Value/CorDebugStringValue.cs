@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// A subclass of <see cref="ICorDebugHeapValue"/> that applies to string values.
+    /// </summary>
     public class CorDebugStringValue : CorDebugHeapValue
     {
         public CorDebugStringValue(ICorDebugStringValue raw) : base(raw)
@@ -16,6 +19,9 @@ namespace ManagedCorDebug
 
         #region GetLength
 
+        /// <summary>
+        /// Gets the number of characters in the string referenced by this <see cref="ICorDebugStringValue"/>.
+        /// </summary>
         public uint Length
         {
             get
@@ -30,6 +36,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the number of characters in the string referenced by this <see cref="ICorDebugStringValue"/>.
+        /// </summary>
+        /// <param name="pcchString">[out] A pointer to a value that specifies the length of the string referenced by this <see cref="ICorDebugStringValue"/> object.</param>
         public HRESULT TryGetLength(out uint pcchString)
         {
             /*HRESULT GetLength(out uint pcchString);*/
@@ -39,6 +49,10 @@ namespace ManagedCorDebug
         #endregion
         #region GetString
 
+        /// <summary>
+        /// Gets the string referenced by this <see cref="ICorDebugStringValue"/>.
+        /// </summary>
+        /// <returns>[out] An array that stores the retrieved string.</returns>
         public string GetString()
         {
             HRESULT hr;
@@ -50,6 +64,10 @@ namespace ManagedCorDebug
             return szStringResult;
         }
 
+        /// <summary>
+        /// Gets the string referenced by this <see cref="ICorDebugStringValue"/>.
+        /// </summary>
+        /// <param name="szStringResult">[out] An array that stores the retrieved string.</param>
         public HRESULT TryGetString(out string szStringResult)
         {
             /*HRESULT GetString([In] uint cchString, out uint pcchString, [Out] StringBuilder szString);*/

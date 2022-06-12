@@ -4,6 +4,15 @@ using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Represents a value in the process being debugged. The value can be a read or a write value.
+    /// </summary>
+    /// <remarks>
+    /// In general, ownership of a value object is passed when it is returned. The recipient is responsible for removing
+    /// a reference from the object when it is finished with the object. Depending on where the value was retrieved from,
+    /// the value may not remain valid after the process is resumed. So, in general, the value shouldn't be held across
+    /// a call of the <see cref="CorDebugController.Continue"/> method.
+    /// </remarks>
     public abstract class CorDebugValue : ComObject<ICorDebugValue>
     {
         public static CorDebugValue New(ICorDebugValue value)
@@ -36,6 +45,9 @@ namespace ManagedCorDebug
         #region ICorDebugValue
         #region GetType
 
+        /// <summary>
+        /// Gets the primitive type of this "ICorDebugValue" object.
+        /// </summary>
         public CorElementType Type
         {
             get
@@ -50,6 +62,16 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the primitive type of this "ICorDebugValue" object.
+        /// </summary>
+        /// <param name="pType">[out] A pointer to a value of the "CorElementType" enumeration that indicates the value's type.</param>
+        /// <remarks>
+        /// If the object is a complex run-time type, that type may be examined through the appropriate subclasses of the <see cref="ICorDebugValue"/>
+        /// interface. For example, "ICorDebugObjectValue", which inherits from <see cref="ICorDebugValue"/>, represents a complex type.
+        /// The GetType and <see cref="CorDebugObjectValue.Class"/> propertys each return information about the type of a
+        /// value. They are both superseded by the generics-aware <see cref="ExactType"/> property.
+        /// </remarks>
         public HRESULT TryGetType(out CorElementType pType)
         {
             /*HRESULT GetType(out CorElementType pType);*/
@@ -59,6 +81,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetSize
 
+        /// <summary>
+        /// Gets the size, in bytes, of this "ICorDebugValue" object.
+        /// </summary>
         public uint Size
         {
             get
@@ -73,6 +98,15 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the size, in bytes, of this "ICorDebugValue" object.
+        /// </summary>
+        /// <param name="pSize">[out] The size, in bytes, of this value object.</param>
+        /// <remarks>
+        /// If the value's type is a reference type, this method returns the size of the pointer rather than the size of the
+        /// object. The <see cref="Size"/> property returns COR_E_OVERFLOW for objects that are larger than 4 GB on 64-bit
+        /// platforms. Use the <see cref="Size64"/> property instead for objects that are larger than 4 GB.
+        /// </remarks>
         public HRESULT TryGetSize(out uint pSize)
         {
             /*HRESULT GetSize(out uint pSize);*/
@@ -82,6 +116,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetAddress
 
+        /// <summary>
+        /// Gets the address of this "ICorDebugValue" object, which is in the process of being debugged.
+        /// </summary>
         public CORDB_ADDRESS Address
         {
             get
@@ -96,6 +133,14 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the address of this "ICorDebugValue" object, which is in the process of being debugged.
+        /// </summary>
+        /// <param name="pAddress">[out] Pointer to a <see cref="CORDB_ADDRESS"/> object that specifies the address of this value object.</param>
+        /// <remarks>
+        /// If the value is unavailable, 0 (zero) is returned. This could happen if the value is at least partly in registers
+        /// or stored in a garbage collector handle (GCHandle).
+        /// </remarks>
         public HRESULT TryGetAddress(out CORDB_ADDRESS pAddress)
         {
             /*HRESULT GetAddress(out CORDB_ADDRESS pAddress);*/
@@ -105,6 +150,9 @@ namespace ManagedCorDebug
         #endregion
         #region CreateBreakpoint
 
+        /// <summary>
+        /// The CreateBreakpoint method is currently not implemented.
+        /// </summary>
         public CorDebugValueBreakpoint CreateBreakpoint()
         {
             HRESULT hr;
@@ -116,6 +164,9 @@ namespace ManagedCorDebug
             return ppBreakpointResult;
         }
 
+        /// <summary>
+        /// The CreateBreakpoint method is currently not implemented.
+        /// </summary>
         public HRESULT TryCreateBreakpoint(out CorDebugValueBreakpoint ppBreakpointResult)
         {
             /*HRESULT CreateBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);*/
@@ -138,6 +189,9 @@ namespace ManagedCorDebug
 
         #region GetExactType
 
+        /// <summary>
+        /// Gets an interface pointer to an "ICorDebugType" object that represents the <see cref="Type"/> of this value.
+        /// </summary>
         public CorDebugType ExactType
         {
             get
@@ -152,6 +206,15 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets an interface pointer to an "ICorDebugType" object that represents the <see cref="Type"/> of this value.
+        /// </summary>
+        /// <param name="ppTypeResult">[out] A pointer to the address of an <see cref="ICorDebugType"/> object that represents the <see cref="Type"/> of the value represented by this "ICorDebugValue2" object.</param>
+        /// <remarks>
+        /// The generics-aware GetExactType method supersedes both the <see cref="CorDebugObjectValue.Class"/> and the
+        /// <see cref="Type"/> propertys, each of which return information about the type
+        /// of a value.
+        /// </remarks>
         public HRESULT TryGetExactType(out CorDebugType ppTypeResult)
         {
             /*HRESULT GetExactType([MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);*/
@@ -174,6 +237,9 @@ namespace ManagedCorDebug
 
         #region GetSize64
 
+        /// <summary>
+        /// Gets the size, in bytes, of this <see cref="ICorDebugValue3"/> object.
+        /// </summary>
         public ulong Size64
         {
             get
@@ -188,6 +254,17 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the size, in bytes, of this <see cref="ICorDebugValue3"/> object.
+        /// </summary>
+        /// <param name="pSize">[out] A pointer to the size, in bytes, of this object.</param>
+        /// <remarks>
+        /// If this value's type is a reference type, this method returns the size of the pointer rather than the size of the
+        /// object. The <see cref="Size64"/> property differs from the <see cref="Size"/> property in the
+        /// type of its output parameter. In <see cref="Size"/>, the output parameter is a ULONG32; in <see cref="Size64"/>,
+        /// it is a ULONG64. This enables the <see cref="ICorDebugValue3"/> interface to report the size of arrays that exceed
+        /// 2GB.
+        /// </remarks>
         public HRESULT TryGetSize64(out ulong pSize)
         {
             /*HRESULT GetSize64(out ulong pSize);*/

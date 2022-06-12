@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Represents a common language runtime (CLR) module, which is either an executable file or a dynamic-link library (DLL).
+    /// </summary>
     public class CorDebugModule : ComObject<ICorDebugModule>
     {
         public CorDebugModule(ICorDebugModule raw) : base(raw)
@@ -13,6 +16,9 @@ namespace ManagedCorDebug
         #region ICorDebugModule
         #region GetProcess
 
+        /// <summary>
+        /// Gets the containing process of this module.
+        /// </summary>
         public CorDebugProcess Process
         {
             get
@@ -27,6 +33,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the containing process of this module.
+        /// </summary>
+        /// <param name="ppProcessResult">[out] A pointer to the address of an <see cref="ICorDebugProcess"/> object that represents the process containing this module.</param>
         public HRESULT TryGetProcess(out CorDebugProcess ppProcessResult)
         {
             /*HRESULT GetProcess([MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
@@ -44,6 +54,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetBaseAddress
 
+        /// <summary>
+        /// Gets the base address of the module.
+        /// </summary>
         public CORDB_ADDRESS BaseAddress
         {
             get
@@ -58,6 +71,14 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the base address of the module.
+        /// </summary>
+        /// <param name="pAddress">[out] A <see cref="CORDB_ADDRESS"/> that specifies the base address of the module.</param>
+        /// <remarks>
+        /// If the module is a native image (that is, if the module was produced by the native image generator, NGen.exe),
+        /// its base address will be zero.
+        /// </remarks>
         public HRESULT TryGetBaseAddress(out CORDB_ADDRESS pAddress)
         {
             /*HRESULT GetBaseAddress(out CORDB_ADDRESS pAddress);*/
@@ -67,6 +88,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetAssembly
 
+        /// <summary>
+        /// Gets the containing assembly for this module.
+        /// </summary>
         public CorDebugAssembly Assembly
         {
             get
@@ -81,6 +105,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the containing assembly for this module.
+        /// </summary>
+        /// <param name="ppAssemblyResult">[out] A pointer to an <see cref="ICorDebugAssembly"/> object that represents the assembly containing this module.</param>
         public HRESULT TryGetAssembly(out CorDebugAssembly ppAssemblyResult)
         {
             /*HRESULT GetAssembly([MarshalAs(UnmanagedType.Interface)] out ICorDebugAssembly ppAssembly);*/
@@ -98,6 +126,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetEditAndContinueSnapshot
 
+        /// <summary>
+        /// Deprecated.
+        /// </summary>
         public CorDebugEditAndContinueSnapshot EditAndContinueSnapshot
         {
             get
@@ -112,6 +143,9 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Deprecated.
+        /// </summary>
         public HRESULT TryGetEditAndContinueSnapshot(out CorDebugEditAndContinueSnapshot ppEditAndContinueSnapshotResult)
         {
             /*HRESULT GetEditAndContinueSnapshot(
@@ -130,6 +164,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetToken
 
+        /// <summary>
+        /// Gets the token for the table entry for this module.
+        /// </summary>
         public mdModule Token
         {
             get
@@ -144,6 +181,14 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the token for the table entry for this module.
+        /// </summary>
+        /// <param name="pToken">[out] A pointer to the <see cref="mdModule"/> token that references the module's metadata.</param>
+        /// <remarks>
+        /// The token can be passed to the <see cref="IMetaDataImport"/>, <see cref="IMetaDataImport2"/>, and <see cref="IMetaDataAssemblyImport"/>
+        /// metadata import interfaces.
+        /// </remarks>
         public HRESULT TryGetToken(out mdModule pToken)
         {
             /*HRESULT GetToken(out mdModule pToken);*/
@@ -153,6 +198,9 @@ namespace ManagedCorDebug
         #endregion
         #region IsDynamic
 
+        /// <summary>
+        /// Gets a value that indicates whether this module is dynamic.
+        /// </summary>
         public int IsDynamic
         {
             get
@@ -167,6 +215,15 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets a value that indicates whether this module is dynamic.
+        /// </summary>
+        /// <param name="pDynamic">[out] true if this module is dynamic; otherwise, false.</param>
+        /// <remarks>
+        /// A dynamic module can add new classes and delete existing classes even after the module has been loaded. The <see 
+        ///cref="CorDebugManagedCallback.LoadClass"/> and <see cref="CorDebugManagedCallback.UnloadClass"/> callbacks inform
+        /// the debugger when a class has been added or deleted.
+        /// </remarks>
         public HRESULT TryIsDynamic(out int pDynamic)
         {
             /*HRESULT IsDynamic(out int pDynamic);*/
@@ -176,6 +233,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetSize
 
+        /// <summary>
+        /// Gets the size, in bytes, of the module.
+        /// </summary>
         public uint Size
         {
             get
@@ -190,6 +250,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the size, in bytes, of the module.
+        /// </summary>
+        /// <param name="pcBytes">[out] The size of the module in bytes. If the module was produced from the native image generator (NGen.exe), the size of the module will be zero.</param>
         public HRESULT TryGetSize(out uint pcBytes)
         {
             /*HRESULT GetSize(out uint pcBytes);*/
@@ -199,6 +263,9 @@ namespace ManagedCorDebug
         #endregion
         #region IsInMemory
 
+        /// <summary>
+        /// Gets a value that indicates whether this module exists only in memory.
+        /// </summary>
         public int IsInMemory
         {
             get
@@ -213,6 +280,14 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets a value that indicates whether this module exists only in memory.
+        /// </summary>
+        /// <param name="pInMemory">[out] true if this module exists only in memory; otherwise, false.</param>
+        /// <remarks>
+        /// The common language runtime (CLR) supports the loading of modules from raw streams of bytes. Such modules are called
+        /// in-memory modules and do not exist on disk.
+        /// </remarks>
         public HRESULT TryIsInMemory(out int pInMemory)
         {
             /*HRESULT IsInMemory(out int pInMemory);*/
@@ -222,6 +297,14 @@ namespace ManagedCorDebug
         #endregion
         #region GetName
 
+        /// <summary>
+        /// Gets the file name of the module.
+        /// </summary>
+        /// <returns>[out] An array that stores the returned name.</returns>
+        /// <remarks>
+        /// The GetName method returns an S_OK <see cref="HRESULT"/> if the module's file name matches the name on disk. GetName returns
+        /// an S_FALSE <see cref="HRESULT"/> if the name is fabricated, such as for a dynamic or in-memory module.
+        /// </remarks>
         public string GetName()
         {
             HRESULT hr;
@@ -233,6 +316,14 @@ namespace ManagedCorDebug
             return szNameResult;
         }
 
+        /// <summary>
+        /// Gets the file name of the module.
+        /// </summary>
+        /// <param name="szNameResult">[out] An array that stores the returned name.</param>
+        /// <remarks>
+        /// The GetName method returns an S_OK <see cref="HRESULT"/> if the module's file name matches the name on disk. GetName returns
+        /// an S_FALSE <see cref="HRESULT"/> if the name is fabricated, such as for a dynamic or in-memory module.
+        /// </remarks>
         public HRESULT TryGetName(out string szNameResult)
         {
             /*HRESULT GetName([In] uint cchName, out uint pcchName, [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);*/
@@ -264,6 +355,15 @@ namespace ManagedCorDebug
         #endregion
         #region EnableJITDebugging
 
+        /// <summary>
+        /// Controls whether the just-in-time (JIT) compiler preserves debugging information for methods within this module.
+        /// </summary>
+        /// <param name="bTrackJITInfo">[in] Set this value to true to enable the JIT compiler to preserve mapping information between the Microsoft intermediate language (MSIL) version and the JIT-compiled version of each method in this module.</param>
+        /// <param name="bAllowJitOpts">[in] Set this value to true to enable the JIT compiler to generate code with certain JIT-specific optimizations for debugging.</param>
+        /// <remarks>
+        /// JIT debugging is enabled by default for all modules that are loaded when the debugger is active. Programmatically
+        /// enabling or disabling the settings overrides global settings.
+        /// </remarks>
         public void EnableJITDebugging(int bTrackJITInfo, int bAllowJitOpts)
         {
             HRESULT hr;
@@ -272,6 +372,15 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Controls whether the just-in-time (JIT) compiler preserves debugging information for methods within this module.
+        /// </summary>
+        /// <param name="bTrackJITInfo">[in] Set this value to true to enable the JIT compiler to preserve mapping information between the Microsoft intermediate language (MSIL) version and the JIT-compiled version of each method in this module.</param>
+        /// <param name="bAllowJitOpts">[in] Set this value to true to enable the JIT compiler to generate code with certain JIT-specific optimizations for debugging.</param>
+        /// <remarks>
+        /// JIT debugging is enabled by default for all modules that are loaded when the debugger is active. Programmatically
+        /// enabling or disabling the settings overrides global settings.
+        /// </remarks>
         public HRESULT TryEnableJITDebugging(int bTrackJITInfo, int bAllowJitOpts)
         {
             /*HRESULT EnableJITDebugging([In] int bTrackJITInfo, [In] int bAllowJitOpts);*/
@@ -281,6 +390,15 @@ namespace ManagedCorDebug
         #endregion
         #region EnableClassLoadCallbacks
 
+        /// <summary>
+        /// Controls whether the <see cref="CorDebugManagedCallback.LoadClass"/> and <see cref="CorDebugManagedCallback.UnloadClass"/> callbacks are called for this module.
+        /// </summary>
+        /// <param name="bClassLoadCallbacks">[in] Set this value to true to enable the common language runtime (CLR) to call the <see cref="CorDebugManagedCallback.LoadClass"/> and <see cref="CorDebugManagedCallback.UnloadClass"/> methods when their associated events occur.<para/>
+        /// The default value is false for non-dynamic modules. The value is always true for dynamic modules and cannot be changed.</param>
+        /// <remarks>
+        /// The <see cref="CorDebugManagedCallback.LoadClass"/> and <see cref="CorDebugManagedCallback.UnloadClass"/> callbacks are always enabled
+        /// for dynamic modules and cannot be disabled.
+        /// </remarks>
         public void EnableClassLoadCallbacks(int bClassLoadCallbacks)
         {
             HRESULT hr;
@@ -289,6 +407,15 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Controls whether the <see cref="CorDebugManagedCallback.LoadClass"/> and <see cref="CorDebugManagedCallback.UnloadClass"/> callbacks are called for this module.
+        /// </summary>
+        /// <param name="bClassLoadCallbacks">[in] Set this value to true to enable the common language runtime (CLR) to call the <see cref="CorDebugManagedCallback.LoadClass"/> and <see cref="CorDebugManagedCallback.UnloadClass"/> methods when their associated events occur.<para/>
+        /// The default value is false for non-dynamic modules. The value is always true for dynamic modules and cannot be changed.</param>
+        /// <remarks>
+        /// The <see cref="CorDebugManagedCallback.LoadClass"/> and <see cref="CorDebugManagedCallback.UnloadClass"/> callbacks are always enabled
+        /// for dynamic modules and cannot be disabled.
+        /// </remarks>
         public HRESULT TryEnableClassLoadCallbacks(int bClassLoadCallbacks)
         {
             /*HRESULT EnableClassLoadCallbacks([In] int bClassLoadCallbacks);*/
@@ -298,6 +425,15 @@ namespace ManagedCorDebug
         #endregion
         #region GetFunctionFromToken
 
+        /// <summary>
+        /// Gets the function that is specified by the metadata token.
+        /// </summary>
+        /// <param name="methodDef">[in] A <see cref="mdMethodDef"/> metadata token that references the function's metadata.</param>
+        /// <returns>[out] A pointer to the address of a <see cref="ICorDebugFunction"/> interface object that represents the function.</returns>
+        /// <remarks>
+        /// The GetFunctionFromToken method returns a CORDBG_E_FUNCTION_NOT_IL <see cref="HRESULT"/> if the value passed in methodDef does
+        /// not refer to a Microsoft intermediate language (MSIL) method.
+        /// </remarks>
         public CorDebugFunction GetFunctionFromToken(mdMethodDef methodDef)
         {
             HRESULT hr;
@@ -309,6 +445,15 @@ namespace ManagedCorDebug
             return ppFunctionResult;
         }
 
+        /// <summary>
+        /// Gets the function that is specified by the metadata token.
+        /// </summary>
+        /// <param name="methodDef">[in] A <see cref="mdMethodDef"/> metadata token that references the function's metadata.</param>
+        /// <param name="ppFunctionResult">[out] A pointer to the address of a <see cref="ICorDebugFunction"/> interface object that represents the function.</param>
+        /// <remarks>
+        /// The GetFunctionFromToken method returns a CORDBG_E_FUNCTION_NOT_IL <see cref="HRESULT"/> if the value passed in methodDef does
+        /// not refer to a Microsoft intermediate language (MSIL) method.
+        /// </remarks>
         public HRESULT TryGetFunctionFromToken(mdMethodDef methodDef, out CorDebugFunction ppFunctionResult)
         {
             /*HRESULT GetFunctionFromToken([In] mdMethodDef methodDef,
@@ -327,6 +472,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetFunctionFromRVA
 
+        /// <summary>
+        /// This method has not been implemented in the current version of the .NET Framework.
+        /// </summary>
         public CorDebugFunction GetFunctionFromRVA(ulong rva)
         {
             HRESULT hr;
@@ -338,6 +486,9 @@ namespace ManagedCorDebug
             return ppFunctionResult;
         }
 
+        /// <summary>
+        /// This method has not been implemented in the current version of the .NET Framework.
+        /// </summary>
         public HRESULT TryGetFunctionFromRVA(ulong rva, out CorDebugFunction ppFunctionResult)
         {
             /*HRESULT GetFunctionFromRVA([In] ulong rva, [MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
@@ -355,6 +506,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetClassFromToken
 
+        /// <summary>
+        /// Gets the class specified by the metadata token.
+        /// </summary>
+        /// <param name="typeDef">[in] An <see cref="mdTypeDef"/> metadata token that references the metadata of a class.</param>
+        /// <returns>[out] A pointer to the address of an <see cref="ICorDebugClass"/> object that represents the class.</returns>
         public CorDebugClass GetClassFromToken(mdTypeDef typeDef)
         {
             HRESULT hr;
@@ -366,6 +522,11 @@ namespace ManagedCorDebug
             return ppClassResult;
         }
 
+        /// <summary>
+        /// Gets the class specified by the metadata token.
+        /// </summary>
+        /// <param name="typeDef">[in] An <see cref="mdTypeDef"/> metadata token that references the metadata of a class.</param>
+        /// <param name="ppClassResult">[out] A pointer to the address of an <see cref="ICorDebugClass"/> object that represents the class.</param>
         public HRESULT TryGetClassFromToken(mdTypeDef typeDef, out CorDebugClass ppClassResult)
         {
             /*HRESULT GetClassFromToken([In] mdTypeDef typeDef, [MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);*/
@@ -383,6 +544,9 @@ namespace ManagedCorDebug
         #endregion
         #region CreateBreakpoint
 
+        /// <summary>
+        /// This method has not been implemented in the current version of the .NET Framework.
+        /// </summary>
         public CorDebugModuleBreakpoint CreateBreakpoint()
         {
             HRESULT hr;
@@ -394,6 +558,9 @@ namespace ManagedCorDebug
             return ppBreakpointResult;
         }
 
+        /// <summary>
+        /// This method has not been implemented in the current version of the .NET Framework.
+        /// </summary>
         public HRESULT TryCreateBreakpoint(out CorDebugModuleBreakpoint ppBreakpointResult)
         {
             /*HRESULT CreateBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugModuleBreakpoint ppBreakpoint);*/
@@ -411,6 +578,16 @@ namespace ManagedCorDebug
         #endregion
         #region GetMetaDataInterface
 
+        /// <summary>
+        /// Gets a metadata interface object that can be used to examine the metadata for the module.
+        /// </summary>
+        /// <param name="riid">[in] The reference ID that specifies the metadata interface.</param>
+        /// <remarks>
+        /// The debugger can use the GetMetaDataInterface method to make a copy of the original metadata for a module, which
+        /// it must do in order to edit that module. The debugger calls GetMetaDataInterface to get an <see cref="IMetaDataEmit"/>
+        /// interface object for the module, then calls <see cref="MetaDataEmit.SaveToMemory"/> to save a copy of the module's
+        /// metadata to memory.
+        /// </remarks>
         public void GetMetaDataInterface(Guid riid)
         {
             HRESULT hr;
@@ -419,6 +596,16 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Gets a metadata interface object that can be used to examine the metadata for the module.
+        /// </summary>
+        /// <param name="riid">[in] The reference ID that specifies the metadata interface.</param>
+        /// <remarks>
+        /// The debugger can use the GetMetaDataInterface method to make a copy of the original metadata for a module, which
+        /// it must do in order to edit that module. The debugger calls GetMetaDataInterface to get an <see cref="IMetaDataEmit"/>
+        /// interface object for the module, then calls <see cref="MetaDataEmit.SaveToMemory"/> to save a copy of the module's
+        /// metadata to memory.
+        /// </remarks>
         public HRESULT TryGetMetaDataInterface(Guid riid)
         {
             /*HRESULT GetMetaDataInterface([In] ref Guid riid, [MarshalAs(UnmanagedType.IUnknown)] out object ppObj);*/
@@ -430,6 +617,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetGlobalVariableValue
 
+        /// <summary>
+        /// Gets the value of the specified global variable.
+        /// </summary>
+        /// <param name="fieldDef">[in] An <see cref="mdFieldDef"/> token that references the metadata describing the global variable.</param>
+        /// <returns>[out] A pointer to the address of an <see cref="ICorDebugValue"/> object that represents the value of the specified global variable.</returns>
         public CorDebugValue GetGlobalVariableValue(mdFieldDef fieldDef)
         {
             HRESULT hr;
@@ -441,6 +633,11 @@ namespace ManagedCorDebug
             return ppValueResult;
         }
 
+        /// <summary>
+        /// Gets the value of the specified global variable.
+        /// </summary>
+        /// <param name="fieldDef">[in] An <see cref="mdFieldDef"/> token that references the metadata describing the global variable.</param>
+        /// <param name="ppValueResult">[out] A pointer to the address of an <see cref="ICorDebugValue"/> object that represents the value of the specified global variable.</param>
         public HRESULT TryGetGlobalVariableValue(mdFieldDef fieldDef, out CorDebugValue ppValueResult)
         {
             /*HRESULT GetGlobalVariableValue([In] mdFieldDef fieldDef,
@@ -464,6 +661,9 @@ namespace ManagedCorDebug
 
         #region GetJITCompilerFlags
 
+        /// <summary>
+        /// Gets or sets the flags that control the just-in-time (JIT) compilation of this <see cref="ICorDebugModule2"/>.
+        /// </summary>
         public uint JITCompilerFlags
         {
             get
@@ -485,12 +685,28 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the flags that control the just-in-time (JIT) compilation of this <see cref="ICorDebugModule2"/>.
+        /// </summary>
+        /// <param name="pdwFlags">[out] A pointer to a value of the <see cref="CorDebugJITCompilerFlags"/> enumeration that controls the JIT compilation.</param>
         public HRESULT TryGetJITCompilerFlags(out uint pdwFlags)
         {
             /*HRESULT GetJITCompilerFlags(out uint pdwFlags);*/
             return Raw2.GetJITCompilerFlags(out pdwFlags);
         }
 
+        /// <summary>
+        /// Sets the flags that control the just-in-time (JIT) compilation of this <see cref="ICorDebugModule2"/>.
+        /// </summary>
+        /// <param name="dwFlags">[in] A bitwise combination of the <see cref="CorDebugJITCompilerFlags"/> enumeration values.</param>
+        /// <remarks>
+        /// If the dwFlags value is invalid, the SetJITCompilerFlags method will fail. The SetJITCompilerFlags method can be
+        /// called only from within the <see cref="CorDebugManagedCallback.LoadModule"/> callback for this module. Attempts
+        /// to call it after the <see cref="CorDebugManagedCallback.LoadModule"/> callback has been delivered will fail. Edit and Continue
+        /// is not supported on 64-bit or Win9x platforms. Therefore, if you call the SetJITCompilerFlags method on either
+        /// of these two platforms with the CORDEBUG_JIT_ENABLE_ENC flag set in dwFlags, the SetJITCompilerFlags method and
+        /// all methods specific to Edit and Continue, such as <see cref="ApplyChanges"/>, will fail.
+        /// </remarks>
         public HRESULT TrySetJITCompilerFlags(uint dwFlags)
         {
             /*HRESULT SetJITCompilerFlags([In] uint dwFlags);*/
@@ -500,6 +716,19 @@ namespace ManagedCorDebug
         #endregion
         #region SetJMCStatus
 
+        /// <summary>
+        /// Sets the Just My Code (JMC) status of all methods of all the classes in this <see cref="ICorDebugModule2"/> to the specified value, except those in the pTokens array, which it sets to the opposite value.
+        /// </summary>
+        /// <param name="bIsJustMyCode">[in] Set to true if the code is to be debugged; otherwise, set to false.</param>
+        /// <param name="cTokens">[in] The size of the pTokens array.</param>
+        /// <param name="pTokens">[in] An array of <see cref="mdToken"/> values, each of which refers to a method that will have its JMC status set to !bIsJustMycode.</param>
+        /// <remarks>
+        /// The JMC status of each method that is specified in the pTokens array is set to the opposite of the bIsJustMycode
+        /// value. The status of all other methods in this module is set to the bIsJustMycode value. The SetJMCStatus method
+        /// erases all previous JMC settings in this module. The SetJMCStatus method returns an S_OK <see cref="HRESULT"/> if all functions
+        /// were set successfully. It returns a CORDBG_E_FUNCTION_NOT_DEBUGGABLE <see cref="HRESULT"/> if some functions that are marked
+        /// true are not debuggable.
+        /// </remarks>
         public void SetJMCStatus(int bIsJustMyCode, uint cTokens, mdToken[] pTokens)
         {
             HRESULT hr;
@@ -508,6 +737,19 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Sets the Just My Code (JMC) status of all methods of all the classes in this <see cref="ICorDebugModule2"/> to the specified value, except those in the pTokens array, which it sets to the opposite value.
+        /// </summary>
+        /// <param name="bIsJustMyCode">[in] Set to true if the code is to be debugged; otherwise, set to false.</param>
+        /// <param name="cTokens">[in] The size of the pTokens array.</param>
+        /// <param name="pTokens">[in] An array of <see cref="mdToken"/> values, each of which refers to a method that will have its JMC status set to !bIsJustMycode.</param>
+        /// <remarks>
+        /// The JMC status of each method that is specified in the pTokens array is set to the opposite of the bIsJustMycode
+        /// value. The status of all other methods in this module is set to the bIsJustMycode value. The SetJMCStatus method
+        /// erases all previous JMC settings in this module. The SetJMCStatus method returns an S_OK <see cref="HRESULT"/> if all functions
+        /// were set successfully. It returns a CORDBG_E_FUNCTION_NOT_DEBUGGABLE <see cref="HRESULT"/> if some functions that are marked
+        /// true are not debuggable.
+        /// </remarks>
         public HRESULT TrySetJMCStatus(int bIsJustMyCode, uint cTokens, mdToken[] pTokens)
         {
             /*HRESULT SetJMCStatus([In] int bIsJustMyCode, [In] uint cTokens, [In] mdToken[] pTokens);*/
@@ -517,6 +759,29 @@ namespace ManagedCorDebug
         #endregion
         #region ApplyChanges
 
+        /// <summary>
+        /// Applies the changes in the metadata and the changes in the Microsoft intermediate language (MSIL) code to the running process.
+        /// </summary>
+        /// <param name="cbMetadata">[in] Size, in bytes, of the delta metadata.</param>
+        /// <param name="pbMetadata">[in] Buffer that contains the delta metadata. The address of the buffer is returned from the <see cref="MetaDataEmit.SaveDeltaToMemory"/> method.<para/>
+        /// The relative virtual addresses (RVAs) in the metadata should be relative to the start of the MSIL code.</param>
+        /// <param name="cbIL">[in] Size, in bytes, of the delta MSIL code.</param>
+        /// <param name="pbIL">[in] Buffer that contains the updated MSIL code.</param>
+        /// <remarks>
+        /// The pbMetadata parameter is in a special delta metadata format (as output by <see cref="MetaDataEmit.SaveDeltaToMemory"/>).
+        /// pbMetadata takes previous metadata as a base and describes individual changes to apply to that base. In contrast,
+        /// the pbIL[] parameter contains the new MSIL for the updated method, and is meant to completely replace the previous
+        /// MSIL for that method When the delta MSIL and the metadata have been created in the debugger’s memory, the debugger
+        /// calls ApplyChanges to send the changes into the common language runtime (CLR). The runtime updates its metadata
+        /// tables, places the new MSIL into the process, and sets up a just-in-time (JIT) compilation of the new MSIL. When
+        /// the changes have been applied, the debugger should call <see cref="MetaDataEmit.ResetENCLog"/> to prepare for
+        /// the next editing session. The debugger may then continue the process. Whenever the debugger calls ApplyChanges
+        /// on a module that has delta metadata, it should also call <see cref="MetaDataEmit.ApplyEditAndContinue"/> with
+        /// the same delta metadata on all of its copies of that module’s metadata except for the copy used to emit the changes.
+        /// If a copy of the metadata somehow becomes out-of-sync with the actual metadata, the debugger can always throw away
+        /// that copy and obtain a new copy. If the ApplyChanges method fails, the debug session is in an invalid state and
+        /// must be restarted.
+        /// </remarks>
         public void ApplyChanges(uint cbMetadata, IntPtr pbMetadata, uint cbIL, IntPtr pbIL)
         {
             HRESULT hr;
@@ -525,6 +790,29 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Applies the changes in the metadata and the changes in the Microsoft intermediate language (MSIL) code to the running process.
+        /// </summary>
+        /// <param name="cbMetadata">[in] Size, in bytes, of the delta metadata.</param>
+        /// <param name="pbMetadata">[in] Buffer that contains the delta metadata. The address of the buffer is returned from the <see cref="MetaDataEmit.SaveDeltaToMemory"/> method.<para/>
+        /// The relative virtual addresses (RVAs) in the metadata should be relative to the start of the MSIL code.</param>
+        /// <param name="cbIL">[in] Size, in bytes, of the delta MSIL code.</param>
+        /// <param name="pbIL">[in] Buffer that contains the updated MSIL code.</param>
+        /// <remarks>
+        /// The pbMetadata parameter is in a special delta metadata format (as output by <see cref="MetaDataEmit.SaveDeltaToMemory"/>).
+        /// pbMetadata takes previous metadata as a base and describes individual changes to apply to that base. In contrast,
+        /// the pbIL[] parameter contains the new MSIL for the updated method, and is meant to completely replace the previous
+        /// MSIL for that method When the delta MSIL and the metadata have been created in the debugger’s memory, the debugger
+        /// calls ApplyChanges to send the changes into the common language runtime (CLR). The runtime updates its metadata
+        /// tables, places the new MSIL into the process, and sets up a just-in-time (JIT) compilation of the new MSIL. When
+        /// the changes have been applied, the debugger should call <see cref="MetaDataEmit.ResetENCLog"/> to prepare for
+        /// the next editing session. The debugger may then continue the process. Whenever the debugger calls ApplyChanges
+        /// on a module that has delta metadata, it should also call <see cref="MetaDataEmit.ApplyEditAndContinue"/> with
+        /// the same delta metadata on all of its copies of that module’s metadata except for the copy used to emit the changes.
+        /// If a copy of the metadata somehow becomes out-of-sync with the actual metadata, the debugger can always throw away
+        /// that copy and obtain a new copy. If the ApplyChanges method fails, the debug session is in an invalid state and
+        /// must be restarted.
+        /// </remarks>
         public HRESULT TryApplyChanges(uint cbMetadata, IntPtr pbMetadata, uint cbIL, IntPtr pbIL)
         {
             /*HRESULT ApplyChanges([In] uint cbMetadata, [In] IntPtr pbMetadata, [In] uint cbIL, [In] IntPtr pbIL);*/
@@ -534,6 +822,15 @@ namespace ManagedCorDebug
         #endregion
         #region ResolveAssembly
 
+        /// <summary>
+        /// Resolves the assembly referenced by the specified metadata token.
+        /// </summary>
+        /// <param name="tkAssemblyRef">[in] An <see cref="mdToken"/> value that references the assembly.</param>
+        /// <returns>[out] A pointer to the address of an <see cref="ICorDebugAssembly"/> object that represents the assembly.</returns>
+        /// <remarks>
+        /// If the assembly is not already loaded when ResolveAssembly is called, an <see cref="HRESULT"/> value of CORDBG_E_CANNOT_RESOLVE_ASSEMBLY
+        /// is returned.
+        /// </remarks>
         public CorDebugAssembly ResolveAssembly(mdToken tkAssemblyRef)
         {
             HRESULT hr;
@@ -545,6 +842,15 @@ namespace ManagedCorDebug
             return ppAssemblyResult;
         }
 
+        /// <summary>
+        /// Resolves the assembly referenced by the specified metadata token.
+        /// </summary>
+        /// <param name="tkAssemblyRef">[in] An <see cref="mdToken"/> value that references the assembly.</param>
+        /// <param name="ppAssemblyResult">[out] A pointer to the address of an <see cref="ICorDebugAssembly"/> object that represents the assembly.</param>
+        /// <remarks>
+        /// If the assembly is not already loaded when ResolveAssembly is called, an <see cref="HRESULT"/> value of CORDBG_E_CANNOT_RESOLVE_ASSEMBLY
+        /// is returned.
+        /// </remarks>
         public HRESULT TryResolveAssembly(mdToken tkAssemblyRef, out CorDebugAssembly ppAssemblyResult)
         {
             /*HRESULT ResolveAssembly([In] mdToken tkAssemblyRef,
@@ -568,6 +874,18 @@ namespace ManagedCorDebug
 
         #region CreateReaderForInMemorySymbols
 
+        /// <summary>
+        /// Creates a debug symbol reader for a dynamic module.
+        /// </summary>
+        /// <param name="riid">[in] The IID of the COM interface to return. Typically, this is an <see cref="ISymUnmanagedReader"/>.</param>
+        /// <remarks>
+        /// This method can also be used to create a symbol reader object for in-memory (non-dynamic) modules, but only after
+        /// the symbols are first available (indicated by the <see cref="CorDebugManagedCallback.UpdateModuleSymbols"/> callback).
+        /// This method returns a new reader instance every time it is called (like CComPtrBase). Therefore, the debugger should
+        /// cache the result and request a new instance only when the underlying data may have changed (that is, when a <see 
+        ///cref="CorDebugManagedCallback.LoadClass"/> callback is received). Dynamic modules do not have any symbols available
+        /// until the first type has been loaded (as indicated by the <see cref="CorDebugManagedCallback.LoadClass"/> callback).
+        /// </remarks>
         public void CreateReaderForInMemorySymbols(Guid riid)
         {
             HRESULT hr;
@@ -576,6 +894,24 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Creates a debug symbol reader for a dynamic module.
+        /// </summary>
+        /// <param name="riid">[in] The IID of the COM interface to return. Typically, this is an <see cref="ISymUnmanagedReader"/>.</param>
+        /// <returns>
+        /// * S_OK - Successfully created the reader.
+        /// * CORDBG_E_MODULE_LOADED_FROM_DISK - The module is not an in-memory or dynamic module.
+        /// * CORDBG_E_SYMBOLS_NOT_AVAILABLE - Symbols have not been supplied by the application or are not yet available.
+        /// * E_FAIL (or other E_ return codes) - Unable to create the reader.
+        /// </returns>
+        /// <remarks>
+        /// This method can also be used to create a symbol reader object for in-memory (non-dynamic) modules, but only after
+        /// the symbols are first available (indicated by the <see cref="CorDebugManagedCallback.UpdateModuleSymbols"/> callback).
+        /// This method returns a new reader instance every time it is called (like CComPtrBase). Therefore, the debugger should
+        /// cache the result and request a new instance only when the underlying data may have changed (that is, when a <see 
+        ///cref="CorDebugManagedCallback.LoadClass"/> callback is received). Dynamic modules do not have any symbols available
+        /// until the first type has been loaded (as indicated by the <see cref="CorDebugManagedCallback.LoadClass"/> callback).
+        /// </remarks>
         public HRESULT TryCreateReaderForInMemorySymbols(Guid riid)
         {
             /*HRESULT CreateReaderForInMemorySymbols([In] ref Guid riid, out IntPtr ppObj);*/

@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// <see cref="ICorDebugEditAndContinueErrorInfo"/> is obsolete. Do not use this interface.
+    /// </summary>
     public class CorDebugEditAndContinueErrorInfo : ComObject<ICorDebugEditAndContinueErrorInfo>
     {
         public CorDebugEditAndContinueErrorInfo(ICorDebugEditAndContinueErrorInfo raw) : base(raw)
@@ -13,6 +16,9 @@ namespace ManagedCorDebug
         #region ICorDebugEditAndContinueErrorInfo
         #region GetModule
 
+        /// <summary>
+        /// GetModule is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public CorDebugModule Module
         {
@@ -28,6 +34,9 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// GetModule is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public HRESULT TryGetModule(out CorDebugModule ppModuleResult)
         {
@@ -46,6 +55,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetToken
 
+        /// <summary>
+        /// GetToken is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public uint Token
         {
@@ -61,6 +73,9 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// GetToken is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public HRESULT TryGetToken(out uint pToken)
         {
@@ -71,6 +86,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetErrorCode
 
+        /// <summary>
+        /// GetErrorCode is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public int ErrorCode
         {
@@ -86,6 +104,9 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// GetErrorCode is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public HRESULT TryGetErrorCode(out int pHr)
         {
@@ -96,6 +117,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetString
 
+        /// <summary>
+        /// GetString is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public string GetString()
         {
@@ -108,6 +132,9 @@ namespace ManagedCorDebug
             return szStringResult;
         }
 
+        /// <summary>
+        /// GetString is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public HRESULT TryGetString(out string szStringResult)
         {

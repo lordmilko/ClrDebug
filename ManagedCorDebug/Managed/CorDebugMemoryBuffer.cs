@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Represents an in-memory buffer.
+    /// </summary>
     public class CorDebugMemoryBuffer : ComObject<ICorDebugMemoryBuffer>
     {
         public CorDebugMemoryBuffer(ICorDebugMemoryBuffer raw) : base(raw)
@@ -12,6 +15,9 @@ namespace ManagedCorDebug
         #region ICorDebugMemoryBuffer
         #region GetStartAddress
 
+        /// <summary>
+        /// Gets the starting address of the memory buffer.
+        /// </summary>
         public IntPtr StartAddress
         {
             get
@@ -26,6 +32,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the starting address of the memory buffer.
+        /// </summary>
+        /// <param name="address">[out] A pointer to the starting address of the memory buffer.</param>
         public HRESULT TryGetStartAddress(out IntPtr address)
         {
             /*HRESULT GetStartAddress(out IntPtr address);*/
@@ -35,6 +45,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetSize
 
+        /// <summary>
+        /// Gets the size of the memory buffer in bytes.
+        /// </summary>
         public uint Size
         {
             get
@@ -49,6 +62,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the size of the memory buffer in bytes.
+        /// </summary>
+        /// <param name="pcbBufferLength">[out] A pointer to the size of the memory buffer.</param>
         public HRESULT TryGetSize(out uint pcbBufferLength)
         {
             /*HRESULT GetSize(out uint pcbBufferLength);*/

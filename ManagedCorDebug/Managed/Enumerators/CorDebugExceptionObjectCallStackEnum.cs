@@ -3,6 +3,14 @@ using System.Collections.Generic;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Provides an enumerator for call stack information that is embedded in an exception object. This interface is a subclass of the <see cref="ICorDebugEnum"/> interface.
+    /// </summary>
+    /// <remarks>
+    /// The <see cref="ICorDebugExceptionObjectCallStackEnum"/> interface implements the <see cref="ICorDebugEnum"/> interface. An <see cref="ICorDebugExceptionObjectCallStackEnum"/>
+    /// instance is populated with <see cref="CorDebugExceptionObjectStackFrame"/> objects by calling the <see cref="CorDebugExceptionObjectValue.EnumerateExceptionCallStack"/>
+    /// method. The call stack items in the collection can be enumerated by calling the <see cref="MoveNext"/> method
+    /// </remarks>
     public class CorDebugExceptionObjectCallStackEnum : IEnumerable<CorDebugExceptionObjectStackFrame>, IEnumerator<CorDebugExceptionObjectStackFrame>
     {
         private ICorDebugExceptionObjectCallStackEnum rawEnumerator;

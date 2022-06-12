@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Represents a lexical scope within a method.
+    /// </summary>
     public class SymUnmanagedScope : ComObject<ISymUnmanagedScope>
     {
         public SymUnmanagedScope(ISymUnmanagedScope raw) : base(raw)
@@ -12,6 +15,9 @@ namespace ManagedCorDebug
         #region ISymUnmanagedScope
         #region GetMethod
 
+        /// <summary>
+        /// Gets the method that contains this scope.
+        /// </summary>
         public ISymUnmanagedMethod Method
         {
             get
@@ -26,6 +32,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the method that contains this scope.
+        /// </summary>
+        /// <param name="pRetVal">[out] A pointer to the returned <see cref="ISymUnmanagedMethod"/> interface.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetMethod(ref ISymUnmanagedMethod pRetVal)
         {
             /*HRESULT GetMethod([Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);*/
@@ -35,6 +46,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetParent
 
+        /// <summary>
+        /// Gets the parent scope of this scope.
+        /// </summary>
         public ISymUnmanagedScope Parent
         {
             get
@@ -49,6 +63,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the parent scope of this scope.
+        /// </summary>
+        /// <param name="pRetVal">[out] A pointer to the returned <see cref="ISymUnmanagedScope"/> interface.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetParent(ref ISymUnmanagedScope pRetVal)
         {
             /*HRESULT GetParent([Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedScope pRetVal);*/
@@ -58,6 +77,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetStartOffset
 
+        /// <summary>
+        /// Gets the start offset for this scope.
+        /// </summary>
         public uint StartOffset
         {
             get
@@ -72,6 +94,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the start offset for this scope.
+        /// </summary>
+        /// <param name="pRetVal">[out] A pointer to a ULONG32 that contains the starting offset.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetStartOffset(out uint pRetVal)
         {
             /*HRESULT GetStartOffset([Out] out uint pRetVal);*/
@@ -81,6 +108,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetEndOffset
 
+        /// <summary>
+        /// Gets the end offset for this scope.
+        /// </summary>
         public uint EndOffset
         {
             get
@@ -95,6 +125,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the end offset for this scope.
+        /// </summary>
+        /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the end offset.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetEndOffset(out uint pRetVal)
         {
             /*HRESULT GetEndOffset([Out] out uint pRetVal);*/
@@ -104,6 +139,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetLocalCount
 
+        /// <summary>
+        /// Gets a count of the local variables defined within this scope.
+        /// </summary>
         public uint LocalCount
         {
             get
@@ -118,6 +156,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets a count of the local variables defined within this scope.
+        /// </summary>
+        /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the count of local variables.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetLocalCount(out uint pRetVal)
         {
             /*HRESULT GetLocalCount([Out] out uint pRetVal);*/
@@ -127,6 +170,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetChildren
 
+        /// <summary>
+        /// Gets the children of this scope.
+        /// </summary>
+        /// <param name="cChildren">[in] A ULONG32 that indicates the size of the children array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetChildrenResult GetChildren(uint cChildren)
         {
             HRESULT hr;
@@ -138,6 +186,12 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the children of this scope.
+        /// </summary>
+        /// <param name="cChildren">[in] A ULONG32 that indicates the size of the children array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetChildren(uint cChildren, out GetChildrenResult result)
         {
             /*HRESULT GetChildren(
@@ -159,6 +213,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetLocals
 
+        /// <summary>
+        /// Gets the local variables defined within this scope.
+        /// </summary>
+        /// <param name="cLocals">[in] A ULONG32 that indicates the size of the locals array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetLocalsResult GetLocals(uint cLocals)
         {
             HRESULT hr;
@@ -170,6 +229,12 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the local variables defined within this scope.
+        /// </summary>
+        /// <param name="cLocals">[in] A ULONG32 that indicates the size of the locals array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetLocals(uint cLocals, out GetLocalsResult result)
         {
             /*HRESULT GetLocals(
@@ -191,6 +256,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetNamespaces
 
+        /// <summary>
+        /// Gets the namespaces that are being used within this scope.
+        /// </summary>
+        /// <param name="cNameSpaces">[in] The size of the namespaces array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetNamespacesResult GetNamespaces(uint cNameSpaces)
         {
             HRESULT hr;
@@ -202,6 +272,12 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the namespaces that are being used within this scope.
+        /// </summary>
+        /// <param name="cNameSpaces">[in] The size of the namespaces array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetNamespaces(uint cNameSpaces, out GetNamespacesResult result)
         {
             /*HRESULT GetNamespaces(
@@ -228,6 +304,9 @@ namespace ManagedCorDebug
 
         #region GetConstantCount
 
+        /// <summary>
+        /// Gets a count of the constants defined within this scope.
+        /// </summary>
         public uint ConstantCount
         {
             get
@@ -242,6 +321,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets a count of the constants defined within this scope.
+        /// </summary>
+        /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the size, in characters, of the buffer required to contain the constants.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetConstantCount(out uint pRetVal)
         {
             /*HRESULT GetConstantCount([Out] out uint pRetVal);*/
@@ -251,6 +335,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetConstants
 
+        /// <summary>
+        /// Gets the local constants defined within this scope.
+        /// </summary>
+        /// <param name="cConstants">[in] The length of the buffer that the pcConstants parameter points to.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetConstantsResult GetConstants(uint cConstants)
         {
             HRESULT hr;
@@ -262,6 +351,12 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the local constants defined within this scope.
+        /// </summary>
+        /// <param name="cConstants">[in] The length of the buffer that the pcConstants parameter points to.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetConstants(uint cConstants, out GetConstantsResult result)
         {
             /*HRESULT GetConstants([In] uint cConstants, out uint pcConstants, [MarshalAs(UnmanagedType.Interface), Out]

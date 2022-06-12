@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Provides a callback method for <see cref="CLRDataEnumMemoryRegions.EnumMemoryRegions"/> to report to the debugger the result of an attempt to enumerate a specified region of memory.
+    /// </summary>
     public class CLRDataEnumMemoryRegionsCallback : ComObject<ICLRDataEnumMemoryRegionsCallback>
     {
         public CLRDataEnumMemoryRegionsCallback(ICLRDataEnumMemoryRegionsCallback raw) : base(raw)
@@ -12,6 +15,16 @@ namespace ManagedCorDebug
         #region ICLRDataEnumMemoryRegionsCallback
         #region EnumMemoryRegion
 
+        /// <summary>
+        /// Called by <see cref="CLRDataEnumMemoryRegions.EnumMemoryRegions"/> to report to the debugger the result of an attempt to enumerate a specified region of memory.
+        /// </summary>
+        /// <param name="address">[in] The starting address of the memory region that was to be enumerated.</param>
+        /// <param name="size">[in] The size, in bytes, of the memory region.</param>
+        /// <remarks>
+        /// The <see cref="CLRDataEnumMemoryRegions.EnumMemoryRegions"/> method will call this callback method after each attempt to enumerate
+        /// a memory region. The enumeration will continue even if this method returns an <see cref="HRESULT"/> indicating failure. Regions
+        /// reported by this callback may be duplicates or overlapping regions.
+        /// </remarks>
         public void EnumMemoryRegion(ulong address, uint size)
         {
             HRESULT hr;
@@ -20,6 +33,16 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Called by <see cref="CLRDataEnumMemoryRegions.EnumMemoryRegions"/> to report to the debugger the result of an attempt to enumerate a specified region of memory.
+        /// </summary>
+        /// <param name="address">[in] The starting address of the memory region that was to be enumerated.</param>
+        /// <param name="size">[in] The size, in bytes, of the memory region.</param>
+        /// <remarks>
+        /// The <see cref="CLRDataEnumMemoryRegions.EnumMemoryRegions"/> method will call this callback method after each attempt to enumerate
+        /// a memory region. The enumeration will continue even if this method returns an <see cref="HRESULT"/> indicating failure. Regions
+        /// reported by this callback may be duplicates or overlapping regions.
+        /// </remarks>
         public HRESULT TryEnumMemoryRegion(ulong address, uint size)
         {
             /*HRESULT EnumMemoryRegion([In] ulong address, [In] uint size);*/

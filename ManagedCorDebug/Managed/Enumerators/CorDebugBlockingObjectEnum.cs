@@ -3,6 +3,12 @@ using System.Collections.Generic;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Provides an enumerator for a list of <see cref="CorDebugBlockingObject"/> structures. This interface is a subclass of the <see cref="ICorDebugEnum"/> interface.
+    /// </summary>
+    /// <remarks>
+    /// Each <see cref="CorDebugBlockingObject"/> structure represents an object that is blocking a thread.
+    /// </remarks>
     public class CorDebugBlockingObjectEnum : IEnumerable<CorDebugBlockingObject>, IEnumerator<CorDebugBlockingObject>
     {
         private ICorDebugBlockingObjectEnum rawEnumerator;

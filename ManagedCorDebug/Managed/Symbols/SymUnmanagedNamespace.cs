@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Represents a namespace.
+    /// </summary>
     public class SymUnmanagedNamespace : ComObject<ISymUnmanagedNamespace>
     {
         public SymUnmanagedNamespace(ISymUnmanagedNamespace raw) : base(raw)
@@ -13,6 +16,10 @@ namespace ManagedCorDebug
         #region ISymUnmanagedNamespace
         #region GetName
 
+        /// <summary>
+        /// Gets the name of this namespace.
+        /// </summary>
+        /// <returns>[out] A pointer to a buffer that contains the namespace name.</returns>
         public string GetName()
         {
             HRESULT hr;
@@ -24,6 +31,11 @@ namespace ManagedCorDebug
             return szNameResult;
         }
 
+        /// <summary>
+        /// Gets the name of this namespace.
+        /// </summary>
+        /// <param name="szNameResult">[out] A pointer to a buffer that contains the namespace name.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetName(out string szNameResult)
         {
             /*HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);*/
@@ -55,6 +67,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetNamespaces
 
+        /// <summary>
+        /// Gets the children of this namespace.
+        /// </summary>
+        /// <param name="cNameSpaces">[in] A ULONG32 that indicates the size of the namespaces array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetNamespacesResult GetNamespaces(uint cNameSpaces)
         {
             HRESULT hr;
@@ -66,6 +83,12 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the children of this namespace.
+        /// </summary>
+        /// <param name="cNameSpaces">[in] A ULONG32 that indicates the size of the namespaces array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetNamespaces(uint cNameSpaces, out GetNamespacesResult result)
         {
             /*HRESULT GetNamespaces([In] uint cNameSpaces, out uint pcNameSpaces, [MarshalAs(UnmanagedType.Interface), Out]
@@ -85,6 +108,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetVariables
 
+        /// <summary>
+        /// Returns all variables defined at global scope within this namespace.
+        /// </summary>
+        /// <param name="cVars">[in] A ULONG32 that indicates the size of the pVars array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetVariablesResult GetVariables(uint cVars)
         {
             HRESULT hr;
@@ -96,6 +124,12 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Returns all variables defined at global scope within this namespace.
+        /// </summary>
+        /// <param name="cVars">[in] A ULONG32 that indicates the size of the pVars array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetVariables(uint cVars, out GetVariablesResult result)
         {
             /*HRESULT GetVariables([In] uint cVars, out uint pcVars, [Out] IntPtr pVars);*/

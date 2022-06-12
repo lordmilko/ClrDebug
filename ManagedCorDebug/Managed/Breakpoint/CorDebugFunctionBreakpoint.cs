@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Extends the <see cref="ICorDebugBreakpoint"/> interface to support breakpoints within functions.
+    /// </summary>
     public class CorDebugFunctionBreakpoint : CorDebugBreakpoint
     {
         public CorDebugFunctionBreakpoint(ICorDebugFunctionBreakpoint raw) : base(raw)
@@ -15,6 +18,9 @@ namespace ManagedCorDebug
 
         #region GetFunction
 
+        /// <summary>
+        /// Gets an interface pointer to an <see cref="ICorDebugFunction"/> that references the function in which the breakpoint is set.
+        /// </summary>
         public CorDebugFunction Function
         {
             get
@@ -29,6 +35,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets an interface pointer to an <see cref="ICorDebugFunction"/> that references the function in which the breakpoint is set.
+        /// </summary>
+        /// <param name="ppFunctionResult">[out] A pointer to the address of the function in which the breakpoint is set.</param>
         public HRESULT TryGetFunction(out CorDebugFunction ppFunctionResult)
         {
             /*HRESULT GetFunction([MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
@@ -46,6 +56,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetOffset
 
+        /// <summary>
+        /// Gets the offset of the breakpoint within the function.
+        /// </summary>
         public uint Offset
         {
             get
@@ -60,6 +73,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the offset of the breakpoint within the function.
+        /// </summary>
+        /// <param name="pnOffset">[out] A pointer to the offset of the breakpoint.</param>
         public HRESULT TryGetOffset(out uint pnOffset)
         {
             /*HRESULT GetOffset(out uint pnOffset);*/

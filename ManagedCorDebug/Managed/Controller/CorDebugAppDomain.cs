@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Provides methods for debugging application domains. This interface is a subclass of <see cref="ICorDebugController"/>.
+    /// </summary>
     public class CorDebugAppDomain : CorDebugController
     {
         public CorDebugAppDomain(ICorDebugAppDomain raw) : base(raw)
@@ -17,6 +20,9 @@ namespace ManagedCorDebug
 
         #region GetProcess
 
+        /// <summary>
+        /// Gets the process containing the application domain.
+        /// </summary>
         public CorDebugProcess Process
         {
             get
@@ -31,6 +37,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the process containing the application domain.
+        /// </summary>
+        /// <param name="ppProcessResult">[out] A pointer to the address of an <see cref="ICorDebugProcess"/> object that represents the process.</param>
         public HRESULT TryGetProcess(out CorDebugProcess ppProcessResult)
         {
             /*HRESULT GetProcess([MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
@@ -48,6 +58,9 @@ namespace ManagedCorDebug
         #endregion
         #region IsAttached
 
+        /// <summary>
+        /// Gets a value that indicates whether the debugger is attached to the application domain.
+        /// </summary>
         public int IsAttached
         {
             get
@@ -62,6 +75,13 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets a value that indicates whether the debugger is attached to the application domain.
+        /// </summary>
+        /// <param name="pbAttached">[out] true if the debugger is attached to the application domain; otherwise, false.</param>
+        /// <remarks>
+        /// The <see cref="ICorDebugController"/> methods cannot be used until the debugger attaches to the application domain.
+        /// </remarks>
         public HRESULT TryIsAttached(out int pbAttached)
         {
             /*HRESULT IsAttached(out int pbAttached);*/
@@ -71,6 +91,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetObject
 
+        /// <summary>
+        /// Gets an interface pointer to the common language runtime (CLR) application domain.
+        /// </summary>
         public CorDebugValue Object
         {
             get
@@ -85,6 +108,16 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets an interface pointer to the common language runtime (CLR) application domain.
+        /// </summary>
+        /// <param name="ppObjectResult">[out] A pointer to the address of an <see cref="ICorDebugValue"/> interface object that represents the CLR application domain.</param>
+        /// <returns>If a managed <see cref="AppDomain"/> object hasn't been constructed for this application domain, the method returns S_FALSE and places NULL in *ppObject.</returns>
+        /// <remarks>
+        /// Each application domain in a process may have a managed <see cref="AppDomain"/> object in the runtime that represents
+        /// it. This function gets an <see cref="ICorDebugValue"/> interface object that corresponds to this managed <see cref="AppDomain"/>
+        /// object.
+        /// </remarks>
         public HRESULT TryGetObject(out CorDebugValue ppObjectResult)
         {
             /*HRESULT GetObject([MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppObject);*/
@@ -102,6 +135,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetID
 
+        /// <summary>
+        /// Gets the unique identifier of the application domain.
+        /// </summary>
         public uint Id
         {
             get
@@ -116,6 +152,13 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the unique identifier of the application domain.
+        /// </summary>
+        /// <param name="pId">[out] The unique identifier of the application domain.</param>
+        /// <remarks>
+        /// The identifier for the application domain is unique within the containing process.
+        /// </remarks>
         public HRESULT TryGetID(out uint pId)
         {
             /*HRESULT GetID(out uint pId);*/
@@ -125,6 +168,10 @@ namespace ManagedCorDebug
         #endregion
         #region EnumerateAssemblies
 
+        /// <summary>
+        /// Gets an enumerator for the assemblies in the application domain.
+        /// </summary>
+        /// <returns>[out] A pointer to the address of an <see cref="ICorDebugAssemblyEnum"/> object that is the enumerator for the assemblies in the application domain.</returns>
         public CorDebugAssemblyEnum EnumerateAssemblies()
         {
             HRESULT hr;
@@ -136,6 +183,10 @@ namespace ManagedCorDebug
             return ppAssembliesResult;
         }
 
+        /// <summary>
+        /// Gets an enumerator for the assemblies in the application domain.
+        /// </summary>
+        /// <param name="ppAssembliesResult">[out] A pointer to the address of an <see cref="ICorDebugAssemblyEnum"/> object that is the enumerator for the assemblies in the application domain.</param>
         public HRESULT TryEnumerateAssemblies(out CorDebugAssemblyEnum ppAssembliesResult)
         {
             /*HRESULT EnumerateAssemblies([MarshalAs(UnmanagedType.Interface)] out ICorDebugAssemblyEnum ppAssemblies);*/
@@ -153,6 +204,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetModuleFromMetaDataInterface
 
+        /// <summary>
+        /// Gets the module that corresponds to the given metadata interface.
+        /// </summary>
+        /// <param name="pIMetaData">[in] A pointer to an object that is one of the Metadata interfaces.</param>
+        /// <returns>[out] A pointer to the address of an <see cref="ICorDebugModule"/> object that represents the module corresponding to the given metadata interface.</returns>
         public CorDebugModule GetModuleFromMetaDataInterface(object pIMetaData)
         {
             HRESULT hr;
@@ -164,6 +220,11 @@ namespace ManagedCorDebug
             return ppModuleResult;
         }
 
+        /// <summary>
+        /// Gets the module that corresponds to the given metadata interface.
+        /// </summary>
+        /// <param name="pIMetaData">[in] A pointer to an object that is one of the Metadata interfaces.</param>
+        /// <param name="ppModuleResult">[out] A pointer to the address of an <see cref="ICorDebugModule"/> object that represents the module corresponding to the given metadata interface.</param>
         public HRESULT TryGetModuleFromMetaDataInterface(object pIMetaData, out CorDebugModule ppModuleResult)
         {
             /*HRESULT GetModuleFromMetaDataInterface([MarshalAs(UnmanagedType.IUnknown), In]
@@ -182,6 +243,13 @@ namespace ManagedCorDebug
         #endregion
         #region EnumerateBreakpoints
 
+        /// <summary>
+        /// Gets an enumerator for all active breakpoints in the application domain.
+        /// </summary>
+        /// <returns>[out] A pointer to the address of an <see cref="ICorDebugBreakpointEnum"/> object that is the enumerator for all active breakpoints in the application domain.</returns>
+        /// <remarks>
+        /// The enumerator includes all types of breakpoints, including function breakpoints and data breakpoints.
+        /// </remarks>
         public CorDebugBreakpointEnum EnumerateBreakpoints()
         {
             HRESULT hr;
@@ -193,6 +261,13 @@ namespace ManagedCorDebug
             return ppBreakpointsResult;
         }
 
+        /// <summary>
+        /// Gets an enumerator for all active breakpoints in the application domain.
+        /// </summary>
+        /// <param name="ppBreakpointsResult">[out] A pointer to the address of an <see cref="ICorDebugBreakpointEnum"/> object that is the enumerator for all active breakpoints in the application domain.</param>
+        /// <remarks>
+        /// The enumerator includes all types of breakpoints, including function breakpoints and data breakpoints.
+        /// </remarks>
         public HRESULT TryEnumerateBreakpoints(out CorDebugBreakpointEnum ppBreakpointsResult)
         {
             /*HRESULT EnumerateBreakpoints([MarshalAs(UnmanagedType.Interface)] out ICorDebugBreakpointEnum ppBreakpoints);*/
@@ -210,6 +285,10 @@ namespace ManagedCorDebug
         #endregion
         #region EnumerateSteppers
 
+        /// <summary>
+        /// Gets an enumerator for all active steppers in the application domain.
+        /// </summary>
+        /// <returns>[out] A pointer to the address of an <see cref="ICorDebugStepperEnum"/> object that is the enumerator for all active steppers in the application domain.</returns>
         public CorDebugStepperEnum EnumerateSteppers()
         {
             HRESULT hr;
@@ -221,6 +300,10 @@ namespace ManagedCorDebug
             return ppSteppersResult;
         }
 
+        /// <summary>
+        /// Gets an enumerator for all active steppers in the application domain.
+        /// </summary>
+        /// <param name="ppSteppersResult">[out] A pointer to the address of an <see cref="ICorDebugStepperEnum"/> object that is the enumerator for all active steppers in the application domain.</param>
         public HRESULT TryEnumerateSteppers(out CorDebugStepperEnum ppSteppersResult)
         {
             /*HRESULT EnumerateSteppers([MarshalAs(UnmanagedType.Interface)] out ICorDebugStepperEnum ppSteppers);*/
@@ -238,6 +321,15 @@ namespace ManagedCorDebug
         #endregion
         #region GetName
 
+        /// <summary>
+        /// Gets the name of the application domain.
+        /// </summary>
+        /// <returns>[out] An array that stores the name of the application domain.</returns>
+        /// <remarks>
+        /// A debugger calls the GetName method once to get the size of a buffer needed for the name. The debugger allocates
+        /// the buffer, and then calls the method a second time to fill the buffer. The first call, to get the size of the
+        /// name, is referred to as query mode.
+        /// </remarks>
         public string GetName()
         {
             HRESULT hr;
@@ -249,6 +341,15 @@ namespace ManagedCorDebug
             return szNameResult;
         }
 
+        /// <summary>
+        /// Gets the name of the application domain.
+        /// </summary>
+        /// <param name="szNameResult">[out] An array that stores the name of the application domain.</param>
+        /// <remarks>
+        /// A debugger calls the GetName method once to get the size of a buffer needed for the name. The debugger allocates
+        /// the buffer, and then calls the method a second time to fill the buffer. The first call, to get the size of the
+        /// name, is referred to as query mode.
+        /// </remarks>
         public HRESULT TryGetName(out string szNameResult)
         {
             /*HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);*/
@@ -280,6 +381,13 @@ namespace ManagedCorDebug
         #endregion
         #region Attach
 
+        /// <summary>
+        /// Attaches the debugger to the application domain.
+        /// </summary>
+        /// <remarks>
+        /// The debugger must be attached to the application domain to receive events and to enable debugging of the application
+        /// domain.
+        /// </remarks>
         public void Attach()
         {
             HRESULT hr;
@@ -288,6 +396,13 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Attaches the debugger to the application domain.
+        /// </summary>
+        /// <remarks>
+        /// The debugger must be attached to the application domain to receive events and to enable debugging of the application
+        /// domain.
+        /// </remarks>
         public HRESULT TryAttach()
         {
             /*HRESULT Attach();*/
@@ -302,6 +417,17 @@ namespace ManagedCorDebug
 
         #region GetArrayOrPointerType
 
+        /// <summary>
+        /// Gets an array of the specified type, or a pointer or reference to the specified type.
+        /// </summary>
+        /// <param name="elementType">[in] A value of the <see cref="CorElementType"/> enumeration that specifies the underlying native type (an array, pointer, or reference) to be created.</param>
+        /// <param name="nRank">[in] The rank (that is, number of dimensions) of the array. This value must be 0 if elementType specifies a pointer or reference type.</param>
+        /// <param name="pTypeArg">[in] A pointer to an <see cref="ICorDebugType"/> object that represents the type of array, pointer, or reference to be created.</param>
+        /// <returns>[out] A pointer to the address of an <see cref="ICorDebugType"/> object that represents the constructed array, pointer type, or reference type.</returns>
+        /// <remarks>
+        /// The value of elementType must be one of the following: If the value of elementType is ELEMENT_TYPE_PTR or ELEMENT_TYPE_BYREF,
+        /// nRank must be zero.
+        /// </remarks>
         public CorDebugType GetArrayOrPointerType(CorElementType elementType, uint nRank, ICorDebugType pTypeArg)
         {
             HRESULT hr;
@@ -313,6 +439,17 @@ namespace ManagedCorDebug
             return ppTypeResult;
         }
 
+        /// <summary>
+        /// Gets an array of the specified type, or a pointer or reference to the specified type.
+        /// </summary>
+        /// <param name="elementType">[in] A value of the <see cref="CorElementType"/> enumeration that specifies the underlying native type (an array, pointer, or reference) to be created.</param>
+        /// <param name="nRank">[in] The rank (that is, number of dimensions) of the array. This value must be 0 if elementType specifies a pointer or reference type.</param>
+        /// <param name="pTypeArg">[in] A pointer to an <see cref="ICorDebugType"/> object that represents the type of array, pointer, or reference to be created.</param>
+        /// <param name="ppTypeResult">[out] A pointer to the address of an <see cref="ICorDebugType"/> object that represents the constructed array, pointer type, or reference type.</param>
+        /// <remarks>
+        /// The value of elementType must be one of the following: If the value of elementType is ELEMENT_TYPE_PTR or ELEMENT_TYPE_BYREF,
+        /// nRank must be zero.
+        /// </remarks>
         public HRESULT TryGetArrayOrPointerType(CorElementType elementType, uint nRank, ICorDebugType pTypeArg, out CorDebugType ppTypeResult)
         {
             /*HRESULT GetArrayOrPointerType(
@@ -335,6 +472,13 @@ namespace ManagedCorDebug
         #endregion
         #region GetFunctionPointerType
 
+        /// <summary>
+        /// Gets a pointer to a function that has a given signature.
+        /// </summary>
+        /// <param name="nTypeArgs">[in] The number of type arguments for the function.</param>
+        /// <param name="ppTypeArgs">[in] An array of pointers, each of which points to an <see cref="ICorDebugType"/> object that represents a type argument of the function.<para/>
+        /// The first element is the return type; each of the other elements is a parameter type.</param>
+        /// <returns>[out] A pointer to the address of an <see cref="ICorDebugType"/> object that represents the pointer to the function.</returns>
         public CorDebugType GetFunctionPointerType(uint nTypeArgs, ICorDebugType ppTypeArgs)
         {
             HRESULT hr;
@@ -346,6 +490,13 @@ namespace ManagedCorDebug
             return ppTypeResult;
         }
 
+        /// <summary>
+        /// Gets a pointer to a function that has a given signature.
+        /// </summary>
+        /// <param name="nTypeArgs">[in] The number of type arguments for the function.</param>
+        /// <param name="ppTypeArgs">[in] An array of pointers, each of which points to an <see cref="ICorDebugType"/> object that represents a type argument of the function.<para/>
+        /// The first element is the return type; each of the other elements is a parameter type.</param>
+        /// <param name="ppTypeResult">[out] A pointer to the address of an <see cref="ICorDebugType"/> object that represents the pointer to the function.</param>
         public HRESULT TryGetFunctionPointerType(uint nTypeArgs, ICorDebugType ppTypeArgs, out CorDebugType ppTypeResult)
         {
             /*HRESULT GetFunctionPointerType(
@@ -372,6 +523,9 @@ namespace ManagedCorDebug
 
         #region GetCachedWinRTTypes
 
+        /// <summary>
+        /// Gets an enumerator for all cached Windows Runtime types.
+        /// </summary>
         public CorDebugGuidToTypeEnum CachedWinRTTypes
         {
             get
@@ -386,6 +540,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets an enumerator for all cached Windows Runtime types.
+        /// </summary>
+        /// <param name="ppGuidToTypeEnumResult">[out] A pointer to an <see cref="ICorDebugGuidToTypeEnum"/> interface object that can enumerate the managed representations of Windows Runtime types currently loaded in the application domain.</param>
         public HRESULT TryGetCachedWinRTTypes(out CorDebugGuidToTypeEnum ppGuidToTypeEnumResult)
         {
             /*HRESULT GetCachedWinRTTypes([MarshalAs(UnmanagedType.Interface)] out ICorDebugGuidToTypeEnum ppGuidToTypeEnum);*/
@@ -403,6 +561,17 @@ namespace ManagedCorDebug
         #endregion
         #region GetCachedWinRTTypesForIIDs
 
+        /// <summary>
+        /// Gets an enumerator for cached Windows Runtime types in an application domain based on their interface identifiers.
+        /// </summary>
+        /// <param name="cReqTypes">[in] The number of required types.</param>
+        /// <param name="iidsToResolve">[in] A pointer to an array that contains the interface identifiers corresponding to the managed representations of the Windows Runtime types to be retrieved.</param>
+        /// <returns>[out] A pointer to the address of an "ICorDebugTypeEnum" interface object that allows enumeration of the cached managed representations of the Windows Runtime types retrieved, based on the interface identifiers in iidsToResolve.</returns>
+        /// <remarks>
+        /// If the method fails to retrieve information for a specific interface identifier, the corresponding entry in the
+        /// "ICorDebugTypeEnum" collection will have a type of ELEMENT_TYPE_END for errors due to data retrieval issues, or
+        /// ELEMENT_TYPE_VOID for unknown interface identifiers.
+        /// </remarks>
         public CorDebugTypeEnum GetCachedWinRTTypesForIIDs(uint cReqTypes, Guid iidsToResolve)
         {
             HRESULT hr;
@@ -414,6 +583,17 @@ namespace ManagedCorDebug
             return ppTypesEnumResult;
         }
 
+        /// <summary>
+        /// Gets an enumerator for cached Windows Runtime types in an application domain based on their interface identifiers.
+        /// </summary>
+        /// <param name="cReqTypes">[in] The number of required types.</param>
+        /// <param name="iidsToResolve">[in] A pointer to an array that contains the interface identifiers corresponding to the managed representations of the Windows Runtime types to be retrieved.</param>
+        /// <param name="ppTypesEnumResult">[out] A pointer to the address of an "ICorDebugTypeEnum" interface object that allows enumeration of the cached managed representations of the Windows Runtime types retrieved, based on the interface identifiers in iidsToResolve.</param>
+        /// <remarks>
+        /// If the method fails to retrieve information for a specific interface identifier, the corresponding entry in the
+        /// "ICorDebugTypeEnum" collection will have a type of ELEMENT_TYPE_END for errors due to data retrieval issues, or
+        /// ELEMENT_TYPE_VOID for unknown interface identifiers.
+        /// </remarks>
         public HRESULT TryGetCachedWinRTTypesForIIDs(uint cReqTypes, Guid iidsToResolve, out CorDebugTypeEnum ppTypesEnumResult)
         {
             /*HRESULT GetCachedWinRTTypesForIIDs(
@@ -439,6 +619,11 @@ namespace ManagedCorDebug
 
         #region GetObjectForCCW
 
+        /// <summary>
+        /// Gets a managed object from a COM callable wrapper (CCW) pointer.
+        /// </summary>
+        /// <param name="ccwPointer">[in] A COM callable wrapper (CCW) pointer.</param>
+        /// <returns>[out] A pointer to the address of an "ICorDebugValue" object that represents the managed object that corresponds to the given CCW pointer.</returns>
         public CorDebugValue GetObjectForCCW(ulong ccwPointer)
         {
             HRESULT hr;
@@ -450,6 +635,11 @@ namespace ManagedCorDebug
             return ppManagedObjectResult;
         }
 
+        /// <summary>
+        /// Gets a managed object from a COM callable wrapper (CCW) pointer.
+        /// </summary>
+        /// <param name="ccwPointer">[in] A COM callable wrapper (CCW) pointer.</param>
+        /// <param name="ppManagedObjectResult">[out] A pointer to the address of an "ICorDebugValue" object that represents the managed object that corresponds to the given CCW pointer.</param>
         public HRESULT TryGetObjectForCCW(ulong ccwPointer, out CorDebugValue ppManagedObjectResult)
         {
             /*HRESULT GetObjectForCCW([In] ulong ccwPointer,

@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// This interface is the reading complement to <see cref="ISymUnmanagedAsyncMethodPropertiesWriter"/>.
+    /// </summary>
     public class SymUnmanagedAsyncMethod : ComObject<ISymUnmanagedAsyncMethod>
     {
         public SymUnmanagedAsyncMethod(ISymUnmanagedAsyncMethod raw) : base(raw)
@@ -12,6 +15,10 @@ namespace ManagedCorDebug
         #region ISymUnmanagedAsyncMethod
         #region IsAsyncMethod
 
+        /// <summary>
+        /// Checks if the method has async information or not. If this method returns FALSE then it is invalid to call any other methods in this interface.<para/>
+        /// They will all return E_UNEXPECTED in this case.
+        /// </summary>
         public bool IsAsyncMethod
         {
             get
@@ -25,6 +32,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Checks if the method has async information or not. If this method returns FALSE then it is invalid to call any other methods in this interface.<para/>
+        /// They will all return E_UNEXPECTED in this case.
+        /// </summary>
+        /// <returns>Returns <see cref="HRESULT"/>.</returns>
         public HRESULT TryIsAsyncMethod()
         {
             /*HRESULT IsAsyncMethod();*/
@@ -34,6 +46,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetKickoffMethod
 
+        /// <summary>
+        /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineKickoffMethod"/>.
+        /// </summary>
         public mdToken KickoffMethod
         {
             get
@@ -48,6 +63,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineKickoffMethod"/>.
+        /// </summary>
+        /// <returns>Returns <see cref="HRESULT"/>.</returns>
         public HRESULT TryGetKickoffMethod(out mdToken kickoffMethod)
         {
             /*HRESULT GetKickoffMethod([Out] out mdToken kickoffMethod);*/
@@ -57,6 +76,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetCatchHandlerILOffset
 
+        /// <summary>
+        /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineCatchHandlerILOffset"/>.
+        /// </summary>
         public uint CatchHandlerILOffset
         {
             get
@@ -71,6 +93,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineCatchHandlerILOffset"/>.
+        /// </summary>
+        /// <returns>Returns <see cref="HRESULT"/>.</returns>
         public HRESULT TryGetCatchHandlerILOffset(out uint pRetVal)
         {
             /*HRESULT GetCatchHandlerILOffset([Out] out uint pRetVal);*/
@@ -80,6 +106,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetAsyncStepInfoCount
 
+        /// <summary>
+        /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
+        /// </summary>
         public uint AsyncStepInfoCount
         {
             get
@@ -94,6 +123,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
+        /// </summary>
+        /// <returns>Returns <see cref="HRESULT"/>.</returns>
         public HRESULT TryGetAsyncStepInfoCount(out uint pRetVal)
         {
             /*HRESULT GetAsyncStepInfoCount([Out] out uint pRetVal);*/
@@ -103,6 +136,9 @@ namespace ManagedCorDebug
         #endregion
         #region HasCatchHandlerILOffset
 
+        /// <summary>
+        /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineCatchHandlerILOffset"/>.
+        /// </summary>
         public void HasCatchHandlerILOffset()
         {
             HRESULT hr;
@@ -111,6 +147,10 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineCatchHandlerILOffset"/>.
+        /// </summary>
+        /// <returns>Returns <see cref="HRESULT"/>.</returns>
         public HRESULT TryHasCatchHandlerILOffset()
         {
             /*HRESULT HasCatchHandlerILOffset();*/
@@ -120,6 +160,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetAsyncStepInfo
 
+        /// <summary>
+        /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
+        /// </summary>
         public void GetAsyncStepInfo(uint cStepInfo, uint yieldOffsets, uint breakpointOffset, uint breakpointMethod)
         {
             HRESULT hr;
@@ -128,6 +171,10 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
+        /// </summary>
+        /// <returns>Returns <see cref="HRESULT"/>.</returns>
         public HRESULT TryGetAsyncStepInfo(uint cStepInfo, uint yieldOffsets, uint breakpointOffset, uint breakpointMethod)
         {
             /*HRESULT GetAsyncStepInfo(

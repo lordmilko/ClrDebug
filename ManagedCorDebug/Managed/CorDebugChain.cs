@@ -3,6 +3,13 @@ using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Represents a segment of a physical or logical call stack.
+    /// </summary>
+    /// <remarks>
+    /// The stack frames in a chain occupy contiguous stack space and share the same thread and context. A chain may represent
+    /// either managed or unmanaged code chains. An empty <see cref="ICorDebugChain"/> instance represents an unmanaged code chain.
+    /// </remarks>
     public class CorDebugChain : ComObject<ICorDebugChain>
     {
         public CorDebugChain(ICorDebugChain raw) : base(raw)
@@ -12,6 +19,9 @@ namespace ManagedCorDebug
         #region ICorDebugChain
         #region GetThread
 
+        /// <summary>
+        /// Gets the physical thread this call chain is part of.
+        /// </summary>
         public CorDebugThread Thread
         {
             get
@@ -26,6 +36,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the physical thread this call chain is part of.
+        /// </summary>
+        /// <param name="ppThreadResult">[out] A pointer to an <see cref="ICorDebugThread"/> object that represents the physical thread this call chain is part of.</param>
         public HRESULT TryGetThread(out CorDebugThread ppThreadResult)
         {
             /*HRESULT GetThread([MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);*/
@@ -43,6 +57,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetStackRange
 
+        /// <summary>
+        /// Gets the address range of the stack segment for this chain.
+        /// </summary>
         public GetStackRangeResult StackRange
         {
             get
@@ -57,6 +74,14 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the address range of the stack segment for this chain.
+        /// </summary>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <remarks>
+        /// The numeric range is meaningful only for comparison of stack frame locations. You cannot make any assumptions about
+        /// what is actually stored on the stack.
+        /// </remarks>
         public HRESULT TryGetStackRange(out GetStackRangeResult result)
         {
             /*HRESULT GetStackRange(out CORDB_ADDRESS pStart, out CORDB_ADDRESS pEnd);*/
@@ -75,6 +100,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetContext
 
+        /// <summary>
+        /// This method is not implemented in the current version of the .NET Framework.
+        /// </summary>
         public CorDebugContext Context
         {
             get
@@ -89,6 +117,9 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// This method is not implemented in the current version of the .NET Framework.
+        /// </summary>
         public HRESULT TryGetContext(out CorDebugContext ppContextResult)
         {
             /*HRESULT GetContext([MarshalAs(UnmanagedType.Interface)] out ICorDebugContext ppContext);*/
@@ -106,6 +137,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetCaller
 
+        /// <summary>
+        /// Gets the chain that called this chain.
+        /// </summary>
         public CorDebugChain Caller
         {
             get
@@ -120,6 +154,13 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the chain that called this chain.
+        /// </summary>
+        /// <param name="ppChainResult">[out] A pointer to the address of an <see cref="ICorDebugChain"/> object that represents the calling chain. If this chain was spontaneously called (as would be the case if this chain or the debugger initialized the call stack), ppChain will be null.</param>
+        /// <remarks>
+        /// The calling chain may be on a different thread, if the call was marshalled across threads.
+        /// </remarks>
         public HRESULT TryGetCaller(out CorDebugChain ppChainResult)
         {
             /*HRESULT GetCaller([MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);*/
@@ -137,6 +178,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetCallee
 
+        /// <summary>
+        /// Gets the chain that was called by this chain.
+        /// </summary>
         public CorDebugChain Callee
         {
             get
@@ -151,6 +195,14 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the chain that was called by this chain.
+        /// </summary>
+        /// <param name="ppChainResult">[out] A pointer to the address of an <see cref="ICorDebugChain"/> object that represents the called chain. If this chain is currently executing (that is, if this chain is not waiting for a called chain to return), ppChain will be null.</param>
+        /// <remarks>
+        /// This chain will wait for the called chain to return before it resumes execution. The called chain may be on another
+        /// thread in the case of cross-thread marshalled calls.
+        /// </remarks>
         public HRESULT TryGetCallee(out CorDebugChain ppChainResult)
         {
             /*HRESULT GetCallee([MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);*/
@@ -168,6 +220,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetPrevious
 
+        /// <summary>
+        /// Gets the previous chain of frames for the thread.
+        /// </summary>
         public CorDebugChain Previous
         {
             get
@@ -182,6 +237,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the previous chain of frames for the thread.
+        /// </summary>
+        /// <param name="ppChainResult">[out] A pointer to the address of an <see cref="ICorDebugChain"/> object that represents the previous chain of frames for this thread.<para/>
+        /// If this chain is the first chain, ppChain is null.</param>
         public HRESULT TryGetPrevious(out CorDebugChain ppChainResult)
         {
             /*HRESULT GetPrevious([MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);*/
@@ -199,6 +259,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetNext
 
+        /// <summary>
+        /// Gets the next chain of frames for the thread.
+        /// </summary>
         public CorDebugChain Next
         {
             get
@@ -213,6 +276,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the next chain of frames for the thread.
+        /// </summary>
+        /// <param name="ppChainResult">[out] A pointer to the address of an <see cref="ICorDebugChain"/> object that represents the next chain of frames for the thread.<para/>
+        /// If this chain is the last chain, ppChain is null.</param>
         public HRESULT TryGetNext(out CorDebugChain ppChainResult)
         {
             /*HRESULT GetNext([MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);*/
@@ -230,6 +298,9 @@ namespace ManagedCorDebug
         #endregion
         #region IsManaged
 
+        /// <summary>
+        /// Gets a value that indicates whether this chain is running managed code.
+        /// </summary>
         public int IsManaged
         {
             get
@@ -244,6 +315,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets a value that indicates whether this chain is running managed code.
+        /// </summary>
+        /// <param name="pManaged">[out] true if this chain is running managed code; otherwise, false.</param>
         public HRESULT TryIsManaged(out int pManaged)
         {
             /*HRESULT IsManaged(out int pManaged);*/
@@ -253,6 +328,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetActiveFrame
 
+        /// <summary>
+        /// Gets the active (that is, most recent) frame on the chain.
+        /// </summary>
         public CorDebugFrame ActiveFrame
         {
             get
@@ -267,6 +345,15 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the active (that is, most recent) frame on the chain.
+        /// </summary>
+        /// <param name="ppFrameResult">[out] A pointer to the address of an <see cref="ICorDebugFrame"/> object that represents the active (that is, most recent) frame on the chain.</param>
+        /// <remarks>
+        /// If no managed stack frame is available, ppFrame is set to null. If the active frame is not available, the call
+        /// will succeed and ppFrame will be null. Active frames will not be available for chains initiated due to CHAIN_ENTER_UNMANAGED,
+        /// and for some chains initiated due to CHAIN_CLASS_INIT. See the <see cref="CorDebugChainReason"/> enumeration.
+        /// </remarks>
         public HRESULT TryGetActiveFrame(out CorDebugFrame ppFrameResult)
         {
             /*HRESULT GetActiveFrame([MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);*/
@@ -284,6 +371,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetRegisterSet
 
+        /// <summary>
+        /// Gets the register set for the active part of this chain.
+        /// </summary>
         public CorDebugRegisterSet RegisterSet
         {
             get
@@ -298,6 +388,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the register set for the active part of this chain.
+        /// </summary>
+        /// <param name="ppRegistersResult">[out] A pointer to the address of an <see cref="ICorDebugRegisterSet"/> object that represents the register set for the active part of this chain.</param>
         public HRESULT TryGetRegisterSet(out CorDebugRegisterSet ppRegistersResult)
         {
             /*HRESULT GetRegisterSet([MarshalAs(UnmanagedType.Interface)] out ICorDebugRegisterSet ppRegisters);*/
@@ -315,6 +409,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetReason
 
+        /// <summary>
+        /// Gets the reason for the genesis of this calling chain.
+        /// </summary>
         public CorDebugChainReason Reason
         {
             get
@@ -329,6 +426,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the reason for the genesis of this calling chain.
+        /// </summary>
+        /// <param name="pReason">[out] A pointer to a value (a bitwise combination) of the <see cref="CorDebugChainReason"/> enumeration that indicates the reason for the genesis of this calling chain.</param>
         public HRESULT TryGetReason(out CorDebugChainReason pReason)
         {
             /*HRESULT GetReason(out CorDebugChainReason pReason);*/
@@ -338,6 +439,15 @@ namespace ManagedCorDebug
         #endregion
         #region EnumerateFrames
 
+        /// <summary>
+        /// Gets an enumerator that contains all the managed stack frames in the chain, starting with the most recent frame.
+        /// </summary>
+        /// <returns>[out] A pointer to the address of an <see cref="ICorDebugFrameEnum"/> object that is the enumerator for the stack frames.</returns>
+        /// <remarks>
+        /// The chain represents the physical call stack for the thread. The EnumerateFrames method should be called only for
+        /// managed chains. The debugging API does not provide methods for obtaining frames contained in unmanaged chains.
+        /// The debugger must use other means to obtain this information.
+        /// </remarks>
         public CorDebugFrameEnum EnumerateFrames()
         {
             HRESULT hr;
@@ -349,6 +459,15 @@ namespace ManagedCorDebug
             return ppFramesResult;
         }
 
+        /// <summary>
+        /// Gets an enumerator that contains all the managed stack frames in the chain, starting with the most recent frame.
+        /// </summary>
+        /// <param name="ppFramesResult">[out] A pointer to the address of an <see cref="ICorDebugFrameEnum"/> object that is the enumerator for the stack frames.</param>
+        /// <remarks>
+        /// The chain represents the physical call stack for the thread. The EnumerateFrames method should be called only for
+        /// managed chains. The debugging API does not provide methods for obtaining frames contained in unmanaged chains.
+        /// The debugger must use other means to obtain this information.
+        /// </remarks>
         public HRESULT TryEnumerateFrames(out CorDebugFrameEnum ppFramesResult)
         {
             /*HRESULT EnumerateFrames([MarshalAs(UnmanagedType.Interface)] out ICorDebugFrameEnum ppFrames);*/

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Implements <see cref="ICorDebugEnum"/> methods, and enumerates <see cref="ICorDebugStepper"/> arrays.
+    /// </summary>
     public class CorDebugStepperEnum : IEnumerable<CorDebugStepper>, IEnumerator<CorDebugStepper>
     {
         private ICorDebugStepperEnum rawEnumerator;

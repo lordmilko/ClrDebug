@@ -1,8 +1,12 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Represents a process that is executing managed code. This interface is a subclass of <see cref="ICorDebugController"/>.
+    /// </summary>
     public class CorDebugProcess : CorDebugController
     {
         public CorDebugProcess(ICorDebugProcess raw) : base(raw)
@@ -15,6 +19,9 @@ namespace ManagedCorDebug
 
         #region GetID
 
+        /// <summary>
+        /// Gets the operating system (OS) ID of the process.
+        /// </summary>
         public uint Id
         {
             get
@@ -29,6 +36,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the operating system (OS) ID of the process.
+        /// </summary>
+        /// <param name="pdwProcessId">[out] The unique ID of the process.</param>
         public HRESULT TryGetID(out uint pdwProcessId)
         {
             /*HRESULT GetID(out uint pdwProcessId);*/
@@ -38,6 +49,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetHandle
 
+        /// <summary>
+        /// Gets a handle to the process.
+        /// </summary>
         public IntPtr Handle
         {
             get
@@ -52,6 +66,14 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets a handle to the process.
+        /// </summary>
+        /// <param name="phProcessHandle">[out] A pointer to an HPROCESS that is the handle to the process.</param>
+        /// <remarks>
+        /// The retrieved handle is owned by the debugging interface. The debugger should duplicate the handle before using
+        /// it.
+        /// </remarks>
         public HRESULT TryGetHandle(out IntPtr phProcessHandle)
         {
             /*HRESULT GetHandle(out IntPtr phProcessHandle);*/
@@ -61,6 +83,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetObject
 
+        /// <summary>
+        /// This method has not been implemented.
+        /// </summary>
         public CorDebugValue Object
         {
             get
@@ -75,6 +100,9 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// This method has not been implemented.
+        /// </summary>
         public HRESULT TryGetObject(out CorDebugValue ppObjectResult)
         {
             /*HRESULT GetObject([MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppObject);*/
@@ -92,6 +120,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetHelperThreadID
 
+        /// <summary>
+        /// Gets the operating system (OS) thread ID of the debugger's internal helper thread.
+        /// </summary>
         public uint HelperThreadID
         {
             get
@@ -106,6 +137,20 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the operating system (OS) thread ID of the debugger's internal helper thread.
+        /// </summary>
+        /// <param name="pThreadID">[out] A pointer to the OS thread ID of the debugger's internal helper thread.</param>
+        /// <remarks>
+        /// During managed and unmanaged debugging, it is the debugger's responsibility to ensure that the thread with the
+        /// specified ID remains running if it hits a breakpoint placed by the debugger. A debugger may also wish to hide this
+        /// thread from the user. If no helper thread exists in the process yet, the GetHelperThreadID method returns zero
+        /// in *pThreadID. You cannot cache the thread ID of the helper thread, because it may change over time. You must re-query
+        /// the thread ID at every stopping event. The thread ID of the debugger's helper thread will be correct on every unmanaged
+        /// <see cref="CorDebugManagedCallback.CreateThread"/> event, thus allowing a debugger to determine the thread ID
+        /// of its helper thread and hide it from the user. A thread that is identified as a helper thread during an unmanaged
+        /// <see cref="CorDebugManagedCallback.CreateThread"/> event will never run managed user code.
+        /// </remarks>
         public HRESULT TryGetHelperThreadID(out uint pThreadID)
         {
             /*HRESULT GetHelperThreadID(out uint pThreadID);*/
@@ -115,6 +160,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetThread
 
+        /// <summary>
+        /// Gets this process's thread that has the specified operating system (OS) thread ID.
+        /// </summary>
+        /// <param name="dwThreadId">[in] The OS thread ID of the thread to be retrieved.</param>
+        /// <returns>[out] A pointer to the address of an <see cref="ICorDebugThread"/> object that represents the thread.</returns>
         public CorDebugThread GetThread(uint dwThreadId)
         {
             HRESULT hr;
@@ -126,6 +176,11 @@ namespace ManagedCorDebug
             return ppThreadResult;
         }
 
+        /// <summary>
+        /// Gets this process's thread that has the specified operating system (OS) thread ID.
+        /// </summary>
+        /// <param name="dwThreadId">[in] The OS thread ID of the thread to be retrieved.</param>
+        /// <param name="ppThreadResult">[out] A pointer to the address of an <see cref="ICorDebugThread"/> object that represents the thread.</param>
         public HRESULT TryGetThread(uint dwThreadId, out CorDebugThread ppThreadResult)
         {
             /*HRESULT GetThread([In] uint dwThreadId, [MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);*/
@@ -143,6 +198,9 @@ namespace ManagedCorDebug
         #endregion
         #region EnumerateObjects
 
+        /// <summary>
+        /// This method has not been implemented.
+        /// </summary>
         public CorDebugObjectEnum EnumerateObjects()
         {
             HRESULT hr;
@@ -154,6 +212,9 @@ namespace ManagedCorDebug
             return ppObjectsResult;
         }
 
+        /// <summary>
+        /// This method has not been implemented.
+        /// </summary>
         public HRESULT TryEnumerateObjects(out CorDebugObjectEnum ppObjectsResult)
         {
             /*HRESULT EnumerateObjects([MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectEnum ppObjects);*/
@@ -171,6 +232,16 @@ namespace ManagedCorDebug
         #endregion
         #region IsTransitionStub
 
+        /// <summary>
+        /// Gets a value that indicates whether an address is inside a stub that will cause a transition to managed code.
+        /// </summary>
+        /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> value that specifies the address in question.</param>
+        /// <returns>[out] A pointer to a Boolean value that is true if the specified address is inside a stub that will cause a transition to managed code; otherwise *pbTransitionStub is false.</returns>
+        /// <remarks>
+        /// The IsTransitionStub method can be used by unmanaged stepping code to decide when to return stepping control to
+        /// the managed stepper. You can also identity transition stubs by looking at information in the portable executable
+        /// (PE) file.
+        /// </remarks>
         public int IsTransitionStub(CORDB_ADDRESS address)
         {
             HRESULT hr;
@@ -182,6 +253,16 @@ namespace ManagedCorDebug
             return pbTransitionStub;
         }
 
+        /// <summary>
+        /// Gets a value that indicates whether an address is inside a stub that will cause a transition to managed code.
+        /// </summary>
+        /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> value that specifies the address in question.</param>
+        /// <param name="pbTransitionStub">[out] A pointer to a Boolean value that is true if the specified address is inside a stub that will cause a transition to managed code; otherwise *pbTransitionStub is false.</param>
+        /// <remarks>
+        /// The IsTransitionStub method can be used by unmanaged stepping code to decide when to return stepping control to
+        /// the managed stepper. You can also identity transition stubs by looking at information in the portable executable
+        /// (PE) file.
+        /// </remarks>
         public HRESULT TryIsTransitionStub(CORDB_ADDRESS address, out int pbTransitionStub)
         {
             /*HRESULT IsTransitionStub([In] CORDB_ADDRESS address, out int pbTransitionStub);*/
@@ -191,6 +272,18 @@ namespace ManagedCorDebug
         #endregion
         #region IsOSSuspended
 
+        /// <summary>
+        /// Gets a value that indicates whether the specified thread has been suspended as a result of the debugger stopping this process.
+        /// </summary>
+        /// <param name="threadID">[in] The ID of thread in question.</param>
+        /// <returns>[out] A pointer to a Boolean value that is true if the specified thread has been suspended; otherwise *pbSuspended is false.</returns>
+        /// <remarks>
+        /// When the specified thread has been suspended as a result of the debugger stopping this process, the specified thread's
+        /// Win32 suspend count is incremented by one. The debugger user interface (UI) may want to take this information into
+        /// account if it displays the operating system (OS) suspend count of the thread to the user. The IsOSSuspended method
+        /// makes sense only in the context of unmanaged debugging. During managed debugging, threads are cooperatively suspended
+        /// rather than OS-suspended.
+        /// </remarks>
         public int IsOSSuspended(uint threadID)
         {
             HRESULT hr;
@@ -202,6 +295,18 @@ namespace ManagedCorDebug
             return pbSuspended;
         }
 
+        /// <summary>
+        /// Gets a value that indicates whether the specified thread has been suspended as a result of the debugger stopping this process.
+        /// </summary>
+        /// <param name="threadID">[in] The ID of thread in question.</param>
+        /// <param name="pbSuspended">[out] A pointer to a Boolean value that is true if the specified thread has been suspended; otherwise *pbSuspended is false.</param>
+        /// <remarks>
+        /// When the specified thread has been suspended as a result of the debugger stopping this process, the specified thread's
+        /// Win32 suspend count is incremented by one. The debugger user interface (UI) may want to take this information into
+        /// account if it displays the operating system (OS) suspend count of the thread to the user. The IsOSSuspended method
+        /// makes sense only in the context of unmanaged debugging. During managed debugging, threads are cooperatively suspended
+        /// rather than OS-suspended.
+        /// </remarks>
         public HRESULT TryIsOSSuspended(uint threadID, out int pbSuspended)
         {
             /*HRESULT IsOSSuspended([In] uint threadID, out int pbSuspended);*/
@@ -211,6 +316,19 @@ namespace ManagedCorDebug
         #endregion
         #region GetThreadContext
 
+        /// <summary>
+        /// Gets the context for the given thread in this process.
+        /// </summary>
+        /// <param name="threadID">[in] The ID of the thread for which to retrieve the context.</param>
+        /// <param name="contextSize">[in] The size of the context array.</param>
+        /// <returns>[in, out] An array of bytes that describe the thread's context. The context specifies the architecture of the processor on which the thread is executing.</returns>
+        /// <remarks>
+        /// The debugger should call this method rather than the Win32 GetThreadContext method, because the thread may actually
+        /// be in a "hijacked" state, in which its context has been temporarily changed. This method should be used only when
+        /// a thread is in native code. Use <see cref="ICorDebugRegisterSet"/> for threads in managed code. The data returned
+        /// is a context structure for the current platform. Just as with the Win32 GetThreadContext method, the caller should
+        /// initialize the context parameter before calling this method.
+        /// </remarks>
         public byte[] GetThreadContext(uint threadID, uint contextSize)
         {
             HRESULT hr;
@@ -222,6 +340,19 @@ namespace ManagedCorDebug
             return context;
         }
 
+        /// <summary>
+        /// Gets the context for the given thread in this process.
+        /// </summary>
+        /// <param name="threadID">[in] The ID of the thread for which to retrieve the context.</param>
+        /// <param name="contextSize">[in] The size of the context array.</param>
+        /// <param name="context">[in, out] An array of bytes that describe the thread's context. The context specifies the architecture of the processor on which the thread is executing.</param>
+        /// <remarks>
+        /// The debugger should call this method rather than the Win32 GetThreadContext method, because the thread may actually
+        /// be in a "hijacked" state, in which its context has been temporarily changed. This method should be used only when
+        /// a thread is in native code. Use <see cref="ICorDebugRegisterSet"/> for threads in managed code. The data returned
+        /// is a context structure for the current platform. Just as with the Win32 GetThreadContext method, the caller should
+        /// initialize the context parameter before calling this method.
+        /// </remarks>
         public HRESULT TryGetThreadContext(uint threadID, uint contextSize, ref byte[] context)
         {
             /*HRESULT GetThreadContext([In] uint threadID, [In] uint contextSize, [In, Out] ref byte[] context);*/
@@ -231,6 +362,19 @@ namespace ManagedCorDebug
         #endregion
         #region SetThreadContext
 
+        /// <summary>
+        /// Sets the context for the given thread in this process.
+        /// </summary>
+        /// <param name="threadID">[in] The ID of the thread for which to set the context.</param>
+        /// <param name="contextSize">[in] The size of the context array.</param>
+        /// <param name="context">[in] An array of bytes that describe the thread's context. The context specifies the architecture of the processor on which the thread is executing.</param>
+        /// <remarks>
+        /// The debugger should call this method rather than the Win32 SetThreadContext function, because the thread may actually
+        /// be in a "hijacked" state, in which its context has been temporarily changed. This method should be used only when
+        /// a thread is in native code. Use <see cref="ICorDebugRegisterSet"/> for threads in managed code. You should never
+        /// need to modify the context of a thread during an out-of-band (OOB) debug event. The data passed must be a context
+        /// structure for the current platform. This method can corrupt the runtime if used improperly.
+        /// </remarks>
         public void SetThreadContext(uint threadID, uint contextSize, byte[] context)
         {
             HRESULT hr;
@@ -239,6 +383,19 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Sets the context for the given thread in this process.
+        /// </summary>
+        /// <param name="threadID">[in] The ID of the thread for which to set the context.</param>
+        /// <param name="contextSize">[in] The size of the context array.</param>
+        /// <param name="context">[in] An array of bytes that describe the thread's context. The context specifies the architecture of the processor on which the thread is executing.</param>
+        /// <remarks>
+        /// The debugger should call this method rather than the Win32 SetThreadContext function, because the thread may actually
+        /// be in a "hijacked" state, in which its context has been temporarily changed. This method should be used only when
+        /// a thread is in native code. Use <see cref="ICorDebugRegisterSet"/> for threads in managed code. You should never
+        /// need to modify the context of a thread during an out-of-band (OOB) debug event. The data passed must be a context
+        /// structure for the current platform. This method can corrupt the runtime if used improperly.
+        /// </remarks>
         public HRESULT TrySetThreadContext(uint threadID, uint contextSize, byte[] context)
         {
             /*HRESULT SetThreadContext([In] uint threadID, [In] uint contextSize, [In] byte[] context);*/
@@ -248,6 +405,19 @@ namespace ManagedCorDebug
         #endregion
         #region ReadMemory
 
+        /// <summary>
+        /// Reads a specified area of memory for this process.
+        /// </summary>
+        /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> value that specifies the base address of the memory to be read.</param>
+        /// <param name="size">[in] The number of bytes to be read from memory.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// The ReadMemory method is primarily intended to be used by interop debugging to inspect memory regions that are
+        /// being used by the unmanaged portion of the debuggee. This method can also be used to read Microsoft intermediate
+        /// language (MSIL) code and native JIT-compiled code. Any managed breakpoints will be removed from the data that is
+        /// returned in the buffer parameter. No adjustments will be made for native breakpoints set by <see cref="SetUnmanagedBreakpoint"/>.
+        /// No caching of process memory is performed.
+        /// </remarks>
         public ReadMemoryResult ReadMemory(CORDB_ADDRESS address, uint size)
         {
             HRESULT hr;
@@ -259,6 +429,19 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Reads a specified area of memory for this process.
+        /// </summary>
+        /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> value that specifies the base address of the memory to be read.</param>
+        /// <param name="size">[in] The number of bytes to be read from memory.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <remarks>
+        /// The ReadMemory method is primarily intended to be used by interop debugging to inspect memory regions that are
+        /// being used by the unmanaged portion of the debuggee. This method can also be used to read Microsoft intermediate
+        /// language (MSIL) code and native JIT-compiled code. Any managed breakpoints will be removed from the data that is
+        /// returned in the buffer parameter. No adjustments will be made for native breakpoints set by <see cref="SetUnmanagedBreakpoint"/>.
+        /// No caching of process memory is performed.
+        /// </remarks>
         public HRESULT TryReadMemory(CORDB_ADDRESS address, uint size, out ReadMemoryResult result)
         {
             /*HRESULT ReadMemory([In] CORDB_ADDRESS address, [In] uint size, [Out] byte[] buffer, out ulong read);*/
@@ -277,6 +460,20 @@ namespace ManagedCorDebug
         #endregion
         #region WriteMemory
 
+        /// <summary>
+        /// Writes data to an area of memory in this process.
+        /// </summary>
+        /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> value that is the base address of the memory area to which data is written. Before data transfer occurs, the system verifies that the memory area of the specified size, beginning at the base address, is accessible for writing.<para/>
+        /// If it is not accessible, the method fails.</param>
+        /// <param name="size">[in] The number of bytes to be written to the memory area.</param>
+        /// <param name="buffer">[in] A buffer that contains data to be written.</param>
+        /// <returns>[out] A pointer to a variable that receives the number of bytes written to the memory area in this process. If written is NULL, this parameter is ignored.</returns>
+        /// <remarks>
+        /// Data is automatically written behind any breakpoints. In the .NET Framework version 2.0, native debuggers should
+        /// not use this method to inject breakpoints into the instruction stream. Use <see cref="SetUnmanagedBreakpoint"/>
+        /// instead. The WriteMemory method should be used only outside of managed code. This method can corrupt the runtime
+        /// if used improperly.
+        /// </remarks>
         public ulong WriteMemory(CORDB_ADDRESS address, uint size, IntPtr buffer)
         {
             HRESULT hr;
@@ -288,6 +485,20 @@ namespace ManagedCorDebug
             return written;
         }
 
+        /// <summary>
+        /// Writes data to an area of memory in this process.
+        /// </summary>
+        /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> value that is the base address of the memory area to which data is written. Before data transfer occurs, the system verifies that the memory area of the specified size, beginning at the base address, is accessible for writing.<para/>
+        /// If it is not accessible, the method fails.</param>
+        /// <param name="size">[in] The number of bytes to be written to the memory area.</param>
+        /// <param name="buffer">[in] A buffer that contains data to be written.</param>
+        /// <param name="written">[out] A pointer to a variable that receives the number of bytes written to the memory area in this process. If written is NULL, this parameter is ignored.</param>
+        /// <remarks>
+        /// Data is automatically written behind any breakpoints. In the .NET Framework version 2.0, native debuggers should
+        /// not use this method to inject breakpoints into the instruction stream. Use <see cref="SetUnmanagedBreakpoint"/>
+        /// instead. The WriteMemory method should be used only outside of managed code. This method can corrupt the runtime
+        /// if used improperly.
+        /// </remarks>
         public HRESULT TryWriteMemory(CORDB_ADDRESS address, uint size, IntPtr buffer, out ulong written)
         {
             /*HRESULT WriteMemory([In] CORDB_ADDRESS address, [In] uint size, [In] IntPtr buffer,
@@ -298,6 +509,16 @@ namespace ManagedCorDebug
         #endregion
         #region ClearCurrentException
 
+        /// <summary>
+        /// Clears the current unmanaged exception on the given thread.
+        /// </summary>
+        /// <param name="threadID">[in] The ID of the thread on which the current unmanaged exception will be cleared.</param>
+        /// <remarks>
+        /// Call this method before calling <see cref="CorDebugController.Continue"/> when a thread has reported an unmanaged
+        /// exception that should be ignored by the debuggee. This will clear both the outstanding in-band (IB) and out-of-band
+        /// (OOB) events on the given thread. All OOB breakpoints and single-step exceptions are automatically cleared. Use
+        /// <see cref="CorDebugThread.InterceptCurrentException"/> to intercept the current managed exception on a thread.
+        /// </remarks>
         public void ClearCurrentException(uint threadID)
         {
             HRESULT hr;
@@ -306,6 +527,16 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Clears the current unmanaged exception on the given thread.
+        /// </summary>
+        /// <param name="threadID">[in] The ID of the thread on which the current unmanaged exception will be cleared.</param>
+        /// <remarks>
+        /// Call this method before calling <see cref="CorDebugController.Continue"/> when a thread has reported an unmanaged
+        /// exception that should be ignored by the debuggee. This will clear both the outstanding in-band (IB) and out-of-band
+        /// (OOB) events on the given thread. All OOB breakpoints and single-step exceptions are automatically cleared. Use
+        /// <see cref="CorDebugThread.InterceptCurrentException"/> to intercept the current managed exception on a thread.
+        /// </remarks>
         public HRESULT TryClearCurrentException(uint threadID)
         {
             /*HRESULT ClearCurrentException([In] uint threadID);*/
@@ -315,6 +546,13 @@ namespace ManagedCorDebug
         #endregion
         #region EnableLogMessages
 
+        /// <summary>
+        /// Enables and disables the transmission of log messages to the debugger.
+        /// </summary>
+        /// <param name="fOnOff">[in] true enables the transmission of log messages; false disables the transmission.</param>
+        /// <remarks>
+        /// This method is valid only after the <see cref="CorDebugManagedCallback.CreateProcess"/> callback occurs.
+        /// </remarks>
         public void EnableLogMessages(int fOnOff)
         {
             HRESULT hr;
@@ -323,6 +561,13 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Enables and disables the transmission of log messages to the debugger.
+        /// </summary>
+        /// <param name="fOnOff">[in] true enables the transmission of log messages; false disables the transmission.</param>
+        /// <remarks>
+        /// This method is valid only after the <see cref="CorDebugManagedCallback.CreateProcess"/> callback occurs.
+        /// </remarks>
         public HRESULT TryEnableLogMessages(int fOnOff)
         {
             /*HRESULT EnableLogMessages([In] int fOnOff);*/
@@ -332,6 +577,14 @@ namespace ManagedCorDebug
         #endregion
         #region ModifyLogSwitch
 
+        /// <summary>
+        /// Sets the severity level of the specified log switch.
+        /// </summary>
+        /// <param name="pLogSwitchName">[in] A pointer to a string that specifies the name of the log switch.</param>
+        /// <param name="lLevel">[in] The severity level to be set for the specified log switch.</param>
+        /// <remarks>
+        /// This method is valid only after the <see cref="CorDebugManagedCallback.CreateProcess"/> callback has occurred.
+        /// </remarks>
         public void ModifyLogSwitch(string pLogSwitchName, int lLevel)
         {
             HRESULT hr;
@@ -340,6 +593,14 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Sets the severity level of the specified log switch.
+        /// </summary>
+        /// <param name="pLogSwitchName">[in] A pointer to a string that specifies the name of the log switch.</param>
+        /// <param name="lLevel">[in] The severity level to be set for the specified log switch.</param>
+        /// <remarks>
+        /// This method is valid only after the <see cref="CorDebugManagedCallback.CreateProcess"/> callback has occurred.
+        /// </remarks>
         public HRESULT TryModifyLogSwitch(string pLogSwitchName, int lLevel)
         {
             /*HRESULT ModifyLogSwitch([In] string pLogSwitchName, [In] int lLevel);*/
@@ -349,6 +610,13 @@ namespace ManagedCorDebug
         #endregion
         #region EnumerateAppDomains
 
+        /// <summary>
+        /// Enumerates all the application domains in this process.
+        /// </summary>
+        /// <returns>[out] A pointer to the address of an <see cref="ICorDebugAppDomainEnum"/> that is an enumerator for the application domains in this process.</returns>
+        /// <remarks>
+        /// This method can be used before the <see cref="CorDebugManagedCallback.CreateProcess"/> callback.
+        /// </remarks>
         public CorDebugAppDomainEnum EnumerateAppDomains()
         {
             HRESULT hr;
@@ -360,6 +628,13 @@ namespace ManagedCorDebug
             return ppAppDomainsResult;
         }
 
+        /// <summary>
+        /// Enumerates all the application domains in this process.
+        /// </summary>
+        /// <param name="ppAppDomainsResult">[out] A pointer to the address of an <see cref="ICorDebugAppDomainEnum"/> that is an enumerator for the application domains in this process.</param>
+        /// <remarks>
+        /// This method can be used before the <see cref="CorDebugManagedCallback.CreateProcess"/> callback.
+        /// </remarks>
         public HRESULT TryEnumerateAppDomains(out CorDebugAppDomainEnum ppAppDomainsResult)
         {
             /*HRESULT EnumerateAppDomains([MarshalAs(UnmanagedType.Interface)] out ICorDebugAppDomainEnum ppAppDomains);*/
@@ -377,6 +652,9 @@ namespace ManagedCorDebug
         #endregion
         #region ThreadForFiberCookie
 
+        /// <summary>
+        /// This method is not implemented.
+        /// </summary>
         public CorDebugThread ThreadForFiberCookie(uint fiberCookie)
         {
             HRESULT hr;
@@ -388,6 +666,9 @@ namespace ManagedCorDebug
             return ppThreadResult;
         }
 
+        /// <summary>
+        /// This method is not implemented.
+        /// </summary>
         public HRESULT TryThreadForFiberCookie(uint fiberCookie, out CorDebugThread ppThreadResult)
         {
             /*HRESULT ThreadForFiberCookie([In] uint fiberCookie,
@@ -411,6 +692,9 @@ namespace ManagedCorDebug
 
         #region GetVersion
 
+        /// <summary>
+        /// Gets the version number of the common language runtime (CLR) that is running in this process.
+        /// </summary>
         public COR_VERSION Version
         {
             get
@@ -425,6 +709,13 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the version number of the common language runtime (CLR) that is running in this process.
+        /// </summary>
+        /// <param name="version">[out] A pointer to a <see cref="COR_VERSION"/> structure that stores the version number of the runtime.</param>
+        /// <remarks>
+        /// The GetVersion method returns an error code if no runtime has been loaded in the process.
+        /// </remarks>
         public HRESULT TryGetVersion(out COR_VERSION version)
         {
             /*HRESULT GetVersion(out COR_VERSION version);*/
@@ -434,6 +725,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetDesiredNGENCompilerFlags
 
+        /// <summary>
+        /// Gets or sets the current compiler flag settings that the common language runtime (CLR) uses to select the correct precompiled (that is, native) image to be loaded into this process.
+        /// </summary>
         public uint DesiredNGENCompilerFlags
         {
             get
@@ -455,12 +749,36 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the current compiler flag settings that the common language runtime (CLR) uses to select the correct precompiled (that is, native) image to be loaded into this process.
+        /// </summary>
+        /// <param name="pdwFlags">[out] A pointer to a bitwise combination of the <see cref="CorDebugJITCompilerFlags"/> enumeration values that are used to select the correct precompiled image to be loaded.</param>
+        /// <remarks>
+        /// Use the <see cref="DesiredNGENCompilerFlags"/> property to set the flags that the CLR will use to select the correct
+        /// pre-compiled image to load.
+        /// </remarks>
         public HRESULT TryGetDesiredNGENCompilerFlags(out uint pdwFlags)
         {
             /*HRESULT GetDesiredNGENCompilerFlags(out uint pdwFlags);*/
             return Raw2.GetDesiredNGENCompilerFlags(out pdwFlags);
         }
 
+        /// <summary>
+        /// Sets the flags that must be embedded in a precompiled image in order for the runtime to load that image into the current process.
+        /// </summary>
+        /// <param name="pdwFlags">[in] A value of the <see cref="CorDebugJITCompilerFlags"/> enumeration that specifies the compiler flags used to select the correct pre-compiled image.</param>
+        /// <remarks>
+        /// The SetDesiredNGENCompilerFlags method specifies the flags that must be embedded in a precompiled image so that
+        /// the runtime will load that image into this process. The flags set by this method are used only to select the correct
+        /// precompiled image. If no such image exists, the runtime will load the Microsoft intermediate language (MSIL) image
+        /// and the just-in-time (JIT) compiler instead. In that case, the debugger must still use the <see cref="CorDebugModule.JITCompilerFlags"/>
+        /// property to set the flags as desired for the JIT compilation. If an image is loaded, but some JIT compiling must
+        /// take place for that image (which will be the case if the image contains generics), the compiler flags specified
+        /// by the SetDesiredNGENCompilerFlags method will apply to the extra JIT compilation. The SetDesiredNGENCompilerFlags
+        /// method must be called during the <see cref="CorDebugManagedCallback.CreateProcess"/> callback. Attempts to call
+        /// the SetDesiredNGENCompilerFlags method afterwards will fail. Also, attempts to set flags that are either not defined
+        /// in the <see cref="CorDebugJITCompilerFlags"/> enumeration or are not legal for the given process will fail.
+        /// </remarks>
         public HRESULT TrySetDesiredNGENCompilerFlags(uint pdwFlags)
         {
             /*HRESULT SetDesiredNGENCompilerFlags([In] uint pdwFlags);*/
@@ -470,6 +788,14 @@ namespace ManagedCorDebug
         #endregion
         #region GetThreadForTaskID
 
+        /// <summary>
+        /// Gets the thread on which the task with the specified identifier is executing.
+        /// </summary>
+        /// <param name="taskid">[in] The identifier of the task.</param>
+        /// <returns>[out] A pointer to the address of an <see cref="ICorDebugThread2"/> object that represents the thread to be retrieved.</returns>
+        /// <remarks>
+        /// The host can set the task identifier by using the <see cref="CLRTask.SetTaskIdentifier"/> method.
+        /// </remarks>
         public CorDebugThread GetThreadForTaskID(ulong taskid)
         {
             HRESULT hr;
@@ -481,6 +807,14 @@ namespace ManagedCorDebug
             return ppThreadResult;
         }
 
+        /// <summary>
+        /// Gets the thread on which the task with the specified identifier is executing.
+        /// </summary>
+        /// <param name="taskid">[in] The identifier of the task.</param>
+        /// <param name="ppThreadResult">[out] A pointer to the address of an <see cref="ICorDebugThread2"/> object that represents the thread to be retrieved.</param>
+        /// <remarks>
+        /// The host can set the task identifier by using the <see cref="CLRTask.SetTaskIdentifier"/> method.
+        /// </remarks>
         public HRESULT TryGetThreadForTaskID(ulong taskid, out CorDebugThread ppThreadResult)
         {
             /*HRESULT GetThreadForTaskID([In] ulong taskid, [MarshalAs(UnmanagedType.Interface)] out ICorDebugThread2 ppThread);*/
@@ -498,6 +832,16 @@ namespace ManagedCorDebug
         #endregion
         #region SetUnmanagedBreakpoint
 
+        /// <summary>
+        /// Sets an unmanaged breakpoint at the specified native image offset.
+        /// </summary>
+        /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> object that specifies the native image offset.</param>
+        /// <param name="bufsize">[in] The size, in bytes, of the buffer array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// If the native image offset is within the common language runtime (CLR), the breakpoint will be ignored. This allows
+        /// the CLR to avoid dispatching an out-of-band breakpoint, when the breakpoint is set by the debugger.
+        /// </remarks>
         public SetUnmanagedBreakpointResult SetUnmanagedBreakpoint(CORDB_ADDRESS address, uint bufsize)
         {
             HRESULT hr;
@@ -509,6 +853,16 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Sets an unmanaged breakpoint at the specified native image offset.
+        /// </summary>
+        /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> object that specifies the native image offset.</param>
+        /// <param name="bufsize">[in] The size, in bytes, of the buffer array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <remarks>
+        /// If the native image offset is within the common language runtime (CLR), the breakpoint will be ignored. This allows
+        /// the CLR to avoid dispatching an out-of-band breakpoint, when the breakpoint is set by the debugger.
+        /// </remarks>
         public HRESULT TrySetUnmanagedBreakpoint(CORDB_ADDRESS address, uint bufsize, out SetUnmanagedBreakpointResult result)
         {
             /*HRESULT SetUnmanagedBreakpoint(
@@ -531,6 +885,16 @@ namespace ManagedCorDebug
         #endregion
         #region ClearUnmanagedBreakpoint
 
+        /// <summary>
+        /// Removes a previously set breakpoint at the given address.
+        /// </summary>
+        /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> value that specifies the address at which the breakpoint was set.</param>
+        /// <remarks>
+        /// The specified breakpoint would have been previously set by an earlier call to <see cref="SetUnmanagedBreakpoint"/>.
+        /// The ClearUnmanagedBreakpoint method can be called while the process being debugged is running. The ClearUnmanagedBreakpoint
+        /// method returns a failure code if the debugger is attached in managed-only mode or if no breakpoint exists at the
+        /// specified address.
+        /// </remarks>
         public void ClearUnmanagedBreakpoint(CORDB_ADDRESS address)
         {
             HRESULT hr;
@@ -539,6 +903,16 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Removes a previously set breakpoint at the given address.
+        /// </summary>
+        /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> value that specifies the address at which the breakpoint was set.</param>
+        /// <remarks>
+        /// The specified breakpoint would have been previously set by an earlier call to <see cref="SetUnmanagedBreakpoint"/>.
+        /// The ClearUnmanagedBreakpoint method can be called while the process being debugged is running. The ClearUnmanagedBreakpoint
+        /// method returns a failure code if the debugger is attached in managed-only mode or if no breakpoint exists at the
+        /// specified address.
+        /// </remarks>
         public HRESULT TryClearUnmanagedBreakpoint(CORDB_ADDRESS address)
         {
             /*HRESULT ClearUnmanagedBreakpoint([In] CORDB_ADDRESS address);*/
@@ -548,6 +922,16 @@ namespace ManagedCorDebug
         #endregion
         #region GetReferenceValueFromGCHandle
 
+        /// <summary>
+        /// Gets a reference pointer to the specified managed object that has a garbage collection handle.
+        /// </summary>
+        /// <param name="handle">[in] A pointer to a managed object that has a garbage collection handle. This value is a <see cref="IntPtr"/> object and can be retrieved from the <see cref="GCHandle"/> for the managed object.</param>
+        /// <returns>[out] A pointer to the address of an <see cref="ICorDebugReferenceValue"/> object that represents a reference to the specified managed object.</returns>
+        /// <remarks>
+        /// Do not confuse the returned reference value with a garbage collection reference value. The returned reference behaves
+        /// like a normal reference. It is disabled when code execution continues after a breakpoint. The lifetime of the target
+        /// object is not affected by the lifetime of the reference value.
+        /// </remarks>
         public CorDebugReferenceValue GetReferenceValueFromGCHandle(IntPtr handle)
         {
             HRESULT hr;
@@ -559,6 +943,16 @@ namespace ManagedCorDebug
             return pOutValueResult;
         }
 
+        /// <summary>
+        /// Gets a reference pointer to the specified managed object that has a garbage collection handle.
+        /// </summary>
+        /// <param name="handle">[in] A pointer to a managed object that has a garbage collection handle. This value is a <see cref="IntPtr"/> object and can be retrieved from the <see cref="GCHandle"/> for the managed object.</param>
+        /// <param name="pOutValueResult">[out] A pointer to the address of an <see cref="ICorDebugReferenceValue"/> object that represents a reference to the specified managed object.</param>
+        /// <remarks>
+        /// Do not confuse the returned reference value with a garbage collection reference value. The returned reference behaves
+        /// like a normal reference. It is disabled when code execution continues after a breakpoint. The lifetime of the target
+        /// object is not affected by the lifetime of the reference value.
+        /// </remarks>
         public HRESULT TryGetReferenceValueFromGCHandle(IntPtr handle, out CorDebugReferenceValue pOutValueResult)
         {
             /*HRESULT GetReferenceValueFromGCHandle([In] IntPtr handle, [MarshalAs(UnmanagedType.Interface)] out ICorDebugReferenceValue pOutValue);*/
@@ -581,6 +975,19 @@ namespace ManagedCorDebug
 
         #region SetEnableCustomNotification
 
+        /// <summary>
+        /// Enables and disables custom debugger notifications of the specified type.
+        /// </summary>
+        /// <param name="pClass">[in] The type that specifies custom debugger notifications.</param>
+        /// <param name="fEnable">[in] true to enable custom debugger notifications; false to disable notifications. The default value is false.</param>
+        /// <remarks>
+        /// When fEnable is set to true, calls to the <see cref="Debugger.NotifyOfCrossThreadDependency"/> method trigger an
+        /// <see cref="CorDebugManagedCallback.CustomNotification"/> callback. Notifications are disabled by default; therefore,
+        /// the debugger must specify any notification types it knows about and wants to handle. Because the <see cref="ICorDebug"/>
+        /// class is scoped by application domain, the debugger must call SetEnableCustomNotification for every application
+        /// domain in the process if it wants to receive the notification across the entire process. Starting with the .NET
+        /// Framework 4, the only supported notification is a cross-thread dependency notification.
+        /// </remarks>
         public void SetEnableCustomNotification(ICorDebugClass pClass, int fEnable)
         {
             HRESULT hr;
@@ -589,6 +996,19 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Enables and disables custom debugger notifications of the specified type.
+        /// </summary>
+        /// <param name="pClass">[in] The type that specifies custom debugger notifications.</param>
+        /// <param name="fEnable">[in] true to enable custom debugger notifications; false to disable notifications. The default value is false.</param>
+        /// <remarks>
+        /// When fEnable is set to true, calls to the <see cref="Debugger.NotifyOfCrossThreadDependency"/> method trigger an
+        /// <see cref="CorDebugManagedCallback.CustomNotification"/> callback. Notifications are disabled by default; therefore,
+        /// the debugger must specify any notification types it knows about and wants to handle. Because the <see cref="ICorDebug"/>
+        /// class is scoped by application domain, the debugger must call SetEnableCustomNotification for every application
+        /// domain in the process if it wants to receive the notification across the entire process. Starting with the .NET
+        /// Framework 4, the only supported notification is a cross-thread dependency notification.
+        /// </remarks>
         public HRESULT TrySetEnableCustomNotification(ICorDebugClass pClass, int fEnable)
         {
             /*HRESULT SetEnableCustomNotification([MarshalAs(UnmanagedType.Interface)] ICorDebugClass pClass, int fEnable);*/
@@ -603,6 +1023,9 @@ namespace ManagedCorDebug
 
         #region GetGCHeapInformation
 
+        /// <summary>
+        /// Provides general information about the garbage collection heap, including whether it is currently enumerable.
+        /// </summary>
         public COR_HEAPINFO GCHeapInformation
         {
             get
@@ -617,6 +1040,16 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Provides general information about the garbage collection heap, including whether it is currently enumerable.
+        /// </summary>
+        /// <param name="pHeapInfo">[out] A pointer to a <see cref="COR_HEAPINFO"/> value that provides general information about the garbage collection heap.</param>
+        /// <remarks>
+        /// The <see cref="GCHeapInformation"/> property must be called before enumerating the heap or individual heap
+        /// regions to ensure that the garbage collection structures in the process are currently valid. The garbage collection
+        /// heap cannot be walked while a collection is in progress. Otherwise, the enumeration may capture garbage collection
+        /// structures that are invalid.
+        /// </remarks>
         public HRESULT TryGetGCHeapInformation(out COR_HEAPINFO pHeapInfo)
         {
             /*HRESULT GetGCHeapInformation(out COR_HEAPINFO pHeapInfo);*/
@@ -626,6 +1059,21 @@ namespace ManagedCorDebug
         #endregion
         #region EnumerateHeap
 
+        /// <summary>
+        /// Gets an enumerator for the objects on the managed heap.
+        /// </summary>
+        /// <returns>[out] A pointer to the address of an <see cref="ICorDebugHeapEnum"/> interface object that is an enumerator for the objects that reside on the managed heap.</returns>
+        /// <remarks>
+        /// Before calling the <see cref="EnumerateHeap"/> method, you should call the <see cref="GCHeapInformation"/>
+        /// property and examine the value of the areGCStructuresValid field of the returned <see cref="COR_HEAPINFO"/> object
+        /// to ensure that the garbage collection heap in its current state is enumerable. In addition, the ICorDebugProcess5::EnumerateHeap
+        /// returns E_FAIL if you attach too early in the lifetime of the process, before memory for the managed heap is allocated.
+        /// The <see cref="ICorDebugHeapEnum"/> interface object is a standard enumerator derived from the <see cref="ICorDebugEnum"/> interface
+        /// that allows you to enumerate <see cref="COR_HEAPOBJECT"/> objects. This method populates the <see cref="ICorDebugHeapEnum"/>
+        /// collection object with <see cref="COR_HEAPOBJECT"/> instances that provide information about all objects. The collection
+        /// may also include <see cref="COR_HEAPOBJECT"/> instances that provide information about objects that are not rooted
+        /// by any object but have not yet been collected by the garbage collector.
+        /// </remarks>
         public CorDebugHeapEnum EnumerateHeap()
         {
             HRESULT hr;
@@ -637,6 +1085,21 @@ namespace ManagedCorDebug
             return ppObjectsResult;
         }
 
+        /// <summary>
+        /// Gets an enumerator for the objects on the managed heap.
+        /// </summary>
+        /// <param name="ppObjectsResult">[out] A pointer to the address of an <see cref="ICorDebugHeapEnum"/> interface object that is an enumerator for the objects that reside on the managed heap.</param>
+        /// <remarks>
+        /// Before calling the <see cref="EnumerateHeap"/> method, you should call the <see cref="GCHeapInformation"/>
+        /// property and examine the value of the areGCStructuresValid field of the returned <see cref="COR_HEAPINFO"/> object
+        /// to ensure that the garbage collection heap in its current state is enumerable. In addition, the ICorDebugProcess5::EnumerateHeap
+        /// returns E_FAIL if you attach too early in the lifetime of the process, before memory for the managed heap is allocated.
+        /// The <see cref="ICorDebugHeapEnum"/> interface object is a standard enumerator derived from the <see cref="ICorDebugEnum"/> interface
+        /// that allows you to enumerate <see cref="COR_HEAPOBJECT"/> objects. This method populates the <see cref="ICorDebugHeapEnum"/>
+        /// collection object with <see cref="COR_HEAPOBJECT"/> instances that provide information about all objects. The collection
+        /// may also include <see cref="COR_HEAPOBJECT"/> instances that provide information about objects that are not rooted
+        /// by any object but have not yet been collected by the garbage collector.
+        /// </remarks>
         public HRESULT TryEnumerateHeap(out CorDebugHeapEnum ppObjectsResult)
         {
             /*HRESULT EnumerateHeap([MarshalAs(UnmanagedType.Interface)] out ICorDebugHeapEnum ppObjects);*/
@@ -654,6 +1117,22 @@ namespace ManagedCorDebug
         #endregion
         #region EnumerateHeapRegions
 
+        /// <summary>
+        /// Gets an enumerator for the memory ranges of the managed heap.
+        /// </summary>
+        /// <returns>[out] A pointer to the address of an <see cref="ICorDebugHeapSegmentEnum"/> interface object that is an enumerator for the ranges of memory in which objects reside in the managed heap.</returns>
+        /// <remarks>
+        /// Before calling the <see cref="EnumerateHeapRegions"/> method, you should call the <see cref="GCHeapInformation"/>
+        /// property and examine the value of the areGCStructuresValid field of the returned <see cref="COR_HEAPINFO"/> object
+        /// to ensure that the garbage collection heap in its current state is enumerable. In addition, the ICorDebugProcess5::EnumerateHeapRegions
+        /// method returns E_FAIL if you attach too early in the lifetime of the process, before memory regions are created.
+        /// This method is guaranteed to enumerate all memory regions that may contain managed objects, but it does not guarantee
+        /// that managed objects actually reside in those regions. The <see cref="ICorDebugHeapSegmentEnum"/> collection object
+        /// may include empty or reserved memory regions. The <see cref="ICorDebugHeapSegmentEnum"/> interface object is a
+        /// standard enumerator derived from the <see cref="ICorDebugEnum"/> interface that allows you to enumerate <see cref="COR_SEGMENT"/>
+        /// objects. Each <see cref="COR_SEGMENT"/> object provides information about the memory range of a particular segment,
+        /// along with the generation of the objects in that segment.
+        /// </remarks>
         public CorDebugHeapSegmentEnum EnumerateHeapRegions()
         {
             HRESULT hr;
@@ -665,6 +1144,22 @@ namespace ManagedCorDebug
             return ppRegionsResult;
         }
 
+        /// <summary>
+        /// Gets an enumerator for the memory ranges of the managed heap.
+        /// </summary>
+        /// <param name="ppRegionsResult">[out] A pointer to the address of an <see cref="ICorDebugHeapSegmentEnum"/> interface object that is an enumerator for the ranges of memory in which objects reside in the managed heap.</param>
+        /// <remarks>
+        /// Before calling the <see cref="EnumerateHeapRegions"/> method, you should call the <see cref="GCHeapInformation"/>
+        /// property and examine the value of the areGCStructuresValid field of the returned <see cref="COR_HEAPINFO"/> object
+        /// to ensure that the garbage collection heap in its current state is enumerable. In addition, the ICorDebugProcess5::EnumerateHeapRegions
+        /// method returns E_FAIL if you attach too early in the lifetime of the process, before memory regions are created.
+        /// This method is guaranteed to enumerate all memory regions that may contain managed objects, but it does not guarantee
+        /// that managed objects actually reside in those regions. The <see cref="ICorDebugHeapSegmentEnum"/> collection object
+        /// may include empty or reserved memory regions. The <see cref="ICorDebugHeapSegmentEnum"/> interface object is a
+        /// standard enumerator derived from the <see cref="ICorDebugEnum"/> interface that allows you to enumerate <see cref="COR_SEGMENT"/>
+        /// objects. Each <see cref="COR_SEGMENT"/> object provides information about the memory range of a particular segment,
+        /// along with the generation of the objects in that segment.
+        /// </remarks>
         public HRESULT TryEnumerateHeapRegions(out CorDebugHeapSegmentEnum ppRegionsResult)
         {
             /*HRESULT EnumerateHeapRegions([MarshalAs(UnmanagedType.Interface)] out ICorDebugHeapSegmentEnum ppRegions);*/
@@ -682,6 +1177,14 @@ namespace ManagedCorDebug
         #endregion
         #region GetObject
 
+        /// <summary>
+        /// Converts an object address to an "ICorDebugObjectValue" object.
+        /// </summary>
+        /// <param name="addr">[in] The object address.</param>
+        /// <returns>[out] A pointer to the address of an "ICorDebugObjectValue" object.</returns>
+        /// <remarks>
+        /// If addr does not point to a valid managed object, the GetObject method returns E_FAIL.
+        /// </remarks>
         public CorDebugObjectValue GetObject(ulong addr)
         {
             HRESULT hr;
@@ -693,6 +1196,14 @@ namespace ManagedCorDebug
             return pObjectResult;
         }
 
+        /// <summary>
+        /// Converts an object address to an "ICorDebugObjectValue" object.
+        /// </summary>
+        /// <param name="addr">[in] The object address.</param>
+        /// <param name="pObjectResult">[out] A pointer to the address of an "ICorDebugObjectValue" object.</param>
+        /// <remarks>
+        /// If addr does not point to a valid managed object, the GetObject method returns E_FAIL.
+        /// </remarks>
         public HRESULT TryGetObject(ulong addr, out CorDebugObjectValue pObjectResult)
         {
             /*HRESULT GetObject([In] ulong addr, [MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectValue pObject);*/
@@ -710,6 +1221,16 @@ namespace ManagedCorDebug
         #endregion
         #region EnumerateGCReferences
 
+        /// <summary>
+        /// Gets an enumerator for all objects that are to be garbage-collected in a process.
+        /// </summary>
+        /// <param name="enumerateWeakReferences">[in] A Boolean value that indicates whether weak references are also to be enumerated. If enumerateWeakReferences is true, the ppEnum enumerator includes both strong references and weak references.<para/>
+        /// If enumerateWeakReferences is false, the enumerator includes only strong references.</param>
+        /// <returns>[out] A pointer to the address of an <see cref="ICorDebugGCReferenceEnum"/> that is an enumerator for the objects to be garbage-collected.</returns>
+        /// <remarks>
+        /// This method provides a way to determine the full rooting chain for any managed object in a process and can be used
+        /// to determine why an object is still alive.
+        /// </remarks>
         public CorDebugGCReferenceEnum EnumerateGCReferences(int enumerateWeakReferences)
         {
             HRESULT hr;
@@ -721,6 +1242,16 @@ namespace ManagedCorDebug
             return ppEnumResult;
         }
 
+        /// <summary>
+        /// Gets an enumerator for all objects that are to be garbage-collected in a process.
+        /// </summary>
+        /// <param name="enumerateWeakReferences">[in] A Boolean value that indicates whether weak references are also to be enumerated. If enumerateWeakReferences is true, the ppEnum enumerator includes both strong references and weak references.<para/>
+        /// If enumerateWeakReferences is false, the enumerator includes only strong references.</param>
+        /// <param name="ppEnumResult">[out] A pointer to the address of an <see cref="ICorDebugGCReferenceEnum"/> that is an enumerator for the objects to be garbage-collected.</param>
+        /// <remarks>
+        /// This method provides a way to determine the full rooting chain for any managed object in a process and can be used
+        /// to determine why an object is still alive.
+        /// </remarks>
         public HRESULT TryEnumerateGCReferences(int enumerateWeakReferences, out CorDebugGCReferenceEnum ppEnumResult)
         {
             /*HRESULT EnumerateGCReferences([In] int enumerateWeakReferences,
@@ -739,6 +1270,18 @@ namespace ManagedCorDebug
         #endregion
         #region EnumerateHandles
 
+        /// <summary>
+        /// Gets an enumerator for object handles in a process.
+        /// </summary>
+        /// <param name="types">[in] A bitwise combination of <see cref="CorGCReferenceType"/> values that specifies the type of handles to include in the collection.</param>
+        /// <returns>[out] A pointer to the address of an <see cref="ICorDebugGCReferenceEnum"/> that is an enumerator for the objects to be garbage-collected.</returns>
+        /// <remarks>
+        /// EnumerateHandles is a helper function that supports inspection of the handle table. It is similar to the <see cref="EnumerateGCReferences"/>
+        /// method, except that rather than populating an <see cref="ICorDebugGCReferenceEnum"/> collection with all objects
+        /// to be garbage-collected, it includes only objects that have handles from the handle table. The types parameter
+        /// specifies the handle types to include in the collection. types can be any of the following three members of the
+        /// <see cref="CorGCReferenceType"/> enumeration:
+        /// </remarks>
         public CorDebugGCReferenceEnum EnumerateHandles(CorGCReferenceType types)
         {
             HRESULT hr;
@@ -750,6 +1293,18 @@ namespace ManagedCorDebug
             return ppEnumResult;
         }
 
+        /// <summary>
+        /// Gets an enumerator for object handles in a process.
+        /// </summary>
+        /// <param name="types">[in] A bitwise combination of <see cref="CorGCReferenceType"/> values that specifies the type of handles to include in the collection.</param>
+        /// <param name="ppEnumResult">[out] A pointer to the address of an <see cref="ICorDebugGCReferenceEnum"/> that is an enumerator for the objects to be garbage-collected.</param>
+        /// <remarks>
+        /// EnumerateHandles is a helper function that supports inspection of the handle table. It is similar to the <see cref="EnumerateGCReferences"/>
+        /// method, except that rather than populating an <see cref="ICorDebugGCReferenceEnum"/> collection with all objects
+        /// to be garbage-collected, it includes only objects that have handles from the handle table. The types parameter
+        /// specifies the handle types to include in the collection. types can be any of the following three members of the
+        /// <see cref="CorGCReferenceType"/> enumeration:
+        /// </remarks>
         public HRESULT TryEnumerateHandles(CorGCReferenceType types, out CorDebugGCReferenceEnum ppEnumResult)
         {
             /*HRESULT EnumerateHandles([In] CorGCReferenceType types,
@@ -768,6 +1323,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetTypeID
 
+        /// <summary>
+        /// Converts an object address to a <see cref="COR_TYPEID"/> identifier.
+        /// </summary>
+        /// <param name="obj">[in] The object address.</param>
+        /// <returns>A pointer to the <see cref="COR_TYPEID"/> value that identifies the object.</returns>
         public COR_TYPEID GetTypeID(ulong obj)
         {
             HRESULT hr;
@@ -779,6 +1339,11 @@ namespace ManagedCorDebug
             return pId;
         }
 
+        /// <summary>
+        /// Converts an object address to a <see cref="COR_TYPEID"/> identifier.
+        /// </summary>
+        /// <param name="obj">[in] The object address.</param>
+        /// <param name="pId">A pointer to the <see cref="COR_TYPEID"/> value that identifies the object.</param>
         public HRESULT TryGetTypeID(ulong obj, out COR_TYPEID pId)
         {
             /*HRESULT GetTypeID([In] ulong obj, out COR_TYPEID pId);*/
@@ -788,6 +1353,15 @@ namespace ManagedCorDebug
         #endregion
         #region GetTypeForTypeID
 
+        /// <summary>
+        /// Converts a type identifier to an <see cref="ICorDebugType"/> value.
+        /// </summary>
+        /// <param name="id">[in] The type identifier.</param>
+        /// <returns>[out] A pointer to the address of an <see cref="ICorDebugType"/> object.</returns>
+        /// <remarks>
+        /// In some cases, methods that return a type identifier may return a null <see cref="COR_TYPEID"/> value. If this value is passed
+        /// as the id argument, the GetTypeForTypeID method will fail and return E_FAIL.
+        /// </remarks>
         public CorDebugType GetTypeForTypeID(COR_TYPEID id)
         {
             HRESULT hr;
@@ -799,6 +1373,15 @@ namespace ManagedCorDebug
             return ppTypeResult;
         }
 
+        /// <summary>
+        /// Converts a type identifier to an <see cref="ICorDebugType"/> value.
+        /// </summary>
+        /// <param name="id">[in] The type identifier.</param>
+        /// <param name="ppTypeResult">[out] A pointer to the address of an <see cref="ICorDebugType"/> object.</param>
+        /// <remarks>
+        /// In some cases, methods that return a type identifier may return a null <see cref="COR_TYPEID"/> value. If this value is passed
+        /// as the id argument, the GetTypeForTypeID method will fail and return E_FAIL.
+        /// </remarks>
         public HRESULT TryGetTypeForTypeID(COR_TYPEID id, out CorDebugType ppTypeResult)
         {
             /*HRESULT GetTypeForTypeID([In] COR_TYPEID id, [MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);*/
@@ -816,6 +1399,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetArrayLayout
 
+        /// <summary>
+        /// Provides information about the layout of array types.
+        /// </summary>
+        /// <param name="id">[in] A <see cref="COR_TYPEID"/> token that specifies the array whose layout is desired.</param>
+        /// <returns>[out] A pointer to a <see cref="COR_ARRAY_LAYOUT"/> structure that contains information about the layout of the array in memory.</returns>
         public COR_ARRAY_LAYOUT GetArrayLayout(COR_TYPEID id)
         {
             HRESULT hr;
@@ -827,6 +1415,11 @@ namespace ManagedCorDebug
             return pLayout;
         }
 
+        /// <summary>
+        /// Provides information about the layout of array types.
+        /// </summary>
+        /// <param name="id">[in] A <see cref="COR_TYPEID"/> token that specifies the array whose layout is desired.</param>
+        /// <param name="pLayout">[out] A pointer to a <see cref="COR_ARRAY_LAYOUT"/> structure that contains information about the layout of the array in memory.</param>
         public HRESULT TryGetArrayLayout(COR_TYPEID id, out COR_ARRAY_LAYOUT pLayout)
         {
             /*HRESULT GetArrayLayout([In] COR_TYPEID id, out COR_ARRAY_LAYOUT pLayout);*/
@@ -836,6 +1429,16 @@ namespace ManagedCorDebug
         #endregion
         #region GetTypeLayout
 
+        /// <summary>
+        /// Gets information about the layout of an object in memory based on its type identifier.
+        /// </summary>
+        /// <param name="id">[in] A <see cref="COR_TYPEID"/> token that specifies the type whose layout is desired.</param>
+        /// <returns>[out] A pointer to a <see cref="COR_TYPE_LAYOUT"/> structure that contains information about the layout of the object in memory.</returns>
+        /// <remarks>
+        /// The <see cref="GetTypeLayout"/> method provides information about an object based on its <see cref="COR_TYPEID"/>,
+        /// which is returned by a number of other <see cref="ICorDebugProcess5"/> methods. The information is provided by
+        /// a <see cref="COR_TYPE_LAYOUT"/> structure that is populated by the method.
+        /// </remarks>
         public COR_TYPE_LAYOUT GetTypeLayout(COR_TYPEID id)
         {
             HRESULT hr;
@@ -847,6 +1450,16 @@ namespace ManagedCorDebug
             return pLayout;
         }
 
+        /// <summary>
+        /// Gets information about the layout of an object in memory based on its type identifier.
+        /// </summary>
+        /// <param name="id">[in] A <see cref="COR_TYPEID"/> token that specifies the type whose layout is desired.</param>
+        /// <param name="pLayout">[out] A pointer to a <see cref="COR_TYPE_LAYOUT"/> structure that contains information about the layout of the object in memory.</param>
+        /// <remarks>
+        /// The <see cref="GetTypeLayout"/> method provides information about an object based on its <see cref="COR_TYPEID"/>,
+        /// which is returned by a number of other <see cref="ICorDebugProcess5"/> methods. The information is provided by
+        /// a <see cref="COR_TYPE_LAYOUT"/> structure that is populated by the method.
+        /// </remarks>
         public HRESULT TryGetTypeLayout(COR_TYPEID id, out COR_TYPE_LAYOUT pLayout)
         {
             /*HRESULT GetTypeLayout([In] COR_TYPEID id, out COR_TYPE_LAYOUT pLayout);*/
@@ -856,6 +1469,16 @@ namespace ManagedCorDebug
         #endregion
         #region GetTypeFields
 
+        /// <summary>
+        /// Provides information about the fields that belong to a type.
+        /// </summary>
+        /// <param name="id">[in] The identifier of the type whose field information is retrieved.</param>
+        /// <param name="celt">[in] The number of <see cref="COR_FIELD"/> objects whose field information is to be retrieved.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// The celt parameter, which specifies the number of fields whose field information the method uses to populate fields,
+        /// should correspond to the value of the <see cref="COR_TYPE_LAYOUT.numFields"/> field.
+        /// </remarks>
         public GetTypeFieldsResult GetTypeFields(COR_TYPEID id, uint celt)
         {
             HRESULT hr;
@@ -867,6 +1490,16 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Provides information about the fields that belong to a type.
+        /// </summary>
+        /// <param name="id">[in] The identifier of the type whose field information is retrieved.</param>
+        /// <param name="celt">[in] The number of <see cref="COR_FIELD"/> objects whose field information is to be retrieved.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <remarks>
+        /// The celt parameter, which specifies the number of fields whose field information the method uses to populate fields,
+        /// should correspond to the value of the <see cref="COR_TYPE_LAYOUT.numFields"/> field.
+        /// </remarks>
         public HRESULT TryGetTypeFields(COR_TYPEID id, uint celt, out GetTypeFieldsResult result)
         {
             /*HRESULT GetTypeFields([In] COR_TYPEID id, uint celt, ref COR_FIELD fields, ref uint pceltNeeded);*/
@@ -885,6 +1518,17 @@ namespace ManagedCorDebug
         #endregion
         #region EnableNGENPolicy
 
+        /// <summary>
+        /// Sets a value that determines how an application loads native images while running under a managed debugger.
+        /// </summary>
+        /// <param name="ePolicy">[in] A <see cref="CorDebugNGenPolicy"/> constant that determines how an application loads native images while running under a managed debugger.</param>
+        /// <remarks>
+        /// If the policy is set successfully, the method returns S_OK. If ePolicy is outside the range of the enumerated values
+        /// defined by <see cref="CorDebugNGenPolicy"/>, the method returns E_INVALIDARG and the method call has no effect.
+        /// If the policy of the Native Image Generator (Ngen.exe) cannot be updated, the method returns E_FAIL. The ICorDebugProcess5::EnableNGenPolicy
+        /// method can be called at any time during the lifetime of the process. The policy is in effect for any modules that
+        /// are loaded after the policy is set.
+        /// </remarks>
         public void EnableNGENPolicy(CorDebugNGenPolicy ePolicy)
         {
             HRESULT hr;
@@ -893,6 +1537,17 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Sets a value that determines how an application loads native images while running under a managed debugger.
+        /// </summary>
+        /// <param name="ePolicy">[in] A <see cref="CorDebugNGenPolicy"/> constant that determines how an application loads native images while running under a managed debugger.</param>
+        /// <remarks>
+        /// If the policy is set successfully, the method returns S_OK. If ePolicy is outside the range of the enumerated values
+        /// defined by <see cref="CorDebugNGenPolicy"/>, the method returns E_INVALIDARG and the method call has no effect.
+        /// If the policy of the Native Image Generator (Ngen.exe) cannot be updated, the method returns E_FAIL. The ICorDebugProcess5::EnableNGenPolicy
+        /// method can be called at any time during the lifetime of the process. The policy is in effect for any modules that
+        /// are loaded after the policy is set.
+        /// </remarks>
         public HRESULT TryEnableNGENPolicy(CorDebugNGenPolicy ePolicy)
         {
             /*HRESULT EnableNGENPolicy([In] CorDebugNGenPolicy ePolicy);*/
@@ -907,6 +1562,16 @@ namespace ManagedCorDebug
 
         #region DecodeEvent
 
+        /// <summary>
+        /// Decodes managed debug events that have been encapsulated in the payload of specially crafted native exception debug events.
+        /// </summary>
+        /// <param name="pRecord">[in] A pointer to a byte array from a native exception debug event that includes information about a managed debug event.</param>
+        /// <param name="countBytes">[in] The number of elements in the pRecord byte array.</param>
+        /// <param name="format">[in] A <see cref="CorDebugRecordFormat"/> enumeration member that specifies the format of the unmanaged debug event.</param>
+        /// <param name="dwFlags">[in] A bit field that depends on the target architecture and that specifies additional information about the debug event.<para/>
+        /// For Windows systems, it can be a member of the <see cref="CorDebugDecodeEventFlagsWindows"/> enumeration.</param>
+        /// <param name="dwThreadId">[in] The operating system identifier of the thread on which the exception was thrown.</param>
+        /// <returns>[out] A pointer to the address of an <see cref="ICorDebugDebugEvent"/> object that represents a decoded managed debug event.</returns>
         public CorDebugDebugEvent DecodeEvent(byte[] pRecord, uint countBytes, CorDebugRecordFormat format, uint dwFlags, uint dwThreadId)
         {
             HRESULT hr;
@@ -918,6 +1583,16 @@ namespace ManagedCorDebug
             return ppEventResult;
         }
 
+        /// <summary>
+        /// Decodes managed debug events that have been encapsulated in the payload of specially crafted native exception debug events.
+        /// </summary>
+        /// <param name="pRecord">[in] A pointer to a byte array from a native exception debug event that includes information about a managed debug event.</param>
+        /// <param name="countBytes">[in] The number of elements in the pRecord byte array.</param>
+        /// <param name="format">[in] A <see cref="CorDebugRecordFormat"/> enumeration member that specifies the format of the unmanaged debug event.</param>
+        /// <param name="dwFlags">[in] A bit field that depends on the target architecture and that specifies additional information about the debug event.<para/>
+        /// For Windows systems, it can be a member of the <see cref="CorDebugDecodeEventFlagsWindows"/> enumeration.</param>
+        /// <param name="dwThreadId">[in] The operating system identifier of the thread on which the exception was thrown.</param>
+        /// <param name="ppEventResult">[out] A pointer to the address of an <see cref="ICorDebugDebugEvent"/> object that represents a decoded managed debug event.</param>
         public HRESULT TryDecodeEvent(byte[] pRecord, uint countBytes, CorDebugRecordFormat format, uint dwFlags, uint dwThreadId, out CorDebugDebugEvent ppEventResult)
         {
             /*HRESULT DecodeEvent(
@@ -941,6 +1616,13 @@ namespace ManagedCorDebug
         #endregion
         #region ProcessStateChanged
 
+        /// <summary>
+        /// Notifies <see cref="ICorDebug"/> that the process is running.
+        /// </summary>
+        /// <param name="change">[in] A member of the <see cref="ProcessStateChanged"/> enumeration</param>
+        /// <remarks>
+        /// The debugger calls this method to notify <see cref="ICorDebug"/> that the process is running.
+        /// </remarks>
         public void ProcessStateChanged(CorDebugStateChange change)
         {
             HRESULT hr;
@@ -949,6 +1631,13 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Notifies <see cref="ICorDebug"/> that the process is running.
+        /// </summary>
+        /// <param name="change">[in] A member of the <see cref="ProcessStateChanged"/> enumeration</param>
+        /// <remarks>
+        /// The debugger calls this method to notify <see cref="ICorDebug"/> that the process is running.
+        /// </remarks>
         public HRESULT TryProcessStateChanged(CorDebugStateChange change)
         {
             /*HRESULT ProcessStateChanged([In] CorDebugStateChange change);*/
@@ -958,6 +1647,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetCode
 
+        /// <summary>
+        /// Gets information about the managed code at a particular code address.
+        /// </summary>
+        /// <param name="codeAddress">[in] A <see cref="CORDB_ADDRESS"/> value that specifies the starting address of the managed code segment.</param>
+        /// <returns>[out] A pointer to the address of an "ICorDebugCode" object that represents a segment of managed code.</returns>
         public CorDebugCode GetCode(CORDB_ADDRESS codeAddress)
         {
             HRESULT hr;
@@ -969,6 +1663,11 @@ namespace ManagedCorDebug
             return ppCodeResult;
         }
 
+        /// <summary>
+        /// Gets information about the managed code at a particular code address.
+        /// </summary>
+        /// <param name="codeAddress">[in] A <see cref="CORDB_ADDRESS"/> value that specifies the starting address of the managed code segment.</param>
+        /// <param name="ppCodeResult">[out] A pointer to the address of an "ICorDebugCode" object that represents a segment of managed code.</param>
         public HRESULT TryGetCode(CORDB_ADDRESS codeAddress, out CorDebugCode ppCodeResult)
         {
             /*HRESULT GetCode([In] CORDB_ADDRESS codeAddress, [MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);*/
@@ -986,6 +1685,21 @@ namespace ManagedCorDebug
         #endregion
         #region EnableVirtualModuleSplitting
 
+        /// <summary>
+        /// Enables or disables virtual module splitting.
+        /// </summary>
+        /// <param name="enableSplitting">true to enable virtual module splitting; false to disable it.</param>
+        /// <remarks>
+        /// Virtual module splitting causes <see cref="ICorDebug"/> to recognize modules that were merged together during the
+        /// build process and present them as a group of separate modules rather than a single large module. Doing this changes
+        /// the behavior of various <see cref="ICorDebug"/> methods described below. This method can be called and the value
+        /// of enableSplitting can be changed at any time. It does not cause any stateful functional changes in an <see cref="ICorDebug"/>
+        /// object, other than altering the behavior of the methods listed in the Virtual module splitting and the unmanaged
+        /// debugging APIs section at the time they are called. Using virtual modules does incur a performance penalty when
+        /// calling those methods. In addition, significant in-memory caching of the virtualized metadata may be required to
+        /// correctly implement the <see cref="IMetaDataImport"/> APIs, and these caches may be retained even after virtual
+        /// module splitting has been turned off.
+        /// </remarks>
         public void EnableVirtualModuleSplitting(int enableSplitting)
         {
             HRESULT hr;
@@ -994,6 +1708,21 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Enables or disables virtual module splitting.
+        /// </summary>
+        /// <param name="enableSplitting">true to enable virtual module splitting; false to disable it.</param>
+        /// <remarks>
+        /// Virtual module splitting causes <see cref="ICorDebug"/> to recognize modules that were merged together during the
+        /// build process and present them as a group of separate modules rather than a single large module. Doing this changes
+        /// the behavior of various <see cref="ICorDebug"/> methods described below. This method can be called and the value
+        /// of enableSplitting can be changed at any time. It does not cause any stateful functional changes in an <see cref="ICorDebug"/>
+        /// object, other than altering the behavior of the methods listed in the Virtual module splitting and the unmanaged
+        /// debugging APIs section at the time they are called. Using virtual modules does incur a performance penalty when
+        /// calling those methods. In addition, significant in-memory caching of the virtualized metadata may be required to
+        /// correctly implement the <see cref="IMetaDataImport"/> APIs, and these caches may be retained even after virtual
+        /// module splitting has been turned off.
+        /// </remarks>
         public HRESULT TryEnableVirtualModuleSplitting(int enableSplitting)
         {
             /*HRESULT EnableVirtualModuleSplitting(int enableSplitting);*/
@@ -1003,6 +1732,10 @@ namespace ManagedCorDebug
         #endregion
         #region MarkDebuggerAttached
 
+        /// <summary>
+        /// Changes the internal state of the debugee so that the <see cref="Debugger.IsAttached"/> method in the .NET Framework Class Library returns true.
+        /// </summary>
+        /// <param name="fIsAttached">true if the <see cref="Debugger.IsAttached"/> method should indicate that a debugger is attached; false otherwise.</param>
         public void MarkDebuggerAttached(int fIsAttached)
         {
             HRESULT hr;
@@ -1011,6 +1744,19 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Changes the internal state of the debugee so that the <see cref="Debugger.IsAttached"/> method in the .NET Framework Class Library returns true.
+        /// </summary>
+        /// <param name="fIsAttached">true if the <see cref="Debugger.IsAttached"/> method should indicate that a debugger is attached; false otherwise.</param>
+        /// <returns>
+        /// The method can return the values listed in the following table.
+        /// 
+        /// | Return value                  | Description                                                                                                                                                                                                                                                                      |
+        /// | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+        /// | S_OK                          | The debuggee was successfully updated.                                                                                                                                                                                                                                           |
+        /// | CORDBG_E_MODULE_NOT_LOADED    | The assembly that contains the <see cref="Debugger.IsAttached"/> method is not loaded, or some other error, such as missing metadata, is preventing it from being recognized. This error is common and benign. You should call the method again when additional assemblies load. |
+        /// | Other failing HRESULT values. | Other values likely indicate misbehaving debugger or compiler components.                                                                                                                                                                                                        |
+        /// </returns>
         public HRESULT TryMarkDebuggerAttached(int fIsAttached)
         {
             /*HRESULT MarkDebuggerAttached(int fIsAttached);*/
@@ -1020,6 +1766,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetExportStepInfo
 
+        /// <summary>
+        /// Provides information on runtime exported functions to help step through managed code.
+        /// </summary>
+        /// <param name="pszExportName">[in] The name of a runtime export function as written in the PE export table.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetExportStepInfoResult GetExportStepInfo(string pszExportName)
         {
             HRESULT hr;
@@ -1031,6 +1782,20 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Provides information on runtime exported functions to help step through managed code.
+        /// </summary>
+        /// <param name="pszExportName">[in] The name of a runtime export function as written in the PE export table.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// The method can return the values listed in the following table.
+        /// 
+        /// | Return value                  | Description                            |
+        /// | ----------------------------- | -------------------------------------- |
+        /// | S_OK                          | The method call was successful.        |
+        /// | E_POINTER                     | pInvokeKind or pInvokePurpose is null. |
+        /// | Other failing HRESULT values. | As appropriate.                        |
+        /// </returns>
         public HRESULT TryGetExportStepInfo(string pszExportName, out GetExportStepInfoResult result)
         {
             /*HRESULT GetExportStepInfo(
@@ -1057,6 +1822,13 @@ namespace ManagedCorDebug
 
         #region SetWriteableMetadataUpdateMode
 
+        /// <summary>
+        /// [Supported in the .NET Framework 4.5.2 and later versions] Configures how the debugger handles in-memory updates to metadata within the target process.
+        /// </summary>
+        /// <param name="flags">A <see cref="WriteableMetadataUpdateMode"/> enumeration value that specifies whether in-memory updates to metadata in the target process are visible (WriteableMetadataUpdateMode::AlwaysShowUpdates) or not visible (WriteableMetadataUpdateMode::LegacyCompatPolicy) to the debugger.</param>
+        /// <remarks>
+        /// Updates to the metadata of the target process can come from Edit and Continue, a profiler, or <see cref="System.Reflection.Emit"/>.
+        /// </remarks>
         public void SetWriteableMetadataUpdateMode(WriteableMetadataUpdateMode flags)
         {
             HRESULT hr;
@@ -1065,6 +1837,13 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// [Supported in the .NET Framework 4.5.2 and later versions] Configures how the debugger handles in-memory updates to metadata within the target process.
+        /// </summary>
+        /// <param name="flags">A <see cref="WriteableMetadataUpdateMode"/> enumeration value that specifies whether in-memory updates to metadata in the target process are visible (WriteableMetadataUpdateMode::AlwaysShowUpdates) or not visible (WriteableMetadataUpdateMode::LegacyCompatPolicy) to the debugger.</param>
+        /// <remarks>
+        /// Updates to the metadata of the target process can come from Edit and Continue, a profiler, or <see cref="System.Reflection.Emit"/>.
+        /// </remarks>
         public HRESULT TrySetWriteableMetadataUpdateMode(WriteableMetadataUpdateMode flags)
         {
             /*HRESULT SetWriteableMetadataUpdateMode(WriteableMetadataUpdateMode flags);*/
@@ -1079,6 +1858,13 @@ namespace ManagedCorDebug
 
         #region EnableExceptionCallbacksOutsideOfMyCode
 
+        /// <summary>
+        /// [Supported in the .NET Framework 4.6 and later versions] Enables or disables certain types of <see cref="ICorDebugManagedCallback2"/> exception callbacks.
+        /// </summary>
+        /// <param name="enableExceptionsOutsideOfJMC">[in]</param>
+        /// <remarks>
+        /// If the value of enableExceptionsOutsideOfJMC is false: The default value of enableExceptionsOutsideOfJMC is true.
+        /// </remarks>
         public void EnableExceptionCallbacksOutsideOfMyCode(int enableExceptionsOutsideOfJMC)
         {
             HRESULT hr;
@@ -1087,6 +1873,13 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// [Supported in the .NET Framework 4.6 and later versions] Enables or disables certain types of <see cref="ICorDebugManagedCallback2"/> exception callbacks.
+        /// </summary>
+        /// <param name="enableExceptionsOutsideOfJMC">[in]</param>
+        /// <remarks>
+        /// If the value of enableExceptionsOutsideOfJMC is false: The default value of enableExceptionsOutsideOfJMC is true.
+        /// </remarks>
         public HRESULT TryEnableExceptionCallbacksOutsideOfMyCode(int enableExceptionsOutsideOfJMC)
         {
             /*HRESULT EnableExceptionCallbacksOutsideOfMyCode([In] int enableExceptionsOutsideOfJMC);*/

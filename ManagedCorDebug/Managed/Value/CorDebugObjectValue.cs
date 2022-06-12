@@ -3,6 +3,12 @@ using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// A subclass of "ICorDebugValue" that represents a value that contains an object.
+    /// </summary>
+    /// <remarks>
+    /// An <see cref="ICorDebugObjectValue"/> remains valid until the process being debugged is continued.
+    /// </remarks>
     public abstract class CorDebugObjectValue : CorDebugValue
     {
         public static CorDebugObjectValue New(ICorDebugObjectValue value)
@@ -23,6 +29,9 @@ namespace ManagedCorDebug
 
         #region GetClass
 
+        /// <summary>
+        /// Gets the class of this object value.
+        /// </summary>
         public CorDebugClass Class
         {
             get
@@ -37,6 +46,14 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the class of this object value.
+        /// </summary>
+        /// <param name="ppClassResult">[out] A pointer to the address of an "ICorDebugClass" object that represents the class of the object value represented by this "ICorDebugObjectValue" object.</param>
+        /// <remarks>
+        /// The GetClass and <see cref="CorDebugValue.Type"/> propertys each return information about
+        /// the type of a value; they are both superseded by the generics-aware <see cref="CorDebugValue.ExactType"/>.
+        /// </remarks>
         public HRESULT TryGetClass(out CorDebugClass ppClassResult)
         {
             /*HRESULT GetClass([MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);*/
@@ -54,6 +71,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetContext
 
+        /// <summary>
+        /// GetContext is not implemented in this version of the .NET Framework.
+        /// </summary>
         public CorDebugContext Context
         {
             get
@@ -68,6 +88,9 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// GetContext is not implemented in this version of the .NET Framework.
+        /// </summary>
         public HRESULT TryGetContext(out CorDebugContext ppContextResult)
         {
             /*HRESULT GetContext([MarshalAs(UnmanagedType.Interface)] out ICorDebugContext ppContext);*/
@@ -85,6 +108,9 @@ namespace ManagedCorDebug
         #endregion
         #region IsValueClass
 
+        /// <summary>
+        /// Gets a value that indicates whether this object value is a value type.
+        /// </summary>
         public int IsValueClass
         {
             get
@@ -99,6 +125,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets a value that indicates whether this object value is a value type.
+        /// </summary>
+        /// <param name="pbIsValueClass">[out] A pointer to a Boolean value that is true if the object value, represented by this "ICorDebugObjectValue", is a value type rather than a reference type; otherwise, pbIsValueClass is false.</param>
         public HRESULT TryIsValueClass(out int pbIsValueClass)
         {
             /*HRESULT IsValueClass(out int pbIsValueClass);*/
@@ -108,6 +138,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetManagedCopy
 
+        /// <summary>
+        /// GetManagedCopy is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public object ManagedCopy
         {
@@ -123,6 +156,9 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// GetManagedCopy is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public HRESULT TryGetManagedCopy(out object ppObject)
         {
@@ -133,6 +169,19 @@ namespace ManagedCorDebug
         #endregion
         #region GetFieldValue
 
+        /// <summary>
+        /// Gets the value of the specified field of the specified class for this object value.
+        /// </summary>
+        /// <param name="pClass">[in] A pointer to an "ICorDebugClass" object that represents the class for which to get the field value.</param>
+        /// <param name="fieldDef">[in] An <see cref="mdFieldDef"/> token that references the metadata describing the field.</param>
+        /// <returns>[out] A pointer to an "ICorDebugValue" object that represents the value of the specified field.</returns>
+        /// <remarks>
+        /// The class, specified in the pClass parameter, must be in the hierarchy of the object value's class, and the field
+        /// must be a field of that class. The GetFieldValue method will still succeed for generic objects and generic classes.
+        /// For example, if MyDictionary&lt;V&gt; inherits from Dictionary&lt;string,V&gt;, and the object value is of type
+        /// MyDictionary&lt;int32&gt;, passing the <see cref="ICorDebugClass"/> object for Dictionary&lt;K,V&gt; will successfully get a
+        /// field of Dictionary&lt;string,int32&gt;.
+        /// </remarks>
         public CorDebugValue GetFieldValue(ICorDebugClass pClass, mdFieldDef fieldDef)
         {
             HRESULT hr;
@@ -144,6 +193,19 @@ namespace ManagedCorDebug
             return ppValueResult;
         }
 
+        /// <summary>
+        /// Gets the value of the specified field of the specified class for this object value.
+        /// </summary>
+        /// <param name="pClass">[in] A pointer to an "ICorDebugClass" object that represents the class for which to get the field value.</param>
+        /// <param name="fieldDef">[in] An <see cref="mdFieldDef"/> token that references the metadata describing the field.</param>
+        /// <param name="ppValueResult">[out] A pointer to an "ICorDebugValue" object that represents the value of the specified field.</param>
+        /// <remarks>
+        /// The class, specified in the pClass parameter, must be in the hierarchy of the object value's class, and the field
+        /// must be a field of that class. The GetFieldValue method will still succeed for generic objects and generic classes.
+        /// For example, if MyDictionary&lt;V&gt; inherits from Dictionary&lt;string,V&gt;, and the object value is of type
+        /// MyDictionary&lt;int32&gt;, passing the <see cref="ICorDebugClass"/> object for Dictionary&lt;K,V&gt; will successfully get a
+        /// field of Dictionary&lt;string,int32&gt;.
+        /// </remarks>
         public HRESULT TryGetFieldValue(ICorDebugClass pClass, mdFieldDef fieldDef, out CorDebugValue ppValueResult)
         {
             /*HRESULT GetFieldValue([MarshalAs(UnmanagedType.Interface), In]
@@ -162,6 +224,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetVirtualMethod
 
+        /// <summary>
+        /// GetVirtualMethod is not implemented in this version of the .NET Framework.
+        /// </summary>
         public CorDebugFunction GetVirtualMethod(uint memberRef)
         {
             HRESULT hr;
@@ -173,6 +238,9 @@ namespace ManagedCorDebug
             return ppFunctionResult;
         }
 
+        /// <summary>
+        /// GetVirtualMethod is not implemented in this version of the .NET Framework.
+        /// </summary>
         public HRESULT TryGetVirtualMethod(uint memberRef, out CorDebugFunction ppFunctionResult)
         {
             /*HRESULT GetVirtualMethod([In] uint memberRef,
@@ -191,6 +259,9 @@ namespace ManagedCorDebug
         #endregion
         #region SetFromManagedCopy
 
+        /// <summary>
+        /// SetFromManagedCopy is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public void SetFromManagedCopy(object pObject)
         {
@@ -200,6 +271,9 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// SetFromManagedCopy is obsolete. Do not call this method.
+        /// </summary>
         [Obsolete]
         public HRESULT TrySetFromManagedCopy(object pObject)
         {
@@ -216,6 +290,13 @@ namespace ManagedCorDebug
 
         #region GetVirtualMethodAndType
 
+        /// <summary>
+        /// This method is not yet implemented.
+        /// </summary>
+        /// <remarks>
+        /// Gets interface pointers to the "ICorDebugFunction" and "ICorDebugType" instances that represent the most derived
+        /// method and type for the specified member reference.
+        /// </remarks>
         public GetVirtualMethodAndTypeResult GetVirtualMethodAndType(uint memberRef)
         {
             HRESULT hr;
@@ -227,6 +308,13 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// This method is not yet implemented.
+        /// </summary>
+        /// <remarks>
+        /// Gets interface pointers to the "ICorDebugFunction" and "ICorDebugType" instances that represent the most derived
+        /// method and type for the specified member reference.
+        /// </remarks>
         public HRESULT TryGetVirtualMethodAndType(uint memberRef, out GetVirtualMethodAndTypeResult result)
         {
             /*HRESULT GetVirtualMethodAndType(

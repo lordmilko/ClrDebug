@@ -4,6 +4,9 @@ using System.Runtime.InteropServices.ComTypes;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Represents a symbol binder for unmanaged code.
+    /// </summary>
     public class SymUnmanagedBinder : ComObject<ISymUnmanagedBinder>
     {
         public SymUnmanagedBinder(ISymUnmanagedBinder raw) : base(raw)
@@ -13,6 +16,15 @@ namespace ManagedCorDebug
         #region ISymUnmanagedBinder
         #region GetReaderForFile
 
+        /// <summary>
+        /// Given a metadata interface and a file name, returns the correct <see cref="ISymUnmanagedReader"/> interface that will read the debugging symbols associated with the module.<para/>
+        /// This method will open the program database (PDB) file only if it is next to the executable file. This change has been made for security purposes.<para/>
+        /// If you need a more extensive search for the PDB file, use the <see cref="GetReaderForFile2"/> method.
+        /// </summary>
+        /// <param name="importer">[in] A pointer to the metadata import interface.</param>
+        /// <param name="fileName">[in] A pointer to the file name.</param>
+        /// <param name="searchPath">[in] A pointer to the search path.</param>
+        /// <returns>[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</returns>
         public SymUnmanagedReader GetReaderForFile(IMetaDataImport importer, string fileName, string searchPath)
         {
             HRESULT hr;
@@ -24,6 +36,16 @@ namespace ManagedCorDebug
             return pRetValResult;
         }
 
+        /// <summary>
+        /// Given a metadata interface and a file name, returns the correct <see cref="ISymUnmanagedReader"/> interface that will read the debugging symbols associated with the module.<para/>
+        /// This method will open the program database (PDB) file only if it is next to the executable file. This change has been made for security purposes.<para/>
+        /// If you need a more extensive search for the PDB file, use the <see cref="GetReaderForFile2"/> method.
+        /// </summary>
+        /// <param name="importer">[in] A pointer to the metadata import interface.</param>
+        /// <param name="fileName">[in] A pointer to the file name.</param>
+        /// <param name="searchPath">[in] A pointer to the search path.</param>
+        /// <param name="pRetValResult">[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetReaderForFile(IMetaDataImport importer, string fileName, string searchPath, out SymUnmanagedReader pRetValResult)
         {
             /*HRESULT GetReaderForFile(
@@ -45,6 +67,12 @@ namespace ManagedCorDebug
         #endregion
         #region GetReaderFromStream
 
+        /// <summary>
+        /// Given a metadata interface and a stream that contains the symbol store, returns the correct <see cref="ISymUnmanagedReader"/> structure that will read the debugging symbols from the given symbol store.
+        /// </summary>
+        /// <param name="importer">[in] A pointer to the metadata import interface.</param>
+        /// <param name="pstream">[in] A pointer to the stream that contains the symbol store.</param>
+        /// <returns>[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</returns>
         public ISymUnmanagedReader GetReaderFromStream(IMetaDataImport importer, IStream pstream)
         {
             HRESULT hr;
@@ -56,6 +84,13 @@ namespace ManagedCorDebug
             return pRetVal;
         }
 
+        /// <summary>
+        /// Given a metadata interface and a stream that contains the symbol store, returns the correct <see cref="ISymUnmanagedReader"/> structure that will read the debugging symbols from the given symbol store.
+        /// </summary>
+        /// <param name="importer">[in] A pointer to the metadata import interface.</param>
+        /// <param name="pstream">[in] A pointer to the stream that contains the symbol store.</param>
+        /// <param name="pRetVal">[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetReaderFromStream(IMetaDataImport importer, IStream pstream, ref ISymUnmanagedReader pRetVal)
         {
             /*HRESULT GetReaderFromStream(
@@ -73,6 +108,22 @@ namespace ManagedCorDebug
 
         #region GetReaderForFile2
 
+        /// <summary>
+        /// Given a metadata interface and a file name, returns the correct <see cref="ISymUnmanagedReader"/> interface that will read the debugging symbols associated with the module.<para/>
+        /// This method provides a more extensive search for the program database (PDB) file than the <see cref="GetReaderForFile"/> method.
+        /// </summary>
+        /// <param name="importer">[in] A pointer to the metadata import interface.</param>
+        /// <param name="fileName">[in] A pointer to the file name.</param>
+        /// <param name="searchPath">[in] A pointer to the search path.</param>
+        /// <param name="searchPolicy">[in] A value of the <see cref="CorSymSearchPolicyAttributes"/> enumeration that specifies the policy to be used when doing a search for a symbol reader.</param>
+        /// <returns>[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</returns>
+        /// <remarks>
+        /// This version of the method can search for the PDB file in areas other than right next to the module. The search
+        /// policy can be controlled by combining <see cref="CorSymSearchPolicyAttributes"/>. For example, AllowReferencePathAccess
+        /// | AllowSymbolServerAccess looks for the PDB next to the executable file and on a symbol server, but does not query
+        /// the registry or use the path in the executable file. If the searchPath parameter is provided, those directories
+        /// will always be searched.
+        /// </remarks>
         public ISymUnmanagedReader GetReaderForFile2(IMetaDataImport importer, string fileName, string searchPath, CorSymSearchPolicyAttributes searchPolicy)
         {
             HRESULT hr;
@@ -84,6 +135,23 @@ namespace ManagedCorDebug
             return pRetVal;
         }
 
+        /// <summary>
+        /// Given a metadata interface and a file name, returns the correct <see cref="ISymUnmanagedReader"/> interface that will read the debugging symbols associated with the module.<para/>
+        /// This method provides a more extensive search for the program database (PDB) file than the <see cref="GetReaderForFile"/> method.
+        /// </summary>
+        /// <param name="importer">[in] A pointer to the metadata import interface.</param>
+        /// <param name="fileName">[in] A pointer to the file name.</param>
+        /// <param name="searchPath">[in] A pointer to the search path.</param>
+        /// <param name="searchPolicy">[in] A value of the <see cref="CorSymSearchPolicyAttributes"/> enumeration that specifies the policy to be used when doing a search for a symbol reader.</param>
+        /// <param name="pRetVal">[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
+        /// <remarks>
+        /// This version of the method can search for the PDB file in areas other than right next to the module. The search
+        /// policy can be controlled by combining <see cref="CorSymSearchPolicyAttributes"/>. For example, AllowReferencePathAccess
+        /// | AllowSymbolServerAccess looks for the PDB next to the executable file and on a symbol server, but does not query
+        /// the registry or use the path in the executable file. If the searchPath parameter is provided, those directories
+        /// will always be searched.
+        /// </remarks>
         public HRESULT TryGetReaderForFile2(IMetaDataImport importer, string fileName, string searchPath, CorSymSearchPolicyAttributes searchPolicy, ref ISymUnmanagedReader pRetVal)
         {
             /*HRESULT GetReaderForFile2(
@@ -103,6 +171,15 @@ namespace ManagedCorDebug
 
         #region GetReaderFromCallback
 
+        /// <summary>
+        /// Allows the user to implement or supply via callback either an IID_IDiaReadExeAtRVACallback or IID_IDiaReadExeAtOffsetCallback to obtain the debug directory information from memory.
+        /// </summary>
+        /// <param name="importer">[in] A pointer to the metadata import interface.</param>
+        /// <param name="fileName">[in] A pointer to the file name.</param>
+        /// <param name="searchPath">[in] A pointer to the search path.</param>
+        /// <param name="searchPolicy">[in] A value of the <see cref="CorSymSearchPolicyAttributes"/> enumeration that specifies the policy to be used when doing a search for a symbol reader.</param>
+        /// <param name="callback">[in] A pointer to the callback function.</param>
+        /// <returns>[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</returns>
         public ISymUnmanagedReader GetReaderFromCallback(object importer, string fileName, string searchPath, CorSymSearchPolicyAttributes searchPolicy, object callback)
         {
             HRESULT hr;
@@ -114,6 +191,16 @@ namespace ManagedCorDebug
             return pRetVal;
         }
 
+        /// <summary>
+        /// Allows the user to implement or supply via callback either an IID_IDiaReadExeAtRVACallback or IID_IDiaReadExeAtOffsetCallback to obtain the debug directory information from memory.
+        /// </summary>
+        /// <param name="importer">[in] A pointer to the metadata import interface.</param>
+        /// <param name="fileName">[in] A pointer to the file name.</param>
+        /// <param name="searchPath">[in] A pointer to the search path.</param>
+        /// <param name="searchPolicy">[in] A value of the <see cref="CorSymSearchPolicyAttributes"/> enumeration that specifies the policy to be used when doing a search for a symbol reader.</param>
+        /// <param name="callback">[in] A pointer to the callback function.</param>
+        /// <param name="pRetVal">[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetReaderFromCallback(object importer, string fileName, string searchPath, CorSymSearchPolicyAttributes searchPolicy, object callback, ref ISymUnmanagedReader pRetVal)
         {
             /*HRESULT GetReaderFromCallback(

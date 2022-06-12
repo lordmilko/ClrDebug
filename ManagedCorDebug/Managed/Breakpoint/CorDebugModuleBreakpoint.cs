@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Provides access to specific modules. This interface is a subclass of the <see cref="ICorDebugBreakpoint"/> interface.
+    /// </summary>
     public class CorDebugModuleBreakpoint : CorDebugBreakpoint
     {
         public CorDebugModuleBreakpoint(ICorDebugModuleBreakpoint raw) : base(raw)
@@ -15,6 +18,9 @@ namespace ManagedCorDebug
 
         #region GetModule
 
+        /// <summary>
+        /// Gets an interface pointer to an <see cref="ICorDebugModule"/> that references the module in which this breakpoint is set.
+        /// </summary>
         public CorDebugModule Module
         {
             get
@@ -29,6 +35,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets an interface pointer to an <see cref="ICorDebugModule"/> that references the module in which this breakpoint is set.
+        /// </summary>
+        /// <param name="ppModuleResult">[out] A pointer to the address of an <see cref="ICorDebugModule"/> interface that references the module in which the breakpoint is set.</param>
         public HRESULT TryGetModule(out CorDebugModule ppModuleResult)
         {
             /*HRESULT GetModule([MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);*/

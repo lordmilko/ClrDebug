@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Represents a symbol reader that provides access to documents, methods, and variables within a symbol store.
+    /// </summary>
     public class SymUnmanagedReader : ComObject<ISymUnmanagedReader>
     {
         public SymUnmanagedReader(ISymUnmanagedReader raw) : base(raw)
@@ -14,6 +17,9 @@ namespace ManagedCorDebug
         #region ISymUnmanagedReader
         #region GetUserEntryPoint
 
+        /// <summary>
+        /// Returns the method that was specified as the user entry point for the module, if any. For example, this method could be the user's main method rather than compiler-generated stubs before the main method.
+        /// </summary>
         public uint UserEntryPoint
         {
             get
@@ -28,6 +34,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Returns the method that was specified as the user entry point for the module, if any. For example, this method could be the user's main method rather than compiler-generated stubs before the main method.
+        /// </summary>
+        /// <param name="pToken">[out] A pointer to a variable that receives the entry point.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetUserEntryPoint(out uint pToken)
         {
             /*HRESULT GetUserEntryPoint([Out] out uint pToken);*/
@@ -37,6 +48,14 @@ namespace ManagedCorDebug
         #endregion
         #region GetDocument
 
+        /// <summary>
+        /// Finds a document. The document language, vendor, and type are optional.
+        /// </summary>
+        /// <param name="url">[in] The URL that identifies the document.</param>
+        /// <param name="language">[in] The document language. This parameter is optional.</param>
+        /// <param name="languageVendor">[in] The identity of the vendor for the document language. This parameter is optional.</param>
+        /// <param name="documentType">[in] The type of the document. This parameter is optional.</param>
+        /// <returns>[out] A pointer to the returned interface.</returns>
         public SymUnmanagedDocument GetDocument(string url, Guid language, Guid languageVendor, Guid documentType)
         {
             HRESULT hr;
@@ -48,6 +67,15 @@ namespace ManagedCorDebug
             return pRetValResult;
         }
 
+        /// <summary>
+        /// Finds a document. The document language, vendor, and type are optional.
+        /// </summary>
+        /// <param name="url">[in] The URL that identifies the document.</param>
+        /// <param name="language">[in] The document language. This parameter is optional.</param>
+        /// <param name="languageVendor">[in] The identity of the vendor for the document language. This parameter is optional.</param>
+        /// <param name="documentType">[in] The type of the document. This parameter is optional.</param>
+        /// <param name="pRetValResult">[out] A pointer to the returned interface.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetDocument(string url, Guid language, Guid languageVendor, Guid documentType, out SymUnmanagedDocument pRetValResult)
         {
             /*HRESULT GetDocument(
@@ -70,6 +98,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetDocuments
 
+        /// <summary>
+        /// Returns an array of all the documents defined in the symbol store.
+        /// </summary>
+        /// <param name="cDocs">[in] The size of the pDocs array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetDocumentsResult GetDocuments(uint cDocs)
         {
             HRESULT hr;
@@ -81,6 +114,12 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Returns an array of all the documents defined in the symbol store.
+        /// </summary>
+        /// <param name="cDocs">[in] The size of the pDocs array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetDocuments(uint cDocs, out GetDocumentsResult result)
         {
             /*HRESULT GetDocuments(
@@ -102,6 +141,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetMethod
 
+        /// <summary>
+        /// Gets a symbol reader method, given a method token.
+        /// </summary>
+        /// <param name="token">[in] The method token.</param>
+        /// <returns>[out] A pointer to the returned interface.</returns>
         public ISymUnmanagedMethod GetMethod(uint token)
         {
             HRESULT hr;
@@ -113,6 +157,12 @@ namespace ManagedCorDebug
             return pRetVal;
         }
 
+        /// <summary>
+        /// Gets a symbol reader method, given a method token.
+        /// </summary>
+        /// <param name="token">[in] The method token.</param>
+        /// <param name="pRetVal">[out] A pointer to the returned interface.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetMethod(uint token, ref ISymUnmanagedMethod pRetVal)
         {
             /*HRESULT GetMethod([In] uint token, [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);*/
@@ -122,6 +172,12 @@ namespace ManagedCorDebug
         #endregion
         #region GetMethodByVersion
 
+        /// <summary>
+        /// Gets a symbol reader method, given a method token and an edit-and-copy version number. Version numbers start at 1 and are incremented each time the method is changed as a result of an edit-and-copy operation.
+        /// </summary>
+        /// <param name="token">[in] The method token.</param>
+        /// <param name="version">[in] The method version.</param>
+        /// <returns>[out] A pointer to the returned interface.</returns>
         public ISymUnmanagedMethod GetMethodByVersion(uint token, int version)
         {
             HRESULT hr;
@@ -133,6 +189,13 @@ namespace ManagedCorDebug
             return pRetVal;
         }
 
+        /// <summary>
+        /// Gets a symbol reader method, given a method token and an edit-and-copy version number. Version numbers start at 1 and are incremented each time the method is changed as a result of an edit-and-copy operation.
+        /// </summary>
+        /// <param name="token">[in] The method token.</param>
+        /// <param name="version">[in] The method version.</param>
+        /// <param name="pRetVal">[out] A pointer to the returned interface.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetMethodByVersion(uint token, int version, ref ISymUnmanagedMethod pRetVal)
         {
             /*HRESULT GetMethodByVersion(
@@ -145,6 +208,12 @@ namespace ManagedCorDebug
         #endregion
         #region GetVariables
 
+        /// <summary>
+        /// Returns a non-local variable, given its parent and name.
+        /// </summary>
+        /// <param name="parent">[in] The parent of the variable.</param>
+        /// <param name="cVars">[in] The size of the pVars array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetVariablesResult GetVariables(uint parent, uint cVars)
         {
             HRESULT hr;
@@ -156,6 +225,13 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Returns a non-local variable, given its parent and name.
+        /// </summary>
+        /// <param name="parent">[in] The parent of the variable.</param>
+        /// <param name="cVars">[in] The size of the pVars array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetVariables(uint parent, uint cVars, out GetVariablesResult result)
         {
             /*HRESULT GetVariables(
@@ -178,6 +254,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetGlobalVariables
 
+        /// <summary>
+        /// Returns all global variables.
+        /// </summary>
+        /// <param name="cVars">[in] The length of the buffer pointed to by pcVars.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetGlobalVariablesResult GetGlobalVariables(uint cVars)
         {
             HRESULT hr;
@@ -189,6 +270,12 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Returns all global variables.
+        /// </summary>
+        /// <param name="cVars">[in] The length of the buffer pointed to by pcVars.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetGlobalVariables(uint cVars, out GetGlobalVariablesResult result)
         {
             /*HRESULT GetGlobalVariables(
@@ -210,6 +297,13 @@ namespace ManagedCorDebug
         #endregion
         #region GetMethodFromDocumentPosition
 
+        /// <summary>
+        /// Returns the method that contains the breakpoint at the given position in a document.
+        /// </summary>
+        /// <param name="document">[in] The specified document.</param>
+        /// <param name="line">[in] The line of the specified document.</param>
+        /// <param name="column">[in] The column of the specified document.</param>
+        /// <returns>[out] A pointer to the address of a <see cref="ISymUnmanagedMethod"/> object that represents the method containing the breakpoint.</returns>
         public ISymUnmanagedMethod GetMethodFromDocumentPosition(ISymUnmanagedDocument document, uint line, uint column)
         {
             HRESULT hr;
@@ -221,6 +315,14 @@ namespace ManagedCorDebug
             return pRetVal;
         }
 
+        /// <summary>
+        /// Returns the method that contains the breakpoint at the given position in a document.
+        /// </summary>
+        /// <param name="document">[in] The specified document.</param>
+        /// <param name="line">[in] The line of the specified document.</param>
+        /// <param name="column">[in] The column of the specified document.</param>
+        /// <param name="pRetVal">[out] A pointer to the address of a <see cref="ISymUnmanagedMethod"/> object that represents the method containing the breakpoint.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetMethodFromDocumentPosition(ISymUnmanagedDocument document, uint line, uint column, ref ISymUnmanagedMethod pRetVal)
         {
             /*HRESULT GetMethodFromDocumentPosition(
@@ -235,6 +337,13 @@ namespace ManagedCorDebug
         #endregion
         #region GetSymAttribute
 
+        /// <summary>
+        /// Gets a custom attribute based upon its name. Unlike metadata custom attributes, these custom attributes are held in the symbol store.
+        /// </summary>
+        /// <param name="parent">[in] The metadata token for the object for which the attribute is requested.</param>
+        /// <param name="name">[in] A pointer to the variable that indicates the attribute to retrieve.</param>
+        /// <param name="cBuffer">[in] The size of the buffer array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetSymAttributeResult GetSymAttribute(uint parent, string name, uint cBuffer)
         {
             HRESULT hr;
@@ -246,6 +355,14 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets a custom attribute based upon its name. Unlike metadata custom attributes, these custom attributes are held in the symbol store.
+        /// </summary>
+        /// <param name="parent">[in] The metadata token for the object for which the attribute is requested.</param>
+        /// <param name="name">[in] A pointer to the variable that indicates the attribute to retrieve.</param>
+        /// <param name="cBuffer">[in] The size of the buffer array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetSymAttribute(uint parent, string name, uint cBuffer, out GetSymAttributeResult result)
         {
             /*HRESULT GetSymAttribute(
@@ -269,6 +386,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetNamespaces
 
+        /// <summary>
+        /// Gets the namespaces defined at global scope within this symbol store.
+        /// </summary>
+        /// <param name="cNameSpaces">[in] The size of the namespaces array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetNamespacesResult GetNamespaces(uint cNameSpaces)
         {
             HRESULT hr;
@@ -280,6 +402,12 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the namespaces defined at global scope within this symbol store.
+        /// </summary>
+        /// <param name="cNameSpaces">[in] The size of the namespaces array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetNamespaces(uint cNameSpaces, out GetNamespacesResult result)
         {
             /*HRESULT GetNamespaces(
@@ -301,6 +429,17 @@ namespace ManagedCorDebug
         #endregion
         #region Initialize
 
+        /// <summary>
+        /// Initializes the symbol reader with the metadata importer interface that this reader will be associated with, along with the file name of the module.
+        /// </summary>
+        /// <param name="importer">[in] The metadata importer interface with which this reader will be associated.</param>
+        /// <param name="filename">[in] The file name of the module. You can use the pIStream parameter instead.</param>
+        /// <param name="searchPath">[in] The path to search. This parameter is optional.</param>
+        /// <param name="pIStream">[in] The file stream, used as an alternative to the filename parameter.</param>
+        /// <remarks>
+        /// You need to specify only one of the filename or the pIStream parameters, not both. The searchPath parameter is
+        /// optional.
+        /// </remarks>
         public void Initialize(object importer, string filename, string searchPath, IStream pIStream)
         {
             HRESULT hr;
@@ -309,6 +448,18 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Initializes the symbol reader with the metadata importer interface that this reader will be associated with, along with the file name of the module.
+        /// </summary>
+        /// <param name="importer">[in] The metadata importer interface with which this reader will be associated.</param>
+        /// <param name="filename">[in] The file name of the module. You can use the pIStream parameter instead.</param>
+        /// <param name="searchPath">[in] The path to search. This parameter is optional.</param>
+        /// <param name="pIStream">[in] The file stream, used as an alternative to the filename parameter.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
+        /// <remarks>
+        /// You need to specify only one of the filename or the pIStream parameters, not both. The searchPath parameter is
+        /// optional.
+        /// </remarks>
         public HRESULT TryInitialize(object importer, string filename, string searchPath, IStream pIStream)
         {
             /*HRESULT Initialize([MarshalAs(UnmanagedType.IUnknown), In]
@@ -321,6 +472,11 @@ namespace ManagedCorDebug
         #endregion
         #region UpdateSymbolStore
 
+        /// <summary>
+        /// Updates the existing symbol store with a delta symbol store. This method is used in edit-and-continue scenarios to update the symbol store to match deltas to the original portable executable (PE) file.
+        /// </summary>
+        /// <param name="filename">[in] The name of the file that contains the symbol store.</param>
+        /// <param name="pIStream">[in] The file stream, used as an alternative to the filename parameter.</param>
         public void UpdateSymbolStore(string filename, IStream pIStream)
         {
             HRESULT hr;
@@ -329,6 +485,12 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Updates the existing symbol store with a delta symbol store. This method is used in edit-and-continue scenarios to update the symbol store to match deltas to the original portable executable (PE) file.
+        /// </summary>
+        /// <param name="filename">[in] The name of the file that contains the symbol store.</param>
+        /// <param name="pIStream">[in] The file stream, used as an alternative to the filename parameter.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryUpdateSymbolStore(string filename, IStream pIStream)
         {
             /*HRESULT UpdateSymbolStore([In] string filename, [MarshalAs(UnmanagedType.Interface), In]
@@ -339,6 +501,11 @@ namespace ManagedCorDebug
         #endregion
         #region ReplaceSymbolStore
 
+        /// <summary>
+        /// Replaces the existing symbol store with a delta symbol store. This method is similar to the <see cref="UpdateSymbolStore"/> method, except that the given delta acts as a complete replacement rather than an update.
+        /// </summary>
+        /// <param name="filename">[in] The name of the file containing the symbol store.</param>
+        /// <param name="pIStream">[in] The file stream, used as an alternative to the filename parameter.</param>
         public void ReplaceSymbolStore(string filename, IStream pIStream)
         {
             HRESULT hr;
@@ -347,6 +514,12 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Replaces the existing symbol store with a delta symbol store. This method is similar to the <see cref="UpdateSymbolStore"/> method, except that the given delta acts as a complete replacement rather than an update.
+        /// </summary>
+        /// <param name="filename">[in] The name of the file containing the symbol store.</param>
+        /// <param name="pIStream">[in] The file stream, used as an alternative to the filename parameter.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryReplaceSymbolStore(string filename, IStream pIStream)
         {
             /*HRESULT ReplaceSymbolStore([In] string filename, [MarshalAs(UnmanagedType.Interface), In]
@@ -357,6 +530,10 @@ namespace ManagedCorDebug
         #endregion
         #region GetSymbolStoreFileName
 
+        /// <summary>
+        /// Provides the on-disk file name of the symbol store.
+        /// </summary>
+        /// <returns>[out] A pointer to the variable that receives the file name of the symbol store.</returns>
         public string GetSymbolStoreFileName()
         {
             HRESULT hr;
@@ -368,6 +545,11 @@ namespace ManagedCorDebug
             return szNameResult;
         }
 
+        /// <summary>
+        /// Provides the on-disk file name of the symbol store.
+        /// </summary>
+        /// <param name="szNameResult">[out] A pointer to the variable that receives the file name of the symbol store.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetSymbolStoreFileName(out string szNameResult)
         {
             /*HRESULT GetSymbolStoreFileName(
@@ -402,6 +584,14 @@ namespace ManagedCorDebug
         #endregion
         #region GetMethodsFromDocumentPosition
 
+        /// <summary>
+        /// Returns an array of methods, each of which contains the breakpoint at the given position in a document.
+        /// </summary>
+        /// <param name="document">[in] The specified document.</param>
+        /// <param name="line">[in] The line of the specified document.</param>
+        /// <param name="column">[in] The column of the specified document.</param>
+        /// <param name="cMethod">[in] The size of the pRetVal array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetMethodsFromDocumentPositionResult GetMethodsFromDocumentPosition(ISymUnmanagedDocument document, uint line, uint column, uint cMethod)
         {
             HRESULT hr;
@@ -413,6 +603,15 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Returns an array of methods, each of which contains the breakpoint at the given position in a document.
+        /// </summary>
+        /// <param name="document">[in] The specified document.</param>
+        /// <param name="line">[in] The line of the specified document.</param>
+        /// <param name="column">[in] The column of the specified document.</param>
+        /// <param name="cMethod">[in] The size of the pRetVal array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetMethodsFromDocumentPosition(ISymUnmanagedDocument document, uint line, uint column, uint cMethod, out GetMethodsFromDocumentPositionResult result)
         {
             /*HRESULT GetMethodsFromDocumentPosition(
@@ -437,6 +636,12 @@ namespace ManagedCorDebug
         #endregion
         #region GetDocumentVersion
 
+        /// <summary>
+        /// Gets the specified version of the specified document. The document version starts at 1 and is incremented each time the document is updated using the <see cref="UpdateSymbolStore"/> method.<para/>
+        /// If the pbCurrent parameter is true, this is the latest version of the document.
+        /// </summary>
+        /// <param name="pDoc">[in] The specified document.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetDocumentVersionResult GetDocumentVersion(ISymUnmanagedDocument pDoc)
         {
             HRESULT hr;
@@ -448,6 +653,13 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the specified version of the specified document. The document version starts at 1 and is incremented each time the document is updated using the <see cref="UpdateSymbolStore"/> method.<para/>
+        /// If the pbCurrent parameter is true, this is the latest version of the document.
+        /// </summary>
+        /// <param name="pDoc">[in] The specified document.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetDocumentVersion(ISymUnmanagedDocument pDoc, out GetDocumentVersionResult result)
         {
             /*HRESULT GetDocumentVersion([MarshalAs(UnmanagedType.Interface), In]
@@ -467,6 +679,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetMethodVersion
 
+        /// <summary>
+        /// Gets the method version. The method version starts at 1 and is incremented each time the method is recompiled. Recompilation can happen without changes to the method.
+        /// </summary>
+        /// <param name="pMethod">[in] The method for which to get the version.</param>
+        /// <returns>[out] A pointer to a variable that receives the method version.</returns>
         public int GetMethodVersion(ISymUnmanagedMethod pMethod)
         {
             HRESULT hr;
@@ -478,6 +695,12 @@ namespace ManagedCorDebug
             return version;
         }
 
+        /// <summary>
+        /// Gets the method version. The method version starts at 1 and is incremented each time the method is recompiled. Recompilation can happen without changes to the method.
+        /// </summary>
+        /// <param name="pMethod">[in] The method for which to get the version.</param>
+        /// <param name="version">[out] A pointer to a variable that receives the method version.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetMethodVersion(ISymUnmanagedMethod pMethod, out int version)
         {
             /*HRESULT GetMethodVersion([MarshalAs(UnmanagedType.Interface), In]
@@ -493,6 +716,12 @@ namespace ManagedCorDebug
 
         #region GetMethodByVersionPreRemap
 
+        /// <summary>
+        /// Gets a symbol reader method, given a method token and an edit-and-continue version number. Version numbers start at 1 and are incremented each time the method is changed as a result of an edit-and-continue operation.
+        /// </summary>
+        /// <param name="token">[in] The method metadata token.</param>
+        /// <param name="version">[in] The method version.</param>
+        /// <returns>[out] A pointer to the returned <see cref="ISymUnmanagedMethod"/> interface.</returns>
         public ISymUnmanagedMethod GetMethodByVersionPreRemap(uint token, int version)
         {
             HRESULT hr;
@@ -504,6 +733,13 @@ namespace ManagedCorDebug
             return pRetVal;
         }
 
+        /// <summary>
+        /// Gets a symbol reader method, given a method token and an edit-and-continue version number. Version numbers start at 1 and are incremented each time the method is changed as a result of an edit-and-continue operation.
+        /// </summary>
+        /// <param name="token">[in] The method metadata token.</param>
+        /// <param name="version">[in] The method version.</param>
+        /// <param name="pRetVal">[out] A pointer to the returned <see cref="ISymUnmanagedMethod"/> interface.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetMethodByVersionPreRemap(uint token, int version, ref ISymUnmanagedMethod pRetVal)
         {
             /*HRESULT GetMethodByVersionPreRemap(
@@ -516,6 +752,13 @@ namespace ManagedCorDebug
         #endregion
         #region GetSymAttributePreRemap
 
+        /// <summary>
+        /// Gets a custom attribute based upon its name. Unlike metadata custom attributes, these attributes are held in the symbol store.
+        /// </summary>
+        /// <param name="parent">[in] The metadata token of the parent.</param>
+        /// <param name="name">[in] A pointer to a WCHAR that contains the name.</param>
+        /// <param name="cBuffer">[in] A ULONG32 that indicates the size of the buffer array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetSymAttributePreRemapResult GetSymAttributePreRemap(uint parent, string name, uint cBuffer)
         {
             HRESULT hr;
@@ -527,6 +770,14 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets a custom attribute based upon its name. Unlike metadata custom attributes, these attributes are held in the symbol store.
+        /// </summary>
+        /// <param name="parent">[in] The metadata token of the parent.</param>
+        /// <param name="name">[in] A pointer to a WCHAR that contains the name.</param>
+        /// <param name="cBuffer">[in] A ULONG32 that indicates the size of the buffer array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetSymAttributePreRemap(uint parent, string name, uint cBuffer, out GetSymAttributePreRemapResult result)
         {
             /*HRESULT GetSymAttributePreRemap(
@@ -550,6 +801,12 @@ namespace ManagedCorDebug
         #endregion
         #region GetMethodsInDocument
 
+        /// <summary>
+        /// Gets every method that has line information in the provided document.
+        /// </summary>
+        /// <param name="document">[in] A pointer to the document.</param>
+        /// <param name="cMethod">[in] A ULONG32 that indicates the size of the pRetVal array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetMethodsInDocumentResult GetMethodsInDocument(ISymUnmanagedDocument document, uint cMethod)
         {
             HRESULT hr;
@@ -561,6 +818,13 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets every method that has line information in the provided document.
+        /// </summary>
+        /// <param name="document">[in] A pointer to the document.</param>
+        /// <param name="cMethod">[in] A ULONG32 that indicates the size of the pRetVal array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetMethodsInDocument(ISymUnmanagedDocument document, uint cMethod, out GetMethodsInDocumentResult result)
         {
             /*HRESULT GetMethodsInDocument(

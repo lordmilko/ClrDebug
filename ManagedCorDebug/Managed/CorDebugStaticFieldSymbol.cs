@@ -4,6 +4,12 @@ using System.Text;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Represents the debug symbol information for a static field.
+    /// </summary>
+    /// <remarks>
+    /// The <see cref="ICorDebugStaticFieldSymbol"/> interface is used to retrieve the debug symbol information for a static field.
+    /// </remarks>
     public class CorDebugStaticFieldSymbol : ComObject<ICorDebugStaticFieldSymbol>
     {
         public CorDebugStaticFieldSymbol(ICorDebugStaticFieldSymbol raw) : base(raw)
@@ -13,6 +19,9 @@ namespace ManagedCorDebug
         #region ICorDebugStaticFieldSymbol
         #region GetSize
 
+        /// <summary>
+        /// Gets the size in bytes of the static field.
+        /// </summary>
         public uint Size
         {
             get
@@ -27,6 +36,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the size in bytes of the static field.
+        /// </summary>
+        /// <param name="pcbSize">[out] A pointer to length of the field.</param>
         public HRESULT TryGetSize(out uint pcbSize)
         {
             /*HRESULT GetSize(out uint pcbSize);*/
@@ -36,6 +49,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetAddress
 
+        /// <summary>
+        /// Gets the address of a static field.
+        /// </summary>
         public ulong Address
         {
             get
@@ -50,6 +66,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the address of a static field.
+        /// </summary>
+        /// <param name="pRVA">[out] A pointer to the relative virtual address (RVA) of the static field.</param>
         public HRESULT TryGetAddress(out ulong pRVA)
         {
             /*HRESULT GetAddress(out ulong pRVA);*/
@@ -59,6 +79,10 @@ namespace ManagedCorDebug
         #endregion
         #region GetName
 
+        /// <summary>
+        /// Gets the name of the static field.
+        /// </summary>
+        /// <returns>[out] A character array that stores the returned name.</returns>
         public string GetName()
         {
             HRESULT hr;
@@ -70,6 +94,10 @@ namespace ManagedCorDebug
             return szNameResult;
         }
 
+        /// <summary>
+        /// Gets the name of the static field.
+        /// </summary>
+        /// <param name="szNameResult">[out] A character array that stores the returned name.</param>
         public HRESULT TryGetName(out string szNameResult)
         {
             /*HRESULT GetName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);*/

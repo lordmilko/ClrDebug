@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Provides the Next method, which returns a specified number of <see cref="ICorDebugAppDomainEnum"/> values starting at the next location in the enumeration.<para/>
+    /// This interface is a subclass of "ICorDebugEnum".
+    /// </summary>
     public class CorDebugAppDomainEnum : IEnumerable<CorDebugAppDomain>, IEnumerator<CorDebugAppDomain>
     {
         private ICorDebugAppDomainEnum rawEnumerator;

@@ -1,9 +1,13 @@
 using System;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Provides information about a merged assembly.
+    /// </summary>
     public class CorDebugMergedAssemblyRecord : ComObject<ICorDebugMergedAssemblyRecord>
     {
         public CorDebugMergedAssemblyRecord(ICorDebugMergedAssemblyRecord raw) : base(raw)
@@ -13,6 +17,9 @@ namespace ManagedCorDebug
         #region ICorDebugMergedAssemblyRecord
         #region GetVersion
 
+        /// <summary>
+        /// Gets the assembly's version information.
+        /// </summary>
         public GetVersionResult Version
         {
             get
@@ -27,6 +34,13 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the assembly's version information.
+        /// </summary>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <remarks>
+        /// For information on assembly version numbers, see the <see cref="Version"/> class topic.
+        /// </remarks>
         public HRESULT TryGetVersion(out GetVersionResult result)
         {
             /*HRESULT GetVersion(out ushort pMajor, out ushort pMinor, out ushort pBuild, out ushort pRevision);*/
@@ -47,6 +61,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetIndex
 
+        /// <summary>
+        /// Gets the assembly's prefix index.
+        /// </summary>
         public uint Index
         {
             get
@@ -61,6 +78,13 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the assembly's prefix index.
+        /// </summary>
+        /// <param name="pIndex">[out] A pointer to the prefix index.</param>
+        /// <remarks>
+        /// The prefix index is used to prevent name collisions in the merged metadata type names.
+        /// </remarks>
         public HRESULT TryGetIndex(out uint pIndex)
         {
             /*HRESULT GetIndex(out uint pIndex);*/
@@ -70,6 +94,15 @@ namespace ManagedCorDebug
         #endregion
         #region GetSimpleName
 
+        /// <summary>
+        /// Gets the simple name of the assembly.
+        /// </summary>
+        /// <returns>A pointer to a character array.</returns>
+        /// <remarks>
+        /// This method retrieves the simple name of an assembly (such as "System.Collections"), without a file extension,
+        /// version, culture, or public key token. It corresponds to the <see cref="AssemblyName.Name"/> property in managed
+        /// code.
+        /// </remarks>
         public string GetSimpleName()
         {
             HRESULT hr;
@@ -81,6 +114,15 @@ namespace ManagedCorDebug
             return szNameResult;
         }
 
+        /// <summary>
+        /// Gets the simple name of the assembly.
+        /// </summary>
+        /// <param name="szNameResult">A pointer to a character array.</param>
+        /// <remarks>
+        /// This method retrieves the simple name of an assembly (such as "System.Collections"), without a file extension,
+        /// version, culture, or public key token. It corresponds to the <see cref="AssemblyName.Name"/> property in managed
+        /// code.
+        /// </remarks>
         public HRESULT TryGetSimpleName(out string szNameResult)
         {
             /*HRESULT GetSimpleName([In] uint cchName, out uint pcchName, [Out] StringBuilder szName);*/
@@ -112,6 +154,14 @@ namespace ManagedCorDebug
         #endregion
         #region GetCulture
 
+        /// <summary>
+        /// Gets the culture name string of the assembly.
+        /// </summary>
+        /// <returns>[out] A character array that contains the culture name.</returns>
+        /// <remarks>
+        /// The culture name is a unique string that identifies a culture, such as "en-US" (for the English (United States)
+        /// culture), or "neutral" (for a neutral culture).
+        /// </remarks>
         public string GetCulture()
         {
             HRESULT hr;
@@ -123,6 +173,14 @@ namespace ManagedCorDebug
             return szCultureResult;
         }
 
+        /// <summary>
+        /// Gets the culture name string of the assembly.
+        /// </summary>
+        /// <param name="szCultureResult">[out] A character array that contains the culture name.</param>
+        /// <remarks>
+        /// The culture name is a unique string that identifies a culture, such as "en-US" (for the English (United States)
+        /// culture), or "neutral" (for a neutral culture).
+        /// </remarks>
         public HRESULT TryGetCulture(out string szCultureResult)
         {
             /*HRESULT GetCulture([In] uint cchCulture, out uint pcchCulture, [Out] StringBuilder szCulture);*/
@@ -154,6 +212,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetPublicKey
 
+        /// <summary>
+        /// Gets the assembly's public key.
+        /// </summary>
+        /// <param name="cbPublicKey">[in] The maximum number of bytes in the pbPublicKey array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetPublicKeyResult GetPublicKey(uint cbPublicKey)
         {
             HRESULT hr;
@@ -165,6 +228,11 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the assembly's public key.
+        /// </summary>
+        /// <param name="cbPublicKey">[in] The maximum number of bytes in the pbPublicKey array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetPublicKey(uint cbPublicKey, out GetPublicKeyResult result)
         {
             /*HRESULT GetPublicKey(
@@ -187,6 +255,14 @@ namespace ManagedCorDebug
         #endregion
         #region GetPublicKeyToken
 
+        /// <summary>
+        /// Gets the assembly's public key token.
+        /// </summary>
+        /// <param name="cbPublicKeyToken">[in] The maximum number of bytes in the pbPublicKeyToken array.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// An assembly's public key token is the last eight bytes of a SHA1 hash of its public key.
+        /// </remarks>
         public GetPublicKeyTokenResult GetPublicKeyToken(uint cbPublicKeyToken)
         {
             HRESULT hr;
@@ -198,6 +274,14 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the assembly's public key token.
+        /// </summary>
+        /// <param name="cbPublicKeyToken">[in] The maximum number of bytes in the pbPublicKeyToken array.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <remarks>
+        /// An assembly's public key token is the last eight bytes of a SHA1 hash of its public key.
+        /// </remarks>
         public HRESULT TryGetPublicKeyToken(uint cbPublicKeyToken, out GetPublicKeyTokenResult result)
         {
             /*HRESULT GetPublicKeyToken(

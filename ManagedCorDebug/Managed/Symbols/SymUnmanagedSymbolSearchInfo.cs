@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Provides methods that get information about the search path. Obtain this interface by calling QueryInterface on an object that implements the <see cref="ISymUnmanagedReader"/> interface.
+    /// </summary>
     public class SymUnmanagedSymbolSearchInfo : ComObject<ISymUnmanagedSymbolSearchInfo>
     {
         public SymUnmanagedSymbolSearchInfo(ISymUnmanagedSymbolSearchInfo raw) : base(raw)
@@ -13,6 +16,9 @@ namespace ManagedCorDebug
         #region ISymUnmanagedSymbolSearchInfo
         #region GetSearchPathLength
 
+        /// <summary>
+        /// Gets the search path length.
+        /// </summary>
         public uint SearchPathLength
         {
             get
@@ -27,6 +33,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the search path length.
+        /// </summary>
+        /// <param name="pcchPath">[out] A pointer to a ULONG32 that receives the size, in characters, of the buffer required to contain the search path length.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetSearchPathLength(out uint pcchPath)
         {
             /*HRESULT GetSearchPathLength(out uint pcchPath);*/
@@ -36,6 +47,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetHRESULT
 
+        /// <summary>
+        /// Gets the <see cref="HRESULT"/>.
+        /// </summary>
         public HRESULT HRESULT
         {
             get
@@ -50,6 +64,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the <see cref="HRESULT"/>.
+        /// </summary>
+        /// <param name="phr">[out] A pointer to the <see cref="HRESULT"/>.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetHRESULT(out HRESULT phr)
         {
             /*HRESULT GetHRESULT([MarshalAs(UnmanagedType.Error)] out HRESULT phr);*/
@@ -59,6 +78,10 @@ namespace ManagedCorDebug
         #endregion
         #region GetSearchPath
 
+        /// <summary>
+        /// Gets the search path.
+        /// </summary>
+        /// <returns>[out] A buffer to hold the search path.</returns>
         public string GetSearchPath()
         {
             HRESULT hr;
@@ -70,6 +93,11 @@ namespace ManagedCorDebug
             return szPathResult;
         }
 
+        /// <summary>
+        /// Gets the search path.
+        /// </summary>
+        /// <param name="szPathResult">[out] A buffer to hold the search path.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetSearchPath(out string szPathResult)
         {
             /*HRESULT GetSearchPath(

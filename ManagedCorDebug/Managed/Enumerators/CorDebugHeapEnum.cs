@@ -3,6 +3,16 @@ using System.Collections.Generic;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Provides an enumerator for objects on the managed heap. This interface is a subclass of the <see cref="ICorDebugEnum"/> interface.
+    /// </summary>
+    /// <remarks>
+    /// The <see cref="ICorDebugHeapEnum"/> interface implements the <see cref="ICorDebugEnum"/> interface. An <see cref="ICorDebugHeapEnum"/> instance is populated
+    /// with <see cref="COR_HEAPOBJECT"/> instances by calling the <see cref="CorDebugProcess.EnumerateHeap"/> method.
+    /// Each <see cref="COR_HEAPOBJECT"/> instance in the collection represents either a live object on the heap or an
+    /// object that is not rooted by any object but has not yet been collected by the garbage collector. The <see cref="COR_HEAPOBJECT"/>
+    /// objects in the collection can be enumerated by calling the <see cref="MoveNext"/> method.
+    /// </remarks>
     public class CorDebugHeapEnum : IEnumerable<COR_HEAPOBJECT>, IEnumerator<COR_HEAPOBJECT>
     {
         private ICorDebugHeapEnum rawEnumerator;

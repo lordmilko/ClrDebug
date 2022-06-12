@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// <see cref="ICorDebugErrorInfoEnum"/> is obsolete. Do not use this interface.
+    /// </summary>
     public class CorDebugErrorInfoEnum : IEnumerable<CorDebugEditAndContinueErrorInfo>, IEnumerator<CorDebugEditAndContinueErrorInfo>
     {
         private ICorDebugErrorInfoEnum rawEnumerator;

@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Represents a context object. This interface has not been implemented yet.
+    /// </summary>
     public class CorDebugContext : CorDebugObjectValue
     {
         public CorDebugContext(ICorDebugContext raw) : base(raw)

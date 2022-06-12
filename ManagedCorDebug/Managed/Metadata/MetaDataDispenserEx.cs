@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Extends the <see cref="IMetaDataDispenser"/> interface to provide the capability to control how the metadata APIs operate on the current metadata scope.
+    /// </summary>
     public class MetaDataDispenserEx : MetaDataDispenser
     {
         public MetaDataDispenserEx(IMetaDataDispenserEx raw) : base(raw)
@@ -17,6 +20,10 @@ namespace ManagedCorDebug
 
         #region GetCORSystemDirectory
 
+        /// <summary>
+        /// Gets the directory that holds the current common language runtime (CLR). This method is supported only for use by out-of-process debuggers.<para/>
+        /// If called from another component, it will return E_NOTIMPL.
+        /// </summary>
         public string CORSystemDirectory
         {
             get
@@ -31,6 +38,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the directory that holds the current common language runtime (CLR). This method is supported only for use by out-of-process debuggers.<para/>
+        /// If called from another component, it will return E_NOTIMPL.
+        /// </summary>
+        /// <param name="szBufferResult">[out] The buffer to receive the directory name.</param>
         public HRESULT TryGetCORSystemDirectory(out string szBufferResult)
         {
             /*HRESULT GetCORSystemDirectory(
@@ -65,6 +77,15 @@ namespace ManagedCorDebug
         #endregion
         #region SetOption
 
+        /// <summary>
+        /// Sets the specified option to a given value for the current metadata scope. The option controls how calls to the current metadata scope are handled.
+        /// </summary>
+        /// <param name="optionId">[in] A pointer to a GUID that specifies the option to be set.</param>
+        /// <param name="pValue">[in] The value to use to set the option. The type of this value must be a variant of the specified option's type.</param>
+        /// <remarks>
+        /// The following table lists the available GUIDs that the optionId parameter can point to and the corresponding valid
+        /// values for the pValue parameter.
+        /// </remarks>
         public void SetOption(Guid optionId, object pValue)
         {
             HRESULT hr;
@@ -73,6 +94,15 @@ namespace ManagedCorDebug
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
+        /// <summary>
+        /// Sets the specified option to a given value for the current metadata scope. The option controls how calls to the current metadata scope are handled.
+        /// </summary>
+        /// <param name="optionId">[in] A pointer to a GUID that specifies the option to be set.</param>
+        /// <param name="pValue">[in] The value to use to set the option. The type of this value must be a variant of the specified option's type.</param>
+        /// <remarks>
+        /// The following table lists the available GUIDs that the optionId parameter can point to and the corresponding valid
+        /// values for the pValue parameter.
+        /// </remarks>
         public HRESULT TrySetOption(Guid optionId, object pValue)
         {
             /*HRESULT SetOption([In] Guid optionId, [In, MarshalAs(UnmanagedType.Struct)] object pValue);*/
@@ -82,6 +112,15 @@ namespace ManagedCorDebug
         #endregion
         #region GetOption
 
+        /// <summary>
+        /// Gets the value of the specified option for the current metadata scope. The option controls how calls to the current metadata scope are handled.
+        /// </summary>
+        /// <param name="optionId">[in] A pointer to a GUID that specifies the option to be retrieved. See the Remarks section for a list of supported GUIDs.</param>
+        /// <returns>[out] The value of the returned option. The type of this value will be a variant of the specified option's type.</returns>
+        /// <remarks>
+        /// The following list shows the GUIDs that are supported for this method. For descriptions, see the <see cref="SetOption"/>
+        /// method. If optionId is not in this list, this method returns <see cref="HRESULT"/> E_INVALIDARG, indicating an incorrect parameter.
+        /// </remarks>
         public object GetOption(Guid optionId)
         {
             HRESULT hr;
@@ -93,6 +132,15 @@ namespace ManagedCorDebug
             return pValue;
         }
 
+        /// <summary>
+        /// Gets the value of the specified option for the current metadata scope. The option controls how calls to the current metadata scope are handled.
+        /// </summary>
+        /// <param name="optionId">[in] A pointer to a GUID that specifies the option to be retrieved. See the Remarks section for a list of supported GUIDs.</param>
+        /// <param name="pValue">[out] The value of the returned option. The type of this value will be a variant of the specified option's type.</param>
+        /// <remarks>
+        /// The following list shows the GUIDs that are supported for this method. For descriptions, see the <see cref="SetOption"/>
+        /// method. If optionId is not in this list, this method returns <see cref="HRESULT"/> E_INVALIDARG, indicating an incorrect parameter.
+        /// </remarks>
         public HRESULT TryGetOption(Guid optionId, ref object pValue)
         {
             /*HRESULT GetOption([In] Guid optionId, [Out] object pValue);*/
@@ -102,6 +150,12 @@ namespace ManagedCorDebug
         #endregion
         #region OpenScopeOnITypeInfo
 
+        /// <summary>
+        /// This method is not implemented. If called, it returns E_NOTIMPL.
+        /// </summary>
+        /// <param name="pITI">[in] Pointer to an ITypeInfo interface that provides the type information on which to open the scope.</param>
+        /// <param name="dwOpenFlags">[in] The open mode flags.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public OpenScopeOnITypeInfoResult OpenScopeOnITypeInfo(ITypeInfo pITI, uint dwOpenFlags)
         {
             HRESULT hr;
@@ -113,6 +167,12 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// This method is not implemented. If called, it returns E_NOTIMPL.
+        /// </summary>
+        /// <param name="pITI">[in] Pointer to an ITypeInfo interface that provides the type information on which to open the scope.</param>
+        /// <param name="dwOpenFlags">[in] The open mode flags.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryOpenScopeOnITypeInfo(ITypeInfo pITI, uint dwOpenFlags, out OpenScopeOnITypeInfoResult result)
         {
             /*HRESULT OpenScopeOnITypeInfo(
@@ -136,6 +196,14 @@ namespace ManagedCorDebug
         #endregion
         #region FindAssembly
 
+        /// <summary>
+        /// This method is not implemented. If called, it returns E_NOTIMPL.
+        /// </summary>
+        /// <param name="szAppBase">[in] Not used.</param>
+        /// <param name="szPrivateBin">[in] Not used.</param>
+        /// <param name="szGlobalBin">[in] Not used.</param>
+        /// <param name="szAssemblyName">[in] The assembly to be found.</param>
+        /// <returns>[out] The simple name of the assembly.</returns>
         public string FindAssembly(string szAppBase, string szPrivateBin, string szGlobalBin, string szAssemblyName)
         {
             HRESULT hr;
@@ -147,6 +215,14 @@ namespace ManagedCorDebug
             return szNameResult;
         }
 
+        /// <summary>
+        /// This method is not implemented. If called, it returns E_NOTIMPL.
+        /// </summary>
+        /// <param name="szAppBase">[in] Not used.</param>
+        /// <param name="szPrivateBin">[in] Not used.</param>
+        /// <param name="szGlobalBin">[in] Not used.</param>
+        /// <param name="szAssemblyName">[in] The assembly to be found.</param>
+        /// <param name="szNameResult">[out] The simple name of the assembly.</param>
         public HRESULT TryFindAssembly(string szAppBase, string szPrivateBin, string szGlobalBin, string szAssemblyName, out string szNameResult)
         {
             /*HRESULT FindAssembly(
@@ -185,6 +261,15 @@ namespace ManagedCorDebug
         #endregion
         #region FindAssemblyModule
 
+        /// <summary>
+        /// This method is not implemented. If called, it returns E_NOTIMPL.
+        /// </summary>
+        /// <param name="szAppBase">[in] Not used.</param>
+        /// <param name="szPrivateBin">[in] Not used.</param>
+        /// <param name="szGlobalBin">[in] Not used.</param>
+        /// <param name="szAssemblyName">[in] The name of the module.</param>
+        /// <param name="szModuleName">[in] The assembly to be found.</param>
+        /// <returns>[out] The simple name of the assembly.</returns>
         public string FindAssemblyModule(string szAppBase, string szPrivateBin, string szGlobalBin, string szAssemblyName, string szModuleName)
         {
             HRESULT hr;
@@ -196,6 +281,15 @@ namespace ManagedCorDebug
             return szNameResult;
         }
 
+        /// <summary>
+        /// This method is not implemented. If called, it returns E_NOTIMPL.
+        /// </summary>
+        /// <param name="szAppBase">[in] Not used.</param>
+        /// <param name="szPrivateBin">[in] Not used.</param>
+        /// <param name="szGlobalBin">[in] Not used.</param>
+        /// <param name="szAssemblyName">[in] The name of the module.</param>
+        /// <param name="szModuleName">[in] The assembly to be found.</param>
+        /// <param name="szNameResult">[out] The simple name of the assembly.</param>
         public HRESULT TryFindAssemblyModule(string szAppBase, string szPrivateBin, string szGlobalBin, string szAssemblyName, string szModuleName, out string szNameResult)
         {
             /*HRESULT FindAssemblyModule(

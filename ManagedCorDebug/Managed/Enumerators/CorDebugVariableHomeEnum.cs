@@ -3,6 +3,16 @@ using System.Collections.Generic;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Provides an enumerator to the local variables and arguments in a function.
+    /// </summary>
+    /// <remarks>
+    /// The <see cref="ICorDebugVariableHomeEnum"/> interface implements the <see cref="ICorDebugEnum"/> interface. An <see cref="ICorDebugVariableHomeEnum"/> instance
+    /// is populated with <see cref="ICorDebugVariableHome"/> instances by calling the <see cref="CorDebugCode.EnumerateVariableHomes"/>
+    /// method. Each <see cref="ICorDebugVariableHome"/> instance in the collection represents a local variable or argument
+    /// in a function. The <see cref="ICorDebugVariableHome"/> objects in the collection can be enumerated by calling the
+    /// <see cref="MoveNext"/> method.
+    /// </remarks>
     public class CorDebugVariableHomeEnum : IEnumerable<CorDebugVariableHome>, IEnumerator<CorDebugVariableHome>
     {
         private ICorDebugVariableHomeEnum rawEnumerator;

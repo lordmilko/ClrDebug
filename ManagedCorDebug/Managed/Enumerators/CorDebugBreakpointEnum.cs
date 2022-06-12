@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Implements <see cref="ICorDebugEnum"/> methods, and enumerates <see cref="ICorDebugBreakpoint"/> arrays.
+    /// </summary>
     public class CorDebugBreakpointEnum : IEnumerable<CorDebugBreakpoint>, IEnumerator<CorDebugBreakpoint>
     {
         private ICorDebugBreakpointEnum rawEnumerator;

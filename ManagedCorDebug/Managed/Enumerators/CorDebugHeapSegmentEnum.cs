@@ -3,6 +3,17 @@ using System.Collections.Generic;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Provides an enumerator for the memory regions of the managed heap. This interface is a subclass of the <see cref="ICorDebugEnum"/> interface.
+    /// </summary>
+    /// <remarks>
+    /// The <see cref="ICorDebugHeapSegmentEnum"/> interface implements the <see cref="ICorDebugEnum"/> interface. An <see cref="ICorDebugHeapSegmentEnum"/> instance
+    /// is populated with <see cref="COR_SEGMENT"/> instances by calling the <see cref="CorDebugProcess.EnumerateHeapRegions"/>
+    /// method. The <see cref="COR_SEGMENT"/> objects in the collection can be enumerated by calling the <see cref="MoveNext"/>
+    /// method. An <see cref="ICorDebugHeapSegmentEnum"/> collection object enumerates all memory regions that may contain managed objects,
+    /// but it does not guarantee that managed objects actually reside in those regions. It may include information about
+    /// empty or reserved memory regions.
+    /// </remarks>
     public class CorDebugHeapSegmentEnum : IEnumerable<COR_SEGMENT>, IEnumerator<COR_SEGMENT>
     {
         private ICorDebugHeapSegmentEnum rawEnumerator;

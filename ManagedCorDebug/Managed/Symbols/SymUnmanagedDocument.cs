@@ -4,6 +4,10 @@ using System.Text;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Represents a document referenced by a symbol store. A document is defined by a uniform resource locator (URL) and a document type GUID.<para/>
+    /// You can locate the document regardless of how it is stored by using the URL and document type GUID. You can store the document source in the symbol store and retrieve it through this interface.
+    /// </summary>
     public class SymUnmanagedDocument : ComObject<ISymUnmanagedDocument>
     {
         public SymUnmanagedDocument(ISymUnmanagedDocument raw) : base(raw)
@@ -13,6 +17,9 @@ namespace ManagedCorDebug
         #region ISymUnmanagedDocument
         #region GetDocumentType
 
+        /// <summary>
+        /// Gets the document type of this document.
+        /// </summary>
         public Guid DocumentType
         {
             get
@@ -27,6 +34,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the document type of this document.
+        /// </summary>
+        /// <param name="pRetVal">[out] Pointer to a variable that receives the document type.</param>
+        /// <returns>S_OK if the method succeeds.</returns>
         public HRESULT TryGetDocumentType(out Guid pRetVal)
         {
             /*HRESULT GetDocumentType(
@@ -37,6 +49,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetLanguage
 
+        /// <summary>
+        /// Gets the language identifier of this document
+        /// </summary>
         public Guid Language
         {
             get
@@ -51,6 +66,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the language identifier of this document
+        /// </summary>
+        /// <param name="pRetVal">[out] A pointer to a variable that receives the language identifier.</param>
+        /// <returns>S_OK if the method succeeds.</returns>
         public HRESULT TryGetLanguage(out Guid pRetVal)
         {
             /*HRESULT GetLanguage(
@@ -61,6 +81,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetLanguageVendor
 
+        /// <summary>
+        /// Gets the language vendor of this document.
+        /// </summary>
         public Guid LanguageVendor
         {
             get
@@ -75,6 +98,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the language vendor of this document.
+        /// </summary>
+        /// <param name="pRetVal">[out] A pointer to a variable that receives the language vendor.</param>
+        /// <returns>S_OK if the method succeeds.</returns>
         public HRESULT TryGetLanguageVendor(out Guid pRetVal)
         {
             /*HRESULT GetLanguageVendor(
@@ -85,6 +113,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetCheckSumAlgorithmId
 
+        /// <summary>
+        /// Gets the checksum algorithm identifier, or returns a GUID of all zeros if there is no checksum.
+        /// </summary>
         public Guid CheckSumAlgorithmId
         {
             get
@@ -99,6 +130,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the checksum algorithm identifier, or returns a GUID of all zeros if there is no checksum.
+        /// </summary>
+        /// <param name="pRetVal">[out] A pointer to a variable that receives the checksum algorithm identifier.</param>
+        /// <returns>S_OK if the method succeeds.</returns>
         public HRESULT TryGetCheckSumAlgorithmId(out Guid pRetVal)
         {
             /*HRESULT GetCheckSumAlgorithmId(
@@ -109,6 +145,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetSourceLength
 
+        /// <summary>
+        /// Gets the length, in bytes, of the embedded source.
+        /// </summary>
         public uint SourceLength
         {
             get
@@ -123,6 +162,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the length, in bytes, of the embedded source.
+        /// </summary>
+        /// <param name="pRetVal">[out] A pointer to a variable that indicates the length, in bytes, of the embedded source.</param>
+        /// <returns>S_OK if the method succeeds.</returns>
         public HRESULT TryGetSourceLength(out uint pRetVal)
         {
             /*HRESULT GetSourceLength([Out] out uint pRetVal);*/
@@ -132,6 +176,10 @@ namespace ManagedCorDebug
         #endregion
         #region GetURL
 
+        /// <summary>
+        /// Returns the uniform resource locator (URL) for this document.
+        /// </summary>
+        /// <returns>[out] The buffer containing the URL.</returns>
         public string GetURL()
         {
             HRESULT hr;
@@ -143,6 +191,11 @@ namespace ManagedCorDebug
             return szUrlResult;
         }
 
+        /// <summary>
+        /// Returns the uniform resource locator (URL) for this document.
+        /// </summary>
+        /// <param name="szUrlResult">[out] The buffer containing the URL.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
         public HRESULT TryGetURL(out string szUrlResult)
         {
             /*HRESULT GetURL(
@@ -177,6 +230,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetCheckSum
 
+        /// <summary>
+        /// Gets the checksum.
+        /// </summary>
+        /// <param name="cData">[in] The length of the buffer provided by the data parameter</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetCheckSumResult GetCheckSum(uint cData)
         {
             HRESULT hr;
@@ -188,6 +246,12 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the checksum.
+        /// </summary>
+        /// <param name="cData">[in] The length of the buffer provided by the data parameter</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
         public HRESULT TryGetCheckSum(uint cData, out GetCheckSumResult result)
         {
             /*HRESULT GetCheckSum([In] uint cData, out uint pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
@@ -206,6 +270,11 @@ namespace ManagedCorDebug
         #endregion
         #region FindClosestLine
 
+        /// <summary>
+        /// Returns the closest line that is a sequence point, given a line in this document that may or may not be a sequence point.
+        /// </summary>
+        /// <param name="line">[in] A line in this document.</param>
+        /// <returns>[out] A pointer to a variable that receives the line.</returns>
         public uint FindClosestLine(uint line)
         {
             HRESULT hr;
@@ -217,6 +286,12 @@ namespace ManagedCorDebug
             return pRetVal;
         }
 
+        /// <summary>
+        /// Returns the closest line that is a sequence point, given a line in this document that may or may not be a sequence point.
+        /// </summary>
+        /// <param name="line">[in] A line in this document.</param>
+        /// <param name="pRetVal">[out] A pointer to a variable that receives the line.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
         public HRESULT TryFindClosestLine(uint line, out uint pRetVal)
         {
             /*HRESULT FindClosestLine([In] uint line, [Out] out uint pRetVal);*/
@@ -226,6 +301,10 @@ namespace ManagedCorDebug
         #endregion
         #region HasEmbeddedSource
 
+        /// <summary>
+        /// Returns true if the document has source embedded in the debugging symbols; otherwise, returns false.
+        /// </summary>
+        /// <returns>[out] A pointer to a variable that indicates whether the document has source embedded in the debugging symbols.</returns>
         public int HasEmbeddedSource()
         {
             HRESULT hr;
@@ -237,6 +316,11 @@ namespace ManagedCorDebug
             return pRetVal;
         }
 
+        /// <summary>
+        /// Returns true if the document has source embedded in the debugging symbols; otherwise, returns false.
+        /// </summary>
+        /// <param name="pRetVal">[out] A pointer to a variable that indicates whether the document has source embedded in the debugging symbols.</param>
+        /// <returns>S_OK if the method succeeds.</returns>
         public HRESULT TryHasEmbeddedSource(out int pRetVal)
         {
             /*HRESULT HasEmbeddedSource([Out] out int pRetVal);*/
@@ -246,6 +330,15 @@ namespace ManagedCorDebug
         #endregion
         #region GetSourceRange
 
+        /// <summary>
+        /// Returns the specified range of the embedded source into the given buffer. The buffer must be large enough to hold the source.
+        /// </summary>
+        /// <param name="startLine">[in] The starting line in the current document.</param>
+        /// <param name="startColumn">[in] The starting column in the current document.</param>
+        /// <param name="endLine">[in] The final line in the current document.</param>
+        /// <param name="endColumn">[in] The final column in the current document.</param>
+        /// <param name="cSourceBytes">[in] The size of the source, in bytes.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetSourceRangeResult GetSourceRange(uint startLine, uint startColumn, uint endLine, uint endColumn, uint cSourceBytes)
         {
             HRESULT hr;
@@ -257,6 +350,16 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Returns the specified range of the embedded source into the given buffer. The buffer must be large enough to hold the source.
+        /// </summary>
+        /// <param name="startLine">[in] The starting line in the current document.</param>
+        /// <param name="startColumn">[in] The starting column in the current document.</param>
+        /// <param name="endLine">[in] The final line in the current document.</param>
+        /// <param name="endColumn">[in] The final column in the current document.</param>
+        /// <param name="cSourceBytes">[in] The size of the source, in bytes.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds.</returns>
         public HRESULT TryGetSourceRange(uint startLine, uint startColumn, uint endLine, uint endColumn, uint cSourceBytes, out GetSourceRangeResult result)
         {
             /*HRESULT GetSourceRange(

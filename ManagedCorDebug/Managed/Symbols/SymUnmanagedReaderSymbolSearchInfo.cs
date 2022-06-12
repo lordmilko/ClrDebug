@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Provides methods that get symbol search information. Obtain this interface by calling QueryInterface on an object that implements the <see cref="ISymUnmanagedReader"/> interface.
+    /// </summary>
     public class SymUnmanagedReaderSymbolSearchInfo : ComObject<ISymUnmanagedReaderSymbolSearchInfo>
     {
         public SymUnmanagedReaderSymbolSearchInfo(ISymUnmanagedReaderSymbolSearchInfo raw) : base(raw)
@@ -12,6 +15,9 @@ namespace ManagedCorDebug
         #region ISymUnmanagedReaderSymbolSearchInfo
         #region GetSymbolSearchInfoCount
 
+        /// <summary>
+        /// Gets a count of symbol search information.
+        /// </summary>
         public uint SymbolSearchInfoCount
         {
             get
@@ -26,6 +32,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets a count of symbol search information.
+        /// </summary>
+        /// <param name="pcSearchInfo">]out] A pointer to a ULONG32 that receives the size of the buffer required to contain the search information.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetSymbolSearchInfoCount(out uint pcSearchInfo)
         {
             /*HRESULT GetSymbolSearchInfoCount(out uint pcSearchInfo);*/
@@ -35,6 +46,11 @@ namespace ManagedCorDebug
         #endregion
         #region GetSymbolSearchInfo
 
+        /// <summary>
+        /// Gets symbol search information.
+        /// </summary>
+        /// <param name="cSearchInfo">[in] A ULONG32 that indicates the size of rgpSearchInfo.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
         public GetSymbolSearchInfoResult GetSymbolSearchInfo(uint cSearchInfo)
         {
             HRESULT hr;
@@ -46,6 +62,12 @@ namespace ManagedCorDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets symbol search information.
+        /// </summary>
+        /// <param name="cSearchInfo">[in] A ULONG32 that indicates the size of rgpSearchInfo.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetSymbolSearchInfo(uint cSearchInfo, out GetSymbolSearchInfoResult result)
         {
             /*HRESULT GetSymbolSearchInfo(

@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    /// <summary>
+    /// Represents a frame on the current stack.
+    /// </summary>
     public abstract class CorDebugFrame : ComObject<ICorDebugFrame>
     {
         public static CorDebugFrame New(ICorDebugFrame value)
@@ -29,6 +32,9 @@ namespace ManagedCorDebug
         #region ICorDebugFrame
         #region GetChain
 
+        /// <summary>
+        /// Gets a pointer to the chain this frame is a part of.
+        /// </summary>
         public CorDebugChain Chain
         {
             get
@@ -43,6 +49,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets a pointer to the chain this frame is a part of.
+        /// </summary>
+        /// <param name="ppChainResult">[out] A pointer to the address of an <see cref="ICorDebugChain"/> object that represents the chain containing this frame.</param>
         public HRESULT TryGetChain(out CorDebugChain ppChainResult)
         {
             /*HRESULT GetChain([MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);*/
@@ -60,6 +70,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetCode
 
+        /// <summary>
+        /// Gets a pointer to the code associated with this stack frame.
+        /// </summary>
         public CorDebugCode Code
         {
             get
@@ -74,6 +87,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets a pointer to the code associated with this stack frame.
+        /// </summary>
+        /// <param name="ppCodeResult">[out] A pointer to the address of an <see cref="ICorDebugCode"/> object that represents the code associated with this frame.</param>
         public HRESULT TryGetCode(out CorDebugCode ppCodeResult)
         {
             /*HRESULT GetCode([MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);*/
@@ -91,6 +108,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetFunction
 
+        /// <summary>
+        /// Gets the function that contains the code associated with this stack frame.
+        /// </summary>
         public CorDebugFunction Function
         {
             get
@@ -105,6 +125,13 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the function that contains the code associated with this stack frame.
+        /// </summary>
+        /// <param name="ppFunctionResult">[out] A pointer to the address of an <see cref="ICorDebugFunction"/> object that represents the function containing the code associated with this stack frame.</param>
+        /// <remarks>
+        /// The GetFunction method may fail if the frame is not associated with any particular function.
+        /// </remarks>
         public HRESULT TryGetFunction(out CorDebugFunction ppFunctionResult)
         {
             /*HRESULT GetFunction([MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
@@ -122,6 +149,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetFunctionToken
 
+        /// <summary>
+        /// Gets the metadata token for the function that contains the code associated with this stack frame.
+        /// </summary>
         public mdMethodDef FunctionToken
         {
             get
@@ -136,6 +166,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the metadata token for the function that contains the code associated with this stack frame.
+        /// </summary>
+        /// <param name="pToken">[out] A pointer to an <see cref="mdMethodDef"/> token that references the metadata for the function.</param>
         public HRESULT TryGetFunctionToken(out mdMethodDef pToken)
         {
             /*HRESULT GetFunctionToken(out mdMethodDef pToken);*/
@@ -145,6 +179,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetStackRange
 
+        /// <summary>
+        /// Gets the absolute address range of this stack frame.
+        /// </summary>
         public GetStackRangeResult StackRange
         {
             get
@@ -159,6 +196,15 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the absolute address range of this stack frame.
+        /// </summary>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <remarks>
+        /// The address range of the stack is useful for piecing together interleaved stack traces gathered from multiple debugging
+        /// engines. The numeric range provides no information about the contents of the stack frame. It is meaningful only
+        /// for comparison of stack frame locations.
+        /// </remarks>
         public HRESULT TryGetStackRange(out GetStackRangeResult result)
         {
             /*HRESULT GetStackRange(out CORDB_ADDRESS pStart, out CORDB_ADDRESS pEnd);*/
@@ -177,6 +223,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetCaller
 
+        /// <summary>
+        /// Gets a pointer to the <see cref="ICorDebugFrame"/> object in the current chain that called this frame.
+        /// </summary>
         public CorDebugFrame Caller
         {
             get
@@ -191,6 +240,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets a pointer to the <see cref="ICorDebugFrame"/> object in the current chain that called this frame.
+        /// </summary>
+        /// <param name="ppFrameResult">[out] A pointer to the address of an <see cref="ICorDebugFrame"/> object that represents the calling frame. This value is null if the called frame is the outermost frame in the current chain.</param>
         public HRESULT TryGetCaller(out CorDebugFrame ppFrameResult)
         {
             /*HRESULT GetCaller([MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);*/
@@ -208,6 +261,9 @@ namespace ManagedCorDebug
         #endregion
         #region GetCallee
 
+        /// <summary>
+        /// Gets a pointer to the <see cref="ICorDebugFrame"/> object in the current chain that this frame called.
+        /// </summary>
         public CorDebugFrame Callee
         {
             get
@@ -222,6 +278,10 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets a pointer to the <see cref="ICorDebugFrame"/> object in the current chain that this frame called.
+        /// </summary>
+        /// <param name="ppFrameResult">[out] A pointer to the address of an <see cref="ICorDebugFrame"/> object that represents the called frame. This value is null if the calling frame is the innermost frame in the current chain.</param>
         public HRESULT TryGetCallee(out CorDebugFrame ppFrameResult)
         {
             /*HRESULT GetCallee([MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);*/
@@ -239,6 +299,13 @@ namespace ManagedCorDebug
         #endregion
         #region CreateStepper
 
+        /// <summary>
+        /// Gets a stepper that allows the debugger to perform stepping operations relative to this <see cref="ICorDebugFrame"/>.
+        /// </summary>
+        /// <returns>[out] A pointer to the address of an <see cref="ICorDebugStepper"/> object that allows the debugger to perform stepping operations relative to the current frame.</returns>
+        /// <remarks>
+        /// If the frame is not active, the stepper object will typically have to return to the frame before the step is completed.
+        /// </remarks>
         public CorDebugStepper CreateStepper()
         {
             HRESULT hr;
@@ -250,6 +317,13 @@ namespace ManagedCorDebug
             return ppStepperResult;
         }
 
+        /// <summary>
+        /// Gets a stepper that allows the debugger to perform stepping operations relative to this <see cref="ICorDebugFrame"/>.
+        /// </summary>
+        /// <param name="ppStepperResult">[out] A pointer to the address of an <see cref="ICorDebugStepper"/> object that allows the debugger to perform stepping operations relative to the current frame.</param>
+        /// <remarks>
+        /// If the frame is not active, the stepper object will typically have to return to the frame before the step is completed.
+        /// </remarks>
         public HRESULT TryCreateStepper(out CorDebugStepper ppStepperResult)
         {
             /*HRESULT CreateStepper([MarshalAs(UnmanagedType.Interface)] out ICorDebugStepper ppStepper);*/
