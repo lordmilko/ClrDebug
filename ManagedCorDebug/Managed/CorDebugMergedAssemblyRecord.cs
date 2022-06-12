@@ -131,7 +131,7 @@ namespace ManagedCorDebug
             StringBuilder szName = null;
             HRESULT hr = Raw.GetSimpleName(cchName, out pcchName, szName);
 
-            if (hr != HRESULT.S_FALSE)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
                 goto fail;
 
             cchName = pcchName;
@@ -189,7 +189,7 @@ namespace ManagedCorDebug
             StringBuilder szCulture = null;
             HRESULT hr = Raw.GetCulture(cchCulture, out pcchCulture, szCulture);
 
-            if (hr != HRESULT.S_FALSE)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
                 goto fail;
 
             cchCulture = pcchCulture;

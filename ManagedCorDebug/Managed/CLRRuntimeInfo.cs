@@ -58,7 +58,7 @@ namespace ManagedCorDebug
             int pcchBuffer = default(int);
             HRESULT hr = Raw.GetVersionString(pwzBuffer, ref pcchBuffer);
 
-            if (hr != HRESULT.S_FALSE)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
                 goto fail;
 
             pwzBuffer = new StringBuilder(pcchBuffer);
@@ -117,7 +117,7 @@ namespace ManagedCorDebug
             int pcchBuffer = default(int);
             HRESULT hr = Raw.GetRuntimeDirectory(pwzBuffer, ref pcchBuffer);
 
-            if (hr != HRESULT.S_FALSE)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
                 goto fail;
 
             pwzBuffer = new StringBuilder(pcchBuffer);
@@ -334,7 +334,7 @@ namespace ManagedCorDebug
             int pcchBuffer = default(int);
             HRESULT hr = Raw.LoadErrorString(iResourceID, pwzBuffer, ref pcchBuffer, iLocaleID);
 
-            if (hr != HRESULT.S_FALSE)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
                 goto fail;
 
             pwzBuffer = new StringBuilder(pcchBuffer);
@@ -599,7 +599,7 @@ namespace ManagedCorDebug
             int pcchHostConfigFile = default(int);
             HRESULT hr = Raw.GetDefaultStartupFlags(out pdwStartupFlags, pwzHostConfigFile, ref pcchHostConfigFile);
 
-            if (hr != HRESULT.S_FALSE)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
                 goto fail;
 
             pwzHostConfigFile = new StringBuilder(pcchHostConfigFile);

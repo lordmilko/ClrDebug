@@ -239,7 +239,7 @@ namespace ManagedCorDebug
             StringBuilder szName = null;
             HRESULT hr = Raw2.GetImageLocation(baseAddress, cchName, out pcchName, szName);
 
-            if (hr != HRESULT.S_FALSE)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
                 goto fail;
 
             cchName = pcchName;

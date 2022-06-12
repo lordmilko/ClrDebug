@@ -120,7 +120,7 @@ namespace ManagedCorDebug
             int pcchBuffer = default(int);
             HRESULT hr = Raw.GetVersionFromFile(pwzFilePath, pwzBuffer, ref pcchBuffer);
 
-            if (hr != HRESULT.S_FALSE)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
                 goto fail;
 
             pwzBuffer = new StringBuilder(pcchBuffer);

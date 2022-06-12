@@ -63,7 +63,7 @@ namespace ManagedCorDebug
             StringBuilder szHostName = null;
             HRESULT hr = Raw.GetHostName(cchHostName, out pcchHostName, szHostName);
 
-            if (hr != HRESULT.S_FALSE)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
                 goto fail;
 
             cchHostName = pcchHostName;

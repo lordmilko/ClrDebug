@@ -109,7 +109,7 @@ namespace ManagedCorDebug
             StringBuilder szPath = null;
             HRESULT hr = Raw.GetSearchPath(cchPath, out pcchPath, szPath);
 
-            if (hr != HRESULT.S_FALSE)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
                 goto fail;
 
             cchPath = pcchPath;

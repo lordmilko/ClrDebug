@@ -76,7 +76,7 @@ namespace ManagedCorDebug
             StringBuilder szString = null;
             HRESULT hr = Raw.GetString(cchString, out pcchString, szString);
 
-            if (hr != HRESULT.S_FALSE)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
                 goto fail;
 
             cchString = pcchString;

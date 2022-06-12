@@ -207,7 +207,7 @@ namespace ManagedCorDebug
             StringBuilder szUrl = null;
             HRESULT hr = Raw.GetURL(cchUrl, out pcchUrl, szUrl);
 
-            if (hr != HRESULT.S_FALSE)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
                 goto fail;
 
             cchUrl = pcchUrl;

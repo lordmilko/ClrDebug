@@ -85,7 +85,7 @@ namespace ManagedCorDebug
             StringBuilder szName = null;
             HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
 
-            if (hr != HRESULT.S_FALSE)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
                 goto fail;
 
             cchName = pcchName;
@@ -141,7 +141,7 @@ namespace ManagedCorDebug
             StringBuilder szName = null;
             HRESULT hr = Raw.GetDescription(cchName, out pcchName, szName);
 
-            if (hr != HRESULT.S_FALSE)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
                 goto fail;
 
             cchName = pcchName;
@@ -197,7 +197,7 @@ namespace ManagedCorDebug
             StringBuilder szName = null;
             HRESULT hr = Raw.GetXML(cchName, out pcchName, szName);
 
-            if (hr != HRESULT.S_FALSE)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
                 goto fail;
 
             cchName = pcchName;

@@ -92,7 +92,7 @@ namespace ManagedCorDebug
             object ppRuntime;
             HRESULT hr = Raw.GetRequestedRuntime(dwPolicyFlags, pwzBinary, pCfgStream, pwzVersion, ref pcchVersion, pwzImageVersion, ref pcchImageVersion, out pdwConfigFlags, ref riid, out ppRuntime);
 
-            if (hr != HRESULT.S_FALSE)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
                 goto fail;
 
             pwzVersion = new StringBuilder(pcchVersion);
