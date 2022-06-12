@@ -301,28 +301,36 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets a value that indicates whether this chain is running managed code.
         /// </summary>
-        public int IsManaged
+        public bool IsManaged
         {
             get
             {
                 HRESULT hr;
-                int pManaged;
+                bool pManagedResult;
 
-                if ((hr = TryIsManaged(out pManaged)) != HRESULT.S_OK)
+                if ((hr = TryIsManaged(out pManagedResult)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
 
-                return pManaged;
+                return pManagedResult;
             }
         }
 
         /// <summary>
         /// Gets a value that indicates whether this chain is running managed code.
         /// </summary>
-        /// <param name="pManaged">[out] true if this chain is running managed code; otherwise, false.</param>
-        public HRESULT TryIsManaged(out int pManaged)
+        /// <param name="pManagedResult">[out] true if this chain is running managed code; otherwise, false.</param>
+        public HRESULT TryIsManaged(out bool pManagedResult)
         {
             /*HRESULT IsManaged(out int pManaged);*/
-            return Raw.IsManaged(out pManaged);
+            int pManaged;
+            HRESULT hr = Raw.IsManaged(out pManaged);
+
+            if (hr == HRESULT.S_OK)
+                pManagedResult = pManaged == 1;
+            else
+                pManagedResult = default(bool);
+
+            return hr;
         }
 
         #endregion

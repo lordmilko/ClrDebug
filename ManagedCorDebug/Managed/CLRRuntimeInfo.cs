@@ -142,24 +142,24 @@ namespace ManagedCorDebug
         /// <summary>
         /// Indicates whether the runtime associated with this interface can be loaded into the current process, taking into account other runtimes that might already be loaded into the process.
         /// </summary>
-        public int IsLoadable
+        public bool IsLoadable
         {
             get
             {
                 HRESULT hr;
-                int pbLoadable;
+                bool pbLoadableResult;
 
-                if ((hr = TryIsLoadable(out pbLoadable)) != HRESULT.S_OK)
+                if ((hr = TryIsLoadable(out pbLoadableResult)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
 
-                return pbLoadable;
+                return pbLoadableResult;
             }
         }
 
         /// <summary>
         /// Indicates whether the runtime associated with this interface can be loaded into the current process, taking into account other runtimes that might already be loaded into the process.
         /// </summary>
-        /// <param name="pbLoadable">[out] true if this runtime could be loaded into the current process; otherwise, false.</param>
+        /// <param name="pbLoadableResult">[out] true if this runtime could be loaded into the current process; otherwise, false.</param>
         /// <returns>
         /// This method returns the following specific HRESULTs as well as HRESULT errors that indicate method failure.
         /// 
@@ -175,11 +175,19 @@ namespace ManagedCorDebug
         /// same process with CLR version 2.0 or CLR version 1.1. However, CLR version 1.1 and CLR version 2.0 cannot run side-by-side
         /// in-process. If no runtimes are loaded into the process, this method always returns true.
         /// </remarks>
-        public HRESULT TryIsLoadable(out int pbLoadable)
+        public HRESULT TryIsLoadable(out bool pbLoadableResult)
         {
             /*HRESULT IsLoadable(
             [Out] out int pbLoadable);*/
-            return Raw.IsLoadable(out pbLoadable);
+            int pbLoadable;
+            HRESULT hr = Raw.IsLoadable(out pbLoadable);
+
+            if (hr == HRESULT.S_OK)
+                pbLoadableResult = pbLoadable == 1;
+            else
+                pbLoadableResult = default(bool);
+
+            return hr;
         }
 
         #endregion

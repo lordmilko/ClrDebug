@@ -413,24 +413,24 @@ namespace ManagedCorDebug
         /// <summary>
         /// Determines whether the current frame is a child frame.
         /// </summary>
-        public int IsChild
+        public bool IsChild
         {
             get
             {
                 HRESULT hr;
-                int pIsChild;
+                bool pIsChildResult;
 
-                if ((hr = TryIsChild(out pIsChild)) != HRESULT.S_OK)
+                if ((hr = TryIsChild(out pIsChildResult)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
 
-                return pIsChild;
+                return pIsChildResult;
             }
         }
 
         /// <summary>
         /// Determines whether the current frame is a child frame.
         /// </summary>
-        /// <param name="pIsChild">[out] A Boolean value that specifies whether the current frame is a child frame.</param>
+        /// <param name="pIsChildResult">[out] A Boolean value that specifies whether the current frame is a child frame.</param>
         /// <returns>
         /// This method returns the following specific HRESULTs as well as HRESULT errors that indicate method failure.
         /// 
@@ -444,10 +444,18 @@ namespace ManagedCorDebug
         /// The IsChild method returns true if the frame object on which you call the method is a child of another frame. If
         /// this is the case, use the <see cref="IsMatchingParentFrame"/> method to check whether a frame is its parent.
         /// </remarks>
-        public HRESULT TryIsChild(out int pIsChild)
+        public HRESULT TryIsChild(out bool pIsChildResult)
         {
             /*HRESULT IsChild(out int pIsChild);*/
-            return Raw2.IsChild(out pIsChild);
+            int pIsChild;
+            HRESULT hr = Raw2.IsChild(out pIsChild);
+
+            if (hr == HRESULT.S_OK)
+                pIsChildResult = pIsChild == 1;
+            else
+                pIsChildResult = default(bool);
+
+            return hr;
         }
 
         #endregion

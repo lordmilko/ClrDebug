@@ -37,28 +37,36 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets a value that indicates whether this <see cref="ICorDebugReferenceValue"/> is a null value, in which case the <see cref="ICorDebugReferenceValue"/> does not point to an object.
         /// </summary>
-        public int IsNull
+        public bool IsNull
         {
             get
             {
                 HRESULT hr;
-                int pbNull;
+                bool pbNullResult;
 
-                if ((hr = TryIsNull(out pbNull)) != HRESULT.S_OK)
+                if ((hr = TryIsNull(out pbNullResult)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
 
-                return pbNull;
+                return pbNullResult;
             }
         }
 
         /// <summary>
         /// Gets a value that indicates whether this <see cref="ICorDebugReferenceValue"/> is a null value, in which case the <see cref="ICorDebugReferenceValue"/> does not point to an object.
         /// </summary>
-        /// <param name="pbNull">[out] A pointer to a Boolean value that is true if this <see cref="ICorDebugReferenceValue"/> object is null; otherwise, pbNull is false.</param>
-        public HRESULT TryIsNull(out int pbNull)
+        /// <param name="pbNullResult">[out] A pointer to a Boolean value that is true if this <see cref="ICorDebugReferenceValue"/> object is null; otherwise, pbNull is false.</param>
+        public HRESULT TryIsNull(out bool pbNullResult)
         {
             /*HRESULT IsNull(out int pbNull);*/
-            return Raw.IsNull(out pbNull);
+            int pbNull;
+            HRESULT hr = Raw.IsNull(out pbNull);
+
+            if (hr == HRESULT.S_OK)
+                pbNullResult = pbNull == 1;
+            else
+                pbNullResult = default(bool);
+
+            return hr;
         }
 
         #endregion

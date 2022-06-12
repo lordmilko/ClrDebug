@@ -37,33 +37,41 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets a value that indicates whether the object represented by this <see cref="ICorDebugHeapValue"/> is valid. This method has been deprecated in the .NET Framework version 2.0.
         /// </summary>
-        public int IsValid
+        public bool IsValid
         {
             get
             {
                 HRESULT hr;
-                int pbValid;
+                bool pbValidResult;
 
-                if ((hr = TryIsValid(out pbValid)) != HRESULT.S_OK)
+                if ((hr = TryIsValid(out pbValidResult)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
 
-                return pbValid;
+                return pbValidResult;
             }
         }
 
         /// <summary>
         /// Gets a value that indicates whether the object represented by this <see cref="ICorDebugHeapValue"/> is valid. This method has been deprecated in the .NET Framework version 2.0.
         /// </summary>
-        /// <param name="pbValid">[out] A pointer to a Boolean value that indicates whether this value on the heap is valid.</param>
+        /// <param name="pbValidResult">[out] A pointer to a Boolean value that indicates whether this value on the heap is valid.</param>
         /// <remarks>
         /// The value is invalid if it has been reclaimed by the garbage collector. This method has been deprecated. In the
         /// .NET Framework 2.0, all values are valid until <see cref="CorDebugController.Continue"/> is called, at which time
         /// the values are invalidated.
         /// </remarks>
-        public HRESULT TryIsValid(out int pbValid)
+        public HRESULT TryIsValid(out bool pbValidResult)
         {
             /*HRESULT IsValid(out int pbValid);*/
-            return Raw.IsValid(out pbValid);
+            int pbValid;
+            HRESULT hr = Raw.IsValid(out pbValid);
+
+            if (hr == HRESULT.S_OK)
+                pbValidResult = pbValid == 1;
+            else
+                pbValidResult = default(bool);
+
+            return hr;
         }
 
         #endregion

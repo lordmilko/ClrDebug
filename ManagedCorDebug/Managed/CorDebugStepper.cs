@@ -27,33 +27,41 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets a value that indicates whether this <see cref="ICorDebugStepper"/> is currently executing a step.
         /// </summary>
-        public int IsActive
+        public bool IsActive
         {
             get
             {
                 HRESULT hr;
-                int pbActive;
+                bool pbActiveResult;
 
-                if ((hr = TryIsActive(out pbActive)) != HRESULT.S_OK)
+                if ((hr = TryIsActive(out pbActiveResult)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
 
-                return pbActive;
+                return pbActiveResult;
             }
         }
 
         /// <summary>
         /// Gets a value that indicates whether this <see cref="ICorDebugStepper"/> is currently executing a step.
         /// </summary>
-        /// <param name="pbActive">[out] Returns true if the stepper is currently executing a step; otherwise, returns false.</param>
+        /// <param name="pbActiveResult">[out] Returns true if the stepper is currently executing a step; otherwise, returns false.</param>
         /// <remarks>
         /// Any step action remains active until the debugger receives a <see cref="CorDebugManagedCallback.StepComplete"/>
         /// call, which automatically deactivates the stepper. A stepper may also be deactivated prematurely by calling <see 
         ///cref="Deactivate"/> before the callback condition is reached.
         /// </remarks>
-        public HRESULT TryIsActive(out int pbActive)
+        public HRESULT TryIsActive(out bool pbActiveResult)
         {
             /*HRESULT IsActive(out int pbActive);*/
-            return Raw.IsActive(out pbActive);
+            int pbActive;
+            HRESULT hr = Raw.IsActive(out pbActive);
+
+            if (hr == HRESULT.S_OK)
+                pbActiveResult = pbActive == 1;
+            else
+                pbActiveResult = default(bool);
+
+            return hr;
         }
 
         #endregion

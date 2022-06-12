@@ -202,33 +202,41 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets a value that indicates whether this module is dynamic.
         /// </summary>
-        public int IsDynamic
+        public bool IsDynamic
         {
             get
             {
                 HRESULT hr;
-                int pDynamic;
+                bool pDynamicResult;
 
-                if ((hr = TryIsDynamic(out pDynamic)) != HRESULT.S_OK)
+                if ((hr = TryIsDynamic(out pDynamicResult)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
 
-                return pDynamic;
+                return pDynamicResult;
             }
         }
 
         /// <summary>
         /// Gets a value that indicates whether this module is dynamic.
         /// </summary>
-        /// <param name="pDynamic">[out] true if this module is dynamic; otherwise, false.</param>
+        /// <param name="pDynamicResult">[out] true if this module is dynamic; otherwise, false.</param>
         /// <remarks>
         /// A dynamic module can add new classes and delete existing classes even after the module has been loaded. The <see 
         ///cref="CorDebugManagedCallback.LoadClass"/> and <see cref="CorDebugManagedCallback.UnloadClass"/> callbacks inform
         /// the debugger when a class has been added or deleted.
         /// </remarks>
-        public HRESULT TryIsDynamic(out int pDynamic)
+        public HRESULT TryIsDynamic(out bool pDynamicResult)
         {
             /*HRESULT IsDynamic(out int pDynamic);*/
-            return Raw.IsDynamic(out pDynamic);
+            int pDynamic;
+            HRESULT hr = Raw.IsDynamic(out pDynamic);
+
+            if (hr == HRESULT.S_OK)
+                pDynamicResult = pDynamic == 1;
+            else
+                pDynamicResult = default(bool);
+
+            return hr;
         }
 
         #endregion
@@ -267,32 +275,40 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets a value that indicates whether this module exists only in memory.
         /// </summary>
-        public int IsInMemory
+        public bool IsInMemory
         {
             get
             {
                 HRESULT hr;
-                int pInMemory;
+                bool pInMemoryResult;
 
-                if ((hr = TryIsInMemory(out pInMemory)) != HRESULT.S_OK)
+                if ((hr = TryIsInMemory(out pInMemoryResult)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
 
-                return pInMemory;
+                return pInMemoryResult;
             }
         }
 
         /// <summary>
         /// Gets a value that indicates whether this module exists only in memory.
         /// </summary>
-        /// <param name="pInMemory">[out] true if this module exists only in memory; otherwise, false.</param>
+        /// <param name="pInMemoryResult">[out] true if this module exists only in memory; otherwise, false.</param>
         /// <remarks>
         /// The common language runtime (CLR) supports the loading of modules from raw streams of bytes. Such modules are called
         /// in-memory modules and do not exist on disk.
         /// </remarks>
-        public HRESULT TryIsInMemory(out int pInMemory)
+        public HRESULT TryIsInMemory(out bool pInMemoryResult)
         {
             /*HRESULT IsInMemory(out int pInMemory);*/
-            return Raw.IsInMemory(out pInMemory);
+            int pInMemory;
+            HRESULT hr = Raw.IsInMemory(out pInMemory);
+
+            if (hr == HRESULT.S_OK)
+                pInMemoryResult = pInMemory == 1;
+            else
+                pInMemoryResult = default(bool);
+
+            return hr;
         }
 
         #endregion

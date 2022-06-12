@@ -34,28 +34,36 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets a value that indicates whether the threads in the process are currently running freely.
         /// </summary>
-        public int IsRunning
+        public bool IsRunning
         {
             get
             {
                 HRESULT hr;
-                int pbRunning;
+                bool pbRunningResult;
 
-                if ((hr = TryIsRunning(out pbRunning)) != HRESULT.S_OK)
+                if ((hr = TryIsRunning(out pbRunningResult)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
 
-                return pbRunning;
+                return pbRunningResult;
             }
         }
 
         /// <summary>
         /// Gets a value that indicates whether the threads in the process are currently running freely.
         /// </summary>
-        /// <param name="pbRunning">[out] A pointer to a value that is true if the threads in the process are running freely; otherwise, false.</param>
-        public HRESULT TryIsRunning(out int pbRunning)
+        /// <param name="pbRunningResult">[out] A pointer to a value that is true if the threads in the process are running freely; otherwise, false.</param>
+        public HRESULT TryIsRunning(out bool pbRunningResult)
         {
             /*HRESULT IsRunning(out int pbRunning);*/
-            return Raw.IsRunning(out pbRunning);
+            int pbRunning;
+            HRESULT hr = Raw.IsRunning(out pbRunning);
+
+            if (hr == HRESULT.S_OK)
+                pbRunningResult = pbRunning == 1;
+            else
+                pbRunningResult = default(bool);
+
+            return hr;
         }
 
         #endregion
