@@ -1,5 +1,4 @@
 using System;
-using System.Deployment.Internal.Isolation;
 using System.Runtime.InteropServices;
 using System.Text;
 

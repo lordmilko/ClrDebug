@@ -1,6 +1,4 @@
 using System.Diagnostics;
-using System.IO;
-using System.Runtime.InteropServices.ComTypes;
 
 namespace ManagedCorDebug
 {
