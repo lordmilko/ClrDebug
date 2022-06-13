@@ -1,0 +1,41 @@
+namespace ManagedCorDebug
+{
+    public enum CorDebugManagedCallbackKind
+    {
+        Breakpoint,
+        StepComplete,
+        Break,
+        Exception,
+        EvalComplete,
+        EvalException,
+        CreateProcess,
+        ExitProcess,
+        CreateThread,
+        ExitThread,
+        LoadModule,
+        UnloadModule,
+        LoadClass,
+        UnloadClass,
+        DebuggerError,
+        LogMessage,
+        LogSwitch,
+        CreateAppDomain,
+        ExitAppDomain,
+        LoadAssembly,
+        UnloadAssembly,
+        ControlCTrap,
+        NameChange,
+        UpdateModuleSymbols,
+        EditAndContinueRemap,
+        BreakpointSetError,
+        FunctionRemapOpportunity,
+        CreateConnection,
+        ChangeConnection,
+        DestroyConnection,
+        Exception2,
+        ExceptionUnwind,
+        FunctionRemapComplete,
+        MDANotification,
+        CustomNotification
+    }
+}
