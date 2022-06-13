@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetDefaultStartupFlagsResult
     {
         /// <summary>
-        /// [out] A pointer to the host startup flags that are currently set.
+        /// A pointer to the host startup flags that are currently set.
         /// </summary>
         public int pdwStartupFlags { get; }
 
         /// <summary>
-        /// [out] A pointer to the directory path of the current host configuration file.
+        /// A pointer to the directory path of the current host configuration file.
         /// </summary>
         public string pwzHostConfigFile { get; }
 

@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct GetMethodParameterSymbolsResult
     {
         /// <summary>
-        /// [out] A pointer to the number of symbols retrieved by the method.
+        /// A pointer to the number of symbols retrieved by the method.
         /// </summary>
         public int pcFetchedSymbols { get; }
 
         /// <summary>
-        /// [out] A pointer to an <see cref="ICorDebugVariableSymbol"/> array that contains the method's local symbols.
+        /// A pointer to an <see cref="ICorDebugVariableSymbol"/> array that contains the method's local symbols.
         /// </summary>
         public IntPtr pSymbols { get; }
 

@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetTypeFieldsResult
     {
         /// <summary>
-        /// [out] An array of <see cref="COR_FIELD"/> objects that provide information about the fields that belong to the type.
+        /// An array of <see cref="COR_FIELD"/> objects that provide information about the fields that belong to the type.
         /// </summary>
         public COR_FIELD fields { get; }
 
         /// <summary>
-        /// [out] A pointer to the number of <see cref="COR_FIELD"/> objects included in fields.
+        /// A pointer to the number of <see cref="COR_FIELD"/> objects included in fields.
         /// </summary>
         public int pceltNeeded { get; }
 

@@ -10,17 +10,17 @@ namespace ManagedCorDebug
     public struct GetMethodSpecPropsResult
     {
         /// <summary>
-        /// [out] A pointer to the MethodDef or MethodRef token that represents the method definition.
+        /// A pointer to the MethodDef or MethodRef token that represents the method definition.
         /// </summary>
         public mdToken tkParent { get; }
 
         /// <summary>
-        /// [out] A pointer to the binary metadata signature of the method.
+        /// A pointer to the binary metadata signature of the method.
         /// </summary>
         public IntPtr ppvSigBlob { get; }
 
         /// <summary>
-        /// [out] The size, in bytes, of ppvSigBlob.
+        /// The size, in bytes, of ppvSigBlob.
         /// </summary>
         public int pcbSigBlob { get; }
 

@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct GetCustomAttributeByNameResult
     {
         /// <summary>
-        /// [out] A pointer to an array of data that is the value of the custom attribute.
+        /// A pointer to an array of data that is the value of the custom attribute.
         /// </summary>
         public IntPtr ppData { get; }
 
         /// <summary>
-        /// [out] The size in bytes of the data returned in *ppData.
+        /// The size in bytes of the data returned in *ppData.
         /// </summary>
         public int pcbData { get; }
 

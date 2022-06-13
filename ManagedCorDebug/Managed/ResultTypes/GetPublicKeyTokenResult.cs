@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetPublicKeyTokenResult
     {
         /// <summary>
-        /// [out] A pointer to the actual number of bytes written to the pbPublicKeyToken array.
+        /// A pointer to the actual number of bytes written to the pbPublicKeyToken array.
         /// </summary>
         public int pcbPublicKeyToken { get; }
 
         /// <summary>
-        /// [out] A pointer to a byte array that contains the assembly's public key token.
+        /// A pointer to a byte array that contains the assembly's public key token.
         /// </summary>
         public byte[] pbPublicKeyToken { get; }
 

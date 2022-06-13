@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct GetLocalVariablesResult
     {
         /// <summary>
-        /// [out] The returned array of <see cref="ISymUnmanagedVariable"/> instances.
+        /// The returned array of <see cref="ISymUnmanagedVariable"/> instances.
         /// </summary>
         public IntPtr rgLocals { get; }
 
         /// <summary>
-        /// [out] A pointer to a ULONG that receives the size of the rgLocals buffer required to contain the locals.
+        /// A pointer to a ULONG that receives the size of the rgLocals buffer required to contain the locals.
         /// </summary>
         public int pceltFetched { get; }
 

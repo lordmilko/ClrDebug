@@ -9,7 +9,7 @@ namespace ManagedCorDebug
     public struct GetCodeRangeResult
     {
         /// <summary>
-        /// [out] A pointer to the starting address of the method.
+        /// A pointer to the starting address of the method.
         /// </summary>
         public int pCodeStartAddress { get; }
 

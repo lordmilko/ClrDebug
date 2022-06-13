@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct GetActiveInternalFramesResult
     {
         /// <summary>
-        /// [out] A pointer to a ULONG32 that contains the number of internal frames on the stack.
+        /// A pointer to a ULONG32 that contains the number of internal frames on the stack.
         /// </summary>
         public int pcInternalFrames { get; }
 
         /// <summary>
-        /// [in, out] A pointer to the address of an array of internal frames on the stack.
+        /// A pointer to the address of an array of internal frames on the stack.
         /// </summary>
         public IntPtr ppInternalFrames { get; }
 

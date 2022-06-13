@@ -10,17 +10,17 @@ namespace ManagedCorDebug
     public struct EnumPropertiesResult
     {
         /// <summary>
-        /// [in, out] A pointer to the enumerator. This must be NULL for the first call of this method.
+        /// A pointer to the enumerator. This must be NULL for the first call of this method.
         /// </summary>
         public IntPtr phEnum { get; }
 
         /// <summary>
-        /// [out] The array used to store the PropertyDef tokens.
+        /// The array used to store the PropertyDef tokens.
         /// </summary>
         public mdProperty[] rProperties { get; }
 
         /// <summary>
-        /// [out] The number of PropertyDef tokens returned in rProperties.
+        /// The number of PropertyDef tokens returned in rProperties.
         /// </summary>
         public int pcProperties { get; }
 

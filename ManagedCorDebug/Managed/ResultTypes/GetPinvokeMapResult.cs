@@ -9,17 +9,17 @@ namespace ManagedCorDebug
     public struct GetPinvokeMapResult
     {
         /// <summary>
-        /// [out] A pointer to flags used for mapping. This value is a bitmask from the <see cref="CorPinvokeMap"/> enumeration.
+        /// A pointer to flags used for mapping. This value is a bitmask from the <see cref="CorPinvokeMap"/> enumeration.
         /// </summary>
         public CorPinvokeMap pdwMappingFlags { get; }
 
         /// <summary>
-        /// [out] The name of the unmanaged target DLL.
+        /// The name of the unmanaged target DLL.
         /// </summary>
         public string szImportName { get; }
 
         /// <summary>
-        /// [out] A pointer to a ModuleRef token that represents the unmanaged target object library.
+        /// A pointer to a ModuleRef token that represents the unmanaged target object library.
         /// </summary>
         public mdModuleRef pmrImportDLL { get; }
 

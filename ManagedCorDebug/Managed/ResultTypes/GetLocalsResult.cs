@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct GetLocalsResult
     {
         /// <summary>
-        /// [out] A pointer to a ULONG32 that receives the size of the buffer required to contain the local variables.
+        /// A pointer to a ULONG32 that receives the size of the buffer required to contain the local variables.
         /// </summary>
         public int pcLocals { get; }
 
         /// <summary>
-        /// [out] The array that receives the local variables.
+        /// The array that receives the local variables.
         /// </summary>
         public IntPtr locals { get; }
 

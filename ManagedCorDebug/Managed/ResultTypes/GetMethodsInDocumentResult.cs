@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct GetMethodsInDocumentResult
     {
         /// <summary>
-        /// [out] A pointer to a ULONG32 that receives the size of the buffer required to contain the methods.
+        /// A pointer to a ULONG32 that receives the size of the buffer required to contain the methods.
         /// </summary>
         public int pcMethod { get; }
 
         /// <summary>
-        /// [out] A pointer to the buffer that receives the methods.
+        /// A pointer to the buffer that receives the methods.
         /// </summary>
         public IntPtr pRetVal { get; }
 

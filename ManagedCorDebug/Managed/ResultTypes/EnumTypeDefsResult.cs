@@ -10,17 +10,17 @@ namespace ManagedCorDebug
     public struct EnumTypeDefsResult
     {
         /// <summary>
-        /// [out] A pointer to the new enumerator. This must be NULL for the first call of this method.
+        /// A pointer to the new enumerator. This must be NULL for the first call of this method.
         /// </summary>
         public IntPtr phEnum { get; }
 
         /// <summary>
-        /// [in] The array used to store the TypeDef tokens.
+        /// The array used to store the TypeDef tokens.
         /// </summary>
         public mdTypeDef[] typeDefs { get; }
 
         /// <summary>
-        /// [out] The number of TypeDef tokens returned in rTypeDefs.
+        /// The number of TypeDef tokens returned in rTypeDefs.
         /// </summary>
         public int pcTypeDefs { get; }
 

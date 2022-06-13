@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct GetFieldMarshalResult
     {
         /// <summary>
-        /// [out] A pointer to the metadata signature of the field's native type.
+        /// A pointer to the metadata signature of the field's native type.
         /// </summary>
         public IntPtr ppvNativeType { get; }
 
         /// <summary>
-        /// [out] The size in bytes of ppvNativeType.
+        /// The size in bytes of ppvNativeType.
         /// </summary>
         public int pcbNativeType { get; }
 

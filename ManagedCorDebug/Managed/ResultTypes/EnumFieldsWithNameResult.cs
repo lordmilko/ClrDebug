@@ -10,17 +10,17 @@ namespace ManagedCorDebug
     public struct EnumFieldsWithNameResult
     {
         /// <summary>
-        /// [in, out] A pointer to the enumerator.
+        /// A pointer to the enumerator.
         /// </summary>
         public IntPtr phEnum { get; }
 
         /// <summary>
-        /// [out] Array used to store the FieldDef tokens.
+        /// Array used to store the FieldDef tokens.
         /// </summary>
         public mdFieldDef[] rFields { get; }
 
         /// <summary>
-        /// [out] The actual number of FieldDef tokens returned in rFields.
+        /// The actual number of FieldDef tokens returned in rFields.
         /// </summary>
         public int pcTokens { get; }
 

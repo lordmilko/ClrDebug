@@ -10,17 +10,17 @@ namespace ManagedCorDebug
     public struct EnumGenericParamConstraintsResult
     {
         /// <summary>
-        /// [in, out] A pointer to the enumerator.
+        /// A pointer to the enumerator.
         /// </summary>
         public IntPtr phEnum { get; }
 
         /// <summary>
-        /// [out] The array of generic parameter constraints to enumerate.
+        /// The array of generic parameter constraints to enumerate.
         /// </summary>
         public mdGenericParamConstraint[] rGenericParamConstraints { get; }
 
         /// <summary>
-        /// [out] A pointer to the number of tokens placed in rGenericParamConstraints.
+        /// A pointer to the number of tokens placed in rGenericParamConstraints.
         /// </summary>
         public int pcGenericParamConstraints { get; }
 

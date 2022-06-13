@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetDocumentVersionResult
     {
         /// <summary>
-        /// [out] A pointer to a variable that receives the version of the specified document.
+        /// A pointer to a variable that receives the version of the specified document.
         /// </summary>
         public int version { get; }
 
         /// <summary>
-        /// [out] A pointer to a variable that receives true if this is the latest version of the document, or false if it isn't the latest version.
+        /// A pointer to a variable that receives true if this is the latest version of the document, or false if it isn't the latest version.
         /// </summary>
         public int pbCurrent { get; }
 

@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetCodeChunksResult
     {
         /// <summary>
-        /// [out] The number of chunks returned in the chunks array.
+        /// The number of chunks returned in the chunks array.
         /// </summary>
         public int pcnumChunks { get; }
 
         /// <summary>
-        /// [out] An array of "CodeChunkInfo" structures, each of which represents a single chunk of code. If the value of cbufSize is 0, this parameter can be null.
+        /// An array of "CodeChunkInfo" structures, each of which represents a single chunk of code. If the value of cbufSize is 0, this parameter can be null.
         /// </summary>
         public CodeChunkInfo[] chunks { get; }
 

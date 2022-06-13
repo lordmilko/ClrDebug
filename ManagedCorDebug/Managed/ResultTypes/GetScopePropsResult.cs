@@ -10,7 +10,7 @@ namespace ManagedCorDebug
     public struct GetScopePropsResult
     {
         /// <summary>
-        /// [out] A buffer for the assembly or module name.
+        /// A buffer for the assembly or module name.
         /// </summary>
         public string szName { get; }
 

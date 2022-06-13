@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct GetVariablesResult
     {
         /// <summary>
-        /// [out] A pointer to the variable that receives the number of variables returned in pVars.
+        /// A pointer to the variable that receives the number of variables returned in pVars.
         /// </summary>
         public int pcVars { get; }
 
         /// <summary>
-        /// [out] A pointer to the variable that receives the variables.
+        /// A pointer to the variable that receives the variables.
         /// </summary>
         public IntPtr pVars { get; }
 

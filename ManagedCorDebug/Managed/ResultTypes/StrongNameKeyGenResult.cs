@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct StrongNameKeyGenResult
     {
         /// <summary>
-        /// [out] The returned public/private key pair.
+        /// The returned public/private key pair.
         /// </summary>
         public IntPtr ppbKeyBlob { get; }
 
         /// <summary>
-        /// [out] The size, in bytes, of ppbKeyBlob.
+        /// The size, in bytes, of ppbKeyBlob.
         /// </summary>
         public int pcbKeyBlob { get; }
 

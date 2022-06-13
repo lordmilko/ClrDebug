@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct EnumCustomAttributesResult
     {
         /// <summary>
-        /// [in, out] A pointer to the returned enumerator.
+        /// A pointer to the returned enumerator.
         /// </summary>
         public IntPtr phEnum { get; }
 
         /// <summary>
-        /// [out] An array of custom attribute tokens.
+        /// An array of custom attribute tokens.
         /// </summary>
         public mdCustomAttribute[] rCustomAttributes { get; }
 

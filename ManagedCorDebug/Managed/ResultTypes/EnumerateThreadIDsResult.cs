@@ -9,7 +9,7 @@ namespace ManagedCorDebug
     public struct EnumerateThreadIDsResult
     {
         /// <summary>
-        /// [out] A pointer to a ULONG32 that indicates the actual number of thread IDs written to the pThreadIds array.
+        /// A pointer to a ULONG32 that indicates the actual number of thread IDs written to the pThreadIds array.
         /// </summary>
         public int pcThreadIds { get; }
 

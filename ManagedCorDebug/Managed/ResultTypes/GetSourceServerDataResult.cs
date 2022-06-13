@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct GetSourceServerDataResult
     {
         /// <summary>
-        /// [out] A pointer to a ULONG32 that receives the size, in bytes, of the source server data.
+        /// A pointer to a ULONG32 that receives the size, in bytes, of the source server data.
         /// </summary>
         public int pDataByteCount { get; }
 
         /// <summary>
-        /// [out] A pointer to the returned pDataByteCount value.
+        /// A pointer to the returned pDataByteCount value.
         /// </summary>
         public IntPtr ppData { get; }
 

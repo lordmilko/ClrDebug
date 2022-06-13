@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetCodeResult
     {
         /// <summary>
-        /// [out] The array into which the code will be returned.
+        /// The array into which the code will be returned.
         /// </summary>
         public byte[] buffer { get; }
 
         /// <summary>
-        /// [out] The number of bytes returned.
+        /// The number of bytes returned.
         /// </summary>
         public int pcBufferSize { get; }
 

@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct OpenScopeOnITypeInfoResult
     {
         /// <summary>
-        /// [in] The desired interface.
+        /// The desired interface.
         /// </summary>
         public Guid riid { get; }
 
         /// <summary>
-        /// [out] Pointer to a pointer to the returned interface.
+        /// Pointer to a pointer to the returned interface.
         /// </summary>
         public object ppIUnk { get; }
 

@@ -10,32 +10,32 @@ namespace ManagedCorDebug
     public struct GetAssemblyPropsResult
     {
         /// <summary>
-        /// [out] A pointer to the public key or the metadata token.
+        /// A pointer to the public key or the metadata token.
         /// </summary>
         public IntPtr ppbPublicKey { get; }
 
         /// <summary>
-        /// [out] The number of bytes in the returned public key.
+        /// The number of bytes in the returned public key.
         /// </summary>
         public int pcbPublicKey { get; }
 
         /// <summary>
-        /// [out] A pointer to the algorithm used to hash the files in the assembly.
+        /// A pointer to the algorithm used to hash the files in the assembly.
         /// </summary>
         public int pulHashAlgId { get; }
 
         /// <summary>
-        /// [out] The simple name of the assembly.
+        /// The simple name of the assembly.
         /// </summary>
         public string szName { get; }
 
         /// <summary>
-        /// [out] A pointer to an <see cref="ASSEMBLYMETADATA"/> structure that contains the assembly metadata.
+        /// A pointer to an <see cref="ASSEMBLYMETADATA"/> structure that contains the assembly metadata.
         /// </summary>
         public ASSEMBLYMETADATA pMetaData { get; }
 
         /// <summary>
-        /// [out] Flags that describe the metadata applied to an assembly. This value is a combination of one or more <see cref="CorAssemblyFlags"/> values.
+        /// Flags that describe the metadata applied to an assembly. This value is a combination of one or more <see cref="CorAssemblyFlags"/> values.
         /// </summary>
         public CorAssemblyFlags pdwAssemblyFlags { get; }
 

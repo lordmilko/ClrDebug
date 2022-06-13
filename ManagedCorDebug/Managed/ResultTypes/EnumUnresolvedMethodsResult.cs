@@ -10,17 +10,17 @@ namespace ManagedCorDebug
     public struct EnumUnresolvedMethodsResult
     {
         /// <summary>
-        /// [in, out] A pointer to the enumerator. This must be NULL for the first call of this method.
+        /// A pointer to the enumerator. This must be NULL for the first call of this method.
         /// </summary>
         public IntPtr phEnum { get; }
 
         /// <summary>
-        /// [out] The array used to store the MemberDef tokens.
+        /// The array used to store the MemberDef tokens.
         /// </summary>
         public mdToken[] rMethods { get; }
 
         /// <summary>
-        /// [out] The number of MemberDef tokens returned in rMethods.
+        /// The number of MemberDef tokens returned in rMethods.
         /// </summary>
         public int pcTokens { get; }
 

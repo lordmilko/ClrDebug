@@ -10,7 +10,7 @@ namespace ManagedCorDebug
     public struct GetMergedAssemblyRecordsResult
     {
         /// <summary>
-        /// [out] A pointer to the number of symbol records retrieved by the method.
+        /// A pointer to the number of symbol records retrieved by the method.
         /// </summary>
         public int pcFetchedRecords { get; }
 

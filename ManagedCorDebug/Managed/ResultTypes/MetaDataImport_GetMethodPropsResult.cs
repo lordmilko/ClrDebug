@@ -10,37 +10,37 @@ namespace ManagedCorDebug
     public struct MetaDataImport_GetMethodPropsResult
     {
         /// <summary>
-        /// [out] A Pointer to a TypeDef token that represents the type that implements the method.
+        /// A Pointer to a TypeDef token that represents the type that implements the method.
         /// </summary>
         public mdTypeDef pClass { get; }
 
         /// <summary>
-        /// [out] A Pointer to a buffer that has the method's name.
+        /// A Pointer to a buffer that has the method's name.
         /// </summary>
         public string szMethod { get; }
 
         /// <summary>
-        /// [out] A pointer to any flags associated with the method.
+        /// A pointer to any flags associated with the method.
         /// </summary>
         public CorMethodAttr pdwAttr { get; }
 
         /// <summary>
-        /// [out] A pointer to the binary metadata signature of the method.
+        /// A pointer to the binary metadata signature of the method.
         /// </summary>
         public IntPtr ppvSigBlob { get; }
 
         /// <summary>
-        /// [out] A Pointer to the size in bytes of ppvSigBlob.
+        /// A Pointer to the size in bytes of ppvSigBlob.
         /// </summary>
         public int pcbSigBlob { get; }
 
         /// <summary>
-        /// [out] A pointer to the relative virtual address of the method.
+        /// A pointer to the relative virtual address of the method.
         /// </summary>
         public int pulCodeRVA { get; }
 
         /// <summary>
-        /// [out] A pointer to any implementation flags for the method.
+        /// A pointer to any implementation flags for the method.
         /// </summary>
         public int pdwImplFlags { get; }
 

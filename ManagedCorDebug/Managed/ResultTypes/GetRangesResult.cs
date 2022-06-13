@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetRangesResult
     {
         /// <summary>
-        /// [out] A pointer to a ULONG32 that receives the size of the buffer required to contain the ranges.
+        /// A pointer to a ULONG32 that receives the size of the buffer required to contain the ranges.
         /// </summary>
         public int pcRanges { get; }
 
         /// <summary>
-        /// [out] A pointer to the buffer that receives the ranges.
+        /// A pointer to the buffer that receives the ranges.
         /// </summary>
         public int[] ranges { get; }
 

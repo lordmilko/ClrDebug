@@ -9,18 +9,18 @@ namespace ManagedCorDebug
     public struct OpenVirtualProcessResult
     {
         /// <summary>
-        /// [out] A pointer to the COM interface that is identified by riidProcess.
+        /// A pointer to the COM interface that is identified by riidProcess.
         /// </summary>
         public object ppProcess { get; }
 
         /// <summary>
-        /// [in, out] The version of the CLR. On input, this value can be null. It can also point to a <see cref="CLR_DEBUGGING_VERSION"/> structure, in which case the structure's wStructVersion field must be initialized to 0 (zero).<para/>
+        /// The version of the CLR. On input, this value can be null. It can also point to a <see cref="CLR_DEBUGGING_VERSION"/> structure, in which case the structure's wStructVersion field must be initialized to 0 (zero).<para/>
         /// On output, the returned <see cref="CLR_DEBUGGING_VERSION"/> structure will be filled in with the version information for the CLR.
         /// </summary>
         public CLR_DEBUGGING_VERSION pVersion { get; }
 
         /// <summary>
-        /// [out] Informational flags about the specified runtime. See the <see cref="CLR_DEBUGGING_PROCESS_FLAGS"/> topic for a description of the flags.
+        /// Informational flags about the specified runtime. See the <see cref="CLR_DEBUGGING_PROCESS_FLAGS"/> topic for a description of the flags.
         /// </summary>
         public CLR_DEBUGGING_PROCESS_FLAGS pdwFlags { get; }
 

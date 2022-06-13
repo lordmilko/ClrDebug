@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetFramePropsResult
     {
         /// <summary>
-        /// [out] A pointer to the method's starting relative virtual address.
+        /// A pointer to the method's starting relative virtual address.
         /// </summary>
         public int pCodeStartRva { get; }
 
         /// <summary>
-        /// [out] A pointer to the frame's starting relative virtual address.
+        /// A pointer to the frame's starting relative virtual address.
         /// </summary>
         public int pParentFrameStartRva { get; }
 

@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetIPResult
     {
         /// <summary>
-        /// [out] The value of the instruction pointer.
+        /// The value of the instruction pointer.
         /// </summary>
         public int pnOffset { get; }
 
         /// <summary>
-        /// [out] A pointer to a bitwise combination of the <see cref="CorDebugMappingResult"/> enumeration values that describe how the value of the instruction pointer was obtained.
+        /// A pointer to a bitwise combination of the <see cref="CorDebugMappingResult"/> enumeration values that describe how the value of the instruction pointer was obtained.
         /// </summary>
         public CorDebugMappingResult pMappingResult { get; }
 

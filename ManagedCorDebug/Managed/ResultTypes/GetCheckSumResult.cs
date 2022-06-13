@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetCheckSumResult
     {
         /// <summary>
-        /// [out] The size and length of the checksum, in bytes.
+        /// The size and length of the checksum, in bytes.
         /// </summary>
         public int pcData { get; }
 
         /// <summary>
-        /// [out] The buffer that receives the checksum.
+        /// The buffer that receives the checksum.
         /// </summary>
         public byte[] data { get; }
 

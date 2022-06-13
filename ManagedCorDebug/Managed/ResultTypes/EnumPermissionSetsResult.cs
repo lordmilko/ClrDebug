@@ -10,17 +10,17 @@ namespace ManagedCorDebug
     public struct EnumPermissionSetsResult
     {
         /// <summary>
-        /// [in, out] A pointer to the enumerator. This must be NULL for the first call of this method.
+        /// A pointer to the enumerator. This must be NULL for the first call of this method.
         /// </summary>
         public IntPtr phEnum { get; }
 
         /// <summary>
-        /// [out] The array used to store the Permission tokens.
+        /// The array used to store the Permission tokens.
         /// </summary>
         public mdPermission[] rPermission { get; }
 
         /// <summary>
-        /// [out] The number of Permission tokens returned in rPermission.
+        /// The number of Permission tokens returned in rPermission.
         /// </summary>
         public int pcTokens { get; }
 

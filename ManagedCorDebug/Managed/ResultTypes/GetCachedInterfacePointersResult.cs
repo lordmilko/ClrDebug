@@ -9,7 +9,7 @@ namespace ManagedCorDebug
     public struct GetCachedInterfacePointersResult
     {
         /// <summary>
-        /// [out] A pointer to the number of <see cref="CORDB_ADDRESS"/> values actually returned in ptrs.
+        /// A pointer to the number of <see cref="CORDB_ADDRESS"/> values actually returned in ptrs.
         /// </summary>
         public int pceltFetched { get; }
 

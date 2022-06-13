@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetInstrumentedILMapResult
     {
         /// <summary>
-        /// [out] The number of <see cref="COR_IL_MAP"/> values written to the map array.
+        /// The number of <see cref="COR_IL_MAP"/> values written to the map array.
         /// </summary>
         public int pcMap { get; }
 
         /// <summary>
-        /// [out] An array of <see cref="COR_IL_MAP"/> values that provide information on mappings from profiler-instrumented IL to the IL of the original method.
+        /// An array of <see cref="COR_IL_MAP"/> values that provide information on mappings from profiler-instrumented IL to the IL of the original method.
         /// </summary>
         public COR_IL_MAP[] map { get; }
 

@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct GetMetadataResult
     {
         /// <summary>
-        /// [out] The buffer in which to place the metadata.
+        /// The buffer in which to place the metadata.
         /// </summary>
         public IntPtr buffer { get; }
 
         /// <summary>
-        /// [out] The size of the metadata that is returned.
+        /// The size of the metadata that is returned.
         /// </summary>
         public int dataSize { get; }
 

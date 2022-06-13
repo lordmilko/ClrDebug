@@ -9,27 +9,27 @@ namespace ManagedCorDebug
     public struct GetLineFromOffsetResult
     {
         /// <summary>
-        /// [out] A pointer to a ULONG32 that receives the line.
+        /// A pointer to a ULONG32 that receives the line.
         /// </summary>
         public int pline { get; }
 
         /// <summary>
-        /// [out] A pointer to a ULONG32 that receives the column.
+        /// A pointer to a ULONG32 that receives the column.
         /// </summary>
         public int pcolumn { get; }
 
         /// <summary>
-        /// [out] A pointer to a ULONG32 that receives the end line.
+        /// A pointer to a ULONG32 that receives the end line.
         /// </summary>
         public int pendLine { get; }
 
         /// <summary>
-        /// [out] A pointer to a ULONG32 that receives the end column.
+        /// A pointer to a ULONG32 that receives the end column.
         /// </summary>
         public int pendColumn { get; }
 
         /// <summary>
-        /// [out] A pointer to a ULONG32 that receives the associated sequence point.
+        /// A pointer to a ULONG32 that receives the associated sequence point.
         /// </summary>
         public int pdwStartOffset { get; }
 

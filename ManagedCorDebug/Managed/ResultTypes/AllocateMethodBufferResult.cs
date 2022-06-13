@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct AllocateMethodBufferResult
     {
         /// <summary>
-        /// [out] The returned buffer.
+        /// The returned buffer.
         /// </summary>
         public IntPtr lpBuffer { get; }
 
         /// <summary>
-        /// [out] The relative virtual address of the method.
+        /// The relative virtual address of the method.
         /// </summary>
         public int RVA { get; }
 

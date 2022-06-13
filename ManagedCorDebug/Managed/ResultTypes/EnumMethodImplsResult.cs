@@ -10,22 +10,22 @@ namespace ManagedCorDebug
     public struct EnumMethodImplsResult
     {
         /// <summary>
-        /// [in, out] A pointer to the enumerator. This must be NULL for the first call of this method.
+        /// A pointer to the enumerator. This must be NULL for the first call of this method.
         /// </summary>
         public IntPtr phEnum { get; }
 
         /// <summary>
-        /// [out] The array to store the MethodBody tokens.
+        /// The array to store the MethodBody tokens.
         /// </summary>
         public mdToken[] rMethodBody { get; }
 
         /// <summary>
-        /// [out] The array to store the MethodDeclaration tokens.
+        /// The array to store the MethodDeclaration tokens.
         /// </summary>
         public mdToken[] rMethodDecl { get; }
 
         /// <summary>
-        /// [in] The actual number of methods returned in rMethodBody and rMethodDecl.
+        /// The actual number of methods returned in rMethodBody and rMethodDecl.
         /// </summary>
         public int pcTokens { get; }
 

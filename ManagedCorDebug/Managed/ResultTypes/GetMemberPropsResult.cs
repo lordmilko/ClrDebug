@@ -10,52 +10,52 @@ namespace ManagedCorDebug
     public struct GetMemberPropsResult
     {
         /// <summary>
-        /// [out] A pointer to the metadata token that represents the class of the member.
+        /// A pointer to the metadata token that represents the class of the member.
         /// </summary>
         public mdTypeDef pClass { get; }
 
         /// <summary>
-        /// [out] The name of the member.
+        /// The name of the member.
         /// </summary>
         public string szMember { get; }
 
         /// <summary>
-        /// [out] Any flag values applied to the member.
+        /// Any flag values applied to the member.
         /// </summary>
         public int pdwAttr { get; }
 
         /// <summary>
-        /// [out] A pointer to the binary metadata signature of the member.
+        /// A pointer to the binary metadata signature of the member.
         /// </summary>
         public IntPtr ppvSigBlob { get; }
 
         /// <summary>
-        /// [out] The size in bytes of ppvSigBlob.
+        /// The size in bytes of ppvSigBlob.
         /// </summary>
         public int pcbSigBlob { get; }
 
         /// <summary>
-        /// [out] A pointer to the relative virtual address of the member.
+        /// A pointer to the relative virtual address of the member.
         /// </summary>
         public int pulCodeRVA { get; }
 
         /// <summary>
-        /// [out] Any method implementation flags associated with the member.
+        /// Any method implementation flags associated with the member.
         /// </summary>
         public int pdwImplFlags { get; }
 
         /// <summary>
-        /// [out] A flag that marks a <see cref="ValueType"/>. It is one of the ELEMENT_TYPE_* values.
+        /// A flag that marks a <see cref="ValueType"/>. It is one of the ELEMENT_TYPE_* values.
         /// </summary>
         public CorElementType pdwCPlusTypeFlag { get; }
 
         /// <summary>
-        /// [out] A constant string value returned by this member.
+        /// A constant string value returned by this member.
         /// </summary>
         public IntPtr ppValue { get; }
 
         /// <summary>
-        /// [out] The size in characters of ppValue, or zero if ppValue does not hold a string.
+        /// The size in characters of ppValue, or zero if ppValue does not hold a string.
         /// </summary>
         public int pcchValue { get; }
 

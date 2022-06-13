@@ -10,17 +10,17 @@ namespace ManagedCorDebug
     public struct EnumMembersWithNameResult
     {
         /// <summary>
-        /// [in, out] A pointer to the enumerator.
+        /// A pointer to the enumerator.
         /// </summary>
         public IntPtr phEnum { get; }
 
         /// <summary>
-        /// [out] The array used to store the MemberDef tokens.
+        /// The array used to store the MemberDef tokens.
         /// </summary>
         public mdToken[] rMembers { get; }
 
         /// <summary>
-        /// [out] The actual number of MemberDef tokens returned in rMembers.
+        /// The actual number of MemberDef tokens returned in rMembers.
         /// </summary>
         public int pcTokens { get; }
 

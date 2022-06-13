@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetStackRangeResult
     {
         /// <summary>
-        /// [out] A pointer to a <see cref="CORDB_ADDRESS"/> that specifies the starting address of the stack frame represented by this <see cref="ICorDebugFrame"/> object.
+        /// A pointer to a <see cref="CORDB_ADDRESS"/> that specifies the starting address of the stack frame represented by this <see cref="ICorDebugFrame"/> object.
         /// </summary>
         public CORDB_ADDRESS pStart { get; }
 
         /// <summary>
-        /// [out] A pointer to a <see cref="CORDB_ADDRESS"/> that specifies the ending address of the stack frame represented by this <see cref="ICorDebugFrame"/> object.
+        /// A pointer to a <see cref="CORDB_ADDRESS"/> that specifies the ending address of the stack frame represented by this <see cref="ICorDebugFrame"/> object.
         /// </summary>
         public CORDB_ADDRESS pEnd { get; }
 

@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct GetParametersResult
     {
         /// <summary>
-        /// [in] A pointer to a ULONG32 that receives the size of the buffer that is required to contain the parameters.
+        /// A pointer to a ULONG32 that receives the size of the buffer that is required to contain the parameters.
         /// </summary>
         public int pcParams { get; }
 
         /// <summary>
-        /// [out] A pointer to the buffer that receives the parameters.
+        /// A pointer to the buffer that receives the parameters.
         /// </summary>
         public IntPtr @params { get; }
 

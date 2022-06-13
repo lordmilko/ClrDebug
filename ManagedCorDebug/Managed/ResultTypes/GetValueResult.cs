@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetValueResult
     {
         /// <summary>
-        /// [out] The number of bytes actually written to the pValue buffer.
+        /// The number of bytes actually written to the pValue buffer.
         /// </summary>
         public int pcbValue { get; }
 
         /// <summary>
-        /// [out] A byte array that contains the value of the variable.
+        /// A byte array that contains the value of the variable.
         /// </summary>
         public byte[] pValue { get; }
 

@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetSourceRangeResult
     {
         /// <summary>
-        /// [out] A pointer to a variable that receives the source size.
+        /// A pointer to a variable that receives the source size.
         /// </summary>
         public int pcSourceBytes { get; }
 
         /// <summary>
-        /// [out] The size and length of the specified range of the source document, in bytes.
+        /// The size and length of the specified range of the source document, in bytes.
         /// </summary>
         public byte[] source { get; }
 

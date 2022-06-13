@@ -10,17 +10,17 @@ namespace ManagedCorDebug
     public struct EnumEventsResult
     {
         /// <summary>
-        /// [in, out] A pointer to the enumerator.
+        /// A pointer to the enumerator.
         /// </summary>
         public IntPtr phEnum { get; }
 
         /// <summary>
-        /// [out] The array of returned events.
+        /// The array of returned events.
         /// </summary>
         public mdEvent[] rEvents { get; }
 
         /// <summary>
-        /// [out] The actual number of events returned in rEvents.
+        /// The actual number of events returned in rEvents.
         /// </summary>
         public int pcEvents { get; }
 

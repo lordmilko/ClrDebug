@@ -10,47 +10,47 @@ namespace ManagedCorDebug
     public struct GetParamPropsResult
     {
         /// <summary>
-        /// [out] A pointer to a MethodDef token representing the method that takes the parameter.
+        /// A pointer to a MethodDef token representing the method that takes the parameter.
         /// </summary>
         public mdMethodDef pmd { get; }
 
         /// <summary>
-        /// [out] The ordinal position of the parameter in the method argument list.
+        /// The ordinal position of the parameter in the method argument list.
         /// </summary>
         public int pulSequence { get; }
 
         /// <summary>
-        /// [out] A buffer to hold the name of the parameter.
+        /// A buffer to hold the name of the parameter.
         /// </summary>
         public string szName { get; }
 
         /// <summary>
-        /// [in] The requested size in wide characters of szName.
+        /// The requested size in wide characters of szName.
         /// </summary>
         public int cchName { get; }
 
         /// <summary>
-        /// [out] The returned size in wide characters of szName.
+        /// The returned size in wide characters of szName.
         /// </summary>
         public int pchName { get; }
 
         /// <summary>
-        /// [out] A pointer to any attribute flags associated with the parameter. This is a bitmask of <see cref="CorParamAttr"/> values.
+        /// A pointer to any attribute flags associated with the parameter. This is a bitmask of <see cref="CorParamAttr"/> values.
         /// </summary>
         public CorParamAttr pdwAttr { get; }
 
         /// <summary>
-        /// [out] A pointer to a flag specifying that the parameter is a <see cref="ValueType"/>.
+        /// A pointer to a flag specifying that the parameter is a <see cref="ValueType"/>.
         /// </summary>
         public CorElementType pdwCPlusTypeFlag { get; }
 
         /// <summary>
-        /// [out] A pointer to a constant string returned by the parameter.
+        /// A pointer to a constant string returned by the parameter.
         /// </summary>
         public IntPtr ppValue { get; }
 
         /// <summary>
-        /// [out] The size of ppValue in wide characters, or zero if ppValue does not hold a string.
+        /// The size of ppValue in wide characters, or zero if ppValue does not hold a string.
         /// </summary>
         public IntPtr pcchValue { get; }
 

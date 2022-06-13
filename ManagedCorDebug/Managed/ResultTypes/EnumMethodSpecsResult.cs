@@ -10,17 +10,17 @@ namespace ManagedCorDebug
     public struct EnumMethodSpecsResult
     {
         /// <summary>
-        /// [in, out] A pointer to the enumerator for rMethodSpecs.
+        /// A pointer to the enumerator for rMethodSpecs.
         /// </summary>
         public IntPtr phEnum { get; }
 
         /// <summary>
-        /// [out] The array of MethodSpec tokens to enumerate.
+        /// The array of MethodSpec tokens to enumerate.
         /// </summary>
         public mdMethodSpec[] rMethodSpecs { get; }
 
         /// <summary>
-        /// [out] The returned number of tokens placed in rMethodSpecs.
+        /// The returned number of tokens placed in rMethodSpecs.
         /// </summary>
         public int pcMethodSpecs { get; }
 

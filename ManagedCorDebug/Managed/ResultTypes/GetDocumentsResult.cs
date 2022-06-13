@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct GetDocumentsResult
     {
         /// <summary>
-        /// [out] A pointer to a variable that receives the array length.
+        /// A pointer to a variable that receives the array length.
         /// </summary>
         public int pcDocs { get; }
 
         /// <summary>
-        /// [out] A pointer to a variable that receives the document array.
+        /// A pointer to a variable that receives the document array.
         /// </summary>
         public IntPtr pDocs { get; }
 

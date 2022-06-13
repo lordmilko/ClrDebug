@@ -9,22 +9,22 @@ namespace ManagedCorDebug
     public struct GetVersionResult
     {
         /// <summary>
-        /// [out] A pointer to the major version number.
+        /// A pointer to the major version number.
         /// </summary>
         public ushort pMajor { get; }
 
         /// <summary>
-        /// [out] A pointer to the minor version number.
+        /// A pointer to the minor version number.
         /// </summary>
         public ushort pMinor { get; }
 
         /// <summary>
-        /// [out] A pointer to the build number.
+        /// A pointer to the build number.
         /// </summary>
         public ushort pBuild { get; }
 
         /// <summary>
-        /// [out] A pointer to the revision number.
+        /// A pointer to the revision number.
         /// </summary>
         public ushort pRevision { get; }
 

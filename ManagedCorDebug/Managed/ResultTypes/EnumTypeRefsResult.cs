@@ -10,17 +10,17 @@ namespace ManagedCorDebug
     public struct EnumTypeRefsResult
     {
         /// <summary>
-        /// [in, out] A pointer to the enumerator. This must be NULL for the first call of this method.
+        /// A pointer to the enumerator. This must be NULL for the first call of this method.
         /// </summary>
         public IntPtr phEnum { get; }
 
         /// <summary>
-        /// [out] The array used to store the TypeRef tokens.
+        /// The array used to store the TypeRef tokens.
         /// </summary>
         public mdTypeRef[] rTypeRefs { get; }
 
         /// <summary>
-        /// [out] A pointer to the number of TypeRef tokens returned in rTypeRefs.
+        /// A pointer to the number of TypeRef tokens returned in rTypeRefs.
         /// </summary>
         public int pcTypeRefs { get; }
 

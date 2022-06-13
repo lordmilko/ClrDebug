@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct GetNamespacesResult
     {
         /// <summary>
-        /// [out] A pointer to a ULONG32 that receives the size of the buffer required to contain the namespaces.
+        /// A pointer to a ULONG32 that receives the size of the buffer required to contain the namespaces.
         /// </summary>
         public int pcNameSpaces { get; }
 
         /// <summary>
-        /// [out] The array that receives the namespaces.
+        /// The array that receives the namespaces.
         /// </summary>
         public IntPtr namespaces { get; }
 

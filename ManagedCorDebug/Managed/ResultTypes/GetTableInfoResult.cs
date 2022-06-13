@@ -9,22 +9,22 @@ namespace ManagedCorDebug
     public struct GetTableInfoResult
     {
         /// <summary>
-        /// [out] A pointer to the size, in bytes, of a table row.
+        /// A pointer to the size, in bytes, of a table row.
         /// </summary>
         public int pcbRow { get; }
 
         /// <summary>
-        /// [out] A pointer to the number of rows in the table.
+        /// A pointer to the number of rows in the table.
         /// </summary>
         public int pcRows { get; }
 
         /// <summary>
-        /// [out] A pointer to the number of columns in the table.
+        /// A pointer to the number of columns in the table.
         /// </summary>
         public int pcCols { get; }
 
         /// <summary>
-        /// [out] A pointer to the index of the key column, or -1 if the table has no key column.
+        /// A pointer to the index of the key column, or -1 if the table has no key column.
         /// </summary>
         public int piKey { get; }
 

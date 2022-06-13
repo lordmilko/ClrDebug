@@ -9,17 +9,17 @@ namespace ManagedCorDebug
     public struct GetTypeDefPropsResult
     {
         /// <summary>
-        /// [out] A buffer containing the type name.
+        /// A buffer containing the type name.
         /// </summary>
         public string szTypeDef { get; }
 
         /// <summary>
-        /// [out] A pointer to any flags that modify the type definition. This value is a bitmask from the <see cref="CorTypeAttr"/> enumeration.
+        /// A pointer to any flags that modify the type definition. This value is a bitmask from the <see cref="CorTypeAttr"/> enumeration.
         /// </summary>
         public CorTypeAttr pdwTypeDefFlags { get; }
 
         /// <summary>
-        /// [out] A TypeDef or TypeRef metadata token that represents the base type of the requested type.
+        /// A TypeDef or TypeRef metadata token that represents the base type of the requested type.
         /// </summary>
         public mdToken ptkExtends { get; }
 

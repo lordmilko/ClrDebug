@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetTypePropsResult
     {
         /// <summary>
-        /// [out] [out] A pointer to the size of the returned signature array.
+        /// [out] A pointer to the size of the returned signature array.
         /// </summary>
         public int pcbSignature { get; }
 
         /// <summary>
-        /// [out] A buffer that holds the typespec signatures of all generic parameters.
+        /// A buffer that holds the typespec signatures of all generic parameters.
         /// </summary>
         public byte[] signature { get; }
 

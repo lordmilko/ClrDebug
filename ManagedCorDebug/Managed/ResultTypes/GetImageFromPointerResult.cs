@@ -9,7 +9,7 @@ namespace ManagedCorDebug
     public struct GetImageFromPointerResult
     {
         /// <summary>
-        /// [out] A <see cref="CORDB_ADDRESS"/> value that represents the module's base address.
+        /// A <see cref="CORDB_ADDRESS"/> value that represents the module's base address.
         /// </summary>
         public CORDB_ADDRESS pImageBase { get; }
 

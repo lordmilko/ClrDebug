@@ -10,17 +10,17 @@ namespace ManagedCorDebug
     public struct EnumGenericParamsResult
     {
         /// <summary>
-        /// [in, out] A pointer to the enumerator.
+        /// A pointer to the enumerator.
         /// </summary>
         public IntPtr phEnum { get; }
 
         /// <summary>
-        /// [out] The array of generic parameters to enumerate.
+        /// The array of generic parameters to enumerate.
         /// </summary>
         public mdGenericParam[] rGenericParams { get; }
 
         /// <summary>
-        /// [out] The returned number of tokens placed in rGenericParams.
+        /// The returned number of tokens placed in rGenericParams.
         /// </summary>
         public int pcGenericParams { get; }
 

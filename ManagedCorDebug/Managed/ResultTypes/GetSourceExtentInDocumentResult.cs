@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetSourceExtentInDocumentResult
     {
         /// <summary>
-        /// [out] A pointer to a ULONG32 that receives the start line.
+        /// A pointer to a ULONG32 that receives the start line.
         /// </summary>
         public int pstartLine { get; }
 
         /// <summary>
-        /// [out] A pointer to a ULONG32 that receives the end line.
+        /// A pointer to a ULONG32 that receives the end line.
         /// </summary>
         public int pendLine { get; }
 

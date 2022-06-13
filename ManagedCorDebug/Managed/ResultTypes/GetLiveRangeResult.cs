@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetLiveRangeResult
     {
         /// <summary>
-        /// [out] The logical offset at which the variable is first live.
+        /// The logical offset at which the variable is first live.
         /// </summary>
         public int pStartOffset { get; }
 
         /// <summary>
-        /// [out] The logical offset immediately after the point at which the variable is last live.
+        /// The logical offset immediately after the point at which the variable is last live.
         /// </summary>
         public int pEndOffset { get; }
 

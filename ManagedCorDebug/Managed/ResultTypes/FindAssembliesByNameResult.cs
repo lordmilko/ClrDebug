@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct FindAssembliesByNameResult
     {
         /// <summary>
-        /// [out] An array that holds the <see cref="IMetaDataAssemblyImport"/> interface pointers.
+        /// An array that holds the <see cref="IMetaDataAssemblyImport"/> interface pointers.
         /// </summary>
         public object[] ppIUnk { get; }
 
         /// <summary>
-        /// [out] The number of interface pointers returned - that is, the number of interface pointers actually placed in ppIUnk.
+        /// The number of interface pointers returned - that is, the number of interface pointers actually placed in ppIUnk.
         /// </summary>
         public int pcAssemblies { get; }
 

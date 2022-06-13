@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct GetSigFromTokenResult
     {
         /// <summary>
-        /// [out] A pointer to the returned metadata signature.
+        /// A pointer to the returned metadata signature.
         /// </summary>
         public IntPtr ppvSig { get; }
 
         /// <summary>
-        /// [out] The size in bytes of the binary metadata signature.
+        /// The size in bytes of the binary metadata signature.
         /// </summary>
         public int pcbSig { get; }
 

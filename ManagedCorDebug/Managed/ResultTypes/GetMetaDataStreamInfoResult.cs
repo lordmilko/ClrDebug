@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct GetMetaDataStreamInfoResult
     {
         /// <summary>
-        /// [out] A pointer to the metadata stream.
+        /// A pointer to the metadata stream.
         /// </summary>
         public IntPtr ppv { get; }
 
         /// <summary>
-        /// [out] The size, in bytes, of ppv.
+        /// The size, in bytes, of ppv.
         /// </summary>
         public int pcb { get; }
 

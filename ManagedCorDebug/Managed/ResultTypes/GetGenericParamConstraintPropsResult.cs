@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetGenericParamConstraintPropsResult
     {
         /// <summary>
-        /// [out] A pointer to the token that represents the generic parameter that is constrained.
+        /// A pointer to the token that represents the generic parameter that is constrained.
         /// </summary>
         public mdGenericParam ptGenericParam { get; }
 
         /// <summary>
-        /// [out] A pointer to a TypeDef, TypeRef, or TypeSpec token that represents a constraint on ptGenericParam.
+        /// A pointer to a TypeDef, TypeRef, or TypeSpec token that represents a constraint on ptGenericParam.
         /// </summary>
         public mdToken ptkConstraintType { get; }
 

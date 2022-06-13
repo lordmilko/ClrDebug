@@ -9,22 +9,22 @@ namespace ManagedCorDebug
     public struct GetManifestResourcePropsResult
     {
         /// <summary>
-        /// [out] The name of the resource.
+        /// The name of the resource.
         /// </summary>
         public string szName { get; }
 
         /// <summary>
-        /// [out] A pointer to an <see cref="mdFile"/> token or an <see cref="mdAssemblyRef"/> token that represents the file or assembly, respectively, that contains the resource.
+        /// A pointer to an <see cref="mdFile"/> token or an <see cref="mdAssemblyRef"/> token that represents the file or assembly, respectively, that contains the resource.
         /// </summary>
         public int ptkImplementation { get; }
 
         /// <summary>
-        /// [out] A pointer to a value that specifies the offset to the beginning of the resource within the file.
+        /// A pointer to a value that specifies the offset to the beginning of the resource within the file.
         /// </summary>
         public int pdwOffset { get; }
 
         /// <summary>
-        /// [out] A pointer to flags that describe the metadata applied to a resource. The flags value is a combination of one or more <see cref="CorManifestResourceFlags"/> values.
+        /// A pointer to flags that describe the metadata applied to a resource. The flags value is a combination of one or more <see cref="CorManifestResourceFlags"/> values.
         /// </summary>
         public CorManifestResourceFlags pdwResourceFlags { get; }
 

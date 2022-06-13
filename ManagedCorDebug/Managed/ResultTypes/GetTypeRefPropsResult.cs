@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetTypeRefPropsResult
     {
         /// <summary>
-        /// [out] A pointer to the scope in which the reference is made. This value is an AssemblyRef or ModuleRef token.
+        /// A pointer to the scope in which the reference is made. This value is an AssemblyRef or ModuleRef token.
         /// </summary>
         public mdToken ptkResolutionScope { get; }
 
         /// <summary>
-        /// [out] A buffer containing the type name.
+        /// A buffer containing the type name.
         /// </summary>
         public string szName { get; }
 

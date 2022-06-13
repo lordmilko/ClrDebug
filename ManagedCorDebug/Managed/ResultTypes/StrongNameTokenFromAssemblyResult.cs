@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct StrongNameTokenFromAssemblyResult
     {
         /// <summary>
-        /// [out] The returned strong name token.
+        /// The returned strong name token.
         /// </summary>
         public IntPtr ppbStrongNameToken { get; }
 
         /// <summary>
-        /// [out] The size, in bytes, of the strong name token.
+        /// The size, in bytes, of the strong name token.
         /// </summary>
         public int pcbStrongNameToken { get; }
 

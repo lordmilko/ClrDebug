@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct GetBlobResult
     {
         /// <summary>
-        /// [out] A pointer to the size, in bytes, of ppData.
+        /// A pointer to the size, in bytes, of ppData.
         /// </summary>
         public int pcbData { get; }
 
         /// <summary>
-        /// [out] A pointer to a pointer to the binary data retrieved.
+        /// A pointer to a pointer to the binary data retrieved.
         /// </summary>
         public IntPtr ppData { get; }
 

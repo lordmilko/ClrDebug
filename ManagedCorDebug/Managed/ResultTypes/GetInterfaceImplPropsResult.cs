@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetInterfaceImplPropsResult
     {
         /// <summary>
-        /// [out] The metadata token representing the class that implements the method.
+        /// The metadata token representing the class that implements the method.
         /// </summary>
         public mdTypeDef pClass { get; }
 
         /// <summary>
-        /// [out] The metadata token representing the interface that defines the implemented method.
+        /// The metadata token representing the interface that defines the implemented method.
         /// </summary>
         public mdToken ptkIface { get; }
 

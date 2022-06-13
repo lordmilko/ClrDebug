@@ -10,22 +10,22 @@ namespace ManagedCorDebug
     public struct GetFilePropsResult
     {
         /// <summary>
-        /// [out] The simple name of the file.
+        /// The simple name of the file.
         /// </summary>
         public string szName { get; }
 
         /// <summary>
-        /// [out] A pointer to the hash value. This is the hash, using the SHA-1 algorithm, of the file.
+        /// A pointer to the hash value. This is the hash, using the SHA-1 algorithm, of the file.
         /// </summary>
         public IntPtr ppbHashValue { get; }
 
         /// <summary>
-        /// [out] The number of wide chars in the returned hash value.
+        /// The number of wide chars in the returned hash value.
         /// </summary>
         public int pcbHashValue { get; }
 
         /// <summary>
-        /// [out] A pointer to the flags that describe the metadata applied to a file. The flags value is a combination of one or more <see cref="CorFileFlags"/> values.
+        /// A pointer to the flags that describe the metadata applied to a file. The flags value is a combination of one or more <see cref="CorFileFlags"/> values.
         /// </summary>
         public CorFileFlags pdwFileFlags { get; }
 

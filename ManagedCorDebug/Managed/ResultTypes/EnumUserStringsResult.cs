@@ -10,17 +10,17 @@ namespace ManagedCorDebug
     public struct EnumUserStringsResult
     {
         /// <summary>
-        /// [in, out] A pointer to the enumerator. This must be NULL for the first call of this method.
+        /// A pointer to the enumerator. This must be NULL for the first call of this method.
         /// </summary>
         public IntPtr phEnum { get; }
 
         /// <summary>
-        /// [out] The array used to store the String tokens.
+        /// The array used to store the String tokens.
         /// </summary>
         public mdString[] rStrings { get; }
 
         /// <summary>
-        /// [out] The number of String tokens returned in rStrings.
+        /// The number of String tokens returned in rStrings.
         /// </summary>
         public int pcStrings { get; }
 

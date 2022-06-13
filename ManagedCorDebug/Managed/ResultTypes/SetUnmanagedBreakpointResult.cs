@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct SetUnmanagedBreakpointResult
     {
         /// <summary>
-        /// [out] An array that contains the opcode that is replaced by the breakpoint.
+        /// An array that contains the opcode that is replaced by the breakpoint.
         /// </summary>
         public byte[] buffer { get; }
 
         /// <summary>
-        /// [out] A pointer to the number of bytes returned in the buffer array.
+        /// A pointer to the number of bytes returned in the buffer array.
         /// </summary>
         public int bufLen { get; }
 

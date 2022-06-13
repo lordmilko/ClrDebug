@@ -10,17 +10,17 @@ namespace ManagedCorDebug
     public struct EnumSignaturesResult
     {
         /// <summary>
-        /// [in, out] A pointer to the enumerator. This must be NULL for the first call of this method.
+        /// A pointer to the enumerator. This must be NULL for the first call of this method.
         /// </summary>
         public IntPtr phEnum { get; }
 
         /// <summary>
-        /// [out] The array used to store the Signature tokens.
+        /// The array used to store the Signature tokens.
         /// </summary>
         public mdSignature[] rSignatures { get; }
 
         /// <summary>
-        /// [out] The number of Signature tokens returned in rSignatures.
+        /// The number of Signature tokens returned in rSignatures.
         /// </summary>
         public int pcSignatures { get; }
 

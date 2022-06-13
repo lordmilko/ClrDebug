@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetPEKindResult
     {
         /// <summary>
-        /// [out] A pointer to a value of the <see cref="CorPEKind"/> enumeration that describes the PE file.
+        /// A pointer to a value of the <see cref="CorPEKind"/> enumeration that describes the PE file.
         /// </summary>
         public CorPEKind pdwPEKind { get; }
 
         /// <summary>
-        /// [out] A pointer to a value that identifies the architecture of the machine. See the next section for possible values.
+        /// A pointer to a value that identifies the architecture of the machine. See the next section for possible values.
         /// </summary>
         public int pdwMachine { get; }
 

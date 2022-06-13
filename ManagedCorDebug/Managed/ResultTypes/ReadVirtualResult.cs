@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct ReadVirtualResult
     {
         /// <summary>
-        /// [out] A pointer to a buffer that receives the data.
+        /// A pointer to a buffer that receives the data.
         /// </summary>
         public byte buffer { get; }
 
         /// <summary>
-        /// [out] A pointer to the number of bytes returned.
+        /// A pointer to the number of bytes returned.
         /// </summary>
         public int bytesRead { get; }
 

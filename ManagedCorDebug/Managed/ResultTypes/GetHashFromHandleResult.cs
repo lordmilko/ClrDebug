@@ -9,17 +9,17 @@ namespace ManagedCorDebug
     public struct GetHashFromHandleResult
     {
         /// <summary>
-        /// [in, out] A constant that specifies the hash algorithm. Use zero for the default algorithm.
+        /// A constant that specifies the hash algorithm. Use zero for the default algorithm.
         /// </summary>
         public int piHashAlg { get; }
 
         /// <summary>
-        /// [out] The returned hash buffer.
+        /// The returned hash buffer.
         /// </summary>
         public byte pbHash { get; }
 
         /// <summary>
-        /// [out] The size, in bytes, of the returned pbHash.
+        /// The size, in bytes, of the returned pbHash.
         /// </summary>
         public int pchHash { get; }
 

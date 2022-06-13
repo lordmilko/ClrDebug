@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetEHClausesResult
     {
         /// <summary>
-        /// [out] The number of clauses about which information is written to the clauses array.
+        /// The number of clauses about which information is written to the clauses array.
         /// </summary>
         public int pcClauses { get; }
 
         /// <summary>
-        /// [out] An array of <see cref="CorDebugEHClause"/> objects that contain information on exception handling clauses defined for this IL.
+        /// An array of <see cref="CorDebugEHClause"/> objects that contain information on exception handling clauses defined for this IL.
         /// </summary>
         public CorDebugEHClause[] clauses { get; }
 

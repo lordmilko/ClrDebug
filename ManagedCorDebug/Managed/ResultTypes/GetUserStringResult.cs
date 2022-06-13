@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct GetUserStringResult
     {
         /// <summary>
-        /// [out] A pointer to the size of ppData.
+        /// A pointer to the size of ppData.
         /// </summary>
         public int pcbData { get; }
 
         /// <summary>
-        /// [out] A pointer to a pointer to the returned string.
+        /// A pointer to a pointer to the returned string.
         /// </summary>
         public IntPtr ppData { get; }
 

@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct StrongNameGetBlobFromImageResult
     {
         /// <summary>
-        /// [in] A buffer to contain the binary representation of the image.
+        /// A buffer to contain the binary representation of the image.
         /// </summary>
         public byte pbBlob { get; }
 
         /// <summary>
-        /// [in, out] The requested maximum size, in bytes, of pbBlob. Upon return, the actual size, in bytes, of pbBlob.
+        /// The requested maximum size, in bytes, of pbBlob. Upon return, the actual size, in bytes, of pbBlob.
         /// </summary>
         public int pcbBlob { get; }
 

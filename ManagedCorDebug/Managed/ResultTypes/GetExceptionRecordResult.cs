@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetExceptionRecordResult
     {
         /// <summary>
-        /// [out] A pointer to a ULONG32 type that receives the number of bytes actually written to the buffer.
+        /// A pointer to a ULONG32 type that receives the number of bytes actually written to the buffer.
         /// </summary>
         public int bufferUsed { get; }
 
         /// <summary>
-        /// [out] A pointer to a memory buffer that receives a copy of the exception record. The exception record is returned as a MINIDUMP_EXCEPTION type.
+        /// A pointer to a memory buffer that receives a copy of the exception record. The exception record is returned as a MINIDUMP_EXCEPTION type.
         /// </summary>
         public byte buffer { get; }
 

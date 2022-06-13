@@ -10,17 +10,17 @@ namespace ManagedCorDebug
     public struct EnumMethodSemanticsResult
     {
         /// <summary>
-        /// [in, out] A pointer to the enumerator. This must be NULL for the first call of this method.
+        /// A pointer to the enumerator. This must be NULL for the first call of this method.
         /// </summary>
         public IntPtr phEnum { get; }
 
         /// <summary>
-        /// [out] The array used to store the events or properties.
+        /// The array used to store the events or properties.
         /// </summary>
         public mdToken[] rEventProp { get; }
 
         /// <summary>
-        /// [out] The number of events or properties returned in rEventProp.
+        /// The number of events or properties returned in rEventProp.
         /// </summary>
         public int pcEventProp { get; }
 

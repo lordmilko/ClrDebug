@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct GetLoadedModulesResult
     {
         /// <summary>
-        /// [out] A pointer to the number of modules about which information was returned.
+        /// A pointer to the number of modules about which information was returned.
         /// </summary>
         public int pcFetchedModules { get; }
 
         /// <summary>
-        /// [out] A pointer to an array of <see cref="ICorDebugLoadedModule"/> objects that provide information about loaded modules.
+        /// A pointer to an array of <see cref="ICorDebugLoadedModule"/> objects that provide information about loaded modules.
         /// </summary>
         public IntPtr pLoadedModules { get; }
 

@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetExportStepInfoResult
     {
         /// <summary>
-        /// [out] A pointer to a member of the <see cref="CorDebugCodeInvokeKind"/> enumeration that describes how the exported function will invoke managed code.
+        /// A pointer to a member of the <see cref="CorDebugCodeInvokeKind"/> enumeration that describes how the exported function will invoke managed code.
         /// </summary>
         public CorDebugCodeInvokeKind pInvokeKind { get; }
 
         /// <summary>
-        /// [out] A pointer to a member of the <see cref="CorDebugCodeInvokePurpose"/> enumeration that describes why the exported function will call managed code.
+        /// A pointer to a member of the <see cref="CorDebugCodeInvokePurpose"/> enumeration that describes why the exported function will call managed code.
         /// </summary>
         public CorDebugCodeInvokePurpose pInvokePurpose { get; }
 

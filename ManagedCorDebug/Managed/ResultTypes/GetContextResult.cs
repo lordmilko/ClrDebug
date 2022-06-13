@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetContextResult
     {
         /// <summary>
-        /// [out] A pointer to the number of bytes actually written to contextBuf.
+        /// A pointer to the number of bytes actually written to contextBuf.
         /// </summary>
         public int contextSize { get; }
 
         /// <summary>
-        /// [out] A byte array that contains the current context of this unwinder.
+        /// A byte array that contains the current context of this unwinder.
         /// </summary>
         public byte contextBuf { get; }
 

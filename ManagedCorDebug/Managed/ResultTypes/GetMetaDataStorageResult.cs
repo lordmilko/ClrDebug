@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     public struct GetMetaDataStorageResult
     {
         /// <summary>
-        /// [in, out] A pointer to a metadata section.
+        /// A pointer to a metadata section.
         /// </summary>
         public IntPtr ppvMd { get; }
 
         /// <summary>
-        /// [out] The size of the metadata stream.
+        /// The size of the metadata stream.
         /// </summary>
         public int pcbMd { get; }
 

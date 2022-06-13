@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct GetThreadOwningMonitorLockResult
     {
         /// <summary>
-        /// [out] The managed thread that owns the monitor lock on this object.
+        /// The managed thread that owns the monitor lock on this object.
         /// </summary>
         public CorDebugThread ppThread { get; }
 
         /// <summary>
-        /// [out] The number of times this thread would have to release the lock before it returns to being unowned.
+        /// The number of times this thread would have to release the lock before it returns to being unowned.
         /// </summary>
         public int pAcquisitionCount { get; }
 

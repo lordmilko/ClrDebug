@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     public struct IsStartedResult
     {
         /// <summary>
-        /// [out] true if this runtime is started; otherwise, false.
+        /// true if this runtime is started; otherwise, false.
         /// </summary>
         public int pbStarted { get; }
 
         /// <summary>
-        /// [out] Returns the flags that were used to start the runtime.
+        /// Returns the flags that were used to start the runtime.
         /// </summary>
         public int pdwStartupFlags { get; }
 

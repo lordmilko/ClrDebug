@@ -10,17 +10,17 @@ namespace ManagedCorDebug
     public struct EnumParamsResult
     {
         /// <summary>
-        /// [in, out] A pointer to the enumerator. This must be NULL for the first call of this method.
+        /// A pointer to the enumerator. This must be NULL for the first call of this method.
         /// </summary>
         public IntPtr phEnum { get; }
 
         /// <summary>
-        /// [out] The array used to store the ParamDef tokens.
+        /// The array used to store the ParamDef tokens.
         /// </summary>
         public mdParamDef[] rParams { get; }
 
         /// <summary>
-        /// [out] The number of ParamDef tokens returned in rParams.
+        /// The number of ParamDef tokens returned in rParams.
         /// </summary>
         public int pcTokens { get; }
 

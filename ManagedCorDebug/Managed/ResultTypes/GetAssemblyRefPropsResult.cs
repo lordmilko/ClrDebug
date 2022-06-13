@@ -10,37 +10,37 @@ namespace ManagedCorDebug
     public struct GetAssemblyRefPropsResult
     {
         /// <summary>
-        /// [out] A pointer to the public key or the metadata token.
+        /// A pointer to the public key or the metadata token.
         /// </summary>
         public IntPtr ppbPublicKeyOrToken { get; }
 
         /// <summary>
-        /// [out] The number of bytes in the returned public key or token.
+        /// The number of bytes in the returned public key or token.
         /// </summary>
         public int pcbPublicKeyOrToken { get; }
 
         /// <summary>
-        /// [out] The simple name of the assembly.
+        /// The simple name of the assembly.
         /// </summary>
         public string szName { get; }
 
         /// <summary>
-        /// [out] A pointer to an <see cref="ASSEMBLYMETADATA"/> structure that contains the assembly metadata.
+        /// A pointer to an <see cref="ASSEMBLYMETADATA"/> structure that contains the assembly metadata.
         /// </summary>
         public ASSEMBLYMETADATA pMetaData { get; }
 
         /// <summary>
-        /// [out] A pointer to the hash value. This is the hash, using the SHA-1 algorithm, of the PublicKey property of the assembly being referenced, unless the arfFullOriginator flag of the <see cref="AssemblyRefFlags"/> enumeration is set.
+        /// A pointer to the hash value. This is the hash, using the SHA-1 algorithm, of the PublicKey property of the assembly being referenced, unless the arfFullOriginator flag of the <see cref="AssemblyRefFlags"/> enumeration is set.
         /// </summary>
         public IntPtr ppbHashValue { get; }
 
         /// <summary>
-        /// [out] The number of wide chars in the returned hash value.
+        /// The number of wide chars in the returned hash value.
         /// </summary>
         public int pcbHashValue { get; }
 
         /// <summary>
-        /// [out] A pointer to flags that describe the metadata applied to an assembly. The flags value is a combination of one or more <see cref="CorAssemblyFlags"/> values.
+        /// A pointer to flags that describe the metadata applied to an assembly. The flags value is a combination of one or more <see cref="CorAssemblyFlags"/> values.
         /// </summary>
         public CorAssemblyFlags pdwAssemblyFlags { get; }
 
