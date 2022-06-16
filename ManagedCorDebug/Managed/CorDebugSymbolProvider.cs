@@ -322,12 +322,12 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetMethodProps(
             [In] int codeRva,
-            out int pMethodToken,
+            out mdToken pMethodToken,
             out int pcGenericParams,
             [In] int cbSignature,
             out int pcbSignature,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] signature);*/
-            int pMethodToken;
+            mdToken pMethodToken;
             int pcGenericParams;
             int pcbSignature;
             byte[] signature = null;

@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -24,7 +25,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRegistersAvailable([In] int numChunks, out byte availableRegChunks);
+        HRESULT GetRegistersAvailable([In] int numChunks, out IntPtr availableRegChunks);
 
         /// <summary>
         /// Gets the value of each register (for the platform on which code is currently executing) that is specified by the given bit mask.

@@ -29,6 +29,8 @@ namespace ManagedCorDebug
 
         public static implicit operator CORDB_ADDRESS(ulong value) => new CORDB_ADDRESS(value);
 
+		public static implicit operator CORDB_ADDRESS(int value) => new CORDB_ADDRESS(value);
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<CORDB_ADDRESS>(Value, value);
 
         public bool Equals(CORDB_ADDRESS other) => other.Value.Equals(Value);
@@ -62,6 +64,8 @@ namespace ManagedCorDebug
 
         public static implicit operator CORDB_REGISTER(ulong value) => new CORDB_REGISTER(value);
 
+		public static implicit operator CORDB_REGISTER(int value) => new CORDB_REGISTER(value);
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<CORDB_REGISTER>(Value, value);
 
         public bool Equals(CORDB_REGISTER other) => other.Value.Equals(Value);
@@ -94,6 +98,8 @@ namespace ManagedCorDebug
         public static implicit operator CLRDATA_ADDRESS(long value) => new CLRDATA_ADDRESS(value);
 
         public static implicit operator CLRDATA_ADDRESS(ulong value) => new CLRDATA_ADDRESS(value);
+
+		public static implicit operator CLRDATA_ADDRESS(int value) => new CLRDATA_ADDRESS(value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<CLRDATA_ADDRESS>(Value, value);
 

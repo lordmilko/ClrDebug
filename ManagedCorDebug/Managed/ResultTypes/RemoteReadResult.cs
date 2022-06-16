@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -8,11 +9,11 @@ namespace ManagedCorDebug
     [DebuggerDisplay("pv = {pv}, pcbRead = {pcbRead}")]
     public struct RemoteReadResult
     {
-        public byte pv { get; }
+        public IntPtr pv { get; }
 
         public int pcbRead { get; }
 
-        public RemoteReadResult(byte pv, int pcbRead)
+        public RemoteReadResult(IntPtr pv, int pcbRead)
         {
             this.pv = pv;
             this.pcbRead = pcbRead;

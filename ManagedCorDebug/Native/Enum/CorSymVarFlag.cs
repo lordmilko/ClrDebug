@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ManagedCorDebug
+﻿namespace ManagedCorDebug
 {
     /// <summary>
     /// Indicates whether a variable is compiler-generated.

@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Encapsulates the results of the <see cref="MetaDataImport.GetScopeProps"/> method.
+    /// Encapsulates the results of the <see cref="MetaDataImport.ScopeProps"/> property.
     /// </summary>
     [DebuggerDisplay("szName = {szName}, pmvid = {pmvid}")]
     public struct GetScopePropsResult

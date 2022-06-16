@@ -129,6 +129,62 @@ namespace ManagedCorDebug
         }
 
         #endregion
+        #region Name
+
+        /// <summary>
+        /// Gets the file name of the module.
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                HRESULT hr;
+                string szNameResult;
+
+                if ((hr = TryGetName(out szNameResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return szNameResult;
+            }
+        }
+
+        /// <summary>
+        /// Gets the file name of the module.
+        /// </summary>
+        /// <param name="szNameResult">[out] An array that stores the returned name.</param>
+        /// <remarks>
+        /// The GetName method returns an S_OK <see cref="HRESULT"/> if the module's file name matches the name on disk. GetName returns
+        /// an S_FALSE <see cref="HRESULT"/> if the name is fabricated, such as for a dynamic or in-memory module.
+        /// </remarks>
+        public HRESULT TryGetName(out string szNameResult)
+        {
+            /*HRESULT GetName([In] int cchName, out int pcchName, [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);*/
+            int cchName = 0;
+            int pcchName;
+            StringBuilder szName = null;
+            HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cchName = pcchName;
+            szName = new StringBuilder(pcchName);
+            hr = Raw.GetName(cchName, out pcchName, szName);
+
+            if (hr == HRESULT.S_OK)
+            {
+                szNameResult = szName.ToString();
+
+                return hr;
+            }
+
+            fail:
+            szNameResult = default(string);
+
+            return hr;
+        }
+
+        #endregion
         #region EditAndContinueSnapshot
 
         /// <summary>
@@ -311,64 +367,6 @@ namespace ManagedCorDebug
                 pInMemoryResult = pInMemory == 1;
             else
                 pInMemoryResult = default(bool);
-
-            return hr;
-        }
-
-        #endregion
-        #region GetName
-
-        /// <summary>
-        /// Gets the file name of the module.
-        /// </summary>
-        /// <returns>[out] An array that stores the returned name.</returns>
-        /// <remarks>
-        /// The GetName method returns an S_OK <see cref="HRESULT"/> if the module's file name matches the name on disk. GetName returns
-        /// an S_FALSE <see cref="HRESULT"/> if the name is fabricated, such as for a dynamic or in-memory module.
-        /// </remarks>
-        public string GetName()
-        {
-            HRESULT hr;
-            string szNameResult;
-
-            if ((hr = TryGetName(out szNameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return szNameResult;
-        }
-
-        /// <summary>
-        /// Gets the file name of the module.
-        /// </summary>
-        /// <param name="szNameResult">[out] An array that stores the returned name.</param>
-        /// <remarks>
-        /// The GetName method returns an S_OK <see cref="HRESULT"/> if the module's file name matches the name on disk. GetName returns
-        /// an S_FALSE <see cref="HRESULT"/> if the name is fabricated, such as for a dynamic or in-memory module.
-        /// </remarks>
-        public HRESULT TryGetName(out string szNameResult)
-        {
-            /*HRESULT GetName([In] int cchName, out int pcchName, [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);*/
-            int cchName = 0;
-            int pcchName;
-            StringBuilder szName = null;
-            HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
-                goto fail;
-
-            cchName = pcchName;
-            szName = new StringBuilder(pcchName);
-            hr = Raw.GetName(cchName, out pcchName, szName);
-
-            if (hr == HRESULT.S_OK)
-            {
-                szNameResult = szName.ToString();
-
-                return hr;
-            }
-
-            fail:
-            szNameResult = default(string);
 
             return hr;
         }

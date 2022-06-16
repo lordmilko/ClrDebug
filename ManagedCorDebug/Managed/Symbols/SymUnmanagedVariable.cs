@@ -17,6 +17,59 @@ namespace ManagedCorDebug
         }
 
         #region ISymUnmanagedVariable
+        #region Name
+
+        /// <summary>
+        /// Gets the name of this variable.
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                HRESULT hr;
+                string szNameResult;
+
+                if ((hr = TryGetName(out szNameResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return szNameResult;
+            }
+        }
+
+        /// <summary>
+        /// Gets the name of this variable.
+        /// </summary>
+        /// <param name="szNameResult">[out] The buffer that stores the name.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
+        public HRESULT TryGetName(out string szNameResult)
+        {
+            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            int cchName = 0;
+            int pcchName;
+            StringBuilder szName = null;
+            HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cchName = pcchName;
+            szName = new StringBuilder(pcchName);
+            hr = Raw.GetName(cchName, out pcchName, szName);
+
+            if (hr == HRESULT.S_OK)
+            {
+                szNameResult = szName.ToString();
+
+                return hr;
+            }
+
+            fail:
+            szNameResult = default(string);
+
+            return hr;
+        }
+
+        #endregion
         #region Attributes
 
         /// <summary>
@@ -231,57 +284,6 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetEndOffset([Out] out int pRetVal);*/
             return Raw.GetEndOffset(out pRetVal);
-        }
-
-        #endregion
-        #region GetName
-
-        /// <summary>
-        /// Gets the name of this variable.
-        /// </summary>
-        /// <returns>[out] The buffer that stores the name.</returns>
-        public string GetName()
-        {
-            HRESULT hr;
-            string szNameResult;
-
-            if ((hr = TryGetName(out szNameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return szNameResult;
-        }
-
-        /// <summary>
-        /// Gets the name of this variable.
-        /// </summary>
-        /// <param name="szNameResult">[out] The buffer that stores the name.</param>
-        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetName(out string szNameResult)
-        {
-            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
-            int cchName = 0;
-            int pcchName;
-            StringBuilder szName = null;
-            HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
-                goto fail;
-
-            cchName = pcchName;
-            szName = new StringBuilder(pcchName);
-            hr = Raw.GetName(cchName, out pcchName, szName);
-
-            if (hr == HRESULT.S_OK)
-            {
-                szNameResult = szName.ToString();
-
-                return hr;
-            }
-
-            fail:
-            szNameResult = default(string);
-
-            return hr;
         }
 
         #endregion

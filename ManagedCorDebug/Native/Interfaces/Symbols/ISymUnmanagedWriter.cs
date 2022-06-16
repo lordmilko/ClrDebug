@@ -349,7 +349,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT RemapToken([In] int oldToken, [In] int newToken);
+        HRESULT RemapToken([In] mdToken oldToken, [In] mdToken newToken);
 
         /// <summary>
         /// Sets the metadata emitter interface with which this writer will be associated, and sets the output file name to which the debugging symbols will be written.<para/>

@@ -142,7 +142,7 @@ namespace ManagedCorDebug.CoClass
             [In] ref int endColumns);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern HRESULT RemapToken([In] int oldToken, [In] int newToken);
+        public virtual extern HRESULT RemapToken([In] mdToken oldToken, [In] mdToken newToken);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT Initialize2(

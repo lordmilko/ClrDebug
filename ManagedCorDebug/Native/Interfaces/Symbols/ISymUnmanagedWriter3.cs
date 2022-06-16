@@ -350,7 +350,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT RemapToken([In] int oldToken, [In] int newToken);
+        new HRESULT RemapToken([In] mdToken oldToken, [In] mdToken newToken);
 
         /// <summary>
         /// Sets the metadata emitter interface with which this writer will be associated, and sets the output file name to which the debugging symbols will be written.<para/>
@@ -417,7 +417,7 @@ namespace ManagedCorDebug
         new HRESULT DefineLocalVariable2(
             [In] string name,
             [In] int attributes,
-            [In] int sigToken,
+            [In] mdSignature sigToken,
             [In] int addrKind,
             [In] int addr1,
             [In] int addr2,
@@ -441,7 +441,7 @@ namespace ManagedCorDebug
         new HRESULT DefineGlobalVariable2(
             [In] string name,
             [In] int attributes,
-            [In] int sigToken,
+            [In] mdSignature sigToken,
             [In] int addrKind,
             [In] int addr1,
             [In] int addr2,
@@ -457,7 +457,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineConstant2([In] string name, [MarshalAs(UnmanagedType.Struct), In] object value,
-            [In] int sigToken);
+            [In] mdSignature sigToken);
 
         /// <summary>
         /// Opens a method and provides its real section offset in the image.

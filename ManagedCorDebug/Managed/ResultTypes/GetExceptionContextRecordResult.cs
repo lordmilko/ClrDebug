@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -16,9 +17,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// A pointer to a memory buffer that receives a copy of the context record. The exception record is returned as a CONTEXT type.
         /// </summary>
-        public byte buffer { get; }
+        public IntPtr buffer { get; }
 
-        public GetExceptionContextRecordResult(int bufferUsed, byte buffer)
+        public GetExceptionContextRecordResult(int bufferUsed, IntPtr buffer)
         {
             this.bufferUsed = bufferUsed;
             this.buffer = buffer;

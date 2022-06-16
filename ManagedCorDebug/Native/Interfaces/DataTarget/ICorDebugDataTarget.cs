@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -47,7 +48,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ReadVirtual([In] CORDB_ADDRESS address, out byte pBuffer, [In] int bytesRequested, out int pBytesRead);
+        HRESULT ReadVirtual([In] CORDB_ADDRESS address, [Out] out IntPtr pBuffer, [In] int bytesRequested, out int pBytesRead);
 
         /// <summary>
         /// Returns the current thread context for the specified thread.
@@ -63,6 +64,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetThreadContext([In] int dwThreadId, [In] int contextFlags, [In] int contextSize, out byte pContext);
+        HRESULT GetThreadContext([In] int dwThreadId, [In] int contextFlags, [In] int contextSize, out IntPtr pContext);
     }
 }

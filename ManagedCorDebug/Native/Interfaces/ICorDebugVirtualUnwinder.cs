@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -33,7 +34,7 @@ namespace ManagedCorDebug
             [In] int contextFlags,
             [In] int cbContextBuf,
             out int contextSize,
-            out byte contextBuf);
+            out IntPtr contextBuf);
 
         /// <summary>
         /// Advances to the caller's context.

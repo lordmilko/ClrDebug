@@ -18,6 +18,58 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugVariableSymbol
+        #region Name
+
+        /// <summary>
+        /// Gets the name of a variable.
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                HRESULT hr;
+                string szNameResult;
+
+                if ((hr = TryGetName(out szNameResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return szNameResult;
+            }
+        }
+
+        /// <summary>
+        /// Gets the name of a variable.
+        /// </summary>
+        /// <param name="szNameResult">A pointer to a character array that contains the variable name.</param>
+        public HRESULT TryGetName(out string szNameResult)
+        {
+            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            int cchName = 0;
+            int pcchName;
+            StringBuilder szName = null;
+            HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cchName = pcchName;
+            szName = new StringBuilder(pcchName);
+            hr = Raw.GetName(cchName, out pcchName, szName);
+
+            if (hr == HRESULT.S_OK)
+            {
+                szNameResult = szName.ToString();
+
+                return hr;
+            }
+
+            fail:
+            szNameResult = default(string);
+
+            return hr;
+        }
+
+        #endregion
         #region Size
 
         /// <summary>
@@ -79,56 +131,6 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetSlotIndex(out int pSlotIndex);*/
             return Raw.GetSlotIndex(out pSlotIndex);
-        }
-
-        #endregion
-        #region GetName
-
-        /// <summary>
-        /// Gets the name of a variable.
-        /// </summary>
-        /// <returns>A pointer to a character array that contains the variable name.</returns>
-        public string GetName()
-        {
-            HRESULT hr;
-            string szNameResult;
-
-            if ((hr = TryGetName(out szNameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return szNameResult;
-        }
-
-        /// <summary>
-        /// Gets the name of a variable.
-        /// </summary>
-        /// <param name="szNameResult">A pointer to a character array that contains the variable name.</param>
-        public HRESULT TryGetName(out string szNameResult)
-        {
-            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
-            int cchName = 0;
-            int pcchName;
-            StringBuilder szName = null;
-            HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
-                goto fail;
-
-            cchName = pcchName;
-            szName = new StringBuilder(pcchName);
-            hr = Raw.GetName(cchName, out pcchName, szName);
-
-            if (hr == HRESULT.S_OK)
-            {
-                szNameResult = szName.ToString();
-
-                return hr;
-            }
-
-            fail:
-            szNameResult = default(string);
-
-            return hr;
         }
 
         #endregion

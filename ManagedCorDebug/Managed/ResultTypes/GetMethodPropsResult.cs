@@ -11,7 +11,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// A pointer to the method's metadata token.
         /// </summary>
-        public int pMethodToken { get; }
+        public mdToken pMethodToken { get; }
 
         /// <summary>
         /// A pointer to the number of generic parameters associated with this method.
@@ -28,7 +28,7 @@ namespace ManagedCorDebug
         /// </summary>
         public byte[] signature { get; }
 
-        public GetMethodPropsResult(int pMethodToken, int pcGenericParams, int pcbSignature, byte[] signature)
+        public GetMethodPropsResult(mdToken pMethodToken, int pcGenericParams, int pcbSignature, byte[] signature)
         {
             this.pMethodToken = pMethodToken;
             this.pcGenericParams = pcGenericParams;

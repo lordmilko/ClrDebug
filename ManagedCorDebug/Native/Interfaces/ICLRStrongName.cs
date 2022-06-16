@@ -31,7 +31,7 @@ namespace ManagedCorDebug
         HRESULT GetHashFromAssemblyFile(
             [MarshalAs(UnmanagedType.LPStr), In] string pszFilePath,
             [In] [Out] ref int piHashAlg,
-            out byte pbHash,
+            out IntPtr pbHash,
             [In] int cchHash,
             out int pchHash);
 
@@ -49,7 +49,7 @@ namespace ManagedCorDebug
         HRESULT GetHashFromAssemblyFileW(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [In] [Out] ref int piHashAlg,
-            out byte pbHash,
+            out IntPtr pbHash,
             [In] int cchHash,
             out int pchHash);
 
@@ -69,7 +69,7 @@ namespace ManagedCorDebug
             [In] IntPtr pbBlob,
             [In] int cchBlob,
             [In] [Out] ref int piHashAlg,
-            out byte pbHash,
+            out IntPtr pbHash,
             [In] int cchHash,
             out int pchHash);
 
@@ -92,7 +92,7 @@ namespace ManagedCorDebug
         HRESULT GetHashFromFile(
             [MarshalAs(UnmanagedType.LPStr), In] string pszFilePath,
             [In] [Out] ref int piHashAlg,
-            out byte pbHash,
+            out IntPtr pbHash,
             [In] int cchHash,
             out int pchHash);
 
@@ -115,7 +115,7 @@ namespace ManagedCorDebug
         HRESULT GetHashFromFileW(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [In] [Out] ref int piHashAlg,
-            out byte pbHash,
+            out IntPtr pbHash,
             [In] int cchHash,
             out int pchHash);
 
@@ -133,7 +133,7 @@ namespace ManagedCorDebug
         HRESULT GetHashFromHandle(
             [In] IntPtr hFile,
             [In] [Out] ref int piHashAlg,
-            out byte pbHash,
+            out IntPtr pbHash,
             [In] int cchHash,
             out int pchHash);
 
@@ -189,7 +189,7 @@ namespace ManagedCorDebug
         HRESULT StrongNameGetBlobFromImage(
             [In] IntPtr pbBase,
             [In] int dwLength,
-            out byte pbBlob,
+            out IntPtr pbBlob,
             [In] [Out] ref int pcbBlob);
 
         /// <summary>

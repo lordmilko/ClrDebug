@@ -107,7 +107,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetMethodProps(
             [In] int codeRva,
-            out int pMethodToken,
+            out mdToken pMethodToken,
             out int pcGenericParams,
             [In] int cbSignature,
             out int pcbSignature,

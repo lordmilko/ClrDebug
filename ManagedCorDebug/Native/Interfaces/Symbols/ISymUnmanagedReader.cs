@@ -52,7 +52,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetUserEntryPoint([Out] out int pToken);
+        HRESULT GetUserEntryPoint([Out] out mdMethodDef pToken);
 
         /// <summary>
         /// Gets a symbol reader method, given a method token.
@@ -62,7 +62,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetMethod([In] int token, [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);
+        HRESULT GetMethod([In] mdMethodDef token, [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);
 
         /// <summary>
         /// Gets a symbol reader method, given a method token and an edit-and-copy version number. Version numbers start at 1 and are incremented each time the method is changed as a result of an edit-and-copy operation.
@@ -74,7 +74,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetMethodByVersion(
-            [In] int token,
+            [In] mdMethodDef token,
             [In] int version,
             [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);
 

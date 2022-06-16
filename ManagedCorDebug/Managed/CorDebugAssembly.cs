@@ -97,6 +97,112 @@ namespace ManagedCorDebug
         }
 
         #endregion
+        #region CodeBase
+
+        /// <summary>
+        /// This method is not implemented in the current version of the .NET Framework.
+        /// </summary>
+        public string CodeBase
+        {
+            get
+            {
+                HRESULT hr;
+                string szNameResult;
+
+                if ((hr = TryGetCodeBase(out szNameResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return szNameResult;
+            }
+        }
+
+        /// <summary>
+        /// This method is not implemented in the current version of the .NET Framework.
+        /// </summary>
+        public HRESULT TryGetCodeBase(out string szNameResult)
+        {
+            /*HRESULT GetCodeBase([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            int cchName = 0;
+            int pcchName;
+            StringBuilder szName = null;
+            HRESULT hr = Raw.GetCodeBase(cchName, out pcchName, szName);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cchName = pcchName;
+            szName = new StringBuilder(pcchName);
+            hr = Raw.GetCodeBase(cchName, out pcchName, szName);
+
+            if (hr == HRESULT.S_OK)
+            {
+                szNameResult = szName.ToString();
+
+                return hr;
+            }
+
+            fail:
+            szNameResult = default(string);
+
+            return hr;
+        }
+
+        #endregion
+        #region Name
+
+        /// <summary>
+        /// Gets the name of the assembly that this <see cref="ICorDebugAssembly"/> instance represents.
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                HRESULT hr;
+                string szNameResult;
+
+                if ((hr = TryGetName(out szNameResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return szNameResult;
+            }
+        }
+
+        /// <summary>
+        /// Gets the name of the assembly that this <see cref="ICorDebugAssembly"/> instance represents.
+        /// </summary>
+        /// <param name="szNameResult">[out] An array that stores the name.</param>
+        /// <remarks>
+        /// The GetName method returns the full path and file name of the assembly.
+        /// </remarks>
+        public HRESULT TryGetName(out string szNameResult)
+        {
+            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            int cchName = 0;
+            int pcchName;
+            StringBuilder szName = null;
+            HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cchName = pcchName;
+            szName = new StringBuilder(pcchName);
+            hr = Raw.GetName(cchName, out pcchName, szName);
+
+            if (hr == HRESULT.S_OK)
+            {
+                szNameResult = szName.ToString();
+
+                return hr;
+            }
+
+            fail:
+            szNameResult = default(string);
+
+            return hr;
+        }
+
+        #endregion
         #region EnumerateModules
 
         /// <summary>
@@ -128,110 +234,6 @@ namespace ManagedCorDebug
                 ppModulesResult = new CorDebugModuleEnum(ppModules);
             else
                 ppModulesResult = default(CorDebugModuleEnum);
-
-            return hr;
-        }
-
-        #endregion
-        #region GetCodeBase
-
-        /// <summary>
-        /// This method is not implemented in the current version of the .NET Framework.
-        /// </summary>
-        public string GetCodeBase()
-        {
-            HRESULT hr;
-            string szNameResult;
-
-            if ((hr = TryGetCodeBase(out szNameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return szNameResult;
-        }
-
-        /// <summary>
-        /// This method is not implemented in the current version of the .NET Framework.
-        /// </summary>
-        public HRESULT TryGetCodeBase(out string szNameResult)
-        {
-            /*HRESULT GetCodeBase([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
-            int cchName = 0;
-            int pcchName;
-            StringBuilder szName = null;
-            HRESULT hr = Raw.GetCodeBase(cchName, out pcchName, szName);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
-                goto fail;
-
-            cchName = pcchName;
-            szName = new StringBuilder(pcchName);
-            hr = Raw.GetCodeBase(cchName, out pcchName, szName);
-
-            if (hr == HRESULT.S_OK)
-            {
-                szNameResult = szName.ToString();
-
-                return hr;
-            }
-
-            fail:
-            szNameResult = default(string);
-
-            return hr;
-        }
-
-        #endregion
-        #region GetName
-
-        /// <summary>
-        /// Gets the name of the assembly that this <see cref="ICorDebugAssembly"/> instance represents.
-        /// </summary>
-        /// <returns>[out] An array that stores the name.</returns>
-        /// <remarks>
-        /// The GetName method returns the full path and file name of the assembly.
-        /// </remarks>
-        public string GetName()
-        {
-            HRESULT hr;
-            string szNameResult;
-
-            if ((hr = TryGetName(out szNameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return szNameResult;
-        }
-
-        /// <summary>
-        /// Gets the name of the assembly that this <see cref="ICorDebugAssembly"/> instance represents.
-        /// </summary>
-        /// <param name="szNameResult">[out] An array that stores the name.</param>
-        /// <remarks>
-        /// The GetName method returns the full path and file name of the assembly.
-        /// </remarks>
-        public HRESULT TryGetName(out string szNameResult)
-        {
-            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
-            int cchName = 0;
-            int pcchName;
-            StringBuilder szName = null;
-            HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
-                goto fail;
-
-            cchName = pcchName;
-            szName = new StringBuilder(pcchName);
-            hr = Raw.GetName(cchName, out pcchName, szName);
-
-            if (hr == HRESULT.S_OK)
-            {
-                szNameResult = szName.ToString();
-
-                return hr;
-            }
-
-            fail:
-            szNameResult = default(string);
 
             return hr;
         }

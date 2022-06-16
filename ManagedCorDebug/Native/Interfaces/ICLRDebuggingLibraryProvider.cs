@@ -35,7 +35,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ProvideLibrary(
-            [In] string pwszFileName,
+            [MarshalAs(UnmanagedType.LPWStr), In] string pwszFileName,
             [In] int dwTimestamp,
             [In] int dwSizeOfImage,
             out IntPtr phModule);

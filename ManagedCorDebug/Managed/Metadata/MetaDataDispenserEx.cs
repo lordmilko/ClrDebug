@@ -58,7 +58,7 @@ namespace ManagedCorDebug
             int pchBuffer;
             HRESULT hr = Raw.GetCORSystemDirectory(szBuffer, cchBuffer, out pchBuffer);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchBuffer = pchBuffer;
@@ -242,7 +242,7 @@ namespace ManagedCorDebug
             int pcName;
             HRESULT hr = Raw.FindAssembly(szAppBase, szPrivateBin, szGlobalBin, szAssemblyName, szName, cchName, out pcName);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchName = pcName;
@@ -310,7 +310,7 @@ namespace ManagedCorDebug
             int pcName;
             HRESULT hr = Raw.FindAssemblyModule(szAppBase, szPrivateBin, szGlobalBin, szAssemblyName, szModuleName, szName, cchName, out pcName);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchName = pcName;

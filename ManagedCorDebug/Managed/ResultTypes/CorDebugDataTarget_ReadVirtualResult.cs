@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -11,14 +12,14 @@ namespace ManagedCorDebug
         /// <summary>
         /// The buffer where the memory will be stored.
         /// </summary>
-        public byte pBuffer { get; }
+        public IntPtr pBuffer { get; }
 
         /// <summary>
         /// The number of bytes actually read from the target address. This can be fewer than bytesRequested.
         /// </summary>
         public int pBytesRead { get; }
 
-        public CorDebugDataTarget_ReadVirtualResult(byte pBuffer, int pBytesRead)
+        public CorDebugDataTarget_ReadVirtualResult(IntPtr pBuffer, int pBytesRead)
         {
             this.pBuffer = pBuffer;
             this.pBytesRead = pBytesRead;

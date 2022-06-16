@@ -78,7 +78,7 @@ namespace ManagedCorDebug
             StringBuilder wszPathBuffer = null;
             HRESULT hr = Raw.GetMetaData(wszImagePath, dwImageTimeStamp, dwImageSize, cchPathBuffer, out pcchPathBuffer, wszPathBuffer);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchPathBuffer = pcchPathBuffer;

@@ -1023,6 +1023,65 @@ namespace ManagedCorDebug
 
         #endregion
         #endregion
+        #region ICorDebugProcess4
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public ICorDebugProcess4 Raw4 => (ICorDebugProcess4) Raw;
+
+        #region Filter
+
+        public FilterResult Filter(byte[] pRecord, int countBytes, CorDebugRecordFormat format, int dwFlags, int dwThreadId)
+        {
+            HRESULT hr;
+            FilterResult result;
+
+            if ((hr = TryFilter(pRecord, countBytes, format, dwFlags, dwThreadId, out result)) != HRESULT.S_OK)
+                Marshal.ThrowExceptionForHR((int) hr);
+
+            return result;
+        }
+
+        public HRESULT TryFilter(byte[] pRecord, int countBytes, CorDebugRecordFormat format, int dwFlags, int dwThreadId, out FilterResult result)
+        {
+            /*HRESULT Filter(
+            [In] byte[] pRecord,
+            [In] int countBytes,
+            [In] CorDebugRecordFormat format,
+            [In] int dwFlags,
+            [In] int dwThreadId,
+            [MarshalAs(UnmanagedType.Interface)] out ICorDebugDebugEvent ppEvent,
+            [In, Out] ref int pContinueStatus);*/
+            ICorDebugDebugEvent ppEvent;
+            int pContinueStatus = default(int);
+            HRESULT hr = Raw4.Filter(pRecord, countBytes, format, dwFlags, dwThreadId, out ppEvent, ref pContinueStatus);
+
+            if (hr == HRESULT.S_OK)
+                result = new FilterResult(CorDebugDebugEvent.New(ppEvent), pContinueStatus);
+            else
+                result = default(FilterResult);
+
+            return hr;
+        }
+
+        #endregion
+        #region ProcessStateChanged
+
+        public void ProcessStateChanged(CorDebugStateChange change)
+        {
+            HRESULT hr;
+
+            if ((hr = TryProcessStateChanged(change)) != HRESULT.S_OK)
+                Marshal.ThrowExceptionForHR((int) hr);
+        }
+
+        public HRESULT TryProcessStateChanged(CorDebugStateChange change)
+        {
+            /*HRESULT ProcessStateChanged([In] CorDebugStateChange change);*/
+            return Raw4.ProcessStateChanged(change);
+        }
+
+        #endregion
+        #endregion
         #region ICorDebugProcess5
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -1619,37 +1678,6 @@ namespace ManagedCorDebug
                 ppEventResult = default(CorDebugDebugEvent);
 
             return hr;
-        }
-
-        #endregion
-        #region ProcessStateChanged
-
-        /// <summary>
-        /// Notifies <see cref="ICorDebug"/> that the process is running.
-        /// </summary>
-        /// <param name="change">[in] A member of the <see cref="ProcessStateChanged"/> enumeration</param>
-        /// <remarks>
-        /// The debugger calls this method to notify <see cref="ICorDebug"/> that the process is running.
-        /// </remarks>
-        public void ProcessStateChanged(CorDebugStateChange change)
-        {
-            HRESULT hr;
-
-            if ((hr = TryProcessStateChanged(change)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-        }
-
-        /// <summary>
-        /// Notifies <see cref="ICorDebug"/> that the process is running.
-        /// </summary>
-        /// <param name="change">[in] A member of the <see cref="ProcessStateChanged"/> enumeration</param>
-        /// <remarks>
-        /// The debugger calls this method to notify <see cref="ICorDebug"/> that the process is running.
-        /// </remarks>
-        public HRESULT TryProcessStateChanged(CorDebugStateChange change)
-        {
-            /*HRESULT ProcessStateChanged([In] CorDebugStateChange change);*/
-            return Raw6.ProcessStateChanged(change);
         }
 
         #endregion

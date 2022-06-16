@@ -23,7 +23,7 @@ namespace ManagedCorDebug
         /// <param name="machineType">[out] A pointer to a value that indicates the instruction set that the target process is using. The returned machineType is one of the IMAGE_FILE_MACHINE constants, which are defined in the WinNT.h header file.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetMachineType(out int machineType);
+        new HRESULT GetMachineType(out IMAGE_FILE_MACHINE machineType);
 
         /// <summary>
         /// Gets the size, in bytes, of the pointer type that the target process uses. This method is called by the common language runtime data access services.
@@ -58,7 +58,7 @@ namespace ManagedCorDebug
         /// <param name="bytesRead">[out] A pointer to the number of bytes returned.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT ReadVirtual([In] CLRDATA_ADDRESS address, out byte buffer, [In] int bytesRequested, out int bytesRead);
+        new HRESULT ReadVirtual([In] CLRDATA_ADDRESS address, [Out] IntPtr buffer, [In] int bytesRequested, out int bytesRead);
 
         /// <summary>
         /// Writes data from the specified buffer to the specified virtual memory address.
@@ -130,7 +130,7 @@ namespace ManagedCorDebug
             [In] int threadID,
             [In] int contextFlags,
             [In] int contextSize,
-            out byte context);
+            out IntPtr context);
 
         /// <summary>
         /// Sets the current context of the specified thread in the target process. This method is called by the common language runtime (CLR) data access services.
@@ -163,11 +163,11 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Request(
-            [In] int reqCode,
+            [In] uint reqCode,
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
-            out byte outBuffer);
+            out IntPtr outBuffer);
 
         /// <summary>
         /// Called by the common language runtime (CLR) data access services to allocate memory in the address space of this target process.

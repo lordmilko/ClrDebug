@@ -227,10 +227,10 @@ namespace ManagedCorDebug
         /// identify the bit position within the indexed byte. Given a <see cref="CorDebugRegister"/> value that specifies a particular register,
         /// the register's position in the mask is determined as follows:
         /// </remarks>
-        public byte GetRegistersAvailable(int numChunks)
+        public IntPtr GetRegistersAvailable(int numChunks)
         {
             HRESULT hr;
-            byte availableRegChunks;
+            IntPtr availableRegChunks;
 
             if ((hr = TryGetRegistersAvailable(numChunks, out availableRegChunks)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -249,9 +249,9 @@ namespace ManagedCorDebug
         /// identify the bit position within the indexed byte. Given a <see cref="CorDebugRegister"/> value that specifies a particular register,
         /// the register's position in the mask is determined as follows:
         /// </remarks>
-        public HRESULT TryGetRegistersAvailable(int numChunks, out byte availableRegChunks)
+        public HRESULT TryGetRegistersAvailable(int numChunks, out IntPtr availableRegChunks)
         {
-            /*HRESULT GetRegistersAvailable([In] int numChunks, out byte availableRegChunks);*/
+            /*HRESULT GetRegistersAvailable([In] int numChunks, out IntPtr availableRegChunks);*/
             return Raw2.GetRegistersAvailable(numChunks, out availableRegChunks);
         }
 

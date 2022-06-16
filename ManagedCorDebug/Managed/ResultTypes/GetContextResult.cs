@@ -1,24 +1,19 @@
+using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
     /// <summary>
-    /// Encapsulates the results of the <see cref="CorDebugVirtualUnwinder.GetContext"/> method.
+    /// Encapsulates the results of the <see cref="XCLRDataTask.GetContext"/> method.
     /// </summary>
     [DebuggerDisplay("contextSize = {contextSize}, contextBuf = {contextBuf}")]
     public struct GetContextResult
     {
-        /// <summary>
-        /// A pointer to the number of bytes actually written to contextBuf.
-        /// </summary>
         public int contextSize { get; }
 
-        /// <summary>
-        /// A byte array that contains the current context of this unwinder.
-        /// </summary>
-        public byte contextBuf { get; }
+        public IntPtr contextBuf { get; }
 
-        public GetContextResult(int contextSize, byte contextBuf)
+        public GetContextResult(int contextSize, IntPtr contextBuf)
         {
             this.contextSize = contextSize;
             this.contextBuf = contextBuf;

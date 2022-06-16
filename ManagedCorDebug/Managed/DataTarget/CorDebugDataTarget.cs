@@ -107,8 +107,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryReadVirtual(CORDB_ADDRESS address, int bytesRequested, out CorDebugDataTarget_ReadVirtualResult result)
         {
-            /*HRESULT ReadVirtual([In] CORDB_ADDRESS address, out byte pBuffer, [In] int bytesRequested, out int pBytesRead);*/
-            byte pBuffer;
+            /*HRESULT ReadVirtual([In] CORDB_ADDRESS address, [Out] out IntPtr pBuffer, [In] int bytesRequested, out int pBytesRead);*/
+            IntPtr pBuffer;
             int pBytesRead;
             HRESULT hr = Raw.ReadVirtual(address, out pBuffer, bytesRequested, out pBytesRead);
 
@@ -135,10 +135,10 @@ namespace ManagedCorDebug
         /// type specified by the <see cref="Platform"/> property. contextFlags must have the same values as the ContextFlags
         /// field of the CONTEXT structure. The CONTEXT structure is processor-specific; refer to the WinNT.h file for details.
         /// </remarks>
-        public byte GetThreadContext(int dwThreadId, int contextFlags, int contextSize)
+        public IntPtr GetThreadContext(int dwThreadId, int contextFlags, int contextSize)
         {
             HRESULT hr;
-            byte pContext;
+            IntPtr pContext;
 
             if ((hr = TryGetThreadContext(dwThreadId, contextFlags, contextSize, out pContext)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -158,9 +158,9 @@ namespace ManagedCorDebug
         /// type specified by the <see cref="Platform"/> property. contextFlags must have the same values as the ContextFlags
         /// field of the CONTEXT structure. The CONTEXT structure is processor-specific; refer to the WinNT.h file for details.
         /// </remarks>
-        public HRESULT TryGetThreadContext(int dwThreadId, int contextFlags, int contextSize, out byte pContext)
+        public HRESULT TryGetThreadContext(int dwThreadId, int contextFlags, int contextSize, out IntPtr pContext)
         {
-            /*HRESULT GetThreadContext([In] int dwThreadId, [In] int contextFlags, [In] int contextSize, out byte pContext);*/
+            /*HRESULT GetThreadContext([In] int dwThreadId, [In] int contextFlags, [In] int contextSize, out IntPtr pContext);*/
             return Raw.GetThreadContext(dwThreadId, contextFlags, contextSize, out pContext);
         }
 
@@ -245,7 +245,7 @@ namespace ManagedCorDebug
             StringBuilder szName = null;
             HRESULT hr = Raw2.GetImageLocation(baseAddress, cchName, out pcchName, szName);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchName = pcchName;

@@ -21,27 +21,23 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugRemoteTarget
-        #region GetHostName
+        #region HostName
 
         /// <summary>
         /// Returns the fully qualified domain name or IPv4 address of the remote debugging target machine. IPV6 is not supported at this time.
         /// </summary>
-        /// <returns>[out] Buffer that contains the host name or IP address.</returns>
-        /// <remarks>
-        /// This method is implemented by the debugger writer. It must follow the multiple call paradigm: On the first call,
-        /// the caller passes null to both cchHostName and szHostName, and pcchHostName returns the size of the required buffer.
-        /// On the second call, the size that was previously returned is passed in cchHostName, and an appropriately sized
-        /// buffer is passed in szHostName.
-        /// </remarks>
-        public string GetHostName()
+        public string HostName
         {
-            HRESULT hr;
-            string szHostNameResult;
+            get
+            {
+                HRESULT hr;
+                string szHostNameResult;
 
-            if ((hr = TryGetHostName(out szHostNameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+                if ((hr = TryGetHostName(out szHostNameResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
 
-            return szHostNameResult;
+                return szHostNameResult;
+            }
         }
 
         /// <summary>
@@ -66,7 +62,7 @@ namespace ManagedCorDebug
             StringBuilder szHostName = null;
             HRESULT hr = Raw.GetHostName(cchHostName, out pcchHostName, szHostName);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchHostName = pcchHostName;

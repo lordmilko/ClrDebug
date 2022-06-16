@@ -85,8 +85,7 @@ namespace ManagedCorDebug
         HRESULT GetPublicKeyToken(
             [In] int cbPublicKeyToken,
             out int pcbPublicKeyToken,
-            [MarshalAs(UnmanagedType.LPArray), Out]
-            byte[] pbPublicKeyToken);
+            [MarshalAs(UnmanagedType.LPArray), Out] byte[] pbPublicKeyToken);
 
         /// <summary>
         /// Gets the assembly's prefix index.

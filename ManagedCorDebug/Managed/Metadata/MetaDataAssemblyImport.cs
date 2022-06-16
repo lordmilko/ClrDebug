@@ -95,7 +95,7 @@ namespace ManagedCorDebug
             CorAssemblyFlags pdwAssemblyFlags;
             HRESULT hr = Raw.GetAssemblyProps(mda, out ppbPublicKey, out pcbPublicKey, out pulHashAlgId, szName, cchName, out pchName, out pMetaData, out pdwAssemblyFlags);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchName = pchName;
@@ -164,7 +164,7 @@ namespace ManagedCorDebug
             CorAssemblyFlags pdwAssemblyFlags;
             HRESULT hr = Raw.GetAssemblyRefProps(mdar, ppbPublicKeyOrToken, out pcbPublicKeyOrToken, szName, cchName, out pchName, out pMetaData, ppbHashValue, out pcbHashValue, out pdwAssemblyFlags);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchName = pchName;
@@ -226,7 +226,7 @@ namespace ManagedCorDebug
             CorFileFlags pdwFileFlags;
             HRESULT hr = Raw.GetFileProps(mdf, szName, cchName, out pchName, ppbHashValue, out pcbHashValue, out pdwFileFlags);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchName = pchName;
@@ -288,7 +288,7 @@ namespace ManagedCorDebug
             CorTypeAttr pdwExportedTypeFlags;
             HRESULT hr = Raw.GetExportedTypeProps(mdct, szName, cchName, out pchName, out ptkImplementation, out ptkTypeDef, out pdwExportedTypeFlags);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchName = pchName;
@@ -350,7 +350,7 @@ namespace ManagedCorDebug
             CorManifestResourceFlags pdwResourceFlags;
             HRESULT hr = Raw.GetManifestResourceProps(mdmr, szName, cchName, out pchName, out ptkImplementation, out pdwOffset, out pdwResourceFlags);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchName = pchName;
@@ -412,7 +412,7 @@ namespace ManagedCorDebug
             int pcTokens;
             HRESULT hr = Raw.EnumAssemblyRefs(ref phEnum, rAssemblyRefs, cMax, out pcTokens);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cMax = pcTokens;
@@ -474,7 +474,7 @@ namespace ManagedCorDebug
             int pcTokens;
             HRESULT hr = Raw.EnumFiles(ref phEnum, rFiles, cMax, out pcTokens);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cMax = pcTokens;
@@ -536,7 +536,7 @@ namespace ManagedCorDebug
             int pcTokens;
             HRESULT hr = Raw.EnumExportedTypes(ref phEnum, rExportedTypes, cMax, out pcTokens);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cMax = pcTokens;
@@ -598,7 +598,7 @@ namespace ManagedCorDebug
             int pcTokens;
             HRESULT hr = Raw.EnumManifestResources(ref phEnum, rManifestResources, cMax, out pcTokens);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cMax = pcTokens;

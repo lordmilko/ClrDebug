@@ -19,6 +19,62 @@ namespace ManagedCorDebug
         }
 
         #region ISymUnmanagedDocument
+        #region URL
+
+        /// <summary>
+        /// Returns the uniform resource locator (URL) for this document.
+        /// </summary>
+        public string URL
+        {
+            get
+            {
+                HRESULT hr;
+                string szUrlResult;
+
+                if ((hr = TryGetURL(out szUrlResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return szUrlResult;
+            }
+        }
+
+        /// <summary>
+        /// Returns the uniform resource locator (URL) for this document.
+        /// </summary>
+        /// <param name="szUrlResult">[out] The buffer containing the URL.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
+        public HRESULT TryGetURL(out string szUrlResult)
+        {
+            /*HRESULT GetURL(
+            [In] int cchUrl,
+            out int pcchUrl,
+            [Out] StringBuilder szUrl);*/
+            int cchUrl = 0;
+            int pcchUrl;
+            StringBuilder szUrl = null;
+            HRESULT hr = Raw.GetURL(cchUrl, out pcchUrl, szUrl);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cchUrl = pcchUrl;
+            szUrl = new StringBuilder(pcchUrl);
+            hr = Raw.GetURL(cchUrl, out pcchUrl, szUrl);
+
+            if (hr == HRESULT.S_OK)
+            {
+                szUrlResult = szUrl.ToString();
+
+                return hr;
+            }
+
+            fail:
+            szUrlResult = default(string);
+
+            return hr;
+        }
+
+        #endregion
         #region DocumentType
 
         /// <summary>
@@ -175,60 +231,6 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetSourceLength([Out] out int pRetVal);*/
             return Raw.GetSourceLength(out pRetVal);
-        }
-
-        #endregion
-        #region GetURL
-
-        /// <summary>
-        /// Returns the uniform resource locator (URL) for this document.
-        /// </summary>
-        /// <returns>[out] The buffer containing the URL.</returns>
-        public string GetURL()
-        {
-            HRESULT hr;
-            string szUrlResult;
-
-            if ((hr = TryGetURL(out szUrlResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return szUrlResult;
-        }
-
-        /// <summary>
-        /// Returns the uniform resource locator (URL) for this document.
-        /// </summary>
-        /// <param name="szUrlResult">[out] The buffer containing the URL.</param>
-        /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
-        public HRESULT TryGetURL(out string szUrlResult)
-        {
-            /*HRESULT GetURL(
-            [In] int cchUrl,
-            out int pcchUrl,
-            [Out] StringBuilder szUrl);*/
-            int cchUrl = 0;
-            int pcchUrl;
-            StringBuilder szUrl = null;
-            HRESULT hr = Raw.GetURL(cchUrl, out pcchUrl, szUrl);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
-                goto fail;
-
-            cchUrl = pcchUrl;
-            szUrl = new StringBuilder(pcchUrl);
-            hr = Raw.GetURL(cchUrl, out pcchUrl, szUrl);
-
-            if (hr == HRESULT.S_OK)
-            {
-                szUrlResult = szUrl.ToString();
-
-                return hr;
-            }
-
-            fail:
-            szUrlResult = default(string);
-
-            return hr;
         }
 
         #endregion

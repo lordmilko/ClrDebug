@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -11,14 +12,14 @@ namespace ManagedCorDebug
         /// <summary>
         /// A buffer to contain the binary representation of the image.
         /// </summary>
-        public byte pbBlob { get; }
+        public IntPtr pbBlob { get; }
 
         /// <summary>
         /// The requested maximum size, in bytes, of pbBlob. Upon return, the actual size, in bytes, of pbBlob.
         /// </summary>
         public int pcbBlob { get; }
 
-        public StrongNameGetBlobFromImageResult(byte pbBlob, int pcbBlob)
+        public StrongNameGetBlobFromImageResult(IntPtr pbBlob, int pcbBlob)
         {
             this.pbBlob = pbBlob;
             this.pcbBlob = pcbBlob;

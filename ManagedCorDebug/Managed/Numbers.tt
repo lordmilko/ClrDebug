@@ -44,6 +44,17 @@ for(int i = 0; i < types.Length; i++)
 
         public static implicit operator <#= type #>(u<#= baseType #> value) => new <#= type #>(value);
 
+<#
+//Numeric literals are implicitly integers; as such, without an implicit conversion from int -> wrapper type,
+//we can't assign a numeric literal to a parameter expecting a wrapper type
+if (baseType != "int")
+{
+#>
+		public static implicit operator <#= type #>(int value) => new <#= type #>(value);
+<#
+}
+#>
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<<#= type #>>(Value, value);
 
         public bool Equals(<#= type #> other) => other.Value.Equals(Value);

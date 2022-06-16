@@ -26,6 +26,66 @@ namespace ManagedCorDebug
         }
 
         #region IMetaDataImport
+        #region ScopeProps
+
+        /// <summary>
+        /// Gets the name and optionally the version identifier of the assembly or module in the current metadata scope.
+        /// </summary>
+        public GetScopePropsResult ScopeProps
+        {
+            get
+            {
+                HRESULT hr;
+                GetScopePropsResult result;
+
+                if ((hr = TryGetScopeProps(out result)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Gets the name and optionally the version identifier of the assembly or module in the current metadata scope.
+        /// </summary>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <remarks>
+        /// The <see cref="MetaDataEmit.SetModuleProps"/> method is used to set these properties.
+        /// </remarks>
+        public HRESULT TryGetScopeProps(out GetScopePropsResult result)
+        {
+            /*HRESULT GetScopeProps(
+            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName,
+            [In] int cchName,
+            [Out] out int pchName,
+            [Out] out Guid pmvid);*/
+            StringBuilder szName = null;
+            int cchName = 0;
+            int pchName;
+            Guid pmvid;
+            HRESULT hr = Raw.GetScopeProps(szName, cchName, out pchName, out pmvid);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cchName = pchName;
+            szName = new StringBuilder(pchName);
+            hr = Raw.GetScopeProps(szName, cchName, out pchName, out pmvid);
+
+            if (hr == HRESULT.S_OK)
+            {
+                result = new GetScopePropsResult(szName.ToString(), pmvid);
+
+                return hr;
+            }
+
+            fail:
+            result = default(GetScopePropsResult);
+
+            return hr;
+        }
+
+        #endregion
         #region ModuleFromScope
 
         /// <summary>
@@ -347,67 +407,6 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetScopeProps
-
-        /// <summary>
-        /// Gets the name and optionally the version identifier of the assembly or module in the current metadata scope.
-        /// </summary>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        /// <remarks>
-        /// The <see cref="MetaDataEmit.SetModuleProps"/> method is used to set these properties.
-        /// </remarks>
-        public GetScopePropsResult GetScopeProps()
-        {
-            HRESULT hr;
-            GetScopePropsResult result;
-
-            if ((hr = TryGetScopeProps(out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Gets the name and optionally the version identifier of the assembly or module in the current metadata scope.
-        /// </summary>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        /// <remarks>
-        /// The <see cref="MetaDataEmit.SetModuleProps"/> method is used to set these properties.
-        /// </remarks>
-        public HRESULT TryGetScopeProps(out GetScopePropsResult result)
-        {
-            /*HRESULT GetScopeProps(
-            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName,
-            [In] int cchName,
-            [Out] out int pchName,
-            [Out] out Guid pmvid);*/
-            StringBuilder szName = null;
-            int cchName = 0;
-            int pchName;
-            Guid pmvid;
-            HRESULT hr = Raw.GetScopeProps(szName, cchName, out pchName, out pmvid);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
-                goto fail;
-
-            cchName = pchName;
-            szName = new StringBuilder(pchName);
-            hr = Raw.GetScopeProps(szName, cchName, out pchName, out pmvid);
-
-            if (hr == HRESULT.S_OK)
-            {
-                result = new GetScopePropsResult(szName.ToString(), pmvid);
-
-                return hr;
-            }
-
-            fail:
-            result = default(GetScopePropsResult);
-
-            return hr;
-        }
-
-        #endregion
         #region GetTypeDefProps
 
         /// <summary>
@@ -447,7 +446,7 @@ namespace ManagedCorDebug
             mdToken ptkExtends;
             HRESULT hr = Raw.GetTypeDefProps(td, szTypeDef, cchTypeDef, out pchTypeDef, out pdwTypeDefFlags, out ptkExtends);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchTypeDef = pchTypeDef;
@@ -559,7 +558,7 @@ namespace ManagedCorDebug
             int pchName;
             HRESULT hr = Raw.GetTypeRefProps(tr, out ptkResolutionScope, szName, cchName, out pchName);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchName = pchName;
@@ -1502,7 +1501,7 @@ namespace ManagedCorDebug
             int pdwImplFlags;
             HRESULT hr = Raw.GetMethodProps(mb, out pClass, szMethod, cchMethod, out pchMethod, out pdwAttr, out ppvSigBlob, out pcbSigBlob, out pulCodeRVA, out pdwImplFlags);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchMethod = pchMethod;
@@ -1564,7 +1563,7 @@ namespace ManagedCorDebug
             int pbSig;
             HRESULT hr = Raw.GetMemberRefProps(mr, out ptk, szMember, cchMember, out pchMember, out ppvSigBlob, out pbSig);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchMember = pchMember;
@@ -1745,7 +1744,7 @@ namespace ManagedCorDebug
             int pcOtherMethod = default(int);
             HRESULT hr = Raw.GetEventProps(ev, pClass, szEvent, cchEvent, out pchEvent, out pdwEventFlags, out ptkEventType, out pmdAddOn, out pmdRemoveOn, out pmdFire, out rmdOtherMethod, cMax, pcOtherMethod);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchEvent = pchEvent;
@@ -1917,7 +1916,7 @@ namespace ManagedCorDebug
             int pulClassSize = default(int);
             HRESULT hr = Raw.GetClassLayout(td, pdwPackSize, rFieldOffset, cMax, pcFieldOffset, pulClassSize);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cMax = pcFieldOffset;
@@ -2143,7 +2142,7 @@ namespace ManagedCorDebug
             int pchName;
             HRESULT hr = Raw.GetModuleRefProps(mur, szName, cchName, out pchName);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchName = pchName;
@@ -2398,7 +2397,7 @@ namespace ManagedCorDebug
             int pchString;
             HRESULT hr = Raw.GetUserString(stk, szString, cchString, out pchString);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchString = pchString;
@@ -2458,7 +2457,7 @@ namespace ManagedCorDebug
             mdModuleRef pmrImportDLL;
             HRESULT hr = Raw.GetPinvokeMap(tk, pdwMappingFlags, szImportName, cchImportName, pchImportName, out pmrImportDLL);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchImportName = pchImportName;
@@ -2884,7 +2883,7 @@ namespace ManagedCorDebug
             int pcchValue;
             HRESULT hr = Raw.GetMemberProps(mb, out pClass, szMember, cchMember, out pchMember, out pdwAttr, out ppvSigBlob, out pcbSigBlob, out pulCodeRVA, out pdwImplFlags, out pdwCPlusTypeFlag, out ppValue, out pcchValue);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchMember = pchMember;
@@ -2954,7 +2953,7 @@ namespace ManagedCorDebug
             int pcchValue = default(int);
             HRESULT hr = Raw.GetFieldProps(mb, pClass, szField, cchField, pchField, pdwAttr, ppvSigBlob, pcbSigBlob, pdwCPlusTypeFlag, ppValue, pcchValue);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchField = pchField;
@@ -3034,7 +3033,7 @@ namespace ManagedCorDebug
             int pcOtherMethod = default(int);
             HRESULT hr = Raw.GetPropertyProps(prop, pClass, szProperty, cchProperty, pchProperty, pdwPropFlags, ppvSig, pbSig, pdwCPlusTypeFlag, ppDefaultValue, pcchDefaultValue, pmdSetter, pmdGetter, rmdOtherMethod, cMax, pcOtherMethod);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchProperty = pchProperty;
@@ -3374,7 +3373,7 @@ namespace ManagedCorDebug
             int pccBufSize;
             HRESULT hr = Raw2.GetVersionString(pwzBuf, ccBufSize, out pccBufSize);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             ccBufSize = pccBufSize;
@@ -3491,7 +3490,7 @@ namespace ManagedCorDebug
             int pchName;
             HRESULT hr = Raw2.GetGenericParamProps(gp, out pulParamSeq, out pdwParamFlags, ptOwner, reserved, wzname, cchName, out pchName);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchName = pchName;

@@ -51,6 +51,58 @@ namespace ManagedCorDebug
         }
 
         #endregion
+        #region Name
+
+        /// <summary>
+        /// Gets the name of the loaded module.
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                HRESULT hr;
+                string szNameResult;
+
+                if ((hr = TryGetName(out szNameResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return szNameResult;
+            }
+        }
+
+        /// <summary>
+        /// Gets the name of the loaded module.
+        /// </summary>
+        /// <param name="szNameResult">[out] An array of characters that contain the name of the loaded module.</param>
+        public HRESULT TryGetName(out string szNameResult)
+        {
+            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            int cchName = 0;
+            int pcchName;
+            StringBuilder szName = null;
+            HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cchName = pcchName;
+            szName = new StringBuilder(pcchName);
+            hr = Raw.GetName(cchName, out pcchName, szName);
+
+            if (hr == HRESULT.S_OK)
+            {
+                szNameResult = szName.ToString();
+
+                return hr;
+            }
+
+            fail:
+            szNameResult = default(string);
+
+            return hr;
+        }
+
+        #endregion
         #region Size
 
         /// <summary>
@@ -78,56 +130,6 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetSize(out int pcBytes);*/
             return Raw.GetSize(out pcBytes);
-        }
-
-        #endregion
-        #region GetName
-
-        /// <summary>
-        /// Gets the name of the loaded module.
-        /// </summary>
-        /// <returns>[out] An array of characters that contain the name of the loaded module.</returns>
-        public string GetName()
-        {
-            HRESULT hr;
-            string szNameResult;
-
-            if ((hr = TryGetName(out szNameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return szNameResult;
-        }
-
-        /// <summary>
-        /// Gets the name of the loaded module.
-        /// </summary>
-        /// <param name="szNameResult">[out] An array of characters that contain the name of the loaded module.</param>
-        public HRESULT TryGetName(out string szNameResult)
-        {
-            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
-            int cchName = 0;
-            int pcchName;
-            StringBuilder szName = null;
-            HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
-                goto fail;
-
-            cchName = pcchName;
-            szName = new StringBuilder(pcchName);
-            hr = Raw.GetName(cchName, out pcchName, szName);
-
-            if (hr == HRESULT.S_OK)
-            {
-                szNameResult = szName.ToString();
-
-                return hr;
-            }
-
-            fail:
-            szNameResult = default(string);
-
-            return hr;
         }
 
         #endregion

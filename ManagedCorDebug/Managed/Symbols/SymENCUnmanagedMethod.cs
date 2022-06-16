@@ -86,7 +86,7 @@ namespace ManagedCorDebug
             StringBuilder szName = null;
             HRESULT hr = Raw.GetFileNameFromOffset(dwOffset, cchName, out pcchName, szName);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchName = pcchName;

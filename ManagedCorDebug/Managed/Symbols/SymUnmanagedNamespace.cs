@@ -18,21 +18,23 @@ namespace ManagedCorDebug
         }
 
         #region ISymUnmanagedNamespace
-        #region GetName
+        #region Name
 
         /// <summary>
         /// Gets the name of this namespace.
         /// </summary>
-        /// <returns>[out] A pointer to a buffer that contains the namespace name.</returns>
-        public string GetName()
+        public string Name
         {
-            HRESULT hr;
-            string szNameResult;
+            get
+            {
+                HRESULT hr;
+                string szNameResult;
 
-            if ((hr = TryGetName(out szNameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+                if ((hr = TryGetName(out szNameResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
 
-            return szNameResult;
+                return szNameResult;
+            }
         }
 
         /// <summary>
@@ -48,7 +50,7 @@ namespace ManagedCorDebug
             StringBuilder szName = null;
             HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchName = pcchName;

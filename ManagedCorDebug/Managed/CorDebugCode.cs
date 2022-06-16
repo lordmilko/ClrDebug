@@ -251,21 +251,20 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="startOffset">[in] The offset of the beginning of the function.</param>
         /// <param name="endOffset">[in] The offset of the end of the function.</param>
-        /// <param name="cBufferAlloc">[in] The size of the buffer array into which the code will be returned.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <returns>[out] The array into which the code will be returned.</returns>
         /// <remarks>
         /// If the function's code has been divided into multiple chunks, they are concatenated in order of increasing native
         /// offset. Instruction boundaries are not checked.
         /// </remarks>
-        public GetCodeResult GetCode(int startOffset, int endOffset, int cBufferAlloc)
+        public byte[] GetCode(int startOffset, int endOffset)
         {
             HRESULT hr;
-            GetCodeResult result;
+            byte[] bufferResult;
 
-            if ((hr = TryGetCode(startOffset, endOffset, cBufferAlloc, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetCode(startOffset, endOffset, out bufferResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return bufferResult;
         }
 
         /// <summary>
@@ -274,13 +273,12 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="startOffset">[in] The offset of the beginning of the function.</param>
         /// <param name="endOffset">[in] The offset of the end of the function.</param>
-        /// <param name="cBufferAlloc">[in] The size of the buffer array into which the code will be returned.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="bufferResult">[out] The array into which the code will be returned.</param>
         /// <remarks>
         /// If the function's code has been divided into multiple chunks, they are concatenated in order of increasing native
         /// offset. Instruction boundaries are not checked.
         /// </remarks>
-        public HRESULT TryGetCode(int startOffset, int endOffset, int cBufferAlloc, out GetCodeResult result)
+        public HRESULT TryGetCode(int startOffset, int endOffset, out byte[] bufferResult)
         {
             /*HRESULT GetCode(
             [In] int startOffset,
@@ -288,14 +286,27 @@ namespace ManagedCorDebug
             [In] int cBufferAlloc,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] buffer,
             out int pcBufferSize);*/
+            int cBufferAlloc = 0;
             byte[] buffer = null;
             int pcBufferSize;
             HRESULT hr = Raw.GetCode(startOffset, endOffset, cBufferAlloc, buffer, out pcBufferSize);
 
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cBufferAlloc = pcBufferSize;
+            buffer = new byte[pcBufferSize];
+            hr = Raw.GetCode(startOffset, endOffset, cBufferAlloc, buffer, out pcBufferSize);
+
             if (hr == HRESULT.S_OK)
-                result = new GetCodeResult(buffer, pcBufferSize);
-            else
-                result = default(GetCodeResult);
+            {
+                bufferResult = buffer;
+
+                return hr;
+            }
+
+            fail:
+            bufferResult = default(byte[]);
 
             return hr;
         }

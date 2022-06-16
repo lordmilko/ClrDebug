@@ -120,9 +120,9 @@ namespace ManagedCorDebug
             [In] int contextFlags,
             [In] int contextBufSize,
             out int contextSize,
-            out byte contextBuf);*/
+            out IntPtr contextBuf);*/
             int contextSize;
-            byte contextBuf;
+            IntPtr contextBuf;
             HRESULT hr = Raw.GetContext(contextFlags, contextBufSize, out contextSize, out contextBuf);
 
             if (hr == HRESULT.S_OK)

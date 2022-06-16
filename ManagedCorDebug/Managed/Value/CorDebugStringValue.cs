@@ -50,21 +50,23 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetString
+        #region String
 
         /// <summary>
         /// Gets the string referenced by this <see cref="ICorDebugStringValue"/>.
         /// </summary>
-        /// <returns>[out] An array that stores the retrieved string.</returns>
-        public string GetString()
+        public string String
         {
-            HRESULT hr;
-            string szStringResult;
+            get
+            {
+                HRESULT hr;
+                string szStringResult;
 
-            if ((hr = TryGetString(out szStringResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+                if ((hr = TryGetString(out szStringResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
 
-            return szStringResult;
+                return szStringResult;
+            }
         }
 
         /// <summary>
@@ -79,7 +81,7 @@ namespace ManagedCorDebug
             StringBuilder szString = null;
             HRESULT hr = Raw.GetString(cchString, out pcchString, szString);
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchString = pcchString;

@@ -25,16 +25,16 @@ namespace ManagedCorDebug.CoClass
             [Out] IntPtr pDocs);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern HRESULT GetUserEntryPoint([Out] out int pToken);
+        public virtual extern HRESULT GetUserEntryPoint([Out] out mdMethodDef pToken);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         [return: MarshalAs(UnmanagedType.Interface)]
-        public virtual extern HRESULT GetMethod([In] int token, [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);
+        public virtual extern HRESULT GetMethod([In] mdMethodDef token, [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         [return: MarshalAs(UnmanagedType.Interface)]
         public virtual extern HRESULT GetMethodByVersion(
-            [In] int token,
+            [In] mdMethodDef token,
             [In] int version,
             [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);
 

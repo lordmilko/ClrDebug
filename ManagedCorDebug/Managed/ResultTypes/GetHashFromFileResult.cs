@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -17,14 +18,14 @@ namespace ManagedCorDebug
         /// <summary>
         /// A byte array containing the generated hash.
         /// </summary>
-        public byte pbHash { get; }
+        public IntPtr pbHash { get; }
 
         /// <summary>
         /// The size, in bytes, of the returned pbHash.
         /// </summary>
         public int pchHash { get; }
 
-        public GetHashFromFileResult(int piHashAlg, byte pbHash, int pchHash)
+        public GetHashFromFileResult(int piHashAlg, IntPtr pbHash, int pchHash)
         {
             this.piHashAlg = piHashAlg;
             this.pbHash = pbHash;

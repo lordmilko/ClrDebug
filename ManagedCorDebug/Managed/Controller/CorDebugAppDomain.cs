@@ -101,6 +101,63 @@ namespace ManagedCorDebug
         }
 
         #endregion
+        #region Name
+
+        /// <summary>
+        /// Gets the name of the application domain.
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                HRESULT hr;
+                string szNameResult;
+
+                if ((hr = TryGetName(out szNameResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return szNameResult;
+            }
+        }
+
+        /// <summary>
+        /// Gets the name of the application domain.
+        /// </summary>
+        /// <param name="szNameResult">[out] An array that stores the name of the application domain.</param>
+        /// <remarks>
+        /// A debugger calls the GetName method once to get the size of a buffer needed for the name. The debugger allocates
+        /// the buffer, and then calls the method a second time to fill the buffer. The first call, to get the size of the
+        /// name, is referred to as query mode.
+        /// </remarks>
+        public HRESULT TryGetName(out string szNameResult)
+        {
+            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            int cchName = 0;
+            int pcchName;
+            StringBuilder szName = null;
+            HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cchName = pcchName;
+            szName = new StringBuilder(pcchName);
+            hr = Raw.GetName(cchName, out pcchName, szName);
+
+            if (hr == HRESULT.S_OK)
+            {
+                szNameResult = szName.ToString();
+
+                return hr;
+            }
+
+            fail:
+            szNameResult = default(string);
+
+            return hr;
+        }
+
+        #endregion
         #region Object
 
         /// <summary>
@@ -326,66 +383,6 @@ namespace ManagedCorDebug
                 ppSteppersResult = new CorDebugStepperEnum(ppSteppers);
             else
                 ppSteppersResult = default(CorDebugStepperEnum);
-
-            return hr;
-        }
-
-        #endregion
-        #region GetName
-
-        /// <summary>
-        /// Gets the name of the application domain.
-        /// </summary>
-        /// <returns>[out] An array that stores the name of the application domain.</returns>
-        /// <remarks>
-        /// A debugger calls the GetName method once to get the size of a buffer needed for the name. The debugger allocates
-        /// the buffer, and then calls the method a second time to fill the buffer. The first call, to get the size of the
-        /// name, is referred to as query mode.
-        /// </remarks>
-        public string GetName()
-        {
-            HRESULT hr;
-            string szNameResult;
-
-            if ((hr = TryGetName(out szNameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return szNameResult;
-        }
-
-        /// <summary>
-        /// Gets the name of the application domain.
-        /// </summary>
-        /// <param name="szNameResult">[out] An array that stores the name of the application domain.</param>
-        /// <remarks>
-        /// A debugger calls the GetName method once to get the size of a buffer needed for the name. The debugger allocates
-        /// the buffer, and then calls the method a second time to fill the buffer. The first call, to get the size of the
-        /// name, is referred to as query mode.
-        /// </remarks>
-        public HRESULT TryGetName(out string szNameResult)
-        {
-            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
-            int cchName = 0;
-            int pcchName;
-            StringBuilder szName = null;
-            HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
-                goto fail;
-
-            cchName = pcchName;
-            szName = new StringBuilder(pcchName);
-            hr = Raw.GetName(cchName, out pcchName, szName);
-
-            if (hr == HRESULT.S_OK)
-            {
-                szNameResult = szName.ToString();
-
-                return hr;
-            }
-
-            fail:
-            szNameResult = default(string);
 
             return hr;
         }

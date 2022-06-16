@@ -52,11 +52,11 @@ namespace ManagedCorDebug
             /*HRESULT GetHashFromAssemblyFile(
             [MarshalAs(UnmanagedType.LPStr), In] string pszFilePath,
             [In] [Out] ref int piHashAlg,
-            out byte pbHash,
+            out IntPtr pbHash,
             [In] int cchHash,
             out int pchHash);*/
             int piHashAlg = default(int);
-            byte pbHash;
+            IntPtr pbHash;
             int pchHash;
             HRESULT hr = Raw.GetHashFromAssemblyFile(pszFilePath, ref piHashAlg, out pbHash, cchHash, out pchHash);
 
@@ -100,11 +100,11 @@ namespace ManagedCorDebug
             /*HRESULT GetHashFromAssemblyFileW(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [In] [Out] ref int piHashAlg,
-            out byte pbHash,
+            out IntPtr pbHash,
             [In] int cchHash,
             out int pchHash);*/
             int piHashAlg = default(int);
-            byte pbHash;
+            IntPtr pbHash;
             int pchHash;
             HRESULT hr = Raw.GetHashFromAssemblyFileW(pwzFilePath, ref piHashAlg, out pbHash, cchHash, out pchHash);
 
@@ -151,11 +151,11 @@ namespace ManagedCorDebug
             [In] IntPtr pbBlob,
             [In] int cchBlob,
             [In] [Out] ref int piHashAlg,
-            out byte pbHash,
+            out IntPtr pbHash,
             [In] int cchHash,
             out int pchHash);*/
             int piHashAlg = default(int);
-            byte pbHash;
+            IntPtr pbHash;
             int pchHash;
             HRESULT hr = Raw.GetHashFromBlob(pbBlob, cchBlob, ref piHashAlg, out pbHash, cchHash, out pchHash);
 
@@ -207,11 +207,11 @@ namespace ManagedCorDebug
             /*HRESULT GetHashFromFile(
             [MarshalAs(UnmanagedType.LPStr), In] string pszFilePath,
             [In] [Out] ref int piHashAlg,
-            out byte pbHash,
+            out IntPtr pbHash,
             [In] int cchHash,
             out int pchHash);*/
             int piHashAlg = default(int);
-            byte pbHash;
+            IntPtr pbHash;
             int pchHash;
             HRESULT hr = Raw.GetHashFromFile(pszFilePath, ref piHashAlg, out pbHash, cchHash, out pchHash);
 
@@ -263,11 +263,11 @@ namespace ManagedCorDebug
             /*HRESULT GetHashFromFileW(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [In] [Out] ref int piHashAlg,
-            out byte pbHash,
+            out IntPtr pbHash,
             [In] int cchHash,
             out int pchHash);*/
             int piHashAlg = default(int);
-            byte pbHash;
+            IntPtr pbHash;
             int pchHash;
             HRESULT hr = Raw.GetHashFromFileW(pwzFilePath, ref piHashAlg, out pbHash, cchHash, out pchHash);
 
@@ -311,11 +311,11 @@ namespace ManagedCorDebug
             /*HRESULT GetHashFromHandle(
             [In] IntPtr hFile,
             [In] [Out] ref int piHashAlg,
-            out byte pbHash,
+            out IntPtr pbHash,
             [In] int cchHash,
             out int pchHash);*/
             int piHashAlg = default(int);
-            byte pbHash;
+            IntPtr pbHash;
             int pchHash;
             HRESULT hr = Raw.GetHashFromHandle(hFile, ref piHashAlg, out pbHash, cchHash, out pchHash);
 
@@ -470,9 +470,9 @@ namespace ManagedCorDebug
             /*HRESULT StrongNameGetBlobFromImage(
             [In] IntPtr pbBase,
             [In] int dwLength,
-            out byte pbBlob,
+            out IntPtr pbBlob,
             [In] [Out] ref int pcbBlob);*/
-            byte pbBlob;
+            IntPtr pbBlob;
             int pcbBlob = default(int);
             HRESULT hr = Raw.StrongNameGetBlobFromImage(pbBase, dwLength, out pbBlob, ref pcbBlob);
 

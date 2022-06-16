@@ -808,7 +808,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="oldToken">[in] The metadata token that was remapped.</param>
         /// <param name="newToken">[in] The new metadata token to which oldToken was remapped.</param>
-        public void RemapToken(int oldToken, int newToken)
+        public void RemapToken(mdToken oldToken, mdToken newToken)
         {
             HRESULT hr;
 
@@ -822,9 +822,9 @@ namespace ManagedCorDebug
         /// <param name="oldToken">[in] The metadata token that was remapped.</param>
         /// <param name="newToken">[in] The new metadata token to which oldToken was remapped.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryRemapToken(int oldToken, int newToken)
+        public HRESULT TryRemapToken(mdToken oldToken, mdToken newToken)
         {
-            /*HRESULT RemapToken([In] int oldToken, [In] int newToken);*/
+            /*HRESULT RemapToken([In] mdToken oldToken, [In] mdToken newToken);*/
             return Raw.RemapToken(oldToken, newToken);
         }
 
@@ -956,7 +956,7 @@ namespace ManagedCorDebug
         /// If it is a nonzero value, the variable falls within the offsets of the current scope.</param>
         /// <param name="endOffset">[in] The end offset for the variable. This parameter is optional. If it is 0, this parameter is ignored and the variable is defined throughout the entire scope.<para/>
         /// If it is a nonzero value, the variable falls within the offsets of the current scope.</param>
-        public void DefineLocalVariable2(string name, int attributes, int sigToken, int addrKind, int addr1, int addr2, int addr3, int startOffset, int endOffset)
+        public void DefineLocalVariable2(string name, int attributes, mdSignature sigToken, int addrKind, int addr1, int addr2, int addr3, int startOffset, int endOffset)
         {
             HRESULT hr;
 
@@ -980,12 +980,12 @@ namespace ManagedCorDebug
         /// <param name="endOffset">[in] The end offset for the variable. This parameter is optional. If it is 0, this parameter is ignored and the variable is defined throughout the entire scope.<para/>
         /// If it is a nonzero value, the variable falls within the offsets of the current scope.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryDefineLocalVariable2(string name, int attributes, int sigToken, int addrKind, int addr1, int addr2, int addr3, int startOffset, int endOffset)
+        public HRESULT TryDefineLocalVariable2(string name, int attributes, mdSignature sigToken, int addrKind, int addr1, int addr2, int addr3, int startOffset, int endOffset)
         {
             /*HRESULT DefineLocalVariable2(
             [In] string name,
             [In] int attributes,
-            [In] int sigToken,
+            [In] mdSignature sigToken,
             [In] int addrKind,
             [In] int addr1,
             [In] int addr2,
@@ -1008,7 +1008,7 @@ namespace ManagedCorDebug
         /// <param name="addr1">[in] The first address for the parameter specification.</param>
         /// <param name="addr2">[in] The second address for the parameter specification.</param>
         /// <param name="addr3">[in] The third address for the parameter specification.</param>
-        public void DefineGlobalVariable2(string name, int attributes, int sigToken, int addrKind, int addr1, int addr2, int addr3)
+        public void DefineGlobalVariable2(string name, int attributes, mdSignature sigToken, int addrKind, int addr1, int addr2, int addr3)
         {
             HRESULT hr;
 
@@ -1027,12 +1027,12 @@ namespace ManagedCorDebug
         /// <param name="addr2">[in] The second address for the parameter specification.</param>
         /// <param name="addr3">[in] The third address for the parameter specification.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryDefineGlobalVariable2(string name, int attributes, int sigToken, int addrKind, int addr1, int addr2, int addr3)
+        public HRESULT TryDefineGlobalVariable2(string name, int attributes, mdSignature sigToken, int addrKind, int addr1, int addr2, int addr3)
         {
             /*HRESULT DefineGlobalVariable2(
             [In] string name,
             [In] int attributes,
-            [In] int sigToken,
+            [In] mdSignature sigToken,
             [In] int addrKind,
             [In] int addr1,
             [In] int addr2,
@@ -1049,7 +1049,7 @@ namespace ManagedCorDebug
         /// <param name="name">[in] The constant name.</param>
         /// <param name="value">[in] The value of the constant.</param>
         /// <param name="sigToken">[in] The metadata token of the constant.</param>
-        public void DefineConstant2(string name, object value, int sigToken)
+        public void DefineConstant2(string name, object value, mdSignature sigToken)
         {
             HRESULT hr;
 
@@ -1064,10 +1064,10 @@ namespace ManagedCorDebug
         /// <param name="value">[in] The value of the constant.</param>
         /// <param name="sigToken">[in] The metadata token of the constant.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryDefineConstant2(string name, object value, int sigToken)
+        public HRESULT TryDefineConstant2(string name, object value, mdSignature sigToken)
         {
             /*HRESULT DefineConstant2([In] string name, [MarshalAs(UnmanagedType.Struct), In] object value,
-            [In] int sigToken);*/
+            [In] mdSignature sigToken);*/
             return Raw2.DefineConstant2(name, value, sigToken);
         }
 
@@ -1240,7 +1240,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Maps the given metadata token to the given source line span in the specified source file. Must be called between calls to <see cref="OpenMapTokensToSourceSpans"/> and <see cref="CloseMapTokensToSourceSpans"/>.
         /// </summary>
-        public void MapTokenToSourceSpan(int token, ISymUnmanagedDocumentWriter document, int line, int column, int endLine, int endColumn)
+        public void MapTokenToSourceSpan(mdToken token, ISymUnmanagedDocumentWriter document, int line, int column, int endLine, int endColumn)
         {
             HRESULT hr;
 
@@ -1252,10 +1252,10 @@ namespace ManagedCorDebug
         /// Maps the given metadata token to the given source line span in the specified source file. Must be called between calls to <see cref="OpenMapTokensToSourceSpans"/> and <see cref="CloseMapTokensToSourceSpans"/>.
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
-        public HRESULT TryMapTokenToSourceSpan(int token, ISymUnmanagedDocumentWriter document, int line, int column, int endLine, int endColumn)
+        public HRESULT TryMapTokenToSourceSpan(mdToken token, ISymUnmanagedDocumentWriter document, int line, int column, int endLine, int endColumn)
         {
             /*HRESULT MapTokenToSourceSpan(
-            [In] int token,
+            [In] mdToken token,
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocumentWriter document,
             [In] int line,

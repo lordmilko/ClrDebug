@@ -48,6 +48,62 @@ namespace ManagedCorDebug
         }
 
         #endregion
+        #region SearchPath
+
+        /// <summary>
+        /// Gets the search path.
+        /// </summary>
+        public string SearchPath
+        {
+            get
+            {
+                HRESULT hr;
+                string szPathResult;
+
+                if ((hr = TryGetSearchPath(out szPathResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return szPathResult;
+            }
+        }
+
+        /// <summary>
+        /// Gets the search path.
+        /// </summary>
+        /// <param name="szPathResult">[out] A buffer to hold the search path.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
+        public HRESULT TryGetSearchPath(out string szPathResult)
+        {
+            /*HRESULT GetSearchPath(
+            [In] int cchPath,
+            out int pcchPath,
+            [Out] StringBuilder szPath);*/
+            int cchPath = 0;
+            int pcchPath;
+            StringBuilder szPath = null;
+            HRESULT hr = Raw.GetSearchPath(cchPath, out pcchPath, szPath);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cchPath = pcchPath;
+            szPath = new StringBuilder(pcchPath);
+            hr = Raw.GetSearchPath(cchPath, out pcchPath, szPath);
+
+            if (hr == HRESULT.S_OK)
+            {
+                szPathResult = szPath.ToString();
+
+                return hr;
+            }
+
+            fail:
+            szPathResult = default(string);
+
+            return hr;
+        }
+
+        #endregion
         #region HRESULT
 
         /// <summary>
@@ -76,60 +132,6 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetHRESULT([MarshalAs(UnmanagedType.Error)] out HRESULT phr);*/
             return Raw.GetHRESULT(out phr);
-        }
-
-        #endregion
-        #region GetSearchPath
-
-        /// <summary>
-        /// Gets the search path.
-        /// </summary>
-        /// <returns>[out] A buffer to hold the search path.</returns>
-        public string GetSearchPath()
-        {
-            HRESULT hr;
-            string szPathResult;
-
-            if ((hr = TryGetSearchPath(out szPathResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return szPathResult;
-        }
-
-        /// <summary>
-        /// Gets the search path.
-        /// </summary>
-        /// <param name="szPathResult">[out] A buffer to hold the search path.</param>
-        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSearchPath(out string szPathResult)
-        {
-            /*HRESULT GetSearchPath(
-            [In] int cchPath,
-            out int pcchPath,
-            [Out] StringBuilder szPath);*/
-            int cchPath = 0;
-            int pcchPath;
-            StringBuilder szPath = null;
-            HRESULT hr = Raw.GetSearchPath(cchPath, out pcchPath, szPath);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
-                goto fail;
-
-            cchPath = pcchPath;
-            szPath = new StringBuilder(pcchPath);
-            hr = Raw.GetSearchPath(cchPath, out pcchPath, szPath);
-
-            if (hr == HRESULT.S_OK)
-            {
-                szPathResult = szPath.ToString();
-
-                return hr;
-            }
-
-            fail:
-            szPathResult = default(string);
-
-            return hr;
         }
 
         #endregion

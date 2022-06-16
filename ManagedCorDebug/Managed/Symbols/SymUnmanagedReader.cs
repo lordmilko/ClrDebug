@@ -24,12 +24,12 @@ namespace ManagedCorDebug
         /// <summary>
         /// Returns the method that was specified as the user entry point for the module, if any. For example, this method could be the user's main method rather than compiler-generated stubs before the main method.
         /// </summary>
-        public int UserEntryPoint
+        public mdMethodDef UserEntryPoint
         {
             get
             {
                 HRESULT hr;
-                int pToken;
+                mdMethodDef pToken;
 
                 if ((hr = TryGetUserEntryPoint(out pToken)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -43,10 +43,66 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pToken">[out] A pointer to a variable that receives the entry point.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetUserEntryPoint(out int pToken)
+        public HRESULT TryGetUserEntryPoint(out mdMethodDef pToken)
         {
-            /*HRESULT GetUserEntryPoint([Out] out int pToken);*/
+            /*HRESULT GetUserEntryPoint([Out] out mdMethodDef pToken);*/
             return Raw.GetUserEntryPoint(out pToken);
+        }
+
+        #endregion
+        #region SymbolStoreFileName
+
+        /// <summary>
+        /// Provides the on-disk file name of the symbol store.
+        /// </summary>
+        public string SymbolStoreFileName
+        {
+            get
+            {
+                HRESULT hr;
+                string szNameResult;
+
+                if ((hr = TryGetSymbolStoreFileName(out szNameResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return szNameResult;
+            }
+        }
+
+        /// <summary>
+        /// Provides the on-disk file name of the symbol store.
+        /// </summary>
+        /// <param name="szNameResult">[out] A pointer to the variable that receives the file name of the symbol store.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
+        public HRESULT TryGetSymbolStoreFileName(out string szNameResult)
+        {
+            /*HRESULT GetSymbolStoreFileName(
+            [In] int cchName,
+            out int pcchName,
+            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);*/
+            int cchName = 0;
+            int pcchName;
+            StringBuilder szName = null;
+            HRESULT hr = Raw.GetSymbolStoreFileName(cchName, out pcchName, szName);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cchName = pcchName;
+            szName = new StringBuilder(pcchName);
+            hr = Raw.GetSymbolStoreFileName(cchName, out pcchName, szName);
+
+            if (hr == HRESULT.S_OK)
+            {
+                szNameResult = szName.ToString();
+
+                return hr;
+            }
+
+            fail:
+            szNameResult = default(string);
+
+            return hr;
         }
 
         #endregion
@@ -150,7 +206,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="token">[in] The method token.</param>
         /// <returns>[out] A pointer to the returned interface.</returns>
-        public ISymUnmanagedMethod GetMethod(int token)
+        public ISymUnmanagedMethod GetMethod(mdMethodDef token)
         {
             HRESULT hr;
             ISymUnmanagedMethod pRetVal = default(ISymUnmanagedMethod);
@@ -167,9 +223,9 @@ namespace ManagedCorDebug
         /// <param name="token">[in] The method token.</param>
         /// <param name="pRetVal">[out] A pointer to the returned interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetMethod(int token, ref ISymUnmanagedMethod pRetVal)
+        public HRESULT TryGetMethod(mdMethodDef token, ref ISymUnmanagedMethod pRetVal)
         {
-            /*HRESULT GetMethod([In] int token, [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);*/
+            /*HRESULT GetMethod([In] mdMethodDef token, [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);*/
             return Raw.GetMethod(token, pRetVal);
         }
 
@@ -182,7 +238,7 @@ namespace ManagedCorDebug
         /// <param name="token">[in] The method token.</param>
         /// <param name="version">[in] The method version.</param>
         /// <returns>[out] A pointer to the returned interface.</returns>
-        public ISymUnmanagedMethod GetMethodByVersion(int token, int version)
+        public ISymUnmanagedMethod GetMethodByVersion(mdMethodDef token, int version)
         {
             HRESULT hr;
             ISymUnmanagedMethod pRetVal = default(ISymUnmanagedMethod);
@@ -200,10 +256,10 @@ namespace ManagedCorDebug
         /// <param name="version">[in] The method version.</param>
         /// <param name="pRetVal">[out] A pointer to the returned interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetMethodByVersion(int token, int version, ref ISymUnmanagedMethod pRetVal)
+        public HRESULT TryGetMethodByVersion(mdMethodDef token, int version, ref ISymUnmanagedMethod pRetVal)
         {
             /*HRESULT GetMethodByVersion(
-            [In] int token,
+            [In] mdMethodDef token,
             [In] int version,
             [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);*/
             return Raw.GetMethodByVersion(token, version, pRetVal);
@@ -532,60 +588,6 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetSymbolStoreFileName
-
-        /// <summary>
-        /// Provides the on-disk file name of the symbol store.
-        /// </summary>
-        /// <returns>[out] A pointer to the variable that receives the file name of the symbol store.</returns>
-        public string GetSymbolStoreFileName()
-        {
-            HRESULT hr;
-            string szNameResult;
-
-            if ((hr = TryGetSymbolStoreFileName(out szNameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return szNameResult;
-        }
-
-        /// <summary>
-        /// Provides the on-disk file name of the symbol store.
-        /// </summary>
-        /// <param name="szNameResult">[out] A pointer to the variable that receives the file name of the symbol store.</param>
-        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSymbolStoreFileName(out string szNameResult)
-        {
-            /*HRESULT GetSymbolStoreFileName(
-            [In] int cchName,
-            out int pcchName,
-            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);*/
-            int cchName = 0;
-            int pcchName;
-            StringBuilder szName = null;
-            HRESULT hr = Raw.GetSymbolStoreFileName(cchName, out pcchName, szName);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
-                goto fail;
-
-            cchName = pcchName;
-            szName = new StringBuilder(pcchName);
-            hr = Raw.GetSymbolStoreFileName(cchName, out pcchName, szName);
-
-            if (hr == HRESULT.S_OK)
-            {
-                szNameResult = szName.ToString();
-
-                return hr;
-            }
-
-            fail:
-            szNameResult = default(string);
-
-            return hr;
-        }
-
-        #endregion
         #region GetMethodsFromDocumentPosition
 
         /// <summary>
@@ -727,7 +729,7 @@ namespace ManagedCorDebug
         /// <param name="token">[in] The method metadata token.</param>
         /// <param name="version">[in] The method version.</param>
         /// <returns>[out] A pointer to the returned <see cref="ISymUnmanagedMethod"/> interface.</returns>
-        public ISymUnmanagedMethod GetMethodByVersionPreRemap(int token, int version)
+        public ISymUnmanagedMethod GetMethodByVersionPreRemap(mdMethodDef token, int version)
         {
             HRESULT hr;
             ISymUnmanagedMethod pRetVal = default(ISymUnmanagedMethod);
@@ -745,10 +747,10 @@ namespace ManagedCorDebug
         /// <param name="version">[in] The method version.</param>
         /// <param name="pRetVal">[out] A pointer to the returned <see cref="ISymUnmanagedMethod"/> interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetMethodByVersionPreRemap(int token, int version, ref ISymUnmanagedMethod pRetVal)
+        public HRESULT TryGetMethodByVersionPreRemap(mdMethodDef token, int version, ref ISymUnmanagedMethod pRetVal)
         {
             /*HRESULT GetMethodByVersionPreRemap(
-            [In] int token,
+            [In] mdMethodDef token,
             [In] int version,
             [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);*/
             return Raw2.GetMethodByVersionPreRemap(token, version, pRetVal);

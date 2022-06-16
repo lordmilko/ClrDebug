@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -16,14 +17,14 @@ namespace ManagedCorDebug
         /// <summary>
         /// The returned hash buffer.
         /// </summary>
-        public byte pbHash { get; }
+        public IntPtr pbHash { get; }
 
         /// <summary>
         /// The returned size, in bytes, of pbHash.
         /// </summary>
         public int pchHash { get; }
 
-        public GetHashFromAssemblyFileWResult(int piHashAlg, byte pbHash, int pchHash)
+        public GetHashFromAssemblyFileWResult(int piHashAlg, IntPtr pbHash, int pchHash)
         {
             this.piHashAlg = piHashAlg;
             this.pbHash = pbHash;

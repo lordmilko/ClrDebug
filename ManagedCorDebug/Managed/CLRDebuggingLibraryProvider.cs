@@ -66,7 +66,7 @@ namespace ManagedCorDebug
         public HRESULT TryProvideLibrary(string pwszFileName, int dwTimestamp, int dwSizeOfImage, out IntPtr phModule)
         {
             /*HRESULT ProvideLibrary(
-            [In] string pwszFileName,
+            [MarshalAs(UnmanagedType.LPWStr), In] string pwszFileName,
             [In] int dwTimestamp,
             [In] int dwSizeOfImage,
             out IntPtr phModule);*/

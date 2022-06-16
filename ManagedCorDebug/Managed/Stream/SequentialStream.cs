@@ -37,8 +37,8 @@ namespace ManagedCorDebug
 
         public HRESULT TryRemoteRead(int cb, out RemoteReadResult result)
         {
-            /*HRESULT RemoteRead(out byte pv, [In] int cb, out int pcbRead);*/
-            byte pv;
+            /*HRESULT RemoteRead(out IntPtr pv, [In] int cb, out int pcbRead);*/
+            IntPtr pv;
             int pcbRead;
             HRESULT hr = Raw.RemoteRead(out pv, cb, out pcbRead);
 

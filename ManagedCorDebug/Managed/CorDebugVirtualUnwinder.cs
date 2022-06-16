@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -61,9 +62,9 @@ namespace ManagedCorDebug
             [In] int contextFlags,
             [In] int cbContextBuf,
             out int contextSize,
-            out byte contextBuf);*/
+            out IntPtr contextBuf);*/
             int contextSize;
-            byte contextBuf;
+            IntPtr contextBuf;
             HRESULT hr = Raw.GetContext(contextFlags, cbContextBuf, out contextSize, out contextBuf);
 
             if (hr == HRESULT.S_OK)

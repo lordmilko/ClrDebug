@@ -19,6 +19,63 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugMergedAssemblyRecord
+        #region SimpleName
+
+        /// <summary>
+        /// Gets the simple name of the assembly.
+        /// </summary>
+        public string SimpleName
+        {
+            get
+            {
+                HRESULT hr;
+                string szNameResult;
+
+                if ((hr = TryGetSimpleName(out szNameResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return szNameResult;
+            }
+        }
+
+        /// <summary>
+        /// Gets the simple name of the assembly.
+        /// </summary>
+        /// <param name="szNameResult">A pointer to a character array.</param>
+        /// <remarks>
+        /// This method retrieves the simple name of an assembly (such as "System.Collections"), without a file extension,
+        /// version, culture, or public key token. It corresponds to the <see cref="AssemblyName.Name"/> property in managed
+        /// code.
+        /// </remarks>
+        public HRESULT TryGetSimpleName(out string szNameResult)
+        {
+            /*HRESULT GetSimpleName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            int cchName = 0;
+            int pcchName;
+            StringBuilder szName = null;
+            HRESULT hr = Raw.GetSimpleName(cchName, out pcchName, szName);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cchName = pcchName;
+            szName = new StringBuilder(pcchName);
+            hr = Raw.GetSimpleName(cchName, out pcchName, szName);
+
+            if (hr == HRESULT.S_OK)
+            {
+                szNameResult = szName.ToString();
+
+                return hr;
+            }
+
+            fail:
+            szNameResult = default(string);
+
+            return hr;
+        }
+
+        #endregion
         #region Version
 
         /// <summary>
@@ -63,6 +120,62 @@ namespace ManagedCorDebug
         }
 
         #endregion
+        #region Culture
+
+        /// <summary>
+        /// Gets the culture name string of the assembly.
+        /// </summary>
+        public string Culture
+        {
+            get
+            {
+                HRESULT hr;
+                string szCultureResult;
+
+                if ((hr = TryGetCulture(out szCultureResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return szCultureResult;
+            }
+        }
+
+        /// <summary>
+        /// Gets the culture name string of the assembly.
+        /// </summary>
+        /// <param name="szCultureResult">[out] A character array that contains the culture name.</param>
+        /// <remarks>
+        /// The culture name is a unique string that identifies a culture, such as "en-US" (for the English (United States)
+        /// culture), or "neutral" (for a neutral culture).
+        /// </remarks>
+        public HRESULT TryGetCulture(out string szCultureResult)
+        {
+            /*HRESULT GetCulture([In] int cchCulture, out int pcchCulture, [Out] StringBuilder szCulture);*/
+            int cchCulture = 0;
+            int pcchCulture;
+            StringBuilder szCulture = null;
+            HRESULT hr = Raw.GetCulture(cchCulture, out pcchCulture, szCulture);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cchCulture = pcchCulture;
+            szCulture = new StringBuilder(pcchCulture);
+            hr = Raw.GetCulture(cchCulture, out pcchCulture, szCulture);
+
+            if (hr == HRESULT.S_OK)
+            {
+                szCultureResult = szCulture.ToString();
+
+                return hr;
+            }
+
+            fail:
+            szCultureResult = default(string);
+
+            return hr;
+        }
+
+        #endregion
         #region Index
 
         /// <summary>
@@ -93,124 +206,6 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetIndex(out int pIndex);*/
             return Raw.GetIndex(out pIndex);
-        }
-
-        #endregion
-        #region GetSimpleName
-
-        /// <summary>
-        /// Gets the simple name of the assembly.
-        /// </summary>
-        /// <returns>A pointer to a character array.</returns>
-        /// <remarks>
-        /// This method retrieves the simple name of an assembly (such as "System.Collections"), without a file extension,
-        /// version, culture, or public key token. It corresponds to the <see cref="AssemblyName.Name"/> property in managed
-        /// code.
-        /// </remarks>
-        public string GetSimpleName()
-        {
-            HRESULT hr;
-            string szNameResult;
-
-            if ((hr = TryGetSimpleName(out szNameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return szNameResult;
-        }
-
-        /// <summary>
-        /// Gets the simple name of the assembly.
-        /// </summary>
-        /// <param name="szNameResult">A pointer to a character array.</param>
-        /// <remarks>
-        /// This method retrieves the simple name of an assembly (such as "System.Collections"), without a file extension,
-        /// version, culture, or public key token. It corresponds to the <see cref="AssemblyName.Name"/> property in managed
-        /// code.
-        /// </remarks>
-        public HRESULT TryGetSimpleName(out string szNameResult)
-        {
-            /*HRESULT GetSimpleName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
-            int cchName = 0;
-            int pcchName;
-            StringBuilder szName = null;
-            HRESULT hr = Raw.GetSimpleName(cchName, out pcchName, szName);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
-                goto fail;
-
-            cchName = pcchName;
-            szName = new StringBuilder(pcchName);
-            hr = Raw.GetSimpleName(cchName, out pcchName, szName);
-
-            if (hr == HRESULT.S_OK)
-            {
-                szNameResult = szName.ToString();
-
-                return hr;
-            }
-
-            fail:
-            szNameResult = default(string);
-
-            return hr;
-        }
-
-        #endregion
-        #region GetCulture
-
-        /// <summary>
-        /// Gets the culture name string of the assembly.
-        /// </summary>
-        /// <returns>[out] A character array that contains the culture name.</returns>
-        /// <remarks>
-        /// The culture name is a unique string that identifies a culture, such as "en-US" (for the English (United States)
-        /// culture), or "neutral" (for a neutral culture).
-        /// </remarks>
-        public string GetCulture()
-        {
-            HRESULT hr;
-            string szCultureResult;
-
-            if ((hr = TryGetCulture(out szCultureResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return szCultureResult;
-        }
-
-        /// <summary>
-        /// Gets the culture name string of the assembly.
-        /// </summary>
-        /// <param name="szCultureResult">[out] A character array that contains the culture name.</param>
-        /// <remarks>
-        /// The culture name is a unique string that identifies a culture, such as "en-US" (for the English (United States)
-        /// culture), or "neutral" (for a neutral culture).
-        /// </remarks>
-        public HRESULT TryGetCulture(out string szCultureResult)
-        {
-            /*HRESULT GetCulture([In] int cchCulture, out int pcchCulture, [Out] StringBuilder szCulture);*/
-            int cchCulture = 0;
-            int pcchCulture;
-            StringBuilder szCulture = null;
-            HRESULT hr = Raw.GetCulture(cchCulture, out pcchCulture, szCulture);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
-                goto fail;
-
-            cchCulture = pcchCulture;
-            szCulture = new StringBuilder(pcchCulture);
-            hr = Raw.GetCulture(cchCulture, out pcchCulture, szCulture);
-
-            if (hr == HRESULT.S_OK)
-            {
-                szCultureResult = szCulture.ToString();
-
-                return hr;
-            }
-
-            fail:
-            szCultureResult = default(string);
-
-            return hr;
         }
 
         #endregion
@@ -291,8 +286,7 @@ namespace ManagedCorDebug
             /*HRESULT GetPublicKeyToken(
             [In] int cbPublicKeyToken,
             out int pcbPublicKeyToken,
-            [MarshalAs(UnmanagedType.LPArray), Out]
-            byte[] pbPublicKeyToken);*/
+            [MarshalAs(UnmanagedType.LPArray), Out] byte[] pbPublicKeyToken);*/
             int pcbPublicKeyToken;
             byte[] pbPublicKeyToken = null;
             HRESULT hr = Raw.GetPublicKeyToken(cbPublicKeyToken, out pcbPublicKeyToken, pbPublicKeyToken);
