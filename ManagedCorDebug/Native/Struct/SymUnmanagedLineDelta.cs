@@ -1,7 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-// See the License.txt file in the project root for more information.
-
+﻿using System.Diagnostics;
 
 namespace ManagedCorDebug
 {
@@ -11,6 +8,7 @@ namespace ManagedCorDebug
     /// The correct line information can be determined with the old pdb line info and
     /// one delta for all lines in the function.
     /// </summary>
+    [DebuggerDisplay("MethodToken = {MethodToken}, Delta = {Delta}")]
     public struct SymUnmanagedLineDelta
     {
         public readonly int MethodToken;

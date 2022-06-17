@@ -1,8 +1,11 @@
-﻿namespace ManagedCorDebug
+﻿using System.Diagnostics;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Contains information that is used when installing a module or a composite image.
     /// </summary>
+    [DebuggerDisplay("Major = {Major}, Minor = {Minor}, Sub = {Sub}, Build = {Build}")]
     public struct CVStruct
     {
         /// <summary>

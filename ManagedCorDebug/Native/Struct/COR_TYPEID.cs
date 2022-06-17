@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -16,6 +17,7 @@ namespace ManagedCorDebug
     /// is provided as an out parameter in a method call and that can, in turn, be passed to other methods to provide additional
     /// information.
     /// </remarks>
+    [DebuggerDisplay("token1 = {token1}, token2 = {token2}")]
     [StructLayout(LayoutKind.Sequential, Pack = 8)]
     public struct COR_TYPEID
     {

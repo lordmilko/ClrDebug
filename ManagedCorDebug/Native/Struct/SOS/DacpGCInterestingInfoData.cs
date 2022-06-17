@@ -1,9 +1,11 @@
+﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    [DebuggerDisplay("interestingDataPoints = {interestingDataPoints}, compactReasons = {compactReasons}, expandMechanisms = {expandMechanisms}, bitMechanisms = {bitMechanisms}, globalMechanisms = {globalMechanisms}")]
     [StructLayout(LayoutKind.Sequential)]
-	public struct DacpGCInterestingInfoData
+    public struct DacpGCInterestingInfoData
     {
         private const int DAC_NUM_GC_DATA_POINTS = 9;
         private const int DAC_MAX_COMPACT_REASONS_COUNT = 11;
@@ -12,10 +14,10 @@ namespace ManagedCorDebug
         private const int DAC_MAX_GLOBAL_GC_MECHANISMS_COUNT = 6;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DAC_NUM_GC_DATA_POINTS)]
-		public long[] interestingDataPoints;
+        public long[] interestingDataPoints;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DAC_MAX_COMPACT_REASONS_COUNT)]
-		public long[] compactReasons;
+        public long[] compactReasons;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DAC_MAX_EXPAND_MECHANISMS_COUNT)]
         public long[] expandMechanisms;

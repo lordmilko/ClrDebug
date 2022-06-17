@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -11,6 +12,7 @@ namespace ManagedCorDebug
     /// Language Infrastructure (CLI), 6th Edition. The flags field can contain the following flags. Note that they are
     /// not defined in CorDebug.idl or CorDebug.h.
     /// </remarks>
+    [DebuggerDisplay("flags = {flags}, TryOffset = {TryOffset}, TryLength = {TryLength}, HandlerOffset = {HandlerOffset}, HandlerLength = {HandlerLength}, ClassToken = {ClassToken}, FilterOffset = {FilterOffset}")]
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct CorDebugEHClause
     {

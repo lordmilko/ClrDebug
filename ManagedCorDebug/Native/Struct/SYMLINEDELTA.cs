@@ -1,10 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Provides information to the symbol handler about methods that were moved as a result of edits.
     /// </summary>
+    [DebuggerDisplay("mdMethod = {mdMethod.ToString(),nq}, delta = {delta}")]
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct SYMLINEDELTA
     {

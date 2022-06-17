@@ -1,10 +1,12 @@
-using System;
+﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    [DebuggerDisplay("frameAddr = {frameAddr.ToString(),nq}")]
     [StructLayout(LayoutKind.Sequential)]
-	public struct DacpFrameData
+    public struct DacpFrameData
     {
         public CLRDATA_ADDRESS frameAddr;
 

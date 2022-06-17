@@ -1,8 +1,11 @@
-﻿namespace ManagedCorDebug
+﻿using System.Diagnostics;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Contains information that is used to link native code.
     /// </summary>
+    [DebuggerDisplay("m_linkType = {m_linkType.ToString(),nq}, m_flags = {m_flags.ToString(),nq}, m_entryPoint = {m_entryPoint.ToString(),nq}")]
     public struct COR_NATIVE_LINK
     {
         /// <summary>

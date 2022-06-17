@@ -1,12 +1,14 @@
+﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    [DebuggerDisplay("LoaderAllocatorObjectHandle = {LoaderAllocatorObjectHandle.ToString(),nq}, bCollectible = {bCollectible}")]
     [StructLayout(LayoutKind.Sequential)]
-	public struct DacpMethodTableCollectibleData
-	{
-		public CLRDATA_ADDRESS LoaderAllocatorObjectHandle;
-		public int bCollectible;
+    public struct DacpMethodTableCollectibleData
+    {
+        public CLRDATA_ADDRESS LoaderAllocatorObjectHandle;
+        public int bCollectible;
 
         public HRESULT Request(ISOSDacInterface sos, CLRDATA_ADDRESS addr)
         {

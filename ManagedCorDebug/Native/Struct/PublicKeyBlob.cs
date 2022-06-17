@@ -1,4 +1,6 @@
-﻿namespace ManagedCorDebug
+﻿using System.Diagnostics;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Represents, in binary format, the public key of a public/private key pair.
@@ -7,6 +9,7 @@
     /// The <see cref="PublicKeyBlob"/> structure is used by StrongNameGetPublicKey, StrongNameSignatureGeneration, and other strong
     /// name functions to represent the public key of a public/private key pair.
     /// </remarks>
+    [DebuggerDisplay("SigAlgId = {SigAlgId}, HashAlgId = {HashAlgId}, cbPublicKey = {cbPublicKey}, PublicKey = {PublicKey}")]
     public unsafe struct PublicKeyBlob
     {
         /// <summary>

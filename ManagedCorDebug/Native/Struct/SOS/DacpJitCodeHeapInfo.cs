@@ -1,12 +1,14 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    [DebuggerDisplay("codeHeapType = {codeHeapType}, LoaderHeap = {LoaderHeap.ToString(),nq}, baseAddr = {baseAddr.ToString(),nq}, currentAddr = {currentAddr.ToString(),nq}")]
     [StructLayout(LayoutKind.Explicit)]
     public struct DacpJitCodeHeapInfo
-	{
+    {
         [FieldOffset(0)]
-		public int codeHeapType;
+        public int codeHeapType;
 
         //if CODEHEAP_LOADER
 
@@ -20,5 +22,5 @@ namespace ManagedCorDebug
 
         [FieldOffset(8)]
         public CLRDATA_ADDRESS currentAddr;
-	};
+    }
 }

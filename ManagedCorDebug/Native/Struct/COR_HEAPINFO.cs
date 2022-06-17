@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -11,6 +12,7 @@ namespace ManagedCorDebug
     /// field to ensure that the heap is in an enumerable state. For more information, see the <see cref="ICorDebugProcess5.GetGCHeapInformation"/>
     /// method.
     /// </remarks>
+    [DebuggerDisplay("areGCStructuresValid = {areGCStructuresValid}, pointerSize = {pointerSize}, numHeaps = {numHeaps}, concurrent = {concurrent}, gcType = {gcType.ToString(),nq}")]
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct COR_HEAPINFO
     {

@@ -1,10 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Defines an object that is blocking a thread and the specific reason that the thread is blocked.
     /// </summary>
+    [DebuggerDisplay("pBlockingObject = {pBlockingObject.ToString(),nq}, dwTimeout = {dwTimeout}, blockingReason = {blockingReason.ToString(),nq}")]
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct CorDebugBlockingObject
     {
@@ -13,7 +15,8 @@ namespace ManagedCorDebug
         /// If two threads are blocking on the same object within the same synchronized state, you may expect the <see cref="ICorDebugValue.GetAddress"/> method to return the same value.<para/>
         /// However, the interfaces may or may not be pointer equivalent.
         /// </summary>
-        [MarshalAs(UnmanagedType.Interface)] public ICorDebugValue pBlockingObject;
+        [MarshalAs(UnmanagedType.Interface)]
+        public ICorDebugValue pBlockingObject;
 
         /// <summary>
         /// The number of milliseconds before the blocking operation will time out, or the value INFINITE, which indicates that it will not time out.<para/>

@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -18,6 +19,7 @@ namespace ManagedCorDebug
     /// includes a reference-counted COM interface. If you retrieve a <see cref="COR_HEAPOBJECT"/> instance from the enumerator by calling
     /// the <see cref="ICorDebugHeapEnum.Next"/> method, you must subsequently release the reference.
     /// </remarks>
+    [DebuggerDisplay("address = {address.ToString(),nq}, size = {size}, type = {type.ToString(),nq}")]
     [StructLayout(LayoutKind.Sequential, Pack = 8)]
     public struct COR_HEAPOBJECT
     {

@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -10,6 +11,7 @@ namespace ManagedCorDebug
     /// arrays as well. The value of numRanks is 1 for a single-dimensional array and N for a multi-dimensional array of
     /// N dimensions.
     /// </remarks>
+    [DebuggerDisplay("componentID = {componentID.ToString(),nq}, componentType = {componentType.ToString(),nq}, firstElementOffset = {firstElementOffset}, elementSize = {elementSize}, countOffset = {countOffset}, rankSize = {rankSize}, numRanks = {numRanks}, rankOffset = {rankOffset}")]
     [StructLayout(LayoutKind.Sequential, Pack = 8)]
     public struct COR_ARRAY_LAYOUT
     {

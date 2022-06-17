@@ -1,18 +1,20 @@
+﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    [DebuggerDisplay("Message = {Message.ToString(),nq}, InnerException = {InnerException.ToString(),nq}, StackTrace = {StackTrace.ToString(),nq}, WatsonBuckets = {WatsonBuckets.ToString(),nq}, StackTraceString = {StackTraceString.ToString(),nq}, RemoteStackTraceString = {RemoteStackTraceString.ToString(),nq}, HResult = {HResult}, XCode = {XCode}")]
     [StructLayout(LayoutKind.Sequential)]
-	public struct DacpExceptionObjectData
-	{
-		public CLRDATA_ADDRESS Message;
-		public CLRDATA_ADDRESS InnerException;
-		public CLRDATA_ADDRESS StackTrace;
-		public CLRDATA_ADDRESS WatsonBuckets;
-		public CLRDATA_ADDRESS StackTraceString;
-		public CLRDATA_ADDRESS RemoteStackTraceString;
-		public int HResult;
-		public int XCode;
+    public struct DacpExceptionObjectData
+    {
+        public CLRDATA_ADDRESS Message;
+        public CLRDATA_ADDRESS InnerException;
+        public CLRDATA_ADDRESS StackTrace;
+        public CLRDATA_ADDRESS WatsonBuckets;
+        public CLRDATA_ADDRESS StackTraceString;
+        public CLRDATA_ADDRESS RemoteStackTraceString;
+        public int HResult;
+        public int XCode;
 
         public HRESULT Request(ISOSDacInterface sos, CLRDATA_ADDRESS addr)
         {

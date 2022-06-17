@@ -1,17 +1,19 @@
+﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    [DebuggerDisplay("Reason = {Reason}, alloc_size = {alloc_size}, available_pagefile_mb = {available_pagefile_mb}, gc_index = {gc_index}, fgm = {fgm}, size = {size}, loh_p = {loh_p}")]
     [StructLayout(LayoutKind.Sequential)]
-	public struct DacpOomData
-	{
-		public int Reason;
-		public long alloc_size;
-		public long available_pagefile_mb;
-		public long gc_index;
-		public int fgm;
-		public long size;
-		public int loh_p;
+    public struct DacpOomData
+    {
+        public int Reason;
+        public long alloc_size;
+        public long available_pagefile_mb;
+        public long gc_index;
+        public int fgm;
+        public long size;
+        public int loh_p;
 
         public HRESULT Request(ISOSDacInterface sos)
         {

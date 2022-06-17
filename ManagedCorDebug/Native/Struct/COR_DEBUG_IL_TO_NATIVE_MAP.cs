@@ -1,10 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Contains the offsets that are used to map Microsoft intermediate language (MSIL) code to native code.
     /// </summary>
+    [DebuggerDisplay("ilOffset = {ilOffset}, nativeStartOffset = {nativeStartOffset}, nativeEndOffset = {nativeEndOffset}")]
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct COR_DEBUG_IL_TO_NATIVE_MAP
     {

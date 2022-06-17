@@ -1,12 +1,14 @@
-using System;
+﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
+    [DebuggerDisplay("ModulePtr = {ModulePtr.ToString(),nq}")]
     [StructLayout(LayoutKind.Sequential)]
-	public struct DacpGetModuleAddress
-	{
-		public CLRDATA_ADDRESS ModulePtr;
+    public struct DacpGetModuleAddress
+    {
+        public CLRDATA_ADDRESS ModulePtr;
 
         public HRESULT Request(IXCLRDataModule pDataModule)
         {

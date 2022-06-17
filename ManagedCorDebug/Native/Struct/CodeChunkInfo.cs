@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -8,6 +9,7 @@ namespace ManagedCorDebug
     /// <remarks>
     /// The single chunk of code is a region of native code that is part of a code object such as a function.
     /// </remarks>
+    [DebuggerDisplay("startAddr = {startAddr.ToString(),nq}, length = {length}")]
     [StructLayout(LayoutKind.Sequential, Pack = 8)]
     public struct CodeChunkInfo
     {

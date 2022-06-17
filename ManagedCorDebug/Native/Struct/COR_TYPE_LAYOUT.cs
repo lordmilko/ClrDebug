@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -8,9 +9,10 @@ namespace ManagedCorDebug
     /// <remarks>
     /// If numFields is greater than zero, you can call the <see cref="ICorDebugProcess5.GetTypeFields"/> method to obtain
     /// information about the fields in this type. If type is ELEMENT_TYPE_STRING, ELEMENT_TYPE_ARRAY, or ELEMENT_TYPE_SZARRAY,
-    /// the size of objects of this type is variable, and you can pass the <see cref="COR_TYPEID"/> structure to the <see
-    /// cref="ICorDebugProcess5.GetArrayLayout"/> method.
+    /// the size of objects of this type is variable, and you can pass the <see cref="COR_TYPEID"/> structure to the
+    /// <see cref="ICorDebugProcess5.GetArrayLayout"/> method.
     /// </remarks>
+    [DebuggerDisplay("parentID = {parentID.ToString(),nq}, objectSize = {objectSize}, numFields = {numFields}, boxOffset = {boxOffset}, type = {type.ToString(),nq}")]
     [StructLayout(LayoutKind.Sequential, Pack = 8)]
     public struct COR_TYPE_LAYOUT
     {

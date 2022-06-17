@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -11,6 +12,7 @@ namespace ManagedCorDebug
     /// instrumented code. For stepping to work properly, the following requirements should be met: The map does not interpolate
     /// missing entries. The following example shows a map and its results. Map: Results:
     /// </remarks>
+    [DebuggerDisplay("oldOffset = {oldOffset}, newOffset = {newOffset}, fAccurate = {fAccurate}")]
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct COR_IL_MAP
     {

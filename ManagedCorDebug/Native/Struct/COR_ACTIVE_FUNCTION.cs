@@ -1,27 +1,32 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Contains information about the functions that are currently active in a thread's frames. This structure is used by the <see cref="ICorDebugThread2.GetActiveFunctions"/> method.
     /// </summary>
+    [DebuggerDisplay("pAppDomain = {pAppDomain.ToString(),nq}, pModule = {pModule.ToString(),nq}, pFunction = {pFunction.ToString(),nq}, ilOffset = {ilOffset}, flags = {flags}")]
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct COR_ACTIVE_FUNCTION
     {
         /// <summary>
         /// Pointer to the application domain owner of the ilOffset field.
         /// </summary>
-        [MarshalAs(UnmanagedType.Interface)] public ICorDebugAppDomain pAppDomain;
+        [MarshalAs(UnmanagedType.Interface)]
+        public ICorDebugAppDomain pAppDomain;
 
         /// <summary>
         /// Pointer to the module owner of the ilOffset field.
         /// </summary>
-        [MarshalAs(UnmanagedType.Interface)] public ICorDebugModule pModule;
+        [MarshalAs(UnmanagedType.Interface)]
+        public ICorDebugModule pModule;
 
         /// <summary>
         /// Pointer to the function owner of the ilOffset field.
         /// </summary>
-        [MarshalAs(UnmanagedType.Interface)] public ICorDebugFunction2 pFunction;
+        [MarshalAs(UnmanagedType.Interface)]
+        public ICorDebugFunction2 pFunction;
 
         /// <summary>
         /// The Microsoft intermediate language (MSIL) offset of the frame.

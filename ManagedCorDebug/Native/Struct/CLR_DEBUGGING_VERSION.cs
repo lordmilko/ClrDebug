@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -10,6 +11,7 @@ namespace ManagedCorDebug
     /// structure provides an additional structure version field (wStructVersion). Currently, this field must be set to
     /// zero.
     /// </remarks>
+    [DebuggerDisplay("wStructVersion = {wStructVersion}, wMajor = {wMajor}, wMinor = {wMinor}, wBuild = {wBuild}, wRevision = {wRevision}")]
     [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct CLR_DEBUGGING_VERSION
     {

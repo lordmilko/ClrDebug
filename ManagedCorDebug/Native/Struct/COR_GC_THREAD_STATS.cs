@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -8,6 +9,7 @@ namespace ManagedCorDebug
     /// <remarks>
     /// <see cref="ICLRTask.GetMemStats"/> takes an output parameter of type <see cref="COR_GC_THREAD_STATS"/>.
     /// </remarks>
+    [DebuggerDisplay("PerThreadAllocation = {PerThreadAllocation}, Flags = {Flags}")]
     [StructLayout(LayoutKind.Sequential, Pack = 8)]
     public struct COR_GC_THREAD_STATS
     {

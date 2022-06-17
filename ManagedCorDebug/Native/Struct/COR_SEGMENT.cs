@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -13,6 +14,7 @@ namespace ManagedCorDebug
     /// collectors, its value corresponds to the processor the heap is attached to. Note that there may be more or fewer
     /// garbage collection heaps than there are actual processors due to the implementation details of the garbage collector.
     /// </remarks>
+    [DebuggerDisplay("start = {start.ToString(),nq}, end = {end.ToString(),nq}, type = {type.ToString(),nq}, heap = {heap}")]
     [StructLayout(LayoutKind.Sequential, Pack = 8)]
     public struct COR_SEGMENT
     {

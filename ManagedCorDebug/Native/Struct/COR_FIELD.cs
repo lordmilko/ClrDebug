@@ -1,10 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
     /// <summary>
     /// Provides information about a field in an object.
     /// </summary>
+    [DebuggerDisplay("token = {token.ToString(),nq}, offset = {offset}, id = {id.ToString(),nq}, fieldType = {fieldType.ToString(),nq}")]
     [StructLayout(LayoutKind.Sequential, Pack = 8)]
     public struct COR_FIELD
     {
