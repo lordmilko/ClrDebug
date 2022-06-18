@@ -77,7 +77,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT EnumExtent(
             [In, Out] ref IntPtr handle,
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS_RANGE[] extent);
+            [Out] out CLRDATA_ADDRESS_RANGE extent);
 
         [PreserveSig]
         HRESULT EndEnumExtents(

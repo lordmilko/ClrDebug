@@ -65,7 +65,7 @@ namespace ManagedCorDebug
         [Obsolete]
         [PreserveSig]
         HRESULT GetIMapTokenIface(
-            [In, Out, MarshalAs(UnmanagedType.Interface)] ref object pIMapToken);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object pIMapToken);
 
         /// <summary>
         /// Generates a code-base file that contains the code base currently loaded into this <see cref="ICeeGen"/> interface.<para/>

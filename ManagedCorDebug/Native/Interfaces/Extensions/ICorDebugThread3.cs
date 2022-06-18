@@ -63,6 +63,6 @@ namespace ManagedCorDebug
         HRESULT GetActiveInternalFrames(
             [In] int cInternalFrames,
             [Out] out int pcInternalFrames,
-            [In, Out] IntPtr ppInternalFrames); //ICorDebugInternalFrame2
+            [Out, MarshalAs(UnmanagedType.LPArray)] ICorDebugInternalFrame2[] ppInternalFrames);
     }
 }

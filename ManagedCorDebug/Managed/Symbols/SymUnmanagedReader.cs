@@ -404,12 +404,16 @@ namespace ManagedCorDebug
         /// <param name="name">[in] A pointer to the variable that indicates the attribute to retrieve.</param>
         /// <param name="cBuffer">[in] The size of the buffer array.</param>
         /// <param name="buffer">[out] A pointer to the variable that receives the attribute data.</param>
-        public void GetSymAttribute(int parent, string name, int cBuffer, IntPtr buffer)
+        /// <returns>[out] A pointer to the variable that receives the length of the attribute data.</returns>
+        public int GetSymAttribute(int parent, string name, int cBuffer, IntPtr buffer)
         {
             HRESULT hr;
+            int pcBuffer;
 
-            if ((hr = TryGetSymAttribute(parent, name, cBuffer, buffer)) != HRESULT.S_OK)
+            if ((hr = TryGetSymAttribute(parent, name, cBuffer, out pcBuffer, buffer)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
+
+            return pcBuffer;
         }
 
         /// <summary>
@@ -418,9 +422,10 @@ namespace ManagedCorDebug
         /// <param name="parent">[in] The metadata token for the object for which the attribute is requested.</param>
         /// <param name="name">[in] A pointer to the variable that indicates the attribute to retrieve.</param>
         /// <param name="cBuffer">[in] The size of the buffer array.</param>
+        /// <param name="pcBuffer">[out] A pointer to the variable that receives the length of the attribute data.</param>
         /// <param name="buffer">[out] A pointer to the variable that receives the attribute data.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSymAttribute(int parent, string name, int cBuffer, IntPtr buffer)
+        public HRESULT TryGetSymAttribute(int parent, string name, int cBuffer, out int pcBuffer, IntPtr buffer)
         {
             /*HRESULT GetSymAttribute(
             [In] int parent,
@@ -428,8 +433,6 @@ namespace ManagedCorDebug
             [In] int cBuffer,
             [Out] out int pcBuffer,
             [Out] IntPtr buffer);*/
-            int pcBuffer;
-
             return Raw.GetSymAttribute(parent, name, cBuffer, out pcBuffer, buffer);
         }
 
@@ -757,12 +760,16 @@ namespace ManagedCorDebug
         /// <param name="name">[in] A pointer to a WCHAR that contains the name.</param>
         /// <param name="cBuffer">[in] A ULONG32 that indicates the size of the buffer array.</param>
         /// <param name="buffer">[out] A pointer to the buffer that receives the attribute bytes.</param>
-        public void GetSymAttributePreRemap(int parent, string name, int cBuffer, IntPtr buffer)
+        /// <returns>[out] A pointer to a ULONG32 that receives the size of the buffer required to contain the attribute bytes.</returns>
+        public int GetSymAttributePreRemap(int parent, string name, int cBuffer, IntPtr buffer)
         {
             HRESULT hr;
+            int pcBuffer;
 
-            if ((hr = TryGetSymAttributePreRemap(parent, name, cBuffer, buffer)) != HRESULT.S_OK)
+            if ((hr = TryGetSymAttributePreRemap(parent, name, cBuffer, out pcBuffer, buffer)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
+
+            return pcBuffer;
         }
 
         /// <summary>
@@ -771,9 +778,10 @@ namespace ManagedCorDebug
         /// <param name="parent">[in] The metadata token of the parent.</param>
         /// <param name="name">[in] A pointer to a WCHAR that contains the name.</param>
         /// <param name="cBuffer">[in] A ULONG32 that indicates the size of the buffer array.</param>
+        /// <param name="pcBuffer">[out] A pointer to a ULONG32 that receives the size of the buffer required to contain the attribute bytes.</param>
         /// <param name="buffer">[out] A pointer to the buffer that receives the attribute bytes.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSymAttributePreRemap(int parent, string name, int cBuffer, IntPtr buffer)
+        public HRESULT TryGetSymAttributePreRemap(int parent, string name, int cBuffer, out int pcBuffer, IntPtr buffer)
         {
             /*HRESULT GetSymAttributePreRemap(
             [In] int parent,
@@ -781,8 +789,6 @@ namespace ManagedCorDebug
             [In] int cBuffer,
             [Out] out int pcBuffer,
             [Out] IntPtr buffer);*/
-            int pcBuffer;
-
             return Raw2.GetSymAttributePreRemap(parent, name, cBuffer, out pcBuffer, buffer);
         }
 

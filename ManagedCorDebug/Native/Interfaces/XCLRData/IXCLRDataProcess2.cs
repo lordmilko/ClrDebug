@@ -9,7 +9,7 @@ namespace ManagedCorDebug
     {
         [PreserveSig]
         HRESULT GetGcNotification(
-            [In, Out] ref GcEvtArgs gcEvtArgs);
+            [Out] out GcEvtArgs gcEvtArgs);
 
         [PreserveSig]
         HRESULT SetGcNotification(

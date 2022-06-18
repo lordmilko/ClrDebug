@@ -454,18 +454,18 @@ namespace ManagedCorDebug
         #endregion
         #region EnumField
 
-        public XCLRDataValue_EnumFieldResult EnumField()
+        public XCLRDataValue_EnumFieldResult EnumField(ref IntPtr handle)
         {
             HRESULT hr;
             XCLRDataValue_EnumFieldResult result;
 
-            if ((hr = TryEnumField(out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumField(ref handle, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
         }
 
-        public HRESULT TryEnumField(out XCLRDataValue_EnumFieldResult result)
+        public HRESULT TryEnumField(ref IntPtr handle, out XCLRDataValue_EnumFieldResult result)
         {
             /*HRESULT EnumField(
             [In, Out] ref IntPtr handle,
@@ -474,7 +474,6 @@ namespace ManagedCorDebug
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
             [Out] out mdFieldDef token);*/
-            IntPtr handle = default(IntPtr);
             IXCLRDataValue field;
             int nameBufLen = 0;
             int nameLen;
@@ -491,7 +490,7 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                result = new XCLRDataValue_EnumFieldResult(handle, new XCLRDataValue(field), nameBuf.ToString(), token);
+                result = new XCLRDataValue_EnumFieldResult(new XCLRDataValue(field), nameBuf.ToString(), token);
 
                 return hr;
             }
@@ -548,30 +547,29 @@ namespace ManagedCorDebug
         #endregion
         #region EnumFieldByName
 
-        public XCLRDataValue_EnumFieldByNameResult EnumFieldByName()
+        public XCLRDataValue_EnumFieldByNameResult EnumFieldByName(ref IntPtr handle)
         {
             HRESULT hr;
             XCLRDataValue_EnumFieldByNameResult result;
 
-            if ((hr = TryEnumFieldByName(out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumFieldByName(ref handle, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
         }
 
-        public HRESULT TryEnumFieldByName(out XCLRDataValue_EnumFieldByNameResult result)
+        public HRESULT TryEnumFieldByName(ref IntPtr handle, out XCLRDataValue_EnumFieldByNameResult result)
         {
             /*HRESULT EnumFieldByName(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataValue field,
             [Out] out mdFieldDef token);*/
-            IntPtr handle = default(IntPtr);
             IXCLRDataValue field;
             mdFieldDef token;
             HRESULT hr = Raw.EnumFieldByName(ref handle, out field, out token);
 
             if (hr == HRESULT.S_OK)
-                result = new XCLRDataValue_EnumFieldByNameResult(handle, new XCLRDataValue(field), token);
+                result = new XCLRDataValue_EnumFieldByNameResult(new XCLRDataValue(field), token);
             else
                 result = default(XCLRDataValue_EnumFieldByNameResult);
 
@@ -716,18 +714,18 @@ namespace ManagedCorDebug
         #endregion
         #region EnumField2
 
-        public XCLRDataValue_EnumField2Result EnumField2()
+        public XCLRDataValue_EnumField2Result EnumField2(ref IntPtr handle)
         {
             HRESULT hr;
             XCLRDataValue_EnumField2Result result;
 
-            if ((hr = TryEnumField2(out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumField2(ref handle, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
         }
 
-        public HRESULT TryEnumField2(out XCLRDataValue_EnumField2Result result)
+        public HRESULT TryEnumField2(ref IntPtr handle, out XCLRDataValue_EnumField2Result result)
         {
             /*HRESULT EnumField2(
             [In, Out] ref IntPtr handle,
@@ -737,7 +735,6 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
             [Out] out IXCLRDataModule tokenScope,
             [Out] out mdFieldDef token);*/
-            IntPtr handle = default(IntPtr);
             IXCLRDataValue field;
             int nameBufLen = 0;
             int nameLen;
@@ -755,7 +752,7 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                result = new XCLRDataValue_EnumField2Result(handle, new XCLRDataValue(field), nameBuf.ToString(), new XCLRDataModule(tokenScope), token);
+                result = new XCLRDataValue_EnumField2Result(new XCLRDataValue(field), nameBuf.ToString(), new XCLRDataModule(tokenScope), token);
 
                 return hr;
             }
@@ -769,32 +766,31 @@ namespace ManagedCorDebug
         #endregion
         #region EnumFieldByName2
 
-        public XCLRDataValue_EnumFieldByName2Result EnumFieldByName2()
+        public XCLRDataValue_EnumFieldByName2Result EnumFieldByName2(ref IntPtr handle)
         {
             HRESULT hr;
             XCLRDataValue_EnumFieldByName2Result result;
 
-            if ((hr = TryEnumFieldByName2(out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumFieldByName2(ref handle, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
         }
 
-        public HRESULT TryEnumFieldByName2(out XCLRDataValue_EnumFieldByName2Result result)
+        public HRESULT TryEnumFieldByName2(ref IntPtr handle, out XCLRDataValue_EnumFieldByName2Result result)
         {
             /*HRESULT EnumFieldByName2(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataValue field,
             [Out] out IXCLRDataModule tokenScope,
             [Out] out mdFieldDef token);*/
-            IntPtr handle = default(IntPtr);
             IXCLRDataValue field;
             IXCLRDataModule tokenScope;
             mdFieldDef token;
             HRESULT hr = Raw.EnumFieldByName2(ref handle, out field, out tokenScope, out token);
 
             if (hr == HRESULT.S_OK)
-                result = new XCLRDataValue_EnumFieldByName2Result(handle, new XCLRDataValue(field), new XCLRDataModule(tokenScope), token);
+                result = new XCLRDataValue_EnumFieldByName2Result(new XCLRDataValue(field), new XCLRDataModule(tokenScope), token);
             else
                 result = default(XCLRDataValue_EnumFieldByName2Result);
 

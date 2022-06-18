@@ -925,9 +925,9 @@ namespace ManagedCorDebug
             /*HRESULT GetActiveInternalFrames(
             [In] int cInternalFrames,
             [Out] out int pcInternalFrames,
-            [In, Out] IntPtr ppInternalFrames);*/
+            [Out, MarshalAs(UnmanagedType.LPArray)] ICorDebugInternalFrame2[] ppInternalFrames);*/
             int pcInternalFrames;
-            IntPtr ppInternalFrames = default(IntPtr);
+            ICorDebugInternalFrame2[] ppInternalFrames = null;
             HRESULT hr = Raw3.GetActiveInternalFrames(cInternalFrames, out pcInternalFrames, ppInternalFrames);
 
             if (hr == HRESULT.S_OK)

@@ -206,30 +206,29 @@ namespace ManagedCorDebug
         #endregion
         #region EnumModule
 
-        public EnumModuleResult EnumModule()
+        public XCLRDataModule EnumModule(ref IntPtr handle)
         {
             HRESULT hr;
-            EnumModuleResult result;
+            XCLRDataModule modResult;
 
-            if ((hr = TryEnumModule(out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumModule(ref handle, out modResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return modResult;
         }
 
-        public HRESULT TryEnumModule(out EnumModuleResult result)
+        public HRESULT TryEnumModule(ref IntPtr handle, out XCLRDataModule modResult)
         {
             /*HRESULT EnumModule(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataModule mod);*/
-            IntPtr handle = default(IntPtr);
             IXCLRDataModule mod;
             HRESULT hr = Raw.EnumModule(ref handle, out mod);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumModuleResult(handle, new XCLRDataModule(mod));
+                modResult = new XCLRDataModule(mod);
             else
-                result = default(EnumModuleResult);
+                modResult = default(XCLRDataModule);
 
             return hr;
         }
@@ -318,30 +317,29 @@ namespace ManagedCorDebug
         #endregion
         #region EnumAppDomain
 
-        public EnumAppDomainResult EnumAppDomain()
+        public XCLRDataAppDomain EnumAppDomain(ref IntPtr handle)
         {
             HRESULT hr;
-            EnumAppDomainResult result;
+            XCLRDataAppDomain appDomainResult;
 
-            if ((hr = TryEnumAppDomain(out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumAppDomain(ref handle, out appDomainResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return appDomainResult;
         }
 
-        public HRESULT TryEnumAppDomain(out EnumAppDomainResult result)
+        public HRESULT TryEnumAppDomain(ref IntPtr handle, out XCLRDataAppDomain appDomainResult)
         {
             /*HRESULT EnumAppDomain(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataAppDomain appDomain);*/
-            IntPtr handle = default(IntPtr);
             IXCLRDataAppDomain appDomain;
             HRESULT hr = Raw.EnumAppDomain(ref handle, out appDomain);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumAppDomainResult(handle, new XCLRDataAppDomain(appDomain));
+                appDomainResult = new XCLRDataAppDomain(appDomain);
             else
-                result = default(EnumAppDomainResult);
+                appDomainResult = default(XCLRDataAppDomain);
 
             return hr;
         }

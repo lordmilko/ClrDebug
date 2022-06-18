@@ -29,9 +29,9 @@ namespace ManagedCorDebug
             get
             {
                 HRESULT hr;
-                object pIMapToken = default(object);
+                object pIMapToken;
 
-                if ((hr = TryGetIMapTokenIface(ref pIMapToken)) != HRESULT.S_OK)
+                if ((hr = TryGetIMapTokenIface(out pIMapToken)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
 
                 return pIMapToken;
@@ -43,43 +43,11 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pIMapToken">[in, out] The metadata token for the interface to be returned.</param>
         [Obsolete]
-        public HRESULT TryGetIMapTokenIface(ref object pIMapToken)
+        public HRESULT TryGetIMapTokenIface(out object pIMapToken)
         {
             /*HRESULT GetIMapTokenIface(
-            [In, Out, MarshalAs(UnmanagedType.Interface)] ref object pIMapToken);*/
-            return Raw.GetIMapTokenIface(ref pIMapToken);
-        }
-
-        #endregion
-        #region StringSection
-
-        /// <summary>
-        /// Gets a string representation of the code section referenced by the specified handle. This method is obsolete and should not be used.
-        /// </summary>
-        [Obsolete]
-        public IntPtr StringSection
-        {
-            get
-            {
-                HRESULT hr;
-                IntPtr section = default(IntPtr);
-
-                if ((hr = TryGetStringSection(ref section)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
-
-                return section;
-            }
-        }
-
-        /// <summary>
-        /// Gets a string representation of the code section referenced by the specified handle. This method is obsolete and should not be used.
-        /// </summary>
-        /// <param name="section">[in, out] The handle to the code section.</param>
-        [Obsolete]
-        public HRESULT TryGetStringSection(ref IntPtr section)
-        {
-            /*HRESULT GetStringSection([In, Out] ref IntPtr section);*/
-            return Raw.GetStringSection(ref section);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object pIMapToken);*/
+            return Raw.GetIMapTokenIface(out pIMapToken);
         }
 
         #endregion
@@ -288,6 +256,33 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetIlSection([In] IntPtr section);*/
             return Raw.GetIlSection(section);
+        }
+
+        #endregion
+        #region GetStringSection
+
+        /// <summary>
+        /// Gets a string representation of the code section referenced by the specified handle. This method is obsolete and should not be used.
+        /// </summary>
+        /// <param name="section">[in, out] The handle to the code section.</param>
+        [Obsolete]
+        public void GetStringSection(ref IntPtr section)
+        {
+            HRESULT hr;
+
+            if ((hr = TryGetStringSection(ref section)) != HRESULT.S_OK)
+                Marshal.ThrowExceptionForHR((int) hr);
+        }
+
+        /// <summary>
+        /// Gets a string representation of the code section referenced by the specified handle. This method is obsolete and should not be used.
+        /// </summary>
+        /// <param name="section">[in, out] The handle to the code section.</param>
+        [Obsolete]
+        public HRESULT TryGetStringSection(ref IntPtr section)
+        {
+            /*HRESULT GetStringSection([In, Out] ref IntPtr section);*/
+            return Raw.GetStringSection(ref section);
         }
 
         #endregion

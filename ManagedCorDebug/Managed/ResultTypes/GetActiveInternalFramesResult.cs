@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -17,9 +16,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// A pointer to the address of an array of internal frames on the stack.
         /// </summary>
-        public IntPtr ppInternalFrames { get; }
+        public ICorDebugInternalFrame2[] ppInternalFrames { get; }
 
-        public GetActiveInternalFramesResult(int pcInternalFrames, IntPtr ppInternalFrames)
+        public GetActiveInternalFramesResult(int pcInternalFrames, ICorDebugInternalFrame2[] ppInternalFrames)
         {
             this.pcInternalFrames = pcInternalFrames;
             this.ppInternalFrames = ppInternalFrames;

@@ -16,15 +16,18 @@ namespace ManagedCorDebug
         #region IXCLRDataTarget3
         #region GetMetaData
 
-        public void GetMetaData(string imagePath, int imageTimestamp, int imageSize, Guid mvid, int mdRva, int flags, int bufferSize, IntPtr buffer)
+        public int GetMetaData(string imagePath, int imageTimestamp, int imageSize, Guid mvid, int mdRva, int flags, int bufferSize, IntPtr buffer)
         {
             HRESULT hr;
+            int dataSize;
 
-            if ((hr = TryGetMetaData(imagePath, imageTimestamp, imageSize, mvid, mdRva, flags, bufferSize, buffer)) != HRESULT.S_OK)
+            if ((hr = TryGetMetaData(imagePath, imageTimestamp, imageSize, mvid, mdRva, flags, bufferSize, buffer, out dataSize)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
+
+            return dataSize;
         }
 
-        public HRESULT TryGetMetaData(string imagePath, int imageTimestamp, int imageSize, Guid mvid, int mdRva, int flags, int bufferSize, IntPtr buffer)
+        public HRESULT TryGetMetaData(string imagePath, int imageTimestamp, int imageSize, Guid mvid, int mdRva, int flags, int bufferSize, IntPtr buffer, out int dataSize)
         {
             /*HRESULT GetMetaData(
             [In, MarshalAs(UnmanagedType.LPWStr)] string imagePath,
@@ -36,8 +39,6 @@ namespace ManagedCorDebug
             [In] int bufferSize,
             [Out] IntPtr buffer,
             [Out] out int dataSize);*/
-            int dataSize;
-
             return Raw.GetMetaData(imagePath, imageTimestamp, imageSize, ref mvid, mdRva, flags, bufferSize, buffer, out dataSize);
         }
 

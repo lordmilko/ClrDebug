@@ -215,30 +215,29 @@ namespace ManagedCorDebug
         #endregion
         #region EnumInstance
 
-        public EnumInstanceResult EnumInstance()
+        public XCLRDataMethodInstance EnumInstance(ref IntPtr handle)
         {
             HRESULT hr;
-            EnumInstanceResult result;
+            XCLRDataMethodInstance instanceResult;
 
-            if ((hr = TryEnumInstance(out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumInstance(ref handle, out instanceResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return instanceResult;
         }
 
-        public HRESULT TryEnumInstance(out EnumInstanceResult result)
+        public HRESULT TryEnumInstance(ref IntPtr handle, out XCLRDataMethodInstance instanceResult)
         {
             /*HRESULT EnumInstance(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataMethodInstance instance);*/
-            IntPtr handle = default(IntPtr);
             IXCLRDataMethodInstance instance;
             HRESULT hr = Raw.EnumInstance(ref handle, out instance);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumInstanceResult(handle, new XCLRDataMethodInstance(instance));
+                instanceResult = new XCLRDataMethodInstance(instance);
             else
-                result = default(EnumInstanceResult);
+                instanceResult = default(XCLRDataMethodInstance);
 
             return hr;
         }
@@ -351,32 +350,23 @@ namespace ManagedCorDebug
         #endregion
         #region EnumExtent
 
-        public EnumExtentResult EnumExtent()
+        public CLRDATA_METHDEF_EXTENT EnumExtent(ref IntPtr handle)
         {
             HRESULT hr;
-            EnumExtentResult result;
+            CLRDATA_METHDEF_EXTENT extent;
 
-            if ((hr = TryEnumExtent(out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumExtent(ref handle, out extent)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return extent;
         }
 
-        public HRESULT TryEnumExtent(out EnumExtentResult result)
+        public HRESULT TryEnumExtent(ref IntPtr handle, out CLRDATA_METHDEF_EXTENT extent)
         {
             /*HRESULT EnumExtent(
             [In, Out] ref IntPtr handle,
             [Out] out CLRDATA_METHDEF_EXTENT extent);*/
-            IntPtr handle = default(IntPtr);
-            CLRDATA_METHDEF_EXTENT extent;
-            HRESULT hr = Raw.EnumExtent(ref handle, out extent);
-
-            if (hr == HRESULT.S_OK)
-                result = new EnumExtentResult(handle, extent);
-            else
-                result = default(EnumExtentResult);
-
-            return hr;
+            return Raw.EnumExtent(ref handle, out extent);
         }
 
         #endregion

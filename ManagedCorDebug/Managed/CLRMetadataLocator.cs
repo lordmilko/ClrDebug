@@ -34,15 +34,19 @@ namespace ManagedCorDebug
         /// <param name="flags">[in] Reserved for future use.</param>
         /// <param name="bufferSize">[in] The size of the buffer in which to place the metadata.</param>
         /// <param name="buffer">[out] The buffer in which to place the metadata.</param>
+        /// <returns>[out] The size of the metadata that is returned.</returns>
         /// <remarks>
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
-        public void GetMetadata(string imagePath, int imageTimestamp, int imageSize, Guid mvid, int mdRva, int flags, int bufferSize, IntPtr buffer)
+        public int GetMetadata(string imagePath, int imageTimestamp, int imageSize, Guid mvid, int mdRva, int flags, int bufferSize, IntPtr buffer)
         {
             HRESULT hr;
+            int dataSize;
 
-            if ((hr = TryGetMetadata(imagePath, imageTimestamp, imageSize, mvid, mdRva, flags, bufferSize, buffer)) != HRESULT.S_OK)
+            if ((hr = TryGetMetadata(imagePath, imageTimestamp, imageSize, mvid, mdRva, flags, bufferSize, buffer, out dataSize)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
+
+            return dataSize;
         }
 
         /// <summary>
@@ -56,10 +60,11 @@ namespace ManagedCorDebug
         /// <param name="flags">[in] Reserved for future use.</param>
         /// <param name="bufferSize">[in] The size of the buffer in which to place the metadata.</param>
         /// <param name="buffer">[out] The buffer in which to place the metadata.</param>
+        /// <param name="dataSize">[out] The size of the metadata that is returned.</param>
         /// <remarks>
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
-        public HRESULT TryGetMetadata(string imagePath, int imageTimestamp, int imageSize, Guid mvid, int mdRva, int flags, int bufferSize, IntPtr buffer)
+        public HRESULT TryGetMetadata(string imagePath, int imageTimestamp, int imageSize, Guid mvid, int mdRva, int flags, int bufferSize, IntPtr buffer, out int dataSize)
         {
             /*HRESULT GetMetadata(
             [MarshalAs(UnmanagedType.LPWStr), In] string imagePath,
@@ -71,8 +76,6 @@ namespace ManagedCorDebug
             [In] int bufferSize,
             [Out] IntPtr buffer,
             [Out] out int dataSize);*/
-            int dataSize;
-
             return Raw.GetMetadata(imagePath, imageTimestamp, imageSize, ref mvid, mdRva, flags, bufferSize, buffer, out dataSize);
         }
 

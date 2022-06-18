@@ -32,13 +32,15 @@ namespace ManagedCorDebug
         /// This parameter is required only if ppProcess or pFlags is not null.</param>
         /// <param name="pMaxDebuggerSupportedVersion">[in] The highest version of the CLR that this debugger can debug. You should specify the major, minor, and build versions from the latest CLR version this debugger supports, and set the revision number to 65535 to accommodate future in-place CLR servicing releases.</param>
         /// <param name="riidProcess">[in] The ID of the <see cref="ICorDebugProcess"/> interface to retrieve. Currently, the only accepted values are IID_CORDEBUGPROCESS3, IID_CORDEBUGPROCESS2, and IID_CORDEBUGPROCESS.</param>
+        /// <param name="pVersion">[in, out] The version of the CLR. On input, this value can be null. It can also point to a <see cref="CLR_DEBUGGING_VERSION"/> structure, in which case the structure's wStructVersion field must be initialized to 0 (zero).<para/>
+        /// On output, the returned <see cref="CLR_DEBUGGING_VERSION"/> structure will be filled in with the version information for the CLR.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public OpenVirtualProcessResult OpenVirtualProcess(long moduleBaseAddress, object pDataTarget, ICLRDebuggingLibraryProvider pLibraryProvider, CLR_DEBUGGING_VERSION pMaxDebuggerSupportedVersion, Guid riidProcess)
+        public OpenVirtualProcessResult OpenVirtualProcess(long moduleBaseAddress, object pDataTarget, ICLRDebuggingLibraryProvider pLibraryProvider, CLR_DEBUGGING_VERSION pMaxDebuggerSupportedVersion, Guid riidProcess, ref CLR_DEBUGGING_VERSION pVersion)
         {
             HRESULT hr;
             OpenVirtualProcessResult result;
 
-            if ((hr = TryOpenVirtualProcess(moduleBaseAddress, pDataTarget, pLibraryProvider, pMaxDebuggerSupportedVersion, riidProcess, out result)) != HRESULT.S_OK)
+            if ((hr = TryOpenVirtualProcess(moduleBaseAddress, pDataTarget, pLibraryProvider, pMaxDebuggerSupportedVersion, riidProcess, ref pVersion, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -54,6 +56,8 @@ namespace ManagedCorDebug
         /// This parameter is required only if ppProcess or pFlags is not null.</param>
         /// <param name="pMaxDebuggerSupportedVersion">[in] The highest version of the CLR that this debugger can debug. You should specify the major, minor, and build versions from the latest CLR version this debugger supports, and set the revision number to 65535 to accommodate future in-place CLR servicing releases.</param>
         /// <param name="riidProcess">[in] The ID of the <see cref="ICorDebugProcess"/> interface to retrieve. Currently, the only accepted values are IID_CORDEBUGPROCESS3, IID_CORDEBUGPROCESS2, and IID_CORDEBUGPROCESS.</param>
+        /// <param name="pVersion">[in, out] The version of the CLR. On input, this value can be null. It can also point to a <see cref="CLR_DEBUGGING_VERSION"/> structure, in which case the structure's wStructVersion field must be initialized to 0 (zero).<para/>
+        /// On output, the returned <see cref="CLR_DEBUGGING_VERSION"/> structure will be filled in with the version information for the CLR.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// This method returns the following specific HRESULTs as well as HRESULT errors that indicate method failure.
@@ -70,7 +74,7 @@ namespace ManagedCorDebug
         /// | E_NO_INTERFACE                         | The riidProcess interface is not available.                                                                                                                                                                                                   |
         /// | CORDBG_E_UNSUPPORTED_VERSION_STRUCT    | The CLR_DEBUGGING_VERSION structure does not have a recognized value for wStructVersion. The only accepted value at this time is 0.                                                                                                           |
         /// </returns>
-        public HRESULT TryOpenVirtualProcess(long moduleBaseAddress, object pDataTarget, ICLRDebuggingLibraryProvider pLibraryProvider, CLR_DEBUGGING_VERSION pMaxDebuggerSupportedVersion, Guid riidProcess, out OpenVirtualProcessResult result)
+        public HRESULT TryOpenVirtualProcess(long moduleBaseAddress, object pDataTarget, ICLRDebuggingLibraryProvider pLibraryProvider, CLR_DEBUGGING_VERSION pMaxDebuggerSupportedVersion, Guid riidProcess, ref CLR_DEBUGGING_VERSION pVersion, out OpenVirtualProcessResult result)
         {
             /*HRESULT OpenVirtualProcess(
             [In] long moduleBaseAddress,
@@ -84,12 +88,11 @@ namespace ManagedCorDebug
             [In] [Out] ref CLR_DEBUGGING_VERSION pVersion,
             [Out] out CLR_DEBUGGING_PROCESS_FLAGS pdwFlags);*/
             object ppProcess;
-            CLR_DEBUGGING_VERSION pVersion = default(CLR_DEBUGGING_VERSION);
             CLR_DEBUGGING_PROCESS_FLAGS pdwFlags;
             HRESULT hr = Raw.OpenVirtualProcess(moduleBaseAddress, pDataTarget, pLibraryProvider, ref pMaxDebuggerSupportedVersion, ref riidProcess, out ppProcess, ref pVersion, out pdwFlags);
 
             if (hr == HRESULT.S_OK)
-                result = new OpenVirtualProcessResult(ppProcess, pVersion, pdwFlags);
+                result = new OpenVirtualProcessResult(ppProcess, pdwFlags);
             else
                 result = default(OpenVirtualProcessResult);
 

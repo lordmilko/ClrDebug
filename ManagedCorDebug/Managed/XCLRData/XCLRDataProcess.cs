@@ -188,30 +188,29 @@ namespace ManagedCorDebug
         #endregion
         #region EnumTask
 
-        public EnumTaskResult EnumTask()
+        public XCLRDataTask EnumTask(ref IntPtr handle)
         {
             HRESULT hr;
-            EnumTaskResult result;
+            XCLRDataTask taskResult;
 
-            if ((hr = TryEnumTask(out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumTask(ref handle, out taskResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return taskResult;
         }
 
-        public HRESULT TryEnumTask(out EnumTaskResult result)
+        public HRESULT TryEnumTask(ref IntPtr handle, out XCLRDataTask taskResult)
         {
             /*HRESULT EnumTask(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataTask task);*/
-            IntPtr handle = default(IntPtr);
             IXCLRDataTask task;
             HRESULT hr = Raw.EnumTask(ref handle, out task);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumTaskResult(handle, new XCLRDataTask(task));
+                taskResult = new XCLRDataTask(task);
             else
-                result = default(EnumTaskResult);
+                taskResult = default(XCLRDataTask);
 
             return hr;
         }
@@ -409,30 +408,29 @@ namespace ManagedCorDebug
         #endregion
         #region EnumAppDomain
 
-        public EnumAppDomainResult EnumAppDomain()
+        public XCLRDataAppDomain EnumAppDomain(ref IntPtr handle)
         {
             HRESULT hr;
-            EnumAppDomainResult result;
+            XCLRDataAppDomain appDomainResult;
 
-            if ((hr = TryEnumAppDomain(out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumAppDomain(ref handle, out appDomainResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return appDomainResult;
         }
 
-        public HRESULT TryEnumAppDomain(out EnumAppDomainResult result)
+        public HRESULT TryEnumAppDomain(ref IntPtr handle, out XCLRDataAppDomain appDomainResult)
         {
             /*HRESULT EnumAppDomain(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataAppDomain appDomain);*/
-            IntPtr handle = default(IntPtr);
             IXCLRDataAppDomain appDomain;
             HRESULT hr = Raw.EnumAppDomain(ref handle, out appDomain);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumAppDomainResult(handle, new XCLRDataAppDomain(appDomain));
+                appDomainResult = new XCLRDataAppDomain(appDomain);
             else
-                result = default(EnumAppDomainResult);
+                appDomainResult = default(XCLRDataAppDomain);
 
             return hr;
         }
@@ -509,30 +507,29 @@ namespace ManagedCorDebug
         #endregion
         #region EnumAssembly
 
-        public EnumAssemblyResult EnumAssembly()
+        public XCLRDataAssembly EnumAssembly(ref IntPtr handle)
         {
             HRESULT hr;
-            EnumAssemblyResult result;
+            XCLRDataAssembly assemblyResult;
 
-            if ((hr = TryEnumAssembly(out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumAssembly(ref handle, out assemblyResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return assemblyResult;
         }
 
-        public HRESULT TryEnumAssembly(out EnumAssemblyResult result)
+        public HRESULT TryEnumAssembly(ref IntPtr handle, out XCLRDataAssembly assemblyResult)
         {
             /*HRESULT EnumAssembly(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataAssembly assembly);*/
-            IntPtr handle = default(IntPtr);
             IXCLRDataAssembly assembly;
             HRESULT hr = Raw.EnumAssembly(ref handle, out assembly);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumAssemblyResult(handle, new XCLRDataAssembly(assembly));
+                assemblyResult = new XCLRDataAssembly(assembly);
             else
-                result = default(EnumAssemblyResult);
+                assemblyResult = default(XCLRDataAssembly);
 
             return hr;
         }
@@ -579,30 +576,29 @@ namespace ManagedCorDebug
         #endregion
         #region EnumModule
 
-        public EnumModuleResult EnumModule()
+        public XCLRDataModule EnumModule(ref IntPtr handle)
         {
             HRESULT hr;
-            EnumModuleResult result;
+            XCLRDataModule modResult;
 
-            if ((hr = TryEnumModule(out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumModule(ref handle, out modResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return modResult;
         }
 
-        public HRESULT TryEnumModule(out EnumModuleResult result)
+        public HRESULT TryEnumModule(ref IntPtr handle, out XCLRDataModule modResult)
         {
             /*HRESULT EnumModule(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataModule mod);*/
-            IntPtr handle = default(IntPtr);
             IXCLRDataModule mod;
             HRESULT hr = Raw.EnumModule(ref handle, out mod);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumModuleResult(handle, new XCLRDataModule(mod));
+                modResult = new XCLRDataModule(mod);
             else
-                result = default(EnumModuleResult);
+                modResult = default(XCLRDataModule);
 
             return hr;
         }
@@ -1194,9 +1190,9 @@ namespace ManagedCorDebug
             get
             {
                 HRESULT hr;
-                GcEvtArgs gcEvtArgs = default(GcEvtArgs);
+                GcEvtArgs gcEvtArgs;
 
-                if ((hr = TryGetGcNotification(ref gcEvtArgs)) != HRESULT.S_OK)
+                if ((hr = TryGetGcNotification(out gcEvtArgs)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
 
                 return gcEvtArgs;
@@ -1210,11 +1206,11 @@ namespace ManagedCorDebug
             }
         }
 
-        public HRESULT TryGetGcNotification(ref GcEvtArgs gcEvtArgs)
+        public HRESULT TryGetGcNotification(out GcEvtArgs gcEvtArgs)
         {
             /*HRESULT GetGcNotification(
-            [In, Out] ref GcEvtArgs gcEvtArgs);*/
-            return Raw2.GetGcNotification(ref gcEvtArgs);
+            [Out] out GcEvtArgs gcEvtArgs);*/
+            return Raw2.GetGcNotification(out gcEvtArgs);
         }
 
         public HRESULT TrySetGcNotification(GcEvtArgs gcEvtArgs)

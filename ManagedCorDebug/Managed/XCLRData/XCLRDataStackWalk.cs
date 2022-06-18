@@ -106,23 +106,24 @@ namespace ManagedCorDebug
         #endregion
         #region GetContext
 
-        public void GetContext(int contextFlags, int contextBufSize, IntPtr contextBuf)
+        public int GetContext(int contextFlags, int contextBufSize, IntPtr contextBuf)
         {
             HRESULT hr;
+            int contextSize;
 
-            if ((hr = TryGetContext(contextFlags, contextBufSize, contextBuf)) != HRESULT.S_OK)
+            if ((hr = TryGetContext(contextFlags, contextBufSize, out contextSize, contextBuf)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
+
+            return contextSize;
         }
 
-        public HRESULT TryGetContext(int contextFlags, int contextBufSize, IntPtr contextBuf)
+        public HRESULT TryGetContext(int contextFlags, int contextBufSize, out int contextSize, IntPtr contextBuf)
         {
             /*HRESULT GetContext(
             [In] int contextFlags,
             [In] int contextBufSize,
             [Out] out int contextSize,
             [Out] IntPtr contextBuf);*/
-            int contextSize;
-
             return Raw.GetContext(contextFlags, contextBufSize, out contextSize, contextBuf);
         }
 

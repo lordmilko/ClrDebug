@@ -79,16 +79,20 @@ namespace ManagedCorDebug
         /// <param name="contextFlags">[in] Flags that indicate the requested contents of the context buffer (defined in WinNT.h).</param>
         /// <param name="contextBufSize">[in] The allocated size of the context buffer.</param>
         /// <param name="contextBuf">[out] The context buffer.</param>
+        /// <returns>[out] The actual size of the context. This value must be less than or equal to the size of the context buffer.</returns>
         /// <remarks>
         /// Because unwinding restores only a subset of the registers, such as non-volatile registers, the context may not
         /// exactly match the register state at the time of the call.
         /// </remarks>
-        public void GetContext(int contextFlags, int contextBufSize, IntPtr contextBuf)
+        public int GetContext(int contextFlags, int contextBufSize, IntPtr contextBuf)
         {
             HRESULT hr;
+            int contextSize;
 
-            if ((hr = TryGetContext(contextFlags, contextBufSize, contextBuf)) != HRESULT.S_OK)
+            if ((hr = TryGetContext(contextFlags, contextBufSize, out contextSize, contextBuf)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
+
+            return contextSize;
         }
 
         /// <summary>
@@ -96,6 +100,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="contextFlags">[in] Flags that indicate the requested contents of the context buffer (defined in WinNT.h).</param>
         /// <param name="contextBufSize">[in] The allocated size of the context buffer.</param>
+        /// <param name="contextSize">[out] The actual size of the context. This value must be less than or equal to the size of the context buffer.</param>
         /// <param name="contextBuf">[out] The context buffer.</param>
         /// <returns>
         /// This method returns the following specific HRESULTs as well as HRESULT errors that indicate method failure.
@@ -111,15 +116,13 @@ namespace ManagedCorDebug
         /// Because unwinding restores only a subset of the registers, such as non-volatile registers, the context may not
         /// exactly match the register state at the time of the call.
         /// </remarks>
-        public HRESULT TryGetContext(int contextFlags, int contextBufSize, IntPtr contextBuf)
+        public HRESULT TryGetContext(int contextFlags, int contextBufSize, out int contextSize, IntPtr contextBuf)
         {
             /*HRESULT GetContext(
             [In] int contextFlags,
             [In] int contextBufSize,
             [Out] out int contextSize,
             [Out] IntPtr contextBuf);*/
-            int contextSize;
-
             return Raw.GetContext(contextFlags, contextBufSize, out contextSize, contextBuf);
         }
 

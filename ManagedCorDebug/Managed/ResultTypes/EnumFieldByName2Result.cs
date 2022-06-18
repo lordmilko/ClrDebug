@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -6,11 +5,9 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="XCLRDataTypeDefinition.EnumFieldByName2"/> method.
     /// </summary>
-    [DebuggerDisplay("handle = {handle}, type = {type}, flags = {flags}, tokenScope = {tokenScope}, token = {token}")]
+    [DebuggerDisplay("type = {type}, flags = {flags}, tokenScope = {tokenScope}, token = {token}")]
     public struct EnumFieldByName2Result
     {
-        public IntPtr handle { get; }
-
         public XCLRDataTypeDefinition type { get; }
 
         public int flags { get; }
@@ -19,9 +16,8 @@ namespace ManagedCorDebug
 
         public mdFieldDef token { get; }
 
-        public EnumFieldByName2Result(IntPtr handle, XCLRDataTypeDefinition type, int flags, XCLRDataModule tokenScope, mdFieldDef token)
+        public EnumFieldByName2Result(XCLRDataTypeDefinition type, int flags, XCLRDataModule tokenScope, mdFieldDef token)
         {
-            this.handle = handle;
             this.type = type;
             this.flags = flags;
             this.tokenScope = tokenScope;

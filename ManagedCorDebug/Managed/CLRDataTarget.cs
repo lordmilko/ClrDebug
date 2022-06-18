@@ -164,12 +164,16 @@ namespace ManagedCorDebug
         /// <param name="address">[in] A CLRDATA_ADDRESS that stores the virtual memory address.</param>
         /// <param name="buffer">[out] A pointer to a buffer that receives the data.</param>
         /// <param name="bytesRequested">[in] The length of the buffer.</param>
-        public void ReadVirtual(CLRDATA_ADDRESS address, IntPtr buffer, int bytesRequested)
+        /// <returns>[out] A pointer to the number of bytes returned.</returns>
+        public int ReadVirtual(CLRDATA_ADDRESS address, IntPtr buffer, int bytesRequested)
         {
             HRESULT hr;
+            int bytesRead;
 
-            if ((hr = TryReadVirtual(address, buffer, bytesRequested)) != HRESULT.S_OK)
+            if ((hr = TryReadVirtual(address, buffer, bytesRequested, out bytesRead)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
+
+            return bytesRead;
         }
 
         /// <summary>
@@ -178,11 +182,10 @@ namespace ManagedCorDebug
         /// <param name="address">[in] A CLRDATA_ADDRESS that stores the virtual memory address.</param>
         /// <param name="buffer">[out] A pointer to a buffer that receives the data.</param>
         /// <param name="bytesRequested">[in] The length of the buffer.</param>
-        public HRESULT TryReadVirtual(CLRDATA_ADDRESS address, IntPtr buffer, int bytesRequested)
+        /// <param name="bytesRead">[out] A pointer to the number of bytes returned.</param>
+        public HRESULT TryReadVirtual(CLRDATA_ADDRESS address, IntPtr buffer, int bytesRequested, out int bytesRead)
         {
             /*HRESULT ReadVirtual([In] CLRDATA_ADDRESS address, [Out] IntPtr buffer, [In] int bytesRequested, [Out] out int bytesRead);*/
-            int bytesRead;
-
             return Raw.ReadVirtual(address, buffer, bytesRequested, out bytesRead);
         }
 
@@ -564,16 +567,20 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="bufferSize">[in] The input buffer size, in bytes. This must be equal to sizeof(MINIDUMP_EXCEPTION).</param>
         /// <param name="buffer">[out] A pointer to a memory buffer that receives a copy of the exception record. The exception record is returned as a MINIDUMP_EXCEPTION type.</param>
+        /// <returns>[out] A pointer to a ULONG32 type that receives the number of bytes actually written to the buffer.</returns>
         /// <remarks>
         /// MINIDUMP_EXCEPTION is a structure defined in dbghelp.h and imagehlp.h in the Windows SDK. This method is implemented
         /// by the writer of the debugging application.
         /// </remarks>
-        public void GetExceptionRecord(int bufferSize, IntPtr buffer)
+        public int GetExceptionRecord(int bufferSize, IntPtr buffer)
         {
             HRESULT hr;
+            int bufferUsed;
 
-            if ((hr = TryGetExceptionRecord(bufferSize, buffer)) != HRESULT.S_OK)
+            if ((hr = TryGetExceptionRecord(bufferSize, out bufferUsed, buffer)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
+
+            return bufferUsed;
         }
 
         /// <summary>
@@ -581,6 +588,7 @@ namespace ManagedCorDebug
         /// For example, for a dump target, this would be equivalent to the exception record passed in via the ExceptionParam argument to the MiniDumpWriteDump function in the Windows Debug Help Library (DbgHelp).
         /// </summary>
         /// <param name="bufferSize">[in] The input buffer size, in bytes. This must be equal to sizeof(MINIDUMP_EXCEPTION).</param>
+        /// <param name="bufferUsed">[out] A pointer to a ULONG32 type that receives the number of bytes actually written to the buffer.</param>
         /// <param name="buffer">[out] A pointer to a memory buffer that receives a copy of the exception record. The exception record is returned as a MINIDUMP_EXCEPTION type.</param>
         /// <returns>
         /// The return value is S_OK on success, or a failure HRESULT code on failure. The HRESULT codes can include but are not limited to the following:
@@ -595,11 +603,9 @@ namespace ManagedCorDebug
         /// MINIDUMP_EXCEPTION is a structure defined in dbghelp.h and imagehlp.h in the Windows SDK. This method is implemented
         /// by the writer of the debugging application.
         /// </remarks>
-        public HRESULT TryGetExceptionRecord(int bufferSize, IntPtr buffer)
+        public HRESULT TryGetExceptionRecord(int bufferSize, out int bufferUsed, IntPtr buffer)
         {
             /*HRESULT GetExceptionRecord([In] int bufferSize, [Out] out int bufferUsed, [Out] IntPtr buffer);*/
-            int bufferUsed;
-
             return Raw3.GetExceptionRecord(bufferSize, out bufferUsed, buffer);
         }
 
@@ -612,16 +618,20 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="bufferSize">[in] The input buffer size, in bytes. This must be large enough to accommodate the context record.</param>
         /// <param name="buffer">[out] A pointer to a memory buffer that receives a copy of the context record. The exception record is returned as a CONTEXT type.</param>
+        /// <returns>[out] A pointer to a ULONG32 type that receives the number of bytes actually written to the buffer.</returns>
         /// <remarks>
         /// CONTEXT is a platform-specific structure defined in headers provided by the Windows SDK. This method is implemented
         /// by the writer of the debugging application.
         /// </remarks>
-        public void GetExceptionContextRecord(int bufferSize, IntPtr buffer)
+        public int GetExceptionContextRecord(int bufferSize, IntPtr buffer)
         {
             HRESULT hr;
+            int bufferUsed;
 
-            if ((hr = TryGetExceptionContextRecord(bufferSize, buffer)) != HRESULT.S_OK)
+            if ((hr = TryGetExceptionContextRecord(bufferSize, out bufferUsed, buffer)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
+
+            return bufferUsed;
         }
 
         /// <summary>
@@ -629,6 +639,7 @@ namespace ManagedCorDebug
         /// For example, for a dump target, this would be equivalent to the context record passed in via the ExceptionParam argument to the MiniDumpWriteDump function in the Windows Debug Help Library (DbgHelp).
         /// </summary>
         /// <param name="bufferSize">[in] The input buffer size, in bytes. This must be large enough to accommodate the context record.</param>
+        /// <param name="bufferUsed">[out] A pointer to a ULONG32 type that receives the number of bytes actually written to the buffer.</param>
         /// <param name="buffer">[out] A pointer to a memory buffer that receives a copy of the context record. The exception record is returned as a CONTEXT type.</param>
         /// <returns>
         /// The return value is S_OK on success, or a failure HRESULT code on failure. The HRESULT codes can include but are not limited to the following:
@@ -643,11 +654,9 @@ namespace ManagedCorDebug
         /// CONTEXT is a platform-specific structure defined in headers provided by the Windows SDK. This method is implemented
         /// by the writer of the debugging application.
         /// </remarks>
-        public HRESULT TryGetExceptionContextRecord(int bufferSize, IntPtr buffer)
+        public HRESULT TryGetExceptionContextRecord(int bufferSize, out int bufferUsed, IntPtr buffer)
         {
             /*HRESULT GetExceptionContextRecord([In] int bufferSize, [Out] out int bufferUsed, [Out] IntPtr buffer);*/
-            int bufferUsed;
-
             return Raw3.GetExceptionContextRecord(bufferSize, out bufferUsed, buffer);
         }
 

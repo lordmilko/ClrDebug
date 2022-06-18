@@ -183,30 +183,29 @@ namespace ManagedCorDebug
         #endregion
         #region EnumAssembly
 
-        public EnumAssemblyResult EnumAssembly()
+        public XCLRDataAssembly EnumAssembly(ref IntPtr handle)
         {
             HRESULT hr;
-            EnumAssemblyResult result;
+            XCLRDataAssembly assemblyResult;
 
-            if ((hr = TryEnumAssembly(out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumAssembly(ref handle, out assemblyResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return assemblyResult;
         }
 
-        public HRESULT TryEnumAssembly(out EnumAssemblyResult result)
+        public HRESULT TryEnumAssembly(ref IntPtr handle, out XCLRDataAssembly assemblyResult)
         {
             /*HRESULT EnumAssembly(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataAssembly assembly);*/
-            IntPtr handle = default(IntPtr);
             IXCLRDataAssembly assembly;
             HRESULT hr = Raw.EnumAssembly(ref handle, out assembly);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumAssemblyResult(handle, new XCLRDataAssembly(assembly));
+                assemblyResult = new XCLRDataAssembly(assembly);
             else
-                result = default(EnumAssemblyResult);
+                assemblyResult = default(XCLRDataAssembly);
 
             return hr;
         }
@@ -253,30 +252,29 @@ namespace ManagedCorDebug
         #endregion
         #region EnumTypeDefinition
 
-        public EnumTypeDefinitionResult EnumTypeDefinition()
+        public XCLRDataTypeDefinition EnumTypeDefinition(ref IntPtr handle)
         {
             HRESULT hr;
-            EnumTypeDefinitionResult result;
+            XCLRDataTypeDefinition typeDefinitionResult;
 
-            if ((hr = TryEnumTypeDefinition(out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumTypeDefinition(ref handle, out typeDefinitionResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return typeDefinitionResult;
         }
 
-        public HRESULT TryEnumTypeDefinition(out EnumTypeDefinitionResult result)
+        public HRESULT TryEnumTypeDefinition(ref IntPtr handle, out XCLRDataTypeDefinition typeDefinitionResult)
         {
             /*HRESULT EnumTypeDefinition(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataTypeDefinition typeDefinition);*/
-            IntPtr handle = default(IntPtr);
             IXCLRDataTypeDefinition typeDefinition;
             HRESULT hr = Raw.EnumTypeDefinition(ref handle, out typeDefinition);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumTypeDefinitionResult(handle, new XCLRDataTypeDefinition(typeDefinition));
+                typeDefinitionResult = new XCLRDataTypeDefinition(typeDefinition);
             else
-                result = default(EnumTypeDefinitionResult);
+                typeDefinitionResult = default(XCLRDataTypeDefinition);
 
             return hr;
         }
@@ -324,30 +322,29 @@ namespace ManagedCorDebug
         #endregion
         #region EnumTypeInstance
 
-        public EnumTypeInstanceResult EnumTypeInstance()
+        public XCLRDataTypeInstance EnumTypeInstance(ref IntPtr handle)
         {
             HRESULT hr;
-            EnumTypeInstanceResult result;
+            XCLRDataTypeInstance typeInstanceResult;
 
-            if ((hr = TryEnumTypeInstance(out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumTypeInstance(ref handle, out typeInstanceResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return typeInstanceResult;
         }
 
-        public HRESULT TryEnumTypeInstance(out EnumTypeInstanceResult result)
+        public HRESULT TryEnumTypeInstance(ref IntPtr handle, out XCLRDataTypeInstance typeInstanceResult)
         {
             /*HRESULT EnumTypeInstance(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataTypeInstance typeInstance);*/
-            IntPtr handle = default(IntPtr);
             IXCLRDataTypeInstance typeInstance;
             HRESULT hr = Raw.EnumTypeInstance(ref handle, out typeInstance);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumTypeInstanceResult(handle, new XCLRDataTypeInstance(typeInstance));
+                typeInstanceResult = new XCLRDataTypeInstance(typeInstance);
             else
-                result = default(EnumTypeInstanceResult);
+                typeInstanceResult = default(XCLRDataTypeInstance);
 
             return hr;
         }
@@ -396,30 +393,29 @@ namespace ManagedCorDebug
         #endregion
         #region EnumTypeDefinitionByName
 
-        public EnumTypeDefinitionByNameResult EnumTypeDefinitionByName()
+        public XCLRDataTypeDefinition EnumTypeDefinitionByName(ref IntPtr handle)
         {
             HRESULT hr;
-            EnumTypeDefinitionByNameResult result;
+            XCLRDataTypeDefinition typeResult;
 
-            if ((hr = TryEnumTypeDefinitionByName(out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumTypeDefinitionByName(ref handle, out typeResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return typeResult;
         }
 
-        public HRESULT TryEnumTypeDefinitionByName(out EnumTypeDefinitionByNameResult result)
+        public HRESULT TryEnumTypeDefinitionByName(ref IntPtr handle, out XCLRDataTypeDefinition typeResult)
         {
             /*HRESULT EnumTypeDefinitionByName(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataTypeDefinition type);*/
-            IntPtr handle = default(IntPtr);
             IXCLRDataTypeDefinition type;
             HRESULT hr = Raw.EnumTypeDefinitionByName(ref handle, out type);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumTypeDefinitionByNameResult(handle, new XCLRDataTypeDefinition(type));
+                typeResult = new XCLRDataTypeDefinition(type);
             else
-                result = default(EnumTypeDefinitionByNameResult);
+                typeResult = default(XCLRDataTypeDefinition);
 
             return hr;
         }
@@ -469,30 +465,29 @@ namespace ManagedCorDebug
         #endregion
         #region EnumTypeInstanceByName
 
-        public EnumTypeInstanceByNameResult EnumTypeInstanceByName()
+        public XCLRDataTypeInstance EnumTypeInstanceByName(ref IntPtr handle)
         {
             HRESULT hr;
-            EnumTypeInstanceByNameResult result;
+            XCLRDataTypeInstance typeResult;
 
-            if ((hr = TryEnumTypeInstanceByName(out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumTypeInstanceByName(ref handle, out typeResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return typeResult;
         }
 
-        public HRESULT TryEnumTypeInstanceByName(out EnumTypeInstanceByNameResult result)
+        public HRESULT TryEnumTypeInstanceByName(ref IntPtr handle, out XCLRDataTypeInstance typeResult)
         {
             /*HRESULT EnumTypeInstanceByName(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataTypeInstance type);*/
-            IntPtr handle = default(IntPtr);
             IXCLRDataTypeInstance type;
             HRESULT hr = Raw.EnumTypeInstanceByName(ref handle, out type);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumTypeInstanceByNameResult(handle, new XCLRDataTypeInstance(type));
+                typeResult = new XCLRDataTypeInstance(type);
             else
-                result = default(EnumTypeInstanceByNameResult);
+                typeResult = default(XCLRDataTypeInstance);
 
             return hr;
         }
@@ -571,30 +566,29 @@ namespace ManagedCorDebug
         #endregion
         #region EnumMethodDefinitionByName
 
-        public EnumMethodDefinitionByNameResult EnumMethodDefinitionByName()
+        public XCLRDataMethodDefinition EnumMethodDefinitionByName(ref IntPtr handle)
         {
             HRESULT hr;
-            EnumMethodDefinitionByNameResult result;
+            XCLRDataMethodDefinition methodResult;
 
-            if ((hr = TryEnumMethodDefinitionByName(out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumMethodDefinitionByName(ref handle, out methodResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return methodResult;
         }
 
-        public HRESULT TryEnumMethodDefinitionByName(out EnumMethodDefinitionByNameResult result)
+        public HRESULT TryEnumMethodDefinitionByName(ref IntPtr handle, out XCLRDataMethodDefinition methodResult)
         {
             /*HRESULT EnumMethodDefinitionByName(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataMethodDefinition method);*/
-            IntPtr handle = default(IntPtr);
             IXCLRDataMethodDefinition method;
             HRESULT hr = Raw.EnumMethodDefinitionByName(ref handle, out method);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumMethodDefinitionByNameResult(handle, new XCLRDataMethodDefinition(method));
+                methodResult = new XCLRDataMethodDefinition(method);
             else
-                result = default(EnumMethodDefinitionByNameResult);
+                methodResult = default(XCLRDataMethodDefinition);
 
             return hr;
         }
@@ -644,30 +638,29 @@ namespace ManagedCorDebug
         #endregion
         #region EnumMethodInstanceByName
 
-        public EnumMethodInstanceByNameResult EnumMethodInstanceByName()
+        public XCLRDataMethodInstance EnumMethodInstanceByName(ref IntPtr handle)
         {
             HRESULT hr;
-            EnumMethodInstanceByNameResult result;
+            XCLRDataMethodInstance methodResult;
 
-            if ((hr = TryEnumMethodInstanceByName(out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumMethodInstanceByName(ref handle, out methodResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return methodResult;
         }
 
-        public HRESULT TryEnumMethodInstanceByName(out EnumMethodInstanceByNameResult result)
+        public HRESULT TryEnumMethodInstanceByName(ref IntPtr handle, out XCLRDataMethodInstance methodResult)
         {
             /*HRESULT EnumMethodInstanceByName(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataMethodInstance method);*/
-            IntPtr handle = default(IntPtr);
             IXCLRDataMethodInstance method;
             HRESULT hr = Raw.EnumMethodInstanceByName(ref handle, out method);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumMethodInstanceByNameResult(handle, new XCLRDataMethodInstance(method));
+                methodResult = new XCLRDataMethodInstance(method);
             else
-                result = default(EnumMethodInstanceByNameResult);
+                methodResult = default(XCLRDataMethodInstance);
 
             return hr;
         }
@@ -748,30 +741,29 @@ namespace ManagedCorDebug
         #endregion
         #region EnumDataByName
 
-        public EnumDataByNameResult EnumDataByName()
+        public XCLRDataValue EnumDataByName(ref IntPtr handle)
         {
             HRESULT hr;
-            EnumDataByNameResult result;
+            XCLRDataValue valueResult;
 
-            if ((hr = TryEnumDataByName(out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumDataByName(ref handle, out valueResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return valueResult;
         }
 
-        public HRESULT TryEnumDataByName(out EnumDataByNameResult result)
+        public HRESULT TryEnumDataByName(ref IntPtr handle, out XCLRDataValue valueResult)
         {
             /*HRESULT EnumDataByName(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataValue value);*/
-            IntPtr handle = default(IntPtr);
             IXCLRDataValue value;
             HRESULT hr = Raw.EnumDataByName(ref handle, out value);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumDataByNameResult(handle, new XCLRDataValue(value));
+                valueResult = new XCLRDataValue(value);
             else
-                result = default(EnumDataByNameResult);
+                valueResult = default(XCLRDataValue);
 
             return hr;
         }
@@ -838,32 +830,23 @@ namespace ManagedCorDebug
         #endregion
         #region EnumExtent
 
-        public XCLRDataModule_EnumExtentResult EnumExtent()
+        public CLRDATA_MODULE_EXTENT EnumExtent(ref IntPtr handle)
         {
             HRESULT hr;
-            XCLRDataModule_EnumExtentResult result;
+            CLRDATA_MODULE_EXTENT extent;
 
-            if ((hr = TryEnumExtent(out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumExtent(ref handle, out extent)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return extent;
         }
 
-        public HRESULT TryEnumExtent(out XCLRDataModule_EnumExtentResult result)
+        public HRESULT TryEnumExtent(ref IntPtr handle, out CLRDATA_MODULE_EXTENT extent)
         {
             /*HRESULT EnumExtent(
             [In, Out] ref IntPtr handle,
             [Out] out CLRDATA_MODULE_EXTENT extent);*/
-            IntPtr handle = default(IntPtr);
-            CLRDATA_MODULE_EXTENT extent;
-            HRESULT hr = Raw.EnumExtent(ref handle, out extent);
-
-            if (hr == HRESULT.S_OK)
-                result = new XCLRDataModule_EnumExtentResult(handle, extent);
-            else
-                result = default(XCLRDataModule_EnumExtentResult);
-
-            return hr;
+            return Raw.EnumExtent(ref handle, out extent);
         }
 
         #endregion
@@ -930,30 +913,29 @@ namespace ManagedCorDebug
         #endregion
         #region EnumAppDomain
 
-        public EnumAppDomainResult EnumAppDomain()
+        public XCLRDataAppDomain EnumAppDomain(ref IntPtr handle)
         {
             HRESULT hr;
-            EnumAppDomainResult result;
+            XCLRDataAppDomain appDomainResult;
 
-            if ((hr = TryEnumAppDomain(out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumAppDomain(ref handle, out appDomainResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return appDomainResult;
         }
 
-        public HRESULT TryEnumAppDomain(out EnumAppDomainResult result)
+        public HRESULT TryEnumAppDomain(ref IntPtr handle, out XCLRDataAppDomain appDomainResult)
         {
             /*HRESULT EnumAppDomain(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataAppDomain appDomain);*/
-            IntPtr handle = default(IntPtr);
             IXCLRDataAppDomain appDomain;
             HRESULT hr = Raw.EnumAppDomain(ref handle, out appDomain);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumAppDomainResult(handle, new XCLRDataAppDomain(appDomain));
+                appDomainResult = new XCLRDataAppDomain(appDomain);
             else
-                result = default(EnumAppDomainResult);
+                appDomainResult = default(XCLRDataAppDomain);
 
             return hr;
         }

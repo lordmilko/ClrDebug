@@ -80,16 +80,20 @@ namespace ManagedCorDebug
         /// <param name="address">[in] The start address of requested memory.</param>
         /// <param name="pBuffer">[out] The buffer where the memory will be stored.</param>
         /// <param name="bytesRequested">[in] The number of bytes to get from the target address.</param>
+        /// <returns>[out] The number of bytes actually read from the target address. This can be fewer than bytesRequested.</returns>
         /// <remarks>
         /// If the first byte (at the specified start address) can be read, the call should return success (to support efficient
         /// reading of data structures with self-describing length, like null-terminated strings).
         /// </remarks>
-        public void ReadVirtual(CORDB_ADDRESS address, IntPtr pBuffer, int bytesRequested)
+        public int ReadVirtual(CORDB_ADDRESS address, IntPtr pBuffer, int bytesRequested)
         {
             HRESULT hr;
+            int pBytesRead;
 
-            if ((hr = TryReadVirtual(address, pBuffer, bytesRequested)) != HRESULT.S_OK)
+            if ((hr = TryReadVirtual(address, pBuffer, bytesRequested, out pBytesRead)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
+
+            return pBytesRead;
         }
 
         /// <summary>
@@ -98,15 +102,14 @@ namespace ManagedCorDebug
         /// <param name="address">[in] The start address of requested memory.</param>
         /// <param name="pBuffer">[out] The buffer where the memory will be stored.</param>
         /// <param name="bytesRequested">[in] The number of bytes to get from the target address.</param>
+        /// <param name="pBytesRead">[out] The number of bytes actually read from the target address. This can be fewer than bytesRequested.</param>
         /// <remarks>
         /// If the first byte (at the specified start address) can be read, the call should return success (to support efficient
         /// reading of data structures with self-describing length, like null-terminated strings).
         /// </remarks>
-        public HRESULT TryReadVirtual(CORDB_ADDRESS address, IntPtr pBuffer, int bytesRequested)
+        public HRESULT TryReadVirtual(CORDB_ADDRESS address, IntPtr pBuffer, int bytesRequested, out int pBytesRead)
         {
             /*HRESULT ReadVirtual([In] CORDB_ADDRESS address, [Out] IntPtr pBuffer, [In] int bytesRequested, [Out] out int pBytesRead);*/
-            int pBytesRead;
-
             return Raw.ReadVirtual(address, pBuffer, bytesRequested, out pBytesRead);
         }
 

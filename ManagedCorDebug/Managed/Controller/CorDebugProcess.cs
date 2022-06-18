@@ -412,6 +412,7 @@ namespace ManagedCorDebug
         /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> value that specifies the base address of the memory to be read.</param>
         /// <param name="size">[in] The number of bytes to be read from memory.</param>
         /// <param name="buffer">[out] A buffer that receives the contents of the memory.</param>
+        /// <returns>[out] A pointer to the number of bytes transferred into the specified buffer.</returns>
         /// <remarks>
         /// The ReadMemory method is primarily intended to be used by interop debugging to inspect memory regions that are
         /// being used by the unmanaged portion of the debuggee. This method can also be used to read Microsoft intermediate
@@ -419,12 +420,15 @@ namespace ManagedCorDebug
         /// returned in the buffer parameter. No adjustments will be made for native breakpoints set by <see cref="SetUnmanagedBreakpoint"/>.
         /// No caching of process memory is performed.
         /// </remarks>
-        public void ReadMemory(CORDB_ADDRESS address, int size, IntPtr buffer)
+        public int ReadMemory(CORDB_ADDRESS address, int size, IntPtr buffer)
         {
             HRESULT hr;
+            int read;
 
-            if ((hr = TryReadMemory(address, size, buffer)) != HRESULT.S_OK)
+            if ((hr = TryReadMemory(address, size, buffer, out read)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
+
+            return read;
         }
 
         /// <summary>
@@ -433,6 +437,7 @@ namespace ManagedCorDebug
         /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> value that specifies the base address of the memory to be read.</param>
         /// <param name="size">[in] The number of bytes to be read from memory.</param>
         /// <param name="buffer">[out] A buffer that receives the contents of the memory.</param>
+        /// <param name="read">[out] A pointer to the number of bytes transferred into the specified buffer.</param>
         /// <remarks>
         /// The ReadMemory method is primarily intended to be used by interop debugging to inspect memory regions that are
         /// being used by the unmanaged portion of the debuggee. This method can also be used to read Microsoft intermediate
@@ -440,11 +445,9 @@ namespace ManagedCorDebug
         /// returned in the buffer parameter. No adjustments will be made for native breakpoints set by <see cref="SetUnmanagedBreakpoint"/>.
         /// No caching of process memory is performed.
         /// </remarks>
-        public HRESULT TryReadMemory(CORDB_ADDRESS address, int size, IntPtr buffer)
+        public HRESULT TryReadMemory(CORDB_ADDRESS address, int size, IntPtr buffer, out int read)
         {
             /*HRESULT ReadMemory([In] CORDB_ADDRESS address, [In] int size, [Out] IntPtr buffer, [Out] out int read);*/
-            int read;
-
             return Raw.ReadMemory(address, size, buffer, out read);
         }
 
@@ -1028,18 +1031,18 @@ namespace ManagedCorDebug
 
         #region Filter
 
-        public FilterResult Filter(byte[] pRecord, int countBytes, CorDebugRecordFormat format, int dwFlags, int dwThreadId)
+        public CorDebugDebugEvent Filter(byte[] pRecord, int countBytes, CorDebugRecordFormat format, int dwFlags, int dwThreadId, ref int pContinueStatus)
         {
             HRESULT hr;
-            FilterResult result;
+            CorDebugDebugEvent ppEventResult;
 
-            if ((hr = TryFilter(pRecord, countBytes, format, dwFlags, dwThreadId, out result)) != HRESULT.S_OK)
+            if ((hr = TryFilter(pRecord, countBytes, format, dwFlags, dwThreadId, ref pContinueStatus, out ppEventResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return ppEventResult;
         }
 
-        public HRESULT TryFilter(byte[] pRecord, int countBytes, CorDebugRecordFormat format, int dwFlags, int dwThreadId, out FilterResult result)
+        public HRESULT TryFilter(byte[] pRecord, int countBytes, CorDebugRecordFormat format, int dwFlags, int dwThreadId, ref int pContinueStatus, out CorDebugDebugEvent ppEventResult)
         {
             /*HRESULT Filter(
             [In, MarshalAs(UnmanagedType.LPArray)] byte[] pRecord,
@@ -1050,13 +1053,12 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugDebugEvent ppEvent,
             [In, Out] ref int pContinueStatus);*/
             ICorDebugDebugEvent ppEvent;
-            int pContinueStatus = default(int);
             HRESULT hr = Raw4.Filter(pRecord, countBytes, format, dwFlags, dwThreadId, out ppEvent, ref pContinueStatus);
 
             if (hr == HRESULT.S_OK)
-                result = new FilterResult(CorDebugDebugEvent.New(ppEvent), pContinueStatus);
+                ppEventResult = CorDebugDebugEvent.New(ppEvent);
             else
-                result = default(FilterResult);
+                ppEventResult = default(CorDebugDebugEvent);
 
             return hr;
         }

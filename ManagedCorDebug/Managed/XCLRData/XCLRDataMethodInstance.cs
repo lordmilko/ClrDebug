@@ -426,32 +426,23 @@ namespace ManagedCorDebug
         #endregion
         #region EnumExtent
 
-        public XCLRDataMethodInstance_EnumExtentResult EnumExtent()
+        public CLRDATA_ADDRESS_RANGE EnumExtent(ref IntPtr handle)
         {
             HRESULT hr;
-            XCLRDataMethodInstance_EnumExtentResult result;
+            CLRDATA_ADDRESS_RANGE extent;
 
-            if ((hr = TryEnumExtent(out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumExtent(ref handle, out extent)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return extent;
         }
 
-        public HRESULT TryEnumExtent(out XCLRDataMethodInstance_EnumExtentResult result)
+        public HRESULT TryEnumExtent(ref IntPtr handle, out CLRDATA_ADDRESS_RANGE extent)
         {
             /*HRESULT EnumExtent(
             [In, Out] ref IntPtr handle,
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS_RANGE[] extent);*/
-            IntPtr handle = default(IntPtr);
-            CLRDATA_ADDRESS_RANGE[] extent = null;
-            HRESULT hr = Raw.EnumExtent(ref handle, extent);
-
-            if (hr == HRESULT.S_OK)
-                result = new XCLRDataMethodInstance_EnumExtentResult(handle, extent);
-            else
-                result = default(XCLRDataMethodInstance_EnumExtentResult);
-
-            return hr;
+            [Out] out CLRDATA_ADDRESS_RANGE extent);*/
+            return Raw.EnumExtent(ref handle, out extent);
         }
 
         #endregion

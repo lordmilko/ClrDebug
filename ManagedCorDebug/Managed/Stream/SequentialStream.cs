@@ -24,19 +24,20 @@ namespace ManagedCorDebug
         #region ISequentialStream
         #region RemoteRead
 
-        public void RemoteRead(IntPtr pv, int cb)
+        public int RemoteRead(IntPtr pv, int cb)
         {
             HRESULT hr;
-
-            if ((hr = TryRemoteRead(pv, cb)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-        }
-
-        public HRESULT TryRemoteRead(IntPtr pv, int cb)
-        {
-            /*HRESULT RemoteRead([Out] IntPtr pv, [In] int cb, [Out] out int pcbRead);*/
             int pcbRead;
 
+            if ((hr = TryRemoteRead(pv, cb, out pcbRead)) != HRESULT.S_OK)
+                Marshal.ThrowExceptionForHR((int) hr);
+
+            return pcbRead;
+        }
+
+        public HRESULT TryRemoteRead(IntPtr pv, int cb, out int pcbRead)
+        {
+            /*HRESULT RemoteRead([Out] IntPtr pv, [In] int cb, [Out] out int pcbRead);*/
             return Raw.RemoteRead(pv, cb, out pcbRead);
         }
 

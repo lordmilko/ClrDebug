@@ -27,29 +27,26 @@ namespace ManagedCorDebug
         /// Gets a hash of the specified assembly file, using the specified hash algorithm.
         /// </summary>
         /// <param name="pszFilePath">[in] The path to the file to be hashed.</param>
+        /// <param name="piHashAlg">[in, out] A constant that specifies the hash algorithm. Use zero for the default hash algorithm.</param>
         /// <param name="pbHash">[out] The returned hash buffer.</param>
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetHashFromAssemblyFileResult GetHashFromAssemblyFile(string pszFilePath, IntPtr pbHash, int cchHash)
+        public void GetHashFromAssemblyFile(string pszFilePath, ref int piHashAlg, IntPtr pbHash, int cchHash)
         {
             HRESULT hr;
-            GetHashFromAssemblyFileResult result;
 
-            if ((hr = TryGetHashFromAssemblyFile(pszFilePath, pbHash, cchHash, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetHashFromAssemblyFile(pszFilePath, ref piHashAlg, pbHash, cchHash)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
         }
 
         /// <summary>
         /// Gets a hash of the specified assembly file, using the specified hash algorithm.
         /// </summary>
         /// <param name="pszFilePath">[in] The path to the file to be hashed.</param>
+        /// <param name="piHashAlg">[in, out] A constant that specifies the hash algorithm. Use zero for the default hash algorithm.</param>
         /// <param name="pbHash">[out] The returned hash buffer.</param>
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
-        public HRESULT TryGetHashFromAssemblyFile(string pszFilePath, IntPtr pbHash, int cchHash, out GetHashFromAssemblyFileResult result)
+        public HRESULT TryGetHashFromAssemblyFile(string pszFilePath, ref int piHashAlg, IntPtr pbHash, int cchHash)
         {
             /*HRESULT GetHashFromAssemblyFile(
             [MarshalAs(UnmanagedType.LPStr), In] string pszFilePath,
@@ -57,16 +54,9 @@ namespace ManagedCorDebug
             [Out] IntPtr pbHash,
             [In] int cchHash,
             [Out] out int pchHash);*/
-            int piHashAlg = default(int);
             int pchHash;
-            HRESULT hr = Raw.GetHashFromAssemblyFile(pszFilePath, ref piHashAlg, pbHash, cchHash, out pchHash);
 
-            if (hr == HRESULT.S_OK)
-                result = new GetHashFromAssemblyFileResult(piHashAlg, pchHash);
-            else
-                result = default(GetHashFromAssemblyFileResult);
-
-            return hr;
+            return Raw.GetHashFromAssemblyFile(pszFilePath, ref piHashAlg, pbHash, cchHash, out pchHash);
         }
 
         #endregion
@@ -76,29 +66,26 @@ namespace ManagedCorDebug
         /// Generates a hash over the contents of the file specified by a Unicode string.
         /// </summary>
         /// <param name="pwzFilePath">[in] The path to the file to be hashed. This parameter must be a Unicode string.</param>
+        /// <param name="piHashAlg">[in, out] A constant that specifies the hash algorithm. Use zero for the default hash algorithm.</param>
         /// <param name="pbHash">[out] The returned hash buffer.</param>
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetHashFromAssemblyFileWResult GetHashFromAssemblyFileW(string pwzFilePath, IntPtr pbHash, int cchHash)
+        public void GetHashFromAssemblyFileW(string pwzFilePath, ref int piHashAlg, IntPtr pbHash, int cchHash)
         {
             HRESULT hr;
-            GetHashFromAssemblyFileWResult result;
 
-            if ((hr = TryGetHashFromAssemblyFileW(pwzFilePath, pbHash, cchHash, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetHashFromAssemblyFileW(pwzFilePath, ref piHashAlg, pbHash, cchHash)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
         }
 
         /// <summary>
         /// Generates a hash over the contents of the file specified by a Unicode string.
         /// </summary>
         /// <param name="pwzFilePath">[in] The path to the file to be hashed. This parameter must be a Unicode string.</param>
+        /// <param name="piHashAlg">[in, out] A constant that specifies the hash algorithm. Use zero for the default hash algorithm.</param>
         /// <param name="pbHash">[out] The returned hash buffer.</param>
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
-        public HRESULT TryGetHashFromAssemblyFileW(string pwzFilePath, IntPtr pbHash, int cchHash, out GetHashFromAssemblyFileWResult result)
+        public HRESULT TryGetHashFromAssemblyFileW(string pwzFilePath, ref int piHashAlg, IntPtr pbHash, int cchHash)
         {
             /*HRESULT GetHashFromAssemblyFileW(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
@@ -106,16 +93,9 @@ namespace ManagedCorDebug
             [Out] IntPtr pbHash,
             [In] int cchHash,
             [Out] out int pchHash);*/
-            int piHashAlg = default(int);
             int pchHash;
-            HRESULT hr = Raw.GetHashFromAssemblyFileW(pwzFilePath, ref piHashAlg, pbHash, cchHash, out pchHash);
 
-            if (hr == HRESULT.S_OK)
-                result = new GetHashFromAssemblyFileWResult(piHashAlg, pchHash);
-            else
-                result = default(GetHashFromAssemblyFileWResult);
-
-            return hr;
+            return Raw.GetHashFromAssemblyFileW(pwzFilePath, ref piHashAlg, pbHash, cchHash, out pchHash);
         }
 
         #endregion
@@ -126,18 +106,15 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pbBlob">[in] A pointer to the address of the memory block to be hashed.</param>
         /// <param name="cchBlob">[in] The length, in bytes, of the memory block.</param>
+        /// <param name="piHashAlg">[in, out] A constant that specifies the hash algorithm. Use zero for the default algorithm.</param>
         /// <param name="pbHash">[out] The returned hash buffer.</param>
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetHashFromBlobResult GetHashFromBlob(IntPtr pbBlob, int cchBlob, IntPtr pbHash, int cchHash)
+        public void GetHashFromBlob(IntPtr pbBlob, int cchBlob, ref int piHashAlg, IntPtr pbHash, int cchHash)
         {
             HRESULT hr;
-            GetHashFromBlobResult result;
 
-            if ((hr = TryGetHashFromBlob(pbBlob, cchBlob, pbHash, cchHash, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetHashFromBlob(pbBlob, cchBlob, ref piHashAlg, pbHash, cchHash)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
         }
 
         /// <summary>
@@ -145,11 +122,11 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pbBlob">[in] A pointer to the address of the memory block to be hashed.</param>
         /// <param name="cchBlob">[in] The length, in bytes, of the memory block.</param>
+        /// <param name="piHashAlg">[in, out] A constant that specifies the hash algorithm. Use zero for the default algorithm.</param>
         /// <param name="pbHash">[out] The returned hash buffer.</param>
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
-        public HRESULT TryGetHashFromBlob(IntPtr pbBlob, int cchBlob, IntPtr pbHash, int cchHash, out GetHashFromBlobResult result)
+        public HRESULT TryGetHashFromBlob(IntPtr pbBlob, int cchBlob, ref int piHashAlg, IntPtr pbHash, int cchHash)
         {
             /*HRESULT GetHashFromBlob(
             [In] IntPtr pbBlob,
@@ -158,16 +135,9 @@ namespace ManagedCorDebug
             [Out] IntPtr pbHash,
             [In] int cchHash,
             [Out] out int pchHash);*/
-            int piHashAlg = default(int);
             int pchHash;
-            HRESULT hr = Raw.GetHashFromBlob(pbBlob, cchBlob, ref piHashAlg, pbHash, cchHash, out pchHash);
 
-            if (hr == HRESULT.S_OK)
-                result = new GetHashFromBlobResult(piHashAlg, pchHash);
-            else
-                result = default(GetHashFromBlobResult);
-
-            return hr;
+            return Raw.GetHashFromBlob(pbBlob, cchBlob, ref piHashAlg, pbHash, cchHash, out pchHash);
         }
 
         #endregion
@@ -177,37 +147,36 @@ namespace ManagedCorDebug
         /// Generates a hash over the contents of the specified file.
         /// </summary>
         /// <param name="pszFilePath">[in] The name of the file to hash.</param>
+        /// <param name="piHashAlg">[in, out] The algorithm to use when generating the hash. Valid algorithms are those defined by the Win32 CryptoAPI.<para/>
+        /// If piHashAlg is set to 0, the default algorithm CALG_SHA-1 is used.</param>
         /// <param name="pbHash">[out] A byte array containing the generated hash.</param>
         /// <param name="cchHash">[in] The maximum size of the buffer that pbHash points to.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// This method is the same as the <see cref="GetHashFromFileW"/> method, except that the file name specification is
         /// ANSI instead of Unicode.
         /// </remarks>
-        public GetHashFromFileResult GetHashFromFile(string pszFilePath, IntPtr pbHash, int cchHash)
+        public void GetHashFromFile(string pszFilePath, ref int piHashAlg, IntPtr pbHash, int cchHash)
         {
             HRESULT hr;
-            GetHashFromFileResult result;
 
-            if ((hr = TryGetHashFromFile(pszFilePath, pbHash, cchHash, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetHashFromFile(pszFilePath, ref piHashAlg, pbHash, cchHash)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
         }
 
         /// <summary>
         /// Generates a hash over the contents of the specified file.
         /// </summary>
         /// <param name="pszFilePath">[in] The name of the file to hash.</param>
+        /// <param name="piHashAlg">[in, out] The algorithm to use when generating the hash. Valid algorithms are those defined by the Win32 CryptoAPI.<para/>
+        /// If piHashAlg is set to 0, the default algorithm CALG_SHA-1 is used.</param>
         /// <param name="pbHash">[out] A byte array containing the generated hash.</param>
         /// <param name="cchHash">[in] The maximum size of the buffer that pbHash points to.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         /// <remarks>
         /// This method is the same as the <see cref="GetHashFromFileW"/> method, except that the file name specification is
         /// ANSI instead of Unicode.
         /// </remarks>
-        public HRESULT TryGetHashFromFile(string pszFilePath, IntPtr pbHash, int cchHash, out GetHashFromFileResult result)
+        public HRESULT TryGetHashFromFile(string pszFilePath, ref int piHashAlg, IntPtr pbHash, int cchHash)
         {
             /*HRESULT GetHashFromFile(
             [MarshalAs(UnmanagedType.LPStr), In] string pszFilePath,
@@ -215,16 +184,9 @@ namespace ManagedCorDebug
             [Out] IntPtr pbHash,
             [In] int cchHash,
             [Out] out int pchHash);*/
-            int piHashAlg = default(int);
             int pchHash;
-            HRESULT hr = Raw.GetHashFromFile(pszFilePath, ref piHashAlg, pbHash, cchHash, out pchHash);
 
-            if (hr == HRESULT.S_OK)
-                result = new GetHashFromFileResult(piHashAlg, pchHash);
-            else
-                result = default(GetHashFromFileResult);
-
-            return hr;
+            return Raw.GetHashFromFile(pszFilePath, ref piHashAlg, pbHash, cchHash, out pchHash);
         }
 
         #endregion
@@ -234,37 +196,36 @@ namespace ManagedCorDebug
         /// Generates a hash over the contents of the file specified by a Unicode string.
         /// </summary>
         /// <param name="pwzFilePath">[in] The Unicode name of the file to hash.</param>
+        /// <param name="piHashAlg">[in, out] The algorithm to use when generating the hash. Valid algorithms are those defined by the Win32 CryptoAPI.<para/>
+        /// If piHashAlg is set to 0, the default algorithm CALG_SHA-1 is used.</param>
         /// <param name="pbHash">[out] A byte array containing the generated hash.</param>
         /// <param name="cchHash">[in] The maximum size of the buffer pointed to by pbHash.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// This method is the same as the <see cref="GetHashFromFile"/> method, except that the file name specification is
         /// Unicode instead of ANSI.
         /// </remarks>
-        public GetHashFromFileWResult GetHashFromFileW(string pwzFilePath, IntPtr pbHash, int cchHash)
+        public void GetHashFromFileW(string pwzFilePath, ref int piHashAlg, IntPtr pbHash, int cchHash)
         {
             HRESULT hr;
-            GetHashFromFileWResult result;
 
-            if ((hr = TryGetHashFromFileW(pwzFilePath, pbHash, cchHash, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetHashFromFileW(pwzFilePath, ref piHashAlg, pbHash, cchHash)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
         }
 
         /// <summary>
         /// Generates a hash over the contents of the file specified by a Unicode string.
         /// </summary>
         /// <param name="pwzFilePath">[in] The Unicode name of the file to hash.</param>
+        /// <param name="piHashAlg">[in, out] The algorithm to use when generating the hash. Valid algorithms are those defined by the Win32 CryptoAPI.<para/>
+        /// If piHashAlg is set to 0, the default algorithm CALG_SHA-1 is used.</param>
         /// <param name="pbHash">[out] A byte array containing the generated hash.</param>
         /// <param name="cchHash">[in] The maximum size of the buffer pointed to by pbHash.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         /// <remarks>
         /// This method is the same as the <see cref="GetHashFromFile"/> method, except that the file name specification is
         /// Unicode instead of ANSI.
         /// </remarks>
-        public HRESULT TryGetHashFromFileW(string pwzFilePath, IntPtr pbHash, int cchHash, out GetHashFromFileWResult result)
+        public HRESULT TryGetHashFromFileW(string pwzFilePath, ref int piHashAlg, IntPtr pbHash, int cchHash)
         {
             /*HRESULT GetHashFromFileW(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
@@ -272,16 +233,9 @@ namespace ManagedCorDebug
             [Out] IntPtr pbHash,
             [In] int cchHash,
             [Out] out int pchHash);*/
-            int piHashAlg = default(int);
             int pchHash;
-            HRESULT hr = Raw.GetHashFromFileW(pwzFilePath, ref piHashAlg, pbHash, cchHash, out pchHash);
 
-            if (hr == HRESULT.S_OK)
-                result = new GetHashFromFileWResult(piHashAlg, pchHash);
-            else
-                result = default(GetHashFromFileWResult);
-
-            return hr;
+            return Raw.GetHashFromFileW(pwzFilePath, ref piHashAlg, pbHash, cchHash, out pchHash);
         }
 
         #endregion
@@ -291,29 +245,26 @@ namespace ManagedCorDebug
         /// Generates a hash over the contents of the file that has the specified file handle, using the specified hash algorithm.
         /// </summary>
         /// <param name="hFile">[in] The handle of the file to be hashed.</param>
+        /// <param name="piHashAlg">[in, out] A constant that specifies the hash algorithm. Use zero for the default algorithm.</param>
         /// <param name="pbHash">[out] The returned hash buffer.</param>
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetHashFromHandleResult GetHashFromHandle(IntPtr hFile, IntPtr pbHash, int cchHash)
+        public void GetHashFromHandle(IntPtr hFile, ref int piHashAlg, IntPtr pbHash, int cchHash)
         {
             HRESULT hr;
-            GetHashFromHandleResult result;
 
-            if ((hr = TryGetHashFromHandle(hFile, pbHash, cchHash, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetHashFromHandle(hFile, ref piHashAlg, pbHash, cchHash)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
         }
 
         /// <summary>
         /// Generates a hash over the contents of the file that has the specified file handle, using the specified hash algorithm.
         /// </summary>
         /// <param name="hFile">[in] The handle of the file to be hashed.</param>
+        /// <param name="piHashAlg">[in, out] A constant that specifies the hash algorithm. Use zero for the default algorithm.</param>
         /// <param name="pbHash">[out] The returned hash buffer.</param>
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
-        public HRESULT TryGetHashFromHandle(IntPtr hFile, IntPtr pbHash, int cchHash, out GetHashFromHandleResult result)
+        public HRESULT TryGetHashFromHandle(IntPtr hFile, ref int piHashAlg, IntPtr pbHash, int cchHash)
         {
             /*HRESULT GetHashFromHandle(
             [In] IntPtr hFile,
@@ -321,16 +272,9 @@ namespace ManagedCorDebug
             [Out] IntPtr pbHash,
             [In] int cchHash,
             [Out] out int pchHash);*/
-            int piHashAlg = default(int);
             int pchHash;
-            HRESULT hr = Raw.GetHashFromHandle(hFile, ref piHashAlg, pbHash, cchHash, out pchHash);
 
-            if (hr == HRESULT.S_OK)
-                result = new GetHashFromHandleResult(piHashAlg, pchHash);
-            else
-                result = default(GetHashFromHandleResult);
-
-            return hr;
+            return Raw.GetHashFromHandle(hFile, ref piHashAlg, pbHash, cchHash, out pchHash);
         }
 
         #endregion
@@ -410,38 +354,28 @@ namespace ManagedCorDebug
         /// Fills the specified buffer with the binary representation of the executable file at the specified address.
         /// </summary>
         /// <param name="pwzFilePath">[in] A valid path to the executable file to be loaded.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public StrongNameGetBlobResult StrongNameGetBlob(string pwzFilePath)
+        /// <param name="pbBlob">[in] The buffer into which to load the executable file.</param>
+        /// <param name="pcbBlob">[in, out] The requested maximum size, in bytes, of pbBlob. Upon return, the actual size, in bytes, of pbBlob.</param>
+        public void StrongNameGetBlob(string pwzFilePath, IntPtr pbBlob, ref int pcbBlob)
         {
             HRESULT hr;
-            StrongNameGetBlobResult result;
 
-            if ((hr = TryStrongNameGetBlob(pwzFilePath, out result)) != HRESULT.S_OK)
+            if ((hr = TryStrongNameGetBlob(pwzFilePath, pbBlob, ref pcbBlob)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
         }
 
         /// <summary>
         /// Fills the specified buffer with the binary representation of the executable file at the specified address.
         /// </summary>
         /// <param name="pwzFilePath">[in] A valid path to the executable file to be loaded.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="pbBlob">[in] The buffer into which to load the executable file.</param>
+        /// <param name="pcbBlob">[in, out] The requested maximum size, in bytes, of pbBlob. Upon return, the actual size, in bytes, of pbBlob.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
-        public HRESULT TryStrongNameGetBlob(string pwzFilePath, out StrongNameGetBlobResult result)
+        public HRESULT TryStrongNameGetBlob(string pwzFilePath, IntPtr pbBlob, ref int pcbBlob)
         {
             /*HRESULT StrongNameGetBlob([MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath, [In] [Out] IntPtr pbBlob,
             [In] [Out] ref int pcbBlob);*/
-            IntPtr pbBlob = default(IntPtr);
-            int pcbBlob = default(int);
-            HRESULT hr = Raw.StrongNameGetBlob(pwzFilePath, pbBlob, ref pcbBlob);
-
-            if (hr == HRESULT.S_OK)
-                result = new StrongNameGetBlobResult(pbBlob, pcbBlob);
-            else
-                result = default(StrongNameGetBlobResult);
-
-            return hr;
+            return Raw.StrongNameGetBlob(pwzFilePath, pbBlob, ref pcbBlob);
         }
 
         #endregion
@@ -453,11 +387,12 @@ namespace ManagedCorDebug
         /// <param name="pbBase">[in] The memory address of the mapped assembly manifest.</param>
         /// <param name="dwLength">[in] The size, in bytes, of the image at pbBase.</param>
         /// <param name="pbBlob">[in] A buffer to contain the binary representation of the image.</param>
-        public void StrongNameGetBlobFromImage(IntPtr pbBase, int dwLength, IntPtr pbBlob)
+        /// <param name="pcbBlob">[in, out] The requested maximum size, in bytes, of pbBlob. Upon return, the actual size, in bytes, of pbBlob.</param>
+        public void StrongNameGetBlobFromImage(IntPtr pbBase, int dwLength, IntPtr pbBlob, ref int pcbBlob)
         {
             HRESULT hr;
 
-            if ((hr = TryStrongNameGetBlobFromImage(pbBase, dwLength, pbBlob)) != HRESULT.S_OK)
+            if ((hr = TryStrongNameGetBlobFromImage(pbBase, dwLength, pbBlob, ref pcbBlob)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
         }
 
@@ -467,16 +402,15 @@ namespace ManagedCorDebug
         /// <param name="pbBase">[in] The memory address of the mapped assembly manifest.</param>
         /// <param name="dwLength">[in] The size, in bytes, of the image at pbBase.</param>
         /// <param name="pbBlob">[in] A buffer to contain the binary representation of the image.</param>
+        /// <param name="pcbBlob">[in, out] The requested maximum size, in bytes, of pbBlob. Upon return, the actual size, in bytes, of pbBlob.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
-        public HRESULT TryStrongNameGetBlobFromImage(IntPtr pbBase, int dwLength, IntPtr pbBlob)
+        public HRESULT TryStrongNameGetBlobFromImage(IntPtr pbBase, int dwLength, IntPtr pbBlob, ref int pcbBlob)
         {
             /*HRESULT StrongNameGetBlobFromImage(
             [In] IntPtr pbBase,
             [In] int dwLength,
             [Out] IntPtr pbBlob,
             [In] [Out] ref int pcbBlob);*/
-            int pcbBlob = default(int);
-
             return Raw.StrongNameGetBlobFromImage(pbBase, dwLength, pbBlob, ref pcbBlob);
         }
 
