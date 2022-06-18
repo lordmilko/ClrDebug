@@ -688,7 +688,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT GetEventProps(
             [In] mdEvent ev,
-            [Out] mdTypeDef pClass,
+            [Out] out mdTypeDef pClass,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szEvent,
             [In] int cchEvent,
             [Out] out int pchEvent,
@@ -699,7 +699,7 @@ namespace ManagedCorDebug
             [Out] out mdMethodDef pmdFire,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rmdOtherMethod,
             [In] int cMax,
-            [Out] int pcOtherMethod);
+            [Out] out int pcOtherMethod);
 
         /// <summary>
         /// Enumerates the properties and the property-change events to which the specified method is related.
@@ -759,11 +759,11 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT GetClassLayout(
             [In] mdTypeDef td,
-            [Out] int pdwPackSize,
+            [Out] out int pdwPackSize,
             [MarshalAs(UnmanagedType.LPArray), Out] COR_FIELD_OFFSET[] rFieldOffset,
             [In] int cMax,
-            [Out] int pcFieldOffset,
-            [Out] int pulClassSize);
+            [Out] out int pcFieldOffset,
+            [Out] out int pulClassSize);
 
         /// <summary>
         /// Gets a pointer to the native, unmanaged type of the field represented by the specified field metadata token.
@@ -801,7 +801,7 @@ namespace ManagedCorDebug
         HRESULT GetPermissionSetProps(
             [In] mdPermission pm,
             [Out] out int pdwAction,
-            [Out] IntPtr ppvPermission,
+            [Out] out IntPtr ppvPermission,
             [Out] out int pcbPermission);
 
         /// <summary>
@@ -931,10 +931,10 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT GetPinvokeMap(
             [In] mdToken tk,
-            [Out] CorPinvokeMap pdwMappingFlags,
+            [Out] out CorPinvokeMap pdwMappingFlags,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szImportName,
             [In] int cchImportName,
-            [Out] int pchImportName,
+            [Out] out int pchImportName,
             [Out] out mdModuleRef pmrImportDLL);
 
         /// <summary>
@@ -1125,16 +1125,16 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT GetFieldProps(
             [In] mdFieldDef mb,
-            [Out] mdTypeDef pClass,
+            [Out] out mdTypeDef pClass,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szField,
             [In] int cchField,
-            [Out] int pchField,
-            [Out] CorFieldAttr pdwAttr,
-            [Out] IntPtr ppvSigBlob,
-            [Out] int pcbSigBlob,
-            [Out] CorElementType pdwCPlusTypeFlag,
-            [Out] IntPtr ppValue,
-            [Out] int pcchValue);
+            [Out] out int pchField,
+            [Out] out CorFieldAttr pdwAttr,
+            [Out] out IntPtr ppvSigBlob,
+            [Out] out int pcbSigBlob,
+            [Out] out CorElementType pdwCPlusTypeFlag,
+            [Out] out IntPtr ppValue,
+            [Out] out int pcchValue);
 
         /// <summary>
         /// Gets the metadata for the property represented by the specified token.
@@ -1159,21 +1159,21 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT GetPropertyProps(
             [In] mdProperty prop,
-            [Out] mdTypeDef pClass,
+            [Out] out mdTypeDef pClass,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szProperty,
             [In] int cchProperty,
-            [Out] int pchProperty,
-            [Out] CorPropertyAttr pdwPropFlags,
-            [Out] IntPtr ppvSig,
-            [Out] int pbSig,
-            [Out] CorElementType pdwCPlusTypeFlag,
-            [Out] IntPtr ppDefaultValue,
-            [Out] int pcchDefaultValue,
-            [Out] mdMethodDef pmdSetter,
-            [Out] mdMethodDef pmdGetter,
+            [Out] out int pchProperty,
+            [Out] out CorPropertyAttr pdwPropFlags,
+            [Out] out IntPtr ppvSig,
+            [Out] out int pbSig,
+            [Out] out CorElementType pdwCPlusTypeFlag,
+            [Out] out IntPtr ppDefaultValue,
+            [Out] out int pcchDefaultValue,
+            [Out] out mdMethodDef pmdSetter,
+            [Out] out mdMethodDef pmdGetter,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rmdOtherMethod,
             [In] int cMax,
-            [Out] int pcOtherMethod);
+            [Out] out int pcOtherMethod);
 
         /// <summary>
         /// Gets metadata values for the parameter referenced by the specified ParamDef token.
@@ -1194,15 +1194,15 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT GetParamProps(
             [In] mdParamDef tk,
-            [Out] mdMethodDef pmd,
-            [Out] int pulSequence,
+            [Out] out mdMethodDef pmd,
+            [Out] out int pulSequence,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName,
-            [Out] int cchName,
-            [Out] int pchName,
-            [Out] CorParamAttr pdwAttr,
-            [Out] CorElementType pdwCPlusTypeFlag,
-            [Out] IntPtr ppValue,
-            [Out] IntPtr pcchValue);
+            [Out] out int cchName,
+            [Out] out int pchName,
+            [Out] out CorParamAttr pdwAttr,
+            [Out] out CorElementType pdwCPlusTypeFlag,
+            [Out] out IntPtr ppValue,
+            [Out] out IntPtr pcchValue);
 
         /// <summary>
         /// Gets the custom attribute, given its name and owner.
@@ -1220,8 +1220,8 @@ namespace ManagedCorDebug
         HRESULT GetCustomAttributeByName(
             [In] mdToken tkObj,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
-            [Out] IntPtr ppData,
-            [Out] int pcbData);
+            [Out] out IntPtr ppData,
+            [Out] out int pcbData);
 
         /// <summary>
         /// Gets a value indicating whether the specified token holds a valid reference to a code object.

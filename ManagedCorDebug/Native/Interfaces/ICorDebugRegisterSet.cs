@@ -66,7 +66,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetThreadContext([In] int contextSize, [In, Out] ref IntPtr context);
+        HRESULT GetThreadContext([In] int contextSize, [Out] IntPtr context);
 
         /// <summary>
         /// SetThreadContext is not implemented in the .NET Framework version 2.0. Do not call this method.

@@ -33,19 +33,16 @@ namespace ManagedCorDebug
         /// <param name="mdRva">[in] The relative virtual address (RVA) of the metadata. The address is relative to the image base address.</param>
         /// <param name="flags">[in] Reserved for future use.</param>
         /// <param name="bufferSize">[in] The size of the buffer in which to place the metadata.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <param name="buffer">[out] The buffer in which to place the metadata.</param>
         /// <remarks>
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
-        public GetMetadataResult GetMetadata(string imagePath, int imageTimestamp, int imageSize, Guid mvid, int mdRva, int flags, int bufferSize)
+        public void GetMetadata(string imagePath, int imageTimestamp, int imageSize, Guid mvid, int mdRva, int flags, int bufferSize, IntPtr buffer)
         {
             HRESULT hr;
-            GetMetadataResult result;
 
-            if ((hr = TryGetMetadata(imagePath, imageTimestamp, imageSize, mvid, mdRva, flags, bufferSize, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetMetadata(imagePath, imageTimestamp, imageSize, mvid, mdRva, flags, bufferSize, buffer)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
         }
 
         /// <summary>
@@ -58,11 +55,11 @@ namespace ManagedCorDebug
         /// <param name="mdRva">[in] The relative virtual address (RVA) of the metadata. The address is relative to the image base address.</param>
         /// <param name="flags">[in] Reserved for future use.</param>
         /// <param name="bufferSize">[in] The size of the buffer in which to place the metadata.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="buffer">[out] The buffer in which to place the metadata.</param>
         /// <remarks>
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
-        public HRESULT TryGetMetadata(string imagePath, int imageTimestamp, int imageSize, Guid mvid, int mdRva, int flags, int bufferSize, out GetMetadataResult result)
+        public HRESULT TryGetMetadata(string imagePath, int imageTimestamp, int imageSize, Guid mvid, int mdRva, int flags, int bufferSize, IntPtr buffer)
         {
             /*HRESULT GetMetadata(
             [MarshalAs(UnmanagedType.LPWStr), In] string imagePath,
@@ -74,16 +71,9 @@ namespace ManagedCorDebug
             [In] int bufferSize,
             [Out] IntPtr buffer,
             [Out] out int dataSize);*/
-            IntPtr buffer = default(IntPtr);
             int dataSize;
-            HRESULT hr = Raw.GetMetadata(imagePath, imageTimestamp, imageSize, ref mvid, mdRva, flags, bufferSize, buffer, out dataSize);
 
-            if (hr == HRESULT.S_OK)
-                result = new GetMetadataResult(buffer, dataSize);
-            else
-                result = default(GetMetadataResult);
-
-            return hr;
+            return Raw.GetMetadata(imagePath, imageTimestamp, imageSize, ref mvid, mdRva, flags, bufferSize, buffer, out dataSize);
         }
 
         #endregion

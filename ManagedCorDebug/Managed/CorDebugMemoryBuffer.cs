@@ -27,9 +27,9 @@ namespace ManagedCorDebug
             get
             {
                 HRESULT hr;
-                IntPtr address = default(IntPtr);
+                IntPtr address;
 
-                if ((hr = TryGetStartAddress(ref address)) != HRESULT.S_OK)
+                if ((hr = TryGetStartAddress(out address)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
 
                 return address;
@@ -40,10 +40,10 @@ namespace ManagedCorDebug
         /// Gets the starting address of the memory buffer.
         /// </summary>
         /// <param name="address">[out] A pointer to the starting address of the memory buffer.</param>
-        public HRESULT TryGetStartAddress(ref IntPtr address)
+        public HRESULT TryGetStartAddress(out IntPtr address)
         {
-            /*HRESULT GetStartAddress([Out] IntPtr address);*/
-            return Raw.GetStartAddress(address);
+            /*HRESULT GetStartAddress([Out] out IntPtr address);*/
+            return Raw.GetStartAddress(out address);
         }
 
         #endregion

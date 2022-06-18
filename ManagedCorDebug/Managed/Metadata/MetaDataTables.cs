@@ -361,9 +361,9 @@ namespace ManagedCorDebug
         public IntPtr GetRow(int ixTbl, int rid)
         {
             HRESULT hr;
-            IntPtr ppRow = default(IntPtr);
+            IntPtr ppRow;
 
-            if ((hr = TryGetRow(ixTbl, rid, ref ppRow)) != HRESULT.S_OK)
+            if ((hr = TryGetRow(ixTbl, rid, out ppRow)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return ppRow;
@@ -381,10 +381,10 @@ namespace ManagedCorDebug
         /// Definition and Semantics". The documentation is available online; see ECMA C# and Common Language Infrastructure
         /// Standards and Standard ECMA-335 - Common Language Infrastructure (CLI).
         /// </remarks>
-        public HRESULT TryGetRow(int ixTbl, int rid, ref IntPtr ppRow)
+        public HRESULT TryGetRow(int ixTbl, int rid, out IntPtr ppRow)
         {
-            /*HRESULT GetRow([In] int ixTbl, [In] int rid, [Out] IntPtr ppRow);*/
-            return Raw.GetRow(ixTbl, rid, ppRow);
+            /*HRESULT GetRow([In] int ixTbl, [In] int rid, [Out] out IntPtr ppRow);*/
+            return Raw.GetRow(ixTbl, rid, out ppRow);
         }
 
         #endregion
@@ -493,10 +493,10 @@ namespace ManagedCorDebug
         /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetBlob(int ixBlob, out GetBlobResult result)
         {
-            /*HRESULT GetBlob([In] int ixBlob, [Out] out int pcbData, [Out] IntPtr ppData);*/
+            /*HRESULT GetBlob([In] int ixBlob, [Out] out int pcbData, [Out] out IntPtr ppData);*/
             int pcbData;
-            IntPtr ppData = default(IntPtr);
-            HRESULT hr = Raw.GetBlob(ixBlob, out pcbData, ppData);
+            IntPtr ppData;
+            HRESULT hr = Raw.GetBlob(ixBlob, out pcbData, out ppData);
 
             if (hr == HRESULT.S_OK)
                 result = new GetBlobResult(pcbData, ppData);
@@ -574,10 +574,10 @@ namespace ManagedCorDebug
         /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetUserString(int ixUserString, out GetUserStringResult result)
         {
-            /*HRESULT GetUserString([In] int ixUserString, [Out] out int pcbData, [Out] IntPtr ppData);*/
+            /*HRESULT GetUserString([In] int ixUserString, [Out] out int pcbData, [Out] out IntPtr ppData);*/
             int pcbData;
-            IntPtr ppData = default(IntPtr);
-            HRESULT hr = Raw.GetUserString(ixUserString, out pcbData, ppData);
+            IntPtr ppData;
+            HRESULT hr = Raw.GetUserString(ixUserString, out pcbData, out ppData);
 
             if (hr == HRESULT.S_OK)
                 result = new GetUserStringResult(pcbData, ppData);
@@ -763,10 +763,10 @@ namespace ManagedCorDebug
         /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetMetaDataStorage(out GetMetaDataStorageResult result)
         {
-            /*HRESULT GetMetaDataStorage([Out] IntPtr ppvMd, [Out] out int pcbMd);*/
-            IntPtr ppvMd = default(IntPtr);
+            /*HRESULT GetMetaDataStorage([Out] out IntPtr ppvMd, [Out] out int pcbMd);*/
+            IntPtr ppvMd;
             int pcbMd;
-            HRESULT hr = Raw2.GetMetaDataStorage(ppvMd, out pcbMd);
+            HRESULT hr = Raw2.GetMetaDataStorage(out ppvMd, out pcbMd);
 
             if (hr == HRESULT.S_OK)
                 result = new GetMetaDataStorageResult(ppvMd, pcbMd);
@@ -802,11 +802,11 @@ namespace ManagedCorDebug
         /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetMetaDataStreamInfo(int ix, out GetMetaDataStreamInfoResult result)
         {
-            /*HRESULT GetMetaDataStreamInfo([In] int ix, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppchName, [Out] IntPtr ppv, [Out] out int pcb);*/
+            /*HRESULT GetMetaDataStreamInfo([In] int ix, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppchName, [Out] out IntPtr ppv, [Out] out int pcb);*/
             StringBuilder ppchName = null;
-            IntPtr ppv = default(IntPtr);
+            IntPtr ppv;
             int pcb;
-            HRESULT hr = Raw2.GetMetaDataStreamInfo(ix, ppchName, ppv, out pcb);
+            HRESULT hr = Raw2.GetMetaDataStreamInfo(ix, ppchName, out ppv, out pcb);
 
             if (hr == HRESULT.S_OK)
                 result = new GetMetaDataStreamInfoResult(ppchName.ToString(), ppv, pcb);

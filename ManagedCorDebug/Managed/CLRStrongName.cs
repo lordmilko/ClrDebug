@@ -27,14 +27,15 @@ namespace ManagedCorDebug
         /// Gets a hash of the specified assembly file, using the specified hash algorithm.
         /// </summary>
         /// <param name="pszFilePath">[in] The path to the file to be hashed.</param>
+        /// <param name="pbHash">[out] The returned hash buffer.</param>
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetHashFromAssemblyFileResult GetHashFromAssemblyFile(string pszFilePath, int cchHash)
+        public GetHashFromAssemblyFileResult GetHashFromAssemblyFile(string pszFilePath, IntPtr pbHash, int cchHash)
         {
             HRESULT hr;
             GetHashFromAssemblyFileResult result;
 
-            if ((hr = TryGetHashFromAssemblyFile(pszFilePath, cchHash, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetHashFromAssemblyFile(pszFilePath, pbHash, cchHash, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -44,10 +45,11 @@ namespace ManagedCorDebug
         /// Gets a hash of the specified assembly file, using the specified hash algorithm.
         /// </summary>
         /// <param name="pszFilePath">[in] The path to the file to be hashed.</param>
+        /// <param name="pbHash">[out] The returned hash buffer.</param>
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
-        public HRESULT TryGetHashFromAssemblyFile(string pszFilePath, int cchHash, out GetHashFromAssemblyFileResult result)
+        public HRESULT TryGetHashFromAssemblyFile(string pszFilePath, IntPtr pbHash, int cchHash, out GetHashFromAssemblyFileResult result)
         {
             /*HRESULT GetHashFromAssemblyFile(
             [MarshalAs(UnmanagedType.LPStr), In] string pszFilePath,
@@ -56,12 +58,11 @@ namespace ManagedCorDebug
             [In] int cchHash,
             [Out] out int pchHash);*/
             int piHashAlg = default(int);
-            IntPtr pbHash = default(IntPtr);
             int pchHash;
             HRESULT hr = Raw.GetHashFromAssemblyFile(pszFilePath, ref piHashAlg, pbHash, cchHash, out pchHash);
 
             if (hr == HRESULT.S_OK)
-                result = new GetHashFromAssemblyFileResult(piHashAlg, pbHash, pchHash);
+                result = new GetHashFromAssemblyFileResult(piHashAlg, pchHash);
             else
                 result = default(GetHashFromAssemblyFileResult);
 
@@ -75,14 +76,15 @@ namespace ManagedCorDebug
         /// Generates a hash over the contents of the file specified by a Unicode string.
         /// </summary>
         /// <param name="pwzFilePath">[in] The path to the file to be hashed. This parameter must be a Unicode string.</param>
+        /// <param name="pbHash">[out] The returned hash buffer.</param>
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetHashFromAssemblyFileWResult GetHashFromAssemblyFileW(string pwzFilePath, int cchHash)
+        public GetHashFromAssemblyFileWResult GetHashFromAssemblyFileW(string pwzFilePath, IntPtr pbHash, int cchHash)
         {
             HRESULT hr;
             GetHashFromAssemblyFileWResult result;
 
-            if ((hr = TryGetHashFromAssemblyFileW(pwzFilePath, cchHash, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetHashFromAssemblyFileW(pwzFilePath, pbHash, cchHash, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -92,10 +94,11 @@ namespace ManagedCorDebug
         /// Generates a hash over the contents of the file specified by a Unicode string.
         /// </summary>
         /// <param name="pwzFilePath">[in] The path to the file to be hashed. This parameter must be a Unicode string.</param>
+        /// <param name="pbHash">[out] The returned hash buffer.</param>
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
-        public HRESULT TryGetHashFromAssemblyFileW(string pwzFilePath, int cchHash, out GetHashFromAssemblyFileWResult result)
+        public HRESULT TryGetHashFromAssemblyFileW(string pwzFilePath, IntPtr pbHash, int cchHash, out GetHashFromAssemblyFileWResult result)
         {
             /*HRESULT GetHashFromAssemblyFileW(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
@@ -104,12 +107,11 @@ namespace ManagedCorDebug
             [In] int cchHash,
             [Out] out int pchHash);*/
             int piHashAlg = default(int);
-            IntPtr pbHash = default(IntPtr);
             int pchHash;
             HRESULT hr = Raw.GetHashFromAssemblyFileW(pwzFilePath, ref piHashAlg, pbHash, cchHash, out pchHash);
 
             if (hr == HRESULT.S_OK)
-                result = new GetHashFromAssemblyFileWResult(piHashAlg, pbHash, pchHash);
+                result = new GetHashFromAssemblyFileWResult(piHashAlg, pchHash);
             else
                 result = default(GetHashFromAssemblyFileWResult);
 
@@ -124,14 +126,15 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pbBlob">[in] A pointer to the address of the memory block to be hashed.</param>
         /// <param name="cchBlob">[in] The length, in bytes, of the memory block.</param>
+        /// <param name="pbHash">[out] The returned hash buffer.</param>
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetHashFromBlobResult GetHashFromBlob(IntPtr pbBlob, int cchBlob, int cchHash)
+        public GetHashFromBlobResult GetHashFromBlob(IntPtr pbBlob, int cchBlob, IntPtr pbHash, int cchHash)
         {
             HRESULT hr;
             GetHashFromBlobResult result;
 
-            if ((hr = TryGetHashFromBlob(pbBlob, cchBlob, cchHash, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetHashFromBlob(pbBlob, cchBlob, pbHash, cchHash, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -142,10 +145,11 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pbBlob">[in] A pointer to the address of the memory block to be hashed.</param>
         /// <param name="cchBlob">[in] The length, in bytes, of the memory block.</param>
+        /// <param name="pbHash">[out] The returned hash buffer.</param>
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
-        public HRESULT TryGetHashFromBlob(IntPtr pbBlob, int cchBlob, int cchHash, out GetHashFromBlobResult result)
+        public HRESULT TryGetHashFromBlob(IntPtr pbBlob, int cchBlob, IntPtr pbHash, int cchHash, out GetHashFromBlobResult result)
         {
             /*HRESULT GetHashFromBlob(
             [In] IntPtr pbBlob,
@@ -155,12 +159,11 @@ namespace ManagedCorDebug
             [In] int cchHash,
             [Out] out int pchHash);*/
             int piHashAlg = default(int);
-            IntPtr pbHash = default(IntPtr);
             int pchHash;
             HRESULT hr = Raw.GetHashFromBlob(pbBlob, cchBlob, ref piHashAlg, pbHash, cchHash, out pchHash);
 
             if (hr == HRESULT.S_OK)
-                result = new GetHashFromBlobResult(piHashAlg, pbHash, pchHash);
+                result = new GetHashFromBlobResult(piHashAlg, pchHash);
             else
                 result = default(GetHashFromBlobResult);
 
@@ -174,18 +177,19 @@ namespace ManagedCorDebug
         /// Generates a hash over the contents of the specified file.
         /// </summary>
         /// <param name="pszFilePath">[in] The name of the file to hash.</param>
+        /// <param name="pbHash">[out] A byte array containing the generated hash.</param>
         /// <param name="cchHash">[in] The maximum size of the buffer that pbHash points to.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// This method is the same as the <see cref="GetHashFromFileW"/> method, except that the file name specification is
         /// ANSI instead of Unicode.
         /// </remarks>
-        public GetHashFromFileResult GetHashFromFile(string pszFilePath, int cchHash)
+        public GetHashFromFileResult GetHashFromFile(string pszFilePath, IntPtr pbHash, int cchHash)
         {
             HRESULT hr;
             GetHashFromFileResult result;
 
-            if ((hr = TryGetHashFromFile(pszFilePath, cchHash, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetHashFromFile(pszFilePath, pbHash, cchHash, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -195,6 +199,7 @@ namespace ManagedCorDebug
         /// Generates a hash over the contents of the specified file.
         /// </summary>
         /// <param name="pszFilePath">[in] The name of the file to hash.</param>
+        /// <param name="pbHash">[out] A byte array containing the generated hash.</param>
         /// <param name="cchHash">[in] The maximum size of the buffer that pbHash points to.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
@@ -202,7 +207,7 @@ namespace ManagedCorDebug
         /// This method is the same as the <see cref="GetHashFromFileW"/> method, except that the file name specification is
         /// ANSI instead of Unicode.
         /// </remarks>
-        public HRESULT TryGetHashFromFile(string pszFilePath, int cchHash, out GetHashFromFileResult result)
+        public HRESULT TryGetHashFromFile(string pszFilePath, IntPtr pbHash, int cchHash, out GetHashFromFileResult result)
         {
             /*HRESULT GetHashFromFile(
             [MarshalAs(UnmanagedType.LPStr), In] string pszFilePath,
@@ -211,12 +216,11 @@ namespace ManagedCorDebug
             [In] int cchHash,
             [Out] out int pchHash);*/
             int piHashAlg = default(int);
-            IntPtr pbHash = default(IntPtr);
             int pchHash;
             HRESULT hr = Raw.GetHashFromFile(pszFilePath, ref piHashAlg, pbHash, cchHash, out pchHash);
 
             if (hr == HRESULT.S_OK)
-                result = new GetHashFromFileResult(piHashAlg, pbHash, pchHash);
+                result = new GetHashFromFileResult(piHashAlg, pchHash);
             else
                 result = default(GetHashFromFileResult);
 
@@ -230,18 +234,19 @@ namespace ManagedCorDebug
         /// Generates a hash over the contents of the file specified by a Unicode string.
         /// </summary>
         /// <param name="pwzFilePath">[in] The Unicode name of the file to hash.</param>
+        /// <param name="pbHash">[out] A byte array containing the generated hash.</param>
         /// <param name="cchHash">[in] The maximum size of the buffer pointed to by pbHash.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// This method is the same as the <see cref="GetHashFromFile"/> method, except that the file name specification is
         /// Unicode instead of ANSI.
         /// </remarks>
-        public GetHashFromFileWResult GetHashFromFileW(string pwzFilePath, int cchHash)
+        public GetHashFromFileWResult GetHashFromFileW(string pwzFilePath, IntPtr pbHash, int cchHash)
         {
             HRESULT hr;
             GetHashFromFileWResult result;
 
-            if ((hr = TryGetHashFromFileW(pwzFilePath, cchHash, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetHashFromFileW(pwzFilePath, pbHash, cchHash, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -251,6 +256,7 @@ namespace ManagedCorDebug
         /// Generates a hash over the contents of the file specified by a Unicode string.
         /// </summary>
         /// <param name="pwzFilePath">[in] The Unicode name of the file to hash.</param>
+        /// <param name="pbHash">[out] A byte array containing the generated hash.</param>
         /// <param name="cchHash">[in] The maximum size of the buffer pointed to by pbHash.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
@@ -258,7 +264,7 @@ namespace ManagedCorDebug
         /// This method is the same as the <see cref="GetHashFromFile"/> method, except that the file name specification is
         /// Unicode instead of ANSI.
         /// </remarks>
-        public HRESULT TryGetHashFromFileW(string pwzFilePath, int cchHash, out GetHashFromFileWResult result)
+        public HRESULT TryGetHashFromFileW(string pwzFilePath, IntPtr pbHash, int cchHash, out GetHashFromFileWResult result)
         {
             /*HRESULT GetHashFromFileW(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
@@ -267,12 +273,11 @@ namespace ManagedCorDebug
             [In] int cchHash,
             [Out] out int pchHash);*/
             int piHashAlg = default(int);
-            IntPtr pbHash = default(IntPtr);
             int pchHash;
             HRESULT hr = Raw.GetHashFromFileW(pwzFilePath, ref piHashAlg, pbHash, cchHash, out pchHash);
 
             if (hr == HRESULT.S_OK)
-                result = new GetHashFromFileWResult(piHashAlg, pbHash, pchHash);
+                result = new GetHashFromFileWResult(piHashAlg, pchHash);
             else
                 result = default(GetHashFromFileWResult);
 
@@ -286,14 +291,15 @@ namespace ManagedCorDebug
         /// Generates a hash over the contents of the file that has the specified file handle, using the specified hash algorithm.
         /// </summary>
         /// <param name="hFile">[in] The handle of the file to be hashed.</param>
+        /// <param name="pbHash">[out] The returned hash buffer.</param>
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetHashFromHandleResult GetHashFromHandle(IntPtr hFile, int cchHash)
+        public GetHashFromHandleResult GetHashFromHandle(IntPtr hFile, IntPtr pbHash, int cchHash)
         {
             HRESULT hr;
             GetHashFromHandleResult result;
 
-            if ((hr = TryGetHashFromHandle(hFile, cchHash, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetHashFromHandle(hFile, pbHash, cchHash, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -303,10 +309,11 @@ namespace ManagedCorDebug
         /// Generates a hash over the contents of the file that has the specified file handle, using the specified hash algorithm.
         /// </summary>
         /// <param name="hFile">[in] The handle of the file to be hashed.</param>
+        /// <param name="pbHash">[out] The returned hash buffer.</param>
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
-        public HRESULT TryGetHashFromHandle(IntPtr hFile, int cchHash, out GetHashFromHandleResult result)
+        public HRESULT TryGetHashFromHandle(IntPtr hFile, IntPtr pbHash, int cchHash, out GetHashFromHandleResult result)
         {
             /*HRESULT GetHashFromHandle(
             [In] IntPtr hFile,
@@ -315,12 +322,11 @@ namespace ManagedCorDebug
             [In] int cchHash,
             [Out] out int pchHash);*/
             int piHashAlg = default(int);
-            IntPtr pbHash = default(IntPtr);
             int pchHash;
             HRESULT hr = Raw.GetHashFromHandle(hFile, ref piHashAlg, pbHash, cchHash, out pchHash);
 
             if (hr == HRESULT.S_OK)
-                result = new GetHashFromHandleResult(piHashAlg, pbHash, pchHash);
+                result = new GetHashFromHandleResult(piHashAlg, pchHash);
             else
                 result = default(GetHashFromHandleResult);
 
@@ -446,16 +452,13 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pbBase">[in] The memory address of the mapped assembly manifest.</param>
         /// <param name="dwLength">[in] The size, in bytes, of the image at pbBase.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public StrongNameGetBlobFromImageResult StrongNameGetBlobFromImage(IntPtr pbBase, int dwLength)
+        /// <param name="pbBlob">[in] A buffer to contain the binary representation of the image.</param>
+        public void StrongNameGetBlobFromImage(IntPtr pbBase, int dwLength, IntPtr pbBlob)
         {
             HRESULT hr;
-            StrongNameGetBlobFromImageResult result;
 
-            if ((hr = TryStrongNameGetBlobFromImage(pbBase, dwLength, out result)) != HRESULT.S_OK)
+            if ((hr = TryStrongNameGetBlobFromImage(pbBase, dwLength, pbBlob)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
         }
 
         /// <summary>
@@ -463,25 +466,18 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pbBase">[in] The memory address of the mapped assembly manifest.</param>
         /// <param name="dwLength">[in] The size, in bytes, of the image at pbBase.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="pbBlob">[in] A buffer to contain the binary representation of the image.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
-        public HRESULT TryStrongNameGetBlobFromImage(IntPtr pbBase, int dwLength, out StrongNameGetBlobFromImageResult result)
+        public HRESULT TryStrongNameGetBlobFromImage(IntPtr pbBase, int dwLength, IntPtr pbBlob)
         {
             /*HRESULT StrongNameGetBlobFromImage(
             [In] IntPtr pbBase,
             [In] int dwLength,
             [Out] IntPtr pbBlob,
             [In] [Out] ref int pcbBlob);*/
-            IntPtr pbBlob = default(IntPtr);
             int pcbBlob = default(int);
-            HRESULT hr = Raw.StrongNameGetBlobFromImage(pbBase, dwLength, pbBlob, ref pcbBlob);
 
-            if (hr == HRESULT.S_OK)
-                result = new StrongNameGetBlobFromImageResult(pbBlob, pcbBlob);
-            else
-                result = default(StrongNameGetBlobFromImageResult);
-
-            return hr;
+            return Raw.StrongNameGetBlobFromImage(pbBase, dwLength, pbBlob, ref pcbBlob);
         }
 
         #endregion
@@ -533,11 +529,11 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
             [In] IntPtr pbKeyBlob,
             [In] int cbKeyBlob,
-            [Out] IntPtr ppbPublicKeyBlob,
+            [Out] out IntPtr ppbPublicKeyBlob,
             [Out] out int pcbPublicKeyBlob);*/
-            IntPtr ppbPublicKeyBlob = default(IntPtr);
+            IntPtr ppbPublicKeyBlob;
             int pcbPublicKeyBlob;
-            HRESULT hr = Raw.StrongNameGetPublicKey(pwzKeyContainer, pbKeyBlob, cbKeyBlob, ppbPublicKeyBlob, out pcbPublicKeyBlob);
+            HRESULT hr = Raw.StrongNameGetPublicKey(pwzKeyContainer, pbKeyBlob, cbKeyBlob, out ppbPublicKeyBlob, out pcbPublicKeyBlob);
 
             if (hr == HRESULT.S_OK)
                 result = new StrongNameGetPublicKeyResult(ppbPublicKeyBlob, pcbPublicKeyBlob);
@@ -650,11 +646,11 @@ namespace ManagedCorDebug
             /*HRESULT StrongNameKeyGen(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
             [In] int dwFlags,
-            [Out] IntPtr ppbKeyBlob,
+            [Out] out IntPtr ppbKeyBlob,
             [Out] out int pcbKeyBlob);*/
-            IntPtr ppbKeyBlob = default(IntPtr);
+            IntPtr ppbKeyBlob;
             int pcbKeyBlob;
-            HRESULT hr = Raw.StrongNameKeyGen(pwzKeyContainer, dwFlags, ppbKeyBlob, out pcbKeyBlob);
+            HRESULT hr = Raw.StrongNameKeyGen(pwzKeyContainer, dwFlags, out ppbKeyBlob, out pcbKeyBlob);
 
             if (hr == HRESULT.S_OK)
                 result = new StrongNameKeyGenResult(ppbKeyBlob, pcbKeyBlob);
@@ -709,11 +705,11 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
             [In] int dwFlags,
             [In] int dwKeySize,
-            [Out] IntPtr ppbKeyBlob,
+            [Out] out IntPtr ppbKeyBlob,
             [Out] out int pcbKeyBlob);*/
-            IntPtr ppbKeyBlob = default(IntPtr);
+            IntPtr ppbKeyBlob;
             int pcbKeyBlob;
-            HRESULT hr = Raw.StrongNameKeyGenEx(pwzKeyContainer, dwFlags, dwKeySize, ppbKeyBlob, out pcbKeyBlob);
+            HRESULT hr = Raw.StrongNameKeyGenEx(pwzKeyContainer, dwFlags, dwKeySize, out ppbKeyBlob, out pcbKeyBlob);
 
             if (hr == HRESULT.S_OK)
                 result = new StrongNameKeyGenExResult(ppbKeyBlob, pcbKeyBlob);
@@ -812,11 +808,11 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
             [In] IntPtr pbKeyBlob,
             [In] int cbKeyBlob,
-            [Out] IntPtr ppbSignatureBlob,
+            [Out] out IntPtr ppbSignatureBlob,
             [Out] out int pcbSignatureBlob);*/
-            IntPtr ppbSignatureBlob = default(IntPtr);
+            IntPtr ppbSignatureBlob;
             int pcbSignatureBlob;
-            HRESULT hr = Raw.StrongNameSignatureGeneration(pwzFilePath, pwzKeyContainer, pbKeyBlob, cbKeyBlob, ppbSignatureBlob, out pcbSignatureBlob);
+            HRESULT hr = Raw.StrongNameSignatureGeneration(pwzFilePath, pwzKeyContainer, pbKeyBlob, cbKeyBlob, out ppbSignatureBlob, out pcbSignatureBlob);
 
             if (hr == HRESULT.S_OK)
                 result = new StrongNameSignatureGenerationResult(ppbSignatureBlob, pcbSignatureBlob);
@@ -884,12 +880,12 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string wszKeyContainer,
             [In] IntPtr pbKeyBlob,
             [In] int cbKeyBlob,
-            [Out] IntPtr ppbSignatureBlob,
+            [Out] out IntPtr ppbSignatureBlob,
             [Out] out int pcbSignatureBlob,
             [In] int dwFlags);*/
-            IntPtr ppbSignatureBlob = default(IntPtr);
+            IntPtr ppbSignatureBlob;
             int pcbSignatureBlob;
-            HRESULT hr = Raw.StrongNameSignatureGenerationEx(wszFilePath, wszKeyContainer, pbKeyBlob, cbKeyBlob, ppbSignatureBlob, out pcbSignatureBlob, dwFlags);
+            HRESULT hr = Raw.StrongNameSignatureGenerationEx(wszFilePath, wszKeyContainer, pbKeyBlob, cbKeyBlob, out ppbSignatureBlob, out pcbSignatureBlob, dwFlags);
 
             if (hr == HRESULT.S_OK)
                 result = new StrongNameSignatureGenerationExResult(ppbSignatureBlob, pcbSignatureBlob);
@@ -1091,11 +1087,11 @@ namespace ManagedCorDebug
         {
             /*HRESULT StrongNameTokenFromAssembly(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
-            [Out] IntPtr ppbStrongNameToken,
+            [Out] out IntPtr ppbStrongNameToken,
             [Out] out int pcbStrongNameToken);*/
-            IntPtr ppbStrongNameToken = default(IntPtr);
+            IntPtr ppbStrongNameToken;
             int pcbStrongNameToken;
-            HRESULT hr = Raw.StrongNameTokenFromAssembly(pwzFilePath, ppbStrongNameToken, out pcbStrongNameToken);
+            HRESULT hr = Raw.StrongNameTokenFromAssembly(pwzFilePath, out ppbStrongNameToken, out pcbStrongNameToken);
 
             if (hr == HRESULT.S_OK)
                 result = new StrongNameTokenFromAssemblyResult(ppbStrongNameToken, pcbStrongNameToken);
@@ -1112,6 +1108,7 @@ namespace ManagedCorDebug
         /// Creates a strong name token from the specified assembly file, and returns the public key that the token represents.
         /// </summary>
         /// <param name="pwzFilePath">[in] The path to the portable executable (PE) file for the assembly.</param>
+        /// <param name="ppbStrongNameToken">[out] The returned strong name token.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// A strong name token is the shortened form of a public key. The token is a 64-bit hash that is created from the
@@ -1119,12 +1116,12 @@ namespace ManagedCorDebug
         /// from the assembly metadata. After the key is retrieved and the token is created, you should call the <see cref="StrongNameFreeBuffer"/>
         /// method to release the allocated memory.
         /// </remarks>
-        public StrongNameTokenFromAssemblyExResult StrongNameTokenFromAssemblyEx(string pwzFilePath)
+        public StrongNameTokenFromAssemblyExResult StrongNameTokenFromAssemblyEx(string pwzFilePath, IntPtr ppbStrongNameToken)
         {
             HRESULT hr;
             StrongNameTokenFromAssemblyExResult result;
 
-            if ((hr = TryStrongNameTokenFromAssemblyEx(pwzFilePath, out result)) != HRESULT.S_OK)
+            if ((hr = TryStrongNameTokenFromAssemblyEx(pwzFilePath, ppbStrongNameToken, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -1134,6 +1131,7 @@ namespace ManagedCorDebug
         /// Creates a strong name token from the specified assembly file, and returns the public key that the token represents.
         /// </summary>
         /// <param name="pwzFilePath">[in] The path to the portable executable (PE) file for the assembly.</param>
+        /// <param name="ppbStrongNameToken">[out] The returned strong name token.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         /// <remarks>
@@ -1142,22 +1140,21 @@ namespace ManagedCorDebug
         /// from the assembly metadata. After the key is retrieved and the token is created, you should call the <see cref="StrongNameFreeBuffer"/>
         /// method to release the allocated memory.
         /// </remarks>
-        public HRESULT TryStrongNameTokenFromAssemblyEx(string pwzFilePath, out StrongNameTokenFromAssemblyExResult result)
+        public HRESULT TryStrongNameTokenFromAssemblyEx(string pwzFilePath, IntPtr ppbStrongNameToken, out StrongNameTokenFromAssemblyExResult result)
         {
             /*HRESULT StrongNameTokenFromAssemblyEx(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [Out] IntPtr ppbStrongNameToken,
             [Out] out int pcbStrongNameToken,
-            [Out] IntPtr ppbPublicKeyBlob,
+            [Out] out IntPtr ppbPublicKeyBlob,
             [Out] out int pcbPublicKeyBlob);*/
-            IntPtr ppbStrongNameToken = default(IntPtr);
             int pcbStrongNameToken;
-            IntPtr ppbPublicKeyBlob = default(IntPtr);
+            IntPtr ppbPublicKeyBlob;
             int pcbPublicKeyBlob;
-            HRESULT hr = Raw.StrongNameTokenFromAssemblyEx(pwzFilePath, ppbStrongNameToken, out pcbStrongNameToken, ppbPublicKeyBlob, out pcbPublicKeyBlob);
+            HRESULT hr = Raw.StrongNameTokenFromAssemblyEx(pwzFilePath, ppbStrongNameToken, out pcbStrongNameToken, out ppbPublicKeyBlob, out pcbPublicKeyBlob);
 
             if (hr == HRESULT.S_OK)
-                result = new StrongNameTokenFromAssemblyExResult(ppbStrongNameToken, pcbStrongNameToken, ppbPublicKeyBlob, pcbPublicKeyBlob);
+                result = new StrongNameTokenFromAssemblyExResult(pcbStrongNameToken, ppbPublicKeyBlob, pcbPublicKeyBlob);
             else
                 result = default(StrongNameTokenFromAssemblyExResult);
 
@@ -1204,11 +1201,11 @@ namespace ManagedCorDebug
             /*HRESULT StrongNameTokenFromPublicKey(
             [In] IntPtr pbPublicKeyBlob,
             [In] PublicKeyBlob cbPublicKeyBlob,
-            [Out] IntPtr ppbStrongNameToken,
+            [Out] out IntPtr ppbStrongNameToken,
             [Out] out int pcbStrongNameToken);*/
-            IntPtr ppbStrongNameToken = default(IntPtr);
+            IntPtr ppbStrongNameToken;
             int pcbStrongNameToken;
-            HRESULT hr = Raw.StrongNameTokenFromPublicKey(pbPublicKeyBlob, cbPublicKeyBlob, ppbStrongNameToken, out pcbStrongNameToken);
+            HRESULT hr = Raw.StrongNameTokenFromPublicKey(pbPublicKeyBlob, cbPublicKeyBlob, out ppbStrongNameToken, out pcbStrongNameToken);
 
             if (hr == HRESULT.S_OK)
                 result = new StrongNameTokenFromPublicKeyResult(ppbStrongNameToken, pcbStrongNameToken);

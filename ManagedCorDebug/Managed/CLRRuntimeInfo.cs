@@ -381,9 +381,9 @@ namespace ManagedCorDebug
         public IntPtr LoadLibrary(string pwzDllName)
         {
             HRESULT hr;
-            IntPtr phndModule = default(IntPtr);
+            IntPtr phndModule;
 
-            if ((hr = TryLoadLibrary(pwzDllName, ref phndModule)) != HRESULT.S_OK)
+            if ((hr = TryLoadLibrary(pwzDllName, out phndModule)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return phndModule;
@@ -408,12 +408,12 @@ namespace ManagedCorDebug
         /// This method only loads DLLs included in the .NET Framework redistributable package. It can not load user-generated
         /// assemblies.
         /// </remarks>
-        public HRESULT TryLoadLibrary(string pwzDllName, ref IntPtr phndModule)
+        public HRESULT TryLoadLibrary(string pwzDllName, out IntPtr phndModule)
         {
             /*HRESULT LoadLibrary(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzDllName,
-            [Out] IntPtr phndModule);*/
-            return Raw.LoadLibrary(pwzDllName, phndModule);
+            [Out] out IntPtr phndModule);*/
+            return Raw.LoadLibrary(pwzDllName, out phndModule);
         }
 
         #endregion
@@ -431,9 +431,9 @@ namespace ManagedCorDebug
         public IntPtr GetProcAddress(string pszProcName)
         {
             HRESULT hr;
-            IntPtr ppProc = default(IntPtr);
+            IntPtr ppProc;
 
-            if ((hr = TryGetProcAddress(pszProcName, ref ppProc)) != HRESULT.S_OK)
+            if ((hr = TryGetProcAddress(pszProcName, out ppProc)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return ppProc;
@@ -457,12 +457,12 @@ namespace ManagedCorDebug
         /// <remarks>
         /// This method causes the CLR to be loaded but not initialized.
         /// </remarks>
-        public HRESULT TryGetProcAddress(string pszProcName, ref IntPtr ppProc)
+        public HRESULT TryGetProcAddress(string pszProcName, out IntPtr ppProc)
         {
             /*HRESULT GetProcAddress(
             [MarshalAs(UnmanagedType.LPStr), In] string pszProcName,
-            [Out] IntPtr ppProc);*/
-            return Raw.GetProcAddress(pszProcName, ppProc);
+            [Out] out IntPtr ppProc);*/
+            return Raw.GetProcAddress(pszProcName, out ppProc);
         }
 
         #endregion

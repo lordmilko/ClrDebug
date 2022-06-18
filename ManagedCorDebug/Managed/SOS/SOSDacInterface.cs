@@ -439,20 +439,20 @@ namespace ManagedCorDebug
             get
             {
                 HRESULT hr;
-                IntPtr phModule = default(IntPtr);
+                IntPtr phModule;
 
-                if ((hr = TryGetDacModuleHandle(ref phModule)) != HRESULT.S_OK)
+                if ((hr = TryGetDacModuleHandle(out phModule)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
 
                 return phModule;
             }
         }
 
-        public HRESULT TryGetDacModuleHandle(ref IntPtr phModule)
+        public HRESULT TryGetDacModuleHandle(out IntPtr phModule)
         {
             /*HRESULT GetDacModuleHandle(
-            [Out] IntPtr phModule);*/
-            return Raw.GetDacModuleHandle(phModule);
+            [Out] out IntPtr phModule);*/
+            return Raw.GetDacModuleHandle(out phModule);
         }
 
         #endregion

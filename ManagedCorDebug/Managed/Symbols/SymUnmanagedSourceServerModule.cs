@@ -43,10 +43,10 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetSourceServerData(out GetSourceServerDataResult result)
         {
-            /*HRESULT GetSourceServerData([Out] out int pDataByteCount, [Out] IntPtr ppData);*/
+            /*HRESULT GetSourceServerData([Out] out int pDataByteCount, [Out] out IntPtr ppData);*/
             int pDataByteCount;
-            IntPtr ppData = default(IntPtr);
-            HRESULT hr = Raw.GetSourceServerData(out pDataByteCount, ppData);
+            IntPtr ppData;
+            HRESULT hr = Raw.GetSourceServerData(out pDataByteCount, out ppData);
 
             if (hr == HRESULT.S_OK)
                 result = new GetSourceServerDataResult(pDataByteCount, ppData);

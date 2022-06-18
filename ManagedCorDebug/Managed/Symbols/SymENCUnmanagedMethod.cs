@@ -1,4 +1,3 @@
-using System;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -185,10 +184,10 @@ namespace ManagedCorDebug
             /*HRESULT GetDocumentsForMethod(
             [In] int cDocs,
             [Out] out int pcDocs,
-            [In, Out] ref IntPtr documents);*/
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedDocument[] documents);*/
             int pcDocs;
-            IntPtr documents = default(IntPtr);
-            HRESULT hr = Raw.GetDocumentsForMethod(cDocs, out pcDocs, ref documents);
+            ISymUnmanagedDocument[] documents = null;
+            HRESULT hr = Raw.GetDocumentsForMethod(cDocs, out pcDocs, documents);
 
             if (hr == HRESULT.S_OK)
                 result = new GetDocumentsForMethodResult(pcDocs, documents);

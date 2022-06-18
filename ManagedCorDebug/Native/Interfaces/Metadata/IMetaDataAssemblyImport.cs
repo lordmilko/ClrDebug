@@ -54,13 +54,13 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT GetAssemblyRefProps(
             [In] mdAssemblyRef mdar,
-            [Out] IntPtr ppbPublicKeyOrToken,
+            [Out] out IntPtr ppbPublicKeyOrToken,
             [Out] out int pcbPublicKeyOrToken,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out ASSEMBLYMETADATA pMetaData,
-            [Out] IntPtr ppbHashValue,
+            [Out] out IntPtr ppbHashValue,
             [Out] out int pcbHashValue,
             [Out] out CorAssemblyFlags pdwAssemblyFlags);
 
@@ -80,7 +80,7 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
             [In] int cchName,
             [Out] out int pchName,
-            [Out] IntPtr ppbHashValue,
+            [Out] out IntPtr ppbHashValue,
             [Out] out int pcbHashValue,
             [Out] out CorFileFlags pdwFileFlags);
 

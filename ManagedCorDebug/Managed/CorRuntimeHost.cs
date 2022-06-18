@@ -231,9 +231,9 @@ namespace ManagedCorDebug
         public IntPtr MapFile(IntPtr hFile)
         {
             HRESULT hr;
-            IntPtr hMapAddress = default(IntPtr);
+            IntPtr hMapAddress;
 
-            if ((hr = TryMapFile(hFile, ref hMapAddress)) != HRESULT.S_OK)
+            if ((hr = TryMapFile(hFile, out hMapAddress)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return hMapAddress;
@@ -245,10 +245,10 @@ namespace ManagedCorDebug
         /// <param name="hFile">[in] The handle of the file to be mapped.</param>
         /// <param name="hMapAddress">[out] The starting memory address at which to begin mapping the file.</param>
         [Obsolete]
-        public HRESULT TryMapFile(IntPtr hFile, ref IntPtr hMapAddress)
+        public HRESULT TryMapFile(IntPtr hFile, out IntPtr hMapAddress)
         {
-            /*HRESULT MapFile([In] IntPtr hFile, [Out] IntPtr hMapAddress);*/
-            return Raw.MapFile(hFile, hMapAddress);
+            /*HRESULT MapFile([In] IntPtr hFile, [Out] out IntPtr hMapAddress);*/
+            return Raw.MapFile(hFile, out hMapAddress);
         }
 
         #endregion
@@ -379,9 +379,9 @@ namespace ManagedCorDebug
         public IntPtr EnumDomains()
         {
             HRESULT hr;
-            IntPtr hEnum = default(IntPtr);
+            IntPtr hEnum;
 
-            if ((hr = TryEnumDomains(ref hEnum)) != HRESULT.S_OK)
+            if ((hr = TryEnumDomains(out hEnum)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return hEnum;
@@ -399,10 +399,10 @@ namespace ManagedCorDebug
         /// | E_FAIL                 | An unknown, catastrophic failure occurred. If a method returns E_FAIL, the common language runtime (CLR) is no longer usable in the process. Subsequent calls to any hosting APIs return HOST_E_CLRNOTAVAILABLE. |
         /// | HOST_E_CLRNOTAVAILABLE | The CLR has not been loaded into a process, or the CLR is in a state in which it cannot run managed code or process the call successfully.                                                                       |
         /// </returns>
-        public HRESULT TryEnumDomains(ref IntPtr hEnum)
+        public HRESULT TryEnumDomains(out IntPtr hEnum)
         {
-            /*HRESULT EnumDomains([Out] IntPtr hEnum);*/
-            return Raw.EnumDomains(hEnum);
+            /*HRESULT EnumDomains([Out] out IntPtr hEnum);*/
+            return Raw.EnumDomains(out hEnum);
         }
 
         #endregion

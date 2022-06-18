@@ -17,7 +17,7 @@ namespace ManagedCorDebug
             [In] int mdRva,
             [In] int flags,
             [In] int bufferSize,
-            [In, Out] ref IntPtr buffer,
+            [Out] IntPtr buffer,
             [Out] out int dataSize);
     }
 }

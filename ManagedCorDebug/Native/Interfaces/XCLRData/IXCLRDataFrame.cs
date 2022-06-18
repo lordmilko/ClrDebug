@@ -19,7 +19,7 @@ namespace ManagedCorDebug
             [In] int contextFlags,
             [In] int contextBufSize,
             [Out] out int contextSize,
-            [In, Out] ref IntPtr contextBuf);
+            [Out] IntPtr contextBuf);
 
         [PreserveSig]
         HRESULT GetAppDomain(
@@ -66,7 +66,7 @@ namespace ManagedCorDebug
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
-            [In, Out] ref IntPtr outBuffer);
+            [Out] IntPtr outBuffer);
 
         [PreserveSig]
         HRESULT GetNumTypeArguments(

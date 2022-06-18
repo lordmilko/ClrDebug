@@ -76,7 +76,7 @@ namespace ManagedCorDebug
             [In] int dwThreadId,
             [In] int contextFlags,
             [In] int contextSize,
-            [In, Out] ref IntPtr pContext);
+            [Out] IntPtr pContext);
 
         /// <summary>
         /// Writes memory into the target process address space.

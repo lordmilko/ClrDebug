@@ -128,7 +128,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT LoadLibrary(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzDllName,
-            [Out] IntPtr phndModule);
+            [Out] out IntPtr phndModule);
 
         /// <summary>
         /// Gets the address of a specified function that was exported from the common language runtime (CLR) associated with this interface.<para/>
@@ -152,7 +152,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetProcAddress(
             [MarshalAs(UnmanagedType.LPStr), In] string pszProcName,
-            [Out] IntPtr ppProc);
+            [Out] out IntPtr ppProc);
 
         /// <summary>
         /// Loads the CLR into the current process and returns runtime interface pointers, such as <see cref="ICLRRuntimeHost"/>, <see cref="ICLRStrongName"/>, and <see cref="IMetaDataDispenser"/>.<para/>

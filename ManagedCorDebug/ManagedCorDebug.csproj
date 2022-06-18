@@ -265,7 +265,6 @@
     <Compile Include="Managed\ResultTypes\EnumUnresolvedMethodsResult.cs" />
     <Compile Include="Managed\ResultTypes\EnumUserStringsResult.cs" />
     <Compile Include="Managed\ResultTypes\FilterResult.cs" />
-    <Compile Include="Managed\ResultTypes\FindAssembliesByNameResult.cs" />
     <Compile Include="Managed\ResultTypes\FollowStub2Result.cs" />
     <Compile Include="Managed\ResultTypes\FollowStubResult.cs" />
     <Compile Include="Managed\ResultTypes\GetActiveFunctionsResult.cs" />
@@ -283,6 +282,7 @@
     <Compile Include="Managed\ResultTypes\GetChildrenResult.cs" />
     <Compile Include="Managed\ResultTypes\GetClassLayoutResult.cs" />
     <Compile Include="Managed\ResultTypes\GetCodeChunksResult.cs" />
+    <Compile Include="Managed\ResultTypes\GetCodedTokenInfoResult.cs" />
     <Compile Include="Managed\ResultTypes\GetCodeRangeResult.cs" />
     <Compile Include="Managed\ResultTypes\GetColumnInfoResult.cs" />
     <Compile Include="Managed\ResultTypes\GetComWrappersCCWDataResult.cs" />
@@ -338,7 +338,6 @@
     <Compile Include="Managed\ResultTypes\GetLoadedModulesResult.cs" />
     <Compile Include="Managed\ResultTypes\GetLocalsResult.cs" />
     <Compile Include="Managed\ResultTypes\GetLocalVariableByIndexResult.cs" />
-    <Compile Include="Managed\ResultTypes\GetLocalVariablesResult.cs" />
     <Compile Include="Managed\ResultTypes\GetLocationByIndexResult.cs" />
     <Compile Include="Managed\ResultTypes\GetManifestResourcePropsResult.cs" />
     <Compile Include="Managed\ResultTypes\GetMemberPropsResult.cs" />
@@ -391,7 +390,6 @@
     <Compile Include="Managed\ResultTypes\GetThreadOwningMonitorLockResult.cs" />
     <Compile Include="Managed\ResultTypes\GetTokenAndScopeResult.cs" />
     <Compile Include="Managed\ResultTypes\GetTypeDefPropsResult.cs" />
-    <Compile Include="Managed\ResultTypes\GetTypeFieldsResult.cs" />
     <Compile Include="Managed\ResultTypes\GetTypePropsResult.cs" />
     <Compile Include="Managed\ResultTypes\GetTypeRefPropsResult.cs" />
     <Compile Include="Managed\ResultTypes\GetTypeSpecFromTokenResult.cs" />
@@ -403,14 +401,12 @@
     <Compile Include="Managed\ResultTypes\IsStartedResult.cs" />
     <Compile Include="Managed\ResultTypes\IsTrackedTypeResult.cs" />
     <Compile Include="Managed\ResultTypes\MetaDataImport_GetMethodPropsResult.cs" />
-    <Compile Include="Managed\ResultTypes\OpenScopeOnITypeInfoResult.cs" />
     <Compile Include="Managed\ResultTypes\OpenVirtualProcessResult.cs" />
     <Compile Include="Managed\ResultTypes\ReadMemoryResult.cs" />
     <Compile Include="Managed\ResultTypes\ReadVirtualResult.cs" />
     <Compile Include="Managed\ResultTypes\RemoteCopyToResult.cs" />
     <Compile Include="Managed\ResultTypes\RemoteReadResult.cs" />
     <Compile Include="Managed\ResultTypes\ResolveTypeRefResult.cs" />
-    <Compile Include="Managed\ResultTypes\SetUnmanagedBreakpointResult.cs" />
     <Compile Include="Managed\ResultTypes\StrongNameGetBlobFromImageResult.cs" />
     <Compile Include="Managed\ResultTypes\StrongNameGetBlobResult.cs" />
     <Compile Include="Managed\ResultTypes\StrongNameGetPublicKeyResult.cs" />

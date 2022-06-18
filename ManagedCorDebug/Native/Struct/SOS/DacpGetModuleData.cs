@@ -27,11 +27,11 @@ namespace ManagedCorDebug
                 0,
                 IntPtr.Zero,
                 size,
-                ref outBuffer
+                outBuffer
             );
 
             if (hr == HRESULT.S_OK)
-                Marshal.PtrToStructure(outBuffer, this);
+                this = Marshal.PtrToStructure<DacpGetModuleData>(outBuffer);
 
             Marshal.FreeHGlobal(outBuffer);
 

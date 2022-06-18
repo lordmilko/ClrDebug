@@ -69,7 +69,7 @@ namespace ManagedCorDebug
         /// <param name="pTo">[out] A pointer to the value that is represented by this <see cref="ICorDebugGenericValue"/> object. The value may be a simple type or a reference type (that is, a pointer).</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetValue([Out] IntPtr pTo);
+        HRESULT GetValue([Out] out IntPtr pTo);
 
         /// <summary>
         /// Copies a new value from the specified buffer.

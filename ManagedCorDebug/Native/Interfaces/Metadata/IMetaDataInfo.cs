@@ -43,7 +43,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT GetFileMapping(
-            [Out] IntPtr ppvData,
+            [Out] out IntPtr ppvData,
             [Out] out long pcbData,
             [Out] out CorFileMapping pdwMappingType);
     }

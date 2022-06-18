@@ -1882,7 +1882,7 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetEventProps(
             [In] mdEvent ev,
-            [Out] mdTypeDef pClass,
+            [Out] out mdTypeDef pClass,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szEvent,
             [In] int cchEvent,
             [Out] out int pchEvent,
@@ -1893,8 +1893,8 @@ namespace ManagedCorDebug
             [Out] out mdMethodDef pmdFire,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rmdOtherMethod,
             [In] int cMax,
-            [Out] int pcOtherMethod);*/
-            mdTypeDef pClass = default(mdTypeDef);
+            [Out] out int pcOtherMethod);*/
+            mdTypeDef pClass;
             StringBuilder szEvent = null;
             int cchEvent = 0;
             int pchEvent;
@@ -1905,8 +1905,8 @@ namespace ManagedCorDebug
             mdMethodDef pmdFire;
             mdMethodDef[] rmdOtherMethod = null;
             int cMax = 0;
-            int pcOtherMethod = default(int);
-            HRESULT hr = Raw.GetEventProps(ev, pClass, szEvent, cchEvent, out pchEvent, out pdwEventFlags, out ptkEventType, out pmdAddOn, out pmdRemoveOn, out pmdFire, rmdOtherMethod, cMax, pcOtherMethod);
+            int pcOtherMethod;
+            HRESULT hr = Raw.GetEventProps(ev, out pClass, szEvent, cchEvent, out pchEvent, out pdwEventFlags, out ptkEventType, out pmdAddOn, out pmdRemoveOn, out pmdFire, rmdOtherMethod, cMax, out pcOtherMethod);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1915,7 +1915,7 @@ namespace ManagedCorDebug
             szEvent = new StringBuilder(pchEvent);
             cMax = pcOtherMethod;
             rmdOtherMethod = new mdMethodDef[pcOtherMethod];
-            hr = Raw.GetEventProps(ev, pClass, szEvent, cchEvent, out pchEvent, out pdwEventFlags, out ptkEventType, out pmdAddOn, out pmdRemoveOn, out pmdFire, rmdOtherMethod, cMax, pcOtherMethod);
+            hr = Raw.GetEventProps(ev, out pClass, szEvent, cchEvent, out pchEvent, out pdwEventFlags, out ptkEventType, out pmdAddOn, out pmdRemoveOn, out pmdFire, rmdOtherMethod, cMax, out pcOtherMethod);
 
             if (hr == HRESULT.S_OK)
             {
@@ -2081,24 +2081,24 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetClassLayout(
             [In] mdTypeDef td,
-            [Out] int pdwPackSize,
+            [Out] out int pdwPackSize,
             [MarshalAs(UnmanagedType.LPArray), Out] COR_FIELD_OFFSET[] rFieldOffset,
             [In] int cMax,
-            [Out] int pcFieldOffset,
-            [Out] int pulClassSize);*/
-            int pdwPackSize = default(int);
+            [Out] out int pcFieldOffset,
+            [Out] out int pulClassSize);*/
+            int pdwPackSize;
             COR_FIELD_OFFSET[] rFieldOffset = null;
             int cMax = 0;
-            int pcFieldOffset = default(int);
-            int pulClassSize = default(int);
-            HRESULT hr = Raw.GetClassLayout(td, pdwPackSize, rFieldOffset, cMax, pcFieldOffset, pulClassSize);
+            int pcFieldOffset;
+            int pulClassSize;
+            HRESULT hr = Raw.GetClassLayout(td, out pdwPackSize, rFieldOffset, cMax, out pcFieldOffset, out pulClassSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cMax = pcFieldOffset;
             rFieldOffset = new COR_FIELD_OFFSET[pcFieldOffset];
-            hr = Raw.GetClassLayout(td, pdwPackSize, rFieldOffset, cMax, pcFieldOffset, pulClassSize);
+            hr = Raw.GetClassLayout(td, out pdwPackSize, rFieldOffset, cMax, out pcFieldOffset, out pulClassSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -2226,12 +2226,12 @@ namespace ManagedCorDebug
             /*HRESULT GetPermissionSetProps(
             [In] mdPermission pm,
             [Out] out int pdwAction,
-            [Out] IntPtr ppvPermission,
+            [Out] out IntPtr ppvPermission,
             [Out] out int pcbPermission);*/
             int pdwAction;
-            IntPtr ppvPermission = default(IntPtr);
+            IntPtr ppvPermission;
             int pcbPermission;
-            HRESULT hr = Raw.GetPermissionSetProps(pm, out pdwAction, ppvPermission, out pcbPermission);
+            HRESULT hr = Raw.GetPermissionSetProps(pm, out pdwAction, out ppvPermission, out pcbPermission);
 
             if (hr == HRESULT.S_OK)
                 result = new GetPermissionSetPropsResult(pdwAction, ppvPermission, pcbPermission);
@@ -2644,24 +2644,24 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetPinvokeMap(
             [In] mdToken tk,
-            [Out] CorPinvokeMap pdwMappingFlags,
+            [Out] out CorPinvokeMap pdwMappingFlags,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szImportName,
             [In] int cchImportName,
-            [Out] int pchImportName,
+            [Out] out int pchImportName,
             [Out] out mdModuleRef pmrImportDLL);*/
-            CorPinvokeMap pdwMappingFlags = default(CorPinvokeMap);
+            CorPinvokeMap pdwMappingFlags;
             StringBuilder szImportName = null;
             int cchImportName = 0;
-            int pchImportName = default(int);
+            int pchImportName;
             mdModuleRef pmrImportDLL;
-            HRESULT hr = Raw.GetPinvokeMap(tk, pdwMappingFlags, szImportName, cchImportName, pchImportName, out pmrImportDLL);
+            HRESULT hr = Raw.GetPinvokeMap(tk, out pdwMappingFlags, szImportName, cchImportName, out pchImportName, out pmrImportDLL);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchImportName = pchImportName;
             szImportName = new StringBuilder(pchImportName);
-            hr = Raw.GetPinvokeMap(tk, pdwMappingFlags, szImportName, cchImportName, pchImportName, out pmrImportDLL);
+            hr = Raw.GetPinvokeMap(tk, out pdwMappingFlags, szImportName, cchImportName, out pchImportName, out pmrImportDLL);
 
             if (hr == HRESULT.S_OK)
             {
@@ -3174,34 +3174,34 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetFieldProps(
             [In] mdFieldDef mb,
-            [Out] mdTypeDef pClass,
+            [Out] out mdTypeDef pClass,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szField,
             [In] int cchField,
-            [Out] int pchField,
-            [Out] CorFieldAttr pdwAttr,
-            [Out] IntPtr ppvSigBlob,
-            [Out] int pcbSigBlob,
-            [Out] CorElementType pdwCPlusTypeFlag,
-            [Out] IntPtr ppValue,
-            [Out] int pcchValue);*/
-            mdTypeDef pClass = default(mdTypeDef);
+            [Out] out int pchField,
+            [Out] out CorFieldAttr pdwAttr,
+            [Out] out IntPtr ppvSigBlob,
+            [Out] out int pcbSigBlob,
+            [Out] out CorElementType pdwCPlusTypeFlag,
+            [Out] out IntPtr ppValue,
+            [Out] out int pcchValue);*/
+            mdTypeDef pClass;
             StringBuilder szField = null;
             int cchField = 0;
-            int pchField = default(int);
-            CorFieldAttr pdwAttr = default(CorFieldAttr);
-            IntPtr ppvSigBlob = default(IntPtr);
-            int pcbSigBlob = default(int);
-            CorElementType pdwCPlusTypeFlag = default(CorElementType);
-            IntPtr ppValue = default(IntPtr);
-            int pcchValue = default(int);
-            HRESULT hr = Raw.GetFieldProps(mb, pClass, szField, cchField, pchField, pdwAttr, ppvSigBlob, pcbSigBlob, pdwCPlusTypeFlag, ppValue, pcchValue);
+            int pchField;
+            CorFieldAttr pdwAttr;
+            IntPtr ppvSigBlob;
+            int pcbSigBlob;
+            CorElementType pdwCPlusTypeFlag;
+            IntPtr ppValue;
+            int pcchValue;
+            HRESULT hr = Raw.GetFieldProps(mb, out pClass, szField, cchField, out pchField, out pdwAttr, out ppvSigBlob, out pcbSigBlob, out pdwCPlusTypeFlag, out ppValue, out pcchValue);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchField = pchField;
             szField = new StringBuilder(pchField);
-            hr = Raw.GetFieldProps(mb, pClass, szField, cchField, pchField, pdwAttr, ppvSigBlob, pcbSigBlob, pdwCPlusTypeFlag, ppValue, pcchValue);
+            hr = Raw.GetFieldProps(mb, out pClass, szField, cchField, out pchField, out pdwAttr, out ppvSigBlob, out pcbSigBlob, out pdwCPlusTypeFlag, out ppValue, out pcchValue);
 
             if (hr == HRESULT.S_OK)
             {
@@ -3244,37 +3244,37 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetPropertyProps(
             [In] mdProperty prop,
-            [Out] mdTypeDef pClass,
+            [Out] out mdTypeDef pClass,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szProperty,
             [In] int cchProperty,
-            [Out] int pchProperty,
-            [Out] CorPropertyAttr pdwPropFlags,
-            [Out] IntPtr ppvSig,
-            [Out] int pbSig,
-            [Out] CorElementType pdwCPlusTypeFlag,
-            [Out] IntPtr ppDefaultValue,
-            [Out] int pcchDefaultValue,
-            [Out] mdMethodDef pmdSetter,
-            [Out] mdMethodDef pmdGetter,
+            [Out] out int pchProperty,
+            [Out] out CorPropertyAttr pdwPropFlags,
+            [Out] out IntPtr ppvSig,
+            [Out] out int pbSig,
+            [Out] out CorElementType pdwCPlusTypeFlag,
+            [Out] out IntPtr ppDefaultValue,
+            [Out] out int pcchDefaultValue,
+            [Out] out mdMethodDef pmdSetter,
+            [Out] out mdMethodDef pmdGetter,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rmdOtherMethod,
             [In] int cMax,
-            [Out] int pcOtherMethod);*/
-            mdTypeDef pClass = default(mdTypeDef);
+            [Out] out int pcOtherMethod);*/
+            mdTypeDef pClass;
             StringBuilder szProperty = null;
             int cchProperty = 0;
-            int pchProperty = default(int);
-            CorPropertyAttr pdwPropFlags = default(CorPropertyAttr);
-            IntPtr ppvSig = default(IntPtr);
-            int pbSig = default(int);
-            CorElementType pdwCPlusTypeFlag = default(CorElementType);
-            IntPtr ppDefaultValue = default(IntPtr);
-            int pcchDefaultValue = default(int);
-            mdMethodDef pmdSetter = default(mdMethodDef);
-            mdMethodDef pmdGetter = default(mdMethodDef);
+            int pchProperty;
+            CorPropertyAttr pdwPropFlags;
+            IntPtr ppvSig;
+            int pbSig;
+            CorElementType pdwCPlusTypeFlag;
+            IntPtr ppDefaultValue;
+            int pcchDefaultValue;
+            mdMethodDef pmdSetter;
+            mdMethodDef pmdGetter;
             mdMethodDef[] rmdOtherMethod = null;
             int cMax = 0;
-            int pcOtherMethod = default(int);
-            HRESULT hr = Raw.GetPropertyProps(prop, pClass, szProperty, cchProperty, pchProperty, pdwPropFlags, ppvSig, pbSig, pdwCPlusTypeFlag, ppDefaultValue, pcchDefaultValue, pmdSetter, pmdGetter, rmdOtherMethod, cMax, pcOtherMethod);
+            int pcOtherMethod;
+            HRESULT hr = Raw.GetPropertyProps(prop, out pClass, szProperty, cchProperty, out pchProperty, out pdwPropFlags, out ppvSig, out pbSig, out pdwCPlusTypeFlag, out ppDefaultValue, out pcchDefaultValue, out pmdSetter, out pmdGetter, rmdOtherMethod, cMax, out pcOtherMethod);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -3283,7 +3283,7 @@ namespace ManagedCorDebug
             szProperty = new StringBuilder(pchProperty);
             cMax = pcOtherMethod;
             rmdOtherMethod = new mdMethodDef[pcOtherMethod];
-            hr = Raw.GetPropertyProps(prop, pClass, szProperty, cchProperty, pchProperty, pdwPropFlags, ppvSig, pbSig, pdwCPlusTypeFlag, ppDefaultValue, pcchDefaultValue, pmdSetter, pmdGetter, rmdOtherMethod, cMax, pcOtherMethod);
+            hr = Raw.GetPropertyProps(prop, out pClass, szProperty, cchProperty, out pchProperty, out pdwPropFlags, out ppvSig, out pbSig, out pdwCPlusTypeFlag, out ppDefaultValue, out pcchDefaultValue, out pmdSetter, out pmdGetter, rmdOtherMethod, cMax, out pcOtherMethod);
 
             if (hr == HRESULT.S_OK)
             {
@@ -3332,25 +3332,25 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetParamProps(
             [In] mdParamDef tk,
-            [Out] mdMethodDef pmd,
-            [Out] int pulSequence,
+            [Out] out mdMethodDef pmd,
+            [Out] out int pulSequence,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName,
-            [Out] int cchName,
-            [Out] int pchName,
-            [Out] CorParamAttr pdwAttr,
-            [Out] CorElementType pdwCPlusTypeFlag,
-            [Out] IntPtr ppValue,
-            [Out] IntPtr pcchValue);*/
-            mdMethodDef pmd = default(mdMethodDef);
-            int pulSequence = default(int);
+            [Out] out int cchName,
+            [Out] out int pchName,
+            [Out] out CorParamAttr pdwAttr,
+            [Out] out CorElementType pdwCPlusTypeFlag,
+            [Out] out IntPtr ppValue,
+            [Out] out IntPtr pcchValue);*/
+            mdMethodDef pmd;
+            int pulSequence;
             StringBuilder szName = null;
-            int cchName = default(int);
-            int pchName = default(int);
-            CorParamAttr pdwAttr = default(CorParamAttr);
-            CorElementType pdwCPlusTypeFlag = default(CorElementType);
-            IntPtr ppValue = default(IntPtr);
-            IntPtr pcchValue = default(IntPtr);
-            HRESULT hr = Raw.GetParamProps(tk, pmd, pulSequence, szName, cchName, pchName, pdwAttr, pdwCPlusTypeFlag, ppValue, pcchValue);
+            int cchName;
+            int pchName;
+            CorParamAttr pdwAttr;
+            CorElementType pdwCPlusTypeFlag;
+            IntPtr ppValue;
+            IntPtr pcchValue;
+            HRESULT hr = Raw.GetParamProps(tk, out pmd, out pulSequence, szName, out cchName, out pchName, out pdwAttr, out pdwCPlusTypeFlag, out ppValue, out pcchValue);
 
             if (hr == HRESULT.S_OK)
                 result = new GetParamPropsResult(pmd, pulSequence, szName.ToString(), cchName, pchName, pdwAttr, pdwCPlusTypeFlag, ppValue, pcchValue);
@@ -3401,11 +3401,11 @@ namespace ManagedCorDebug
             /*HRESULT GetCustomAttributeByName(
             [In] mdToken tkObj,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
-            [Out] IntPtr ppData,
-            [Out] int pcbData);*/
-            IntPtr ppData = default(IntPtr);
-            int pcbData = default(int);
-            HRESULT hr = Raw.GetCustomAttributeByName(tkObj, szName, ppData, pcbData);
+            [Out] out IntPtr ppData,
+            [Out] out int pcbData);*/
+            IntPtr ppData;
+            int pcbData;
+            HRESULT hr = Raw.GetCustomAttributeByName(tkObj, szName, out ppData, out pcbData);
 
             if (hr == HRESULT.S_OK)
                 result = new GetCustomAttributeByNameResult(ppData, pcbData);
@@ -3730,26 +3730,26 @@ namespace ManagedCorDebug
             [In] mdGenericParam gp,
             [Out] out int pulParamSeq,
             [Out] out CorGenericParamAttr pdwParamFlags,
-            [Out] mdToken ptOwner,
-            [Out] int reserved,
+            [Out] out mdToken ptOwner,
+            [Out] out int reserved,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder wzname,
             [In] int cchName,
             [Out] out int pchName);*/
             int pulParamSeq;
             CorGenericParamAttr pdwParamFlags;
-            mdToken ptOwner = default(mdToken);
-            int reserved = default(int);
+            mdToken ptOwner;
+            int reserved;
             StringBuilder wzname = null;
             int cchName = 0;
             int pchName;
-            HRESULT hr = Raw2.GetGenericParamProps(gp, out pulParamSeq, out pdwParamFlags, ptOwner, reserved, wzname, cchName, out pchName);
+            HRESULT hr = Raw2.GetGenericParamProps(gp, out pulParamSeq, out pdwParamFlags, out ptOwner, out reserved, wzname, cchName, out pchName);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchName = pchName;
             wzname = new StringBuilder(pchName);
-            hr = Raw2.GetGenericParamProps(gp, out pulParamSeq, out pdwParamFlags, ptOwner, reserved, wzname, cchName, out pchName);
+            hr = Raw2.GetGenericParamProps(gp, out pulParamSeq, out pdwParamFlags, out ptOwner, out reserved, wzname, cchName, out pchName);
 
             if (hr == HRESULT.S_OK)
             {

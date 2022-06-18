@@ -61,9 +61,9 @@ namespace ManagedCorDebug
             get
             {
                 HRESULT hr;
-                IntPtr phProcessHandle = default(IntPtr);
+                IntPtr phProcessHandle;
 
-                if ((hr = TryGetHandle(ref phProcessHandle)) != HRESULT.S_OK)
+                if ((hr = TryGetHandle(out phProcessHandle)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
 
                 return phProcessHandle;
@@ -78,10 +78,10 @@ namespace ManagedCorDebug
         /// The retrieved handle is owned by the debugging interface. The debugger should duplicate the handle before using
         /// it.
         /// </remarks>
-        public HRESULT TryGetHandle(ref IntPtr phProcessHandle)
+        public HRESULT TryGetHandle(out IntPtr phProcessHandle)
         {
-            /*HRESULT GetHandle([Out] IntPtr phProcessHandle);*/
-            return Raw.GetHandle(phProcessHandle);
+            /*HRESULT GetHandle([Out] out IntPtr phProcessHandle);*/
+            return Raw.GetHandle(out phProcessHandle);
         }
 
         #endregion
@@ -325,7 +325,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="threadID">[in] The ID of the thread for which to retrieve the context.</param>
         /// <param name="contextSize">[in] The size of the context array.</param>
-        /// <returns>[in, out] An array of bytes that describe the thread's context. The context specifies the architecture of the processor on which the thread is executing.</returns>
+        /// <param name="context">[in, out] An array of bytes that describe the thread's context. The context specifies the architecture of the processor on which the thread is executing.</param>
         /// <remarks>
         /// The debugger should call this method rather than the Win32 GetThreadContext method, because the thread may actually
         /// be in a "hijacked" state, in which its context has been temporarily changed. This method should be used only when
@@ -333,15 +333,12 @@ namespace ManagedCorDebug
         /// is a context structure for the current platform. Just as with the Win32 GetThreadContext method, the caller should
         /// initialize the context parameter before calling this method.
         /// </remarks>
-        public IntPtr GetThreadContext(int threadID, int contextSize)
+        public void GetThreadContext(int threadID, int contextSize, IntPtr context)
         {
             HRESULT hr;
-            IntPtr context = default(IntPtr);
 
-            if ((hr = TryGetThreadContext(threadID, contextSize, ref context)) != HRESULT.S_OK)
+            if ((hr = TryGetThreadContext(threadID, contextSize, context)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return context;
         }
 
         /// <summary>
@@ -357,10 +354,10 @@ namespace ManagedCorDebug
         /// is a context structure for the current platform. Just as with the Win32 GetThreadContext method, the caller should
         /// initialize the context parameter before calling this method.
         /// </remarks>
-        public HRESULT TryGetThreadContext(int threadID, int contextSize, ref IntPtr context)
+        public HRESULT TryGetThreadContext(int threadID, int contextSize, IntPtr context)
         {
-            /*HRESULT GetThreadContext([In] int threadID, [In] int contextSize, [In, Out] ref IntPtr context);*/
-            return Raw.GetThreadContext(threadID, contextSize, ref context);
+            /*HRESULT GetThreadContext([In] int threadID, [In] int contextSize, [Out] IntPtr context);*/
+            return Raw.GetThreadContext(threadID, contextSize, context);
         }
 
         #endregion
@@ -414,7 +411,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> value that specifies the base address of the memory to be read.</param>
         /// <param name="size">[in] The number of bytes to be read from memory.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <param name="buffer">[out] A buffer that receives the contents of the memory.</param>
         /// <remarks>
         /// The ReadMemory method is primarily intended to be used by interop debugging to inspect memory regions that are
         /// being used by the unmanaged portion of the debuggee. This method can also be used to read Microsoft intermediate
@@ -422,15 +419,12 @@ namespace ManagedCorDebug
         /// returned in the buffer parameter. No adjustments will be made for native breakpoints set by <see cref="SetUnmanagedBreakpoint"/>.
         /// No caching of process memory is performed.
         /// </remarks>
-        public ReadMemoryResult ReadMemory(CORDB_ADDRESS address, int size)
+        public void ReadMemory(CORDB_ADDRESS address, int size, IntPtr buffer)
         {
             HRESULT hr;
-            ReadMemoryResult result;
 
-            if ((hr = TryReadMemory(address, size, out result)) != HRESULT.S_OK)
+            if ((hr = TryReadMemory(address, size, buffer)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
         }
 
         /// <summary>
@@ -438,7 +432,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> value that specifies the base address of the memory to be read.</param>
         /// <param name="size">[in] The number of bytes to be read from memory.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="buffer">[out] A buffer that receives the contents of the memory.</param>
         /// <remarks>
         /// The ReadMemory method is primarily intended to be used by interop debugging to inspect memory regions that are
         /// being used by the unmanaged portion of the debuggee. This method can also be used to read Microsoft intermediate
@@ -446,19 +440,12 @@ namespace ManagedCorDebug
         /// returned in the buffer parameter. No adjustments will be made for native breakpoints set by <see cref="SetUnmanagedBreakpoint"/>.
         /// No caching of process memory is performed.
         /// </remarks>
-        public HRESULT TryReadMemory(CORDB_ADDRESS address, int size, out ReadMemoryResult result)
+        public HRESULT TryReadMemory(CORDB_ADDRESS address, int size, IntPtr buffer)
         {
             /*HRESULT ReadMemory([In] CORDB_ADDRESS address, [In] int size, [Out] IntPtr buffer, [Out] out int read);*/
-            IntPtr buffer = default(IntPtr);
             int read;
-            HRESULT hr = Raw.ReadMemory(address, size, buffer, out read);
 
-            if (hr == HRESULT.S_OK)
-                result = new ReadMemoryResult(buffer, read);
-            else
-                result = default(ReadMemoryResult);
-
-            return hr;
+            return Raw.ReadMemory(address, size, buffer, out read);
         }
 
         #endregion

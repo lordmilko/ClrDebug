@@ -171,7 +171,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetHandle([Out] IntPtr phProcessHandle);
+        HRESULT GetHandle([Out] out IntPtr phProcessHandle);
 
         /// <summary>
         /// Gets this process's thread that has the specified operating system (OS) thread ID.
@@ -234,7 +234,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetThreadContext([In] int threadID, [In] int contextSize, [In, Out] ref IntPtr context);
+        HRESULT GetThreadContext([In] int threadID, [In] int contextSize, [Out] IntPtr context);
 
         /// <summary>
         /// Sets the context for the given thread in this process.

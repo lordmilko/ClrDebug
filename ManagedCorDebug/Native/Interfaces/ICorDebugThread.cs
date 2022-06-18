@@ -42,7 +42,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetHandle([Out] IntPtr phThreadHandle);
+        HRESULT GetHandle([Out] out IntPtr phThreadHandle);
 
         /// <summary>
         /// Gets an interface pointer to the application domain in which this <see cref="ICorDebugThread"/> is currently executing.

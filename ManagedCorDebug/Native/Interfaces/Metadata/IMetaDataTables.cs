@@ -112,7 +112,7 @@ namespace ManagedCorDebug
         /// Standards and Standard ECMA-335 - Common Language Infrastructure (CLI).
         /// </remarks>
         [PreserveSig]
-        HRESULT GetRow([In] int ixTbl, [In] int rid, [Out] IntPtr ppRow);
+        HRESULT GetRow([In] int ixTbl, [In] int rid, [Out] out IntPtr ppRow);
 
         /// <summary>
         /// Gets a pointer to the value contained in the cell of the specified column and row in the given table.
@@ -143,7 +143,7 @@ namespace ManagedCorDebug
         /// <param name="pcbData">[out] A pointer to the size, in bytes, of ppData.</param>
         /// <param name="ppData">[out] A pointer to a pointer to the binary data retrieved.</param>
         [PreserveSig]
-        HRESULT GetBlob([In] int ixBlob, [Out] out int pcbData, [Out] IntPtr ppData);
+        HRESULT GetBlob([In] int ixBlob, [Out] out int pcbData, [Out] out IntPtr ppData);
 
         /// <summary>
         /// Gets a GUID from the row at the specified index.
@@ -166,7 +166,7 @@ namespace ManagedCorDebug
         /// <param name="pcbData">[out] A pointer to the size of ppData.</param>
         /// <param name="ppData">[out] A pointer to a pointer to the returned string.</param>
         [PreserveSig]
-        HRESULT GetUserString([In] int ixUserString, [Out] out int pcbData, [Out] IntPtr ppData);
+        HRESULT GetUserString([In] int ixUserString, [Out] out int pcbData, [Out] out IntPtr ppData);
 
         /// <summary>
         /// Gets the index of the next string in the current table column.

@@ -71,7 +71,7 @@ namespace ManagedCorDebug
         HRESULT GetDocumentsForMethod(
             [In] int cDocs,
             [Out] out int pcDocs,
-            [In, Out] ref IntPtr documents);
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedDocument[] documents);
 
         /// <summary>
         /// Gets the smallest start line and largest end line for the method in a specific document.

@@ -144,32 +144,32 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetAssemblyRefProps(
             [In] mdAssemblyRef mdar,
-            [Out] IntPtr ppbPublicKeyOrToken,
+            [Out] out IntPtr ppbPublicKeyOrToken,
             [Out] out int pcbPublicKeyOrToken,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out ASSEMBLYMETADATA pMetaData,
-            [Out] IntPtr ppbHashValue,
+            [Out] out IntPtr ppbHashValue,
             [Out] out int pcbHashValue,
             [Out] out CorAssemblyFlags pdwAssemblyFlags);*/
-            IntPtr ppbPublicKeyOrToken = default(IntPtr);
+            IntPtr ppbPublicKeyOrToken;
             int pcbPublicKeyOrToken;
             StringBuilder szName = null;
             int cchName = 0;
             int pchName;
             ASSEMBLYMETADATA pMetaData;
-            IntPtr ppbHashValue = default(IntPtr);
+            IntPtr ppbHashValue;
             int pcbHashValue;
             CorAssemblyFlags pdwAssemblyFlags;
-            HRESULT hr = Raw.GetAssemblyRefProps(mdar, ppbPublicKeyOrToken, out pcbPublicKeyOrToken, szName, cchName, out pchName, out pMetaData, ppbHashValue, out pcbHashValue, out pdwAssemblyFlags);
+            HRESULT hr = Raw.GetAssemblyRefProps(mdar, out ppbPublicKeyOrToken, out pcbPublicKeyOrToken, szName, cchName, out pchName, out pMetaData, out ppbHashValue, out pcbHashValue, out pdwAssemblyFlags);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchName = pchName;
             szName = new StringBuilder(pchName);
-            hr = Raw.GetAssemblyRefProps(mdar, ppbPublicKeyOrToken, out pcbPublicKeyOrToken, szName, cchName, out pchName, out pMetaData, ppbHashValue, out pcbHashValue, out pdwAssemblyFlags);
+            hr = Raw.GetAssemblyRefProps(mdar, out ppbPublicKeyOrToken, out pcbPublicKeyOrToken, szName, cchName, out pchName, out pMetaData, out ppbHashValue, out pcbHashValue, out pdwAssemblyFlags);
 
             if (hr == HRESULT.S_OK)
             {
@@ -215,23 +215,23 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
             [In] int cchName,
             [Out] out int pchName,
-            [Out] IntPtr ppbHashValue,
+            [Out] out IntPtr ppbHashValue,
             [Out] out int pcbHashValue,
             [Out] out CorFileFlags pdwFileFlags);*/
             StringBuilder szName = null;
             int cchName = 0;
             int pchName;
-            IntPtr ppbHashValue = default(IntPtr);
+            IntPtr ppbHashValue;
             int pcbHashValue;
             CorFileFlags pdwFileFlags;
-            HRESULT hr = Raw.GetFileProps(mdf, szName, cchName, out pchName, ppbHashValue, out pcbHashValue, out pdwFileFlags);
+            HRESULT hr = Raw.GetFileProps(mdf, szName, cchName, out pchName, out ppbHashValue, out pcbHashValue, out pdwFileFlags);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchName = pchName;
             szName = new StringBuilder(pchName);
-            hr = Raw.GetFileProps(mdf, szName, cchName, out pchName, ppbHashValue, out pcbHashValue, out pdwFileFlags);
+            hr = Raw.GetFileProps(mdf, szName, cchName, out pchName, out ppbHashValue, out pcbHashValue, out pdwFileFlags);
 
             if (hr == HRESULT.S_OK)
             {

@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -17,9 +16,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// A pointer to an array of <see cref="ICorDebugLoadedModule"/> objects that provide information about loaded modules.
         /// </summary>
-        public IntPtr pLoadedModules { get; }
+        public ICorDebugLoadedModule[] pLoadedModules { get; }
 
-        public GetLoadedModulesResult(int pcFetchedModules, IntPtr pLoadedModules)
+        public GetLoadedModulesResult(int pcFetchedModules, ICorDebugLoadedModule[] pLoadedModules)
         {
             this.pcFetchedModules = pcFetchedModules;
             this.pLoadedModules = pLoadedModules;

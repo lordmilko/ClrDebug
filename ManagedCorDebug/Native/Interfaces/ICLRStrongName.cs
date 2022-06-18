@@ -215,7 +215,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
             [In] IntPtr pbKeyBlob,
             [In] int cbKeyBlob,
-            [Out] IntPtr ppbPublicKeyBlob,
+            [Out] out IntPtr ppbPublicKeyBlob,
             [Out] out int pcbPublicKeyBlob);
 
         /// <summary>
@@ -257,7 +257,7 @@ namespace ManagedCorDebug
         HRESULT StrongNameKeyGen(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
             [In] int dwFlags,
-            [Out] IntPtr ppbKeyBlob,
+            [Out] out IntPtr ppbKeyBlob,
             [Out] out int pcbKeyBlob);
 
         /// <summary>
@@ -280,7 +280,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
             [In] int dwFlags,
             [In] int dwKeySize,
-            [Out] IntPtr ppbKeyBlob,
+            [Out] out IntPtr ppbKeyBlob,
             [Out] out int pcbKeyBlob);
 
         /// <summary>
@@ -323,7 +323,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
             [In] IntPtr pbKeyBlob,
             [In] int cbKeyBlob,
-            [Out] IntPtr ppbSignatureBlob,
+            [Out] out IntPtr ppbSignatureBlob,
             [Out] out int pcbSignatureBlob);
 
         /// <summary>
@@ -354,7 +354,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string wszKeyContainer,
             [In] IntPtr pbKeyBlob,
             [In] int cbKeyBlob,
-            [Out] IntPtr ppbSignatureBlob,
+            [Out] out IntPtr ppbSignatureBlob,
             [Out] out int pcbSignatureBlob,
             [In] int dwFlags);
 
@@ -435,7 +435,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameTokenFromAssembly(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
-            [Out] IntPtr ppbStrongNameToken,
+            [Out] out IntPtr ppbStrongNameToken,
             [Out] out int pcbStrongNameToken);
 
         /// <summary>
@@ -459,7 +459,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [Out] IntPtr ppbStrongNameToken,
             [Out] out int pcbStrongNameToken,
-            [Out] IntPtr ppbPublicKeyBlob,
+            [Out] out IntPtr ppbPublicKeyBlob,
             [Out] out int pcbPublicKeyBlob);
 
         /// <summary>
@@ -480,7 +480,7 @@ namespace ManagedCorDebug
         HRESULT StrongNameTokenFromPublicKey(
             [In] IntPtr pbPublicKeyBlob,
             [In] PublicKeyBlob cbPublicKeyBlob,
-            [Out] IntPtr ppbStrongNameToken,
+            [Out] out IntPtr ppbStrongNameToken,
             [Out] out int pcbStrongNameToken);
     }
 }

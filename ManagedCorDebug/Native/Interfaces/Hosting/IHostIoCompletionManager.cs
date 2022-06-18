@@ -37,7 +37,7 @@ namespace ManagedCorDebug
         /// CLR by calling <see cref="ICLRIoCompletionManager.OnComplete"/>.
         /// </remarks>
         [PreserveSig]
-        HRESULT CreateIoCompletionPort([Out] IntPtr phPort);
+        HRESULT CreateIoCompletionPort([Out] out IntPtr phPort);
 
         /// <summary>
         /// Requests that the host close a port that was opened through an earlier call to <see cref="CreateIoCompletionPort"/>.

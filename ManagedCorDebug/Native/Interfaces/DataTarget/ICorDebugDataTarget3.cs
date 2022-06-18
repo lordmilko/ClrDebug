@@ -23,6 +23,6 @@ namespace ManagedCorDebug
         HRESULT GetLoadedModules(
             [In] int cRequestedModules,
             [Out] out int pcFetchedModules,
-            [Out] IntPtr pLoadedModules); //ICorDebugLoadedModule
+            [Out, MarshalAs(UnmanagedType.LPArray)] ICorDebugLoadedModule[] pLoadedModules);
     }
 }

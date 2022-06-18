@@ -386,26 +386,23 @@ namespace ManagedCorDebug
         #endregion
         #region Request
 
-        public IntPtr Request(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize)
+        public void Request(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
             HRESULT hr;
-            IntPtr outBuffer = default(IntPtr);
 
-            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, ref outBuffer)) != HRESULT.S_OK)
+            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, outBuffer)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return outBuffer;
         }
 
-        public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, ref IntPtr outBuffer)
+        public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
             /*HRESULT Request(
             [In] uint reqCode,
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
-            [In, Out] ref IntPtr outBuffer);*/
-            return Raw.Request(reqCode, inBufferSize, inBuffer, outBufferSize, ref outBuffer);
+            [Out] IntPtr outBuffer);*/
+            return Raw.Request(reqCode, inBufferSize, inBuffer, outBufferSize, outBuffer);
         }
 
         #endregion

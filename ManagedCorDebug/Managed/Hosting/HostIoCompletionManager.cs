@@ -291,9 +291,9 @@ namespace ManagedCorDebug
         public IntPtr CreateIoCompletionPort()
         {
             HRESULT hr;
-            IntPtr phPort = default(IntPtr);
+            IntPtr phPort;
 
-            if ((hr = TryCreateIoCompletionPort(ref phPort)) != HRESULT.S_OK)
+            if ((hr = TryCreateIoCompletionPort(out phPort)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return phPort;
@@ -319,10 +319,10 @@ namespace ManagedCorDebug
         /// I/O operations to this port through a call to the <see cref="Bind"/> method. The host reports status back to the
         /// CLR by calling <see cref="CLRIoCompletionManager.OnComplete"/>.
         /// </remarks>
-        public HRESULT TryCreateIoCompletionPort(ref IntPtr phPort)
+        public HRESULT TryCreateIoCompletionPort(out IntPtr phPort)
         {
-            /*HRESULT CreateIoCompletionPort([Out] IntPtr phPort);*/
-            return Raw.CreateIoCompletionPort(phPort);
+            /*HRESULT CreateIoCompletionPort([Out] out IntPtr phPort);*/
+            return Raw.CreateIoCompletionPort(out phPort);
         }
 
         #endregion

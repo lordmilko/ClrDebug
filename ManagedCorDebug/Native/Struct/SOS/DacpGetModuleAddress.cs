@@ -20,11 +20,11 @@ namespace ManagedCorDebug
                 0,
                 IntPtr.Zero,
                 Marshal.SizeOf(this),
-                ref outBuffer
+                outBuffer
             );
 
             if (hr == HRESULT.S_OK)
-                Marshal.PtrToStructure(outBuffer, this);
+                this = Marshal.PtrToStructure<DacpGetModuleAddress>(outBuffer);
 
             Marshal.FreeHGlobal(outBuffer);
 

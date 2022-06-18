@@ -35,9 +35,9 @@ namespace ManagedCorDebug
             get
             {
                 HRESULT hr;
-                IntPtr pTo = default(IntPtr);
+                IntPtr pTo;
 
-                if ((hr = TryGetValue(ref pTo)) != HRESULT.S_OK)
+                if ((hr = TryGetValue(out pTo)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
 
                 return pTo;
@@ -55,10 +55,10 @@ namespace ManagedCorDebug
         /// Copies the value of this generic into the specified buffer.
         /// </summary>
         /// <param name="pTo">[out] A pointer to the value that is represented by this <see cref="ICorDebugGenericValue"/> object. The value may be a simple type or a reference type (that is, a pointer).</param>
-        public HRESULT TryGetValue(ref IntPtr pTo)
+        public HRESULT TryGetValue(out IntPtr pTo)
         {
-            /*HRESULT GetValue([Out] IntPtr pTo);*/
-            return Raw.GetValue(pTo);
+            /*HRESULT GetValue([Out] out IntPtr pTo);*/
+            return Raw.GetValue(out pTo);
         }
 
         /// <summary>

@@ -27,21 +27,18 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="contextFlags">[in] Flags that specify which parts of the context to return (defined in WinNT.h).</param>
         /// <param name="cbContextBuf">[in] The number of bytes in contextBuf.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <param name="contextBuf">[out] A byte array that contains the current context of this unwinder.</param>
         /// <remarks>
         /// You set the initial value of the contextBuf argument to the context buffer returned by calling the <see cref="CorDebugStackWalk.GetContext"/>
         /// method. Because unwinding may only restore a subset of the registers, such as the non-volatile registers only,
         /// the context may not exactly match the register state at the time of the actual method call.
         /// </remarks>
-        public GetContextResult GetContext(int contextFlags, int cbContextBuf)
+        public void GetContext(int contextFlags, int cbContextBuf, IntPtr contextBuf)
         {
             HRESULT hr;
-            GetContextResult result;
 
-            if ((hr = TryGetContext(contextFlags, cbContextBuf, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetContext(contextFlags, cbContextBuf, contextBuf)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
         }
 
         /// <summary>
@@ -49,30 +46,23 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="contextFlags">[in] Flags that specify which parts of the context to return (defined in WinNT.h).</param>
         /// <param name="cbContextBuf">[in] The number of bytes in contextBuf.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="contextBuf">[out] A byte array that contains the current context of this unwinder.</param>
         /// <returns>Any failing <see cref="HRESULT"/> value received by mscordbi is considered fatal and will cause <see cref="ICorDebug"/> APIs to return CORDBG_E_DATA_TARGET_ERROR.</returns>
         /// <remarks>
         /// You set the initial value of the contextBuf argument to the context buffer returned by calling the <see cref="CorDebugStackWalk.GetContext"/>
         /// method. Because unwinding may only restore a subset of the registers, such as the non-volatile registers only,
         /// the context may not exactly match the register state at the time of the actual method call.
         /// </remarks>
-        public HRESULT TryGetContext(int contextFlags, int cbContextBuf, out GetContextResult result)
+        public HRESULT TryGetContext(int contextFlags, int cbContextBuf, IntPtr contextBuf)
         {
             /*HRESULT GetContext(
             [In] int contextFlags,
             [In] int cbContextBuf,
             [Out] out int contextSize,
-            [In, Out] ref IntPtr contextBuf);*/
+            [Out] IntPtr contextBuf);*/
             int contextSize;
-            IntPtr contextBuf = default(IntPtr);
-            HRESULT hr = Raw.GetContext(contextFlags, cbContextBuf, out contextSize, ref contextBuf);
 
-            if (hr == HRESULT.S_OK)
-                result = new GetContextResult(contextSize, contextBuf);
-            else
-                result = default(GetContextResult);
-
-            return hr;
+            return Raw.GetContext(contextFlags, cbContextBuf, out contextSize, contextBuf);
         }
 
         #endregion

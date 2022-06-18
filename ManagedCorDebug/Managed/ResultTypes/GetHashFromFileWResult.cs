@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -6,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="CLRStrongName.GetHashFromFileW"/> method.
     /// </summary>
-    [DebuggerDisplay("piHashAlg = {piHashAlg}, pbHash = {pbHash}, pchHash = {pchHash}")]
+    [DebuggerDisplay("piHashAlg = {piHashAlg}, pchHash = {pchHash}")]
     public struct GetHashFromFileWResult
     {
         /// <summary>
@@ -16,19 +15,13 @@ namespace ManagedCorDebug
         public int piHashAlg { get; }
 
         /// <summary>
-        /// A byte array containing the generated hash.
-        /// </summary>
-        public IntPtr pbHash { get; }
-
-        /// <summary>
         /// The size, in bytes, of pbHash.
         /// </summary>
         public int pchHash { get; }
 
-        public GetHashFromFileWResult(int piHashAlg, IntPtr pbHash, int pchHash)
+        public GetHashFromFileWResult(int piHashAlg, int pchHash)
         {
             this.piHashAlg = piHashAlg;
-            this.pbHash = pbHash;
             this.pchHash = pchHash;
         }
     }

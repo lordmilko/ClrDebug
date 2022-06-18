@@ -100,9 +100,9 @@ namespace ManagedCorDebug
             get
             {
                 HRESULT hr;
-                IntPtr phThreadHandle = default(IntPtr);
+                IntPtr phThreadHandle;
 
-                if ((hr = TryGetHandle(ref phThreadHandle)) != HRESULT.S_OK)
+                if ((hr = TryGetHandle(out phThreadHandle)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
 
                 return phThreadHandle;
@@ -117,10 +117,10 @@ namespace ManagedCorDebug
         /// The handle may change as the process executes, and may be different for different parts of the thread. This handle
         /// is owned by the debugging API. The debugger should duplicate it before using it.
         /// </remarks>
-        public HRESULT TryGetHandle(ref IntPtr phThreadHandle)
+        public HRESULT TryGetHandle(out IntPtr phThreadHandle)
         {
-            /*HRESULT GetHandle([Out] IntPtr phThreadHandle);*/
-            return Raw.GetHandle(phThreadHandle);
+            /*HRESULT GetHandle([Out] out IntPtr phThreadHandle);*/
+            return Raw.GetHandle(out phThreadHandle);
         }
 
         #endregion

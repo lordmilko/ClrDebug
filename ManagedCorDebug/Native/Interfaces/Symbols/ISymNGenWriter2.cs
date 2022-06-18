@@ -21,7 +21,7 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT OpenModW([In, MarshalAs(UnmanagedType.LPWStr)] string wszModule, [In, MarshalAs(UnmanagedType.LPWStr)] string wszObjFile, [Out] IntPtr ppmod);
+        HRESULT OpenModW([In, MarshalAs(UnmanagedType.LPWStr)] string wszModule, [In, MarshalAs(UnmanagedType.LPWStr)] string wszObjFile, [Out] out IntPtr ppmod);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

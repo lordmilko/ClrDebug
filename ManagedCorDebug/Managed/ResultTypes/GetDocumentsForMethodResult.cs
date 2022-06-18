@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -17,9 +16,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// The buffer that contains the documents.
         /// </summary>
-        public IntPtr documents { get; }
+        public ISymUnmanagedDocument[] documents { get; }
 
-        public GetDocumentsForMethodResult(int pcDocs, IntPtr documents)
+        public GetDocumentsForMethodResult(int pcDocs, ISymUnmanagedDocument[] documents)
         {
             this.pcDocs = pcDocs;
             this.documents = documents;

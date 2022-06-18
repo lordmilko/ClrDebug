@@ -188,11 +188,11 @@ namespace ManagedCorDebug
         {
             /*HRESULT AllocateMethodBuffer(
             [In] int cchBuffer,
-            [Out] IntPtr lpBuffer,
+            [Out] out IntPtr lpBuffer,
             [Out] out int RVA);*/
-            IntPtr lpBuffer = default(IntPtr);
+            IntPtr lpBuffer;
             int RVA;
-            HRESULT hr = Raw.AllocateMethodBuffer(cchBuffer, lpBuffer, out RVA);
+            HRESULT hr = Raw.AllocateMethodBuffer(cchBuffer, out lpBuffer, out RVA);
 
             if (hr == HRESULT.S_OK)
                 result = new AllocateMethodBufferResult(lpBuffer, RVA);
@@ -214,9 +214,9 @@ namespace ManagedCorDebug
         public IntPtr GetMethodBuffer(int RVA)
         {
             HRESULT hr;
-            IntPtr lpBuffer = default(IntPtr);
+            IntPtr lpBuffer;
 
-            if ((hr = TryGetMethodBuffer(RVA, ref lpBuffer)) != HRESULT.S_OK)
+            if ((hr = TryGetMethodBuffer(RVA, out lpBuffer)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return lpBuffer;
@@ -228,12 +228,12 @@ namespace ManagedCorDebug
         /// <param name="RVA">[in] The relative virtual address of the method for which to return a buffer.</param>
         /// <param name="lpBuffer">[out] A pointer to the returned buffer.</param>
         [Obsolete]
-        public HRESULT TryGetMethodBuffer(int RVA, ref IntPtr lpBuffer)
+        public HRESULT TryGetMethodBuffer(int RVA, out IntPtr lpBuffer)
         {
             /*HRESULT GetMethodBuffer(
             [In] int RVA,
-            [Out] IntPtr lpBuffer);*/
-            return Raw.GetMethodBuffer(RVA, lpBuffer);
+            [Out] out IntPtr lpBuffer);*/
+            return Raw.GetMethodBuffer(RVA, out lpBuffer);
         }
 
         #endregion
@@ -343,9 +343,9 @@ namespace ManagedCorDebug
         public IntPtr GetSectionCreate(string name, int flags)
         {
             HRESULT hr;
-            IntPtr section = default(IntPtr);
+            IntPtr section;
 
-            if ((hr = TryGetSectionCreate(name, flags, ref section)) != HRESULT.S_OK)
+            if ((hr = TryGetSectionCreate(name, flags, out section)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return section;
@@ -361,13 +361,13 @@ namespace ManagedCorDebug
         /// Call GetSectionCreate only if you have special section requirements that are not handled by other methods.
         /// </remarks>
         [Obsolete]
-        public HRESULT TryGetSectionCreate(string name, int flags, ref IntPtr section)
+        public HRESULT TryGetSectionCreate(string name, int flags, out IntPtr section)
         {
             /*HRESULT GetSectionCreate(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int flags,
-            [Out] IntPtr section);*/
-            return Raw.GetSectionCreate(name, flags, section);
+            [Out] out IntPtr section);*/
+            return Raw.GetSectionCreate(name, flags, out section);
         }
 
         #endregion
@@ -427,9 +427,9 @@ namespace ManagedCorDebug
         public IntPtr GetSectionBlock(IntPtr section, int len, int align)
         {
             HRESULT hr;
-            IntPtr ppBytes = default(IntPtr);
+            IntPtr ppBytes;
 
-            if ((hr = TryGetSectionBlock(section, len, align, ref ppBytes)) != HRESULT.S_OK)
+            if ((hr = TryGetSectionBlock(section, len, align, out ppBytes)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return ppBytes;
@@ -446,14 +446,14 @@ namespace ManagedCorDebug
         /// Call GetSectionBlock only if you have special section requirements that are not handled by other methods.
         /// </remarks>
         [Obsolete]
-        public HRESULT TryGetSectionBlock(IntPtr section, int len, int align, ref IntPtr ppBytes)
+        public HRESULT TryGetSectionBlock(IntPtr section, int len, int align, out IntPtr ppBytes)
         {
             /*HRESULT GetSectionBlock(
             [In] IntPtr section,
             [In] int len,
             [In] int align,
-            [Out] IntPtr ppBytes);*/
-            return Raw.GetSectionBlock(section, len, align, ppBytes);
+            [Out] out IntPtr ppBytes);*/
+            return Raw.GetSectionBlock(section, len, align, out ppBytes);
         }
 
         #endregion
@@ -504,9 +504,9 @@ namespace ManagedCorDebug
         public IntPtr GenerateCeeMemoryImage()
         {
             HRESULT hr;
-            IntPtr ppImage = default(IntPtr);
+            IntPtr ppImage;
 
-            if ((hr = TryGenerateCeeMemoryImage(ref ppImage)) != HRESULT.S_OK)
+            if ((hr = TryGenerateCeeMemoryImage(out ppImage)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return ppImage;
@@ -517,11 +517,11 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="ppImage">[out] A pointer to the generated image.</param>
         [Obsolete]
-        public HRESULT TryGenerateCeeMemoryImage(ref IntPtr ppImage)
+        public HRESULT TryGenerateCeeMemoryImage(out IntPtr ppImage)
         {
             /*HRESULT GenerateCeeMemoryImage(
-            [Out] IntPtr ppImage);*/
-            return Raw.GenerateCeeMemoryImage(ppImage);
+            [Out] out IntPtr ppImage);*/
+            return Raw.GenerateCeeMemoryImage(out ppImage);
         }
 
         #endregion
@@ -537,9 +537,9 @@ namespace ManagedCorDebug
         public IntPtr ComputePointer(IntPtr section, int RVA)
         {
             HRESULT hr;
-            IntPtr lpBuffer = default(IntPtr);
+            IntPtr lpBuffer;
 
-            if ((hr = TryComputePointer(section, RVA, ref lpBuffer)) != HRESULT.S_OK)
+            if ((hr = TryComputePointer(section, RVA, out lpBuffer)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return lpBuffer;
@@ -552,13 +552,13 @@ namespace ManagedCorDebug
         /// <param name="RVA">[in] The relative virtual address of the method for which to get a pointer.</param>
         /// <param name="lpBuffer">[out] A pointer to the returned buffer.</param>
         [Obsolete]
-        public HRESULT TryComputePointer(IntPtr section, int RVA, ref IntPtr lpBuffer)
+        public HRESULT TryComputePointer(IntPtr section, int RVA, out IntPtr lpBuffer)
         {
             /*HRESULT ComputePointer(
             [In] IntPtr section,
             [In] int RVA,
-            [Out] IntPtr lpBuffer);*/
-            return Raw.ComputePointer(section, RVA, lpBuffer);
+            [Out] out IntPtr lpBuffer);*/
+            return Raw.ComputePointer(section, RVA, out lpBuffer);
         }
 
         #endregion

@@ -18,7 +18,7 @@ namespace ManagedCorDebug
         /// <param name="ppvMd">[in, out] A pointer to a metadata section.</param>
         /// <param name="pcbMd">[out] The size of the metadata stream.</param>
         [PreserveSig]
-        HRESULT GetMetaDataStorage([Out] IntPtr ppvMd, [Out] out int pcbMd);
+        HRESULT GetMetaDataStorage([Out] out IntPtr ppvMd, [Out] out int pcbMd);
 
         /// <summary>
         /// Gets the name, size, and contents of the metadata stream at the specified index.
@@ -28,6 +28,6 @@ namespace ManagedCorDebug
         /// <param name="ppv">[out] A pointer to the metadata stream.</param>
         /// <param name="pcb">[out] The size, in bytes, of ppv.</param>
         [PreserveSig]
-        HRESULT GetMetaDataStreamInfo([In] int ix, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppchName, [Out] IntPtr ppv, [Out] out int pcb);
+        HRESULT GetMetaDataStreamInfo([In] int ix, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppchName, [Out] out IntPtr ppv, [Out] out int pcb);
     }
 }

@@ -78,20 +78,17 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="contextFlags">[in] Flags that indicate the requested contents of the context buffer (defined in WinNT.h).</param>
         /// <param name="contextBufSize">[in] The allocated size of the context buffer.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <param name="contextBuf">[out] The context buffer.</param>
         /// <remarks>
         /// Because unwinding restores only a subset of the registers, such as non-volatile registers, the context may not
         /// exactly match the register state at the time of the call.
         /// </remarks>
-        public GetContextResult GetContext(int contextFlags, int contextBufSize)
+        public void GetContext(int contextFlags, int contextBufSize, IntPtr contextBuf)
         {
             HRESULT hr;
-            GetContextResult result;
 
-            if ((hr = TryGetContext(contextFlags, contextBufSize, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetContext(contextFlags, contextBufSize, contextBuf)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
         }
 
         /// <summary>
@@ -99,7 +96,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="contextFlags">[in] Flags that indicate the requested contents of the context buffer (defined in WinNT.h).</param>
         /// <param name="contextBufSize">[in] The allocated size of the context buffer.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="contextBuf">[out] The context buffer.</param>
         /// <returns>
         /// This method returns the following specific HRESULTs as well as HRESULT errors that indicate method failure.
         /// 
@@ -114,23 +111,16 @@ namespace ManagedCorDebug
         /// Because unwinding restores only a subset of the registers, such as non-volatile registers, the context may not
         /// exactly match the register state at the time of the call.
         /// </remarks>
-        public HRESULT TryGetContext(int contextFlags, int contextBufSize, out GetContextResult result)
+        public HRESULT TryGetContext(int contextFlags, int contextBufSize, IntPtr contextBuf)
         {
             /*HRESULT GetContext(
             [In] int contextFlags,
             [In] int contextBufSize,
             [Out] out int contextSize,
-            [In, Out] ref IntPtr contextBuf);*/
+            [Out] IntPtr contextBuf);*/
             int contextSize;
-            IntPtr contextBuf = default(IntPtr);
-            HRESULT hr = Raw.GetContext(contextFlags, contextBufSize, out contextSize, ref contextBuf);
 
-            if (hr == HRESULT.S_OK)
-                result = new GetContextResult(contextSize, contextBuf);
-            else
-                result = default(GetContextResult);
-
-            return hr;
+            return Raw.GetContext(contextFlags, contextBufSize, out contextSize, contextBuf);
         }
 
         #endregion

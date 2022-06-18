@@ -130,7 +130,7 @@ namespace ManagedCorDebug
             [In] int threadID,
             [In] int contextFlags,
             [In] int contextSize,
-            [In, Out] ref IntPtr context);
+            [Out] IntPtr context);
 
         /// <summary>
         /// Sets the current context of the specified thread in the target process. This method is called by the common language runtime (CLR) data access services.
@@ -167,7 +167,7 @@ namespace ManagedCorDebug
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
-            [In, Out] ref IntPtr outBuffer);
+            [Out] IntPtr outBuffer);
 
         /// <summary>
         /// Called by the common language runtime (CLR) data access services to allocate memory in the address space of this target process.

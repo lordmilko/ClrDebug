@@ -403,16 +403,13 @@ namespace ManagedCorDebug
         /// <param name="parent">[in] The metadata token for the object for which the attribute is requested.</param>
         /// <param name="name">[in] A pointer to the variable that indicates the attribute to retrieve.</param>
         /// <param name="cBuffer">[in] The size of the buffer array.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetSymAttributeResult GetSymAttribute(int parent, string name, int cBuffer)
+        /// <param name="buffer">[out] A pointer to the variable that receives the attribute data.</param>
+        public void GetSymAttribute(int parent, string name, int cBuffer, IntPtr buffer)
         {
             HRESULT hr;
-            GetSymAttributeResult result;
 
-            if ((hr = TryGetSymAttribute(parent, name, cBuffer, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetSymAttribute(parent, name, cBuffer, buffer)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
         }
 
         /// <summary>
@@ -421,26 +418,19 @@ namespace ManagedCorDebug
         /// <param name="parent">[in] The metadata token for the object for which the attribute is requested.</param>
         /// <param name="name">[in] A pointer to the variable that indicates the attribute to retrieve.</param>
         /// <param name="cBuffer">[in] The size of the buffer array.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="buffer">[out] A pointer to the variable that receives the attribute data.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSymAttribute(int parent, string name, int cBuffer, out GetSymAttributeResult result)
+        public HRESULT TryGetSymAttribute(int parent, string name, int cBuffer, IntPtr buffer)
         {
             /*HRESULT GetSymAttribute(
             [In] int parent,
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int cBuffer,
             [Out] out int pcBuffer,
-            [In, Out] ref IntPtr buffer);*/
+            [Out] IntPtr buffer);*/
             int pcBuffer;
-            IntPtr buffer = default(IntPtr);
-            HRESULT hr = Raw.GetSymAttribute(parent, name, cBuffer, out pcBuffer, ref buffer);
 
-            if (hr == HRESULT.S_OK)
-                result = new GetSymAttributeResult(pcBuffer, buffer);
-            else
-                result = default(GetSymAttributeResult);
-
-            return hr;
+            return Raw.GetSymAttribute(parent, name, cBuffer, out pcBuffer, buffer);
         }
 
         #endregion
@@ -766,16 +756,13 @@ namespace ManagedCorDebug
         /// <param name="parent">[in] The metadata token of the parent.</param>
         /// <param name="name">[in] A pointer to a WCHAR that contains the name.</param>
         /// <param name="cBuffer">[in] A ULONG32 that indicates the size of the buffer array.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetSymAttributePreRemapResult GetSymAttributePreRemap(int parent, string name, int cBuffer)
+        /// <param name="buffer">[out] A pointer to the buffer that receives the attribute bytes.</param>
+        public void GetSymAttributePreRemap(int parent, string name, int cBuffer, IntPtr buffer)
         {
             HRESULT hr;
-            GetSymAttributePreRemapResult result;
 
-            if ((hr = TryGetSymAttributePreRemap(parent, name, cBuffer, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetSymAttributePreRemap(parent, name, cBuffer, buffer)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
         }
 
         /// <summary>
@@ -784,26 +771,19 @@ namespace ManagedCorDebug
         /// <param name="parent">[in] The metadata token of the parent.</param>
         /// <param name="name">[in] A pointer to a WCHAR that contains the name.</param>
         /// <param name="cBuffer">[in] A ULONG32 that indicates the size of the buffer array.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="buffer">[out] A pointer to the buffer that receives the attribute bytes.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSymAttributePreRemap(int parent, string name, int cBuffer, out GetSymAttributePreRemapResult result)
+        public HRESULT TryGetSymAttributePreRemap(int parent, string name, int cBuffer, IntPtr buffer)
         {
             /*HRESULT GetSymAttributePreRemap(
             [In] int parent,
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int cBuffer,
             [Out] out int pcBuffer,
-            [In, Out] ref IntPtr buffer);*/
+            [Out] IntPtr buffer);*/
             int pcBuffer;
-            IntPtr buffer = default(IntPtr);
-            HRESULT hr = Raw2.GetSymAttributePreRemap(parent, name, cBuffer, out pcBuffer, ref buffer);
 
-            if (hr == HRESULT.S_OK)
-                result = new GetSymAttributePreRemapResult(pcBuffer, buffer);
-            else
-                result = default(GetSymAttributePreRemapResult);
-
-            return hr;
+            return Raw2.GetSymAttributePreRemap(parent, name, cBuffer, out pcBuffer, buffer);
         }
 
         #endregion

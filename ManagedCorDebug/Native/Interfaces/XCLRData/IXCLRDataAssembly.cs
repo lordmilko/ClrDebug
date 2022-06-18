@@ -48,7 +48,7 @@ namespace ManagedCorDebug
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
-            [In, Out] ref IntPtr outBuffer);
+            [Out] IntPtr outBuffer);
 
         [PreserveSig]
         HRESULT StartEnumAppDomains(

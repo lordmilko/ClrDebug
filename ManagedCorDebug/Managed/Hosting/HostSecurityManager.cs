@@ -131,9 +131,9 @@ namespace ManagedCorDebug
         public IntPtr OpenThreadToken(int dwDesiredAccess, int bOpenAsSelf)
         {
             HRESULT hr;
-            IntPtr phThreadToken = default(IntPtr);
+            IntPtr phThreadToken;
 
-            if ((hr = TryOpenThreadToken(dwDesiredAccess, bOpenAsSelf, ref phThreadToken)) != HRESULT.S_OK)
+            if ((hr = TryOpenThreadToken(dwDesiredAccess, bOpenAsSelf, out phThreadToken)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return phThreadToken;
@@ -164,14 +164,14 @@ namespace ManagedCorDebug
         /// is specific to the operating system, and it requires custom marshalling. Thus, this token is for use only within
         /// the process, between the CLR and the host.
         /// </remarks>
-        public HRESULT TryOpenThreadToken(int dwDesiredAccess, int bOpenAsSelf, ref IntPtr phThreadToken)
+        public HRESULT TryOpenThreadToken(int dwDesiredAccess, int bOpenAsSelf, out IntPtr phThreadToken)
         {
             /*HRESULT OpenThreadToken(
             [In] int dwDesiredAccess,
             [In] int bOpenAsSelf,
-            [Out] IntPtr phThreadToken
+            [Out] out IntPtr phThreadToken
         );*/
-            return Raw.OpenThreadToken(dwDesiredAccess, bOpenAsSelf, phThreadToken);
+            return Raw.OpenThreadToken(dwDesiredAccess, bOpenAsSelf, out phThreadToken);
         }
 
         #endregion

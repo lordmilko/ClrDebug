@@ -16,18 +16,15 @@ namespace ManagedCorDebug
         #region IXCLRDataTarget3
         #region GetMetaData
 
-        public XCLRDataTarget_GetMetaDataResult GetMetaData(string imagePath, int imageTimestamp, int imageSize, Guid mvid, int mdRva, int flags, int bufferSize)
+        public void GetMetaData(string imagePath, int imageTimestamp, int imageSize, Guid mvid, int mdRva, int flags, int bufferSize, IntPtr buffer)
         {
             HRESULT hr;
-            XCLRDataTarget_GetMetaDataResult result;
 
-            if ((hr = TryGetMetaData(imagePath, imageTimestamp, imageSize, mvid, mdRva, flags, bufferSize, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetMetaData(imagePath, imageTimestamp, imageSize, mvid, mdRva, flags, bufferSize, buffer)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
         }
 
-        public HRESULT TryGetMetaData(string imagePath, int imageTimestamp, int imageSize, Guid mvid, int mdRva, int flags, int bufferSize, out XCLRDataTarget_GetMetaDataResult result)
+        public HRESULT TryGetMetaData(string imagePath, int imageTimestamp, int imageSize, Guid mvid, int mdRva, int flags, int bufferSize, IntPtr buffer)
         {
             /*HRESULT GetMetaData(
             [In, MarshalAs(UnmanagedType.LPWStr)] string imagePath,
@@ -37,18 +34,11 @@ namespace ManagedCorDebug
             [In] int mdRva,
             [In] int flags,
             [In] int bufferSize,
-            [In, Out] ref IntPtr buffer,
+            [Out] IntPtr buffer,
             [Out] out int dataSize);*/
-            IntPtr buffer = default(IntPtr);
             int dataSize;
-            HRESULT hr = Raw.GetMetaData(imagePath, imageTimestamp, imageSize, ref mvid, mdRva, flags, bufferSize, ref buffer, out dataSize);
 
-            if (hr == HRESULT.S_OK)
-                result = new XCLRDataTarget_GetMetaDataResult(buffer, dataSize);
-            else
-                result = default(XCLRDataTarget_GetMetaDataResult);
-
-            return hr;
+            return Raw.GetMetaData(imagePath, imageTimestamp, imageSize, ref mvid, mdRva, flags, bufferSize, buffer, out dataSize);
         }
 
         #endregion

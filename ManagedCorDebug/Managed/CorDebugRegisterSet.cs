@@ -141,21 +141,18 @@ namespace ManagedCorDebug
         /// Gets the context of the current thread.
         /// </summary>
         /// <param name="contextSize">[in] The size, in bytes, of the context array.</param>
-        /// <returns>[in, out] An array of bytes that compose the Win32 CONTEXT structure for the current platform.</returns>
+        /// <param name="context">[in, out] An array of bytes that compose the Win32 CONTEXT structure for the current platform.</param>
         /// <remarks>
         /// The debugger should call this function instead of the Win32 GetThreadContext function, because the thread may be
         /// in a "hijacked" state where its context has been temporarily changed. The data returned is a Win32 CONTEXT structure
         /// for the current platform. For non-leaf frames, clients should check which registers are valid by using <see cref="GetRegistersAvailable"/>.
         /// </remarks>
-        public IntPtr GetThreadContext(int contextSize)
+        public void GetThreadContext(int contextSize, IntPtr context)
         {
             HRESULT hr;
-            IntPtr context = default(IntPtr);
 
-            if ((hr = TryGetThreadContext(contextSize, ref context)) != HRESULT.S_OK)
+            if ((hr = TryGetThreadContext(contextSize, context)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return context;
         }
 
         /// <summary>
@@ -168,10 +165,10 @@ namespace ManagedCorDebug
         /// in a "hijacked" state where its context has been temporarily changed. The data returned is a Win32 CONTEXT structure
         /// for the current platform. For non-leaf frames, clients should check which registers are valid by using <see cref="GetRegistersAvailable"/>.
         /// </remarks>
-        public HRESULT TryGetThreadContext(int contextSize, ref IntPtr context)
+        public HRESULT TryGetThreadContext(int contextSize, IntPtr context)
         {
-            /*HRESULT GetThreadContext([In] int contextSize, [In, Out] ref IntPtr context);*/
-            return Raw.GetThreadContext(contextSize, ref context);
+            /*HRESULT GetThreadContext([In] int contextSize, [Out] IntPtr context);*/
+            return Raw.GetThreadContext(contextSize, context);
         }
 
         #endregion
@@ -210,22 +207,19 @@ namespace ManagedCorDebug
         /// Gets an array of bytes that provides a bitmap of the available registers.
         /// </summary>
         /// <param name="numChunks">[in] The size of the availableRegChunks array.</param>
-        /// <returns>[out] An array of bytes, each bit of which corresponds to a register. If a register is available, the register's corresponding bit is set.</returns>
+        /// <param name="availableRegChunks">[out] An array of bytes, each bit of which corresponds to a register. If a register is available, the register's corresponding bit is set.</param>
         /// <remarks>
         /// The values of the <see cref="CorDebugRegister"/> enumeration specify the registers of different microprocessors. The upper five
         /// bits of each value are the index into the availableRegChunks array of bytes. The lower three bits of each value
         /// identify the bit position within the indexed byte. Given a <see cref="CorDebugRegister"/> value that specifies a particular register,
         /// the register's position in the mask is determined as follows:
         /// </remarks>
-        public IntPtr GetRegistersAvailable(int numChunks)
+        public void GetRegistersAvailable(int numChunks, IntPtr availableRegChunks)
         {
             HRESULT hr;
-            IntPtr availableRegChunks = default(IntPtr);
 
-            if ((hr = TryGetRegistersAvailable(numChunks, ref availableRegChunks)) != HRESULT.S_OK)
+            if ((hr = TryGetRegistersAvailable(numChunks, availableRegChunks)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return availableRegChunks;
         }
 
         /// <summary>
@@ -239,7 +233,7 @@ namespace ManagedCorDebug
         /// identify the bit position within the indexed byte. Given a <see cref="CorDebugRegister"/> value that specifies a particular register,
         /// the register's position in the mask is determined as follows:
         /// </remarks>
-        public HRESULT TryGetRegistersAvailable(int numChunks, ref IntPtr availableRegChunks)
+        public HRESULT TryGetRegistersAvailable(int numChunks, IntPtr availableRegChunks)
         {
             /*HRESULT GetRegistersAvailable([In] int numChunks, [Out] IntPtr availableRegChunks);*/
             return Raw2.GetRegistersAvailable(numChunks, availableRegChunks);

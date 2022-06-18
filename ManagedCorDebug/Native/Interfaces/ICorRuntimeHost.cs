@@ -54,7 +54,7 @@ namespace ManagedCorDebug
         /// <param name="hMapAddress">[out] The starting memory address at which to begin mapping the file.</param>
         [Obsolete]
         [PreserveSig]
-        HRESULT MapFile([In] IntPtr hFile, [Out] IntPtr hMapAddress);
+        HRESULT MapFile([In] IntPtr hFile, [Out] out IntPtr hMapAddress);
 
         /// <summary>
         /// Gets an object that allows the host to specify the callback configuration of the common language runtime (CLR).
@@ -149,7 +149,7 @@ namespace ManagedCorDebug
         /// | HOST_E_CLRNOTAVAILABLE | The CLR has not been loaded into a process, or the CLR is in a state in which it cannot run managed code or process the call successfully.                                                                       |
         /// </returns>
         [PreserveSig]
-        HRESULT EnumDomains([Out] IntPtr hEnum);
+        HRESULT EnumDomains([Out] out IntPtr hEnum);
 
         /// <summary>
         /// Gets an interface pointer to the next domain in the enumeration.

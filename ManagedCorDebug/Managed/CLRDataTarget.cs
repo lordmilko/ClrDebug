@@ -162,38 +162,28 @@ namespace ManagedCorDebug
         /// Reads data from the specified virtual memory address into the specified buffer.
         /// </summary>
         /// <param name="address">[in] A CLRDATA_ADDRESS that stores the virtual memory address.</param>
+        /// <param name="buffer">[out] A pointer to a buffer that receives the data.</param>
         /// <param name="bytesRequested">[in] The length of the buffer.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public ReadVirtualResult ReadVirtual(CLRDATA_ADDRESS address, int bytesRequested)
+        public void ReadVirtual(CLRDATA_ADDRESS address, IntPtr buffer, int bytesRequested)
         {
             HRESULT hr;
-            ReadVirtualResult result;
 
-            if ((hr = TryReadVirtual(address, bytesRequested, out result)) != HRESULT.S_OK)
+            if ((hr = TryReadVirtual(address, buffer, bytesRequested)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
         }
 
         /// <summary>
         /// Reads data from the specified virtual memory address into the specified buffer.
         /// </summary>
         /// <param name="address">[in] A CLRDATA_ADDRESS that stores the virtual memory address.</param>
+        /// <param name="buffer">[out] A pointer to a buffer that receives the data.</param>
         /// <param name="bytesRequested">[in] The length of the buffer.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryReadVirtual(CLRDATA_ADDRESS address, int bytesRequested, out ReadVirtualResult result)
+        public HRESULT TryReadVirtual(CLRDATA_ADDRESS address, IntPtr buffer, int bytesRequested)
         {
             /*HRESULT ReadVirtual([In] CLRDATA_ADDRESS address, [Out] IntPtr buffer, [In] int bytesRequested, [Out] out int bytesRead);*/
-            IntPtr buffer = default(IntPtr);
             int bytesRead;
-            HRESULT hr = Raw.ReadVirtual(address, buffer, bytesRequested, out bytesRead);
 
-            if (hr == HRESULT.S_OK)
-                result = new ReadVirtualResult(buffer, bytesRead);
-            else
-                result = default(ReadVirtualResult);
-
-            return hr;
+            return Raw.ReadVirtual(address, buffer, bytesRequested, out bytesRead);
         }
 
         #endregion
@@ -312,21 +302,18 @@ namespace ManagedCorDebug
         /// <param name="threadID">[in] The operating system identifier of a thread in the target process.</param>
         /// <param name="contextFlags">[in] Flags that specify which parts of the context to return. The implementation will return at least these parts of the context.</param>
         /// <param name="contextSize">[in] The size of the context.</param>
-        /// <returns>[out] Pointer to a buffer in which to place the context. The data in the context buffer must be in the format of the Win32 CONTEXT structure.<para/>
+        /// <param name="context">[out] Pointer to a buffer in which to place the context. The data in the context buffer must be in the format of the Win32 CONTEXT structure.<para/>
         /// The context specifies processor-specific register data, so the definition of the Win32 CONTEXT structure depends on the processor's architecture.<para/>
-        /// Refer to the WinNT.h header file for the definition of the Win32 CONTEXT structure.</returns>
+        /// Refer to the WinNT.h header file for the definition of the Win32 CONTEXT structure.</param>
         /// <remarks>
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
-        public IntPtr GetThreadContext(int threadID, int contextFlags, int contextSize)
+        public void GetThreadContext(int threadID, int contextFlags, int contextSize, IntPtr context)
         {
             HRESULT hr;
-            IntPtr context = default(IntPtr);
 
-            if ((hr = TryGetThreadContext(threadID, contextFlags, contextSize, ref context)) != HRESULT.S_OK)
+            if ((hr = TryGetThreadContext(threadID, contextFlags, contextSize, context)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return context;
         }
 
         /// <summary>
@@ -341,10 +328,10 @@ namespace ManagedCorDebug
         /// <remarks>
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
-        public HRESULT TryGetThreadContext(int threadID, int contextFlags, int contextSize, ref IntPtr context)
+        public HRESULT TryGetThreadContext(int threadID, int contextFlags, int contextSize, IntPtr context)
         {
-            /*HRESULT GetThreadContext([In] int threadID, [In] int contextFlags, [In] int contextSize, [In, Out] ref IntPtr context);*/
-            return Raw.GetThreadContext(threadID, contextFlags, contextSize, ref context);
+            /*HRESULT GetThreadContext([In] int threadID, [In] int contextFlags, [In] int contextSize, [Out] IntPtr context);*/
+            return Raw.GetThreadContext(threadID, contextFlags, contextSize, context);
         }
 
         #endregion
@@ -396,21 +383,18 @@ namespace ManagedCorDebug
         /// <param name="inBufferSize">[in] The size of the input buffer, which is used for the incoming request.</param>
         /// <param name="inBuffer">[in] A buffer containing the request.</param>
         /// <param name="outBufferSize">[in] The size of the output buffer, which is used for the response.</param>
-        /// <returns>[out] A Buffer containing the response.</returns>
+        /// <param name="outBuffer">[out] A Buffer containing the response.</param>
         /// <remarks>
         /// The Request method facilitates the addition of unspecified custom operations. That is, this method provides extensibility
         /// without requiring revision of the interface definition. This method is implemented by the writer of the debugging
         /// application.
         /// </remarks>
-        public IntPtr Request(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize)
+        public void Request(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
             HRESULT hr;
-            IntPtr outBuffer = default(IntPtr);
 
-            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, ref outBuffer)) != HRESULT.S_OK)
+            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, outBuffer)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return outBuffer;
         }
 
         /// <summary>
@@ -426,15 +410,15 @@ namespace ManagedCorDebug
         /// without requiring revision of the interface definition. This method is implemented by the writer of the debugging
         /// application.
         /// </remarks>
-        public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, ref IntPtr outBuffer)
+        public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
             /*HRESULT Request(
             [In] uint reqCode,
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
-            [In, Out] ref IntPtr outBuffer);*/
-            return Raw.Request(reqCode, inBufferSize, inBuffer, outBufferSize, ref outBuffer);
+            [Out] IntPtr outBuffer);*/
+            return Raw.Request(reqCode, inBufferSize, inBuffer, outBufferSize, outBuffer);
         }
 
         #endregion
@@ -579,20 +563,17 @@ namespace ManagedCorDebug
         /// For example, for a dump target, this would be equivalent to the exception record passed in via the ExceptionParam argument to the MiniDumpWriteDump function in the Windows Debug Help Library (DbgHelp).
         /// </summary>
         /// <param name="bufferSize">[in] The input buffer size, in bytes. This must be equal to sizeof(MINIDUMP_EXCEPTION).</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <param name="buffer">[out] A pointer to a memory buffer that receives a copy of the exception record. The exception record is returned as a MINIDUMP_EXCEPTION type.</param>
         /// <remarks>
         /// MINIDUMP_EXCEPTION is a structure defined in dbghelp.h and imagehlp.h in the Windows SDK. This method is implemented
         /// by the writer of the debugging application.
         /// </remarks>
-        public GetExceptionRecordResult GetExceptionRecord(int bufferSize)
+        public void GetExceptionRecord(int bufferSize, IntPtr buffer)
         {
             HRESULT hr;
-            GetExceptionRecordResult result;
 
-            if ((hr = TryGetExceptionRecord(bufferSize, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetExceptionRecord(bufferSize, buffer)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
         }
 
         /// <summary>
@@ -600,7 +581,7 @@ namespace ManagedCorDebug
         /// For example, for a dump target, this would be equivalent to the exception record passed in via the ExceptionParam argument to the MiniDumpWriteDump function in the Windows Debug Help Library (DbgHelp).
         /// </summary>
         /// <param name="bufferSize">[in] The input buffer size, in bytes. This must be equal to sizeof(MINIDUMP_EXCEPTION).</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="buffer">[out] A pointer to a memory buffer that receives a copy of the exception record. The exception record is returned as a MINIDUMP_EXCEPTION type.</param>
         /// <returns>
         /// The return value is S_OK on success, or a failure HRESULT code on failure. The HRESULT codes can include but are not limited to the following:
         /// 
@@ -614,19 +595,12 @@ namespace ManagedCorDebug
         /// MINIDUMP_EXCEPTION is a structure defined in dbghelp.h and imagehlp.h in the Windows SDK. This method is implemented
         /// by the writer of the debugging application.
         /// </remarks>
-        public HRESULT TryGetExceptionRecord(int bufferSize, out GetExceptionRecordResult result)
+        public HRESULT TryGetExceptionRecord(int bufferSize, IntPtr buffer)
         {
             /*HRESULT GetExceptionRecord([In] int bufferSize, [Out] out int bufferUsed, [Out] IntPtr buffer);*/
             int bufferUsed;
-            IntPtr buffer = default(IntPtr);
-            HRESULT hr = Raw3.GetExceptionRecord(bufferSize, out bufferUsed, buffer);
 
-            if (hr == HRESULT.S_OK)
-                result = new GetExceptionRecordResult(bufferUsed, buffer);
-            else
-                result = default(GetExceptionRecordResult);
-
-            return hr;
+            return Raw3.GetExceptionRecord(bufferSize, out bufferUsed, buffer);
         }
 
         #endregion
@@ -637,20 +611,17 @@ namespace ManagedCorDebug
         /// For example, for a dump target, this would be equivalent to the context record passed in via the ExceptionParam argument to the MiniDumpWriteDump function in the Windows Debug Help Library (DbgHelp).
         /// </summary>
         /// <param name="bufferSize">[in] The input buffer size, in bytes. This must be large enough to accommodate the context record.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <param name="buffer">[out] A pointer to a memory buffer that receives a copy of the context record. The exception record is returned as a CONTEXT type.</param>
         /// <remarks>
         /// CONTEXT is a platform-specific structure defined in headers provided by the Windows SDK. This method is implemented
         /// by the writer of the debugging application.
         /// </remarks>
-        public GetExceptionContextRecordResult GetExceptionContextRecord(int bufferSize)
+        public void GetExceptionContextRecord(int bufferSize, IntPtr buffer)
         {
             HRESULT hr;
-            GetExceptionContextRecordResult result;
 
-            if ((hr = TryGetExceptionContextRecord(bufferSize, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetExceptionContextRecord(bufferSize, buffer)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
         }
 
         /// <summary>
@@ -658,7 +629,7 @@ namespace ManagedCorDebug
         /// For example, for a dump target, this would be equivalent to the context record passed in via the ExceptionParam argument to the MiniDumpWriteDump function in the Windows Debug Help Library (DbgHelp).
         /// </summary>
         /// <param name="bufferSize">[in] The input buffer size, in bytes. This must be large enough to accommodate the context record.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="buffer">[out] A pointer to a memory buffer that receives a copy of the context record. The exception record is returned as a CONTEXT type.</param>
         /// <returns>
         /// The return value is S_OK on success, or a failure HRESULT code on failure. The HRESULT codes can include but are not limited to the following:
         /// 
@@ -672,19 +643,12 @@ namespace ManagedCorDebug
         /// CONTEXT is a platform-specific structure defined in headers provided by the Windows SDK. This method is implemented
         /// by the writer of the debugging application.
         /// </remarks>
-        public HRESULT TryGetExceptionContextRecord(int bufferSize, out GetExceptionContextRecordResult result)
+        public HRESULT TryGetExceptionContextRecord(int bufferSize, IntPtr buffer)
         {
             /*HRESULT GetExceptionContextRecord([In] int bufferSize, [Out] out int bufferUsed, [Out] IntPtr buffer);*/
             int bufferUsed;
-            IntPtr buffer = default(IntPtr);
-            HRESULT hr = Raw3.GetExceptionContextRecord(bufferSize, out bufferUsed, buffer);
 
-            if (hr == HRESULT.S_OK)
-                result = new GetExceptionContextRecordResult(bufferUsed, buffer);
-            else
-                result = default(GetExceptionContextRecordResult);
-
-            return hr;
+            return Raw3.GetExceptionContextRecord(bufferSize, out bufferUsed, buffer);
         }
 
         #endregion

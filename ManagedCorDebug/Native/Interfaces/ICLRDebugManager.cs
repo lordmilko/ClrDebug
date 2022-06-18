@@ -121,7 +121,7 @@ namespace ManagedCorDebug
         /// </returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetDacl([Out] IntPtr pacl);
+        HRESULT GetDacl([Out] out IntPtr pacl);
 
         /// <summary>
         /// Gets a value that indicates whether a debugger is attached to the process.

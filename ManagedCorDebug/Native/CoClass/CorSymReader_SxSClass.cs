@@ -66,7 +66,7 @@ namespace ManagedCorDebug.CoClass
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int cBuffer,
             [Out] out int pcBuffer,
-            [In, Out] ref IntPtr buffer);
+            [Out] IntPtr buffer);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetNamespaces(

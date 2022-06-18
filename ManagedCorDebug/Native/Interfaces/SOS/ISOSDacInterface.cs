@@ -401,7 +401,7 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         HRESULT GetDacModuleHandle(
-            [Out] IntPtr phModule);
+            [Out] out IntPtr phModule);
 
         [PreserveSig]
         HRESULT GetRCWData(

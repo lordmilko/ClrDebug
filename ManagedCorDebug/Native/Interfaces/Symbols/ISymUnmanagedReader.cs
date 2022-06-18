@@ -141,7 +141,7 @@ namespace ManagedCorDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int cBuffer,
             [Out] out int pcBuffer,
-            [In, Out] ref IntPtr buffer);
+            [Out] IntPtr buffer);
 
         /// <summary>
         /// Gets the namespaces defined at global scope within this symbol store.

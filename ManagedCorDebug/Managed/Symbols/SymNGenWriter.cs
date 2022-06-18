@@ -61,18 +61,18 @@ namespace ManagedCorDebug
         public IntPtr OpenModW(string wszModule, string wszObjFile)
         {
             HRESULT hr;
-            IntPtr ppmod = default(IntPtr);
+            IntPtr ppmod;
 
-            if ((hr = TryOpenModW(wszModule, wszObjFile, ref ppmod)) != HRESULT.S_OK)
+            if ((hr = TryOpenModW(wszModule, wszObjFile, out ppmod)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return ppmod;
         }
 
-        public HRESULT TryOpenModW(string wszModule, string wszObjFile, ref IntPtr ppmod)
+        public HRESULT TryOpenModW(string wszModule, string wszObjFile, out IntPtr ppmod)
         {
-            /*HRESULT OpenModW([In, MarshalAs(UnmanagedType.LPWStr)] string wszModule, [In, MarshalAs(UnmanagedType.LPWStr)] string wszObjFile, [Out] IntPtr ppmod);*/
-            return Raw2.OpenModW(wszModule, wszObjFile, ppmod);
+            /*HRESULT OpenModW([In, MarshalAs(UnmanagedType.LPWStr)] string wszModule, [In, MarshalAs(UnmanagedType.LPWStr)] string wszObjFile, [Out] out IntPtr ppmod);*/
+            return Raw2.OpenModW(wszModule, wszObjFile, out ppmod);
         }
 
         #endregion

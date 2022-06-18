@@ -66,13 +66,13 @@ namespace ManagedCorDebug
         public HRESULT TryGetFileMapping(out GetFileMappingResult result)
         {
             /*HRESULT GetFileMapping(
-            [Out] IntPtr ppvData,
+            [Out] out IntPtr ppvData,
             [Out] out long pcbData,
             [Out] out CorFileMapping pdwMappingType);*/
-            IntPtr ppvData = default(IntPtr);
+            IntPtr ppvData;
             long pcbData;
             CorFileMapping pdwMappingType;
-            HRESULT hr = Raw.GetFileMapping(ppvData, out pcbData, out pdwMappingType);
+            HRESULT hr = Raw.GetFileMapping(out ppvData, out pcbData, out pdwMappingType);
 
             if (hr == HRESULT.S_OK)
                 result = new GetFileMappingResult(ppvData, pcbData, pdwMappingType);

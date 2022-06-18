@@ -90,7 +90,7 @@ namespace ManagedCorDebug
         HRESULT OpenThreadToken(
             [In] int dwDesiredAccess,
             [In] int bOpenAsSelf,
-            [Out] IntPtr phThreadToken
+            [Out] out IntPtr phThreadToken
         );
 
         /// <summary>

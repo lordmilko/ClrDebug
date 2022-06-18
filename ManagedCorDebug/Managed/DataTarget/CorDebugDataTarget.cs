@@ -78,46 +78,36 @@ namespace ManagedCorDebug
         /// Gets a block of contiguous memory starting at the specified address, and returns it in the supplied buffer.
         /// </summary>
         /// <param name="address">[in] The start address of requested memory.</param>
+        /// <param name="pBuffer">[out] The buffer where the memory will be stored.</param>
         /// <param name="bytesRequested">[in] The number of bytes to get from the target address.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// If the first byte (at the specified start address) can be read, the call should return success (to support efficient
         /// reading of data structures with self-describing length, like null-terminated strings).
         /// </remarks>
-        public CorDebugDataTarget_ReadVirtualResult ReadVirtual(CORDB_ADDRESS address, int bytesRequested)
+        public void ReadVirtual(CORDB_ADDRESS address, IntPtr pBuffer, int bytesRequested)
         {
             HRESULT hr;
-            CorDebugDataTarget_ReadVirtualResult result;
 
-            if ((hr = TryReadVirtual(address, bytesRequested, out result)) != HRESULT.S_OK)
+            if ((hr = TryReadVirtual(address, pBuffer, bytesRequested)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
         }
 
         /// <summary>
         /// Gets a block of contiguous memory starting at the specified address, and returns it in the supplied buffer.
         /// </summary>
         /// <param name="address">[in] The start address of requested memory.</param>
+        /// <param name="pBuffer">[out] The buffer where the memory will be stored.</param>
         /// <param name="bytesRequested">[in] The number of bytes to get from the target address.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
         /// <remarks>
         /// If the first byte (at the specified start address) can be read, the call should return success (to support efficient
         /// reading of data structures with self-describing length, like null-terminated strings).
         /// </remarks>
-        public HRESULT TryReadVirtual(CORDB_ADDRESS address, int bytesRequested, out CorDebugDataTarget_ReadVirtualResult result)
+        public HRESULT TryReadVirtual(CORDB_ADDRESS address, IntPtr pBuffer, int bytesRequested)
         {
             /*HRESULT ReadVirtual([In] CORDB_ADDRESS address, [Out] IntPtr pBuffer, [In] int bytesRequested, [Out] out int pBytesRead);*/
-            IntPtr pBuffer = default(IntPtr);
             int pBytesRead;
-            HRESULT hr = Raw.ReadVirtual(address, pBuffer, bytesRequested, out pBytesRead);
 
-            if (hr == HRESULT.S_OK)
-                result = new CorDebugDataTarget_ReadVirtualResult(pBuffer, pBytesRead);
-            else
-                result = default(CorDebugDataTarget_ReadVirtualResult);
-
-            return hr;
+            return Raw.ReadVirtual(address, pBuffer, bytesRequested, out pBytesRead);
         }
 
         #endregion
@@ -129,21 +119,18 @@ namespace ManagedCorDebug
         /// <param name="dwThreadId">[in] The identifier of the thread whose context is to be retrieved. The identifier is defined by the operating system.</param>
         /// <param name="contextFlags">[in] A bitwise combination of platform-dependent flags that indicate which portions of the context should be read.</param>
         /// <param name="contextSize">[in] The size of pContext.</param>
-        /// <returns>[out] The buffer where the thread context will be stored.</returns>
+        /// <param name="pContext">[out] The buffer where the thread context will be stored.</param>
         /// <remarks>
         /// On Windows platforms, pContext must be a CONTEXT structure (defined in WinNT.h) that is appropriate for the machine
         /// type specified by the <see cref="Platform"/> property. contextFlags must have the same values as the ContextFlags
         /// field of the CONTEXT structure. The CONTEXT structure is processor-specific; refer to the WinNT.h file for details.
         /// </remarks>
-        public IntPtr GetThreadContext(int dwThreadId, int contextFlags, int contextSize)
+        public void GetThreadContext(int dwThreadId, int contextFlags, int contextSize, IntPtr pContext)
         {
             HRESULT hr;
-            IntPtr pContext = default(IntPtr);
 
-            if ((hr = TryGetThreadContext(dwThreadId, contextFlags, contextSize, ref pContext)) != HRESULT.S_OK)
+            if ((hr = TryGetThreadContext(dwThreadId, contextFlags, contextSize, pContext)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
-
-            return pContext;
         }
 
         /// <summary>
@@ -158,10 +145,10 @@ namespace ManagedCorDebug
         /// type specified by the <see cref="Platform"/> property. contextFlags must have the same values as the ContextFlags
         /// field of the CONTEXT structure. The CONTEXT structure is processor-specific; refer to the WinNT.h file for details.
         /// </remarks>
-        public HRESULT TryGetThreadContext(int dwThreadId, int contextFlags, int contextSize, ref IntPtr pContext)
+        public HRESULT TryGetThreadContext(int dwThreadId, int contextFlags, int contextSize, IntPtr pContext)
         {
-            /*HRESULT GetThreadContext([In] int dwThreadId, [In] int contextFlags, [In] int contextSize, [In, Out] ref IntPtr pContext);*/
-            return Raw.GetThreadContext(dwThreadId, contextFlags, contextSize, ref pContext);
+            /*HRESULT GetThreadContext([In] int dwThreadId, [In] int contextFlags, [In] int contextSize, [Out] IntPtr pContext);*/
+            return Raw.GetThreadContext(dwThreadId, contextFlags, contextSize, pContext);
         }
 
         #endregion
@@ -429,9 +416,9 @@ namespace ManagedCorDebug
             /*HRESULT GetLoadedModules(
             [In] int cRequestedModules,
             [Out] out int pcFetchedModules,
-            [Out] IntPtr pLoadedModules);*/
+            [Out, MarshalAs(UnmanagedType.LPArray)] ICorDebugLoadedModule[] pLoadedModules);*/
             int pcFetchedModules;
-            IntPtr pLoadedModules = default(IntPtr);
+            ICorDebugLoadedModule[] pLoadedModules = null;
             HRESULT hr = Raw3.GetLoadedModules(cRequestedModules, out pcFetchedModules, pLoadedModules);
 
             if (hr == HRESULT.S_OK)

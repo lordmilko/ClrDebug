@@ -44,7 +44,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT AllocateMethodBuffer(
             [In] int cchBuffer,
-            [Out] IntPtr lpBuffer,
+            [Out] out IntPtr lpBuffer,
             [Out] out int RVA);
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT GetMethodBuffer(
             [In] int RVA,
-            [Out] IntPtr lpBuffer);
+            [Out] out IntPtr lpBuffer);
 
         /// <summary>
         /// Gets the interface referenced by the specified token. This method is obsolete and should not be used.
@@ -120,7 +120,7 @@ namespace ManagedCorDebug
         HRESULT GetSectionCreate(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int flags,
-            [Out] IntPtr section);
+            [Out] out IntPtr section);
 
         /// <summary>
         /// Gets the length of the specified section. This method is obsolete and should not be used.
@@ -152,7 +152,7 @@ namespace ManagedCorDebug
             [In] IntPtr section,
             [In] int len,
             [In] int align,
-            [Out] IntPtr ppBytes);
+            [Out] out IntPtr ppBytes);
 
         /// <summary>
         /// Truncates the specified code section by the specified length. This method is obsolete and should not be used.
@@ -175,7 +175,7 @@ namespace ManagedCorDebug
         [Obsolete]
         [PreserveSig]
         HRESULT GenerateCeeMemoryImage(
-            [Out] IntPtr ppImage);
+            [Out] out IntPtr ppImage);
 
         /// <summary>
         /// Determines the buffer for the specified code section. This method is obsolete and should not be used.
@@ -188,6 +188,6 @@ namespace ManagedCorDebug
         HRESULT ComputePointer(
             [In] IntPtr section,
             [In] int RVA,
-            [Out] IntPtr lpBuffer);
+            [Out] out IntPtr lpBuffer);
     }
 }

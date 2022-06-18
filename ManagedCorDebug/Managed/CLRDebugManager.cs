@@ -34,9 +34,9 @@ namespace ManagedCorDebug
             get
             {
                 HRESULT hr;
-                IntPtr pacl = default(IntPtr);
+                IntPtr pacl;
 
-                if ((hr = TryGetDacl(ref pacl)) != HRESULT.S_OK)
+                if ((hr = TryGetDacl(out pacl)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
 
                 return pacl;
@@ -59,10 +59,10 @@ namespace ManagedCorDebug
         /// | --------- | ------------------------------ |
         /// | E_NOTIMPL | The method is not implemented. |
         /// </returns>
-        public HRESULT TryGetDacl(ref IntPtr pacl)
+        public HRESULT TryGetDacl(out IntPtr pacl)
         {
-            /*HRESULT GetDacl([Out] IntPtr pacl);*/
-            return Raw.GetDacl(pacl);
+            /*HRESULT GetDacl([Out] out IntPtr pacl);*/
+            return Raw.GetDacl(out pacl);
         }
 
         /// <summary>
