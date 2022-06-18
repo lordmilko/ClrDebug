@@ -248,7 +248,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetDefaultStartupFlags(
-            out int pdwStartupFlags,
+            [Out] out int pdwStartupFlags,
             [MarshalAs(UnmanagedType.LPWStr), Out]
             StringBuilder pwzHostConfigFile,
             [In] [Out] ref int pcchHostConfigFile);
@@ -292,6 +292,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsStarted(out int pbStarted, out int pdwStartupFlags);
+        HRESULT IsStarted([Out] out int pbStarted, [Out] out int pdwStartupFlags);
     }
 }

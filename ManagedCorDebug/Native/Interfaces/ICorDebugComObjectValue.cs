@@ -23,7 +23,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCachedInterfaceTypes([In] int bIInspectableOnly,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppInterfacesEnum);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppInterfacesEnum);
 
         /// <summary>
         /// Gets the raw interface pointers cached on the current runtime callable wrapper (RCW).
@@ -37,7 +37,7 @@ namespace ManagedCorDebug
         HRESULT GetCachedInterfacePointers(
             [In] int bIInspectableOnly,
             [In] int celt,
-            out int pceltFetched,
-            out CORDB_ADDRESS[] ptrs);
+            [Out] out int pceltFetched,
+            [Out, MarshalAs(UnmanagedType.LPArray)] CORDB_ADDRESS[] ptrs);
     }
 }

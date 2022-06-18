@@ -9,31 +9,31 @@ namespace ManagedCorDebug
     {
         [PreserveSig]
         HRESULT GetObjectComWrappersData(
-            CLRDATA_ADDRESS objAddr,
-            out CLRDATA_ADDRESS rcw,
-            int count,
+            [In] CLRDATA_ADDRESS objAddr,
+            [Out] out CLRDATA_ADDRESS rcw,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] mowList,
-            out int pNeeded);
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT IsComWrappersCCW(
-            CLRDATA_ADDRESS ccw,
-            out int isComWrappersCCW);
+            [In] CLRDATA_ADDRESS ccw,
+            [Out] out int isComWrappersCCW);
 
         [PreserveSig]
         HRESULT GetComWrappersCCWData(
-            CLRDATA_ADDRESS ccw,
-            out CLRDATA_ADDRESS managedObject,
-            out int refCount);
+            [In] CLRDATA_ADDRESS ccw,
+            [Out] out CLRDATA_ADDRESS managedObject,
+            [Out] out int refCount);
 
         [PreserveSig]
         HRESULT IsComWrappersRCW(
-            CLRDATA_ADDRESS rcw,
-            out int isComWrappersRCW);
+            [In] CLRDATA_ADDRESS rcw,
+            [Out] out int isComWrappersRCW);
 
         [PreserveSig]
         HRESULT GetComWrappersRCWData(
-            CLRDATA_ADDRESS rcw,
-            out CLRDATA_ADDRESS identity);
+            [In] CLRDATA_ADDRESS rcw,
+            [Out] out CLRDATA_ADDRESS identity);
     }
 }

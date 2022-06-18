@@ -269,7 +269,7 @@ namespace ManagedCorDebug
         public HRESULT TryStartEnumMethodInstancesByName(string name, int flags, out IntPtr handle)
         {
             /*HRESULT StartEnumMethodInstancesByName(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int flags,
             [Out] out IntPtr handle);*/
             return Raw.StartEnumMethodInstancesByName(name, flags, out handle);
@@ -392,7 +392,7 @@ namespace ManagedCorDebug
         public HRESULT TryStartEnumStaticFieldsByName(string name, int flags, IXCLRDataTask tlsTask, out IntPtr handle)
         {
             /*HRESULT StartEnumStaticFieldsByName(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int flags,
             [In] IXCLRDataTask tlsTask,
             [Out] out IntPtr handle);*/
@@ -565,8 +565,8 @@ namespace ManagedCorDebug
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
-            [Out] IntPtr outBuffer);*/
-            return Raw.Request(reqCode, inBufferSize, inBuffer, outBufferSize, outBuffer);
+            [In, Out] ref IntPtr outBuffer);*/
+            return Raw.Request(reqCode, inBufferSize, inBuffer, outBufferSize, ref outBuffer);
         }
 
         #endregion

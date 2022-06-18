@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.EnumEvents"/> method.
     /// </summary>
-    [DebuggerDisplay("phEnum = {phEnum}, rEvents = {rEvents}, pcEvents = {pcEvents}")]
+    [DebuggerDisplay("phEnum = {phEnum}, rEvents = {rEvents}")]
     public struct EnumEventsResult
     {
         /// <summary>
@@ -19,16 +19,10 @@ namespace ManagedCorDebug
         /// </summary>
         public mdEvent[] rEvents { get; }
 
-        /// <summary>
-        /// The actual number of events returned in rEvents.
-        /// </summary>
-        public int pcEvents { get; }
-
-        public EnumEventsResult(IntPtr phEnum, mdEvent[] rEvents, int pcEvents)
+        public EnumEventsResult(IntPtr phEnum, mdEvent[] rEvents)
         {
             this.phEnum = phEnum;
             this.rEvents = rEvents;
-            this.pcEvents = pcEvents;
         }
     }
 }

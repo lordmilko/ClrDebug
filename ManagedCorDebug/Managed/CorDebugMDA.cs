@@ -46,7 +46,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            /*HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName = null;
@@ -101,7 +101,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetDescription(out string szNameResult)
         {
-            /*HRESULT GetDescription([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            /*HRESULT GetDescription([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName = null;
@@ -156,7 +156,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetXML(out string szNameResult)
         {
-            /*HRESULT GetXML([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            /*HRESULT GetXML([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName = null;
@@ -212,7 +212,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetOSThreadId(out int pOsTid)
         {
-            /*HRESULT GetOSThreadId(out int pOsTid);*/
+            /*HRESULT GetOSThreadId([Out] out int pOsTid);*/
             return Raw.GetOSThreadId(out pOsTid);
         }
 

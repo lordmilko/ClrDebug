@@ -21,7 +21,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetGenericDictionaryInfo([MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryBuffer ppMemoryBuffer);
+        HRESULT GetGenericDictionaryInfo([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryBuffer ppMemoryBuffer);
 
         /// <summary>
         /// Returns the method starting relative virtual address of a method and the parent frame given a code relative virtual address.
@@ -31,6 +31,6 @@ namespace ManagedCorDebug
         /// <param name="pParentFrameStartRva">[out] A pointer to the frame's starting relative virtual address.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetFrameProps([In] int codeRva, out int pCodeStartRva, out int pParentFrameStartRva);
+        HRESULT GetFrameProps([In] int codeRva, [Out] out int pCodeStartRva, [Out] out int pParentFrameStartRva);
     }
 }

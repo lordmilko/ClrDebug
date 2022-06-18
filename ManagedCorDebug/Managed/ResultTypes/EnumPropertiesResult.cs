@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.EnumProperties"/> method.
     /// </summary>
-    [DebuggerDisplay("phEnum = {phEnum}, rProperties = {rProperties}, pcProperties = {pcProperties}")]
+    [DebuggerDisplay("phEnum = {phEnum}, rProperties = {rProperties}")]
     public struct EnumPropertiesResult
     {
         /// <summary>
@@ -19,16 +19,10 @@ namespace ManagedCorDebug
         /// </summary>
         public mdProperty[] rProperties { get; }
 
-        /// <summary>
-        /// The number of PropertyDef tokens returned in rProperties.
-        /// </summary>
-        public int pcProperties { get; }
-
-        public EnumPropertiesResult(IntPtr phEnum, mdProperty[] rProperties, int pcProperties)
+        public EnumPropertiesResult(IntPtr phEnum, mdProperty[] rProperties)
         {
             this.phEnum = phEnum;
             this.rProperties = rProperties;
-            this.pcProperties = pcProperties;
         }
     }
 }

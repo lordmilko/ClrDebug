@@ -34,7 +34,7 @@ namespace ManagedCorDebug
             [In] int nTypeArgs,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugType ppTypeArgs,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);
 
         /// <summary>
         /// For each method of the class, sets a value that indicates whether the method is user-defined code.

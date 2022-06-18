@@ -85,7 +85,7 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         HRESULT StartEnumFieldsByName(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int nameFlags,
             [In] int fieldFlags,
             [In] IXCLRDataTypeInstance fromType,
@@ -125,17 +125,17 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         HRESULT GetArrayProperties(
-            [Out] out int[] rank,
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] rank,
             [Out] out int totalElements,
             [In] int numDim,
-            [Out] out int[] dims,
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] dims,
             [In] int numBases,
-            [Out] out int[] bases);
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] bases);
 
         [PreserveSig]
         HRESULT GetArrayElement(
             [In] int numInd,
-            [In] int[] indices,
+            [In, MarshalAs(UnmanagedType.LPArray)] int[] indices,
             [Out] out IXCLRDataValue value);
 
         [PreserveSig]

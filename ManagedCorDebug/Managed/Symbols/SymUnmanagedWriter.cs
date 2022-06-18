@@ -51,7 +51,7 @@ namespace ManagedCorDebug
         public HRESULT TryDefineDocument(string url, Guid language, Guid languageVendor, Guid documentType, out SymUnmanagedDocumentWriter pRetValResult)
         {
             /*HRESULT DefineDocument(
-            [In] string url,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string url,
             [In] ref Guid language,
             [In] ref Guid languageVendor,
             [In] ref Guid documentType,
@@ -317,7 +317,7 @@ namespace ManagedCorDebug
         public HRESULT TryDefineLocalVariable(string name, int attributes, int cSig, IntPtr signature, int addrKind, int addr1, int addr2, int addr3, int startOffset, int endOffset)
         {
             /*HRESULT DefineLocalVariable(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int attributes,
             [In] int cSig,
             [In] IntPtr signature,
@@ -369,7 +369,7 @@ namespace ManagedCorDebug
         public HRESULT TryDefineParameter(string name, int attributes, int sequence, int addrKind, int addr1, int addr2, int addr3)
         {
             /*HRESULT DefineParameter(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int attributes,
             [In] int sequence,
             [In] int addrKind,
@@ -419,7 +419,7 @@ namespace ManagedCorDebug
         {
             /*HRESULT DefineField(
             [In] int parent,
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int attributes,
             [In] int cSig,
             [In] IntPtr signature,
@@ -467,7 +467,7 @@ namespace ManagedCorDebug
         public HRESULT TryDefineGlobalVariable(string name, int attributes, int cSig, IntPtr signature, int addrKind, int addr1, int addr2, int addr3)
         {
             /*HRESULT DefineGlobalVariable(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int attributes,
             [In] int cSig,
             [In] IntPtr signature,
@@ -538,7 +538,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TrySetSymAttribute(int parent, string name, int cData, IntPtr data)
         {
-            /*HRESULT SetSymAttribute([In] int parent, [In] string name, [In] int cData, [In] IntPtr data);*/
+            /*HRESULT SetSymAttribute([In] int parent, [In, MarshalAs(UnmanagedType.LPWStr)] string name, [In] int cData, [In] IntPtr data);*/
             return Raw.SetSymAttribute(parent, name, cData, data);
         }
 
@@ -564,7 +564,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryOpenNamespace(string name)
         {
-            /*HRESULT OpenNamespace([In] string name);*/
+            /*HRESULT OpenNamespace([In, MarshalAs(UnmanagedType.LPWStr)] string name);*/
             return Raw.OpenNamespace(name);
         }
 
@@ -616,7 +616,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryUsingNamespace(string fullName)
         {
-            /*HRESULT UsingNamespace([In] string fullName);*/
+            /*HRESULT UsingNamespace([In, MarshalAs(UnmanagedType.LPWStr)] string fullName);*/
             return Raw.UsingNamespace(fullName);
         }
 
@@ -699,7 +699,7 @@ namespace ManagedCorDebug
         public HRESULT TryInitialize(object emitter, string filename, IStream pIStream, int fFullBuild)
         {
             /*HRESULT Initialize([MarshalAs(UnmanagedType.IUnknown), In]
-            object emitter, [In] string filename, [MarshalAs(UnmanagedType.Interface), In]
+            object emitter, [In, MarshalAs(UnmanagedType.LPWStr)] string filename, [MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream, [In] int fFullBuild);*/
             return Raw.Initialize(emitter, filename, pIStream, fFullBuild);
         }
@@ -736,7 +736,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetDebugInfo(int cData, out GetDebugInfoResult result)
         {
             /*HRESULT GetDebugInfo([In, Out]
-            IntPtr pIDD, [In] int cData, out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
+            IntPtr pIDD, [In] int cData, [Out] out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
             IntPtr pIDD = default(IntPtr);
             int pcData;
             byte[] data = null;
@@ -865,11 +865,11 @@ namespace ManagedCorDebug
             /*HRESULT Initialize2(
             [MarshalAs(UnmanagedType.IUnknown), In]
             object emitter,
-            [In] string tempfilename,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string tempfilename,
             [MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream,
             [In] int fFullBuild,
-            [In] string finalfilename);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string finalfilename);*/
             return Raw.Initialize2(emitter, tempfilename, pIStream, fFullBuild, finalfilename);
         }
 
@@ -901,7 +901,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryDefineConstant(string name, object value, int cSig, IntPtr signature)
         {
-            /*HRESULT DefineConstant([In] string name, [MarshalAs(UnmanagedType.Struct), In] object value, [In] int cSig,
+            /*HRESULT DefineConstant([In, MarshalAs(UnmanagedType.LPWStr)] string name, [MarshalAs(UnmanagedType.Struct), In] object value, [In] int cSig,
             [In] IntPtr signature);*/
             return Raw.DefineConstant(name, value, cSig, signature);
         }
@@ -983,7 +983,7 @@ namespace ManagedCorDebug
         public HRESULT TryDefineLocalVariable2(string name, int attributes, mdSignature sigToken, int addrKind, int addr1, int addr2, int addr3, int startOffset, int endOffset)
         {
             /*HRESULT DefineLocalVariable2(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int attributes,
             [In] mdSignature sigToken,
             [In] int addrKind,
@@ -1030,7 +1030,7 @@ namespace ManagedCorDebug
         public HRESULT TryDefineGlobalVariable2(string name, int attributes, mdSignature sigToken, int addrKind, int addr1, int addr2, int addr3)
         {
             /*HRESULT DefineGlobalVariable2(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int attributes,
             [In] mdSignature sigToken,
             [In] int addrKind,
@@ -1066,7 +1066,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryDefineConstant2(string name, object value, mdSignature sigToken)
         {
-            /*HRESULT DefineConstant2([In] string name, [MarshalAs(UnmanagedType.Struct), In] object value,
+            /*HRESULT DefineConstant2([In, MarshalAs(UnmanagedType.LPWStr)] string name, [MarshalAs(UnmanagedType.Struct), In] object value,
             [In] mdSignature sigToken);*/
             return Raw2.DefineConstant2(name, value, sigToken);
         }
@@ -1165,7 +1165,7 @@ namespace ManagedCorDebug
             /*HRESULT GetDebugInfoWithPadding(
             [In, Out] IntPtr pIDD,
             [In] int cData,
-            out int pcData,
+            [Out] out int pcData,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
             IntPtr pIDD = default(IntPtr);
             int pcData;

@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.EnumMethodSemantics"/> method.
     /// </summary>
-    [DebuggerDisplay("phEnum = {phEnum}, rEventProp = {rEventProp}, pcEventProp = {pcEventProp}")]
+    [DebuggerDisplay("phEnum = {phEnum}, rEventProp = {rEventProp}")]
     public struct EnumMethodSemanticsResult
     {
         /// <summary>
@@ -19,16 +19,10 @@ namespace ManagedCorDebug
         /// </summary>
         public mdToken[] rEventProp { get; }
 
-        /// <summary>
-        /// The number of events or properties returned in rEventProp.
-        /// </summary>
-        public int pcEventProp { get; }
-
-        public EnumMethodSemanticsResult(IntPtr phEnum, mdToken[] rEventProp, int pcEventProp)
+        public EnumMethodSemanticsResult(IntPtr phEnum, mdToken[] rEventProp)
         {
             this.phEnum = phEnum;
             this.rEventProp = rEventProp;
-            this.pcEventProp = pcEventProp;
         }
     }
 }

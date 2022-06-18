@@ -50,7 +50,7 @@ namespace ManagedCorDebug
         /// </summary>
         public HRESULT TryGetStackDepth(out int pDepth)
         {
-            /*HRESULT GetStackDepth(out int pDepth);*/
+            /*HRESULT GetStackDepth([Out] out int pDepth);*/
             return Raw.GetStackDepth(out pDepth);
         }
 
@@ -92,7 +92,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetIP(out GetIPResult result)
         {
-            /*HRESULT GetIP(out int pnOffset, out CorDebugMappingResult pMappingResult);*/
+            /*HRESULT GetIP([Out] out int pnOffset, [Out] out CorDebugMappingResult pMappingResult);*/
             int pnOffset;
             CorDebugMappingResult pMappingResult;
             HRESULT hr = Raw.GetIP(out pnOffset, out pMappingResult);
@@ -180,7 +180,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryEnumerateLocalVariables(out CorDebugValueEnum ppValueEnumResult)
         {
-            /*HRESULT EnumerateLocalVariables([MarshalAs(UnmanagedType.Interface)] out ICorDebugValueEnum ppValueEnum);*/
+            /*HRESULT EnumerateLocalVariables([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueEnum ppValueEnum);*/
             ICorDebugValueEnum ppValueEnum;
             HRESULT hr = Raw.EnumerateLocalVariables(out ppValueEnum);
 
@@ -224,7 +224,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetLocalVariable(int dwIndex, out CorDebugValue ppValueResult)
         {
-            /*HRESULT GetLocalVariable([In] int dwIndex, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            /*HRESULT GetLocalVariable([In] int dwIndex, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetLocalVariable(dwIndex, out ppValue);
 
@@ -270,7 +270,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryEnumerateArguments(out CorDebugValueEnum ppValueEnumResult)
         {
-            /*HRESULT EnumerateArguments([MarshalAs(UnmanagedType.Interface)] out ICorDebugValueEnum ppValueEnum);*/
+            /*HRESULT EnumerateArguments([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueEnum ppValueEnum);*/
             ICorDebugValueEnum ppValueEnum;
             HRESULT hr = Raw.EnumerateArguments(out ppValueEnum);
 
@@ -314,7 +314,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetArgument(int dwIndex, out CorDebugValue ppValueResult)
         {
-            /*HRESULT GetArgument([In] int dwIndex, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            /*HRESULT GetArgument([In] int dwIndex, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetArgument(dwIndex, out ppValue);
 
@@ -348,7 +348,7 @@ namespace ManagedCorDebug
         /// </summary>
         public HRESULT TryGetStackValue(int dwIndex, out CorDebugValue ppValueResult)
         {
-            /*HRESULT GetStackValue([In] int dwIndex, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            /*HRESULT GetStackValue([In] int dwIndex, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetStackValue(dwIndex, out ppValue);
 
@@ -470,7 +470,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryEnumerateTypeParameters(out CorDebugTypeEnum ppTyParEnumResult)
         {
-            /*HRESULT EnumerateTypeParameters([MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppTyParEnum);*/
+            /*HRESULT EnumerateTypeParameters([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppTyParEnum);*/
             ICorDebugTypeEnum ppTyParEnum;
             HRESULT hr = Raw2.EnumerateTypeParameters(out ppTyParEnum);
 
@@ -550,8 +550,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetReturnValueForILOffset(int ilOffset, out CorDebugValue ppReturnValueResult)
         {
-            /*HRESULT GetReturnValueForILOffset(int ilOffset,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppReturnValue);*/
+            /*HRESULT GetReturnValueForILOffset([In] int ilOffset,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppReturnValue);*/
             ICorDebugValue ppReturnValue;
             HRESULT hr = Raw3.GetReturnValueForILOffset(ilOffset, out ppReturnValue);
 
@@ -612,7 +612,7 @@ namespace ManagedCorDebug
         public HRESULT TryEnumerateLocalVariablesEx(ILCodeKind flags, out CorDebugValueEnum ppValueEnumResult)
         {
             /*HRESULT EnumerateLocalVariablesEx([In] ILCodeKind flags,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugValueEnum ppValueEnum);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueEnum ppValueEnum);*/
             ICorDebugValueEnum ppValueEnum;
             HRESULT hr = Raw4.EnumerateLocalVariablesEx(flags, out ppValueEnum);
 
@@ -669,7 +669,7 @@ namespace ManagedCorDebug
             /*HRESULT GetLocalVariableEx(
             [In] ILCodeKind flags,
             [In] int dwIndex,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw4.GetLocalVariableEx(flags, dwIndex, out ppValue);
 
@@ -723,7 +723,7 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetCodeEx(
             [In] ILCodeKind flags,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);*/
             ICorDebugCode ppCode;
             HRESULT hr = Raw4.GetCodeEx(flags, out ppCode);
 

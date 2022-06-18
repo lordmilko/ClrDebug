@@ -47,7 +47,7 @@ namespace ManagedCorDebug
         /// <param name="pType">[out] A pointer to a value of the <see cref="CorElementType"/> enumeration that indicates the type.</param>
         public HRESULT TryGetElementType(out CorElementType pType)
         {
-            /*HRESULT GetElementType(out CorElementType pType);*/
+            /*HRESULT GetElementType([Out] out CorElementType pType);*/
             return Raw.GetElementType(out pType);
         }
 
@@ -77,7 +77,7 @@ namespace ManagedCorDebug
         /// <param name="pnRank">[out] A pointer to the number of dimensions in this <see cref="ICorDebugArrayValue"/> object.</param>
         public HRESULT TryGetRank(out int pnRank)
         {
-            /*HRESULT GetRank(out int pnRank);*/
+            /*HRESULT GetRank([Out] out int pnRank);*/
             return Raw.GetRank(out pnRank);
         }
 
@@ -107,7 +107,7 @@ namespace ManagedCorDebug
         /// <param name="pnCount">[out] A pointer to the total number of elements in the array.</param>
         public HRESULT TryGetCount(out int pnCount)
         {
-            /*HRESULT GetCount(out int pnCount);*/
+            /*HRESULT GetCount([Out] out int pnCount);*/
             return Raw.GetCount(out pnCount);
         }
 
@@ -173,7 +173,7 @@ namespace ManagedCorDebug
         /// <param name="pbHasBaseIndicies">[out] A pointer to a Boolean value that is true if one or more dimensions of this <see cref="ICorDebugArrayValue"/> object have a base index of non-zero; otherwise, the Boolean value is false.</param>
         public HRESULT TryHasBaseIndicies(out int pbHasBaseIndicies)
         {
-            /*HRESULT HasBaseIndicies(out int pbHasBaseIndicies);*/
+            /*HRESULT HasBaseIndicies([Out] out int pbHasBaseIndicies);*/
             return Raw.HasBaseIndicies(out pbHasBaseIndicies);
         }
 
@@ -248,7 +248,7 @@ namespace ManagedCorDebug
             /*HRESULT GetElement(
             [In] int cdim,
             [MarshalAs(UnmanagedType.LPArray), In] int indices,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetElement(cdim, indices, out ppValue);
 
@@ -292,7 +292,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetElementAtPosition(int nPosition, out CorDebugValue ppValueResult)
         {
-            /*HRESULT GetElementAtPosition([In] int nPosition, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            /*HRESULT GetElementAtPosition([In] int nPosition, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetElementAtPosition(nPosition, out ppValue);
 

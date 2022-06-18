@@ -49,7 +49,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetConfiguration(out object pConfiguration)
         {
-            /*HRESULT GetConfiguration([MarshalAs(UnmanagedType.IUnknown)] out object pConfiguration);*/
+            /*HRESULT GetConfiguration([Out, MarshalAs(UnmanagedType.IUnknown)] out object pConfiguration);*/
             return Raw.GetConfiguration(out pConfiguration);
         }
 
@@ -187,7 +187,7 @@ namespace ManagedCorDebug
         /// <param name="fiberCookie">[out] Cookie that indicates the fiber being switched out.</param>
         public HRESULT TrySwitchOutLogicalThreadState(out int fiberCookie)
         {
-            /*HRESULT SwitchOutLogicalThreadState(out int FiberCookie);*/
+            /*HRESULT SwitchOutLogicalThreadState([Out] out int FiberCookie);*/
             return Raw.SwitchOutLogicalThreadState(out fiberCookie);
         }
 
@@ -215,7 +215,7 @@ namespace ManagedCorDebug
         /// <param name="pCount">[out] A pointer to the number of locks that the current thread holds.</param>
         public HRESULT TryLocksHeldByLogicalThread(out int pCount)
         {
-            /*HRESULT LocksHeldByLogicalThread(out int pCount);*/
+            /*HRESULT LocksHeldByLogicalThread([Out] out int pCount);*/
             return Raw.LocksHeldByLogicalThread(out pCount);
         }
 
@@ -231,9 +231,9 @@ namespace ManagedCorDebug
         public IntPtr MapFile(IntPtr hFile)
         {
             HRESULT hr;
-            IntPtr hMapAddress;
+            IntPtr hMapAddress = default(IntPtr);
 
-            if ((hr = TryMapFile(hFile, out hMapAddress)) != HRESULT.S_OK)
+            if ((hr = TryMapFile(hFile, ref hMapAddress)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return hMapAddress;
@@ -245,10 +245,10 @@ namespace ManagedCorDebug
         /// <param name="hFile">[in] The handle of the file to be mapped.</param>
         /// <param name="hMapAddress">[out] The starting memory address at which to begin mapping the file.</param>
         [Obsolete]
-        public HRESULT TryMapFile(IntPtr hFile, out IntPtr hMapAddress)
+        public HRESULT TryMapFile(IntPtr hFile, ref IntPtr hMapAddress)
         {
-            /*HRESULT MapFile(IntPtr hFile, out IntPtr hMapAddress);*/
-            return Raw.MapFile(hFile, out hMapAddress);
+            /*HRESULT MapFile([In] IntPtr hFile, [Out] IntPtr hMapAddress);*/
+            return Raw.MapFile(hFile, hMapAddress);
         }
 
         #endregion
@@ -365,7 +365,7 @@ namespace ManagedCorDebug
         /// </returns>
         public HRESULT TryCreateDomain(string pwzFriendlyName, object pIdentityArray, out object pAppDomain)
         {
-            /*HRESULT CreateDomain(string pwzFriendlyName, [MarshalAs(UnmanagedType.IUnknown)] object pIdentityArray, [MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);*/
+            /*HRESULT CreateDomain([In, MarshalAs(UnmanagedType.LPWStr)] string pwzFriendlyName, [In, MarshalAs(UnmanagedType.IUnknown)] object pIdentityArray, [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);*/
             return Raw.CreateDomain(pwzFriendlyName, pIdentityArray, out pAppDomain);
         }
 
@@ -379,9 +379,9 @@ namespace ManagedCorDebug
         public IntPtr EnumDomains()
         {
             HRESULT hr;
-            IntPtr hEnum;
+            IntPtr hEnum = default(IntPtr);
 
-            if ((hr = TryEnumDomains(out hEnum)) != HRESULT.S_OK)
+            if ((hr = TryEnumDomains(ref hEnum)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return hEnum;
@@ -399,10 +399,10 @@ namespace ManagedCorDebug
         /// | E_FAIL                 | An unknown, catastrophic failure occurred. If a method returns E_FAIL, the common language runtime (CLR) is no longer usable in the process. Subsequent calls to any hosting APIs return HOST_E_CLRNOTAVAILABLE. |
         /// | HOST_E_CLRNOTAVAILABLE | The CLR has not been loaded into a process, or the CLR is in a state in which it cannot run managed code or process the call successfully.                                                                       |
         /// </returns>
-        public HRESULT TryEnumDomains(out IntPtr hEnum)
+        public HRESULT TryEnumDomains(ref IntPtr hEnum)
         {
-            /*HRESULT EnumDomains(out IntPtr hEnum);*/
-            return Raw.EnumDomains(out hEnum);
+            /*HRESULT EnumDomains([Out] IntPtr hEnum);*/
+            return Raw.EnumDomains(hEnum);
         }
 
         #endregion
@@ -439,7 +439,7 @@ namespace ManagedCorDebug
         /// </returns>
         public HRESULT TryNextDomain(IntPtr hEnum, out object pAppDomain)
         {
-            /*HRESULT NextDomain(IntPtr hEnum, [MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);*/
+            /*HRESULT NextDomain([In] IntPtr hEnum, [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);*/
             return Raw.NextDomain(hEnum, out pAppDomain);
         }
 
@@ -472,7 +472,7 @@ namespace ManagedCorDebug
         /// </returns>
         public HRESULT TryCloseEnum(IntPtr hEnum)
         {
-            /*HRESULT CloseEnum(IntPtr hEnum);*/
+            /*HRESULT CloseEnum([In] IntPtr hEnum);*/
             return Raw.CloseEnum(hEnum);
         }
 
@@ -527,7 +527,7 @@ namespace ManagedCorDebug
         public HRESULT TryCreateDomainEx(string pwzFriendlyName, object pSetup, object pEvidence, out object pAppDomain)
         {
             /*HRESULT CreateDomainEx(
-            [In] string pwzFriendlyName,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string pwzFriendlyName,
             [In, MarshalAs(UnmanagedType.IUnknown)] object pSetup,
             [In, MarshalAs(UnmanagedType.IUnknown)] object pEvidence,
             [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);*/
@@ -572,7 +572,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryCreateDomainSetup(out object pAppDomainSetup)
         {
-            /*HRESULT CreateDomainSetup([MarshalAs(UnmanagedType.IUnknown)] out object pAppDomainSetup);*/
+            /*HRESULT CreateDomainSetup([Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomainSetup);*/
             return Raw.CreateDomainSetup(out pAppDomainSetup);
         }
 
@@ -616,7 +616,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryCreateEvidence(out object pEvidence)
         {
-            /*HRESULT CreateEvidence([MarshalAs(UnmanagedType.IUnknown)] out object pEvidence);*/
+            /*HRESULT CreateEvidence([Out, MarshalAs(UnmanagedType.IUnknown)] out object pEvidence);*/
             return Raw.CreateEvidence(out pEvidence);
         }
 
@@ -649,7 +649,7 @@ namespace ManagedCorDebug
         /// </returns>
         public HRESULT TryUnloadDomain(object pAppDomain)
         {
-            /*HRESULT UnloadDomain([MarshalAs(UnmanagedType.IUnknown)] object pAppDomain);*/
+            /*HRESULT UnloadDomain([In, MarshalAs(UnmanagedType.IUnknown)] object pAppDomain);*/
             return Raw.UnloadDomain(pAppDomain);
         }
 
@@ -685,7 +685,7 @@ namespace ManagedCorDebug
         /// </returns>
         public HRESULT TryCurrentDomain(out object pAppDomain)
         {
-            /*HRESULT CurrentDomain([MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);*/
+            /*HRESULT CurrentDomain([Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);*/
             return Raw.CurrentDomain(out pAppDomain);
         }
 

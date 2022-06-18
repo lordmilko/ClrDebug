@@ -1,4 +1,3 @@
-using System;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -44,7 +43,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            /*HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName = null;
@@ -97,10 +96,9 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetNamespaces(int cNameSpaces, out GetNamespacesResult result)
         {
-            /*HRESULT GetNamespaces([In] int cNameSpaces, out int pcNameSpaces, [MarshalAs(UnmanagedType.Interface), Out]
-            IntPtr namespaces);*/
+            /*HRESULT GetNamespaces([In] int cNameSpaces, [Out] out int pcNameSpaces, [MarshalAs(UnmanagedType.LPArray), Out] ISymUnmanagedNamespace[] namespaces);*/
             int pcNameSpaces;
-            IntPtr namespaces = default(IntPtr);
+            ISymUnmanagedNamespace[] namespaces = null;
             HRESULT hr = Raw.GetNamespaces(cNameSpaces, out pcNameSpaces, namespaces);
 
             if (hr == HRESULT.S_OK)
@@ -138,9 +136,9 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetVariables(int cVars, out GetVariablesResult result)
         {
-            /*HRESULT GetVariables([In] int cVars, out int pcVars, [Out] IntPtr pVars);*/
+            /*HRESULT GetVariables([In] int cVars, [Out] out int pcVars, [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] pVars);*/
             int pcVars;
-            IntPtr pVars = default(IntPtr);
+            ISymUnmanagedVariable[] pVars = null;
             HRESULT hr = Raw.GetVariables(cVars, out pcVars, pVars);
 
             if (hr == HRESULT.S_OK)

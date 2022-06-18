@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace ManagedCorDebug
 {
@@ -127,26 +128,34 @@ namespace ManagedCorDebug
         public string GetString(long RVA)
         {
             HRESULT hr;
-            string lpString = default(string);
+            string lpStringResult;
 
-            if ((hr = TryGetString(RVA, ref lpString)) != HRESULT.S_OK)
+            if ((hr = TryGetString(RVA, out lpStringResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return lpString;
+            return lpStringResult;
         }
 
         /// <summary>
         /// Gets the string stored at the specified relative virtual address. This method is obsolete and should not be used.
         /// </summary>
         /// <param name="RVA">[in] The relative virtual address of the string to return.</param>
-        /// <param name="lpString">[out] The returned string.</param>
+        /// <param name="lpStringResult">[out] The returned string.</param>
         [Obsolete]
-        public HRESULT TryGetString(long RVA, ref string lpString)
+        public HRESULT TryGetString(long RVA, out string lpStringResult)
         {
             /*HRESULT GetString(
             [In] long RVA,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] string lpString);*/
-            return Raw.GetString(RVA, lpString);
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder lpString);*/
+            StringBuilder lpString = null;
+            HRESULT hr = Raw.GetString(RVA, lpString);
+
+            if (hr == HRESULT.S_OK)
+                lpStringResult = lpString.ToString();
+            else
+                lpStringResult = default(string);
+
+            return hr;
         }
 
         #endregion
@@ -355,7 +364,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetSectionCreate(string name, int flags, ref IntPtr section)
         {
             /*HRESULT GetSectionCreate(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int flags,
             [Out] IntPtr section);*/
             return Raw.GetSectionCreate(name, flags, section);

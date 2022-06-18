@@ -44,7 +44,7 @@ namespace ManagedCorDebug
         /// <param name="ppProcessResult">[out] A pointer to the address of an <see cref="ICorDebugProcess"/> object that represents the process containing this module.</param>
         public HRESULT TryGetProcess(out CorDebugProcess ppProcessResult)
         {
-            /*HRESULT GetProcess([MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
+            /*HRESULT GetProcess([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
             ICorDebugProcess ppProcess;
             HRESULT hr = Raw.GetProcess(out ppProcess);
 
@@ -86,7 +86,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetBaseAddress(out CORDB_ADDRESS pAddress)
         {
-            /*HRESULT GetBaseAddress(out CORDB_ADDRESS pAddress);*/
+            /*HRESULT GetBaseAddress([Out] out CORDB_ADDRESS pAddress);*/
             return Raw.GetBaseAddress(out pAddress);
         }
 
@@ -116,7 +116,7 @@ namespace ManagedCorDebug
         /// <param name="ppAssemblyResult">[out] A pointer to an <see cref="ICorDebugAssembly"/> object that represents the assembly containing this module.</param>
         public HRESULT TryGetAssembly(out CorDebugAssembly ppAssemblyResult)
         {
-            /*HRESULT GetAssembly([MarshalAs(UnmanagedType.Interface)] out ICorDebugAssembly ppAssembly);*/
+            /*HRESULT GetAssembly([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAssembly ppAssembly);*/
             ICorDebugAssembly ppAssembly;
             HRESULT hr = Raw.GetAssembly(out ppAssembly);
 
@@ -158,7 +158,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] int cchName, out int pcchName, [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);*/
+            /*HRESULT GetName([In] int cchName, [Out] out int pcchName, [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName = null;
@@ -210,7 +210,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetEditAndContinueSnapshot(out CorDebugEditAndContinueSnapshot ppEditAndContinueSnapshotResult)
         {
             /*HRESULT GetEditAndContinueSnapshot(
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugEditAndContinueSnapshot ppEditAndContinueSnapshot);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugEditAndContinueSnapshot ppEditAndContinueSnapshot);*/
             ICorDebugEditAndContinueSnapshot ppEditAndContinueSnapshot;
             HRESULT hr = Raw.GetEditAndContinueSnapshot(out ppEditAndContinueSnapshot);
 
@@ -252,7 +252,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetToken(out mdModule pToken)
         {
-            /*HRESULT GetToken(out mdModule pToken);*/
+            /*HRESULT GetToken([Out] out mdModule pToken);*/
             return Raw.GetToken(out pToken);
         }
 
@@ -287,7 +287,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryIsDynamic(out bool pDynamicResult)
         {
-            /*HRESULT IsDynamic(out int pDynamic);*/
+            /*HRESULT IsDynamic([Out] out int pDynamic);*/
             int pDynamic;
             HRESULT hr = Raw.IsDynamic(out pDynamic);
 
@@ -325,7 +325,7 @@ namespace ManagedCorDebug
         /// <param name="pcBytes">[out] The size of the module in bytes. If the module was produced from the native image generator (NGen.exe), the size of the module will be zero.</param>
         public HRESULT TryGetSize(out int pcBytes)
         {
-            /*HRESULT GetSize(out int pcBytes);*/
+            /*HRESULT GetSize([Out] out int pcBytes);*/
             return Raw.GetSize(out pcBytes);
         }
 
@@ -359,7 +359,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryIsInMemory(out bool pInMemoryResult)
         {
-            /*HRESULT IsInMemory(out int pInMemory);*/
+            /*HRESULT IsInMemory([Out] out int pInMemory);*/
             int pInMemory;
             HRESULT hr = Raw.IsInMemory(out pInMemory);
 
@@ -476,7 +476,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetFunctionFromToken(mdMethodDef methodDef, out CorDebugFunction ppFunctionResult)
         {
             /*HRESULT GetFunctionFromToken([In] mdMethodDef methodDef,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
             ICorDebugFunction ppFunction;
             HRESULT hr = Raw.GetFunctionFromToken(methodDef, out ppFunction);
 
@@ -510,7 +510,7 @@ namespace ManagedCorDebug
         /// </summary>
         public HRESULT TryGetFunctionFromRVA(long rva, out CorDebugFunction ppFunctionResult)
         {
-            /*HRESULT GetFunctionFromRVA([In] long rva, [MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
+            /*HRESULT GetFunctionFromRVA([In] long rva, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
             ICorDebugFunction ppFunction;
             HRESULT hr = Raw.GetFunctionFromRVA(rva, out ppFunction);
 
@@ -548,7 +548,7 @@ namespace ManagedCorDebug
         /// <param name="ppClassResult">[out] A pointer to the address of an <see cref="ICorDebugClass"/> object that represents the class.</param>
         public HRESULT TryGetClassFromToken(mdTypeDef typeDef, out CorDebugClass ppClassResult)
         {
-            /*HRESULT GetClassFromToken([In] mdTypeDef typeDef, [MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);*/
+            /*HRESULT GetClassFromToken([In] mdTypeDef typeDef, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);*/
             ICorDebugClass ppClass;
             HRESULT hr = Raw.GetClassFromToken(typeDef, out ppClass);
 
@@ -582,7 +582,7 @@ namespace ManagedCorDebug
         /// </summary>
         public HRESULT TryCreateBreakpoint(out CorDebugModuleBreakpoint ppBreakpointResult)
         {
-            /*HRESULT CreateBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugModuleBreakpoint ppBreakpoint);*/
+            /*HRESULT CreateBreakpoint([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModuleBreakpoint ppBreakpoint);*/
             ICorDebugModuleBreakpoint ppBreakpoint;
             HRESULT hr = Raw.CreateBreakpoint(out ppBreakpoint);
 
@@ -632,7 +632,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetMetaDataInterface(Guid riid, out object ppObj)
         {
-            /*HRESULT GetMetaDataInterface([In] ref Guid riid, [MarshalAs(UnmanagedType.IUnknown)] out object ppObj);*/
+            /*HRESULT GetMetaDataInterface([In] ref Guid riid, [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppObj);*/
             return Raw.GetMetaDataInterface(ref riid, out ppObj);
         }
 
@@ -663,7 +663,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetGlobalVariableValue(mdFieldDef fieldDef, out CorDebugValue ppValueResult)
         {
             /*HRESULT GetGlobalVariableValue([In] mdFieldDef fieldDef,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetGlobalVariableValue(fieldDef, out ppValue);
 
@@ -714,7 +714,7 @@ namespace ManagedCorDebug
         /// <param name="pdwFlags">[out] A pointer to a value of the <see cref="CorDebugJITCompilerFlags"/> enumeration that controls the JIT compilation.</param>
         public HRESULT TryGetJITCompilerFlags(out int pdwFlags)
         {
-            /*HRESULT GetJITCompilerFlags(out int pdwFlags);*/
+            /*HRESULT GetJITCompilerFlags([Out] out int pdwFlags);*/
             return Raw2.GetJITCompilerFlags(out pdwFlags);
         }
 
@@ -775,7 +775,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TrySetJMCStatus(int bIsJustMyCode, int cTokens, mdToken[] pTokens)
         {
-            /*HRESULT SetJMCStatus([In] int bIsJustMyCode, [In] int cTokens, [In] mdToken[] pTokens);*/
+            /*HRESULT SetJMCStatus([In] int bIsJustMyCode, [In] int cTokens, [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] pTokens);*/
             return Raw2.SetJMCStatus(bIsJustMyCode, cTokens, pTokens);
         }
 
@@ -877,7 +877,7 @@ namespace ManagedCorDebug
         public HRESULT TryResolveAssembly(mdToken tkAssemblyRef, out CorDebugAssembly ppAssemblyResult)
         {
             /*HRESULT ResolveAssembly([In] mdToken tkAssemblyRef,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugAssembly ppAssembly);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAssembly ppAssembly);*/
             ICorDebugAssembly ppAssembly;
             HRESULT hr = Raw2.ResolveAssembly(tkAssemblyRef, out ppAssembly);
 

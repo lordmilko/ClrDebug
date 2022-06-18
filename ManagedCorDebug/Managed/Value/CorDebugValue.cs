@@ -78,7 +78,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetType(out CorElementType pType)
         {
-            /*HRESULT GetType(out CorElementType pType);*/
+            /*HRESULT GetType([Out] out CorElementType pType);*/
             return Raw.GetType(out pType);
         }
 
@@ -113,7 +113,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetSize(out int pSize)
         {
-            /*HRESULT GetSize(out int pSize);*/
+            /*HRESULT GetSize([Out] out int pSize);*/
             return Raw.GetSize(out pSize);
         }
 
@@ -147,7 +147,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetAddress(out CORDB_ADDRESS pAddress)
         {
-            /*HRESULT GetAddress(out CORDB_ADDRESS pAddress);*/
+            /*HRESULT GetAddress([Out] out CORDB_ADDRESS pAddress);*/
             return Raw.GetAddress(out pAddress);
         }
 
@@ -173,7 +173,7 @@ namespace ManagedCorDebug
         /// </summary>
         public HRESULT TryCreateBreakpoint(out CorDebugValueBreakpoint ppBreakpointResult)
         {
-            /*HRESULT CreateBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);*/
+            /*HRESULT CreateBreakpoint([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);*/
             ICorDebugValueBreakpoint ppBreakpoint;
             HRESULT hr = Raw.CreateBreakpoint(out ppBreakpoint);
 
@@ -222,7 +222,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetExactType(out CorDebugType ppTypeResult)
         {
-            /*HRESULT GetExactType([MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);*/
+            /*HRESULT GetExactType([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);*/
             ICorDebugType ppType;
             HRESULT hr = Raw2.GetExactType(out ppType);
 
@@ -273,7 +273,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetSize64(out long pSize)
         {
-            /*HRESULT GetSize64(out long pSize);*/
+            /*HRESULT GetSize64([Out] out long pSize);*/
             return Raw3.GetSize64(out pSize);
         }
 

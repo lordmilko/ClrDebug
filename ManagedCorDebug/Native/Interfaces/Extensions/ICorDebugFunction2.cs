@@ -37,14 +37,14 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetJMCStatus(out int pbIsJustMyCode);
+        HRESULT GetJMCStatus([Out] out int pbIsJustMyCode);
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugCodeEnum"/> object that contains the native code statements in the function referenced by this <see cref="ICorDebugFunction2"/> object.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateNativeCode([MarshalAs(UnmanagedType.Interface)] out ICorDebugCodeEnum ppCodeEnum);
+        HRESULT EnumerateNativeCode([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCodeEnum ppCodeEnum);
 
         /// <summary>
         /// Gets the Edit and Continue version of this function.
@@ -64,6 +64,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetVersionNumber(out int pnVersion);
+        HRESULT GetVersionNumber([Out] out int pnVersion);
     }
 }

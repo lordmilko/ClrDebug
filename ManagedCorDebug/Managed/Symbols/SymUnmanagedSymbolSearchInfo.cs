@@ -43,7 +43,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetSearchPathLength(out int pcchPath)
         {
-            /*HRESULT GetSearchPathLength(out int pcchPath);*/
+            /*HRESULT GetSearchPathLength([Out] out int pcchPath);*/
             return Raw.GetSearchPathLength(out pcchPath);
         }
 
@@ -76,8 +76,8 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetSearchPath(
             [In] int cchPath,
-            out int pcchPath,
-            [Out] StringBuilder szPath);*/
+            [Out] out int pcchPath,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szPath);*/
             int cchPath = 0;
             int pcchPath;
             StringBuilder szPath = null;
@@ -130,7 +130,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetHRESULT(out HRESULT phr)
         {
-            /*HRESULT GetHRESULT([MarshalAs(UnmanagedType.Error)] out HRESULT phr);*/
+            /*HRESULT GetHRESULT([Out, MarshalAs(UnmanagedType.Error)] out HRESULT phr);*/
             return Raw.GetHRESULT(out phr);
         }
 

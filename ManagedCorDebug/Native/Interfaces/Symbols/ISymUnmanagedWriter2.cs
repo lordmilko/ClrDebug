@@ -25,7 +25,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineDocument(
-            [In] string url,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string url,
             [In] ref Guid language,
             [In] ref Guid languageVendor,
             [In] ref Guid documentType,
@@ -127,7 +127,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineLocalVariable(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int attributes,
             [In] int cSig,
             [In] IntPtr signature,
@@ -154,7 +154,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineParameter(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int attributes,
             [In] int sequence,
             [In] int addrKind,
@@ -179,7 +179,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineField(
             [In] int parent,
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int attributes,
             [In] int cSig,
             [In] IntPtr signature,
@@ -203,7 +203,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineGlobalVariable(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int attributes,
             [In] int cSig,
             [In] IntPtr signature,
@@ -234,7 +234,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT SetSymAttribute([In] int parent, [In] string name, [In] int cData, [In] IntPtr data);
+        new HRESULT SetSymAttribute([In] int parent, [In, MarshalAs(UnmanagedType.LPWStr)] string name, [In] int cData, [In] IntPtr data);
 
         /// <summary>
         /// Opens a new namespace. Call this method before defining methods or variables that occupy a namespace. Namespaces can be nested.
@@ -243,7 +243,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT OpenNamespace([In] string name);
+        new HRESULT OpenNamespace([In, MarshalAs(UnmanagedType.LPWStr)] string name);
 
         /// <summary>
         /// Closes the most recently opened namespace.
@@ -261,7 +261,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT UsingNamespace([In] string fullName);
+        new HRESULT UsingNamespace([In, MarshalAs(UnmanagedType.LPWStr)] string fullName);
 
         /// <summary>
         /// Specifies the true start and end of a method within a source file. Use this method to specify the extent of a method independently of the sequence points that exist within the method.
@@ -299,7 +299,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Initialize([MarshalAs(UnmanagedType.IUnknown), In]
-            object emitter, [In] string filename, [MarshalAs(UnmanagedType.Interface), In]
+            object emitter, [In, MarshalAs(UnmanagedType.LPWStr)] string filename, [MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream, [In] int fFullBuild);
 
         /// <summary>
@@ -315,7 +315,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetDebugInfo([In, Out]
-            IntPtr pIDD, [In] int cData, out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);
+            IntPtr pIDD, [In] int cData, [Out] out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);
 
         /// <summary>
         /// Defines a group of sequence points within the current method. Each starting line and starting column define the start of a statement within a method.<para/>
@@ -368,11 +368,11 @@ namespace ManagedCorDebug
         new HRESULT Initialize2(
             [MarshalAs(UnmanagedType.IUnknown), In]
             object emitter,
-            [In] string tempfilename,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string tempfilename,
             [MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream,
             [In] int fFullBuild,
-            [In] string finalfilename);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string finalfilename);
 
         /// <summary>
         /// Defines a name for a constant value.
@@ -384,7 +384,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT DefineConstant([In] string name, [MarshalAs(UnmanagedType.Struct), In] object value,
+        new HRESULT DefineConstant([In, MarshalAs(UnmanagedType.LPWStr)] string name, [MarshalAs(UnmanagedType.Struct), In] object value,
             [In] int cSig, [In] IntPtr signature);
 
         /// <summary>
@@ -415,7 +415,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT DefineLocalVariable2(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int attributes,
             [In] mdSignature sigToken,
             [In] int addrKind,
@@ -439,7 +439,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT DefineGlobalVariable2(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int attributes,
             [In] mdSignature sigToken,
             [In] int addrKind,
@@ -456,7 +456,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT DefineConstant2([In] string name, [MarshalAs(UnmanagedType.Struct), In] object value,
+        HRESULT DefineConstant2([In, MarshalAs(UnmanagedType.LPWStr)] string name, [MarshalAs(UnmanagedType.Struct), In] object value,
             [In] mdSignature sigToken);
     }
 }

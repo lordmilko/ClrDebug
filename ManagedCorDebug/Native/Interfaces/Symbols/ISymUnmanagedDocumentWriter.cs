@@ -31,6 +31,6 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetCheckSum([In] Guid algorithmId, [In] int checkSumSize, [In] IntPtr checkSum);
+        HRESULT SetCheckSum([In] ref Guid algorithmId, [In] int checkSumSize, [In] IntPtr checkSum);
     }
 }

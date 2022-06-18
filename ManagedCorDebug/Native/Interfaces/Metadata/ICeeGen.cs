@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace ManagedCorDebug
 {
@@ -31,7 +32,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT GetString(
             [In] long RVA,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] string lpString);
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder lpString);
 
         /// <summary>
         /// Creates a buffer of the specified size for a method, and gets the relative virtual address of the method. This method is obsolete and should not be used.
@@ -117,7 +118,7 @@ namespace ManagedCorDebug
         [Obsolete]
         [PreserveSig]
         HRESULT GetSectionCreate(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int flags,
             [Out] IntPtr section);
 

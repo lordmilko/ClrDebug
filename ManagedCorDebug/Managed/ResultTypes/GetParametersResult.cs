@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -17,9 +16,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// A pointer to the buffer that receives the parameters.
         /// </summary>
-        public IntPtr @params { get; }
+        public ISymUnmanagedVariable[] @params { get; }
 
-        public GetParametersResult(int pcParams, IntPtr @params)
+        public GetParametersResult(int pcParams, ISymUnmanagedVariable[] @params)
         {
             this.pcParams = pcParams;
             this.@params = @params;

@@ -44,7 +44,7 @@ namespace ManagedCorDebug
         /// <param name="ppObjectResult">[out] A pointer to the address of an <see cref="ICorDebugObjectValue"/> object that represents the boxed value.</param>
         public HRESULT TryGetObject(out CorDebugObjectValue ppObjectResult)
         {
-            /*HRESULT GetObject([MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectValue ppObject);*/
+            /*HRESULT GetObject([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectValue ppObject);*/
             ICorDebugObjectValue ppObject;
             HRESULT hr = Raw.GetObject(out ppObject);
 

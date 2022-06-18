@@ -25,12 +25,12 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT DecodeEvent(
-            [In] byte[] pRecord,
+            [In, MarshalAs(UnmanagedType.LPArray)] byte[] pRecord,
             [In] int countBytes,
             [In] CorDebugRecordFormat format,
             [In] int dwFlags,
             [In] int dwThreadId,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugDebugEvent ppEvent);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugDebugEvent ppEvent);
 
         /// <summary>
         /// Notifies <see cref="ICorDebug"/> that the process is running.
@@ -50,7 +50,7 @@ namespace ManagedCorDebug
         /// <param name="ppCode">[out] A pointer to the address of an "ICorDebugCode" object that represents a segment of managed code.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCode([In] CORDB_ADDRESS codeAddress, [MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
+        HRESULT GetCode([In] CORDB_ADDRESS codeAddress, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
 
         /// <summary>
         /// Enables or disables virtual module splitting.
@@ -69,7 +69,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnableVirtualModuleSplitting(int enableSplitting);
+        HRESULT EnableVirtualModuleSplitting([In] int enableSplitting);
 
         /// <summary>
         /// Changes the internal state of the debugee so that the <see cref="Debugger.IsAttached"/> method in the .NET Framework Class Library returns true.
@@ -86,7 +86,7 @@ namespace ManagedCorDebug
         /// </returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT MarkDebuggerAttached(int fIsAttached);
+        HRESULT MarkDebuggerAttached([In] int fIsAttached);
 
         /// <summary>
         /// Provides information on runtime exported functions to help step through managed code.
@@ -107,7 +107,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetExportStepInfo(
             [MarshalAs(UnmanagedType.LPWStr), In] string pszExportName,
-            out CorDebugCodeInvokeKind pInvokeKind,
-            out CorDebugCodeInvokePurpose pInvokePurpose);
+            [Out] out CorDebugCodeInvokeKind pInvokeKind,
+            [Out] out CorDebugCodeInvokePurpose pInvokePurpose);
     }
 }

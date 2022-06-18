@@ -27,7 +27,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRegistersAvailable(out long pAvailable);
+        HRESULT GetRegistersAvailable([Out] out long pAvailable);
 
         /// <summary>
         /// Gets the value of each register (on the computer that is currently executing code) that is specified by the bit mask.

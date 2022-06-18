@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     {
         [PreserveSig]
         HRESULT GetObjectExceptionData(
-            CLRDATA_ADDRESS objAddr,
-            out DacpExceptionObjectData data);
+            [In] CLRDATA_ADDRESS objAddr,
+            [Out] out DacpExceptionObjectData data);
 
         [PreserveSig]
         HRESULT IsRCWDCOMProxy(
-            CLRDATA_ADDRESS rcwAddr,
-            out int isDCOMProxy);
+            [In] CLRDATA_ADDRESS rcwAddr,
+            [Out] out int isDCOMProxy);
     }
 }

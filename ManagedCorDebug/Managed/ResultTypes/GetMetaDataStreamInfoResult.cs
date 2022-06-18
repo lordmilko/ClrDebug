@@ -6,9 +6,14 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataTables.GetMetaDataStreamInfo"/> method.
     /// </summary>
-    [DebuggerDisplay("ppv = {ppv}, pcb = {pcb}")]
+    [DebuggerDisplay("ppchName = {ppchName}, ppv = {ppv}, pcb = {pcb}")]
     public struct GetMetaDataStreamInfoResult
     {
+        /// <summary>
+        /// A pointer to the name of the stream.
+        /// </summary>
+        public string ppchName { get; }
+
         /// <summary>
         /// A pointer to the metadata stream.
         /// </summary>
@@ -19,8 +24,9 @@ namespace ManagedCorDebug
         /// </summary>
         public int pcb { get; }
 
-        public GetMetaDataStreamInfoResult(IntPtr ppv, int pcb)
+        public GetMetaDataStreamInfoResult(string ppchName, IntPtr ppv, int pcb)
         {
+            this.ppchName = ppchName;
             this.ppv = ppv;
             this.pcb = pcb;
         }

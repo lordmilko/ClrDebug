@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.EnumTypeDefs"/> method.
     /// </summary>
-    [DebuggerDisplay("phEnum = {phEnum}, typeDefs = {typeDefs}, pcTypeDefs = {pcTypeDefs}")]
+    [DebuggerDisplay("phEnum = {phEnum}, typeDefs = {typeDefs}")]
     public struct EnumTypeDefsResult
     {
         /// <summary>
@@ -19,16 +19,10 @@ namespace ManagedCorDebug
         /// </summary>
         public mdTypeDef[] typeDefs { get; }
 
-        /// <summary>
-        /// The number of TypeDef tokens returned in rTypeDefs.
-        /// </summary>
-        public int pcTypeDefs { get; }
-
-        public EnumTypeDefsResult(IntPtr phEnum, mdTypeDef[] typeDefs, int pcTypeDefs)
+        public EnumTypeDefsResult(IntPtr phEnum, mdTypeDef[] typeDefs)
         {
             this.phEnum = phEnum;
             this.typeDefs = typeDefs;
-            this.pcTypeDefs = pcTypeDefs;
         }
     }
 }

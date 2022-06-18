@@ -47,7 +47,7 @@ namespace ManagedCorDebug
         /// <param name="pbILResult">[out] true if this <see cref="ICorDebugCode"/> represents code that was compiled in MSIL; otherwise, false.</param>
         public HRESULT TryIsIL(out bool pbILResult)
         {
-            /*HRESULT IsIL(out int pbIL);*/
+            /*HRESULT IsIL([Out] out int pbIL);*/
             int pbIL;
             HRESULT hr = Raw.IsIL(out pbIL);
 
@@ -88,7 +88,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetFunction(out CorDebugFunction ppFunctionResult)
         {
-            /*HRESULT GetFunction([MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
+            /*HRESULT GetFunction([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
             ICorDebugFunction ppFunction;
             HRESULT hr = Raw.GetFunction(out ppFunction);
 
@@ -126,7 +126,7 @@ namespace ManagedCorDebug
         /// <param name="pStart">[out] A pointer to the RVA of the code segment.</param>
         public HRESULT TryGetAddress(out CORDB_ADDRESS pStart)
         {
-            /*HRESULT GetAddress(out CORDB_ADDRESS pStart);*/
+            /*HRESULT GetAddress([Out] out CORDB_ADDRESS pStart);*/
             return Raw.GetAddress(out pStart);
         }
 
@@ -156,7 +156,7 @@ namespace ManagedCorDebug
         /// <param name="pcBytes">[out] A pointer to the size, in bytes, of the binary code that this <see cref="ICorDebugCode"/> object represents.</param>
         public HRESULT TryGetSize(out int pcBytes)
         {
-            /*HRESULT GetSize(out int pcBytes);*/
+            /*HRESULT GetSize([Out] out int pcBytes);*/
             return Raw.GetSize(out pcBytes);
         }
 
@@ -189,7 +189,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetVersionNumber(out int nVersion)
         {
-            /*HRESULT GetVersionNumber(out int nVersion);*/
+            /*HRESULT GetVersionNumber([Out] out int nVersion);*/
             return Raw.GetVersionNumber(out nVersion);
         }
 
@@ -230,7 +230,7 @@ namespace ManagedCorDebug
         public HRESULT TryCreateBreakpoint(int offset, out CorDebugFunctionBreakpoint ppBreakpointResult)
         {
             /*HRESULT CreateBreakpoint([In] int offset,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugFunctionBreakpoint ppBreakpoint);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunctionBreakpoint ppBreakpoint);*/
             ICorDebugFunctionBreakpoint ppBreakpoint;
             HRESULT hr = Raw.CreateBreakpoint(offset, out ppBreakpoint);
 
@@ -285,7 +285,7 @@ namespace ManagedCorDebug
             [In] int endOffset,
             [In] int cBufferAlloc,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] buffer,
-            out int pcBufferSize);*/
+            [Out] out int pcBufferSize);*/
             int cBufferAlloc = 0;
             byte[] buffer = null;
             int pcBufferSize;
@@ -345,7 +345,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetILToNativeMapping(int cMap, out GetILToNativeMappingResult result)
         {
-            /*HRESULT GetILToNativeMapping([In] int cMap, out int pcMap, [MarshalAs(UnmanagedType.LPArray), Out]
+            /*HRESULT GetILToNativeMapping([In] int cMap, [Out] out int pcMap, [MarshalAs(UnmanagedType.LPArray), Out]
             COR_DEBUG_IL_TO_NATIVE_MAP[] map);*/
             int pcMap;
             COR_DEBUG_IL_TO_NATIVE_MAP[] map = null;
@@ -383,7 +383,7 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetEnCRemapSequencePoints(
             [In] int cMap,
-            out int pcMap,
+            [Out] out int pcMap,
             [MarshalAs(UnmanagedType.LPArray), Out] int[] offsets);*/
             int pcMap;
             int[] offsets = null;
@@ -429,7 +429,7 @@ namespace ManagedCorDebug
         /// <param name="pdwFlags">[out] A pointer to a value of the <see cref="CorDebugJITCompilerFlags"/> enumeration that specifies the behavior of the JIT compiler or the native image generator.</param>
         public HRESULT TryGetCompilerFlags(out CorDebugJITCompilerFlags pdwFlags)
         {
-            /*HRESULT GetCompilerFlags(out CorDebugJITCompilerFlags pdwFlags);*/
+            /*HRESULT GetCompilerFlags([Out] out CorDebugJITCompilerFlags pdwFlags);*/
             return Raw2.GetCompilerFlags(out pdwFlags);
         }
 
@@ -469,7 +469,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetCodeChunks(int cbufSize, out GetCodeChunksResult result)
         {
-            /*HRESULT GetCodeChunks([In] int cbufSize, out int pcnumChunks, [MarshalAs(UnmanagedType.LPArray), Out] CodeChunkInfo[] chunks);*/
+            /*HRESULT GetCodeChunks([In] int cbufSize, [Out] out int pcnumChunks, [MarshalAs(UnmanagedType.LPArray), Out] CodeChunkInfo[] chunks);*/
             int pcnumChunks;
             CodeChunkInfo[] chunks = null;
             HRESULT hr = Raw2.GetCodeChunks(cbufSize, out pcnumChunks, chunks);
@@ -537,7 +537,7 @@ namespace ManagedCorDebug
             /*HRESULT GetReturnValueLiveOffset(
             [In] int ilOffset,
             [In] int bufferSize,
-            out int pFetched,
+            [Out] out int pFetched,
             [Out] int pOffsets);*/
             int pFetched;
             int pOffsets = default(int);
@@ -593,7 +593,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryEnumerateVariableHomes(out CorDebugVariableHomeEnum ppEnumResult)
         {
-            /*HRESULT EnumerateVariableHomes([MarshalAs(UnmanagedType.Interface)] out ICorDebugVariableHomeEnum ppEnum);*/
+            /*HRESULT EnumerateVariableHomes([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugVariableHomeEnum ppEnum);*/
             ICorDebugVariableHomeEnum ppEnum;
             HRESULT hr = Raw4.EnumerateVariableHomes(out ppEnum);
 

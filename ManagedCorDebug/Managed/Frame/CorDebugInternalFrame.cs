@@ -49,7 +49,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetFrameType(out CorDebugInternalFrameType pType)
         {
-            /*HRESULT GetFrameType(out CorDebugInternalFrameType pType);*/
+            /*HRESULT GetFrameType([Out] out CorDebugInternalFrameType pType);*/
             return Raw.GetFrameType(out pType);
         }
 
@@ -99,7 +99,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetAddress(out CORDB_ADDRESS pAddress)
         {
-            /*HRESULT GetAddress(out CORDB_ADDRESS pAddress);*/
+            /*HRESULT GetAddress([Out] out CORDB_ADDRESS pAddress);*/
             return Raw2.GetAddress(out pAddress);
         }
 
@@ -145,7 +145,7 @@ namespace ManagedCorDebug
         public HRESULT TryIsCloserToLeaf(ICorDebugFrame pFrameToCompare, out int pIsCloser)
         {
             /*HRESULT IsCloserToLeaf([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFrame pFrameToCompare, out int pIsCloser);*/
+            ICorDebugFrame pFrameToCompare, [Out] out int pIsCloser);*/
             return Raw2.IsCloserToLeaf(pFrameToCompare, out pIsCloser);
         }
 

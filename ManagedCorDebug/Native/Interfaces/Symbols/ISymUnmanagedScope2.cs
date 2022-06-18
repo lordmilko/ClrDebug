@@ -41,8 +41,8 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetChildren(
             [In] int cChildren,
-            out int pcChildren,
-            [Out] ISymUnmanagedScope[] children);
+            [Out] out int pcChildren,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedScope[] children);
 
         /// <summary>
         /// Gets the start offset for this scope.
@@ -82,8 +82,8 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetLocals(
             [In] int cLocals,
-            out int pcLocals,
-            [Out] ISymUnmanagedVariable[] locals);
+            [Out] out int pcLocals,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] locals);
 
         /// <summary>
         /// Gets the namespaces that are being used within this scope.
@@ -96,8 +96,8 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetNamespaces(
             [In] int cNameSpaces,
-            out int pcNameSpaces,
-            [Out] ISymUnmanagedNamespace[] namespaces);
+            [Out] out int pcNameSpaces,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedNamespace[] namespaces);
 
         /// <summary>
         /// Gets a count of the constants defined within this scope.
@@ -117,7 +117,6 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetConstants([In] int cConstants, out int pcConstants, [MarshalAs(UnmanagedType.Interface), Out]
-            ISymUnmanagedConstant[] constants);
+        HRESULT GetConstants([In] int cConstants, [Out] out int pcConstants, [MarshalAs(UnmanagedType.LPArray), Out] ISymUnmanagedConstant[] constants);
     }
 }

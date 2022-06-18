@@ -19,6 +19,6 @@ namespace ManagedCorDebug
         /// metadata engine via the <see cref="IMetaDataEmit.SetHandler"/> method.
         /// </remarks>
         [PreserveSig]
-        HRESULT MarkToken(mdToken tk);
+        HRESULT MarkToken([In] mdToken tk);
     }
 }

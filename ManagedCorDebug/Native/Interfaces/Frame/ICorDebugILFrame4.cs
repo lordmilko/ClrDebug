@@ -34,7 +34,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateLocalVariablesEx([In] ILCodeKind flags,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugValueEnum ppValueEnum);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueEnum ppValueEnum);
 
         /// <summary>
         /// [Supported in the .NET Framework 4.5.2 and later versions] Gets the value of the specified local variable in this intermediate language (IL) stack frame, and optionally accesses a variable added in profiler ReJIT instrumentation.
@@ -54,7 +54,7 @@ namespace ManagedCorDebug
         HRESULT GetLocalVariableEx(
             [In] ILCodeKind flags,
             [In] int dwIndex,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         /// <summary>
         /// [Supported in the .NET Framework 4.5.2 and later versions] Gets a pointer to the code that this stack frame is executing.
@@ -72,6 +72,6 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCodeEx(
             [In] ILCodeKind flags,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
     }
 }

@@ -29,7 +29,7 @@ namespace ManagedCorDebug
             [In] int nRank,
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugType pTypeArg,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);
 
         /// <summary>
         /// Gets a pointer to a function that has a given signature.
@@ -44,6 +44,6 @@ namespace ManagedCorDebug
             [In] int nTypeArgs,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugType ppTypeArgs,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);
     }
 }

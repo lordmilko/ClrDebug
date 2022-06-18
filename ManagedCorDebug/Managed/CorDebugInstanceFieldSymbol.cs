@@ -45,7 +45,7 @@ namespace ManagedCorDebug
         /// <param name="szNameResult">[out] A character array that stores the returned name.</param>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            /*HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName = null;
@@ -97,7 +97,7 @@ namespace ManagedCorDebug
         /// <param name="pcbSize">[out] A pointer to length of the field.</param>
         public HRESULT TryGetSize(out int pcbSize)
         {
-            /*HRESULT GetSize(out int pcbSize);*/
+            /*HRESULT GetSize([Out] out int pcbSize);*/
             return Raw.GetSize(out pcbSize);
         }
 
@@ -127,7 +127,7 @@ namespace ManagedCorDebug
         /// <param name="pcbOffset">A pointer to the number of bytes that this instance field is offset in its parent class.</param>
         public HRESULT TryGetOffset(out int pcbOffset)
         {
-            /*HRESULT GetOffset(out int pcbOffset);*/
+            /*HRESULT GetOffset([Out] out int pcbOffset);*/
             return Raw.GetOffset(out pcbOffset);
         }
 

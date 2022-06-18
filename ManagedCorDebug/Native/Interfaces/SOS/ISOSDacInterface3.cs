@@ -9,12 +9,12 @@ namespace ManagedCorDebug
     {
         [PreserveSig]
         HRESULT GetGCInterestingInfoData(
-            CLRDATA_ADDRESS interestingInfoAddr,
-            out DacpGCInterestingInfoData data);
+            [In] CLRDATA_ADDRESS interestingInfoAddr,
+            [Out] out DacpGCInterestingInfoData data);
 
         [PreserveSig]
         HRESULT GetGCInterestingInfoStaticData(
-            out DacpGCInterestingInfoData data);
+            [Out] out DacpGCInterestingInfoData data);
 
         [PreserveSig]
         HRESULT GetGCGlobalMechanisms(

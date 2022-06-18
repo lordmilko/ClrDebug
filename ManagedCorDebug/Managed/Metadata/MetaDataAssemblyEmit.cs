@@ -59,13 +59,13 @@ namespace ManagedCorDebug
         public HRESULT TryDefineAssembly(IntPtr pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, IntPtr pMetaData, CorAssemblyFlags dwAssemblyFlags, out mdAssembly pma)
         {
             /*HRESULT DefineAssembly(
-            IntPtr pbPublicKey,
-            int cbPublicKey,
-            int ulHashAlgId,
-            [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            IntPtr pMetaData,
-            CorAssemblyFlags dwAssemblyFlags,
-            out mdAssembly pma);*/
+            [In] IntPtr pbPublicKey,
+            [In] int cbPublicKey,
+            [In] int ulHashAlgId,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
+            [In] IntPtr pMetaData,
+            [In] CorAssemblyFlags dwAssemblyFlags,
+            [Out] out mdAssembly pma);*/
             return Raw.DefineAssembly(pbPublicKey, cbPublicKey, ulHashAlgId, szName, pMetaData, dwAssemblyFlags, out pma);
         }
 
@@ -118,14 +118,14 @@ namespace ManagedCorDebug
         public HRESULT TryDefineAssemblyRef(IntPtr pbPublicKeyOrToken, int cbPublicKeyOrToken, string szName, ASSEMBLYMETADATA pMetaData, IntPtr pbHashValue, int cbHashValue, CorAssemblyFlags dwAssemblyRefFlags, out mdAssemblyRef assemblyRefToken)
         {
             /*HRESULT DefineAssemblyRef(
-            IntPtr pbPublicKeyOrToken,
-            int cbPublicKeyOrToken,
-            [MarshalAs(UnmanagedType.LPWStr)] string szName,
+            [In] IntPtr pbPublicKeyOrToken,
+            [In] int cbPublicKeyOrToken,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] ASSEMBLYMETADATA pMetaData,
-            IntPtr pbHashValue,
-            int cbHashValue,
-            CorAssemblyFlags dwAssemblyRefFlags,
-            out mdAssemblyRef assemblyRefToken);*/
+            [In] IntPtr pbHashValue,
+            [In] int cbHashValue,
+            [In] CorAssemblyFlags dwAssemblyRefFlags,
+            [Out] out mdAssemblyRef assemblyRefToken);*/
             return Raw.DefineAssemblyRef(pbPublicKeyOrToken, cbPublicKeyOrToken, szName, pMetaData, pbHashValue, cbHashValue, dwAssemblyRefFlags, out assemblyRefToken);
         }
 
@@ -170,11 +170,11 @@ namespace ManagedCorDebug
         public HRESULT TryDefineFile(string szName, IntPtr pbHashValue, int cbHashValue, CorFileFlags dwFileFlags, out int fileToken)
         {
             /*HRESULT DefineFile(
-            [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            IntPtr pbHashValue,
-            int cbHashValue,
-            CorFileFlags dwFileFlags,
-            out int fileToken);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
+            [In] IntPtr pbHashValue,
+            [In] int cbHashValue,
+            [In] CorFileFlags dwFileFlags,
+            [Out] out int fileToken);*/
             return Raw.DefineFile(szName, pbHashValue, cbHashValue, dwFileFlags, out fileToken);
         }
 
@@ -219,11 +219,11 @@ namespace ManagedCorDebug
         public HRESULT TryDefineExportedType(string szName, mdToken tkImplementation, mdTypeDef tkTypeDef, CorTypeAttr dwExportedTypeFlags, out mdExportedType pmdct)
         {
             /*HRESULT DefineExportedType(
-            [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            mdToken tkImplementation,
-            mdTypeDef tkTypeDef,
-            CorTypeAttr dwExportedTypeFlags,
-            out mdExportedType pmdct);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
+            [In] mdToken tkImplementation,
+            [In] mdTypeDef tkTypeDef,
+            [In] CorTypeAttr dwExportedTypeFlags,
+            [Out] out mdExportedType pmdct);*/
             return Raw.DefineExportedType(szName, tkImplementation, tkTypeDef, dwExportedTypeFlags, out pmdct);
         }
 
@@ -270,11 +270,11 @@ namespace ManagedCorDebug
         public HRESULT TryDefineManifestResource(string szName, mdToken tkImplementation, int dwOffset, int dwResourceFlags, out mdManifestResource pmdmr)
         {
             /*HRESULT DefineManifestResource(
-            [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            mdToken tkImplementation,
-            int dwOffset,
-            int dwResourceFlags,
-            out mdManifestResource pmdmr);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
+            [In] mdToken tkImplementation,
+            [In] int dwOffset,
+            [In] int dwResourceFlags,
+            [Out] out mdManifestResource pmdmr);*/
             return Raw.DefineManifestResource(szName, tkImplementation, dwOffset, dwResourceFlags, out pmdmr);
         }
 
@@ -318,13 +318,13 @@ namespace ManagedCorDebug
         public HRESULT TrySetAssemblyProps(mdAssembly pma, IntPtr pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, IntPtr pMetaData, int dwAssemblyFlags)
         {
             /*HRESULT SetAssemblyProps(
-            mdAssembly pma,
-            IntPtr pbPublicKey,
-            int cbPublicKey,
-            int ulHashAlgId,
-            [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            IntPtr pMetaData,
-            int dwAssemblyFlags);*/
+            [In] mdAssembly pma,
+            [In] IntPtr pbPublicKey,
+            [In] int cbPublicKey,
+            [In] int ulHashAlgId,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
+            [In] IntPtr pMetaData,
+            [In] int dwAssemblyFlags);*/
             return Raw.SetAssemblyProps(pma, pbPublicKey, cbPublicKey, ulHashAlgId, szName, pMetaData, dwAssemblyFlags);
         }
 
@@ -370,13 +370,11 @@ namespace ManagedCorDebug
         public HRESULT TrySetAssemblyRefProps(mdAssemblyRef ar, IntPtr pbPublicKeyOrToken, int cbPublicKeyOrToken, string szName, IntPtr pMetaData, IntPtr pbHashValue, int cbHashValue, AssemblyRefFlags dwAssemblyRefFlags)
         {
             /*HRESULT SetAssemblyRefProps(
-            mdAssemblyRef ar,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)]
-            IntPtr pbPublicKeyOrToken, int cbPublicKeyOrToken, [MarshalAs(UnmanagedType.LPWStr)] string szName, IntPtr pMetaData,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)]
-            IntPtr pbHashValue,
-            int cbHashValue,
-            AssemblyRefFlags dwAssemblyRefFlags);*/
+            [In] mdAssemblyRef ar,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] IntPtr pbPublicKeyOrToken, [In] int cbPublicKeyOrToken, [In, MarshalAs(UnmanagedType.LPWStr)] string szName, [In] IntPtr pMetaData,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] IntPtr pbHashValue,
+            [In] int cbHashValue,
+            [In] AssemblyRefFlags dwAssemblyRefFlags);*/
             return Raw.SetAssemblyRefProps(ar, pbPublicKeyOrToken, cbPublicKeyOrToken, szName, pMetaData, pbHashValue, cbHashValue, dwAssemblyRefFlags);
         }
 
@@ -414,10 +412,10 @@ namespace ManagedCorDebug
         public HRESULT TrySetFileProps(mdFile file, IntPtr pbHashValue, int cbHashValue, CorFileFlags dwFileFlags)
         {
             /*HRESULT SetFileProps(
-            mdFile file,
-            IntPtr pbHashValue,
-            int cbHashValue,
-            CorFileFlags dwFileFlags);*/
+            [In] mdFile file,
+            [In] IntPtr pbHashValue,
+            [In] int cbHashValue,
+            [In] CorFileFlags dwFileFlags);*/
             return Raw.SetFileProps(file, pbHashValue, cbHashValue, dwFileFlags);
         }
 
@@ -455,10 +453,10 @@ namespace ManagedCorDebug
         public HRESULT TrySetExportedTypeProps(mdExportedType ct, mdToken tkImplementation, mdTypeDef tkTypeDef, int dwExportedTypeFlags)
         {
             /*HRESULT SetExportedTypeProps(
-            mdExportedType ct,
-            mdToken tkImplementation,
-            mdTypeDef tkTypeDef,
-            int dwExportedTypeFlags);*/
+            [In] mdExportedType ct,
+            [In] mdToken tkImplementation,
+            [In] mdTypeDef tkTypeDef,
+            [In] int dwExportedTypeFlags);*/
             return Raw.SetExportedTypeProps(ct, tkImplementation, tkTypeDef, dwExportedTypeFlags);
         }
 
@@ -496,10 +494,10 @@ namespace ManagedCorDebug
         public HRESULT TrySetManifestResourceProps(mdManifestResource mr, mdToken tkImplementation, int dwOffset, int dwResourceFlags)
         {
             /*HRESULT SetManifestResourceProps(
-            mdManifestResource mr,
-            mdToken tkImplementation,
-            int dwOffset,
-            int dwResourceFlags);*/
+            [In] mdManifestResource mr,
+            [In] mdToken tkImplementation,
+            [In] int dwOffset,
+            [In] int dwResourceFlags);*/
             return Raw.SetManifestResourceProps(mr, tkImplementation, dwOffset, dwResourceFlags);
         }
 

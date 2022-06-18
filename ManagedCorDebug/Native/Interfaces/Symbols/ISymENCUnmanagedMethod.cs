@@ -26,8 +26,8 @@ namespace ManagedCorDebug
         HRESULT GetFileNameFromOffset(
             [In] int dwOffset,
             [In] int cchName,
-            out int pcchName,
-            [Out] StringBuilder szName);
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
 
         /// <summary>
         /// Gets the line information associated with an offset. If the offset parameter (dwOffset) is not a sequence point, this method gets the line information associated with the previous offset.
@@ -43,11 +43,11 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLineFromOffset(
             [In] int dwOffset,
-            out int pline,
-            out int pcolumn,
-            out int pendLine,
-            out int pendColumn,
-            out int pdwStartOffset);
+            [Out] out int pline,
+            [Out] out int pcolumn,
+            [Out] out int pendLine,
+            [Out] out int pendColumn,
+            [Out] out int pdwStartOffset);
 
         /// <summary>
         /// Gets the number of documents that this method has lines in.
@@ -70,7 +70,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetDocumentsForMethod(
             [In] int cDocs,
-            out int pcDocs,
+            [Out] out int pcDocs,
             [In, Out] ref IntPtr documents);
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSourceExtentInDocument(
             [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument document,
-            out int pstartLine,
-            out int pendLine);
+            [Out] out int pstartLine,
+            [Out] out int pendLine);
     }
 }

@@ -51,7 +51,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetStackPointer(out CORDB_ADDRESS pStackPointer)
         {
-            /*HRESULT GetStackPointer(out CORDB_ADDRESS pStackPointer);*/
+            /*HRESULT GetStackPointer([Out] out CORDB_ADDRESS pStackPointer);*/
             return Raw.GetStackPointer(out pStackPointer);
         }
 
@@ -85,7 +85,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetNativeIP(out CORDB_ADDRESS pIP)
         {
-            /*HRESULT GetNativeIP(out CORDB_ADDRESS pIP);*/
+            /*HRESULT GetNativeIP([Out] out CORDB_ADDRESS pIP);*/
             return Raw.GetNativeIP(out pIP);
         }
 
@@ -115,7 +115,7 @@ namespace ManagedCorDebug
         /// <param name="pdwFlags">[out] A pointer to a <see cref="CorDebugExceptionFlags"/> value that indicates whether the exception can be intercepted.</param>
         public HRESULT TryGetFlags(out CorDebugExceptionFlags pdwFlags)
         {
-            /*HRESULT GetFlags(out CorDebugExceptionFlags pdwFlags);*/
+            /*HRESULT GetFlags([Out] out CorDebugExceptionFlags pdwFlags);*/
             return Raw.GetFlags(out pdwFlags);
         }
 

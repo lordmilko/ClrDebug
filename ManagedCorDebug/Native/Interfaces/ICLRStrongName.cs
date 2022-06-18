@@ -31,9 +31,9 @@ namespace ManagedCorDebug
         HRESULT GetHashFromAssemblyFile(
             [MarshalAs(UnmanagedType.LPStr), In] string pszFilePath,
             [In] [Out] ref int piHashAlg,
-            out IntPtr pbHash,
+            [Out] IntPtr pbHash,
             [In] int cchHash,
-            out int pchHash);
+            [Out] out int pchHash);
 
         /// <summary>
         /// Generates a hash over the contents of the file specified by a Unicode string.
@@ -49,9 +49,9 @@ namespace ManagedCorDebug
         HRESULT GetHashFromAssemblyFileW(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [In] [Out] ref int piHashAlg,
-            out IntPtr pbHash,
+            [Out] IntPtr pbHash,
             [In] int cchHash,
-            out int pchHash);
+            [Out] out int pchHash);
 
         /// <summary>
         /// Gets a hash of the assembly at the specified memory address, using the specified hash algorithm.
@@ -69,9 +69,9 @@ namespace ManagedCorDebug
             [In] IntPtr pbBlob,
             [In] int cchBlob,
             [In] [Out] ref int piHashAlg,
-            out IntPtr pbHash,
+            [Out] IntPtr pbHash,
             [In] int cchHash,
-            out int pchHash);
+            [Out] out int pchHash);
 
         /// <summary>
         /// Generates a hash over the contents of the specified file.
@@ -92,9 +92,9 @@ namespace ManagedCorDebug
         HRESULT GetHashFromFile(
             [MarshalAs(UnmanagedType.LPStr), In] string pszFilePath,
             [In] [Out] ref int piHashAlg,
-            out IntPtr pbHash,
+            [Out] IntPtr pbHash,
             [In] int cchHash,
-            out int pchHash);
+            [Out] out int pchHash);
 
         /// <summary>
         /// Generates a hash over the contents of the file specified by a Unicode string.
@@ -115,9 +115,9 @@ namespace ManagedCorDebug
         HRESULT GetHashFromFileW(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [In] [Out] ref int piHashAlg,
-            out IntPtr pbHash,
+            [Out] IntPtr pbHash,
             [In] int cchHash,
-            out int pchHash);
+            [Out] out int pchHash);
 
         /// <summary>
         /// Generates a hash over the contents of the file that has the specified file handle, using the specified hash algorithm.
@@ -133,9 +133,9 @@ namespace ManagedCorDebug
         HRESULT GetHashFromHandle(
             [In] IntPtr hFile,
             [In] [Out] ref int piHashAlg,
-            out IntPtr pbHash,
+            [Out] IntPtr pbHash,
             [In] int cchHash,
-            out int pchHash);
+            [Out] out int pchHash);
 
         /// <summary>
         /// Determines whether two assemblies differ only by their strong name signatures.
@@ -189,7 +189,7 @@ namespace ManagedCorDebug
         HRESULT StrongNameGetBlobFromImage(
             [In] IntPtr pbBase,
             [In] int dwLength,
-            out IntPtr pbBlob,
+            [Out] IntPtr pbBlob,
             [In] [Out] ref int pcbBlob);
 
         /// <summary>
@@ -216,7 +216,7 @@ namespace ManagedCorDebug
             [In] IntPtr pbKeyBlob,
             [In] int cbKeyBlob,
             [Out] IntPtr ppbPublicKeyBlob,
-            out int pcbPublicKeyBlob);
+            [Out] out int pcbPublicKeyBlob);
 
         /// <summary>
         /// Gets the buffer size required for a hash, using the specified hash algorithm.
@@ -258,7 +258,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
             [In] int dwFlags,
             [Out] IntPtr ppbKeyBlob,
-            out int pcbKeyBlob);
+            [Out] out int pcbKeyBlob);
 
         /// <summary>
         /// Generates a new public/private key pair with the specified key size, for strong name use.
@@ -281,7 +281,7 @@ namespace ManagedCorDebug
             [In] int dwFlags,
             [In] int dwKeySize,
             [Out] IntPtr ppbKeyBlob,
-            out int pcbKeyBlob);
+            [Out] out int pcbKeyBlob);
 
         /// <summary>
         /// Imports a public/private key pair into a container.
@@ -324,7 +324,7 @@ namespace ManagedCorDebug
             [In] IntPtr pbKeyBlob,
             [In] int cbKeyBlob,
             [Out] IntPtr ppbSignatureBlob,
-            out int pcbSignatureBlob);
+            [Out] out int pcbSignatureBlob);
 
         /// <summary>
         /// Generates a strong name signature for the specified assembly, according to the specified flags.
@@ -355,7 +355,7 @@ namespace ManagedCorDebug
             [In] IntPtr pbKeyBlob,
             [In] int cbKeyBlob,
             [Out] IntPtr ppbSignatureBlob,
-            out int pcbSignatureBlob,
+            [Out] out int pcbSignatureBlob,
             [In] int dwFlags);
 
         /// <summary>
@@ -436,7 +436,7 @@ namespace ManagedCorDebug
         HRESULT StrongNameTokenFromAssembly(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [Out] IntPtr ppbStrongNameToken,
-            out int pcbStrongNameToken);
+            [Out] out int pcbStrongNameToken);
 
         /// <summary>
         /// Creates a strong name token from the specified assembly file, and returns the public key that the token represents.
@@ -458,9 +458,9 @@ namespace ManagedCorDebug
         HRESULT StrongNameTokenFromAssemblyEx(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [Out] IntPtr ppbStrongNameToken,
-            out int pcbStrongNameToken,
+            [Out] out int pcbStrongNameToken,
             [Out] IntPtr ppbPublicKeyBlob,
-            out int pcbPublicKeyBlob);
+            [Out] out int pcbPublicKeyBlob);
 
         /// <summary>
         /// Gets a token that represents a public key. A strong name token is the shortened form of a public key.
@@ -481,6 +481,6 @@ namespace ManagedCorDebug
             [In] IntPtr pbPublicKeyBlob,
             [In] PublicKeyBlob cbPublicKeyBlob,
             [Out] IntPtr ppbStrongNameToken,
-            out int pcbStrongNameToken);
+            [Out] out int pcbStrongNameToken);
     }
 }

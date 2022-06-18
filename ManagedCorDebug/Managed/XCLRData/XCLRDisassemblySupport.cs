@@ -55,9 +55,9 @@ namespace ManagedCorDebug
         public long CbDisassemble(CLRDATA_ADDRESS a, IntPtr b, long c)
         {
             /*long CbDisassemble(
-            CLRDATA_ADDRESS a,
-            IntPtr b,
-            long c);*/
+            [In] CLRDATA_ADDRESS a,
+            [In] IntPtr b,
+            [In] long c);*/
             return Raw.CbDisassemble(a, b, c);
         }
 
@@ -84,7 +84,7 @@ namespace ManagedCorDebug
         public HRESULT TryFSelectInstruction(long a)
         {
             /*int FSelectInstruction(
-            long a);*/
+            [In] long a);*/
             return (HRESULT) Raw.FSelectInstruction(a);
         }
 
@@ -94,8 +94,8 @@ namespace ManagedCorDebug
         public long CchFormatInstr(string a, long b)
         {
             /*long CchFormatInstr(
-            string a,
-            long b);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string a,
+            [In] long b);*/
             return Raw.CchFormatInstr(a, b);
         }
 

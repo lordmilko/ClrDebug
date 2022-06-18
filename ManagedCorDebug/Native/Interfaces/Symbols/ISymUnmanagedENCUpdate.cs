@@ -33,7 +33,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetLocalVariableCount([In] mdMethodDef mdMethodToken, out int pcLocals);
+        HRESULT GetLocalVariableCount([In] mdMethodDef mdMethodToken, [Out] out int pcLocals);
 
         /// <summary>
         /// Gets the local variables.
@@ -48,8 +48,8 @@ namespace ManagedCorDebug
         HRESULT GetLocalVariables(
             [In] mdMethodDef mdMethodToken,
             [In] int cLocals,
-            [Out] ISymUnmanagedVariable[] rgLocals,
-            out int pceltFetched);
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] rgLocals,
+            [Out] out int pceltFetched);
 
         /// <summary>
         /// Allows method boundaries to be computed before the first call to the <see cref="UpdateSymbolStore2"/> method.

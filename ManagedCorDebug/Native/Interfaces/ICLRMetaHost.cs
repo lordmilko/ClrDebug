@@ -92,7 +92,7 @@ namespace ManagedCorDebug
         /// </returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateInstalledRuntimes([MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppEnumerator);
+        HRESULT EnumerateInstalledRuntimes([Out, MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppEnumerator);
 
         /// <summary>
         /// Returns an enumeration that includes a valid <see cref="ICLRRuntimeInfo"/> interface pointer for each version of the common language runtime (CLR) that is loaded in a given process.<para/>
@@ -113,7 +113,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateLoadedRuntimes([In] IntPtr hndProcess, [MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppEnumerator);
+        HRESULT EnumerateLoadedRuntimes([In] IntPtr hndProcess, [Out, MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppEnumerator);
 
         /// <summary>
         /// Provides a callback function that is guaranteed to be called when a common language runtime (CLR) version is first loaded, but not yet started.<para/>

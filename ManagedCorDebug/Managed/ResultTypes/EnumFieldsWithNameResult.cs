@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.EnumFieldsWithName"/> method.
     /// </summary>
-    [DebuggerDisplay("phEnum = {phEnum}, rFields = {rFields}, pcTokens = {pcTokens}")]
+    [DebuggerDisplay("phEnum = {phEnum}, rFields = {rFields}")]
     public struct EnumFieldsWithNameResult
     {
         /// <summary>
@@ -19,16 +19,10 @@ namespace ManagedCorDebug
         /// </summary>
         public mdFieldDef[] rFields { get; }
 
-        /// <summary>
-        /// The actual number of FieldDef tokens returned in rFields.
-        /// </summary>
-        public int pcTokens { get; }
-
-        public EnumFieldsWithNameResult(IntPtr phEnum, mdFieldDef[] rFields, int pcTokens)
+        public EnumFieldsWithNameResult(IntPtr phEnum, mdFieldDef[] rFields)
         {
             this.phEnum = phEnum;
             this.rFields = rFields;
-            this.pcTokens = pcTokens;
         }
     }
 }

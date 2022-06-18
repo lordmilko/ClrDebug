@@ -24,7 +24,7 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         HRESULT StartEnumMethodInstancesByName(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int flags,
             [Out] out IntPtr handle);
 
@@ -53,7 +53,7 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         HRESULT StartEnumStaticFieldsByName(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int flags,
             [In] IXCLRDataTask tlsTask,
             [Out] out IntPtr handle);

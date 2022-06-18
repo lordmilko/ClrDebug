@@ -30,18 +30,18 @@ namespace ManagedCorDebug
         public HRESULT TryGetMetaData(string imagePath, int imageTimestamp, int imageSize, Guid mvid, int mdRva, int flags, int bufferSize, out XCLRDataTarget_GetMetaDataResult result)
         {
             /*HRESULT GetMetaData(
-            [In] string imagePath,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string imagePath,
             [In] int imageTimestamp,
             [In] int imageSize,
             [In] ref Guid mvid,
             [In] int mdRva,
             [In] int flags,
             [In] int bufferSize,
-            [Out] out IntPtr buffer,
+            [In, Out] ref IntPtr buffer,
             [Out] out int dataSize);*/
-            IntPtr buffer;
+            IntPtr buffer = default(IntPtr);
             int dataSize;
-            HRESULT hr = Raw.GetMetaData(imagePath, imageTimestamp, imageSize, ref mvid, mdRva, flags, bufferSize, out buffer, out dataSize);
+            HRESULT hr = Raw.GetMetaData(imagePath, imageTimestamp, imageSize, ref mvid, mdRva, flags, bufferSize, ref buffer, out dataSize);
 
             if (hr == HRESULT.S_OK)
                 result = new XCLRDataTarget_GetMetaDataResult(buffer, dataSize);

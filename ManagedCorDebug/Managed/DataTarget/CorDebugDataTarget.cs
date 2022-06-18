@@ -67,7 +67,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetPlatform(out CorDebugPlatform pTargetPlatform)
         {
-            /*HRESULT GetPlatform(out CorDebugPlatform pTargetPlatform);*/
+            /*HRESULT GetPlatform([Out] out CorDebugPlatform pTargetPlatform);*/
             return Raw.GetPlatform(out pTargetPlatform);
         }
 
@@ -107,10 +107,10 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryReadVirtual(CORDB_ADDRESS address, int bytesRequested, out CorDebugDataTarget_ReadVirtualResult result)
         {
-            /*HRESULT ReadVirtual([In] CORDB_ADDRESS address, [Out] out IntPtr pBuffer, [In] int bytesRequested, out int pBytesRead);*/
-            IntPtr pBuffer;
+            /*HRESULT ReadVirtual([In] CORDB_ADDRESS address, [Out] IntPtr pBuffer, [In] int bytesRequested, [Out] out int pBytesRead);*/
+            IntPtr pBuffer = default(IntPtr);
             int pBytesRead;
-            HRESULT hr = Raw.ReadVirtual(address, out pBuffer, bytesRequested, out pBytesRead);
+            HRESULT hr = Raw.ReadVirtual(address, pBuffer, bytesRequested, out pBytesRead);
 
             if (hr == HRESULT.S_OK)
                 result = new CorDebugDataTarget_ReadVirtualResult(pBuffer, pBytesRead);
@@ -138,9 +138,9 @@ namespace ManagedCorDebug
         public IntPtr GetThreadContext(int dwThreadId, int contextFlags, int contextSize)
         {
             HRESULT hr;
-            IntPtr pContext;
+            IntPtr pContext = default(IntPtr);
 
-            if ((hr = TryGetThreadContext(dwThreadId, contextFlags, contextSize, out pContext)) != HRESULT.S_OK)
+            if ((hr = TryGetThreadContext(dwThreadId, contextFlags, contextSize, ref pContext)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return pContext;
@@ -158,10 +158,10 @@ namespace ManagedCorDebug
         /// type specified by the <see cref="Platform"/> property. contextFlags must have the same values as the ContextFlags
         /// field of the CONTEXT structure. The CONTEXT structure is processor-specific; refer to the WinNT.h file for details.
         /// </remarks>
-        public HRESULT TryGetThreadContext(int dwThreadId, int contextFlags, int contextSize, out IntPtr pContext)
+        public HRESULT TryGetThreadContext(int dwThreadId, int contextFlags, int contextSize, ref IntPtr pContext)
         {
-            /*HRESULT GetThreadContext([In] int dwThreadId, [In] int contextFlags, [In] int contextSize, out IntPtr pContext);*/
-            return Raw.GetThreadContext(dwThreadId, contextFlags, contextSize, out pContext);
+            /*HRESULT GetThreadContext([In] int dwThreadId, [In] int contextFlags, [In] int contextSize, [In, Out] ref IntPtr pContext);*/
+            return Raw.GetThreadContext(dwThreadId, contextFlags, contextSize, ref pContext);
         }
 
         #endregion
@@ -196,7 +196,7 @@ namespace ManagedCorDebug
         /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetImageFromPointer(CORDB_ADDRESS addr, out GetImageFromPointerResult result)
         {
-            /*HRESULT GetImageFromPointer([In] CORDB_ADDRESS addr, out CORDB_ADDRESS pImageBase, out int pSize);*/
+            /*HRESULT GetImageFromPointer([In] CORDB_ADDRESS addr, [Out] out CORDB_ADDRESS pImageBase, [Out] out int pSize);*/
             CORDB_ADDRESS pImageBase;
             int pSize;
             HRESULT hr = Raw2.GetImageFromPointer(addr, out pImageBase, out pSize);
@@ -238,8 +238,8 @@ namespace ManagedCorDebug
             /*HRESULT GetImageLocation(
             [In] CORDB_ADDRESS baseAddress,
             [In] int cchName,
-            out int pcchName,
-            [Out] StringBuilder szName);*/
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName = null;
@@ -293,7 +293,7 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetSymbolProviderForImage(
             [In] CORDB_ADDRESS imageBaseAddress,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugSymbolProvider ppSymProvider);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugSymbolProvider ppSymProvider);*/
             ICorDebugSymbolProvider ppSymProvider;
             HRESULT hr = Raw2.GetSymbolProviderForImage(imageBaseAddress, out ppSymProvider);
 
@@ -331,9 +331,9 @@ namespace ManagedCorDebug
         /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryEnumerateThreadIDs(int cThreadIds, out EnumerateThreadIDsResult result)
         {
-            /*HRESULT EnumerateThreadIDs([In] int cThreadIds, out int pcThreadIds, [Out] int[] pThreadIds);*/
+            /*HRESULT EnumerateThreadIDs([In] int cThreadIds, [Out] out int pcThreadIds, [Out, MarshalAs(UnmanagedType.LPArray)] int[] pThreadIds);*/
             int pcThreadIds;
-            int[] pThreadIds = default(int[]);
+            int[] pThreadIds = null;
             HRESULT hr = Raw2.EnumerateThreadIDs(cThreadIds, out pcThreadIds, pThreadIds);
 
             if (hr == HRESULT.S_OK)
@@ -382,7 +382,7 @@ namespace ManagedCorDebug
             [In] int contextFlags,
             [In] int cbContext,
             [In] IntPtr initialContext,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugVirtualUnwinder ppUnwinder);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugVirtualUnwinder ppUnwinder);*/
             ICorDebugVirtualUnwinder ppUnwinder;
             HRESULT hr = Raw2.CreateVirtualUnwinder(nativeThreadID, contextFlags, cbContext, initialContext, out ppUnwinder);
 
@@ -428,7 +428,7 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetLoadedModules(
             [In] int cRequestedModules,
-            out int pcFetchedModules,
+            [Out] out int pcFetchedModules,
             [Out] IntPtr pLoadedModules);*/
             int pcFetchedModules;
             IntPtr pLoadedModules = default(IntPtr);

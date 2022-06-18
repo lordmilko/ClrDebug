@@ -50,7 +50,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetCORSystemDirectory(out string szBufferResult)
         {
             /*HRESULT GetCORSystemDirectory(
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] StringBuilder szBuffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder szBuffer,
             [In] int cchBuffer,
             [Out] out int pchBuffer);*/
             StringBuilder szBuffer = null;
@@ -109,8 +109,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TrySetOption(Guid optionId, object pValue)
         {
-            /*HRESULT SetOption([In] Guid optionId, [In, MarshalAs(UnmanagedType.Struct)] object pValue);*/
-            return Raw.SetOption(optionId, pValue);
+            /*HRESULT SetOption([In] ref Guid optionId, [In, MarshalAs(UnmanagedType.Struct)] object pValue);*/
+            return Raw.SetOption(ref optionId, pValue);
         }
 
         #endregion
@@ -147,8 +147,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetOption(Guid optionId, ref object pValue)
         {
-            /*HRESULT GetOption([In] Guid optionId, [Out] object pValue);*/
-            return Raw.GetOption(optionId, pValue);
+            /*HRESULT GetOption([In] ref Guid optionId, [Out] object pValue);*/
+            return Raw.GetOption(ref optionId, pValue);
         }
 
         #endregion
@@ -159,16 +159,17 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pITI">[in] Pointer to an ITypeInfo interface that provides the type information on which to open the scope.</param>
         /// <param name="dwOpenFlags">[in] The open mode flags.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public OpenScopeOnITypeInfoResult OpenScopeOnITypeInfo(ITypeInfo pITI, int dwOpenFlags)
+        /// <param name="riid">[in] The desired interface.</param>
+        /// <returns>[out] Pointer to a pointer to the returned interface.</returns>
+        public object OpenScopeOnITypeInfo(ITypeInfo pITI, int dwOpenFlags, Guid riid)
         {
             HRESULT hr;
-            OpenScopeOnITypeInfoResult result;
+            object ppIUnk;
 
-            if ((hr = TryOpenScopeOnITypeInfo(pITI, dwOpenFlags, out result)) != HRESULT.S_OK)
+            if ((hr = TryOpenScopeOnITypeInfo(pITI, dwOpenFlags, riid, out ppIUnk)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return ppIUnk;
         }
 
         /// <summary>
@@ -176,25 +177,17 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pITI">[in] Pointer to an ITypeInfo interface that provides the type information on which to open the scope.</param>
         /// <param name="dwOpenFlags">[in] The open mode flags.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryOpenScopeOnITypeInfo(ITypeInfo pITI, int dwOpenFlags, out OpenScopeOnITypeInfoResult result)
+        /// <param name="riid">[in] The desired interface.</param>
+        /// <param name="ppIUnk">[out] Pointer to a pointer to the returned interface.</param>
+        public HRESULT TryOpenScopeOnITypeInfo(ITypeInfo pITI, int dwOpenFlags, Guid riid, out object ppIUnk)
         {
             /*HRESULT OpenScopeOnITypeInfo(
-            [MarshalAs(UnmanagedType.Interface)] ITypeInfo pITI,
-            int dwOpenFlags,
-            ref Guid riid,
-            [MarshalAs(UnmanagedType.Interface, IidParameterIndex = 2)] out object ppIUnk
+            [In, MarshalAs(UnmanagedType.Interface)] ITypeInfo pITI,
+            [In] int dwOpenFlags,
+            [In] ref Guid riid,
+            [Out, MarshalAs(UnmanagedType.Interface, IidParameterIndex = 2)] out object ppIUnk
         );*/
-            Guid riid = default(Guid);
-            object ppIUnk;
-            HRESULT hr = Raw.OpenScopeOnITypeInfo(pITI, dwOpenFlags, ref riid, out ppIUnk);
-
-            if (hr == HRESULT.S_OK)
-                result = new OpenScopeOnITypeInfoResult(riid, ppIUnk);
-            else
-                result = default(OpenScopeOnITypeInfoResult);
-
-            return hr;
+            return Raw.OpenScopeOnITypeInfo(pITI, dwOpenFlags, ref riid, out ppIUnk);
         }
 
         #endregion
@@ -234,9 +227,9 @@ namespace ManagedCorDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string szPrivateBin,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szGlobalBin,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAssemblyName,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)] StringBuilder szName,
-            int cchName,
-            out int pcName);*/
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 5)] StringBuilder szName,
+            [In] int cchName,
+            [Out] out int pcName);*/
             StringBuilder szName = null;
             int cchName = 0;
             int pcName;
@@ -302,7 +295,7 @@ namespace ManagedCorDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string szGlobalBin,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAssemblyName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szModuleName,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 6)] StringBuilder szName,
             [In] int cchName,
             [Out] out int pcName);*/
             StringBuilder szName = null;

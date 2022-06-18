@@ -24,7 +24,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetType(out CorElementType pType);
+        new HRESULT GetType([Out] out CorElementType pType);
 
         /// <summary>
         /// Gets the size, in bytes, of this "ICorDebugValue" object.
@@ -37,7 +37,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetSize(out int pSize);
+        new HRESULT GetSize([Out] out int pSize);
 
         /// <summary>
         /// Gets the address of this "ICorDebugValue" object, which is in the process of being debugged.
@@ -49,14 +49,14 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetAddress(out CORDB_ADDRESS pAddress);
+        new HRESULT GetAddress([Out] out CORDB_ADDRESS pAddress);
 
         /// <summary>
         /// The CreateBreakpoint method is currently not implemented.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT CreateBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
+        new HRESULT CreateBreakpoint([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
 
         /// <summary>
         /// Gets a value that indicates whether the object represented by this <see cref="ICorDebugHeapValue"/> is valid. This method has been deprecated in the .NET Framework version 2.0.
@@ -69,14 +69,14 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT IsValid(out int pbValid);
+        new HRESULT IsValid([Out] out int pbValid);
 
         /// <summary>
         /// This method is not implemented in the current version of the .NET Framework.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT CreateRelocBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
+        new HRESULT CreateRelocBreakpoint([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
 
         /// <summary>
         /// Gets the number of characters in the string referenced by this <see cref="ICorDebugStringValue"/>.
@@ -84,7 +84,7 @@ namespace ManagedCorDebug
         /// <param name="pcchString">[out] A pointer to a value that specifies the length of the string referenced by this <see cref="ICorDebugStringValue"/> object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetLength(out int pcchString);
+        HRESULT GetLength([Out] out int pcchString);
 
         /// <summary>
         /// Gets the string referenced by this <see cref="ICorDebugStringValue"/>.
@@ -94,6 +94,6 @@ namespace ManagedCorDebug
         /// <param name="szString">[out] An array that stores the retrieved string.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetString([In] int cchString, out int pcchString, [Out] StringBuilder szString);
+        HRESULT GetString([In] int cchString, [Out] out int pcchString, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szString);
     }
 }

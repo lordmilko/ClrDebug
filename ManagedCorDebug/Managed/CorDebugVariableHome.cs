@@ -41,7 +41,7 @@ namespace ManagedCorDebug
         /// <param name="ppCodeResult">[out] A pointer to the address of the "ICorDebugCode" instance that contains this <see cref="ICorDebugVariableHome"/> object.</param>
         public HRESULT TryGetCode(out CorDebugCode ppCodeResult)
         {
-            /*HRESULT GetCode([MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);*/
+            /*HRESULT GetCode([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);*/
             ICorDebugCode ppCode;
             HRESULT hr = Raw.GetCode(out ppCode);
 
@@ -90,7 +90,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetSlotIndex(out int pSlotIndex)
         {
-            /*HRESULT GetSlotIndex(out int pSlotIndex);*/
+            /*HRESULT GetSlotIndex([Out] out int pSlotIndex);*/
             return Raw.GetSlotIndex(out pSlotIndex);
         }
 
@@ -131,7 +131,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetArgumentIndex(out int pArgumentIndex)
         {
-            /*HRESULT GetArgumentIndex(out int pArgumentIndex);*/
+            /*HRESULT GetArgumentIndex([Out] out int pArgumentIndex);*/
             return Raw.GetArgumentIndex(out pArgumentIndex);
         }
 
@@ -161,7 +161,7 @@ namespace ManagedCorDebug
         /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetLiveRange(out GetLiveRangeResult result)
         {
-            /*HRESULT GetLiveRange(out int pStartOffset, out int pEndOffset);*/
+            /*HRESULT GetLiveRange([Out] out int pStartOffset, [Out] out int pEndOffset);*/
             int pStartOffset;
             int pEndOffset;
             HRESULT hr = Raw.GetLiveRange(out pStartOffset, out pEndOffset);
@@ -200,7 +200,7 @@ namespace ManagedCorDebug
         /// <param name="pLocationType">[out] A pointer to the type of the variable's native location. See the <see cref="VariableLocationType"/> enumeration for more information.</param>
         public HRESULT TryGetLocationType(out VariableLocationType pLocationType)
         {
-            /*HRESULT GetLocationType(out VariableLocationType pLocationType);*/
+            /*HRESULT GetLocationType([Out] out VariableLocationType pLocationType);*/
             return Raw.GetLocationType(out pLocationType);
         }
 
@@ -238,7 +238,7 @@ namespace ManagedCorDebug
         /// </returns>
         public HRESULT TryGetRegister(out CorDebugRegister pRegister)
         {
-            /*HRESULT GetRegister(out CorDebugRegister pRegister);*/
+            /*HRESULT GetRegister([Out] out CorDebugRegister pRegister);*/
             return Raw.GetRegister(out pRegister);
         }
 
@@ -276,7 +276,7 @@ namespace ManagedCorDebug
         /// </returns>
         public HRESULT TryGetOffset(out int pOffset)
         {
-            /*HRESULT GetOffset(out int pOffset);*/
+            /*HRESULT GetOffset([Out] out int pOffset);*/
             return Raw.GetOffset(out pOffset);
         }
 

@@ -185,15 +185,15 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetAsyncStepInfo(
             [In] int cStepInfo,
-            out int pcStepInfo,
-            [In, Out] ref int[] yieldOffsets,
-            [In, Out] ref int[] breakpointOffset,
-            [In, Out] ref int[] breakpointMethod);*/
+            [Out] out int pcStepInfo,
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] yieldOffsets,
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] breakpointOffset,
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] breakpointMethod);*/
             int pcStepInfo;
-            int[] yieldOffsets = default(int[]);
-            int[] breakpointOffset = default(int[]);
-            int[] breakpointMethod = default(int[]);
-            HRESULT hr = Raw.GetAsyncStepInfo(cStepInfo, out pcStepInfo, ref yieldOffsets, ref breakpointOffset, ref breakpointMethod);
+            int[] yieldOffsets = null;
+            int[] breakpointOffset = null;
+            int[] breakpointMethod = null;
+            HRESULT hr = Raw.GetAsyncStepInfo(cStepInfo, out pcStepInfo, yieldOffsets, breakpointOffset, breakpointMethod);
 
             if (hr == HRESULT.S_OK)
                 result = new GetAsyncStepInfoResult(pcStepInfo, yieldOffsets, breakpointOffset, breakpointMethod);

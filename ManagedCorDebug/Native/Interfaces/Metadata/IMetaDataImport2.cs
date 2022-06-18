@@ -63,7 +63,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         new HRESULT EnumTypeDefs(
             [In, Out] ref IntPtr phEnum,
-            [Out] out mdTypeDef[] typeDefs,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdTypeDef[] typeDefs,
             [In] int cMax,
             [Out] out int pcTypeDefs);
 
@@ -90,7 +90,7 @@ namespace ManagedCorDebug
         new HRESULT EnumInterfaceImpls(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef td,
-            [Out] out mdInterfaceImpl[] rImpls,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdInterfaceImpl[] rImpls,
             [In] int cMax,
             [Out] out int pcImpls);
 
@@ -113,7 +113,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         new HRESULT EnumTypeRefs(
             [In, Out] ref IntPtr phEnum,
-            [Out] out mdTypeRef[] rTypeRefs,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdTypeRef[] rTypeRefs,
             [In] int cMax,
             [Out] out int pcTypeRefs);
 
@@ -201,7 +201,7 @@ namespace ManagedCorDebug
         new HRESULT GetTypeRefProps(
             [In] mdTypeRef tr,
             [Out] out mdToken ptkResolutionScope,
-            [Out] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
             [In] int cchName,
             [Out] out int pchName);
 
@@ -282,7 +282,7 @@ namespace ManagedCorDebug
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
-            [Out] out mdToken[] rMembers,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdToken[] rMembers,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -304,7 +304,7 @@ namespace ManagedCorDebug
         new HRESULT EnumMethods(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
-            [Out] out mdMethodDef[] rMethods,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rMethods,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -332,7 +332,7 @@ namespace ManagedCorDebug
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
             [Out, MarshalAs(UnmanagedType.LPWStr), In] string szName,
-            [Out] out mdMethodDef[] rMethods,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rMethods,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -354,7 +354,7 @@ namespace ManagedCorDebug
         new HRESULT EnumFields(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
-            [Out] out mdFieldDef[] rFields,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdFieldDef[] rFields,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -381,7 +381,7 @@ namespace ManagedCorDebug
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
-            [Out] out mdFieldDef[] rFields,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdFieldDef[] rFields,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -403,7 +403,7 @@ namespace ManagedCorDebug
         new HRESULT EnumParams(
             [In, Out] ref IntPtr phEnum,
             [In] mdMethodDef mb,
-            [Out] out mdParamDef[] rParams,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdParamDef[] rParams,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -425,7 +425,7 @@ namespace ManagedCorDebug
         new HRESULT EnumMemberRefs(
             [In, Out] ref IntPtr phEnum,
             [In] mdToken tkParent,
-            [Out] out mdMemberRef[] rMemberRefs,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdMemberRef[] rMemberRefs,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -448,8 +448,8 @@ namespace ManagedCorDebug
         new HRESULT EnumMethodImpls(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef td,
-            [Out] out mdToken[] rMethodBody,
-            [Out] out mdToken[] rMethodDecl,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdToken[] rMethodBody,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdToken[] rMethodDecl,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -473,7 +473,7 @@ namespace ManagedCorDebug
             [In, Out] ref IntPtr phEnum,
             [In] mdToken tk,
             [In] SecurityAction dwActions,
-            [Out] out mdPermission[] rPermission,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdPermission[] rPermission,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -638,7 +638,7 @@ namespace ManagedCorDebug
         new HRESULT EnumProperties(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef td,
-            [Out] mdProperty[] rProperties,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdProperty[] rProperties,
             [In] int cMax,
             [Out] out int pcProperties);
 
@@ -660,7 +660,7 @@ namespace ManagedCorDebug
         new HRESULT EnumEvents(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef td,
-            [Out] out mdEvent[] rEvents,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdEvent[] rEvents,
             [In] int cMax,
             [Out] out int pcEvents);
 
@@ -692,7 +692,7 @@ namespace ManagedCorDebug
             [Out] out mdMethodDef pmdAddOn,
             [Out] out mdMethodDef pmdRemoveOn,
             [Out] out mdMethodDef pmdFire,
-            [Out] out mdMethodDef[] rmdOtherMethod,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rmdOtherMethod,
             [In] int cMax,
             [Out] int pcOtherMethod);
 
@@ -723,7 +723,7 @@ namespace ManagedCorDebug
         new HRESULT EnumMethodSemantics(
             [In, Out] ref IntPtr phEnum,
             [In] mdMethodDef mb,
-            [Out] out mdToken[] rEventProp,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdToken[] rEventProp,
             [In] int cMax,
             [Out] out int pcEventProp);
 
@@ -841,7 +841,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         new HRESULT EnumModuleRefs(
             [In, Out] ref IntPtr phEnum,
-            [Out] out mdModuleRef[] rModuleRefs,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdModuleRef[] rModuleRefs,
             [In] int cmax,
             [Out] out int pcModuleRefs);
 
@@ -896,7 +896,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         new HRESULT EnumUnresolvedMethods(
             [In, Out] ref IntPtr phEnum,
-            [Out] out mdToken[] rMethods,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdToken[] rMethods,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -951,7 +951,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         new HRESULT EnumSignatures(
             [In, Out] ref IntPtr phEnum,
-            [Out] out mdSignature[] rSignatures,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdSignature[] rSignatures,
             [In] int cmax,
             [Out] out int pcSignatures);
 
@@ -974,7 +974,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         new HRESULT EnumTypeSpecs(
             [In, Out] ref IntPtr phEnum,
-            [Out] out mdTypeSpec[] rTypeSpecs,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdTypeSpec[] rTypeSpecs,
             [In] int cmax,
             [Out] out int pcTypeSpecs);
 
@@ -998,7 +998,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         new HRESULT EnumUserStrings(
             [In, Out] ref IntPtr phEnum,
-            [Out] out mdString[] rStrings,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdString[] rStrings,
             [In] int cmax,
             [Out] out int pcStrings);
 
@@ -1034,7 +1034,7 @@ namespace ManagedCorDebug
             [In, Out] ref IntPtr phEnum,
             [In] mdToken tk,
             [In] mdToken tkType,
-            [Out] out mdCustomAttribute[] rCustomAttributes,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdCustomAttribute[] rCustomAttributes,
             [In] int cMax,
             [Out] out int pcCustomAttributes);
 
@@ -1275,7 +1275,7 @@ namespace ManagedCorDebug
         HRESULT EnumGenericParams(
             [In, Out] ref IntPtr phEnum,
             [In] mdToken tk,
-            [Out] out mdGenericParam[] rGenericParams,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdGenericParam[] rGenericParams,
             [In] int cMax,
             [Out] out int pcGenericParams);
 
@@ -1333,7 +1333,7 @@ namespace ManagedCorDebug
         HRESULT EnumGenericParamConstraints(
             [In, Out] ref IntPtr phEnum,
             [In] mdGenericParam tk,
-            [Out] mdGenericParamConstraint[] rGenericParamConstraints,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdGenericParamConstraint[] rGenericParamConstraints,
             [In] int cMax,
             [Out] out int pcGenericParamConstraints);
 
@@ -1396,7 +1396,7 @@ namespace ManagedCorDebug
         HRESULT EnumMethodSpecs(
             [In, Out] ref IntPtr phEnum,
             [In] mdToken tk,
-            [Out] mdMethodSpec[] rMethodSpecs,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdMethodSpec[] rMethodSpecs,
             [In] int cMax,
             [Out] out int pcMethodSpecs);
     }

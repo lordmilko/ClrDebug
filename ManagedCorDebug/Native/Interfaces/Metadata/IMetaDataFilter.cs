@@ -21,7 +21,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="tk">[in] The token to mark as processed.</param>
         [PreserveSig]
-        HRESULT MarkToken(mdToken tk);
+        HRESULT MarkToken([In] mdToken tk);
 
         /// <summary>
         /// Gets a value indicating whether the specified metadata token has been marked as processed.

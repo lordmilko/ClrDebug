@@ -1,4 +1,3 @@
-using System;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -76,7 +75,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetLocalVariableCount(mdMethodDef mdMethodToken, out int pcLocals)
         {
-            /*HRESULT GetLocalVariableCount([In] mdMethodDef mdMethodToken, out int pcLocals);*/
+            /*HRESULT GetLocalVariableCount([In] mdMethodDef mdMethodToken, [Out] out int pcLocals);*/
             return Raw.GetLocalVariableCount(mdMethodToken, out pcLocals);
         }
 
@@ -87,41 +86,52 @@ namespace ManagedCorDebug
         /// Gets the local variables.
         /// </summary>
         /// <param name="mdMethodToken">[in] The metadata token of the method.</param>
-        /// <param name="cLocals">[in] A ULONG that indicates the size of the rgLocals parameter.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetLocalVariablesResult GetLocalVariables(mdMethodDef mdMethodToken, int cLocals)
+        /// <returns>[out] The returned array of <see cref="ISymUnmanagedVariable"/> instances.</returns>
+        public ISymUnmanagedVariable[] GetLocalVariables(mdMethodDef mdMethodToken)
         {
             HRESULT hr;
-            GetLocalVariablesResult result;
+            ISymUnmanagedVariable[] rgLocalsResult;
 
-            if ((hr = TryGetLocalVariables(mdMethodToken, cLocals, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetLocalVariables(mdMethodToken, out rgLocalsResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return rgLocalsResult;
         }
 
         /// <summary>
         /// Gets the local variables.
         /// </summary>
         /// <param name="mdMethodToken">[in] The metadata token of the method.</param>
-        /// <param name="cLocals">[in] A ULONG that indicates the size of the rgLocals parameter.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="rgLocalsResult">[out] The returned array of <see cref="ISymUnmanagedVariable"/> instances.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetLocalVariables(mdMethodDef mdMethodToken, int cLocals, out GetLocalVariablesResult result)
+        public HRESULT TryGetLocalVariables(mdMethodDef mdMethodToken, out ISymUnmanagedVariable[] rgLocalsResult)
         {
             /*HRESULT GetLocalVariables(
             [In] mdMethodDef mdMethodToken,
             [In] int cLocals,
-            [Out] IntPtr rgLocals, //ISymUnmanagedVariable
-            out int pceltFetched);*/
-            IntPtr rgLocals = default(IntPtr);
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] rgLocals,
+            [Out] out int pceltFetched);*/
+            int cLocals = 0;
+            ISymUnmanagedVariable[] rgLocals = null;
             int pceltFetched;
             HRESULT hr = Raw.GetLocalVariables(mdMethodToken, cLocals, rgLocals, out pceltFetched);
 
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cLocals = pceltFetched;
+            rgLocals = new ISymUnmanagedVariable[pceltFetched];
+            hr = Raw.GetLocalVariables(mdMethodToken, cLocals, rgLocals, out pceltFetched);
+
             if (hr == HRESULT.S_OK)
-                result = new GetLocalVariablesResult(rgLocals, pceltFetched);
-            else
-                result = default(GetLocalVariablesResult);
+            {
+                rgLocalsResult = rgLocals;
+
+                return hr;
+            }
+
+            fail:
+            rgLocalsResult = default(ISymUnmanagedVariable[]);
 
             return hr;
         }

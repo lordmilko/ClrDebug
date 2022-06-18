@@ -52,13 +52,13 @@ namespace ManagedCorDebug
             /*HRESULT GetHashFromAssemblyFile(
             [MarshalAs(UnmanagedType.LPStr), In] string pszFilePath,
             [In] [Out] ref int piHashAlg,
-            out IntPtr pbHash,
+            [Out] IntPtr pbHash,
             [In] int cchHash,
-            out int pchHash);*/
+            [Out] out int pchHash);*/
             int piHashAlg = default(int);
-            IntPtr pbHash;
+            IntPtr pbHash = default(IntPtr);
             int pchHash;
-            HRESULT hr = Raw.GetHashFromAssemblyFile(pszFilePath, ref piHashAlg, out pbHash, cchHash, out pchHash);
+            HRESULT hr = Raw.GetHashFromAssemblyFile(pszFilePath, ref piHashAlg, pbHash, cchHash, out pchHash);
 
             if (hr == HRESULT.S_OK)
                 result = new GetHashFromAssemblyFileResult(piHashAlg, pbHash, pchHash);
@@ -100,13 +100,13 @@ namespace ManagedCorDebug
             /*HRESULT GetHashFromAssemblyFileW(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [In] [Out] ref int piHashAlg,
-            out IntPtr pbHash,
+            [Out] IntPtr pbHash,
             [In] int cchHash,
-            out int pchHash);*/
+            [Out] out int pchHash);*/
             int piHashAlg = default(int);
-            IntPtr pbHash;
+            IntPtr pbHash = default(IntPtr);
             int pchHash;
-            HRESULT hr = Raw.GetHashFromAssemblyFileW(pwzFilePath, ref piHashAlg, out pbHash, cchHash, out pchHash);
+            HRESULT hr = Raw.GetHashFromAssemblyFileW(pwzFilePath, ref piHashAlg, pbHash, cchHash, out pchHash);
 
             if (hr == HRESULT.S_OK)
                 result = new GetHashFromAssemblyFileWResult(piHashAlg, pbHash, pchHash);
@@ -151,13 +151,13 @@ namespace ManagedCorDebug
             [In] IntPtr pbBlob,
             [In] int cchBlob,
             [In] [Out] ref int piHashAlg,
-            out IntPtr pbHash,
+            [Out] IntPtr pbHash,
             [In] int cchHash,
-            out int pchHash);*/
+            [Out] out int pchHash);*/
             int piHashAlg = default(int);
-            IntPtr pbHash;
+            IntPtr pbHash = default(IntPtr);
             int pchHash;
-            HRESULT hr = Raw.GetHashFromBlob(pbBlob, cchBlob, ref piHashAlg, out pbHash, cchHash, out pchHash);
+            HRESULT hr = Raw.GetHashFromBlob(pbBlob, cchBlob, ref piHashAlg, pbHash, cchHash, out pchHash);
 
             if (hr == HRESULT.S_OK)
                 result = new GetHashFromBlobResult(piHashAlg, pbHash, pchHash);
@@ -207,13 +207,13 @@ namespace ManagedCorDebug
             /*HRESULT GetHashFromFile(
             [MarshalAs(UnmanagedType.LPStr), In] string pszFilePath,
             [In] [Out] ref int piHashAlg,
-            out IntPtr pbHash,
+            [Out] IntPtr pbHash,
             [In] int cchHash,
-            out int pchHash);*/
+            [Out] out int pchHash);*/
             int piHashAlg = default(int);
-            IntPtr pbHash;
+            IntPtr pbHash = default(IntPtr);
             int pchHash;
-            HRESULT hr = Raw.GetHashFromFile(pszFilePath, ref piHashAlg, out pbHash, cchHash, out pchHash);
+            HRESULT hr = Raw.GetHashFromFile(pszFilePath, ref piHashAlg, pbHash, cchHash, out pchHash);
 
             if (hr == HRESULT.S_OK)
                 result = new GetHashFromFileResult(piHashAlg, pbHash, pchHash);
@@ -263,13 +263,13 @@ namespace ManagedCorDebug
             /*HRESULT GetHashFromFileW(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [In] [Out] ref int piHashAlg,
-            out IntPtr pbHash,
+            [Out] IntPtr pbHash,
             [In] int cchHash,
-            out int pchHash);*/
+            [Out] out int pchHash);*/
             int piHashAlg = default(int);
-            IntPtr pbHash;
+            IntPtr pbHash = default(IntPtr);
             int pchHash;
-            HRESULT hr = Raw.GetHashFromFileW(pwzFilePath, ref piHashAlg, out pbHash, cchHash, out pchHash);
+            HRESULT hr = Raw.GetHashFromFileW(pwzFilePath, ref piHashAlg, pbHash, cchHash, out pchHash);
 
             if (hr == HRESULT.S_OK)
                 result = new GetHashFromFileWResult(piHashAlg, pbHash, pchHash);
@@ -311,13 +311,13 @@ namespace ManagedCorDebug
             /*HRESULT GetHashFromHandle(
             [In] IntPtr hFile,
             [In] [Out] ref int piHashAlg,
-            out IntPtr pbHash,
+            [Out] IntPtr pbHash,
             [In] int cchHash,
-            out int pchHash);*/
+            [Out] out int pchHash);*/
             int piHashAlg = default(int);
-            IntPtr pbHash;
+            IntPtr pbHash = default(IntPtr);
             int pchHash;
-            HRESULT hr = Raw.GetHashFromHandle(hFile, ref piHashAlg, out pbHash, cchHash, out pchHash);
+            HRESULT hr = Raw.GetHashFromHandle(hFile, ref piHashAlg, pbHash, cchHash, out pchHash);
 
             if (hr == HRESULT.S_OK)
                 result = new GetHashFromHandleResult(piHashAlg, pbHash, pchHash);
@@ -470,11 +470,11 @@ namespace ManagedCorDebug
             /*HRESULT StrongNameGetBlobFromImage(
             [In] IntPtr pbBase,
             [In] int dwLength,
-            out IntPtr pbBlob,
+            [Out] IntPtr pbBlob,
             [In] [Out] ref int pcbBlob);*/
-            IntPtr pbBlob;
+            IntPtr pbBlob = default(IntPtr);
             int pcbBlob = default(int);
-            HRESULT hr = Raw.StrongNameGetBlobFromImage(pbBase, dwLength, out pbBlob, ref pcbBlob);
+            HRESULT hr = Raw.StrongNameGetBlobFromImage(pbBase, dwLength, pbBlob, ref pcbBlob);
 
             if (hr == HRESULT.S_OK)
                 result = new StrongNameGetBlobFromImageResult(pbBlob, pcbBlob);
@@ -534,7 +534,7 @@ namespace ManagedCorDebug
             [In] IntPtr pbKeyBlob,
             [In] int cbKeyBlob,
             [Out] IntPtr ppbPublicKeyBlob,
-            out int pcbPublicKeyBlob);*/
+            [Out] out int pcbPublicKeyBlob);*/
             IntPtr ppbPublicKeyBlob = default(IntPtr);
             int pcbPublicKeyBlob;
             HRESULT hr = Raw.StrongNameGetPublicKey(pwzKeyContainer, pbKeyBlob, cbKeyBlob, ppbPublicKeyBlob, out pcbPublicKeyBlob);
@@ -651,7 +651,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
             [In] int dwFlags,
             [Out] IntPtr ppbKeyBlob,
-            out int pcbKeyBlob);*/
+            [Out] out int pcbKeyBlob);*/
             IntPtr ppbKeyBlob = default(IntPtr);
             int pcbKeyBlob;
             HRESULT hr = Raw.StrongNameKeyGen(pwzKeyContainer, dwFlags, ppbKeyBlob, out pcbKeyBlob);
@@ -710,7 +710,7 @@ namespace ManagedCorDebug
             [In] int dwFlags,
             [In] int dwKeySize,
             [Out] IntPtr ppbKeyBlob,
-            out int pcbKeyBlob);*/
+            [Out] out int pcbKeyBlob);*/
             IntPtr ppbKeyBlob = default(IntPtr);
             int pcbKeyBlob;
             HRESULT hr = Raw.StrongNameKeyGenEx(pwzKeyContainer, dwFlags, dwKeySize, ppbKeyBlob, out pcbKeyBlob);
@@ -813,7 +813,7 @@ namespace ManagedCorDebug
             [In] IntPtr pbKeyBlob,
             [In] int cbKeyBlob,
             [Out] IntPtr ppbSignatureBlob,
-            out int pcbSignatureBlob);*/
+            [Out] out int pcbSignatureBlob);*/
             IntPtr ppbSignatureBlob = default(IntPtr);
             int pcbSignatureBlob;
             HRESULT hr = Raw.StrongNameSignatureGeneration(pwzFilePath, pwzKeyContainer, pbKeyBlob, cbKeyBlob, ppbSignatureBlob, out pcbSignatureBlob);
@@ -885,7 +885,7 @@ namespace ManagedCorDebug
             [In] IntPtr pbKeyBlob,
             [In] int cbKeyBlob,
             [Out] IntPtr ppbSignatureBlob,
-            out int pcbSignatureBlob,
+            [Out] out int pcbSignatureBlob,
             [In] int dwFlags);*/
             IntPtr ppbSignatureBlob = default(IntPtr);
             int pcbSignatureBlob;
@@ -1092,7 +1092,7 @@ namespace ManagedCorDebug
             /*HRESULT StrongNameTokenFromAssembly(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [Out] IntPtr ppbStrongNameToken,
-            out int pcbStrongNameToken);*/
+            [Out] out int pcbStrongNameToken);*/
             IntPtr ppbStrongNameToken = default(IntPtr);
             int pcbStrongNameToken;
             HRESULT hr = Raw.StrongNameTokenFromAssembly(pwzFilePath, ppbStrongNameToken, out pcbStrongNameToken);
@@ -1147,9 +1147,9 @@ namespace ManagedCorDebug
             /*HRESULT StrongNameTokenFromAssemblyEx(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [Out] IntPtr ppbStrongNameToken,
-            out int pcbStrongNameToken,
+            [Out] out int pcbStrongNameToken,
             [Out] IntPtr ppbPublicKeyBlob,
-            out int pcbPublicKeyBlob);*/
+            [Out] out int pcbPublicKeyBlob);*/
             IntPtr ppbStrongNameToken = default(IntPtr);
             int pcbStrongNameToken;
             IntPtr ppbPublicKeyBlob = default(IntPtr);
@@ -1205,7 +1205,7 @@ namespace ManagedCorDebug
             [In] IntPtr pbPublicKeyBlob,
             [In] PublicKeyBlob cbPublicKeyBlob,
             [Out] IntPtr ppbStrongNameToken,
-            out int pcbStrongNameToken);*/
+            [Out] out int pcbStrongNameToken);*/
             IntPtr ppbStrongNameToken = default(IntPtr);
             int pcbStrongNameToken;
             HRESULT hr = Raw.StrongNameTokenFromPublicKey(pbPublicKeyBlob, cbPublicKeyBlob, ppbStrongNameToken, out pcbStrongNameToken);

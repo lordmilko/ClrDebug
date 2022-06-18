@@ -70,9 +70,9 @@ namespace ManagedCorDebug
         public HRESULT TryNativeImageDimensions(long _base, long size, int sectionAlign)
         {
             /*HRESULT NativeImageDimensions(
-            long _base,
-            long size,
-            int sectionAlign);*/
+            [In] long _base,
+            [In] long size,
+            [In] int sectionAlign);*/
             return Raw.NativeImageDimensions(_base, size, sectionAlign);
         }
 
@@ -90,9 +90,9 @@ namespace ManagedCorDebug
         public HRESULT TrySection(string name, long rva, long size)
         {
             /*HRESULT Section(
-            string name,
-            long rva,
-            long size);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [In] long rva,
+            [In] long size);*/
             return Raw.Section(name, rva, size);
         }
 
@@ -144,7 +144,7 @@ namespace ManagedCorDebug
         public HRESULT TryStartCategory(string name)
         {
             /*HRESULT StartCategory(
-            string name);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name);*/
             return Raw.StartCategory(name);
         }
 
@@ -179,7 +179,7 @@ namespace ManagedCorDebug
         public HRESULT TryStartElement(string name)
         {
             /*HRESULT StartElement(
-            string name);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name);*/
             return Raw.StartElement(name);
         }
 
@@ -214,7 +214,7 @@ namespace ManagedCorDebug
         public HRESULT TryStartVStructure(string name)
         {
             /*HRESULT StartVStructure(
-            string name);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name);*/
             return Raw.StartVStructure(name);
         }
 
@@ -232,9 +232,9 @@ namespace ManagedCorDebug
         public HRESULT TryStartVStructureWithOffset(string name, int fieldOffset, int fieldSize)
         {
             /*HRESULT StartVStructureWithOffset(
-            string name,
-            int fieldOffset,
-            int fieldSize);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [In] int fieldOffset,
+            [In] int fieldSize);*/
             return Raw.StartVStructureWithOffset(name, fieldOffset, fieldSize);
         }
 
@@ -269,7 +269,7 @@ namespace ManagedCorDebug
         public HRESULT TryStartTextElement(string name)
         {
             /*HRESULT StartTextElement(
-            string name);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name);*/
             return Raw.StartTextElement(name);
         }
 
@@ -342,7 +342,7 @@ namespace ManagedCorDebug
         public HRESULT TryWriteEmptyElement(string element)
         {
             /*HRESULT WriteEmptyElement(
-            string element);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element);*/
             return Raw.WriteEmptyElement(element);
         }
 
@@ -360,8 +360,8 @@ namespace ManagedCorDebug
         public HRESULT TryWriteElementPointer(string element, long ptr)
         {
             /*HRESULT WriteElementPointer(
-            string element,
-            long ptr);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] long ptr);*/
             return Raw.WriteElementPointer(element, ptr);
         }
 
@@ -379,9 +379,9 @@ namespace ManagedCorDebug
         public HRESULT TryWriteElementPointerAnnotated(string element, long ptr, string annotation)
         {
             /*HRESULT WriteElementPointerAnnotated(
-            string element,
-            long ptr,
-            string annotation);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] long ptr,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string annotation);*/
             return Raw.WriteElementPointerAnnotated(element, ptr, annotation);
         }
 
@@ -399,9 +399,9 @@ namespace ManagedCorDebug
         public HRESULT TryWriteElementAddress(string element, long _base, long size)
         {
             /*HRESULT WriteElementAddress(
-            string element,
-            long _base,
-            long size);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] long _base,
+            [In] long size);*/
             return Raw.WriteElementAddress(element, _base, size);
         }
 
@@ -419,10 +419,10 @@ namespace ManagedCorDebug
         public HRESULT TryWriteElementAddressNamed(string element, string name, long _base, long size)
         {
             /*HRESULT WriteElementAddressNamed(
-            string element,
-            string name,
-            long _base,
-            long size);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [In] long _base,
+            [In] long size);*/
             return Raw.WriteElementAddressNamed(element, name, _base, size);
         }
 
@@ -440,10 +440,10 @@ namespace ManagedCorDebug
         public HRESULT TryWriteElementAddressNamedW(string element, string name, long _base, long size)
         {
             /*HRESULT WriteElementAddressNamedW(
-            string element,
-            string name,
-            long _base,
-            long size);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [In] long _base,
+            [In] long size);*/
             return Raw.WriteElementAddressNamedW(element, name, _base, size);
         }
 
@@ -461,8 +461,8 @@ namespace ManagedCorDebug
         public HRESULT TryWriteElementString(string element, string data)
         {
             /*HRESULT WriteElementString(
-            string element,
-            string data);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string data);*/
             return Raw.WriteElementString(element, data);
         }
 
@@ -480,8 +480,8 @@ namespace ManagedCorDebug
         public HRESULT TryWriteElementStringW(string element, string data)
         {
             /*HRESULT WriteElementStringW(
-            string element,
-            string data);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string data);*/
             return Raw.WriteElementStringW(element, data);
         }
 
@@ -499,8 +499,8 @@ namespace ManagedCorDebug
         public HRESULT TryWriteElementInt(string element, int value)
         {
             /*HRESULT WriteElementInt(
-            string element,
-            int value);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int value);*/
             return Raw.WriteElementInt(element, value);
         }
 
@@ -518,8 +518,8 @@ namespace ManagedCorDebug
         public HRESULT TryWriteElementUInt(string element, int value)
         {
             /*HRESULT WriteElementUInt(
-            string element,
-            int value);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int value);*/
             return Raw.WriteElementUInt(element, value);
         }
 
@@ -537,9 +537,9 @@ namespace ManagedCorDebug
         public HRESULT TryWriteElementEnumerated(string element, int value, string mnemonic)
         {
             /*HRESULT WriteElementEnumerated(
-            string element,
-            int value,
-            string mnemonic);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int value,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string mnemonic);*/
             return Raw.WriteElementEnumerated(element, value, mnemonic);
         }
 
@@ -557,9 +557,9 @@ namespace ManagedCorDebug
         public HRESULT TryWriteElementIntWithSuppress(string element, int value, int suppressIfEqual)
         {
             /*HRESULT WriteElementIntWithSuppress(
-            string element,
-            int value,
-            int suppressIfEqual);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int value,
+            [In] int suppressIfEqual);*/
             return Raw.WriteElementIntWithSuppress(element, value, suppressIfEqual);
         }
 
@@ -577,8 +577,8 @@ namespace ManagedCorDebug
         public HRESULT TryWriteElementFlag(string element, int flag)
         {
             /*HRESULT WriteElementFlag(
-            string element,
-            int flag);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int flag);*/
             return Raw.WriteElementFlag(element, flag);
         }
 
@@ -596,8 +596,8 @@ namespace ManagedCorDebug
         public HRESULT TryStartArray(string name, string fmt)
         {
             /*HRESULT StartArray(
-            string name,
-            string fmt);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string fmt);*/
             return Raw.StartArray(name, fmt);
         }
 
@@ -615,7 +615,7 @@ namespace ManagedCorDebug
         public HRESULT TryEndArray(string countPrefix)
         {
             /*HRESULT EndArray(
-            string countPrefix);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string countPrefix);*/
             return Raw.EndArray(countPrefix);
         }
 
@@ -633,7 +633,7 @@ namespace ManagedCorDebug
         public HRESULT TryStartList(string fmt)
         {
             /*HRESULT StartList(
-            string fmt);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string fmt);*/
             return Raw.StartList(fmt);
         }
 
@@ -669,10 +669,10 @@ namespace ManagedCorDebug
         public HRESULT TryStartArrayWithOffset(string name, int fieldOffset, int fieldSize, string fmt)
         {
             /*HRESULT StartArrayWithOffset(
-            string name,
-            int fieldOffset,
-            int fieldSize,
-            string fmt);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string fmt);*/
             return Raw.StartArrayWithOffset(name, fieldOffset, fieldSize, fmt);
         }
 
@@ -690,10 +690,10 @@ namespace ManagedCorDebug
         public HRESULT TryWriteFieldString(string element, int fieldOffset, int fieldSize, string data)
         {
             /*HRESULT WriteFieldString(
-            string element,
-            int fieldOffset,
-            int fieldSize,
-            string data);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string data);*/
             return Raw.WriteFieldString(element, fieldOffset, fieldSize, data);
         }
 
@@ -711,10 +711,10 @@ namespace ManagedCorDebug
         public HRESULT TryWriteFieldStringW(string element, int fieldOffset, int fieldSize, string data)
         {
             /*HRESULT WriteFieldStringW(
-            string element,
-            int fieldOffset,
-            int fieldSize,
-            string data);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string data);*/
             return Raw.WriteFieldStringW(element, fieldOffset, fieldSize, data);
         }
 
@@ -732,10 +732,10 @@ namespace ManagedCorDebug
         public HRESULT TryWriteFieldPointer(string element, int fieldOffset, int fieldSize, long ptr)
         {
             /*HRESULT WriteFieldPointer(
-            string element,
-            int fieldOffset,
-            int fieldSize,
-            long ptr);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In] long ptr);*/
             return Raw.WriteFieldPointer(element, fieldOffset, fieldSize, ptr);
         }
 
@@ -753,11 +753,11 @@ namespace ManagedCorDebug
         public HRESULT TryWriteFieldPointerWithSize(string element, int fieldOffset, int fieldSize, long ptr, long size)
         {
             /*HRESULT WriteFieldPointerWithSize(
-            string element,
-            int fieldOffset,
-            int fieldSize,
-            long ptr,
-            long size);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In] long ptr,
+            [In] long size);*/
             return Raw.WriteFieldPointerWithSize(element, fieldOffset, fieldSize, ptr, size);
         }
 
@@ -775,10 +775,10 @@ namespace ManagedCorDebug
         public HRESULT TryWriteFieldInt(string element, int fieldOffset, int fieldSize, int value)
         {
             /*HRESULT WriteFieldInt(
-            string element,
-            int fieldOffset,
-            int fieldSize,
-            int value);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In] int value);*/
             return Raw.WriteFieldInt(element, fieldOffset, fieldSize, value);
         }
 
@@ -796,10 +796,10 @@ namespace ManagedCorDebug
         public HRESULT TryWriteFieldUInt(string element, int fieldOffset, int fieldSize, int value)
         {
             /*HRESULT WriteFieldUInt(
-            string element,
-            int fieldOffset,
-            int fieldSize,
-            int value);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In] int value);*/
             return Raw.WriteFieldUInt(element, fieldOffset, fieldSize, value);
         }
 
@@ -817,11 +817,11 @@ namespace ManagedCorDebug
         public HRESULT TryWriteFieldEnumerated(string element, int fieldOffset, int fieldSize, int value, string mnemonic)
         {
             /*HRESULT WriteFieldEnumerated(
-            string element,
-            int fieldOffset,
-            int fieldSize,
-            int value,
-            string mnemonic);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In] int value,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string mnemonic);*/
             return Raw.WriteFieldEnumerated(element, fieldOffset, fieldSize, value, mnemonic);
         }
 
@@ -839,9 +839,9 @@ namespace ManagedCorDebug
         public HRESULT TryWriteFieldEmpty(string element, int fieldOffset, int fieldSize)
         {
             /*HRESULT WriteFieldEmpty(
-            string element,
-            int fieldOffset,
-            int fieldSize);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int fieldOffset,
+            [In] int fieldSize);*/
             return Raw.WriteFieldEmpty(element, fieldOffset, fieldSize);
         }
 
@@ -859,10 +859,10 @@ namespace ManagedCorDebug
         public HRESULT TryWriteFieldFlag(string element, int fieldOffset, int fieldSize, int flag)
         {
             /*HRESULT WriteFieldFlag(
-            string element,
-            int fieldOffset,
-            int fieldSize,
-            int flag);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In] int flag);*/
             return Raw.WriteFieldFlag(element, fieldOffset, fieldSize, flag);
         }
 
@@ -880,11 +880,11 @@ namespace ManagedCorDebug
         public HRESULT TryWriteFieldPointerAnnotated(string element, int fieldOffset, int fieldSize, long ptr, string annotation)
         {
             /*HRESULT WriteFieldPointerAnnotated(
-            string element,
-            int fieldOffset,
-            int fieldSize,
-            long ptr,
-            string annotation);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In] long ptr,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string annotation);*/
             return Raw.WriteFieldPointerAnnotated(element, fieldOffset, fieldSize, ptr, annotation);
         }
 
@@ -902,11 +902,11 @@ namespace ManagedCorDebug
         public HRESULT TryWriteFieldAddress(string element, int fieldOffset, int fieldSize, long _base, long size)
         {
             /*HRESULT WriteFieldAddress(
-            string element,
-            int fieldOffset,
-            int fieldSize,
-            long _base,
-            long size);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In] long _base,
+            [In] long size);*/
             return Raw.WriteFieldAddress(element, fieldOffset, fieldSize, _base, size);
         }
 
@@ -924,9 +924,9 @@ namespace ManagedCorDebug
         public HRESULT TryStartStructure(string name, long ptr, long size)
         {
             /*HRESULT StartStructure(
-            string name,
-            long ptr,
-            long size);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [In] long ptr,
+            [In] long size);*/
             return Raw.StartStructure(name, ptr, size);
         }
 
@@ -944,10 +944,10 @@ namespace ManagedCorDebug
         public HRESULT TryStartStructureWithNegSpace(string name, long ptr, long startPtr, long totalSize)
         {
             /*HRESULT StartStructureWithNegSpace(
-            string name,
-            long ptr,
-            long startPtr,
-            long totalSize);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [In] long ptr,
+            [In] long startPtr,
+            [In] long totalSize);*/
             return Raw.StartStructureWithNegSpace(name, ptr, startPtr, totalSize);
         }
 
@@ -965,11 +965,11 @@ namespace ManagedCorDebug
         public HRESULT TryStartStructureWithOffset(string name, int fieldOffset, int fieldSize, long ptr, long size)
         {
             /*HRESULT StartStructureWithOffset(
-            string name,
-            int fieldOffset,
-            int fieldSize,
-            long ptr,
-            long size);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In] long ptr,
+            [In] long size);*/
             return Raw.StartStructureWithOffset(name, fieldOffset, fieldSize, ptr, size);
         }
 

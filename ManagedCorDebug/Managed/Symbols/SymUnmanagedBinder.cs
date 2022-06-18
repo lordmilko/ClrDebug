@@ -53,8 +53,8 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetReaderForFile(
             [MarshalAs(UnmanagedType.IUnknown), In] IMetaDataImport importer,
-            [In] string fileName,
-            [In] string searchPath,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string fileName,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
             [Out] out ISymUnmanagedReader pRetVal);*/
             ISymUnmanagedReader pRetVal;
             HRESULT hr = Raw.GetReaderForFile(importer, fileName, searchPath, out pRetVal);
@@ -160,8 +160,8 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetReaderForFile2(
             [MarshalAs(UnmanagedType.IUnknown), In] IMetaDataImport importer,
-            [In] string fileName,
-            [In] string searchPath,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string fileName,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
             [In] CorSymSearchPolicyAttributes searchPolicy,
             [Out] ISymUnmanagedReader pRetVal);*/
             return Raw2.GetReaderForFile2(importer, fileName, searchPath, searchPolicy, pRetVal);
@@ -211,8 +211,8 @@ namespace ManagedCorDebug
             /*HRESULT GetReaderFromCallback(
             [MarshalAs(UnmanagedType.IUnknown), In]
             object importer,
-            [In] string fileName,
-            [In] string searchPath,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string fileName,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
             [In] CorSymSearchPolicyAttributes searchPolicy,
             [MarshalAs(UnmanagedType.IUnknown), In] object callback,
             [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedReader pRetVal);*/

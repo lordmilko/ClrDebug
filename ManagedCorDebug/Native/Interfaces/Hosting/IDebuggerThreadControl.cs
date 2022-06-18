@@ -42,6 +42,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
-        HRESULT StartBlockingForDebugger(int dwUnused);
+        HRESULT StartBlockingForDebugger([In] int dwUnused);
     }
 }

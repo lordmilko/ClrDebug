@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -17,7 +16,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// An array in which to store the documents in which the sequence points are located.
         /// </summary>
-        public IntPtr documents { get; }
+        public ISymUnmanagedDocument[] documents { get; }
 
         /// <summary>
         /// An array in which to store the lines in the documents at which the sequence points are located.
@@ -39,7 +38,7 @@ namespace ManagedCorDebug
         /// </summary>
         public int[] endColumns { get; }
 
-        public GetSequencePointsResult(int pcPoints, IntPtr documents, int[] lines, int[] columns, int[] endLines, int[] endColumns)
+        public GetSequencePointsResult(int pcPoints, ISymUnmanagedDocument[] documents, int[] lines, int[] columns, int[] endLines, int[] endColumns)
         {
             this.pcPoints = pcPoints;
             this.documents = documents;

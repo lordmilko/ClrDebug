@@ -9,25 +9,25 @@ namespace ManagedCorDebug
     {
         [PreserveSig]
         HRESULT GetPendingReJITID(
-            CLRDATA_ADDRESS methodDesc,
-            out int pRejitId);
+            [In] CLRDATA_ADDRESS methodDesc,
+            [Out] out int pRejitId);
 
         [PreserveSig]
         HRESULT GetReJITInformation(
-            CLRDATA_ADDRESS methodDesc,
-            int rejitId,
-            out DacpReJitData2 pRejitData);
+            [In] CLRDATA_ADDRESS methodDesc,
+            [In] int rejitId,
+            [Out] out DacpReJitData2 pRejitData);
 
         [PreserveSig]
         HRESULT GetProfilerModifiedILInformation(
-            CLRDATA_ADDRESS methodDesc,
-            out DacpProfilerILData pILData);
+            [In] CLRDATA_ADDRESS methodDesc,
+            [Out] out DacpProfilerILData pILData);
 
         [PreserveSig]
         HRESULT GetMethodsWithProfilerModifiedIL(
-            CLRDATA_ADDRESS mod,
+            [In] CLRDATA_ADDRESS mod,
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] methodDescs,
-            int cMethodDescs,
-            out int pcMethodDescs);
+            [In] int cMethodDescs,
+            [Out] out int pcMethodDescs);
     }
 }

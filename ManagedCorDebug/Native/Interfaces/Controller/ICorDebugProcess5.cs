@@ -26,7 +26,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetGCHeapInformation(out COR_HEAPINFO pHeapInfo);
+        HRESULT GetGCHeapInformation([Out] out COR_HEAPINFO pHeapInfo);
 
         /// <summary>
         /// Gets an enumerator for the objects on the managed heap.
@@ -45,7 +45,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateHeap([MarshalAs(UnmanagedType.Interface)] out ICorDebugHeapEnum ppObjects);
+        HRESULT EnumerateHeap([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugHeapEnum ppObjects);
 
         /// <summary>
         /// Gets an enumerator for the memory ranges of the managed heap.
@@ -65,7 +65,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateHeapRegions([MarshalAs(UnmanagedType.Interface)] out ICorDebugHeapSegmentEnum ppRegions);
+        HRESULT EnumerateHeapRegions([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugHeapSegmentEnum ppRegions);
 
         /// <summary>
         /// Converts an object address to an "ICorDebugObjectValue" object.
@@ -77,7 +77,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetObject([In] CORDB_ADDRESS addr, [MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectValue pObject);
+        HRESULT GetObject([In] CORDB_ADDRESS addr, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectValue pObject);
 
         /// <summary>
         /// Gets an enumerator for all objects that are to be garbage-collected in a process.
@@ -92,7 +92,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateGCReferences([In] int enumerateWeakReferences,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugGCReferenceEnum ppEnum);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugGCReferenceEnum ppEnum);
 
         /// <summary>
         /// Gets an enumerator for object handles in a process.
@@ -109,7 +109,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateHandles([In] CorGCReferenceType types,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugGCReferenceEnum ppEnum);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugGCReferenceEnum ppEnum);
 
         /// <summary>
         /// Converts an object address to a <see cref="COR_TYPEID"/> identifier.
@@ -118,7 +118,7 @@ namespace ManagedCorDebug
         /// <param name="pId">A pointer to the <see cref="COR_TYPEID"/> value that identifies the object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetTypeID([In] CORDB_ADDRESS obj, out COR_TYPEID pId);
+        HRESULT GetTypeID([In] CORDB_ADDRESS obj, [Out] out COR_TYPEID pId);
 
         /// <summary>
         /// Converts a type identifier to an <see cref="ICorDebugType"/> value.
@@ -131,7 +131,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetTypeForTypeID([In] COR_TYPEID id, [MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);
+        HRESULT GetTypeForTypeID([In] COR_TYPEID id, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);
 
         /// <summary>
         /// Provides information about the layout of array types.
@@ -140,7 +140,7 @@ namespace ManagedCorDebug
         /// <param name="pLayout">[out] A pointer to a <see cref="COR_ARRAY_LAYOUT"/> structure that contains information about the layout of the array in memory.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetArrayLayout([In] COR_TYPEID id, out COR_ARRAY_LAYOUT pLayout);
+        HRESULT GetArrayLayout([In] COR_TYPEID id, [Out] out COR_ARRAY_LAYOUT pLayout);
 
         /// <summary>
         /// Gets information about the layout of an object in memory based on its type identifier.
@@ -154,7 +154,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetTypeLayout([In] COR_TYPEID id, out COR_TYPE_LAYOUT pLayout);
+        HRESULT GetTypeLayout([In] COR_TYPEID id, [Out] out COR_TYPE_LAYOUT pLayout);
 
         /// <summary>
         /// Provides information about the fields that belong to a type.
@@ -169,7 +169,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetTypeFields([In] COR_TYPEID id, int celt, out COR_FIELD[] fields, out int pceltNeeded);
+        HRESULT GetTypeFields([In] COR_TYPEID id, [In] int celt, [Out, MarshalAs(UnmanagedType.LPArray)] COR_FIELD[] fields, [Out] out int pceltNeeded);
 
         /// <summary>
         /// Sets a value that determines how an application loads native images while running under a managed debugger.

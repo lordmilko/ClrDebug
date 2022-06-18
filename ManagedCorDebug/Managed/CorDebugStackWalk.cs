@@ -58,7 +58,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetFrame(out CorDebugFrame pFrameResult)
         {
-            /*HRESULT GetFrame([MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame pFrame);*/
+            /*HRESULT GetFrame([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame pFrame);*/
             ICorDebugFrame pFrame;
             HRESULT hr = Raw.GetFrame(out pFrame);
 
@@ -119,11 +119,11 @@ namespace ManagedCorDebug
             /*HRESULT GetContext(
             [In] int contextFlags,
             [In] int contextBufSize,
-            out int contextSize,
-            out IntPtr contextBuf);*/
+            [Out] out int contextSize,
+            [In, Out] ref IntPtr contextBuf);*/
             int contextSize;
-            IntPtr contextBuf;
-            HRESULT hr = Raw.GetContext(contextFlags, contextBufSize, out contextSize, out contextBuf);
+            IntPtr contextBuf = default(IntPtr);
+            HRESULT hr = Raw.GetContext(contextFlags, contextBufSize, out contextSize, ref contextBuf);
 
             if (hr == HRESULT.S_OK)
                 result = new GetContextResult(contextSize, contextBuf);

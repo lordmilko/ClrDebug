@@ -54,9 +54,9 @@ namespace ManagedCorDebug
             ICLRDebuggingLibraryProvider pLibraryProvider,
             [In] ref CLR_DEBUGGING_VERSION pMaxDebuggerSupportedVersion,
             [In] ref Guid riidProcess,
-            [MarshalAs(UnmanagedType.IUnknown)] out object ppProcess,
+            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppProcess,
             [In] [Out] ref CLR_DEBUGGING_VERSION pVersion,
-            out CLR_DEBUGGING_PROCESS_FLAGS pdwFlags);
+            [Out] out CLR_DEBUGGING_PROCESS_FLAGS pdwFlags);
 
         /// <summary>
         /// Determines whether a library that was provided by an <see cref="ICLRDebuggingLibraryProvider"/> interface is still in use or can be unloaded.
@@ -77,6 +77,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CanUnloadNow(IntPtr hModule);
+        HRESULT CanUnloadNow([In] IntPtr hModule);
     }
 }

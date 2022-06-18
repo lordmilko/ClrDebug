@@ -9,10 +9,10 @@ namespace ManagedCorDebug
     {
         [PreserveSig]
         HRESULT GetTieredVersions(
-            CLRDATA_ADDRESS methodDesc,
-            int rejitId,
+            [In] CLRDATA_ADDRESS methodDesc,
+            [In] int rejitId,
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpTieredVersionData[] nativeCodeAddrs,
-            int cNativeCodeAddrs,
-            out int pcNativeCodeAddrs);
+            [In] int cNativeCodeAddrs,
+            [Out] out int pcNativeCodeAddrs);
     }
 }

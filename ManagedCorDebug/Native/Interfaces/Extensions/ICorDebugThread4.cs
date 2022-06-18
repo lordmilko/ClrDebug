@@ -54,7 +54,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetBlockingObjects(
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugBlockingObjectEnum ppBlockingObjectEnum);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugBlockingObjectEnum ppBlockingObjectEnum);
 
         /// <summary>
         /// Gets the current <see cref="ICorDebugManagedCallback3.CustomNotification"/> object on the current thread.
@@ -67,6 +67,6 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCurrentCustomDebuggerNotification(
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppNotificationObject);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppNotificationObject);
     }
 }

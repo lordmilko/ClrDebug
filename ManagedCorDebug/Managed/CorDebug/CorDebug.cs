@@ -247,7 +247,7 @@ namespace ManagedCorDebug
             [In] ref STARTUPINFO lpStartupInfo,
             [In] ref PROCESS_INFORMATION lpProcessInformation,
             [In] CorDebugCreateProcessFlags debuggingFlags,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
             ICorDebugProcess ppProcess;
             HRESULT hr = Raw.CreateProcess(lpApplicationName, lpCommandLine, ref lpProcessAttributes, ref lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, ref lpStartupInfo, ref lpProcessInformation, debuggingFlags, out ppProcess);
 
@@ -294,7 +294,7 @@ namespace ManagedCorDebug
         public HRESULT TryDebugActiveProcess(int id, int win32Attach, out CorDebugProcess ppProcessResult)
         {
             /*HRESULT DebugActiveProcess([In] int id, [In] int win32Attach,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
             ICorDebugProcess ppProcess;
             HRESULT hr = Raw.DebugActiveProcess(id, win32Attach, out ppProcess);
 
@@ -330,7 +330,7 @@ namespace ManagedCorDebug
         /// <param name="ppProcessResult">A pointer to the address of an <see cref="ICorDebugProcessEnum"/> object that is the enumerator for the processes being debugged.</param>
         public HRESULT TryEnumerateProcesses(out CorDebugProcessEnum ppProcessResult)
         {
-            /*HRESULT EnumerateProcesses([MarshalAs(UnmanagedType.Interface)] out ICorDebugProcessEnum ppProcess);*/
+            /*HRESULT EnumerateProcesses([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcessEnum ppProcess);*/
             ICorDebugProcessEnum ppProcess;
             HRESULT hr = Raw.EnumerateProcesses(out ppProcess);
 
@@ -368,7 +368,7 @@ namespace ManagedCorDebug
         /// <param name="ppProcessResult">[out] A pointer to the address of a <see cref="ICorDebugProcess"/> instance for the specified process.</param>
         public HRESULT TryGetProcess(int dwProcessId, out CorDebugProcess ppProcessResult)
         {
-            /*HRESULT GetProcess([In] int dwProcessId, [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
+            /*HRESULT GetProcess([In] int dwProcessId, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
             ICorDebugProcess ppProcess;
             HRESULT hr = Raw.GetProcess(dwProcessId, out ppProcess);
 

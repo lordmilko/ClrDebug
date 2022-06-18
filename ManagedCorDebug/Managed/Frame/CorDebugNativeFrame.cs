@@ -58,7 +58,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetIP(out int pnOffset)
         {
-            /*HRESULT GetIP(out int pnOffset);*/
+            /*HRESULT GetIP([Out] out int pnOffset);*/
             return Raw.GetIP(out pnOffset);
         }
 
@@ -107,7 +107,7 @@ namespace ManagedCorDebug
         /// <param name="ppRegistersResult">[out] A pointer to the address of an <see cref="ICorDebugRegisterSet"/> object that represents the register set for this stack frame.</param>
         public HRESULT TryGetRegisterSet(out CorDebugRegisterSet ppRegistersResult)
         {
-            /*HRESULT GetRegisterSet([MarshalAs(UnmanagedType.Interface)] out ICorDebugRegisterSet ppRegisters);*/
+            /*HRESULT GetRegisterSet([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugRegisterSet ppRegisters);*/
             ICorDebugRegisterSet ppRegisters;
             HRESULT hr = Raw.GetRegisterSet(out ppRegisters);
 
@@ -159,7 +159,7 @@ namespace ManagedCorDebug
             [In] CorDebugRegister reg,
             [In] int cbSigBlob,
             [In] IntPtr pvSigBlob,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetLocalRegisterValue(reg, cbSigBlob, pvSigBlob, out ppValue);
 
@@ -214,7 +214,7 @@ namespace ManagedCorDebug
             [In] CorDebugRegister lowWordReg,
             [In] int cbSigBlob,
             [In] IntPtr pvSigBlob,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetLocalDoubleRegisterValue(highWordReg, lowWordReg, cbSigBlob, pvSigBlob, out ppValue);
 
@@ -260,7 +260,7 @@ namespace ManagedCorDebug
             [In] CORDB_ADDRESS address,
             [In] int cbSigBlob,
             [In] IntPtr pvSigBlob,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetLocalMemoryValue(address, cbSigBlob, pvSigBlob, out ppValue);
 
@@ -309,7 +309,7 @@ namespace ManagedCorDebug
             [In] CORDB_ADDRESS lowWordAddress,
             [In] int cbSigBlob,
             [In] IntPtr pvSigBlob,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetLocalRegisterMemoryValue(highWordReg, lowWordAddress, cbSigBlob, pvSigBlob, out ppValue);
 
@@ -358,7 +358,7 @@ namespace ManagedCorDebug
             [In] CorDebugRegister lowWordRegister,
             [In] int cbSigBlob,
             [In] IntPtr pvSigBlob,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetLocalMemoryRegisterValue(highWordAddress, lowWordRegister, cbSigBlob, pvSigBlob, out ppValue);
 
@@ -450,7 +450,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryIsChild(out bool pIsChildResult)
         {
-            /*HRESULT IsChild(out int pIsChild);*/
+            /*HRESULT IsChild([Out] out int pIsChild);*/
             int pIsChild;
             HRESULT hr = Raw2.IsChild(out pIsChild);
 
@@ -503,7 +503,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetStackParameterSize(out int pSize)
         {
-            /*HRESULT GetStackParameterSize(out int pSize);*/
+            /*HRESULT GetStackParameterSize([Out] out int pSize);*/
             return Raw2.GetStackParameterSize(out pSize);
         }
 
@@ -553,7 +553,7 @@ namespace ManagedCorDebug
         public HRESULT TryIsMatchingParentFrame(ICorDebugNativeFrame2 pPotentialParentFrame, out int pIsParent)
         {
             /*HRESULT IsMatchingParentFrame([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugNativeFrame2 pPotentialParentFrame, out int pIsParent);*/
+            ICorDebugNativeFrame2 pPotentialParentFrame, [Out] out int pIsParent);*/
             return Raw2.IsMatchingParentFrame(pPotentialParentFrame, out pIsParent);
         }
 

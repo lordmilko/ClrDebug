@@ -25,7 +25,7 @@ namespace ManagedCorDebug
         /// <param name="pbActive">[out] true if this breakpoint is active; otherwise, false.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT IsActive(out int pbActive);
+        new HRESULT IsActive([Out] out int pbActive);
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugFunction"/> that references the function in which the breakpoint is set.
@@ -33,7 +33,7 @@ namespace ManagedCorDebug
         /// <param name="ppFunction">[out] A pointer to the address of the function in which the breakpoint is set.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetFunction([MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
+        HRESULT GetFunction([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
 
         /// <summary>
         /// Gets the offset of the breakpoint within the function.
@@ -41,6 +41,6 @@ namespace ManagedCorDebug
         /// <param name="pnOffset">[out] A pointer to the offset of the breakpoint.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetOffset(out int pnOffset);
+        HRESULT GetOffset([Out] out int pnOffset);
     }
 }

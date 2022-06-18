@@ -10,7 +10,7 @@ namespace ManagedCorDebug
     {
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Next([In] int celt, [MarshalAs(UnmanagedType.IUnknown)] out object rgelt, out int pceltFetched);
+        HRESULT Next([In] int celt, [Out, MarshalAs(UnmanagedType.IUnknown)] out object rgelt, [Out] out int pceltFetched);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -22,6 +22,6 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Clone([MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppenum);
+        HRESULT Clone([Out, MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppenum);
     }
 }

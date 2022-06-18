@@ -26,21 +26,21 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         long CbDisassemble(
-            CLRDATA_ADDRESS a,
-            IntPtr b,
-            long c);
+            [In] CLRDATA_ADDRESS a,
+            [In] IntPtr b,
+            [In] long c);
 
         [PreserveSig]
         long Cinstruction();
 
         [PreserveSig]
         int FSelectInstruction(
-            long a);
+            [In] long a);
 
         [PreserveSig]
         long CchFormatInstr(
-            string a,
-            long b);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string a,
+            [In] long b);
 
         [PreserveSig]
         void PvClient();

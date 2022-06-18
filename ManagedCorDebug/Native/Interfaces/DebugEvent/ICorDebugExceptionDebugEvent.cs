@@ -24,7 +24,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetEventKind(out CorDebugDebugEventKind pDebugEventKind);
+        new HRESULT GetEventKind([Out] out CorDebugDebugEventKind pDebugEventKind);
 
         /// <summary>
         /// Gets the thread on which the event occurred.
@@ -32,7 +32,7 @@ namespace ManagedCorDebug
         /// <param name="ppThread">[out] A pointer to the address of an <see cref="ICorDebugThread"/> object that represents the thread on which the event occurred.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetThread([MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
+        new HRESULT GetThread([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
 
         /// <summary>
         /// Gets the stack pointer for this exception debug event.
@@ -44,7 +44,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetStackPointer(out CORDB_ADDRESS pStackPointer);
+        HRESULT GetStackPointer([Out] out CORDB_ADDRESS pStackPointer);
 
         /// <summary>
         /// Gets the native instruction pointer for this exception debug event.
@@ -56,7 +56,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetNativeIP(out CORDB_ADDRESS pIP);
+        HRESULT GetNativeIP([Out] out CORDB_ADDRESS pIP);
 
         /// <summary>
         /// Gets a flag that indicates whether the exception can be intercepted.
@@ -64,6 +64,6 @@ namespace ManagedCorDebug
         /// <param name="pdwFlags">[out] A pointer to a <see cref="CorDebugExceptionFlags"/> value that indicates whether the exception can be intercepted.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetFlags(out CorDebugExceptionFlags pdwFlags);
+        HRESULT GetFlags([Out] out CorDebugExceptionFlags pdwFlags);
     }
 }

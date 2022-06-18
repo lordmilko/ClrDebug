@@ -9,7 +9,7 @@ namespace ManagedCorDebug
     {
         [PreserveSig]
         HRESULT GetMethodTableCollectibleData(
-            CLRDATA_ADDRESS mt,
-            out DacpMethodTableCollectibleData data);
+            [In] CLRDATA_ADDRESS mt,
+            [Out] out DacpMethodTableCollectibleData data);
     }
 }

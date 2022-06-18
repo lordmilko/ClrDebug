@@ -30,8 +30,8 @@ namespace ManagedCorDebug
         /// </returns>
         [PreserveSig]
         HRESULT GetCLRManager(
-            [In] [MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [MarshalAs(UnmanagedType.Interface, IidParameterIndex = 0)] out object ppObject);
+            [In] ref Guid riid,
+            [Out, MarshalAs(UnmanagedType.Interface, IidParameterIndex = 0)] out object ppObject);
 
         /// <summary>
         /// Sets a type derived from <see cref="AppDomainManager"/> as the type for application domain managers.

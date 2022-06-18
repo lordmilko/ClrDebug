@@ -40,7 +40,7 @@ namespace ManagedCorDebug
         public HRESULT TrySetModuleProps(string szName)
         {
             /*HRESULT SetModuleProps(
-            [MarshalAs(UnmanagedType.LPWStr)] string szName);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName);*/
             return Raw.SetModuleProps(szName);
         }
 
@@ -68,8 +68,8 @@ namespace ManagedCorDebug
         public HRESULT TrySave(string szFile, int dwSaveFlags)
         {
             /*HRESULT Save(
-            [MarshalAs(UnmanagedType.LPWStr)] string szFile,
-            int dwSaveFlags);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szFile,
+            [In] int dwSaveFlags);*/
             return Raw.Save(szFile, dwSaveFlags);
         }
 
@@ -97,8 +97,8 @@ namespace ManagedCorDebug
         public HRESULT TrySaveToStream(object pIStream, int dwSaveFlags)
         {
             /*HRESULT SaveToStream(
-            [MarshalAs(UnmanagedType.Interface)] object pIStream,
-            int dwSaveFlags);*/
+            [In, MarshalAs(UnmanagedType.Interface)] object pIStream,
+            [In] int dwSaveFlags);*/
             return Raw.SaveToStream(pIStream, dwSaveFlags);
         }
 
@@ -159,8 +159,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetSaveSize(CorSaveSize fSave, out int pdwSaveSize)
         {
             /*HRESULT GetSaveSize(
-            CorSaveSize fSave,
-            out int pdwSaveSize);*/
+            [In] CorSaveSize fSave,
+            [Out] out int pdwSaveSize);*/
             return Raw.GetSaveSize(fSave, out pdwSaveSize);
         }
 
@@ -219,11 +219,11 @@ namespace ManagedCorDebug
         public HRESULT TryDefineTypeDef(string szTypeDef, CorTypeAttr dwTypeDefFlags, mdToken tkExtends, mdToken[] rtkImplements, out mdTypeDef ptd)
         {
             /*HRESULT DefineTypeDef(
-            [MarshalAs(UnmanagedType.LPWStr)] string szTypeDef,
-            CorTypeAttr dwTypeDefFlags,
-            mdToken tkExtends,
-            [MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkImplements,
-            out mdTypeDef ptd);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szTypeDef,
+            [In] CorTypeAttr dwTypeDefFlags,
+            [In] mdToken tkExtends,
+            [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkImplements,
+            [Out] out mdTypeDef ptd);*/
             return Raw.DefineTypeDef(szTypeDef, dwTypeDefFlags, tkExtends, rtkImplements, out ptd);
         }
 
@@ -236,7 +236,7 @@ namespace ManagedCorDebug
         /// <param name="szTypeDef">[in] The name of the type in Unicode.</param>
         /// <param name="dwTypeDefFlags">[in] TypeDef attributes. This is a bitmask of <see cref="CorTypeAttr"/> values.</param>
         /// <param name="tkExtends">[in] The token of the base class. This is either a <see cref="mdTypeDef"/> or a <see cref="mdTypeRef"/> token.</param>
-        /// <param name="rtkImplements">[][in] An array of tokens that specify the interfaces that this class or interface implements.</param>
+        /// <param name="rtkImplements">[in] An array of tokens that specify the interfaces that this class or interface implements.</param>
         /// <param name="tdEncloser">[in] The token of the enclosing type. The last element of the array must be mdTokenNil.</param>
         /// <returns>[out] The <see cref="mdTypeDef"/> token assigned.</returns>
         public mdTypeDef DefineNestedType(string szTypeDef, CorTypeAttr dwTypeDefFlags, mdToken tkExtends, mdToken[] rtkImplements, mdTypeDef tdEncloser)
@@ -256,18 +256,18 @@ namespace ManagedCorDebug
         /// <param name="szTypeDef">[in] The name of the type in Unicode.</param>
         /// <param name="dwTypeDefFlags">[in] TypeDef attributes. This is a bitmask of <see cref="CorTypeAttr"/> values.</param>
         /// <param name="tkExtends">[in] The token of the base class. This is either a <see cref="mdTypeDef"/> or a <see cref="mdTypeRef"/> token.</param>
-        /// <param name="rtkImplements">[][in] An array of tokens that specify the interfaces that this class or interface implements.</param>
+        /// <param name="rtkImplements">[in] An array of tokens that specify the interfaces that this class or interface implements.</param>
         /// <param name="tdEncloser">[in] The token of the enclosing type. The last element of the array must be mdTokenNil.</param>
         /// <param name="ptd">[out] The <see cref="mdTypeDef"/> token assigned.</param>
         public HRESULT TryDefineNestedType(string szTypeDef, CorTypeAttr dwTypeDefFlags, mdToken tkExtends, mdToken[] rtkImplements, mdTypeDef tdEncloser, out mdTypeDef ptd)
         {
             /*HRESULT DefineNestedType(
-            [MarshalAs(UnmanagedType.LPWStr)] string szTypeDef,
-            CorTypeAttr dwTypeDefFlags,
-            mdToken tkExtends,
-            [MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkImplements,
-            mdTypeDef tdEncloser,
-            out mdTypeDef ptd);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szTypeDef,
+            [In] CorTypeAttr dwTypeDefFlags,
+            [In] mdToken tkExtends,
+            [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkImplements,
+            [In] mdTypeDef tdEncloser,
+            [Out] out mdTypeDef ptd);*/
             return Raw.DefineNestedType(szTypeDef, dwTypeDefFlags, tkExtends, rtkImplements, tdEncloser, out ptd);
         }
 
@@ -305,7 +305,7 @@ namespace ManagedCorDebug
         public HRESULT TrySetHandler(object pUnk)
         {
             /*HRESULT SetHandler(
-            [MarshalAs(UnmanagedType.IUnknown)] object pUnk);*/
+            [In, MarshalAs(UnmanagedType.IUnknown)] object pUnk);*/
             return Raw.SetHandler(pUnk);
         }
 
@@ -358,14 +358,14 @@ namespace ManagedCorDebug
         public HRESULT TryDefineMethod(mdTypeDef td, string szName, MethodAttributes dwMethodFlags, IntPtr pvSigBlob, int cbSigBlob, int ulCodeRVA, MethodImplAttributes dwImplFlags, out mdMethodDef pmd)
         {
             /*HRESULT DefineMethod(
-            mdTypeDef td,
-            [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            MethodAttributes dwMethodFlags,
-            IntPtr pvSigBlob,
-            int cbSigBlob,
-            int ulCodeRVA,
-            MethodImplAttributes dwImplFlags,
-            out mdMethodDef pmd);*/
+            [In] mdTypeDef td,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
+            [In] MethodAttributes dwMethodFlags,
+            [In] IntPtr pvSigBlob,
+            [In] int cbSigBlob,
+            [In] int ulCodeRVA,
+            [In] MethodImplAttributes dwImplFlags,
+            [Out] out mdMethodDef pmd);*/
             return Raw.DefineMethod(td, szName, dwMethodFlags, pvSigBlob, cbSigBlob, ulCodeRVA, dwImplFlags, out pmd);
         }
 
@@ -395,9 +395,9 @@ namespace ManagedCorDebug
         public HRESULT TryDefineMethodImpl(mdTypeDef td, mdToken tkBody, mdToken tkDecl)
         {
             /*HRESULT DefineMethodImpl(
-            mdTypeDef td,
-            mdToken tkBody,
-            mdToken tkDecl);*/
+            [In] mdTypeDef td,
+            [In] mdToken tkBody,
+            [In] mdToken tkDecl);*/
             return Raw.DefineMethodImpl(td, tkBody, tkDecl);
         }
 
@@ -430,9 +430,9 @@ namespace ManagedCorDebug
         public HRESULT TryDefineTypeRefByName(mdToken tkResolutionScope, string szName, out mdTypeRef ptr)
         {
             /*HRESULT DefineTypeRefByName(
-            mdToken tkResolutionScope,
-            [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            out mdTypeRef ptr);*/
+            [In] mdToken tkResolutionScope,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
+            [Out] out mdTypeRef ptr);*/
             return Raw.DefineTypeRefByName(tkResolutionScope, szName, out ptr);
         }
 
@@ -481,13 +481,13 @@ namespace ManagedCorDebug
         public HRESULT TryDefineImportType(IMetaDataAssemblyImport pAssemImport, IntPtr pbHashValue, int cbHashValue, IMetaDataImport pImport, mdTypeDef tdImport, IMetaDataAssemblyEmit pAssemEmit, out mdTypeRef ptr)
         {
             /*HRESULT DefineImportType(
-            [MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyImport pAssemImport,
-            IntPtr pbHashValue,
-            int cbHashValue,
-            [MarshalAs(UnmanagedType.Interface)] IMetaDataImport pImport,
-            mdTypeDef tdImport,
-            [MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyEmit pAssemEmit,
-            out mdTypeRef ptr);*/
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyImport pAssemImport,
+            [In] IntPtr pbHashValue,
+            [In] int cbHashValue,
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataImport pImport,
+            [In] mdTypeDef tdImport,
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyEmit pAssemEmit,
+            [Out] out mdTypeRef ptr);*/
             return Raw.DefineImportType(pAssemImport, pbHashValue, cbHashValue, pImport, tdImport, pAssemEmit, out ptr);
         }
 
@@ -524,11 +524,11 @@ namespace ManagedCorDebug
         public HRESULT TryDefineMemberRef(mdModuleRef tkImport, string szName, IntPtr pvSigBlob, int cbSigBlob, out mdMemberRef pmr)
         {
             /*HRESULT DefineMemberRef(
-            mdModuleRef tkImport,
-            [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            IntPtr pvSigBlob,
-            int cbSigBlob,
-            out mdMemberRef pmr);*/
+            [In] mdModuleRef tkImport,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
+            [In] IntPtr pvSigBlob,
+            [In] int cbSigBlob,
+            [Out] out mdMemberRef pmr);*/
             return Raw.DefineMemberRef(tkImport, szName, pvSigBlob, cbSigBlob, out pmr);
         }
 
@@ -587,14 +587,14 @@ namespace ManagedCorDebug
         public HRESULT TryDefineImportMember(IMetaDataAssemblyImport pAssemImport, IntPtr pbHashValue, int cbHashValue, IMetaDataImport pImport, mdToken mbMember, IMetaDataAssemblyEmit pAssemEmit, mdToken tkParent, out mdMemberRef pmr)
         {
             /*HRESULT DefineImportMember(
-            [MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyImport pAssemImport,
-            IntPtr pbHashValue,
-            int cbHashValue,
-            [MarshalAs(UnmanagedType.Interface)] IMetaDataImport pImport,
-            mdToken mbMember,
-            [MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyEmit pAssemEmit,
-            mdToken tkParent,
-            out mdMemberRef pmr);*/
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyImport pAssemImport,
+            [In] IntPtr pbHashValue,
+            [In] int cbHashValue,
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataImport pImport,
+            [In] mdToken mbMember,
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyEmit pAssemEmit,
+            [In] mdToken tkParent,
+            [Out] out mdMemberRef pmr);*/
             return Raw.DefineImportMember(pAssemImport, pbHashValue, cbHashValue, pImport, mbMember, pAssemEmit, tkParent, out pmr);
         }
 
@@ -639,15 +639,15 @@ namespace ManagedCorDebug
         public HRESULT TryDefineEvent(mdTypeDef td, string szEvent, int dwEventFlags, mdToken tkEventType, mdMethodDef mdAddOn, mdMethodDef mdRemoveOn, mdMethodDef mdFire, mdMethodDef[] rmdOtherMethods, out mdToken pmdEvent)
         {
             /*HRESULT DefineEvent(
-            mdTypeDef td,
-            [MarshalAs(UnmanagedType.LPWStr)] string szEvent,
-            int dwEventFlags,
-            mdToken tkEventType,
-            mdMethodDef mdAddOn,
-            mdMethodDef mdRemoveOn,
-            mdMethodDef mdFire,
-            [MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rmdOtherMethods,
-            out mdToken pmdEvent);*/
+            [In] mdTypeDef td,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szEvent,
+            [In] int dwEventFlags,
+            [In] mdToken tkEventType,
+            [In] mdMethodDef mdAddOn,
+            [In] mdMethodDef mdRemoveOn,
+            [In] mdMethodDef mdFire,
+            [In, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rmdOtherMethods,
+            [Out] out mdToken pmdEvent);*/
             return Raw.DefineEvent(td, szEvent, dwEventFlags, tkEventType, mdAddOn, mdRemoveOn, mdFire, rmdOtherMethods, out pmdEvent);
         }
 
@@ -695,10 +695,10 @@ namespace ManagedCorDebug
         public HRESULT TrySetClassLayout(mdTypeDef td, int dwPackSize, mdToken[] rFieldOffsets, int ulClassSize)
         {
             /*HRESULT SetClassLayout(
-            mdTypeDef td,
-            int dwPackSize,
-            [MarshalAs(UnmanagedType.LPArray)] mdToken[] rFieldOffsets,
-            int ulClassSize);*/
+            [In] mdTypeDef td,
+            [In] int dwPackSize,
+            [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rFieldOffsets,
+            [In] int ulClassSize);*/
             return Raw.SetClassLayout(td, dwPackSize, rFieldOffsets, ulClassSize);
         }
 
@@ -723,7 +723,7 @@ namespace ManagedCorDebug
         /// <param name="td">[in] An <see cref="mdTypeDef"/> metadata token that represents the type for which the class layout will be deleted.</param>
         public HRESULT TryDeleteClassLayout(mdTypeDef td)
         {
-            /*HRESULT DeleteClassLayout(mdTypeDef td);*/
+            /*HRESULT DeleteClassLayout([In] mdTypeDef td);*/
             return Raw.DeleteClassLayout(td);
         }
 
@@ -753,9 +753,9 @@ namespace ManagedCorDebug
         public HRESULT TrySetFieldMarshal(mdToken tk, IntPtr pvNativeType, int cbNativeType)
         {
             /*HRESULT SetFieldMarshal(
-            mdToken tk,
-            IntPtr pvNativeType,
-            int cbNativeType);*/
+            [In] mdToken tk,
+            [In] IntPtr pvNativeType,
+            [In] int cbNativeType);*/
             return Raw.SetFieldMarshal(tk, pvNativeType, cbNativeType);
         }
 
@@ -780,7 +780,7 @@ namespace ManagedCorDebug
         /// <param name="tk">[in] An <see cref="mdFieldDef"/> or <see cref="mdParamDef"/> token that represents the field or parameter for which to delete the marshalling metadata signature.</param>
         public HRESULT TryDeleteFieldMarshal(mdToken tk)
         {
-            /*HRESULT DeleteFieldMarshal(mdToken tk);*/
+            /*HRESULT DeleteFieldMarshal([In] mdToken tk);*/
             return Raw.DeleteFieldMarshal(tk);
         }
 
@@ -817,11 +817,11 @@ namespace ManagedCorDebug
         public HRESULT TryDefinePermissionSet(mdToken tk, CorDeclSecurity dwAction, IntPtr pvPermission, int cbPermission, out mdPermission ppm)
         {
             /*HRESULT DefinePermissionSet(
-            mdToken tk,
-            CorDeclSecurity dwAction,
-            IntPtr pvPermission,
-            int cbPermission,
-            out mdPermission ppm);*/
+            [In] mdToken tk,
+            [In] CorDeclSecurity dwAction,
+            [In] IntPtr pvPermission,
+            [In] int cbPermission,
+            [Out] out mdPermission ppm);*/
             return Raw.DefinePermissionSet(tk, dwAction, pvPermission, cbPermission, out ppm);
         }
 
@@ -849,8 +849,8 @@ namespace ManagedCorDebug
         public HRESULT TrySetRVA(mdMethodDef md, int ulRVA)
         {
             /*HRESULT SetRVA(
-            mdMethodDef md,
-            int ulRVA);*/
+            [In] mdMethodDef md,
+            [In] int ulRVA);*/
             return Raw.SetRVA(md, ulRVA);
         }
 
@@ -883,9 +883,9 @@ namespace ManagedCorDebug
         public HRESULT TryGetTokenFromSig(IntPtr pvSig, int cbSig, out mdSignature pmsig)
         {
             /*HRESULT GetTokenFromSig(
-            IntPtr pvSig,
-            int cbSig,
-            out mdSignature pmsig);*/
+            [In] IntPtr pvSig,
+            [In] int cbSig,
+            [Out] out mdSignature pmsig);*/
             return Raw.GetTokenFromSig(pvSig, cbSig, out pmsig);
         }
 
@@ -916,8 +916,8 @@ namespace ManagedCorDebug
         public HRESULT TryDefineModuleRef(string szName, out mdModuleRef pmur)
         {
             /*HRESULT DefineModuleRef(
-            [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            out mdModuleRef pmur);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
+            [Out] out mdModuleRef pmur);*/
             return Raw.DefineModuleRef(szName, out pmur);
         }
 
@@ -945,8 +945,8 @@ namespace ManagedCorDebug
         public HRESULT TrySetParent(mdMemberRef mr, mdToken tk)
         {
             /*HRESULT SetParent(
-            mdMemberRef mr,
-            mdToken tk);*/
+            [In] mdMemberRef mr,
+            [In] mdToken tk);*/
             return Raw.SetParent(mr, tk);
         }
 
@@ -979,9 +979,9 @@ namespace ManagedCorDebug
         public HRESULT TryGetTokenFromTypeSpec(IntPtr pvSig, int cbSig, out mdTypeSpec ptypespec)
         {
             /*HRESULT GetTokenFromTypeSpec(
-            IntPtr pvSig,
-            int cbSig,
-            out mdTypeSpec ptypespec);*/
+            [In] IntPtr pvSig,
+            [In] int cbSig,
+            [Out] out mdTypeSpec ptypespec);*/
             return Raw.GetTokenFromTypeSpec(pvSig, cbSig, out ptypespec);
         }
 
@@ -1009,8 +1009,8 @@ namespace ManagedCorDebug
         public HRESULT TrySaveToMemory(IntPtr pbData, int cbData)
         {
             /*HRESULT SaveToMemory(
-            IntPtr pbData,
-            int cbData);*/
+            [In] IntPtr pbData,
+            [In] int cbData);*/
             return Raw.SaveToMemory(pbData, cbData);
         }
 
@@ -1043,9 +1043,9 @@ namespace ManagedCorDebug
         public HRESULT TryDefineUserString(string szString, int cchString, out mdString pstk)
         {
             /*HRESULT DefineUserString(
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] string szString,
-            int cchString,
-            out mdString pstk);*/
+            [In, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] string szString,
+            [In] int cchString,
+            [Out] out mdString pstk);*/
             return Raw.DefineUserString(szString, cchString, out pstk);
         }
 
@@ -1070,7 +1070,7 @@ namespace ManagedCorDebug
         /// <param name="tkObj">[in] The token to be deleted.</param>
         public HRESULT TryDeleteToken(mdToken tkObj)
         {
-            /*HRESULT DeleteToken(mdToken tkObj);*/
+            /*HRESULT DeleteToken([In] mdToken tkObj);*/
             return Raw.DeleteToken(tkObj);
         }
 
@@ -1102,10 +1102,10 @@ namespace ManagedCorDebug
         public HRESULT TrySetMethodProps(mdMethodDef md, int dwMethodFlags, int ulCodeRVA, int dwImplFlags)
         {
             /*HRESULT SetMethodProps(
-            mdMethodDef md,
-            int dwMethodFlags,
-            int ulCodeRVA,
-            int dwImplFlags);*/
+            [In] mdMethodDef md,
+            [In] int dwMethodFlags,
+            [In] int ulCodeRVA,
+            [In] int dwImplFlags);*/
             return Raw.SetMethodProps(md, dwMethodFlags, ulCodeRVA, dwImplFlags);
         }
 
@@ -1139,10 +1139,10 @@ namespace ManagedCorDebug
         public HRESULT TrySetTypeDefProps(mdTypeDef td, CorTypeAttr dwTypeDefFlags, mdToken tkExtends, mdToken[] rtkImplements)
         {
             /*HRESULT SetTypeDefProps(
-            mdTypeDef td,
-            CorTypeAttr dwTypeDefFlags,
-            mdToken tkExtends,
-            [MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkImplements);*/
+            [In] mdTypeDef td,
+            [In] CorTypeAttr dwTypeDefFlags,
+            [In] mdToken tkExtends,
+            [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkImplements);*/
             return Raw.SetTypeDefProps(td, dwTypeDefFlags, tkExtends, rtkImplements);
         }
 
@@ -1180,13 +1180,13 @@ namespace ManagedCorDebug
         public HRESULT TrySetEventProps(mdEvent ev, CorEventAttr dwEventFlags, mdToken tkEventType, mdMethodDef mdAddOn, mdMethodDef mdRemoveOn, mdMethodDef mdFire, mdMethodDef[] rmdOtherMethods)
         {
             /*HRESULT SetEventProps(
-            mdEvent ev,
-            CorEventAttr dwEventFlags,
-            mdToken tkEventType,
-            mdMethodDef mdAddOn,
-            mdMethodDef mdRemoveOn,
-            mdMethodDef mdFire,
-            [MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rmdOtherMethods);*/
+            [In] mdEvent ev,
+            [In] CorEventAttr dwEventFlags,
+            [In] mdToken tkEventType,
+            [In] mdMethodDef mdAddOn,
+            [In] mdMethodDef mdRemoveOn,
+            [In] mdMethodDef mdFire,
+            [In, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rmdOtherMethods);*/
             return Raw.SetEventProps(ev, dwEventFlags, tkEventType, mdAddOn, mdRemoveOn, mdFire, rmdOtherMethods);
         }
 
@@ -1223,11 +1223,11 @@ namespace ManagedCorDebug
         public HRESULT TrySetPermissionSetProps(mdToken tk, CorDeclSecurity dwAction, IntPtr pvPermission, int cbPermission, out mdPermission ppm)
         {
             /*HRESULT SetPermissionSetProps(
-            mdToken tk,
-            CorDeclSecurity dwAction,
-            IntPtr pvPermission,
-            int cbPermission,
-            out mdPermission ppm);*/
+            [In] mdToken tk,
+            [In] CorDeclSecurity dwAction,
+            [In] IntPtr pvPermission,
+            [In] int cbPermission,
+            [Out] out mdPermission ppm);*/
             return Raw.SetPermissionSetProps(tk, dwAction, pvPermission, cbPermission, out ppm);
         }
 
@@ -1259,10 +1259,10 @@ namespace ManagedCorDebug
         public HRESULT TryDefinePinvokeMap(mdToken tk, int dwMappingFlags, string szImportName, mdModuleRef mrImportDLL)
         {
             /*HRESULT DefinePinvokeMap(
-            mdToken tk,
-            int dwMappingFlags,
-            [MarshalAs(UnmanagedType.LPWStr)] string szImportName,
-            mdModuleRef mrImportDLL);*/
+            [In] mdToken tk,
+            [In] int dwMappingFlags,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szImportName,
+            [In] mdModuleRef mrImportDLL);*/
             return Raw.DefinePinvokeMap(tk, dwMappingFlags, szImportName, mrImportDLL);
         }
 
@@ -1294,10 +1294,10 @@ namespace ManagedCorDebug
         public HRESULT TrySetPinvokeMap(mdToken tk, CorPinvokeMap dwMappingFlags, string szImportName, mdModuleRef mrImportDLL)
         {
             /*HRESULT SetPinvokeMap(
-            mdToken tk,
-            CorPinvokeMap dwMappingFlags,
-            [MarshalAs(UnmanagedType.LPWStr)] string szImportName,
-            mdModuleRef mrImportDLL);*/
+            [In] mdToken tk,
+            [In] CorPinvokeMap dwMappingFlags,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szImportName,
+            [In] mdModuleRef mrImportDLL);*/
             return Raw.SetPinvokeMap(tk, dwMappingFlags, szImportName, mrImportDLL);
         }
 
@@ -1322,7 +1322,7 @@ namespace ManagedCorDebug
         /// <param name="tk">[in] An <see cref="mdFieldDef"/> or <see cref="mdMethodDef"/> token that represents the object for which to delete the PInvoke mapping metadata.</param>
         public HRESULT TryDeletePinvokeMap(mdToken tk)
         {
-            /*HRESULT DeletePinvokeMap(mdToken tk);*/
+            /*HRESULT DeletePinvokeMap([In] mdToken tk);*/
             return Raw.DeletePinvokeMap(tk);
         }
 
@@ -1359,11 +1359,11 @@ namespace ManagedCorDebug
         public HRESULT TryDefineCustomAttribute(mdToken tkObj, mdToken tkType, IntPtr pCustomAttribute, int cbCustomAttribute, out mdCustomAttribute pcv)
         {
             /*HRESULT DefineCustomAttribute(
-            mdToken tkObj,
-            mdToken tkType,
-            IntPtr pCustomAttribute,
-            int cbCustomAttribute,
-            out mdCustomAttribute pcv);*/
+            [In] mdToken tkObj,
+            [In] mdToken tkType,
+            [In] IntPtr pCustomAttribute,
+            [In] int cbCustomAttribute,
+            [Out] out mdCustomAttribute pcv);*/
             return Raw.DefineCustomAttribute(tkObj, tkType, pCustomAttribute, cbCustomAttribute, out pcv);
         }
 
@@ -1393,9 +1393,9 @@ namespace ManagedCorDebug
         public HRESULT TrySetCustomAttributeValue(int pcv, IntPtr pCustomAttribute, int cbCustomAttribute)
         {
             /*HRESULT SetCustomAttributeValue(
-            int pcv,
-            IntPtr pCustomAttribute,
-            int cbCustomAttribute);*/
+            [In] int pcv,
+            [In] IntPtr pCustomAttribute,
+            [In] int cbCustomAttribute);*/
             return Raw.SetCustomAttributeValue(pcv, pCustomAttribute, cbCustomAttribute);
         }
 
@@ -1440,15 +1440,15 @@ namespace ManagedCorDebug
         public HRESULT TryDefineField(mdTypeDef td, string szName, CorFieldAttr dwFieldFlags, IntPtr pvSigBlob, int cbSigBlob, CorElementType dwCPlusTypeFlag, IntPtr pValue, int cchValue, out mdFieldDef pmd)
         {
             /*HRESULT DefineField(
-            mdTypeDef td,
-            [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            CorFieldAttr dwFieldFlags,
-            IntPtr pvSigBlob,
-            int cbSigBlob,
-            CorElementType dwCPlusTypeFlag,
-            IntPtr pValue,
-            int cchValue,
-            out mdFieldDef pmd);*/
+            [In] mdTypeDef td,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
+            [In] CorFieldAttr dwFieldFlags,
+            [In] IntPtr pvSigBlob,
+            [In] int cbSigBlob,
+            [In] CorElementType dwCPlusTypeFlag,
+            [In] IntPtr pValue,
+            [In] int cchValue,
+            [Out] out mdFieldDef pmd);*/
             return Raw.DefineField(td, szName, dwFieldFlags, pvSigBlob, cbSigBlob, dwCPlusTypeFlag, pValue, cchValue, out pmd);
         }
 
@@ -1499,18 +1499,18 @@ namespace ManagedCorDebug
         public HRESULT TryDefineProperty(mdTypeDef td, string szProperty, CorPropertyAttr dwPropFlags, IntPtr pvSig, int cbSig, int dwCPlusTypeFlag, IntPtr cvalue, int cchValue, mdMethodDef mdSetter, mdMethodDef mdGetter, mdToken[] rmdOtherMethods, out mdProperty pmdProp)
         {
             /*HRESULT DefineProperty(
-            mdTypeDef td,
-            [MarshalAs(UnmanagedType.LPWStr)] string szProperty,
-            CorPropertyAttr dwPropFlags,
-            IntPtr pvSig,
-            int cbSig,
-            int dwCPlusTypeFlag,
-            IntPtr cvalue,
-            int cchValue,
-            mdMethodDef mdSetter,
-            mdMethodDef mdGetter,
-            [MarshalAs(UnmanagedType.LPArray)] mdToken[] rmdOtherMethods,
-            out mdProperty pmdProp);*/
+            [In] mdTypeDef td,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szProperty,
+            [In] CorPropertyAttr dwPropFlags,
+            [In] IntPtr pvSig,
+            [In] int cbSig,
+            [In] int dwCPlusTypeFlag,
+            [In] IntPtr cvalue,
+            [In] int cchValue,
+            [In] mdMethodDef mdSetter,
+            [In] mdMethodDef mdGetter,
+            [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rmdOtherMethods,
+            [Out] out mdProperty pmdProp);*/
             return Raw.DefineProperty(td, szProperty, dwPropFlags, pvSig, cbSig, dwCPlusTypeFlag, cvalue, cchValue, mdSetter, mdGetter, rmdOtherMethods, out pmdProp);
         }
 
@@ -1559,14 +1559,14 @@ namespace ManagedCorDebug
         public HRESULT TryDefineParam(mdMethodDef md, int ulParamSeq, string szName, CorParamAttr dwParamFlags, CorElementType dwCPlusTypeFlag, IntPtr pValue, int cchValue, out mdParamDef ppd)
         {
             /*HRESULT DefineParam(
-            mdMethodDef md,
-            int ulParamSeq,
-            [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            CorParamAttr dwParamFlags,
-            CorElementType dwCPlusTypeFlag,
-            IntPtr pValue,
-            int cchValue,
-            out mdParamDef ppd);*/
+            [In] mdMethodDef md,
+            [In] int ulParamSeq,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
+            [In] CorParamAttr dwParamFlags,
+            [In] CorElementType dwCPlusTypeFlag,
+            [In] IntPtr pValue,
+            [In] int cchValue,
+            [Out] out mdParamDef ppd);*/
             return Raw.DefineParam(md, ulParamSeq, szName, dwParamFlags, dwCPlusTypeFlag, pValue, cchValue, out ppd);
         }
 
@@ -1600,11 +1600,11 @@ namespace ManagedCorDebug
         public HRESULT TrySetFieldProps(mdFieldDef fd, CorFieldAttr dwFieldFlags, CorElementType dwCPlusTypeFlag, IntPtr pValue, int cchValue)
         {
             /*HRESULT SetFieldProps(
-            mdFieldDef fd,
-            CorFieldAttr dwFieldFlags,
-            CorElementType dwCPlusTypeFlag,
-            IntPtr pValue,
-            int cchValue);*/
+            [In] mdFieldDef fd,
+            [In] CorFieldAttr dwFieldFlags,
+            [In] CorElementType dwCPlusTypeFlag,
+            [In] IntPtr pValue,
+            [In] int cchValue);*/
             return Raw.SetFieldProps(fd, dwFieldFlags, dwCPlusTypeFlag, pValue, cchValue);
         }
 
@@ -1644,14 +1644,14 @@ namespace ManagedCorDebug
         public HRESULT TrySetPropertyProps(mdProperty pr, CorPropertyAttr dwPropFlags, int dwCPlusTypeFlag, IntPtr pValue, int cchValue, mdMethodDef mdSetter, mdMethodDef mdGetter, mdToken[] rmdOtherMethods)
         {
             /*HRESULT SetPropertyProps(
-            mdProperty pr,
-            CorPropertyAttr dwPropFlags,
-            int dwCPlusTypeFlag,
-            IntPtr pValue,
-            int cchValue,
-            mdMethodDef mdSetter,
-            mdMethodDef mdGetter,
-            [MarshalAs(UnmanagedType.LPArray)] mdToken[] rmdOtherMethods);*/
+            [In] mdProperty pr,
+            [In] CorPropertyAttr dwPropFlags,
+            [In] int dwCPlusTypeFlag,
+            [In] IntPtr pValue,
+            [In] int cchValue,
+            [In] mdMethodDef mdSetter,
+            [In] mdMethodDef mdGetter,
+            [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rmdOtherMethods);*/
             return Raw.SetPropertyProps(pr, dwPropFlags, dwCPlusTypeFlag, pValue, cchValue, mdSetter, mdGetter, rmdOtherMethods);
         }
 
@@ -1687,12 +1687,12 @@ namespace ManagedCorDebug
         public HRESULT TrySetParamProps(mdParamDef pd, string szName, int dwParamFlags, int dwCPlusTypeFlag, IntPtr pValue, int cchValue)
         {
             /*HRESULT SetParamProps(
-            mdParamDef pd,
-            [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            int dwParamFlags,
-            int dwCPlusTypeFlag,
-            IntPtr pValue,
-            int cchValue);*/
+            [In] mdParamDef pd,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
+            [In] int dwParamFlags,
+            [In] int dwCPlusTypeFlag,
+            [In] IntPtr pValue,
+            [In] int cchValue);*/
             return Raw.SetParamProps(pd, szName, dwParamFlags, dwCPlusTypeFlag, pValue, cchValue);
         }
 
@@ -1727,10 +1727,10 @@ namespace ManagedCorDebug
         public HRESULT TryDefineSecurityAttributeSet(mdToken tkObj, COR_SECATTR[] rSecAttrs, int cSecAttrs, out int pulErrorAttr)
         {
             /*HRESULT DefineSecurityAttributeSet(
-            mdToken tkObj,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] COR_SECATTR[] rSecAttrs,
-            int cSecAttrs,
-            out int pulErrorAttr);*/
+            [In] mdToken tkObj,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] COR_SECATTR[] rSecAttrs,
+            [In] int cSecAttrs,
+            [Out] out int pulErrorAttr);*/
             return Raw.DefineSecurityAttributeSet(tkObj, rSecAttrs, cSecAttrs, out pulErrorAttr);
         }
 
@@ -1755,7 +1755,7 @@ namespace ManagedCorDebug
         /// <param name="pImport">[in] Pointer to an IUnknown object that represents the delta metadata from the portable executable (PE) file. The delta metadata is the block of metadata that includes the changes that were made to the copy of the module's actual metadata.</param>
         public HRESULT TryApplyEditAndContinue(object pImport)
         {
-            /*HRESULT ApplyEditAndContinue([MarshalAs(UnmanagedType.IUnknown)] object pImport);*/
+            /*HRESULT ApplyEditAndContinue([In, MarshalAs(UnmanagedType.IUnknown)] object pImport);*/
             return Raw.ApplyEditAndContinue(pImport);
         }
 
@@ -1804,17 +1804,17 @@ namespace ManagedCorDebug
         public HRESULT TryTranslateSigWithScope(IMetaDataAssemblyImport pAssemImport, IntPtr pbHashValue, int cbHashValue, IMetaDataImport import, IntPtr pbSigBlob, int cbSigBlob, IMetaDataAssemblyEmit pAssemEmit, IMetaDataEmit emit, IntPtr pvTranslatedSig, int cbTranslatedSigMax, out int pcbTranslatedSig)
         {
             /*HRESULT TranslateSigWithScope(
-            [MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyImport pAssemImport,
-            IntPtr pbHashValue,
-            int cbHashValue,
-            [MarshalAs(UnmanagedType.Interface)] IMetaDataImport import,
-            IntPtr pbSigBlob,
-            int cbSigBlob,
-            [MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyEmit pAssemEmit,
-            [MarshalAs(UnmanagedType.Interface)] IMetaDataEmit emit,
-            IntPtr pvTranslatedSig,
-            int cbTranslatedSigMax,
-            out int pcbTranslatedSig);*/
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyImport pAssemImport,
+            [In] IntPtr pbHashValue,
+            [In] int cbHashValue,
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataImport import,
+            [In] IntPtr pbSigBlob,
+            [In] int cbSigBlob,
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyEmit pAssemEmit,
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataEmit emit,
+            [In] IntPtr pvTranslatedSig,
+            [In] int cbTranslatedSigMax,
+            [Out] out int pcbTranslatedSig);*/
             return Raw.TranslateSigWithScope(pAssemImport, pbHashValue, cbHashValue, import, pbSigBlob, cbSigBlob, pAssemEmit, emit, pvTranslatedSig, cbTranslatedSigMax, out pcbTranslatedSig);
         }
 
@@ -1842,8 +1842,8 @@ namespace ManagedCorDebug
         public HRESULT TrySetMethodImplFlags(mdMethodDef md, int dwImplFlags)
         {
             /*HRESULT SetMethodImplFlags(
-            mdMethodDef md,
-            int dwImplFlags);*/
+            [In] mdMethodDef md,
+            [In] int dwImplFlags);*/
             return Raw.SetMethodImplFlags(md, dwImplFlags);
         }
 
@@ -1871,8 +1871,8 @@ namespace ManagedCorDebug
         public HRESULT TrySetFieldRVA(mdFieldDef fd, int ulRVA)
         {
             /*HRESULT SetFieldRVA(
-            mdFieldDef fd,
-            int ulRVA);*/
+            [In] mdFieldDef fd,
+            [In] int ulRVA);*/
             return Raw.SetFieldRVA(fd, ulRVA);
         }
 
@@ -1908,9 +1908,9 @@ namespace ManagedCorDebug
         public HRESULT TryMerge(IMetaDataImport pImport, IMapToken pHostMapToken, object pHandler)
         {
             /*HRESULT Merge(
-            [MarshalAs(UnmanagedType.Interface)] IMetaDataImport pImport,
-            [MarshalAs(UnmanagedType.Interface)] IMapToken pHostMapToken,
-            [MarshalAs(UnmanagedType.IUnknown)] object pHandler);*/
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataImport pImport,
+            [In, MarshalAs(UnmanagedType.Interface)] IMapToken pHostMapToken,
+            [In, MarshalAs(UnmanagedType.IUnknown)] object pHandler);*/
             return Raw.Merge(pImport, pHostMapToken, pHandler);
         }
 
@@ -1982,10 +1982,10 @@ namespace ManagedCorDebug
         public HRESULT TryDefineMethodSpec(mdToken tkParent, IntPtr pvSigBlob, int cbSigBlob, out mdMethodSpec pmi)
         {
             /*HRESULT DefineMethodSpec(
-            mdToken tkParent,
-            IntPtr pvSigBlob,
-            int cbSigBlob,
-            out mdMethodSpec pmi);*/
+            [In] mdToken tkParent,
+            [In] IntPtr pvSigBlob,
+            [In] int cbSigBlob,
+            [Out] out mdMethodSpec pmi);*/
             return Raw2.DefineMethodSpec(tkParent, pvSigBlob, cbSigBlob, out pmi);
         }
 
@@ -2015,7 +2015,7 @@ namespace ManagedCorDebug
         /// <param name="pdwSaveSize">[out] The change in the size of the metadata.</param>
         public HRESULT TryGetDeltaSaveSize(CorSaveSize fSave, out int pdwSaveSize)
         {
-            /*HRESULT GetDeltaSaveSize(CorSaveSize fSave, out int pdwSaveSize);*/
+            /*HRESULT GetDeltaSaveSize([In] CorSaveSize fSave, [Out] out int pdwSaveSize);*/
             return Raw2.GetDeltaSaveSize(fSave, out pdwSaveSize);
         }
 
@@ -2042,7 +2042,7 @@ namespace ManagedCorDebug
         /// <param name="dwSaveFlags">[in] Reserved. Must be zero.</param>
         public HRESULT TrySaveDelta(string szFile, int dwSaveFlags)
         {
-            /*HRESULT SaveDelta([MarshalAs(UnmanagedType.LPWStr)] string szFile, int dwSaveFlags);*/
+            /*HRESULT SaveDelta([In, MarshalAs(UnmanagedType.LPWStr)] string szFile, [In] int dwSaveFlags);*/
             return Raw2.SaveDelta(szFile, dwSaveFlags);
         }
 
@@ -2069,7 +2069,7 @@ namespace ManagedCorDebug
         /// <param name="dwSaveFlags">[in] Reserved. This value must be zero.</param>
         public HRESULT TrySaveDeltaToStream(object pIStream, int dwSaveFlags)
         {
-            /*HRESULT SaveDeltaToStream([MarshalAs(UnmanagedType.Interface)] object pIStream, int dwSaveFlags);*/
+            /*HRESULT SaveDeltaToStream([In, MarshalAs(UnmanagedType.Interface)] object pIStream, [In] int dwSaveFlags);*/
             return Raw2.SaveDeltaToStream(pIStream, dwSaveFlags);
         }
 
@@ -2096,7 +2096,7 @@ namespace ManagedCorDebug
         /// <param name="cbData">[in] The size of the changes. Use <see cref="GetDeltaSaveSize"/> to determine the size.</param>
         public HRESULT TrySaveDeltaToMemory(IntPtr pbData, int cbData)
         {
-            /*HRESULT SaveDeltaToMemory(IntPtr pbData, int cbData);*/
+            /*HRESULT SaveDeltaToMemory([In] IntPtr pbData, [In] int cbData);*/
             return Raw2.SaveDeltaToMemory(pbData, cbData);
         }
 
@@ -2137,13 +2137,13 @@ namespace ManagedCorDebug
         public HRESULT TryDefineGenericParam(mdToken tk, int ulParamSeq, int dwParamFlags, string szname, int reserved, mdToken[] rtkConstraints, out mdGenericParam pgp)
         {
             /*HRESULT DefineGenericParam(
-            mdToken tk,
-            int ulParamSeq,
-            int dwParamFlags,
-            [MarshalAs(UnmanagedType.LPWStr)] string szname,
-            int reserved,
-            [MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkConstraints,
-            out mdGenericParam pgp
+            [In] mdToken tk,
+            [In] int ulParamSeq,
+            [In] int dwParamFlags,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szname,
+            [In] int reserved,
+            [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkConstraints,
+            [Out] out mdGenericParam pgp
         );*/
             return Raw2.DefineGenericParam(tk, ulParamSeq, dwParamFlags, szname, reserved, rtkConstraints, out pgp);
         }
@@ -2178,11 +2178,11 @@ namespace ManagedCorDebug
         public HRESULT TrySetGenericParamProps(mdGenericParam gp, int dwParamFlags, string szName, int reserved, mdToken[] rtkConstraints)
         {
             /*HRESULT SetGenericParamProps(
-            mdGenericParam gp,
-            int dwParamFlags,
-            [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            int reserved,
-            [MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkConstraints
+            [In] mdGenericParam gp,
+            [In] int dwParamFlags,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
+            [In] int reserved,
+            [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkConstraints
         );*/
             return Raw2.SetGenericParamProps(gp, dwParamFlags, szName, reserved, rtkConstraints);
         }

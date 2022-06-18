@@ -834,23 +834,23 @@ namespace ManagedCorDebug
         public IntPtr Request(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize)
         {
             HRESULT hr;
-            IntPtr outBuffer;
+            IntPtr outBuffer = default(IntPtr);
 
-            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, out outBuffer)) != HRESULT.S_OK)
+            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, ref outBuffer)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return outBuffer;
         }
 
-        public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, out IntPtr outBuffer)
+        public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, ref IntPtr outBuffer)
         {
             /*HRESULT Request(
             [In] uint reqCode,
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
-            [Out] out IntPtr outBuffer);*/
-            return Raw.Request(reqCode, inBufferSize, inBuffer, outBufferSize, out outBuffer);
+            [In, Out] ref IntPtr outBuffer);*/
+            return Raw.Request(reqCode, inBufferSize, inBuffer, outBufferSize, ref outBuffer);
         }
 
         #endregion
@@ -900,8 +900,8 @@ namespace ManagedCorDebug
         public HRESULT TrySetAllTypeNotifications(IXCLRDataModule mod, int flags)
         {
             /*HRESULT SetAllTypeNotifications(
-            IXCLRDataModule mod,
-            int flags);*/
+            [In] IXCLRDataModule mod,
+            [In] int flags);*/
             return Raw.SetAllTypeNotifications(mod, flags);
         }
 
@@ -919,8 +919,8 @@ namespace ManagedCorDebug
         public HRESULT TrySetAllCodeNotifications(IXCLRDataModule mod, int flags)
         {
             /*HRESULT SetAllCodeNotifications(
-            IXCLRDataModule mod,
-            int flags);*/
+            [In] IXCLRDataModule mod,
+            [In] int flags);*/
             return Raw.SetAllCodeNotifications(mod, flags);
         }
 
@@ -942,7 +942,7 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetTypeNotifications(
             [In] int numTokens,
-            [In] IXCLRDataModule[] mods,
+            [In, MarshalAs(UnmanagedType.LPArray)] IXCLRDataModule[] mods,
             [In] IXCLRDataModule singleMod,
             [In] mdTypeDef tokens,
             [Out] out int flags);*/
@@ -964,7 +964,7 @@ namespace ManagedCorDebug
         {
             /*HRESULT SetTypeNotifications(
             [In] int numTokens,
-            [In] IXCLRDataModule[] mods,
+            [In, MarshalAs(UnmanagedType.LPArray)] IXCLRDataModule[] mods,
             [In] IXCLRDataModule singleMod,
             [In] mdTypeDef tokens,
             [In] int flags,
@@ -990,7 +990,7 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetCodeNotifications(
             [In] int numTokens,
-            [In] IXCLRDataModule[] mods,
+            [In, MarshalAs(UnmanagedType.LPArray)] IXCLRDataModule[] mods,
             [In] IXCLRDataModule singleMod,
             [In] mdMethodDef tokens,
             [Out] out int flags);*/
@@ -1012,7 +1012,7 @@ namespace ManagedCorDebug
         {
             /*HRESULT SetCodeNotifications(
             [In] int numTokens,
-            [In] IXCLRDataModule[] mods,
+            [In, MarshalAs(UnmanagedType.LPArray)] IXCLRDataModule[] mods,
             [In] IXCLRDataModule singleMod,
             [In] mdMethodDef tokens,
             [In] int flags,
@@ -1176,7 +1176,7 @@ namespace ManagedCorDebug
         public HRESULT TryDumpNativeImage(CLRDATA_ADDRESS loadedBase, string name, IXCLRDataDisplay display, IXCLRLibrarySupport libSupport, IXCLRDisassemblySupport dis)
         {
             /*HRESULT DumpNativeImage([In] CLRDATA_ADDRESS loadedBase,
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] IXCLRDataDisplay display,
             [In] IXCLRLibrarySupport libSupport,
             [In] IXCLRDisassemblySupport dis);*/

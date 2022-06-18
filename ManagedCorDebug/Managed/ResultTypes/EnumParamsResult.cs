@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.EnumParams"/> method.
     /// </summary>
-    [DebuggerDisplay("phEnum = {phEnum}, rParams = {rParams}, pcTokens = {pcTokens}")]
+    [DebuggerDisplay("phEnum = {phEnum}, rParams = {rParams}")]
     public struct EnumParamsResult
     {
         /// <summary>
@@ -19,16 +19,10 @@ namespace ManagedCorDebug
         /// </summary>
         public mdParamDef[] rParams { get; }
 
-        /// <summary>
-        /// The number of ParamDef tokens returned in rParams.
-        /// </summary>
-        public int pcTokens { get; }
-
-        public EnumParamsResult(IntPtr phEnum, mdParamDef[] rParams, int pcTokens)
+        public EnumParamsResult(IntPtr phEnum, mdParamDef[] rParams)
         {
             this.phEnum = phEnum;
             this.rParams = rParams;
-            this.pcTokens = pcTokens;
         }
     }
 }

@@ -106,7 +106,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
-        HRESULT GetCLRControl([MarshalAs(UnmanagedType.Interface)] out ICLRControl pCLRControl);
+        HRESULT GetCLRControl([Out, MarshalAs(UnmanagedType.Interface)] out ICLRControl pCLRControl);
 
         /// <summary>
         /// Unloads the managed <see cref="AppDomain"/> that corresponds to the specified numeric identifier.
@@ -181,7 +181,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
-        HRESULT GetCurrentAppDomainId(out int pdwAppDomainId);
+        HRESULT GetCurrentAppDomainId([Out] out int pdwAppDomainId);
 
         /// <summary>
         /// Used in manifest-based ClickOnce deployment scenarios to specify the application to be activated in a new domain.<para/>
@@ -216,7 +216,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr)] [In] string ppwzManifestPaths,
             [In] int dwActivationData,
             [MarshalAs(UnmanagedType.LPWStr)] [In] string ppwzActivationData,
-            out int pReturnValue);
+            [Out] out int pReturnValue);
 
         /// <summary>
         /// Calls the specified method of the specified type in the specified managed assembly.
@@ -247,7 +247,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzAssemblyPath,
             [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzTypeName,
             [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzMethodName,
-            [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzArgument, out int pReturnValue);
+            [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzArgument, [Out] out int pReturnValue);
 
     }
 }

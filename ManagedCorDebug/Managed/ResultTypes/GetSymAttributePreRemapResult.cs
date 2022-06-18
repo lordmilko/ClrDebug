@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -16,9 +17,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// A pointer to the buffer that receives the attribute bytes.
         /// </summary>
-        public byte[] buffer { get; }
+        public IntPtr buffer { get; }
 
-        public GetSymAttributePreRemapResult(int pcBuffer, byte[] buffer)
+        public GetSymAttributePreRemapResult(int pcBuffer, IntPtr buffer)
         {
             this.pcBuffer = pcBuffer;
             this.buffer = buffer;

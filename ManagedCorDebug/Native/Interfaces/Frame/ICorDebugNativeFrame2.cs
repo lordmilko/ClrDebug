@@ -33,7 +33,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsChild(out int pIsChild);
+        HRESULT IsChild([Out] out int pIsChild);
 
         /// <summary>
         /// Determines whether the specified frame is the parent of the current frame.
@@ -57,7 +57,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsMatchingParentFrame([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugNativeFrame2 pPotentialParentFrame, out int pIsParent);
+            ICorDebugNativeFrame2 pPotentialParentFrame, [Out] out int pIsParent);
 
         /// <summary>
         /// Returns the cumulative size of the parameters on the stack on x86 operating systems.
@@ -80,6 +80,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetStackParameterSize(out int pSize);
+        HRESULT GetStackParameterSize([Out] out int pSize);
     }
 }

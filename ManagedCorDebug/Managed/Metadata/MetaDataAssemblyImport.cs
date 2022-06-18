@@ -676,29 +676,37 @@ namespace ManagedCorDebug
         public mdManifestResource[] FindManifestResourceByName(string szName)
         {
             HRESULT hr;
-            mdManifestResource[] ptkManifestResource;
+            mdManifestResource[] ptkManifestResourceResult;
 
-            if ((hr = TryFindManifestResourceByName(szName, out ptkManifestResource)) != HRESULT.S_OK)
+            if ((hr = TryFindManifestResourceByName(szName, out ptkManifestResourceResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return ptkManifestResource;
+            return ptkManifestResourceResult;
         }
 
         /// <summary>
         /// Gets a pointer to the manifest resource with the specified name.
         /// </summary>
         /// <param name="szName">[in] The name of the resource.</param>
-        /// <param name="ptkManifestResource">[out] The array used to store the <see cref="mdManifestResource"/> metadata tokens, each of which represents a manifest resource.</param>
+        /// <param name="ptkManifestResourceResult">[out] The array used to store the <see cref="mdManifestResource"/> metadata tokens, each of which represents a manifest resource.</param>
         /// <remarks>
         /// The FindManifestResourceByName method uses the standard rules employed by the common language runtime for resolving
         /// references.
         /// </remarks>
-        public HRESULT TryFindManifestResourceByName(string szName, out mdManifestResource[] ptkManifestResource)
+        public HRESULT TryFindManifestResourceByName(string szName, out mdManifestResource[] ptkManifestResourceResult)
         {
             /*HRESULT FindManifestResourceByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
-            [Out] out mdManifestResource[] ptkManifestResource);*/
-            return Raw.FindManifestResourceByName(szName, out ptkManifestResource);
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdManifestResource[] ptkManifestResource);*/
+            mdManifestResource[] ptkManifestResource = null;
+            HRESULT hr = Raw.FindManifestResourceByName(szName, ptkManifestResource);
+
+            if (hr == HRESULT.S_OK)
+                ptkManifestResourceResult = ptkManifestResource;
+            else
+                ptkManifestResourceResult = default(mdManifestResource[]);
+
+            return hr;
         }
 
         #endregion
@@ -737,8 +745,7 @@ namespace ManagedCorDebug
         /// <param name="szPrivateBin">[in] A list of semicolon-delimited subdirectories (for example, "bin;bin2"), under the root directory, in which to search for the assembly.<para/>
         /// These directories are probed in addition to those specified in the default probing rules.</param>
         /// <param name="szAssemblyName">[in] The name of the assembly to find. The format of this string is defined in the class reference page for <see cref="AssemblyName"/>.</param>
-        /// <param name="cMax">[in] The maximum number of interface pointers to place in ppIUnk.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <returns>[out] An array that holds the <see cref="IMetaDataAssemblyImport"/> interface pointers.</returns>
         /// <remarks>
         /// Given an assembly name, the FindAssembliesByName method finds the assembly by following the standard rules for
         /// resolving assembly references. (For more information, see How the Runtime Locates Assemblies.) FindAssembliesByName
@@ -750,15 +757,15 @@ namespace ManagedCorDebug
         /// name is not fully specified (for example, if it does not include a version), multiple assemblies might be returned.
         /// FindAssembliesByName is commonly used by a compiler that attempts to find a referenced assembly at compile time.
         /// </remarks>
-        public FindAssembliesByNameResult FindAssembliesByName(string szAppBase, string szPrivateBin, string szAssemblyName, int cMax)
+        public object[] FindAssembliesByName(string szAppBase, string szPrivateBin, string szAssemblyName)
         {
             HRESULT hr;
-            FindAssembliesByNameResult result;
+            object[] ppIUnkResult;
 
-            if ((hr = TryFindAssembliesByName(szAppBase, szPrivateBin, szAssemblyName, cMax, out result)) != HRESULT.S_OK)
+            if ((hr = TryFindAssembliesByName(szAppBase, szPrivateBin, szAssemblyName, out ppIUnkResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return ppIUnkResult;
         }
 
         /// <summary>
@@ -768,8 +775,7 @@ namespace ManagedCorDebug
         /// <param name="szPrivateBin">[in] A list of semicolon-delimited subdirectories (for example, "bin;bin2"), under the root directory, in which to search for the assembly.<para/>
         /// These directories are probed in addition to those specified in the default probing rules.</param>
         /// <param name="szAssemblyName">[in] The name of the assembly to find. The format of this string is defined in the class reference page for <see cref="AssemblyName"/>.</param>
-        /// <param name="cMax">[in] The maximum number of interface pointers to place in ppIUnk.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="ppIUnkResult">[out] An array that holds the <see cref="IMetaDataAssemblyImport"/> interface pointers.</param>
         /// <returns>
         /// | HRESULT | Description                                 |
         /// | ------- | ------------------------------------------- |
@@ -787,23 +793,36 @@ namespace ManagedCorDebug
         /// name is not fully specified (for example, if it does not include a version), multiple assemblies might be returned.
         /// FindAssembliesByName is commonly used by a compiler that attempts to find a referenced assembly at compile time.
         /// </remarks>
-        public HRESULT TryFindAssembliesByName(string szAppBase, string szPrivateBin, string szAssemblyName, int cMax, out FindAssembliesByNameResult result)
+        public HRESULT TryFindAssembliesByName(string szAppBase, string szPrivateBin, string szAssemblyName, out object[] ppIUnkResult)
         {
             /*HRESULT FindAssembliesByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAppBase,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szPrivateBin,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAssemblyName,
-            [Out, MarshalAs(UnmanagedType.Interface)] out object[] ppIUnk,
+            [Out, MarshalAs(UnmanagedType.LPArray)] object[] ppIUnk,
             [In] int cMax,
             [Out] out int pcAssemblies);*/
-            object[] ppIUnk;
+            object[] ppIUnk = null;
+            int cMax = 0;
             int pcAssemblies;
-            HRESULT hr = Raw.FindAssembliesByName(szAppBase, szPrivateBin, szAssemblyName, out ppIUnk, cMax, out pcAssemblies);
+            HRESULT hr = Raw.FindAssembliesByName(szAppBase, szPrivateBin, szAssemblyName, ppIUnk, cMax, out pcAssemblies);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMax = pcAssemblies;
+            ppIUnk = new object[pcAssemblies];
+            hr = Raw.FindAssembliesByName(szAppBase, szPrivateBin, szAssemblyName, ppIUnk, cMax, out pcAssemblies);
 
             if (hr == HRESULT.S_OK)
-                result = new FindAssembliesByNameResult(ppIUnk, pcAssemblies);
-            else
-                result = default(FindAssembliesByNameResult);
+            {
+                ppIUnkResult = ppIUnk;
+
+                return hr;
+            }
+
+            fail:
+            ppIUnkResult = default(object[]);
 
             return hr;
         }

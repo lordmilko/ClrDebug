@@ -47,7 +47,7 @@ namespace ManagedCorDebug
         /// <param name="ppProcessResult">[out] A pointer to the address of an <see cref="ICorDebugProcess"/> object that represents the process.</param>
         public HRESULT TryGetProcess(out CorDebugProcess ppProcessResult)
         {
-            /*HRESULT GetProcess([MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
+            /*HRESULT GetProcess([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
             ICorDebugProcess ppProcess;
             HRESULT hr = Raw.GetProcess(out ppProcess);
 
@@ -88,7 +88,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryIsAttached(out bool pbAttachedResult)
         {
-            /*HRESULT IsAttached(out int pbAttached);*/
+            /*HRESULT IsAttached([Out] out int pbAttached);*/
             int pbAttached;
             HRESULT hr = Raw.IsAttached(out pbAttached);
 
@@ -131,7 +131,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            /*HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName = null;
@@ -189,7 +189,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetObject(out CorDebugValue ppObjectResult)
         {
-            /*HRESULT GetObject([MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppObject);*/
+            /*HRESULT GetObject([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppObject);*/
             ICorDebugValue ppObject;
             HRESULT hr = Raw.GetObject(out ppObject);
 
@@ -230,7 +230,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetID(out int pId)
         {
-            /*HRESULT GetID(out int pId);*/
+            /*HRESULT GetID([Out] out int pId);*/
             return Raw.GetID(out pId);
         }
 
@@ -258,7 +258,7 @@ namespace ManagedCorDebug
         /// <param name="ppAssembliesResult">[out] A pointer to the address of an <see cref="ICorDebugAssemblyEnum"/> object that is the enumerator for the assemblies in the application domain.</param>
         public HRESULT TryEnumerateAssemblies(out CorDebugAssemblyEnum ppAssembliesResult)
         {
-            /*HRESULT EnumerateAssemblies([MarshalAs(UnmanagedType.Interface)] out ICorDebugAssemblyEnum ppAssemblies);*/
+            /*HRESULT EnumerateAssemblies([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAssemblyEnum ppAssemblies);*/
             ICorDebugAssemblyEnum ppAssemblies;
             HRESULT hr = Raw.EnumerateAssemblies(out ppAssemblies);
 
@@ -297,7 +297,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetModuleFromMetaDataInterface(object pIMetaData, out CorDebugModule ppModuleResult)
         {
             /*HRESULT GetModuleFromMetaDataInterface([MarshalAs(UnmanagedType.IUnknown), In]
-            object pIMetaData, [MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);*/
+            object pIMetaData, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);*/
             ICorDebugModule ppModule;
             HRESULT hr = Raw.GetModuleFromMetaDataInterface(pIMetaData, out ppModule);
 
@@ -339,7 +339,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryEnumerateBreakpoints(out CorDebugBreakpointEnum ppBreakpointsResult)
         {
-            /*HRESULT EnumerateBreakpoints([MarshalAs(UnmanagedType.Interface)] out ICorDebugBreakpointEnum ppBreakpoints);*/
+            /*HRESULT EnumerateBreakpoints([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugBreakpointEnum ppBreakpoints);*/
             ICorDebugBreakpointEnum ppBreakpoints;
             HRESULT hr = Raw.EnumerateBreakpoints(out ppBreakpoints);
 
@@ -375,7 +375,7 @@ namespace ManagedCorDebug
         /// <param name="ppSteppersResult">[out] A pointer to the address of an <see cref="ICorDebugStepperEnum"/> object that is the enumerator for all active steppers in the application domain.</param>
         public HRESULT TryEnumerateSteppers(out CorDebugStepperEnum ppSteppersResult)
         {
-            /*HRESULT EnumerateSteppers([MarshalAs(UnmanagedType.Interface)] out ICorDebugStepperEnum ppSteppers);*/
+            /*HRESULT EnumerateSteppers([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugStepperEnum ppSteppers);*/
             ICorDebugStepperEnum ppSteppers;
             HRESULT hr = Raw.EnumerateSteppers(out ppSteppers);
 
@@ -467,7 +467,7 @@ namespace ManagedCorDebug
             [In] int nRank,
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugType pTypeArg,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);*/
             ICorDebugType ppType;
             HRESULT hr = Raw2.GetArrayOrPointerType(elementType, nRank, pTypeArg, out ppType);
 
@@ -513,7 +513,7 @@ namespace ManagedCorDebug
             [In] int nTypeArgs,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugType ppTypeArgs,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);*/
             ICorDebugType ppType;
             HRESULT hr = Raw2.GetFunctionPointerType(nTypeArgs, ref ppTypeArgs, out ppType);
 
@@ -557,7 +557,7 @@ namespace ManagedCorDebug
         /// <param name="ppGuidToTypeEnumResult">[out] A pointer to an <see cref="ICorDebugGuidToTypeEnum"/> interface object that can enumerate the managed representations of Windows Runtime types currently loaded in the application domain.</param>
         public HRESULT TryGetCachedWinRTTypes(out CorDebugGuidToTypeEnum ppGuidToTypeEnumResult)
         {
-            /*HRESULT GetCachedWinRTTypes([MarshalAs(UnmanagedType.Interface)] out ICorDebugGuidToTypeEnum ppGuidToTypeEnum);*/
+            /*HRESULT GetCachedWinRTTypes([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugGuidToTypeEnum ppGuidToTypeEnum);*/
             ICorDebugGuidToTypeEnum ppGuidToTypeEnum;
             HRESULT hr = Raw3.GetCachedWinRTTypes(out ppGuidToTypeEnum);
 
@@ -610,7 +610,7 @@ namespace ManagedCorDebug
             /*HRESULT GetCachedWinRTTypesForIIDs(
             [In] int cReqTypes,
             [In] ref Guid iidsToResolve,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppTypesEnum);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppTypesEnum);*/
             ICorDebugTypeEnum ppTypesEnum;
             HRESULT hr = Raw3.GetCachedWinRTTypesForIIDs(cReqTypes, ref iidsToResolve, out ppTypesEnum);
 
@@ -655,7 +655,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetObjectForCCW(CORDB_ADDRESS ccwPointer, out CorDebugValue ppManagedObjectResult)
         {
             /*HRESULT GetObjectForCCW([In] CORDB_ADDRESS ccwPointer,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppManagedObject);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppManagedObject);*/
             ICorDebugValue ppManagedObject;
             HRESULT hr = Raw4.GetObjectForCCW(ccwPointer, out ppManagedObject);
 

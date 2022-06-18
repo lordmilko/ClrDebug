@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -17,9 +16,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// A pointer to an <see cref="ICorDebugVariableSymbol"/> array that contains the method's local symbols.
         /// </summary>
-        public IntPtr pSymbols { get; }
+        public ICorDebugVariableSymbol[] pSymbols { get; }
 
-        public GetMethodLocalSymbolsResult(int pcFetchedSymbols, IntPtr pSymbols)
+        public GetMethodLocalSymbolsResult(int pcFetchedSymbols, ICorDebugVariableSymbol[] pSymbols)
         {
             this.pcFetchedSymbols = pcFetchedSymbols;
             this.pSymbols = pSymbols;

@@ -200,18 +200,17 @@ namespace ManagedCorDebug
         /// <summary>
         /// Enumerates TypeDef tokens representing all types within the current scope.
         /// </summary>
-        /// <param name="cMax">[in] The maximum size of the rTypeDefs array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// The TypeDef token represents a type such as a class or an interface, as well as any type added via an extensibility
         /// mechanism.
         /// </remarks>
-        public EnumTypeDefsResult EnumTypeDefs(int cMax)
+        public EnumTypeDefsResult EnumTypeDefs()
         {
             HRESULT hr;
             EnumTypeDefsResult result;
 
-            if ((hr = TryEnumTypeDefs(cMax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumTypeDefs(out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -220,7 +219,6 @@ namespace ManagedCorDebug
         /// <summary>
         /// Enumerates TypeDef tokens representing all types within the current scope.
         /// </summary>
-        /// <param name="cMax">[in] The maximum size of the rTypeDefs array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                         |
@@ -232,22 +230,35 @@ namespace ManagedCorDebug
         /// The TypeDef token represents a type such as a class or an interface, as well as any type added via an extensibility
         /// mechanism.
         /// </remarks>
-        public HRESULT TryEnumTypeDefs(int cMax, out EnumTypeDefsResult result)
+        public HRESULT TryEnumTypeDefs(out EnumTypeDefsResult result)
         {
             /*HRESULT EnumTypeDefs(
             [In, Out] ref IntPtr phEnum,
-            [Out] out mdTypeDef[] typeDefs,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdTypeDef[] typeDefs,
             [In] int cMax,
             [Out] out int pcTypeDefs);*/
             IntPtr phEnum = default(IntPtr);
-            mdTypeDef[] typeDefs;
+            mdTypeDef[] typeDefs = null;
+            int cMax = 0;
             int pcTypeDefs;
-            HRESULT hr = Raw.EnumTypeDefs(ref phEnum, out typeDefs, cMax, out pcTypeDefs);
+            HRESULT hr = Raw.EnumTypeDefs(ref phEnum, typeDefs, cMax, out pcTypeDefs);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMax = pcTypeDefs;
+            typeDefs = new mdTypeDef[pcTypeDefs];
+            hr = Raw.EnumTypeDefs(ref phEnum, typeDefs, cMax, out pcTypeDefs);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumTypeDefsResult(phEnum, typeDefs, pcTypeDefs);
-            else
-                result = default(EnumTypeDefsResult);
+            {
+                result = new EnumTypeDefsResult(phEnum, typeDefs);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumTypeDefsResult);
 
             return hr;
         }
@@ -259,19 +270,18 @@ namespace ManagedCorDebug
         /// Enumerates all interfaces implemented by the specified TypeDef.
         /// </summary>
         /// <param name="td">[in] The token of the TypeDef whose MethodDef tokens representing interface implementations are to be enumerated.</param>
-        /// <param name="cMax">[in] The maximum length of the rImpls array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// The enumeration returns a collection of <see cref="mdInterfaceImpl"/> tokens for each interface implemented by the specified
         /// TypeDef. Interface tokens are returned in the order the interfaces were specified (through DefineTypeDef or SetTypeDefProps).
         /// Properties of the returned <see cref="mdInterfaceImpl"/> tokens can be queried using <see cref="GetInterfaceImplProps"/>.
         /// </remarks>
-        public EnumInterfaceImplsResult EnumInterfaceImpls(mdTypeDef td, int cMax)
+        public EnumInterfaceImplsResult EnumInterfaceImpls(mdTypeDef td)
         {
             HRESULT hr;
             EnumInterfaceImplsResult result;
 
-            if ((hr = TryEnumInterfaceImpls(td, cMax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumInterfaceImpls(td, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -281,7 +291,6 @@ namespace ManagedCorDebug
         /// Enumerates all interfaces implemented by the specified TypeDef.
         /// </summary>
         /// <param name="td">[in] The token of the TypeDef whose MethodDef tokens representing interface implementations are to be enumerated.</param>
-        /// <param name="cMax">[in] The maximum length of the rImpls array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                                       |
@@ -294,23 +303,36 @@ namespace ManagedCorDebug
         /// TypeDef. Interface tokens are returned in the order the interfaces were specified (through DefineTypeDef or SetTypeDefProps).
         /// Properties of the returned <see cref="mdInterfaceImpl"/> tokens can be queried using <see cref="GetInterfaceImplProps"/>.
         /// </remarks>
-        public HRESULT TryEnumInterfaceImpls(mdTypeDef td, int cMax, out EnumInterfaceImplsResult result)
+        public HRESULT TryEnumInterfaceImpls(mdTypeDef td, out EnumInterfaceImplsResult result)
         {
             /*HRESULT EnumInterfaceImpls(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef td,
-            [Out] out mdInterfaceImpl[] rImpls,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdInterfaceImpl[] rImpls,
             [In] int cMax,
             [Out] out int pcImpls);*/
             IntPtr phEnum = default(IntPtr);
-            mdInterfaceImpl[] rImpls;
+            mdInterfaceImpl[] rImpls = null;
+            int cMax = 0;
             int pcImpls;
-            HRESULT hr = Raw.EnumInterfaceImpls(ref phEnum, td, out rImpls, cMax, out pcImpls);
+            HRESULT hr = Raw.EnumInterfaceImpls(ref phEnum, td, rImpls, cMax, out pcImpls);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMax = pcImpls;
+            rImpls = new mdInterfaceImpl[pcImpls];
+            hr = Raw.EnumInterfaceImpls(ref phEnum, td, rImpls, cMax, out pcImpls);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumInterfaceImplsResult(phEnum, rImpls, pcImpls);
-            else
-                result = default(EnumInterfaceImplsResult);
+            {
+                result = new EnumInterfaceImplsResult(phEnum, rImpls);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumInterfaceImplsResult);
 
             return hr;
         }
@@ -321,17 +343,16 @@ namespace ManagedCorDebug
         /// <summary>
         /// Enumerates TypeRef tokens defined in the current metadata scope.
         /// </summary>
-        /// <param name="cMax">[in] The maximum size of the rTypeRefs array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// A TypeRef token represents a reference to a type.
         /// </remarks>
-        public EnumTypeRefsResult EnumTypeRefs(int cMax)
+        public EnumTypeRefsResult EnumTypeRefs()
         {
             HRESULT hr;
             EnumTypeRefsResult result;
 
-            if ((hr = TryEnumTypeRefs(cMax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumTypeRefs(out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -340,7 +361,6 @@ namespace ManagedCorDebug
         /// <summary>
         /// Enumerates TypeRef tokens defined in the current metadata scope.
         /// </summary>
-        /// <param name="cMax">[in] The maximum size of the rTypeRefs array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                         |
@@ -351,22 +371,35 @@ namespace ManagedCorDebug
         /// <remarks>
         /// A TypeRef token represents a reference to a type.
         /// </remarks>
-        public HRESULT TryEnumTypeRefs(int cMax, out EnumTypeRefsResult result)
+        public HRESULT TryEnumTypeRefs(out EnumTypeRefsResult result)
         {
             /*HRESULT EnumTypeRefs(
             [In, Out] ref IntPtr phEnum,
-            [Out] out mdTypeRef[] rTypeRefs,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdTypeRef[] rTypeRefs,
             [In] int cMax,
             [Out] out int pcTypeRefs);*/
             IntPtr phEnum = default(IntPtr);
-            mdTypeRef[] rTypeRefs;
+            mdTypeRef[] rTypeRefs = null;
+            int cMax = 0;
             int pcTypeRefs;
-            HRESULT hr = Raw.EnumTypeRefs(ref phEnum, out rTypeRefs, cMax, out pcTypeRefs);
+            HRESULT hr = Raw.EnumTypeRefs(ref phEnum, rTypeRefs, cMax, out pcTypeRefs);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMax = pcTypeRefs;
+            rTypeRefs = new mdTypeRef[pcTypeRefs];
+            hr = Raw.EnumTypeRefs(ref phEnum, rTypeRefs, cMax, out pcTypeRefs);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumTypeRefsResult(phEnum, rTypeRefs, pcTypeRefs);
-            else
-                result = default(EnumTypeRefsResult);
+            {
+                result = new EnumTypeRefsResult(phEnum, rTypeRefs);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumTypeRefsResult);
 
             return hr;
         }
@@ -549,7 +582,7 @@ namespace ManagedCorDebug
             /*HRESULT GetTypeRefProps(
             [In] mdTypeRef tr,
             [Out] out mdToken ptkResolutionScope,
-            [Out] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
             [In] int cchName,
             [Out] out int pchName);*/
             mdToken ptkResolutionScope;
@@ -729,18 +762,17 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cl">[in] A TypeDef token representing the type with members to enumerate.</param>
         /// <param name="szName">[in] The member name that limits the scope of the enumerator.</param>
-        /// <param name="cMax">[in] The maximum size of the rMembers array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// This method enumerates fields and methods, but not properties or events. Unlike <see cref="EnumMembers"/>, EnumMembersWithName
         /// discards all field and member tokens that do not have the specified name.
         /// </remarks>
-        public EnumMembersWithNameResult EnumMembersWithName(mdTypeDef cl, string szName, int cMax)
+        public EnumMembersWithNameResult EnumMembersWithName(mdTypeDef cl, string szName)
         {
             HRESULT hr;
             EnumMembersWithNameResult result;
 
-            if ((hr = TryEnumMembersWithName(cl, szName, cMax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumMembersWithName(cl, szName, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -751,7 +783,6 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cl">[in] A TypeDef token representing the type with members to enumerate.</param>
         /// <param name="szName">[in] The member name that limits the scope of the enumerator.</param>
-        /// <param name="cMax">[in] The maximum size of the rMembers array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                                 |
@@ -763,24 +794,37 @@ namespace ManagedCorDebug
         /// This method enumerates fields and methods, but not properties or events. Unlike <see cref="EnumMembers"/>, EnumMembersWithName
         /// discards all field and member tokens that do not have the specified name.
         /// </remarks>
-        public HRESULT TryEnumMembersWithName(mdTypeDef cl, string szName, int cMax, out EnumMembersWithNameResult result)
+        public HRESULT TryEnumMembersWithName(mdTypeDef cl, string szName, out EnumMembersWithNameResult result)
         {
             /*HRESULT EnumMembersWithName(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
-            [Out] out mdToken[] rMembers,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdToken[] rMembers,
             [In] int cMax,
             [Out] out int pcTokens);*/
             IntPtr phEnum = default(IntPtr);
-            mdToken[] rMembers;
+            mdToken[] rMembers = null;
+            int cMax = 0;
             int pcTokens;
-            HRESULT hr = Raw.EnumMembersWithName(ref phEnum, cl, szName, out rMembers, cMax, out pcTokens);
+            HRESULT hr = Raw.EnumMembersWithName(ref phEnum, cl, szName, rMembers, cMax, out pcTokens);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMax = pcTokens;
+            rMembers = new mdToken[pcTokens];
+            hr = Raw.EnumMembersWithName(ref phEnum, cl, szName, rMembers, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumMembersWithNameResult(phEnum, rMembers, pcTokens);
-            else
-                result = default(EnumMembersWithNameResult);
+            {
+                result = new EnumMembersWithNameResult(phEnum, rMembers);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumMembersWithNameResult);
 
             return hr;
         }
@@ -792,14 +836,13 @@ namespace ManagedCorDebug
         /// Enumerates MethodDef tokens representing methods of the specified type.
         /// </summary>
         /// <param name="cl">[in] A TypeDef token representing the type with the methods to enumerate.</param>
-        /// <param name="cMax">[in] The maximum size of the MethodDef rMethods array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumMethodsResult EnumMethods(mdTypeDef cl, int cMax)
+        public EnumMethodsResult EnumMethods(mdTypeDef cl)
         {
             HRESULT hr;
             EnumMethodsResult result;
 
-            if ((hr = TryEnumMethods(cl, cMax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumMethods(cl, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -809,7 +852,6 @@ namespace ManagedCorDebug
         /// Enumerates MethodDef tokens representing methods of the specified type.
         /// </summary>
         /// <param name="cl">[in] A TypeDef token representing the type with the methods to enumerate.</param>
-        /// <param name="cMax">[in] The maximum size of the MethodDef rMethods array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                                 |
@@ -817,23 +859,36 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumMethods returned successfully.                                          |
         /// | S_FALSE | There are no MethodDef tokens to enumerate. In that case, pcTokens is zero. |
         /// </returns>
-        public HRESULT TryEnumMethods(mdTypeDef cl, int cMax, out EnumMethodsResult result)
+        public HRESULT TryEnumMethods(mdTypeDef cl, out EnumMethodsResult result)
         {
             /*HRESULT EnumMethods(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
-            [Out] out mdMethodDef[] rMethods,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rMethods,
             [In] int cMax,
             [Out] out int pcTokens);*/
             IntPtr phEnum = default(IntPtr);
-            mdMethodDef[] rMethods;
+            mdMethodDef[] rMethods = null;
+            int cMax = 0;
             int pcTokens;
-            HRESULT hr = Raw.EnumMethods(ref phEnum, cl, out rMethods, cMax, out pcTokens);
+            HRESULT hr = Raw.EnumMethods(ref phEnum, cl, rMethods, cMax, out pcTokens);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMax = pcTokens;
+            rMethods = new mdMethodDef[pcTokens];
+            hr = Raw.EnumMethods(ref phEnum, cl, rMethods, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumMethodsResult(phEnum, rMethods, pcTokens);
-            else
-                result = default(EnumMethodsResult);
+            {
+                result = new EnumMethodsResult(phEnum, rMethods);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumMethodsResult);
 
             return hr;
         }
@@ -845,18 +900,17 @@ namespace ManagedCorDebug
         /// Enumerates methods that have the specified name and that are defined by the type referenced by the specified TypeDef token.
         /// </summary>
         /// <param name="cl">[in] A TypeDef token representing the type whose methods to enumerate.</param>
-        /// <param name="cMax">[in] The maximum size of the rMethods array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// This method enumerates fields and methods, but not properties or events. Unlike <see cref="EnumMethods"/>, EnumMethodsWithName
         /// discards all method tokens that do not have the specified name.
         /// </remarks>
-        public EnumMethodsWithNameResult EnumMethodsWithName(mdTypeDef cl, int cMax)
+        public EnumMethodsWithNameResult EnumMethodsWithName(mdTypeDef cl)
         {
             HRESULT hr;
             EnumMethodsWithNameResult result;
 
-            if ((hr = TryEnumMethodsWithName(cl, cMax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumMethodsWithName(cl, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -866,7 +920,6 @@ namespace ManagedCorDebug
         /// Enumerates methods that have the specified name and that are defined by the type referenced by the specified TypeDef token.
         /// </summary>
         /// <param name="cl">[in] A TypeDef token representing the type whose methods to enumerate.</param>
-        /// <param name="cMax">[in] The maximum size of the rMethods array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                       |
@@ -878,25 +931,38 @@ namespace ManagedCorDebug
         /// This method enumerates fields and methods, but not properties or events. Unlike <see cref="EnumMethods"/>, EnumMethodsWithName
         /// discards all method tokens that do not have the specified name.
         /// </remarks>
-        public HRESULT TryEnumMethodsWithName(mdTypeDef cl, int cMax, out EnumMethodsWithNameResult result)
+        public HRESULT TryEnumMethodsWithName(mdTypeDef cl, out EnumMethodsWithNameResult result)
         {
             /*HRESULT EnumMethodsWithName(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
             [Out, MarshalAs(UnmanagedType.LPWStr), In] string szName,
-            [Out] out mdMethodDef[] rMethods,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rMethods,
             [In] int cMax,
             [Out] out int pcTokens);*/
             IntPtr phEnum = default(IntPtr);
             string szName = default(string);
-            mdMethodDef[] rMethods;
+            mdMethodDef[] rMethods = null;
+            int cMax = 0;
             int pcTokens;
-            HRESULT hr = Raw.EnumMethodsWithName(ref phEnum, cl, szName, out rMethods, cMax, out pcTokens);
+            HRESULT hr = Raw.EnumMethodsWithName(ref phEnum, cl, szName, rMethods, cMax, out pcTokens);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMax = pcTokens;
+            rMethods = new mdMethodDef[pcTokens];
+            hr = Raw.EnumMethodsWithName(ref phEnum, cl, szName, rMethods, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumMethodsWithNameResult(phEnum, szName, rMethods, pcTokens);
-            else
-                result = default(EnumMethodsWithNameResult);
+            {
+                result = new EnumMethodsWithNameResult(phEnum, szName, rMethods);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumMethodsWithNameResult);
 
             return hr;
         }
@@ -908,14 +974,13 @@ namespace ManagedCorDebug
         /// Enumerates FieldDef tokens for the type referenced by the specified TypeDef token.
         /// </summary>
         /// <param name="cl">[in] The TypeDef token of the class whose fields are to be enumerated.</param>
-        /// <param name="cMax">[in] The maximum size of the rFields array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumFieldsResult EnumFields(mdTypeDef cl, int cMax)
+        public EnumFieldsResult EnumFields(mdTypeDef cl)
         {
             HRESULT hr;
             EnumFieldsResult result;
 
-            if ((hr = TryEnumFields(cl, cMax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumFields(cl, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -925,7 +990,6 @@ namespace ManagedCorDebug
         /// Enumerates FieldDef tokens for the type referenced by the specified TypeDef token.
         /// </summary>
         /// <param name="cl">[in] The TypeDef token of the class whose fields are to be enumerated.</param>
-        /// <param name="cMax">[in] The maximum size of the rFields array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                       |
@@ -933,23 +997,36 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumFields returned successfully.                                 |
         /// | S_FALSE | There are no fields to enumerate. In that case, pcTokens is zero. |
         /// </returns>
-        public HRESULT TryEnumFields(mdTypeDef cl, int cMax, out EnumFieldsResult result)
+        public HRESULT TryEnumFields(mdTypeDef cl, out EnumFieldsResult result)
         {
             /*HRESULT EnumFields(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
-            [Out] out mdFieldDef[] rFields,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdFieldDef[] rFields,
             [In] int cMax,
             [Out] out int pcTokens);*/
             IntPtr phEnum = default(IntPtr);
-            mdFieldDef[] rFields;
+            mdFieldDef[] rFields = null;
+            int cMax = 0;
             int pcTokens;
-            HRESULT hr = Raw.EnumFields(ref phEnum, cl, out rFields, cMax, out pcTokens);
+            HRESULT hr = Raw.EnumFields(ref phEnum, cl, rFields, cMax, out pcTokens);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMax = pcTokens;
+            rFields = new mdFieldDef[pcTokens];
+            hr = Raw.EnumFields(ref phEnum, cl, rFields, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumFieldsResult(phEnum, rFields, pcTokens);
-            else
-                result = default(EnumFieldsResult);
+            {
+                result = new EnumFieldsResult(phEnum, rFields);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumFieldsResult);
 
             return hr;
         }
@@ -962,17 +1039,16 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cl">[in] The token of the type whose fields are to be enumerated.</param>
         /// <param name="szName">[in] The field name that limits the scope of the enumeration.</param>
-        /// <param name="cMax">[in] The maximum size of the rFields array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// Unlike <see cref="EnumFields"/>, EnumFieldsWithName discards all field tokens that do not have the specified name.
         /// </remarks>
-        public EnumFieldsWithNameResult EnumFieldsWithName(mdTypeDef cl, string szName, int cMax)
+        public EnumFieldsWithNameResult EnumFieldsWithName(mdTypeDef cl, string szName)
         {
             HRESULT hr;
             EnumFieldsWithNameResult result;
 
-            if ((hr = TryEnumFieldsWithName(cl, szName, cMax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumFieldsWithName(cl, szName, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -983,7 +1059,6 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="cl">[in] The token of the type whose fields are to be enumerated.</param>
         /// <param name="szName">[in] The field name that limits the scope of the enumeration.</param>
-        /// <param name="cMax">[in] The maximum size of the rFields array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                       |
@@ -994,24 +1069,37 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Unlike <see cref="EnumFields"/>, EnumFieldsWithName discards all field tokens that do not have the specified name.
         /// </remarks>
-        public HRESULT TryEnumFieldsWithName(mdTypeDef cl, string szName, int cMax, out EnumFieldsWithNameResult result)
+        public HRESULT TryEnumFieldsWithName(mdTypeDef cl, string szName, out EnumFieldsWithNameResult result)
         {
             /*HRESULT EnumFieldsWithName(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
-            [Out] out mdFieldDef[] rFields,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdFieldDef[] rFields,
             [In] int cMax,
             [Out] out int pcTokens);*/
             IntPtr phEnum = default(IntPtr);
-            mdFieldDef[] rFields;
+            mdFieldDef[] rFields = null;
+            int cMax = 0;
             int pcTokens;
-            HRESULT hr = Raw.EnumFieldsWithName(ref phEnum, cl, szName, out rFields, cMax, out pcTokens);
+            HRESULT hr = Raw.EnumFieldsWithName(ref phEnum, cl, szName, rFields, cMax, out pcTokens);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMax = pcTokens;
+            rFields = new mdFieldDef[pcTokens];
+            hr = Raw.EnumFieldsWithName(ref phEnum, cl, szName, rFields, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumFieldsWithNameResult(phEnum, rFields, pcTokens);
-            else
-                result = default(EnumFieldsWithNameResult);
+            {
+                result = new EnumFieldsWithNameResult(phEnum, rFields);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumFieldsWithNameResult);
 
             return hr;
         }
@@ -1023,14 +1111,13 @@ namespace ManagedCorDebug
         /// Enumerates ParamDef tokens representing the parameters of the method referenced by the specified MethodDef token.
         /// </summary>
         /// <param name="mb">[in] A MethodDef token representing the method with the parameters to enumerate.</param>
-        /// <param name="cMax">[in] The maximum size of the rParams array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumParamsResult EnumParams(mdMethodDef mb, int cMax)
+        public EnumParamsResult EnumParams(mdMethodDef mb)
         {
             HRESULT hr;
             EnumParamsResult result;
 
-            if ((hr = TryEnumParams(mb, cMax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumParams(mb, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -1040,7 +1127,6 @@ namespace ManagedCorDebug
         /// Enumerates ParamDef tokens representing the parameters of the method referenced by the specified MethodDef token.
         /// </summary>
         /// <param name="mb">[in] A MethodDef token representing the method with the parameters to enumerate.</param>
-        /// <param name="cMax">[in] The maximum size of the rParams array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                       |
@@ -1048,23 +1134,36 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumParams returned successfully.                                 |
         /// | S_FALSE | There are no tokens to enumerate. In that case, pcTokens is zero. |
         /// </returns>
-        public HRESULT TryEnumParams(mdMethodDef mb, int cMax, out EnumParamsResult result)
+        public HRESULT TryEnumParams(mdMethodDef mb, out EnumParamsResult result)
         {
             /*HRESULT EnumParams(
             [In, Out] ref IntPtr phEnum,
             [In] mdMethodDef mb,
-            [Out] out mdParamDef[] rParams,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdParamDef[] rParams,
             [In] int cMax,
             [Out] out int pcTokens);*/
             IntPtr phEnum = default(IntPtr);
-            mdParamDef[] rParams;
+            mdParamDef[] rParams = null;
+            int cMax = 0;
             int pcTokens;
-            HRESULT hr = Raw.EnumParams(ref phEnum, mb, out rParams, cMax, out pcTokens);
+            HRESULT hr = Raw.EnumParams(ref phEnum, mb, rParams, cMax, out pcTokens);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMax = pcTokens;
+            rParams = new mdParamDef[pcTokens];
+            hr = Raw.EnumParams(ref phEnum, mb, rParams, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumParamsResult(phEnum, rParams, pcTokens);
-            else
-                result = default(EnumParamsResult);
+            {
+                result = new EnumParamsResult(phEnum, rParams);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumParamsResult);
 
             return hr;
         }
@@ -1076,14 +1175,13 @@ namespace ManagedCorDebug
         /// Enumerates MemberRef tokens representing members of the specified type.
         /// </summary>
         /// <param name="tkParent">[in] A TypeDef, TypeRef, MethodDef, or ModuleRef token for the type whose members are to be enumerated.</param>
-        /// <param name="cMax">[in] The maximum size of the rMemberRefs array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumMemberRefsResult EnumMemberRefs(mdToken tkParent, int cMax)
+        public EnumMemberRefsResult EnumMemberRefs(mdToken tkParent)
         {
             HRESULT hr;
             EnumMemberRefsResult result;
 
-            if ((hr = TryEnumMemberRefs(tkParent, cMax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumMemberRefs(tkParent, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -1093,7 +1191,6 @@ namespace ManagedCorDebug
         /// Enumerates MemberRef tokens representing members of the specified type.
         /// </summary>
         /// <param name="tkParent">[in] A TypeDef, TypeRef, MethodDef, or ModuleRef token for the type whose members are to be enumerated.</param>
-        /// <param name="cMax">[in] The maximum size of the rMemberRefs array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                                    |
@@ -1101,23 +1198,36 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumMemberRefs returned successfully.                                          |
         /// | S_FALSE | There are no MemberRef tokens to enumerate. In that case, pcTokens is to zero. |
         /// </returns>
-        public HRESULT TryEnumMemberRefs(mdToken tkParent, int cMax, out EnumMemberRefsResult result)
+        public HRESULT TryEnumMemberRefs(mdToken tkParent, out EnumMemberRefsResult result)
         {
             /*HRESULT EnumMemberRefs(
             [In, Out] ref IntPtr phEnum,
             [In] mdToken tkParent,
-            [Out] out mdMemberRef[] rMemberRefs,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdMemberRef[] rMemberRefs,
             [In] int cMax,
             [Out] out int pcTokens);*/
             IntPtr phEnum = default(IntPtr);
-            mdMemberRef[] rMemberRefs;
+            mdMemberRef[] rMemberRefs = null;
+            int cMax = 0;
             int pcTokens;
-            HRESULT hr = Raw.EnumMemberRefs(ref phEnum, tkParent, out rMemberRefs, cMax, out pcTokens);
+            HRESULT hr = Raw.EnumMemberRefs(ref phEnum, tkParent, rMemberRefs, cMax, out pcTokens);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMax = pcTokens;
+            rMemberRefs = new mdMemberRef[pcTokens];
+            hr = Raw.EnumMemberRefs(ref phEnum, tkParent, rMemberRefs, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumMemberRefsResult(phEnum, rMemberRefs, pcTokens);
-            else
-                result = default(EnumMemberRefsResult);
+            {
+                result = new EnumMemberRefsResult(phEnum, rMemberRefs);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumMemberRefsResult);
 
             return hr;
         }
@@ -1129,14 +1239,13 @@ namespace ManagedCorDebug
         /// Enumerates MethodBody and MethodDeclaration tokens representing methods of the specified type.
         /// </summary>
         /// <param name="td">[in] A TypeDef token for the type whose method implementations to enumerate.</param>
-        /// <param name="cMax">[in] The maximum size of the rMethodBody and rMethodDecl arrays.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumMethodImplsResult EnumMethodImpls(mdTypeDef td, int cMax)
+        public EnumMethodImplsResult EnumMethodImpls(mdTypeDef td)
         {
             HRESULT hr;
             EnumMethodImplsResult result;
 
-            if ((hr = TryEnumMethodImpls(td, cMax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumMethodImpls(td, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -1146,7 +1255,6 @@ namespace ManagedCorDebug
         /// Enumerates MethodBody and MethodDeclaration tokens representing methods of the specified type.
         /// </summary>
         /// <param name="td">[in] A TypeDef token for the type whose method implementations to enumerate.</param>
-        /// <param name="cMax">[in] The maximum size of the rMethodBody and rMethodDecl arrays.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                              |
@@ -1154,25 +1262,38 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumMethodImpls returned successfully.                                   |
         /// | S_FALSE | There are no method tokens to enumerate. In that case, pcTokens is zero. |
         /// </returns>
-        public HRESULT TryEnumMethodImpls(mdTypeDef td, int cMax, out EnumMethodImplsResult result)
+        public HRESULT TryEnumMethodImpls(mdTypeDef td, out EnumMethodImplsResult result)
         {
             /*HRESULT EnumMethodImpls(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef td,
-            [Out] out mdToken[] rMethodBody,
-            [Out] out mdToken[] rMethodDecl,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdToken[] rMethodBody,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdToken[] rMethodDecl,
             [In] int cMax,
             [Out] out int pcTokens);*/
             IntPtr phEnum = default(IntPtr);
-            mdToken[] rMethodBody;
-            mdToken[] rMethodDecl;
+            mdToken[] rMethodBody = null;
+            mdToken[] rMethodDecl = null;
+            int cMax = 0;
             int pcTokens;
-            HRESULT hr = Raw.EnumMethodImpls(ref phEnum, td, out rMethodBody, out rMethodDecl, cMax, out pcTokens);
+            HRESULT hr = Raw.EnumMethodImpls(ref phEnum, td, rMethodBody, rMethodDecl, cMax, out pcTokens);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMax = pcTokens;
+            rMethodDecl = new mdToken[pcTokens];
+            hr = Raw.EnumMethodImpls(ref phEnum, td, rMethodBody, rMethodDecl, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumMethodImplsResult(phEnum, rMethodBody, rMethodDecl, pcTokens);
-            else
-                result = default(EnumMethodImplsResult);
+            {
+                result = new EnumMethodImplsResult(phEnum, rMethodBody, rMethodDecl);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumMethodImplsResult);
 
             return hr;
         }
@@ -1185,14 +1306,13 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="tk">[in] A metadata token that limits the scope of the search, or NULL to search the widest scope possible.</param>
         /// <param name="dwActions">[in] Flags representing the <see cref="SecurityAction"/> values to include in rPermission, or zero to return all actions.</param>
-        /// <param name="cMax">[in] The maximum size of the rPermission array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumPermissionSetsResult EnumPermissionSets(mdToken tk, SecurityAction dwActions, int cMax)
+        public EnumPermissionSetsResult EnumPermissionSets(mdToken tk, SecurityAction dwActions)
         {
             HRESULT hr;
             EnumPermissionSetsResult result;
 
-            if ((hr = TryEnumPermissionSets(tk, dwActions, cMax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumPermissionSets(tk, dwActions, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -1203,7 +1323,6 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="tk">[in] A metadata token that limits the scope of the search, or NULL to search the widest scope possible.</param>
         /// <param name="dwActions">[in] Flags representing the <see cref="SecurityAction"/> values to include in rPermission, or zero to return all actions.</param>
-        /// <param name="cMax">[in] The maximum size of the rPermission array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                       |
@@ -1211,24 +1330,37 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumPermissionSets returned successfully.                         |
         /// | S_FALSE | There are no tokens to enumerate. In that case, pcTokens is zero. |
         /// </returns>
-        public HRESULT TryEnumPermissionSets(mdToken tk, SecurityAction dwActions, int cMax, out EnumPermissionSetsResult result)
+        public HRESULT TryEnumPermissionSets(mdToken tk, SecurityAction dwActions, out EnumPermissionSetsResult result)
         {
             /*HRESULT EnumPermissionSets(
             [In, Out] ref IntPtr phEnum,
             [In] mdToken tk,
             [In] SecurityAction dwActions,
-            [Out] out mdPermission[] rPermission,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdPermission[] rPermission,
             [In] int cMax,
             [Out] out int pcTokens);*/
             IntPtr phEnum = default(IntPtr);
-            mdPermission[] rPermission;
+            mdPermission[] rPermission = null;
+            int cMax = 0;
             int pcTokens;
-            HRESULT hr = Raw.EnumPermissionSets(ref phEnum, tk, dwActions, out rPermission, cMax, out pcTokens);
+            HRESULT hr = Raw.EnumPermissionSets(ref phEnum, tk, dwActions, rPermission, cMax, out pcTokens);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMax = pcTokens;
+            rPermission = new mdPermission[pcTokens];
+            hr = Raw.EnumPermissionSets(ref phEnum, tk, dwActions, rPermission, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumPermissionSetsResult(phEnum, rPermission, pcTokens);
-            else
-                result = default(EnumPermissionSetsResult);
+            {
+                result = new EnumPermissionSetsResult(phEnum, rPermission);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumPermissionSetsResult);
 
             return hr;
         }
@@ -1601,14 +1733,13 @@ namespace ManagedCorDebug
         /// Enumerates PropertyDef tokens representing the properties of the type referenced by the specified TypeDef token.
         /// </summary>
         /// <param name="td">[in] A TypeDef token representing the type with properties to enumerate.</param>
-        /// <param name="cMax">[in] The maximum size of the rProperties array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumPropertiesResult EnumProperties(mdTypeDef td, int cMax)
+        public EnumPropertiesResult EnumProperties(mdTypeDef td)
         {
             HRESULT hr;
             EnumPropertiesResult result;
 
-            if ((hr = TryEnumProperties(td, cMax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumProperties(td, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -1618,7 +1749,6 @@ namespace ManagedCorDebug
         /// Enumerates PropertyDef tokens representing the properties of the type referenced by the specified TypeDef token.
         /// </summary>
         /// <param name="td">[in] A TypeDef token representing the type with properties to enumerate.</param>
-        /// <param name="cMax">[in] The maximum size of the rProperties array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                           |
@@ -1626,23 +1756,36 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumProperties returned successfully.                                 |
         /// | S_FALSE | There are no tokens to enumerate. In that case, pcProperties is zero. |
         /// </returns>
-        public HRESULT TryEnumProperties(mdTypeDef td, int cMax, out EnumPropertiesResult result)
+        public HRESULT TryEnumProperties(mdTypeDef td, out EnumPropertiesResult result)
         {
             /*HRESULT EnumProperties(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef td,
-            [Out] mdProperty[] rProperties,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdProperty[] rProperties,
             [In] int cMax,
             [Out] out int pcProperties);*/
             IntPtr phEnum = default(IntPtr);
-            mdProperty[] rProperties = default(mdProperty[]);
+            mdProperty[] rProperties = null;
+            int cMax = 0;
             int pcProperties;
             HRESULT hr = Raw.EnumProperties(ref phEnum, td, rProperties, cMax, out pcProperties);
 
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMax = pcProperties;
+            rProperties = new mdProperty[pcProperties];
+            hr = Raw.EnumProperties(ref phEnum, td, rProperties, cMax, out pcProperties);
+
             if (hr == HRESULT.S_OK)
-                result = new EnumPropertiesResult(phEnum, rProperties, pcProperties);
-            else
-                result = default(EnumPropertiesResult);
+            {
+                result = new EnumPropertiesResult(phEnum, rProperties);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumPropertiesResult);
 
             return hr;
         }
@@ -1654,14 +1797,13 @@ namespace ManagedCorDebug
         /// Enumerates event definition tokens for the specified TypeDef token.
         /// </summary>
         /// <param name="td">[in] The TypeDef token whose event definitions are to be enumerated.</param>
-        /// <param name="cMax">[in] The maximum size of the rEvents array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumEventsResult EnumEvents(mdTypeDef td, int cMax)
+        public EnumEventsResult EnumEvents(mdTypeDef td)
         {
             HRESULT hr;
             EnumEventsResult result;
 
-            if ((hr = TryEnumEvents(td, cMax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumEvents(td, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -1671,7 +1813,6 @@ namespace ManagedCorDebug
         /// Enumerates event definition tokens for the specified TypeDef token.
         /// </summary>
         /// <param name="td">[in] The TypeDef token whose event definitions are to be enumerated.</param>
-        /// <param name="cMax">[in] The maximum size of the rEvents array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                       |
@@ -1679,23 +1820,36 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumEvents returned successfully.                                 |
         /// | S_FALSE | There are no events to enumerate. In that case, pcEvents is zero. |
         /// </returns>
-        public HRESULT TryEnumEvents(mdTypeDef td, int cMax, out EnumEventsResult result)
+        public HRESULT TryEnumEvents(mdTypeDef td, out EnumEventsResult result)
         {
             /*HRESULT EnumEvents(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef td,
-            [Out] out mdEvent[] rEvents,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdEvent[] rEvents,
             [In] int cMax,
             [Out] out int pcEvents);*/
             IntPtr phEnum = default(IntPtr);
-            mdEvent[] rEvents;
+            mdEvent[] rEvents = null;
+            int cMax = 0;
             int pcEvents;
-            HRESULT hr = Raw.EnumEvents(ref phEnum, td, out rEvents, cMax, out pcEvents);
+            HRESULT hr = Raw.EnumEvents(ref phEnum, td, rEvents, cMax, out pcEvents);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMax = pcEvents;
+            rEvents = new mdEvent[pcEvents];
+            hr = Raw.EnumEvents(ref phEnum, td, rEvents, cMax, out pcEvents);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumEventsResult(phEnum, rEvents, pcEvents);
-            else
-                result = default(EnumEventsResult);
+            {
+                result = new EnumEventsResult(phEnum, rEvents);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumEventsResult);
 
             return hr;
         }
@@ -1707,14 +1861,13 @@ namespace ManagedCorDebug
         /// Gets metadata information for the event represented by the specified event token, including the declaring type, the add and remove methods for delegates, and any flags and other associated data.
         /// </summary>
         /// <param name="ev">[in] The event metadata token representing the event to get metadata for.</param>
-        /// <param name="cMax">[in] The maximum size of the rmdOtherMethod array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetEventPropsResult GetEventProps(mdEvent ev, int cMax)
+        public GetEventPropsResult GetEventProps(mdEvent ev)
         {
             HRESULT hr;
             GetEventPropsResult result;
 
-            if ((hr = TryGetEventProps(ev, cMax, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetEventProps(ev, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -1724,9 +1877,8 @@ namespace ManagedCorDebug
         /// Gets metadata information for the event represented by the specified event token, including the declaring type, the add and remove methods for delegates, and any flags and other associated data.
         /// </summary>
         /// <param name="ev">[in] The event metadata token representing the event to get metadata for.</param>
-        /// <param name="cMax">[in] The maximum size of the rmdOtherMethod array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetEventProps(mdEvent ev, int cMax, out GetEventPropsResult result)
+        public HRESULT TryGetEventProps(mdEvent ev, out GetEventPropsResult result)
         {
             /*HRESULT GetEventProps(
             [In] mdEvent ev,
@@ -1739,7 +1891,7 @@ namespace ManagedCorDebug
             [Out] out mdMethodDef pmdAddOn,
             [Out] out mdMethodDef pmdRemoveOn,
             [Out] out mdMethodDef pmdFire,
-            [Out] out mdMethodDef[] rmdOtherMethod,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rmdOtherMethod,
             [In] int cMax,
             [Out] int pcOtherMethod);*/
             mdTypeDef pClass = default(mdTypeDef);
@@ -1751,20 +1903,23 @@ namespace ManagedCorDebug
             mdMethodDef pmdAddOn;
             mdMethodDef pmdRemoveOn;
             mdMethodDef pmdFire;
-            mdMethodDef[] rmdOtherMethod;
+            mdMethodDef[] rmdOtherMethod = null;
+            int cMax = 0;
             int pcOtherMethod = default(int);
-            HRESULT hr = Raw.GetEventProps(ev, pClass, szEvent, cchEvent, out pchEvent, out pdwEventFlags, out ptkEventType, out pmdAddOn, out pmdRemoveOn, out pmdFire, out rmdOtherMethod, cMax, pcOtherMethod);
+            HRESULT hr = Raw.GetEventProps(ev, pClass, szEvent, cchEvent, out pchEvent, out pdwEventFlags, out ptkEventType, out pmdAddOn, out pmdRemoveOn, out pmdFire, rmdOtherMethod, cMax, pcOtherMethod);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchEvent = pchEvent;
             szEvent = new StringBuilder(pchEvent);
-            hr = Raw.GetEventProps(ev, pClass, szEvent, cchEvent, out pchEvent, out pdwEventFlags, out ptkEventType, out pmdAddOn, out pmdRemoveOn, out pmdFire, out rmdOtherMethod, cMax, pcOtherMethod);
+            cMax = pcOtherMethod;
+            rmdOtherMethod = new mdMethodDef[pcOtherMethod];
+            hr = Raw.GetEventProps(ev, pClass, szEvent, cchEvent, out pchEvent, out pdwEventFlags, out ptkEventType, out pmdAddOn, out pmdRemoveOn, out pmdFire, rmdOtherMethod, cMax, pcOtherMethod);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetEventPropsResult(pClass, szEvent.ToString(), pdwEventFlags, ptkEventType, pmdAddOn, pmdRemoveOn, pmdFire, rmdOtherMethod, pcOtherMethod);
+                result = new GetEventPropsResult(pClass, szEvent.ToString(), pdwEventFlags, ptkEventType, pmdAddOn, pmdRemoveOn, pmdFire, rmdOtherMethod);
 
                 return hr;
             }
@@ -1782,7 +1937,6 @@ namespace ManagedCorDebug
         /// Enumerates the properties and the property-change events to which the specified method is related.
         /// </summary>
         /// <param name="mb">[in] A MethodDef token that limits the scope of the enumeration.</param>
-        /// <param name="cMax">[in] The maximum size of the rEventProp array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// Many common language runtime types define PropertyChanged events and OnPropertyChanged methods related to their
@@ -1793,12 +1947,12 @@ namespace ManagedCorDebug
         /// using the MethodDef for System.Windows.Forms.Control.OnFontChanged to get references to the System.Windows.Forms.Control.Font
         /// property and the System.Windows.Forms.Control.FontChanged event.
         /// </remarks>
-        public EnumMethodSemanticsResult EnumMethodSemantics(mdMethodDef mb, int cMax)
+        public EnumMethodSemanticsResult EnumMethodSemantics(mdMethodDef mb)
         {
             HRESULT hr;
             EnumMethodSemanticsResult result;
 
-            if ((hr = TryEnumMethodSemantics(mb, cMax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumMethodSemantics(mb, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -1808,7 +1962,6 @@ namespace ManagedCorDebug
         /// Enumerates the properties and the property-change events to which the specified method is related.
         /// </summary>
         /// <param name="mb">[in] A MethodDef token that limits the scope of the enumeration.</param>
-        /// <param name="cMax">[in] The maximum size of the rEventProp array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                                        |
@@ -1825,23 +1978,36 @@ namespace ManagedCorDebug
         /// using the MethodDef for System.Windows.Forms.Control.OnFontChanged to get references to the System.Windows.Forms.Control.Font
         /// property and the System.Windows.Forms.Control.FontChanged event.
         /// </remarks>
-        public HRESULT TryEnumMethodSemantics(mdMethodDef mb, int cMax, out EnumMethodSemanticsResult result)
+        public HRESULT TryEnumMethodSemantics(mdMethodDef mb, out EnumMethodSemanticsResult result)
         {
             /*HRESULT EnumMethodSemantics(
             [In, Out] ref IntPtr phEnum,
             [In] mdMethodDef mb,
-            [Out] out mdToken[] rEventProp,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdToken[] rEventProp,
             [In] int cMax,
             [Out] out int pcEventProp);*/
             IntPtr phEnum = default(IntPtr);
-            mdToken[] rEventProp;
+            mdToken[] rEventProp = null;
+            int cMax = 0;
             int pcEventProp;
-            HRESULT hr = Raw.EnumMethodSemantics(ref phEnum, mb, out rEventProp, cMax, out pcEventProp);
+            HRESULT hr = Raw.EnumMethodSemantics(ref phEnum, mb, rEventProp, cMax, out pcEventProp);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMax = pcEventProp;
+            rEventProp = new mdToken[pcEventProp];
+            hr = Raw.EnumMethodSemantics(ref phEnum, mb, rEventProp, cMax, out pcEventProp);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumMethodSemanticsResult(phEnum, rEventProp, pcEventProp);
-            else
-                result = default(EnumMethodSemanticsResult);
+            {
+                result = new EnumMethodSemanticsResult(phEnum, rEventProp);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumMethodSemanticsResult);
 
             return hr;
         }
@@ -2179,14 +2345,13 @@ namespace ManagedCorDebug
         /// <summary>
         /// Enumerates ModuleRef tokens that represent imported modules.
         /// </summary>
-        /// <param name="cmax">[in] The maximum size of the rModuleRefs array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumModuleRefsResult EnumModuleRefs(int cmax)
+        public EnumModuleRefsResult EnumModuleRefs()
         {
             HRESULT hr;
             EnumModuleRefsResult result;
 
-            if ((hr = TryEnumModuleRefs(cmax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumModuleRefs(out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -2195,7 +2360,6 @@ namespace ManagedCorDebug
         /// <summary>
         /// Enumerates ModuleRef tokens that represent imported modules.
         /// </summary>
-        /// <param name="cmax">[in] The maximum size of the rModuleRefs array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                           |
@@ -2203,22 +2367,35 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumModuleRefs returned successfully.                                 |
         /// | S_FALSE | There are no tokens to enumerate. In that case, pcModuleRefs is zero. |
         /// </returns>
-        public HRESULT TryEnumModuleRefs(int cmax, out EnumModuleRefsResult result)
+        public HRESULT TryEnumModuleRefs(out EnumModuleRefsResult result)
         {
             /*HRESULT EnumModuleRefs(
             [In, Out] ref IntPtr phEnum,
-            [Out] out mdModuleRef[] rModuleRefs,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdModuleRef[] rModuleRefs,
             [In] int cmax,
             [Out] out int pcModuleRefs);*/
             IntPtr phEnum = default(IntPtr);
-            mdModuleRef[] rModuleRefs;
+            mdModuleRef[] rModuleRefs = null;
+            int cmax = 0;
             int pcModuleRefs;
-            HRESULT hr = Raw.EnumModuleRefs(ref phEnum, out rModuleRefs, cmax, out pcModuleRefs);
+            HRESULT hr = Raw.EnumModuleRefs(ref phEnum, rModuleRefs, cmax, out pcModuleRefs);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cmax = pcModuleRefs;
+            rModuleRefs = new mdModuleRef[pcModuleRefs];
+            hr = Raw.EnumModuleRefs(ref phEnum, rModuleRefs, cmax, out pcModuleRefs);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumModuleRefsResult(phEnum, rModuleRefs, pcModuleRefs);
-            else
-                result = default(EnumModuleRefsResult);
+            {
+                result = new EnumModuleRefsResult(phEnum, rModuleRefs);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumModuleRefsResult);
 
             return hr;
         }
@@ -2314,7 +2491,6 @@ namespace ManagedCorDebug
         /// <summary>
         /// Enumerates MemberDef tokens representing the unresolved methods in the current metadata scope.
         /// </summary>
-        /// <param name="cMax">[in] The maximum size of the rMethods array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// An unresolved method is one that has been declared but not implemented. A method is included in the enumeration
@@ -2323,12 +2499,12 @@ namespace ManagedCorDebug
         /// PInvoke) nor implemented internally by the runtime itself The enumeration excludes all methods that are defined
         /// either at module scope (globals) or in interfaces or abstract classes.
         /// </remarks>
-        public EnumUnresolvedMethodsResult EnumUnresolvedMethods(int cMax)
+        public EnumUnresolvedMethodsResult EnumUnresolvedMethods()
         {
             HRESULT hr;
             EnumUnresolvedMethodsResult result;
 
-            if ((hr = TryEnumUnresolvedMethods(cMax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumUnresolvedMethods(out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -2337,7 +2513,6 @@ namespace ManagedCorDebug
         /// <summary>
         /// Enumerates MemberDef tokens representing the unresolved methods in the current metadata scope.
         /// </summary>
-        /// <param name="cMax">[in] The maximum size of the rMethods array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                       |
@@ -2352,22 +2527,35 @@ namespace ManagedCorDebug
         /// PInvoke) nor implemented internally by the runtime itself The enumeration excludes all methods that are defined
         /// either at module scope (globals) or in interfaces or abstract classes.
         /// </remarks>
-        public HRESULT TryEnumUnresolvedMethods(int cMax, out EnumUnresolvedMethodsResult result)
+        public HRESULT TryEnumUnresolvedMethods(out EnumUnresolvedMethodsResult result)
         {
             /*HRESULT EnumUnresolvedMethods(
             [In, Out] ref IntPtr phEnum,
-            [Out] out mdToken[] rMethods,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdToken[] rMethods,
             [In] int cMax,
             [Out] out int pcTokens);*/
             IntPtr phEnum = default(IntPtr);
-            mdToken[] rMethods;
+            mdToken[] rMethods = null;
+            int cMax = 0;
             int pcTokens;
-            HRESULT hr = Raw.EnumUnresolvedMethods(ref phEnum, out rMethods, cMax, out pcTokens);
+            HRESULT hr = Raw.EnumUnresolvedMethods(ref phEnum, rMethods, cMax, out pcTokens);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMax = pcTokens;
+            rMethods = new mdToken[pcTokens];
+            hr = Raw.EnumUnresolvedMethods(ref phEnum, rMethods, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumUnresolvedMethodsResult(phEnum, rMethods, pcTokens);
-            else
-                result = default(EnumUnresolvedMethodsResult);
+            {
+                result = new EnumUnresolvedMethodsResult(phEnum, rMethods);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumUnresolvedMethodsResult);
 
             return hr;
         }
@@ -2494,17 +2682,16 @@ namespace ManagedCorDebug
         /// <summary>
         /// Enumerates Signature tokens representing stand-alone signatures in the current scope.
         /// </summary>
-        /// <param name="cmax">[in] The maximum size of the rSignatures array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// The Signature tokens are created by the <see cref="MetaDataEmit.GetTokenFromSig"/> method.
         /// </remarks>
-        public EnumSignaturesResult EnumSignatures(int cmax)
+        public EnumSignaturesResult EnumSignatures()
         {
             HRESULT hr;
             EnumSignaturesResult result;
 
-            if ((hr = TryEnumSignatures(cmax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumSignatures(out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -2513,7 +2700,6 @@ namespace ManagedCorDebug
         /// <summary>
         /// Enumerates Signature tokens representing stand-alone signatures in the current scope.
         /// </summary>
-        /// <param name="cmax">[in] The maximum size of the rSignatures array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                           |
@@ -2524,22 +2710,35 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The Signature tokens are created by the <see cref="MetaDataEmit.GetTokenFromSig"/> method.
         /// </remarks>
-        public HRESULT TryEnumSignatures(int cmax, out EnumSignaturesResult result)
+        public HRESULT TryEnumSignatures(out EnumSignaturesResult result)
         {
             /*HRESULT EnumSignatures(
             [In, Out] ref IntPtr phEnum,
-            [Out] out mdSignature[] rSignatures,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdSignature[] rSignatures,
             [In] int cmax,
             [Out] out int pcSignatures);*/
             IntPtr phEnum = default(IntPtr);
-            mdSignature[] rSignatures;
+            mdSignature[] rSignatures = null;
+            int cmax = 0;
             int pcSignatures;
-            HRESULT hr = Raw.EnumSignatures(ref phEnum, out rSignatures, cmax, out pcSignatures);
+            HRESULT hr = Raw.EnumSignatures(ref phEnum, rSignatures, cmax, out pcSignatures);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cmax = pcSignatures;
+            rSignatures = new mdSignature[pcSignatures];
+            hr = Raw.EnumSignatures(ref phEnum, rSignatures, cmax, out pcSignatures);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumSignaturesResult(phEnum, rSignatures, pcSignatures);
-            else
-                result = default(EnumSignaturesResult);
+            {
+                result = new EnumSignaturesResult(phEnum, rSignatures);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumSignaturesResult);
 
             return hr;
         }
@@ -2550,17 +2749,16 @@ namespace ManagedCorDebug
         /// <summary>
         /// Enumerates TypeSpec tokens defined in the current metadata scope.
         /// </summary>
-        /// <param name="cmax">[in] The maximum size of the rTypeSpecs array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// The TypeSpec tokens are created by the <see cref="MetaDataEmit.GetTokenFromTypeSpec"/> method.
         /// </remarks>
-        public EnumTypeSpecsResult EnumTypeSpecs(int cmax)
+        public EnumTypeSpecsResult EnumTypeSpecs()
         {
             HRESULT hr;
             EnumTypeSpecsResult result;
 
-            if ((hr = TryEnumTypeSpecs(cmax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumTypeSpecs(out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -2569,7 +2767,6 @@ namespace ManagedCorDebug
         /// <summary>
         /// Enumerates TypeSpec tokens defined in the current metadata scope.
         /// </summary>
-        /// <param name="cmax">[in] The maximum size of the rTypeSpecs array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                          |
@@ -2580,22 +2777,35 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The TypeSpec tokens are created by the <see cref="MetaDataEmit.GetTokenFromTypeSpec"/> method.
         /// </remarks>
-        public HRESULT TryEnumTypeSpecs(int cmax, out EnumTypeSpecsResult result)
+        public HRESULT TryEnumTypeSpecs(out EnumTypeSpecsResult result)
         {
             /*HRESULT EnumTypeSpecs(
             [In, Out] ref IntPtr phEnum,
-            [Out] out mdTypeSpec[] rTypeSpecs,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdTypeSpec[] rTypeSpecs,
             [In] int cmax,
             [Out] out int pcTypeSpecs);*/
             IntPtr phEnum = default(IntPtr);
-            mdTypeSpec[] rTypeSpecs;
+            mdTypeSpec[] rTypeSpecs = null;
+            int cmax = 0;
             int pcTypeSpecs;
-            HRESULT hr = Raw.EnumTypeSpecs(ref phEnum, out rTypeSpecs, cmax, out pcTypeSpecs);
+            HRESULT hr = Raw.EnumTypeSpecs(ref phEnum, rTypeSpecs, cmax, out pcTypeSpecs);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cmax = pcTypeSpecs;
+            rTypeSpecs = new mdTypeSpec[pcTypeSpecs];
+            hr = Raw.EnumTypeSpecs(ref phEnum, rTypeSpecs, cmax, out pcTypeSpecs);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumTypeSpecsResult(phEnum, rTypeSpecs, pcTypeSpecs);
-            else
-                result = default(EnumTypeSpecsResult);
+            {
+                result = new EnumTypeSpecsResult(phEnum, rTypeSpecs);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumTypeSpecsResult);
 
             return hr;
         }
@@ -2606,18 +2816,17 @@ namespace ManagedCorDebug
         /// <summary>
         /// Enumerates String tokens representing hard-coded strings in the current metadata scope.
         /// </summary>
-        /// <param name="cmax">[in] The maximum size of the rStrings array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// The String tokens are created by the <see cref="MetaDataEmit.DefineUserString"/> method. This method is designed
         /// to be used by a metadata browser rather than by a compiler.
         /// </remarks>
-        public EnumUserStringsResult EnumUserStrings(int cmax)
+        public EnumUserStringsResult EnumUserStrings()
         {
             HRESULT hr;
             EnumUserStringsResult result;
 
-            if ((hr = TryEnumUserStrings(cmax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumUserStrings(out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -2626,7 +2835,6 @@ namespace ManagedCorDebug
         /// <summary>
         /// Enumerates String tokens representing hard-coded strings in the current metadata scope.
         /// </summary>
-        /// <param name="cmax">[in] The maximum size of the rStrings array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                        |
@@ -2638,22 +2846,35 @@ namespace ManagedCorDebug
         /// The String tokens are created by the <see cref="MetaDataEmit.DefineUserString"/> method. This method is designed
         /// to be used by a metadata browser rather than by a compiler.
         /// </remarks>
-        public HRESULT TryEnumUserStrings(int cmax, out EnumUserStringsResult result)
+        public HRESULT TryEnumUserStrings(out EnumUserStringsResult result)
         {
             /*HRESULT EnumUserStrings(
             [In, Out] ref IntPtr phEnum,
-            [Out] out mdString[] rStrings,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdString[] rStrings,
             [In] int cmax,
             [Out] out int pcStrings);*/
             IntPtr phEnum = default(IntPtr);
-            mdString[] rStrings;
+            mdString[] rStrings = null;
+            int cmax = 0;
             int pcStrings;
-            HRESULT hr = Raw.EnumUserStrings(ref phEnum, out rStrings, cmax, out pcStrings);
+            HRESULT hr = Raw.EnumUserStrings(ref phEnum, rStrings, cmax, out pcStrings);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cmax = pcStrings;
+            rStrings = new mdString[pcStrings];
+            hr = Raw.EnumUserStrings(ref phEnum, rStrings, cmax, out pcStrings);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumUserStringsResult(phEnum, rStrings, pcStrings);
-            else
-                result = default(EnumUserStringsResult);
+            {
+                result = new EnumUserStringsResult(phEnum, rStrings);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumUserStringsResult);
 
             return hr;
         }
@@ -2701,14 +2922,13 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="tk">[in] A token for the scope of the enumeration, or zero for all custom attributes.</param>
         /// <param name="tkType">[in] A token for the constructor of the type of the attributes to be enumerated, or null for all types.</param>
-        /// <param name="cMax">[in] The maximum size of the rCustomAttributes array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumCustomAttributesResult EnumCustomAttributes(mdToken tk, mdToken tkType, int cMax)
+        public EnumCustomAttributesResult EnumCustomAttributes(mdToken tk, mdToken tkType)
         {
             HRESULT hr;
             EnumCustomAttributesResult result;
 
-            if ((hr = TryEnumCustomAttributes(tk, tkType, cMax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumCustomAttributes(tk, tkType, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -2719,7 +2939,6 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="tk">[in] A token for the scope of the enumeration, or zero for all custom attributes.</param>
         /// <param name="tkType">[in] A token for the constructor of the type of the attributes to be enumerated, or null for all types.</param>
-        /// <param name="cMax">[in] The maximum size of the rCustomAttributes array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                                            |
@@ -2727,24 +2946,37 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumCustomAttributes returned successfully.                                            |
         /// | S_FALSE | There are no custom attributes to enumerate. In that case, pcCustomAttributes is zero. |
         /// </returns>
-        public HRESULT TryEnumCustomAttributes(mdToken tk, mdToken tkType, int cMax, out EnumCustomAttributesResult result)
+        public HRESULT TryEnumCustomAttributes(mdToken tk, mdToken tkType, out EnumCustomAttributesResult result)
         {
             /*HRESULT EnumCustomAttributes(
             [In, Out] ref IntPtr phEnum,
             [In] mdToken tk,
             [In] mdToken tkType,
-            [Out] out mdCustomAttribute[] rCustomAttributes,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdCustomAttribute[] rCustomAttributes,
             [In] int cMax,
             [Out] out int pcCustomAttributes);*/
             IntPtr phEnum = default(IntPtr);
-            mdCustomAttribute[] rCustomAttributes;
+            mdCustomAttribute[] rCustomAttributes = null;
+            int cMax = 0;
             int pcCustomAttributes;
-            HRESULT hr = Raw.EnumCustomAttributes(ref phEnum, tk, tkType, out rCustomAttributes, cMax, out pcCustomAttributes);
+            HRESULT hr = Raw.EnumCustomAttributes(ref phEnum, tk, tkType, rCustomAttributes, cMax, out pcCustomAttributes);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMax = pcCustomAttributes;
+            rCustomAttributes = new mdCustomAttribute[pcCustomAttributes];
+            hr = Raw.EnumCustomAttributes(ref phEnum, tk, tkType, rCustomAttributes, cMax, out pcCustomAttributes);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumCustomAttributesResult(phEnum, rCustomAttributes, pcCustomAttributes);
-            else
-                result = default(EnumCustomAttributesResult);
+            {
+                result = new EnumCustomAttributesResult(phEnum, rCustomAttributes);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumCustomAttributesResult);
 
             return hr;
         }
@@ -3411,14 +3643,13 @@ namespace ManagedCorDebug
         /// Gets an enumerator for an array of generic parameter tokens associated with the specified TypeDef or MethodDef token.
         /// </summary>
         /// <param name="tk">[in] The TypeDef or MethodDef token whose generic parameters are to be enumerated.</param>
-        /// <param name="cMax">[in] The requested maximum number of tokens to place in rGenericParams.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumGenericParamsResult EnumGenericParams(mdToken tk, int cMax)
+        public EnumGenericParamsResult EnumGenericParams(mdToken tk)
         {
             HRESULT hr;
             EnumGenericParamsResult result;
 
-            if ((hr = TryEnumGenericParams(tk, cMax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumGenericParams(tk, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -3428,7 +3659,6 @@ namespace ManagedCorDebug
         /// Gets an enumerator for an array of generic parameter tokens associated with the specified TypeDef or MethodDef token.
         /// </summary>
         /// <param name="tk">[in] The TypeDef or MethodDef token whose generic parameters are to be enumerated.</param>
-        /// <param name="cMax">[in] The requested maximum number of tokens to place in rGenericParams.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                                      |
@@ -3436,23 +3666,36 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumGenericParams returned successfully.                                         |
         /// | S_FALSE | phEnum has no member elements. In this case, pcGenericParams is set to 0 (zero). |
         /// </returns>
-        public HRESULT TryEnumGenericParams(mdToken tk, int cMax, out EnumGenericParamsResult result)
+        public HRESULT TryEnumGenericParams(mdToken tk, out EnumGenericParamsResult result)
         {
             /*HRESULT EnumGenericParams(
             [In, Out] ref IntPtr phEnum,
             [In] mdToken tk,
-            [Out] out mdGenericParam[] rGenericParams,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdGenericParam[] rGenericParams,
             [In] int cMax,
             [Out] out int pcGenericParams);*/
             IntPtr phEnum = default(IntPtr);
-            mdGenericParam[] rGenericParams;
+            mdGenericParam[] rGenericParams = null;
+            int cMax = 0;
             int pcGenericParams;
-            HRESULT hr = Raw2.EnumGenericParams(ref phEnum, tk, out rGenericParams, cMax, out pcGenericParams);
+            HRESULT hr = Raw2.EnumGenericParams(ref phEnum, tk, rGenericParams, cMax, out pcGenericParams);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMax = pcGenericParams;
+            rGenericParams = new mdGenericParam[pcGenericParams];
+            hr = Raw2.EnumGenericParams(ref phEnum, tk, rGenericParams, cMax, out pcGenericParams);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumGenericParamsResult(phEnum, rGenericParams, pcGenericParams);
-            else
-                result = default(EnumGenericParamsResult);
+            {
+                result = new EnumGenericParamsResult(phEnum, rGenericParams);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumGenericParamsResult);
 
             return hr;
         }
@@ -3572,14 +3815,13 @@ namespace ManagedCorDebug
         /// Gets an enumerator for an array of generic parameter constraints associated with the generic parameter represented by the specified token.
         /// </summary>
         /// <param name="tk">[in] A token that represents the generic parameter whose constraints are to be enumerated.</param>
-        /// <param name="cMax">[in] The requested maximum number of tokens to place in rGenericParamConstraints.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumGenericParamConstraintsResult EnumGenericParamConstraints(mdGenericParam tk, int cMax)
+        public EnumGenericParamConstraintsResult EnumGenericParamConstraints(mdGenericParam tk)
         {
             HRESULT hr;
             EnumGenericParamConstraintsResult result;
 
-            if ((hr = TryEnumGenericParamConstraints(tk, cMax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumGenericParamConstraints(tk, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -3589,7 +3831,6 @@ namespace ManagedCorDebug
         /// Gets an enumerator for an array of generic parameter constraints associated with the generic parameter represented by the specified token.
         /// </summary>
         /// <param name="tk">[in] A token that represents the generic parameter whose constraints are to be enumerated.</param>
-        /// <param name="cMax">[in] The requested maximum number of tokens to place in rGenericParamConstraints.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                                                    |
@@ -3597,23 +3838,36 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumGenericParameterConstraints returned successfully.                                         |
         /// | S_FALSE | phEnum has no member elements. In this case, pcGenericParameterConstraints is set to 0 (zero). |
         /// </returns>
-        public HRESULT TryEnumGenericParamConstraints(mdGenericParam tk, int cMax, out EnumGenericParamConstraintsResult result)
+        public HRESULT TryEnumGenericParamConstraints(mdGenericParam tk, out EnumGenericParamConstraintsResult result)
         {
             /*HRESULT EnumGenericParamConstraints(
             [In, Out] ref IntPtr phEnum,
             [In] mdGenericParam tk,
-            [Out] mdGenericParamConstraint[] rGenericParamConstraints,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdGenericParamConstraint[] rGenericParamConstraints,
             [In] int cMax,
             [Out] out int pcGenericParamConstraints);*/
             IntPtr phEnum = default(IntPtr);
-            mdGenericParamConstraint[] rGenericParamConstraints = default(mdGenericParamConstraint[]);
+            mdGenericParamConstraint[] rGenericParamConstraints = null;
+            int cMax = 0;
             int pcGenericParamConstraints;
             HRESULT hr = Raw2.EnumGenericParamConstraints(ref phEnum, tk, rGenericParamConstraints, cMax, out pcGenericParamConstraints);
 
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMax = pcGenericParamConstraints;
+            rGenericParamConstraints = new mdGenericParamConstraint[pcGenericParamConstraints];
+            hr = Raw2.EnumGenericParamConstraints(ref phEnum, tk, rGenericParamConstraints, cMax, out pcGenericParamConstraints);
+
             if (hr == HRESULT.S_OK)
-                result = new EnumGenericParamConstraintsResult(phEnum, rGenericParamConstraints, pcGenericParamConstraints);
-            else
-                result = default(EnumGenericParamConstraintsResult);
+            {
+                result = new EnumGenericParamConstraintsResult(phEnum, rGenericParamConstraints);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumGenericParamConstraintsResult);
 
             return hr;
         }
@@ -3667,14 +3921,13 @@ namespace ManagedCorDebug
         /// Gets an enumerator for an array of MethodSpec tokens associated with the specified MethodDef or MemberRef token.
         /// </summary>
         /// <param name="tk">[in] The MemberRef or MethodDef token that represents the method whose MethodSpec tokens are to be enumerated. If the value of tk is 0 (zero), all MethodSpec tokens in the scope will be enumerated.</param>
-        /// <param name="cMax">[in] The requested maximum number of tokens to place in rMethodSpecs.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumMethodSpecsResult EnumMethodSpecs(mdToken tk, int cMax)
+        public EnumMethodSpecsResult EnumMethodSpecs(mdToken tk)
         {
             HRESULT hr;
             EnumMethodSpecsResult result;
 
-            if ((hr = TryEnumMethodSpecs(tk, cMax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumMethodSpecs(tk, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -3684,7 +3937,6 @@ namespace ManagedCorDebug
         /// Gets an enumerator for an array of MethodSpec tokens associated with the specified MethodDef or MemberRef token.
         /// </summary>
         /// <param name="tk">[in] The MemberRef or MethodDef token that represents the method whose MethodSpec tokens are to be enumerated. If the value of tk is 0 (zero), all MethodSpec tokens in the scope will be enumerated.</param>
-        /// <param name="cMax">[in] The requested maximum number of tokens to place in rMethodSpecs.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                                    |
@@ -3692,23 +3944,36 @@ namespace ManagedCorDebug
         /// | S_OK    | EnumMethodSpecs returned successfully.                                         |
         /// | S_FALSE | phEnum has no member elements. In this case, pcMethodSpecs is set to 0 (zero). |
         /// </returns>
-        public HRESULT TryEnumMethodSpecs(mdToken tk, int cMax, out EnumMethodSpecsResult result)
+        public HRESULT TryEnumMethodSpecs(mdToken tk, out EnumMethodSpecsResult result)
         {
             /*HRESULT EnumMethodSpecs(
             [In, Out] ref IntPtr phEnum,
             [In] mdToken tk,
-            [Out] mdMethodSpec[] rMethodSpecs,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdMethodSpec[] rMethodSpecs,
             [In] int cMax,
             [Out] out int pcMethodSpecs);*/
             IntPtr phEnum = default(IntPtr);
-            mdMethodSpec[] rMethodSpecs = default(mdMethodSpec[]);
+            mdMethodSpec[] rMethodSpecs = null;
+            int cMax = 0;
             int pcMethodSpecs;
             HRESULT hr = Raw2.EnumMethodSpecs(ref phEnum, tk, rMethodSpecs, cMax, out pcMethodSpecs);
 
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMax = pcMethodSpecs;
+            rMethodSpecs = new mdMethodSpec[pcMethodSpecs];
+            hr = Raw2.EnumMethodSpecs(ref phEnum, tk, rMethodSpecs, cMax, out pcMethodSpecs);
+
             if (hr == HRESULT.S_OK)
-                result = new EnumMethodSpecsResult(phEnum, rMethodSpecs, pcMethodSpecs);
-            else
-                result = default(EnumMethodSpecsResult);
+            {
+                result = new EnumMethodSpecsResult(phEnum, rMethodSpecs);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumMethodSpecsResult);
 
             return hr;
         }

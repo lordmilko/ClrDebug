@@ -231,7 +231,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryIsStarted(out IsStartedResult result)
         {
-            /*HRESULT IsStarted(out int pbStarted, out int pdwStartupFlags);*/
+            /*HRESULT IsStarted([Out] out int pbStarted, [Out] out int pdwStartupFlags);*/
             int pbStarted;
             int pdwStartupFlags;
             HRESULT hr = Raw.IsStarted(out pbStarted, out pdwStartupFlags);
@@ -605,7 +605,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetDefaultStartupFlags(out GetDefaultStartupFlagsResult result)
         {
             /*HRESULT GetDefaultStartupFlags(
-            out int pdwStartupFlags,
+            [Out] out int pdwStartupFlags,
             [MarshalAs(UnmanagedType.LPWStr), Out]
             StringBuilder pwzHostConfigFile,
             [In] [Out] ref int pcchHostConfigFile);*/

@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -17,9 +16,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// A pointer to an array of <see cref="ICorDebugMergedAssemblyRecord"/> objects.
         /// </summary>
-        public IntPtr pRecords { get; }
+        public ICorDebugMergedAssemblyRecord[] pRecords { get; }
 
-        public GetMergedAssemblyRecordsResult(int pcFetchedRecords, IntPtr pRecords)
+        public GetMergedAssemblyRecordsResult(int pcFetchedRecords, ICorDebugMergedAssemblyRecord[] pRecords)
         {
             this.pcFetchedRecords = pcFetchedRecords;
             this.pRecords = pRecords;

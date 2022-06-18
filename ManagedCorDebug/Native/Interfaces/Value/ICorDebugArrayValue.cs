@@ -26,7 +26,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetType(out CorElementType pType);
+        new HRESULT GetType([Out] out CorElementType pType);
 
         /// <summary>
         /// Gets the size, in bytes, of this "ICorDebugValue" object.
@@ -39,7 +39,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetSize(out int pSize);
+        new HRESULT GetSize([Out] out int pSize);
 
         /// <summary>
         /// Gets the address of this "ICorDebugValue" object, which is in the process of being debugged.
@@ -51,14 +51,14 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetAddress(out CORDB_ADDRESS pAddress);
+        new HRESULT GetAddress([Out] out CORDB_ADDRESS pAddress);
 
         /// <summary>
         /// The CreateBreakpoint method is currently not implemented.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT CreateBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
+        new HRESULT CreateBreakpoint([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
 
         /// <summary>
         /// Gets a value that indicates whether the object represented by this <see cref="ICorDebugHeapValue"/> is valid. This method has been deprecated in the .NET Framework version 2.0.
@@ -71,14 +71,14 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT IsValid(out int pbValid);
+        new HRESULT IsValid([Out] out int pbValid);
 
         /// <summary>
         /// This method is not implemented in the current version of the .NET Framework.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT CreateRelocBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
+        new HRESULT CreateRelocBreakpoint([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
 
         /// <summary>
         /// Gets a value that indicates the simple type of the elements in the array.
@@ -86,7 +86,7 @@ namespace ManagedCorDebug
         /// <param name="pType">[out] A pointer to a value of the <see cref="CorElementType"/> enumeration that indicates the type.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetElementType(out CorElementType pType);
+        HRESULT GetElementType([Out] out CorElementType pType);
 
         /// <summary>
         /// Gets the number of dimensions in the array.
@@ -94,7 +94,7 @@ namespace ManagedCorDebug
         /// <param name="pnRank">[out] A pointer to the number of dimensions in this <see cref="ICorDebugArrayValue"/> object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRank(out int pnRank);
+        HRESULT GetRank([Out] out int pnRank);
 
         /// <summary>
         /// Gets the total number of elements in the array.
@@ -102,7 +102,7 @@ namespace ManagedCorDebug
         /// <param name="pnCount">[out] A pointer to the total number of elements in the array.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCount(out int pnCount);
+        HRESULT GetCount([Out] out int pnCount);
 
         /// <summary>
         /// Gets the number of elements in each dimension of this array.
@@ -119,7 +119,7 @@ namespace ManagedCorDebug
         /// <param name="pbHasBaseIndicies">[out] A pointer to a Boolean value that is true if one or more dimensions of this <see cref="ICorDebugArrayValue"/> object have a base index of non-zero; otherwise, the Boolean value is false.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT HasBaseIndicies(out int pbHasBaseIndicies);
+        HRESULT HasBaseIndicies([Out] out int pbHasBaseIndicies);
 
         /// <summary>
         /// Gets the base index of each dimension in the array.
@@ -142,7 +142,7 @@ namespace ManagedCorDebug
         HRESULT GetElement(
             [In] int cdim,
             [MarshalAs(UnmanagedType.LPArray), In] int indices,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         /// <summary>
         /// Gets the element at the given position, treating the array as a zero-based, single-dimensional array.
@@ -154,6 +154,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetElementAtPosition([In] int nPosition, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
+        HRESULT GetElementAtPosition([In] int nPosition, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
     }
 }

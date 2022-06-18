@@ -56,7 +56,7 @@ namespace ManagedCorDebug
             [In] ref STARTUPINFO lpStartupInfo,
             [In] ref PROCESS_INFORMATION lpProcessInformation,
             [In] CorDebugCreateProcessFlags debuggingFlags,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
         /// <summary>
         /// Launches a process on a remote machine under the debugger.
@@ -79,6 +79,6 @@ namespace ManagedCorDebug
             ICorDebugRemoteTarget pRemoteTarget,
             [In] int dwProcessId,
             [In] int fWin32Attach,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
     }
 }

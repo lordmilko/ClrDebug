@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataTables.GetTableInfo"/> method.
     /// </summary>
-    [DebuggerDisplay("pcbRow = {pcbRow}, pcRows = {pcRows}, pcCols = {pcCols}, piKey = {piKey}")]
+    [DebuggerDisplay("pcbRow = {pcbRow}, pcRows = {pcRows}, pcCols = {pcCols}, piKey = {piKey}, ppName = {ppName}")]
     public struct GetTableInfoResult
     {
         /// <summary>
@@ -28,12 +28,18 @@ namespace ManagedCorDebug
         /// </summary>
         public int piKey { get; }
 
-        public GetTableInfoResult(int pcbRow, int pcRows, int pcCols, int piKey)
+        /// <summary>
+        /// A pointer to a pointer to the table name.
+        /// </summary>
+        public string ppName { get; }
+
+        public GetTableInfoResult(int pcbRow, int pcRows, int pcCols, int piKey, string ppName)
         {
             this.pcbRow = pcbRow;
             this.pcRows = pcRows;
             this.pcCols = pcCols;
             this.piKey = piKey;
+            this.ppName = ppName;
         }
     }
 }

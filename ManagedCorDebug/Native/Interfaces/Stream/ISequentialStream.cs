@@ -11,10 +11,10 @@ namespace ManagedCorDebug
     {
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT RemoteRead(out IntPtr pv, [In] int cb, out int pcbRead);
+        HRESULT RemoteRead([Out] IntPtr pv, [In] int cb, [Out] out int pcbRead);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT RemoteWrite([In] IntPtr pv, [In] int cb, out int pcbWritten);
+        HRESULT RemoteWrite([In] IntPtr pv, [In] int cb, [Out] out int pcbWritten);
     }
 }

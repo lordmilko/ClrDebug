@@ -22,7 +22,7 @@ namespace ManagedCorDebug
         /// <param name="pbIL">[out] true if this <see cref="ICorDebugCode"/> represents code that was compiled in MSIL; otherwise, false.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsIL(out int pbIL);
+        HRESULT IsIL([Out] out int pbIL);
 
         /// <summary>
         /// Gets the "ICorDebugFunction" associated with this "ICorDebugCode".
@@ -33,7 +33,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetFunction([MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
+        HRESULT GetFunction([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
 
         /// <summary>
         /// Gets the relative virtual address (RVA) of the code segment that this "ICorDebugCode" interface represents.
@@ -41,7 +41,7 @@ namespace ManagedCorDebug
         /// <param name="pStart">[out] A pointer to the RVA of the code segment.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAddress(out CORDB_ADDRESS pStart);
+        HRESULT GetAddress([Out] out CORDB_ADDRESS pStart);
 
         /// <summary>
         /// Gets the size, in bytes, of the binary code represented by this "ICorDebugCode".
@@ -49,7 +49,7 @@ namespace ManagedCorDebug
         /// <param name="pcBytes">[out] A pointer to the size, in bytes, of the binary code that this <see cref="ICorDebugCode"/> object represents.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSize(out int pcBytes);
+        HRESULT GetSize([Out] out int pcBytes);
 
         /// <summary>
         /// Creates a breakpoint in this code segment at the specified offset.
@@ -64,7 +64,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateBreakpoint([In] int offset,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugFunctionBreakpoint ppBreakpoint);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunctionBreakpoint ppBreakpoint);
 
         /// <summary>
         /// Gets all the code for the specified function, formatted for disassembly. This method has been deprecated in the .NET Framework version 2.0.<para/>
@@ -86,7 +86,7 @@ namespace ManagedCorDebug
             [In] int endOffset,
             [In] int cBufferAlloc,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] buffer,
-            out int pcBufferSize);
+            [Out] out int pcBufferSize);
 
         /// <summary>
         /// Gets the one-based number that identifies the version of the code that this "ICorDebugCode" represents.
@@ -97,7 +97,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetVersionNumber(out int nVersion);
+        HRESULT GetVersionNumber([Out] out int nVersion);
 
         /// <summary>
         /// Gets an array of "COR_DEBUG_IL_TO_NATIVE_MAP" instances that represent mappings from Microsoft intermediate language (MSIL) offsets to native offsets.
@@ -112,7 +112,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetILToNativeMapping([In] int cMap, out int pcMap, [MarshalAs(UnmanagedType.LPArray), Out]
+        HRESULT GetILToNativeMapping([In] int cMap, [Out] out int pcMap, [MarshalAs(UnmanagedType.LPArray), Out]
             COR_DEBUG_IL_TO_NATIVE_MAP[] map);
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetEnCRemapSequencePoints(
             [In] int cMap,
-            out int pcMap,
+            [Out] out int pcMap,
             [MarshalAs(UnmanagedType.LPArray), Out] int[] offsets);
     }
 }

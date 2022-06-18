@@ -33,8 +33,8 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetThreadOwningMonitorLock([MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread,
-            out int pAcquisitionCount);
+        HRESULT GetThreadOwningMonitorLock([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread,
+            [Out] out int pAcquisitionCount);
 
         /// <summary>
         /// Provides an ordered list of threads that are queued on the event that is associated with a monitor lock.
@@ -59,6 +59,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetMonitorEventWaitList([MarshalAs(UnmanagedType.Interface)] out ICorDebugThreadEnum ppThreadEnum);
+        HRESULT GetMonitorEventWaitList([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThreadEnum ppThreadEnum);
     }
 }

@@ -38,7 +38,7 @@ namespace ManagedCorDebug
         HRESULT GetContext(
             [In] int contextFlags,
             [In] int contextBufSize,
-            out int contextSize,
+            [Out] out int contextSize,
             [In, Out] ref IntPtr contextBuf);
 
         /// <summary>
@@ -109,6 +109,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetFrame([MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame pFrame);
+        HRESULT GetFrame([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame pFrame);
     }
 }

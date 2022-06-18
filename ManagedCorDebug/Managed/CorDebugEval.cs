@@ -58,7 +58,7 @@ namespace ManagedCorDebug
         /// <param name="pbActiveResult">[out] Pointer to a value that indicates whether this evaluation is active.</param>
         public HRESULT TryIsActive(out bool pbActiveResult)
         {
-            /*HRESULT IsActive(out int pbActive);*/
+            /*HRESULT IsActive([Out] out int pbActive);*/
             int pbActive;
             HRESULT hr = Raw.IsActive(out pbActive);
 
@@ -101,7 +101,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetResult(out CorDebugValue ppResultResult)
         {
-            /*HRESULT GetResult([MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppResult);*/
+            /*HRESULT GetResult([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppResult);*/
             ICorDebugValue ppResult;
             HRESULT hr = Raw.GetResult(out ppResult);
 
@@ -139,7 +139,7 @@ namespace ManagedCorDebug
         /// <param name="ppThreadResult">[out] A pointer to the address of an <see cref="ICorDebugThread"/> object that represents the thread.</param>
         public HRESULT TryGetThread(out CorDebugThread ppThreadResult)
         {
-            /*HRESULT GetThread([MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);*/
+            /*HRESULT GetThread([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);*/
             ICorDebugThread ppThread;
             HRESULT hr = Raw.GetThread(out ppThread);
 
@@ -415,7 +415,7 @@ namespace ManagedCorDebug
         public HRESULT TryCreateValue(int elementType, ICorDebugClass pElementClass, out CorDebugValue ppValueResult)
         {
             /*HRESULT CreateValue([In] int elementType, [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugClass pElementClass, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            ICorDebugClass pElementClass, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.CreateValue(elementType, pElementClass, out ppValue);
 
@@ -529,7 +529,7 @@ namespace ManagedCorDebug
         public HRESULT TryCreateValueForType(ICorDebugType pType, out CorDebugValue ppValueResult)
         {
             /*HRESULT CreateValueForType([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugType pType, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            ICorDebugType pType, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw2.CreateValueForType(pType, out ppValue);
 

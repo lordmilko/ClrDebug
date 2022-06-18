@@ -30,7 +30,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsActive(out int pbActive);
+        HRESULT IsActive([Out] out int pbActive);
 
         /// <summary>
         /// Causes this <see cref="ICorDebugStepper"/> to cancel the last step command that it received.

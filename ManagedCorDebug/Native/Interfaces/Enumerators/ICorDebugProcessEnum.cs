@@ -32,7 +32,7 @@ namespace ManagedCorDebug
         /// <param name="ppEnum">[out] A pointer to the address of an <see cref="ICorDebugEnum"/> object that is a copy of this <see cref="ICorDebugEnum"/> object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT Clone([MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);
+        new HRESULT Clone([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);
 
         /// <summary>
         /// Gets the number of items in the enumeration.
@@ -40,7 +40,7 @@ namespace ManagedCorDebug
         /// <param name="pcelt">[out] A pointer to the number of items in the enumeration.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetCount(out int pcelt);
+        new HRESULT GetCount([Out] out int pcelt);
 
         /// <summary>
         /// Gets the specified number of <see cref="ICorDebugProcess"/> instances from the enumeration, starting at the current position.
@@ -50,6 +50,6 @@ namespace ManagedCorDebug
         /// <param name="pceltFetched">[out] Pointer to the number of <see cref="ICorDebugProcess"/> instances actually returned. This value may be null if celt is one.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Next([In] int celt, [MarshalAs(UnmanagedType.Interface), Out] out ICorDebugProcess processes, out int pceltFetched);
+        HRESULT Next([In] int celt, [MarshalAs(UnmanagedType.Interface), Out] out ICorDebugProcess processes, [Out] out int pceltFetched);
     }
 }

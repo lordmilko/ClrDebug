@@ -47,8 +47,8 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetURL(
             [In] int cchUrl,
-            out int pcchUrl,
-            [Out] StringBuilder szUrl);*/
+            [Out] out int pcchUrl,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szUrl);*/
             int cchUrl = 0;
             int pcchUrl;
             StringBuilder szUrl = null;
@@ -260,7 +260,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
         public HRESULT TryGetCheckSum(int cData, out GetCheckSumResult result)
         {
-            /*HRESULT GetCheckSum([In] int cData, out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
+            /*HRESULT GetCheckSum([In] int cData, [Out] out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
             int pcData;
             byte[] data = null;
             HRESULT hr = Raw.GetCheckSum(cData, out pcData, data);
@@ -374,7 +374,7 @@ namespace ManagedCorDebug
             [In] int endLine,
             [In] int endColumn,
             [In] int cSourceBytes,
-            out int pcSourceBytes,
+            [Out] out int pcSourceBytes,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] source);*/
             int pcSourceBytes;
             byte[] source = null;

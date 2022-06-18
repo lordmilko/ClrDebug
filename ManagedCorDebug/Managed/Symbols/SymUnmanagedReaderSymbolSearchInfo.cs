@@ -42,7 +42,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetSymbolSearchInfoCount(out int pcSearchInfo)
         {
-            /*HRESULT GetSymbolSearchInfoCount(out int pcSearchInfo);*/
+            /*HRESULT GetSymbolSearchInfoCount([Out] out int pcSearchInfo);*/
             return Raw.GetSymbolSearchInfoCount(out pcSearchInfo);
         }
 
@@ -75,8 +75,8 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetSymbolSearchInfo(
             [In] int cSearchInfo,
-            out int pcSearchInfo,
-            [MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedSymbolSearchInfo rgpSearchInfo);*/
+            [Out] out int pcSearchInfo,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedSymbolSearchInfo rgpSearchInfo);*/
             int pcSearchInfo;
             ISymUnmanagedSymbolSearchInfo rgpSearchInfo;
             HRESULT hr = Raw.GetSymbolSearchInfo(cSearchInfo, out pcSearchInfo, out rgpSearchInfo);

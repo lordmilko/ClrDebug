@@ -20,6 +20,6 @@ namespace ManagedCorDebug
         /// and the new token is scoped in the emitted (target) metadata scope.
         /// </remarks>
         [PreserveSig]
-        HRESULT Map(mdToken tkImp, mdToken tkEmit);
+        HRESULT Map([In] mdToken tkImp, [In] mdToken tkEmit);
     }
 }

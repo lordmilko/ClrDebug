@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -17,9 +16,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// A pointer to an <see cref="ICorDebugStaticFieldSymbol"/> array that contains the requested static field symbols.
         /// </summary>
-        public IntPtr pSymbols { get; }
+        public ICorDebugStaticFieldSymbol[] pSymbols { get; }
 
-        public GetStaticFieldSymbolsResult(int pcFetchedSymbols, IntPtr pSymbols)
+        public GetStaticFieldSymbolsResult(int pcFetchedSymbols, ICorDebugStaticFieldSymbol[] pSymbols)
         {
             this.pcFetchedSymbols = pcFetchedSymbols;
             this.pSymbols = pSymbols;

@@ -10,6 +10,6 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT ExceptionCatcherEnter(
             [In] IXCLRDataMethodInstance catchingMethod,
-            int catcherNativeOffset);
+            [In] int catcherNativeOffset);
     }
 }

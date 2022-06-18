@@ -205,10 +205,10 @@ namespace ManagedCorDebug
             [In] int contextFlags,
             [In] int contextBufSize,
             [Out] out int contextSize,
-            [Out] out IntPtr contextBuf);*/
+            [In, Out] ref IntPtr contextBuf);*/
             int contextSize;
-            IntPtr contextBuf;
-            HRESULT hr = Raw.GetContext(contextFlags, contextBufSize, out contextSize, out contextBuf);
+            IntPtr contextBuf = default(IntPtr);
+            HRESULT hr = Raw.GetContext(contextFlags, contextBufSize, out contextSize, ref contextBuf);
 
             if (hr == HRESULT.S_OK)
                 result = new GetContextResult(contextSize, contextBuf);
@@ -366,23 +366,23 @@ namespace ManagedCorDebug
         public IntPtr Request(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize)
         {
             HRESULT hr;
-            IntPtr outBuffer;
+            IntPtr outBuffer = default(IntPtr);
 
-            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, out outBuffer)) != HRESULT.S_OK)
+            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, ref outBuffer)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return outBuffer;
         }
 
-        public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, out IntPtr outBuffer)
+        public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, ref IntPtr outBuffer)
         {
             /*HRESULT Request(
             [In] uint reqCode,
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
-            [Out] out IntPtr outBuffer);*/
-            return Raw.Request(reqCode, inBufferSize, inBuffer, outBufferSize, out outBuffer);
+            [In, Out] ref IntPtr outBuffer);*/
+            return Raw.Request(reqCode, inBufferSize, inBuffer, outBufferSize, ref outBuffer);
         }
 
         #endregion

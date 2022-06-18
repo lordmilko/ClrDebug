@@ -54,7 +54,7 @@ namespace ManagedCorDebug
         /// <param name="pbRunning">[out] A pointer to a value that is true if the threads in the process are running freely; otherwise, false.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT IsRunning(out int pbRunning);
+        new HRESULT IsRunning([Out] out int pbRunning);
 
         /// <summary>
         /// Gets a value that indicates whether any managed callbacks are currently queued for the specified thread.
@@ -73,7 +73,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT HasQueuedCallbacks([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugThread pThread, out int pbQueued);
+            ICorDebugThread pThread, [Out] out int pbQueued);
 
         /// <summary>
         /// Gets an enumerator for the active managed threads in the process.
@@ -87,7 +87,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT EnumerateThreads([MarshalAs(UnmanagedType.Interface)] out ICorDebugThreadEnum ppThreads);
+        new HRESULT EnumerateThreads([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThreadEnum ppThreads);
 
         /// <summary>
         /// Sets the debug state of all managed threads in the process.
@@ -140,7 +140,7 @@ namespace ManagedCorDebug
             [In] int cSnapshots,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugEditAndContinueSnapshot pSnapshots,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugErrorInfoEnum pError);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugErrorInfoEnum pError);
 
         /// <summary>
         /// CommitChanges is obsolete. Do not call this method.
@@ -152,7 +152,7 @@ namespace ManagedCorDebug
             [In] int cSnapshots,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugEditAndContinueSnapshot pSnapshots,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugErrorInfoEnum pError);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugErrorInfoEnum pError);
 
         /// <summary>
         /// Gets the process containing the application domain.
@@ -160,7 +160,7 @@ namespace ManagedCorDebug
         /// <param name="ppProcess">[out] A pointer to the address of an <see cref="ICorDebugProcess"/> object that represents the process.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetProcess([MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
+        HRESULT GetProcess([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
         /// <summary>
         /// Gets an enumerator for the assemblies in the application domain.
@@ -168,7 +168,7 @@ namespace ManagedCorDebug
         /// <param name="ppAssemblies">[out] A pointer to the address of an <see cref="ICorDebugAssemblyEnum"/> object that is the enumerator for the assemblies in the application domain.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateAssemblies([MarshalAs(UnmanagedType.Interface)] out ICorDebugAssemblyEnum ppAssemblies);
+        HRESULT EnumerateAssemblies([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAssemblyEnum ppAssemblies);
 
         /// <summary>
         /// Gets the module that corresponds to the given metadata interface.
@@ -178,7 +178,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetModuleFromMetaDataInterface([MarshalAs(UnmanagedType.IUnknown), In]
-            object pIMetaData, [MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
+            object pIMetaData, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
 
         /// <summary>
         /// Gets an enumerator for all active breakpoints in the application domain.
@@ -189,7 +189,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateBreakpoints([MarshalAs(UnmanagedType.Interface)] out ICorDebugBreakpointEnum ppBreakpoints);
+        HRESULT EnumerateBreakpoints([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugBreakpointEnum ppBreakpoints);
 
         /// <summary>
         /// Gets an enumerator for all active steppers in the application domain.
@@ -197,7 +197,7 @@ namespace ManagedCorDebug
         /// <param name="ppSteppers">[out] A pointer to the address of an <see cref="ICorDebugStepperEnum"/> object that is the enumerator for all active steppers in the application domain.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateSteppers([MarshalAs(UnmanagedType.Interface)] out ICorDebugStepperEnum ppSteppers);
+        HRESULT EnumerateSteppers([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugStepperEnum ppSteppers);
 
         /// <summary>
         /// Gets a value that indicates whether the debugger is attached to the application domain.
@@ -208,7 +208,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsAttached(out int pbAttached);
+        HRESULT IsAttached([Out] out int pbAttached);
 
         /// <summary>
         /// Gets the name of the application domain.
@@ -223,7 +223,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);
+        HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
 
         /// <summary>
         /// Gets an interface pointer to the common language runtime (CLR) application domain.
@@ -237,7 +237,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetObject([MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppObject);
+        HRESULT GetObject([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppObject);
 
         /// <summary>
         /// Attaches the debugger to the application domain.
@@ -259,6 +259,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetID(out int pId);
+        HRESULT GetID([Out] out int pId);
     }
 }

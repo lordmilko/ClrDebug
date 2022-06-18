@@ -95,7 +95,7 @@ namespace ManagedCorDebug
             [In] ref STARTUPINFO lpStartupInfo,
             [In] ref PROCESS_INFORMATION lpProcessInformation,
             [In] CorDebugCreateProcessFlags debuggingFlags,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
             ICorDebugProcess ppProcess;
             HRESULT hr = Raw.CreateProcessEx(pRemoteTarget, lpApplicationName, lpCommandLine, ref lpProcessAttributes, ref lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, ref lpStartupInfo, ref lpProcessInformation, debuggingFlags, out ppProcess);
 
@@ -152,7 +152,7 @@ namespace ManagedCorDebug
             ICorDebugRemoteTarget pRemoteTarget,
             [In] int dwProcessId,
             [In] int fWin32Attach,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
             ICorDebugProcess ppProcess;
             HRESULT hr = Raw.DebugActiveProcessEx(pRemoteTarget, dwProcessId, fWin32Attach, out ppProcess);
 

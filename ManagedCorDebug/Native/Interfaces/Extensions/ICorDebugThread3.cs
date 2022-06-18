@@ -33,7 +33,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CreateStackWalk([MarshalAs(UnmanagedType.Interface)] out ICorDebugStackWalk ppStackWalk);
+        HRESULT CreateStackWalk([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugStackWalk ppStackWalk);
 
         /// <summary>
         /// Returns an array of internal frames (<see cref="ICorDebugInternalFrame2"/> objects) on the stack.
@@ -62,7 +62,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetActiveInternalFrames(
             [In] int cInternalFrames,
-            out int pcInternalFrames,
+            [Out] out int pcInternalFrames,
             [In, Out] IntPtr ppInternalFrames); //ICorDebugInternalFrame2
     }
 }

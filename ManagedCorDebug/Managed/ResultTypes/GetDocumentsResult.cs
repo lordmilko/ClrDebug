@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -17,9 +16,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// A pointer to a variable that receives the document array.
         /// </summary>
-        public IntPtr pDocs { get; }
+        public ISymUnmanagedDocument[] pDocs { get; }
 
-        public GetDocumentsResult(int pcDocs, IntPtr pDocs)
+        public GetDocumentsResult(int pcDocs, ISymUnmanagedDocument[] pDocs)
         {
             this.pcDocs = pcDocs;
             this.pDocs = pDocs;

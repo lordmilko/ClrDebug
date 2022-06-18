@@ -109,7 +109,7 @@ namespace ManagedCorDebug
         /// <param name="pbActive">[out] Pointer to a value that indicates whether this evaluation is active.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsActive(out int pbActive);
+        HRESULT IsActive([Out] out int pbActive);
 
         /// <summary>
         /// Aborts the computation this <see cref="ICorDebugEval"/> object is currently performing.
@@ -132,7 +132,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetResult([MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppResult);
+        HRESULT GetResult([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppResult);
 
         /// <summary>
         /// Gets the thread in which this evaluation is executing or will execute.
@@ -140,7 +140,7 @@ namespace ManagedCorDebug
         /// <param name="ppThread">[out] A pointer to the address of an <see cref="ICorDebugThread"/> object that represents the thread.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetThread([MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
+        HRESULT GetThread([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
 
         /// <summary>
         /// Creates a value of the specified type, with an initial value of zero or null. This method is obsolete in the .NET Framework version 2.0.<para/>
@@ -161,6 +161,6 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateValue([In] int elementType, [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugClass pElementClass, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
+            ICorDebugClass pElementClass, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
     }
 }

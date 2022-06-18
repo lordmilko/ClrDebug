@@ -19,7 +19,7 @@ namespace ManagedCorDebug
         /// <param name="ppProcess">[out] A pointer to the address of an <see cref="ICorDebugProcess"/> object that represents the process containing this module.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetProcess([MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
+        HRESULT GetProcess([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
         /// <summary>
         /// Gets the base address of the module.
@@ -31,7 +31,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetBaseAddress(out CORDB_ADDRESS pAddress);
+        HRESULT GetBaseAddress([Out] out CORDB_ADDRESS pAddress);
 
         /// <summary>
         /// Gets the containing assembly for this module.
@@ -39,7 +39,7 @@ namespace ManagedCorDebug
         /// <param name="ppAssembly">[out] A pointer to an <see cref="ICorDebugAssembly"/> object that represents the assembly containing this module.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAssembly([MarshalAs(UnmanagedType.Interface)] out ICorDebugAssembly ppAssembly);
+        HRESULT GetAssembly([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAssembly ppAssembly);
 
         /// <summary>
         /// Gets the file name of the module.
@@ -53,7 +53,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetName([In] int cchName, out int pcchName, [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);
+        HRESULT GetName([In] int cchName, [Out] out int pcchName, [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);
 
         /// <summary>
         /// Controls whether the just-in-time (JIT) compiler preserves debugging information for methods within this module.
@@ -93,14 +93,14 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetFunctionFromToken([In] mdMethodDef methodDef,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
 
         /// <summary>
         /// This method has not been implemented in the current version of the .NET Framework.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetFunctionFromRVA([In] long rva, [MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
+        HRESULT GetFunctionFromRVA([In] long rva, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
 
         /// <summary>
         /// Gets the class specified by the metadata token.
@@ -109,14 +109,14 @@ namespace ManagedCorDebug
         /// <param name="ppClass">[out] A pointer to the address of an <see cref="ICorDebugClass"/> object that represents the class.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetClassFromToken([In] mdTypeDef typeDef, [MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);
+        HRESULT GetClassFromToken([In] mdTypeDef typeDef, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);
 
         /// <summary>
         /// This method has not been implemented in the current version of the .NET Framework.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CreateBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugModuleBreakpoint ppBreakpoint);
+        HRESULT CreateBreakpoint([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModuleBreakpoint ppBreakpoint);
 
         /// <summary>
         /// Deprecated.
@@ -124,7 +124,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetEditAndContinueSnapshot(
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugEditAndContinueSnapshot ppEditAndContinueSnapshot);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugEditAndContinueSnapshot ppEditAndContinueSnapshot);
 
         /// <summary>
         /// Gets a metadata interface object that can be used to examine the metadata for the module.
@@ -139,7 +139,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetMetaDataInterface([In] ref Guid riid, [MarshalAs(UnmanagedType.IUnknown)] out object ppObj);
+        HRESULT GetMetaDataInterface([In] ref Guid riid, [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppObj);
 
         /// <summary>
         /// Gets the token for the table entry for this module.
@@ -151,7 +151,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetToken(out mdModule pToken);
+        HRESULT GetToken([Out] out mdModule pToken);
 
         /// <summary>
         /// Gets a value that indicates whether this module is dynamic.
@@ -164,7 +164,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsDynamic(out int pDynamic);
+        HRESULT IsDynamic([Out] out int pDynamic);
 
         /// <summary>
         /// Gets the value of the specified global variable.
@@ -174,7 +174,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetGlobalVariableValue([In] mdFieldDef fieldDef,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         /// <summary>
         /// Gets the size, in bytes, of the module.
@@ -182,7 +182,7 @@ namespace ManagedCorDebug
         /// <param name="pcBytes">[out] The size of the module in bytes. If the module was produced from the native image generator (NGen.exe), the size of the module will be zero.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSize(out int pcBytes);
+        HRESULT GetSize([Out] out int pcBytes);
 
         /// <summary>
         /// Gets a value that indicates whether this module exists only in memory.
@@ -194,6 +194,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsInMemory(out int pInMemory);
+        HRESULT IsInMemory([Out] out int pInMemory);
     }
 }

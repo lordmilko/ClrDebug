@@ -43,7 +43,7 @@ namespace ManagedCorDebug
         [Obsolete]
         public HRESULT TryGetMvid(out Guid pMvid)
         {
-            /*HRESULT GetMvid(out Guid pMvid);*/
+            /*HRESULT GetMvid([Out] out Guid pMvid);*/
             return Raw.GetMvid(out pMvid);
         }
 
@@ -74,7 +74,7 @@ namespace ManagedCorDebug
         [Obsolete]
         public HRESULT TryGetRoDataRVA(out int pRoDataRVA)
         {
-            /*HRESULT GetRoDataRVA(out int pRoDataRVA);*/
+            /*HRESULT GetRoDataRVA([Out] out int pRoDataRVA);*/
             return Raw.GetRoDataRVA(out pRoDataRVA);
         }
 
@@ -105,7 +105,7 @@ namespace ManagedCorDebug
         [Obsolete]
         public HRESULT TryGetRwDataRVA(out int pRwDataRVA)
         {
-            /*HRESULT GetRwDataRVA(out int pRwDataRVA);*/
+            /*HRESULT GetRwDataRVA([Out] out int pRwDataRVA);*/
             return Raw.GetRwDataRVA(out pRwDataRVA);
         }
 
@@ -134,7 +134,7 @@ namespace ManagedCorDebug
         public HRESULT TryCopyMetaData(IStream pIStream, out Guid pMvid)
         {
             /*HRESULT CopyMetaData([MarshalAs(UnmanagedType.Interface), In]
-            IStream pIStream, out Guid pMvid);*/
+            IStream pIStream, [Out] out Guid pMvid);*/
             return Raw.CopyMetaData(pIStream, out pMvid);
         }
 

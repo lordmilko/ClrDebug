@@ -32,7 +32,7 @@ namespace ManagedCorDebug
         HRESULT GetReturnValueLiveOffset(
             [In] int ilOffset,
             [In] int bufferSize,
-            out int pFetched,
+            [Out] out int pFetched,
             [Out] int pOffsets);
     }
 }

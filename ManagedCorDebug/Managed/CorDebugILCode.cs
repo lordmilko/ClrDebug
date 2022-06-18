@@ -54,7 +54,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetEHClauses(int cClauses, out GetEHClausesResult result)
         {
-            /*HRESULT GetEHClauses([In] int cClauses, out int pcClauses, [MarshalAs(UnmanagedType.LPArray), Out]
+            /*HRESULT GetEHClauses([In] int cClauses, [Out] out int pcClauses, [MarshalAs(UnmanagedType.LPArray), Out]
             CorDebugEHClause[] clauses);*/
             int pcClauses;
             CorDebugEHClause[] clauses = null;
@@ -100,7 +100,7 @@ namespace ManagedCorDebug
         /// <param name="pmdSig">[out] A pointer to the <see cref="mdSignature"/> token for the local variable signature for this function, or mdSignatureNil if there is no signature (that is, if the function doesn't have any local variables).</param>
         public HRESULT TryGetLocalVarSigToken(out mdSignature pmdSig)
         {
-            /*HRESULT GetLocalVarSigToken(out mdSignature pmdSig);*/
+            /*HRESULT GetLocalVarSigToken([Out] out mdSignature pmdSig);*/
             return Raw2.GetLocalVarSigToken(out pmdSig);
         }
 
@@ -148,7 +148,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetInstrumentedILMap(int cMap, out GetInstrumentedILMapResult result)
         {
-            /*HRESULT GetInstrumentedILMap([In] int cMap, out int pcMap, [MarshalAs(UnmanagedType.LPArray), Out] COR_IL_MAP[] map);*/
+            /*HRESULT GetInstrumentedILMap([In] int cMap, [Out] out int pcMap, [MarshalAs(UnmanagedType.LPArray), Out] COR_IL_MAP[] map);*/
             int pcMap;
             COR_IL_MAP[] map = null;
             HRESULT hr = Raw2.GetInstrumentedILMap(cMap, out pcMap, map);

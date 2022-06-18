@@ -61,7 +61,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetClass(out CorDebugClass ppClassResult)
         {
-            /*HRESULT GetClass([MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);*/
+            /*HRESULT GetClass([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);*/
             ICorDebugClass ppClass;
             HRESULT hr = Raw.GetClass(out ppClass);
 
@@ -98,7 +98,7 @@ namespace ManagedCorDebug
         /// </summary>
         public HRESULT TryGetContext(out CorDebugContext ppContextResult)
         {
-            /*HRESULT GetContext([MarshalAs(UnmanagedType.Interface)] out ICorDebugContext ppContext);*/
+            /*HRESULT GetContext([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugContext ppContext);*/
             ICorDebugContext ppContext;
             HRESULT hr = Raw.GetContext(out ppContext);
 
@@ -136,7 +136,7 @@ namespace ManagedCorDebug
         /// <param name="pbIsValueClassResult">[out] A pointer to a Boolean value that is true if the object value, represented by this "ICorDebugObjectValue", is a value type rather than a reference type; otherwise, pbIsValueClass is false.</param>
         public HRESULT TryIsValueClass(out bool pbIsValueClassResult)
         {
-            /*HRESULT IsValueClass(out int pbIsValueClass);*/
+            /*HRESULT IsValueClass([Out] out int pbIsValueClass);*/
             int pbIsValueClass;
             HRESULT hr = Raw.IsValueClass(out pbIsValueClass);
 
@@ -175,7 +175,7 @@ namespace ManagedCorDebug
         [Obsolete]
         public HRESULT TryGetManagedCopy(out object ppObject)
         {
-            /*HRESULT GetManagedCopy([MarshalAs(UnmanagedType.IUnknown)] out object ppObject);*/
+            /*HRESULT GetManagedCopy([Out, MarshalAs(UnmanagedType.IUnknown)] out object ppObject);*/
             return Raw.GetManagedCopy(out ppObject);
         }
 
@@ -222,7 +222,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetFieldValue(ICorDebugClass pClass, mdFieldDef fieldDef, out CorDebugValue ppValueResult)
         {
             /*HRESULT GetFieldValue([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugClass pClass, [In] mdFieldDef fieldDef, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            ICorDebugClass pClass, [In] mdFieldDef fieldDef, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetFieldValue(pClass, fieldDef, out ppValue);
 
@@ -257,7 +257,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetVirtualMethod(int memberRef, out CorDebugFunction ppFunctionResult)
         {
             /*HRESULT GetVirtualMethod([In] int memberRef,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
             ICorDebugFunction ppFunction;
             HRESULT hr = Raw.GetVirtualMethod(memberRef, out ppFunction);
 
@@ -333,8 +333,8 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetVirtualMethodAndType(
             [In] int memberRef,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);*/
             ICorDebugFunction ppFunction;
             ICorDebugType ppType;
             HRESULT hr = Raw2.GetVirtualMethodAndType(memberRef, out ppFunction, out ppType);

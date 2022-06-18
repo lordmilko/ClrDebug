@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.EnumTypeRefs"/> method.
     /// </summary>
-    [DebuggerDisplay("phEnum = {phEnum}, rTypeRefs = {rTypeRefs}, pcTypeRefs = {pcTypeRefs}")]
+    [DebuggerDisplay("phEnum = {phEnum}, rTypeRefs = {rTypeRefs}")]
     public struct EnumTypeRefsResult
     {
         /// <summary>
@@ -19,16 +19,10 @@ namespace ManagedCorDebug
         /// </summary>
         public mdTypeRef[] rTypeRefs { get; }
 
-        /// <summary>
-        /// A pointer to the number of TypeRef tokens returned in rTypeRefs.
-        /// </summary>
-        public int pcTypeRefs { get; }
-
-        public EnumTypeRefsResult(IntPtr phEnum, mdTypeRef[] rTypeRefs, int pcTypeRefs)
+        public EnumTypeRefsResult(IntPtr phEnum, mdTypeRef[] rTypeRefs)
         {
             this.phEnum = phEnum;
             this.rTypeRefs = rTypeRefs;
-            this.pcTypeRefs = pcTypeRefs;
         }
     }
 }

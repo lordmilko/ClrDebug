@@ -58,7 +58,7 @@ namespace ManagedCorDebug
         /// <param name="pbRunning">[out] A pointer to a value that is true if the threads in the process are running freely; otherwise, false.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsRunning(out int pbRunning);
+        HRESULT IsRunning([Out] out int pbRunning);
 
         /// <summary>
         /// Gets a value that indicates whether any managed callbacks are currently queued for the specified thread.
@@ -77,7 +77,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT HasQueuedCallbacks([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugThread pThread, out int pbQueued);
+            ICorDebugThread pThread, [Out] out int pbQueued);
 
         /// <summary>
         /// Gets an enumerator for the active managed threads in the process.
@@ -91,7 +91,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateThreads([MarshalAs(UnmanagedType.Interface)] out ICorDebugThreadEnum ppThreads);
+        HRESULT EnumerateThreads([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThreadEnum ppThreads);
 
         /// <summary>
         /// Sets the debug state of all managed threads in the process.
@@ -144,7 +144,7 @@ namespace ManagedCorDebug
             [In] int cSnapshots,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugEditAndContinueSnapshot pSnapshots,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugErrorInfoEnum pError);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugErrorInfoEnum pError);
 
         /// <summary>
         /// CommitChanges is obsolete. Do not call this method.
@@ -156,6 +156,6 @@ namespace ManagedCorDebug
             [In] int cSnapshots,
             [MarshalAs(UnmanagedType.Interface), In]
             ref ICorDebugEditAndContinueSnapshot pSnapshots,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugErrorInfoEnum pError);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugErrorInfoEnum pError);
     }
 }

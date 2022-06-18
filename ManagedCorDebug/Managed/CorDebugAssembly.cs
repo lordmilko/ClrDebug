@@ -43,7 +43,7 @@ namespace ManagedCorDebug
         /// <param name="ppProcessResult">[out] A pointer to an <see cref="ICorDebugProcess"/> interface that represents the process.</param>
         public HRESULT TryGetProcess(out CorDebugProcess ppProcessResult)
         {
-            /*HRESULT GetProcess([MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
+            /*HRESULT GetProcess([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
             ICorDebugProcess ppProcess;
             HRESULT hr = Raw.GetProcess(out ppProcess);
 
@@ -84,7 +84,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetAppDomain(out CorDebugAppDomain ppAppDomainResult)
         {
-            /*HRESULT GetAppDomain([MarshalAs(UnmanagedType.Interface)] out ICorDebugAppDomain ppAppDomain);*/
+            /*HRESULT GetAppDomain([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAppDomain ppAppDomain);*/
             ICorDebugAppDomain ppAppDomain;
             HRESULT hr = Raw.GetAppDomain(out ppAppDomain);
 
@@ -121,7 +121,7 @@ namespace ManagedCorDebug
         /// </summary>
         public HRESULT TryGetCodeBase(out string szNameResult)
         {
-            /*HRESULT GetCodeBase([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            /*HRESULT GetCodeBase([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName = null;
@@ -176,7 +176,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            /*HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName = null;
@@ -226,7 +226,7 @@ namespace ManagedCorDebug
         /// <param name="ppModulesResult">[out] A pointer to the address of the <see cref="ICorDebugModuleEnum"/> interface that is the enumerator.</param>
         public HRESULT TryEnumerateModules(out CorDebugModuleEnum ppModulesResult)
         {
-            /*HRESULT EnumerateModules([MarshalAs(UnmanagedType.Interface)] out ICorDebugModuleEnum ppModules);*/
+            /*HRESULT EnumerateModules([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModuleEnum ppModules);*/
             ICorDebugModuleEnum ppModules;
             HRESULT hr = Raw.EnumerateModules(out ppModules);
 
@@ -274,7 +274,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryIsFullyTrusted(out bool pbFullyTrustedResult)
         {
-            /*HRESULT IsFullyTrusted(out int pbFullyTrusted);*/
+            /*HRESULT IsFullyTrusted([Out] out int pbFullyTrusted);*/
             int pbFullyTrusted;
             HRESULT hr = Raw2.IsFullyTrusted(out pbFullyTrusted);
 
@@ -324,9 +324,9 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetContainerAssembly(out CorDebugAssembly ppAssemblyResult)
         {
-            /*HRESULT GetContainerAssembly([MarshalAs(UnmanagedType.Interface)] ref ICorDebugAssembly ppAssembly);*/
-            ICorDebugAssembly ppAssembly = default(ICorDebugAssembly);
-            HRESULT hr = Raw3.GetContainerAssembly(ref ppAssembly);
+            /*HRESULT GetContainerAssembly([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAssembly ppAssembly);*/
+            ICorDebugAssembly ppAssembly;
+            HRESULT hr = Raw3.GetContainerAssembly(out ppAssembly);
 
             if (hr == HRESULT.S_OK)
                 ppAssemblyResult = new CorDebugAssembly(ppAssembly);
@@ -369,9 +369,9 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryEnumerateContainedAssemblies(out CorDebugAssemblyEnum ppAssembliesResult)
         {
-            /*HRESULT EnumerateContainedAssemblies([MarshalAs(UnmanagedType.Interface)] ref ICorDebugAssemblyEnum ppAssemblies);*/
-            ICorDebugAssemblyEnum ppAssemblies = default(ICorDebugAssemblyEnum);
-            HRESULT hr = Raw3.EnumerateContainedAssemblies(ref ppAssemblies);
+            /*HRESULT EnumerateContainedAssemblies([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAssemblyEnum ppAssemblies);*/
+            ICorDebugAssemblyEnum ppAssemblies;
+            HRESULT hr = Raw3.EnumerateContainedAssemblies(out ppAssemblies);
 
             if (hr == HRESULT.S_OK)
                 ppAssembliesResult = new CorDebugAssemblyEnum(ppAssemblies);

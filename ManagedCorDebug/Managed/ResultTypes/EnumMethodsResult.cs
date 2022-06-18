@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.EnumMethods"/> method.
     /// </summary>
-    [DebuggerDisplay("phEnum = {phEnum}, rMethods = {rMethods}, pcTokens = {pcTokens}")]
+    [DebuggerDisplay("phEnum = {phEnum}, rMethods = {rMethods}")]
     public struct EnumMethodsResult
     {
         /// <summary>
@@ -19,16 +19,10 @@ namespace ManagedCorDebug
         /// </summary>
         public mdMethodDef[] rMethods { get; }
 
-        /// <summary>
-        /// The number of MethodDef tokens returned in rMethods.
-        /// </summary>
-        public int pcTokens { get; }
-
-        public EnumMethodsResult(IntPtr phEnum, mdMethodDef[] rMethods, int pcTokens)
+        public EnumMethodsResult(IntPtr phEnum, mdMethodDef[] rMethods)
         {
             this.phEnum = phEnum;
             this.rMethods = rMethods;
-            this.pcTokens = pcTokens;
         }
     }
 }

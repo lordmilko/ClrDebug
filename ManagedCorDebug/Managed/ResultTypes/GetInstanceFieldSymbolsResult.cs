@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -17,9 +16,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// A pointer to an <see cref="ICorDebugStaticFieldSymbol"/> array that contains the requested instance field symbols.
         /// </summary>
-        public IntPtr pSymbols { get; }
+        public ICorDebugInstanceFieldSymbol[] pSymbols { get; }
 
-        public GetInstanceFieldSymbolsResult(int pcFetchedSymbols, IntPtr pSymbols)
+        public GetInstanceFieldSymbolsResult(int pcFetchedSymbols, ICorDebugInstanceFieldSymbol[] pSymbols)
         {
             this.pcFetchedSymbols = pcFetchedSymbols;
             this.pSymbols = pSymbols;

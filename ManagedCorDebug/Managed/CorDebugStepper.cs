@@ -55,7 +55,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryIsActive(out bool pbActiveResult)
         {
-            /*HRESULT IsActive(out int pbActive);*/
+            /*HRESULT IsActive([Out] out int pbActive);*/
             int pbActive;
             HRESULT hr = Raw.IsActive(out pbActive);
 

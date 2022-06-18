@@ -39,8 +39,8 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT GetHostManager(
-            [In] [MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [MarshalAs(UnmanagedType.Interface, IidParameterIndex = 0)] out object ppObject);
+            [In] ref Guid riid,
+            [Out, MarshalAs(UnmanagedType.Interface, IidParameterIndex = 0)] out object ppObject);
 
         /// <summary>
         /// Notifies the host that an application domain has been created.

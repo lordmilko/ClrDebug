@@ -25,6 +25,6 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateHandle([In] CorDebugHandleType type,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugHandleValue ppHandle);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugHandleValue ppHandle);
     }
 }

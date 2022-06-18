@@ -35,6 +35,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetTypeID(out COR_TYPEID id);
+        HRESULT GetTypeID([Out] out COR_TYPEID id);
     }
 }

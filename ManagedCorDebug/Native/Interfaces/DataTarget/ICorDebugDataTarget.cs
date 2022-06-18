@@ -33,7 +33,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetPlatform(out CorDebugPlatform pTargetPlatform);
+        HRESULT GetPlatform([Out] out CorDebugPlatform pTargetPlatform);
 
         /// <summary>
         /// Gets a block of contiguous memory starting at the specified address, and returns it in the supplied buffer.
@@ -48,7 +48,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ReadVirtual([In] CORDB_ADDRESS address, [Out] IntPtr pBuffer, [In] int bytesRequested, out int pBytesRead);
+        HRESULT ReadVirtual([In] CORDB_ADDRESS address, [Out] IntPtr pBuffer, [In] int bytesRequested, [Out] out int pBytesRead);
 
         /// <summary>
         /// Returns the current thread context for the specified thread.

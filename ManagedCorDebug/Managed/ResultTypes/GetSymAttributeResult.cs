@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -16,9 +17,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// A pointer to the variable that receives the attribute data.
         /// </summary>
-        public byte[] buffer { get; }
+        public IntPtr buffer { get; }
 
-        public GetSymAttributeResult(int pcBuffer, byte[] buffer)
+        public GetSymAttributeResult(int pcBuffer, IntPtr buffer)
         {
             this.pcBuffer = pcBuffer;
             this.buffer = buffer;

@@ -78,7 +78,7 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetSymbolStoreFileName(
             [In] int cchName,
-            out int pcchName,
+            [Out] out int pcchName,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
@@ -139,13 +139,13 @@ namespace ManagedCorDebug
         public HRESULT TryGetDocument(string url, Guid language, Guid languageVendor, Guid documentType, out SymUnmanagedDocument pRetValResult)
         {
             /*HRESULT GetDocument(
-            [In] string url,
-            [In] Guid language,
-            [In] Guid languageVendor,
-            [In] Guid documentType,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string url,
+            [In] ref Guid language,
+            [In] ref Guid languageVendor,
+            [In] ref Guid documentType,
             [Out] out ISymUnmanagedDocument pRetVal);*/
             ISymUnmanagedDocument pRetVal;
-            HRESULT hr = Raw.GetDocument(url, language, languageVendor, documentType, out pRetVal);
+            HRESULT hr = Raw.GetDocument(url, ref language, ref languageVendor, ref documentType, out pRetVal);
 
             if (hr == HRESULT.S_OK)
                 pRetValResult = new SymUnmanagedDocument(pRetVal);
@@ -184,10 +184,10 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetDocuments(
             [In] int cDocs,
-            out int pcDocs,
-            [Out] IntPtr pDocs);*/
+            [Out] out int pcDocs,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedDocument[] pDocs);*/
             int pcDocs;
-            IntPtr pDocs = default(IntPtr);
+            ISymUnmanagedDocument[] pDocs = null;
             HRESULT hr = Raw.GetDocuments(cDocs, out pcDocs, pDocs);
 
             if (hr == HRESULT.S_OK)
@@ -297,10 +297,10 @@ namespace ManagedCorDebug
             /*HRESULT GetVariables(
             [In] int parent,
             [In] int cVars,
-            out int pcVars,
-            [Out] IntPtr pVars);*/
+            [Out] out int pcVars,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] pVars);*/
             int pcVars;
-            IntPtr pVars = default(IntPtr);
+            ISymUnmanagedVariable[] pVars = null;
             HRESULT hr = Raw.GetVariables(parent, cVars, out pcVars, pVars);
 
             if (hr == HRESULT.S_OK)
@@ -340,10 +340,10 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetGlobalVariables(
             [In] int cVars,
-            out int pcVars,
-            [Out] IntPtr pVars);*/
+            [Out] out int pcVars,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] pVars);*/
             int pcVars;
-            IntPtr pVars = default(IntPtr);
+            ISymUnmanagedVariable[] pVars = null;
             HRESULT hr = Raw.GetGlobalVariables(cVars, out pcVars, pVars);
 
             if (hr == HRESULT.S_OK)
@@ -427,13 +427,13 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetSymAttribute(
             [In] int parent,
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int cBuffer,
-            out int pcBuffer,
-            [MarshalAs(UnmanagedType.LPArray), Out] byte[] buffer);*/
+            [Out] out int pcBuffer,
+            [In, Out] ref IntPtr buffer);*/
             int pcBuffer;
-            byte[] buffer = null;
-            HRESULT hr = Raw.GetSymAttribute(parent, name, cBuffer, out pcBuffer, buffer);
+            IntPtr buffer = default(IntPtr);
+            HRESULT hr = Raw.GetSymAttribute(parent, name, cBuffer, out pcBuffer, ref buffer);
 
             if (hr == HRESULT.S_OK)
                 result = new GetSymAttributeResult(pcBuffer, buffer);
@@ -472,10 +472,10 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetNamespaces(
             [In] int cNameSpaces,
-            out int pcNameSpaces,
-            [Out] IntPtr namespaces);*/
+            [Out] out int pcNameSpaces,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedNamespace[] namespaces);*/
             int pcNameSpaces;
-            IntPtr namespaces = default(IntPtr);
+            ISymUnmanagedNamespace[] namespaces = null;
             HRESULT hr = Raw.GetNamespaces(cNameSpaces, out pcNameSpaces, namespaces);
 
             if (hr == HRESULT.S_OK)
@@ -522,10 +522,11 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryInitialize(object importer, string filename, string searchPath, IStream pIStream)
         {
-            /*HRESULT Initialize([MarshalAs(UnmanagedType.IUnknown), In]
-            object importer, [In] string filename, [In] string searchPath,
-            [MarshalAs(UnmanagedType.Interface), In]
-            IStream pIStream);*/
+            /*HRESULT Initialize(
+            [MarshalAs(UnmanagedType.IUnknown), In] object importer,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string filename,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
+            [MarshalAs(UnmanagedType.Interface), In] IStream pIStream);*/
             return Raw.Initialize(importer, filename, searchPath, pIStream);
         }
 
@@ -553,7 +554,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryUpdateSymbolStore(string filename, IStream pIStream)
         {
-            /*HRESULT UpdateSymbolStore([In] string filename, [MarshalAs(UnmanagedType.Interface), In]
+            /*HRESULT UpdateSymbolStore([In, MarshalAs(UnmanagedType.LPWStr)] string filename, [MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream);*/
             return Raw.UpdateSymbolStore(filename, pIStream);
         }
@@ -582,7 +583,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryReplaceSymbolStore(string filename, IStream pIStream)
         {
-            /*HRESULT ReplaceSymbolStore([In] string filename, [MarshalAs(UnmanagedType.Interface), In]
+            /*HRESULT ReplaceSymbolStore([In, MarshalAs(UnmanagedType.LPWStr)] string filename, [MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream);*/
             return Raw.ReplaceSymbolStore(filename, pIStream);
         }
@@ -626,9 +627,9 @@ namespace ManagedCorDebug
             [In] int column,
             [In] int cMethod,
             [Out] out int pcMethod,
-            [Out] IntPtr pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedMethod[] pRetVal);*/
             int pcMethod;
-            IntPtr pRetVal = default(IntPtr);
+            ISymUnmanagedMethod[] pRetVal = null;
             HRESULT hr = Raw.GetMethodsFromDocumentPosition(document, line, column, cMethod, out pcMethod, pRetVal);
 
             if (hr == HRESULT.S_OK)
@@ -669,7 +670,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetDocumentVersion(ISymUnmanagedDocument pDoc, out GetDocumentVersionResult result)
         {
             /*HRESULT GetDocumentVersion([MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocument pDoc, out int version, out int pbCurrent);*/
+            ISymUnmanagedDocument pDoc, [Out] out int version, [Out] out int pbCurrent);*/
             int version;
             int pbCurrent;
             HRESULT hr = Raw.GetDocumentVersion(pDoc, out version, out pbCurrent);
@@ -710,7 +711,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetMethodVersion(ISymUnmanagedMethod pMethod, out int version)
         {
             /*HRESULT GetMethodVersion([MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedMethod pMethod, out int version);*/
+            ISymUnmanagedMethod pMethod, [Out] out int version);*/
             return Raw.GetMethodVersion(pMethod, out version);
         }
 
@@ -789,13 +790,13 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetSymAttributePreRemap(
             [In] int parent,
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int cBuffer,
-            out int pcBuffer,
-            [MarshalAs(UnmanagedType.LPArray), Out] byte[] buffer);*/
+            [Out] out int pcBuffer,
+            [In, Out] ref IntPtr buffer);*/
             int pcBuffer;
-            byte[] buffer = null;
-            HRESULT hr = Raw2.GetSymAttributePreRemap(parent, name, cBuffer, out pcBuffer, buffer);
+            IntPtr buffer = default(IntPtr);
+            HRESULT hr = Raw2.GetSymAttributePreRemap(parent, name, cBuffer, out pcBuffer, ref buffer);
 
             if (hr == HRESULT.S_OK)
                 result = new GetSymAttributePreRemapResult(pcBuffer, buffer);
@@ -838,11 +839,10 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocument document,
             [In] int cMethod,
-            out int pcMethod,
-            [MarshalAs(UnmanagedType.Interface), Out]
-            IntPtr pRetVal);*/
+            [Out] out int pcMethod,
+            [MarshalAs(UnmanagedType.LPArray), Out] ISymUnmanagedMethod[] pRetVal);*/
             int pcMethod;
-            IntPtr pRetVal = default(IntPtr);
+            ISymUnmanagedMethod[] pRetVal = null;
             HRESULT hr = Raw2.GetMethodsInDocument(document, cMethod, out pcMethod, pRetVal);
 
             if (hr == HRESULT.S_OK)

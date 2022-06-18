@@ -240,7 +240,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT FindManifestResourceByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
-            [Out] out mdManifestResource[] ptkManifestResource);
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdManifestResource[] ptkManifestResource);
 
         /// <summary>
         /// Releases a reference to the specified enumeration instance.
@@ -282,7 +282,7 @@ namespace ManagedCorDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAppBase,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szPrivateBin,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAssemblyName,
-            [Out, MarshalAs(UnmanagedType.Interface)] out object[] ppIUnk,
+            [Out, MarshalAs(UnmanagedType.LPArray)] object[] ppIUnk,
             [In] int cMax,
             [Out] out int pcAssemblies);
     }

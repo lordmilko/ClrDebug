@@ -176,7 +176,7 @@ namespace ManagedCorDebug
         {
             /*HRESULT BeginConnection(
             [In] int dwConnectionId,
-            [In] string szConnectionName);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szConnectionName);*/
             return Raw.BeginConnection(dwConnectionId, szConnectionName);
         }
 

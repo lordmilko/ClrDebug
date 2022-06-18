@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.EnumInterfaceImpls"/> method.
     /// </summary>
-    [DebuggerDisplay("phEnum = {phEnum}, rImpls = {rImpls}, pcImpls = {pcImpls}")]
+    [DebuggerDisplay("phEnum = {phEnum}, rImpls = {rImpls}")]
     public struct EnumInterfaceImplsResult
     {
         /// <summary>
@@ -19,16 +19,10 @@ namespace ManagedCorDebug
         /// </summary>
         public mdInterfaceImpl[] rImpls { get; }
 
-        /// <summary>
-        /// The actual number of tokens returned in rImpls.
-        /// </summary>
-        public int pcImpls { get; }
-
-        public EnumInterfaceImplsResult(IntPtr phEnum, mdInterfaceImpl[] rImpls, int pcImpls)
+        public EnumInterfaceImplsResult(IntPtr phEnum, mdInterfaceImpl[] rImpls)
         {
             this.phEnum = phEnum;
             this.rImpls = rImpls;
-            this.pcImpls = pcImpls;
         }
     }
 }

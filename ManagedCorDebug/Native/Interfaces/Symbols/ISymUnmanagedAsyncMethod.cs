@@ -60,9 +60,9 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetAsyncStepInfo(
             [In] int cStepInfo,
-            out int pcStepInfo,
-            [In, Out] ref int[] yieldOffsets,
-            [In, Out] ref int[] breakpointOffset,
-            [In, Out] ref int[] breakpointMethod);
+            [Out] out int pcStepInfo,
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] yieldOffsets,
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] breakpointOffset,
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] breakpointMethod);
     }
 }

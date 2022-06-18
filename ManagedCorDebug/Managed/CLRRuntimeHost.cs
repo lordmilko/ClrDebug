@@ -65,7 +65,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetCLRControl(out CLRControl pCLRControlResult)
         {
-            /*HRESULT GetCLRControl([MarshalAs(UnmanagedType.Interface)] out ICLRControl pCLRControl);*/
+            /*HRESULT GetCLRControl([Out, MarshalAs(UnmanagedType.Interface)] out ICLRControl pCLRControl);*/
             ICLRControl pCLRControl;
             HRESULT hr = Raw.GetCLRControl(out pCLRControl);
 
@@ -117,7 +117,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetCurrentAppDomainId(out int pdwAppDomainId)
         {
-            /*HRESULT GetCurrentAppDomainId(out int pdwAppDomainId);*/
+            /*HRESULT GetCurrentAppDomainId([Out] out int pdwAppDomainId);*/
             return Raw.GetCurrentAppDomainId(out pdwAppDomainId);
         }
 
@@ -406,7 +406,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr)] [In] string ppwzManifestPaths,
             [In] int dwActivationData,
             [MarshalAs(UnmanagedType.LPWStr)] [In] string ppwzActivationData,
-            out int pReturnValue);*/
+            [Out] out int pReturnValue);*/
             return Raw.ExecuteApplication(pwzAppFullName, dwManifestPaths, ppwzManifestPaths, dwActivationData, ppwzActivationData, out pReturnValue);
         }
 
@@ -466,7 +466,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzAssemblyPath,
             [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzTypeName,
             [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzMethodName,
-            [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzArgument, out int pReturnValue);*/
+            [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzArgument, [Out] out int pReturnValue);*/
             return Raw.ExecuteInDefaultAppDomain(pwzAssemblyPath, pwzTypeName, pwzMethodName, pwzArgument, out pReturnValue);
         }
 

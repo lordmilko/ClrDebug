@@ -38,7 +38,7 @@ namespace ManagedCorDebug
         /// <param name="pUnk">[in] A pointer to an IUnknown instance that serves as a function callback for validation errors.</param>
         public HRESULT TryValidatorInit(int dwModuleType, object pUnk)
         {
-            /*HRESULT ValidatorInit(int dwModuleType, [MarshalAs(UnmanagedType.Interface)] object pUnk);*/
+            /*HRESULT ValidatorInit([In] int dwModuleType, [In, MarshalAs(UnmanagedType.Interface)] object pUnk);*/
             return Raw.ValidatorInit(dwModuleType, pUnk);
         }
 

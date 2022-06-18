@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetEventProps"/> method.
     /// </summary>
-    [DebuggerDisplay("pClass = {pClass}, szEvent = {szEvent}, pdwEventFlags = {pdwEventFlags}, ptkEventType = {ptkEventType}, pmdAddOn = {pmdAddOn}, pmdRemoveOn = {pmdRemoveOn}, pmdFire = {pmdFire}, rmdOtherMethod = {rmdOtherMethod}, pcOtherMethod = {pcOtherMethod}")]
+    [DebuggerDisplay("pClass = {pClass}, szEvent = {szEvent}, pdwEventFlags = {pdwEventFlags}, ptkEventType = {ptkEventType}, pmdAddOn = {pmdAddOn}, pmdRemoveOn = {pmdRemoveOn}, pmdFire = {pmdFire}, rmdOtherMethod = {rmdOtherMethod}")]
     public struct GetEventPropsResult
     {
         /// <summary>
@@ -48,12 +48,7 @@ namespace ManagedCorDebug
         /// </summary>
         public mdMethodDef[] rmdOtherMethod { get; }
 
-        /// <summary>
-        /// The number of tokens returned in rmdOtherMethod.
-        /// </summary>
-        public int pcOtherMethod { get; }
-
-        public GetEventPropsResult(mdTypeDef pClass, string szEvent, int pdwEventFlags, mdToken ptkEventType, mdMethodDef pmdAddOn, mdMethodDef pmdRemoveOn, mdMethodDef pmdFire, mdMethodDef[] rmdOtherMethod, int pcOtherMethod)
+        public GetEventPropsResult(mdTypeDef pClass, string szEvent, int pdwEventFlags, mdToken ptkEventType, mdMethodDef pmdAddOn, mdMethodDef pmdRemoveOn, mdMethodDef pmdFire, mdMethodDef[] rmdOtherMethod)
         {
             this.pClass = pClass;
             this.szEvent = szEvent;
@@ -63,7 +58,6 @@ namespace ManagedCorDebug
             this.pmdRemoveOn = pmdRemoveOn;
             this.pmdFire = pmdFire;
             this.rmdOtherMethod = rmdOtherMethod;
-            this.pcOtherMethod = pcOtherMethod;
         }
     }
 }

@@ -13,8 +13,8 @@ namespace ManagedCorDebug.CoClass
         [return: MarshalAs(UnmanagedType.Interface)]
         public virtual extern HRESULT GetReaderForFile(
             [MarshalAs(UnmanagedType.IUnknown), In] IMetaDataImport importer,
-            [In] string fileName,
-            [In] string searchPath,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string fileName,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
             [Out] out ISymUnmanagedReader pRetVal);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

@@ -9,14 +9,14 @@ namespace ManagedCorDebug
     {
         [PreserveSig]
         HRESULT IsTrackedType(
-            CLRDATA_ADDRESS objAddr,
-            out int isTrackedType,
-            out int hasTaggedMemory);
+            [In] CLRDATA_ADDRESS objAddr,
+            [Out] out int isTrackedType,
+            [Out] out int hasTaggedMemory);
 
         [PreserveSig]
         HRESULT GetTaggedMemory(
-            CLRDATA_ADDRESS objAddr,
-            out CLRDATA_ADDRESS taggedMemory,
-            out long taggedMemorySizeInBytes);
+            [In] CLRDATA_ADDRESS objAddr,
+            [Out] out CLRDATA_ADDRESS taggedMemory,
+            [Out] out long taggedMemorySizeInBytes);
     }
 }

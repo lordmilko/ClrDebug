@@ -23,6 +23,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateVariableHomes([MarshalAs(UnmanagedType.Interface)] out ICorDebugVariableHomeEnum ppEnum);
+        HRESULT EnumerateVariableHomes([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugVariableHomeEnum ppEnum);
     }
 }

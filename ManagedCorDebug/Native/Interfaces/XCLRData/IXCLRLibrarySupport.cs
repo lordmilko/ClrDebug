@@ -10,13 +10,13 @@ namespace ManagedCorDebug
     {
         [PreserveSig]
         HRESULT LoadHardboundDependency(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] ref Guid mvid,
             [Out] out long loadedBase);
 
         [PreserveSig]
         HRESULT LoadSoftboundDependency(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] IntPtr assemblymetadataBinding,
             [In] IntPtr hash,
             [In] int hashLength,

@@ -46,7 +46,7 @@ namespace ManagedCorDebug
         /// <param name="pdwProcessId">[out] The unique ID of the process.</param>
         public HRESULT TryGetID(out int pdwProcessId)
         {
-            /*HRESULT GetID(out int pdwProcessId);*/
+            /*HRESULT GetID([Out] out int pdwProcessId);*/
             return Raw.GetID(out pdwProcessId);
         }
 
@@ -61,9 +61,9 @@ namespace ManagedCorDebug
             get
             {
                 HRESULT hr;
-                IntPtr phProcessHandle;
+                IntPtr phProcessHandle = default(IntPtr);
 
-                if ((hr = TryGetHandle(out phProcessHandle)) != HRESULT.S_OK)
+                if ((hr = TryGetHandle(ref phProcessHandle)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
 
                 return phProcessHandle;
@@ -78,10 +78,10 @@ namespace ManagedCorDebug
         /// The retrieved handle is owned by the debugging interface. The debugger should duplicate the handle before using
         /// it.
         /// </remarks>
-        public HRESULT TryGetHandle(out IntPtr phProcessHandle)
+        public HRESULT TryGetHandle(ref IntPtr phProcessHandle)
         {
-            /*HRESULT GetHandle(out IntPtr phProcessHandle);*/
-            return Raw.GetHandle(out phProcessHandle);
+            /*HRESULT GetHandle([Out] IntPtr phProcessHandle);*/
+            return Raw.GetHandle(phProcessHandle);
         }
 
         #endregion
@@ -109,7 +109,7 @@ namespace ManagedCorDebug
         /// </summary>
         public HRESULT TryGetObject(out CorDebugValue ppObjectResult)
         {
-            /*HRESULT GetObject([MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppObject);*/
+            /*HRESULT GetObject([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppObject);*/
             ICorDebugValue ppObject;
             HRESULT hr = Raw.GetObject(out ppObject);
 
@@ -157,7 +157,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetHelperThreadID(out int pThreadID)
         {
-            /*HRESULT GetHelperThreadID(out int pThreadID);*/
+            /*HRESULT GetHelperThreadID([Out] out int pThreadID);*/
             return Raw.GetHelperThreadID(out pThreadID);
         }
 
@@ -187,7 +187,7 @@ namespace ManagedCorDebug
         /// <param name="ppThreadResult">[out] A pointer to the address of an <see cref="ICorDebugThread"/> object that represents the thread.</param>
         public HRESULT TryGetThread(int dwThreadId, out CorDebugThread ppThreadResult)
         {
-            /*HRESULT GetThread([In] int dwThreadId, [MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);*/
+            /*HRESULT GetThread([In] int dwThreadId, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);*/
             ICorDebugThread ppThread;
             HRESULT hr = Raw.GetThread(dwThreadId, out ppThread);
 
@@ -221,7 +221,7 @@ namespace ManagedCorDebug
         /// </summary>
         public HRESULT TryEnumerateObjects(out CorDebugObjectEnum ppObjectsResult)
         {
-            /*HRESULT EnumerateObjects([MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectEnum ppObjects);*/
+            /*HRESULT EnumerateObjects([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectEnum ppObjects);*/
             ICorDebugObjectEnum ppObjects;
             HRESULT hr = Raw.EnumerateObjects(out ppObjects);
 
@@ -269,7 +269,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryIsTransitionStub(CORDB_ADDRESS address, out int pbTransitionStub)
         {
-            /*HRESULT IsTransitionStub([In] CORDB_ADDRESS address, out int pbTransitionStub);*/
+            /*HRESULT IsTransitionStub([In] CORDB_ADDRESS address, [Out] out int pbTransitionStub);*/
             return Raw.IsTransitionStub(address, out pbTransitionStub);
         }
 
@@ -313,7 +313,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryIsOSSuspended(int threadID, out int pbSuspended)
         {
-            /*HRESULT IsOSSuspended([In] int threadID, out int pbSuspended);*/
+            /*HRESULT IsOSSuspended([In] int threadID, [Out] out int pbSuspended);*/
             return Raw.IsOSSuspended(threadID, out pbSuspended);
         }
 
@@ -333,10 +333,10 @@ namespace ManagedCorDebug
         /// is a context structure for the current platform. Just as with the Win32 GetThreadContext method, the caller should
         /// initialize the context parameter before calling this method.
         /// </remarks>
-        public byte[] GetThreadContext(int threadID, int contextSize)
+        public IntPtr GetThreadContext(int threadID, int contextSize)
         {
             HRESULT hr;
-            byte[] context = default(byte[]);
+            IntPtr context = default(IntPtr);
 
             if ((hr = TryGetThreadContext(threadID, contextSize, ref context)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -357,9 +357,9 @@ namespace ManagedCorDebug
         /// is a context structure for the current platform. Just as with the Win32 GetThreadContext method, the caller should
         /// initialize the context parameter before calling this method.
         /// </remarks>
-        public HRESULT TryGetThreadContext(int threadID, int contextSize, ref byte[] context)
+        public HRESULT TryGetThreadContext(int threadID, int contextSize, ref IntPtr context)
         {
-            /*HRESULT GetThreadContext([In] int threadID, [In] int contextSize, [In, Out] ref byte[] context);*/
+            /*HRESULT GetThreadContext([In] int threadID, [In] int contextSize, [In, Out] ref IntPtr context);*/
             return Raw.GetThreadContext(threadID, contextSize, ref context);
         }
 
@@ -379,7 +379,7 @@ namespace ManagedCorDebug
         /// need to modify the context of a thread during an out-of-band (OOB) debug event. The data passed must be a context
         /// structure for the current platform. This method can corrupt the runtime if used improperly.
         /// </remarks>
-        public void SetThreadContext(int threadID, int contextSize, byte[] context)
+        public void SetThreadContext(int threadID, int contextSize, IntPtr context)
         {
             HRESULT hr;
 
@@ -400,9 +400,9 @@ namespace ManagedCorDebug
         /// need to modify the context of a thread during an out-of-band (OOB) debug event. The data passed must be a context
         /// structure for the current platform. This method can corrupt the runtime if used improperly.
         /// </remarks>
-        public HRESULT TrySetThreadContext(int threadID, int contextSize, byte[] context)
+        public HRESULT TrySetThreadContext(int threadID, int contextSize, IntPtr context)
         {
-            /*HRESULT SetThreadContext([In] int threadID, [In] int contextSize, [In] byte[] context);*/
+            /*HRESULT SetThreadContext([In] int threadID, [In] int contextSize, [In] IntPtr context);*/
             return Raw.SetThreadContext(threadID, contextSize, context);
         }
 
@@ -448,9 +448,9 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryReadMemory(CORDB_ADDRESS address, int size, out ReadMemoryResult result)
         {
-            /*HRESULT ReadMemory([In] CORDB_ADDRESS address, [In] int size, [Out] byte[] buffer, out long read);*/
-            byte[] buffer = default(byte[]);
-            long read;
+            /*HRESULT ReadMemory([In] CORDB_ADDRESS address, [In] int size, [Out] IntPtr buffer, [Out] out int read);*/
+            IntPtr buffer = default(IntPtr);
+            int read;
             HRESULT hr = Raw.ReadMemory(address, size, buffer, out read);
 
             if (hr == HRESULT.S_OK)
@@ -478,10 +478,10 @@ namespace ManagedCorDebug
         /// instead. The WriteMemory method should be used only outside of managed code. This method can corrupt the runtime
         /// if used improperly.
         /// </remarks>
-        public long WriteMemory(CORDB_ADDRESS address, int size, IntPtr buffer)
+        public int WriteMemory(CORDB_ADDRESS address, int size, IntPtr buffer)
         {
             HRESULT hr;
-            long written;
+            int written;
 
             if ((hr = TryWriteMemory(address, size, buffer, out written)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
@@ -503,10 +503,10 @@ namespace ManagedCorDebug
         /// instead. The WriteMemory method should be used only outside of managed code. This method can corrupt the runtime
         /// if used improperly.
         /// </remarks>
-        public HRESULT TryWriteMemory(CORDB_ADDRESS address, int size, IntPtr buffer, out long written)
+        public HRESULT TryWriteMemory(CORDB_ADDRESS address, int size, IntPtr buffer, out int written)
         {
             /*HRESULT WriteMemory([In] CORDB_ADDRESS address, [In] int size, [In] IntPtr buffer,
-            out long written);*/
+            [Out] out int written);*/
             return Raw.WriteMemory(address, size, buffer, out written);
         }
 
@@ -607,7 +607,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryModifyLogSwitch(string pLogSwitchName, int lLevel)
         {
-            /*HRESULT ModifyLogSwitch([In] string pLogSwitchName, [In] int lLevel);*/
+            /*HRESULT ModifyLogSwitch([In, MarshalAs(UnmanagedType.LPWStr)] string pLogSwitchName, [In] int lLevel);*/
             return Raw.ModifyLogSwitch(pLogSwitchName, lLevel);
         }
 
@@ -641,7 +641,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryEnumerateAppDomains(out CorDebugAppDomainEnum ppAppDomainsResult)
         {
-            /*HRESULT EnumerateAppDomains([MarshalAs(UnmanagedType.Interface)] out ICorDebugAppDomainEnum ppAppDomains);*/
+            /*HRESULT EnumerateAppDomains([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAppDomainEnum ppAppDomains);*/
             ICorDebugAppDomainEnum ppAppDomains;
             HRESULT hr = Raw.EnumerateAppDomains(out ppAppDomains);
 
@@ -676,7 +676,7 @@ namespace ManagedCorDebug
         public HRESULT TryThreadForFiberCookie(int fiberCookie, out CorDebugThread ppThreadResult)
         {
             /*HRESULT ThreadForFiberCookie([In] int fiberCookie,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);*/
             ICorDebugThread ppThread;
             HRESULT hr = Raw.ThreadForFiberCookie(fiberCookie, out ppThread);
 
@@ -723,7 +723,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetVersion(out COR_VERSION version)
         {
-            /*HRESULT GetVersion(out COR_VERSION version);*/
+            /*HRESULT GetVersion([Out] out COR_VERSION version);*/
             return Raw2.GetVersion(out version);
         }
 
@@ -764,7 +764,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetDesiredNGENCompilerFlags(out int pdwFlags)
         {
-            /*HRESULT GetDesiredNGENCompilerFlags(out int pdwFlags);*/
+            /*HRESULT GetDesiredNGENCompilerFlags([Out] out int pdwFlags);*/
             return Raw2.GetDesiredNGENCompilerFlags(out pdwFlags);
         }
 
@@ -822,7 +822,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetThreadForTaskID(long taskid, out CorDebugThread ppThreadResult)
         {
-            /*HRESULT GetThreadForTaskID([In] long taskid, [MarshalAs(UnmanagedType.Interface)] out ICorDebugThread2 ppThread);*/
+            /*HRESULT GetThreadForTaskID([In] long taskid, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread2 ppThread);*/
             ICorDebugThread2 ppThread;
             HRESULT hr = Raw2.GetThreadForTaskID(taskid, out ppThread);
 
@@ -841,48 +841,59 @@ namespace ManagedCorDebug
         /// Sets an unmanaged breakpoint at the specified native image offset.
         /// </summary>
         /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> object that specifies the native image offset.</param>
-        /// <param name="bufsize">[in] The size, in bytes, of the buffer array.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <returns>[out] An array that contains the opcode that is replaced by the breakpoint.</returns>
         /// <remarks>
         /// If the native image offset is within the common language runtime (CLR), the breakpoint will be ignored. This allows
         /// the CLR to avoid dispatching an out-of-band breakpoint, when the breakpoint is set by the debugger.
         /// </remarks>
-        public SetUnmanagedBreakpointResult SetUnmanagedBreakpoint(CORDB_ADDRESS address, int bufsize)
+        public byte[] SetUnmanagedBreakpoint(CORDB_ADDRESS address)
         {
             HRESULT hr;
-            SetUnmanagedBreakpointResult result;
+            byte[] bufferResult;
 
-            if ((hr = TrySetUnmanagedBreakpoint(address, bufsize, out result)) != HRESULT.S_OK)
+            if ((hr = TrySetUnmanagedBreakpoint(address, out bufferResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return bufferResult;
         }
 
         /// <summary>
         /// Sets an unmanaged breakpoint at the specified native image offset.
         /// </summary>
         /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> object that specifies the native image offset.</param>
-        /// <param name="bufsize">[in] The size, in bytes, of the buffer array.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="bufferResult">[out] An array that contains the opcode that is replaced by the breakpoint.</param>
         /// <remarks>
         /// If the native image offset is within the common language runtime (CLR), the breakpoint will be ignored. This allows
         /// the CLR to avoid dispatching an out-of-band breakpoint, when the breakpoint is set by the debugger.
         /// </remarks>
-        public HRESULT TrySetUnmanagedBreakpoint(CORDB_ADDRESS address, int bufsize, out SetUnmanagedBreakpointResult result)
+        public HRESULT TrySetUnmanagedBreakpoint(CORDB_ADDRESS address, out byte[] bufferResult)
         {
             /*HRESULT SetUnmanagedBreakpoint(
             [In] CORDB_ADDRESS address,
             [In] int bufsize,
-            [Out] byte[] buffer,
-            out int bufLen);*/
-            byte[] buffer = default(byte[]);
+            [Out, MarshalAs(UnmanagedType.LPArray)] byte[] buffer,
+            [Out] out int bufLen);*/
+            int bufsize = 0;
+            byte[] buffer = null;
             int bufLen;
             HRESULT hr = Raw2.SetUnmanagedBreakpoint(address, bufsize, buffer, out bufLen);
 
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            bufsize = bufLen;
+            buffer = new byte[bufLen];
+            hr = Raw2.SetUnmanagedBreakpoint(address, bufsize, buffer, out bufLen);
+
             if (hr == HRESULT.S_OK)
-                result = new SetUnmanagedBreakpointResult(buffer, bufLen);
-            else
-                result = default(SetUnmanagedBreakpointResult);
+            {
+                bufferResult = buffer;
+
+                return hr;
+            }
+
+            fail:
+            bufferResult = default(byte[]);
 
             return hr;
         }
@@ -960,7 +971,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetReferenceValueFromGCHandle(IntPtr handle, out CorDebugReferenceValue pOutValueResult)
         {
-            /*HRESULT GetReferenceValueFromGCHandle([In] IntPtr handle, [MarshalAs(UnmanagedType.Interface)] out ICorDebugReferenceValue pOutValue);*/
+            /*HRESULT GetReferenceValueFromGCHandle([In] IntPtr handle, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugReferenceValue pOutValue);*/
             ICorDebugReferenceValue pOutValue;
             HRESULT hr = Raw2.GetReferenceValueFromGCHandle(handle, out pOutValue);
 
@@ -1017,7 +1028,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TrySetEnableCustomNotification(ICorDebugClass pClass, int fEnable)
         {
-            /*HRESULT SetEnableCustomNotification([MarshalAs(UnmanagedType.Interface)] ICorDebugClass pClass, int fEnable);*/
+            /*HRESULT SetEnableCustomNotification([In, MarshalAs(UnmanagedType.Interface)] ICorDebugClass pClass, [In] int fEnable);*/
             return Raw3.SetEnableCustomNotification(pClass, fEnable);
         }
 
@@ -1044,12 +1055,12 @@ namespace ManagedCorDebug
         public HRESULT TryFilter(byte[] pRecord, int countBytes, CorDebugRecordFormat format, int dwFlags, int dwThreadId, out FilterResult result)
         {
             /*HRESULT Filter(
-            [In] byte[] pRecord,
+            [In, MarshalAs(UnmanagedType.LPArray)] byte[] pRecord,
             [In] int countBytes,
             [In] CorDebugRecordFormat format,
             [In] int dwFlags,
             [In] int dwThreadId,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugDebugEvent ppEvent,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugDebugEvent ppEvent,
             [In, Out] ref int pContinueStatus);*/
             ICorDebugDebugEvent ppEvent;
             int pContinueStatus = default(int);
@@ -1118,7 +1129,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetGCHeapInformation(out COR_HEAPINFO pHeapInfo)
         {
-            /*HRESULT GetGCHeapInformation(out COR_HEAPINFO pHeapInfo);*/
+            /*HRESULT GetGCHeapInformation([Out] out COR_HEAPINFO pHeapInfo);*/
             return Raw5.GetGCHeapInformation(out pHeapInfo);
         }
 
@@ -1168,7 +1179,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryEnumerateHeap(out CorDebugHeapEnum ppObjectsResult)
         {
-            /*HRESULT EnumerateHeap([MarshalAs(UnmanagedType.Interface)] out ICorDebugHeapEnum ppObjects);*/
+            /*HRESULT EnumerateHeap([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugHeapEnum ppObjects);*/
             ICorDebugHeapEnum ppObjects;
             HRESULT hr = Raw5.EnumerateHeap(out ppObjects);
 
@@ -1228,7 +1239,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryEnumerateHeapRegions(out CorDebugHeapSegmentEnum ppRegionsResult)
         {
-            /*HRESULT EnumerateHeapRegions([MarshalAs(UnmanagedType.Interface)] out ICorDebugHeapSegmentEnum ppRegions);*/
+            /*HRESULT EnumerateHeapRegions([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugHeapSegmentEnum ppRegions);*/
             ICorDebugHeapSegmentEnum ppRegions;
             HRESULT hr = Raw5.EnumerateHeapRegions(out ppRegions);
 
@@ -1272,7 +1283,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetObject(CORDB_ADDRESS addr, out CorDebugObjectValue pObjectResult)
         {
-            /*HRESULT GetObject([In] CORDB_ADDRESS addr, [MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectValue pObject);*/
+            /*HRESULT GetObject([In] CORDB_ADDRESS addr, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectValue pObject);*/
             ICorDebugObjectValue pObject;
             HRESULT hr = Raw5.GetObject(addr, out pObject);
 
@@ -1321,7 +1332,7 @@ namespace ManagedCorDebug
         public HRESULT TryEnumerateGCReferences(int enumerateWeakReferences, out CorDebugGCReferenceEnum ppEnumResult)
         {
             /*HRESULT EnumerateGCReferences([In] int enumerateWeakReferences,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugGCReferenceEnum ppEnum);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugGCReferenceEnum ppEnum);*/
             ICorDebugGCReferenceEnum ppEnum;
             HRESULT hr = Raw5.EnumerateGCReferences(enumerateWeakReferences, out ppEnum);
 
@@ -1374,7 +1385,7 @@ namespace ManagedCorDebug
         public HRESULT TryEnumerateHandles(CorGCReferenceType types, out CorDebugGCReferenceEnum ppEnumResult)
         {
             /*HRESULT EnumerateHandles([In] CorGCReferenceType types,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugGCReferenceEnum ppEnum);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugGCReferenceEnum ppEnum);*/
             ICorDebugGCReferenceEnum ppEnum;
             HRESULT hr = Raw5.EnumerateHandles(types, out ppEnum);
 
@@ -1412,7 +1423,7 @@ namespace ManagedCorDebug
         /// <param name="pId">A pointer to the <see cref="COR_TYPEID"/> value that identifies the object.</param>
         public HRESULT TryGetTypeID(CORDB_ADDRESS obj, out COR_TYPEID pId)
         {
-            /*HRESULT GetTypeID([In] CORDB_ADDRESS obj, out COR_TYPEID pId);*/
+            /*HRESULT GetTypeID([In] CORDB_ADDRESS obj, [Out] out COR_TYPEID pId);*/
             return Raw5.GetTypeID(obj, out pId);
         }
 
@@ -1450,7 +1461,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetTypeForTypeID(COR_TYPEID id, out CorDebugType ppTypeResult)
         {
-            /*HRESULT GetTypeForTypeID([In] COR_TYPEID id, [MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);*/
+            /*HRESULT GetTypeForTypeID([In] COR_TYPEID id, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);*/
             ICorDebugType ppType;
             HRESULT hr = Raw5.GetTypeForTypeID(id, out ppType);
 
@@ -1488,7 +1499,7 @@ namespace ManagedCorDebug
         /// <param name="pLayout">[out] A pointer to a <see cref="COR_ARRAY_LAYOUT"/> structure that contains information about the layout of the array in memory.</param>
         public HRESULT TryGetArrayLayout(COR_TYPEID id, out COR_ARRAY_LAYOUT pLayout)
         {
-            /*HRESULT GetArrayLayout([In] COR_TYPEID id, out COR_ARRAY_LAYOUT pLayout);*/
+            /*HRESULT GetArrayLayout([In] COR_TYPEID id, [Out] out COR_ARRAY_LAYOUT pLayout);*/
             return Raw5.GetArrayLayout(id, out pLayout);
         }
 
@@ -1528,7 +1539,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetTypeLayout(COR_TYPEID id, out COR_TYPE_LAYOUT pLayout)
         {
-            /*HRESULT GetTypeLayout([In] COR_TYPEID id, out COR_TYPE_LAYOUT pLayout);*/
+            /*HRESULT GetTypeLayout([In] COR_TYPEID id, [Out] out COR_TYPE_LAYOUT pLayout);*/
             return Raw5.GetTypeLayout(id, out pLayout);
         }
 
@@ -1539,44 +1550,55 @@ namespace ManagedCorDebug
         /// Provides information about the fields that belong to a type.
         /// </summary>
         /// <param name="id">[in] The identifier of the type whose field information is retrieved.</param>
-        /// <param name="celt">[in] The number of <see cref="COR_FIELD"/> objects whose field information is to be retrieved.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <returns>[out] An array of <see cref="COR_FIELD"/> objects that provide information about the fields that belong to the type.</returns>
         /// <remarks>
         /// The celt parameter, which specifies the number of fields whose field information the method uses to populate fields,
         /// should correspond to the value of the <see cref="COR_TYPE_LAYOUT.numFields"/> field.
         /// </remarks>
-        public GetTypeFieldsResult GetTypeFields(COR_TYPEID id, int celt)
+        public COR_FIELD[] GetTypeFields(COR_TYPEID id)
         {
             HRESULT hr;
-            GetTypeFieldsResult result;
+            COR_FIELD[] fieldsResult;
 
-            if ((hr = TryGetTypeFields(id, celt, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetTypeFields(id, out fieldsResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return fieldsResult;
         }
 
         /// <summary>
         /// Provides information about the fields that belong to a type.
         /// </summary>
         /// <param name="id">[in] The identifier of the type whose field information is retrieved.</param>
-        /// <param name="celt">[in] The number of <see cref="COR_FIELD"/> objects whose field information is to be retrieved.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="fieldsResult">[out] An array of <see cref="COR_FIELD"/> objects that provide information about the fields that belong to the type.</param>
         /// <remarks>
         /// The celt parameter, which specifies the number of fields whose field information the method uses to populate fields,
         /// should correspond to the value of the <see cref="COR_TYPE_LAYOUT.numFields"/> field.
         /// </remarks>
-        public HRESULT TryGetTypeFields(COR_TYPEID id, int celt, out GetTypeFieldsResult result)
+        public HRESULT TryGetTypeFields(COR_TYPEID id, out COR_FIELD[] fieldsResult)
         {
-            /*HRESULT GetTypeFields([In] COR_TYPEID id, int celt, ref COR_FIELD fields, ref int pceltNeeded);*/
-            COR_FIELD fields = default(COR_FIELD);
-            int pceltNeeded = default(int);
-            HRESULT hr = Raw5.GetTypeFields(id, celt, ref fields, ref pceltNeeded);
+            /*HRESULT GetTypeFields([In] COR_TYPEID id, [In] int celt, [Out, MarshalAs(UnmanagedType.LPArray)] COR_FIELD[] fields, [Out] out int pceltNeeded);*/
+            int celt = 0;
+            COR_FIELD[] fields = null;
+            int pceltNeeded;
+            HRESULT hr = Raw5.GetTypeFields(id, celt, fields, out pceltNeeded);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            celt = pceltNeeded;
+            fields = new COR_FIELD[pceltNeeded];
+            hr = Raw5.GetTypeFields(id, celt, fields, out pceltNeeded);
 
             if (hr == HRESULT.S_OK)
-                result = new GetTypeFieldsResult(fields, pceltNeeded);
-            else
-                result = default(GetTypeFieldsResult);
+            {
+                fieldsResult = fields;
+
+                return hr;
+            }
+
+            fail:
+            fieldsResult = default(COR_FIELD[]);
 
             return hr;
         }
@@ -1663,12 +1685,12 @@ namespace ManagedCorDebug
         public HRESULT TryDecodeEvent(byte[] pRecord, int countBytes, CorDebugRecordFormat format, int dwFlags, int dwThreadId, out CorDebugDebugEvent ppEventResult)
         {
             /*HRESULT DecodeEvent(
-            [In] byte[] pRecord,
+            [In, MarshalAs(UnmanagedType.LPArray)] byte[] pRecord,
             [In] int countBytes,
             [In] CorDebugRecordFormat format,
             [In] int dwFlags,
             [In] int dwThreadId,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugDebugEvent ppEvent);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugDebugEvent ppEvent);*/
             ICorDebugDebugEvent ppEvent;
             HRESULT hr = Raw6.DecodeEvent(pRecord, countBytes, format, dwFlags, dwThreadId, out ppEvent);
 
@@ -1706,7 +1728,7 @@ namespace ManagedCorDebug
         /// <param name="ppCodeResult">[out] A pointer to the address of an "ICorDebugCode" object that represents a segment of managed code.</param>
         public HRESULT TryGetCode(CORDB_ADDRESS codeAddress, out CorDebugCode ppCodeResult)
         {
-            /*HRESULT GetCode([In] CORDB_ADDRESS codeAddress, [MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);*/
+            /*HRESULT GetCode([In] CORDB_ADDRESS codeAddress, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);*/
             ICorDebugCode ppCode;
             HRESULT hr = Raw6.GetCode(codeAddress, out ppCode);
 
@@ -1761,7 +1783,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryEnableVirtualModuleSplitting(int enableSplitting)
         {
-            /*HRESULT EnableVirtualModuleSplitting(int enableSplitting);*/
+            /*HRESULT EnableVirtualModuleSplitting([In] int enableSplitting);*/
             return Raw6.EnableVirtualModuleSplitting(enableSplitting);
         }
 
@@ -1795,7 +1817,7 @@ namespace ManagedCorDebug
         /// </returns>
         public HRESULT TryMarkDebuggerAttached(int fIsAttached)
         {
-            /*HRESULT MarkDebuggerAttached(int fIsAttached);*/
+            /*HRESULT MarkDebuggerAttached([In] int fIsAttached);*/
             return Raw6.MarkDebuggerAttached(fIsAttached);
         }
 
@@ -1836,8 +1858,8 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetExportStepInfo(
             [MarshalAs(UnmanagedType.LPWStr), In] string pszExportName,
-            out CorDebugCodeInvokeKind pInvokeKind,
-            out CorDebugCodeInvokePurpose pInvokePurpose);*/
+            [Out] out CorDebugCodeInvokeKind pInvokeKind,
+            [Out] out CorDebugCodeInvokePurpose pInvokePurpose);*/
             CorDebugCodeInvokeKind pInvokeKind;
             CorDebugCodeInvokePurpose pInvokePurpose;
             HRESULT hr = Raw6.GetExportStepInfo(pszExportName, out pInvokeKind, out pInvokePurpose);
@@ -1883,7 +1905,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TrySetWriteableMetadataUpdateMode(WriteableMetadataUpdateMode flags)
         {
-            /*HRESULT SetWriteableMetadataUpdateMode(WriteableMetadataUpdateMode flags);*/
+            /*HRESULT SetWriteableMetadataUpdateMode([In] WriteableMetadataUpdateMode flags);*/
             return Raw7.SetWriteableMetadataUpdateMode(flags);
         }
 

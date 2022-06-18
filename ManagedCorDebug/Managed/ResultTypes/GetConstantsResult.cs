@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -17,9 +16,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// The buffer that stores the constants.
         /// </summary>
-        public IntPtr constants { get; }
+        public ISymUnmanagedConstant[] constants { get; }
 
-        public GetConstantsResult(int pcConstants, IntPtr constants)
+        public GetConstantsResult(int pcConstants, ISymUnmanagedConstant[] constants)
         {
             this.pcConstants = pcConstants;
             this.constants = constants;

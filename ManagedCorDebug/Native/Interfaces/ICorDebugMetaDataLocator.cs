@@ -42,7 +42,7 @@ namespace ManagedCorDebug
             [In] int dwImageTimeStamp,
             [In] int dwImageSize,
             [In] int cchPathBuffer,
-            out int pcchPathBuffer,
+            [Out] out int pcchPathBuffer,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder wszPathBuffer);
     }
 }

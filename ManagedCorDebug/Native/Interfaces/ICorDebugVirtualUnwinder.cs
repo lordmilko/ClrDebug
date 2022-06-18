@@ -33,7 +33,7 @@ namespace ManagedCorDebug
         HRESULT GetContext(
             [In] int contextFlags,
             [In] int cbContextBuf,
-            out int contextSize,
+            [Out] out int contextSize,
             [In, Out] ref IntPtr contextBuf);
 
         /// <summary>

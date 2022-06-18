@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataTables.GetColumnInfo"/> method.
     /// </summary>
-    [DebuggerDisplay("poCol = {poCol}, pcbCol = {pcbCol}, pType = {pType}")]
+    [DebuggerDisplay("poCol = {poCol}, pcbCol = {pcbCol}, pType = {pType}, ppName = {ppName}")]
     public struct GetColumnInfoResult
     {
         /// <summary>
@@ -23,11 +23,17 @@ namespace ManagedCorDebug
         /// </summary>
         public int pType { get; }
 
-        public GetColumnInfoResult(int poCol, int pcbCol, int pType)
+        /// <summary>
+        /// A pointer to a pointer to the column name.
+        /// </summary>
+        public string ppName { get; }
+
+        public GetColumnInfoResult(int poCol, int pcbCol, int pType, string ppName)
         {
             this.poCol = poCol;
             this.pcbCol = pcbCol;
             this.pType = pType;
+            this.ppName = ppName;
         }
     }
 }

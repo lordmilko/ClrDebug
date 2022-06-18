@@ -43,7 +43,7 @@ namespace ManagedCorDebug
         /// <param name="szNameResult">A pointer to a character array that contains the variable name.</param>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            /*HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName = null;
@@ -95,7 +95,7 @@ namespace ManagedCorDebug
         /// <param name="pcbValue">A pointer to a 32-bit unsigned integer containing the size of the variable.</param>
         public HRESULT TryGetSize(out int pcbValue)
         {
-            /*HRESULT GetSize(out int pcbValue);*/
+            /*HRESULT GetSize([Out] out int pcbValue);*/
             return Raw.GetSize(out pcbValue);
         }
 
@@ -129,7 +129,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetSlotIndex(out int pSlotIndex)
         {
-            /*HRESULT GetSlotIndex(out int pSlotIndex);*/
+            /*HRESULT GetSlotIndex([Out] out int pSlotIndex);*/
             return Raw.GetSlotIndex(out pSlotIndex);
         }
 
@@ -170,7 +170,7 @@ namespace ManagedCorDebug
             [In] int cbContext,
             [In] IntPtr context,
             [In] int cbValue,
-            out int pcbValue,
+            [Out] out int pcbValue,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] pValue);*/
             int pcbValue;
             byte[] pValue = null;

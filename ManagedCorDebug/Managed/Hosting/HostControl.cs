@@ -65,9 +65,9 @@ namespace ManagedCorDebug
         public HRESULT TryGetHostManager(Guid riid, out object ppObject)
         {
             /*HRESULT GetHostManager(
-            [In] [MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [MarshalAs(UnmanagedType.Interface, IidParameterIndex = 0)] out object ppObject);*/
-            return Raw.GetHostManager(riid, out ppObject);
+            [In] ref Guid riid,
+            [Out, MarshalAs(UnmanagedType.Interface, IidParameterIndex = 0)] out object ppObject);*/
+            return Raw.GetHostManager(ref riid, out ppObject);
         }
 
         #endregion

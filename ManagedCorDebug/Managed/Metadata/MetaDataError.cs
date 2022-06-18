@@ -38,7 +38,7 @@ namespace ManagedCorDebug
         /// <param name="token">[in] The metadata token of the code object that was being merged when the error occurred.</param>
         public HRESULT TryOnError(HRESULT hrError, mdToken token)
         {
-            /*HRESULT OnError(HRESULT hrError, mdToken token);*/
+            /*HRESULT OnError([In] HRESULT hrError, [In] mdToken token);*/
             return Raw.OnError(hrError, token);
         }
 

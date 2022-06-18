@@ -19,7 +19,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CopyMetaData([MarshalAs(UnmanagedType.Interface), In]
-            IStream pIStream, out Guid pMvid);
+            IStream pIStream, [Out] out Guid pMvid);
 
         /// <summary>
         /// GetMvid is obsolete. Do not call this method.
@@ -27,7 +27,7 @@ namespace ManagedCorDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetMvid(out Guid pMvid);
+        HRESULT GetMvid([Out] out Guid pMvid);
 
         /// <summary>
         /// GetRoDataRVA is obsolete. Do not call this method.
@@ -35,7 +35,7 @@ namespace ManagedCorDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRoDataRVA(out int pRoDataRVA);
+        HRESULT GetRoDataRVA([Out] out int pRoDataRVA);
 
         /// <summary>
         /// GetRwDataRVA is obsolete. Do not call this method.
@@ -43,7 +43,7 @@ namespace ManagedCorDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRwDataRVA(out int pRwDataRVA);
+        HRESULT GetRwDataRVA([Out] out int pRwDataRVA);
 
         /// <summary>
         /// SetPEBytes is obsolete. Do not call this method.

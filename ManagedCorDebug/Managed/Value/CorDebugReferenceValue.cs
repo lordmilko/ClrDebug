@@ -61,7 +61,7 @@ namespace ManagedCorDebug
         /// <param name="pbNullResult">[out] A pointer to a Boolean value that is true if this <see cref="ICorDebugReferenceValue"/> object is null; otherwise, pbNull is false.</param>
         public HRESULT TryIsNull(out bool pbNullResult)
         {
-            /*HRESULT IsNull(out int pbNull);*/
+            /*HRESULT IsNull([Out] out int pbNull);*/
             int pbNull;
             HRESULT hr = Raw.IsNull(out pbNull);
 
@@ -106,7 +106,7 @@ namespace ManagedCorDebug
         /// <param name="pValue">[out] A pointer to a <see cref="CORDB_ADDRESS"/> value that specifies the address of the object to which this <see cref="ICorDebugReferenceValue"/> object points.</param>
         public HRESULT TryGetValue(out CORDB_ADDRESS pValue)
         {
-            /*HRESULT GetValue(out CORDB_ADDRESS pValue);*/
+            /*HRESULT GetValue([Out] out CORDB_ADDRESS pValue);*/
             return Raw.GetValue(out pValue);
         }
 
@@ -150,7 +150,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryDereference(out CorDebugValue ppValueResult)
         {
-            /*HRESULT Dereference([MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            /*HRESULT Dereference([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.Dereference(out ppValue);
 
@@ -184,7 +184,7 @@ namespace ManagedCorDebug
         /// </summary>
         public HRESULT TryDereferenceStrong(out CorDebugValue ppValueResult)
         {
-            /*HRESULT DereferenceStrong([MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            /*HRESULT DereferenceStrong([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.DereferenceStrong(out ppValue);
 

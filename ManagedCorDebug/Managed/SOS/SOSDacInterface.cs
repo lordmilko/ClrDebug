@@ -35,7 +35,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetThreadStoreData(out DacpThreadStoreData data)
         {
             /*HRESULT GetThreadStoreData(
-            out DacpThreadStoreData data);*/
+            [Out] out DacpThreadStoreData data);*/
             return Raw.GetThreadStoreData(out data);
         }
 
@@ -59,7 +59,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetAppDomainStoreData(out DacpAppDomainStoreData data)
         {
             /*HRESULT GetAppDomainStoreData(
-            out DacpAppDomainStoreData data);*/
+            [Out] out DacpAppDomainStoreData data);*/
             return Raw.GetAppDomainStoreData(out data);
         }
 
@@ -83,9 +83,9 @@ namespace ManagedCorDebug
         public HRESULT TryGetAppDomainList(out CLRDATA_ADDRESS[] valuesResult)
         {
             /*HRESULT GetAppDomainList(
-            int count,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] values,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             int count = 0;
             CLRDATA_ADDRESS[] values = null;
             int pNeeded;
@@ -131,9 +131,9 @@ namespace ManagedCorDebug
         public HRESULT TryGetJitManagerList(out DacpJitManagerInfo[] managersResult)
         {
             /*HRESULT GetJitManagerList(
-            int count,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpJitManagerInfo[] managers,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             int count = 0;
             DacpJitManagerInfo[] managers = null;
             int pNeeded;
@@ -179,7 +179,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetThreadpoolData(out DacpThreadpoolData data)
         {
             /*HRESULT GetThreadpoolData(
-            out DacpThreadpoolData data);*/
+            [Out] out DacpThreadpoolData data);*/
             return Raw.GetThreadpoolData(out data);
         }
 
@@ -203,7 +203,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetGCHeapData(out DacpGcHeapData data)
         {
             /*HRESULT GetGCHeapData(
-            out DacpGcHeapData data);*/
+            [Out] out DacpGcHeapData data);*/
             return Raw.GetGCHeapData(out data);
         }
 
@@ -227,9 +227,9 @@ namespace ManagedCorDebug
         public HRESULT TryGetGCHeapList(out CLRDATA_ADDRESS[] heapsResult)
         {
             /*HRESULT GetGCHeapList(
-            int count,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] heaps,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             int count = 0;
             CLRDATA_ADDRESS[] heaps = null;
             int pNeeded;
@@ -275,7 +275,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetGCHeapStaticData(out DacpGcHeapDetails data)
         {
             /*HRESULT GetGCHeapStaticData(
-            out DacpGcHeapDetails data);*/
+            [Out] out DacpGcHeapDetails data);*/
             return Raw.GetGCHeapStaticData(out data);
         }
 
@@ -299,7 +299,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetOOMStaticData(out DacpOomData data)
         {
             /*HRESULT GetOOMStaticData(
-            out DacpOomData data);*/
+            [Out] out DacpOomData data);*/
             return Raw.GetOOMStaticData(out data);
         }
 
@@ -323,7 +323,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetHeapAnalyzeStaticData(out DacpGcHeapAnalyzeData data)
         {
             /*HRESULT GetHeapAnalyzeStaticData(
-            out DacpGcHeapAnalyzeData data);*/
+            [Out] out DacpGcHeapAnalyzeData data);*/
             return Raw.GetHeapAnalyzeStaticData(out data);
         }
 
@@ -347,7 +347,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetHandleEnum(out SOSHandleEnum ppHandleEnumResult)
         {
             /*HRESULT GetHandleEnum(
-            out ISOSHandleEnum ppHandleEnum);*/
+            [Out] out ISOSHandleEnum ppHandleEnum);*/
             ISOSHandleEnum ppHandleEnum;
             HRESULT hr = Raw.GetHandleEnum(out ppHandleEnum);
 
@@ -379,7 +379,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetStressLogAddress(out CLRDATA_ADDRESS stressLog)
         {
             /*HRESULT GetStressLogAddress(
-            out CLRDATA_ADDRESS stressLog);*/
+            [Out] out CLRDATA_ADDRESS stressLog);*/
             return Raw.GetStressLogAddress(out stressLog);
         }
 
@@ -403,7 +403,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetUsefulGlobals(out DacpUsefulGlobalsData data)
         {
             /*HRESULT GetUsefulGlobals(
-            out DacpUsefulGlobalsData data);*/
+            [Out] out DacpUsefulGlobalsData data);*/
             return Raw.GetUsefulGlobals(out data);
         }
 
@@ -427,7 +427,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetTLSIndex(out int pIndex)
         {
             /*HRESULT GetTLSIndex(
-            out int pIndex);*/
+            [Out] out int pIndex);*/
             return Raw.GetTLSIndex(out pIndex);
         }
 
@@ -439,20 +439,20 @@ namespace ManagedCorDebug
             get
             {
                 HRESULT hr;
-                IntPtr phModule;
+                IntPtr phModule = default(IntPtr);
 
-                if ((hr = TryGetDacModuleHandle(out phModule)) != HRESULT.S_OK)
+                if ((hr = TryGetDacModuleHandle(ref phModule)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
 
                 return phModule;
             }
         }
 
-        public HRESULT TryGetDacModuleHandle(out IntPtr phModule)
+        public HRESULT TryGetDacModuleHandle(ref IntPtr phModule)
         {
             /*HRESULT GetDacModuleHandle(
-            out IntPtr phModule);*/
-            return Raw.GetDacModuleHandle(out phModule);
+            [Out] IntPtr phModule);*/
+            return Raw.GetDacModuleHandle(phModule);
         }
 
         #endregion
@@ -472,8 +472,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetAppDomainData(CLRDATA_ADDRESS addr, out DacpAppDomainData data)
         {
             /*HRESULT GetAppDomainData(
-            CLRDATA_ADDRESS addr,
-            out DacpAppDomainData data);*/
+            [In] CLRDATA_ADDRESS addr,
+            [Out] out DacpAppDomainData data);*/
             return Raw.GetAppDomainData(addr, out data);
         }
 
@@ -494,10 +494,10 @@ namespace ManagedCorDebug
         public HRESULT TryGetAppDomainName(CLRDATA_ADDRESS addr, out string nameResult)
         {
             /*HRESULT GetAppDomainName(
-            CLRDATA_ADDRESS addr,
-            int count,
+            [In] CLRDATA_ADDRESS addr,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             int count = 0;
             StringBuilder name = null;
             int pNeeded;
@@ -540,8 +540,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetDomainFromContext(CLRDATA_ADDRESS context, out CLRDATA_ADDRESS domain)
         {
             /*HRESULT GetDomainFromContext(
-            CLRDATA_ADDRESS context,
-            out CLRDATA_ADDRESS domain);*/
+            [In] CLRDATA_ADDRESS context,
+            [Out] out CLRDATA_ADDRESS domain);*/
             return Raw.GetDomainFromContext(context, out domain);
         }
 
@@ -562,7 +562,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetAssemblyList(CLRDATA_ADDRESS appDomain, out CLRDATA_ADDRESS[] valuesResult)
         {
             /*HRESULT GetAssemblyList(
-            CLRDATA_ADDRESS appDomain,
+            [In] CLRDATA_ADDRESS appDomain,
             [In] int count,
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] values,
             [Out] out int pNeeded);*/
@@ -608,9 +608,9 @@ namespace ManagedCorDebug
         public HRESULT TryGetAssemblyData(CLRDATA_ADDRESS baseDomainPtr, CLRDATA_ADDRESS assembly, out DacpAssemblyData data)
         {
             /*HRESULT GetAssemblyData(
-            CLRDATA_ADDRESS baseDomainPtr,
-            CLRDATA_ADDRESS assembly,
-            out DacpAssemblyData data);*/
+            [In] CLRDATA_ADDRESS baseDomainPtr,
+            [In] CLRDATA_ADDRESS assembly,
+            [Out] out DacpAssemblyData data);*/
             return Raw.GetAssemblyData(baseDomainPtr, assembly, out data);
         }
 
@@ -631,10 +631,10 @@ namespace ManagedCorDebug
         public HRESULT TryGetAssemblyName(CLRDATA_ADDRESS assembly, out string nameResult)
         {
             /*HRESULT GetAssemblyName(
-            CLRDATA_ADDRESS assembly,
-            int count,
+            [In] CLRDATA_ADDRESS assembly,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             int count = 0;
             StringBuilder name = null;
             int pNeeded;
@@ -677,8 +677,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetModule(CLRDATA_ADDRESS addr, out XCLRDataModule modResult)
         {
             /*HRESULT GetModule(
-            CLRDATA_ADDRESS addr,
-            out IXCLRDataModule mod);*/
+            [In] CLRDATA_ADDRESS addr,
+            [Out] out IXCLRDataModule mod);*/
             IXCLRDataModule mod;
             HRESULT hr = Raw.GetModule(addr, out mod);
 
@@ -707,8 +707,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetModuleData(CLRDATA_ADDRESS moduleAddr, out DacpModuleData data)
         {
             /*HRESULT GetModuleData(
-            CLRDATA_ADDRESS moduleAddr,
-            out DacpModuleData data);*/
+            [In] CLRDATA_ADDRESS moduleAddr,
+            [Out] out DacpModuleData data);*/
             return Raw.GetModuleData(moduleAddr, out data);
         }
 
@@ -726,10 +726,10 @@ namespace ManagedCorDebug
         public HRESULT TryTraverseModuleMap(ModuleMapType mmt, CLRDATA_ADDRESS moduleAddr, MODULEMAPTRAVERSE pCallback, IntPtr token)
         {
             /*HRESULT TraverseModuleMap(
-            ModuleMapType mmt,
-            CLRDATA_ADDRESS moduleAddr,
-            [MarshalAs(UnmanagedType.FunctionPtr)] MODULEMAPTRAVERSE pCallback,
-            IntPtr token);*/
+            [In] ModuleMapType mmt,
+            [In] CLRDATA_ADDRESS moduleAddr,
+            [In, MarshalAs(UnmanagedType.FunctionPtr)] MODULEMAPTRAVERSE pCallback,
+            [In] IntPtr token);*/
             return Raw.TraverseModuleMap(mmt, moduleAddr, pCallback, token);
         }
 
@@ -750,10 +750,10 @@ namespace ManagedCorDebug
         public HRESULT TryGetAssemblyModuleList(CLRDATA_ADDRESS assembly, out CLRDATA_ADDRESS[] modulesResult)
         {
             /*HRESULT GetAssemblyModuleList(
-            CLRDATA_ADDRESS assembly,
-            int count,
+            [In] CLRDATA_ADDRESS assembly,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] modules,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             int count = 0;
             CLRDATA_ADDRESS[] modules = null;
             int pNeeded;
@@ -796,9 +796,9 @@ namespace ManagedCorDebug
         public HRESULT TryGetILForModule(CLRDATA_ADDRESS moduleAddr, int rva, out CLRDATA_ADDRESS il)
         {
             /*HRESULT GetILForModule(
-            CLRDATA_ADDRESS moduleAddr,
-            int rva,
-            out CLRDATA_ADDRESS il);*/
+            [In] CLRDATA_ADDRESS moduleAddr,
+            [In] int rva,
+            [Out] out CLRDATA_ADDRESS il);*/
             return Raw.GetILForModule(moduleAddr, rva, out il);
         }
 
@@ -819,8 +819,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetThreadData(CLRDATA_ADDRESS thread, out DacpThreadData data)
         {
             /*HRESULT GetThreadData(
-            CLRDATA_ADDRESS thread,
-            out DacpThreadData data);*/
+            [In] CLRDATA_ADDRESS thread,
+            [Out] out DacpThreadData data);*/
             return Raw.GetThreadData(thread, out data);
         }
 
@@ -841,8 +841,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetThreadFromThinlockID(int thinLockId, out CLRDATA_ADDRESS pThread)
         {
             /*HRESULT GetThreadFromThinlockID(
-            int thinLockId,
-            out CLRDATA_ADDRESS pThread);*/
+            [In] int thinLockId,
+            [Out] out CLRDATA_ADDRESS pThread);*/
             return Raw.GetThreadFromThinlockID(thinLockId, out pThread);
         }
 
@@ -863,10 +863,10 @@ namespace ManagedCorDebug
         public HRESULT TryGetStackLimits(CLRDATA_ADDRESS threadPtr, out GetStackLimitsResult result)
         {
             /*HRESULT GetStackLimits(
-            CLRDATA_ADDRESS threadPtr,
-            out CLRDATA_ADDRESS lower,
-            out CLRDATA_ADDRESS upper,
-            out CLRDATA_ADDRESS fp);*/
+            [In] CLRDATA_ADDRESS threadPtr,
+            [Out] out CLRDATA_ADDRESS lower,
+            [Out] out CLRDATA_ADDRESS upper,
+            [Out] out CLRDATA_ADDRESS fp);*/
             CLRDATA_ADDRESS lower;
             CLRDATA_ADDRESS upper;
             CLRDATA_ADDRESS fp;
@@ -897,12 +897,12 @@ namespace ManagedCorDebug
         public HRESULT TryGetMethodDescData(CLRDATA_ADDRESS methodDesc, CLRDATA_ADDRESS ip, out GetMethodDescDataResult result)
         {
             /*HRESULT GetMethodDescData(
-            CLRDATA_ADDRESS methodDesc,
-            CLRDATA_ADDRESS ip,
-            out DacpMethodDescData data,
-            int cRevertedRejitVersions,
+            [In] CLRDATA_ADDRESS methodDesc,
+            [In] CLRDATA_ADDRESS ip,
+            [Out] out DacpMethodDescData data,
+            [In] int cRevertedRejitVersions,
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpReJitData[] rgRevertedRejitData,
-            out int pcNeededRevertedRejitData);*/
+            [Out] out int pcNeededRevertedRejitData);*/
             DacpMethodDescData data;
             int cRevertedRejitVersions = 0;
             DacpReJitData[] rgRevertedRejitData = null;
@@ -946,8 +946,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetMethodDescPtrFromIP(CLRDATA_ADDRESS ip, out CLRDATA_ADDRESS ppMD)
         {
             /*HRESULT GetMethodDescPtrFromIP(
-            CLRDATA_ADDRESS ip,
-            out CLRDATA_ADDRESS ppMD);*/
+            [In] CLRDATA_ADDRESS ip,
+            [Out] out CLRDATA_ADDRESS ppMD);*/
             return Raw.GetMethodDescPtrFromIP(ip, out ppMD);
         }
 
@@ -968,10 +968,10 @@ namespace ManagedCorDebug
         public HRESULT TryGetMethodDescName(CLRDATA_ADDRESS methodDesc, out string nameResult)
         {
             /*HRESULT GetMethodDescName(
-            CLRDATA_ADDRESS methodDesc,
-            int count,
+            [In] CLRDATA_ADDRESS methodDesc,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             int count = 0;
             StringBuilder name = null;
             int pNeeded;
@@ -1014,8 +1014,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetMethodDescPtrFromFrame(CLRDATA_ADDRESS frameAddr, out CLRDATA_ADDRESS ppMD)
         {
             /*HRESULT GetMethodDescPtrFromFrame(
-            CLRDATA_ADDRESS frameAddr,
-            out CLRDATA_ADDRESS ppMD);*/
+            [In] CLRDATA_ADDRESS frameAddr,
+            [Out] out CLRDATA_ADDRESS ppMD);*/
             return Raw.GetMethodDescPtrFromFrame(frameAddr, out ppMD);
         }
 
@@ -1036,9 +1036,9 @@ namespace ManagedCorDebug
         public HRESULT TryGetMethodDescFromToken(CLRDATA_ADDRESS moduleAddr, mdToken token, out CLRDATA_ADDRESS methodDesc)
         {
             /*HRESULT GetMethodDescFromToken(
-            CLRDATA_ADDRESS moduleAddr,
-            mdToken token,
-            out CLRDATA_ADDRESS methodDesc);*/
+            [In] CLRDATA_ADDRESS moduleAddr,
+            [In] mdToken token,
+            [Out] out CLRDATA_ADDRESS methodDesc);*/
             return Raw.GetMethodDescFromToken(moduleAddr, token, out methodDesc);
         }
 
@@ -1059,8 +1059,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetMethodDescTransparencyData(CLRDATA_ADDRESS methodDesc, out DacpMethodDescTransparencyData data)
         {
             /*HRESULT GetMethodDescTransparencyData(
-            CLRDATA_ADDRESS methodDesc,
-            out DacpMethodDescTransparencyData data);*/
+            [In] CLRDATA_ADDRESS methodDesc,
+            [Out] out DacpMethodDescTransparencyData data);*/
             return Raw.GetMethodDescTransparencyData(methodDesc, out data);
         }
 
@@ -1081,8 +1081,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetCodeHeaderData(CLRDATA_ADDRESS ip, out DacpCodeHeaderData data)
         {
             /*HRESULT GetCodeHeaderData(
-            CLRDATA_ADDRESS ip,
-            out DacpCodeHeaderData data);*/
+            [In] CLRDATA_ADDRESS ip,
+            [Out] out DacpCodeHeaderData data);*/
             return Raw.GetCodeHeaderData(ip, out data);
         }
 
@@ -1103,10 +1103,10 @@ namespace ManagedCorDebug
         public HRESULT TryGetJitHelperFunctionName(CLRDATA_ADDRESS ip, out string nameResult)
         {
             /*HRESULT GetJitHelperFunctionName(
-            CLRDATA_ADDRESS ip,
-            int count,
+            [In] CLRDATA_ADDRESS ip,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             int count = 0;
             StringBuilder name = null;
             int pNeeded;
@@ -1149,9 +1149,9 @@ namespace ManagedCorDebug
         public HRESULT TryGetJumpThunkTarget(IntPtr ctx, out GetJumpThunkTargetResult result)
         {
             /*HRESULT GetJumpThunkTarget(
-            IntPtr ctx,
-            out CLRDATA_ADDRESS targetIP,
-            out CLRDATA_ADDRESS targetMD);*/
+            [In] IntPtr ctx,
+            [Out] out CLRDATA_ADDRESS targetIP,
+            [Out] out CLRDATA_ADDRESS targetMD);*/
             CLRDATA_ADDRESS targetIP;
             CLRDATA_ADDRESS targetMD;
             HRESULT hr = Raw.GetJumpThunkTarget(ctx, out targetIP, out targetMD);
@@ -1181,8 +1181,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetWorkRequestData(CLRDATA_ADDRESS addrWorkRequest, out DacpWorkRequestData data)
         {
             /*HRESULT GetWorkRequestData(
-            CLRDATA_ADDRESS addrWorkRequest,
-            out DacpWorkRequestData data);*/
+            [In] CLRDATA_ADDRESS addrWorkRequest,
+            [Out] out DacpWorkRequestData data);*/
             return Raw.GetWorkRequestData(addrWorkRequest, out data);
         }
 
@@ -1203,8 +1203,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetHillClimbingLogEntry(CLRDATA_ADDRESS addr, out DacpHillClimbingLogEntry data)
         {
             /*HRESULT GetHillClimbingLogEntry(
-            CLRDATA_ADDRESS addr,
-            out DacpHillClimbingLogEntry data);*/
+            [In] CLRDATA_ADDRESS addr,
+            [Out] out DacpHillClimbingLogEntry data);*/
             return Raw.GetHillClimbingLogEntry(addr, out data);
         }
 
@@ -1225,8 +1225,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetObjectData(CLRDATA_ADDRESS objAddr, out DacpObjectData data)
         {
             /*HRESULT GetObjectData(
-            CLRDATA_ADDRESS objAddr,
-            out DacpObjectData data);*/
+            [In] CLRDATA_ADDRESS objAddr,
+            [Out] out DacpObjectData data);*/
             return Raw.GetObjectData(objAddr, out data);
         }
 
@@ -1247,10 +1247,10 @@ namespace ManagedCorDebug
         public HRESULT TryGetObjectStringData(CLRDATA_ADDRESS obj, out string stringDataResult)
         {
             /*HRESULT GetObjectStringData(
-            CLRDATA_ADDRESS obj,
-            int count,
+            [In] CLRDATA_ADDRESS obj,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder stringData,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             int count = 0;
             StringBuilder stringData = null;
             int pNeeded;
@@ -1293,10 +1293,10 @@ namespace ManagedCorDebug
         public HRESULT TryGetObjectClassName(CLRDATA_ADDRESS obj, out string classNameResult)
         {
             /*HRESULT GetObjectClassName(
-            CLRDATA_ADDRESS obj,
-            int count,
+            [In] CLRDATA_ADDRESS obj,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder className,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             int count = 0;
             StringBuilder className = null;
             int pNeeded;
@@ -1339,10 +1339,10 @@ namespace ManagedCorDebug
         public HRESULT TryGetMethodTableName(CLRDATA_ADDRESS mt, out string mtNameResult)
         {
             /*HRESULT GetMethodTableName(
-            CLRDATA_ADDRESS mt,
-            int count,
+            [In] CLRDATA_ADDRESS mt,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder mtName,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             int count = 0;
             StringBuilder mtName = null;
             int pNeeded;
@@ -1385,8 +1385,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetMethodTableData(CLRDATA_ADDRESS mt, out DacpMethodTableData data)
         {
             /*HRESULT GetMethodTableData(
-            CLRDATA_ADDRESS mt,
-            out DacpMethodTableData data);*/
+            [In] CLRDATA_ADDRESS mt,
+            [Out] out DacpMethodTableData data);*/
             return Raw.GetMethodTableData(mt, out data);
         }
 
@@ -1407,9 +1407,9 @@ namespace ManagedCorDebug
         public HRESULT TryGetMethodTableSlot(CLRDATA_ADDRESS mt, int slot, out CLRDATA_ADDRESS value)
         {
             /*HRESULT GetMethodTableSlot(
-            CLRDATA_ADDRESS mt,
-            int slot,
-            out CLRDATA_ADDRESS value);*/
+            [In] CLRDATA_ADDRESS mt,
+            [In] int slot,
+            [Out] out CLRDATA_ADDRESS value);*/
             return Raw.GetMethodTableSlot(mt, slot, out value);
         }
 
@@ -1430,8 +1430,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetMethodTableFieldData(CLRDATA_ADDRESS mt, out DacpMethodTableFieldData data)
         {
             /*HRESULT GetMethodTableFieldData(
-            CLRDATA_ADDRESS mt,
-            out DacpMethodTableFieldData data);*/
+            [In] CLRDATA_ADDRESS mt,
+            [Out] out DacpMethodTableFieldData data);*/
             return Raw.GetMethodTableFieldData(mt, out data);
         }
 
@@ -1452,8 +1452,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetMethodTableTransparencyData(CLRDATA_ADDRESS mt, out DacpMethodTableTransparencyData data)
         {
             /*HRESULT GetMethodTableTransparencyData(
-            CLRDATA_ADDRESS mt,
-            out DacpMethodTableTransparencyData data);*/
+            [In] CLRDATA_ADDRESS mt,
+            [Out] out DacpMethodTableTransparencyData data);*/
             return Raw.GetMethodTableTransparencyData(mt, out data);
         }
 
@@ -1474,8 +1474,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetMethodTableForEEClass(CLRDATA_ADDRESS eeClass, out CLRDATA_ADDRESS value)
         {
             /*HRESULT GetMethodTableForEEClass(
-            CLRDATA_ADDRESS eeClass,
-            out CLRDATA_ADDRESS value);*/
+            [In] CLRDATA_ADDRESS eeClass,
+            [Out] out CLRDATA_ADDRESS value);*/
             return Raw.GetMethodTableForEEClass(eeClass, out value);
         }
 
@@ -1496,8 +1496,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetFieldDescData(CLRDATA_ADDRESS fieldDesc, out DacpFieldDescData data)
         {
             /*HRESULT GetFieldDescData(
-            CLRDATA_ADDRESS fieldDesc,
-            out DacpFieldDescData data);*/
+            [In] CLRDATA_ADDRESS fieldDesc,
+            [Out] out DacpFieldDescData data);*/
             return Raw.GetFieldDescData(fieldDesc, out data);
         }
 
@@ -1518,10 +1518,10 @@ namespace ManagedCorDebug
         public HRESULT TryGetFrameName(CLRDATA_ADDRESS vtable, out string frameNameResult)
         {
             /*HRESULT GetFrameName(
-            CLRDATA_ADDRESS vtable,
-            int count,
+            [In] CLRDATA_ADDRESS vtable,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder frameName,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             int count = 0;
             StringBuilder frameName = null;
             int pNeeded;
@@ -1564,8 +1564,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetPEFileBase(CLRDATA_ADDRESS addr, out CLRDATA_ADDRESS _base)
         {
             /*HRESULT GetPEFileBase(
-            CLRDATA_ADDRESS addr,
-            out CLRDATA_ADDRESS _base);*/
+            [In] CLRDATA_ADDRESS addr,
+            [Out] out CLRDATA_ADDRESS _base);*/
             return Raw.GetPEFileBase(addr, out _base);
         }
 
@@ -1586,10 +1586,10 @@ namespace ManagedCorDebug
         public HRESULT TryGetPEFileName(CLRDATA_ADDRESS addr, out string fileNameResult)
         {
             /*HRESULT GetPEFileName(
-            CLRDATA_ADDRESS addr,
-            int count,
+            [In] CLRDATA_ADDRESS addr,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder fileName,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             int count = 0;
             StringBuilder fileName = null;
             int pNeeded;
@@ -1632,8 +1632,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetGCHeapDetails(CLRDATA_ADDRESS heap, out DacpGcHeapDetails details)
         {
             /*HRESULT GetGCHeapDetails(
-            CLRDATA_ADDRESS heap,
-            out DacpGcHeapDetails details);*/
+            [In] CLRDATA_ADDRESS heap,
+            [Out] out DacpGcHeapDetails details);*/
             return Raw.GetGCHeapDetails(heap, out details);
         }
 
@@ -1654,8 +1654,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetHeapSegmentData(CLRDATA_ADDRESS seg, out DacpHeapSegmentData data)
         {
             /*HRESULT GetHeapSegmentData(
-            CLRDATA_ADDRESS seg,
-            out DacpHeapSegmentData data);*/
+            [In] CLRDATA_ADDRESS seg,
+            [Out] out DacpHeapSegmentData data);*/
             return Raw.GetHeapSegmentData(seg, out data);
         }
 
@@ -1676,8 +1676,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetOOMData(CLRDATA_ADDRESS oomAddr, out DacpOomData data)
         {
             /*HRESULT GetOOMData(
-            CLRDATA_ADDRESS oomAddr,
-            out DacpOomData data);*/
+            [In] CLRDATA_ADDRESS oomAddr,
+            [Out] out DacpOomData data);*/
             return Raw.GetOOMData(oomAddr, out data);
         }
 
@@ -1698,8 +1698,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetHeapAnalyzeData(CLRDATA_ADDRESS addr, out DacpGcHeapAnalyzeData data)
         {
             /*HRESULT GetHeapAnalyzeData(
-            CLRDATA_ADDRESS addr,
-            out DacpGcHeapAnalyzeData data);*/
+            [In] CLRDATA_ADDRESS addr,
+            [Out] out DacpGcHeapAnalyzeData data);*/
             return Raw.GetHeapAnalyzeData(addr, out data);
         }
 
@@ -1720,8 +1720,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetDomainLocalModuleData(CLRDATA_ADDRESS addr, out DacpDomainLocalModuleData data)
         {
             /*HRESULT GetDomainLocalModuleData(
-            CLRDATA_ADDRESS addr,
-            out DacpDomainLocalModuleData data);*/
+            [In] CLRDATA_ADDRESS addr,
+            [Out] out DacpDomainLocalModuleData data);*/
             return Raw.GetDomainLocalModuleData(addr, out data);
         }
 
@@ -1742,9 +1742,9 @@ namespace ManagedCorDebug
         public HRESULT TryGetDomainLocalModuleDataFromAppDomain(CLRDATA_ADDRESS appDomainAddr, int moduleID, out DacpDomainLocalModuleData data)
         {
             /*HRESULT GetDomainLocalModuleDataFromAppDomain(
-            CLRDATA_ADDRESS appDomainAddr,
-            int moduleID,
-            out DacpDomainLocalModuleData data);*/
+            [In] CLRDATA_ADDRESS appDomainAddr,
+            [In] int moduleID,
+            [Out] out DacpDomainLocalModuleData data);*/
             return Raw.GetDomainLocalModuleDataFromAppDomain(appDomainAddr, moduleID, out data);
         }
 
@@ -1765,8 +1765,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetDomainLocalModuleDataFromModule(CLRDATA_ADDRESS moduleAddr, out DacpDomainLocalModuleData data)
         {
             /*HRESULT GetDomainLocalModuleDataFromModule(
-            CLRDATA_ADDRESS moduleAddr,
-            out DacpDomainLocalModuleData data);*/
+            [In] CLRDATA_ADDRESS moduleAddr,
+            [Out] out DacpDomainLocalModuleData data);*/
             return Raw.GetDomainLocalModuleDataFromModule(moduleAddr, out data);
         }
 
@@ -1787,9 +1787,9 @@ namespace ManagedCorDebug
         public HRESULT TryGetThreadLocalModuleData(CLRDATA_ADDRESS thread, int index, out DacpThreadLocalModuleData data)
         {
             /*HRESULT GetThreadLocalModuleData(
-            CLRDATA_ADDRESS thread,
-            int index,
-            out DacpThreadLocalModuleData data);*/
+            [In] CLRDATA_ADDRESS thread,
+            [In] int index,
+            [Out] out DacpThreadLocalModuleData data);*/
             return Raw.GetThreadLocalModuleData(thread, index, out data);
         }
 
@@ -1810,8 +1810,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetSyncBlockData(int number, out DacpSyncBlockData data)
         {
             /*HRESULT GetSyncBlockData(
-            int number,
-            out DacpSyncBlockData data);*/
+            [In] int number,
+            [Out] out DacpSyncBlockData data);*/
             return Raw.GetSyncBlockData(number, out data);
         }
 
@@ -1832,8 +1832,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetSyncBlockCleanupData(CLRDATA_ADDRESS addr, out DacpSyncBlockCleanupData data)
         {
             /*HRESULT GetSyncBlockCleanupData(
-            CLRDATA_ADDRESS addr,
-            out DacpSyncBlockCleanupData data);*/
+            [In] CLRDATA_ADDRESS addr,
+            [Out] out DacpSyncBlockCleanupData data);*/
             return Raw.GetSyncBlockCleanupData(addr, out data);
         }
 
@@ -1855,8 +1855,8 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetHandleEnumForTypes(
             [In, MarshalAs(UnmanagedType.LPArray)] int[] types,
-            int count,
-            out ISOSHandleEnum ppHandleEnum);*/
+            [In] int count,
+            [Out] out ISOSHandleEnum ppHandleEnum);*/
             ISOSHandleEnum ppHandleEnum;
             HRESULT hr = Raw.GetHandleEnumForTypes(types, count, out ppHandleEnum);
 
@@ -1885,8 +1885,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetHandleEnumForGC(int gen, out SOSHandleEnum ppHandleEnumResult)
         {
             /*HRESULT GetHandleEnumForGC(
-            int gen,
-            out ISOSHandleEnum ppHandleEnum);*/
+            [In] int gen,
+            [Out] out ISOSHandleEnum ppHandleEnum);*/
             ISOSHandleEnum ppHandleEnum;
             HRESULT hr = Raw.GetHandleEnumForGC(gen, out ppHandleEnum);
 
@@ -1912,9 +1912,9 @@ namespace ManagedCorDebug
         public HRESULT TryTraverseEHInfo(CLRDATA_ADDRESS ip, DUMPEHINFO pCallback, IntPtr token)
         {
             /*HRESULT TraverseEHInfo(
-            CLRDATA_ADDRESS ip,
+            [In] CLRDATA_ADDRESS ip,
             [In, MarshalAs(UnmanagedType.FunctionPtr)] DUMPEHINFO pCallback,
-            IntPtr token);*/
+            [In] IntPtr token);*/
             return Raw.TraverseEHInfo(ip, pCallback, token);
         }
 
@@ -1935,9 +1935,9 @@ namespace ManagedCorDebug
         public HRESULT TryGetNestedExceptionData(CLRDATA_ADDRESS exception, out GetNestedExceptionDataResult result)
         {
             /*HRESULT GetNestedExceptionData(
-            CLRDATA_ADDRESS exception,
-            out CLRDATA_ADDRESS exceptionObject,
-            out CLRDATA_ADDRESS nextNestedException);*/
+            [In] CLRDATA_ADDRESS exception,
+            [Out] out CLRDATA_ADDRESS exceptionObject,
+            [Out] out CLRDATA_ADDRESS nextNestedException);*/
             CLRDATA_ADDRESS exceptionObject;
             CLRDATA_ADDRESS nextNestedException;
             HRESULT hr = Raw.GetNestedExceptionData(exception, out exceptionObject, out nextNestedException);
@@ -1964,7 +1964,7 @@ namespace ManagedCorDebug
         public HRESULT TryTraverseLoaderHeap(CLRDATA_ADDRESS loaderHeapAddr, VISITHEAP pCallback)
         {
             /*HRESULT TraverseLoaderHeap(
-            CLRDATA_ADDRESS loaderHeapAddr,
+            [In] CLRDATA_ADDRESS loaderHeapAddr,
             [In, MarshalAs(UnmanagedType.FunctionPtr)] VISITHEAP pCallback);*/
             return Raw.TraverseLoaderHeap(loaderHeapAddr, pCallback);
         }
@@ -1986,10 +1986,10 @@ namespace ManagedCorDebug
         public HRESULT TryGetCodeHeapList(CLRDATA_ADDRESS jitManager, out DacpJitCodeHeapInfo[] codeHeapsResult)
         {
             /*HRESULT GetCodeHeapList(
-            CLRDATA_ADDRESS jitManager,
-            int count,
+            [In] CLRDATA_ADDRESS jitManager,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpJitCodeHeapInfo[] codeHeaps,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             int count = 0;
             DacpJitCodeHeapInfo[] codeHeaps = null;
             int pNeeded;
@@ -2029,8 +2029,8 @@ namespace ManagedCorDebug
         public HRESULT TryTraverseVirtCallStubHeap(CLRDATA_ADDRESS pAppDomain, VCSHeapType heaptype, VISITHEAP pCallback)
         {
             /*HRESULT TraverseVirtCallStubHeap(
-            CLRDATA_ADDRESS pAppDomain,
-            VCSHeapType heaptype,
+            [In] CLRDATA_ADDRESS pAppDomain,
+            [In] VCSHeapType heaptype,
             [In, MarshalAs(UnmanagedType.FunctionPtr)] VISITHEAP pCallback);*/
             return Raw.TraverseVirtCallStubHeap(pAppDomain, heaptype, pCallback);
         }
@@ -2049,8 +2049,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetClrWatsonBuckets(CLRDATA_ADDRESS thread, IntPtr pGenericModeBlock)
         {
             /*HRESULT GetClrWatsonBuckets(
-            CLRDATA_ADDRESS thread,
-            IntPtr pGenericModeBlock);*/
+            [In] CLRDATA_ADDRESS thread,
+            [In] IntPtr pGenericModeBlock);*/
             return Raw.GetClrWatsonBuckets(thread, pGenericModeBlock);
         }
 
@@ -2071,8 +2071,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetRCWData(CLRDATA_ADDRESS addr, out DacpRCWData data)
         {
             /*HRESULT GetRCWData(
-            CLRDATA_ADDRESS addr,
-            out DacpRCWData data);*/
+            [In] CLRDATA_ADDRESS addr,
+            [Out] out DacpRCWData data);*/
             return Raw.GetRCWData(addr, out data);
         }
 
@@ -2093,10 +2093,10 @@ namespace ManagedCorDebug
         public HRESULT TryGetRCWInterfaces(CLRDATA_ADDRESS rcw, out DacpCOMInterfacePointerData[] interfacesResult)
         {
             /*HRESULT GetRCWInterfaces(
-            CLRDATA_ADDRESS rcw,
-            int count,
+            [In] CLRDATA_ADDRESS rcw,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpCOMInterfacePointerData[] interfaces,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             int count = 0;
             DacpCOMInterfacePointerData[] interfaces = null;
             int pNeeded;
@@ -2139,8 +2139,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetCCWData(CLRDATA_ADDRESS ccw, out DacpCCWData data)
         {
             /*HRESULT GetCCWData(
-            CLRDATA_ADDRESS ccw,
-            out DacpCCWData data);*/
+            [In] CLRDATA_ADDRESS ccw,
+            [Out] out DacpCCWData data);*/
             return Raw.GetCCWData(ccw, out data);
         }
 
@@ -2161,10 +2161,10 @@ namespace ManagedCorDebug
         public HRESULT TryGetCCWInterfaces(CLRDATA_ADDRESS ccw, out DacpCOMInterfacePointerData[] interfacesResult)
         {
             /*HRESULT GetCCWInterfaces(
-            CLRDATA_ADDRESS ccw,
-            int count,
+            [In] CLRDATA_ADDRESS ccw,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpCOMInterfacePointerData[] interfaces,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             int count = 0;
             DacpCOMInterfacePointerData[] interfaces = null;
             int pNeeded;
@@ -2204,9 +2204,9 @@ namespace ManagedCorDebug
         public HRESULT TryTraverseRCWCleanupList(CLRDATA_ADDRESS cleanupListPtr, VISITRCWFORCLEANUP pCallback, IntPtr token)
         {
             /*HRESULT TraverseRCWCleanupList(
-            CLRDATA_ADDRESS cleanupListPtr,
+            [In] CLRDATA_ADDRESS cleanupListPtr,
             [In, MarshalAs(UnmanagedType.FunctionPtr)] VISITRCWFORCLEANUP pCallback,
-            IntPtr token);*/
+            [In] IntPtr token);*/
             return Raw.TraverseRCWCleanupList(cleanupListPtr, pCallback, token);
         }
 
@@ -2303,8 +2303,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetThreadAllocData(CLRDATA_ADDRESS thread, out DacpAllocData data)
         {
             /*HRESULT GetThreadAllocData(
-            CLRDATA_ADDRESS thread,
-            out DacpAllocData data);*/
+            [In] CLRDATA_ADDRESS thread,
+            [Out] out DacpAllocData data);*/
             return Raw.GetThreadAllocData(thread, out data);
         }
 
@@ -2325,9 +2325,9 @@ namespace ManagedCorDebug
         public HRESULT TryGetHeapAllocData(int count, out GetHeapAllocDataResult result)
         {
             /*HRESULT GetHeapAllocData(
-            int count,
-            out DacpGenerationAllocData data,
-            out int pNeeded);*/
+            [In] int count,
+            [Out] out DacpGenerationAllocData data,
+            [Out] out int pNeeded);*/
             DacpGenerationAllocData data;
             int pNeeded;
             HRESULT hr = Raw.GetHeapAllocData(count, out data, out pNeeded);
@@ -2357,10 +2357,10 @@ namespace ManagedCorDebug
         public HRESULT TryGetFailedAssemblyList(CLRDATA_ADDRESS appDomain, out CLRDATA_ADDRESS[] valuesResult)
         {
             /*HRESULT GetFailedAssemblyList(
-            CLRDATA_ADDRESS appDomain,
-            int count,
+            [In] CLRDATA_ADDRESS appDomain,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] values,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             int count = 0;
             CLRDATA_ADDRESS[] values = null;
             int pNeeded;
@@ -2403,10 +2403,10 @@ namespace ManagedCorDebug
         public HRESULT TryGetPrivateBinPaths(CLRDATA_ADDRESS appDomain, out string pathsResult)
         {
             /*HRESULT GetPrivateBinPaths(
-            CLRDATA_ADDRESS appDomain,
-            int count,
+            [In] CLRDATA_ADDRESS appDomain,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder paths,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             int count = 0;
             StringBuilder paths = null;
             int pNeeded;
@@ -2449,10 +2449,10 @@ namespace ManagedCorDebug
         public HRESULT TryGetAssemblyLocation(CLRDATA_ADDRESS assembly, out string locationResult)
         {
             /*HRESULT GetAssemblyLocation(
-            CLRDATA_ADDRESS assembly,
-            int count,
+            [In] CLRDATA_ADDRESS assembly,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder location,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             int count = 0;
             StringBuilder location = null;
             int pNeeded;
@@ -2495,10 +2495,10 @@ namespace ManagedCorDebug
         public HRESULT TryGetAppDomainConfigFile(CLRDATA_ADDRESS appDomain, out string configFileResult)
         {
             /*HRESULT GetAppDomainConfigFile(
-            CLRDATA_ADDRESS appDomain,
-            int count,
+            [In] CLRDATA_ADDRESS appDomain,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder configFile,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             int count = 0;
             StringBuilder configFile = null;
             int pNeeded;
@@ -2541,10 +2541,10 @@ namespace ManagedCorDebug
         public HRESULT TryGetApplicationBase(CLRDATA_ADDRESS appDomain, out string _baseResult)
         {
             /*HRESULT GetApplicationBase(
-            CLRDATA_ADDRESS appDomain,
-            int count,
+            [In] CLRDATA_ADDRESS appDomain,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder _base,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             int count = 0;
             StringBuilder _base = null;
             int pNeeded;
@@ -2587,9 +2587,9 @@ namespace ManagedCorDebug
         public HRESULT TryGetFailedAssemblyData(CLRDATA_ADDRESS assembly, out GetFailedAssemblyDataResult result)
         {
             /*HRESULT GetFailedAssemblyData(
-            CLRDATA_ADDRESS assembly,
-            out int pContext,
-            out HRESULT pResult);*/
+            [In] CLRDATA_ADDRESS assembly,
+            [Out] out int pContext,
+            [Out] out HRESULT pResult);*/
             int pContext;
             HRESULT pResult;
             HRESULT hr = Raw.GetFailedAssemblyData(assembly, out pContext, out pResult);
@@ -2619,10 +2619,10 @@ namespace ManagedCorDebug
         public HRESULT TryGetFailedAssemblyLocation(CLRDATA_ADDRESS assesmbly, out string locationResult)
         {
             /*HRESULT GetFailedAssemblyLocation(
-            CLRDATA_ADDRESS assesmbly,
-            int count,
+            [In] CLRDATA_ADDRESS assesmbly,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder location,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             int count = 0;
             StringBuilder location = null;
             int pNeeded;
@@ -2665,10 +2665,10 @@ namespace ManagedCorDebug
         public HRESULT TryGetFailedAssemblyDisplayName(CLRDATA_ADDRESS assembly, out string nameResult)
         {
             /*HRESULT GetFailedAssemblyDisplayName(
-            CLRDATA_ADDRESS assembly,
-            int count,
+            [In] CLRDATA_ADDRESS assembly,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             int count = 0;
             StringBuilder name = null;
             int pNeeded;
@@ -2717,8 +2717,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetObjectExceptionData(CLRDATA_ADDRESS objAddr, out DacpExceptionObjectData data)
         {
             /*HRESULT GetObjectExceptionData(
-            CLRDATA_ADDRESS objAddr,
-            out DacpExceptionObjectData data);*/
+            [In] CLRDATA_ADDRESS objAddr,
+            [Out] out DacpExceptionObjectData data);*/
             return Raw2.GetObjectExceptionData(objAddr, out data);
         }
 
@@ -2739,8 +2739,8 @@ namespace ManagedCorDebug
         public HRESULT TryIsRCWDCOMProxy(CLRDATA_ADDRESS rcwAddr, out int isDCOMProxy)
         {
             /*HRESULT IsRCWDCOMProxy(
-            CLRDATA_ADDRESS rcwAddr,
-            out int isDCOMProxy);*/
+            [In] CLRDATA_ADDRESS rcwAddr,
+            [Out] out int isDCOMProxy);*/
             return Raw2.IsRCWDCOMProxy(rcwAddr, out isDCOMProxy);
         }
 
@@ -2770,7 +2770,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetGCInterestingInfoStaticData(out DacpGCInterestingInfoData data)
         {
             /*HRESULT GetGCInterestingInfoStaticData(
-            out DacpGCInterestingInfoData data);*/
+            [Out] out DacpGCInterestingInfoData data);*/
             return Raw3.GetGCInterestingInfoStaticData(out data);
         }
 
@@ -2823,8 +2823,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetGCInterestingInfoData(CLRDATA_ADDRESS interestingInfoAddr, out DacpGCInterestingInfoData data)
         {
             /*HRESULT GetGCInterestingInfoData(
-            CLRDATA_ADDRESS interestingInfoAddr,
-            out DacpGCInterestingInfoData data);*/
+            [In] CLRDATA_ADDRESS interestingInfoAddr,
+            [Out] out DacpGCInterestingInfoData data);*/
             return Raw3.GetGCInterestingInfoData(interestingInfoAddr, out data);
         }
 
@@ -2855,8 +2855,8 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetClrNotification(
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] arguments,
-            int count,
-            out int pNeeded);*/
+            [In] int count,
+            [Out] out int pNeeded);*/
             CLRDATA_ADDRESS[] arguments = null;
             int count = 0;
             int pNeeded;
@@ -2905,11 +2905,11 @@ namespace ManagedCorDebug
         public HRESULT TryGetTieredVersions(CLRDATA_ADDRESS methodDesc, int rejitId, out DacpTieredVersionData[] nativeCodeAddrsResult)
         {
             /*HRESULT GetTieredVersions(
-            CLRDATA_ADDRESS methodDesc,
-            int rejitId,
+            [In] CLRDATA_ADDRESS methodDesc,
+            [In] int rejitId,
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpTieredVersionData[] nativeCodeAddrs,
-            int cNativeCodeAddrs,
-            out int pcNativeCodeAddrs);*/
+            [In] int cNativeCodeAddrs,
+            [Out] out int pcNativeCodeAddrs);*/
             DacpTieredVersionData[] nativeCodeAddrs = null;
             int cNativeCodeAddrs = 0;
             int pcNativeCodeAddrs;
@@ -2958,8 +2958,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetMethodTableCollectibleData(CLRDATA_ADDRESS mt, out DacpMethodTableCollectibleData data)
         {
             /*HRESULT GetMethodTableCollectibleData(
-            CLRDATA_ADDRESS mt,
-            out DacpMethodTableCollectibleData data);*/
+            [In] CLRDATA_ADDRESS mt,
+            [Out] out DacpMethodTableCollectibleData data);*/
             return Raw6.GetMethodTableCollectibleData(mt, out data);
         }
 
@@ -2986,8 +2986,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetPendingReJITID(CLRDATA_ADDRESS methodDesc, out int pRejitId)
         {
             /*HRESULT GetPendingReJITID(
-            CLRDATA_ADDRESS methodDesc,
-            out int pRejitId);*/
+            [In] CLRDATA_ADDRESS methodDesc,
+            [Out] out int pRejitId);*/
             return Raw7.GetPendingReJITID(methodDesc, out pRejitId);
         }
 
@@ -3008,9 +3008,9 @@ namespace ManagedCorDebug
         public HRESULT TryGetReJITInformation(CLRDATA_ADDRESS methodDesc, int rejitId, out DacpReJitData2 pRejitData)
         {
             /*HRESULT GetReJITInformation(
-            CLRDATA_ADDRESS methodDesc,
-            int rejitId,
-            out DacpReJitData2 pRejitData);*/
+            [In] CLRDATA_ADDRESS methodDesc,
+            [In] int rejitId,
+            [Out] out DacpReJitData2 pRejitData);*/
             return Raw7.GetReJITInformation(methodDesc, rejitId, out pRejitData);
         }
 
@@ -3031,8 +3031,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetProfilerModifiedILInformation(CLRDATA_ADDRESS methodDesc, out DacpProfilerILData pILData)
         {
             /*HRESULT GetProfilerModifiedILInformation(
-            CLRDATA_ADDRESS methodDesc,
-            out DacpProfilerILData pILData);*/
+            [In] CLRDATA_ADDRESS methodDesc,
+            [Out] out DacpProfilerILData pILData);*/
             return Raw7.GetProfilerModifiedILInformation(methodDesc, out pILData);
         }
 
@@ -3053,10 +3053,10 @@ namespace ManagedCorDebug
         public HRESULT TryGetMethodsWithProfilerModifiedIL(CLRDATA_ADDRESS mod, out CLRDATA_ADDRESS[] methodDescsResult)
         {
             /*HRESULT GetMethodsWithProfilerModifiedIL(
-            CLRDATA_ADDRESS mod,
+            [In] CLRDATA_ADDRESS mod,
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] methodDescs,
-            int cMethodDescs,
-            out int pcMethodDescs);*/
+            [In] int cMethodDescs,
+            [Out] out int pcMethodDescs);*/
             CLRDATA_ADDRESS[] methodDescs = null;
             int cMethodDescs = 0;
             int pcMethodDescs;
@@ -3132,7 +3132,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetGenerationTable(out DacpGenerationData[] pGenerationDataResult)
         {
             /*HRESULT GetGenerationTable(
-            int cGenerations,
+            [In] int cGenerations,
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpGenerationData[] pGenerationData,
             [Out] out int pNeeded);*/
             int cGenerations = 0;
@@ -3180,7 +3180,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetFinalizationFillPointers(out CLRDATA_ADDRESS[] pFinalizationFillPointersResult)
         {
             /*HRESULT GetFinalizationFillPointers(
-            int cFillPointers,
+            [In] int cFillPointers,
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] pFinalizationFillPointers,
             [Out] out int pNeeded);*/
             int cFillPointers = 0;
@@ -3225,8 +3225,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetGenerationTableSvr(CLRDATA_ADDRESS heapAddr, out DacpGenerationData[] pGenerationDataResult)
         {
             /*HRESULT GetGenerationTableSvr(
-            CLRDATA_ADDRESS heapAddr,
-            int cGenerations,
+            [In] CLRDATA_ADDRESS heapAddr,
+            [In] int cGenerations,
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpGenerationData[] pGenerationData,
             [Out] out int pNeeded);*/
             int cGenerations = 0;
@@ -3271,8 +3271,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetFinalizationFillPointersSvr(CLRDATA_ADDRESS heapAddr, out CLRDATA_ADDRESS[] pFinalizationFillPointersResult)
         {
             /*HRESULT GetFinalizationFillPointersSvr(
-            CLRDATA_ADDRESS heapAddr,
-            int cFillPointers,
+            [In] CLRDATA_ADDRESS heapAddr,
+            [In] int cFillPointers,
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] pFinalizationFillPointers,
             [Out] out int pNeeded);*/
             int cFillPointers = 0;
@@ -3317,7 +3317,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetAssemblyLoadContext(CLRDATA_ADDRESS methodTable, out CLRDATA_ADDRESS assemblyLoadContext)
         {
             /*HRESULT GetAssemblyLoadContext(
-            CLRDATA_ADDRESS methodTable,
+            [In] CLRDATA_ADDRESS methodTable,
             [Out] out CLRDATA_ADDRESS assemblyLoadContext);*/
             return Raw8.GetAssemblyLoadContext(methodTable, out assemblyLoadContext);
         }
@@ -3375,11 +3375,11 @@ namespace ManagedCorDebug
         public HRESULT TryGetObjectComWrappersData(CLRDATA_ADDRESS objAddr, out GetObjectComWrappersDataResult result)
         {
             /*HRESULT GetObjectComWrappersData(
-            CLRDATA_ADDRESS objAddr,
-            out CLRDATA_ADDRESS rcw,
-            int count,
+            [In] CLRDATA_ADDRESS objAddr,
+            [Out] out CLRDATA_ADDRESS rcw,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] mowList,
-            out int pNeeded);*/
+            [Out] out int pNeeded);*/
             CLRDATA_ADDRESS rcw;
             int count = 0;
             CLRDATA_ADDRESS[] mowList = null;
@@ -3423,8 +3423,8 @@ namespace ManagedCorDebug
         public HRESULT TryIsComWrappersCCW(CLRDATA_ADDRESS ccw, out int isComWrappersCCW)
         {
             /*HRESULT IsComWrappersCCW(
-            CLRDATA_ADDRESS ccw,
-            out int isComWrappersCCW);*/
+            [In] CLRDATA_ADDRESS ccw,
+            [Out] out int isComWrappersCCW);*/
             return Raw10.IsComWrappersCCW(ccw, out isComWrappersCCW);
         }
 
@@ -3445,9 +3445,9 @@ namespace ManagedCorDebug
         public HRESULT TryGetComWrappersCCWData(CLRDATA_ADDRESS ccw, out GetComWrappersCCWDataResult result)
         {
             /*HRESULT GetComWrappersCCWData(
-            CLRDATA_ADDRESS ccw,
-            out CLRDATA_ADDRESS managedObject,
-            out int refCount);*/
+            [In] CLRDATA_ADDRESS ccw,
+            [Out] out CLRDATA_ADDRESS managedObject,
+            [Out] out int refCount);*/
             CLRDATA_ADDRESS managedObject;
             int refCount;
             HRESULT hr = Raw10.GetComWrappersCCWData(ccw, out managedObject, out refCount);
@@ -3477,8 +3477,8 @@ namespace ManagedCorDebug
         public HRESULT TryIsComWrappersRCW(CLRDATA_ADDRESS rcw, out int isComWrappersRCW)
         {
             /*HRESULT IsComWrappersRCW(
-            CLRDATA_ADDRESS rcw,
-            out int isComWrappersRCW);*/
+            [In] CLRDATA_ADDRESS rcw,
+            [Out] out int isComWrappersRCW);*/
             return Raw10.IsComWrappersRCW(rcw, out isComWrappersRCW);
         }
 
@@ -3499,8 +3499,8 @@ namespace ManagedCorDebug
         public HRESULT TryGetComWrappersRCWData(CLRDATA_ADDRESS rcw, out CLRDATA_ADDRESS identity)
         {
             /*HRESULT GetComWrappersRCWData(
-            CLRDATA_ADDRESS rcw,
-            out CLRDATA_ADDRESS identity);*/
+            [In] CLRDATA_ADDRESS rcw,
+            [Out] out CLRDATA_ADDRESS identity);*/
             return Raw10.GetComWrappersRCWData(rcw, out identity);
         }
 
@@ -3527,9 +3527,9 @@ namespace ManagedCorDebug
         public HRESULT TryIsTrackedType(CLRDATA_ADDRESS objAddr, out IsTrackedTypeResult result)
         {
             /*HRESULT IsTrackedType(
-            CLRDATA_ADDRESS objAddr,
-            out int isTrackedType,
-            out int hasTaggedMemory);*/
+            [In] CLRDATA_ADDRESS objAddr,
+            [Out] out int isTrackedType,
+            [Out] out int hasTaggedMemory);*/
             int isTrackedType;
             int hasTaggedMemory;
             HRESULT hr = Raw11.IsTrackedType(objAddr, out isTrackedType, out hasTaggedMemory);
@@ -3559,9 +3559,9 @@ namespace ManagedCorDebug
         public HRESULT TryGetTaggedMemory(CLRDATA_ADDRESS objAddr, out GetTaggedMemoryResult result)
         {
             /*HRESULT GetTaggedMemory(
-            CLRDATA_ADDRESS objAddr,
-            out CLRDATA_ADDRESS taggedMemory,
-            out long taggedMemorySizeInBytes);*/
+            [In] CLRDATA_ADDRESS objAddr,
+            [Out] out CLRDATA_ADDRESS taggedMemory,
+            [Out] out long taggedMemorySizeInBytes);*/
             CLRDATA_ADDRESS taggedMemory;
             long taggedMemorySizeInBytes;
             HRESULT hr = Raw11.GetTaggedMemory(objAddr, out taggedMemory, out taggedMemorySizeInBytes);

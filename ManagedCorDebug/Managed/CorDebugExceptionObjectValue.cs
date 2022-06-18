@@ -56,7 +56,7 @@ namespace ManagedCorDebug
         public HRESULT TryEnumerateExceptionCallStack(out CorDebugExceptionObjectCallStackEnum ppCallStackEnumResult)
         {
             /*HRESULT EnumerateExceptionCallStack(
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugExceptionObjectCallStackEnum ppCallStackEnum);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugExceptionObjectCallStackEnum ppCallStackEnum);*/
             ICorDebugExceptionObjectCallStackEnum ppCallStackEnum;
             HRESULT hr = Raw.EnumerateExceptionCallStack(out ppCallStackEnum);
 

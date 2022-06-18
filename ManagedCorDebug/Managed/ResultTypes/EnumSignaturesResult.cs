@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.EnumSignatures"/> method.
     /// </summary>
-    [DebuggerDisplay("phEnum = {phEnum}, rSignatures = {rSignatures}, pcSignatures = {pcSignatures}")]
+    [DebuggerDisplay("phEnum = {phEnum}, rSignatures = {rSignatures}")]
     public struct EnumSignaturesResult
     {
         /// <summary>
@@ -19,16 +19,10 @@ namespace ManagedCorDebug
         /// </summary>
         public mdSignature[] rSignatures { get; }
 
-        /// <summary>
-        /// The number of Signature tokens returned in rSignatures.
-        /// </summary>
-        public int pcSignatures { get; }
-
-        public EnumSignaturesResult(IntPtr phEnum, mdSignature[] rSignatures, int pcSignatures)
+        public EnumSignaturesResult(IntPtr phEnum, mdSignature[] rSignatures)
         {
             this.phEnum = phEnum;
             this.rSignatures = rSignatures;
-            this.pcSignatures = pcSignatures;
         }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -136,7 +135,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetNamespace(out SymUnmanagedNamespace pRetValResult)
         {
-            /*HRESULT GetNamespace([MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedNamespace pRetVal);*/
+            /*HRESULT GetNamespace([Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedNamespace pRetVal);*/
             ISymUnmanagedNamespace pRetVal;
             HRESULT hr = Raw.GetNamespace(out pRetVal);
 
@@ -259,7 +258,7 @@ namespace ManagedCorDebug
             [In] int line,
             [In] int column,
             [In] int cRanges,
-            out int pcRanges,
+            [Out] out int pcRanges,
             [MarshalAs(UnmanagedType.LPArray), Out] int[] ranges);*/
             int pcRanges;
             int[] ranges = null;
@@ -300,10 +299,9 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetParameters(int cParams, out GetParametersResult result)
         {
-            /*HRESULT GetParameters([In] int cParams, out int pcParams, [MarshalAs(UnmanagedType.Interface), Out]
-            IntPtr @params);*/
+            /*HRESULT GetParameters([In] int cParams, [Out] out int pcParams, [MarshalAs(UnmanagedType.LPArray), Out] ISymUnmanagedVariable[] @params);*/
             int pcParams;
-            IntPtr @params = default(IntPtr);
+            ISymUnmanagedVariable[] @params = null;
             HRESULT hr = Raw.GetParameters(cParams, out pcParams, @params);
 
             if (hr == HRESULT.S_OK)
@@ -352,7 +350,7 @@ namespace ManagedCorDebug
             int[] lines,
             [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In]
             int[] columns,
-            out int pRetVal);*/
+            [Out] out int pRetVal);*/
             return Raw.GetSourceStartEnd(docs, lines, columns, out pRetVal);
         }
 
@@ -387,20 +385,20 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetSequencePoints(
             [In] int cPoints,
-            out int pcPoints,
+            [Out] out int pcPoints,
             [In] ref int offsets,
-            [In, Out] ref IntPtr documents,
-            [In, Out] ref int[] lines,
-            [In, Out] ref int[] columns,
-            [In, Out] ref int[] endLines,
-            [In, Out] ref int[] endColumns);*/
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedDocument[] documents,
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] lines,
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] columns,
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] endLines,
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] endColumns);*/
             int pcPoints;
-            IntPtr documents = default(IntPtr);
-            int[] lines = default(int[]);
-            int[] columns = default(int[]);
-            int[] endLines = default(int[]);
-            int[] endColumns = default(int[]);
-            HRESULT hr = Raw.GetSequencePoints(cPoints, out pcPoints, ref offsets, ref documents, ref lines, ref columns, ref endLines, ref endColumns);
+            ISymUnmanagedDocument[] documents = null;
+            int[] lines = null;
+            int[] columns = null;
+            int[] endLines = null;
+            int[] endColumns = null;
+            HRESULT hr = Raw.GetSequencePoints(cPoints, out pcPoints, ref offsets, documents, lines, columns, endLines, endColumns);
 
             if (hr == HRESULT.S_OK)
                 result = new GetSequencePointsResult(pcPoints, documents, lines, columns, endLines, endColumns);

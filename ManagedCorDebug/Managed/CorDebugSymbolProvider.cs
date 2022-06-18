@@ -43,7 +43,7 @@ namespace ManagedCorDebug
         /// <param name="ppMemoryBufferResult">[out] A pointer to the address of an <see cref="ICorDebugMemoryBuffer"/> object that contains information about the size and address of the merged assembly's metadata.</param>
         public HRESULT TryGetAssemblyImageMetadata(out CorDebugMemoryBuffer ppMemoryBufferResult)
         {
-            /*HRESULT GetAssemblyImageMetadata([MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryBuffer ppMemoryBuffer);*/
+            /*HRESULT GetAssemblyImageMetadata([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryBuffer ppMemoryBuffer);*/
             ICorDebugMemoryBuffer ppMemoryBuffer;
             HRESULT hr = Raw.GetAssemblyImageMetadata(out ppMemoryBuffer);
 
@@ -89,10 +89,10 @@ namespace ManagedCorDebug
             [In] int cbSignature,
             [In] IntPtr typeSig,
             [In] int cRequestedSymbols,
-            out int pcFetchedSymbols,
-            [Out] IntPtr pSymbols);*/
+            [Out] out int pcFetchedSymbols,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ICorDebugStaticFieldSymbol[] pSymbols);*/
             int pcFetchedSymbols;
-            IntPtr pSymbols = default(IntPtr);
+            ICorDebugStaticFieldSymbol[] pSymbols = null;
             HRESULT hr = Raw.GetStaticFieldSymbols(cbSignature, typeSig, cRequestedSymbols, out pcFetchedSymbols, pSymbols);
 
             if (hr == HRESULT.S_OK)
@@ -137,10 +137,10 @@ namespace ManagedCorDebug
             [In] int cbSignature,
             [In] IntPtr typeSig,
             [In] int cRequestedSymbols,
-            out int pcFetchedSymbols,
-            [Out] IntPtr pSymbols);*/
+            [Out] out int pcFetchedSymbols,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ICorDebugInstanceFieldSymbol[] pSymbols);*/
             int pcFetchedSymbols;
-            IntPtr pSymbols = default(IntPtr);
+            ICorDebugInstanceFieldSymbol[] pSymbols = null;
             HRESULT hr = Raw.GetInstanceFieldSymbols(cbSignature, typeSig, cRequestedSymbols, out pcFetchedSymbols, pSymbols);
 
             if (hr == HRESULT.S_OK)
@@ -182,10 +182,10 @@ namespace ManagedCorDebug
             /*HRESULT GetMethodLocalSymbols(
             [In] int nativeRVA,
             [In] int cRequestedSymbols,
-            out int pcFetchedSymbols,
-            [Out] IntPtr pSymbols);*/
+            [Out] out int pcFetchedSymbols,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ICorDebugVariableSymbol[] pSymbols);*/
             int pcFetchedSymbols;
-            IntPtr pSymbols = default(IntPtr);
+            ICorDebugVariableSymbol[] pSymbols = null;
             HRESULT hr = Raw.GetMethodLocalSymbols(nativeRVA, cRequestedSymbols, out pcFetchedSymbols, pSymbols);
 
             if (hr == HRESULT.S_OK)
@@ -227,10 +227,10 @@ namespace ManagedCorDebug
             /*HRESULT GetMethodParameterSymbols(
             [In] int nativeRVA,
             [In] int cRequestedSymbols,
-            out int pcFetchedSymbols,
-            [Out] IntPtr pSymbols);*/
+            [Out] out int pcFetchedSymbols,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ICorDebugVariableSymbol[] pSymbols);*/
             int pcFetchedSymbols;
-            IntPtr pSymbols = default(IntPtr);
+            ICorDebugVariableSymbol[] pSymbols = null;
             HRESULT hr = Raw.GetMethodParameterSymbols(nativeRVA, cRequestedSymbols, out pcFetchedSymbols, pSymbols);
 
             if (hr == HRESULT.S_OK)
@@ -269,11 +269,10 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetMergedAssemblyRecords(
             [In] int cRequestedRecords,
-            out int pcFetchedRecords,
-            [MarshalAs(UnmanagedType.Interface), Out]
-            IntPtr pRecords);*/
+            [Out] out int pcFetchedRecords,
+            [MarshalAs(UnmanagedType.LPArray), Out] ICorDebugMergedAssemblyRecord[] pRecords);*/
             int pcFetchedRecords;
-            IntPtr pRecords = default(IntPtr);
+            ICorDebugMergedAssemblyRecord[] pRecords = null;
             HRESULT hr = Raw.GetMergedAssemblyRecords(cRequestedRecords, out pcFetchedRecords, pRecords);
 
             if (hr == HRESULT.S_OK)
@@ -322,10 +321,10 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetMethodProps(
             [In] int codeRva,
-            out mdToken pMethodToken,
-            out int pcGenericParams,
+            [Out] out mdToken pMethodToken,
+            [Out] out int pcGenericParams,
             [In] int cbSignature,
-            out int pcbSignature,
+            [Out] out int pcbSignature,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] signature);*/
             mdToken pMethodToken;
             int pcGenericParams;
@@ -380,7 +379,7 @@ namespace ManagedCorDebug
             /*HRESULT GetTypeProps(
             [In] int vtableRva,
             [In] int cbSignature,
-            out int pcbSignature,
+            [Out] out int pcbSignature,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] signature);*/
             int pcbSignature;
             byte[] signature = null;
@@ -420,10 +419,10 @@ namespace ManagedCorDebug
         /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetCodeRange(int codeRva, out GetCodeRangeResult result)
         {
-            /*HRESULT GetCodeRange([In] int codeRva, out int pCodeStartAddress, ref int pCodeSize);*/
+            /*HRESULT GetCodeRange([In] int codeRva, [Out] out int pCodeStartAddress, [Out] out int pCodeSize);*/
             int pCodeStartAddress;
-            int pCodeSize = default(int);
-            HRESULT hr = Raw.GetCodeRange(codeRva, out pCodeStartAddress, ref pCodeSize);
+            int pCodeSize;
+            HRESULT hr = Raw.GetCodeRange(codeRva, out pCodeStartAddress, out pCodeSize);
 
             if (hr == HRESULT.S_OK)
                 result = new GetCodeRangeResult(pCodeStartAddress, pCodeSize);
@@ -462,7 +461,7 @@ namespace ManagedCorDebug
         public HRESULT TryGetAssemblyImageBytes(long rva, int length, out CorDebugMemoryBuffer ppMemoryBufferResult)
         {
             /*HRESULT GetAssemblyImageBytes([In] long rva, [In] int length,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryBuffer ppMemoryBuffer);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryBuffer ppMemoryBuffer);*/
             ICorDebugMemoryBuffer ppMemoryBuffer;
             HRESULT hr = Raw.GetAssemblyImageBytes(rva, length, out ppMemoryBuffer);
 
@@ -502,7 +501,7 @@ namespace ManagedCorDebug
         /// <param name="pObjectSize">[out] A pointer to the size of the object.</param>
         public HRESULT TryGetObjectSize(int cbSignature, IntPtr typeSig, out int pObjectSize)
         {
-            /*HRESULT GetObjectSize([In] int cbSignature, [In] IntPtr typeSig, out int pObjectSize);*/
+            /*HRESULT GetObjectSize([In] int cbSignature, [In] IntPtr typeSig, [Out] out int pObjectSize);*/
             return Raw.GetObjectSize(cbSignature, typeSig, out pObjectSize);
         }
 
@@ -542,7 +541,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetGenericDictionaryInfo(out CorDebugMemoryBuffer ppMemoryBufferResult)
         {
-            /*HRESULT GetGenericDictionaryInfo([MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryBuffer ppMemoryBuffer);*/
+            /*HRESULT GetGenericDictionaryInfo([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryBuffer ppMemoryBuffer);*/
             ICorDebugMemoryBuffer ppMemoryBuffer;
             HRESULT hr = Raw2.GetGenericDictionaryInfo(out ppMemoryBuffer);
 
@@ -580,7 +579,7 @@ namespace ManagedCorDebug
         /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetFrameProps(int codeRva, out GetFramePropsResult result)
         {
-            /*HRESULT GetFrameProps([In] int codeRva, out int pCodeStartRva, out int pParentFrameStartRva);*/
+            /*HRESULT GetFrameProps([In] int codeRva, [Out] out int pCodeStartRva, [Out] out int pParentFrameStartRva);*/
             int pCodeStartRva;
             int pParentFrameStartRva;
             HRESULT hr = Raw2.GetFrameProps(codeRva, out pCodeStartRva, out pParentFrameStartRva);

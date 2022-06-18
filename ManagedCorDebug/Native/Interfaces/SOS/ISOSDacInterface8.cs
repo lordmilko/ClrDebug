@@ -13,33 +13,33 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         HRESULT GetGenerationTable(
-            int cGenerations,
+            [In] int cGenerations,
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpGenerationData[] pGenerationData,
             [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetFinalizationFillPointers(
-            int cFillPointers,
+            [In] int cFillPointers,
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] pFinalizationFillPointers,
             [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetGenerationTableSvr(
-            CLRDATA_ADDRESS heapAddr,
-            int cGenerations,
+            [In] CLRDATA_ADDRESS heapAddr,
+            [In] int cGenerations,
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpGenerationData[] pGenerationData,
             [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetFinalizationFillPointersSvr(
-            CLRDATA_ADDRESS heapAddr,
-            int cFillPointers,
+            [In] CLRDATA_ADDRESS heapAddr,
+            [In] int cFillPointers,
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] pFinalizationFillPointers,
             [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetAssemblyLoadContext(
-            CLRDATA_ADDRESS methodTable,
+            [In] CLRDATA_ADDRESS methodTable,
             [Out] out CLRDATA_ADDRESS assemblyLoadContext);
     }
 }

@@ -61,11 +61,11 @@ namespace ManagedCorDebug
             /*HRESULT GetContext(
             [In] int contextFlags,
             [In] int cbContextBuf,
-            out int contextSize,
-            out IntPtr contextBuf);*/
+            [Out] out int contextSize,
+            [In, Out] ref IntPtr contextBuf);*/
             int contextSize;
-            IntPtr contextBuf;
-            HRESULT hr = Raw.GetContext(contextFlags, cbContextBuf, out contextSize, out contextBuf);
+            IntPtr contextBuf = default(IntPtr);
+            HRESULT hr = Raw.GetContext(contextFlags, cbContextBuf, out contextSize, ref contextBuf);
 
             if (hr == HRESULT.S_OK)
                 result = new GetContextResult(contextSize, contextBuf);

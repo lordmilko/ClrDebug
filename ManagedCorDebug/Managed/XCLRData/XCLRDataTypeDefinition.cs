@@ -537,23 +537,23 @@ namespace ManagedCorDebug
         public IntPtr Request(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize)
         {
             HRESULT hr;
-            IntPtr outBuffer;
+            IntPtr outBuffer = default(IntPtr);
 
-            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, out outBuffer)) != HRESULT.S_OK)
+            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, ref outBuffer)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return outBuffer;
         }
 
-        public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, out IntPtr outBuffer)
+        public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, ref IntPtr outBuffer)
         {
             /*HRESULT Request(
             [In] uint reqCode,
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
-            [Out] out IntPtr outBuffer);*/
-            return Raw.Request(reqCode, inBufferSize, inBuffer, outBufferSize, out outBuffer);
+            [In, Out] ref IntPtr outBuffer);*/
+            return Raw.Request(reqCode, inBufferSize, inBuffer, outBufferSize, ref outBuffer);
         }
 
         #endregion
@@ -688,7 +688,7 @@ namespace ManagedCorDebug
         public HRESULT TryStartEnumFieldsByName(string name, int nameFlags, int fieldFlags, out IntPtr handle)
         {
             /*HRESULT StartEnumFieldsByName(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int nameFlags,
             [In] int fieldFlags,
             [Out] out IntPtr handle);*/

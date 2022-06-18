@@ -20,6 +20,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetWriteableMetadataUpdateMode(WriteableMetadataUpdateMode flags);
+        HRESULT SetWriteableMetadataUpdateMode([In] WriteableMetadataUpdateMode flags);
     }
 }

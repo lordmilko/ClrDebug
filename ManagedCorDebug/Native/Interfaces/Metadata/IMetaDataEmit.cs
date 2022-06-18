@@ -18,7 +18,7 @@ namespace ManagedCorDebug
         /// <param name="szName">[in] The module name in Unicode. This is the file name only and not the full path name.</param>
         [PreserveSig]
         HRESULT SetModuleProps(
-            [MarshalAs(UnmanagedType.LPWStr)] string szName);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName);
 
         /// <summary>
         /// Saves all metadata in the current scope to the file at the specified address.
@@ -27,8 +27,8 @@ namespace ManagedCorDebug
         /// <param name="dwSaveFlags">[in] Reserved. Must be zero.</param>
         [PreserveSig]
         HRESULT Save(
-            [MarshalAs(UnmanagedType.LPWStr)] string szFile,
-            int dwSaveFlags);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szFile,
+            [In] int dwSaveFlags);
 
         /// <summary>
         /// Saves all metadata in the current scope to the specified <see cref="IStream"/>.
@@ -37,8 +37,8 @@ namespace ManagedCorDebug
         /// <param name="dwSaveFlags">[in] Reserved. Must be zero.</param>
         [PreserveSig]
         HRESULT SaveToStream(
-            [MarshalAs(UnmanagedType.Interface)] object pIStream,
-            int dwSaveFlags);
+            [In, MarshalAs(UnmanagedType.Interface)] object pIStream,
+            [In] int dwSaveFlags);
 
         /// <summary>
         /// Gets the estimated binary size of the assembly and its metadata in the current scope.
@@ -62,8 +62,8 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT GetSaveSize(
-            CorSaveSize fSave,
-            out int pdwSaveSize);
+            [In] CorSaveSize fSave,
+            [Out] out int pdwSaveSize);
 
         /// <summary>
         /// Creates a type definition for a common language runtime type, and gets a metadata token for that type definition.
@@ -86,11 +86,11 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT DefineTypeDef(
-            [MarshalAs(UnmanagedType.LPWStr)] string szTypeDef,
-            CorTypeAttr dwTypeDefFlags,
-            mdToken tkExtends,
-            [MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkImplements,
-            out mdTypeDef ptd);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szTypeDef,
+            [In] CorTypeAttr dwTypeDefFlags,
+            [In] mdToken tkExtends,
+            [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkImplements,
+            [Out] out mdTypeDef ptd);
 
         /// <summary>
         /// Creates the metadata signature of a type definition, returns an <see cref="mdTypeDef"/> token for that type, and specifies that the defined type is a member of the type referenced by the tdEncloser parameter.
@@ -98,17 +98,17 @@ namespace ManagedCorDebug
         /// <param name="szTypeDef">[in] The name of the type in Unicode.</param>
         /// <param name="dwTypeDefFlags">[in] TypeDef attributes. This is a bitmask of <see cref="CorTypeAttr"/> values.</param>
         /// <param name="tkExtends">[in] The token of the base class. This is either a <see cref="mdTypeDef"/> or a <see cref="mdTypeRef"/> token.</param>
-        /// <param name="rtkImplements">[][in] An array of tokens that specify the interfaces that this class or interface implements.</param>
+        /// <param name="rtkImplements">[in] An array of tokens that specify the interfaces that this class or interface implements.</param>
         /// <param name="tdEncloser">[in] The token of the enclosing type. The last element of the array must be mdTokenNil.</param>
         /// <param name="ptd">[out] The <see cref="mdTypeDef"/> token assigned.</param>
         [PreserveSig]
         HRESULT DefineNestedType(
-            [MarshalAs(UnmanagedType.LPWStr)] string szTypeDef,
-            CorTypeAttr dwTypeDefFlags,
-            mdToken tkExtends,
-            [MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkImplements,
-            mdTypeDef tdEncloser,
-            out mdTypeDef ptd);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szTypeDef,
+            [In] CorTypeAttr dwTypeDefFlags,
+            [In] mdToken tkExtends,
+            [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkImplements,
+            [In] mdTypeDef tdEncloser,
+            [Out] out mdTypeDef ptd);
 
         /// <summary>
         /// Sets the method referenced by the specified IUnknown pointer as a notification callback for token remaps.
@@ -122,7 +122,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT SetHandler(
-            [MarshalAs(UnmanagedType.IUnknown)] object pUnk);
+            [In, MarshalAs(UnmanagedType.IUnknown)] object pUnk);
 
         /// <summary>
         /// Creates a definition for a method or global function with the specified signature, and returns a token to that method definition.
@@ -142,14 +142,14 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT DefineMethod(
-            mdTypeDef td,
-            [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            MethodAttributes dwMethodFlags,
-            IntPtr pvSigBlob,
-            int cbSigBlob,
-            int ulCodeRVA,
-            MethodImplAttributes dwImplFlags,
-            out mdMethodDef pmd);
+            [In] mdTypeDef td,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
+            [In] MethodAttributes dwMethodFlags,
+            [In] IntPtr pvSigBlob,
+            [In] int cbSigBlob,
+            [In] int ulCodeRVA,
+            [In] MethodImplAttributes dwImplFlags,
+            [Out] out mdMethodDef pmd);
 
         /// <summary>
         /// Creates a definition for implementation of a method inherited from an interface, and returns a token to that method-implementation definition.
@@ -159,9 +159,9 @@ namespace ManagedCorDebug
         /// <param name="tkDecl">[in] The <see cref="mdMethodDef"/> or <see cref="mdMemberRef"/> token of the interface method being implemented.</param>
         [PreserveSig]
         HRESULT DefineMethodImpl(
-            mdTypeDef td,
-            mdToken tkBody,
-            mdToken tkDecl);
+            [In] mdTypeDef td,
+            [In] mdToken tkBody,
+            [In] mdToken tkDecl);
 
         /// <summary>
         /// Gets a metadata token for a type that is defined in the specified scope, which is outside the current scope.
@@ -171,9 +171,9 @@ namespace ManagedCorDebug
         /// <param name="ptr">[out] A pointer to the <see cref="mdTypeRef"/> token that is assigned to the type.</param>
         [PreserveSig]
         HRESULT DefineTypeRefByName(
-            mdToken tkResolutionScope,
-            [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            out mdTypeRef ptr);
+            [In] mdToken tkResolutionScope,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
+            [Out] out mdTypeRef ptr);
 
         /// <summary>
         /// Creates a reference to the specified type that is defined outside the current scope, and defines a token for that reference.
@@ -191,13 +191,13 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT DefineImportType(
-            [MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyImport pAssemImport,
-            IntPtr pbHashValue,
-            int cbHashValue,
-            [MarshalAs(UnmanagedType.Interface)] IMetaDataImport pImport,
-            mdTypeDef tdImport,
-            [MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyEmit pAssemEmit,
-            out mdTypeRef ptr);
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyImport pAssemImport,
+            [In] IntPtr pbHashValue,
+            [In] int cbHashValue,
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataImport pImport,
+            [In] mdTypeDef tdImport,
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyEmit pAssemEmit,
+            [Out] out mdTypeRef ptr);
 
         /// <summary>
         /// Defines a reference to a member of a module outside the current scope, and gets a token to that reference definition.
@@ -209,11 +209,11 @@ namespace ManagedCorDebug
         /// <param name="pmr">[out] The <see cref="mdMemberRef"/> token assigned.</param>
         [PreserveSig]
         HRESULT DefineMemberRef(
-            mdModuleRef tkImport,
-            [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            IntPtr pvSigBlob,
-            int cbSigBlob,
-            out mdMemberRef pmr);
+            [In] mdModuleRef tkImport,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
+            [In] IntPtr pvSigBlob,
+            [In] int cbSigBlob,
+            [Out] out mdMemberRef pmr);
 
         /// <summary>
         /// Creates a reference to the specified member of a type or module that is defined outside the current scope, and defines a token for that reference.
@@ -236,14 +236,14 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT DefineImportMember(
-            [MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyImport pAssemImport,
-            IntPtr pbHashValue,
-            int cbHashValue,
-            [MarshalAs(UnmanagedType.Interface)] IMetaDataImport pImport,
-            mdToken mbMember,
-            [MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyEmit pAssemEmit,
-            mdToken tkParent,
-            out mdMemberRef pmr);
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyImport pAssemImport,
+            [In] IntPtr pbHashValue,
+            [In] int cbHashValue,
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataImport pImport,
+            [In] mdToken mbMember,
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyEmit pAssemEmit,
+            [In] mdToken tkParent,
+            [Out] out mdMemberRef pmr);
 
         /// <summary>
         /// Creates a definition for an event with the specified metadata signature, and gets a token to that event definition.
@@ -259,15 +259,15 @@ namespace ManagedCorDebug
         /// <param name="pmdEvent">[out] The metadata token assigned to the event.</param>
         [PreserveSig]
         HRESULT DefineEvent(
-            mdTypeDef td,
-            [MarshalAs(UnmanagedType.LPWStr)] string szEvent,
-            int dwEventFlags,
-            mdToken tkEventType,
-            mdMethodDef mdAddOn,
-            mdMethodDef mdRemoveOn,
-            mdMethodDef mdFire,
-            [MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rmdOtherMethods,
-            out mdToken pmdEvent);
+            [In] mdTypeDef td,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szEvent,
+            [In] int dwEventFlags,
+            [In] mdToken tkEventType,
+            [In] mdMethodDef mdAddOn,
+            [In] mdMethodDef mdRemoveOn,
+            [In] mdMethodDef mdFire,
+            [In, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rmdOtherMethods,
+            [Out] out mdToken pmdEvent);
 
         /// <summary>
         /// Completes the layout of fields for a class that has been defined by a prior call to <see cref="DefineTypeDef"/>.
@@ -286,17 +286,17 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT SetClassLayout(
-            mdTypeDef td,
-            int dwPackSize,
-            [MarshalAs(UnmanagedType.LPArray)] mdToken[] rFieldOffsets,
-            int ulClassSize);
+            [In] mdTypeDef td,
+            [In] int dwPackSize,
+            [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rFieldOffsets,
+            [In] int ulClassSize);
 
         /// <summary>
         /// Destroys the class layout metadata signature for the type represented by the specified token.
         /// </summary>
         /// <param name="td">[in] An <see cref="mdTypeDef"/> metadata token that represents the type for which the class layout will be deleted.</param>
         [PreserveSig]
-        HRESULT DeleteClassLayout(mdTypeDef td);
+        HRESULT DeleteClassLayout([In] mdTypeDef td);
 
         /// <summary>
         /// Sets the PInvoke marshalling information for the field, method return, or method parameter referenced by the specified token.
@@ -306,16 +306,16 @@ namespace ManagedCorDebug
         /// <param name="cbNativeType">[in] The count of bytes in pvNativeType.</param>
         [PreserveSig]
         HRESULT SetFieldMarshal(
-            mdToken tk,
-            IntPtr pvNativeType,
-            int cbNativeType);
+            [In] mdToken tk,
+            [In] IntPtr pvNativeType,
+            [In] int cbNativeType);
 
         /// <summary>
         /// Destroys the PInvoke marshalling metadata signature for the object referenced by the specified token.
         /// </summary>
         /// <param name="tk">[in] An <see cref="mdFieldDef"/> or <see cref="mdParamDef"/> token that represents the field or parameter for which to delete the marshalling metadata signature.</param>
         [PreserveSig]
-        HRESULT DeleteFieldMarshal(mdToken tk);
+        HRESULT DeleteFieldMarshal([In] mdToken tk);
 
         /// <summary>
         /// Creates a definition for a permission set with the specified metadata signature, and gets a token to that permission set definition.
@@ -327,11 +327,11 @@ namespace ManagedCorDebug
         /// <param name="ppm">[out] The returned permission token.</param>
         [PreserveSig]
         HRESULT DefinePermissionSet(
-            mdToken tk,
-            CorDeclSecurity dwAction,
-            IntPtr pvPermission,
-            int cbPermission,
-            out mdPermission ppm);
+            [In] mdToken tk,
+            [In] CorDeclSecurity dwAction,
+            [In] IntPtr pvPermission,
+            [In] int cbPermission,
+            [Out] out mdPermission ppm);
 
         /// <summary>
         /// Sets the relative virtual address of the specified method.
@@ -340,8 +340,8 @@ namespace ManagedCorDebug
         /// <param name="ulRVA">[in] The address of the code or data area.</param>
         [PreserveSig]
         HRESULT SetRVA(
-            mdMethodDef md,
-            int ulRVA);
+            [In] mdMethodDef md,
+            [In] int ulRVA);
 
         /// <summary>
         /// Gets a token for the specified metadata signature.
@@ -351,9 +351,9 @@ namespace ManagedCorDebug
         /// <param name="pmsig">[out] The <see cref="mdSignature"/> token assigned.</param>
         [PreserveSig]
         HRESULT GetTokenFromSig(
-            IntPtr pvSig,
-            int cbSig,
-            out mdSignature pmsig);
+            [In] IntPtr pvSig,
+            [In] int cbSig,
+            [Out] out mdSignature pmsig);
 
         /// <summary>
         /// Creates the metadata signature for a module with the specified name.
@@ -362,8 +362,8 @@ namespace ManagedCorDebug
         /// <param name="pmur">[out] The assigned <see cref="mdModuleRef"/> token.</param>
         [PreserveSig]
         HRESULT DefineModuleRef(
-            [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            out mdModuleRef pmur);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
+            [Out] out mdModuleRef pmur);
 
         /// <summary>
         /// Establishes that the specified member, as defined by a prior call to <see cref="DefineMemberRef"/>, is a member of the specified type, as defined by a prior call to <see cref="DefineTypeDef"/>.
@@ -372,8 +372,8 @@ namespace ManagedCorDebug
         /// <param name="tk">[in] The <see cref="mdToken"/> for the new parent.</param>
         [PreserveSig]
         HRESULT SetParent(
-            mdMemberRef mr,
-            mdToken tk);
+            [In] mdMemberRef mr,
+            [In] mdToken tk);
 
         /// <summary>
         /// Gets a metadata token for the type with the specified metadata signature.
@@ -383,9 +383,9 @@ namespace ManagedCorDebug
         /// <param name="ptypespec">[out] The <see cref="mdTypeSpec"/> token assigned.</param>
         [PreserveSig]
         HRESULT GetTokenFromTypeSpec(
-            IntPtr pvSig,
-            int cbSig,
-            out mdTypeSpec ptypespec);
+            [In] IntPtr pvSig,
+            [In] int cbSig,
+            [Out] out mdTypeSpec ptypespec);
 
         /// <summary>
         /// Saves all metadata in the current scope to the specified area of memory.
@@ -394,8 +394,8 @@ namespace ManagedCorDebug
         /// <param name="cbData">[in] The size, in bytes, of the allocated memory.</param>
         [PreserveSig]
         HRESULT SaveToMemory(
-            IntPtr pbData,
-            int cbData);
+            [In] IntPtr pbData,
+            [In] int cbData);
 
         /// <summary>
         /// Gets a metadata token for the specified literal string.
@@ -405,16 +405,16 @@ namespace ManagedCorDebug
         /// <param name="pstk">[out] The string token assigned.</param>
         [PreserveSig]
         HRESULT DefineUserString(
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] string szString,
-            int cchString,
-            out mdString pstk);
+            [In, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] string szString,
+            [In] int cchString,
+            [Out] out mdString pstk);
 
         /// <summary>
         /// Deletes the specified token from the current metadata scope.
         /// </summary>
         /// <param name="tkObj">[in] The token to be deleted.</param>
         [PreserveSig]
-        HRESULT DeleteToken(mdToken tkObj);
+        HRESULT DeleteToken([In] mdToken tkObj);
 
         /// <summary>
         /// Sets or updates the feature, stored at the specified relative virtual address, of a method defined by a prior call to <see cref="DefineMethod"/>.
@@ -425,10 +425,10 @@ namespace ManagedCorDebug
         /// <param name="dwImplFlags">[in] The implementation flags for the method.</param>
         [PreserveSig]
         HRESULT SetMethodProps(
-            mdMethodDef md,
-            int dwMethodFlags,
-            int ulCodeRVA,
-            int dwImplFlags);
+            [In] mdMethodDef md,
+            [In] int dwMethodFlags,
+            [In] int ulCodeRVA,
+            [In] int dwImplFlags);
 
         /// <summary>
         /// Sets features of a type defined by a prior call to <see cref="DefineTypeDef"/>.
@@ -440,10 +440,10 @@ namespace ManagedCorDebug
         /// The last element of the array is must be mdTokenNil.</param>
         [PreserveSig]
         HRESULT SetTypeDefProps(
-            mdTypeDef td,
-            CorTypeAttr dwTypeDefFlags,
-            mdToken tkExtends,
-            [MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkImplements);
+            [In] mdTypeDef td,
+            [In] CorTypeAttr dwTypeDefFlags,
+            [In] mdToken tkExtends,
+            [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkImplements);
 
         /// <summary>
         /// Sets or updates the specified feature of an event defined by a prior call to <see cref="DefineEvent"/>.
@@ -457,13 +457,13 @@ namespace ManagedCorDebug
         /// <param name="rmdOtherMethods">[in] An array of tokens for other methods associated with the event. The last element of the array must be mdMethodDefNil.</param>
         [PreserveSig]
         HRESULT SetEventProps(
-            mdEvent ev,
-            CorEventAttr dwEventFlags,
-            mdToken tkEventType,
-            mdMethodDef mdAddOn,
-            mdMethodDef mdRemoveOn,
-            mdMethodDef mdFire,
-            [MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rmdOtherMethods);
+            [In] mdEvent ev,
+            [In] CorEventAttr dwEventFlags,
+            [In] mdToken tkEventType,
+            [In] mdMethodDef mdAddOn,
+            [In] mdMethodDef mdRemoveOn,
+            [In] mdMethodDef mdFire,
+            [In, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rmdOtherMethods);
 
         /// <summary>
         /// Sets or updates features of the metadata signature of a permission set defined by a prior call to <see cref="DefinePermissionSet"/>.
@@ -475,11 +475,11 @@ namespace ManagedCorDebug
         /// <param name="ppm">[out] An <see cref="mdPermission"/> metadata token that represents the updated permissions.</param>
         [PreserveSig]
         HRESULT SetPermissionSetProps(
-            mdToken tk,
-            CorDeclSecurity dwAction,
-            IntPtr pvPermission,
-            int cbPermission,
-            out mdPermission ppm);
+            [In] mdToken tk,
+            [In] CorDeclSecurity dwAction,
+            [In] IntPtr pvPermission,
+            [In] int cbPermission,
+            [Out] out mdPermission ppm);
 
         /// <summary>
         /// Sets features of the PInvoke signature of the method referenced by the specified token.
@@ -490,10 +490,10 @@ namespace ManagedCorDebug
         /// <param name="mrImportDLL">[in] The token for the target native DLL.</param>
         [PreserveSig]
         HRESULT DefinePinvokeMap(
-            mdToken tk,
-            int dwMappingFlags,
-            [MarshalAs(UnmanagedType.LPWStr)] string szImportName,
-            mdModuleRef mrImportDLL);
+            [In] mdToken tk,
+            [In] int dwMappingFlags,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szImportName,
+            [In] mdModuleRef mrImportDLL);
 
         /// <summary>
         /// Sets or changes features of a method's PInvoke signature, as defined by a prior call to <see cref="DefinePinvokeMap"/>.
@@ -504,17 +504,17 @@ namespace ManagedCorDebug
         /// <param name="mrImportDLL">[in] The <see cref="mdModuleRef"/> token for the target unmanaged DLL.</param>
         [PreserveSig]
         HRESULT SetPinvokeMap(
-            mdToken tk,
-            CorPinvokeMap dwMappingFlags,
-            [MarshalAs(UnmanagedType.LPWStr)] string szImportName,
-            mdModuleRef mrImportDLL);
+            [In] mdToken tk,
+            [In] CorPinvokeMap dwMappingFlags,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szImportName,
+            [In] mdModuleRef mrImportDLL);
 
         /// <summary>
         /// Destroys the PInvoke mapping metadata for the object referenced by the specified token.
         /// </summary>
         /// <param name="tk">[in] An <see cref="mdFieldDef"/> or <see cref="mdMethodDef"/> token that represents the object for which to delete the PInvoke mapping metadata.</param>
         [PreserveSig]
-        HRESULT DeletePinvokeMap(mdToken tk);
+        HRESULT DeletePinvokeMap([In] mdToken tk);
 
         /// <summary>
         /// Creates a definition for a custom attribute with the specified metadata signature, to be attached to the specified object, and gets a token to that custom attribute definition.
@@ -526,11 +526,11 @@ namespace ManagedCorDebug
         /// <param name="pcv">[out] The <see cref="mdCustomAttribute"/> token assigned.</param>
         [PreserveSig]
         HRESULT DefineCustomAttribute(
-            mdToken tkObj,
-            mdToken tkType,
-            IntPtr pCustomAttribute,
-            int cbCustomAttribute,
-            out mdCustomAttribute pcv);
+            [In] mdToken tkObj,
+            [In] mdToken tkType,
+            [In] IntPtr pCustomAttribute,
+            [In] int cbCustomAttribute,
+            [Out] out mdCustomAttribute pcv);
 
         /// <summary>
         /// Sets or updates the value of a custom attribute defined by a prior call to <see cref="DefineCustomAttribute"/>.
@@ -540,9 +540,9 @@ namespace ManagedCorDebug
         /// <param name="cbCustomAttribute">[in] The size, in bytes, of the custom attribute.</param>
         [PreserveSig]
         HRESULT SetCustomAttributeValue(
-            int pcv,
-            IntPtr pCustomAttribute,
-            int cbCustomAttribute);
+            [In] int pcv,
+            [In] IntPtr pCustomAttribute,
+            [In] int cbCustomAttribute);
 
         /// <summary>
         /// Creates a definition for a field with the specified metadata signature, and gets a token to that field definition.
@@ -558,15 +558,15 @@ namespace ManagedCorDebug
         /// <param name="pmd">[out] The <see cref="mdFieldDef"/> token assigned.</param>
         [PreserveSig]
         HRESULT DefineField(
-            mdTypeDef td,
-            [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            CorFieldAttr dwFieldFlags,
-            IntPtr pvSigBlob,
-            int cbSigBlob,
-            CorElementType dwCPlusTypeFlag,
-            IntPtr pValue,
-            int cchValue,
-            out mdFieldDef pmd);
+            [In] mdTypeDef td,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
+            [In] CorFieldAttr dwFieldFlags,
+            [In] IntPtr pvSigBlob,
+            [In] int cbSigBlob,
+            [In] CorElementType dwCPlusTypeFlag,
+            [In] IntPtr pValue,
+            [In] int cchValue,
+            [Out] out mdFieldDef pmd);
 
         /// <summary>
         /// Creates a property definition for the specified type, with the specified get and set method accessors, and gets a token to that property definition.
@@ -585,18 +585,18 @@ namespace ManagedCorDebug
         /// <param name="pmdProp">[out] The <see cref="mdProperty"/> token assigned.</param>
         [PreserveSig]
         HRESULT DefineProperty(
-            mdTypeDef td,
-            [MarshalAs(UnmanagedType.LPWStr)] string szProperty,
-            CorPropertyAttr dwPropFlags,
-            IntPtr pvSig,
-            int cbSig,
-            int dwCPlusTypeFlag,
-            IntPtr cvalue,
-            int cchValue,
-            mdMethodDef mdSetter,
-            mdMethodDef mdGetter,
-            [MarshalAs(UnmanagedType.LPArray)] mdToken[] rmdOtherMethods,
-            out mdProperty pmdProp);
+            [In] mdTypeDef td,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szProperty,
+            [In] CorPropertyAttr dwPropFlags,
+            [In] IntPtr pvSig,
+            [In] int cbSig,
+            [In] int dwCPlusTypeFlag,
+            [In] IntPtr cvalue,
+            [In] int cchValue,
+            [In] mdMethodDef mdSetter,
+            [In] mdMethodDef mdGetter,
+            [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rmdOtherMethods,
+            [Out] out mdProperty pmdProp);
 
         /// <summary>
         /// Creates a parameter definition with the specified signature for the method referenced by the specified token, and gets a token for that parameter definition.
@@ -614,14 +614,14 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT DefineParam(
-            mdMethodDef md,
-            int ulParamSeq,
-            [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            CorParamAttr dwParamFlags,
-            CorElementType dwCPlusTypeFlag,
-            IntPtr pValue,
-            int cchValue,
-            out mdParamDef ppd);
+            [In] mdMethodDef md,
+            [In] int ulParamSeq,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
+            [In] CorParamAttr dwParamFlags,
+            [In] CorElementType dwCPlusTypeFlag,
+            [In] IntPtr pValue,
+            [In] int cchValue,
+            [Out] out mdParamDef ppd);
 
         /// <summary>
         /// Sets or updates the default value for the field referenced by the specified field token.
@@ -633,11 +633,11 @@ namespace ManagedCorDebug
         /// <param name="cchValue">[in] The size, in Unicode characters, of pValue.</param>
         [PreserveSig]
         HRESULT SetFieldProps(
-            mdFieldDef fd,
-            CorFieldAttr dwFieldFlags,
-            CorElementType dwCPlusTypeFlag,
-            IntPtr pValue,
-            int cchValue);
+            [In] mdFieldDef fd,
+            [In] CorFieldAttr dwFieldFlags,
+            [In] CorElementType dwCPlusTypeFlag,
+            [In] IntPtr pValue,
+            [In] int cchValue);
 
         /// <summary>
         /// Sets the features stored in metadata for a property defined by a prior call to <see cref="DefineProperty"/>.
@@ -652,14 +652,14 @@ namespace ManagedCorDebug
         /// <param name="rmdOtherMethods">[in] An array of other methods associated with the property. Terminate this array with an mdTokenNil token.</param>
         [PreserveSig]
         HRESULT SetPropertyProps(
-            mdProperty pr,
-            CorPropertyAttr dwPropFlags,
-            int dwCPlusTypeFlag,
-            IntPtr pValue,
-            int cchValue,
-            mdMethodDef mdSetter,
-            mdMethodDef mdGetter,
-            [MarshalAs(UnmanagedType.LPArray)] mdToken[] rmdOtherMethods);
+            [In] mdProperty pr,
+            [In] CorPropertyAttr dwPropFlags,
+            [In] int dwCPlusTypeFlag,
+            [In] IntPtr pValue,
+            [In] int cchValue,
+            [In] mdMethodDef mdSetter,
+            [In] mdMethodDef mdGetter,
+            [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rmdOtherMethods);
 
         /// <summary>
         /// Sets or changes features of a method parameter that was defined by a prior call to <see cref="DefineParam"/>.
@@ -672,12 +672,12 @@ namespace ManagedCorDebug
         /// <param name="cchValue">[in] The size in (Unicode) characters of pValue.</param>
         [PreserveSig]
         HRESULT SetParamProps(
-            mdParamDef pd,
-            [MarshalAs(UnmanagedType.LPWStr)] string szName,
-            int dwParamFlags,
-            int dwCPlusTypeFlag,
-            IntPtr pValue,
-            int cchValue);
+            [In] mdParamDef pd,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
+            [In] int dwParamFlags,
+            [In] int dwCPlusTypeFlag,
+            [In] IntPtr pValue,
+            [In] int cchValue);
 
         /// <summary>
         /// Creates a set of security permissions to attach to the object referenced by the specified token.
@@ -688,17 +688,17 @@ namespace ManagedCorDebug
         /// <param name="pulErrorAttr">[out] If the method fails, specifies the index in rSecAttrs of the element that caused the problem.</param>
         [PreserveSig]
         HRESULT DefineSecurityAttributeSet(
-            mdToken tkObj,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] COR_SECATTR[] rSecAttrs,
-            int cSecAttrs,
-            out int pulErrorAttr);
+            [In] mdToken tkObj,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] COR_SECATTR[] rSecAttrs,
+            [In] int cSecAttrs,
+            [Out] out int pulErrorAttr);
 
         /// <summary>
         /// Updates the current assembly scope with the changes made in the specified metadata.
         /// </summary>
         /// <param name="pImport">[in] Pointer to an IUnknown object that represents the delta metadata from the portable executable (PE) file. The delta metadata is the block of metadata that includes the changes that were made to the copy of the module's actual metadata.</param>
         [PreserveSig]
-        HRESULT ApplyEditAndContinue([MarshalAs(UnmanagedType.IUnknown)] object pImport);
+        HRESULT ApplyEditAndContinue([In, MarshalAs(UnmanagedType.IUnknown)] object pImport);
 
         /// <summary>
         /// Imports an assembly into the current scope and gets a new metadata signature for the merged scope.
@@ -716,17 +716,17 @@ namespace ManagedCorDebug
         /// <param name="pcbTranslatedSig">[out] The number of actual bytes in the translated signature.</param>
         [PreserveSig]
         HRESULT TranslateSigWithScope(
-            [MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyImport pAssemImport,
-            IntPtr pbHashValue,
-            int cbHashValue,
-            [MarshalAs(UnmanagedType.Interface)] IMetaDataImport import,
-            IntPtr pbSigBlob,
-            int cbSigBlob,
-            [MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyEmit pAssemEmit,
-            [MarshalAs(UnmanagedType.Interface)] IMetaDataEmit emit,
-            IntPtr pvTranslatedSig,
-            int cbTranslatedSigMax,
-            out int pcbTranslatedSig);
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyImport pAssemImport,
+            [In] IntPtr pbHashValue,
+            [In] int cbHashValue,
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataImport import,
+            [In] IntPtr pbSigBlob,
+            [In] int cbSigBlob,
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataAssemblyEmit pAssemEmit,
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataEmit emit,
+            [In] IntPtr pvTranslatedSig,
+            [In] int cbTranslatedSigMax,
+            [Out] out int pcbTranslatedSig);
 
         /// <summary>
         /// Sets or updates the metadata signature of the inherited method implementation that is referenced by the specified token.
@@ -735,8 +735,8 @@ namespace ManagedCorDebug
         /// <param name="dwImplFlags">[in] A combination of the values of the <see cref="CorMethodImpl"/> enumeration that specifies the method implementation features.</param>
         [PreserveSig]
         HRESULT SetMethodImplFlags(
-            mdMethodDef md,
-            int dwImplFlags);
+            [In] mdMethodDef md,
+            [In] int dwImplFlags);
 
         /// <summary>
         /// Sets a global variable value for the relative virtual address of the field referenced by the specified token.
@@ -745,8 +745,8 @@ namespace ManagedCorDebug
         /// <param name="ulRVA">[in] The address of a code or data area.</param>
         [PreserveSig]
         HRESULT SetFieldRVA(
-            mdFieldDef fd,
-            int ulRVA);
+            [In] mdFieldDef fd,
+            [In] int ulRVA);
 
         /// <summary>
         /// Adds the specified imported scope to the list of scopes to be merged.
@@ -759,9 +759,9 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT Merge(
-            [MarshalAs(UnmanagedType.Interface)] IMetaDataImport pImport,
-            [MarshalAs(UnmanagedType.Interface)] IMapToken pHostMapToken,
-            [MarshalAs(UnmanagedType.IUnknown)] object pHandler);
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataImport pImport,
+            [In, MarshalAs(UnmanagedType.Interface)] IMapToken pHostMapToken,
+            [In, MarshalAs(UnmanagedType.IUnknown)] object pHandler);
 
         /// <summary>
         /// Merges into the current scope all the metadata scopes specified by one or more prior calls to <see cref="Merge"/>.

@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.EnumModuleRefs"/> method.
     /// </summary>
-    [DebuggerDisplay("phEnum = {phEnum}, rModuleRefs = {rModuleRefs}, pcModuleRefs = {pcModuleRefs}")]
+    [DebuggerDisplay("phEnum = {phEnum}, rModuleRefs = {rModuleRefs}")]
     public struct EnumModuleRefsResult
     {
         /// <summary>
@@ -19,16 +19,10 @@ namespace ManagedCorDebug
         /// </summary>
         public mdModuleRef[] rModuleRefs { get; }
 
-        /// <summary>
-        /// The number of ModuleRef tokens returned in rModuleRefs.
-        /// </summary>
-        public int pcModuleRefs { get; }
-
-        public EnumModuleRefsResult(IntPtr phEnum, mdModuleRef[] rModuleRefs, int pcModuleRefs)
+        public EnumModuleRefsResult(IntPtr phEnum, mdModuleRef[] rModuleRefs)
         {
             this.phEnum = phEnum;
             this.rModuleRefs = rModuleRefs;
-            this.pcModuleRefs = pcModuleRefs;
         }
     }
 }

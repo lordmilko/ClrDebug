@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -17,9 +16,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// The returned array of children.
         /// </summary>
-        public IntPtr children { get; }
+        public ISymUnmanagedScope[] children { get; }
 
-        public GetChildrenResult(int pcChildren, IntPtr children)
+        public GetChildrenResult(int pcChildren, ISymUnmanagedScope[] children)
         {
             this.pcChildren = pcChildren;
             this.children = children;

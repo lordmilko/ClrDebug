@@ -25,7 +25,7 @@ namespace ManagedCorDebug
         /// <param name="pModule">[out] A pointer to the address of an <see cref="ICorDebugModule"/> object that represents the module in which this class is defined.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetModule([MarshalAs(UnmanagedType.Interface)] out ICorDebugModule pModule);
+        HRESULT GetModule([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule pModule);
 
         /// <summary>
         /// Gets the TypeDef metadata token that references the definition of this class.
@@ -33,7 +33,7 @@ namespace ManagedCorDebug
         /// <param name="pTypeDef">[out] A pointer to an <see cref="mdTypeDef"/> token that references the definition of this class.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetToken(out mdTypeDef pTypeDef);
+        HRESULT GetToken([Out] out mdTypeDef pTypeDef);
 
         /// <summary>
         /// Gets the value of the specified static field.
@@ -50,6 +50,6 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetStaticFieldValue([In] int fieldDef, [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFrame pFrame, [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
+            ICorDebugFrame pFrame, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
     }
 }

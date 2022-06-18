@@ -49,7 +49,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetSimpleName(out string szNameResult)
         {
-            /*HRESULT GetSimpleName([In] int cchName, out int pcchName, [Out] StringBuilder szName);*/
+            /*HRESULT GetSimpleName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName = null;
@@ -104,7 +104,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetVersion(out GetVersionResult result)
         {
-            /*HRESULT GetVersion(out ushort pMajor, out ushort pMinor, out ushort pBuild, out ushort pRevision);*/
+            /*HRESULT GetVersion([Out] out ushort pMajor, [Out] out ushort pMinor, [Out] out ushort pBuild, [Out] out ushort pRevision);*/
             ushort pMajor;
             ushort pMinor;
             ushort pBuild;
@@ -149,7 +149,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetCulture(out string szCultureResult)
         {
-            /*HRESULT GetCulture([In] int cchCulture, out int pcchCulture, [Out] StringBuilder szCulture);*/
+            /*HRESULT GetCulture([In] int cchCulture, [Out] out int pcchCulture, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szCulture);*/
             int cchCulture = 0;
             int pcchCulture;
             StringBuilder szCulture = null;
@@ -204,7 +204,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetIndex(out int pIndex)
         {
-            /*HRESULT GetIndex(out int pIndex);*/
+            /*HRESULT GetIndex([Out] out int pIndex);*/
             return Raw.GetIndex(out pIndex);
         }
 
@@ -236,7 +236,7 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetPublicKey(
             [In] int cbPublicKey,
-            out int pcbPublicKey,
+            [Out] out int pcbPublicKey,
             [MarshalAs(UnmanagedType.LPArray), Out]
             byte[] pbPublicKey);*/
             int pcbPublicKey;
@@ -285,7 +285,7 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetPublicKeyToken(
             [In] int cbPublicKeyToken,
-            out int pcbPublicKeyToken,
+            [Out] out int pcbPublicKeyToken,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] pbPublicKeyToken);*/
             int pcbPublicKeyToken;
             byte[] pbPublicKeyToken = null;

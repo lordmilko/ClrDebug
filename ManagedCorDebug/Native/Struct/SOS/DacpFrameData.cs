@@ -12,18 +12,21 @@ namespace ManagedCorDebug
 
         public HRESULT Request(IXCLRDataStackWalk dac)
         {
-            IntPtr outBuffer;
+            var size = Marshal.SizeOf(this);
+            IntPtr outBuffer = Marshal.AllocHGlobal(size);
 
             var hr = dac.Request(
                 (uint) DACSTACKPRIV_REQUEST.FRAME_DATA,
                 0,
                 IntPtr.Zero,
                 Marshal.SizeOf(this),
-                out outBuffer
+                ref outBuffer
             );
 
             if (hr == HRESULT.S_OK)
                 Marshal.PtrToStructure(outBuffer, this);
+
+            Marshal.FreeHGlobal(outBuffer);
 
             return hr;
         }

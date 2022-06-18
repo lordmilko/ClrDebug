@@ -21,7 +21,7 @@ namespace ManagedCorDebug
         /// <param name="szName">A pointer to a character array that contains the variable name.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetName([In] int cchName, out int pcchName, [Out] StringBuilder szName);
+        HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
 
         /// <summary>
         /// Gets the size of a variable in bytes.
@@ -29,7 +29,7 @@ namespace ManagedCorDebug
         /// <param name="pcbValue">A pointer to a 32-bit unsigned integer containing the size of the variable.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSize(out int pcbValue);
+        HRESULT GetSize([Out] out int pcbValue);
 
         /// <summary>
         /// Gets the value of a variable as a byte array.
@@ -47,7 +47,7 @@ namespace ManagedCorDebug
             [In] int cbContext,
             [In] IntPtr context,
             [In] int cbValue,
-            out int pcbValue,
+            [Out] out int pcbValue,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] pValue);
 
         /// <summary>
@@ -79,6 +79,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSlotIndex(out int pSlotIndex);
+        HRESULT GetSlotIndex([Out] out int pSlotIndex);
     }
 }

@@ -72,11 +72,11 @@ namespace ManagedCorDebug
             [In] int mdRva,
             [In] int flags,
             [In] int bufferSize,
-            out IntPtr buffer,
-            out int dataSize);*/
-            IntPtr buffer;
+            [Out] IntPtr buffer,
+            [Out] out int dataSize);*/
+            IntPtr buffer = default(IntPtr);
             int dataSize;
-            HRESULT hr = Raw.GetMetadata(imagePath, imageTimestamp, imageSize, ref mvid, mdRva, flags, bufferSize, out buffer, out dataSize);
+            HRESULT hr = Raw.GetMetadata(imagePath, imageTimestamp, imageSize, ref mvid, mdRva, flags, bufferSize, buffer, out dataSize);
 
             if (hr == HRESULT.S_OK)
                 result = new GetMetadataResult(buffer, dataSize);

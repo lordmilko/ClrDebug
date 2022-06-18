@@ -10,7 +10,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT GetClrNotification(
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] arguments,
-            int count,
-            out int pNeeded);
+            [In] int count,
+            [Out] out int pNeeded);
     }
 }

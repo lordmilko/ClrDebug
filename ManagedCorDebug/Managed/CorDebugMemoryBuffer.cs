@@ -27,9 +27,9 @@ namespace ManagedCorDebug
             get
             {
                 HRESULT hr;
-                IntPtr address;
+                IntPtr address = default(IntPtr);
 
-                if ((hr = TryGetStartAddress(out address)) != HRESULT.S_OK)
+                if ((hr = TryGetStartAddress(ref address)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
 
                 return address;
@@ -40,10 +40,10 @@ namespace ManagedCorDebug
         /// Gets the starting address of the memory buffer.
         /// </summary>
         /// <param name="address">[out] A pointer to the starting address of the memory buffer.</param>
-        public HRESULT TryGetStartAddress(out IntPtr address)
+        public HRESULT TryGetStartAddress(ref IntPtr address)
         {
-            /*HRESULT GetStartAddress(out IntPtr address);*/
-            return Raw.GetStartAddress(out address);
+            /*HRESULT GetStartAddress([Out] IntPtr address);*/
+            return Raw.GetStartAddress(address);
         }
 
         #endregion
@@ -72,7 +72,7 @@ namespace ManagedCorDebug
         /// <param name="pcbBufferLength">[out] A pointer to the size of the memory buffer.</param>
         public HRESULT TryGetSize(out int pcbBufferLength)
         {
-            /*HRESULT GetSize(out int pcbBufferLength);*/
+            /*HRESULT GetSize([Out] out int pcbBufferLength);*/
             return Raw.GetSize(out pcbBufferLength);
         }
 

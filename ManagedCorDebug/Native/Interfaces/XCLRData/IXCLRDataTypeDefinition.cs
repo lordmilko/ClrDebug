@@ -126,7 +126,7 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         HRESULT StartEnumFieldsByName(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int nameFlags,
             [In] int fieldFlags,
             [Out] out IntPtr handle);

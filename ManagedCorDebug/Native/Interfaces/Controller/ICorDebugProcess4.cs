@@ -10,12 +10,12 @@ namespace ManagedCorDebug
     {
         [PreserveSig]
         HRESULT Filter(
-            [In] byte[] pRecord,
+            [In, MarshalAs(UnmanagedType.LPArray)] byte[] pRecord,
             [In] int countBytes,
             [In] CorDebugRecordFormat format,
             [In] int dwFlags,
             [In] int dwThreadId,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugDebugEvent ppEvent,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugDebugEvent ppEvent,
             [In, Out] ref int pContinueStatus);
 
         [PreserveSig]

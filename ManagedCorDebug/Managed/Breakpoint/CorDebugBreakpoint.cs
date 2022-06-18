@@ -61,7 +61,7 @@ namespace ManagedCorDebug
         /// <param name="pbActiveResult">[out] true if this breakpoint is active; otherwise, false.</param>
         public HRESULT TryIsActive(out bool pbActiveResult)
         {
-            /*HRESULT IsActive(out int pbActive);*/
+            /*HRESULT IsActive([Out] out int pbActive);*/
             int pbActive;
             HRESULT hr = Raw.IsActive(out pbActive);
 

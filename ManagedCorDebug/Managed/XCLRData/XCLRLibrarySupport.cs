@@ -30,7 +30,7 @@ namespace ManagedCorDebug
         public HRESULT TryLoadHardboundDependency(string name, Guid mvid, out long loadedBase)
         {
             /*HRESULT LoadHardboundDependency(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] ref Guid mvid,
             [Out] out long loadedBase);*/
             return Raw.LoadHardboundDependency(name, ref mvid, out loadedBase);
@@ -53,7 +53,7 @@ namespace ManagedCorDebug
         public HRESULT TryLoadSoftboundDependency(string name, IntPtr assemblymetadataBinding, IntPtr hash, int hashLength, out long loadedBase)
         {
             /*HRESULT LoadSoftboundDependency(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] IntPtr assemblymetadataBinding,
             [In] IntPtr hash,
             [In] int hashLength,

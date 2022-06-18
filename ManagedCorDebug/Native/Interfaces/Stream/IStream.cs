@@ -11,15 +11,15 @@ namespace ManagedCorDebug
     {
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT RemoteRead(out IntPtr pv, [In] int cb, out int pcbRead);
+        new HRESULT RemoteRead([Out] IntPtr pv, [In] int cb, [Out] out int pcbRead);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT RemoteWrite([In] IntPtr pv, [In] int cb, out int pcbWritten);
+        new HRESULT RemoteWrite([In] IntPtr pv, [In] int cb, [Out] out int pcbWritten);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT RemoteSeek([In] LARGE_INTEGER dlibMove, [In] int dwOrigin, out ULARGE_INTEGER plibNewPosition);
+        HRESULT RemoteSeek([In] LARGE_INTEGER dlibMove, [In] int dwOrigin, [Out] out ULARGE_INTEGER plibNewPosition);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -31,8 +31,8 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.Interface), In]
             IStream pstm,
             [In] ULARGE_INTEGER cb,
-            out ULARGE_INTEGER pcbRead,
-            out ULARGE_INTEGER pcbWritten);
+            [Out] out ULARGE_INTEGER pcbRead,
+            [Out] out ULARGE_INTEGER pcbWritten);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -52,10 +52,10 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Stat(out tagSTATSTG pstatstg, [In] int grfStatFlag);
+        HRESULT Stat([Out] out tagSTATSTG pstatstg, [In] int grfStatFlag);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Clone([MarshalAs(UnmanagedType.Interface)] out IStream ppstm);
+        HRESULT Clone([Out, MarshalAs(UnmanagedType.Interface)] out IStream ppstm);
     }
 }

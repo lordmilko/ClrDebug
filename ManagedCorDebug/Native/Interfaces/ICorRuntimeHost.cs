@@ -38,14 +38,14 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="FiberCookie">[out] Cookie that indicates the fiber being switched out.</param>
         [PreserveSig]
-        HRESULT SwitchOutLogicalThreadState(out int FiberCookie);
+        HRESULT SwitchOutLogicalThreadState([Out] out int FiberCookie);
 
         /// <summary>
         /// Retrieves the number of locks that current thread holds. This method supports the .NET Framework infrastructure and is not intended to be used directly from your code.
         /// </summary>
         /// <param name="pCount">[out] A pointer to the number of locks that the current thread holds.</param>
         [PreserveSig]
-        HRESULT LocksHeldByLogicalThread(out int pCount);
+        HRESULT LocksHeldByLogicalThread([Out] out int pCount);
 
         /// <summary>
         /// Maps the specified file into memory. This method is obsolete.
@@ -54,7 +54,7 @@ namespace ManagedCorDebug
         /// <param name="hMapAddress">[out] The starting memory address at which to begin mapping the file.</param>
         [Obsolete]
         [PreserveSig]
-        HRESULT MapFile(IntPtr hFile, out IntPtr hMapAddress);
+        HRESULT MapFile([In] IntPtr hFile, [Out] IntPtr hMapAddress);
 
         /// <summary>
         /// Gets an object that allows the host to specify the callback configuration of the common language runtime (CLR).
@@ -65,7 +65,7 @@ namespace ManagedCorDebug
         /// indicating an error.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetConfiguration([MarshalAs(UnmanagedType.IUnknown)] out object pConfiguration);
+        HRESULT GetConfiguration([Out, MarshalAs(UnmanagedType.IUnknown)] out object pConfiguration);
 
         /// <summary>
         /// Starts the common language runtime (CLR).
@@ -118,7 +118,7 @@ namespace ManagedCorDebug
         /// | HOST_E_CLRNOTAVAILABLE | The CLR has not been loaded into a process, or the CLR is in a state in which it cannot run managed code or process the call successfully.                                                                       |
         /// </returns>
         [PreserveSig]
-        HRESULT CreateDomain(string pwzFriendlyName, [MarshalAs(UnmanagedType.IUnknown)] object pIdentityArray, [MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);
+        HRESULT CreateDomain([In, MarshalAs(UnmanagedType.LPWStr)] string pwzFriendlyName, [In, MarshalAs(UnmanagedType.IUnknown)] object pIdentityArray, [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);
 
         /// <summary>
         /// Gets an interface pointer of type <see cref="_AppDomain"/> that represents the default domain for the current process.
@@ -149,7 +149,7 @@ namespace ManagedCorDebug
         /// | HOST_E_CLRNOTAVAILABLE | The CLR has not been loaded into a process, or the CLR is in a state in which it cannot run managed code or process the call successfully.                                                                       |
         /// </returns>
         [PreserveSig]
-        HRESULT EnumDomains(out IntPtr hEnum);
+        HRESULT EnumDomains([Out] IntPtr hEnum);
 
         /// <summary>
         /// Gets an interface pointer to the next domain in the enumeration.
@@ -165,7 +165,7 @@ namespace ManagedCorDebug
         /// | HOST_E_CLRNOTAVAILABLE | The CLR has not been loaded into a process, or the CLR is in a state in which it cannot run managed code or process the call successfully.                                                                       |
         /// </returns>
         [PreserveSig]
-        HRESULT NextDomain(IntPtr hEnum, [MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);
+        HRESULT NextDomain([In] IntPtr hEnum, [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);
 
         /// <summary>
         /// Resets a domain enumerator back to the beginning of the domain list.
@@ -180,7 +180,7 @@ namespace ManagedCorDebug
         /// | HOST_E_CLRNOTAVAILABLE | The CLR has not been loaded into a process, or the CLR is in a state in which it cannot run managed code or process the call successfully.                                                                       |
         /// </returns>
         [PreserveSig]
-        HRESULT CloseEnum(IntPtr hEnum);
+        HRESULT CloseEnum([In] IntPtr hEnum);
 
         /// <summary>
         /// Creates an application domain. The caller receives an interface pointer, of type <see cref="_AppDomain"/>, to an instance of type <see cref="AppDomain"/>.<para/>
@@ -205,7 +205,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         HRESULT CreateDomainEx(
-            [In] string pwzFriendlyName,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string pwzFriendlyName,
             [In, MarshalAs(UnmanagedType.IUnknown)] object pSetup,
             [In, MarshalAs(UnmanagedType.IUnknown)] object pEvidence,
             [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);
@@ -226,7 +226,7 @@ namespace ManagedCorDebug
         /// The pointer returned from this method is typically passed as a parameter to the <see cref="CreateDomainEx"/> method.
         /// </remarks>
         [PreserveSig]
-        HRESULT CreateDomainSetup([MarshalAs(UnmanagedType.IUnknown)] out object pAppDomainSetup);
+        HRESULT CreateDomainSetup([Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomainSetup);
 
         /// <summary>
         /// Gets an interface pointer of type <see cref="IIdentity"/>, which allows the host to create security evidence to pass to the <see cref="CreateDomain"/> or <see cref="CreateDomainEx"/> method.
@@ -245,7 +245,7 @@ namespace ManagedCorDebug
         /// method instead.
         /// </remarks>
         [PreserveSig]
-        HRESULT CreateEvidence([MarshalAs(UnmanagedType.IUnknown)] out object pEvidence);
+        HRESULT CreateEvidence([Out, MarshalAs(UnmanagedType.IUnknown)] out object pEvidence);
 
         /// <summary>
         /// Unloads the specified application domain from the current process.
@@ -260,7 +260,7 @@ namespace ManagedCorDebug
         /// | HOST_E_CLRNOTAVAILABLE | The CLR has not been loaded into a process, or the CLR is in a state in which it cannot run managed code or process the call successfully.                                                                       |
         /// </returns>
         [PreserveSig]
-        HRESULT UnloadDomain([MarshalAs(UnmanagedType.IUnknown)] object pAppDomain);
+        HRESULT UnloadDomain([In, MarshalAs(UnmanagedType.IUnknown)] object pAppDomain);
 
         /// <summary>
         /// Gets an interface pointer of type <see cref="AppDomain"/> that represents the domain loaded on the current thread.
@@ -275,6 +275,6 @@ namespace ManagedCorDebug
         /// | HOST_E_CLRNOTAVAILABLE | The CLR has not been loaded into a process, or the CLR is in a state in which it cannot run managed code or process the call successfully.                                                                       |
         /// </returns>
         [PreserveSig]
-        HRESULT CurrentDomain([MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);
+        HRESULT CurrentDomain([Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);
     }
 }

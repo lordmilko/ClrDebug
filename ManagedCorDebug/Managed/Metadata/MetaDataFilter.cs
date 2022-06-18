@@ -59,7 +59,7 @@ namespace ManagedCorDebug
         /// <param name="tk">[in] The token to mark as processed.</param>
         public HRESULT TryMarkToken(mdToken tk)
         {
-            /*HRESULT MarkToken(mdToken tk);*/
+            /*HRESULT MarkToken([In] mdToken tk);*/
             return Raw.MarkToken(tk);
         }
 

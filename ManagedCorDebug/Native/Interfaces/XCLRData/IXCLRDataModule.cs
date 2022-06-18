@@ -51,7 +51,7 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         HRESULT StartEnumTypeDefinitionsByName(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int flags,
             [Out] out IntPtr handle);
 
@@ -66,7 +66,7 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         HRESULT StartEnumTypeInstancesByName(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int flags,
             [In] IXCLRDataAppDomain appDomain,
             [Out] out IntPtr handle);
@@ -87,7 +87,7 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         HRESULT StartEnumMethodDefinitionsByName(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int flags,
             [Out] out IntPtr handle);
 
@@ -102,7 +102,7 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         HRESULT StartEnumMethodInstancesByName(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int flags,
             [In] IXCLRDataAppDomain appDomain,
             [Out] out IntPtr handle);
@@ -123,7 +123,7 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         HRESULT StartEnumDataByName(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int flags,
             [In] IXCLRDataAppDomain appDomain,
             [In] IXCLRDataTask tlsTask,

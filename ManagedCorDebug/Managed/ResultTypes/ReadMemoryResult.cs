@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -11,14 +12,14 @@ namespace ManagedCorDebug
         /// <summary>
         /// A buffer that receives the contents of the memory.
         /// </summary>
-        public byte[] buffer { get; }
+        public IntPtr buffer { get; }
 
         /// <summary>
         /// A pointer to the number of bytes transferred into the specified buffer.
         /// </summary>
-        public long read { get; }
+        public int read { get; }
 
-        public ReadMemoryResult(byte[] buffer, long read)
+        public ReadMemoryResult(IntPtr buffer, int read)
         {
             this.buffer = buffer;
             this.read = read;

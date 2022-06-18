@@ -21,7 +21,7 @@ namespace ManagedCorDebug
         /// <param name="pSize">A pointer to the module size.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetImageFromPointer([In] CORDB_ADDRESS addr, out CORDB_ADDRESS pImageBase, out int pSize);
+        HRESULT GetImageFromPointer([In] CORDB_ADDRESS addr, [Out] out CORDB_ADDRESS pImageBase, [Out] out int pSize);
 
         /// <summary>
         /// Returns the path of a module from the module's base address.
@@ -35,8 +35,8 @@ namespace ManagedCorDebug
         HRESULT GetImageLocation(
             [In] CORDB_ADDRESS baseAddress,
             [In] int cchName,
-            out int pcchName,
-            [Out] StringBuilder szName);
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
 
         /// <summary>
         /// Returns the symbol-provider for a module from the base address of that module.
@@ -47,7 +47,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSymbolProviderForImage(
             [In] CORDB_ADDRESS imageBaseAddress,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugSymbolProvider ppSymProvider);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugSymbolProvider ppSymProvider);
 
         /// <summary>
         /// Returns a list of active thread IDs.
@@ -57,7 +57,7 @@ namespace ManagedCorDebug
         /// <param name="pThreadIds">An array of thread identifiers.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateThreadIDs([In] int cThreadIds, out int pcThreadIds, [Out] int[] pThreadIds);
+        HRESULT EnumerateThreadIDs([In] int cThreadIds, [Out] out int pcThreadIds, [Out, MarshalAs(UnmanagedType.LPArray)] int[] pThreadIds);
 
         /// <summary>
         /// Creates a new stack unwinder that starts unwinding from an initial context (which isn't necessarily the leaf of a thread).
@@ -75,6 +75,6 @@ namespace ManagedCorDebug
             [In] int contextFlags,
             [In] int cbContext,
             [In] IntPtr initialContext,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugVirtualUnwinder ppUnwinder);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugVirtualUnwinder ppUnwinder);
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -17,9 +16,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// A pointer to the buffer that receives the methods.
         /// </summary>
-        public IntPtr pRetVal { get; }
+        public ISymUnmanagedMethod[] pRetVal { get; }
 
-        public GetMethodsInDocumentResult(int pcMethod, IntPtr pRetVal)
+        public GetMethodsInDocumentResult(int pcMethod, ISymUnmanagedMethod[] pRetVal)
         {
             this.pcMethod = pcMethod;
             this.pRetVal = pRetVal;

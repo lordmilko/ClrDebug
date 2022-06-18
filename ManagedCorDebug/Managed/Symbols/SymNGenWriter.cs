@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace ManagedCorDebug
 {
@@ -70,7 +71,7 @@ namespace ManagedCorDebug
 
         public HRESULT TryOpenModW(string wszModule, string wszObjFile, ref IntPtr ppmod)
         {
-            /*HRESULT OpenModW([In] string wszModule, [In] string wszObjFile, [Out] IntPtr ppmod);*/
+            /*HRESULT OpenModW([In, MarshalAs(UnmanagedType.LPWStr)] string wszModule, [In, MarshalAs(UnmanagedType.LPWStr)] string wszObjFile, [Out] IntPtr ppmod);*/
             return Raw2.OpenModW(wszModule, wszObjFile, ppmod);
         }
 
@@ -135,21 +136,29 @@ namespace ManagedCorDebug
         #endregion
         #region QueryPDBNameExW
 
-        public ushort QueryPDBNameExW(long cchMax)
+        public string QueryPDBNameExW(long cchMax)
         {
             HRESULT hr;
-            ushort wszPDB;
+            string wszPDBResult;
 
-            if ((hr = TryQueryPDBNameExW(out wszPDB, cchMax)) != HRESULT.S_OK)
+            if ((hr = TryQueryPDBNameExW(cchMax, out wszPDBResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return wszPDB;
+            return wszPDBResult;
         }
 
-        public HRESULT TryQueryPDBNameExW(out ushort wszPDB, long cchMax)
+        public HRESULT TryQueryPDBNameExW(long cchMax, out string wszPDBResult)
         {
-            /*HRESULT QueryPDBNameExW(out ushort wszPDB, [In] long cchMax);*/
-            return Raw2.QueryPDBNameExW(out wszPDB, cchMax);
+            /*HRESULT QueryPDBNameExW([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder wszPDB, [In] long cchMax);*/
+            StringBuilder wszPDB = null;
+            HRESULT hr = Raw2.QueryPDBNameExW(wszPDB, cchMax);
+
+            if (hr == HRESULT.S_OK)
+                wszPDBResult = wszPDB.ToString();
+            else
+                wszPDBResult = default(string);
+
+            return hr;
         }
 
         #endregion

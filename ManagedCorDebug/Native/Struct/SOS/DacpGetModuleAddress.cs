@@ -12,18 +12,21 @@ namespace ManagedCorDebug
 
         public HRESULT Request(IXCLRDataModule pDataModule)
         {
-            IntPtr outBuffer;
+            var size = Marshal.SizeOf(this);
+            IntPtr outBuffer = Marshal.AllocHGlobal(size);
 
             var hr = pDataModule.Request(
                 (uint) DACDATAMODULEPRIV_REQUEST.GET_MODULEPTR,
                 0,
                 IntPtr.Zero,
                 Marshal.SizeOf(this),
-                out outBuffer
+                ref outBuffer
             );
 
             if (hr == HRESULT.S_OK)
                 Marshal.PtrToStructure(outBuffer, this);
+
+            Marshal.FreeHGlobal(outBuffer);
 
             return hr;
         }

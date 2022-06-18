@@ -14,15 +14,15 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         HRESULT NativeImageDimensions(
-            long _base,
-            long size,
-            int sectionAlign);
+            [In] long _base,
+            [In] long size,
+            [In] int sectionAlign);
 
         [PreserveSig]
         HRESULT Section(
-            string name,
-            long rva,
-            long size);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [In] long rva,
+            [In] long size);
 
         [PreserveSig]
         HRESULT GetDumpOptions(
@@ -36,34 +36,34 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         HRESULT StartCategory(
-            string name);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name);
 
         [PreserveSig]
         HRESULT EndCategory();
 
         [PreserveSig]
         HRESULT StartElement(
-            string name);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name);
 
         [PreserveSig]
         HRESULT EndElement();
 
         [PreserveSig]
         HRESULT StartVStructure(
-            string name);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name);
 
         [PreserveSig]
         HRESULT StartVStructureWithOffset(
-            string name,
-            int fieldOffset,
-            int fieldSize);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [In] int fieldOffset,
+            [In] int fieldSize);
 
         [PreserveSig]
         HRESULT EndVStructure();
 
         [PreserveSig]
         HRESULT StartTextElement(
-            string name);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name);
 
         [PreserveSig]
         HRESULT EndTextElement();
@@ -78,88 +78,88 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         HRESULT WriteEmptyElement(
-            string element);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element);
 
         [PreserveSig]
         HRESULT WriteElementPointer(
-            string element,
-            long ptr);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] long ptr);
 
         [PreserveSig]
         HRESULT WriteElementPointerAnnotated(
-            string element,
-            long ptr,
-            string annotation);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] long ptr,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string annotation);
 
         [PreserveSig]
         HRESULT WriteElementAddress(
-            string element,
-            long _base,
-            long size);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] long _base,
+            [In] long size);
 
         [PreserveSig]
         HRESULT WriteElementAddressNamed(
-            string element,
-            string name,
-            long _base,
-            long size);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [In] long _base,
+            [In] long size);
 
         [PreserveSig]
         HRESULT WriteElementAddressNamedW(
-            string element,
-            string name,
-            long _base,
-            long size);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [In] long _base,
+            [In] long size);
 
         [PreserveSig]
         HRESULT WriteElementString(
-            string element,
-            string data);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string data);
 
         [PreserveSig]
         HRESULT WriteElementStringW(
-            string element,
-            string data);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string data);
 
         [PreserveSig]
         HRESULT WriteElementInt(
-            string element,
-            int value);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int value);
 
         [PreserveSig]
         HRESULT WriteElementUInt(
-            string element,
-            int value);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int value);
 
         [PreserveSig]
         HRESULT WriteElementEnumerated(
-            string element,
-            int value,
-            string mnemonic);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int value,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string mnemonic);
 
         [PreserveSig]
         HRESULT WriteElementIntWithSuppress(
-            string element,
-            int value,
-            int suppressIfEqual);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int value,
+            [In] int suppressIfEqual);
 
         [PreserveSig]
         HRESULT WriteElementFlag(
-            string element,
-            int flag);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int flag);
 
         [PreserveSig]
         HRESULT StartArray(
-            string name,
-            string fmt);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string fmt);
 
         [PreserveSig]
         HRESULT EndArray(
-            string countPrefix);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string countPrefix);
 
         [PreserveSig]
         HRESULT StartList(
-            string fmt);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string fmt);
 
         [PreserveSig]
         HRESULT EndList(
@@ -167,111 +167,111 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         HRESULT StartArrayWithOffset(
-            string name,
-            int fieldOffset,
-            int fieldSize,
-            string fmt);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string fmt);
 
         [PreserveSig]
         HRESULT WriteFieldString(
-            string element,
-            int fieldOffset,
-            int fieldSize,
-            string data);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string data);
 
         [PreserveSig]
         HRESULT WriteFieldStringW(
-            string element,
-            int fieldOffset,
-            int fieldSize,
-            string data);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string data);
 
         [PreserveSig]
         HRESULT WriteFieldPointer(
-            string element,
-            int fieldOffset,
-            int fieldSize,
-            long ptr);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In] long ptr);
 
         [PreserveSig]
         HRESULT WriteFieldPointerWithSize(
-            string element,
-            int fieldOffset,
-            int fieldSize,
-            long ptr,
-            long size);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In] long ptr,
+            [In] long size);
 
         [PreserveSig]
         HRESULT WriteFieldInt(
-            string element,
-            int fieldOffset,
-            int fieldSize,
-            int value);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In] int value);
 
         [PreserveSig]
         HRESULT WriteFieldUInt(
-            string element,
-            int fieldOffset,
-            int fieldSize,
-            int value);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In] int value);
 
         [PreserveSig]
         HRESULT WriteFieldEnumerated(
-            string element,
-            int fieldOffset,
-            int fieldSize,
-            int value,
-            string mnemonic);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In] int value,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string mnemonic);
 
         [PreserveSig]
         HRESULT WriteFieldEmpty(
-            string element,
-            int fieldOffset,
-            int fieldSize);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int fieldOffset,
+            [In] int fieldSize);
 
         [PreserveSig]
         HRESULT WriteFieldFlag(
-            string element,
-            int fieldOffset,
-            int fieldSize,
-            int flag);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In] int flag);
 
         [PreserveSig]
         HRESULT WriteFieldPointerAnnotated(
-            string element,
-            int fieldOffset,
-            int fieldSize,
-            long ptr,
-            string annotation);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In] long ptr,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string annotation);
 
         [PreserveSig]
         HRESULT WriteFieldAddress(
-            string element,
-            int fieldOffset,
-            int fieldSize,
-            long _base,
-            long size);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string element,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In] long _base,
+            [In] long size);
 
         [PreserveSig]
         HRESULT StartStructure(
-            string name,
-            long ptr,
-            long size);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [In] long ptr,
+            [In] long size);
 
         [PreserveSig]
         HRESULT StartStructureWithNegSpace(
-            string name,
-            long ptr,
-            long startPtr,
-            long totalSize);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [In] long ptr,
+            [In] long startPtr,
+            [In] long totalSize);
 
         [PreserveSig]
         HRESULT StartStructureWithOffset(
-            string name,
-            int fieldOffset,
-            int fieldSize,
-            long ptr,
-            long size);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [In] int fieldOffset,
+            [In] int fieldSize,
+            [In] long ptr,
+            [In] long size);
 
         [PreserveSig]
         HRESULT EndStructure();

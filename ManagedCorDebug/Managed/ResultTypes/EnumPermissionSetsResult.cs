@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.EnumPermissionSets"/> method.
     /// </summary>
-    [DebuggerDisplay("phEnum = {phEnum}, rPermission = {rPermission}, pcTokens = {pcTokens}")]
+    [DebuggerDisplay("phEnum = {phEnum}, rPermission = {rPermission}")]
     public struct EnumPermissionSetsResult
     {
         /// <summary>
@@ -19,16 +19,10 @@ namespace ManagedCorDebug
         /// </summary>
         public mdPermission[] rPermission { get; }
 
-        /// <summary>
-        /// The number of Permission tokens returned in rPermission.
-        /// </summary>
-        public int pcTokens { get; }
-
-        public EnumPermissionSetsResult(IntPtr phEnum, mdPermission[] rPermission, int pcTokens)
+        public EnumPermissionSetsResult(IntPtr phEnum, mdPermission[] rPermission)
         {
             this.phEnum = phEnum;
             this.rPermission = rPermission;
-            this.pcTokens = pcTokens;
         }
     }
 }

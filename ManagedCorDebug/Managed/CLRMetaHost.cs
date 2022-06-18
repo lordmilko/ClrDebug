@@ -177,7 +177,7 @@ namespace ManagedCorDebug
         /// </returns>
         public HRESULT TryEnumerateInstalledRuntimes(out EnumUnknown ppEnumeratorResult)
         {
-            /*HRESULT EnumerateInstalledRuntimes([MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppEnumerator);*/
+            /*HRESULT EnumerateInstalledRuntimes([Out, MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppEnumerator);*/
             IEnumUnknown ppEnumerator;
             HRESULT hr = Raw.EnumerateInstalledRuntimes(out ppEnumerator);
 
@@ -231,7 +231,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryEnumerateLoadedRuntimes(IntPtr hndProcess, out EnumUnknown ppEnumeratorResult)
         {
-            /*HRESULT EnumerateLoadedRuntimes([In] IntPtr hndProcess, [MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppEnumerator);*/
+            /*HRESULT EnumerateLoadedRuntimes([In] IntPtr hndProcess, [Out, MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppEnumerator);*/
             IEnumUnknown ppEnumerator;
             HRESULT hr = Raw.EnumerateLoadedRuntimes(hndProcess, out ppEnumerator);
 

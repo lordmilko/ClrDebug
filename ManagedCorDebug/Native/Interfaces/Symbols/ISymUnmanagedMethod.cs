@@ -84,7 +84,7 @@ namespace ManagedCorDebug
             [In] int line,
             [In] int column,
             [In] int cRanges,
-            out int pcRanges,
+            [Out] out int pcRanges,
             [MarshalAs(UnmanagedType.LPArray), Out] int[] ranges);
 
         /// <summary>
@@ -96,8 +96,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetParameters([In] int cParams, out int pcParams, [MarshalAs(UnmanagedType.Interface), Out]
-            ISymUnmanagedVariable[] @params);
+        HRESULT GetParameters([In] int cParams, [Out] out int pcParams, [MarshalAs(UnmanagedType.LPArray), Out] ISymUnmanagedVariable[] @params);
 
         /// <summary>
         /// Gets the namespace within which this method is defined.
@@ -106,7 +105,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetNamespace([MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedNamespace pRetVal);
+        HRESULT GetNamespace([Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedNamespace pRetVal);
 
         /// <summary>
         /// Gets the start and end document positions for the source of this method. The first array position is the start, and the second array position is the end.
@@ -125,7 +124,7 @@ namespace ManagedCorDebug
             int[] lines,
             [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In]
             int[] columns,
-            out int pRetVal);
+            [Out] out int pRetVal);
 
         /// <summary>
         /// Gets all the sequence points within this method.
@@ -143,12 +142,12 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSequencePoints(
             [In] int cPoints,
-            out int pcPoints,
+            [Out] out int pcPoints,
             [In] ref int offsets,
-            [Out] ISymUnmanagedDocument[] documents,
-            [In, Out] ref int[] lines,
-            [In, Out] ref int[] columns,
-            [In, Out] ref int[] endLines,
-            [In, Out] ref int[] endColumns);
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedDocument[] documents,
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] lines,
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] columns,
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] endLines,
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] endColumns);
     }
 }

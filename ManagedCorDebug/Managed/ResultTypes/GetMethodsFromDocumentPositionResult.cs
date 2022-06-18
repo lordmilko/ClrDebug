@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -17,9 +16,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// An array of pointers, each of which points to an <see cref="ISymUnmanagedMethod"/> object that represents a method containing the breakpoint.
         /// </summary>
-        public IntPtr pRetVal { get; }
+        public ISymUnmanagedMethod[] pRetVal { get; }
 
-        public GetMethodsFromDocumentPositionResult(int pcMethod, IntPtr pRetVal)
+        public GetMethodsFromDocumentPositionResult(int pcMethod, ISymUnmanagedMethod[] pRetVal)
         {
             this.pcMethod = pcMethod;
             this.pRetVal = pRetVal;

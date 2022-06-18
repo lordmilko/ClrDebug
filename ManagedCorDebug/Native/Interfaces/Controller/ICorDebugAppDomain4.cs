@@ -19,6 +19,6 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetObjectForCCW([In] CORDB_ADDRESS ccwPointer,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppManagedObject);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppManagedObject);
     }
 }

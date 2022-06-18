@@ -263,7 +263,7 @@ namespace ManagedCorDebug
         {
             /*HRESULT ExceptionCatcherEnter(
             [In] IXCLRDataMethodInstance catchingMethod,
-            int catcherNativeOffset);*/
+            [In] int catcherNativeOffset);*/
             return Raw4.ExceptionCatcherEnter(catchingMethod, catcherNativeOffset);
         }
 

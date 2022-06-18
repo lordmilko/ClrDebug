@@ -27,7 +27,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetJMCStatus([In] int bIsJustMyCode, [In] int cTokens, [In] mdToken[] pTokens);
+        HRESULT SetJMCStatus([In] int bIsJustMyCode, [In] int cTokens, [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] pTokens);
 
         /// <summary>
         /// Applies the changes in the metadata and the changes in the Microsoft intermediate language (MSIL) code to the running process.
@@ -78,7 +78,7 @@ namespace ManagedCorDebug
         /// <param name="pdwFlags">[out] A pointer to a value of the <see cref="CorDebugJITCompilerFlags"/> enumeration that controls the JIT compilation.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetJITCompilerFlags(out int pdwFlags);
+        HRESULT GetJITCompilerFlags([Out] out int pdwFlags);
 
         /// <summary>
         /// Resolves the assembly referenced by the specified metadata token.
@@ -92,6 +92,6 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ResolveAssembly([In] mdToken tkAssemblyRef,
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugAssembly ppAssembly);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAssembly ppAssembly);
     }
 }

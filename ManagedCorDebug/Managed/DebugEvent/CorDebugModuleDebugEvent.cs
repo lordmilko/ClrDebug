@@ -52,7 +52,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetModule(out CorDebugModule ppModuleResult)
         {
-            /*HRESULT GetModule([MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);*/
+            /*HRESULT GetModule([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);*/
             ICorDebugModule ppModule;
             HRESULT hr = Raw.GetModule(out ppModule);
 

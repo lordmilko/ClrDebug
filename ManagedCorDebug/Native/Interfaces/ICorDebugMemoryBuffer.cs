@@ -18,7 +18,7 @@ namespace ManagedCorDebug
         /// <param name="address">[out] A pointer to the starting address of the memory buffer.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetStartAddress(out IntPtr address);
+        HRESULT GetStartAddress([Out] IntPtr address);
 
         /// <summary>
         /// Gets the size of the memory buffer in bytes.
@@ -26,6 +26,6 @@ namespace ManagedCorDebug
         /// <param name="pcbBufferLength">[out] A pointer to the size of the memory buffer.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSize(out int pcbBufferLength);
+        HRESULT GetSize([Out] out int pcbBufferLength);
     }
 }

@@ -52,7 +52,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetRegistersAvailable(out long pAvailable)
         {
-            /*HRESULT GetRegistersAvailable(out long pAvailable);*/
+            /*HRESULT GetRegistersAvailable([Out] out long pAvailable);*/
             return Raw.GetRegistersAvailable(out pAvailable);
         }
 
@@ -147,40 +147,31 @@ namespace ManagedCorDebug
         /// in a "hijacked" state where its context has been temporarily changed. The data returned is a Win32 CONTEXT structure
         /// for the current platform. For non-leaf frames, clients should check which registers are valid by using <see cref="GetRegistersAvailable"/>.
         /// </remarks>
-        public byte[] GetThreadContext(int contextSize)
+        public IntPtr GetThreadContext(int contextSize)
         {
             HRESULT hr;
-            byte[] contextResult;
+            IntPtr context = default(IntPtr);
 
-            if ((hr = TryGetThreadContext(contextSize, out contextResult)) != HRESULT.S_OK)
+            if ((hr = TryGetThreadContext(contextSize, ref context)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return contextResult;
+            return context;
         }
 
         /// <summary>
         /// Gets the context of the current thread.
         /// </summary>
         /// <param name="contextSize">[in] The size, in bytes, of the context array.</param>
-        /// <param name="contextResult">[in, out] An array of bytes that compose the Win32 CONTEXT structure for the current platform.</param>
+        /// <param name="context">[in, out] An array of bytes that compose the Win32 CONTEXT structure for the current platform.</param>
         /// <remarks>
         /// The debugger should call this function instead of the Win32 GetThreadContext function, because the thread may be
         /// in a "hijacked" state where its context has been temporarily changed. The data returned is a Win32 CONTEXT structure
         /// for the current platform. For non-leaf frames, clients should check which registers are valid by using <see cref="GetRegistersAvailable"/>.
         /// </remarks>
-        public HRESULT TryGetThreadContext(int contextSize, out byte[] contextResult)
+        public HRESULT TryGetThreadContext(int contextSize, ref IntPtr context)
         {
-            /*HRESULT GetThreadContext([In] int contextSize, [MarshalAs(UnmanagedType.LPArray), In, Out]
-            byte[] context);*/
-            byte[] context = null;
-            HRESULT hr = Raw.GetThreadContext(contextSize, context);
-
-            if (hr == HRESULT.S_OK)
-                contextResult = context;
-            else
-                contextResult = default(byte[]);
-
-            return hr;
+            /*HRESULT GetThreadContext([In] int contextSize, [In, Out] ref IntPtr context);*/
+            return Raw.GetThreadContext(contextSize, ref context);
         }
 
         #endregion
@@ -189,7 +180,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// SetThreadContext is not implemented in the .NET Framework version 2.0. Do not call this method.
         /// </summary>
-        public void SetThreadContext(int contextSize, byte[] context)
+        public void SetThreadContext(int contextSize, IntPtr context)
         {
             HRESULT hr;
 
@@ -200,10 +191,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// SetThreadContext is not implemented in the .NET Framework version 2.0. Do not call this method.
         /// </summary>
-        public HRESULT TrySetThreadContext(int contextSize, byte[] context)
+        public HRESULT TrySetThreadContext(int contextSize, IntPtr context)
         {
-            /*HRESULT SetThreadContext([In] int contextSize, [MarshalAs(UnmanagedType.Interface), In]
-            byte[] context);*/
+            /*HRESULT SetThreadContext([In] int contextSize, [In] IntPtr context);*/
             return Raw.SetThreadContext(contextSize, context);
         }
 
@@ -230,9 +220,9 @@ namespace ManagedCorDebug
         public IntPtr GetRegistersAvailable(int numChunks)
         {
             HRESULT hr;
-            IntPtr availableRegChunks;
+            IntPtr availableRegChunks = default(IntPtr);
 
-            if ((hr = TryGetRegistersAvailable(numChunks, out availableRegChunks)) != HRESULT.S_OK)
+            if ((hr = TryGetRegistersAvailable(numChunks, ref availableRegChunks)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return availableRegChunks;
@@ -249,10 +239,10 @@ namespace ManagedCorDebug
         /// identify the bit position within the indexed byte. Given a <see cref="CorDebugRegister"/> value that specifies a particular register,
         /// the register's position in the mask is determined as follows:
         /// </remarks>
-        public HRESULT TryGetRegistersAvailable(int numChunks, out IntPtr availableRegChunks)
+        public HRESULT TryGetRegistersAvailable(int numChunks, ref IntPtr availableRegChunks)
         {
-            /*HRESULT GetRegistersAvailable([In] int numChunks, out IntPtr availableRegChunks);*/
-            return Raw2.GetRegistersAvailable(numChunks, out availableRegChunks);
+            /*HRESULT GetRegistersAvailable([In] int numChunks, [Out] IntPtr availableRegChunks);*/
+            return Raw2.GetRegistersAvailable(numChunks, availableRegChunks);
         }
 
         #endregion
@@ -280,12 +270,12 @@ namespace ManagedCorDebug
         public CORDB_REGISTER[] GetRegisters(int maskCount, byte[] mask, int regCount)
         {
             HRESULT hr;
-            CORDB_REGISTER[] regBuffer;
+            CORDB_REGISTER[] regBufferResult;
 
-            if ((hr = TryGetRegisters(maskCount, mask, regCount, out regBuffer)) != HRESULT.S_OK)
+            if ((hr = TryGetRegisters(maskCount, mask, regCount, out regBufferResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return regBuffer;
+            return regBufferResult;
         }
 
         /// <summary>
@@ -294,7 +284,7 @@ namespace ManagedCorDebug
         /// <param name="maskCount">[in] The size, in bytes, of the mask array.</param>
         /// <param name="mask">[in] An array of bytes, each bit of which corresponds to a register. If the bit is 1, the corresponding register's value will be retrieved.</param>
         /// <param name="regCount">[in] The number of register values to be retrieved.</param>
-        /// <param name="regBuffer">[out] An array of <see cref="CORDB_REGISTER"/> objects, each of which receives the value of a register.</param>
+        /// <param name="regBufferResult">[out] An array of <see cref="CORDB_REGISTER"/> objects, each of which receives the value of a register.</param>
         /// <remarks>
         /// The GetRegisters method returns an array of values from the registers that are specified by the mask. The array
         /// does not contain values of registers whose mask bit is not set. Thus, the size of the regBuffer array must be equal
@@ -307,10 +297,18 @@ namespace ManagedCorDebug
         /// such as x86, the GetRegisters method just translates the bytes in the mask byte array into a ULONG64 and then calls
         /// the <see cref="GetRegisters(int, byte[], int)"/> method, which takes the ULONG64 mask.
         /// </remarks>
-        public HRESULT TryGetRegisters(int maskCount, byte[] mask, int regCount, out CORDB_REGISTER[] regBuffer)
+        public HRESULT TryGetRegisters(int maskCount, byte[] mask, int regCount, out CORDB_REGISTER[] regBufferResult)
         {
-            /*HRESULT GetRegisters([In] int maskCount, [In] byte[] mask, [In] int regCount, out CORDB_REGISTER[] regBuffer);*/
-            return Raw2.GetRegisters(maskCount, mask, regCount, out regBuffer);
+            /*HRESULT GetRegisters([In] int maskCount, [In, MarshalAs(UnmanagedType.LPArray)] byte[] mask, [In] int regCount, [Out, MarshalAs(UnmanagedType.LPArray)] CORDB_REGISTER[] regBuffer);*/
+            CORDB_REGISTER[] regBuffer = null;
+            HRESULT hr = Raw2.GetRegisters(maskCount, mask, regCount, regBuffer);
+
+            if (hr == HRESULT.S_OK)
+                regBufferResult = regBuffer;
+            else
+                regBufferResult = default(CORDB_REGISTER[]);
+
+            return hr;
         }
 
         #endregion
@@ -332,7 +330,7 @@ namespace ManagedCorDebug
         /// </summary>
         public HRESULT TrySetRegisters(int maskCount, byte[] mask, int regCount, CORDB_REGISTER[] regBuffer)
         {
-            /*HRESULT SetRegisters([In] int maskCount, [In] byte[] mask, [In] int regCount, [In] CORDB_REGISTER[] regBuffer);*/
+            /*HRESULT SetRegisters([In] int maskCount, [In, MarshalAs(UnmanagedType.LPArray)] byte[] mask, [In] int regCount, [In, MarshalAs(UnmanagedType.LPArray)] CORDB_REGISTER[] regBuffer);*/
             return Raw2.SetRegisters(maskCount, mask, regCount, regBuffer);
         }
 

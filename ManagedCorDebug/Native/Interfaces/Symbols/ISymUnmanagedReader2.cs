@@ -25,10 +25,10 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetDocument(
-            [In] string url,
-            [In] Guid language,
-            [In] Guid languageVendor,
-            [In] Guid documentType,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string url,
+            [In] ref Guid language,
+            [In] ref Guid languageVendor,
+            [In] ref Guid documentType,
             [Out] out ISymUnmanagedDocument pRetVal);
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetDocuments([In] int cDocs, out int pcDocs, [Out] ISymUnmanagedDocument[] pDocs);
+        new HRESULT GetDocuments([In] int cDocs, [Out] out int pcDocs, [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedDocument[] pDocs);
 
         /// <summary>
         /// Returns the method that was specified as the user entry point for the module, if any. For example, this method could be the user's main method rather than compiler-generated stubs before the main method.
@@ -77,15 +77,15 @@ namespace ManagedCorDebug
         new HRESULT GetVariables(
             [In] int parent,
             [In] int cVars,
-            out int pcVars,
-            [Out] ISymUnmanagedVariable[] pVars);
+            [Out] out int pcVars,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] pVars);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetGlobalVariables(
             [In] int cVars,
-            out int pcVars,
-            [Out] ISymUnmanagedVariable[] pVars);
+            [Out] out int pcVars,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] pVars);
 
         /// <summary>
         /// Returns the method that contains the breakpoint at the given position in a document.
@@ -108,17 +108,17 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetSymAttribute(
             [In] int parent,
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int cBuffer,
-            out int pcBuffer,
-            [MarshalAs(UnmanagedType.LPArray), Out] byte[] buffer);
+            [Out] out int pcBuffer,
+            [In, Out] ref IntPtr buffer);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetNamespaces(
             [In] int cNameSpaces,
-            out int pcNameSpaces,
-            [Out] ISymUnmanagedNamespace[] namespaces);
+            [Out] out int pcNameSpaces,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedNamespace[] namespaces);
 
         /// <summary>
         /// Initializes the symbol reader with the metadata importer interface that this reader will be associated with, along with the file name of the module.
@@ -137,8 +137,8 @@ namespace ManagedCorDebug
         new HRESULT Initialize(
             [MarshalAs(UnmanagedType.IUnknown), In]
             object importer,
-            [In] string filename,
-            [In] string searchPath,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string filename,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
             [MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream);
 
@@ -150,7 +150,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT UpdateSymbolStore([In] string filename, [MarshalAs(UnmanagedType.Interface), In]
+        new HRESULT UpdateSymbolStore([In, MarshalAs(UnmanagedType.LPWStr)] string filename, [MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream);
 
         /// <summary>
@@ -161,14 +161,14 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT ReplaceSymbolStore([In] string filename, [MarshalAs(UnmanagedType.Interface), In]
+        new HRESULT ReplaceSymbolStore([In, MarshalAs(UnmanagedType.LPWStr)] string filename, [MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetSymbolStoreFileName(
             [In] int cchName,
-            out int pcchName,
+            [Out] out int pcchName,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);
 
         [PreserveSig]
@@ -179,7 +179,7 @@ namespace ManagedCorDebug
             [In] int column,
             [In] int cMethod,
             [Out] out int pcMethod,
-            [Out] ISymUnmanagedMethod[] pRetVal);
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedMethod[] pRetVal);
 
         /// <summary>
         /// Gets the specified version of the specified document. The document version starts at 1 and is incremented each time the document is updated using the <see cref="UpdateSymbolStore"/> method.<para/>
@@ -192,7 +192,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetDocumentVersion([MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocument pDoc, out int version, out int pbCurrent);
+            ISymUnmanagedDocument pDoc, [Out] out int version, [Out] out int pbCurrent);
 
         /// <summary>
         /// Gets the method version. The method version starts at 1 and is incremented each time the method is recompiled. Recompilation can happen without changes to the method.
@@ -203,7 +203,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetMethodVersion([MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedMethod pMethod, out int version);
+            ISymUnmanagedMethod pMethod, [Out] out int version);
 
         /// <summary>
         /// Gets a symbol reader method, given a method token and an edit-and-continue version number. Version numbers start at 1 and are incremented each time the method is changed as a result of an edit-and-continue operation.
@@ -232,10 +232,10 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSymAttributePreRemap(
             [In] int parent,
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int cBuffer,
-            out int pcBuffer,
-            [MarshalAs(UnmanagedType.LPArray), Out] byte[] buffer);
+            [Out] out int pcBuffer,
+            [In, Out] ref IntPtr buffer);
 
         /// <summary>
         /// Gets every method that has line information in the provided document.
@@ -251,8 +251,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocument document,
             [In] int cMethod,
-            out int pcMethod,
-            [MarshalAs(UnmanagedType.Interface), Out]
-            ISymUnmanagedMethod[] pRetVal);
+            [Out] out int pcMethod,
+            [MarshalAs(UnmanagedType.LPArray), Out] ISymUnmanagedMethod[] pRetVal);
     }
 }

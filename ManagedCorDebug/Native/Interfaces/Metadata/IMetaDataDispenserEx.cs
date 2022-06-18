@@ -56,7 +56,7 @@ namespace ManagedCorDebug
         new HRESULT OpenScope(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szScope,
             [In] CorOpenFlags dwOpenFlags,
-            [In] [MarshalAs(UnmanagedType.LPStruct)] Guid riid,
+            [In] ref Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace ManagedCorDebug
         /// values for the pValue parameter.
         /// </remarks>
         [PreserveSig]
-        HRESULT SetOption([In] Guid optionId, [In, MarshalAs(UnmanagedType.Struct)] object pValue);
+        HRESULT SetOption([In] ref Guid optionId, [In, MarshalAs(UnmanagedType.Struct)] object pValue);
 
         /// <summary>
         /// Gets the value of the specified option for the current metadata scope. The option controls how calls to the current metadata scope are handled.
@@ -104,7 +104,7 @@ namespace ManagedCorDebug
         /// method. If optionId is not in this list, this method returns <see cref="HRESULT"/> E_INVALIDARG, indicating an incorrect parameter.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetOption([In] Guid optionId, [Out] object pValue);
+        HRESULT GetOption([In] ref Guid optionId, [Out] object pValue);
 
         /// <summary>
         /// This method is not implemented. If called, it returns E_NOTIMPL.
@@ -115,10 +115,10 @@ namespace ManagedCorDebug
         /// <param name="ppIUnk">[out] Pointer to a pointer to the returned interface.</param>
         [PreserveSig]
         HRESULT OpenScopeOnITypeInfo(
-            [MarshalAs(UnmanagedType.Interface)] ITypeInfo pITI,
-            int dwOpenFlags,
-            ref Guid riid,
-            [MarshalAs(UnmanagedType.Interface, IidParameterIndex = 2)] out object ppIUnk
+            [In, MarshalAs(UnmanagedType.Interface)] ITypeInfo pITI,
+            [In] int dwOpenFlags,
+            [In] ref Guid riid,
+            [Out, MarshalAs(UnmanagedType.Interface, IidParameterIndex = 2)] out object ppIUnk
         );
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace ManagedCorDebug
         /// <param name="pchBuffer">[out] The number of bytes actually returned in szBuffer.</param>
         [PreserveSig]
         HRESULT GetCORSystemDirectory(
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] StringBuilder szBuffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder szBuffer,
             [In] int cchBuffer,
             [Out] out int pchBuffer);
 
@@ -150,9 +150,9 @@ namespace ManagedCorDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string szPrivateBin,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szGlobalBin,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAssemblyName,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)] StringBuilder szName,
-            int cchName,
-            out int pcName);
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 5)] StringBuilder szName,
+            [In] int cchName,
+            [Out] out int pcName);
 
         /// <summary>
         /// This method is not implemented. If called, it returns E_NOTIMPL.
@@ -172,7 +172,7 @@ namespace ManagedCorDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string szGlobalBin,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAssemblyName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szModuleName,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 6)] StringBuilder szName,
             [In] int cchName,
             [Out] out int pcName);
     }

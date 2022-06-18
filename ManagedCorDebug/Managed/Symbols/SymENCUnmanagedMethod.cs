@@ -79,8 +79,8 @@ namespace ManagedCorDebug
             /*HRESULT GetFileNameFromOffset(
             [In] int dwOffset,
             [In] int cchName,
-            out int pcchName,
-            [Out] StringBuilder szName);*/
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName = null;
@@ -135,11 +135,11 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetLineFromOffset(
             [In] int dwOffset,
-            out int pline,
-            out int pcolumn,
-            out int pendLine,
-            out int pendColumn,
-            out int pdwStartOffset);*/
+            [Out] out int pline,
+            [Out] out int pcolumn,
+            [Out] out int pendLine,
+            [Out] out int pendColumn,
+            [Out] out int pdwStartOffset);*/
             int pline;
             int pcolumn;
             int pendLine;
@@ -184,7 +184,7 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetDocumentsForMethod(
             [In] int cDocs,
-            out int pcDocs,
+            [Out] out int pcDocs,
             [In, Out] ref IntPtr documents);*/
             int pcDocs;
             IntPtr documents = default(IntPtr);
@@ -227,8 +227,8 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetSourceExtentInDocument(
             [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument document,
-            out int pstartLine,
-            out int pendLine);*/
+            [Out] out int pstartLine,
+            [Out] out int pendLine);*/
             int pstartLine;
             int pendLine;
             HRESULT hr = Raw.GetSourceExtentInDocument(document, out pstartLine, out pendLine);

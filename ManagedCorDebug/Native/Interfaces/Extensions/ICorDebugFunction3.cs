@@ -25,6 +25,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetActiveReJitRequestILCode([MarshalAs(UnmanagedType.Interface)] out ICorDebugILCode ppReJitedILCode);
+        HRESULT GetActiveReJitRequestILCode([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugILCode ppReJitedILCode);
     }
 }

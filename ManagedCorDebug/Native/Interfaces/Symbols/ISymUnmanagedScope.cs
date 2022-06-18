@@ -41,8 +41,8 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetChildren(
             [In] int cChildren,
-            out int pcChildren,
-            [Out] ISymUnmanagedScope[] children);
+            [Out] out int pcChildren,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedScope[] children);
 
         /// <summary>
         /// Gets the start offset for this scope.
@@ -82,8 +82,8 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLocals(
             [In] int cLocals,
-            out int pcLocals,
-            [Out] ISymUnmanagedVariable[] locals);
+            [Out] out int pcLocals,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] locals);
 
         /// <summary>
         /// Gets the namespaces that are being used within this scope.
@@ -96,7 +96,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetNamespaces(
             [In] int cNameSpaces,
-            out int pcNameSpaces,
-            [Out] ISymUnmanagedNamespace[] namespaces);
+            [Out] out int pcNameSpaces,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedNamespace[] namespaces);
     }
 }

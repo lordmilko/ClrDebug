@@ -389,23 +389,23 @@ namespace ManagedCorDebug
         public IntPtr Request(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize)
         {
             HRESULT hr;
-            IntPtr outBuffer;
+            IntPtr outBuffer = default(IntPtr);
 
-            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, out outBuffer)) != HRESULT.S_OK)
+            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, ref outBuffer)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return outBuffer;
         }
 
-        public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, out IntPtr outBuffer)
+        public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, ref IntPtr outBuffer)
         {
             /*HRESULT Request(
             [In] uint reqCode,
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
-            [Out] out IntPtr outBuffer);*/
-            return Raw.Request(reqCode, inBufferSize, inBuffer, outBufferSize, out outBuffer);
+            [In, Out] ref IntPtr outBuffer);*/
+            return Raw.Request(reqCode, inBufferSize, inBuffer, outBufferSize, ref outBuffer);
         }
 
         #endregion
@@ -540,7 +540,7 @@ namespace ManagedCorDebug
         public HRESULT TryStartEnumFieldsByName(string name, int nameFlags, int fieldFlags, IXCLRDataTypeInstance fromType, out IntPtr handle)
         {
             /*HRESULT StartEnumFieldsByName(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int nameFlags,
             [In] int fieldFlags,
             [In] IXCLRDataTypeInstance fromType,
@@ -650,31 +650,32 @@ namespace ManagedCorDebug
         #endregion
         #region GetArrayProperties
 
-        public GetArrayPropertiesResult GetArrayProperties(int numDim, int numBases)
+        public GetArrayPropertiesResult GetArrayProperties(int numDim)
         {
             HRESULT hr;
             GetArrayPropertiesResult result;
 
-            if ((hr = TryGetArrayProperties(numDim, numBases, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetArrayProperties(numDim, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
         }
 
-        public HRESULT TryGetArrayProperties(int numDim, int numBases, out GetArrayPropertiesResult result)
+        public HRESULT TryGetArrayProperties(int numDim, out GetArrayPropertiesResult result)
         {
             /*HRESULT GetArrayProperties(
-            [Out] out int[] rank,
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] rank,
             [Out] out int totalElements,
             [In] int numDim,
-            [Out] out int[] dims,
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] dims,
             [In] int numBases,
-            [Out] out int[] bases);*/
-            int[] rank;
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] bases);*/
+            int[] rank = null;
             int totalElements;
-            int[] dims;
-            int[] bases;
-            HRESULT hr = Raw.GetArrayProperties(out rank, out totalElements, numDim, out dims, numBases, out bases);
+            int[] dims = null;
+            int numBases = 0;
+            int[] bases = null;
+            HRESULT hr = Raw.GetArrayProperties(rank, out totalElements, numDim, dims, numBases, bases);
 
             if (hr == HRESULT.S_OK)
                 result = new GetArrayPropertiesResult(rank, totalElements, dims, bases);
@@ -702,7 +703,7 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetArrayElement(
             [In] int numInd,
-            [In] int[] indices,
+            [In, MarshalAs(UnmanagedType.LPArray)] int[] indices,
             [Out] out IXCLRDataValue value);*/
             IXCLRDataValue value;
             HRESULT hr = Raw.GetArrayElement(numInd, indices, out value);

@@ -54,9 +54,9 @@ namespace ManagedCorDebug
         public HRESULT TryGetCLRManager(Guid riid, out object ppObject)
         {
             /*HRESULT GetCLRManager(
-            [In] [MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [MarshalAs(UnmanagedType.Interface, IidParameterIndex = 0)] out object ppObject);*/
-            return Raw.GetCLRManager(riid, out ppObject);
+            [In] ref Guid riid,
+            [Out, MarshalAs(UnmanagedType.Interface, IidParameterIndex = 0)] out object ppObject);*/
+            return Raw.GetCLRManager(ref riid, out ppObject);
         }
 
         #endregion

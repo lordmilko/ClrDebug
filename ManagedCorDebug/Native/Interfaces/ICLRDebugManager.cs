@@ -44,7 +44,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT BeginConnection(
             [In] int dwConnectionId,
-            [In] string szConnectionName);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szConnectionName);
 
         /// <summary>
         /// Associates a list of <see cref="ICLRTask"/> instances with an identifier and a friendly name.

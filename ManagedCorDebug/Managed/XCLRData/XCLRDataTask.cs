@@ -402,10 +402,10 @@ namespace ManagedCorDebug
             [In] int contextFlags,
             [In] int contextBufSize,
             [Out] out int contextSize,
-            [Out] IntPtr contextBuf);*/
+            [In, Out] ref IntPtr contextBuf);*/
             int contextSize;
             IntPtr contextBuf = default(IntPtr);
-            HRESULT hr = Raw.GetContext(contextFlags, contextBufSize, out contextSize, contextBuf);
+            HRESULT hr = Raw.GetContext(contextFlags, contextBufSize, out contextSize, ref contextBuf);
 
             if (hr == HRESULT.S_OK)
                 result = new GetContextResult(contextSize, contextBuf);
@@ -455,8 +455,8 @@ namespace ManagedCorDebug
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
-            [Out] IntPtr outBuffer);*/
-            return Raw.Request(reqCode, inBufferSize, inBuffer, outBufferSize, outBuffer);
+            [In, Out] ref IntPtr outBuffer);*/
+            return Raw.Request(reqCode, inBufferSize, inBuffer, outBufferSize, ref outBuffer);
         }
 
         #endregion

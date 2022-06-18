@@ -25,8 +25,8 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetURL(
             [In] int cchUrl,
-            out int pcchUrl,
-            [Out] StringBuilder szUrl);
+            [Out] out int pcchUrl,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szUrl);
 
         /// <summary>
         /// Gets the document type of this document.
@@ -77,7 +77,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCheckSum([In] int cData, out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);
+        HRESULT GetCheckSum([In] int cData, [Out] out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);
 
         /// <summary>
         /// Returns the closest line that is a sequence point, given a line in this document that may or may not be a sequence point.
@@ -126,7 +126,7 @@ namespace ManagedCorDebug
             [In] int endLine,
             [In] int endColumn,
             [In] int cSourceBytes,
-            out int pcSourceBytes,
+            [Out] out int pcSourceBytes,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] source);
     }
 }

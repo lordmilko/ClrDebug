@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
@@ -201,10 +200,10 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetChildren(
             [In] int cChildren,
-            out int pcChildren,
-            [Out] IntPtr children);*/
+            [Out] out int pcChildren,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedScope[] children);*/
             int pcChildren;
-            IntPtr children = default(IntPtr);
+            ISymUnmanagedScope[] children = null;
             HRESULT hr = Raw.GetChildren(cChildren, out pcChildren, children);
 
             if (hr == HRESULT.S_OK)
@@ -244,10 +243,10 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetLocals(
             [In] int cLocals,
-            out int pcLocals,
-            [Out] IntPtr locals);*/
+            [Out] out int pcLocals,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] locals);*/
             int pcLocals;
-            IntPtr locals = default(IntPtr);
+            ISymUnmanagedVariable[] locals = null;
             HRESULT hr = Raw.GetLocals(cLocals, out pcLocals, locals);
 
             if (hr == HRESULT.S_OK)
@@ -287,10 +286,10 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetNamespaces(
             [In] int cNameSpaces,
-            out int pcNameSpaces,
-            [Out] IntPtr namespaces);*/
+            [Out] out int pcNameSpaces,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedNamespace[] namespaces);*/
             int pcNameSpaces;
-            IntPtr namespaces = default(IntPtr);
+            ISymUnmanagedNamespace[] namespaces = null;
             HRESULT hr = Raw.GetNamespaces(cNameSpaces, out pcNameSpaces, namespaces);
 
             if (hr == HRESULT.S_OK)
@@ -365,10 +364,9 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetConstants(int cConstants, out GetConstantsResult result)
         {
-            /*HRESULT GetConstants([In] int cConstants, out int pcConstants, [MarshalAs(UnmanagedType.Interface), Out]
-            IntPtr constants);*/
+            /*HRESULT GetConstants([In] int cConstants, [Out] out int pcConstants, [MarshalAs(UnmanagedType.LPArray), Out] ISymUnmanagedConstant[] constants);*/
             int pcConstants;
-            IntPtr constants = default(IntPtr);
+            ISymUnmanagedConstant[] constants = null;
             HRESULT hr = Raw2.GetConstants(cConstants, out pcConstants, constants);
 
             if (hr == HRESULT.S_OK)

@@ -80,9 +80,9 @@ namespace ManagedCorDebug
             ICLRDebuggingLibraryProvider pLibraryProvider,
             [In] ref CLR_DEBUGGING_VERSION pMaxDebuggerSupportedVersion,
             [In] ref Guid riidProcess,
-            [MarshalAs(UnmanagedType.IUnknown)] out object ppProcess,
+            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppProcess,
             [In] [Out] ref CLR_DEBUGGING_VERSION pVersion,
-            out CLR_DEBUGGING_PROCESS_FLAGS pdwFlags);*/
+            [Out] out CLR_DEBUGGING_PROCESS_FLAGS pdwFlags);*/
             object ppProcess;
             CLR_DEBUGGING_VERSION pVersion = default(CLR_DEBUGGING_VERSION);
             CLR_DEBUGGING_PROCESS_FLAGS pdwFlags;
@@ -134,7 +134,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryCanUnloadNow(IntPtr hModule)
         {
-            /*HRESULT CanUnloadNow(IntPtr hModule);*/
+            /*HRESULT CanUnloadNow([In] IntPtr hModule);*/
             return Raw.CanUnloadNow(hModule);
         }
 

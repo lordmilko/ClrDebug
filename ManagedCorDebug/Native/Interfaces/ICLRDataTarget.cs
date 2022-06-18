@@ -22,7 +22,7 @@ namespace ManagedCorDebug
         /// <param name="machineType">[out] A pointer to a value that indicates the instruction set that the target process is using. The returned machineType is one of the IMAGE_FILE_MACHINE constants, which are defined in the WinNT.h header file.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetMachineType(out IMAGE_FILE_MACHINE machineType);
+        HRESULT GetMachineType([Out] out IMAGE_FILE_MACHINE machineType);
 
         /// <summary>
         /// Gets the size, in bytes, of the pointer type that the target process uses. This method is called by the common language runtime data access services.
@@ -33,7 +33,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetPointerSize(out int pointerSize);
+        HRESULT GetPointerSize([Out] out int pointerSize);
 
         /// <summary>
         /// Gets the base memory address of the specified image.
@@ -46,7 +46,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetImageBase([MarshalAs(UnmanagedType.LPWStr), In] string imagePath, out CLRDATA_ADDRESS baseAddress);
+        HRESULT GetImageBase([MarshalAs(UnmanagedType.LPWStr), In] string imagePath, [Out] out CLRDATA_ADDRESS baseAddress);
 
         /// <summary>
         /// Reads data from the specified virtual memory address into the specified buffer.
@@ -57,7 +57,7 @@ namespace ManagedCorDebug
         /// <param name="bytesRead">[out] A pointer to the number of bytes returned.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ReadVirtual([In] CLRDATA_ADDRESS address, [Out] IntPtr buffer, [In] int bytesRequested, out int bytesRead);
+        HRESULT ReadVirtual([In] CLRDATA_ADDRESS address, [Out] IntPtr buffer, [In] int bytesRequested, [Out] out int bytesRead);
 
         /// <summary>
         /// Writes data from the specified buffer to the specified virtual memory address.
@@ -68,7 +68,7 @@ namespace ManagedCorDebug
         /// <param name="bytesWritten">[out] A pointer to the actual number of bytes that were written.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT WriteVirtual([In] CLRDATA_ADDRESS address, [In] IntPtr buffer, [In] int bytesRequested, out int bytesWritten);
+        HRESULT WriteVirtual([In] CLRDATA_ADDRESS address, [In] IntPtr buffer, [In] int bytesRequested, [Out] out int bytesWritten);
 
         /// <summary>
         /// Gets a value from the thread local storage (TLS) of the specified thread in the target process. This method is called by the common language runtime (CLR) data access services.
@@ -81,7 +81,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetTLSValue([In] int threadID, [In] int index, out CLRDATA_ADDRESS value);
+        HRESULT GetTLSValue([In] int threadID, [In] int index, [Out] out CLRDATA_ADDRESS value);
 
         /// <summary>
         /// Sets a value in the thread local storage (TLS) of the specified thread in the target process. This method is called by the common language runtime (CLR) data access services.
@@ -105,7 +105,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCurrentThreadID(out int threadID);
+        HRESULT GetCurrentThreadID([Out] out int threadID);
 
         /// <summary>
         /// Gets the current execution context for the given thread in the target process. This method is called by the common language runtime data access services.

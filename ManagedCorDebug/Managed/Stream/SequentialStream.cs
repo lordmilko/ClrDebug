@@ -37,10 +37,10 @@ namespace ManagedCorDebug
 
         public HRESULT TryRemoteRead(int cb, out RemoteReadResult result)
         {
-            /*HRESULT RemoteRead(out IntPtr pv, [In] int cb, out int pcbRead);*/
-            IntPtr pv;
+            /*HRESULT RemoteRead([Out] IntPtr pv, [In] int cb, [Out] out int pcbRead);*/
+            IntPtr pv = default(IntPtr);
             int pcbRead;
-            HRESULT hr = Raw.RemoteRead(out pv, cb, out pcbRead);
+            HRESULT hr = Raw.RemoteRead(pv, cb, out pcbRead);
 
             if (hr == HRESULT.S_OK)
                 result = new RemoteReadResult(pv, pcbRead);
@@ -66,7 +66,7 @@ namespace ManagedCorDebug
 
         public HRESULT TryRemoteWrite(IntPtr pv, int cb, out int pcbWritten)
         {
-            /*HRESULT RemoteWrite([In] IntPtr pv, [In] int cb, out int pcbWritten);*/
+            /*HRESULT RemoteWrite([In] IntPtr pv, [In] int cb, [Out] out int pcbWritten);*/
             return Raw.RemoteWrite(pv, cb, out pcbWritten);
         }
 

@@ -387,7 +387,7 @@ namespace ManagedCorDebug
         public HRESULT TryStartEnumTypeDefinitionsByName(string name, int flags, out IntPtr handle)
         {
             /*HRESULT StartEnumTypeDefinitionsByName(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int flags,
             [Out] out IntPtr handle);*/
             return Raw.StartEnumTypeDefinitionsByName(name, flags, out handle);
@@ -459,7 +459,7 @@ namespace ManagedCorDebug
         public HRESULT TryStartEnumTypeInstancesByName(string name, int flags, IXCLRDataAppDomain appDomain, out IntPtr handle)
         {
             /*HRESULT StartEnumTypeInstancesByName(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int flags,
             [In] IXCLRDataAppDomain appDomain,
             [Out] out IntPtr handle);*/
@@ -562,7 +562,7 @@ namespace ManagedCorDebug
         public HRESULT TryStartEnumMethodDefinitionsByName(string name, int flags, out IntPtr handle)
         {
             /*HRESULT StartEnumMethodDefinitionsByName(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int flags,
             [Out] out IntPtr handle);*/
             return Raw.StartEnumMethodDefinitionsByName(name, flags, out handle);
@@ -634,7 +634,7 @@ namespace ManagedCorDebug
         public HRESULT TryStartEnumMethodInstancesByName(string name, int flags, IXCLRDataAppDomain appDomain, out IntPtr handle)
         {
             /*HRESULT StartEnumMethodInstancesByName(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int flags,
             [In] IXCLRDataAppDomain appDomain,
             [Out] out IntPtr handle);*/
@@ -737,7 +737,7 @@ namespace ManagedCorDebug
         public HRESULT TryStartEnumDataByName(string name, int flags, IXCLRDataAppDomain appDomain, IXCLRDataTask tlsTask, out IntPtr handle)
         {
             /*HRESULT StartEnumDataByName(
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int flags,
             [In] IXCLRDataAppDomain appDomain,
             [In] IXCLRDataTask tlsTask,
@@ -890,23 +890,23 @@ namespace ManagedCorDebug
         public IntPtr Request(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize)
         {
             HRESULT hr;
-            IntPtr outBuffer;
+            IntPtr outBuffer = default(IntPtr);
 
-            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, out outBuffer)) != HRESULT.S_OK)
+            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, ref outBuffer)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return outBuffer;
         }
 
-        public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, out IntPtr outBuffer)
+        public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, ref IntPtr outBuffer)
         {
             /*HRESULT Request(
             [In] uint reqCode,
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
-            [Out] out IntPtr outBuffer);*/
-            return Raw.Request(reqCode, inBufferSize, inBuffer, outBufferSize, out outBuffer);
+            [In, Out] ref IntPtr outBuffer);*/
+            return Raw.Request(reqCode, inBufferSize, inBuffer, outBufferSize, ref outBuffer);
         }
 
         #endregion

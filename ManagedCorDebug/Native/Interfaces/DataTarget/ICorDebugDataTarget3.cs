@@ -22,7 +22,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLoadedModules(
             [In] int cRequestedModules,
-            out int pcFetchedModules,
+            [Out] out int pcFetchedModules,
             [Out] IntPtr pLoadedModules); //ICorDebugLoadedModule
     }
 }

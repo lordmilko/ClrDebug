@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -17,9 +16,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// The array that receives the local variables.
         /// </summary>
-        public IntPtr locals { get; }
+        public ISymUnmanagedVariable[] locals { get; }
 
-        public GetLocalsResult(int pcLocals, IntPtr locals)
+        public GetLocalsResult(int pcLocals, ISymUnmanagedVariable[] locals)
         {
             this.pcLocals = pcLocals;
             this.locals = locals;

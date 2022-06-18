@@ -38,6 +38,6 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string pwszFileName,
             [In] int dwTimestamp,
             [In] int dwSizeOfImage,
-            out IntPtr phModule);
+            [Out] IntPtr phModule);
     }
 }

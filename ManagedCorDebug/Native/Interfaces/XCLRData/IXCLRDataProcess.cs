@@ -173,18 +173,18 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         HRESULT SetAllTypeNotifications(
-            IXCLRDataModule mod,
-            int flags);
+            [In] IXCLRDataModule mod,
+            [In] int flags);
 
         [PreserveSig]
         HRESULT SetAllCodeNotifications(
-            IXCLRDataModule mod,
-            int flags);
+            [In] IXCLRDataModule mod,
+            [In] int flags);
 
         [PreserveSig]
         HRESULT GetTypeNotifications(
             [In] int numTokens,
-            [In] IXCLRDataModule[] mods,
+            [In, MarshalAs(UnmanagedType.LPArray)] IXCLRDataModule[] mods,
             [In] IXCLRDataModule singleMod,
             [In] mdTypeDef tokens,
             [Out] out int flags);
@@ -192,7 +192,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT SetTypeNotifications(
             [In] int numTokens,
-            [In] IXCLRDataModule[] mods,
+            [In, MarshalAs(UnmanagedType.LPArray)] IXCLRDataModule[] mods,
             [In] IXCLRDataModule singleMod,
             [In] mdTypeDef tokens,
             [In] int flags,
@@ -201,7 +201,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT GetCodeNotifications(
             [In] int numTokens,
-            [In] IXCLRDataModule[] mods,
+            [In, MarshalAs(UnmanagedType.LPArray)] IXCLRDataModule[] mods,
             [In] IXCLRDataModule singleMod,
             [In] mdMethodDef tokens,
             [Out] out int flags);
@@ -209,7 +209,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT SetCodeNotifications(
             [In] int numTokens,
-            [In] IXCLRDataModule[] mods,
+            [In, MarshalAs(UnmanagedType.LPArray)] IXCLRDataModule[] mods,
             [In] IXCLRDataModule singleMod,
             [In] mdMethodDef tokens,
             [In] int flags,
@@ -257,7 +257,7 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         HRESULT DumpNativeImage([In] CLRDATA_ADDRESS loadedBase,
-            [In] string name,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] IXCLRDataDisplay display,
             [In] IXCLRLibrarySupport libSupport,
             [In] IXCLRDisassemblySupport dis);

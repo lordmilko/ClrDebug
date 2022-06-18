@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.EnumUserStrings"/> method.
     /// </summary>
-    [DebuggerDisplay("phEnum = {phEnum}, rStrings = {rStrings}, pcStrings = {pcStrings}")]
+    [DebuggerDisplay("phEnum = {phEnum}, rStrings = {rStrings}")]
     public struct EnumUserStringsResult
     {
         /// <summary>
@@ -19,16 +19,10 @@ namespace ManagedCorDebug
         /// </summary>
         public mdString[] rStrings { get; }
 
-        /// <summary>
-        /// The number of String tokens returned in rStrings.
-        /// </summary>
-        public int pcStrings { get; }
-
-        public EnumUserStringsResult(IntPtr phEnum, mdString[] rStrings, int pcStrings)
+        public EnumUserStringsResult(IntPtr phEnum, mdString[] rStrings)
         {
             this.phEnum = phEnum;
             this.rStrings = rStrings;
-            this.pcStrings = pcStrings;
         }
     }
 }

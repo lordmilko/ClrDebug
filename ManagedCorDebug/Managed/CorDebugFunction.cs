@@ -48,7 +48,7 @@ namespace ManagedCorDebug
         /// <param name="ppModuleResult">[out] A pointer to the address of an <see cref="ICorDebugModule"/> object that represents the module in which this function is defined.</param>
         public HRESULT TryGetModule(out CorDebugModule ppModuleResult)
         {
-            /*HRESULT GetModule([MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);*/
+            /*HRESULT GetModule([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);*/
             ICorDebugModule ppModule;
             HRESULT hr = Raw.GetModule(out ppModule);
 
@@ -86,7 +86,7 @@ namespace ManagedCorDebug
         /// <param name="ppClassResult">[out] A pointer to the address of the <see cref="ICorDebugClass"/> object that represents the class, or null, if this function is not a member of a class.</param>
         public HRESULT TryGetClass(out CorDebugClass ppClassResult)
         {
-            /*HRESULT GetClass([MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);*/
+            /*HRESULT GetClass([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);*/
             ICorDebugClass ppClass;
             HRESULT hr = Raw.GetClass(out ppClass);
 
@@ -124,7 +124,7 @@ namespace ManagedCorDebug
         /// <param name="pMethodDef">[out] A pointer to an <see cref="mdMethodDef"/> token that references the metadata for this function.</param>
         public HRESULT TryGetToken(out mdMethodDef pMethodDef)
         {
-            /*HRESULT GetToken(out mdMethodDef pMethodDef);*/
+            /*HRESULT GetToken([Out] out mdMethodDef pMethodDef);*/
             return Raw.GetToken(out pMethodDef);
         }
 
@@ -158,7 +158,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetILCode(out CorDebugCode ppCodeResult)
         {
-            /*HRESULT GetILCode([MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);*/
+            /*HRESULT GetILCode([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);*/
             ICorDebugCode ppCode;
             HRESULT hr = Raw.GetILCode(out ppCode);
 
@@ -200,7 +200,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetNativeCode(out CorDebugCode ppCodeResult)
         {
-            /*HRESULT GetNativeCode([MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);*/
+            /*HRESULT GetNativeCode([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);*/
             ICorDebugCode ppCode;
             HRESULT hr = Raw.GetNativeCode(out ppCode);
 
@@ -238,7 +238,7 @@ namespace ManagedCorDebug
         /// <param name="pmdSig">[out] A pointer to the <see cref="mdSignature"/> token for the local variable signature of this function, or mdSignatureNil, if this function has no local variables.</param>
         public HRESULT TryGetLocalVarSigToken(out mdSignature pmdSig)
         {
-            /*HRESULT GetLocalVarSigToken(out mdSignature pmdSig);*/
+            /*HRESULT GetLocalVarSigToken([Out] out mdSignature pmdSig);*/
             return Raw.GetLocalVarSigToken(out pmdSig);
         }
 
@@ -273,7 +273,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetCurrentVersionNumber(out int pnCurrentVersion)
         {
-            /*HRESULT GetCurrentVersionNumber(out int pnCurrentVersion);*/
+            /*HRESULT GetCurrentVersionNumber([Out] out int pnCurrentVersion);*/
             return Raw.GetCurrentVersionNumber(out pnCurrentVersion);
         }
 
@@ -301,7 +301,7 @@ namespace ManagedCorDebug
         /// <param name="ppBreakpointResult">[out] A pointer to the address of an <see cref="ICorDebugFunctionBreakpoint"/> object that represents the new breakpoint for the function.</param>
         public HRESULT TryCreateBreakpoint(out CorDebugFunctionBreakpoint ppBreakpointResult)
         {
-            /*HRESULT CreateBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugFunctionBreakpoint ppBreakpoint);*/
+            /*HRESULT CreateBreakpoint([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunctionBreakpoint ppBreakpoint);*/
             ICorDebugFunctionBreakpoint ppBreakpoint;
             HRESULT hr = Raw.CreateBreakpoint(out ppBreakpoint);
 
@@ -355,7 +355,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetJMCStatus(out int pbIsJustMyCode)
         {
-            /*HRESULT GetJMCStatus(out int pbIsJustMyCode);*/
+            /*HRESULT GetJMCStatus([Out] out int pbIsJustMyCode);*/
             return Raw2.GetJMCStatus(out pbIsJustMyCode);
         }
 
@@ -416,7 +416,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetVersionNumber(out int pnVersion)
         {
-            /*HRESULT GetVersionNumber(out int pnVersion);*/
+            /*HRESULT GetVersionNumber([Out] out int pnVersion);*/
             return Raw2.GetVersionNumber(out pnVersion);
         }
 
@@ -442,7 +442,7 @@ namespace ManagedCorDebug
         /// </summary>
         public HRESULT TryEnumerateNativeCode(out CorDebugCodeEnum ppCodeEnumResult)
         {
-            /*HRESULT EnumerateNativeCode([MarshalAs(UnmanagedType.Interface)] out ICorDebugCodeEnum ppCodeEnum);*/
+            /*HRESULT EnumerateNativeCode([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCodeEnum ppCodeEnum);*/
             ICorDebugCodeEnum ppCodeEnum;
             HRESULT hr = Raw2.EnumerateNativeCode(out ppCodeEnum);
 
@@ -494,9 +494,9 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetActiveReJitRequestILCode(out CorDebugILCode ppReJitedILCodeResult)
         {
-            /*HRESULT GetActiveReJitRequestILCode([MarshalAs(UnmanagedType.Interface)] ref ICorDebugILCode ppReJitedILCode);*/
-            ICorDebugILCode ppReJitedILCode = default(ICorDebugILCode);
-            HRESULT hr = Raw3.GetActiveReJitRequestILCode(ref ppReJitedILCode);
+            /*HRESULT GetActiveReJitRequestILCode([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugILCode ppReJitedILCode);*/
+            ICorDebugILCode ppReJitedILCode;
+            HRESULT hr = Raw3.GetActiveReJitRequestILCode(out ppReJitedILCode);
 
             if (hr == HRESULT.S_OK)
                 ppReJitedILCodeResult = new CorDebugILCode(ppReJitedILCode);

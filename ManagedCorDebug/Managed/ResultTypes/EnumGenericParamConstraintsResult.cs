@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.EnumGenericParamConstraints"/> method.
     /// </summary>
-    [DebuggerDisplay("phEnum = {phEnum}, rGenericParamConstraints = {rGenericParamConstraints}, pcGenericParamConstraints = {pcGenericParamConstraints}")]
+    [DebuggerDisplay("phEnum = {phEnum}, rGenericParamConstraints = {rGenericParamConstraints}")]
     public struct EnumGenericParamConstraintsResult
     {
         /// <summary>
@@ -19,16 +19,10 @@ namespace ManagedCorDebug
         /// </summary>
         public mdGenericParamConstraint[] rGenericParamConstraints { get; }
 
-        /// <summary>
-        /// A pointer to the number of tokens placed in rGenericParamConstraints.
-        /// </summary>
-        public int pcGenericParamConstraints { get; }
-
-        public EnumGenericParamConstraintsResult(IntPtr phEnum, mdGenericParamConstraint[] rGenericParamConstraints, int pcGenericParamConstraints)
+        public EnumGenericParamConstraintsResult(IntPtr phEnum, mdGenericParamConstraint[] rGenericParamConstraints)
         {
             this.phEnum = phEnum;
             this.rGenericParamConstraints = rGenericParamConstraints;
-            this.pcGenericParamConstraints = pcGenericParamConstraints;
         }
     }
 }

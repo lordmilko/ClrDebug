@@ -54,7 +54,7 @@ namespace ManagedCorDebug
         HRESULT OpenScope(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szScope,
             [In] CorOpenFlags dwOpenFlags,
-            [In] [MarshalAs(UnmanagedType.LPStruct)] Guid riid,
+            [In] ref Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);
 
         /// <summary>

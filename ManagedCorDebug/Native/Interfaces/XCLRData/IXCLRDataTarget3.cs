@@ -10,7 +10,7 @@ namespace ManagedCorDebug
     {
         [PreserveSig]
         HRESULT GetMetaData(
-            [In] string imagePath,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string imagePath,
             [In] int imageTimestamp,
             [In] int imageSize,
             [In] ref Guid mvid,

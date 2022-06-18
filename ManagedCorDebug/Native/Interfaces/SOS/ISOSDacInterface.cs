@@ -16,422 +16,422 @@ namespace ManagedCorDebug
     {
         [PreserveSig]
         HRESULT GetThreadStoreData(
-            out DacpThreadStoreData data);
+            [Out] out DacpThreadStoreData data);
 
         [PreserveSig]
         HRESULT GetAppDomainStoreData(
-            out DacpAppDomainStoreData data);
+            [Out] out DacpAppDomainStoreData data);
 
         [PreserveSig]
         HRESULT GetAppDomainList(
-            int count,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] values,
-            out int pNeeded);
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetAppDomainData(
-            CLRDATA_ADDRESS addr,
-            out DacpAppDomainData data);
+            [In] CLRDATA_ADDRESS addr,
+            [Out] out DacpAppDomainData data);
 
         [PreserveSig]
         HRESULT GetAppDomainName(
-            CLRDATA_ADDRESS addr,
-            int count,
+            [In] CLRDATA_ADDRESS addr,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name,
-            out int pNeeded);
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetDomainFromContext(
-            CLRDATA_ADDRESS context,
-            out CLRDATA_ADDRESS domain);
+            [In] CLRDATA_ADDRESS context,
+            [Out] out CLRDATA_ADDRESS domain);
 
         [PreserveSig]
         HRESULT GetAssemblyList(
-            CLRDATA_ADDRESS appDomain,
+            [In] CLRDATA_ADDRESS appDomain,
             [In] int count,
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] values,
             [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetAssemblyData(
-            CLRDATA_ADDRESS baseDomainPtr,
-            CLRDATA_ADDRESS assembly,
-            out DacpAssemblyData data);
+            [In] CLRDATA_ADDRESS baseDomainPtr,
+            [In] CLRDATA_ADDRESS assembly,
+            [Out] out DacpAssemblyData data);
 
         [PreserveSig]
         HRESULT GetAssemblyName(
-            CLRDATA_ADDRESS assembly,
-            int count,
+            [In] CLRDATA_ADDRESS assembly,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name,
-            out int pNeeded);
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetModule(
-            CLRDATA_ADDRESS addr,
-            out IXCLRDataModule mod);
+            [In] CLRDATA_ADDRESS addr,
+            [Out] out IXCLRDataModule mod);
 
         [PreserveSig]
         HRESULT GetModuleData(
-            CLRDATA_ADDRESS moduleAddr,
-            out DacpModuleData data);
+            [In] CLRDATA_ADDRESS moduleAddr,
+            [Out] out DacpModuleData data);
 
         [PreserveSig]
         HRESULT TraverseModuleMap(
-            ModuleMapType mmt,
-            CLRDATA_ADDRESS moduleAddr,
-            [MarshalAs(UnmanagedType.FunctionPtr)] MODULEMAPTRAVERSE pCallback,
-            IntPtr token);
+            [In] ModuleMapType mmt,
+            [In] CLRDATA_ADDRESS moduleAddr,
+            [In, MarshalAs(UnmanagedType.FunctionPtr)] MODULEMAPTRAVERSE pCallback,
+            [In] IntPtr token);
 
         [PreserveSig]
         HRESULT GetAssemblyModuleList(
-            CLRDATA_ADDRESS assembly,
-            int count,
+            [In] CLRDATA_ADDRESS assembly,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] modules,
-            out int pNeeded);
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetILForModule(
-            CLRDATA_ADDRESS moduleAddr,
-            int rva,
-            out CLRDATA_ADDRESS il);
+            [In] CLRDATA_ADDRESS moduleAddr,
+            [In] int rva,
+            [Out] out CLRDATA_ADDRESS il);
 
         [PreserveSig]
         HRESULT GetThreadData(
-            CLRDATA_ADDRESS thread,
-            out DacpThreadData data);
+            [In] CLRDATA_ADDRESS thread,
+            [Out] out DacpThreadData data);
 
         [PreserveSig]
         HRESULT GetThreadFromThinlockID(
-            int thinLockId,
-            out CLRDATA_ADDRESS pThread);
+            [In] int thinLockId,
+            [Out] out CLRDATA_ADDRESS pThread);
 
         [PreserveSig]
         HRESULT GetStackLimits(
-            CLRDATA_ADDRESS threadPtr,
-            out CLRDATA_ADDRESS lower,
-            out CLRDATA_ADDRESS upper,
-            out CLRDATA_ADDRESS fp);
+            [In] CLRDATA_ADDRESS threadPtr,
+            [Out] out CLRDATA_ADDRESS lower,
+            [Out] out CLRDATA_ADDRESS upper,
+            [Out] out CLRDATA_ADDRESS fp);
 
         [PreserveSig]
         HRESULT GetMethodDescData(
-            CLRDATA_ADDRESS methodDesc,
-            CLRDATA_ADDRESS ip,
-            out DacpMethodDescData data,
-            int cRevertedRejitVersions,
+            [In] CLRDATA_ADDRESS methodDesc,
+            [In] CLRDATA_ADDRESS ip,
+            [Out] out DacpMethodDescData data,
+            [In] int cRevertedRejitVersions,
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpReJitData[] rgRevertedRejitData,
-            out int pcNeededRevertedRejitData);
+            [Out] out int pcNeededRevertedRejitData);
 
         [PreserveSig]
         HRESULT GetMethodDescPtrFromIP(
-            CLRDATA_ADDRESS ip,
-            out CLRDATA_ADDRESS ppMD);
+            [In] CLRDATA_ADDRESS ip,
+            [Out] out CLRDATA_ADDRESS ppMD);
 
         [PreserveSig]
         HRESULT GetMethodDescName(
-            CLRDATA_ADDRESS methodDesc,
-            int count,
+            [In] CLRDATA_ADDRESS methodDesc,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name,
-            out int pNeeded);
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetMethodDescPtrFromFrame(
-            CLRDATA_ADDRESS frameAddr,
-            out CLRDATA_ADDRESS ppMD);
+            [In] CLRDATA_ADDRESS frameAddr,
+            [Out] out CLRDATA_ADDRESS ppMD);
 
         [PreserveSig]
         HRESULT GetMethodDescFromToken(
-            CLRDATA_ADDRESS moduleAddr,
-            mdToken token,
-            out CLRDATA_ADDRESS methodDesc);
+            [In] CLRDATA_ADDRESS moduleAddr,
+            [In] mdToken token,
+            [Out] out CLRDATA_ADDRESS methodDesc);
 
         [PreserveSig]
         HRESULT GetMethodDescTransparencyData(
-            CLRDATA_ADDRESS methodDesc,
-            out DacpMethodDescTransparencyData data);
+            [In] CLRDATA_ADDRESS methodDesc,
+            [Out] out DacpMethodDescTransparencyData data);
 
         [PreserveSig]
         HRESULT GetCodeHeaderData(
-            CLRDATA_ADDRESS ip,
-            out DacpCodeHeaderData data);
+            [In] CLRDATA_ADDRESS ip,
+            [Out] out DacpCodeHeaderData data);
 
         [PreserveSig]
         HRESULT GetJitManagerList(
-            int count,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpJitManagerInfo[] managers,
-            out int pNeeded);
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetJitHelperFunctionName(
-            CLRDATA_ADDRESS ip,
-            int count,
+            [In] CLRDATA_ADDRESS ip,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name,
-            out int pNeeded);
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetJumpThunkTarget(
-            IntPtr ctx,
-            out CLRDATA_ADDRESS targetIP,
-            out CLRDATA_ADDRESS targetMD);
+            [In] IntPtr ctx,
+            [Out] out CLRDATA_ADDRESS targetIP,
+            [Out] out CLRDATA_ADDRESS targetMD);
 
         [PreserveSig]
         HRESULT GetThreadpoolData(
-            out DacpThreadpoolData data);
+            [Out] out DacpThreadpoolData data);
 
         [PreserveSig]
         HRESULT GetWorkRequestData(
-            CLRDATA_ADDRESS addrWorkRequest,
-            out DacpWorkRequestData data);
+            [In] CLRDATA_ADDRESS addrWorkRequest,
+            [Out] out DacpWorkRequestData data);
 
         [PreserveSig]
         HRESULT GetHillClimbingLogEntry(
-            CLRDATA_ADDRESS addr,
-            out DacpHillClimbingLogEntry data);
+            [In] CLRDATA_ADDRESS addr,
+            [Out] out DacpHillClimbingLogEntry data);
 
         [PreserveSig]
         HRESULT GetObjectData(
-            CLRDATA_ADDRESS objAddr,
-            out DacpObjectData data);
+            [In] CLRDATA_ADDRESS objAddr,
+            [Out] out DacpObjectData data);
 
         [PreserveSig]
         HRESULT GetObjectStringData(
-            CLRDATA_ADDRESS obj,
-            int count,
+            [In] CLRDATA_ADDRESS obj,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder stringData,
-            out int pNeeded);
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetObjectClassName(
-            CLRDATA_ADDRESS obj,
-            int count,
+            [In] CLRDATA_ADDRESS obj,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder className,
-            out int pNeeded);
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetMethodTableName(
-            CLRDATA_ADDRESS mt,
-            int count,
+            [In] CLRDATA_ADDRESS mt,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder mtName,
-            out int pNeeded);
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetMethodTableData(
-            CLRDATA_ADDRESS mt,
-            out DacpMethodTableData data);
+            [In] CLRDATA_ADDRESS mt,
+            [Out] out DacpMethodTableData data);
 
         [PreserveSig]
         HRESULT GetMethodTableSlot(
-            CLRDATA_ADDRESS mt,
-            int slot,
-            out CLRDATA_ADDRESS value);
+            [In] CLRDATA_ADDRESS mt,
+            [In] int slot,
+            [Out] out CLRDATA_ADDRESS value);
 
         [PreserveSig]
         HRESULT GetMethodTableFieldData(
-            CLRDATA_ADDRESS mt,
-            out DacpMethodTableFieldData data);
+            [In] CLRDATA_ADDRESS mt,
+            [Out] out DacpMethodTableFieldData data);
 
         [PreserveSig]
         HRESULT GetMethodTableTransparencyData(
-            CLRDATA_ADDRESS mt,
-            out DacpMethodTableTransparencyData data);
+            [In] CLRDATA_ADDRESS mt,
+            [Out] out DacpMethodTableTransparencyData data);
 
         [PreserveSig]
         HRESULT GetMethodTableForEEClass(
-            CLRDATA_ADDRESS eeClass,
-            out CLRDATA_ADDRESS value);
+            [In] CLRDATA_ADDRESS eeClass,
+            [Out] out CLRDATA_ADDRESS value);
 
         [PreserveSig]
         HRESULT GetFieldDescData(
-            CLRDATA_ADDRESS fieldDesc,
-            out DacpFieldDescData data);
+            [In] CLRDATA_ADDRESS fieldDesc,
+            [Out] out DacpFieldDescData data);
 
         [PreserveSig]
         HRESULT GetFrameName(
-            CLRDATA_ADDRESS vtable,
-            int count,
+            [In] CLRDATA_ADDRESS vtable,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder frameName,
-            out int pNeeded);
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetPEFileBase(
-            CLRDATA_ADDRESS addr,
-            out CLRDATA_ADDRESS _base);
+            [In] CLRDATA_ADDRESS addr,
+            [Out] out CLRDATA_ADDRESS _base);
 
         [PreserveSig]
         HRESULT GetPEFileName(
-            CLRDATA_ADDRESS addr,
-            int count,
+            [In] CLRDATA_ADDRESS addr,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder fileName,
-            out int pNeeded);
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetGCHeapData(
-            out DacpGcHeapData data);
+            [Out] out DacpGcHeapData data);
 
         [PreserveSig]
         HRESULT GetGCHeapList(
-            int count,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] heaps,
-            out int pNeeded);
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetGCHeapDetails(
-            CLRDATA_ADDRESS heap,
-            out DacpGcHeapDetails details);
+            [In] CLRDATA_ADDRESS heap,
+            [Out] out DacpGcHeapDetails details);
 
         [PreserveSig]
         HRESULT GetGCHeapStaticData(
-            out DacpGcHeapDetails data);
+            [Out] out DacpGcHeapDetails data);
 
         [PreserveSig]
         HRESULT GetHeapSegmentData(
-            CLRDATA_ADDRESS seg,
-            out DacpHeapSegmentData data);
+            [In] CLRDATA_ADDRESS seg,
+            [Out] out DacpHeapSegmentData data);
 
         [PreserveSig]
         HRESULT GetOOMData(
-            CLRDATA_ADDRESS oomAddr,
-            out DacpOomData data);
+            [In] CLRDATA_ADDRESS oomAddr,
+            [Out] out DacpOomData data);
 
         [PreserveSig]
         HRESULT GetOOMStaticData(
-            out DacpOomData data);
+            [Out] out DacpOomData data);
 
         [PreserveSig]
         HRESULT GetHeapAnalyzeData(
-            CLRDATA_ADDRESS addr,
-            out DacpGcHeapAnalyzeData data);
+            [In] CLRDATA_ADDRESS addr,
+            [Out] out DacpGcHeapAnalyzeData data);
 
         [PreserveSig]
         HRESULT GetHeapAnalyzeStaticData(
-            out DacpGcHeapAnalyzeData data);
+            [Out] out DacpGcHeapAnalyzeData data);
 
         [PreserveSig]
         HRESULT GetDomainLocalModuleData(
-            CLRDATA_ADDRESS addr,
-            out DacpDomainLocalModuleData data);
+            [In] CLRDATA_ADDRESS addr,
+            [Out] out DacpDomainLocalModuleData data);
 
         [PreserveSig]
         HRESULT GetDomainLocalModuleDataFromAppDomain(
-            CLRDATA_ADDRESS appDomainAddr,
-            int moduleID,
-            out DacpDomainLocalModuleData data);
+            [In] CLRDATA_ADDRESS appDomainAddr,
+            [In] int moduleID,
+            [Out] out DacpDomainLocalModuleData data);
 
         [PreserveSig]
         HRESULT GetDomainLocalModuleDataFromModule(
-            CLRDATA_ADDRESS moduleAddr,
-            out DacpDomainLocalModuleData data);
+            [In] CLRDATA_ADDRESS moduleAddr,
+            [Out] out DacpDomainLocalModuleData data);
 
         [PreserveSig]
         HRESULT GetThreadLocalModuleData(
-            CLRDATA_ADDRESS thread,
-            int index,
-            out DacpThreadLocalModuleData data);
+            [In] CLRDATA_ADDRESS thread,
+            [In] int index,
+            [Out] out DacpThreadLocalModuleData data);
 
         [PreserveSig]
         HRESULT GetSyncBlockData(
-            int number,
-            out DacpSyncBlockData data);
+            [In] int number,
+            [Out] out DacpSyncBlockData data);
 
         [PreserveSig]
         HRESULT GetSyncBlockCleanupData(
-            CLRDATA_ADDRESS addr,
-            out DacpSyncBlockCleanupData data);
+            [In] CLRDATA_ADDRESS addr,
+            [Out] out DacpSyncBlockCleanupData data);
 
         [PreserveSig]
         HRESULT GetHandleEnum(
-            out ISOSHandleEnum ppHandleEnum);
+            [Out] out ISOSHandleEnum ppHandleEnum);
 
         [PreserveSig]
         HRESULT GetHandleEnumForTypes(
             [In, MarshalAs(UnmanagedType.LPArray)] int[] types,
-            int count,
-            out ISOSHandleEnum ppHandleEnum);
+            [In] int count,
+            [Out] out ISOSHandleEnum ppHandleEnum);
 
         [PreserveSig]
         HRESULT GetHandleEnumForGC(
-            int gen,
-            out ISOSHandleEnum ppHandleEnum);
+            [In] int gen,
+            [Out] out ISOSHandleEnum ppHandleEnum);
 
         [PreserveSig]
         HRESULT TraverseEHInfo(
-            CLRDATA_ADDRESS ip,
+            [In] CLRDATA_ADDRESS ip,
             [In, MarshalAs(UnmanagedType.FunctionPtr)] DUMPEHINFO pCallback,
-            IntPtr token);
+            [In] IntPtr token);
 
         [PreserveSig]
         HRESULT GetNestedExceptionData(
-            CLRDATA_ADDRESS exception,
-            out CLRDATA_ADDRESS exceptionObject,
-            out CLRDATA_ADDRESS nextNestedException);
+            [In] CLRDATA_ADDRESS exception,
+            [Out] out CLRDATA_ADDRESS exceptionObject,
+            [Out] out CLRDATA_ADDRESS nextNestedException);
 
         [PreserveSig]
         HRESULT GetStressLogAddress(
-            out CLRDATA_ADDRESS stressLog);
+            [Out] out CLRDATA_ADDRESS stressLog);
 
         [PreserveSig]
         HRESULT TraverseLoaderHeap(
-            CLRDATA_ADDRESS loaderHeapAddr,
+            [In] CLRDATA_ADDRESS loaderHeapAddr,
             [In, MarshalAs(UnmanagedType.FunctionPtr)] VISITHEAP pCallback);
 
         [PreserveSig]
         HRESULT GetCodeHeapList(
-            CLRDATA_ADDRESS jitManager,
-            int count,
+            [In] CLRDATA_ADDRESS jitManager,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpJitCodeHeapInfo[] codeHeaps,
-            out int pNeeded);
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT TraverseVirtCallStubHeap(
-            CLRDATA_ADDRESS pAppDomain,
-            VCSHeapType heaptype,
+            [In] CLRDATA_ADDRESS pAppDomain,
+            [In] VCSHeapType heaptype,
             [In, MarshalAs(UnmanagedType.FunctionPtr)] VISITHEAP pCallback);
 
         [PreserveSig]
         HRESULT GetUsefulGlobals(
-            out DacpUsefulGlobalsData data);
+            [Out] out DacpUsefulGlobalsData data);
 
         [PreserveSig]
         HRESULT GetClrWatsonBuckets(
-            CLRDATA_ADDRESS thread,
-            IntPtr pGenericModeBlock);
+            [In] CLRDATA_ADDRESS thread,
+            [In] IntPtr pGenericModeBlock);
 
         [PreserveSig]
         HRESULT GetTLSIndex(
-            out int pIndex);
+            [Out] out int pIndex);
 
         [PreserveSig]
         HRESULT GetDacModuleHandle(
-            out IntPtr phModule);
+            [Out] IntPtr phModule);
 
         [PreserveSig]
         HRESULT GetRCWData(
-            CLRDATA_ADDRESS addr,
-            out DacpRCWData data);
+            [In] CLRDATA_ADDRESS addr,
+            [Out] out DacpRCWData data);
 
         [PreserveSig]
         HRESULT GetRCWInterfaces(
-            CLRDATA_ADDRESS rcw,
-            int count,
+            [In] CLRDATA_ADDRESS rcw,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpCOMInterfacePointerData[] interfaces,
-            out int pNeeded);
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetCCWData(
-            CLRDATA_ADDRESS ccw,
-            out DacpCCWData data);
+            [In] CLRDATA_ADDRESS ccw,
+            [Out] out DacpCCWData data);
 
         [PreserveSig]
         HRESULT GetCCWInterfaces(
-            CLRDATA_ADDRESS ccw,
-            int count,
+            [In] CLRDATA_ADDRESS ccw,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpCOMInterfacePointerData[] interfaces,
-            out int pNeeded);
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT TraverseRCWCleanupList(
-            CLRDATA_ADDRESS cleanupListPtr,
+            [In] CLRDATA_ADDRESS cleanupListPtr,
             [In, MarshalAs(UnmanagedType.FunctionPtr)] VISITRCWFORCLEANUP pCallback,
-            IntPtr token);
+            [In] IntPtr token);
 
         [PreserveSig]
         HRESULT GetStackReferences(
@@ -447,68 +447,68 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         HRESULT GetThreadAllocData(
-            CLRDATA_ADDRESS thread,
-            out DacpAllocData data);
+            [In] CLRDATA_ADDRESS thread,
+            [Out] out DacpAllocData data);
 
         [PreserveSig]
         HRESULT GetHeapAllocData(
-            int count,
-            out DacpGenerationAllocData data,
-            out int pNeeded);
+            [In] int count,
+            [Out] out DacpGenerationAllocData data,
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetFailedAssemblyList(
-            CLRDATA_ADDRESS appDomain,
-            int count,
+            [In] CLRDATA_ADDRESS appDomain,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] values,
-            out int pNeeded);
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetPrivateBinPaths(
-            CLRDATA_ADDRESS appDomain,
-            int count,
+            [In] CLRDATA_ADDRESS appDomain,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder paths,
-            out int pNeeded);
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetAssemblyLocation(
-            CLRDATA_ADDRESS assembly,
-            int count,
+            [In] CLRDATA_ADDRESS assembly,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder location,
-            out int pNeeded);
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetAppDomainConfigFile(
-            CLRDATA_ADDRESS appDomain,
-            int count,
+            [In] CLRDATA_ADDRESS appDomain,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder configFile,
-            out int pNeeded);
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetApplicationBase(
-            CLRDATA_ADDRESS appDomain,
-            int count,
+            [In] CLRDATA_ADDRESS appDomain,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder _base,
-            out int pNeeded);
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetFailedAssemblyData(
-            CLRDATA_ADDRESS assembly,
-            out int pContext,
-            out HRESULT pResult);
+            [In] CLRDATA_ADDRESS assembly,
+            [Out] out int pContext,
+            [Out] out HRESULT pResult);
 
         [PreserveSig]
         HRESULT GetFailedAssemblyLocation(
-            CLRDATA_ADDRESS assesmbly,
-            int count,
+            [In] CLRDATA_ADDRESS assesmbly,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder location,
-            out int pNeeded);
+            [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetFailedAssemblyDisplayName(
-            CLRDATA_ADDRESS assembly,
-            int count,
+            [In] CLRDATA_ADDRESS assembly,
+            [In] int count,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name,
-            out int pNeeded);
+            [Out] out int pNeeded);
     }
 }

@@ -70,8 +70,8 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TrySetCheckSum(Guid algorithmId, int checkSumSize, IntPtr checkSum)
         {
-            /*HRESULT SetCheckSum([In] Guid algorithmId, [In] int checkSumSize, [In] IntPtr checkSum);*/
-            return Raw.SetCheckSum(algorithmId, checkSumSize, checkSum);
+            /*HRESULT SetCheckSum([In] ref Guid algorithmId, [In] int checkSumSize, [In] IntPtr checkSum);*/
+            return Raw.SetCheckSum(ref algorithmId, checkSumSize, checkSum);
         }
 
         #endregion

@@ -25,7 +25,7 @@ namespace ManagedCorDebug
         /// <param name="pbActive">[out] true if this breakpoint is active; otherwise, false.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT IsActive(out int pbActive);
+        new HRESULT IsActive([Out] out int pbActive);
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugModule"/> that references the module in which this breakpoint is set.
@@ -33,6 +33,6 @@ namespace ManagedCorDebug
         /// <param name="ppModule">[out] A pointer to the address of an <see cref="ICorDebugModule"/> interface that references the module in which the breakpoint is set.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetModule([MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
+        HRESULT GetModule([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
     }
 }

@@ -47,7 +47,7 @@ namespace ManagedCorDebug
         /// <param name="machineType">[out] A pointer to a value that indicates the instruction set that the target process is using. The returned machineType is one of the IMAGE_FILE_MACHINE constants, which are defined in the WinNT.h header file.</param>
         public HRESULT TryGetMachineType(out IMAGE_FILE_MACHINE machineType)
         {
-            /*HRESULT GetMachineType(out IMAGE_FILE_MACHINE machineType);*/
+            /*HRESULT GetMachineType([Out] out IMAGE_FILE_MACHINE machineType);*/
             return Raw.GetMachineType(out machineType);
         }
 
@@ -80,7 +80,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetPointerSize(out int pointerSize)
         {
-            /*HRESULT GetPointerSize(out int pointerSize);*/
+            /*HRESULT GetPointerSize([Out] out int pointerSize);*/
             return Raw.GetPointerSize(out pointerSize);
         }
 
@@ -113,7 +113,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetCurrentThreadID(out int threadID)
         {
-            /*HRESULT GetCurrentThreadID(out int threadID);*/
+            /*HRESULT GetCurrentThreadID([Out] out int threadID);*/
             return Raw.GetCurrentThreadID(out threadID);
         }
 
@@ -151,7 +151,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetImageBase(string imagePath, out CLRDATA_ADDRESS baseAddress)
         {
-            /*HRESULT GetImageBase([MarshalAs(UnmanagedType.LPWStr), In] string imagePath, out CLRDATA_ADDRESS baseAddress);*/
+            /*HRESULT GetImageBase([MarshalAs(UnmanagedType.LPWStr), In] string imagePath, [Out] out CLRDATA_ADDRESS baseAddress);*/
             return Raw.GetImageBase(imagePath, out baseAddress);
         }
 
@@ -183,7 +183,7 @@ namespace ManagedCorDebug
         /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryReadVirtual(CLRDATA_ADDRESS address, int bytesRequested, out ReadVirtualResult result)
         {
-            /*HRESULT ReadVirtual([In] CLRDATA_ADDRESS address, [Out] IntPtr buffer, [In] int bytesRequested, out int bytesRead);*/
+            /*HRESULT ReadVirtual([In] CLRDATA_ADDRESS address, [Out] IntPtr buffer, [In] int bytesRequested, [Out] out int bytesRead);*/
             IntPtr buffer = default(IntPtr);
             int bytesRead;
             HRESULT hr = Raw.ReadVirtual(address, buffer, bytesRequested, out bytesRead);
@@ -226,7 +226,7 @@ namespace ManagedCorDebug
         /// <param name="bytesWritten">[out] A pointer to the actual number of bytes that were written.</param>
         public HRESULT TryWriteVirtual(CLRDATA_ADDRESS address, IntPtr buffer, int bytesRequested, out int bytesWritten)
         {
-            /*HRESULT WriteVirtual([In] CLRDATA_ADDRESS address, [In] IntPtr buffer, [In] int bytesRequested, out int bytesWritten);*/
+            /*HRESULT WriteVirtual([In] CLRDATA_ADDRESS address, [In] IntPtr buffer, [In] int bytesRequested, [Out] out int bytesWritten);*/
             return Raw.WriteVirtual(address, buffer, bytesRequested, out bytesWritten);
         }
 
@@ -264,7 +264,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetTLSValue(int threadID, int index, out CLRDATA_ADDRESS value)
         {
-            /*HRESULT GetTLSValue([In] int threadID, [In] int index, out CLRDATA_ADDRESS value);*/
+            /*HRESULT GetTLSValue([In] int threadID, [In] int index, [Out] out CLRDATA_ADDRESS value);*/
             return Raw.GetTLSValue(threadID, index, out value);
         }
 
@@ -321,9 +321,9 @@ namespace ManagedCorDebug
         public IntPtr GetThreadContext(int threadID, int contextFlags, int contextSize)
         {
             HRESULT hr;
-            IntPtr context;
+            IntPtr context = default(IntPtr);
 
-            if ((hr = TryGetThreadContext(threadID, contextFlags, contextSize, out context)) != HRESULT.S_OK)
+            if ((hr = TryGetThreadContext(threadID, contextFlags, contextSize, ref context)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return context;
@@ -341,10 +341,10 @@ namespace ManagedCorDebug
         /// <remarks>
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
-        public HRESULT TryGetThreadContext(int threadID, int contextFlags, int contextSize, out IntPtr context)
+        public HRESULT TryGetThreadContext(int threadID, int contextFlags, int contextSize, ref IntPtr context)
         {
-            /*HRESULT GetThreadContext([In] int threadID, [In] int contextFlags, [In] int contextSize, out IntPtr context);*/
-            return Raw.GetThreadContext(threadID, contextFlags, contextSize, out context);
+            /*HRESULT GetThreadContext([In] int threadID, [In] int contextFlags, [In] int contextSize, [In, Out] ref IntPtr context);*/
+            return Raw.GetThreadContext(threadID, contextFlags, contextSize, ref context);
         }
 
         #endregion
@@ -405,9 +405,9 @@ namespace ManagedCorDebug
         public IntPtr Request(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize)
         {
             HRESULT hr;
-            IntPtr outBuffer;
+            IntPtr outBuffer = default(IntPtr);
 
-            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, out outBuffer)) != HRESULT.S_OK)
+            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, ref outBuffer)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return outBuffer;
@@ -426,15 +426,15 @@ namespace ManagedCorDebug
         /// without requiring revision of the interface definition. This method is implemented by the writer of the debugging
         /// application.
         /// </remarks>
-        public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, out IntPtr outBuffer)
+        public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, ref IntPtr outBuffer)
         {
             /*HRESULT Request(
             [In] uint reqCode,
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
-            out IntPtr outBuffer);*/
-            return Raw.Request(reqCode, inBufferSize, inBuffer, outBufferSize, out outBuffer);
+            [In, Out] ref IntPtr outBuffer);*/
+            return Raw.Request(reqCode, inBufferSize, inBuffer, outBufferSize, ref outBuffer);
         }
 
         #endregion
@@ -483,7 +483,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryAllocVirtual(CLRDATA_ADDRESS addr, int size, int typeFlags, int protectFlags, out CLRDATA_ADDRESS virt)
         {
-            /*HRESULT AllocVirtual([In] CLRDATA_ADDRESS addr, [In] int size, [In] int typeFlags, [In] int protectFlags, out CLRDATA_ADDRESS virt);*/
+            /*HRESULT AllocVirtual([In] CLRDATA_ADDRESS addr, [In] int size, [In] int typeFlags, [In] int protectFlags, [Out] out CLRDATA_ADDRESS virt);*/
             return Raw2.AllocVirtual(addr, size, typeFlags, protectFlags, out virt);
         }
 
@@ -567,7 +567,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetExceptionThreadID(out int threadID)
         {
-            /*HRESULT GetExceptionThreadID(out int threadID);*/
+            /*HRESULT GetExceptionThreadID([Out] out int threadID);*/
             return Raw3.GetExceptionThreadID(out threadID);
         }
 
@@ -616,10 +616,10 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetExceptionRecord(int bufferSize, out GetExceptionRecordResult result)
         {
-            /*HRESULT GetExceptionRecord([In] int bufferSize, out int bufferUsed, out IntPtr buffer);*/
+            /*HRESULT GetExceptionRecord([In] int bufferSize, [Out] out int bufferUsed, [Out] IntPtr buffer);*/
             int bufferUsed;
-            IntPtr buffer;
-            HRESULT hr = Raw3.GetExceptionRecord(bufferSize, out bufferUsed, out buffer);
+            IntPtr buffer = default(IntPtr);
+            HRESULT hr = Raw3.GetExceptionRecord(bufferSize, out bufferUsed, buffer);
 
             if (hr == HRESULT.S_OK)
                 result = new GetExceptionRecordResult(bufferUsed, buffer);
@@ -674,10 +674,10 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetExceptionContextRecord(int bufferSize, out GetExceptionContextRecordResult result)
         {
-            /*HRESULT GetExceptionContextRecord([In] int bufferSize, out int bufferUsed, out IntPtr buffer);*/
+            /*HRESULT GetExceptionContextRecord([In] int bufferSize, [Out] out int bufferUsed, [Out] IntPtr buffer);*/
             int bufferUsed;
-            IntPtr buffer;
-            HRESULT hr = Raw3.GetExceptionContextRecord(bufferSize, out bufferUsed, out buffer);
+            IntPtr buffer = default(IntPtr);
+            HRESULT hr = Raw3.GetExceptionContextRecord(bufferSize, out bufferUsed, buffer);
 
             if (hr == HRESULT.S_OK)
                 result = new GetExceptionContextRecordResult(bufferUsed, buffer);

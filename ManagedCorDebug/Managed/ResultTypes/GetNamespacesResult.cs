@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -17,9 +16,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// The array that receives the namespaces.
         /// </summary>
-        public IntPtr namespaces { get; }
+        public ISymUnmanagedNamespace[] namespaces { get; }
 
-        public GetNamespacesResult(int pcNameSpaces, IntPtr namespaces)
+        public GetNamespacesResult(int pcNameSpaces, ISymUnmanagedNamespace[] namespaces)
         {
             this.pcNameSpaces = pcNameSpaces;
             this.namespaces = namespaces;

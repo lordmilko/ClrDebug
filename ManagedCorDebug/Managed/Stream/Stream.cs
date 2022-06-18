@@ -31,7 +31,7 @@ namespace ManagedCorDebug
 
         public HRESULT TryRemoteSeek(LARGE_INTEGER dlibMove, int dwOrigin, out ULARGE_INTEGER plibNewPosition)
         {
-            /*HRESULT RemoteSeek([In] LARGE_INTEGER dlibMove, [In] int dwOrigin, out ULARGE_INTEGER plibNewPosition);*/
+            /*HRESULT RemoteSeek([In] LARGE_INTEGER dlibMove, [In] int dwOrigin, [Out] out ULARGE_INTEGER plibNewPosition);*/
             return Raw.RemoteSeek(dlibMove, dwOrigin, out plibNewPosition);
         }
 
@@ -72,8 +72,8 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.Interface), In]
             IStream pstm,
             [In] ULARGE_INTEGER cb,
-            out ULARGE_INTEGER pcbRead,
-            out ULARGE_INTEGER pcbWritten);*/
+            [Out] out ULARGE_INTEGER pcbRead,
+            [Out] out ULARGE_INTEGER pcbWritten);*/
             ULARGE_INTEGER pcbRead;
             ULARGE_INTEGER pcbWritten;
             HRESULT hr = Raw.RemoteCopyTo(pstm, cb, out pcbRead, out pcbWritten);
@@ -170,7 +170,7 @@ namespace ManagedCorDebug
 
         public HRESULT TryStat(out tagSTATSTG pstatstg, int grfStatFlag)
         {
-            /*HRESULT Stat(out tagSTATSTG pstatstg, [In] int grfStatFlag);*/
+            /*HRESULT Stat([Out] out tagSTATSTG pstatstg, [In] int grfStatFlag);*/
             return Raw.Stat(out pstatstg, grfStatFlag);
         }
 
@@ -190,7 +190,7 @@ namespace ManagedCorDebug
 
         public HRESULT TryClone(out Stream ppstmResult)
         {
-            /*HRESULT Clone([MarshalAs(UnmanagedType.Interface)] out IStream ppstm);*/
+            /*HRESULT Clone([Out, MarshalAs(UnmanagedType.Interface)] out IStream ppstm);*/
             IStream ppstm;
             HRESULT hr = Raw.Clone(out ppstm);
 

@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.EnumCustomAttributes"/> method.
     /// </summary>
-    [DebuggerDisplay("phEnum = {phEnum}, rCustomAttributes = {rCustomAttributes}, pcCustomAttributes = {pcCustomAttributes}")]
+    [DebuggerDisplay("phEnum = {phEnum}, rCustomAttributes = {rCustomAttributes}")]
     public struct EnumCustomAttributesResult
     {
         /// <summary>
@@ -19,16 +19,10 @@ namespace ManagedCorDebug
         /// </summary>
         public mdCustomAttribute[] rCustomAttributes { get; }
 
-        /// <summary>
-        /// [out, optional] The actual number of token values returned in rCustomAttributes.
-        /// </summary>
-        public int pcCustomAttributes { get; }
-
-        public EnumCustomAttributesResult(IntPtr phEnum, mdCustomAttribute[] rCustomAttributes, int pcCustomAttributes)
+        public EnumCustomAttributesResult(IntPtr phEnum, mdCustomAttribute[] rCustomAttributes)
         {
             this.phEnum = phEnum;
             this.rCustomAttributes = rCustomAttributes;
-            this.pcCustomAttributes = pcCustomAttributes;
         }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 
 namespace ManagedCorDebug
@@ -17,9 +16,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// A buffer that contains the variables.
         /// </summary>
-        public IntPtr pVars { get; }
+        public ISymUnmanagedVariable[] pVars { get; }
 
-        public GetGlobalVariablesResult(int pcVars, IntPtr pVars)
+        public GetGlobalVariablesResult(int pcVars, ISymUnmanagedVariable[] pVars)
         {
             this.pcVars = pcVars;
             this.pVars = pVars;
