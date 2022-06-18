@@ -137,6 +137,65 @@ namespace ManagedCorDebug
         }
 
         #endregion
+        #region AsyncStepInfo
+
+        /// <summary>
+        /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
+        /// </summary>
+        public GetAsyncStepInfoResult AsyncStepInfo
+        {
+            get
+            {
+                HRESULT hr;
+                GetAsyncStepInfoResult result;
+
+                if ((hr = TryGetAsyncStepInfo(out result)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
+        /// </summary>
+        /// <returns>Returns <see cref="HRESULT"/>.</returns>
+        public HRESULT TryGetAsyncStepInfo(out GetAsyncStepInfoResult result)
+        {
+            /*HRESULT GetAsyncStepInfo(
+            [In] int cStepInfo,
+            [Out] out int pcStepInfo,
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] yieldOffsets,
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] breakpointOffset,
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] breakpointMethod);*/
+            int cStepInfo = 0;
+            int pcStepInfo;
+            int[] yieldOffsets = null;
+            int[] breakpointOffset = null;
+            int[] breakpointMethod = null;
+            HRESULT hr = Raw.GetAsyncStepInfo(cStepInfo, out pcStepInfo, yieldOffsets, breakpointOffset, breakpointMethod);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cStepInfo = pcStepInfo;
+            yieldOffsets = new int[pcStepInfo];
+            hr = Raw.GetAsyncStepInfo(cStepInfo, out pcStepInfo, yieldOffsets, breakpointOffset, breakpointMethod);
+
+            if (hr == HRESULT.S_OK)
+            {
+                result = new GetAsyncStepInfoResult(yieldOffsets, breakpointOffset, breakpointMethod);
+
+                return hr;
+            }
+
+            fail:
+            result = default(GetAsyncStepInfoResult);
+
+            return hr;
+        }
+
+        #endregion
         #region HasCatchHandlerILOffset
 
         /// <summary>
@@ -158,49 +217,6 @@ namespace ManagedCorDebug
         {
             /*HRESULT HasCatchHandlerILOffset();*/
             return Raw.HasCatchHandlerILOffset();
-        }
-
-        #endregion
-        #region GetAsyncStepInfo
-
-        /// <summary>
-        /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
-        /// </summary>
-        public GetAsyncStepInfoResult GetAsyncStepInfo(int cStepInfo)
-        {
-            HRESULT hr;
-            GetAsyncStepInfoResult result;
-
-            if ((hr = TryGetAsyncStepInfo(cStepInfo, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
-        }
-
-        /// <summary>
-        /// See <see cref="SymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
-        /// </summary>
-        /// <returns>Returns <see cref="HRESULT"/>.</returns>
-        public HRESULT TryGetAsyncStepInfo(int cStepInfo, out GetAsyncStepInfoResult result)
-        {
-            /*HRESULT GetAsyncStepInfo(
-            [In] int cStepInfo,
-            [Out] out int pcStepInfo,
-            [Out, MarshalAs(UnmanagedType.LPArray)] int[] yieldOffsets,
-            [Out, MarshalAs(UnmanagedType.LPArray)] int[] breakpointOffset,
-            [Out, MarshalAs(UnmanagedType.LPArray)] int[] breakpointMethod);*/
-            int pcStepInfo;
-            int[] yieldOffsets = null;
-            int[] breakpointOffset = null;
-            int[] breakpointMethod = null;
-            HRESULT hr = Raw.GetAsyncStepInfo(cStepInfo, out pcStepInfo, yieldOffsets, breakpointOffset, breakpointMethod);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetAsyncStepInfoResult(pcStepInfo, yieldOffsets, breakpointOffset, breakpointMethod);
-            else
-                result = default(GetAsyncStepInfoResult);
-
-            return hr;
         }
 
         #endregion

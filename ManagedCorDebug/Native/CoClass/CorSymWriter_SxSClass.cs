@@ -124,7 +124,7 @@ namespace ManagedCorDebug.CoClass
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetDebugInfo(
-            [In, Out] IntPtr pIDD,
+            [In, Out] ref IntPtr pIDD,
             [In] int cData,
             [Out] out int pcData,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);

@@ -313,8 +313,11 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetDebugInfo([In, Out]
-            IntPtr pIDD, [In] int cData, [Out] out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);
+        HRESULT GetDebugInfo(
+            [In, Out] ref IntPtr pIDD,
+            [In] int cData,
+            [Out] out int pcData,
+            [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);
 
         /// <summary>
         /// Defines a group of sequence points within the current method. Each starting line and starting column define the start of a statement within a method.<para/>

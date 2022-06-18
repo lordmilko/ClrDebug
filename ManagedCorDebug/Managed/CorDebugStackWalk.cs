@@ -52,8 +52,8 @@ namespace ManagedCorDebug
         /// | CORDBG_E_PAST_END_OF_STACK | The frame pointer is already at the end of the stack; therefore, no additional frames can be accessed. |
         /// </returns>
         /// <remarks>
-        /// <see cref="ICorDebugStackWalk"/> returns only actual stack frames. Use the <see cref="CorDebugThread.GetActiveInternalFrames"/>
-        /// method to return internal frames. (Internal frames are data structures pushed onto the stack by the runtime to
+        /// <see cref="ICorDebugStackWalk"/> returns only actual stack frames. Use the <see cref="CorDebugThread.ActiveInternalFrames"/>
+        /// property to return internal frames. (Internal frames are data structures pushed onto the stack by the runtime to
         /// store temporary data.)
         /// </remarks>
         public HRESULT TryGetFrame(out CorDebugFrame pFrameResult)

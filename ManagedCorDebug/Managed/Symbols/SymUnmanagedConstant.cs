@@ -101,41 +101,54 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetSignature
+        #region Signature
 
         /// <summary>
         /// Gets the signature of the constant.
         /// </summary>
-        /// <param name="cSig">[in] The length of the buffer that the pcSig parameter points to.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetSignatureResult GetSignature(int cSig)
+        public byte[] Signature
         {
-            HRESULT hr;
-            GetSignatureResult result;
+            get
+            {
+                HRESULT hr;
+                byte[] sigResult;
 
-            if ((hr = TryGetSignature(cSig, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+                if ((hr = TryGetSignature(out sigResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+                return sigResult;
+            }
         }
 
         /// <summary>
         /// Gets the signature of the constant.
         /// </summary>
-        /// <param name="cSig">[in] The length of the buffer that the pcSig parameter points to.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="sigResult">[out] The buffer that stores the signature.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSignature(int cSig, out GetSignatureResult result)
+        public HRESULT TryGetSignature(out byte[] sigResult)
         {
             /*HRESULT GetSignature([In] int cSig, [Out] out int pcSig, [MarshalAs(UnmanagedType.LPArray), Out] byte[] sig);*/
+            int cSig = 0;
             int pcSig;
             byte[] sig = null;
             HRESULT hr = Raw.GetSignature(cSig, out pcSig, sig);
 
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cSig = pcSig;
+            sig = new byte[pcSig];
+            hr = Raw.GetSignature(cSig, out pcSig, sig);
+
             if (hr == HRESULT.S_OK)
-                result = new GetSignatureResult(pcSig, sig);
-            else
-                result = default(GetSignatureResult);
+            {
+                sigResult = sig;
+
+                return hr;
+            }
+
+            fail:
+            sigResult = default(byte[]);
 
             return hr;
         }

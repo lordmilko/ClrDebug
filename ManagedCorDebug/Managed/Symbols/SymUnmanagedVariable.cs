@@ -101,6 +101,59 @@ namespace ManagedCorDebug
         }
 
         #endregion
+        #region Signature
+
+        /// <summary>
+        /// Gets the signature of this variable.
+        /// </summary>
+        public byte[] Signature
+        {
+            get
+            {
+                HRESULT hr;
+                byte[] sigResult;
+
+                if ((hr = TryGetSignature(out sigResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return sigResult;
+            }
+        }
+
+        /// <summary>
+        /// Gets the signature of this variable.
+        /// </summary>
+        /// <param name="sigResult">[out] The buffer that stores the signature.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
+        public HRESULT TryGetSignature(out byte[] sigResult)
+        {
+            /*HRESULT GetSignature([In] int cSig, [Out] out int pcSig, [MarshalAs(UnmanagedType.LPArray), Out] byte[] sig);*/
+            int cSig = 0;
+            int pcSig;
+            byte[] sig = null;
+            HRESULT hr = Raw.GetSignature(cSig, out pcSig, sig);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cSig = pcSig;
+            sig = new byte[pcSig];
+            hr = Raw.GetSignature(cSig, out pcSig, sig);
+
+            if (hr == HRESULT.S_OK)
+            {
+                sigResult = sig;
+
+                return hr;
+            }
+
+            fail:
+            sigResult = default(byte[]);
+
+            return hr;
+        }
+
+        #endregion
         #region AddressKind
 
         /// <summary>
@@ -284,46 +337,6 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetEndOffset([Out] out int pRetVal);*/
             return Raw.GetEndOffset(out pRetVal);
-        }
-
-        #endregion
-        #region GetSignature
-
-        /// <summary>
-        /// Gets the signature of this variable.
-        /// </summary>
-        /// <param name="cSig">[in] The length of the buffer pointed to by the sig parameter.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetSignatureResult GetSignature(int cSig)
-        {
-            HRESULT hr;
-            GetSignatureResult result;
-
-            if ((hr = TryGetSignature(cSig, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Gets the signature of this variable.
-        /// </summary>
-        /// <param name="cSig">[in] The length of the buffer pointed to by the sig parameter.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSignature(int cSig, out GetSignatureResult result)
-        {
-            /*HRESULT GetSignature([In] int cSig, [Out] out int pcSig, [MarshalAs(UnmanagedType.LPArray), Out] byte[] sig);*/
-            int pcSig;
-            byte[] sig = null;
-            HRESULT hr = Raw.GetSignature(cSig, out pcSig, sig);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetSignatureResult(pcSig, sig);
-            else
-                result = default(GetSignatureResult);
-
-            return hr;
         }
 
         #endregion

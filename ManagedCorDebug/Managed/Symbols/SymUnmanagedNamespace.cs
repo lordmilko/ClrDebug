@@ -70,81 +70,107 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetNamespaces
+        #region Namespaces
 
         /// <summary>
         /// Gets the children of this namespace.
         /// </summary>
-        /// <param name="cNameSpaces">[in] A ULONG32 that indicates the size of the namespaces array.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetNamespacesResult GetNamespaces(int cNameSpaces)
+        public ISymUnmanagedNamespace[] Namespaces
         {
-            HRESULT hr;
-            GetNamespacesResult result;
+            get
+            {
+                HRESULT hr;
+                ISymUnmanagedNamespace[] namespacesResult;
 
-            if ((hr = TryGetNamespaces(cNameSpaces, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+                if ((hr = TryGetNamespaces(out namespacesResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+                return namespacesResult;
+            }
         }
 
         /// <summary>
         /// Gets the children of this namespace.
         /// </summary>
-        /// <param name="cNameSpaces">[in] A ULONG32 that indicates the size of the namespaces array.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="namespacesResult">[out] A pointer to the buffer that contains the namespaces.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetNamespaces(int cNameSpaces, out GetNamespacesResult result)
+        public HRESULT TryGetNamespaces(out ISymUnmanagedNamespace[] namespacesResult)
         {
             /*HRESULT GetNamespaces([In] int cNameSpaces, [Out] out int pcNameSpaces, [MarshalAs(UnmanagedType.LPArray), Out] ISymUnmanagedNamespace[] namespaces);*/
+            int cNameSpaces = 0;
             int pcNameSpaces;
             ISymUnmanagedNamespace[] namespaces = null;
             HRESULT hr = Raw.GetNamespaces(cNameSpaces, out pcNameSpaces, namespaces);
 
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cNameSpaces = pcNameSpaces;
+            namespaces = new ISymUnmanagedNamespace[pcNameSpaces];
+            hr = Raw.GetNamespaces(cNameSpaces, out pcNameSpaces, namespaces);
+
             if (hr == HRESULT.S_OK)
-                result = new GetNamespacesResult(pcNameSpaces, namespaces);
-            else
-                result = default(GetNamespacesResult);
+            {
+                namespacesResult = namespaces;
+
+                return hr;
+            }
+
+            fail:
+            namespacesResult = default(ISymUnmanagedNamespace[]);
 
             return hr;
         }
 
         #endregion
-        #region GetVariables
+        #region Variables
 
         /// <summary>
         /// Returns all variables defined at global scope within this namespace.
         /// </summary>
-        /// <param name="cVars">[in] A ULONG32 that indicates the size of the pVars array.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetVariablesResult GetVariables(int cVars)
+        public ISymUnmanagedVariable[] Variables
         {
-            HRESULT hr;
-            GetVariablesResult result;
+            get
+            {
+                HRESULT hr;
+                ISymUnmanagedVariable[] pVarsResult;
 
-            if ((hr = TryGetVariables(cVars, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+                if ((hr = TryGetVariables(out pVarsResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+                return pVarsResult;
+            }
         }
 
         /// <summary>
         /// Returns all variables defined at global scope within this namespace.
         /// </summary>
-        /// <param name="cVars">[in] A ULONG32 that indicates the size of the pVars array.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="pVarsResult">[out] A pointer to a buffer that contains the namespaces.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetVariables(int cVars, out GetVariablesResult result)
+        public HRESULT TryGetVariables(out ISymUnmanagedVariable[] pVarsResult)
         {
             /*HRESULT GetVariables([In] int cVars, [Out] out int pcVars, [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] pVars);*/
+            int cVars = 0;
             int pcVars;
             ISymUnmanagedVariable[] pVars = null;
             HRESULT hr = Raw.GetVariables(cVars, out pcVars, pVars);
 
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cVars = pcVars;
+            pVars = new ISymUnmanagedVariable[pcVars];
+            hr = Raw.GetVariables(cVars, out pcVars, pVars);
+
             if (hr == HRESULT.S_OK)
-                result = new GetVariablesResult(pcVars, pVars);
-            else
-                result = default(GetVariablesResult);
+            {
+                pVarsResult = pVars;
+
+                return hr;
+            }
+
+            fail:
+            pVarsResult = default(ISymUnmanagedVariable[]);
 
             return hr;
         }

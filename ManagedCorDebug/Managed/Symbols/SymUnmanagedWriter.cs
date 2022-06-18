@@ -712,17 +712,17 @@ namespace ManagedCorDebug
         /// The symbol writer fills out all fields except for TimeDateStamp and PointerToRawData. (The compiler is responsible for setting these two fields appropriately.) A compiler should call this method, emit the data blob to the PE file, set the PointerToRawData field in the IMAGE_DEBUG_DIRECTORY to point to the emitted data, and write the IMAGE_DEBUG_DIRECTORY to the PE file.<para/>
         /// The compiler should also set the TimeDateStamp field to equal the TimeDateStamp of the PE file being generated.
         /// </summary>
-        /// <param name="cData">[in] A DWORD that contains the size of the debug data.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetDebugInfoResult GetDebugInfo(int cData)
+        /// <param name="pIDD">[in, out] A pointer to an IMAGE_DEBUG_DIRECTORY that the symbol writer will fill out.</param>
+        /// <returns>[out] A pointer to a buffer that is large enough to hold the debug data for the symbol store.</returns>
+        public byte[] GetDebugInfo(ref IntPtr pIDD)
         {
             HRESULT hr;
-            GetDebugInfoResult result;
+            byte[] dataResult;
 
-            if ((hr = TryGetDebugInfo(cData, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetDebugInfo(ref pIDD, out dataResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return dataResult;
         }
 
         /// <summary>
@@ -730,22 +730,37 @@ namespace ManagedCorDebug
         /// The symbol writer fills out all fields except for TimeDateStamp and PointerToRawData. (The compiler is responsible for setting these two fields appropriately.) A compiler should call this method, emit the data blob to the PE file, set the PointerToRawData field in the IMAGE_DEBUG_DIRECTORY to point to the emitted data, and write the IMAGE_DEBUG_DIRECTORY to the PE file.<para/>
         /// The compiler should also set the TimeDateStamp field to equal the TimeDateStamp of the PE file being generated.
         /// </summary>
-        /// <param name="cData">[in] A DWORD that contains the size of the debug data.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="pIDD">[in, out] A pointer to an IMAGE_DEBUG_DIRECTORY that the symbol writer will fill out.</param>
+        /// <param name="dataResult">[out] A pointer to a buffer that is large enough to hold the debug data for the symbol store.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetDebugInfo(int cData, out GetDebugInfoResult result)
+        public HRESULT TryGetDebugInfo(ref IntPtr pIDD, out byte[] dataResult)
         {
-            /*HRESULT GetDebugInfo([In, Out]
-            IntPtr pIDD, [In] int cData, [Out] out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
-            IntPtr pIDD = default(IntPtr);
+            /*HRESULT GetDebugInfo(
+            [In, Out] ref IntPtr pIDD,
+            [In] int cData,
+            [Out] out int pcData,
+            [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
+            int cData = 0;
             int pcData;
             byte[] data = null;
-            HRESULT hr = Raw.GetDebugInfo(pIDD, cData, out pcData, data);
+            HRESULT hr = Raw.GetDebugInfo(ref pIDD, cData, out pcData, data);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cData = pcData;
+            data = new byte[pcData];
+            hr = Raw.GetDebugInfo(ref pIDD, cData, out pcData, data);
 
             if (hr == HRESULT.S_OK)
-                result = new GetDebugInfoResult(pIDD, pcData, data);
-            else
-                result = default(GetDebugInfoResult);
+            {
+                dataResult = data;
+
+                return hr;
+            }
+
+            fail:
+            dataResult = default(byte[]);
 
             return hr;
         }
@@ -1144,15 +1159,15 @@ namespace ManagedCorDebug
         /// Functions the same as <see cref="GetDebugInfo"/> except that the path string is padded with zeros following the terminating null character to make the string data a fixed size of MAX_PATH.<para/>
         /// Padding is only given if the path string length itself is less than MAX_PATH. This makes it easier to write tools that difference PE files.
         /// </summary>
-        public GetDebugInfoWithPaddingResult GetDebugInfoWithPadding(int cData)
+        public byte[] GetDebugInfoWithPadding(ref IntPtr pIDD)
         {
             HRESULT hr;
-            GetDebugInfoWithPaddingResult result;
+            byte[] dataResult;
 
-            if ((hr = TryGetDebugInfoWithPadding(cData, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetDebugInfoWithPadding(ref pIDD, out dataResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return dataResult;
         }
 
         /// <summary>
@@ -1160,22 +1175,34 @@ namespace ManagedCorDebug
         /// Padding is only given if the path string length itself is less than MAX_PATH. This makes it easier to write tools that difference PE files.
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
-        public HRESULT TryGetDebugInfoWithPadding(int cData, out GetDebugInfoWithPaddingResult result)
+        public HRESULT TryGetDebugInfoWithPadding(ref IntPtr pIDD, out byte[] dataResult)
         {
             /*HRESULT GetDebugInfoWithPadding(
-            [In, Out] IntPtr pIDD,
+            [In, Out] ref IntPtr pIDD,
             [In] int cData,
             [Out] out int pcData,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
-            IntPtr pIDD = default(IntPtr);
+            int cData = 0;
             int pcData;
             byte[] data = null;
-            HRESULT hr = Raw4.GetDebugInfoWithPadding(pIDD, cData, out pcData, data);
+            HRESULT hr = Raw4.GetDebugInfoWithPadding(ref pIDD, cData, out pcData, data);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cData = pcData;
+            data = new byte[pcData];
+            hr = Raw4.GetDebugInfoWithPadding(ref pIDD, cData, out pcData, data);
 
             if (hr == HRESULT.S_OK)
-                result = new GetDebugInfoWithPaddingResult(pIDD, pcData, data);
-            else
-                result = default(GetDebugInfoWithPaddingResult);
+            {
+                dataResult = data;
+
+                return hr;
+            }
+
+            fail:
+            dataResult = default(byte[]);
 
             return hr;
         }

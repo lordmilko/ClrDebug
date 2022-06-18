@@ -194,6 +194,118 @@ namespace ManagedCorDebug
         }
 
         #endregion
+        #region ILToNativeMapping
+
+        /// <summary>
+        /// Gets an array of "COR_DEBUG_IL_TO_NATIVE_MAP" instances that represent mappings from Microsoft intermediate language (MSIL) offsets to native offsets.
+        /// </summary>
+        public COR_DEBUG_IL_TO_NATIVE_MAP[] ILToNativeMapping
+        {
+            get
+            {
+                HRESULT hr;
+                COR_DEBUG_IL_TO_NATIVE_MAP[] mapResult;
+
+                if ((hr = TryGetILToNativeMapping(out mapResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return mapResult;
+            }
+        }
+
+        /// <summary>
+        /// Gets an array of "COR_DEBUG_IL_TO_NATIVE_MAP" instances that represent mappings from Microsoft intermediate language (MSIL) offsets to native offsets.
+        /// </summary>
+        /// <param name="mapResult">[out] An array of <see cref="COR_DEBUG_IL_TO_NATIVE_MAP"/> structures, each of which represents a mapping from an MSIL offset to a native offset.<para/>
+        /// There is no ordering to the array of elements returned.</param>
+        /// <remarks>
+        /// The GetILToNativeMapping method returns meaningful results only if this "ICorDebugCode" instance represents native
+        /// code that was just-in-time (JIT) compiled from MSIL code.
+        /// </remarks>
+        public HRESULT TryGetILToNativeMapping(out COR_DEBUG_IL_TO_NATIVE_MAP[] mapResult)
+        {
+            /*HRESULT GetILToNativeMapping([In] int cMap, [Out] out int pcMap, [MarshalAs(UnmanagedType.LPArray), Out]
+            COR_DEBUG_IL_TO_NATIVE_MAP[] map);*/
+            int cMap = 0;
+            int pcMap;
+            COR_DEBUG_IL_TO_NATIVE_MAP[] map = null;
+            HRESULT hr = Raw.GetILToNativeMapping(cMap, out pcMap, map);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMap = pcMap;
+            map = new COR_DEBUG_IL_TO_NATIVE_MAP[pcMap];
+            hr = Raw.GetILToNativeMapping(cMap, out pcMap, map);
+
+            if (hr == HRESULT.S_OK)
+            {
+                mapResult = map;
+
+                return hr;
+            }
+
+            fail:
+            mapResult = default(COR_DEBUG_IL_TO_NATIVE_MAP[]);
+
+            return hr;
+        }
+
+        #endregion
+        #region EnCRemapSequencePoints
+
+        /// <summary>
+        /// This method is not implemented in the current version of the .NET Framework.
+        /// </summary>
+        public int[] EnCRemapSequencePoints
+        {
+            get
+            {
+                HRESULT hr;
+                int[] offsetsResult;
+
+                if ((hr = TryGetEnCRemapSequencePoints(out offsetsResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return offsetsResult;
+            }
+        }
+
+        /// <summary>
+        /// This method is not implemented in the current version of the .NET Framework.
+        /// </summary>
+        public HRESULT TryGetEnCRemapSequencePoints(out int[] offsetsResult)
+        {
+            /*HRESULT GetEnCRemapSequencePoints(
+            [In] int cMap,
+            [Out] out int pcMap,
+            [MarshalAs(UnmanagedType.LPArray), Out] int[] offsets);*/
+            int cMap = 0;
+            int pcMap;
+            int[] offsets = null;
+            HRESULT hr = Raw.GetEnCRemapSequencePoints(cMap, out pcMap, offsets);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMap = pcMap;
+            offsets = new int[pcMap];
+            hr = Raw.GetEnCRemapSequencePoints(cMap, out pcMap, offsets);
+
+            if (hr == HRESULT.S_OK)
+            {
+                offsetsResult = offsets;
+
+                return hr;
+            }
+
+            fail:
+            offsetsResult = default(int[]);
+
+            return hr;
+        }
+
+        #endregion
         #region CreateBreakpoint
 
         /// <summary>
@@ -247,7 +359,7 @@ namespace ManagedCorDebug
 
         /// <summary>
         /// Gets all the code for the specified function, formatted for disassembly. This method has been deprecated in the .NET Framework version 2.0.<para/>
-        /// Use <see cref="GetCodeChunks"/> instead.
+        /// Use <see cref="CodeChunks"/> instead.
         /// </summary>
         /// <param name="startOffset">[in] The offset of the beginning of the function.</param>
         /// <param name="endOffset">[in] The offset of the end of the function.</param>
@@ -269,7 +381,7 @@ namespace ManagedCorDebug
 
         /// <summary>
         /// Gets all the code for the specified function, formatted for disassembly. This method has been deprecated in the .NET Framework version 2.0.<para/>
-        /// Use <see cref="GetCodeChunks"/> instead.
+        /// Use <see cref="CodeChunks"/> instead.
         /// </summary>
         /// <param name="startOffset">[in] The offset of the beginning of the function.</param>
         /// <param name="endOffset">[in] The offset of the end of the function.</param>
@@ -312,98 +424,69 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetILToNativeMapping
-
-        /// <summary>
-        /// Gets an array of "COR_DEBUG_IL_TO_NATIVE_MAP" instances that represent mappings from Microsoft intermediate language (MSIL) offsets to native offsets.
-        /// </summary>
-        /// <param name="cMap">[in] The size of the map array.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        /// <remarks>
-        /// The GetILToNativeMapping method returns meaningful results only if this "ICorDebugCode" instance represents native
-        /// code that was just-in-time (JIT) compiled from MSIL code.
-        /// </remarks>
-        public GetILToNativeMappingResult GetILToNativeMapping(int cMap)
-        {
-            HRESULT hr;
-            GetILToNativeMappingResult result;
-
-            if ((hr = TryGetILToNativeMapping(cMap, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Gets an array of "COR_DEBUG_IL_TO_NATIVE_MAP" instances that represent mappings from Microsoft intermediate language (MSIL) offsets to native offsets.
-        /// </summary>
-        /// <param name="cMap">[in] The size of the map array.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        /// <remarks>
-        /// The GetILToNativeMapping method returns meaningful results only if this "ICorDebugCode" instance represents native
-        /// code that was just-in-time (JIT) compiled from MSIL code.
-        /// </remarks>
-        public HRESULT TryGetILToNativeMapping(int cMap, out GetILToNativeMappingResult result)
-        {
-            /*HRESULT GetILToNativeMapping([In] int cMap, [Out] out int pcMap, [MarshalAs(UnmanagedType.LPArray), Out]
-            COR_DEBUG_IL_TO_NATIVE_MAP[] map);*/
-            int pcMap;
-            COR_DEBUG_IL_TO_NATIVE_MAP[] map = null;
-            HRESULT hr = Raw.GetILToNativeMapping(cMap, out pcMap, map);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetILToNativeMappingResult(pcMap, map);
-            else
-                result = default(GetILToNativeMappingResult);
-
-            return hr;
-        }
-
-        #endregion
-        #region GetEnCRemapSequencePoints
-
-        /// <summary>
-        /// This method is not implemented in the current version of the .NET Framework.
-        /// </summary>
-        public GetEnCRemapSequencePointsResult GetEnCRemapSequencePoints(int cMap)
-        {
-            HRESULT hr;
-            GetEnCRemapSequencePointsResult result;
-
-            if ((hr = TryGetEnCRemapSequencePoints(cMap, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
-        }
-
-        /// <summary>
-        /// This method is not implemented in the current version of the .NET Framework.
-        /// </summary>
-        public HRESULT TryGetEnCRemapSequencePoints(int cMap, out GetEnCRemapSequencePointsResult result)
-        {
-            /*HRESULT GetEnCRemapSequencePoints(
-            [In] int cMap,
-            [Out] out int pcMap,
-            [MarshalAs(UnmanagedType.LPArray), Out] int[] offsets);*/
-            int pcMap;
-            int[] offsets = null;
-            HRESULT hr = Raw.GetEnCRemapSequencePoints(cMap, out pcMap, offsets);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetEnCRemapSequencePointsResult(pcMap, offsets);
-            else
-                result = default(GetEnCRemapSequencePointsResult);
-
-            return hr;
-        }
-
-        #endregion
         #endregion
         #region ICorDebugCode2
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugCode2 Raw2 => (ICorDebugCode2) Raw;
 
+        #region CodeChunks
+
+        /// <summary>
+        /// Gets the chunks of code that this code object is composed of.
+        /// </summary>
+        public CodeChunkInfo[] CodeChunks
+        {
+            get
+            {
+                HRESULT hr;
+                CodeChunkInfo[] chunksResult;
+
+                if ((hr = TryGetCodeChunks(out chunksResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return chunksResult;
+            }
+        }
+
+        /// <summary>
+        /// Gets the chunks of code that this code object is composed of.
+        /// </summary>
+        /// <param name="chunksResult">[out] An array of "CodeChunkInfo" structures, each of which represents a single chunk of code. If the value of cbufSize is 0, this parameter can be null.</param>
+        /// <remarks>
+        /// The code chunks will never overlap, and they will follow the order in which they would have been concatenated by
+        /// <see cref="GetCode"/>. A Microsoft intermediate language (MSIL) code object in the .NET Framework
+        /// version 2.0 will comprise a single code chunk.
+        /// </remarks>
+        public HRESULT TryGetCodeChunks(out CodeChunkInfo[] chunksResult)
+        {
+            /*HRESULT GetCodeChunks([In] int cbufSize, [Out] out int pcnumChunks, [MarshalAs(UnmanagedType.LPArray), Out] CodeChunkInfo[] chunks);*/
+            int cbufSize = 0;
+            int pcnumChunks;
+            CodeChunkInfo[] chunks = null;
+            HRESULT hr = Raw2.GetCodeChunks(cbufSize, out pcnumChunks, chunks);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cbufSize = pcnumChunks;
+            chunks = new CodeChunkInfo[pcnumChunks];
+            hr = Raw2.GetCodeChunks(cbufSize, out pcnumChunks, chunks);
+
+            if (hr == HRESULT.S_OK)
+            {
+                chunksResult = chunks;
+
+                return hr;
+            }
+
+            fail:
+            chunksResult = default(CodeChunkInfo[]);
+
+            return hr;
+        }
+
+        #endregion
         #region CompilerFlags
 
         /// <summary>
@@ -431,55 +514,6 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetCompilerFlags([Out] out CorDebugJITCompilerFlags pdwFlags);*/
             return Raw2.GetCompilerFlags(out pdwFlags);
-        }
-
-        #endregion
-        #region GetCodeChunks
-
-        /// <summary>
-        /// Gets the chunks of code that this code object is composed of.
-        /// </summary>
-        /// <param name="cbufSize">[in] Size of the chunks array.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        /// <remarks>
-        /// The code chunks will never overlap, and they will follow the order in which they would have been concatenated by
-        /// <see cref="GetCode"/>. A Microsoft intermediate language (MSIL) code object in the .NET Framework
-        /// version 2.0 will comprise a single code chunk.
-        /// </remarks>
-        public GetCodeChunksResult GetCodeChunks(int cbufSize)
-        {
-            HRESULT hr;
-            GetCodeChunksResult result;
-
-            if ((hr = TryGetCodeChunks(cbufSize, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Gets the chunks of code that this code object is composed of.
-        /// </summary>
-        /// <param name="cbufSize">[in] Size of the chunks array.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        /// <remarks>
-        /// The code chunks will never overlap, and they will follow the order in which they would have been concatenated by
-        /// <see cref="GetCode"/>. A Microsoft intermediate language (MSIL) code object in the .NET Framework
-        /// version 2.0 will comprise a single code chunk.
-        /// </remarks>
-        public HRESULT TryGetCodeChunks(int cbufSize, out GetCodeChunksResult result)
-        {
-            /*HRESULT GetCodeChunks([In] int cbufSize, [Out] out int pcnumChunks, [MarshalAs(UnmanagedType.LPArray), Out] CodeChunkInfo[] chunks);*/
-            int pcnumChunks;
-            CodeChunkInfo[] chunks = null;
-            HRESULT hr = Raw2.GetCodeChunks(cbufSize, out pcnumChunks, chunks);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetCodeChunksResult(pcnumChunks, chunks);
-            else
-                result = default(GetCodeChunksResult);
-
-            return hr;
         }
 
         #endregion

@@ -329,11 +329,11 @@ namespace ManagedCorDebug
         /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetCodedTokenInfo(int ixCdTkn, out GetCodedTokenInfoResult result)
         {
-            /*HRESULT GetCodedTokenInfo([In] int ixCdTkn, [Out] out int pcTokens, [Out, MarshalAs(UnmanagedType.LPArray)] int[] ppTokens, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppName);*/
+            /*HRESULT GetCodedTokenInfo([In] int ixCdTkn, [Out] out int pcTokens, [Out, MarshalAs(UnmanagedType.LPArray)] out int[] ppTokens, [Out, MarshalAs(UnmanagedType.LPWStr)] out StringBuilder ppName);*/
             int pcTokens;
             int[] ppTokens = null;
             StringBuilder ppName = null;
-            HRESULT hr = Raw.GetCodedTokenInfo(ixCdTkn, out pcTokens, ppTokens, ppName);
+            HRESULT hr = Raw.GetCodedTokenInfo(ixCdTkn, out pcTokens, out ppTokens, out ppName);
 
             if (hr == HRESULT.S_OK)
                 result = new GetCodedTokenInfoResult(pcTokens, ppTokens, ppName.ToString());

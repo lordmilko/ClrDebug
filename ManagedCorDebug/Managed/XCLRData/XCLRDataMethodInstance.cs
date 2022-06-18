@@ -185,6 +185,54 @@ namespace ManagedCorDebug
         }
 
         #endregion
+        #region ILAddressMap
+
+        public CLRDATA_IL_ADDRESS_MAP[] ILAddressMap
+        {
+            get
+            {
+                HRESULT hr;
+                CLRDATA_IL_ADDRESS_MAP[] mapsResult;
+
+                if ((hr = TryGetILAddressMap(out mapsResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return mapsResult;
+            }
+        }
+
+        public HRESULT TryGetILAddressMap(out CLRDATA_IL_ADDRESS_MAP[] mapsResult)
+        {
+            /*HRESULT GetILAddressMap(
+            [In] int mapLen,
+            [Out] out int mapNeeded,
+            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_IL_ADDRESS_MAP[] maps);*/
+            int mapLen = 0;
+            int mapNeeded;
+            CLRDATA_IL_ADDRESS_MAP[] maps = null;
+            HRESULT hr = Raw.GetILAddressMap(mapLen, out mapNeeded, maps);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            mapLen = mapNeeded;
+            maps = new CLRDATA_IL_ADDRESS_MAP[mapNeeded];
+            hr = Raw.GetILAddressMap(mapLen, out mapNeeded, maps);
+
+            if (hr == HRESULT.S_OK)
+            {
+                mapsResult = maps;
+
+                return hr;
+            }
+
+            fail:
+            mapsResult = default(CLRDATA_IL_ADDRESS_MAP[]);
+
+            return hr;
+        }
+
+        #endregion
         #region RepresentativeEntryAddress
 
         public CLRDATA_ADDRESS RepresentativeEntryAddress
@@ -366,38 +414,6 @@ namespace ManagedCorDebug
                 result = new GetAddressRangesByILOffsetResult(rangesNeeded, addressRanges);
             else
                 result = default(GetAddressRangesByILOffsetResult);
-
-            return hr;
-        }
-
-        #endregion
-        #region GetILAddressMap
-
-        public GetILAddressMapResult GetILAddressMap(int mapLen)
-        {
-            HRESULT hr;
-            GetILAddressMapResult result;
-
-            if ((hr = TryGetILAddressMap(mapLen, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
-        }
-
-        public HRESULT TryGetILAddressMap(int mapLen, out GetILAddressMapResult result)
-        {
-            /*HRESULT GetILAddressMap(
-            [In] int mapLen,
-            [Out] out int mapNeeded,
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_IL_ADDRESS_MAP[] maps);*/
-            int mapNeeded;
-            CLRDATA_IL_ADDRESS_MAP[] maps = null;
-            HRESULT hr = Raw.GetILAddressMap(mapLen, out mapNeeded, maps);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetILAddressMapResult(mapNeeded, maps);
-            else
-                result = default(GetILAddressMapResult);
 
             return hr;
         }

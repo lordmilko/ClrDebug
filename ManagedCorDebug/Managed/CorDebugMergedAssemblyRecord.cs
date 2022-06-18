@@ -176,6 +176,120 @@ namespace ManagedCorDebug
         }
 
         #endregion
+        #region PublicKey
+
+        /// <summary>
+        /// Gets the assembly's public key.
+        /// </summary>
+        public byte[] PublicKey
+        {
+            get
+            {
+                HRESULT hr;
+                byte[] pbPublicKeyResult;
+
+                if ((hr = TryGetPublicKey(out pbPublicKeyResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return pbPublicKeyResult;
+            }
+        }
+
+        /// <summary>
+        /// Gets the assembly's public key.
+        /// </summary>
+        /// <param name="pbPublicKeyResult">[out] A pointer to a byte array that contains the assembly's public key.</param>
+        public HRESULT TryGetPublicKey(out byte[] pbPublicKeyResult)
+        {
+            /*HRESULT GetPublicKey(
+            [In] int cbPublicKey,
+            [Out] out int pcbPublicKey,
+            [MarshalAs(UnmanagedType.LPArray), Out]
+            byte[] pbPublicKey);*/
+            int cbPublicKey = 0;
+            int pcbPublicKey;
+            byte[] pbPublicKey = null;
+            HRESULT hr = Raw.GetPublicKey(cbPublicKey, out pcbPublicKey, pbPublicKey);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cbPublicKey = pcbPublicKey;
+            pbPublicKey = new byte[pcbPublicKey];
+            hr = Raw.GetPublicKey(cbPublicKey, out pcbPublicKey, pbPublicKey);
+
+            if (hr == HRESULT.S_OK)
+            {
+                pbPublicKeyResult = pbPublicKey;
+
+                return hr;
+            }
+
+            fail:
+            pbPublicKeyResult = default(byte[]);
+
+            return hr;
+        }
+
+        #endregion
+        #region PublicKeyToken
+
+        /// <summary>
+        /// Gets the assembly's public key token.
+        /// </summary>
+        public byte[] PublicKeyToken
+        {
+            get
+            {
+                HRESULT hr;
+                byte[] pbPublicKeyTokenResult;
+
+                if ((hr = TryGetPublicKeyToken(out pbPublicKeyTokenResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return pbPublicKeyTokenResult;
+            }
+        }
+
+        /// <summary>
+        /// Gets the assembly's public key token.
+        /// </summary>
+        /// <param name="pbPublicKeyTokenResult">[out] A pointer to a byte array that contains the assembly's public key token.</param>
+        /// <remarks>
+        /// An assembly's public key token is the last eight bytes of a SHA1 hash of its public key.
+        /// </remarks>
+        public HRESULT TryGetPublicKeyToken(out byte[] pbPublicKeyTokenResult)
+        {
+            /*HRESULT GetPublicKeyToken(
+            [In] int cbPublicKeyToken,
+            [Out] out int pcbPublicKeyToken,
+            [MarshalAs(UnmanagedType.LPArray), Out] byte[] pbPublicKeyToken);*/
+            int cbPublicKeyToken = 0;
+            int pcbPublicKeyToken;
+            byte[] pbPublicKeyToken = null;
+            HRESULT hr = Raw.GetPublicKeyToken(cbPublicKeyToken, out pcbPublicKeyToken, pbPublicKeyToken);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cbPublicKeyToken = pcbPublicKeyToken;
+            pbPublicKeyToken = new byte[pcbPublicKeyToken];
+            hr = Raw.GetPublicKeyToken(cbPublicKeyToken, out pcbPublicKeyToken, pbPublicKeyToken);
+
+            if (hr == HRESULT.S_OK)
+            {
+                pbPublicKeyTokenResult = pbPublicKeyToken;
+
+                return hr;
+            }
+
+            fail:
+            pbPublicKeyTokenResult = default(byte[]);
+
+            return hr;
+        }
+
+        #endregion
         #region Index
 
         /// <summary>
@@ -206,97 +320,6 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetIndex([Out] out int pIndex);*/
             return Raw.GetIndex(out pIndex);
-        }
-
-        #endregion
-        #region GetPublicKey
-
-        /// <summary>
-        /// Gets the assembly's public key.
-        /// </summary>
-        /// <param name="cbPublicKey">[in] The maximum number of bytes in the pbPublicKey array.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetPublicKeyResult GetPublicKey(int cbPublicKey)
-        {
-            HRESULT hr;
-            GetPublicKeyResult result;
-
-            if ((hr = TryGetPublicKey(cbPublicKey, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Gets the assembly's public key.
-        /// </summary>
-        /// <param name="cbPublicKey">[in] The maximum number of bytes in the pbPublicKey array.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetPublicKey(int cbPublicKey, out GetPublicKeyResult result)
-        {
-            /*HRESULT GetPublicKey(
-            [In] int cbPublicKey,
-            [Out] out int pcbPublicKey,
-            [MarshalAs(UnmanagedType.LPArray), Out]
-            byte[] pbPublicKey);*/
-            int pcbPublicKey;
-            byte[] pbPublicKey = null;
-            HRESULT hr = Raw.GetPublicKey(cbPublicKey, out pcbPublicKey, pbPublicKey);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetPublicKeyResult(pcbPublicKey, pbPublicKey);
-            else
-                result = default(GetPublicKeyResult);
-
-            return hr;
-        }
-
-        #endregion
-        #region GetPublicKeyToken
-
-        /// <summary>
-        /// Gets the assembly's public key token.
-        /// </summary>
-        /// <param name="cbPublicKeyToken">[in] The maximum number of bytes in the pbPublicKeyToken array.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        /// <remarks>
-        /// An assembly's public key token is the last eight bytes of a SHA1 hash of its public key.
-        /// </remarks>
-        public GetPublicKeyTokenResult GetPublicKeyToken(int cbPublicKeyToken)
-        {
-            HRESULT hr;
-            GetPublicKeyTokenResult result;
-
-            if ((hr = TryGetPublicKeyToken(cbPublicKeyToken, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Gets the assembly's public key token.
-        /// </summary>
-        /// <param name="cbPublicKeyToken">[in] The maximum number of bytes in the pbPublicKeyToken array.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        /// <remarks>
-        /// An assembly's public key token is the last eight bytes of a SHA1 hash of its public key.
-        /// </remarks>
-        public HRESULT TryGetPublicKeyToken(int cbPublicKeyToken, out GetPublicKeyTokenResult result)
-        {
-            /*HRESULT GetPublicKeyToken(
-            [In] int cbPublicKeyToken,
-            [Out] out int pcbPublicKeyToken,
-            [MarshalAs(UnmanagedType.LPArray), Out] byte[] pbPublicKeyToken);*/
-            int pcbPublicKeyToken;
-            byte[] pbPublicKeyToken = null;
-            HRESULT hr = Raw.GetPublicKeyToken(cbPublicKeyToken, out pcbPublicKeyToken, pbPublicKeyToken);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetPublicKeyTokenResult(pcbPublicKeyToken, pbPublicKeyToken);
-            else
-                result = default(GetPublicKeyTokenResult);
-
-            return hr;
         }
 
         #endregion

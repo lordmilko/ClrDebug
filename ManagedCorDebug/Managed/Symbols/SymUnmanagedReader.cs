@@ -19,6 +19,62 @@ namespace ManagedCorDebug
         }
 
         #region ISymUnmanagedReader
+        #region Documents
+
+        /// <summary>
+        /// Returns an array of all the documents defined in the symbol store.
+        /// </summary>
+        public ISymUnmanagedDocument[] Documents
+        {
+            get
+            {
+                HRESULT hr;
+                ISymUnmanagedDocument[] pDocsResult;
+
+                if ((hr = TryGetDocuments(out pDocsResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return pDocsResult;
+            }
+        }
+
+        /// <summary>
+        /// Returns an array of all the documents defined in the symbol store.
+        /// </summary>
+        /// <param name="pDocsResult">[out] A pointer to a variable that receives the document array.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
+        public HRESULT TryGetDocuments(out ISymUnmanagedDocument[] pDocsResult)
+        {
+            /*HRESULT GetDocuments(
+            [In] int cDocs,
+            [Out] out int pcDocs,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedDocument[] pDocs);*/
+            int cDocs = 0;
+            int pcDocs;
+            ISymUnmanagedDocument[] pDocs = null;
+            HRESULT hr = Raw.GetDocuments(cDocs, out pcDocs, pDocs);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cDocs = pcDocs;
+            pDocs = new ISymUnmanagedDocument[pcDocs];
+            hr = Raw.GetDocuments(cDocs, out pcDocs, pDocs);
+
+            if (hr == HRESULT.S_OK)
+            {
+                pDocsResult = pDocs;
+
+                return hr;
+            }
+
+            fail:
+            pDocsResult = default(ISymUnmanagedDocument[]);
+
+            return hr;
+        }
+
+        #endregion
         #region UserEntryPoint
 
         /// <summary>
@@ -47,6 +103,118 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetUserEntryPoint([Out] out mdMethodDef pToken);*/
             return Raw.GetUserEntryPoint(out pToken);
+        }
+
+        #endregion
+        #region GlobalVariables
+
+        /// <summary>
+        /// Returns all global variables.
+        /// </summary>
+        public ISymUnmanagedVariable[] GlobalVariables
+        {
+            get
+            {
+                HRESULT hr;
+                ISymUnmanagedVariable[] pVarsResult;
+
+                if ((hr = TryGetGlobalVariables(out pVarsResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return pVarsResult;
+            }
+        }
+
+        /// <summary>
+        /// Returns all global variables.
+        /// </summary>
+        /// <param name="pVarsResult">[out] A buffer that contains the variables.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
+        public HRESULT TryGetGlobalVariables(out ISymUnmanagedVariable[] pVarsResult)
+        {
+            /*HRESULT GetGlobalVariables(
+            [In] int cVars,
+            [Out] out int pcVars,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] pVars);*/
+            int cVars = 0;
+            int pcVars;
+            ISymUnmanagedVariable[] pVars = null;
+            HRESULT hr = Raw.GetGlobalVariables(cVars, out pcVars, pVars);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cVars = pcVars;
+            pVars = new ISymUnmanagedVariable[pcVars];
+            hr = Raw.GetGlobalVariables(cVars, out pcVars, pVars);
+
+            if (hr == HRESULT.S_OK)
+            {
+                pVarsResult = pVars;
+
+                return hr;
+            }
+
+            fail:
+            pVarsResult = default(ISymUnmanagedVariable[]);
+
+            return hr;
+        }
+
+        #endregion
+        #region Namespaces
+
+        /// <summary>
+        /// Gets the namespaces defined at global scope within this symbol store.
+        /// </summary>
+        public ISymUnmanagedNamespace[] Namespaces
+        {
+            get
+            {
+                HRESULT hr;
+                ISymUnmanagedNamespace[] namespacesResult;
+
+                if ((hr = TryGetNamespaces(out namespacesResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return namespacesResult;
+            }
+        }
+
+        /// <summary>
+        /// Gets the namespaces defined at global scope within this symbol store.
+        /// </summary>
+        /// <param name="namespacesResult">[out] A pointer to a variable that receives the namespace list.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
+        public HRESULT TryGetNamespaces(out ISymUnmanagedNamespace[] namespacesResult)
+        {
+            /*HRESULT GetNamespaces(
+            [In] int cNameSpaces,
+            [Out] out int pcNameSpaces,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedNamespace[] namespaces);*/
+            int cNameSpaces = 0;
+            int pcNameSpaces;
+            ISymUnmanagedNamespace[] namespaces = null;
+            HRESULT hr = Raw.GetNamespaces(cNameSpaces, out pcNameSpaces, namespaces);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cNameSpaces = pcNameSpaces;
+            namespaces = new ISymUnmanagedNamespace[pcNameSpaces];
+            hr = Raw.GetNamespaces(cNameSpaces, out pcNameSpaces, namespaces);
+
+            if (hr == HRESULT.S_OK)
+            {
+                namespacesResult = namespaces;
+
+                return hr;
+            }
+
+            fail:
+            namespacesResult = default(ISymUnmanagedNamespace[]);
+
+            return hr;
         }
 
         #endregion
@@ -156,49 +324,6 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetDocuments
-
-        /// <summary>
-        /// Returns an array of all the documents defined in the symbol store.
-        /// </summary>
-        /// <param name="cDocs">[in] The size of the pDocs array.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetDocumentsResult GetDocuments(int cDocs)
-        {
-            HRESULT hr;
-            GetDocumentsResult result;
-
-            if ((hr = TryGetDocuments(cDocs, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Returns an array of all the documents defined in the symbol store.
-        /// </summary>
-        /// <param name="cDocs">[in] The size of the pDocs array.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetDocuments(int cDocs, out GetDocumentsResult result)
-        {
-            /*HRESULT GetDocuments(
-            [In] int cDocs,
-            [Out] out int pcDocs,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedDocument[] pDocs);*/
-            int pcDocs;
-            ISymUnmanagedDocument[] pDocs = null;
-            HRESULT hr = Raw.GetDocuments(cDocs, out pcDocs, pDocs);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetDocumentsResult(pcDocs, pDocs);
-            else
-                result = default(GetDocumentsResult);
-
-            return hr;
-        }
-
-        #endregion
         #region GetMethod
 
         /// <summary>
@@ -272,84 +397,52 @@ namespace ManagedCorDebug
         /// Returns a non-local variable, given its parent and name.
         /// </summary>
         /// <param name="parent">[in] The parent of the variable.</param>
-        /// <param name="cVars">[in] The size of the pVars array.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetVariablesResult GetVariables(int parent, int cVars)
+        /// <returns>[out] A pointer to the variable that receives the variables.</returns>
+        public ISymUnmanagedVariable[] GetVariables(int parent)
         {
             HRESULT hr;
-            GetVariablesResult result;
+            ISymUnmanagedVariable[] pVarsResult;
 
-            if ((hr = TryGetVariables(parent, cVars, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetVariables(parent, out pVarsResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return pVarsResult;
         }
 
         /// <summary>
         /// Returns a non-local variable, given its parent and name.
         /// </summary>
         /// <param name="parent">[in] The parent of the variable.</param>
-        /// <param name="cVars">[in] The size of the pVars array.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="pVarsResult">[out] A pointer to the variable that receives the variables.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetVariables(int parent, int cVars, out GetVariablesResult result)
+        public HRESULT TryGetVariables(int parent, out ISymUnmanagedVariable[] pVarsResult)
         {
             /*HRESULT GetVariables(
             [In] int parent,
             [In] int cVars,
             [Out] out int pcVars,
             [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] pVars);*/
+            int cVars = 0;
             int pcVars;
             ISymUnmanagedVariable[] pVars = null;
             HRESULT hr = Raw.GetVariables(parent, cVars, out pcVars, pVars);
 
-            if (hr == HRESULT.S_OK)
-                result = new GetVariablesResult(pcVars, pVars);
-            else
-                result = default(GetVariablesResult);
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
 
-            return hr;
-        }
-
-        #endregion
-        #region GetGlobalVariables
-
-        /// <summary>
-        /// Returns all global variables.
-        /// </summary>
-        /// <param name="cVars">[in] The length of the buffer pointed to by pcVars.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetGlobalVariablesResult GetGlobalVariables(int cVars)
-        {
-            HRESULT hr;
-            GetGlobalVariablesResult result;
-
-            if ((hr = TryGetGlobalVariables(cVars, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Returns all global variables.
-        /// </summary>
-        /// <param name="cVars">[in] The length of the buffer pointed to by pcVars.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetGlobalVariables(int cVars, out GetGlobalVariablesResult result)
-        {
-            /*HRESULT GetGlobalVariables(
-            [In] int cVars,
-            [Out] out int pcVars,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] pVars);*/
-            int pcVars;
-            ISymUnmanagedVariable[] pVars = null;
-            HRESULT hr = Raw.GetGlobalVariables(cVars, out pcVars, pVars);
+            cVars = pcVars;
+            pVars = new ISymUnmanagedVariable[pcVars];
+            hr = Raw.GetVariables(parent, cVars, out pcVars, pVars);
 
             if (hr == HRESULT.S_OK)
-                result = new GetGlobalVariablesResult(pcVars, pVars);
-            else
-                result = default(GetGlobalVariablesResult);
+            {
+                pVarsResult = pVars;
+
+                return hr;
+            }
+
+            fail:
+            pVarsResult = default(ISymUnmanagedVariable[]);
 
             return hr;
         }
@@ -434,49 +527,6 @@ namespace ManagedCorDebug
             [Out] out int pcBuffer,
             [Out] IntPtr buffer);*/
             return Raw.GetSymAttribute(parent, name, cBuffer, out pcBuffer, buffer);
-        }
-
-        #endregion
-        #region GetNamespaces
-
-        /// <summary>
-        /// Gets the namespaces defined at global scope within this symbol store.
-        /// </summary>
-        /// <param name="cNameSpaces">[in] The size of the namespaces array.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetNamespacesResult GetNamespaces(int cNameSpaces)
-        {
-            HRESULT hr;
-            GetNamespacesResult result;
-
-            if ((hr = TryGetNamespaces(cNameSpaces, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Gets the namespaces defined at global scope within this symbol store.
-        /// </summary>
-        /// <param name="cNameSpaces">[in] The size of the namespaces array.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetNamespaces(int cNameSpaces, out GetNamespacesResult result)
-        {
-            /*HRESULT GetNamespaces(
-            [In] int cNameSpaces,
-            [Out] out int pcNameSpaces,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedNamespace[] namespaces);*/
-            int pcNameSpaces;
-            ISymUnmanagedNamespace[] namespaces = null;
-            HRESULT hr = Raw.GetNamespaces(cNameSpaces, out pcNameSpaces, namespaces);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetNamespacesResult(pcNameSpaces, namespaces);
-            else
-                result = default(GetNamespacesResult);
-
-            return hr;
         }
 
         #endregion
@@ -590,17 +640,16 @@ namespace ManagedCorDebug
         /// <param name="document">[in] The specified document.</param>
         /// <param name="line">[in] The line of the specified document.</param>
         /// <param name="column">[in] The column of the specified document.</param>
-        /// <param name="cMethod">[in] The size of the pRetVal array.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetMethodsFromDocumentPositionResult GetMethodsFromDocumentPosition(ISymUnmanagedDocument document, int line, int column, int cMethod)
+        /// <returns>[out] An array of pointers, each of which points to an <see cref="ISymUnmanagedMethod"/> object that represents a method containing the breakpoint.</returns>
+        public ISymUnmanagedMethod[] GetMethodsFromDocumentPosition(ISymUnmanagedDocument document, int line, int column)
         {
             HRESULT hr;
-            GetMethodsFromDocumentPositionResult result;
+            ISymUnmanagedMethod[] pRetValResult;
 
-            if ((hr = TryGetMethodsFromDocumentPosition(document, line, column, cMethod, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetMethodsFromDocumentPosition(document, line, column, out pRetValResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return pRetValResult;
         }
 
         /// <summary>
@@ -609,10 +658,9 @@ namespace ManagedCorDebug
         /// <param name="document">[in] The specified document.</param>
         /// <param name="line">[in] The line of the specified document.</param>
         /// <param name="column">[in] The column of the specified document.</param>
-        /// <param name="cMethod">[in] The size of the pRetVal array.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="pRetValResult">[out] An array of pointers, each of which points to an <see cref="ISymUnmanagedMethod"/> object that represents a method containing the breakpoint.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetMethodsFromDocumentPosition(ISymUnmanagedDocument document, int line, int column, int cMethod, out GetMethodsFromDocumentPositionResult result)
+        public HRESULT TryGetMethodsFromDocumentPosition(ISymUnmanagedDocument document, int line, int column, out ISymUnmanagedMethod[] pRetValResult)
         {
             /*HRESULT GetMethodsFromDocumentPosition(
             [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument document,
@@ -621,14 +669,27 @@ namespace ManagedCorDebug
             [In] int cMethod,
             [Out] out int pcMethod,
             [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedMethod[] pRetVal);*/
+            int cMethod = 0;
             int pcMethod;
             ISymUnmanagedMethod[] pRetVal = null;
             HRESULT hr = Raw.GetMethodsFromDocumentPosition(document, line, column, cMethod, out pcMethod, pRetVal);
 
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMethod = pcMethod;
+            pRetVal = new ISymUnmanagedMethod[pcMethod];
+            hr = Raw.GetMethodsFromDocumentPosition(document, line, column, cMethod, out pcMethod, pRetVal);
+
             if (hr == HRESULT.S_OK)
-                result = new GetMethodsFromDocumentPositionResult(pcMethod, pRetVal);
-            else
-                result = default(GetMethodsFromDocumentPositionResult);
+            {
+                pRetValResult = pRetVal;
+
+                return hr;
+            }
+
+            fail:
+            pRetValResult = default(ISymUnmanagedMethod[]);
 
             return hr;
         }
@@ -799,27 +860,25 @@ namespace ManagedCorDebug
         /// Gets every method that has line information in the provided document.
         /// </summary>
         /// <param name="document">[in] A pointer to the document.</param>
-        /// <param name="cMethod">[in] A ULONG32 that indicates the size of the pRetVal array.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetMethodsInDocumentResult GetMethodsInDocument(ISymUnmanagedDocument document, int cMethod)
+        /// <returns>[out] A pointer to the buffer that receives the methods.</returns>
+        public ISymUnmanagedMethod[] GetMethodsInDocument(ISymUnmanagedDocument document)
         {
             HRESULT hr;
-            GetMethodsInDocumentResult result;
+            ISymUnmanagedMethod[] pRetValResult;
 
-            if ((hr = TryGetMethodsInDocument(document, cMethod, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetMethodsInDocument(document, out pRetValResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return pRetValResult;
         }
 
         /// <summary>
         /// Gets every method that has line information in the provided document.
         /// </summary>
         /// <param name="document">[in] A pointer to the document.</param>
-        /// <param name="cMethod">[in] A ULONG32 that indicates the size of the pRetVal array.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="pRetValResult">[out] A pointer to the buffer that receives the methods.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetMethodsInDocument(ISymUnmanagedDocument document, int cMethod, out GetMethodsInDocumentResult result)
+        public HRESULT TryGetMethodsInDocument(ISymUnmanagedDocument document, out ISymUnmanagedMethod[] pRetValResult)
         {
             /*HRESULT GetMethodsInDocument(
             [MarshalAs(UnmanagedType.Interface), In]
@@ -827,14 +886,27 @@ namespace ManagedCorDebug
             [In] int cMethod,
             [Out] out int pcMethod,
             [MarshalAs(UnmanagedType.LPArray), Out] ISymUnmanagedMethod[] pRetVal);*/
+            int cMethod = 0;
             int pcMethod;
             ISymUnmanagedMethod[] pRetVal = null;
             HRESULT hr = Raw2.GetMethodsInDocument(document, cMethod, out pcMethod, pRetVal);
 
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMethod = pcMethod;
+            pRetVal = new ISymUnmanagedMethod[pcMethod];
+            hr = Raw2.GetMethodsInDocument(document, cMethod, out pcMethod, pRetVal);
+
             if (hr == HRESULT.S_OK)
-                result = new GetMethodsInDocumentResult(pcMethod, pRetVal);
-            else
-                result = default(GetMethodsInDocumentResult);
+            {
+                pRetValResult = pRetVal;
+
+                return hr;
+            }
+
+            fail:
+            pRetValResult = default(ISymUnmanagedMethod[]);
 
             return hr;
         }

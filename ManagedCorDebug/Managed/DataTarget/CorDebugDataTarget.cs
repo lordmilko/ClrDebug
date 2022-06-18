@@ -301,35 +301,46 @@ namespace ManagedCorDebug
         /// <summary>
         /// Returns a list of active thread IDs.
         /// </summary>
-        /// <param name="cThreadIds">[in] The maximum number of threads whose IDs can be returned.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumerateThreadIDsResult EnumerateThreadIDs(int cThreadIds)
+        /// <returns>An array of thread identifiers.</returns>
+        public int[] EnumerateThreadIDs()
         {
             HRESULT hr;
-            EnumerateThreadIDsResult result;
+            int[] pThreadIdsResult;
 
-            if ((hr = TryEnumerateThreadIDs(cThreadIds, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumerateThreadIDs(out pThreadIdsResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return pThreadIdsResult;
         }
 
         /// <summary>
         /// Returns a list of active thread IDs.
         /// </summary>
-        /// <param name="cThreadIds">[in] The maximum number of threads whose IDs can be returned.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryEnumerateThreadIDs(int cThreadIds, out EnumerateThreadIDsResult result)
+        /// <param name="pThreadIdsResult">An array of thread identifiers.</param>
+        public HRESULT TryEnumerateThreadIDs(out int[] pThreadIdsResult)
         {
             /*HRESULT EnumerateThreadIDs([In] int cThreadIds, [Out] out int pcThreadIds, [Out, MarshalAs(UnmanagedType.LPArray)] int[] pThreadIds);*/
+            int cThreadIds = 0;
             int pcThreadIds;
             int[] pThreadIds = null;
             HRESULT hr = Raw2.EnumerateThreadIDs(cThreadIds, out pcThreadIds, pThreadIds);
 
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cThreadIds = pcThreadIds;
+            pThreadIds = new int[pcThreadIds];
+            hr = Raw2.EnumerateThreadIDs(cThreadIds, out pcThreadIds, pThreadIds);
+
             if (hr == HRESULT.S_OK)
-                result = new EnumerateThreadIDsResult(pcThreadIds, pThreadIds);
-            else
-                result = default(EnumerateThreadIDsResult);
+            {
+                pThreadIdsResult = pThreadIds;
+
+                return hr;
+            }
+
+            fail:
+            pThreadIdsResult = default(int[]);
 
             return hr;
         }
@@ -391,43 +402,56 @@ namespace ManagedCorDebug
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugDataTarget3 Raw3 => (ICorDebugDataTarget3) Raw;
 
-        #region GetLoadedModules
+        #region LoadedModules
 
         /// <summary>
         /// Gets a list of the modules that have been loaded so far.
         /// </summary>
-        /// <param name="cRequestedModules">[in] The number of modules for which information is requested.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetLoadedModulesResult GetLoadedModules(int cRequestedModules)
+        public ICorDebugLoadedModule[] LoadedModules
         {
-            HRESULT hr;
-            GetLoadedModulesResult result;
+            get
+            {
+                HRESULT hr;
+                ICorDebugLoadedModule[] pLoadedModulesResult;
 
-            if ((hr = TryGetLoadedModules(cRequestedModules, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+                if ((hr = TryGetLoadedModules(out pLoadedModulesResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+                return pLoadedModulesResult;
+            }
         }
 
         /// <summary>
         /// Gets a list of the modules that have been loaded so far.
         /// </summary>
-        /// <param name="cRequestedModules">[in] The number of modules for which information is requested.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetLoadedModules(int cRequestedModules, out GetLoadedModulesResult result)
+        /// <param name="pLoadedModulesResult">[out] A pointer to an array of <see cref="ICorDebugLoadedModule"/> objects that provide information about loaded modules.</param>
+        public HRESULT TryGetLoadedModules(out ICorDebugLoadedModule[] pLoadedModulesResult)
         {
             /*HRESULT GetLoadedModules(
             [In] int cRequestedModules,
             [Out] out int pcFetchedModules,
             [Out, MarshalAs(UnmanagedType.LPArray)] ICorDebugLoadedModule[] pLoadedModules);*/
+            int cRequestedModules = 0;
             int pcFetchedModules;
             ICorDebugLoadedModule[] pLoadedModules = null;
             HRESULT hr = Raw3.GetLoadedModules(cRequestedModules, out pcFetchedModules, pLoadedModules);
 
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cRequestedModules = pcFetchedModules;
+            pLoadedModules = new ICorDebugLoadedModule[pcFetchedModules];
+            hr = Raw3.GetLoadedModules(cRequestedModules, out pcFetchedModules, pLoadedModules);
+
             if (hr == HRESULT.S_OK)
-                result = new GetLoadedModulesResult(pcFetchedModules, pLoadedModules);
-            else
-                result = default(GetLoadedModulesResult);
+            {
+                pLoadedModulesResult = pLoadedModules;
+
+                return hr;
+            }
+
+            fail:
+            pLoadedModulesResult = default(ICorDebugLoadedModule[]);
 
             return hr;
         }

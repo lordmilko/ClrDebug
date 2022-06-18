@@ -65,40 +65,51 @@ namespace ManagedCorDebug
         /// Gets the raw interface pointers cached on the current runtime callable wrapper (RCW).
         /// </summary>
         /// <param name="bIInspectableOnly">[in] A value that indicates whether the method will return only Windows Runtime interfaces (IInspectable interfaces) or all COM interfaces that are cached by the runtime callable wrapper (RCW).</param>
-        /// <param name="celt">[in] The number of objects whose addresses are to be retrieved.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetCachedInterfacePointersResult GetCachedInterfacePointers(int bIInspectableOnly, int celt)
+        /// <returns>A pointer to the starting address of an array of <see cref="CORDB_ADDRESS"/> values that contain the addresses of cached interface objects.</returns>
+        public CORDB_ADDRESS[] GetCachedInterfacePointers(int bIInspectableOnly)
         {
             HRESULT hr;
-            GetCachedInterfacePointersResult result;
+            CORDB_ADDRESS[] ptrsResult;
 
-            if ((hr = TryGetCachedInterfacePointers(bIInspectableOnly, celt, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetCachedInterfacePointers(bIInspectableOnly, out ptrsResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return ptrsResult;
         }
 
         /// <summary>
         /// Gets the raw interface pointers cached on the current runtime callable wrapper (RCW).
         /// </summary>
         /// <param name="bIInspectableOnly">[in] A value that indicates whether the method will return only Windows Runtime interfaces (IInspectable interfaces) or all COM interfaces that are cached by the runtime callable wrapper (RCW).</param>
-        /// <param name="celt">[in] The number of objects whose addresses are to be retrieved.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetCachedInterfacePointers(int bIInspectableOnly, int celt, out GetCachedInterfacePointersResult result)
+        /// <param name="ptrsResult">A pointer to the starting address of an array of <see cref="CORDB_ADDRESS"/> values that contain the addresses of cached interface objects.</param>
+        public HRESULT TryGetCachedInterfacePointers(int bIInspectableOnly, out CORDB_ADDRESS[] ptrsResult)
         {
             /*HRESULT GetCachedInterfacePointers(
             [In] int bIInspectableOnly,
             [In] int celt,
             [Out] out int pceltFetched,
             [Out, MarshalAs(UnmanagedType.LPArray)] CORDB_ADDRESS[] ptrs);*/
+            int celt = 0;
             int pceltFetched;
             CORDB_ADDRESS[] ptrs = null;
             HRESULT hr = Raw.GetCachedInterfacePointers(bIInspectableOnly, celt, out pceltFetched, ptrs);
 
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            celt = pceltFetched;
+            ptrs = new CORDB_ADDRESS[pceltFetched];
+            hr = Raw.GetCachedInterfacePointers(bIInspectableOnly, celt, out pceltFetched, ptrs);
+
             if (hr == HRESULT.S_OK)
-                result = new GetCachedInterfacePointersResult(pceltFetched, ptrs);
-            else
-                result = default(GetCachedInterfacePointersResult);
+            {
+                ptrsResult = ptrs;
+
+                return hr;
+            }
+
+            fail:
+            ptrsResult = default(CORDB_ADDRESS[]);
 
             return hr;
         }

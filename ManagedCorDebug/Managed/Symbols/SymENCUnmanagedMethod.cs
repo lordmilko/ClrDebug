@@ -49,6 +49,62 @@ namespace ManagedCorDebug
         }
 
         #endregion
+        #region DocumentsForMethod
+
+        /// <summary>
+        /// Gets the documents that this method has lines in.
+        /// </summary>
+        public ISymUnmanagedDocument[] DocumentsForMethod
+        {
+            get
+            {
+                HRESULT hr;
+                ISymUnmanagedDocument[] documentsResult;
+
+                if ((hr = TryGetDocumentsForMethod(out documentsResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return documentsResult;
+            }
+        }
+
+        /// <summary>
+        /// Gets the documents that this method has lines in.
+        /// </summary>
+        /// <param name="documentsResult">[in] The buffer that contains the documents.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
+        public HRESULT TryGetDocumentsForMethod(out ISymUnmanagedDocument[] documentsResult)
+        {
+            /*HRESULT GetDocumentsForMethod(
+            [In] int cDocs,
+            [Out] out int pcDocs,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedDocument[] documents);*/
+            int cDocs = 0;
+            int pcDocs;
+            ISymUnmanagedDocument[] documents = null;
+            HRESULT hr = Raw.GetDocumentsForMethod(cDocs, out pcDocs, documents);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cDocs = pcDocs;
+            documents = new ISymUnmanagedDocument[pcDocs];
+            hr = Raw.GetDocumentsForMethod(cDocs, out pcDocs, documents);
+
+            if (hr == HRESULT.S_OK)
+            {
+                documentsResult = documents;
+
+                return hr;
+            }
+
+            fail:
+            documentsResult = default(ISymUnmanagedDocument[]);
+
+            return hr;
+        }
+
+        #endregion
         #region GetFileNameFromOffset
 
         /// <summary>
@@ -150,49 +206,6 @@ namespace ManagedCorDebug
                 result = new GetLineFromOffsetResult(pline, pcolumn, pendLine, pendColumn, pdwStartOffset);
             else
                 result = default(GetLineFromOffsetResult);
-
-            return hr;
-        }
-
-        #endregion
-        #region GetDocumentsForMethod
-
-        /// <summary>
-        /// Gets the documents that this method has lines in.
-        /// </summary>
-        /// <param name="cDocs">[in] The length of the buffer pointed to by pcDocs.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetDocumentsForMethodResult GetDocumentsForMethod(int cDocs)
-        {
-            HRESULT hr;
-            GetDocumentsForMethodResult result;
-
-            if ((hr = TryGetDocumentsForMethod(cDocs, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Gets the documents that this method has lines in.
-        /// </summary>
-        /// <param name="cDocs">[in] The length of the buffer pointed to by pcDocs.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
-        public HRESULT TryGetDocumentsForMethod(int cDocs, out GetDocumentsForMethodResult result)
-        {
-            /*HRESULT GetDocumentsForMethod(
-            [In] int cDocs,
-            [Out] out int pcDocs,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedDocument[] documents);*/
-            int pcDocs;
-            ISymUnmanagedDocument[] documents = null;
-            HRESULT hr = Raw.GetDocumentsForMethod(cDocs, out pcDocs, documents);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetDocumentsForMethodResult(pcDocs, documents);
-            else
-                result = default(GetDocumentsForMethodResult);
 
             return hr;
         }

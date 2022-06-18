@@ -142,17 +142,16 @@ namespace ManagedCorDebug
         /// <param name="offset">[in] The starting offset in the variable from which to read the value. This parameter is used when reading member fields in an object.</param>
         /// <param name="cbContext">[in] The size in bytes of the context argument.</param>
         /// <param name="context">[in] The thread context used to read the value.</param>
-        /// <param name="cbValue">[in] The size in bytes of the pValue buffer.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetValueResult GetValue(int offset, int cbContext, IntPtr context, int cbValue)
+        /// <returns>[out] A byte array that contains the value of the variable.</returns>
+        public byte[] GetValue(int offset, int cbContext, IntPtr context)
         {
             HRESULT hr;
-            GetValueResult result;
+            byte[] pValueResult;
 
-            if ((hr = TryGetValue(offset, cbContext, context, cbValue, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetValue(offset, cbContext, context, out pValueResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return pValueResult;
         }
 
         /// <summary>
@@ -161,9 +160,8 @@ namespace ManagedCorDebug
         /// <param name="offset">[in] The starting offset in the variable from which to read the value. This parameter is used when reading member fields in an object.</param>
         /// <param name="cbContext">[in] The size in bytes of the context argument.</param>
         /// <param name="context">[in] The thread context used to read the value.</param>
-        /// <param name="cbValue">[in] The size in bytes of the pValue buffer.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetValue(int offset, int cbContext, IntPtr context, int cbValue, out GetValueResult result)
+        /// <param name="pValueResult">[out] A byte array that contains the value of the variable.</param>
+        public HRESULT TryGetValue(int offset, int cbContext, IntPtr context, out byte[] pValueResult)
         {
             /*HRESULT GetValue(
             [In] int offset,
@@ -172,14 +170,27 @@ namespace ManagedCorDebug
             [In] int cbValue,
             [Out] out int pcbValue,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] pValue);*/
+            int cbValue = 0;
             int pcbValue;
             byte[] pValue = null;
             HRESULT hr = Raw.GetValue(offset, cbContext, context, cbValue, out pcbValue, pValue);
 
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cbValue = pcbValue;
+            pValue = new byte[pcbValue];
+            hr = Raw.GetValue(offset, cbContext, context, cbValue, out pcbValue, pValue);
+
             if (hr == HRESULT.S_OK)
-                result = new GetValueResult(pcbValue, pValue);
-            else
-                result = default(GetValueResult);
+            {
+                pValueResult = pValue;
+
+                return hr;
+            }
+
+            fail:
+            pValueResult = default(byte[]);
 
             return hr;
         }

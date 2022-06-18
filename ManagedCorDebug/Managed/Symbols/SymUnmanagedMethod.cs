@@ -109,6 +109,59 @@ namespace ManagedCorDebug
         }
 
         #endregion
+        #region Parameters
+
+        /// <summary>
+        /// Gets the parameters for this method. The parameters are returned in the order in which they are defined within the method's signature.
+        /// </summary>
+        public ISymUnmanagedVariable[] Parameters
+        {
+            get
+            {
+                HRESULT hr;
+                ISymUnmanagedVariable[] @paramsResult;
+
+                if ((hr = TryGetParameters(out @paramsResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return @paramsResult;
+            }
+        }
+
+        /// <summary>
+        /// Gets the parameters for this method. The parameters are returned in the order in which they are defined within the method's signature.
+        /// </summary>
+        /// <param name="paramsResult">[out] A pointer to the buffer that receives the parameters.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
+        public HRESULT TryGetParameters(out ISymUnmanagedVariable[] @paramsResult)
+        {
+            /*HRESULT GetParameters([In] int cParams, [Out] out int pcParams, [MarshalAs(UnmanagedType.LPArray), Out] ISymUnmanagedVariable[] @params);*/
+            int cParams = 0;
+            int pcParams;
+            ISymUnmanagedVariable[] @params = null;
+            HRESULT hr = Raw.GetParameters(cParams, out pcParams, @params);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cParams = pcParams;
+            @params = new ISymUnmanagedVariable[pcParams];
+            hr = Raw.GetParameters(cParams, out pcParams, @params);
+
+            if (hr == HRESULT.S_OK)
+            {
+                @paramsResult = @params;
+
+                return hr;
+            }
+
+            fail:
+            @paramsResult = default(ISymUnmanagedVariable[]);
+
+            return hr;
+        }
+
+        #endregion
         #region Namespace
 
         /// <summary>
@@ -227,17 +280,16 @@ namespace ManagedCorDebug
         /// <param name="document">[in] The document for which the offset is requested.</param>
         /// <param name="line">[in] The document line corresponding to the ranges.</param>
         /// <param name="column">[in] The document column corresponding to the ranges.</param>
-        /// <param name="cRanges">[in] The size of the ranges array.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetRangesResult GetRanges(ISymUnmanagedDocument document, int line, int column, int cRanges)
+        /// <returns>[out] A pointer to the buffer that receives the ranges.</returns>
+        public int[] GetRanges(ISymUnmanagedDocument document, int line, int column)
         {
             HRESULT hr;
-            GetRangesResult result;
+            int[] rangesResult;
 
-            if ((hr = TryGetRanges(document, line, column, cRanges, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetRanges(document, line, column, out rangesResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return rangesResult;
         }
 
         /// <summary>
@@ -247,10 +299,9 @@ namespace ManagedCorDebug
         /// <param name="document">[in] The document for which the offset is requested.</param>
         /// <param name="line">[in] The document line corresponding to the ranges.</param>
         /// <param name="column">[in] The document column corresponding to the ranges.</param>
-        /// <param name="cRanges">[in] The size of the ranges array.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="rangesResult">[out] A pointer to the buffer that receives the ranges.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetRanges(ISymUnmanagedDocument document, int line, int column, int cRanges, out GetRangesResult result)
+        public HRESULT TryGetRanges(ISymUnmanagedDocument document, int line, int column, out int[] rangesResult)
         {
             /*HRESULT GetRanges(
             [MarshalAs(UnmanagedType.Interface), In]
@@ -260,54 +311,27 @@ namespace ManagedCorDebug
             [In] int cRanges,
             [Out] out int pcRanges,
             [MarshalAs(UnmanagedType.LPArray), Out] int[] ranges);*/
+            int cRanges = 0;
             int pcRanges;
             int[] ranges = null;
             HRESULT hr = Raw.GetRanges(document, line, column, cRanges, out pcRanges, ranges);
 
-            if (hr == HRESULT.S_OK)
-                result = new GetRangesResult(pcRanges, ranges);
-            else
-                result = default(GetRangesResult);
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
 
-            return hr;
-        }
-
-        #endregion
-        #region GetParameters
-
-        /// <summary>
-        /// Gets the parameters for this method. The parameters are returned in the order in which they are defined within the method's signature.
-        /// </summary>
-        /// <param name="cParams">[in] The size of the params array.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetParametersResult GetParameters(int cParams)
-        {
-            HRESULT hr;
-            GetParametersResult result;
-
-            if ((hr = TryGetParameters(cParams, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Gets the parameters for this method. The parameters are returned in the order in which they are defined within the method's signature.
-        /// </summary>
-        /// <param name="cParams">[in] The size of the params array.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetParameters(int cParams, out GetParametersResult result)
-        {
-            /*HRESULT GetParameters([In] int cParams, [Out] out int pcParams, [MarshalAs(UnmanagedType.LPArray), Out] ISymUnmanagedVariable[] @params);*/
-            int pcParams;
-            ISymUnmanagedVariable[] @params = null;
-            HRESULT hr = Raw.GetParameters(cParams, out pcParams, @params);
+            cRanges = pcRanges;
+            ranges = new int[pcRanges];
+            hr = Raw.GetRanges(document, line, column, cRanges, out pcRanges, ranges);
 
             if (hr == HRESULT.S_OK)
-                result = new GetParametersResult(pcParams, @params);
-            else
-                result = default(GetParametersResult);
+            {
+                rangesResult = ranges;
+
+                return hr;
+            }
+
+            fail:
+            rangesResult = default(int[]);
 
             return hr;
         }

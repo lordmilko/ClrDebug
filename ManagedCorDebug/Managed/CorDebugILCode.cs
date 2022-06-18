@@ -17,53 +17,60 @@ namespace ManagedCorDebug
         }
 
         #region ICorDebugILCode
-        #region GetEHClauses
+        #region EHClauses
 
         /// <summary>
         /// [Supported in the .NET Framework 4.5.2 and later versions] Returns a pointer to a list of exception handling (EH) clauses that are defined for this intermediate language (IL).
         /// </summary>
-        /// <param name="cClauses">[in] The storage capacity of the clauses array. See the Remarks section for more information.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        /// <remarks>
-        /// If cClauses is 0 and pcClauses is non-null, pcClauses is set to the number of available exception handling clauses.
-        /// If cClauses is non-zero, it represents the storage capacity of the clauses array. When the method returns, clauses
-        /// contains a maximum of cClauses items, and pcClauses is set to the number of clauses actually written to the clauses
-        /// array.
-        /// </remarks>
-        public GetEHClausesResult GetEHClauses(int cClauses)
+        public CorDebugEHClause[] EHClauses
         {
-            HRESULT hr;
-            GetEHClausesResult result;
+            get
+            {
+                HRESULT hr;
+                CorDebugEHClause[] clausesResult;
 
-            if ((hr = TryGetEHClauses(cClauses, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+                if ((hr = TryGetEHClauses(out clausesResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+                return clausesResult;
+            }
         }
 
         /// <summary>
         /// [Supported in the .NET Framework 4.5.2 and later versions] Returns a pointer to a list of exception handling (EH) clauses that are defined for this intermediate language (IL).
         /// </summary>
-        /// <param name="cClauses">[in] The storage capacity of the clauses array. See the Remarks section for more information.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="clausesResult">[out] An array of <see cref="CorDebugEHClause"/> objects that contain information on exception handling clauses defined for this IL.</param>
         /// <remarks>
         /// If cClauses is 0 and pcClauses is non-null, pcClauses is set to the number of available exception handling clauses.
         /// If cClauses is non-zero, it represents the storage capacity of the clauses array. When the method returns, clauses
         /// contains a maximum of cClauses items, and pcClauses is set to the number of clauses actually written to the clauses
         /// array.
         /// </remarks>
-        public HRESULT TryGetEHClauses(int cClauses, out GetEHClausesResult result)
+        public HRESULT TryGetEHClauses(out CorDebugEHClause[] clausesResult)
         {
             /*HRESULT GetEHClauses([In] int cClauses, [Out] out int pcClauses, [MarshalAs(UnmanagedType.LPArray), Out]
             CorDebugEHClause[] clauses);*/
+            int cClauses = 0;
             int pcClauses;
             CorDebugEHClause[] clauses = null;
             HRESULT hr = Raw.GetEHClauses(cClauses, out pcClauses, clauses);
 
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cClauses = pcClauses;
+            clauses = new CorDebugEHClause[pcClauses];
+            hr = Raw.GetEHClauses(cClauses, out pcClauses, clauses);
+
             if (hr == HRESULT.S_OK)
-                result = new GetEHClausesResult(pcClauses, clauses);
-            else
-                result = default(GetEHClausesResult);
+            {
+                clausesResult = clauses;
+
+                return hr;
+            }
+
+            fail:
+            clausesResult = default(CorDebugEHClause[]);
 
             return hr;
         }
@@ -105,38 +112,29 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetInstrumentedILMap
+        #region InstrumentedILMap
 
         /// <summary>
         /// [Supported in the .NET Framework 4.5.2 and later versions] Returns a map from profiler-instrumented intermediate language (IL) offsets to original method IL offsets for this instance.
         /// </summary>
-        /// <param name="cMap">[in] The storage capacity of the map array. See the Remarks section for more information.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        /// <remarks>
-        /// If the profiler sets the mapping by calling the ICorProfilerInfo.SetILInstrumentedCodeMap method, the debugger
-        /// can call this method to retrieve the mapping and to use the mapping internally when calculating IL offsets for
-        /// stack traces and variable lifetimes. If cMap is 0 and pcMap is non-null, pcMap is set to the number of available
-        /// <see cref="COR_IL_MAP"/> values. If cMap is non-zero, it represents the storage capacity of the map array. When the method returns,
-        /// map contains a maximum of cMap items, and pcMap is set to the number of <see cref="COR_IL_MAP"/> values actually written to the
-        /// map array. If the IL hasn't been instrumented or the mapping wasn't provided by a profiler, this method returns
-        /// S_OK and sets pcMap to 0.
-        /// </remarks>
-        public GetInstrumentedILMapResult GetInstrumentedILMap(int cMap)
+        public COR_IL_MAP[] InstrumentedILMap
         {
-            HRESULT hr;
-            GetInstrumentedILMapResult result;
+            get
+            {
+                HRESULT hr;
+                COR_IL_MAP[] mapResult;
 
-            if ((hr = TryGetInstrumentedILMap(cMap, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+                if ((hr = TryGetInstrumentedILMap(out mapResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+                return mapResult;
+            }
         }
 
         /// <summary>
         /// [Supported in the .NET Framework 4.5.2 and later versions] Returns a map from profiler-instrumented intermediate language (IL) offsets to original method IL offsets for this instance.
         /// </summary>
-        /// <param name="cMap">[in] The storage capacity of the map array. See the Remarks section for more information.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="mapResult">[out] An array of <see cref="COR_IL_MAP"/> values that provide information on mappings from profiler-instrumented IL to the IL of the original method.</param>
         /// <remarks>
         /// If the profiler sets the mapping by calling the ICorProfilerInfo.SetILInstrumentedCodeMap method, the debugger
         /// can call this method to retrieve the mapping and to use the mapping internally when calculating IL offsets for
@@ -146,17 +144,30 @@ namespace ManagedCorDebug
         /// map array. If the IL hasn't been instrumented or the mapping wasn't provided by a profiler, this method returns
         /// S_OK and sets pcMap to 0.
         /// </remarks>
-        public HRESULT TryGetInstrumentedILMap(int cMap, out GetInstrumentedILMapResult result)
+        public HRESULT TryGetInstrumentedILMap(out COR_IL_MAP[] mapResult)
         {
             /*HRESULT GetInstrumentedILMap([In] int cMap, [Out] out int pcMap, [MarshalAs(UnmanagedType.LPArray), Out] COR_IL_MAP[] map);*/
+            int cMap = 0;
             int pcMap;
             COR_IL_MAP[] map = null;
             HRESULT hr = Raw2.GetInstrumentedILMap(cMap, out pcMap, map);
 
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMap = pcMap;
+            map = new COR_IL_MAP[pcMap];
+            hr = Raw2.GetInstrumentedILMap(cMap, out pcMap, map);
+
             if (hr == HRESULT.S_OK)
-                result = new GetInstrumentedILMapResult(pcMap, map);
-            else
-                result = default(GetInstrumentedILMapResult);
+            {
+                mapResult = map;
+
+                return hr;
+            }
+
+            fail:
+            mapResult = default(COR_IL_MAP[]);
 
             return hr;
         }

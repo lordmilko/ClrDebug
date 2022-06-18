@@ -629,6 +629,66 @@ namespace ManagedCorDebug
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugThread2 Raw2 => (ICorDebugThread2) Raw;
 
+        #region ActiveFunctions
+
+        /// <summary>
+        /// Gets information about the active function in each of this thread's frames.
+        /// </summary>
+        public COR_ACTIVE_FUNCTION[] ActiveFunctions
+        {
+            get
+            {
+                HRESULT hr;
+                COR_ACTIVE_FUNCTION[] pFunctionsResult;
+
+                if ((hr = TryGetActiveFunctions(out pFunctionsResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return pFunctionsResult;
+            }
+        }
+
+        /// <summary>
+        /// Gets information about the active function in each of this thread's frames.
+        /// </summary>
+        /// <param name="pFunctionsResult">[in, out] An array of <see cref="COR_ACTIVE_FUNCTION"/> objects, each of which contains information about the active functions in this thread's frames.<para/>
+        /// The first element will be used for the leaf frame, and so on back to the root of the stack.</param>
+        /// <remarks>
+        /// If pFunctions is null on input, GetActiveFunctions returns only the number of functions that are on the stack.
+        /// That is, If pFunctions is null on input, GetActiveFunctions returns a value only in pcFunctions. The GetActiveFunctions
+        /// method is intended as an optimization over getting the same information from frames in a stack trace, and includes
+        /// only frames that would have had an <see cref="ICorDebugILFrame"/> object for them in the full stack trace.
+        /// </remarks>
+        public HRESULT TryGetActiveFunctions(out COR_ACTIVE_FUNCTION[] pFunctionsResult)
+        {
+            /*HRESULT GetActiveFunctions([In] int cFunctions, [Out] out int pcFunctions,
+            [MarshalAs(UnmanagedType.LPArray), In, Out] COR_ACTIVE_FUNCTION[] pFunctions);*/
+            int cFunctions = 0;
+            int pcFunctions;
+            COR_ACTIVE_FUNCTION[] pFunctions = null;
+            HRESULT hr = Raw2.GetActiveFunctions(cFunctions, out pcFunctions, pFunctions);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cFunctions = pcFunctions;
+            pFunctions = new COR_ACTIVE_FUNCTION[pcFunctions];
+            hr = Raw2.GetActiveFunctions(cFunctions, out pcFunctions, pFunctions);
+
+            if (hr == HRESULT.S_OK)
+            {
+                pFunctionsResult = pFunctions;
+
+                return hr;
+            }
+
+            fail:
+            pFunctionsResult = default(COR_ACTIVE_FUNCTION[]);
+
+            return hr;
+        }
+
+        #endregion
         #region ConnectionID
 
         /// <summary>
@@ -728,58 +788,6 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region GetActiveFunctions
-
-        /// <summary>
-        /// Gets information about the active function in each of this thread's frames.
-        /// </summary>
-        /// <param name="cFunctions">[in] The size of the pFunctions array.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        /// <remarks>
-        /// If pFunctions is null on input, GetActiveFunctions returns only the number of functions that are on the stack.
-        /// That is, If pFunctions is null on input, GetActiveFunctions returns a value only in pcFunctions. The GetActiveFunctions
-        /// method is intended as an optimization over getting the same information from frames in a stack trace, and includes
-        /// only frames that would have had an <see cref="ICorDebugILFrame"/> object for them in the full stack trace.
-        /// </remarks>
-        public GetActiveFunctionsResult GetActiveFunctions(int cFunctions)
-        {
-            HRESULT hr;
-            GetActiveFunctionsResult result;
-
-            if ((hr = TryGetActiveFunctions(cFunctions, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Gets information about the active function in each of this thread's frames.
-        /// </summary>
-        /// <param name="cFunctions">[in] The size of the pFunctions array.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        /// <remarks>
-        /// If pFunctions is null on input, GetActiveFunctions returns only the number of functions that are on the stack.
-        /// That is, If pFunctions is null on input, GetActiveFunctions returns a value only in pcFunctions. The GetActiveFunctions
-        /// method is intended as an optimization over getting the same information from frames in a stack trace, and includes
-        /// only frames that would have had an <see cref="ICorDebugILFrame"/> object for them in the full stack trace.
-        /// </remarks>
-        public HRESULT TryGetActiveFunctions(int cFunctions, out GetActiveFunctionsResult result)
-        {
-            /*HRESULT GetActiveFunctions([In] int cFunctions, [Out] out int pcFunctions,
-            [MarshalAs(UnmanagedType.LPArray), In, Out] COR_ACTIVE_FUNCTION[] pFunctions);*/
-            int pcFunctions;
-            COR_ACTIVE_FUNCTION[] pFunctions = null;
-            HRESULT hr = Raw2.GetActiveFunctions(cFunctions, out pcFunctions, pFunctions);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetActiveFunctionsResult(pcFunctions, pFunctions);
-            else
-                result = default(GetActiveFunctionsResult);
-
-            return hr;
-        }
-
-        #endregion
         #region InterceptCurrentException
 
         /// <summary>
@@ -820,6 +828,78 @@ namespace ManagedCorDebug
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ICorDebugThread3 Raw3 => (ICorDebugThread3) Raw;
 
+        #region ActiveInternalFrames
+
+        /// <summary>
+        /// Returns an array of internal frames (<see cref="ICorDebugInternalFrame2"/> objects) on the stack.
+        /// </summary>
+        public ICorDebugInternalFrame2[] ActiveInternalFrames
+        {
+            get
+            {
+                HRESULT hr;
+                ICorDebugInternalFrame2[] ppInternalFramesResult;
+
+                if ((hr = TryGetActiveInternalFrames(out ppInternalFramesResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return ppInternalFramesResult;
+            }
+        }
+
+        /// <summary>
+        /// Returns an array of internal frames (<see cref="ICorDebugInternalFrame2"/> objects) on the stack.
+        /// </summary>
+        /// <param name="ppInternalFramesResult">[in, out] A pointer to the address of an array of internal frames on the stack.</param>
+        /// <returns>
+        /// This method returns the following specific HRESULTs as well as HRESULT errors that indicate method failure.
+        /// 
+        /// | HRESULT                                       | Description                                                                            |
+        /// | --------------------------------------------- | -------------------------------------------------------------------------------------- |
+        /// | S_OK                                          | The <see cref="ICorDebugInternalFrame2"/> object was successfully created.             |
+        /// | E_INVALIDARG                                  | cInternalFrames is not zero and ppInternalFrames is null, or pcInternalFrames is null. |
+        /// | HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER) | ppInternalFrames is smaller than the count of internal frames.                         |
+        /// </returns>
+        /// <remarks>
+        /// Internal frames are data structures pushed onto the stack by the runtime to store temporary data. When you first
+        /// call GetActiveInternalFrames, you should set the cInternalFrames parameter to 0 (zero), and the ppInternalFrames
+        /// parameter to null. When GetActiveInternalFrames first returns, pcInternalFrames contains the count of the internal
+        /// frames on the stack. GetActiveInternalFrames should then be called a second time. You should pass the proper count
+        /// (pcInternalFrames) in the cInternalFrames parameter, and specify a pointer to an appropriately sized array in ppInternalFrames.
+        /// Use the <see cref="ActiveInternalFrames"/> property to return actual stack frames.
+        /// </remarks>
+        public HRESULT TryGetActiveInternalFrames(out ICorDebugInternalFrame2[] ppInternalFramesResult)
+        {
+            /*HRESULT GetActiveInternalFrames(
+            [In] int cInternalFrames,
+            [Out] out int pcInternalFrames,
+            [Out, MarshalAs(UnmanagedType.LPArray)] ICorDebugInternalFrame2[] ppInternalFrames);*/
+            int cInternalFrames = 0;
+            int pcInternalFrames;
+            ICorDebugInternalFrame2[] ppInternalFrames = null;
+            HRESULT hr = Raw3.GetActiveInternalFrames(cInternalFrames, out pcInternalFrames, ppInternalFrames);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cInternalFrames = pcInternalFrames;
+            ppInternalFrames = new ICorDebugInternalFrame2[pcInternalFrames];
+            hr = Raw3.GetActiveInternalFrames(cInternalFrames, out pcInternalFrames, ppInternalFrames);
+
+            if (hr == HRESULT.S_OK)
+            {
+                ppInternalFramesResult = ppInternalFrames;
+
+                return hr;
+            }
+
+            fail:
+            ppInternalFramesResult = default(ICorDebugInternalFrame2[]);
+
+            return hr;
+        }
+
+        #endregion
         #region CreateStackWalk
 
         /// <summary>
@@ -867,73 +947,6 @@ namespace ManagedCorDebug
                 ppStackWalkResult = new CorDebugStackWalk(ppStackWalk);
             else
                 ppStackWalkResult = default(CorDebugStackWalk);
-
-            return hr;
-        }
-
-        #endregion
-        #region GetActiveInternalFrames
-
-        /// <summary>
-        /// Returns an array of internal frames (<see cref="ICorDebugInternalFrame2"/> objects) on the stack.
-        /// </summary>
-        /// <param name="cInternalFrames">[in] The number of internal frames expected in ppInternalFrames.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        /// <remarks>
-        /// Internal frames are data structures pushed onto the stack by the runtime to store temporary data. When you first
-        /// call GetActiveInternalFrames, you should set the cInternalFrames parameter to 0 (zero), and the ppInternalFrames
-        /// parameter to null. When GetActiveInternalFrames first returns, pcInternalFrames contains the count of the internal
-        /// frames on the stack. GetActiveInternalFrames should then be called a second time. You should pass the proper count
-        /// (pcInternalFrames) in the cInternalFrames parameter, and specify a pointer to an appropriately sized array in ppInternalFrames.
-        /// Use the <see cref="GetActiveInternalFrames"/> method to return actual stack frames.
-        /// </remarks>
-        public GetActiveInternalFramesResult GetActiveInternalFrames(int cInternalFrames)
-        {
-            HRESULT hr;
-            GetActiveInternalFramesResult result;
-
-            if ((hr = TryGetActiveInternalFrames(cInternalFrames, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Returns an array of internal frames (<see cref="ICorDebugInternalFrame2"/> objects) on the stack.
-        /// </summary>
-        /// <param name="cInternalFrames">[in] The number of internal frames expected in ppInternalFrames.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        /// <returns>
-        /// This method returns the following specific HRESULTs as well as HRESULT errors that indicate method failure.
-        /// 
-        /// | HRESULT                                       | Description                                                                            |
-        /// | --------------------------------------------- | -------------------------------------------------------------------------------------- |
-        /// | S_OK                                          | The <see cref="ICorDebugInternalFrame2"/> object was successfully created.             |
-        /// | E_INVALIDARG                                  | cInternalFrames is not zero and ppInternalFrames is null, or pcInternalFrames is null. |
-        /// | HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER) | ppInternalFrames is smaller than the count of internal frames.                         |
-        /// </returns>
-        /// <remarks>
-        /// Internal frames are data structures pushed onto the stack by the runtime to store temporary data. When you first
-        /// call GetActiveInternalFrames, you should set the cInternalFrames parameter to 0 (zero), and the ppInternalFrames
-        /// parameter to null. When GetActiveInternalFrames first returns, pcInternalFrames contains the count of the internal
-        /// frames on the stack. GetActiveInternalFrames should then be called a second time. You should pass the proper count
-        /// (pcInternalFrames) in the cInternalFrames parameter, and specify a pointer to an appropriately sized array in ppInternalFrames.
-        /// Use the <see cref="GetActiveInternalFrames"/> method to return actual stack frames.
-        /// </remarks>
-        public HRESULT TryGetActiveInternalFrames(int cInternalFrames, out GetActiveInternalFramesResult result)
-        {
-            /*HRESULT GetActiveInternalFrames(
-            [In] int cInternalFrames,
-            [Out] out int pcInternalFrames,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ICorDebugInternalFrame2[] ppInternalFrames);*/
-            int pcInternalFrames;
-            ICorDebugInternalFrame2[] ppInternalFrames = null;
-            HRESULT hr = Raw3.GetActiveInternalFrames(cInternalFrames, out pcInternalFrames, ppInternalFrames);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetActiveInternalFramesResult(pcInternalFrames, ppInternalFrames);
-            else
-                result = default(GetActiveInternalFramesResult);
 
             return hr;
         }

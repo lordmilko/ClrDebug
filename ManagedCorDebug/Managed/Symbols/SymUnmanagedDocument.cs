@@ -203,6 +203,59 @@ namespace ManagedCorDebug
         }
 
         #endregion
+        #region CheckSum
+
+        /// <summary>
+        /// Gets the checksum.
+        /// </summary>
+        public byte[] CheckSum
+        {
+            get
+            {
+                HRESULT hr;
+                byte[] dataResult;
+
+                if ((hr = TryGetCheckSum(out dataResult)) != HRESULT.S_OK)
+                    Marshal.ThrowExceptionForHR((int) hr);
+
+                return dataResult;
+            }
+        }
+
+        /// <summary>
+        /// Gets the checksum.
+        /// </summary>
+        /// <param name="dataResult">[out] The buffer that receives the checksum.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
+        public HRESULT TryGetCheckSum(out byte[] dataResult)
+        {
+            /*HRESULT GetCheckSum([In] int cData, [Out] out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
+            int cData = 0;
+            int pcData;
+            byte[] data = null;
+            HRESULT hr = Raw.GetCheckSum(cData, out pcData, data);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cData = pcData;
+            data = new byte[pcData];
+            hr = Raw.GetCheckSum(cData, out pcData, data);
+
+            if (hr == HRESULT.S_OK)
+            {
+                dataResult = data;
+
+                return hr;
+            }
+
+            fail:
+            dataResult = default(byte[]);
+
+            return hr;
+        }
+
+        #endregion
         #region SourceLength
 
         /// <summary>
@@ -231,46 +284,6 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetSourceLength([Out] out int pRetVal);*/
             return Raw.GetSourceLength(out pRetVal);
-        }
-
-        #endregion
-        #region GetCheckSum
-
-        /// <summary>
-        /// Gets the checksum.
-        /// </summary>
-        /// <param name="cData">[in] The length of the buffer provided by the data parameter</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetCheckSumResult GetCheckSum(int cData)
-        {
-            HRESULT hr;
-            GetCheckSumResult result;
-
-            if ((hr = TryGetCheckSum(cData, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Gets the checksum.
-        /// </summary>
-        /// <param name="cData">[in] The length of the buffer provided by the data parameter</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
-        public HRESULT TryGetCheckSum(int cData, out GetCheckSumResult result)
-        {
-            /*HRESULT GetCheckSum([In] int cData, [Out] out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
-            int pcData;
-            byte[] data = null;
-            HRESULT hr = Raw.GetCheckSum(cData, out pcData, data);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetCheckSumResult(pcData, data);
-            else
-                result = default(GetCheckSumResult);
-
-            return hr;
         }
 
         #endregion
@@ -343,17 +356,16 @@ namespace ManagedCorDebug
         /// <param name="startColumn">[in] The starting column in the current document.</param>
         /// <param name="endLine">[in] The final line in the current document.</param>
         /// <param name="endColumn">[in] The final column in the current document.</param>
-        /// <param name="cSourceBytes">[in] The size of the source, in bytes.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetSourceRangeResult GetSourceRange(int startLine, int startColumn, int endLine, int endColumn, int cSourceBytes)
+        /// <returns>[out] The size and length of the specified range of the source document, in bytes.</returns>
+        public byte[] GetSourceRange(int startLine, int startColumn, int endLine, int endColumn)
         {
             HRESULT hr;
-            GetSourceRangeResult result;
+            byte[] sourceResult;
 
-            if ((hr = TryGetSourceRange(startLine, startColumn, endLine, endColumn, cSourceBytes, out result)) != HRESULT.S_OK)
+            if ((hr = TryGetSourceRange(startLine, startColumn, endLine, endColumn, out sourceResult)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return sourceResult;
         }
 
         /// <summary>
@@ -363,10 +375,9 @@ namespace ManagedCorDebug
         /// <param name="startColumn">[in] The starting column in the current document.</param>
         /// <param name="endLine">[in] The final line in the current document.</param>
         /// <param name="endColumn">[in] The final column in the current document.</param>
-        /// <param name="cSourceBytes">[in] The size of the source, in bytes.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="sourceResult">[out] The size and length of the specified range of the source document, in bytes.</param>
         /// <returns>S_OK if the method succeeds.</returns>
-        public HRESULT TryGetSourceRange(int startLine, int startColumn, int endLine, int endColumn, int cSourceBytes, out GetSourceRangeResult result)
+        public HRESULT TryGetSourceRange(int startLine, int startColumn, int endLine, int endColumn, out byte[] sourceResult)
         {
             /*HRESULT GetSourceRange(
             [In] int startLine,
@@ -376,14 +387,27 @@ namespace ManagedCorDebug
             [In] int cSourceBytes,
             [Out] out int pcSourceBytes,
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] source);*/
+            int cSourceBytes = 0;
             int pcSourceBytes;
             byte[] source = null;
             HRESULT hr = Raw.GetSourceRange(startLine, startColumn, endLine, endColumn, cSourceBytes, out pcSourceBytes, source);
 
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cSourceBytes = pcSourceBytes;
+            source = new byte[pcSourceBytes];
+            hr = Raw.GetSourceRange(startLine, startColumn, endLine, endColumn, cSourceBytes, out pcSourceBytes, source);
+
             if (hr == HRESULT.S_OK)
-                result = new GetSourceRangeResult(pcSourceBytes, source);
-            else
-                result = default(GetSourceRangeResult);
+            {
+                sourceResult = source;
+
+                return hr;
+            }
+
+            fail:
+            sourceResult = default(byte[]);
 
             return hr;
         }
