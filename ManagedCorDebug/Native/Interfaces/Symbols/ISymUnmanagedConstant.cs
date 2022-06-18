@@ -30,7 +30,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetValue([MarshalAs(UnmanagedType.Struct)] ref object pValue);
+        HRESULT GetValue([MarshalAs(UnmanagedType.Struct)] out object pValue);
 
         /// <summary>
         /// Gets the signature of the constant.

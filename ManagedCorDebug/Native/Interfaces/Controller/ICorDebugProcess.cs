@@ -234,7 +234,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetThreadContext([In] int threadID, [In] int contextSize, [In, Out] ref byte[] context);
+        HRESULT GetThreadContext([In] int threadID, [In] int contextSize, [In, Out] ref IntPtr context);
 
         /// <summary>
         /// Sets the context for the given thread in this process.
@@ -251,7 +251,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetThreadContext([In] int threadID, [In] int contextSize, [In] byte[] context);
+        HRESULT SetThreadContext([In] int threadID, [In] int contextSize, [In] IntPtr context);
 
         /// <summary>
         /// Reads a specified area of memory for this process.
@@ -269,7 +269,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ReadMemory([In] CORDB_ADDRESS address, [In] int size, [Out] byte[] buffer, out long read);
+        HRESULT ReadMemory([In] CORDB_ADDRESS address, [In] int size, [Out] byte[] buffer, out int read);
 
         /// <summary>
         /// Writes data to an area of memory in this process.
@@ -288,7 +288,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT WriteMemory([In] CORDB_ADDRESS address, [In] int size, [In] IntPtr buffer,
-            out long written);
+            out int written);
 
         /// <summary>
         /// Clears the current unmanaged exception on the given thread.

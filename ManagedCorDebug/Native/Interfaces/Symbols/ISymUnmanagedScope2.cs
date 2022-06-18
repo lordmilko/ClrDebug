@@ -42,7 +42,7 @@ namespace ManagedCorDebug
         new HRESULT GetChildren(
             [In] int cChildren,
             out int pcChildren,
-            [Out] IntPtr children); //ISymUnmanagedScope
+            [Out] ISymUnmanagedScope[] children);
 
         /// <summary>
         /// Gets the start offset for this scope.
@@ -83,7 +83,7 @@ namespace ManagedCorDebug
         new HRESULT GetLocals(
             [In] int cLocals,
             out int pcLocals,
-            [Out] IntPtr locals); //ISymUnmanagedVariable
+            [Out] ISymUnmanagedVariable[] locals);
 
         /// <summary>
         /// Gets the namespaces that are being used within this scope.
@@ -97,7 +97,7 @@ namespace ManagedCorDebug
         new HRESULT GetNamespaces(
             [In] int cNameSpaces,
             out int pcNameSpaces,
-            [Out] IntPtr namespaces); //ISymUnmanagedNamespace
+            [Out] ISymUnmanagedNamespace[] namespaces);
 
         /// <summary>
         /// Gets a count of the constants defined within this scope.
@@ -118,6 +118,6 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetConstants([In] int cConstants, out int pcConstants, [MarshalAs(UnmanagedType.Interface), Out]
-            IntPtr constants); //ISymUnmanagedConstant
+            ISymUnmanagedConstant[] constants);
     }
 }

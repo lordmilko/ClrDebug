@@ -27,7 +27,7 @@ namespace ManagedCorDebug
             [In] IntPtr typeSig,
             [In] int cRequestedSymbols,
             out int pcFetchedSymbols,
-            [Out] IntPtr pSymbols); //ICorDebugStaticFieldSymbol
+            [Out] ICorDebugStaticFieldSymbol[] pSymbols);
 
         /// <summary>
         /// Gets the instance field symbols that correspond to a typespec signature.
@@ -44,7 +44,7 @@ namespace ManagedCorDebug
             [In] IntPtr typeSig,
             [In] int cRequestedSymbols,
             out int pcFetchedSymbols,
-            [Out] IntPtr pSymbols); //ICorDebugInstanceFieldSymbol
+            [Out] ICorDebugInstanceFieldSymbol[] pSymbols);
 
         /// <summary>
         /// Gets a method's local symbols given the relative virtual address (RVA) of that method.
@@ -59,7 +59,7 @@ namespace ManagedCorDebug
             [In] int nativeRVA,
             [In] int cRequestedSymbols,
             out int pcFetchedSymbols,
-            [Out] IntPtr pSymbols); //ICorDebugVariableSymbol
+            [Out] ICorDebugVariableSymbol[] pSymbols);
 
         /// <summary>
         /// Gets a method's parameter symbols given the relative virtual address (RVA) of that method.
@@ -74,7 +74,7 @@ namespace ManagedCorDebug
             [In] int nativeRVA,
             [In] int cRequestedSymbols,
             out int pcFetchedSymbols,
-            [Out] IntPtr pSymbols); //ICorDebugVariableSymbol
+            [Out] ICorDebugVariableSymbol[] pSymbols);
 
         /// <summary>
         /// Gets the symbol records for all the merged assemblies.
@@ -88,7 +88,7 @@ namespace ManagedCorDebug
             [In] int cRequestedRecords,
             out int pcFetchedRecords,
             [MarshalAs(UnmanagedType.Interface), Out]
-            IntPtr pRecords); //ICorDebugMergedAssemblyRecord
+            ICorDebugMergedAssemblyRecord[] pRecords);
 
         /// <summary>
         /// Returns information about method properties, such as the method's metadata token and information about its generic parameters, given a relative virtual address (RVA) in that method.
@@ -140,7 +140,7 @@ namespace ManagedCorDebug
         /// <param name="pCodeSize">A pointer to the method code size (the number of bytes of the method's code).</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCodeRange([In] int codeRva, out int pCodeStartAddress, ref int pCodeSize);
+        HRESULT GetCodeRange([In] int codeRva, out int pCodeStartAddress, out int pCodeSize);
 
         /// <summary>
         /// Reads data from a merged assembly given a relative virtual address (RVA) in the merged assembly.

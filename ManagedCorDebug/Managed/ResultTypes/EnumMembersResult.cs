@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.EnumMembers"/> method.
     /// </summary>
-    [DebuggerDisplay("phEnum = {phEnum}, rMembers = {rMembers}, pcTokens = {pcTokens}")]
+    [DebuggerDisplay("phEnum = {phEnum}, rMembers = {rMembers}")]
     public struct EnumMembersResult
     {
         /// <summary>
@@ -19,16 +19,10 @@ namespace ManagedCorDebug
         /// </summary>
         public mdToken[] rMembers { get; }
 
-        /// <summary>
-        /// The actual number of MemberDef tokens returned in rMembers.
-        /// </summary>
-        public int pcTokens { get; }
-
-        public EnumMembersResult(IntPtr phEnum, mdToken[] rMembers, int pcTokens)
+        public EnumMembersResult(IntPtr phEnum, mdToken[] rMembers)
         {
             this.phEnum = phEnum;
             this.rMembers = rMembers;
-            this.pcTokens = pcTokens;
         }
     }
 }

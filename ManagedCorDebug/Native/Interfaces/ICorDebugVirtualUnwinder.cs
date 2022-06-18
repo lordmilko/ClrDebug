@@ -34,7 +34,7 @@ namespace ManagedCorDebug
             [In] int contextFlags,
             [In] int cbContextBuf,
             out int contextSize,
-            out IntPtr contextBuf);
+            [In, Out] ref IntPtr contextBuf);
 
         /// <summary>
         /// Advances to the caller's context.

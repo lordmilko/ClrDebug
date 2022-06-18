@@ -34,7 +34,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetNamespaces([In] int cNameSpaces, out int pcNameSpaces, [MarshalAs(UnmanagedType.Interface), Out]
-            IntPtr namespaces); //ISymUnmanagedNamespace
+            ISymUnmanagedNamespace[] namespaces);
 
         /// <summary>
         /// Returns all variables defined at global scope within this namespace.
@@ -45,6 +45,6 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetVariables([In] int cVars, out int pcVars, [Out] IntPtr pVars); //ISymUnmanagedVariable
+        HRESULT GetVariables([In] int cVars, out int pcVars, [Out] ISymUnmanagedVariable[] pVars);
     }
 }

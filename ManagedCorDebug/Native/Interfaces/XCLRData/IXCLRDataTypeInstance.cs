@@ -105,7 +105,7 @@ namespace ManagedCorDebug
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
-            [Out] IntPtr outBuffer);
+            [In, Out] ref IntPtr outBuffer);
 
         [PreserveSig]
         HRESULT GetNumStaticFields2(

@@ -42,7 +42,7 @@ namespace ManagedCorDebug
         HRESULT GetChildren(
             [In] int cChildren,
             out int pcChildren,
-            [Out] IntPtr children); //ISymUnmanagedScope
+            [Out] ISymUnmanagedScope[] children);
 
         /// <summary>
         /// Gets the start offset for this scope.
@@ -83,7 +83,7 @@ namespace ManagedCorDebug
         HRESULT GetLocals(
             [In] int cLocals,
             out int pcLocals,
-            [Out] IntPtr locals); //ISymUnmanagedVariable
+            [Out] ISymUnmanagedVariable[] locals);
 
         /// <summary>
         /// Gets the namespaces that are being used within this scope.
@@ -97,6 +97,6 @@ namespace ManagedCorDebug
         HRESULT GetNamespaces(
             [In] int cNameSpaces,
             out int pcNameSpaces,
-            [Out] IntPtr namespaces); //ISymUnmanagedNamespace
+            [Out] ISymUnmanagedNamespace[] namespaces);
     }
 }

@@ -40,7 +40,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetDocuments([In] int cDocs, out int pcDocs, [Out] IntPtr pDocs);
+        new HRESULT GetDocuments([In] int cDocs, out int pcDocs, [Out] ISymUnmanagedDocument[] pDocs);
 
         /// <summary>
         /// Returns the method that was specified as the user entry point for the module, if any. For example, this method could be the user's main method rather than compiler-generated stubs before the main method.
@@ -78,14 +78,14 @@ namespace ManagedCorDebug
             [In] int parent,
             [In] int cVars,
             out int pcVars,
-            [Out] IntPtr pVars); //ISymUnmanagedVariable
+            [Out] ISymUnmanagedVariable[] pVars);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetGlobalVariables(
             [In] int cVars,
             out int pcVars,
-            [Out] IntPtr pVars); //ISymUnmanagedVariable
+            [Out] ISymUnmanagedVariable[] pVars);
 
         /// <summary>
         /// Returns the method that contains the breakpoint at the given position in a document.
@@ -118,7 +118,7 @@ namespace ManagedCorDebug
         new HRESULT GetNamespaces(
             [In] int cNameSpaces,
             out int pcNameSpaces,
-            [Out] IntPtr namespaces); //ISymUnmanagedNamespace
+            [Out] ISymUnmanagedNamespace[] namespaces);
 
         /// <summary>
         /// Initializes the symbol reader with the metadata importer interface that this reader will be associated with, along with the file name of the module.
@@ -179,7 +179,7 @@ namespace ManagedCorDebug
             [In] int column,
             [In] int cMethod,
             [Out] out int pcMethod,
-            [Out] IntPtr pRetVal); //ISymUnmanagedMethod
+            [Out] ISymUnmanagedMethod[] pRetVal);
 
         /// <summary>
         /// Gets the specified version of the specified document. The document version starts at 1 and is incremented each time the document is updated using the <see cref="UpdateSymbolStore"/> method.<para/>
@@ -253,6 +253,6 @@ namespace ManagedCorDebug
             [In] int cMethod,
             out int pcMethod,
             [MarshalAs(UnmanagedType.Interface), Out]
-            IntPtr pRetVal); //ISymUnmanagedMethod
+            ISymUnmanagedMethod[] pRetVal);
     }
 }

@@ -66,15 +66,13 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetThreadContext([In] int contextSize, [MarshalAs(UnmanagedType.LPArray), In, Out]
-            byte[] context);
+        HRESULT GetThreadContext([In] int contextSize, [In, Out] ref IntPtr context);
 
         /// <summary>
         /// SetThreadContext is not implemented in the .NET Framework version 2.0. Do not call this method.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetThreadContext([In] int contextSize, [MarshalAs(UnmanagedType.Interface), In]
-            byte[] context);
+        HRESULT SetThreadContext([In] int contextSize, [In] IntPtr context);
     }
 }

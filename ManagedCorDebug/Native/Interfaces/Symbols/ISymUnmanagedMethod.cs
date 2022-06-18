@@ -97,7 +97,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetParameters([In] int cParams, out int pcParams, [MarshalAs(UnmanagedType.Interface), Out]
-            IntPtr @params); //ISymUnmanagedVariable
+            ISymUnmanagedVariable[] @params);
 
         /// <summary>
         /// Gets the namespace within which this method is defined.
@@ -145,7 +145,7 @@ namespace ManagedCorDebug
             [In] int cPoints,
             out int pcPoints,
             [In] ref int offsets,
-            [In, Out] ref IntPtr documents,
+            [Out] ISymUnmanagedDocument[] documents,
             [In, Out] ref int[] lines,
             [In, Out] ref int[] columns,
             [In, Out] ref int[] endLines,

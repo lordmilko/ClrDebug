@@ -434,12 +434,12 @@ namespace ManagedCorDebug
         #endregion
         #region DacModuleHandle
 
-        public long DacModuleHandle
+        public IntPtr DacModuleHandle
         {
             get
             {
                 HRESULT hr;
-                long phModule;
+                IntPtr phModule;
 
                 if ((hr = TryGetDacModuleHandle(out phModule)) != HRESULT.S_OK)
                     Marshal.ThrowExceptionForHR((int) hr);
@@ -448,10 +448,10 @@ namespace ManagedCorDebug
             }
         }
 
-        public HRESULT TryGetDacModuleHandle(out long phModule)
+        public HRESULT TryGetDacModuleHandle(out IntPtr phModule)
         {
             /*HRESULT GetDacModuleHandle(
-            out long phModule);*/
+            out IntPtr phModule);*/
             return Raw.GetDacModuleHandle(out phModule);
         }
 

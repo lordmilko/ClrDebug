@@ -41,7 +41,7 @@ namespace ManagedCorDebug
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
-            [Out] out IntPtr outBuffer);
+            [In, Out] ref IntPtr outBuffer);
 
         [PreserveSig]
         HRESULT IsSameState(

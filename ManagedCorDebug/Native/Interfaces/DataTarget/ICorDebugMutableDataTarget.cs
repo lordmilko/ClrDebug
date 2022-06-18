@@ -54,7 +54,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ReadVirtual(
             [In] CORDB_ADDRESS address,
-            [Out] out IntPtr pBuffer,
+            [Out] IntPtr pBuffer,
             [In] int bytesRequested,
             out int pBytesRead);
 
@@ -76,7 +76,7 @@ namespace ManagedCorDebug
             [In] int dwThreadId,
             [In] int contextFlags,
             [In] int contextSize,
-            out IntPtr pContext);
+            [In, Out] ref IntPtr pContext);
 
         /// <summary>
         /// Writes memory into the target process address space.

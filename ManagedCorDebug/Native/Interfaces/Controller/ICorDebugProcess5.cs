@@ -169,7 +169,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetTypeFields([In] COR_TYPEID id, int celt, ref COR_FIELD fields, ref int pceltNeeded);
+        HRESULT GetTypeFields([In] COR_TYPEID id, int celt, out COR_FIELD[] fields, out int pceltNeeded);
 
         /// <summary>
         /// Sets a value that determines how an application loads native images while running under a managed debugger.

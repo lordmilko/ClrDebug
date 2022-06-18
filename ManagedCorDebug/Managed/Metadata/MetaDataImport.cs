@@ -648,7 +648,6 @@ namespace ManagedCorDebug
         /// Enumerates MemberDef tokens representing members of the specified type.
         /// </summary>
         /// <param name="cl">[in] A TypeDef token representing the type whose members are to be enumerated.</param>
-        /// <param name="cMax">[in] The maximum size of the rMembers array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// When enumerating collections of members for a class, EnumMembers returns only members (fields and methods, but
@@ -658,12 +657,12 @@ namespace ManagedCorDebug
         /// the language or compiler that emitted the original metadata. Properties and events are not enumerated by EnumMembers.
         /// To enumerate those, use <see cref="EnumProperties"/> or <see cref="EnumEvents"/>.
         /// </remarks>
-        public EnumMembersResult EnumMembers(mdTypeDef cl, int cMax)
+        public EnumMembersResult EnumMembers(mdTypeDef cl)
         {
             HRESULT hr;
             EnumMembersResult result;
 
-            if ((hr = TryEnumMembers(cl, cMax, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumMembers(cl, out result)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
             return result;
@@ -673,7 +672,6 @@ namespace ManagedCorDebug
         /// Enumerates MemberDef tokens representing members of the specified type.
         /// </summary>
         /// <param name="cl">[in] A TypeDef token representing the type whose members are to be enumerated.</param>
-        /// <param name="cMax">[in] The maximum size of the rMembers array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>
         /// | HRESULT | Description                                                                 |
@@ -689,23 +687,36 @@ namespace ManagedCorDebug
         /// the language or compiler that emitted the original metadata. Properties and events are not enumerated by EnumMembers.
         /// To enumerate those, use <see cref="EnumProperties"/> or <see cref="EnumEvents"/>.
         /// </remarks>
-        public HRESULT TryEnumMembers(mdTypeDef cl, int cMax, out EnumMembersResult result)
+        public HRESULT TryEnumMembers(mdTypeDef cl, out EnumMembersResult result)
         {
             /*HRESULT EnumMembers(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
-            [Out] out mdToken[] rMembers,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdToken[] rMembers,
             [In] int cMax,
             [Out] out int pcTokens);*/
             IntPtr phEnum = default(IntPtr);
-            mdToken[] rMembers;
+            mdToken[] rMembers = null;
+            int cMax = 0;
             int pcTokens;
-            HRESULT hr = Raw.EnumMembers(ref phEnum, cl, out rMembers, cMax, out pcTokens);
+            HRESULT hr = Raw.EnumMembers(ref phEnum, cl, rMembers, cMax, out pcTokens);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cMax = pcTokens;
+            rMembers = new mdToken[pcTokens];
+            hr = Raw.EnumMembers(ref phEnum, cl, rMembers, cMax, out pcTokens);
 
             if (hr == HRESULT.S_OK)
-                result = new EnumMembersResult(phEnum, rMembers, pcTokens);
-            else
-                result = default(EnumMembersResult);
+            {
+                result = new EnumMembersResult(phEnum, rMembers);
+
+                return hr;
+            }
+
+            fail:
+            result = default(EnumMembersResult);
 
             return hr;
         }

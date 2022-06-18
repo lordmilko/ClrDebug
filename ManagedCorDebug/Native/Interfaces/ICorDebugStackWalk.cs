@@ -39,7 +39,7 @@ namespace ManagedCorDebug
             [In] int contextFlags,
             [In] int contextBufSize,
             out int contextSize,
-            out IntPtr contextBuf);
+            [In, Out] ref IntPtr contextBuf);
 
         /// <summary>
         /// Sets the <see cref="ICorDebugStackWalk"/> object’s current context to a valid context for the thread.

@@ -13,7 +13,7 @@ namespace ManagedCorDebug
             [In] int contextFlags,
             [In] int contextBufSize,
             [Out] out int contextSize,
-            [Out] out IntPtr contextBuf);
+            [In, Out] ref IntPtr contextBuf);
 
         [PreserveSig]
         HRESULT SetContext(
@@ -42,7 +42,7 @@ namespace ManagedCorDebug
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
-            [Out] out IntPtr outBuffer);
+            [In, Out] ref IntPtr outBuffer);
 
         [PreserveSig]
         HRESULT SetContext2(

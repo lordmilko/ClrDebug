@@ -48,7 +48,7 @@ namespace ManagedCorDebug
         HRESULT GetLocalVariables(
             [In] mdMethodDef mdMethodToken,
             [In] int cLocals,
-            [Out] IntPtr rgLocals, //ISymUnmanagedVariable
+            [Out] ISymUnmanagedVariable[] rgLocals,
             out int pceltFetched);
 
         /// <summary>

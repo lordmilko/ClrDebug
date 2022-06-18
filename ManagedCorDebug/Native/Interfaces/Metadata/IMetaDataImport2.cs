@@ -254,7 +254,7 @@ namespace ManagedCorDebug
         new HRESULT EnumMembers(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
-            [Out] out mdToken[] rMembers,
+            [Out, MarshalAs(UnmanagedType.LPArray)] mdToken[] rMembers,
             [In] int cMax,
             [Out] out int pcTokens);
 

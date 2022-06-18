@@ -22,7 +22,7 @@ namespace ManagedCorDebug.CoClass
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetDocuments([In] int cDocs, out int pcDocs,
             [MarshalAs(UnmanagedType.Interface), Out]
-            IntPtr pDocs);
+            ISymUnmanagedDocument[] pDocs);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetUserEntryPoint([Out] out mdMethodDef pToken);
@@ -44,13 +44,13 @@ namespace ManagedCorDebug.CoClass
             [In] int cVars,
             out int pcVars,
             [MarshalAs(UnmanagedType.Interface), Out]
-            IntPtr pVars);
+            ISymUnmanagedVariable[] pVars);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetGlobalVariables(
             [In] int cVars,
             out int pcVars,
-            [Out] IntPtr pVars);
+            [Out] ISymUnmanagedVariable[] pVars);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         [return: MarshalAs(UnmanagedType.Interface)]
@@ -73,7 +73,7 @@ namespace ManagedCorDebug.CoClass
         public virtual extern HRESULT GetNamespaces(
             [In] int cNameSpaces,
             out int pcNameSpaces,
-            [Out] IntPtr namespaces);
+            [Out] ISymUnmanagedNamespace[] namespaces);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT Initialize(
@@ -106,7 +106,7 @@ namespace ManagedCorDebug.CoClass
             [In] int column,
             [In] int cMethod,
             out int pcMethod,
-            [Out] IntPtr pRetVal);
+            [Out] ISymUnmanagedMethod[] pRetVal);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetDocumentVersion(
