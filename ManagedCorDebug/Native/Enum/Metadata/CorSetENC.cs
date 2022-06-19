@@ -1,8 +1,11 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Contains values used to influence behavior during the generation of metadata.
     /// </summary>
+    [Flags]
     public enum CorSetENC
     {
         /// <summary>

@@ -1,8 +1,11 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Contains flag values that indicate the conditions under which an error message should be generated when metadata is emitted out of order.
     /// </summary>
+    [Flags]
     public enum CorErrorIfEmitOutOfOrder : uint
     {
         /// <summary>

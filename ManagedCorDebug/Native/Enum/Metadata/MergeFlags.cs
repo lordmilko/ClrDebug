@@ -1,5 +1,8 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
+    [Flags]
     public enum MergeFlags
     {
         MergeFlagsNone = 0,

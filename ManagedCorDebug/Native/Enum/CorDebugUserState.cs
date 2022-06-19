@@ -1,4 +1,6 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Indicates the user state of a thread.
@@ -8,6 +10,7 @@
     /// combination of user states. Use the <see cref="ICorDebugThread.GetUserState"/> method to retrieve a thread's user
     /// state.
     /// </remarks>
+    [Flags]
     public enum CorDebugUserState
     {
         /// <summary>

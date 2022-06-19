@@ -9,6 +9,7 @@ namespace ManagedCorDebug
     /// The <see cref="CorAttributeTargets"/> enumeration values can be combined with a bitwise OR operation to get the preferred combination.
     /// The <see cref="CorAttributeTargets"/> parallels the managed <see cref="AttributeTargets"/> enumeration.
     /// </remarks>
+    [Flags]
     public enum CorAttributeTargets
     {
         /// <summary>
@@ -90,7 +91,6 @@ namespace ManagedCorDebug
         /// <summary>
         /// Attribute can be applied to a member of a class.
         /// </summary>
-        catClassMembers = catClass | catStruct | catEnum | catConstructor | catMethod | catProperty | catField | catEvent | catDelegate | catInterface,
-
+        catClassMembers = catClass | catStruct | catEnum | catConstructor | catMethod | catProperty | catField | catEvent | catDelegate | catInterface
     }
 }

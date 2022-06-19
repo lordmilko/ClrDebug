@@ -1,4 +1,6 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Contains values that describe a portable executable (PE) file, as returned from a call to <see cref="IMetaDataImport2.GetPEKind"/>.
@@ -6,6 +8,7 @@
     /// <remarks>
     /// These values can be used in bitwise combinations.
     /// </remarks>
+    [Flags]
     public enum CorPEKind
     {
         /// <summary>

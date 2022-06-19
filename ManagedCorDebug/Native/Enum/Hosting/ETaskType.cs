@@ -1,8 +1,11 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Contains values that indicate the type of task that is represented by either an <see cref="ICLRTask"/> or an <see cref="IHostTask"/> interface.
     /// </summary>
+    [Flags]
     public enum ETaskType : uint
     {
         /// <summary>

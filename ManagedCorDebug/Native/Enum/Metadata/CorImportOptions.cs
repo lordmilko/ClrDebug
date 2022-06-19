@@ -1,8 +1,11 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Contains flag values that control the behavior during importation of an assembly outside the current scope.
     /// </summary>
+    [Flags]
     public enum CorImportOptions : uint
     {
         /// <summary>

@@ -1,4 +1,6 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Indicates the types of code that can be intercepted (that is, stepped into).
@@ -6,6 +8,7 @@
     /// <remarks>
     /// Use the <see cref="ICorDebugStepper.SetInterceptMask"/> method to establish the types of code that can be intercepted.
     /// </remarks>
+    [Flags]
     public enum CorDebugIntercept
     {
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 
 namespace ManagedCorDebug
 {
@@ -9,6 +10,7 @@ namespace ManagedCorDebug
     /// The <see cref="IHostTaskManager.Sleep"/> and <see cref="IHostTaskManager.SwitchToTask"/> methods both take a parameter
     /// of this type.
     /// </remarks>
+    [Flags]
     public enum WAIT_OPTION
     {
         /// <summary>

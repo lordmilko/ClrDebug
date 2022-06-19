@@ -1,8 +1,11 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Specifies flags to control which referenced items are converted to their definitions in order to optimize the code.
     /// </summary>
+    [Flags]
     public enum CorRefToDefCheck : uint
     {
         /// <summary>

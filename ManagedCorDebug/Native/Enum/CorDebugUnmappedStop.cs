@@ -1,4 +1,6 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Specifies the type of unmapped code that can trigger a halt in code execution by the stepper.
@@ -7,6 +9,7 @@
     /// Use the <see cref="ICorDebugStepper.SetUnmappedStopMask"/> method to set the flags that specify the unmapped code
     /// in which the stepper will stop.
     /// </remarks>
+    [Flags]
     public enum CorDebugUnmappedStop
     {
         /// <summary>

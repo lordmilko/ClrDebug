@@ -1,8 +1,11 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Specifies the metadata tokens that will be checked for duplicates.
     /// </summary>
+    [Flags]
     public enum CorCheckDuplicatesFor : uint
     {
         /// <summary>

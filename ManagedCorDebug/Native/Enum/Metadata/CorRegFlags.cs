@@ -1,8 +1,11 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Provides flag values used for registration when installing a module or composite image.
     /// </summary>
+    [Flags]
     public enum CorRegFlags
     {
         /// <summary>

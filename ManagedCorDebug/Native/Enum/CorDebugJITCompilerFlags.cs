@@ -1,8 +1,11 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Contains values that influence the behavior of the managed just-in-time (JIT) compiler.
     /// </summary>
+    [Flags]
     public enum CorDebugJITCompilerFlags
     {
         /// <summary>

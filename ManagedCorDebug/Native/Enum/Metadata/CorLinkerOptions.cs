@@ -1,8 +1,11 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Specifies flags to select options for the metadata linker.
     /// </summary>
+    [Flags]
     public enum CorLinkerOptions
     {
         /// <summary>

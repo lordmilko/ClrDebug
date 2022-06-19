@@ -1,8 +1,11 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Contains values that describe the features of a method.
     /// </summary>
+    [Flags]
     public enum CorMethodAttr
     {
         /// <summary>

@@ -1,8 +1,11 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Contains values that describe features of an assembly reference.
     /// </summary>
+    [Flags]
     public enum AssemblyRefFlags
     {
         /// <summary>

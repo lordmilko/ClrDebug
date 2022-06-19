@@ -1,8 +1,11 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Contains values that describe the metadata of an event.
     /// </summary>
+    [Flags]
     public enum CorEventAttr
     {
         /// <summary>

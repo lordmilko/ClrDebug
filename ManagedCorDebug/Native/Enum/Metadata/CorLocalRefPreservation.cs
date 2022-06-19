@@ -1,8 +1,11 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Contains flag values for the treatment of local references.
     /// </summary>
+    [Flags]
     public enum CorLocalRefPreservation
     {
         /// <summary>

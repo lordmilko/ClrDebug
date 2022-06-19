@@ -1,4 +1,6 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Specifies the notifications that will be sent to the metadata API client when a token remap occurs.
@@ -6,6 +8,7 @@
     /// <remarks>
     /// A token may be re-mapped (that is, moved) during a metadata merge.
     /// </remarks>
+    [Flags]
     public enum CorNotificationForTokenMovement : uint
     {
         /// <summary>

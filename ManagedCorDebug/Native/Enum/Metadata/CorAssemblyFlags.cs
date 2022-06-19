@@ -72,6 +72,6 @@ namespace ManagedCorDebug
         /// <summary>
         /// Indicates that the assembly can be retargeted at run time to an assembly from a different publisher.
         /// </summary>
-        afRetargetable = 0x0100,
+        afRetargetable = 0x0100
     }
 }

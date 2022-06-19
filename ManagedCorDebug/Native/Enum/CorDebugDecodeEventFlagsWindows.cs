@@ -1,4 +1,6 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Provides additional information about debug events on the Windows platform.
@@ -8,6 +10,7 @@
     /// about a debug event and whose value is dependent on the target architecture. The <see cref="CorDebugDecodeEventFlagsWindows"/>
     /// enumeration can be used with debug events on the Windows platform.
     /// </remarks>
+    [Flags]
     public enum CorDebugDecodeEventFlagsWindows
     {
         /// <summary>

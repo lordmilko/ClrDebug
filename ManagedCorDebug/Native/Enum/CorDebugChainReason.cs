@@ -1,4 +1,6 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Indicates the reason or reasons for the initiation of a call chain.
@@ -6,6 +8,7 @@
     /// <remarks>
     /// Use the <see cref="ICorDebugChain.GetReason"/> method to ascertain the reasons for the initiation of a call chain.
     /// </remarks>
+    [Flags]
     public enum CorDebugChainReason
     {
         /// <summary>

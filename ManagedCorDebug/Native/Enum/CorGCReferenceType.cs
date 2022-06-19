@@ -1,4 +1,6 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Identifies the source of an object to be garbage-collected.
@@ -6,6 +8,7 @@
     /// <remarks>
     /// The <see cref="CorGCReferenceType"/> enumeration is used as follows:
     /// </remarks>
+    [Flags]
     public enum CorGCReferenceType
     {
         /// <summary>

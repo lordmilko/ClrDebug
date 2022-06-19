@@ -1,4 +1,6 @@
-﻿namespace ManagedCorDebug
+﻿using System;
+
+namespace ManagedCorDebug
 {
     /// <summary>
     /// Provides the details of how the value of the instruction pointer (IP) was obtained.
@@ -6,6 +8,7 @@
     /// <remarks>
     /// You can use the <see cref="ICorDebugILFrame.GetIP"/> method to obtain the value of the instruction pointer.
     /// </remarks>
+    [Flags]
     public enum CorDebugMappingResult
     {
         /// <summary>
