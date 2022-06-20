@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="CLRStrongName.StrongNameKeyGenEx"/> method.
     /// </summary>
-    [DebuggerDisplay("ppbKeyBlob = {ppbKeyBlob}, pcbKeyBlob = {pcbKeyBlob}")]
+    [DebuggerDisplay("ppbKeyBlob = {ppbKeyBlob.ToString(),nq}, pcbKeyBlob = {pcbKeyBlob}")]
     public struct StrongNameKeyGenExResult
     {
         /// <summary>

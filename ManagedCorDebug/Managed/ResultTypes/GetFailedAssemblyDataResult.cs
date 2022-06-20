@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="SOSDacInterface.GetFailedAssemblyData"/> method.
     /// </summary>
-    [DebuggerDisplay("pContext = {pContext}, pResult = {pResult}")]
+    [DebuggerDisplay("pContext = {pContext}, pResult = {pResult.ToString(),nq}")]
     public struct GetFailedAssemblyDataResult
     {
         public int pContext { get; }

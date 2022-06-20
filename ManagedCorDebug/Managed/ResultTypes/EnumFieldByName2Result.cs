@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="XCLRDataTypeDefinition.EnumFieldByName2"/> method.
     /// </summary>
-    [DebuggerDisplay("type = {type}, flags = {flags}, tokenScope = {tokenScope}, token = {token}")]
+    [DebuggerDisplay("type = {type.ToString(),nq}, flags = {flags}, tokenScope = {tokenScope.ToString(),nq}, token = {token.ToString(),nq}")]
     public struct EnumFieldByName2Result
     {
         public XCLRDataTypeDefinition type { get; }

@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="SOSDacInterface.GetJumpThunkTarget"/> method.
     /// </summary>
-    [DebuggerDisplay("targetIP = {targetIP}, targetMD = {targetMD}")]
+    [DebuggerDisplay("targetIP = {targetIP.ToString(),nq}, targetMD = {targetMD.ToString(),nq}")]
     public struct GetJumpThunkTargetResult
     {
         public CLRDATA_ADDRESS targetIP { get; }

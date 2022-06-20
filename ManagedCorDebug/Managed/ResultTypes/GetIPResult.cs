@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugILFrame.GetIP"/> method.
     /// </summary>
-    [DebuggerDisplay("pnOffset = {pnOffset}, pMappingResult = {pMappingResult}")]
+    [DebuggerDisplay("pnOffset = {pnOffset}, pMappingResult = {pMappingResult.ToString(),nq}")]
     public struct GetIPResult
     {
         /// <summary>

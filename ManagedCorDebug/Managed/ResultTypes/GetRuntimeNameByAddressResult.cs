@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="XCLRDataProcess.GetRuntimeNameByAddress"/> method.
     /// </summary>
-    [DebuggerDisplay("nameBuf = {nameBuf}, displacement = {displacement}")]
+    [DebuggerDisplay("nameBuf = {nameBuf}, displacement = {displacement.ToString(),nq}")]
     public struct GetRuntimeNameByAddressResult
     {
         public string nameBuf { get; }

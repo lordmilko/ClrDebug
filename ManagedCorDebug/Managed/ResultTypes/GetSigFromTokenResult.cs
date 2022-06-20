@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetSigFromToken"/> method.
     /// </summary>
-    [DebuggerDisplay("ppvSig = {ppvSig}, pcbSig = {pcbSig}")]
+    [DebuggerDisplay("ppvSig = {ppvSig.ToString(),nq}, pcbSig = {pcbSig}")]
     public struct GetSigFromTokenResult
     {
         /// <summary>

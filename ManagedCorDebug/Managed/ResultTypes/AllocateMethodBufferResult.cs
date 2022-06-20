@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="CeeGen.AllocateMethodBuffer"/> method.
     /// </summary>
-    [DebuggerDisplay("lpBuffer = {lpBuffer}, RVA = {RVA}")]
+    [DebuggerDisplay("lpBuffer = {lpBuffer.ToString(),nq}, RVA = {RVA}")]
     public struct AllocateMethodBufferResult
     {
         /// <summary>

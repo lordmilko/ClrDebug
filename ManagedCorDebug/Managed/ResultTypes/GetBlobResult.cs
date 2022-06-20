@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataTables.GetBlob"/> method.
     /// </summary>
-    [DebuggerDisplay("pcbData = {pcbData}, ppData = {ppData}")]
+    [DebuggerDisplay("pcbData = {pcbData}, ppData = {ppData.ToString(),nq}")]
     public struct GetBlobResult
     {
         /// <summary>

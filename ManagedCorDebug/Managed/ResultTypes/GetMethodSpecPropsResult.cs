@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetMethodSpecProps"/> method.
     /// </summary>
-    [DebuggerDisplay("tkParent = {tkParent}, ppvSigBlob = {ppvSigBlob}, pcbSigBlob = {pcbSigBlob}")]
+    [DebuggerDisplay("tkParent = {tkParent.ToString(),nq}, ppvSigBlob = {ppvSigBlob.ToString(),nq}, pcbSigBlob = {pcbSigBlob}")]
     public struct GetMethodSpecPropsResult
     {
         /// <summary>

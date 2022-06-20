@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugHeapValue.ThreadOwningMonitorLock"/> property.
     /// </summary>
-    [DebuggerDisplay("ppThread = {ppThread}, pAcquisitionCount = {pAcquisitionCount}")]
+    [DebuggerDisplay("ppThread = {ppThread.ToString(),nq}, pAcquisitionCount = {pAcquisitionCount}")]
     public struct GetThreadOwningMonitorLockResult
     {
         /// <summary>

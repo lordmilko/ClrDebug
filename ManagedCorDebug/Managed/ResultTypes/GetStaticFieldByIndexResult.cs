@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="XCLRDataTypeInstance.GetStaticFieldByIndex"/> method.
     /// </summary>
-    [DebuggerDisplay("field = {field}, nameBuf = {nameBuf}, token = {token}")]
+    [DebuggerDisplay("field = {field.ToString(),nq}, nameBuf = {nameBuf}, token = {token.ToString(),nq}")]
     public struct GetStaticFieldByIndexResult
     {
         public XCLRDataValue field { get; }

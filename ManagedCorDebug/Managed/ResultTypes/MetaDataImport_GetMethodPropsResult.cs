@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetMethodProps"/> method.
     /// </summary>
-    [DebuggerDisplay("pClass = {pClass}, szMethod = {szMethod}, pdwAttr = {pdwAttr}, ppvSigBlob = {ppvSigBlob}, pcbSigBlob = {pcbSigBlob}, pulCodeRVA = {pulCodeRVA}, pdwImplFlags = {pdwImplFlags}")]
+    [DebuggerDisplay("pClass = {pClass.ToString(),nq}, szMethod = {szMethod}, pdwAttr = {pdwAttr.ToString(),nq}, ppvSigBlob = {ppvSigBlob.ToString(),nq}, pcbSigBlob = {pcbSigBlob}, pulCodeRVA = {pulCodeRVA}, pdwImplFlags = {pdwImplFlags}")]
     public struct MetaDataImport_GetMethodPropsResult
     {
         /// <summary>

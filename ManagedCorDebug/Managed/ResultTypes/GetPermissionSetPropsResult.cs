@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetPermissionSetProps"/> method.
     /// </summary>
-    [DebuggerDisplay("pdwAction = {pdwAction}, ppvPermission = {ppvPermission}, pcbPermission = {pcbPermission}")]
+    [DebuggerDisplay("pdwAction = {pdwAction}, ppvPermission = {ppvPermission.ToString(),nq}, pcbPermission = {pcbPermission}")]
     public struct GetPermissionSetPropsResult
     {
         /// <summary>

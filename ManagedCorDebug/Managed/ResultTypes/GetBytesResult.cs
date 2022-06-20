@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="XCLRDataValue.GetBytes"/> method.
     /// </summary>
-    [DebuggerDisplay("dataSize = {dataSize}, buffer = {buffer}")]
+    [DebuggerDisplay("dataSize = {dataSize}, buffer = {buffer.ToString(),nq}")]
     public struct GetBytesResult
     {
         public int dataSize { get; }

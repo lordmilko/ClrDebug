@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="SOSDacInterface.GetObjectComWrappersData"/> method.
     /// </summary>
-    [DebuggerDisplay("rcw = {rcw}, mowList = {mowList}")]
+    [DebuggerDisplay("rcw = {rcw.ToString(),nq}, mowList = {mowList}")]
     public struct GetObjectComWrappersDataResult
     {
         public CLRDATA_ADDRESS rcw { get; }

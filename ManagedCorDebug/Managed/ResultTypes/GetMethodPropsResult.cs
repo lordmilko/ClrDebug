@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugSymbolProvider.GetMethodProps"/> method.
     /// </summary>
-    [DebuggerDisplay("pMethodToken = {pMethodToken}, pcGenericParams = {pcGenericParams}, signature = {signature}")]
+    [DebuggerDisplay("pMethodToken = {pMethodToken.ToString(),nq}, pcGenericParams = {pcGenericParams}, signature = {signature}")]
     public struct GetMethodPropsResult
     {
         /// <summary>

@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="CLRStrongName.StrongNameSignatureGenerationEx"/> method.
     /// </summary>
-    [DebuggerDisplay("ppbSignatureBlob = {ppbSignatureBlob}, pcbSignatureBlob = {pcbSignatureBlob}")]
+    [DebuggerDisplay("ppbSignatureBlob = {ppbSignatureBlob.ToString(),nq}, pcbSignatureBlob = {pcbSignatureBlob}")]
     public struct StrongNameSignatureGenerationExResult
     {
         /// <summary>

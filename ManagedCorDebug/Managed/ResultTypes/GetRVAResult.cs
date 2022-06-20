@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetRVA"/> method.
     /// </summary>
-    [DebuggerDisplay("pulCodeRVA = {pulCodeRVA}, pdwImplFlags = {pdwImplFlags}")]
+    [DebuggerDisplay("pulCodeRVA = {pulCodeRVA}, pdwImplFlags = {pdwImplFlags.ToString(),nq}")]
     public struct GetRVAResult
     {
         /// <summary>

@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetTypeRefProps"/> method.
     /// </summary>
-    [DebuggerDisplay("ptkResolutionScope = {ptkResolutionScope}, szName = {szName}")]
+    [DebuggerDisplay("ptkResolutionScope = {ptkResolutionScope.ToString(),nq}, szName = {szName}")]
     public struct GetTypeRefPropsResult
     {
         /// <summary>

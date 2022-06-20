@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataAssemblyImport.GetFileProps"/> method.
     /// </summary>
-    [DebuggerDisplay("szName = {szName}, ppbHashValue = {ppbHashValue}, pcbHashValue = {pcbHashValue}, pdwFileFlags = {pdwFileFlags}")]
+    [DebuggerDisplay("szName = {szName}, ppbHashValue = {ppbHashValue.ToString(),nq}, pcbHashValue = {pcbHashValue}, pdwFileFlags = {pdwFileFlags.ToString(),nq}")]
     public struct GetFilePropsResult
     {
         /// <summary>

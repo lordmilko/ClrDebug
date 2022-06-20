@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="SOSDacInterface.GetNestedExceptionData"/> method.
     /// </summary>
-    [DebuggerDisplay("exceptionObject = {exceptionObject}, nextNestedException = {nextNestedException}")]
+    [DebuggerDisplay("exceptionObject = {exceptionObject.ToString(),nq}, nextNestedException = {nextNestedException.ToString(),nq}")]
     public struct GetNestedExceptionDataResult
     {
         public CLRDATA_ADDRESS exceptionObject { get; }

@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.PEKind"/> property.
     /// </summary>
-    [DebuggerDisplay("pdwPEKind = {pdwPEKind}, pdwMachine = {pdwMachine}")]
+    [DebuggerDisplay("pdwPEKind = {pdwPEKind.ToString(),nq}, pdwMachine = {pdwMachine.ToString(),nq}")]
     public struct GetPEKindResult
     {
         /// <summary>
@@ -16,9 +16,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// A pointer to a value that identifies the architecture of the machine. See the next section for possible values.
         /// </summary>
-        public int pdwMachine { get; }
+        public IMAGE_FILE_MACHINE pdwMachine { get; }
 
-        public GetPEKindResult(CorPEKind pdwPEKind, int pdwMachine)
+        public GetPEKindResult(CorPEKind pdwPEKind, IMAGE_FILE_MACHINE pdwMachine)
         {
             this.pdwPEKind = pdwPEKind;
             this.pdwMachine = pdwMachine;

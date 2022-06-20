@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugDataTarget.GetImageFromPointer"/> method.
     /// </summary>
-    [DebuggerDisplay("pImageBase = {pImageBase}, pSize = {pSize}")]
+    [DebuggerDisplay("pImageBase = {pImageBase.ToString(),nq}, pSize = {pSize}")]
     public struct GetImageFromPointerResult
     {
         /// <summary>

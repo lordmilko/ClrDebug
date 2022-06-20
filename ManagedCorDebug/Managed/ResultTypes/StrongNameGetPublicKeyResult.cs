@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="CLRStrongName.StrongNameGetPublicKey"/> method.
     /// </summary>
-    [DebuggerDisplay("ppbPublicKeyBlob = {ppbPublicKeyBlob}, pcbPublicKeyBlob = {pcbPublicKeyBlob}")]
+    [DebuggerDisplay("ppbPublicKeyBlob = {ppbPublicKeyBlob.ToString(),nq}, pcbPublicKeyBlob = {pcbPublicKeyBlob}")]
     public struct StrongNameGetPublicKeyResult
     {
         /// <summary>

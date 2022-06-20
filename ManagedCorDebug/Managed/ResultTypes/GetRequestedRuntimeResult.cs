@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="CLRMetaHostPolicy.GetRequestedRuntime"/> method.
     /// </summary>
-    [DebuggerDisplay("pwzVersion = {pwzVersion}, pwzImageVersion = {pwzImageVersion}, pdwConfigFlags = {pdwConfigFlags}, ppRuntime = {ppRuntime}")]
+    [DebuggerDisplay("pwzVersion = {pwzVersion}, pwzImageVersion = {pwzImageVersion}, pdwConfigFlags = {pdwConfigFlags.ToString(),nq}, ppRuntime = {ppRuntime}")]
     public struct GetRequestedRuntimeResult
     {
         public string pwzVersion { get; }

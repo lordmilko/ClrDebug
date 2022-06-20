@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetMemberProps"/> method.
     /// </summary>
-    [DebuggerDisplay("pClass = {pClass}, szMember = {szMember}, pdwAttr = {pdwAttr}, ppvSigBlob = {ppvSigBlob}, pcbSigBlob = {pcbSigBlob}, pulCodeRVA = {pulCodeRVA}, pdwImplFlags = {pdwImplFlags}, pdwCPlusTypeFlag = {pdwCPlusTypeFlag}, ppValue = {ppValue}, pcchValue = {pcchValue}")]
+    [DebuggerDisplay("pClass = {pClass.ToString(),nq}, szMember = {szMember}, pdwAttr = {pdwAttr}, ppvSigBlob = {ppvSigBlob.ToString(),nq}, pcbSigBlob = {pcbSigBlob}, pulCodeRVA = {pulCodeRVA}, pdwImplFlags = {pdwImplFlags}, pdwCPlusTypeFlag = {pdwCPlusTypeFlag.ToString(),nq}, ppValue = {ppValue.ToString(),nq}, pcchValue = {pcchValue}")]
     public struct GetMemberPropsResult
     {
         /// <summary>

@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetGenericParamConstraintProps"/> method.
     /// </summary>
-    [DebuggerDisplay("ptGenericParam = {ptGenericParam}, ptkConstraintType = {ptkConstraintType}")]
+    [DebuggerDisplay("ptGenericParam = {ptGenericParam.ToString(),nq}, ptkConstraintType = {ptkConstraintType.ToString(),nq}")]
     public struct GetGenericParamConstraintPropsResult
     {
         /// <summary>

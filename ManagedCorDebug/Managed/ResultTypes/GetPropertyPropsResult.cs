@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetPropertyProps"/> method.
     /// </summary>
-    [DebuggerDisplay("pClass = {pClass}, szProperty = {szProperty}, pdwPropFlags = {pdwPropFlags}, ppvSig = {ppvSig}, pbSig = {pbSig}, pdwCPlusTypeFlag = {pdwCPlusTypeFlag}, ppDefaultValue = {ppDefaultValue}, pcchDefaultValue = {pcchDefaultValue}, pmdSetter = {pmdSetter}, pmdGetter = {pmdGetter}, rmdOtherMethod = {rmdOtherMethod}")]
+    [DebuggerDisplay("pClass = {pClass.ToString(),nq}, szProperty = {szProperty}, pdwPropFlags = {pdwPropFlags.ToString(),nq}, ppvSig = {ppvSig.ToString(),nq}, pbSig = {pbSig}, pdwCPlusTypeFlag = {pdwCPlusTypeFlag.ToString(),nq}, ppDefaultValue = {ppDefaultValue.ToString(),nq}, pcchDefaultValue = {pcchDefaultValue}, pmdSetter = {pmdSetter.ToString(),nq}, pmdGetter = {pmdGetter.ToString(),nq}, rmdOtherMethod = {rmdOtherMethod}")]
     public struct GetPropertyPropsResult
     {
         /// <summary>

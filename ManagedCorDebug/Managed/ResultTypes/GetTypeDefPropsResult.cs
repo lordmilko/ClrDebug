@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetTypeDefProps"/> method.
     /// </summary>
-    [DebuggerDisplay("szTypeDef = {szTypeDef}, pdwTypeDefFlags = {pdwTypeDefFlags}, ptkExtends = {ptkExtends}")]
+    [DebuggerDisplay("szTypeDef = {szTypeDef}, pdwTypeDefFlags = {pdwTypeDefFlags.ToString(),nq}, ptkExtends = {ptkExtends.ToString(),nq}")]
     public struct GetTypeDefPropsResult
     {
         /// <summary>

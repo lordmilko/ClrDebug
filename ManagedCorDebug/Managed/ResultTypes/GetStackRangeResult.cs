@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugFrame.StackRange"/> property.
     /// </summary>
-    [DebuggerDisplay("pStart = {pStart}, pEnd = {pEnd}")]
+    [DebuggerDisplay("pStart = {pStart.ToString(),nq}, pEnd = {pEnd.ToString(),nq}")]
     public struct GetStackRangeResult
     {
         /// <summary>

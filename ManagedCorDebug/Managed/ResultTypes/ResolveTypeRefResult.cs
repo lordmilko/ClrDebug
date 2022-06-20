@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.ResolveTypeRef"/> method.
     /// </summary>
-    [DebuggerDisplay("ppIScope = {ppIScope}, ptd = {ptd}")]
+    [DebuggerDisplay("ppIScope = {ppIScope}, ptd = {ptd.ToString(),nq}")]
     public struct ResolveTypeRefResult
     {
         /// <summary>

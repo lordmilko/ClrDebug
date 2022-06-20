@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetMemberRefProps"/> method.
     /// </summary>
-    [DebuggerDisplay("ptk = {ptk}, szMember = {szMember}, ppvSigBlob = {ppvSigBlob}, pbSig = {pbSig}")]
+    [DebuggerDisplay("ptk = {ptk.ToString(),nq}, szMember = {szMember}, ppvSigBlob = {ppvSigBlob.ToString(),nq}, pbSig = {pbSig}")]
     public struct GetMemberRefPropsResult
     {
         /// <summary>

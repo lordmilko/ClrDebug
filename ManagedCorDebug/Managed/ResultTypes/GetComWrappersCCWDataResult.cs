@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="SOSDacInterface.GetComWrappersCCWData"/> method.
     /// </summary>
-    [DebuggerDisplay("managedObject = {managedObject}, refCount = {refCount}")]
+    [DebuggerDisplay("managedObject = {managedObject.ToString(),nq}, refCount = {refCount}")]
     public struct GetComWrappersCCWDataResult
     {
         public CLRDATA_ADDRESS managedObject { get; }

@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="XCLRDataProcess.FollowStub2"/> method.
     /// </summary>
-    [DebuggerDisplay("outAddr = {outAddr}, outBuffer = {outBuffer}, outFlags = {outFlags}")]
+    [DebuggerDisplay("outAddr = {outAddr.ToString(),nq}, outBuffer = {outBuffer.ToString(),nq}, outFlags = {outFlags}")]
     public struct FollowStub2Result
     {
         public CLRDATA_ADDRESS outAddr { get; }

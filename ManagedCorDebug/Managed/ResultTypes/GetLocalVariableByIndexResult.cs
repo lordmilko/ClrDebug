@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="XCLRDataFrame.GetLocalVariableByIndex"/> method.
     /// </summary>
-    [DebuggerDisplay("localVariable = {localVariable}, name = {name}")]
+    [DebuggerDisplay("localVariable = {localVariable.ToString(),nq}, name = {name}")]
     public struct GetLocalVariableByIndexResult
     {
         public XCLRDataValue localVariable { get; }

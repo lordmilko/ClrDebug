@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="SymUnmanagedSourceServerModule.SourceServerData"/> property.
     /// </summary>
-    [DebuggerDisplay("pDataByteCount = {pDataByteCount}, ppData = {ppData}")]
+    [DebuggerDisplay("pDataByteCount = {pDataByteCount}, ppData = {ppData.ToString(),nq}")]
     public struct GetSourceServerDataResult
     {
         /// <summary>

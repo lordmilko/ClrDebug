@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="XCLRDataValue.GetLocationByIndex"/> method.
     /// </summary>
-    [DebuggerDisplay("flags = {flags}, arg = {arg}")]
+    [DebuggerDisplay("flags = {flags}, arg = {arg.ToString(),nq}")]
     public struct GetLocationByIndexResult
     {
         public int flags { get; }

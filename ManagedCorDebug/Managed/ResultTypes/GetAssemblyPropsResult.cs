@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataAssemblyImport.GetAssemblyProps"/> method.
     /// </summary>
-    [DebuggerDisplay("ppbPublicKey = {ppbPublicKey}, pcbPublicKey = {pcbPublicKey}, pulHashAlgId = {pulHashAlgId}, szName = {szName}, pMetaData = {pMetaData}, pdwAssemblyFlags = {pdwAssemblyFlags}")]
+    [DebuggerDisplay("ppbPublicKey = {ppbPublicKey.ToString(),nq}, pcbPublicKey = {pcbPublicKey}, pulHashAlgId = {pulHashAlgId}, szName = {szName}, pMetaData = {pMetaData.ToString(),nq}, pdwAssemblyFlags = {pdwAssemblyFlags.ToString(),nq}")]
     public struct GetAssemblyPropsResult
     {
         /// <summary>

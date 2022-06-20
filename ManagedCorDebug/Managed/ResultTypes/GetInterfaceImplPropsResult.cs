@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetInterfaceImplProps"/> method.
     /// </summary>
-    [DebuggerDisplay("pClass = {pClass}, ptkIface = {ptkIface}")]
+    [DebuggerDisplay("pClass = {pClass.ToString(),nq}, ptkIface = {ptkIface.ToString(),nq}")]
     public struct GetInterfaceImplPropsResult
     {
         /// <summary>

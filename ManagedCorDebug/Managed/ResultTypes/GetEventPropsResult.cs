@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetEventProps"/> method.
     /// </summary>
-    [DebuggerDisplay("pClass = {pClass}, szEvent = {szEvent}, pdwEventFlags = {pdwEventFlags}, ptkEventType = {ptkEventType}, pmdAddOn = {pmdAddOn}, pmdRemoveOn = {pmdRemoveOn}, pmdFire = {pmdFire}, rmdOtherMethod = {rmdOtherMethod}")]
+    [DebuggerDisplay("pClass = {pClass.ToString(),nq}, szEvent = {szEvent}, pdwEventFlags = {pdwEventFlags}, ptkEventType = {ptkEventType.ToString(),nq}, pmdAddOn = {pmdAddOn.ToString(),nq}, pmdRemoveOn = {pmdRemoveOn.ToString(),nq}, pmdFire = {pmdFire.ToString(),nq}, rmdOtherMethod = {rmdOtherMethod}")]
     public struct GetEventPropsResult
     {
         /// <summary>

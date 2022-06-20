@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="CLRDebugging.OpenVirtualProcess"/> method.
     /// </summary>
-    [DebuggerDisplay("ppProcess = {ppProcess}, pdwFlags = {pdwFlags}")]
+    [DebuggerDisplay("ppProcess = {ppProcess}, pdwFlags = {pdwFlags.ToString(),nq}")]
     public struct OpenVirtualProcessResult
     {
         /// <summary>

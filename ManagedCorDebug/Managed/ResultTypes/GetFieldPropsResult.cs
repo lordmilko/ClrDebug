@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetFieldProps"/> method.
     /// </summary>
-    [DebuggerDisplay("pClass = {pClass}, szField = {szField}, pdwAttr = {pdwAttr}, ppvSigBlob = {ppvSigBlob}, pcbSigBlob = {pcbSigBlob}, pdwCPlusTypeFlag = {pdwCPlusTypeFlag}, ppValue = {ppValue}, pcchValue = {pcchValue}")]
+    [DebuggerDisplay("pClass = {pClass.ToString(),nq}, szField = {szField}, pdwAttr = {pdwAttr.ToString(),nq}, ppvSigBlob = {ppvSigBlob.ToString(),nq}, pcbSigBlob = {pcbSigBlob}, pdwCPlusTypeFlag = {pdwCPlusTypeFlag.ToString(),nq}, ppValue = {ppValue.ToString(),nq}, pcchValue = {pcchValue}")]
     public struct GetFieldPropsResult
     {
         /// <summary>

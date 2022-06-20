@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="SOSDacInterface.GetTaggedMemory"/> method.
     /// </summary>
-    [DebuggerDisplay("taggedMemory = {taggedMemory}, taggedMemorySizeInBytes = {taggedMemorySizeInBytes}")]
+    [DebuggerDisplay("taggedMemory = {taggedMemory.ToString(),nq}, taggedMemorySizeInBytes = {taggedMemorySizeInBytes}")]
     public struct GetTaggedMemoryResult
     {
         public CLRDATA_ADDRESS taggedMemory { get; }

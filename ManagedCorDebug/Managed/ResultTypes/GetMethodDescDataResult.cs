@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="SOSDacInterface.GetMethodDescData"/> method.
     /// </summary>
-    [DebuggerDisplay("data = {data}, rgRevertedRejitData = {rgRevertedRejitData}")]
+    [DebuggerDisplay("data = {data.ToString(),nq}, rgRevertedRejitData = {rgRevertedRejitData}")]
     public struct GetMethodDescDataResult
     {
         public DacpMethodDescData data { get; }

@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="XCLRDataMethodInstance.TokenAndScope"/> property.
     /// </summary>
-    [DebuggerDisplay("token = {token}, mod = {mod}")]
+    [DebuggerDisplay("token = {token.ToString(),nq}, mod = {mod.ToString(),nq}")]
     public struct GetTokenAndScopeResult
     {
         public mdMethodDef token { get; }

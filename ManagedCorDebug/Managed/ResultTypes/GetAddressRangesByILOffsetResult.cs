@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="XCLRDataMethodInstance.GetAddressRangesByILOffset"/> method.
     /// </summary>
-    [DebuggerDisplay("rangesNeeded = {rangesNeeded}, addressRanges = {addressRanges}")]
+    [DebuggerDisplay("rangesNeeded = {rangesNeeded}, addressRanges = {addressRanges.ToString(),nq}")]
     public struct GetAddressRangesByILOffsetResult
     {
         public int rangesNeeded { get; }

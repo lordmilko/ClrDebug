@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetParamProps"/> method.
     /// </summary>
-    [DebuggerDisplay("pmd = {pmd}, pulSequence = {pulSequence}, szName = {szName}, cchName = {cchName}, pchName = {pchName}, pdwAttr = {pdwAttr}, pdwCPlusTypeFlag = {pdwCPlusTypeFlag}, ppValue = {ppValue}, pcchValue = {pcchValue}")]
+    [DebuggerDisplay("pmd = {pmd.ToString(),nq}, pulSequence = {pulSequence}, szName = {szName}, cchName = {cchName}, pchName = {pchName}, pdwAttr = {pdwAttr.ToString(),nq}, pdwCPlusTypeFlag = {pdwCPlusTypeFlag.ToString(),nq}, ppValue = {ppValue.ToString(),nq}, pcchValue = {pcchValue.ToString(),nq}")]
     public struct GetParamPropsResult
     {
         /// <summary>

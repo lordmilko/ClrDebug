@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataTables.GetMetaDataStreamInfo"/> method.
     /// </summary>
-    [DebuggerDisplay("ppchName = {ppchName}, ppv = {ppv}, pcb = {pcb}")]
+    [DebuggerDisplay("ppchName = {ppchName}, ppv = {ppv.ToString(),nq}, pcb = {pcb}")]
     public struct GetMetaDataStreamInfoResult
     {
         /// <summary>

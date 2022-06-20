@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="XCLRDataValue.EnumField"/> method.
     /// </summary>
-    [DebuggerDisplay("field = {field}, nameBuf = {nameBuf}, token = {token}")]
+    [DebuggerDisplay("field = {field.ToString(),nq}, nameBuf = {nameBuf}, token = {token.ToString(),nq}")]
     public struct XCLRDataValue_EnumFieldResult
     {
         public XCLRDataValue field { get; }

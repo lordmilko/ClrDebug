@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="XCLRDataFrame.GetArgumentByIndex"/> method.
     /// </summary>
-    [DebuggerDisplay("arg = {arg}, name = {name}")]
+    [DebuggerDisplay("arg = {arg.ToString(),nq}, name = {name}")]
     public struct GetArgumentByIndexResult
     {
         public XCLRDataValue arg { get; }

@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.ScopeProps"/> property.
     /// </summary>
-    [DebuggerDisplay("szName = {szName}, pmvid = {pmvid}")]
+    [DebuggerDisplay("szName = {szName}, pmvid = {pmvid.ToString(),nq}")]
     public struct GetScopePropsResult
     {
         /// <summary>

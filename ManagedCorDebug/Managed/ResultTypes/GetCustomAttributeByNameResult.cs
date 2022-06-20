@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetCustomAttributeByName"/> method.
     /// </summary>
-    [DebuggerDisplay("ppData = {ppData}, pcbData = {pcbData}")]
+    [DebuggerDisplay("ppData = {ppData.ToString(),nq}, pcbData = {pcbData}")]
     public struct GetCustomAttributeByNameResult
     {
         /// <summary>

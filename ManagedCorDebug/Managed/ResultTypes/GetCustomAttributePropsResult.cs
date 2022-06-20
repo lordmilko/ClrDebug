@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetCustomAttributeProps"/> method.
     /// </summary>
-    [DebuggerDisplay("ptkObj = {ptkObj}, ptkType = {ptkType}, ppBlob = {ppBlob}, pcbSize = {pcbSize}")]
+    [DebuggerDisplay("ptkObj = {ptkObj.ToString(),nq}, ptkType = {ptkType.ToString(),nq}, ppBlob = {ppBlob.ToString(),nq}, pcbSize = {pcbSize}")]
     public struct GetCustomAttributePropsResult
     {
         /// <summary>

@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetPinvokeMap"/> method.
     /// </summary>
-    [DebuggerDisplay("pdwMappingFlags = {pdwMappingFlags}, szImportName = {szImportName}, pmrImportDLL = {pmrImportDLL}")]
+    [DebuggerDisplay("pdwMappingFlags = {pdwMappingFlags.ToString(),nq}, szImportName = {szImportName}, pmrImportDLL = {pmrImportDLL.ToString(),nq}")]
     public struct GetPinvokeMapResult
     {
         /// <summary>

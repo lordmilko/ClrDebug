@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="CorDebugProcess.GetExportStepInfo"/> method.
     /// </summary>
-    [DebuggerDisplay("pInvokeKind = {pInvokeKind}, pInvokePurpose = {pInvokePurpose}")]
+    [DebuggerDisplay("pInvokeKind = {pInvokeKind.ToString(),nq}, pInvokePurpose = {pInvokePurpose.ToString(),nq}")]
     public struct GetExportStepInfoResult
     {
         /// <summary>

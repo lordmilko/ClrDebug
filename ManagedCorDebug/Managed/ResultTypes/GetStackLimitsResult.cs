@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="SOSDacInterface.GetStackLimits"/> method.
     /// </summary>
-    [DebuggerDisplay("lower = {lower}, upper = {upper}, fp = {fp}")]
+    [DebuggerDisplay("lower = {lower.ToString(),nq}, upper = {upper.ToString(),nq}, fp = {fp.ToString(),nq}")]
     public struct GetStackLimitsResult
     {
         public CLRDATA_ADDRESS lower { get; }

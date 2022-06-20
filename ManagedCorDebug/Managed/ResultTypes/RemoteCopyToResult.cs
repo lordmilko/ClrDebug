@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="Stream.RemoteCopyTo"/> method.
     /// </summary>
-    [DebuggerDisplay("pcbRead = {pcbRead}, pcbWritten = {pcbWritten}")]
+    [DebuggerDisplay("pcbRead = {pcbRead.ToString(),nq}, pcbWritten = {pcbWritten.ToString(),nq}")]
     public struct RemoteCopyToResult
     {
         public ULARGE_INTEGER pcbRead { get; }

@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="SOSDacInterface.GetHeapAllocData"/> method.
     /// </summary>
-    [DebuggerDisplay("data = {data}, pNeeded = {pNeeded}")]
+    [DebuggerDisplay("data = {data.ToString(),nq}, pNeeded = {pNeeded}")]
     public struct GetHeapAllocDataResult
     {
         public DacpGenerationAllocData data { get; }

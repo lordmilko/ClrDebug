@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="XCLRDataValue.GetFieldByToken"/> method.
     /// </summary>
-    [DebuggerDisplay("field = {field}, nameBuf = {nameBuf}")]
+    [DebuggerDisplay("field = {field.ToString(),nq}, nameBuf = {nameBuf}")]
     public struct XCLRDataValue_GetFieldByTokenResult
     {
         public XCLRDataValue field { get; }
