@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace ManagedCorDebug
 {
@@ -20,6 +21,11 @@ namespace ManagedCorDebug
 
         #region ICorDebugExceptionObjectValue
         #region EnumerateExceptionCallStack
+
+        /// <summary>
+        /// Gets an enumerator to the call stack embedded in an exception object.
+        /// </summary>
+        public CorDebugExceptionObjectStackFrame[] ExceptionCallStacks => EnumerateExceptionCallStack().ToArray();
 
         /// <summary>
         /// Gets an enumerator to the call stack embedded in an exception object.

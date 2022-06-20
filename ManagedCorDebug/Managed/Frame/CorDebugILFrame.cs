@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 
 namespace ManagedCorDebug
 {
@@ -142,6 +143,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets an enumerator for the local variables in this frame.
         /// </summary>
+        public CorDebugValue[] LocalVariables => EnumerateLocalVariables().ToArray();
+
+        /// <summary>
+        /// Gets an enumerator for the local variables in this frame.
+        /// </summary>
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugValueEnum"/> object that is the enumerator for the local variables in this frame.</returns>
         /// <remarks>
         /// EnumerateLocalVariables gets an enumerator that can list the local variables available in the call frame that is
@@ -222,6 +228,11 @@ namespace ManagedCorDebug
 
         #endregion
         #region EnumerateArguments
+
+        /// <summary>
+        /// Gets an enumerator for the arguments in this frame.
+        /// </summary>
+        public CorDebugValue[] Arguments => EnumerateArguments().ToArray();
 
         /// <summary>
         /// Gets an enumerator for the arguments in this frame.
@@ -409,6 +420,11 @@ namespace ManagedCorDebug
 
         #endregion
         #region EnumerateTypeParameters
+
+        /// <summary>
+        /// Gets an <see cref="ICorDebugTypeEnum"/> object that contains the <see cref="Type"/> parameters in this frame.
+        /// </summary>
+        public CorDebugType[] TypeParameters => EnumerateTypeParameters().ToArray();
 
         /// <summary>
         /// Gets an <see cref="ICorDebugTypeEnum"/> object that contains the <see cref="Type"/> parameters in this frame.

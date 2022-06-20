@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Linq;
 
 namespace ManagedCorDebug
 {
@@ -548,6 +549,11 @@ namespace ManagedCorDebug
         public ICorDebugCode4 Raw4 => (ICorDebugCode4) Raw;
 
         #region EnumerateVariableHomes
+
+        /// <summary>
+        /// Gets an enumerator to the local variables and arguments in a function.
+        /// </summary>
+        public CorDebugVariableHome[] VariableHomes => EnumerateVariableHomes().ToArray();
 
         /// <summary>
         /// Gets an enumerator to the local variables and arguments in a function.

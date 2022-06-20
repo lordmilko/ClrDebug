@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
@@ -186,6 +187,11 @@ namespace ManagedCorDebug
 
         #endregion
         #region EnumerateObjects
+
+        /// <summary>
+        /// This method has not been implemented.
+        /// </summary>
+        public CORDB_ADDRESS[] Objects => EnumerateObjects().ToArray();
 
         /// <summary>
         /// This method has not been implemented.
@@ -558,6 +564,11 @@ namespace ManagedCorDebug
 
         #endregion
         #region EnumerateAppDomains
+
+        /// <summary>
+        /// Enumerates all the application domains in this process.
+        /// </summary>
+        public CorDebugAppDomain[] AppDomains => EnumerateAppDomains().ToArray();
 
         /// <summary>
         /// Enumerates all the application domains in this process.
@@ -1044,6 +1055,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets an enumerator for the objects on the managed heap.
         /// </summary>
+        public COR_HEAPOBJECT[] Heaps => EnumerateHeap().ToArray();
+
+        /// <summary>
+        /// Gets an enumerator for the objects on the managed heap.
+        /// </summary>
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugHeapEnum"/> interface object that is an enumerator for the objects that reside on the managed heap.</returns>
         /// <remarks>
         /// Before calling the <see cref="EnumerateHeap"/> method, you should call the <see cref="GCHeapInformation"/>
@@ -1095,6 +1111,11 @@ namespace ManagedCorDebug
 
         #endregion
         #region EnumerateHeapRegions
+
+        /// <summary>
+        /// Gets an enumerator for the memory ranges of the managed heap.
+        /// </summary>
+        public COR_SEGMENT[] HeapRegions => EnumerateHeapRegions().ToArray();
 
         /// <summary>
         /// Gets an enumerator for the memory ranges of the managed heap.

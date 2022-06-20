@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 
 namespace ManagedCorDebug
 {
@@ -202,6 +203,11 @@ namespace ManagedCorDebug
 
         #endregion
         #region EnumerateTypeParameters
+
+        /// <summary>
+        /// Gets an interface pointer to an <see cref="ICorDebugTypeEnum"/> that contains the <see cref="Type"/> parameters of the class referenced by this <see cref="ICorDebugType"/>.
+        /// </summary>
+        public CorDebugType[] TypeParameters => EnumerateTypeParameters().ToArray();
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugTypeEnum"/> that contains the <see cref="Type"/> parameters of the class referenced by this <see cref="ICorDebugType"/>.

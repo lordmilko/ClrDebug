@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -414,6 +416,11 @@ namespace ManagedCorDebug
 
         #endregion
         #region EnumerateFrames
+
+        /// <summary>
+        /// Gets an enumerator that contains all the managed stack frames in the chain, starting with the most recent frame.
+        /// </summary>
+        public CorDebugFrame[] Frames => EnumerateFrames().ToArray();
 
         /// <summary>
         /// Gets an enumerator that contains all the managed stack frames in the chain, starting with the most recent frame.

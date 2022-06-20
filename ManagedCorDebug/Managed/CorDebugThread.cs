@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 
 namespace ManagedCorDebug
 {
@@ -487,6 +488,11 @@ namespace ManagedCorDebug
 
         #endregion
         #region EnumerateChains
+
+        /// <summary>
+        /// Gets an interface pointer to an <see cref="ICorDebugChainEnum"/> enumerator that contains all the stack chains in this <see cref="ICorDebugThread"/> object.
+        /// </summary>
+        public CorDebugChain[] Chains => EnumerateChains().ToArray();
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugChainEnum"/> enumerator that contains all the stack chains in this <see cref="ICorDebugThread"/> object.

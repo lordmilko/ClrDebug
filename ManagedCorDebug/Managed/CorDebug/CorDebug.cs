@@ -1,6 +1,6 @@
 using System;
 using System.Diagnostics;
-using Microsoft.Win32;
+using System.Linq;
 
 namespace ManagedCorDebug
 {
@@ -289,6 +289,11 @@ namespace ManagedCorDebug
 
         #endregion
         #region EnumerateProcesses
+
+        /// <summary>
+        /// Gets an enumerator for the processes that are being debugged.
+        /// </summary>
+        public CorDebugProcess[] Processes => EnumerateProcesses().ToArray();
 
         /// <summary>
         /// Gets an enumerator for the processes that are being debugged.

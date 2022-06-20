@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -195,6 +196,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets an enumerator for the modules contained in the <see cref="ICorDebugAssembly"/>.
         /// </summary>
+        public CorDebugModule[] Modules => EnumerateModules().ToArray();
+
+        /// <summary>
+        /// Gets an enumerator for the modules contained in the <see cref="ICorDebugAssembly"/>.
+        /// </summary>
         /// <returns>[out] A pointer to the address of the <see cref="ICorDebugModuleEnum"/> interface that is the enumerator.</returns>
         public CorDebugModuleEnum EnumerateModules()
         {
@@ -308,6 +314,11 @@ namespace ManagedCorDebug
 
         #endregion
         #region EnumerateContainedAssemblies
+
+        /// <summary>
+        /// Gets an enumerator for the assemblies contained in this assembly.
+        /// </summary>
+        public CorDebugAssembly[] ContainedAssemblies => EnumerateContainedAssemblies().ToArray();
 
         /// <summary>
         /// Gets an enumerator for the assemblies contained in this assembly.

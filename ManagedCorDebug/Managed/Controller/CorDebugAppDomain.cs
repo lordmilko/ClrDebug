@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -216,6 +217,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets an enumerator for the assemblies in the application domain.
         /// </summary>
+        public CorDebugAssembly[] Assemblies => EnumerateAssemblies().ToArray();
+
+        /// <summary>
+        /// Gets an enumerator for the assemblies in the application domain.
+        /// </summary>
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugAssemblyEnum"/> object that is the enumerator for the assemblies in the application domain.</returns>
         public CorDebugAssemblyEnum EnumerateAssemblies()
         {
@@ -285,6 +291,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets an enumerator for all active breakpoints in the application domain.
         /// </summary>
+        public CorDebugBreakpoint[] Breakpoints => EnumerateBreakpoints().ToArray();
+
+        /// <summary>
+        /// Gets an enumerator for all active breakpoints in the application domain.
+        /// </summary>
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugBreakpointEnum"/> object that is the enumerator for all active breakpoints in the application domain.</returns>
         /// <remarks>
         /// The enumerator includes all types of breakpoints, including function breakpoints and data breakpoints.
@@ -320,6 +331,11 @@ namespace ManagedCorDebug
 
         #endregion
         #region EnumerateSteppers
+
+        /// <summary>
+        /// Gets an enumerator for all active steppers in the application domain.
+        /// </summary>
+        public CorDebugStepper[] Steppers => EnumerateSteppers().ToArray();
 
         /// <summary>
         /// Gets an enumerator for all active steppers in the application domain.

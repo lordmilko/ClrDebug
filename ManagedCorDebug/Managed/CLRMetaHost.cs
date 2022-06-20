@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -140,6 +141,11 @@ namespace ManagedCorDebug
 
         #endregion
         #region EnumerateInstalledRuntimes
+
+        /// <summary>
+        /// Returns an enumeration that contains a valid <see cref="ICLRRuntimeInfo"/> interface for each version of the common language runtime (CLR) that is installed on a computer.
+        /// </summary>
+        public object[] InstalledRuntimes => EnumerateInstalledRuntimes().ToArray();
 
         /// <summary>
         /// Returns an enumeration that contains a valid <see cref="ICLRRuntimeInfo"/> interface for each version of the common language runtime (CLR) that is installed on a computer.

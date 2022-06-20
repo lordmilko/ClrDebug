@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 
 namespace ManagedCorDebug
 {
@@ -188,6 +189,11 @@ namespace ManagedCorDebug
 
         #endregion
         #region EnumerateThreads
+
+        /// <summary>
+        /// Gets an enumerator for the active managed threads in the process.
+        /// </summary>
+        public CorDebugThread[] Threads => EnumerateThreads().ToArray();
 
         /// <summary>
         /// Gets an enumerator for the active managed threads in the process.

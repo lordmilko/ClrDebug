@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Linq;
 
 namespace ManagedCorDebug
 {
@@ -388,6 +389,11 @@ namespace ManagedCorDebug
 
         #endregion
         #region EnumerateNativeCode
+
+        /// <summary>
+        /// Gets an interface pointer to an <see cref="ICorDebugCodeEnum"/> object that contains the native code statements in the function referenced by this <see cref="ICorDebugFunction2"/> object.
+        /// </summary>
+        public CorDebugCode[] NativeCodes => EnumerateNativeCode().ToArray();
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugCodeEnum"/> object that contains the native code statements in the function referenced by this <see cref="ICorDebugFunction2"/> object.
