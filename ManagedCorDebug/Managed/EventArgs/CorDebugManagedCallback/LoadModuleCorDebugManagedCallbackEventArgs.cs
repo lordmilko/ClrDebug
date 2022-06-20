@@ -62,7 +62,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pAppDomain">A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain into which the module has been loaded.</param>
         /// <param name="pModule">A pointer to an <see cref="ICorDebugModule"/> object that represents the CLR module.</param>
-        public LoadModuleCorDebugManagedCallbackEventArgs(ICorDebugAppDomain pAppDomain, ICorDebugModule pModule)
+        public LoadModuleCorDebugManagedCallbackEventArgs(ICorDebugAppDomain pAppDomain, ICorDebugModule pModule) : base(pAppDomain)
         {
             rawAppDomain = pAppDomain;
             rawModule = pModule;

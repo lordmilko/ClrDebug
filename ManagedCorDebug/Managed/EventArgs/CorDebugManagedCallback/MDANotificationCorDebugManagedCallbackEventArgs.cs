@@ -14,25 +14,11 @@ namespace ManagedCorDebug
 
         #region Controller
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly ICorDebugController rawController;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private CorDebugController controller;
-
         /// <summary>
         /// A pointer to an <see cref="ICorDebugController"/> interface that exposes the process or application domain in which the MDA occurred.<para/>
         /// A debugger should not make any assumptions about whether the controller is a process or an application domain, although it can always query the interface to make a determination.
         /// </summary>
-        public CorDebugController Controller
-        {
-            get
-            {
-                if (controller == null && rawController != null)
-                    controller = CorDebugController.New(rawController);
-
-                return controller;
-            }
-        }
+        public new CorDebugController Controller => base.Controller;
 
         #endregion
         #region Thread
@@ -89,9 +75,8 @@ namespace ManagedCorDebug
         /// <param name="pThread">A pointer to an <see cref="ICorDebugThread"/> interface that exposes the managed thread on which the debug event occurred.<para/>
         /// If the MDA occurred on an unmanaged thread, the value of pThread will be null. You must get the operating system (OS) thread ID from the MDA object itself.</param>
         /// <param name="pMDA">A pointer to an <see cref="ICorDebugMDA"/> interface that exposes the MDA information.</param>
-        public MDANotificationCorDebugManagedCallbackEventArgs(ICorDebugController pController, ICorDebugThread pThread, ICorDebugMDA pMDA)
+        public MDANotificationCorDebugManagedCallbackEventArgs(ICorDebugController pController, ICorDebugThread pThread, ICorDebugMDA pMDA) : base(pController)
         {
-            rawController = pController;
             rawThread = pThread;
             rawMDA = pMDA;
         }

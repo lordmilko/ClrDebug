@@ -1,4 +1,4 @@
-namespace ManagedCorDebug
+﻿namespace ManagedCorDebug
 {
     public enum CorDebugUnmanagedCallbackKind
     {

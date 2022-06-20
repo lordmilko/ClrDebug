@@ -5,57 +5,13 @@ namespace ManagedCorDebug
     /// <summary>
     /// Represents the arguments that were passed to the <see cref="ICorDebugManagedCallback2.FunctionRemapOpportunity"/> method.
     /// </summary>
-    public class FunctionRemapOpportunityCorDebugManagedCallbackEventArgs : CorDebugManagedCallbackEventArgs
+    public class FunctionRemapOpportunityCorDebugManagedCallbackEventArgs : AppDomainThreadDebugCallbackEventArgs
     {
         /// <summary>
         /// Gets the type of callback event that occurred.
         /// </summary>
         public override CorDebugManagedCallbackKind Kind => CorDebugManagedCallbackKind.FunctionRemapOpportunity;
 
-        #region AppDomain
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly ICorDebugAppDomain rawAppDomain;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private CorDebugAppDomain appDomain;
-
-        /// <summary>
-        /// A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain containing the edited function.
-        /// </summary>
-        public CorDebugAppDomain AppDomain
-        {
-            get
-            {
-                if (appDomain == null && rawAppDomain != null)
-                    appDomain = new CorDebugAppDomain(rawAppDomain);
-
-                return appDomain;
-            }
-        }
-
-        #endregion
-        #region Thread
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly ICorDebugThread rawThread;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private CorDebugThread thread;
-
-        /// <summary>
-        /// A pointer to an <see cref="ICorDebugThread"/> object that represents the thread on which the remap breakpoint was encountered.
-        /// </summary>
-        public CorDebugThread Thread
-        {
-            get
-            {
-                if (thread == null && rawThread != null)
-                    thread = new CorDebugThread(rawThread);
-
-                return thread;
-            }
-        }
-
-        #endregion
         #region OldFunction
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -114,10 +70,8 @@ namespace ManagedCorDebug
         /// <param name="pOldFunction">A pointer to an <see cref="ICorDebugFunction"/> object that represents the version of the function that is currently running on the thread.</param>
         /// <param name="pNewFunction">A pointer to an <see cref="ICorDebugFunction"/> object that represents the latest version of the function.</param>
         /// <param name="oldILOffset">The Microsoft intermediate language (MSIL) offset of the instruction pointer in the old version of the function.</param>
-        public FunctionRemapOpportunityCorDebugManagedCallbackEventArgs(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugFunction pOldFunction, ICorDebugFunction pNewFunction, int oldILOffset)
+        public FunctionRemapOpportunityCorDebugManagedCallbackEventArgs(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugFunction pOldFunction, ICorDebugFunction pNewFunction, int oldILOffset) : base(pAppDomain, pThread)
         {
-            rawAppDomain = pAppDomain;
-            rawThread = pThread;
             rawOldFunction = pOldFunction;
             rawNewFunction = pNewFunction;
             OldILOffset = oldILOffset;

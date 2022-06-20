@@ -5,57 +5,13 @@ namespace ManagedCorDebug
     /// <summary>
     /// Represents the arguments that were passed to the <see cref="ICorDebugManagedCallback.BreakpointSetError"/> method.
     /// </summary>
-    public class BreakpointSetErrorCorDebugManagedCallbackEventArgs : CorDebugManagedCallbackEventArgs
+    public class BreakpointSetErrorCorDebugManagedCallbackEventArgs : AppDomainThreadDebugCallbackEventArgs
     {
         /// <summary>
         /// Gets the type of callback event that occurred.
         /// </summary>
         public override CorDebugManagedCallbackKind Kind => CorDebugManagedCallbackKind.BreakpointSetError;
 
-        #region AppDomain
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly ICorDebugAppDomain rawAppDomain;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private CorDebugAppDomain appDomain;
-
-        /// <summary>
-        /// A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain that contains the unbound breakpoint.
-        /// </summary>
-        public CorDebugAppDomain AppDomain
-        {
-            get
-            {
-                if (appDomain == null && rawAppDomain != null)
-                    appDomain = new CorDebugAppDomain(rawAppDomain);
-
-                return appDomain;
-            }
-        }
-
-        #endregion
-        #region Thread
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly ICorDebugThread rawThread;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private CorDebugThread thread;
-
-        /// <summary>
-        /// A pointer to an <see cref="ICorDebugThread"/> object that represents the thread that contains the unbound breakpoint.
-        /// </summary>
-        public CorDebugThread Thread
-        {
-            get
-            {
-                if (thread == null && rawThread != null)
-                    thread = new CorDebugThread(rawThread);
-
-                return thread;
-            }
-        }
-
-        #endregion
         #region Breakpoint
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -91,10 +47,8 @@ namespace ManagedCorDebug
         /// <param name="pThread">A pointer to an <see cref="ICorDebugThread"/> object that represents the thread that contains the unbound breakpoint.</param>
         /// <param name="pBreakpoint">A pointer to an <see cref="ICorDebugBreakpoint"/> object that represents the unbound breakpoint.</param>
         /// <param name="dwError">An integer that indicates the error.</param>
-        public BreakpointSetErrorCorDebugManagedCallbackEventArgs(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugBreakpoint pBreakpoint, int dwError)
+        public BreakpointSetErrorCorDebugManagedCallbackEventArgs(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugBreakpoint pBreakpoint, int dwError) : base(pAppDomain, pThread)
         {
-            rawAppDomain = pAppDomain;
-            rawThread = pThread;
             rawBreakpoint = pBreakpoint;
             Error = dwError;
         }

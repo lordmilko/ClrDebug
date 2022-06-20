@@ -51,7 +51,7 @@ namespace ManagedCorDebug
         /// <param name="pProcess">A pointer to an "ICorDebugProcess" object that represents the process in which the connection was created</param>
         /// <param name="dwConnectionId">The ID of the new connection.</param>
         /// <param name="pConnName">A pointer to the name of the new connection.</param>
-        public CreateConnectionCorDebugManagedCallbackEventArgs(ICorDebugProcess pProcess, int dwConnectionId, string pConnName)
+        public CreateConnectionCorDebugManagedCallbackEventArgs(ICorDebugProcess pProcess, int dwConnectionId, string pConnName) : base(pProcess)
         {
             rawProcess = pProcess;
             ConnectionId = dwConnectionId;

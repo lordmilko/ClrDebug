@@ -62,7 +62,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pProcess">A pointer to an <see cref="ICorDebugProcess"/> object that represents the process in which the application domain was created.</param>
         /// <param name="pAppDomain">A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain that has been created.</param>
-        public CreateAppDomainCorDebugManagedCallbackEventArgs(ICorDebugProcess pProcess, ICorDebugAppDomain pAppDomain)
+        public CreateAppDomainCorDebugManagedCallbackEventArgs(ICorDebugProcess pProcess, ICorDebugAppDomain pAppDomain) : base(pProcess)
         {
             rawProcess = pProcess;
             rawAppDomain = pAppDomain;

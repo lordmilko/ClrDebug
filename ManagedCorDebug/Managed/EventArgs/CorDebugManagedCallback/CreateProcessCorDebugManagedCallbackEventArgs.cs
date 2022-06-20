@@ -39,7 +39,7 @@ namespace ManagedCorDebug
         /// Notifies the debugger when a process has been attached or started for the first time.
         /// </summary>
         /// <param name="pProcess">A pointer to an <see cref="ICorDebugProcess"/> object that represents the process that has been attached or started.</param>
-        public CreateProcessCorDebugManagedCallbackEventArgs(ICorDebugProcess pProcess)
+        public CreateProcessCorDebugManagedCallbackEventArgs(ICorDebugProcess pProcess) : base(pProcess)
         {
             rawProcess = pProcess;
         }

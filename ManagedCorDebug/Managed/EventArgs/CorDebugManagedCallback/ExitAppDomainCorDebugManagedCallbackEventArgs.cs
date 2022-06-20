@@ -62,7 +62,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pProcess">A pointer to an <see cref="ICorDebugProcess"/> object that represents the process that contains the given application domain.</param>
         /// <param name="pAppDomain">A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain that has exited.</param>
-        public ExitAppDomainCorDebugManagedCallbackEventArgs(ICorDebugProcess pProcess, ICorDebugAppDomain pAppDomain)
+        public ExitAppDomainCorDebugManagedCallbackEventArgs(ICorDebugProcess pProcess, ICorDebugAppDomain pAppDomain) : base(pProcess)
         {
             rawProcess = pProcess;
             rawAppDomain = pAppDomain;

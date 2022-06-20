@@ -51,7 +51,7 @@ namespace ManagedCorDebug
         /// <param name="pProcess">A pointer to an "ICorDebugProcess" object that represents the process in which the event occurred.</param>
         /// <param name="errorHR">The <see cref="HRESULT"/> value that was returned from the event handler.</param>
         /// <param name="errorCode">An integer that specifies the CLR error.</param>
-        public DebuggerErrorCorDebugManagedCallbackEventArgs(ICorDebugProcess pProcess, HRESULT errorHR, int errorCode)
+        public DebuggerErrorCorDebugManagedCallbackEventArgs(ICorDebugProcess pProcess, HRESULT errorHR, int errorCode) : base(pProcess)
         {
             rawProcess = pProcess;
             ErrorHR = errorHR;

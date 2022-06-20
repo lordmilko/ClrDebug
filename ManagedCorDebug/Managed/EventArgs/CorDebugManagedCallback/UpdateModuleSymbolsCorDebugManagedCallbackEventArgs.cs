@@ -85,7 +85,7 @@ namespace ManagedCorDebug
         /// <param name="pAppDomain">A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain containing the module in which the symbols have changed.</param>
         /// <param name="pModule">A pointer to an <see cref="ICorDebugModule"/> object that represents the module in which the symbols have changed.</param>
         /// <param name="pSymbolStream">A pointer to a Win32 COM <see cref="IStream"/> object that contains the modified symbols.</param>
-        public UpdateModuleSymbolsCorDebugManagedCallbackEventArgs(ICorDebugAppDomain pAppDomain, ICorDebugModule pModule, IStream pSymbolStream)
+        public UpdateModuleSymbolsCorDebugManagedCallbackEventArgs(ICorDebugAppDomain pAppDomain, ICorDebugModule pModule, IStream pSymbolStream) : base(pAppDomain)
         {
             rawAppDomain = pAppDomain;
             rawModule = pModule;

@@ -45,7 +45,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pProcess">A pointer to an <see cref="ICorDebugProcess"/> object that represents the process containing the connection that was destroyed.</param>
         /// <param name="dwConnectionId">The ID of the connection that was destroyed.</param>
-        public DestroyConnectionCorDebugManagedCallbackEventArgs(ICorDebugProcess pProcess, int dwConnectionId)
+        public DestroyConnectionCorDebugManagedCallbackEventArgs(ICorDebugProcess pProcess, int dwConnectionId) : base(pProcess)
         {
             rawProcess = pProcess;
             ConnectionId = dwConnectionId;

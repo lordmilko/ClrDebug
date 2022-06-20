@@ -62,7 +62,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pAppDomain">A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain containing the class.</param>
         /// <param name="c">A pointer to an <see cref="ICorDebugClass"/> object that represents the class.</param>
-        public UnloadClassCorDebugManagedCallbackEventArgs(ICorDebugAppDomain pAppDomain, ICorDebugClass c)
+        public UnloadClassCorDebugManagedCallbackEventArgs(ICorDebugAppDomain pAppDomain, ICorDebugClass c) : base(pAppDomain)
         {
             rawAppDomain = pAppDomain;
             rawC = c;

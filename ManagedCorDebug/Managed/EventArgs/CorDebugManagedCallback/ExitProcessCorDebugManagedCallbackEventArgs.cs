@@ -39,7 +39,7 @@ namespace ManagedCorDebug
         /// Notifies the debugger that a process has exited.
         /// </summary>
         /// <param name="pProcess">A pointer to an <see cref="ICorDebugProcess"/> object that represents the process.</param>
-        public ExitProcessCorDebugManagedCallbackEventArgs(ICorDebugProcess pProcess)
+        public ExitProcessCorDebugManagedCallbackEventArgs(ICorDebugProcess pProcess) : base(pProcess)
         {
             rawProcess = pProcess;
         }

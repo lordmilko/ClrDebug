@@ -62,7 +62,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pAppDomain">A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain into which the assembly has been loaded.</param>
         /// <param name="pAssembly">A pointer to an <see cref="ICorDebugAssembly"/> object that represents the assembly.</param>
-        public LoadAssemblyCorDebugManagedCallbackEventArgs(ICorDebugAppDomain pAppDomain, ICorDebugAssembly pAssembly)
+        public LoadAssemblyCorDebugManagedCallbackEventArgs(ICorDebugAppDomain pAppDomain, ICorDebugAssembly pAssembly) : base(pAppDomain)
         {
             rawAppDomain = pAppDomain;
             rawAssembly = pAssembly;

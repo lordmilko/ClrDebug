@@ -143,6 +143,7 @@
     <Compile Include="Managed\EventArgs\CLRDataEnumMemoryRegionsCallback\CLRDataEnumMemoryRegionsCallbackEventArgs.cs" />
     <Compile Include="Managed\EventArgs\CLRDataEnumMemoryRegionsCallback\EnumMemoryRegionCLRDataEnumMemoryRegionsCallbackEventArgs.cs" />
     <Compile Include="Managed\EventArgs\CLRDataEnumMemoryRegionsCallback\UpdateMemoryRegionCLRDataEnumMemoryRegionsCallbackEventArgs.cs" />
+    <Compile Include="Managed\EventArgs\CorDebugManagedCallback\AppDomainThreadDebugCallbackEventArgs.cs" />
     <Compile Include="Managed\EventArgs\CorDebugManagedCallback\BreakCorDebugManagedCallbackEventArgs.cs" />
     <Compile Include="Managed\EventArgs\CorDebugManagedCallback\BreakpointCorDebugManagedCallbackEventArgs.cs" />
     <Compile Include="Managed\EventArgs\CorDebugManagedCallback\BreakpointSetErrorCorDebugManagedCallbackEventArgs.cs" />

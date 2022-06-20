@@ -39,7 +39,7 @@ namespace ManagedCorDebug
         /// Notifies the debugger that a CTRL+C is trapped in the process that is being debugged.
         /// </summary>
         /// <param name="pProcess">A pointer to an <see cref="ICorDebugProcess"/> object that represents the process in which the CTRL+C is trapped.</param>
-        public ControlCTrapCorDebugManagedCallbackEventArgs(ICorDebugProcess pProcess)
+        public ControlCTrapCorDebugManagedCallbackEventArgs(ICorDebugProcess pProcess) : base(pProcess)
         {
             rawProcess = pProcess;
         }

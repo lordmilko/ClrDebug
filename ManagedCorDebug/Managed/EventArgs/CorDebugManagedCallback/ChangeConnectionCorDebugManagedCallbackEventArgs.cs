@@ -45,7 +45,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pProcess">A pointer to an "ICorDebugProcess" object that represents the process containing the connection that changed.</param>
         /// <param name="dwConnectionId">The ID of the connection that changed.</param>
-        public ChangeConnectionCorDebugManagedCallbackEventArgs(ICorDebugProcess pProcess, int dwConnectionId)
+        public ChangeConnectionCorDebugManagedCallbackEventArgs(ICorDebugProcess pProcess, int dwConnectionId) : base(pProcess)
         {
             rawProcess = pProcess;
             ConnectionId = dwConnectionId;
