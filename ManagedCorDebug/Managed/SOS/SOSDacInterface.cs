@@ -66,6 +66,9 @@ namespace ManagedCorDebug
         #endregion
         #region AppDomainList
 
+        /// <summary>
+        /// Gets the addresses of all AppDomains present in a process, excluding the System and Shared AppDomains.
+        /// </summary>
         public CLRDATA_ADDRESS[] AppDomainList
         {
             get
@@ -80,6 +83,11 @@ namespace ManagedCorDebug
             }
         }
 
+        /// <summary>
+        /// Gets the addresses of all AppDomains present in a process, excluding the System and Shared AppDomains.
+        /// </summary>
+        /// <param name="valuesResult">The array to store the addresses of returned AppDomains.</param>
+        /// <returns>A HRESULT that indicates success or failure.</returns>
         public HRESULT TryGetAppDomainList(out CLRDATA_ADDRESS[] valuesResult)
         {
             /*HRESULT GetAppDomainList(

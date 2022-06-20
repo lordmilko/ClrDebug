@@ -7,7 +7,7 @@
 
 namespace ManagedCorDebug
 {
-    [DebuggerDisplay("{ToString(),nq}")]
+	[DebuggerDisplay("{ToString(),nq} [{Type}]")]
     public struct mdToken : IComparable, IEquatable<mdToken>
     {
         public static readonly mdToken Nil = new mdToken();
@@ -240,7 +240,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdModule]")]
     public struct mdModule : IComparable, IEquatable<mdModule>
     {
         public static readonly mdModule Nil = new mdModule((uint) CorTokenType.mdtModule);
@@ -283,7 +283,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdTypeRef]")]
     public struct mdTypeRef : IComparable, IEquatable<mdTypeRef>
     {
         public static readonly mdTypeRef Nil = new mdTypeRef((uint) CorTokenType.mdtTypeRef);
@@ -326,7 +326,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdTypeDef]")]
     public struct mdTypeDef : IComparable, IEquatable<mdTypeDef>
     {
         public static readonly mdTypeDef Nil = new mdTypeDef((uint) CorTokenType.mdtTypeDef);
@@ -369,7 +369,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdFieldDef]")]
     public struct mdFieldDef : IComparable, IEquatable<mdFieldDef>
     {
         public static readonly mdFieldDef Nil = new mdFieldDef((uint) CorTokenType.mdtFieldDef);
@@ -412,7 +412,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdMethodDef]")]
     public struct mdMethodDef : IComparable, IEquatable<mdMethodDef>
     {
         public static readonly mdMethodDef Nil = new mdMethodDef((uint) CorTokenType.mdtMethodDef);
@@ -455,7 +455,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdParamDef]")]
     public struct mdParamDef : IComparable, IEquatable<mdParamDef>
     {
         public static readonly mdParamDef Nil = new mdParamDef((uint) CorTokenType.mdtParamDef);
@@ -498,7 +498,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdInterfaceImpl]")]
     public struct mdInterfaceImpl : IComparable, IEquatable<mdInterfaceImpl>
     {
         public static readonly mdInterfaceImpl Nil = new mdInterfaceImpl((uint) CorTokenType.mdtInterfaceImpl);
@@ -541,7 +541,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdMemberRef]")]
     public struct mdMemberRef : IComparable, IEquatable<mdMemberRef>
     {
         public static readonly mdMemberRef Nil = new mdMemberRef((uint) CorTokenType.mdtMemberRef);
@@ -584,7 +584,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdCustomAttribute]")]
     public struct mdCustomAttribute : IComparable, IEquatable<mdCustomAttribute>
     {
         public static readonly mdCustomAttribute Nil = new mdCustomAttribute((uint) CorTokenType.mdtCustomAttribute);
@@ -627,7 +627,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdPermission]")]
     public struct mdPermission : IComparable, IEquatable<mdPermission>
     {
         public static readonly mdPermission Nil = new mdPermission((uint) CorTokenType.mdtPermission);
@@ -670,7 +670,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdSignature]")]
     public struct mdSignature : IComparable, IEquatable<mdSignature>
     {
         public static readonly mdSignature Nil = new mdSignature((uint) CorTokenType.mdtSignature);
@@ -713,7 +713,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdEvent]")]
     public struct mdEvent : IComparable, IEquatable<mdEvent>
     {
         public static readonly mdEvent Nil = new mdEvent((uint) CorTokenType.mdtEvent);
@@ -756,7 +756,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdProperty]")]
     public struct mdProperty : IComparable, IEquatable<mdProperty>
     {
         public static readonly mdProperty Nil = new mdProperty((uint) CorTokenType.mdtProperty);
@@ -799,7 +799,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdModuleRef]")]
     public struct mdModuleRef : IComparable, IEquatable<mdModuleRef>
     {
         public static readonly mdModuleRef Nil = new mdModuleRef((uint) CorTokenType.mdtModuleRef);
@@ -842,7 +842,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdAssembly]")]
     public struct mdAssembly : IComparable, IEquatable<mdAssembly>
     {
         public static readonly mdAssembly Nil = new mdAssembly((uint) CorTokenType.mdtAssembly);
@@ -885,7 +885,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdAssemblyRef]")]
     public struct mdAssemblyRef : IComparable, IEquatable<mdAssemblyRef>
     {
         public static readonly mdAssemblyRef Nil = new mdAssemblyRef((uint) CorTokenType.mdtAssemblyRef);
@@ -928,7 +928,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdFile]")]
     public struct mdFile : IComparable, IEquatable<mdFile>
     {
         public static readonly mdFile Nil = new mdFile((uint) CorTokenType.mdtFile);
@@ -971,7 +971,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdExportedType]")]
     public struct mdExportedType : IComparable, IEquatable<mdExportedType>
     {
         public static readonly mdExportedType Nil = new mdExportedType((uint) CorTokenType.mdtExportedType);
@@ -1014,7 +1014,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdManifestResource]")]
     public struct mdManifestResource : IComparable, IEquatable<mdManifestResource>
     {
         public static readonly mdManifestResource Nil = new mdManifestResource((uint) CorTokenType.mdtManifestResource);
@@ -1057,7 +1057,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdTypeSpec]")]
     public struct mdTypeSpec : IComparable, IEquatable<mdTypeSpec>
     {
         public static readonly mdTypeSpec Nil = new mdTypeSpec((uint) CorTokenType.mdtTypeSpec);
@@ -1100,7 +1100,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdGenericParam]")]
     public struct mdGenericParam : IComparable, IEquatable<mdGenericParam>
     {
         public static readonly mdGenericParam Nil = new mdGenericParam((uint) CorTokenType.mdtGenericParam);
@@ -1143,7 +1143,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdMethodSpec]")]
     public struct mdMethodSpec : IComparable, IEquatable<mdMethodSpec>
     {
         public static readonly mdMethodSpec Nil = new mdMethodSpec((uint) CorTokenType.mdtMethodSpec);
@@ -1186,7 +1186,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdGenericParamConstraint]")]
     public struct mdGenericParamConstraint : IComparable, IEquatable<mdGenericParamConstraint>
     {
         public static readonly mdGenericParamConstraint Nil = new mdGenericParamConstraint((uint) CorTokenType.mdtGenericParamConstraint);
@@ -1229,7 +1229,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdString]")]
     public struct mdString : IComparable, IEquatable<mdString>
     {
         public static readonly mdString Nil = new mdString((uint) CorTokenType.mdtString);
@@ -1272,7 +1272,7 @@ namespace ManagedCorDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString(),nq} [mdCPToken]")]
     public struct mdCPToken : IComparable, IEquatable<mdCPToken>
     {
         public uint Rid => Value & 0x00FFFFFF;

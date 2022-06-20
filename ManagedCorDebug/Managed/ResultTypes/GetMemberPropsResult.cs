@@ -20,7 +20,7 @@ namespace ManagedCorDebug
         public string szMember { get; }
 
         /// <summary>
-        /// Any flag values applied to the member.
+        /// Any flag values applied to the member. If the member is a <see cref="mdMethodDef"/> this value is a bitwise combination of <see cref="CorMethodAttr"/> values. Otherwise, it is a bitwise combination of <see cref="CorFieldAttr"/> values.
         /// </summary>
         public int pdwAttr { get; }
 
@@ -40,7 +40,7 @@ namespace ManagedCorDebug
         public int pulCodeRVA { get; }
 
         /// <summary>
-        /// Any method implementation flags associated with the member.
+        /// Any method implementation flags associated with the member. If the member is an <see cref="mdMethodDef"/> these flags are a bitwise combination of <see cref="CorMethodImpl"/> values.
         /// </summary>
         public int pdwImplFlags { get; }
 

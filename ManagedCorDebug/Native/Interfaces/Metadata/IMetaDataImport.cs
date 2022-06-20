@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Security;
-using System.Security.Permissions;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -336,7 +335,7 @@ namespace ManagedCorDebug
         HRESULT EnumMethodsWithName(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
-            [Out, MarshalAs(UnmanagedType.LPWStr), In] string szName,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rMethods,
             [In] int cMax,
             [Out] out int pcTokens);
@@ -463,7 +462,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
         /// <param name="tk">[in] A metadata token that limits the scope of the search, or NULL to search the widest scope possible.</param>
-        /// <param name="dwActions">[in] Flags representing the <see cref="SecurityAction"/> values to include in rPermission, or zero to return all actions.</param>
+        /// <param name="dwActions">[in] Flags representing the security action values to include in rPermission, or zero to return all actions.</param>
         /// <param name="rPermission">[out] The array used to store the Permission tokens.</param>
         /// <param name="cMax">[in] The maximum size of the rPermission array.</param>
         /// <param name="pcTokens">[out] The number of Permission tokens returned in rPermission.</param>
@@ -477,7 +476,7 @@ namespace ManagedCorDebug
         HRESULT EnumPermissionSets(
             [In, Out] ref IntPtr phEnum,
             [In] mdToken tk,
-            [In] SecurityAction dwActions,
+            [In] CorDeclSecurity dwActions,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdPermission[] rPermission,
             [In] int cMax,
             [Out] out int pcTokens);
@@ -603,7 +602,7 @@ namespace ManagedCorDebug
             [Out] out IntPtr ppvSigBlob,
             [Out] out int pcbSigBlob,
             [Out] out int pulCodeRVA,
-            [Out] out int pdwImplFlags);
+            [Out] out CorMethodImpl pdwImplFlags);
 
         /// <summary>
         /// Gets metadata associated with the member referenced by the specified token.
@@ -692,7 +691,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szEvent,
             [In] int cchEvent,
             [Out] out int pchEvent,
-            [Out] out int pdwEventFlags,
+            [Out] out CorEventAttr pdwEventFlags,
             [Out] out mdToken ptkEventType,
             [Out] out mdMethodDef pmdAddOn,
             [Out] out mdMethodDef pmdRemoveOn,
@@ -800,7 +799,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT GetPermissionSetProps(
             [In] mdPermission pm,
-            [Out] out int pdwAction,
+            [Out] out CorDeclSecurity pdwAction,
             [Out] out IntPtr ppvPermission,
             [Out] out int pcbPermission);
 
@@ -1084,11 +1083,11 @@ namespace ManagedCorDebug
         /// <param name="szMember">[out] The name of the member.</param>
         /// <param name="cchMember">[in] The size in wide characters of the szMember buffer.</param>
         /// <param name="pchMember">[out] The size in wide characters of the returned name.</param>
-        /// <param name="pdwAttr">[out] Any flag values applied to the member.</param>
+        /// <param name="pdwAttr">[out] Any flag values applied to the member. If the member is a <see cref="mdMethodDef"/> this value is a bitwise combination of <see cref="CorMethodAttr"/> values. Otherwise, it is a bitwise combination of <see cref="CorFieldAttr"/> values.</param>
         /// <param name="ppvSigBlob">[out] A pointer to the binary metadata signature of the member.</param>
         /// <param name="pcbSigBlob">[out] The size in bytes of ppvSigBlob.</param>
         /// <param name="pulCodeRVA">[out] A pointer to the relative virtual address of the member.</param>
-        /// <param name="pdwImplFlags">[out] Any method implementation flags associated with the member.</param>
+        /// <param name="pdwImplFlags">[out] Any method implementation flags associated with the member. If the member is an <see cref="mdMethodDef"/> these flags are a bitwise combination of <see cref="CorMethodImpl"/> values.</param>
         /// <param name="pdwCPlusTypeFlag">[out] A flag that marks a <see cref="ValueType"/>. It is one of the ELEMENT_TYPE_* values.</param>
         /// <param name="ppValue">[out] A constant string value returned by this member.</param>
         /// <param name="pcchValue">[out] The size in characters of ppValue, or zero if ppValue does not hold a string.</param>
@@ -1099,7 +1098,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szMember,
             [In] int cchMember,
             [Out] out int pchMember,
-            [Out] out int pdwAttr, //if its a method is it cormethodattr?
+            [Out] out int pdwAttr,
             [Out] out IntPtr ppvSigBlob,
             [Out] out int pcbSigBlob,
             [Out] out int pulCodeRVA,

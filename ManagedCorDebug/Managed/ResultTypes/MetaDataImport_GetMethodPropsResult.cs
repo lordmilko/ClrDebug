@@ -6,7 +6,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetMethodProps"/> method.
     /// </summary>
-    [DebuggerDisplay("pClass = {pClass.ToString(),nq}, szMethod = {szMethod}, pdwAttr = {pdwAttr.ToString(),nq}, ppvSigBlob = {ppvSigBlob.ToString(),nq}, pcbSigBlob = {pcbSigBlob}, pulCodeRVA = {pulCodeRVA}, pdwImplFlags = {pdwImplFlags}")]
+    [DebuggerDisplay("pClass = {pClass.ToString(),nq}, szMethod = {szMethod}, pdwAttr = {pdwAttr.ToString(),nq}, ppvSigBlob = {ppvSigBlob.ToString(),nq}, pcbSigBlob = {pcbSigBlob}, pulCodeRVA = {pulCodeRVA}, pdwImplFlags = {pdwImplFlags.ToString(),nq}")]
     public struct MetaDataImport_GetMethodPropsResult
     {
         /// <summary>
@@ -42,9 +42,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// A pointer to any implementation flags for the method.
         /// </summary>
-        public int pdwImplFlags { get; }
+        public CorMethodImpl pdwImplFlags { get; }
 
-        public MetaDataImport_GetMethodPropsResult(mdTypeDef pClass, string szMethod, CorMethodAttr pdwAttr, IntPtr ppvSigBlob, int pcbSigBlob, int pulCodeRVA, int pdwImplFlags)
+        public MetaDataImport_GetMethodPropsResult(mdTypeDef pClass, string szMethod, CorMethodAttr pdwAttr, IntPtr ppvSigBlob, int pcbSigBlob, int pulCodeRVA, CorMethodImpl pdwImplFlags)
         {
             this.pClass = pClass;
             this.szMethod = szMethod;

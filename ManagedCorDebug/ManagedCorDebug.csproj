@@ -43,6 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\CorDebugException.cs" />
+    <Compile Include="Extensions\Extensions.CLRCreateInstance.cs" />
+    <Compile Include="Extensions\Extensions.CLRDataCreateInstance.cs" />
+    <Compile Include="Extensions\Extensions.CLRRuntimeInfo.cs" />
+    <Compile Include="Extensions\Extensions.CorDebug.cs" />
+    <Compile Include="Extensions\Extensions.CorDebugModule.cs" />
+    <Compile Include="Extensions\Extensions.HostControl.cs" />
+    <Compile Include="Extensions\Extensions.MetaDataImport.cs" />
     <Compile Include="Managed\Breakpoint\CorDebugBreakpoint.cs" />
     <Compile Include="Managed\Breakpoint\CorDebugFunctionBreakpoint.cs" />
     <Compile Include="Managed\Breakpoint\CorDebugModuleBreakpoint.cs" />
@@ -66,7 +74,7 @@
     <Compile Include="Managed\CLRRuntimeHost.cs" />
     <Compile Include="Managed\CLRRuntimeInfo.cs" />
     <Compile Include="Managed\CLRStrongName.cs" />
-    <Compile Include="Managed\ComObject.cs" />
+    <Compile Include="Extensions\ComObject.cs" />
     <Compile Include="Managed\Controller\CorDebugAppDomain.cs" />
     <Compile Include="Managed\Controller\CorDebugController.cs" />
     <Compile Include="Managed\Controller\CorDebugProcess.cs" />
@@ -191,7 +199,6 @@
     <Compile Include="Managed\Hosting\HostTask.cs" />
     <Compile Include="Managed\Hosting\HostTaskManager.cs" />
     <Compile Include="Managed\Hosting\HostThreadPoolManager.cs" />
-    <Compile Include="Managed\InterfaceExtensions.cs" />
     <Compile Include="Managed\Metadata\CeeGen.cs" />
     <Compile Include="Managed\Metadata\HostFilter.cs" />
     <Compile Include="Managed\Metadata\MapToken.cs" />
@@ -207,7 +214,7 @@
     <Compile Include="Managed\Metadata\MetaDataInfo.cs" />
     <Compile Include="Managed\Metadata\MetaDataTables.cs" />
     <Compile Include="Managed\Metadata\MetaDataValidate.cs" />
-    <Compile Include="Managed\Numbers.cs">
+    <Compile Include="Extensions\Numbers.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Numbers.tt</DependentUpon>
@@ -217,8 +224,6 @@
     <Compile Include="Managed\ResultTypes\EnumFieldByName2Result.cs" />
     <Compile Include="Managed\ResultTypes\EnumFieldByNameResult.cs" />
     <Compile Include="Managed\ResultTypes\EnumFieldResult.cs" />
-    <Compile Include="Managed\ResultTypes\EnumMethodImplsResult.cs" />
-    <Compile Include="Managed\ResultTypes\EnumMethodsWithNameResult.cs" />
     <Compile Include="Managed\ResultTypes\EnumStaticField2Result.cs" />
     <Compile Include="Managed\ResultTypes\EnumStaticFieldByName3Result.cs" />
     <Compile Include="Managed\ResultTypes\FollowStub2Result.cs" />
@@ -349,12 +354,12 @@
     <Compile Include="Managed\Symbols\SymUnmanagedSymbolSearchInfo.cs" />
     <Compile Include="Managed\Symbols\SymUnmanagedVariable.cs" />
     <Compile Include="Managed\Symbols\SymUnmanagedWriter.cs" />
-    <Compile Include="Managed\Tokens.cs">
+    <Compile Include="Extensions\Tokens.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Tokens.tt</DependentUpon>
     </Compile>
-    <Compile Include="Managed\UnsignedValueHelpers.cs" />
+    <Compile Include="Extensions\UnsignedValueHelpers.cs" />
     <Compile Include="Managed\Value\CorDebugArrayValue.cs" />
     <Compile Include="Managed\Value\CorDebugBoxValue.cs" />
     <Compile Include="Managed\Value\CorDebugContext.cs" />
@@ -890,17 +895,23 @@
     <Folder Include="Native\Interfaces\Base\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Managed\Numbers.tt">
+    <Content Include="Extensions\Numbers.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Numbers.cs</LastGenOutput>
     </Content>
-    <Content Include="Managed\Tokens.tt">
+    <Content Include="Extensions\Tokens.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Tokens.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extensions\Extensions.CLRControl.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extensions\Extensions.HRESULT.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

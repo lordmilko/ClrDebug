@@ -601,7 +601,7 @@ namespace ManagedCorDebug
         /// Gets a metadata interface object that can be used to examine the metadata for the module.
         /// </summary>
         /// <param name="riid">[in] The reference ID that specifies the metadata interface.</param>
-        /// <returns>[out] A pointer to the address of an T:IUnknown object that is one of the metadata interfaces.</returns>
+        /// <returns>[out] A pointer to the address of an IUnknown object that is one of the metadata interfaces.</returns>
         /// <remarks>
         /// The debugger can use the GetMetaDataInterface method to make a copy of the original metadata for a module, which
         /// it must do in order to edit that module. The debugger calls GetMetaDataInterface to get an <see cref="IMetaDataEmit"/>
@@ -623,7 +623,7 @@ namespace ManagedCorDebug
         /// Gets a metadata interface object that can be used to examine the metadata for the module.
         /// </summary>
         /// <param name="riid">[in] The reference ID that specifies the metadata interface.</param>
-        /// <param name="ppObj">[out] A pointer to the address of an T:IUnknown object that is one of the metadata interfaces.</param>
+        /// <param name="ppObj">[out] A pointer to the address of an IUnknown object that is one of the metadata interfaces.</param>
         /// <remarks>
         /// The debugger can use the GetMetaDataInterface method to make a copy of the original metadata for a module, which
         /// it must do in order to edit that module. The debugger calls GetMetaDataInterface to get an <see cref="IMetaDataEmit"/>

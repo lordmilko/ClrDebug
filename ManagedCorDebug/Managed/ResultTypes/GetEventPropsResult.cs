@@ -5,7 +5,7 @@ namespace ManagedCorDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataImport.GetEventProps"/> method.
     /// </summary>
-    [DebuggerDisplay("pClass = {pClass.ToString(),nq}, szEvent = {szEvent}, pdwEventFlags = {pdwEventFlags}, ptkEventType = {ptkEventType.ToString(),nq}, pmdAddOn = {pmdAddOn.ToString(),nq}, pmdRemoveOn = {pmdRemoveOn.ToString(),nq}, pmdFire = {pmdFire.ToString(),nq}, rmdOtherMethod = {rmdOtherMethod}")]
+    [DebuggerDisplay("pClass = {pClass.ToString(),nq}, szEvent = {szEvent}, pdwEventFlags = {pdwEventFlags.ToString(),nq}, ptkEventType = {ptkEventType.ToString(),nq}, pmdAddOn = {pmdAddOn.ToString(),nq}, pmdRemoveOn = {pmdRemoveOn.ToString(),nq}, pmdFire = {pmdFire.ToString(),nq}, rmdOtherMethod = {rmdOtherMethod}")]
     public struct GetEventPropsResult
     {
         /// <summary>
@@ -21,7 +21,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// A pointer to the event flags of the event.
         /// </summary>
-        public int pdwEventFlags { get; }
+        public CorEventAttr pdwEventFlags { get; }
 
         /// <summary>
         /// A pointer to a TypeRef or TypeDef metadata token representing the System.Delegate type of the event.
@@ -48,7 +48,7 @@ namespace ManagedCorDebug
         /// </summary>
         public mdMethodDef[] rmdOtherMethod { get; }
 
-        public GetEventPropsResult(mdTypeDef pClass, string szEvent, int pdwEventFlags, mdToken ptkEventType, mdMethodDef pmdAddOn, mdMethodDef pmdRemoveOn, mdMethodDef pmdFire, mdMethodDef[] rmdOtherMethod)
+        public GetEventPropsResult(mdTypeDef pClass, string szEvent, CorEventAttr pdwEventFlags, mdToken ptkEventType, mdMethodDef pmdAddOn, mdMethodDef pmdRemoveOn, mdMethodDef pmdFire, mdMethodDef[] rmdOtherMethod)
         {
             this.pClass = pClass;
             this.szEvent = szEvent;

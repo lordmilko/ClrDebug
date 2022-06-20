@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Security;
-using System.Security.Permissions;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -201,27 +200,29 @@ namespace ManagedCorDebug
         /// Enumerates TypeDef tokens representing all types within the current scope.
         /// </summary>
         /// <param name="phEnum">[out] A pointer to the new enumerator. This must be NULL for the first call of this method.</param>
-        /// <returns>[in] The array used to store the TypeDef tokens.</returns>
+        /// <param name="typeDefs">[in] The array used to store the TypeDef tokens.</param>
+        /// <returns>[out] The number of TypeDef tokens returned in rTypeDefs.</returns>
         /// <remarks>
         /// The TypeDef token represents a type such as a class or an interface, as well as any type added via an extensibility
         /// mechanism.
         /// </remarks>
-        public mdTypeDef[] EnumTypeDefs(ref IntPtr phEnum)
+        public int EnumTypeDefs(ref IntPtr phEnum, mdTypeDef[] typeDefs)
         {
             HRESULT hr;
-            mdTypeDef[] typeDefsResult;
+            int pcTypeDefs;
 
-            if ((hr = TryEnumTypeDefs(ref phEnum, out typeDefsResult)) != HRESULT.S_OK)
+            if ((hr = TryEnumTypeDefs(ref phEnum, typeDefs, out pcTypeDefs)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return typeDefsResult;
+            return pcTypeDefs;
         }
 
         /// <summary>
         /// Enumerates TypeDef tokens representing all types within the current scope.
         /// </summary>
         /// <param name="phEnum">[out] A pointer to the new enumerator. This must be NULL for the first call of this method.</param>
-        /// <param name="typeDefsResult">[in] The array used to store the TypeDef tokens.</param>
+        /// <param name="typeDefs">[in] The array used to store the TypeDef tokens.</param>
+        /// <param name="pcTypeDefs">[out] The number of TypeDef tokens returned in rTypeDefs.</param>
         /// <returns>
         /// | HRESULT | Description                                                         |
         /// | ------- | ------------------------------------------------------------------- |
@@ -232,34 +233,19 @@ namespace ManagedCorDebug
         /// The TypeDef token represents a type such as a class or an interface, as well as any type added via an extensibility
         /// mechanism.
         /// </remarks>
-        public HRESULT TryEnumTypeDefs(ref IntPtr phEnum, out mdTypeDef[] typeDefsResult)
+        public HRESULT TryEnumTypeDefs(ref IntPtr phEnum, mdTypeDef[] typeDefs, out int pcTypeDefs)
         {
             /*HRESULT EnumTypeDefs(
             [In, Out] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdTypeDef[] typeDefs,
             [In] int cMax,
             [Out] out int pcTypeDefs);*/
-            mdTypeDef[] typeDefs = null;
-            int cMax = 0;
-            int pcTypeDefs;
-            HRESULT hr = Raw.EnumTypeDefs(ref phEnum, typeDefs, cMax, out pcTypeDefs);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cMax = pcTypeDefs;
-            typeDefs = new mdTypeDef[pcTypeDefs];
-            hr = Raw.EnumTypeDefs(ref phEnum, typeDefs, cMax, out pcTypeDefs);
-
-            if (hr == HRESULT.S_OK)
-            {
-                typeDefsResult = typeDefs;
-
-                return hr;
-            }
-
-            fail:
-            typeDefsResult = default(mdTypeDef[]);
+            if (typeDefs == null)
+                hr = Raw.EnumTypeDefs(ref phEnum, null, 0, out pcTypeDefs);
+            else
+                hr = Raw.EnumTypeDefs(ref phEnum, typeDefs, typeDefs.Length, out pcTypeDefs);
 
             return hr;
         }
@@ -272,21 +258,22 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator.</param>
         /// <param name="td">[in] The token of the TypeDef whose MethodDef tokens representing interface implementations are to be enumerated.</param>
-        /// <returns>[out] The array used to store the MethodDef tokens.</returns>
+        /// <param name="rImpls">[out] The array used to store the MethodDef tokens.</param>
+        /// <returns>[out] The actual number of tokens returned in rImpls.</returns>
         /// <remarks>
         /// The enumeration returns a collection of <see cref="mdInterfaceImpl"/> tokens for each interface implemented by the specified
         /// TypeDef. Interface tokens are returned in the order the interfaces were specified (through DefineTypeDef or SetTypeDefProps).
         /// Properties of the returned <see cref="mdInterfaceImpl"/> tokens can be queried using <see cref="GetInterfaceImplProps"/>.
         /// </remarks>
-        public mdInterfaceImpl[] EnumInterfaceImpls(ref IntPtr phEnum, mdTypeDef td)
+        public int EnumInterfaceImpls(ref IntPtr phEnum, mdTypeDef td, mdInterfaceImpl[] rImpls)
         {
             HRESULT hr;
-            mdInterfaceImpl[] rImplsResult;
+            int pcImpls;
 
-            if ((hr = TryEnumInterfaceImpls(ref phEnum, td, out rImplsResult)) != HRESULT.S_OK)
+            if ((hr = TryEnumInterfaceImpls(ref phEnum, td, rImpls, out pcImpls)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return rImplsResult;
+            return pcImpls;
         }
 
         /// <summary>
@@ -294,7 +281,8 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator.</param>
         /// <param name="td">[in] The token of the TypeDef whose MethodDef tokens representing interface implementations are to be enumerated.</param>
-        /// <param name="rImplsResult">[out] The array used to store the MethodDef tokens.</param>
+        /// <param name="rImpls">[out] The array used to store the MethodDef tokens.</param>
+        /// <param name="pcImpls">[out] The actual number of tokens returned in rImpls.</param>
         /// <returns>
         /// | HRESULT | Description                                                                       |
         /// | ------- | --------------------------------------------------------------------------------- |
@@ -306,7 +294,7 @@ namespace ManagedCorDebug
         /// TypeDef. Interface tokens are returned in the order the interfaces were specified (through DefineTypeDef or SetTypeDefProps).
         /// Properties of the returned <see cref="mdInterfaceImpl"/> tokens can be queried using <see cref="GetInterfaceImplProps"/>.
         /// </remarks>
-        public HRESULT TryEnumInterfaceImpls(ref IntPtr phEnum, mdTypeDef td, out mdInterfaceImpl[] rImplsResult)
+        public HRESULT TryEnumInterfaceImpls(ref IntPtr phEnum, mdTypeDef td, mdInterfaceImpl[] rImpls, out int pcImpls)
         {
             /*HRESULT EnumInterfaceImpls(
             [In, Out] ref IntPtr phEnum,
@@ -314,27 +302,12 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] mdInterfaceImpl[] rImpls,
             [In] int cMax,
             [Out] out int pcImpls);*/
-            mdInterfaceImpl[] rImpls = null;
-            int cMax = 0;
-            int pcImpls;
-            HRESULT hr = Raw.EnumInterfaceImpls(ref phEnum, td, rImpls, cMax, out pcImpls);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cMax = pcImpls;
-            rImpls = new mdInterfaceImpl[pcImpls];
-            hr = Raw.EnumInterfaceImpls(ref phEnum, td, rImpls, cMax, out pcImpls);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rImplsResult = rImpls;
-
-                return hr;
-            }
-
-            fail:
-            rImplsResult = default(mdInterfaceImpl[]);
+            if (rImpls == null)
+                hr = Raw.EnumInterfaceImpls(ref phEnum, td, null, 0, out pcImpls);
+            else
+                hr = Raw.EnumInterfaceImpls(ref phEnum, td, rImpls, rImpls.Length, out pcImpls);
 
             return hr;
         }
@@ -346,26 +319,28 @@ namespace ManagedCorDebug
         /// Enumerates TypeRef tokens defined in the current metadata scope.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
-        /// <returns>[out] The array used to store the TypeRef tokens.</returns>
+        /// <param name="rTypeRefs">[out] The array used to store the TypeRef tokens.</param>
+        /// <returns>[out] A pointer to the number of TypeRef tokens returned in rTypeRefs.</returns>
         /// <remarks>
         /// A TypeRef token represents a reference to a type.
         /// </remarks>
-        public mdTypeRef[] EnumTypeRefs(ref IntPtr phEnum)
+        public int EnumTypeRefs(ref IntPtr phEnum, mdTypeRef[] rTypeRefs)
         {
             HRESULT hr;
-            mdTypeRef[] rTypeRefsResult;
+            int pcTypeRefs;
 
-            if ((hr = TryEnumTypeRefs(ref phEnum, out rTypeRefsResult)) != HRESULT.S_OK)
+            if ((hr = TryEnumTypeRefs(ref phEnum, rTypeRefs, out pcTypeRefs)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return rTypeRefsResult;
+            return pcTypeRefs;
         }
 
         /// <summary>
         /// Enumerates TypeRef tokens defined in the current metadata scope.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
-        /// <param name="rTypeRefsResult">[out] The array used to store the TypeRef tokens.</param>
+        /// <param name="rTypeRefs">[out] The array used to store the TypeRef tokens.</param>
+        /// <param name="pcTypeRefs">[out] A pointer to the number of TypeRef tokens returned in rTypeRefs.</param>
         /// <returns>
         /// | HRESULT | Description                                                         |
         /// | ------- | ------------------------------------------------------------------- |
@@ -375,34 +350,19 @@ namespace ManagedCorDebug
         /// <remarks>
         /// A TypeRef token represents a reference to a type.
         /// </remarks>
-        public HRESULT TryEnumTypeRefs(ref IntPtr phEnum, out mdTypeRef[] rTypeRefsResult)
+        public HRESULT TryEnumTypeRefs(ref IntPtr phEnum, mdTypeRef[] rTypeRefs, out int pcTypeRefs)
         {
             /*HRESULT EnumTypeRefs(
             [In, Out] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdTypeRef[] rTypeRefs,
             [In] int cMax,
             [Out] out int pcTypeRefs);*/
-            mdTypeRef[] rTypeRefs = null;
-            int cMax = 0;
-            int pcTypeRefs;
-            HRESULT hr = Raw.EnumTypeRefs(ref phEnum, rTypeRefs, cMax, out pcTypeRefs);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cMax = pcTypeRefs;
-            rTypeRefs = new mdTypeRef[pcTypeRefs];
-            hr = Raw.EnumTypeRefs(ref phEnum, rTypeRefs, cMax, out pcTypeRefs);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rTypeRefsResult = rTypeRefs;
-
-                return hr;
-            }
-
-            fail:
-            rTypeRefsResult = default(mdTypeRef[]);
+            if (rTypeRefs == null)
+                hr = Raw.EnumTypeRefs(ref phEnum, null, 0, out pcTypeRefs);
+            else
+                hr = Raw.EnumTypeRefs(ref phEnum, rTypeRefs, rTypeRefs.Length, out pcTypeRefs);
 
             return hr;
         }
@@ -685,7 +645,8 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator.</param>
         /// <param name="cl">[in] A TypeDef token representing the type whose members are to be enumerated.</param>
-        /// <returns>[out] The array used to hold the MemberDef tokens.</returns>
+        /// <param name="rMembers">[out] The array used to hold the MemberDef tokens.</param>
+        /// <returns>[out] The actual number of MemberDef tokens returned in rMembers.</returns>
         /// <remarks>
         /// When enumerating collections of members for a class, EnumMembers returns only members (fields and methods, but
         /// not properties or events) defined directly on the class. It does not return any members that the class inherits,
@@ -694,15 +655,15 @@ namespace ManagedCorDebug
         /// the language or compiler that emitted the original metadata. Properties and events are not enumerated by EnumMembers.
         /// To enumerate those, use <see cref="EnumProperties"/> or <see cref="EnumEvents"/>.
         /// </remarks>
-        public mdToken[] EnumMembers(ref IntPtr phEnum, mdTypeDef cl)
+        public int EnumMembers(ref IntPtr phEnum, mdTypeDef cl, mdToken[] rMembers)
         {
             HRESULT hr;
-            mdToken[] rMembersResult;
+            int pcTokens;
 
-            if ((hr = TryEnumMembers(ref phEnum, cl, out rMembersResult)) != HRESULT.S_OK)
+            if ((hr = TryEnumMembers(ref phEnum, cl, rMembers, out pcTokens)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return rMembersResult;
+            return pcTokens;
         }
 
         /// <summary>
@@ -710,7 +671,8 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator.</param>
         /// <param name="cl">[in] A TypeDef token representing the type whose members are to be enumerated.</param>
-        /// <param name="rMembersResult">[out] The array used to hold the MemberDef tokens.</param>
+        /// <param name="rMembers">[out] The array used to hold the MemberDef tokens.</param>
+        /// <param name="pcTokens">[out] The actual number of MemberDef tokens returned in rMembers.</param>
         /// <returns>
         /// | HRESULT | Description                                                                 |
         /// | ------- | --------------------------------------------------------------------------- |
@@ -725,7 +687,7 @@ namespace ManagedCorDebug
         /// the language or compiler that emitted the original metadata. Properties and events are not enumerated by EnumMembers.
         /// To enumerate those, use <see cref="EnumProperties"/> or <see cref="EnumEvents"/>.
         /// </remarks>
-        public HRESULT TryEnumMembers(ref IntPtr phEnum, mdTypeDef cl, out mdToken[] rMembersResult)
+        public HRESULT TryEnumMembers(ref IntPtr phEnum, mdTypeDef cl, mdToken[] rMembers, out int pcTokens)
         {
             /*HRESULT EnumMembers(
             [In, Out] ref IntPtr phEnum,
@@ -733,27 +695,12 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] mdToken[] rMembers,
             [In] int cMax,
             [Out] out int pcTokens);*/
-            mdToken[] rMembers = null;
-            int cMax = 0;
-            int pcTokens;
-            HRESULT hr = Raw.EnumMembers(ref phEnum, cl, rMembers, cMax, out pcTokens);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cMax = pcTokens;
-            rMembers = new mdToken[pcTokens];
-            hr = Raw.EnumMembers(ref phEnum, cl, rMembers, cMax, out pcTokens);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rMembersResult = rMembers;
-
-                return hr;
-            }
-
-            fail:
-            rMembersResult = default(mdToken[]);
+            if (rMembers == null)
+                hr = Raw.EnumMembers(ref phEnum, cl, null, 0, out pcTokens);
+            else
+                hr = Raw.EnumMembers(ref phEnum, cl, rMembers, rMembers.Length, out pcTokens);
 
             return hr;
         }
@@ -767,20 +714,21 @@ namespace ManagedCorDebug
         /// <param name="phEnum">[in, out] A pointer to the enumerator.</param>
         /// <param name="cl">[in] A TypeDef token representing the type with members to enumerate.</param>
         /// <param name="szName">[in] The member name that limits the scope of the enumerator.</param>
-        /// <returns>[out] The array used to store the MemberDef tokens.</returns>
+        /// <param name="rMembers">[out] The array used to store the MemberDef tokens.</param>
+        /// <returns>[out] The actual number of MemberDef tokens returned in rMembers.</returns>
         /// <remarks>
         /// This method enumerates fields and methods, but not properties or events. Unlike <see cref="EnumMembers"/>, EnumMembersWithName
         /// discards all field and member tokens that do not have the specified name.
         /// </remarks>
-        public mdToken[] EnumMembersWithName(ref IntPtr phEnum, mdTypeDef cl, string szName)
+        public int EnumMembersWithName(ref IntPtr phEnum, mdTypeDef cl, string szName, mdToken[] rMembers)
         {
             HRESULT hr;
-            mdToken[] rMembersResult;
+            int pcTokens;
 
-            if ((hr = TryEnumMembersWithName(ref phEnum, cl, szName, out rMembersResult)) != HRESULT.S_OK)
+            if ((hr = TryEnumMembersWithName(ref phEnum, cl, szName, rMembers, out pcTokens)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return rMembersResult;
+            return pcTokens;
         }
 
         /// <summary>
@@ -789,7 +737,8 @@ namespace ManagedCorDebug
         /// <param name="phEnum">[in, out] A pointer to the enumerator.</param>
         /// <param name="cl">[in] A TypeDef token representing the type with members to enumerate.</param>
         /// <param name="szName">[in] The member name that limits the scope of the enumerator.</param>
-        /// <param name="rMembersResult">[out] The array used to store the MemberDef tokens.</param>
+        /// <param name="rMembers">[out] The array used to store the MemberDef tokens.</param>
+        /// <param name="pcTokens">[out] The actual number of MemberDef tokens returned in rMembers.</param>
         /// <returns>
         /// | HRESULT | Description                                                                 |
         /// | ------- | --------------------------------------------------------------------------- |
@@ -800,7 +749,7 @@ namespace ManagedCorDebug
         /// This method enumerates fields and methods, but not properties or events. Unlike <see cref="EnumMembers"/>, EnumMembersWithName
         /// discards all field and member tokens that do not have the specified name.
         /// </remarks>
-        public HRESULT TryEnumMembersWithName(ref IntPtr phEnum, mdTypeDef cl, string szName, out mdToken[] rMembersResult)
+        public HRESULT TryEnumMembersWithName(ref IntPtr phEnum, mdTypeDef cl, string szName, mdToken[] rMembers, out int pcTokens)
         {
             /*HRESULT EnumMembersWithName(
             [In, Out] ref IntPtr phEnum,
@@ -809,27 +758,12 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] mdToken[] rMembers,
             [In] int cMax,
             [Out] out int pcTokens);*/
-            mdToken[] rMembers = null;
-            int cMax = 0;
-            int pcTokens;
-            HRESULT hr = Raw.EnumMembersWithName(ref phEnum, cl, szName, rMembers, cMax, out pcTokens);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cMax = pcTokens;
-            rMembers = new mdToken[pcTokens];
-            hr = Raw.EnumMembersWithName(ref phEnum, cl, szName, rMembers, cMax, out pcTokens);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rMembersResult = rMembers;
-
-                return hr;
-            }
-
-            fail:
-            rMembersResult = default(mdToken[]);
+            if (rMembers == null)
+                hr = Raw.EnumMembersWithName(ref phEnum, cl, szName, null, 0, out pcTokens);
+            else
+                hr = Raw.EnumMembersWithName(ref phEnum, cl, szName, rMembers, rMembers.Length, out pcTokens);
 
             return hr;
         }
@@ -842,16 +776,17 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
         /// <param name="cl">[in] A TypeDef token representing the type with the methods to enumerate.</param>
-        /// <returns>[out] The array to store the MethodDef tokens.</returns>
-        public mdMethodDef[] EnumMethods(ref IntPtr phEnum, mdTypeDef cl)
+        /// <param name="rMethods">[out] The array to store the MethodDef tokens.</param>
+        /// <returns>[out] The number of MethodDef tokens returned in rMethods.</returns>
+        public int EnumMethods(ref IntPtr phEnum, mdTypeDef cl, mdMethodDef[] rMethods)
         {
             HRESULT hr;
-            mdMethodDef[] rMethodsResult;
+            int pcTokens;
 
-            if ((hr = TryEnumMethods(ref phEnum, cl, out rMethodsResult)) != HRESULT.S_OK)
+            if ((hr = TryEnumMethods(ref phEnum, cl, rMethods, out pcTokens)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return rMethodsResult;
+            return pcTokens;
         }
 
         /// <summary>
@@ -859,14 +794,15 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
         /// <param name="cl">[in] A TypeDef token representing the type with the methods to enumerate.</param>
-        /// <param name="rMethodsResult">[out] The array to store the MethodDef tokens.</param>
+        /// <param name="rMethods">[out] The array to store the MethodDef tokens.</param>
+        /// <param name="pcTokens">[out] The number of MethodDef tokens returned in rMethods.</param>
         /// <returns>
         /// | HRESULT | Description                                                                 |
         /// | ------- | --------------------------------------------------------------------------- |
         /// | S_OK    | EnumMethods returned successfully.                                          |
         /// | S_FALSE | There are no MethodDef tokens to enumerate. In that case, pcTokens is zero. |
         /// </returns>
-        public HRESULT TryEnumMethods(ref IntPtr phEnum, mdTypeDef cl, out mdMethodDef[] rMethodsResult)
+        public HRESULT TryEnumMethods(ref IntPtr phEnum, mdTypeDef cl, mdMethodDef[] rMethods, out int pcTokens)
         {
             /*HRESULT EnumMethods(
             [In, Out] ref IntPtr phEnum,
@@ -874,27 +810,12 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rMethods,
             [In] int cMax,
             [Out] out int pcTokens);*/
-            mdMethodDef[] rMethods = null;
-            int cMax = 0;
-            int pcTokens;
-            HRESULT hr = Raw.EnumMethods(ref phEnum, cl, rMethods, cMax, out pcTokens);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cMax = pcTokens;
-            rMethods = new mdMethodDef[pcTokens];
-            hr = Raw.EnumMethods(ref phEnum, cl, rMethods, cMax, out pcTokens);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rMethodsResult = rMethods;
-
-                return hr;
-            }
-
-            fail:
-            rMethodsResult = default(mdMethodDef[]);
+            if (rMethods == null)
+                hr = Raw.EnumMethods(ref phEnum, cl, null, 0, out pcTokens);
+            else
+                hr = Raw.EnumMethods(ref phEnum, cl, rMethods, rMethods.Length, out pcTokens);
 
             return hr;
         }
@@ -907,20 +828,22 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
         /// <param name="cl">[in] A TypeDef token representing the type whose methods to enumerate.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <param name="szName">[in] The name that limits the scope of the enumeration.</param>
+        /// <param name="rMethods">[out] The array used to store the MethodDef tokens.</param>
+        /// <returns>[out] The number of MethodDef tokens returned in rMethods.</returns>
         /// <remarks>
         /// This method enumerates fields and methods, but not properties or events. Unlike <see cref="EnumMethods"/>, EnumMethodsWithName
         /// discards all method tokens that do not have the specified name.
         /// </remarks>
-        public EnumMethodsWithNameResult EnumMethodsWithName(ref IntPtr phEnum, mdTypeDef cl)
+        public int EnumMethodsWithName(ref IntPtr phEnum, mdTypeDef cl, string szName, mdMethodDef[] rMethods)
         {
             HRESULT hr;
-            EnumMethodsWithNameResult result;
+            int pcTokens;
 
-            if ((hr = TryEnumMethodsWithName(ref phEnum, cl, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumMethodsWithName(ref phEnum, cl, szName, rMethods, out pcTokens)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return pcTokens;
         }
 
         /// <summary>
@@ -928,7 +851,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
         /// <param name="cl">[in] A TypeDef token representing the type whose methods to enumerate.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="szName">[in] The name that limits the scope of the enumeration.</param>
+        /// <param name="rMethods">[out] The array used to store the MethodDef tokens.</param>
+        /// <param name="pcTokens">[out] The number of MethodDef tokens returned in rMethods.</param>
         /// <returns>
         /// | HRESULT | Description                                                       |
         /// | ------- | ----------------------------------------------------------------- |
@@ -939,37 +864,21 @@ namespace ManagedCorDebug
         /// This method enumerates fields and methods, but not properties or events. Unlike <see cref="EnumMethods"/>, EnumMethodsWithName
         /// discards all method tokens that do not have the specified name.
         /// </remarks>
-        public HRESULT TryEnumMethodsWithName(ref IntPtr phEnum, mdTypeDef cl, out EnumMethodsWithNameResult result)
+        public HRESULT TryEnumMethodsWithName(ref IntPtr phEnum, mdTypeDef cl, string szName, mdMethodDef[] rMethods, out int pcTokens)
         {
             /*HRESULT EnumMethodsWithName(
             [In, Out] ref IntPtr phEnum,
             [In] mdTypeDef cl,
-            [Out, MarshalAs(UnmanagedType.LPWStr), In] string szName,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] rMethods,
             [In] int cMax,
             [Out] out int pcTokens);*/
-            string szName = default(string);
-            mdMethodDef[] rMethods = null;
-            int cMax = 0;
-            int pcTokens;
-            HRESULT hr = Raw.EnumMethodsWithName(ref phEnum, cl, szName, rMethods, cMax, out pcTokens);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cMax = pcTokens;
-            rMethods = new mdMethodDef[pcTokens];
-            hr = Raw.EnumMethodsWithName(ref phEnum, cl, szName, rMethods, cMax, out pcTokens);
-
-            if (hr == HRESULT.S_OK)
-            {
-                result = new EnumMethodsWithNameResult(szName, rMethods);
-
-                return hr;
-            }
-
-            fail:
-            result = default(EnumMethodsWithNameResult);
+            if (rMethods == null)
+                hr = Raw.EnumMethodsWithName(ref phEnum, cl, szName, null, 0, out pcTokens);
+            else
+                hr = Raw.EnumMethodsWithName(ref phEnum, cl, szName, rMethods, rMethods.Length, out pcTokens);
 
             return hr;
         }
@@ -982,16 +891,17 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator.</param>
         /// <param name="cl">[in] The TypeDef token of the class whose fields are to be enumerated.</param>
-        /// <returns>[out] The list of FieldDef tokens.</returns>
-        public mdFieldDef[] EnumFields(ref IntPtr phEnum, mdTypeDef cl)
+        /// <param name="rFields">[out] The list of FieldDef tokens.</param>
+        /// <returns>[out] The actual number of FieldDef tokens returned in rFields.</returns>
+        public int EnumFields(ref IntPtr phEnum, mdTypeDef cl, mdFieldDef[] rFields)
         {
             HRESULT hr;
-            mdFieldDef[] rFieldsResult;
+            int pcTokens;
 
-            if ((hr = TryEnumFields(ref phEnum, cl, out rFieldsResult)) != HRESULT.S_OK)
+            if ((hr = TryEnumFields(ref phEnum, cl, rFields, out pcTokens)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return rFieldsResult;
+            return pcTokens;
         }
 
         /// <summary>
@@ -999,14 +909,15 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator.</param>
         /// <param name="cl">[in] The TypeDef token of the class whose fields are to be enumerated.</param>
-        /// <param name="rFieldsResult">[out] The list of FieldDef tokens.</param>
+        /// <param name="rFields">[out] The list of FieldDef tokens.</param>
+        /// <param name="pcTokens">[out] The actual number of FieldDef tokens returned in rFields.</param>
         /// <returns>
         /// | HRESULT | Description                                                       |
         /// | ------- | ----------------------------------------------------------------- |
         /// | S_OK    | EnumFields returned successfully.                                 |
         /// | S_FALSE | There are no fields to enumerate. In that case, pcTokens is zero. |
         /// </returns>
-        public HRESULT TryEnumFields(ref IntPtr phEnum, mdTypeDef cl, out mdFieldDef[] rFieldsResult)
+        public HRESULT TryEnumFields(ref IntPtr phEnum, mdTypeDef cl, mdFieldDef[] rFields, out int pcTokens)
         {
             /*HRESULT EnumFields(
             [In, Out] ref IntPtr phEnum,
@@ -1014,27 +925,12 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] mdFieldDef[] rFields,
             [In] int cMax,
             [Out] out int pcTokens);*/
-            mdFieldDef[] rFields = null;
-            int cMax = 0;
-            int pcTokens;
-            HRESULT hr = Raw.EnumFields(ref phEnum, cl, rFields, cMax, out pcTokens);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cMax = pcTokens;
-            rFields = new mdFieldDef[pcTokens];
-            hr = Raw.EnumFields(ref phEnum, cl, rFields, cMax, out pcTokens);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rFieldsResult = rFields;
-
-                return hr;
-            }
-
-            fail:
-            rFieldsResult = default(mdFieldDef[]);
+            if (rFields == null)
+                hr = Raw.EnumFields(ref phEnum, cl, null, 0, out pcTokens);
+            else
+                hr = Raw.EnumFields(ref phEnum, cl, rFields, rFields.Length, out pcTokens);
 
             return hr;
         }
@@ -1048,19 +944,20 @@ namespace ManagedCorDebug
         /// <param name="phEnum">[in, out] A pointer to the enumerator.</param>
         /// <param name="cl">[in] The token of the type whose fields are to be enumerated.</param>
         /// <param name="szName">[in] The field name that limits the scope of the enumeration.</param>
-        /// <returns>[out] Array used to store the FieldDef tokens.</returns>
+        /// <param name="rFields">[out] Array used to store the FieldDef tokens.</param>
+        /// <returns>[out] The actual number of FieldDef tokens returned in rFields.</returns>
         /// <remarks>
         /// Unlike <see cref="EnumFields"/>, EnumFieldsWithName discards all field tokens that do not have the specified name.
         /// </remarks>
-        public mdFieldDef[] EnumFieldsWithName(ref IntPtr phEnum, mdTypeDef cl, string szName)
+        public int EnumFieldsWithName(ref IntPtr phEnum, mdTypeDef cl, string szName, mdFieldDef[] rFields)
         {
             HRESULT hr;
-            mdFieldDef[] rFieldsResult;
+            int pcTokens;
 
-            if ((hr = TryEnumFieldsWithName(ref phEnum, cl, szName, out rFieldsResult)) != HRESULT.S_OK)
+            if ((hr = TryEnumFieldsWithName(ref phEnum, cl, szName, rFields, out pcTokens)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return rFieldsResult;
+            return pcTokens;
         }
 
         /// <summary>
@@ -1069,7 +966,8 @@ namespace ManagedCorDebug
         /// <param name="phEnum">[in, out] A pointer to the enumerator.</param>
         /// <param name="cl">[in] The token of the type whose fields are to be enumerated.</param>
         /// <param name="szName">[in] The field name that limits the scope of the enumeration.</param>
-        /// <param name="rFieldsResult">[out] Array used to store the FieldDef tokens.</param>
+        /// <param name="rFields">[out] Array used to store the FieldDef tokens.</param>
+        /// <param name="pcTokens">[out] The actual number of FieldDef tokens returned in rFields.</param>
         /// <returns>
         /// | HRESULT | Description                                                       |
         /// | ------- | ----------------------------------------------------------------- |
@@ -1079,7 +977,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// Unlike <see cref="EnumFields"/>, EnumFieldsWithName discards all field tokens that do not have the specified name.
         /// </remarks>
-        public HRESULT TryEnumFieldsWithName(ref IntPtr phEnum, mdTypeDef cl, string szName, out mdFieldDef[] rFieldsResult)
+        public HRESULT TryEnumFieldsWithName(ref IntPtr phEnum, mdTypeDef cl, string szName, mdFieldDef[] rFields, out int pcTokens)
         {
             /*HRESULT EnumFieldsWithName(
             [In, Out] ref IntPtr phEnum,
@@ -1088,27 +986,12 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] mdFieldDef[] rFields,
             [In] int cMax,
             [Out] out int pcTokens);*/
-            mdFieldDef[] rFields = null;
-            int cMax = 0;
-            int pcTokens;
-            HRESULT hr = Raw.EnumFieldsWithName(ref phEnum, cl, szName, rFields, cMax, out pcTokens);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cMax = pcTokens;
-            rFields = new mdFieldDef[pcTokens];
-            hr = Raw.EnumFieldsWithName(ref phEnum, cl, szName, rFields, cMax, out pcTokens);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rFieldsResult = rFields;
-
-                return hr;
-            }
-
-            fail:
-            rFieldsResult = default(mdFieldDef[]);
+            if (rFields == null)
+                hr = Raw.EnumFieldsWithName(ref phEnum, cl, szName, null, 0, out pcTokens);
+            else
+                hr = Raw.EnumFieldsWithName(ref phEnum, cl, szName, rFields, rFields.Length, out pcTokens);
 
             return hr;
         }
@@ -1121,16 +1004,17 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
         /// <param name="mb">[in] A MethodDef token representing the method with the parameters to enumerate.</param>
-        /// <returns>[out] The array used to store the ParamDef tokens.</returns>
-        public mdParamDef[] EnumParams(ref IntPtr phEnum, mdMethodDef mb)
+        /// <param name="rParams">[out] The array used to store the ParamDef tokens.</param>
+        /// <returns>[out] The number of ParamDef tokens returned in rParams.</returns>
+        public int EnumParams(ref IntPtr phEnum, mdMethodDef mb, mdParamDef[] rParams)
         {
             HRESULT hr;
-            mdParamDef[] rParamsResult;
+            int pcTokens;
 
-            if ((hr = TryEnumParams(ref phEnum, mb, out rParamsResult)) != HRESULT.S_OK)
+            if ((hr = TryEnumParams(ref phEnum, mb, rParams, out pcTokens)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return rParamsResult;
+            return pcTokens;
         }
 
         /// <summary>
@@ -1138,14 +1022,15 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
         /// <param name="mb">[in] A MethodDef token representing the method with the parameters to enumerate.</param>
-        /// <param name="rParamsResult">[out] The array used to store the ParamDef tokens.</param>
+        /// <param name="rParams">[out] The array used to store the ParamDef tokens.</param>
+        /// <param name="pcTokens">[out] The number of ParamDef tokens returned in rParams.</param>
         /// <returns>
         /// | HRESULT | Description                                                       |
         /// | ------- | ----------------------------------------------------------------- |
         /// | S_OK    | EnumParams returned successfully.                                 |
         /// | S_FALSE | There are no tokens to enumerate. In that case, pcTokens is zero. |
         /// </returns>
-        public HRESULT TryEnumParams(ref IntPtr phEnum, mdMethodDef mb, out mdParamDef[] rParamsResult)
+        public HRESULT TryEnumParams(ref IntPtr phEnum, mdMethodDef mb, mdParamDef[] rParams, out int pcTokens)
         {
             /*HRESULT EnumParams(
             [In, Out] ref IntPtr phEnum,
@@ -1153,27 +1038,12 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] mdParamDef[] rParams,
             [In] int cMax,
             [Out] out int pcTokens);*/
-            mdParamDef[] rParams = null;
-            int cMax = 0;
-            int pcTokens;
-            HRESULT hr = Raw.EnumParams(ref phEnum, mb, rParams, cMax, out pcTokens);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cMax = pcTokens;
-            rParams = new mdParamDef[pcTokens];
-            hr = Raw.EnumParams(ref phEnum, mb, rParams, cMax, out pcTokens);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rParamsResult = rParams;
-
-                return hr;
-            }
-
-            fail:
-            rParamsResult = default(mdParamDef[]);
+            if (rParams == null)
+                hr = Raw.EnumParams(ref phEnum, mb, null, 0, out pcTokens);
+            else
+                hr = Raw.EnumParams(ref phEnum, mb, rParams, rParams.Length, out pcTokens);
 
             return hr;
         }
@@ -1186,16 +1056,17 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator.</param>
         /// <param name="tkParent">[in] A TypeDef, TypeRef, MethodDef, or ModuleRef token for the type whose members are to be enumerated.</param>
-        /// <returns>[out] The array used to store MemberRef tokens.</returns>
-        public mdMemberRef[] EnumMemberRefs(ref IntPtr phEnum, mdToken tkParent)
+        /// <param name="rMemberRefs">[out] The array used to store MemberRef tokens.</param>
+        /// <returns>[out] The actual number of MemberRef tokens returned in rMemberRefs.</returns>
+        public int EnumMemberRefs(ref IntPtr phEnum, mdToken tkParent, mdMemberRef[] rMemberRefs)
         {
             HRESULT hr;
-            mdMemberRef[] rMemberRefsResult;
+            int pcTokens;
 
-            if ((hr = TryEnumMemberRefs(ref phEnum, tkParent, out rMemberRefsResult)) != HRESULT.S_OK)
+            if ((hr = TryEnumMemberRefs(ref phEnum, tkParent, rMemberRefs, out pcTokens)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return rMemberRefsResult;
+            return pcTokens;
         }
 
         /// <summary>
@@ -1203,14 +1074,15 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator.</param>
         /// <param name="tkParent">[in] A TypeDef, TypeRef, MethodDef, or ModuleRef token for the type whose members are to be enumerated.</param>
-        /// <param name="rMemberRefsResult">[out] The array used to store MemberRef tokens.</param>
+        /// <param name="rMemberRefs">[out] The array used to store MemberRef tokens.</param>
+        /// <param name="pcTokens">[out] The actual number of MemberRef tokens returned in rMemberRefs.</param>
         /// <returns>
         /// | HRESULT | Description                                                                    |
         /// | ------- | ------------------------------------------------------------------------------ |
         /// | S_OK    | EnumMemberRefs returned successfully.                                          |
         /// | S_FALSE | There are no MemberRef tokens to enumerate. In that case, pcTokens is to zero. |
         /// </returns>
-        public HRESULT TryEnumMemberRefs(ref IntPtr phEnum, mdToken tkParent, out mdMemberRef[] rMemberRefsResult)
+        public HRESULT TryEnumMemberRefs(ref IntPtr phEnum, mdToken tkParent, mdMemberRef[] rMemberRefs, out int pcTokens)
         {
             /*HRESULT EnumMemberRefs(
             [In, Out] ref IntPtr phEnum,
@@ -1218,27 +1090,12 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] mdMemberRef[] rMemberRefs,
             [In] int cMax,
             [Out] out int pcTokens);*/
-            mdMemberRef[] rMemberRefs = null;
-            int cMax = 0;
-            int pcTokens;
-            HRESULT hr = Raw.EnumMemberRefs(ref phEnum, tkParent, rMemberRefs, cMax, out pcTokens);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cMax = pcTokens;
-            rMemberRefs = new mdMemberRef[pcTokens];
-            hr = Raw.EnumMemberRefs(ref phEnum, tkParent, rMemberRefs, cMax, out pcTokens);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rMemberRefsResult = rMemberRefs;
-
-                return hr;
-            }
-
-            fail:
-            rMemberRefsResult = default(mdMemberRef[]);
+            if (rMemberRefs == null)
+                hr = Raw.EnumMemberRefs(ref phEnum, tkParent, null, 0, out pcTokens);
+            else
+                hr = Raw.EnumMemberRefs(ref phEnum, tkParent, rMemberRefs, rMemberRefs.Length, out pcTokens);
 
             return hr;
         }
@@ -1251,16 +1108,18 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
         /// <param name="td">[in] A TypeDef token for the type whose method implementations to enumerate.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public EnumMethodImplsResult EnumMethodImpls(ref IntPtr phEnum, mdTypeDef td)
+        /// <param name="rMethodBody">[out] The array to store the MethodBody tokens.</param>
+        /// <param name="rMethodDecl">[out] The array to store the MethodDeclaration tokens.</param>
+        /// <returns>[in] The actual number of methods returned in rMethodBody and rMethodDecl.</returns>
+        public int EnumMethodImpls(ref IntPtr phEnum, mdTypeDef td, mdToken[] rMethodBody, mdToken[] rMethodDecl)
         {
             HRESULT hr;
-            EnumMethodImplsResult result;
+            int pcTokens;
 
-            if ((hr = TryEnumMethodImpls(ref phEnum, td, out result)) != HRESULT.S_OK)
+            if ((hr = TryEnumMethodImpls(ref phEnum, td, rMethodBody, rMethodDecl, out pcTokens)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return result;
+            return pcTokens;
         }
 
         /// <summary>
@@ -1268,14 +1127,16 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
         /// <param name="td">[in] A TypeDef token for the type whose method implementations to enumerate.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <param name="rMethodBody">[out] The array to store the MethodBody tokens.</param>
+        /// <param name="rMethodDecl">[out] The array to store the MethodDeclaration tokens.</param>
+        /// <param name="pcTokens">[in] The actual number of methods returned in rMethodBody and rMethodDecl.</param>
         /// <returns>
         /// | HRESULT | Description                                                              |
         /// | ------- | ------------------------------------------------------------------------ |
         /// | S_OK    | EnumMethodImpls returned successfully.                                   |
         /// | S_FALSE | There are no method tokens to enumerate. In that case, pcTokens is zero. |
         /// </returns>
-        public HRESULT TryEnumMethodImpls(ref IntPtr phEnum, mdTypeDef td, out EnumMethodImplsResult result)
+        public HRESULT TryEnumMethodImpls(ref IntPtr phEnum, mdTypeDef td, mdToken[] rMethodBody, mdToken[] rMethodDecl, out int pcTokens)
         {
             /*HRESULT EnumMethodImpls(
             [In, Out] ref IntPtr phEnum,
@@ -1284,28 +1145,12 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] mdToken[] rMethodDecl,
             [In] int cMax,
             [Out] out int pcTokens);*/
-            mdToken[] rMethodBody = null;
-            mdToken[] rMethodDecl = null;
-            int cMax = 0;
-            int pcTokens;
-            HRESULT hr = Raw.EnumMethodImpls(ref phEnum, td, rMethodBody, rMethodDecl, cMax, out pcTokens);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cMax = pcTokens;
-            rMethodDecl = new mdToken[pcTokens];
-            hr = Raw.EnumMethodImpls(ref phEnum, td, rMethodBody, rMethodDecl, cMax, out pcTokens);
-
-            if (hr == HRESULT.S_OK)
-            {
-                result = new EnumMethodImplsResult(rMethodBody, rMethodDecl);
-
-                return hr;
-            }
-
-            fail:
-            result = default(EnumMethodImplsResult);
+            if (rMethodBody == null || rMethodDecl == null)
+                hr = Raw.EnumMethodImpls(ref phEnum, td, null, null, 0, out pcTokens);
+            else
+                hr = Raw.EnumMethodImpls(ref phEnum, td, rMethodBody, rMethodDecl, rMethodDecl.Length, out pcTokens);
 
             return hr;
         }
@@ -1318,17 +1163,18 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
         /// <param name="tk">[in] A metadata token that limits the scope of the search, or NULL to search the widest scope possible.</param>
-        /// <param name="dwActions">[in] Flags representing the <see cref="SecurityAction"/> values to include in rPermission, or zero to return all actions.</param>
-        /// <returns>[out] The array used to store the Permission tokens.</returns>
-        public mdPermission[] EnumPermissionSets(ref IntPtr phEnum, mdToken tk, SecurityAction dwActions)
+        /// <param name="dwActions">[in] Flags representing the security action values to include in rPermission, or zero to return all actions.</param>
+        /// <param name="rPermission">[out] The array used to store the Permission tokens.</param>
+        /// <returns>[out] The number of Permission tokens returned in rPermission.</returns>
+        public int EnumPermissionSets(ref IntPtr phEnum, mdToken tk, CorDeclSecurity dwActions, mdPermission[] rPermission)
         {
             HRESULT hr;
-            mdPermission[] rPermissionResult;
+            int pcTokens;
 
-            if ((hr = TryEnumPermissionSets(ref phEnum, tk, dwActions, out rPermissionResult)) != HRESULT.S_OK)
+            if ((hr = TryEnumPermissionSets(ref phEnum, tk, dwActions, rPermission, out pcTokens)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return rPermissionResult;
+            return pcTokens;
         }
 
         /// <summary>
@@ -1336,44 +1182,30 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
         /// <param name="tk">[in] A metadata token that limits the scope of the search, or NULL to search the widest scope possible.</param>
-        /// <param name="dwActions">[in] Flags representing the <see cref="SecurityAction"/> values to include in rPermission, or zero to return all actions.</param>
-        /// <param name="rPermissionResult">[out] The array used to store the Permission tokens.</param>
+        /// <param name="dwActions">[in] Flags representing the security action values to include in rPermission, or zero to return all actions.</param>
+        /// <param name="rPermission">[out] The array used to store the Permission tokens.</param>
+        /// <param name="pcTokens">[out] The number of Permission tokens returned in rPermission.</param>
         /// <returns>
         /// | HRESULT | Description                                                       |
         /// | ------- | ----------------------------------------------------------------- |
         /// | S_OK    | EnumPermissionSets returned successfully.                         |
         /// | S_FALSE | There are no tokens to enumerate. In that case, pcTokens is zero. |
         /// </returns>
-        public HRESULT TryEnumPermissionSets(ref IntPtr phEnum, mdToken tk, SecurityAction dwActions, out mdPermission[] rPermissionResult)
+        public HRESULT TryEnumPermissionSets(ref IntPtr phEnum, mdToken tk, CorDeclSecurity dwActions, mdPermission[] rPermission, out int pcTokens)
         {
             /*HRESULT EnumPermissionSets(
             [In, Out] ref IntPtr phEnum,
             [In] mdToken tk,
-            [In] SecurityAction dwActions,
+            [In] CorDeclSecurity dwActions,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdPermission[] rPermission,
             [In] int cMax,
             [Out] out int pcTokens);*/
-            mdPermission[] rPermission = null;
-            int cMax = 0;
-            int pcTokens;
-            HRESULT hr = Raw.EnumPermissionSets(ref phEnum, tk, dwActions, rPermission, cMax, out pcTokens);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cMax = pcTokens;
-            rPermission = new mdPermission[pcTokens];
-            hr = Raw.EnumPermissionSets(ref phEnum, tk, dwActions, rPermission, cMax, out pcTokens);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rPermissionResult = rPermission;
-
-                return hr;
-            }
-
-            fail:
-            rPermissionResult = default(mdPermission[]);
+            if (rPermission == null)
+                hr = Raw.EnumPermissionSets(ref phEnum, tk, dwActions, null, 0, out pcTokens);
+            else
+                hr = Raw.EnumPermissionSets(ref phEnum, tk, dwActions, rPermission, rPermission.Length, out pcTokens);
 
             return hr;
         }
@@ -1645,7 +1477,7 @@ namespace ManagedCorDebug
             [Out] out IntPtr ppvSigBlob,
             [Out] out int pcbSigBlob,
             [Out] out int pulCodeRVA,
-            [Out] out int pdwImplFlags);*/
+            [Out] out CorMethodImpl pdwImplFlags);*/
             mdTypeDef pClass;
             StringBuilder szMethod = null;
             int cchMethod = 0;
@@ -1654,7 +1486,7 @@ namespace ManagedCorDebug
             IntPtr ppvSigBlob;
             int pcbSigBlob;
             int pulCodeRVA;
-            int pdwImplFlags;
+            CorMethodImpl pdwImplFlags;
             HRESULT hr = Raw.GetMethodProps(mb, out pClass, szMethod, cchMethod, out pchMethod, out pdwAttr, out ppvSigBlob, out pcbSigBlob, out pulCodeRVA, out pdwImplFlags);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
@@ -1747,16 +1579,17 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
         /// <param name="td">[in] A TypeDef token representing the type with properties to enumerate.</param>
-        /// <returns>[out] The array used to store the PropertyDef tokens.</returns>
-        public mdProperty[] EnumProperties(ref IntPtr phEnum, mdTypeDef td)
+        /// <param name="rProperties">[out] The array used to store the PropertyDef tokens.</param>
+        /// <returns>[out] The number of PropertyDef tokens returned in rProperties.</returns>
+        public int EnumProperties(ref IntPtr phEnum, mdTypeDef td, mdProperty[] rProperties)
         {
             HRESULT hr;
-            mdProperty[] rPropertiesResult;
+            int pcProperties;
 
-            if ((hr = TryEnumProperties(ref phEnum, td, out rPropertiesResult)) != HRESULT.S_OK)
+            if ((hr = TryEnumProperties(ref phEnum, td, rProperties, out pcProperties)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return rPropertiesResult;
+            return pcProperties;
         }
 
         /// <summary>
@@ -1764,14 +1597,15 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
         /// <param name="td">[in] A TypeDef token representing the type with properties to enumerate.</param>
-        /// <param name="rPropertiesResult">[out] The array used to store the PropertyDef tokens.</param>
+        /// <param name="rProperties">[out] The array used to store the PropertyDef tokens.</param>
+        /// <param name="pcProperties">[out] The number of PropertyDef tokens returned in rProperties.</param>
         /// <returns>
         /// | HRESULT | Description                                                           |
         /// | ------- | --------------------------------------------------------------------- |
         /// | S_OK    | EnumProperties returned successfully.                                 |
         /// | S_FALSE | There are no tokens to enumerate. In that case, pcProperties is zero. |
         /// </returns>
-        public HRESULT TryEnumProperties(ref IntPtr phEnum, mdTypeDef td, out mdProperty[] rPropertiesResult)
+        public HRESULT TryEnumProperties(ref IntPtr phEnum, mdTypeDef td, mdProperty[] rProperties, out int pcProperties)
         {
             /*HRESULT EnumProperties(
             [In, Out] ref IntPtr phEnum,
@@ -1779,27 +1613,12 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] mdProperty[] rProperties,
             [In] int cMax,
             [Out] out int pcProperties);*/
-            mdProperty[] rProperties = null;
-            int cMax = 0;
-            int pcProperties;
-            HRESULT hr = Raw.EnumProperties(ref phEnum, td, rProperties, cMax, out pcProperties);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cMax = pcProperties;
-            rProperties = new mdProperty[pcProperties];
-            hr = Raw.EnumProperties(ref phEnum, td, rProperties, cMax, out pcProperties);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rPropertiesResult = rProperties;
-
-                return hr;
-            }
-
-            fail:
-            rPropertiesResult = default(mdProperty[]);
+            if (rProperties == null)
+                hr = Raw.EnumProperties(ref phEnum, td, null, 0, out pcProperties);
+            else
+                hr = Raw.EnumProperties(ref phEnum, td, rProperties, rProperties.Length, out pcProperties);
 
             return hr;
         }
@@ -1812,16 +1631,17 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator.</param>
         /// <param name="td">[in] The TypeDef token whose event definitions are to be enumerated.</param>
-        /// <returns>[out] The array of returned events.</returns>
-        public mdEvent[] EnumEvents(ref IntPtr phEnum, mdTypeDef td)
+        /// <param name="rEvents">[out] The array of returned events.</param>
+        /// <returns>[out] The actual number of events returned in rEvents.</returns>
+        public int EnumEvents(ref IntPtr phEnum, mdTypeDef td, mdEvent[] rEvents)
         {
             HRESULT hr;
-            mdEvent[] rEventsResult;
+            int pcEvents;
 
-            if ((hr = TryEnumEvents(ref phEnum, td, out rEventsResult)) != HRESULT.S_OK)
+            if ((hr = TryEnumEvents(ref phEnum, td, rEvents, out pcEvents)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return rEventsResult;
+            return pcEvents;
         }
 
         /// <summary>
@@ -1829,14 +1649,15 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator.</param>
         /// <param name="td">[in] The TypeDef token whose event definitions are to be enumerated.</param>
-        /// <param name="rEventsResult">[out] The array of returned events.</param>
+        /// <param name="rEvents">[out] The array of returned events.</param>
+        /// <param name="pcEvents">[out] The actual number of events returned in rEvents.</param>
         /// <returns>
         /// | HRESULT | Description                                                       |
         /// | ------- | ----------------------------------------------------------------- |
         /// | S_OK    | EnumEvents returned successfully.                                 |
         /// | S_FALSE | There are no events to enumerate. In that case, pcEvents is zero. |
         /// </returns>
-        public HRESULT TryEnumEvents(ref IntPtr phEnum, mdTypeDef td, out mdEvent[] rEventsResult)
+        public HRESULT TryEnumEvents(ref IntPtr phEnum, mdTypeDef td, mdEvent[] rEvents, out int pcEvents)
         {
             /*HRESULT EnumEvents(
             [In, Out] ref IntPtr phEnum,
@@ -1844,27 +1665,12 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] mdEvent[] rEvents,
             [In] int cMax,
             [Out] out int pcEvents);*/
-            mdEvent[] rEvents = null;
-            int cMax = 0;
-            int pcEvents;
-            HRESULT hr = Raw.EnumEvents(ref phEnum, td, rEvents, cMax, out pcEvents);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cMax = pcEvents;
-            rEvents = new mdEvent[pcEvents];
-            hr = Raw.EnumEvents(ref phEnum, td, rEvents, cMax, out pcEvents);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rEventsResult = rEvents;
-
-                return hr;
-            }
-
-            fail:
-            rEventsResult = default(mdEvent[]);
+            if (rEvents == null)
+                hr = Raw.EnumEvents(ref phEnum, td, null, 0, out pcEvents);
+            else
+                hr = Raw.EnumEvents(ref phEnum, td, rEvents, rEvents.Length, out pcEvents);
 
             return hr;
         }
@@ -1901,7 +1707,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szEvent,
             [In] int cchEvent,
             [Out] out int pchEvent,
-            [Out] out int pdwEventFlags,
+            [Out] out CorEventAttr pdwEventFlags,
             [Out] out mdToken ptkEventType,
             [Out] out mdMethodDef pmdAddOn,
             [Out] out mdMethodDef pmdRemoveOn,
@@ -1913,7 +1719,7 @@ namespace ManagedCorDebug
             StringBuilder szEvent = null;
             int cchEvent = 0;
             int pchEvent;
-            int pdwEventFlags;
+            CorEventAttr pdwEventFlags;
             mdToken ptkEventType;
             mdMethodDef pmdAddOn;
             mdMethodDef pmdRemoveOn;
@@ -1953,7 +1759,8 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
         /// <param name="mb">[in] A MethodDef token that limits the scope of the enumeration.</param>
-        /// <returns>[out] The array used to store the events or properties.</returns>
+        /// <param name="rEventProp">[out] The array used to store the events or properties.</param>
+        /// <returns>[out] The number of events or properties returned in rEventProp.</returns>
         /// <remarks>
         /// Many common language runtime types define PropertyChanged events and OnPropertyChanged methods related to their
         /// properties. For example, the System.Windows.Forms.Control type defines a System.Windows.Forms.Control.Font property,
@@ -1963,15 +1770,15 @@ namespace ManagedCorDebug
         /// using the MethodDef for System.Windows.Forms.Control.OnFontChanged to get references to the System.Windows.Forms.Control.Font
         /// property and the System.Windows.Forms.Control.FontChanged event.
         /// </remarks>
-        public mdToken[] EnumMethodSemantics(ref IntPtr phEnum, mdMethodDef mb)
+        public int EnumMethodSemantics(ref IntPtr phEnum, mdMethodDef mb, mdToken[] rEventProp)
         {
             HRESULT hr;
-            mdToken[] rEventPropResult;
+            int pcEventProp;
 
-            if ((hr = TryEnumMethodSemantics(ref phEnum, mb, out rEventPropResult)) != HRESULT.S_OK)
+            if ((hr = TryEnumMethodSemantics(ref phEnum, mb, rEventProp, out pcEventProp)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return rEventPropResult;
+            return pcEventProp;
         }
 
         /// <summary>
@@ -1979,7 +1786,8 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
         /// <param name="mb">[in] A MethodDef token that limits the scope of the enumeration.</param>
-        /// <param name="rEventPropResult">[out] The array used to store the events or properties.</param>
+        /// <param name="rEventProp">[out] The array used to store the events or properties.</param>
+        /// <param name="pcEventProp">[out] The number of events or properties returned in rEventProp.</param>
         /// <returns>
         /// | HRESULT | Description                                                                        |
         /// | ------- | ---------------------------------------------------------------------------------- |
@@ -1995,7 +1803,7 @@ namespace ManagedCorDebug
         /// using the MethodDef for System.Windows.Forms.Control.OnFontChanged to get references to the System.Windows.Forms.Control.Font
         /// property and the System.Windows.Forms.Control.FontChanged event.
         /// </remarks>
-        public HRESULT TryEnumMethodSemantics(ref IntPtr phEnum, mdMethodDef mb, out mdToken[] rEventPropResult)
+        public HRESULT TryEnumMethodSemantics(ref IntPtr phEnum, mdMethodDef mb, mdToken[] rEventProp, out int pcEventProp)
         {
             /*HRESULT EnumMethodSemantics(
             [In, Out] ref IntPtr phEnum,
@@ -2003,27 +1811,12 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] mdToken[] rEventProp,
             [In] int cMax,
             [Out] out int pcEventProp);*/
-            mdToken[] rEventProp = null;
-            int cMax = 0;
-            int pcEventProp;
-            HRESULT hr = Raw.EnumMethodSemantics(ref phEnum, mb, rEventProp, cMax, out pcEventProp);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cMax = pcEventProp;
-            rEventProp = new mdToken[pcEventProp];
-            hr = Raw.EnumMethodSemantics(ref phEnum, mb, rEventProp, cMax, out pcEventProp);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rEventPropResult = rEventProp;
-
-                return hr;
-            }
-
-            fail:
-            rEventPropResult = default(mdToken[]);
+            if (rEventProp == null)
+                hr = Raw.EnumMethodSemantics(ref phEnum, mb, null, 0, out pcEventProp);
+            else
+                hr = Raw.EnumMethodSemantics(ref phEnum, mb, rEventProp, rEventProp.Length, out pcEventProp);
 
             return hr;
         }
@@ -2241,10 +2034,10 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetPermissionSetProps(
             [In] mdPermission pm,
-            [Out] out int pdwAction,
+            [Out] out CorDeclSecurity pdwAction,
             [Out] out IntPtr ppvPermission,
             [Out] out int pcbPermission);*/
-            int pdwAction;
+            CorDeclSecurity pdwAction;
             IntPtr ppvPermission;
             int pcbPermission;
             HRESULT hr = Raw.GetPermissionSetProps(pm, out pdwAction, out ppvPermission, out pcbPermission);
@@ -2362,57 +2155,44 @@ namespace ManagedCorDebug
         /// Enumerates ModuleRef tokens that represent imported modules.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
-        /// <returns>[out] The array used to store the ModuleRef tokens.</returns>
-        public mdModuleRef[] EnumModuleRefs(ref IntPtr phEnum)
+        /// <param name="rModuleRefs">[out] The array used to store the ModuleRef tokens.</param>
+        /// <returns>[out] The number of ModuleRef tokens returned in rModuleRefs.</returns>
+        public int EnumModuleRefs(ref IntPtr phEnum, mdModuleRef[] rModuleRefs)
         {
             HRESULT hr;
-            mdModuleRef[] rModuleRefsResult;
+            int pcModuleRefs;
 
-            if ((hr = TryEnumModuleRefs(ref phEnum, out rModuleRefsResult)) != HRESULT.S_OK)
+            if ((hr = TryEnumModuleRefs(ref phEnum, rModuleRefs, out pcModuleRefs)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return rModuleRefsResult;
+            return pcModuleRefs;
         }
 
         /// <summary>
         /// Enumerates ModuleRef tokens that represent imported modules.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
-        /// <param name="rModuleRefsResult">[out] The array used to store the ModuleRef tokens.</param>
+        /// <param name="rModuleRefs">[out] The array used to store the ModuleRef tokens.</param>
+        /// <param name="pcModuleRefs">[out] The number of ModuleRef tokens returned in rModuleRefs.</param>
         /// <returns>
         /// | HRESULT | Description                                                           |
         /// | ------- | --------------------------------------------------------------------- |
         /// | S_OK    | EnumModuleRefs returned successfully.                                 |
         /// | S_FALSE | There are no tokens to enumerate. In that case, pcModuleRefs is zero. |
         /// </returns>
-        public HRESULT TryEnumModuleRefs(ref IntPtr phEnum, out mdModuleRef[] rModuleRefsResult)
+        public HRESULT TryEnumModuleRefs(ref IntPtr phEnum, mdModuleRef[] rModuleRefs, out int pcModuleRefs)
         {
             /*HRESULT EnumModuleRefs(
             [In, Out] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdModuleRef[] rModuleRefs,
             [In] int cmax,
             [Out] out int pcModuleRefs);*/
-            mdModuleRef[] rModuleRefs = null;
-            int cmax = 0;
-            int pcModuleRefs;
-            HRESULT hr = Raw.EnumModuleRefs(ref phEnum, rModuleRefs, cmax, out pcModuleRefs);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cmax = pcModuleRefs;
-            rModuleRefs = new mdModuleRef[pcModuleRefs];
-            hr = Raw.EnumModuleRefs(ref phEnum, rModuleRefs, cmax, out pcModuleRefs);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rModuleRefsResult = rModuleRefs;
-
-                return hr;
-            }
-
-            fail:
-            rModuleRefsResult = default(mdModuleRef[]);
+            if (rModuleRefs == null)
+                hr = Raw.EnumModuleRefs(ref phEnum, null, 0, out pcModuleRefs);
+            else
+                hr = Raw.EnumModuleRefs(ref phEnum, rModuleRefs, rModuleRefs.Length, out pcModuleRefs);
 
             return hr;
         }
@@ -2509,7 +2289,8 @@ namespace ManagedCorDebug
         /// Enumerates MemberDef tokens representing the unresolved methods in the current metadata scope.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
-        /// <returns>[out] The array used to store the MemberDef tokens.</returns>
+        /// <param name="rMethods">[out] The array used to store the MemberDef tokens.</param>
+        /// <returns>[out] The number of MemberDef tokens returned in rMethods.</returns>
         /// <remarks>
         /// An unresolved method is one that has been declared but not implemented. A method is included in the enumeration
         /// if the method is marked miForwardRef and either mdPinvokeImpl or miRuntime is set to zero. In other words, an unresolved
@@ -2517,22 +2298,23 @@ namespace ManagedCorDebug
         /// PInvoke) nor implemented internally by the runtime itself The enumeration excludes all methods that are defined
         /// either at module scope (globals) or in interfaces or abstract classes.
         /// </remarks>
-        public mdToken[] EnumUnresolvedMethods(ref IntPtr phEnum)
+        public int EnumUnresolvedMethods(ref IntPtr phEnum, mdToken[] rMethods)
         {
             HRESULT hr;
-            mdToken[] rMethodsResult;
+            int pcTokens;
 
-            if ((hr = TryEnumUnresolvedMethods(ref phEnum, out rMethodsResult)) != HRESULT.S_OK)
+            if ((hr = TryEnumUnresolvedMethods(ref phEnum, rMethods, out pcTokens)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return rMethodsResult;
+            return pcTokens;
         }
 
         /// <summary>
         /// Enumerates MemberDef tokens representing the unresolved methods in the current metadata scope.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
-        /// <param name="rMethodsResult">[out] The array used to store the MemberDef tokens.</param>
+        /// <param name="rMethods">[out] The array used to store the MemberDef tokens.</param>
+        /// <param name="pcTokens">[out] The number of MemberDef tokens returned in rMethods.</param>
         /// <returns>
         /// | HRESULT | Description                                                       |
         /// | ------- | ----------------------------------------------------------------- |
@@ -2546,34 +2328,19 @@ namespace ManagedCorDebug
         /// PInvoke) nor implemented internally by the runtime itself The enumeration excludes all methods that are defined
         /// either at module scope (globals) or in interfaces or abstract classes.
         /// </remarks>
-        public HRESULT TryEnumUnresolvedMethods(ref IntPtr phEnum, out mdToken[] rMethodsResult)
+        public HRESULT TryEnumUnresolvedMethods(ref IntPtr phEnum, mdToken[] rMethods, out int pcTokens)
         {
             /*HRESULT EnumUnresolvedMethods(
             [In, Out] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdToken[] rMethods,
             [In] int cMax,
             [Out] out int pcTokens);*/
-            mdToken[] rMethods = null;
-            int cMax = 0;
-            int pcTokens;
-            HRESULT hr = Raw.EnumUnresolvedMethods(ref phEnum, rMethods, cMax, out pcTokens);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cMax = pcTokens;
-            rMethods = new mdToken[pcTokens];
-            hr = Raw.EnumUnresolvedMethods(ref phEnum, rMethods, cMax, out pcTokens);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rMethodsResult = rMethods;
-
-                return hr;
-            }
-
-            fail:
-            rMethodsResult = default(mdToken[]);
+            if (rMethods == null)
+                hr = Raw.EnumUnresolvedMethods(ref phEnum, null, 0, out pcTokens);
+            else
+                hr = Raw.EnumUnresolvedMethods(ref phEnum, rMethods, rMethods.Length, out pcTokens);
 
             return hr;
         }
@@ -2701,26 +2468,28 @@ namespace ManagedCorDebug
         /// Enumerates Signature tokens representing stand-alone signatures in the current scope.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
-        /// <returns>[out] The array used to store the Signature tokens.</returns>
+        /// <param name="rSignatures">[out] The array used to store the Signature tokens.</param>
+        /// <returns>[out] The number of Signature tokens returned in rSignatures.</returns>
         /// <remarks>
         /// The Signature tokens are created by the <see cref="MetaDataEmit.GetTokenFromSig"/> method.
         /// </remarks>
-        public mdSignature[] EnumSignatures(ref IntPtr phEnum)
+        public int EnumSignatures(ref IntPtr phEnum, mdSignature[] rSignatures)
         {
             HRESULT hr;
-            mdSignature[] rSignaturesResult;
+            int pcSignatures;
 
-            if ((hr = TryEnumSignatures(ref phEnum, out rSignaturesResult)) != HRESULT.S_OK)
+            if ((hr = TryEnumSignatures(ref phEnum, rSignatures, out pcSignatures)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return rSignaturesResult;
+            return pcSignatures;
         }
 
         /// <summary>
         /// Enumerates Signature tokens representing stand-alone signatures in the current scope.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
-        /// <param name="rSignaturesResult">[out] The array used to store the Signature tokens.</param>
+        /// <param name="rSignatures">[out] The array used to store the Signature tokens.</param>
+        /// <param name="pcSignatures">[out] The number of Signature tokens returned in rSignatures.</param>
         /// <returns>
         /// | HRESULT | Description                                                           |
         /// | ------- | --------------------------------------------------------------------- |
@@ -2730,34 +2499,19 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The Signature tokens are created by the <see cref="MetaDataEmit.GetTokenFromSig"/> method.
         /// </remarks>
-        public HRESULT TryEnumSignatures(ref IntPtr phEnum, out mdSignature[] rSignaturesResult)
+        public HRESULT TryEnumSignatures(ref IntPtr phEnum, mdSignature[] rSignatures, out int pcSignatures)
         {
             /*HRESULT EnumSignatures(
             [In, Out] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdSignature[] rSignatures,
             [In] int cmax,
             [Out] out int pcSignatures);*/
-            mdSignature[] rSignatures = null;
-            int cmax = 0;
-            int pcSignatures;
-            HRESULT hr = Raw.EnumSignatures(ref phEnum, rSignatures, cmax, out pcSignatures);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cmax = pcSignatures;
-            rSignatures = new mdSignature[pcSignatures];
-            hr = Raw.EnumSignatures(ref phEnum, rSignatures, cmax, out pcSignatures);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rSignaturesResult = rSignatures;
-
-                return hr;
-            }
-
-            fail:
-            rSignaturesResult = default(mdSignature[]);
+            if (rSignatures == null)
+                hr = Raw.EnumSignatures(ref phEnum, null, 0, out pcSignatures);
+            else
+                hr = Raw.EnumSignatures(ref phEnum, rSignatures, rSignatures.Length, out pcSignatures);
 
             return hr;
         }
@@ -2769,26 +2523,28 @@ namespace ManagedCorDebug
         /// Enumerates TypeSpec tokens defined in the current metadata scope.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This value must be NULL for the first call of this method.</param>
-        /// <returns>[out] The array used to store the TypeSpec tokens.</returns>
+        /// <param name="rTypeSpecs">[out] The array used to store the TypeSpec tokens.</param>
+        /// <returns>[out] The number of TypeSpec tokens returned in rTypeSpecs.</returns>
         /// <remarks>
         /// The TypeSpec tokens are created by the <see cref="MetaDataEmit.GetTokenFromTypeSpec"/> method.
         /// </remarks>
-        public mdTypeSpec[] EnumTypeSpecs(ref IntPtr phEnum)
+        public int EnumTypeSpecs(ref IntPtr phEnum, mdTypeSpec[] rTypeSpecs)
         {
             HRESULT hr;
-            mdTypeSpec[] rTypeSpecsResult;
+            int pcTypeSpecs;
 
-            if ((hr = TryEnumTypeSpecs(ref phEnum, out rTypeSpecsResult)) != HRESULT.S_OK)
+            if ((hr = TryEnumTypeSpecs(ref phEnum, rTypeSpecs, out pcTypeSpecs)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return rTypeSpecsResult;
+            return pcTypeSpecs;
         }
 
         /// <summary>
         /// Enumerates TypeSpec tokens defined in the current metadata scope.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This value must be NULL for the first call of this method.</param>
-        /// <param name="rTypeSpecsResult">[out] The array used to store the TypeSpec tokens.</param>
+        /// <param name="rTypeSpecs">[out] The array used to store the TypeSpec tokens.</param>
+        /// <param name="pcTypeSpecs">[out] The number of TypeSpec tokens returned in rTypeSpecs.</param>
         /// <returns>
         /// | HRESULT | Description                                                          |
         /// | ------- | -------------------------------------------------------------------- |
@@ -2798,34 +2554,19 @@ namespace ManagedCorDebug
         /// <remarks>
         /// The TypeSpec tokens are created by the <see cref="MetaDataEmit.GetTokenFromTypeSpec"/> method.
         /// </remarks>
-        public HRESULT TryEnumTypeSpecs(ref IntPtr phEnum, out mdTypeSpec[] rTypeSpecsResult)
+        public HRESULT TryEnumTypeSpecs(ref IntPtr phEnum, mdTypeSpec[] rTypeSpecs, out int pcTypeSpecs)
         {
             /*HRESULT EnumTypeSpecs(
             [In, Out] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdTypeSpec[] rTypeSpecs,
             [In] int cmax,
             [Out] out int pcTypeSpecs);*/
-            mdTypeSpec[] rTypeSpecs = null;
-            int cmax = 0;
-            int pcTypeSpecs;
-            HRESULT hr = Raw.EnumTypeSpecs(ref phEnum, rTypeSpecs, cmax, out pcTypeSpecs);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cmax = pcTypeSpecs;
-            rTypeSpecs = new mdTypeSpec[pcTypeSpecs];
-            hr = Raw.EnumTypeSpecs(ref phEnum, rTypeSpecs, cmax, out pcTypeSpecs);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rTypeSpecsResult = rTypeSpecs;
-
-                return hr;
-            }
-
-            fail:
-            rTypeSpecsResult = default(mdTypeSpec[]);
+            if (rTypeSpecs == null)
+                hr = Raw.EnumTypeSpecs(ref phEnum, null, 0, out pcTypeSpecs);
+            else
+                hr = Raw.EnumTypeSpecs(ref phEnum, rTypeSpecs, rTypeSpecs.Length, out pcTypeSpecs);
 
             return hr;
         }
@@ -2837,27 +2578,29 @@ namespace ManagedCorDebug
         /// Enumerates String tokens representing hard-coded strings in the current metadata scope.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
-        /// <returns>[out] The array used to store the String tokens.</returns>
+        /// <param name="rStrings">[out] The array used to store the String tokens.</param>
+        /// <returns>[out] The number of String tokens returned in rStrings.</returns>
         /// <remarks>
         /// The String tokens are created by the <see cref="MetaDataEmit.DefineUserString"/> method. This method is designed
         /// to be used by a metadata browser rather than by a compiler.
         /// </remarks>
-        public mdString[] EnumUserStrings(ref IntPtr phEnum)
+        public int EnumUserStrings(ref IntPtr phEnum, mdString[] rStrings)
         {
             HRESULT hr;
-            mdString[] rStringsResult;
+            int pcStrings;
 
-            if ((hr = TryEnumUserStrings(ref phEnum, out rStringsResult)) != HRESULT.S_OK)
+            if ((hr = TryEnumUserStrings(ref phEnum, rStrings, out pcStrings)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return rStringsResult;
+            return pcStrings;
         }
 
         /// <summary>
         /// Enumerates String tokens representing hard-coded strings in the current metadata scope.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be NULL for the first call of this method.</param>
-        /// <param name="rStringsResult">[out] The array used to store the String tokens.</param>
+        /// <param name="rStrings">[out] The array used to store the String tokens.</param>
+        /// <param name="pcStrings">[out] The number of String tokens returned in rStrings.</param>
         /// <returns>
         /// | HRESULT | Description                                                        |
         /// | ------- | ------------------------------------------------------------------ |
@@ -2868,34 +2611,19 @@ namespace ManagedCorDebug
         /// The String tokens are created by the <see cref="MetaDataEmit.DefineUserString"/> method. This method is designed
         /// to be used by a metadata browser rather than by a compiler.
         /// </remarks>
-        public HRESULT TryEnumUserStrings(ref IntPtr phEnum, out mdString[] rStringsResult)
+        public HRESULT TryEnumUserStrings(ref IntPtr phEnum, mdString[] rStrings, out int pcStrings)
         {
             /*HRESULT EnumUserStrings(
             [In, Out] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdString[] rStrings,
             [In] int cmax,
             [Out] out int pcStrings);*/
-            mdString[] rStrings = null;
-            int cmax = 0;
-            int pcStrings;
-            HRESULT hr = Raw.EnumUserStrings(ref phEnum, rStrings, cmax, out pcStrings);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cmax = pcStrings;
-            rStrings = new mdString[pcStrings];
-            hr = Raw.EnumUserStrings(ref phEnum, rStrings, cmax, out pcStrings);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rStringsResult = rStrings;
-
-                return hr;
-            }
-
-            fail:
-            rStringsResult = default(mdString[]);
+            if (rStrings == null)
+                hr = Raw.EnumUserStrings(ref phEnum, null, 0, out pcStrings);
+            else
+                hr = Raw.EnumUserStrings(ref phEnum, rStrings, rStrings.Length, out pcStrings);
 
             return hr;
         }
@@ -2944,16 +2672,17 @@ namespace ManagedCorDebug
         /// <param name="phEnum">[in, out] A pointer to the returned enumerator.</param>
         /// <param name="tk">[in] A token for the scope of the enumeration, or zero for all custom attributes.</param>
         /// <param name="tkType">[in] A token for the constructor of the type of the attributes to be enumerated, or null for all types.</param>
-        /// <returns>[out] An array of custom attribute tokens.</returns>
-        public mdCustomAttribute[] EnumCustomAttributes(ref IntPtr phEnum, mdToken tk, mdToken tkType)
+        /// <param name="rCustomAttributes">[out] An array of custom attribute tokens.</param>
+        /// <returns>[out, optional] The actual number of token values returned in rCustomAttributes.</returns>
+        public int EnumCustomAttributes(ref IntPtr phEnum, mdToken tk, mdToken tkType, mdCustomAttribute[] rCustomAttributes)
         {
             HRESULT hr;
-            mdCustomAttribute[] rCustomAttributesResult;
+            int pcCustomAttributes;
 
-            if ((hr = TryEnumCustomAttributes(ref phEnum, tk, tkType, out rCustomAttributesResult)) != HRESULT.S_OK)
+            if ((hr = TryEnumCustomAttributes(ref phEnum, tk, tkType, rCustomAttributes, out pcCustomAttributes)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return rCustomAttributesResult;
+            return pcCustomAttributes;
         }
 
         /// <summary>
@@ -2962,14 +2691,15 @@ namespace ManagedCorDebug
         /// <param name="phEnum">[in, out] A pointer to the returned enumerator.</param>
         /// <param name="tk">[in] A token for the scope of the enumeration, or zero for all custom attributes.</param>
         /// <param name="tkType">[in] A token for the constructor of the type of the attributes to be enumerated, or null for all types.</param>
-        /// <param name="rCustomAttributesResult">[out] An array of custom attribute tokens.</param>
+        /// <param name="rCustomAttributes">[out] An array of custom attribute tokens.</param>
+        /// <param name="pcCustomAttributes">[out, optional] The actual number of token values returned in rCustomAttributes.</param>
         /// <returns>
         /// | HRESULT | Description                                                                            |
         /// | ------- | -------------------------------------------------------------------------------------- |
         /// | S_OK    | EnumCustomAttributes returned successfully.                                            |
         /// | S_FALSE | There are no custom attributes to enumerate. In that case, pcCustomAttributes is zero. |
         /// </returns>
-        public HRESULT TryEnumCustomAttributes(ref IntPtr phEnum, mdToken tk, mdToken tkType, out mdCustomAttribute[] rCustomAttributesResult)
+        public HRESULT TryEnumCustomAttributes(ref IntPtr phEnum, mdToken tk, mdToken tkType, mdCustomAttribute[] rCustomAttributes, out int pcCustomAttributes)
         {
             /*HRESULT EnumCustomAttributes(
             [In, Out] ref IntPtr phEnum,
@@ -2978,27 +2708,12 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] mdCustomAttribute[] rCustomAttributes,
             [In] int cMax,
             [Out] out int pcCustomAttributes);*/
-            mdCustomAttribute[] rCustomAttributes = null;
-            int cMax = 0;
-            int pcCustomAttributes;
-            HRESULT hr = Raw.EnumCustomAttributes(ref phEnum, tk, tkType, rCustomAttributes, cMax, out pcCustomAttributes);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cMax = pcCustomAttributes;
-            rCustomAttributes = new mdCustomAttribute[pcCustomAttributes];
-            hr = Raw.EnumCustomAttributes(ref phEnum, tk, tkType, rCustomAttributes, cMax, out pcCustomAttributes);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rCustomAttributesResult = rCustomAttributes;
-
-                return hr;
-            }
-
-            fail:
-            rCustomAttributesResult = default(mdCustomAttribute[]);
+            if (rCustomAttributes == null)
+                hr = Raw.EnumCustomAttributes(ref phEnum, tk, tkType, null, 0, out pcCustomAttributes);
+            else
+                hr = Raw.EnumCustomAttributes(ref phEnum, tk, tkType, rCustomAttributes, rCustomAttributes.Length, out pcCustomAttributes);
 
             return hr;
         }
@@ -3126,7 +2841,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szMember,
             [In] int cchMember,
             [Out] out int pchMember,
-            [Out] out int pdwAttr, //if its a method is it cormethodattr?
+            [Out] out int pdwAttr,
             [Out] out IntPtr ppvSigBlob,
             [Out] out int pcbSigBlob,
             [Out] out int pulCodeRVA,
@@ -3586,9 +3301,9 @@ namespace ManagedCorDebug
         {
             /*HRESULT GetPEKind(
             [Out] out CorPEKind pdwPEKind,
-            [Out] out int pdwMachine);*/
+            [Out] out IMAGE_FILE_MACHINE pdwMachine);*/
             CorPEKind pdwPEKind;
-            int pdwMachine;
+            IMAGE_FILE_MACHINE pdwMachine;
             HRESULT hr = Raw2.GetPEKind(out pdwPEKind, out pdwMachine);
 
             if (hr == HRESULT.S_OK)
@@ -3666,16 +3381,17 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator.</param>
         /// <param name="tk">[in] The TypeDef or MethodDef token whose generic parameters are to be enumerated.</param>
-        /// <returns>[out] The array of generic parameters to enumerate.</returns>
-        public mdGenericParam[] EnumGenericParams(ref IntPtr phEnum, mdToken tk)
+        /// <param name="rGenericParams">[out] The array of generic parameters to enumerate.</param>
+        /// <returns>[out] The returned number of tokens placed in rGenericParams.</returns>
+        public int EnumGenericParams(ref IntPtr phEnum, mdToken tk, mdGenericParam[] rGenericParams)
         {
             HRESULT hr;
-            mdGenericParam[] rGenericParamsResult;
+            int pcGenericParams;
 
-            if ((hr = TryEnumGenericParams(ref phEnum, tk, out rGenericParamsResult)) != HRESULT.S_OK)
+            if ((hr = TryEnumGenericParams(ref phEnum, tk, rGenericParams, out pcGenericParams)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return rGenericParamsResult;
+            return pcGenericParams;
         }
 
         /// <summary>
@@ -3683,14 +3399,15 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator.</param>
         /// <param name="tk">[in] The TypeDef or MethodDef token whose generic parameters are to be enumerated.</param>
-        /// <param name="rGenericParamsResult">[out] The array of generic parameters to enumerate.</param>
+        /// <param name="rGenericParams">[out] The array of generic parameters to enumerate.</param>
+        /// <param name="pcGenericParams">[out] The returned number of tokens placed in rGenericParams.</param>
         /// <returns>
         /// | HRESULT | Description                                                                      |
         /// | ------- | -------------------------------------------------------------------------------- |
         /// | S_OK    | EnumGenericParams returned successfully.                                         |
         /// | S_FALSE | phEnum has no member elements. In this case, pcGenericParams is set to 0 (zero). |
         /// </returns>
-        public HRESULT TryEnumGenericParams(ref IntPtr phEnum, mdToken tk, out mdGenericParam[] rGenericParamsResult)
+        public HRESULT TryEnumGenericParams(ref IntPtr phEnum, mdToken tk, mdGenericParam[] rGenericParams, out int pcGenericParams)
         {
             /*HRESULT EnumGenericParams(
             [In, Out] ref IntPtr phEnum,
@@ -3698,27 +3415,12 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] mdGenericParam[] rGenericParams,
             [In] int cMax,
             [Out] out int pcGenericParams);*/
-            mdGenericParam[] rGenericParams = null;
-            int cMax = 0;
-            int pcGenericParams;
-            HRESULT hr = Raw2.EnumGenericParams(ref phEnum, tk, rGenericParams, cMax, out pcGenericParams);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cMax = pcGenericParams;
-            rGenericParams = new mdGenericParam[pcGenericParams];
-            hr = Raw2.EnumGenericParams(ref phEnum, tk, rGenericParams, cMax, out pcGenericParams);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rGenericParamsResult = rGenericParams;
-
-                return hr;
-            }
-
-            fail:
-            rGenericParamsResult = default(mdGenericParam[]);
+            if (rGenericParams == null)
+                hr = Raw2.EnumGenericParams(ref phEnum, tk, null, 0, out pcGenericParams);
+            else
+                hr = Raw2.EnumGenericParams(ref phEnum, tk, rGenericParams, rGenericParams.Length, out pcGenericParams);
 
             return hr;
         }
@@ -3839,16 +3541,17 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator.</param>
         /// <param name="tk">[in] A token that represents the generic parameter whose constraints are to be enumerated.</param>
-        /// <returns>[out] The array of generic parameter constraints to enumerate.</returns>
-        public mdGenericParamConstraint[] EnumGenericParamConstraints(ref IntPtr phEnum, mdGenericParam tk)
+        /// <param name="rGenericParamConstraints">[out] The array of generic parameter constraints to enumerate.</param>
+        /// <returns>[out] A pointer to the number of tokens placed in rGenericParamConstraints.</returns>
+        public int EnumGenericParamConstraints(ref IntPtr phEnum, mdGenericParam tk, mdGenericParamConstraint[] rGenericParamConstraints)
         {
             HRESULT hr;
-            mdGenericParamConstraint[] rGenericParamConstraintsResult;
+            int pcGenericParamConstraints;
 
-            if ((hr = TryEnumGenericParamConstraints(ref phEnum, tk, out rGenericParamConstraintsResult)) != HRESULT.S_OK)
+            if ((hr = TryEnumGenericParamConstraints(ref phEnum, tk, rGenericParamConstraints, out pcGenericParamConstraints)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return rGenericParamConstraintsResult;
+            return pcGenericParamConstraints;
         }
 
         /// <summary>
@@ -3856,14 +3559,15 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator.</param>
         /// <param name="tk">[in] A token that represents the generic parameter whose constraints are to be enumerated.</param>
-        /// <param name="rGenericParamConstraintsResult">[out] The array of generic parameter constraints to enumerate.</param>
+        /// <param name="rGenericParamConstraints">[out] The array of generic parameter constraints to enumerate.</param>
+        /// <param name="pcGenericParamConstraints">[out] A pointer to the number of tokens placed in rGenericParamConstraints.</param>
         /// <returns>
         /// | HRESULT | Description                                                                                    |
         /// | ------- | ---------------------------------------------------------------------------------------------- |
         /// | S_OK    | EnumGenericParameterConstraints returned successfully.                                         |
         /// | S_FALSE | phEnum has no member elements. In this case, pcGenericParameterConstraints is set to 0 (zero). |
         /// </returns>
-        public HRESULT TryEnumGenericParamConstraints(ref IntPtr phEnum, mdGenericParam tk, out mdGenericParamConstraint[] rGenericParamConstraintsResult)
+        public HRESULT TryEnumGenericParamConstraints(ref IntPtr phEnum, mdGenericParam tk, mdGenericParamConstraint[] rGenericParamConstraints, out int pcGenericParamConstraints)
         {
             /*HRESULT EnumGenericParamConstraints(
             [In, Out] ref IntPtr phEnum,
@@ -3871,27 +3575,12 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] mdGenericParamConstraint[] rGenericParamConstraints,
             [In] int cMax,
             [Out] out int pcGenericParamConstraints);*/
-            mdGenericParamConstraint[] rGenericParamConstraints = null;
-            int cMax = 0;
-            int pcGenericParamConstraints;
-            HRESULT hr = Raw2.EnumGenericParamConstraints(ref phEnum, tk, rGenericParamConstraints, cMax, out pcGenericParamConstraints);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cMax = pcGenericParamConstraints;
-            rGenericParamConstraints = new mdGenericParamConstraint[pcGenericParamConstraints];
-            hr = Raw2.EnumGenericParamConstraints(ref phEnum, tk, rGenericParamConstraints, cMax, out pcGenericParamConstraints);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rGenericParamConstraintsResult = rGenericParamConstraints;
-
-                return hr;
-            }
-
-            fail:
-            rGenericParamConstraintsResult = default(mdGenericParamConstraint[]);
+            if (rGenericParamConstraints == null)
+                hr = Raw2.EnumGenericParamConstraints(ref phEnum, tk, null, 0, out pcGenericParamConstraints);
+            else
+                hr = Raw2.EnumGenericParamConstraints(ref phEnum, tk, rGenericParamConstraints, rGenericParamConstraints.Length, out pcGenericParamConstraints);
 
             return hr;
         }
@@ -3946,16 +3635,17 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator for rMethodSpecs.</param>
         /// <param name="tk">[in] The MemberRef or MethodDef token that represents the method whose MethodSpec tokens are to be enumerated. If the value of tk is 0 (zero), all MethodSpec tokens in the scope will be enumerated.</param>
-        /// <returns>[out] The array of MethodSpec tokens to enumerate.</returns>
-        public mdMethodSpec[] EnumMethodSpecs(ref IntPtr phEnum, mdToken tk)
+        /// <param name="rMethodSpecs">[out] The array of MethodSpec tokens to enumerate.</param>
+        /// <returns>[out] The returned number of tokens placed in rMethodSpecs.</returns>
+        public int EnumMethodSpecs(ref IntPtr phEnum, mdToken tk, mdMethodSpec[] rMethodSpecs)
         {
             HRESULT hr;
-            mdMethodSpec[] rMethodSpecsResult;
+            int pcMethodSpecs;
 
-            if ((hr = TryEnumMethodSpecs(ref phEnum, tk, out rMethodSpecsResult)) != HRESULT.S_OK)
+            if ((hr = TryEnumMethodSpecs(ref phEnum, tk, rMethodSpecs, out pcMethodSpecs)) != HRESULT.S_OK)
                 Marshal.ThrowExceptionForHR((int) hr);
 
-            return rMethodSpecsResult;
+            return pcMethodSpecs;
         }
 
         /// <summary>
@@ -3963,14 +3653,15 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator for rMethodSpecs.</param>
         /// <param name="tk">[in] The MemberRef or MethodDef token that represents the method whose MethodSpec tokens are to be enumerated. If the value of tk is 0 (zero), all MethodSpec tokens in the scope will be enumerated.</param>
-        /// <param name="rMethodSpecsResult">[out] The array of MethodSpec tokens to enumerate.</param>
+        /// <param name="rMethodSpecs">[out] The array of MethodSpec tokens to enumerate.</param>
+        /// <param name="pcMethodSpecs">[out] The returned number of tokens placed in rMethodSpecs.</param>
         /// <returns>
         /// | HRESULT | Description                                                                    |
         /// | ------- | ------------------------------------------------------------------------------ |
         /// | S_OK    | EnumMethodSpecs returned successfully.                                         |
         /// | S_FALSE | phEnum has no member elements. In this case, pcMethodSpecs is set to 0 (zero). |
         /// </returns>
-        public HRESULT TryEnumMethodSpecs(ref IntPtr phEnum, mdToken tk, out mdMethodSpec[] rMethodSpecsResult)
+        public HRESULT TryEnumMethodSpecs(ref IntPtr phEnum, mdToken tk, mdMethodSpec[] rMethodSpecs, out int pcMethodSpecs)
         {
             /*HRESULT EnumMethodSpecs(
             [In, Out] ref IntPtr phEnum,
@@ -3978,27 +3669,12 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] mdMethodSpec[] rMethodSpecs,
             [In] int cMax,
             [Out] out int pcMethodSpecs);*/
-            mdMethodSpec[] rMethodSpecs = null;
-            int cMax = 0;
-            int pcMethodSpecs;
-            HRESULT hr = Raw2.EnumMethodSpecs(ref phEnum, tk, rMethodSpecs, cMax, out pcMethodSpecs);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cMax = pcMethodSpecs;
-            rMethodSpecs = new mdMethodSpec[pcMethodSpecs];
-            hr = Raw2.EnumMethodSpecs(ref phEnum, tk, rMethodSpecs, cMax, out pcMethodSpecs);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rMethodSpecsResult = rMethodSpecs;
-
-                return hr;
-            }
-
-            fail:
-            rMethodSpecsResult = default(mdMethodSpec[]);
+            if (rMethodSpecs == null)
+                hr = Raw2.EnumMethodSpecs(ref phEnum, tk, null, 0, out pcMethodSpecs);
+            else
+                hr = Raw2.EnumMethodSpecs(ref phEnum, tk, rMethodSpecs, rMethodSpecs.Length, out pcMethodSpecs);
 
             return hr;
         }

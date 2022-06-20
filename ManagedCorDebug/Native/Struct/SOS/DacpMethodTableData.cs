@@ -18,7 +18,7 @@ namespace ManagedCorDebug
         public int BaseSize;
         public int ComponentSize;
         public mdTypeDef cl;
-        public int dwAttrClass;
+        public CorTypeAttr dwAttrClass;
         public int bIsShared;
         public int bIsDynamic;
         public int bContainsPointers;
