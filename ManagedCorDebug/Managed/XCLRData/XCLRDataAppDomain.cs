@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -21,11 +20,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 XCLRDataProcess processResult;
-
-                if ((hr = TryGetProcess(out processResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetProcess(out processResult).ThrowOnNotOK();
 
                 return processResult;
             }
@@ -53,11 +49,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string nameResult;
-
-                if ((hr = TryGetName(out nameResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetName(out nameResult).ThrowOnNotOK();
 
                 return nameResult;
             }
@@ -101,11 +94,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 long id;
-
-                if ((hr = TryGetUniqueID(out id)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetUniqueID(out id).ThrowOnNotOK();
 
                 return id;
             }
@@ -125,11 +115,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int flags;
-
-                if ((hr = TryGetFlags(out flags)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetFlags(out flags).ThrowOnNotOK();
 
                 return flags;
             }
@@ -149,11 +136,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 XCLRDataValue valueResult;
-
-                if ((hr = TryGetManagedObject(out valueResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetManagedObject(out valueResult).ThrowOnNotOK();
 
                 return valueResult;
             }
@@ -179,10 +163,8 @@ namespace ManagedCorDebug
 
         public bool IsSameObject(IXCLRDataAppDomain appDomain)
         {
-            HRESULT hr;
-
-            if ((hr = TryIsSameObject(appDomain)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            HRESULT hr = TryIsSameObject(appDomain);
+            hr.ThrowOnNotOK();
 
             return hr == HRESULT.S_OK;
         }
@@ -199,10 +181,7 @@ namespace ManagedCorDebug
 
         public void Request(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
-            HRESULT hr;
-
-            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, outBuffer)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, outBuffer).ThrowOnNotOK();
         }
 
         public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)

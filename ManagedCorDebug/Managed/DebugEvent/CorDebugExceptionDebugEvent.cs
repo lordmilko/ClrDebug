@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -31,11 +29,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CORDB_ADDRESS pStackPointer;
-
-                if ((hr = TryGetStackPointer(out pStackPointer)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetStackPointer(out pStackPointer).ThrowOnNotOK();
 
                 return pStackPointer;
             }
@@ -65,11 +60,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CORDB_ADDRESS pIP;
-
-                if ((hr = TryGetNativeIP(out pIP)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetNativeIP(out pIP).ThrowOnNotOK();
 
                 return pIP;
             }
@@ -99,11 +91,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugExceptionFlags pdwFlags;
-
-                if ((hr = TryGetFlags(out pdwFlags)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetFlags(out pdwFlags).ThrowOnNotOK();
 
                 return pdwFlags;
             }

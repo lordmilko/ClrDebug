@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -32,11 +30,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugHandleType pType;
-
-                if ((hr = TryGetHandleType(out pType)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetHandleType(out pType).ThrowOnNotOK();
 
                 return pType;
             }
@@ -60,10 +55,7 @@ namespace ManagedCorDebug
         /// </summary>
         public void Dispose()
         {
-            HRESULT hr;
-
-            if ((hr = TryDispose()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDispose().ThrowOnNotOK();
         }
 
         /// <summary>

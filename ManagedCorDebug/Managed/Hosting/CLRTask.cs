@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace ManagedCorDebug
@@ -41,11 +40,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 COR_GC_THREAD_STATS memUsage;
-
-                if ((hr = TryGetMemStats(out memUsage)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetMemStats(out memUsage).ThrowOnNotOK();
 
                 return memUsage;
             }
@@ -85,10 +81,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SwitchIn(IntPtr threadHandle)
         {
-            HRESULT hr;
-
-            if ((hr = TrySwitchIn(threadHandle)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySwitchIn(threadHandle).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -129,10 +122,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SwitchOut()
         {
-            HRESULT hr;
-
-            if ((hr = TrySwitchOut()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySwitchOut().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -179,10 +169,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Reset(int fFull)
         {
-            HRESULT hr;
-
-            if ((hr = TryReset(fFull)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryReset(fFull).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -229,10 +216,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void ExitTask()
         {
-            HRESULT hr;
-
-            if ((hr = TryExitTask()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryExitTask().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -271,10 +255,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Abort()
         {
-            HRESULT hr;
-
-            if ((hr = TryAbort()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryAbort().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -313,10 +294,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void RudeAbort()
         {
-            HRESULT hr;
-
-            if ((hr = TryRudeAbort()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryRudeAbort().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -357,11 +335,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int NeedsPriorityScheduling()
         {
-            HRESULT hr;
             int pbNeedsPriorityScheduling;
-
-            if ((hr = TryNeedsPriorityScheduling(out pbNeedsPriorityScheduling)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryNeedsPriorityScheduling(out pbNeedsPriorityScheduling).ThrowOnNotOK();
 
             return pbNeedsPriorityScheduling;
         }
@@ -405,10 +380,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void YieldTask()
         {
-            HRESULT hr;
-
-            if ((hr = TryYieldTask()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryYieldTask().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -444,11 +416,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The number of locks held on the task at the time of the method call.</returns>
         public int LocksHeld()
         {
-            HRESULT hr;
             int pLockCount;
-
-            if ((hr = TryLocksHeld(out pLockCount)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryLocksHeld(out pLockCount).ThrowOnNotOK();
 
             return pLockCount;
         }
@@ -488,10 +457,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetTaskIdentifier(long asked)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetTaskIdentifier(asked)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetTaskIdentifier(asked).ThrowOnNotOK();
         }
 
         /// <summary>

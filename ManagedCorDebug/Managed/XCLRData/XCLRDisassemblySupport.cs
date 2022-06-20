@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -18,10 +17,7 @@ namespace ManagedCorDebug
 
         public void SetTranslateAddrCallback(CDSTranslateAddrCB cb)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetTranslateAddrCallback(cb)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetTranslateAddrCallback(cb).ThrowOnNotOK();
         }
 
         public HRESULT TrySetTranslateAddrCallback(CDSTranslateAddrCB cb)
@@ -36,10 +32,7 @@ namespace ManagedCorDebug
 
         public void PvClientSet(IntPtr pv)
         {
-            HRESULT hr;
-
-            if ((hr = TryPvClientSet(pv)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryPvClientSet(pv).ThrowOnNotOK();
         }
 
         public HRESULT TryPvClientSet(IntPtr pv)
@@ -75,10 +68,7 @@ namespace ManagedCorDebug
 
         public void FSelectInstruction(long a)
         {
-            HRESULT hr;
-
-            if ((hr = TryFSelectInstruction(a)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryFSelectInstruction(a).ThrowOnNotOK();
         }
 
         public HRESULT TryFSelectInstruction(long a)
@@ -113,10 +103,7 @@ namespace ManagedCorDebug
 
         public void SetTranslateFixupCallback(CDSTranslateFixupCB cb)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetTranslateFixupCallback(cb)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetTranslateFixupCallback(cb).ThrowOnNotOK();
         }
 
         public HRESULT TrySetTranslateFixupCallback(CDSTranslateFixupCB cb)
@@ -131,10 +118,7 @@ namespace ManagedCorDebug
 
         public void SetTranslateConstCallback(CDSTranslateConstCB cb)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetTranslateConstCallback(cb)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetTranslateConstCallback(cb).ThrowOnNotOK();
         }
 
         public HRESULT TrySetTranslateConstCallback(CDSTranslateConstCB cb)
@@ -149,10 +133,7 @@ namespace ManagedCorDebug
 
         public void SetTranslateRegrelCallback(CDSTranslateRegrelCB cb)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetTranslateRegrelCallback(cb)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetTranslateRegrelCallback(cb).ThrowOnNotOK();
         }
 
         public HRESULT TrySetTranslateRegrelCallback(CDSTranslateRegrelCB cb)

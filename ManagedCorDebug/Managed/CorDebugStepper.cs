@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -34,11 +33,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 bool pbActiveResult;
-
-                if ((hr = TryIsActive(out pbActiveResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryIsActive(out pbActiveResult).ThrowOnNotOK();
 
                 return pbActiveResult;
             }
@@ -78,10 +74,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Deactivate()
         {
-            HRESULT hr;
-
-            if ((hr = TryDeactivate()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDeactivate().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -114,10 +107,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetInterceptMask(CorDebugIntercept mask)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetInterceptMask(mask)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetInterceptMask(mask).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -155,10 +145,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetUnmappedStopMask(CorDebugUnmappedStop mask)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetUnmappedStopMask(mask)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetUnmappedStopMask(mask).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -192,10 +179,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Step(int bStepIn)
         {
-            HRESULT hr;
-
-            if ((hr = TryStep(bStepIn)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStep(bStepIn).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -231,10 +215,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void StepRange(int bStepIn, COR_DEBUG_STEP_RANGE ranges, int cRangeCount)
         {
-            HRESULT hr;
-
-            if ((hr = TryStepRange(bStepIn, ranges, cRangeCount)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStepRange(bStepIn, ranges, cRangeCount).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -271,10 +252,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void StepOut()
         {
-            HRESULT hr;
-
-            if ((hr = TryStepOut()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStepOut().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -303,10 +281,7 @@ namespace ManagedCorDebug
         /// The default value is true.</param>
         public void SetRangeIL(int bIL)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetRangeIL(bIL)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetRangeIL(bIL).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -336,10 +311,7 @@ namespace ManagedCorDebug
         /// <param name="fIsJMCStepper">[in] Set to true to step only through code that is authored by an application's developer; otherwise, set to false.</param>
         public void SetJMC(int fIsJMCStepper)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetJMC(fIsJMCStepper)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetJMC(fIsJMCStepper).ThrowOnNotOK();
         }
 
         /// <summary>

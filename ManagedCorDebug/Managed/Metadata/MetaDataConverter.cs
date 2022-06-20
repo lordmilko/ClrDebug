@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 
 namespace ManagedCorDebug
@@ -26,11 +25,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to a location that receives the address of the <see cref="IMetaDataImport"/> instance that represents the metadata signature.</returns>
         public MetaDataImport GetMetaDataFromTypeInfo(ITypeInfo pITI)
         {
-            HRESULT hr;
             MetaDataImport ppMDIResult;
-
-            if ((hr = TryGetMetaDataFromTypeInfo(pITI, out ppMDIResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMetaDataFromTypeInfo(pITI, out ppMDIResult).ThrowOnNotOK();
 
             return ppMDIResult;
         }
@@ -66,11 +62,8 @@ namespace ManagedCorDebug
         /// <returns>[out] Pointer to a location that receives the address of the <see cref="IMetaDataImport"/> instance that represents the metadata signature.</returns>
         public MetaDataImport GetMetaDataFromTypeLib(ITypeLib pITL)
         {
-            HRESULT hr;
             MetaDataImport ppMDIResult;
-
-            if ((hr = TryGetMetaDataFromTypeLib(pITL, out ppMDIResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMetaDataFromTypeLib(pITL, out ppMDIResult).ThrowOnNotOK();
 
             return ppMDIResult;
         }
@@ -107,11 +100,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to a location that receives the address of the ITypeLib instance that represents the type library.</returns>
         public ITypeLib GetTypeLibFromMetaData(string strModule, string strTlbName)
         {
-            HRESULT hr;
             ITypeLib ppITL;
-
-            if ((hr = TryGetTypeLibFromMetaData(strModule, strTlbName, out ppITL)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetTypeLibFromMetaData(strModule, strTlbName, out ppITL).ThrowOnNotOK();
 
             return ppITL;
         }

@@ -1,6 +1,5 @@
 using System;
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -34,11 +33,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CLRControl pCLRControlResult;
-
-                if ((hr = TryGetCLRControl(out pCLRControlResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCLRControl(out pCLRControlResult).ThrowOnNotOK();
 
                 return pCLRControlResult;
             }
@@ -87,11 +83,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pdwAppDomainId;
-
-                if ((hr = TryGetCurrentAppDomainId(out pdwAppDomainId)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCurrentAppDomainId(out pdwAppDomainId).ThrowOnNotOK();
 
                 return pdwAppDomainId;
             }
@@ -134,10 +127,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Start()
         {
-            HRESULT hr;
-
-            if ((hr = TryStart()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStart().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -172,10 +162,7 @@ namespace ManagedCorDebug
         /// </summary>
         public void Stop()
         {
-            HRESULT hr;
-
-            if ((hr = TryStop()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStop().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -211,10 +198,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetHostControl(IHostControl pHostControl)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetHostControl(pHostControl)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetHostControl(pHostControl).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -258,10 +242,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void UnloadAppDomain(int dwAppDomainID, int fWaitUntilDone)
         {
-            HRESULT hr;
-
-            if ((hr = TryUnloadAppDomain(dwAppDomainID, fWaitUntilDone)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryUnloadAppDomain(dwAppDomainID, fWaitUntilDone).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -307,10 +288,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void ExecuteInAppDomain(int dwAppDomainID, FExecuteInAppDomainCallback pCallback, IntPtr cookie)
         {
-            HRESULT hr;
-
-            if ((hr = TryExecuteInAppDomain(dwAppDomainID, pCallback, cookie)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryExecuteInAppDomain(dwAppDomainID, pCallback, cookie).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -364,11 +342,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int ExecuteApplication(string pwzAppFullName, int dwManifestPaths, string ppwzManifestPaths, int dwActivationData, string ppwzActivationData)
         {
-            HRESULT hr;
             int pReturnValue;
-
-            if ((hr = TryExecuteApplication(pwzAppFullName, dwManifestPaths, ppwzManifestPaths, dwActivationData, ppwzActivationData, out pReturnValue)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryExecuteApplication(pwzAppFullName, dwManifestPaths, ppwzManifestPaths, dwActivationData, ppwzActivationData, out pReturnValue).ThrowOnNotOK();
 
             return pReturnValue;
         }
@@ -428,11 +403,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int ExecuteInDefaultAppDomain(string pwzAssemblyPath, string pwzTypeName, string pwzMethodName, string pwzArgument)
         {
-            HRESULT hr;
             int pReturnValue;
-
-            if ((hr = TryExecuteInDefaultAppDomain(pwzAssemblyPath, pwzTypeName, pwzMethodName, pwzArgument, out pReturnValue)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryExecuteInDefaultAppDomain(pwzAssemblyPath, pwzTypeName, pwzMethodName, pwzArgument, out pReturnValue).ThrowOnNotOK();
 
             return pReturnValue;
         }

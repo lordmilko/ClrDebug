@@ -36,7 +36,7 @@ namespace ManagedCorDebug
                 var riid = typeof(T).GUID;
                 object ppInterface;
                 var hr = CLRCreateInstance(ref clsid, ref riid, out ppInterface);
-                Marshal.ThrowExceptionForHR((int) hr);
+                hr.ThrowOnNotOK();
 
                 return (T)ppInterface;
             }

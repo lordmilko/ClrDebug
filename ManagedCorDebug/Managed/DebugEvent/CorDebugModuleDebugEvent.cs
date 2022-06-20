@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -32,11 +30,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugModule ppModuleResult;
-
-                if ((hr = TryGetModule(out ppModuleResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetModule(out ppModuleResult).ThrowOnNotOK();
 
                 return ppModuleResult;
             }

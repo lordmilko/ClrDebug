@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -29,11 +27,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugThread ppThreadResult;
-
-                if ((hr = TryGetThread(out ppThreadResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetThread(out ppThreadResult).ThrowOnNotOK();
 
                 return ppThreadResult;
             }
@@ -67,11 +62,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 GetStackRangeResult result;
-
-                if ((hr = TryGetStackRange(out result)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetStackRange(out result).ThrowOnNotOK();
 
                 return result;
             }
@@ -110,11 +102,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugContext ppContextResult;
-
-                if ((hr = TryGetContext(out ppContextResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetContext(out ppContextResult).ThrowOnNotOK();
 
                 return ppContextResult;
             }
@@ -147,11 +136,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugChain ppChainResult;
-
-                if ((hr = TryGetCaller(out ppChainResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCaller(out ppChainResult).ThrowOnNotOK();
 
                 return ppChainResult;
             }
@@ -188,11 +174,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugChain ppChainResult;
-
-                if ((hr = TryGetCallee(out ppChainResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCallee(out ppChainResult).ThrowOnNotOK();
 
                 return ppChainResult;
             }
@@ -230,11 +213,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugChain ppChainResult;
-
-                if ((hr = TryGetPrevious(out ppChainResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetPrevious(out ppChainResult).ThrowOnNotOK();
 
                 return ppChainResult;
             }
@@ -269,11 +249,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugChain ppChainResult;
-
-                if ((hr = TryGetNext(out ppChainResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetNext(out ppChainResult).ThrowOnNotOK();
 
                 return ppChainResult;
             }
@@ -308,11 +285,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 bool pManagedResult;
-
-                if ((hr = TryIsManaged(out pManagedResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryIsManaged(out pManagedResult).ThrowOnNotOK();
 
                 return pManagedResult;
             }
@@ -346,11 +320,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugFrame ppFrameResult;
-
-                if ((hr = TryGetActiveFrame(out ppFrameResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetActiveFrame(out ppFrameResult).ThrowOnNotOK();
 
                 return ppFrameResult;
             }
@@ -389,11 +360,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugRegisterSet ppRegistersResult;
-
-                if ((hr = TryGetRegisterSet(out ppRegistersResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetRegisterSet(out ppRegistersResult).ThrowOnNotOK();
 
                 return ppRegistersResult;
             }
@@ -427,11 +395,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugChainReason pReason;
-
-                if ((hr = TryGetReason(out pReason)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetReason(out pReason).ThrowOnNotOK();
 
                 return pReason;
             }
@@ -461,11 +426,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugFrameEnum EnumerateFrames()
         {
-            HRESULT hr;
             CorDebugFrameEnum ppFramesResult;
-
-            if ((hr = TryEnumerateFrames(out ppFramesResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateFrames(out ppFramesResult).ThrowOnNotOK();
 
             return ppFramesResult;
         }

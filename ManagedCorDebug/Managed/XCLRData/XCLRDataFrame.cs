@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -22,11 +21,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 GetFrameTypeResult result;
-
-                if ((hr = TryGetFrameType(out result)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetFrameType(out result).ThrowOnNotOK();
 
                 return result;
             }
@@ -56,11 +52,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 XCLRDataAppDomain appDomainResult;
-
-                if ((hr = TryGetAppDomain(out appDomainResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetAppDomain(out appDomainResult).ThrowOnNotOK();
 
                 return appDomainResult;
             }
@@ -88,11 +81,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int numArgs;
-
-                if ((hr = TryGetNumArguments(out numArgs)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetNumArguments(out numArgs).ThrowOnNotOK();
 
                 return numArgs;
             }
@@ -112,11 +102,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int numLocals;
-
-                if ((hr = TryGetNumLocalVariables(out numLocals)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetNumLocalVariables(out numLocals).ThrowOnNotOK();
 
                 return numLocals;
             }
@@ -136,11 +123,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 XCLRDataMethodInstance methodResult;
-
-                if ((hr = TryGetMethodInstance(out methodResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetMethodInstance(out methodResult).ThrowOnNotOK();
 
                 return methodResult;
             }
@@ -168,11 +152,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int numTypeArgs;
-
-                if ((hr = TryGetNumTypeArguments(out numTypeArgs)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetNumTypeArguments(out numTypeArgs).ThrowOnNotOK();
 
                 return numTypeArgs;
             }
@@ -190,11 +171,8 @@ namespace ManagedCorDebug
 
         public int GetContext(int contextFlags, int contextBufSize, IntPtr contextBuf)
         {
-            HRESULT hr;
             int contextSize;
-
-            if ((hr = TryGetContext(contextFlags, contextBufSize, out contextSize, contextBuf)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetContext(contextFlags, contextBufSize, out contextSize, contextBuf).ThrowOnNotOK();
 
             return contextSize;
         }
@@ -214,11 +192,8 @@ namespace ManagedCorDebug
 
         public GetArgumentByIndexResult GetArgumentByIndex(int index)
         {
-            HRESULT hr;
             GetArgumentByIndexResult result;
-
-            if ((hr = TryGetArgumentByIndex(index, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetArgumentByIndex(index, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -262,11 +237,8 @@ namespace ManagedCorDebug
 
         public GetLocalVariableByIndexResult GetLocalVariableByIndex(int index)
         {
-            HRESULT hr;
             GetLocalVariableByIndexResult result;
-
-            if ((hr = TryGetLocalVariableByIndex(index, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetLocalVariableByIndex(index, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -310,11 +282,8 @@ namespace ManagedCorDebug
 
         public string GetCodeName(int flags)
         {
-            HRESULT hr;
             string nameBufResult;
-
-            if ((hr = TryGetCodeName(flags, out nameBufResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetCodeName(flags, out nameBufResult).ThrowOnNotOK();
 
             return nameBufResult;
         }
@@ -356,10 +325,7 @@ namespace ManagedCorDebug
 
         public void Request(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
-            HRESULT hr;
-
-            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, outBuffer)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, outBuffer).ThrowOnNotOK();
         }
 
         public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
@@ -378,11 +344,8 @@ namespace ManagedCorDebug
 
         public XCLRDataTypeInstance GetTypeArgumentByIndex(int index)
         {
-            HRESULT hr;
             XCLRDataTypeInstance typeArgResult;
-
-            if ((hr = TryGetTypeArgumentByIndex(index, out typeArgResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetTypeArgumentByIndex(index, out typeArgResult).ThrowOnNotOK();
 
             return typeArgResult;
         }
@@ -416,11 +379,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 XCLRDataValue genericTokenResult;
-
-                if ((hr = TryGetExactGenericArgsToken(out genericTokenResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetExactGenericArgsToken(out genericTokenResult).ThrowOnNotOK();
 
                 return genericTokenResult;
             }

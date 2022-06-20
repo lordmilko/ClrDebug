@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -21,11 +20,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 XCLRDataTypeInstance typeInstanceResult;
-
-                if ((hr = TryGetTypeInstance(out typeInstanceResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetTypeInstance(out typeInstanceResult).ThrowOnNotOK();
 
                 return typeInstanceResult;
             }
@@ -53,11 +49,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 XCLRDataMethodDefinition methodDefinitionResult;
-
-                if ((hr = TryGetDefinition(out methodDefinitionResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetDefinition(out methodDefinitionResult).ThrowOnNotOK();
 
                 return methodDefinitionResult;
             }
@@ -85,11 +78,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 GetTokenAndScopeResult result;
-
-                if ((hr = TryGetTokenAndScope(out result)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetTokenAndScope(out result).ThrowOnNotOK();
 
                 return result;
             }
@@ -119,11 +109,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int flags;
-
-                if ((hr = TryGetFlags(out flags)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetFlags(out flags).ThrowOnNotOK();
 
                 return flags;
             }
@@ -143,11 +130,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int version;
-
-                if ((hr = TryGetEnCVersion(out version)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetEnCVersion(out version).ThrowOnNotOK();
 
                 return version;
             }
@@ -167,11 +151,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int numTypeArgs;
-
-                if ((hr = TryGetNumTypeArguments(out numTypeArgs)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetNumTypeArguments(out numTypeArgs).ThrowOnNotOK();
 
                 return numTypeArgs;
             }
@@ -191,11 +172,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CLRDATA_IL_ADDRESS_MAP[] mapsResult;
-
-                if ((hr = TryGetILAddressMap(out mapsResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetILAddressMap(out mapsResult).ThrowOnNotOK();
 
                 return mapsResult;
             }
@@ -239,11 +217,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CLRDATA_ADDRESS addr;
-
-                if ((hr = TryGetRepresentativeEntryAddress(out addr)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetRepresentativeEntryAddress(out addr).ThrowOnNotOK();
 
                 return addr;
             }
@@ -261,11 +236,8 @@ namespace ManagedCorDebug
 
         public string GetName(int flags)
         {
-            HRESULT hr;
             string nameBufResult;
-
-            if ((hr = TryGetName(flags, out nameBufResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetName(flags, out nameBufResult).ThrowOnNotOK();
 
             return nameBufResult;
         }
@@ -307,10 +279,8 @@ namespace ManagedCorDebug
 
         public bool IsSameObject(IXCLRDataMethodInstance method)
         {
-            HRESULT hr;
-
-            if ((hr = TryIsSameObject(method)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            HRESULT hr = TryIsSameObject(method);
+            hr.ThrowOnNotOK();
 
             return hr == HRESULT.S_OK;
         }
@@ -327,11 +297,8 @@ namespace ManagedCorDebug
 
         public XCLRDataTypeInstance GetTypeArgumentByIndex(int index)
         {
-            HRESULT hr;
             XCLRDataTypeInstance typeArgResult;
-
-            if ((hr = TryGetTypeArgumentByIndex(index, out typeArgResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetTypeArgumentByIndex(index, out typeArgResult).ThrowOnNotOK();
 
             return typeArgResult;
         }
@@ -357,11 +324,8 @@ namespace ManagedCorDebug
 
         public GetILOffsetsByAddressResult GetILOffsetsByAddress(CLRDATA_ADDRESS address, int offsetsLen)
         {
-            HRESULT hr;
             GetILOffsetsByAddressResult result;
-
-            if ((hr = TryGetILOffsetsByAddress(address, offsetsLen, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetILOffsetsByAddress(address, offsetsLen, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -390,11 +354,8 @@ namespace ManagedCorDebug
 
         public GetAddressRangesByILOffsetResult GetAddressRangesByILOffset(int ilOffset, int rangesLen)
         {
-            HRESULT hr;
             GetAddressRangesByILOffsetResult result;
-
-            if ((hr = TryGetAddressRangesByILOffset(ilOffset, rangesLen, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetAddressRangesByILOffset(ilOffset, rangesLen, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -423,11 +384,8 @@ namespace ManagedCorDebug
 
         public IntPtr StartEnumExtents()
         {
-            HRESULT hr;
             IntPtr handle;
-
-            if ((hr = TryStartEnumExtents(out handle)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStartEnumExtents(out handle).ThrowOnNotOK();
 
             return handle;
         }
@@ -444,11 +402,8 @@ namespace ManagedCorDebug
 
         public CLRDATA_ADDRESS_RANGE EnumExtent(ref IntPtr handle)
         {
-            HRESULT hr;
             CLRDATA_ADDRESS_RANGE extent;
-
-            if ((hr = TryEnumExtent(ref handle, out extent)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumExtent(ref handle, out extent).ThrowOnNotOK();
 
             return extent;
         }
@@ -466,10 +421,7 @@ namespace ManagedCorDebug
 
         public void EndEnumExtents(IntPtr handle)
         {
-            HRESULT hr;
-
-            if ((hr = TryEndEnumExtents(handle)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEndEnumExtents(handle).ThrowOnNotOK();
         }
 
         public HRESULT TryEndEnumExtents(IntPtr handle)
@@ -484,10 +436,7 @@ namespace ManagedCorDebug
 
         public void Request(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
-            HRESULT hr;
-
-            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, outBuffer)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, outBuffer).ThrowOnNotOK();
         }
 
         public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)

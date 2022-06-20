@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -26,11 +25,8 @@ namespace ManagedCorDebug
         /// <returns>[out] An interface pointer to the requested manager, or null, if an invalid manager type was requested.</returns>
         public object GetCLRManager(Guid riid)
         {
-            HRESULT hr;
             object ppObject;
-
-            if ((hr = TryGetCLRManager(riid, out ppObject)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetCLRManager(riid, out ppObject).ThrowOnNotOK();
 
             return ppObject;
         }
@@ -69,10 +65,7 @@ namespace ManagedCorDebug
         /// <param name="pwzAppDomainManagerType">[in] The name of the type implemented in the pwzAppDomainManagerAssembly parameter that implements the capabilities of <see cref="AppDomainManager"/>.</param>
         public void SetAppDomainManagerType(string pwzAppDomainManagerAssembly, string pwzAppDomainManagerType)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetAppDomainManagerType(pwzAppDomainManagerAssembly, pwzAppDomainManagerType)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetAppDomainManagerType(pwzAppDomainManagerAssembly, pwzAppDomainManagerType).ThrowOnNotOK();
         }
 
         /// <summary>

@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -28,11 +27,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 object pIMapToken;
-
-                if ((hr = TryGetIMapTokenIface(out pIMapToken)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetIMapTokenIface(out pIMapToken).ThrowOnNotOK();
 
                 return pIMapToken;
             }
@@ -61,11 +57,8 @@ namespace ManagedCorDebug
         [Obsolete]
         public int EmitString(string lpString)
         {
-            HRESULT hr;
             int RVA;
-
-            if ((hr = TryEmitString(lpString, out RVA)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEmitString(lpString, out RVA).ThrowOnNotOK();
 
             return RVA;
         }
@@ -95,11 +88,8 @@ namespace ManagedCorDebug
         [Obsolete]
         public string GetString(long RVA)
         {
-            HRESULT hr;
             string lpStringResult;
-
-            if ((hr = TryGetString(RVA, out lpStringResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetString(RVA, out lpStringResult).ThrowOnNotOK();
 
             return lpStringResult;
         }
@@ -137,11 +127,8 @@ namespace ManagedCorDebug
         [Obsolete]
         public AllocateMethodBufferResult AllocateMethodBuffer(int cchBuffer)
         {
-            HRESULT hr;
             AllocateMethodBufferResult result;
-
-            if ((hr = TryAllocateMethodBuffer(cchBuffer, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryAllocateMethodBuffer(cchBuffer, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -181,11 +168,8 @@ namespace ManagedCorDebug
         [Obsolete]
         public IntPtr GetMethodBuffer(int RVA)
         {
-            HRESULT hr;
             IntPtr lpBuffer;
-
-            if ((hr = TryGetMethodBuffer(RVA, out lpBuffer)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodBuffer(RVA, out lpBuffer).ThrowOnNotOK();
 
             return lpBuffer;
         }
@@ -214,10 +198,7 @@ namespace ManagedCorDebug
         [Obsolete]
         public void GenerateCeeFile()
         {
-            HRESULT hr;
-
-            if ((hr = TryGenerateCeeFile()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGenerateCeeFile().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -241,10 +222,7 @@ namespace ManagedCorDebug
         [Obsolete]
         public void GetIlSection(IntPtr section)
         {
-            HRESULT hr;
-
-            if ((hr = TryGetIlSection(section)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetIlSection(section).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -268,10 +246,7 @@ namespace ManagedCorDebug
         [Obsolete]
         public void GetStringSection(ref IntPtr section)
         {
-            HRESULT hr;
-
-            if ((hr = TryGetStringSection(ref section)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetStringSection(ref section).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -298,10 +273,7 @@ namespace ManagedCorDebug
         [Obsolete]
         public void AddSectionReloc(IntPtr section, int offset, IntPtr relativeTo, CeeSectionRelocType relocType)
         {
-            HRESULT hr;
-
-            if ((hr = TryAddSectionReloc(section, offset, relativeTo, relocType)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryAddSectionReloc(section, offset, relativeTo, relocType).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -337,11 +309,8 @@ namespace ManagedCorDebug
         [Obsolete]
         public IntPtr GetSectionCreate(string name, int flags)
         {
-            HRESULT hr;
             IntPtr section;
-
-            if ((hr = TryGetSectionCreate(name, flags, out section)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetSectionCreate(name, flags, out section).ThrowOnNotOK();
 
             return section;
         }
@@ -379,11 +348,8 @@ namespace ManagedCorDebug
         [Obsolete]
         public int GetSectionDataLen(IntPtr section)
         {
-            HRESULT hr;
             int dataLen;
-
-            if ((hr = TryGetSectionDataLen(section, out dataLen)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetSectionDataLen(section, out dataLen).ThrowOnNotOK();
 
             return dataLen;
         }
@@ -421,11 +387,8 @@ namespace ManagedCorDebug
         [Obsolete]
         public IntPtr GetSectionBlock(IntPtr section, int len, int align)
         {
-            HRESULT hr;
             IntPtr ppBytes;
-
-            if ((hr = TryGetSectionBlock(section, len, align, out ppBytes)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetSectionBlock(section, len, align, out ppBytes).ThrowOnNotOK();
 
             return ppBytes;
         }
@@ -465,10 +428,7 @@ namespace ManagedCorDebug
         [Obsolete]
         public void TruncateSection(IntPtr section, int len)
         {
-            HRESULT hr;
-
-            if ((hr = TryTruncateSection(section, len)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryTruncateSection(section, len).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -498,11 +458,8 @@ namespace ManagedCorDebug
         [Obsolete]
         public IntPtr GenerateCeeMemoryImage()
         {
-            HRESULT hr;
             IntPtr ppImage;
-
-            if ((hr = TryGenerateCeeMemoryImage(out ppImage)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGenerateCeeMemoryImage(out ppImage).ThrowOnNotOK();
 
             return ppImage;
         }
@@ -531,11 +488,8 @@ namespace ManagedCorDebug
         [Obsolete]
         public IntPtr ComputePointer(IntPtr section, int RVA)
         {
-            HRESULT hr;
             IntPtr lpBuffer;
-
-            if ((hr = TryComputePointer(section, RVA, out lpBuffer)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryComputePointer(section, RVA, out lpBuffer).ThrowOnNotOK();
 
             return lpBuffer;
         }

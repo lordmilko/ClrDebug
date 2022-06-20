@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -27,11 +26,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string szNameResult;
-
-                if ((hr = TryGetName(out szNameResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetName(out szNameResult).ThrowOnNotOK();
 
                 return szNameResult;
             }
@@ -79,11 +75,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pcbValue;
-
-                if ((hr = TryGetSize(out pcbValue)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetSize(out pcbValue).ThrowOnNotOK();
 
                 return pcbValue;
             }
@@ -109,11 +102,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pSlotIndex;
-
-                if ((hr = TryGetSlotIndex(out pSlotIndex)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetSlotIndex(out pSlotIndex).ThrowOnNotOK();
 
                 return pSlotIndex;
             }
@@ -145,11 +135,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A byte array that contains the value of the variable.</returns>
         public byte[] GetValue(int offset, int cbContext, IntPtr context)
         {
-            HRESULT hr;
             byte[] pValueResult;
-
-            if ((hr = TryGetValue(offset, cbContext, context, out pValueResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetValue(offset, cbContext, context, out pValueResult).ThrowOnNotOK();
 
             return pValueResult;
         }
@@ -209,10 +196,7 @@ namespace ManagedCorDebug
         /// <param name="pValue">[in] The buffer that contains the value to set.</param>
         public void SetValue(int offset, int threadID, int cbContext, IntPtr context, int cbValue, IntPtr pValue)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetValue(offset, threadID, cbContext, context, cbValue, pValue)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetValue(offset, threadID, cbContext, context, cbValue, pValue).ThrowOnNotOK();
         }
 
         /// <summary>

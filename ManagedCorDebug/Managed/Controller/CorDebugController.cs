@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -42,11 +41,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 bool pbRunningResult;
-
-                if ((hr = TryIsRunning(out pbRunningResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryIsRunning(out pbRunningResult).ThrowOnNotOK();
 
                 return pbRunningResult;
             }
@@ -88,10 +84,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Stop(int dwTimeoutIgnored)
         {
-            HRESULT hr;
-
-            if ((hr = TryStop(dwTimeoutIgnored)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStop(dwTimeoutIgnored).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -132,10 +125,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Continue(int fIsOutOfBand)
         {
-            HRESULT hr;
-
-            if ((hr = TryContinue(fIsOutOfBand)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryContinue(fIsOutOfBand).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -177,11 +167,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int HasQueuedCallbacks(ICorDebugThread pThread)
         {
-            HRESULT hr;
             int pbQueued;
-
-            if ((hr = TryHasQueuedCallbacks(pThread, out pbQueued)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryHasQueuedCallbacks(pThread, out pbQueued).ThrowOnNotOK();
 
             return pbQueued;
         }
@@ -222,11 +209,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugThreadEnum EnumerateThreads()
         {
-            HRESULT hr;
             CorDebugThreadEnum ppThreadsResult;
-
-            if ((hr = TryEnumerateThreads(out ppThreadsResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateThreads(out ppThreadsResult).ThrowOnNotOK();
 
             return ppThreadsResult;
         }
@@ -271,10 +255,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetAllThreadsDebugState(CorDebugThreadState state, ICorDebugThread pExceptThisThread)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetAllThreadsDebugState(state, pExceptThisThread)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetAllThreadsDebugState(state, pExceptThisThread).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -308,10 +289,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Detach()
         {
-            HRESULT hr;
-
-            if ((hr = TryDetach()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDetach().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -342,10 +320,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Terminate(int exitCode)
         {
-            HRESULT hr;
-
-            if ((hr = TryTerminate(exitCode)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryTerminate(exitCode).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -372,11 +347,8 @@ namespace ManagedCorDebug
         [Obsolete]
         public CorDebugErrorInfoEnum CanCommitChanges(int cSnapshots, ICorDebugEditAndContinueSnapshot pSnapshots)
         {
-            HRESULT hr;
             CorDebugErrorInfoEnum pErrorResult;
-
-            if ((hr = TryCanCommitChanges(cSnapshots, pSnapshots, out pErrorResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCanCommitChanges(cSnapshots, pSnapshots, out pErrorResult).ThrowOnNotOK();
 
             return pErrorResult;
         }
@@ -412,11 +384,8 @@ namespace ManagedCorDebug
         [Obsolete]
         public CorDebugErrorInfoEnum CommitChanges(int cSnapshots, ICorDebugEditAndContinueSnapshot pSnapshots)
         {
-            HRESULT hr;
             CorDebugErrorInfoEnum pErrorResult;
-
-            if ((hr = TryCommitChanges(cSnapshots, pSnapshots, out pErrorResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCommitChanges(cSnapshots, pSnapshots, out pErrorResult).ThrowOnNotOK();
 
             return pErrorResult;
         }

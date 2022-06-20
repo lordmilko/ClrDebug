@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -26,10 +25,7 @@ namespace ManagedCorDebug
         /// <param name="source">[in] The buffer that stores the embedded source.</param>
         public void SetSource(int sourceSize, IntPtr source)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetSource(sourceSize, source)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetSource(sourceSize, source).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -55,10 +51,7 @@ namespace ManagedCorDebug
         /// <param name="checkSum">[in] The buffer that stores the checksum information.</param>
         public void SetCheckSum(Guid algorithmId, int checkSumSize, IntPtr checkSum)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetCheckSum(algorithmId, checkSumSize, checkSum)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetCheckSum(algorithmId, checkSumSize, checkSum).ThrowOnNotOK();
         }
 
         /// <summary>

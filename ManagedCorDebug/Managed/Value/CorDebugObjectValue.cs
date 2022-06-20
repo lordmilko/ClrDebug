@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -41,11 +40,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugClass ppClassResult;
-
-                if ((hr = TryGetClass(out ppClassResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetClass(out ppClassResult).ThrowOnNotOK();
 
                 return ppClassResult;
             }
@@ -83,11 +79,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugContext ppContextResult;
-
-                if ((hr = TryGetContext(out ppContextResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetContext(out ppContextResult).ThrowOnNotOK();
 
                 return ppContextResult;
             }
@@ -120,11 +113,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 bool pbIsValueClassResult;
-
-                if ((hr = TryIsValueClass(out pbIsValueClassResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryIsValueClass(out pbIsValueClassResult).ThrowOnNotOK();
 
                 return pbIsValueClassResult;
             }
@@ -159,11 +149,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 object ppObject;
-
-                if ((hr = TryGetManagedCopy(out ppObject)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetManagedCopy(out ppObject).ThrowOnNotOK();
 
                 return ppObject;
             }
@@ -197,11 +184,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugValue GetFieldValue(ICorDebugClass pClass, mdFieldDef fieldDef)
         {
-            HRESULT hr;
             CorDebugValue ppValueResult;
-
-            if ((hr = TryGetFieldValue(pClass, fieldDef, out ppValueResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetFieldValue(pClass, fieldDef, out ppValueResult).ThrowOnNotOK();
 
             return ppValueResult;
         }
@@ -242,11 +226,8 @@ namespace ManagedCorDebug
         /// </summary>
         public CorDebugFunction GetVirtualMethod(int memberRef)
         {
-            HRESULT hr;
             CorDebugFunction ppFunctionResult;
-
-            if ((hr = TryGetVirtualMethod(memberRef, out ppFunctionResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetVirtualMethod(memberRef, out ppFunctionResult).ThrowOnNotOK();
 
             return ppFunctionResult;
         }
@@ -278,10 +259,7 @@ namespace ManagedCorDebug
         [Obsolete]
         public void SetFromManagedCopy(object pObject)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetFromManagedCopy(pObject)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetFromManagedCopy(pObject).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -313,11 +291,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public GetVirtualMethodAndTypeResult GetVirtualMethodAndType(int memberRef)
         {
-            HRESULT hr;
             GetVirtualMethodAndTypeResult result;
-
-            if ((hr = TryGetVirtualMethodAndType(memberRef, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetVirtualMethodAndType(memberRef, out result).ThrowOnNotOK();
 
             return result;
         }

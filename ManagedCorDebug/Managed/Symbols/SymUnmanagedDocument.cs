@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -28,11 +27,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string szUrlResult;
-
-                if ((hr = TryGetURL(out szUrlResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetURL(out szUrlResult).ThrowOnNotOK();
 
                 return szUrlResult;
             }
@@ -84,11 +80,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 Guid pRetVal;
-
-                if ((hr = TryGetDocumentType(out pRetVal)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetDocumentType(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
@@ -116,11 +109,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 Guid pRetVal;
-
-                if ((hr = TryGetLanguage(out pRetVal)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetLanguage(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
@@ -148,11 +138,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 Guid pRetVal;
-
-                if ((hr = TryGetLanguageVendor(out pRetVal)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetLanguageVendor(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
@@ -180,11 +167,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 Guid pRetVal;
-
-                if ((hr = TryGetCheckSumAlgorithmId(out pRetVal)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCheckSumAlgorithmId(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
@@ -212,11 +196,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 byte[] dataResult;
-
-                if ((hr = TryGetCheckSum(out dataResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCheckSum(out dataResult).ThrowOnNotOK();
 
                 return dataResult;
             }
@@ -265,11 +246,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pRetVal;
-
-                if ((hr = TryGetSourceLength(out pRetVal)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetSourceLength(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
@@ -296,11 +274,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to a variable that receives the line.</returns>
         public int FindClosestLine(int line)
         {
-            HRESULT hr;
             int pRetVal;
-
-            if ((hr = TryFindClosestLine(line, out pRetVal)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryFindClosestLine(line, out pRetVal).ThrowOnNotOK();
 
             return pRetVal;
         }
@@ -326,11 +301,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to a variable that indicates whether the document has source embedded in the debugging symbols.</returns>
         public int HasEmbeddedSource()
         {
-            HRESULT hr;
             int pRetVal;
-
-            if ((hr = TryHasEmbeddedSource(out pRetVal)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryHasEmbeddedSource(out pRetVal).ThrowOnNotOK();
 
             return pRetVal;
         }
@@ -359,11 +331,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The size and length of the specified range of the source document, in bytes.</returns>
         public byte[] GetSourceRange(int startLine, int startColumn, int endLine, int endColumn)
         {
-            HRESULT hr;
             byte[] sourceResult;
-
-            if ((hr = TryGetSourceRange(startLine, startColumn, endLine, endColumn, out sourceResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetSourceRange(startLine, startColumn, endLine, endColumn, out sourceResult).ThrowOnNotOK();
 
             return sourceResult;
         }

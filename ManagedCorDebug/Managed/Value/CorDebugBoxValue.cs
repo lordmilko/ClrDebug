@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -28,11 +26,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugObjectValue ppObjectResult;
-
-                if ((hr = TryGetObject(out ppObjectResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetObject(out ppObjectResult).ThrowOnNotOK();
 
                 return ppObjectResult;
             }

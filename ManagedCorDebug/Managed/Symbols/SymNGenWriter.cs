@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -20,10 +19,7 @@ namespace ManagedCorDebug
 
         public void AddSymbol(string pSymbol, ushort iSection, long rva)
         {
-            HRESULT hr;
-
-            if ((hr = TryAddSymbol(pSymbol, iSection, rva)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryAddSymbol(pSymbol, iSection, rva).ThrowOnNotOK();
         }
 
         public HRESULT TryAddSymbol(string pSymbol, ushort iSection, long rva)
@@ -37,10 +33,7 @@ namespace ManagedCorDebug
 
         public void AddSection(ushort iSection, ushort flags, int offset, int cb)
         {
-            HRESULT hr;
-
-            if ((hr = TryAddSection(iSection, flags, offset, cb)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryAddSection(iSection, flags, offset, cb).ThrowOnNotOK();
         }
 
         public HRESULT TryAddSection(ushort iSection, ushort flags, int offset, int cb)
@@ -60,11 +53,8 @@ namespace ManagedCorDebug
 
         public IntPtr OpenModW(string wszModule, string wszObjFile)
         {
-            HRESULT hr;
             IntPtr ppmod;
-
-            if ((hr = TryOpenModW(wszModule, wszObjFile, out ppmod)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOpenModW(wszModule, wszObjFile, out ppmod).ThrowOnNotOK();
 
             return ppmod;
         }
@@ -80,10 +70,7 @@ namespace ManagedCorDebug
 
         public void CloseMod(IntPtr pmod)
         {
-            HRESULT hr;
-
-            if ((hr = TryCloseMod(pmod)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCloseMod(pmod).ThrowOnNotOK();
         }
 
         public HRESULT TryCloseMod(IntPtr pmod)
@@ -97,10 +84,7 @@ namespace ManagedCorDebug
 
         public void ModAddSymbols(IntPtr pmod, IntPtr pbSym, int cb)
         {
-            HRESULT hr;
-
-            if ((hr = TryModAddSymbols(pmod, pbSym, cb)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryModAddSymbols(pmod, pbSym, cb).ThrowOnNotOK();
         }
 
         public HRESULT TryModAddSymbols(IntPtr pmod, IntPtr pbSym, int cb)
@@ -114,10 +98,7 @@ namespace ManagedCorDebug
 
         public void ModAddSecContribEx(IntPtr pmod, ushort isect, int off, int cb, int dwCharacteristics, int dwDataCrc, int dwRelocCrc)
         {
-            HRESULT hr;
-
-            if ((hr = TryModAddSecContribEx(pmod, isect, off, cb, dwCharacteristics, dwDataCrc, dwRelocCrc)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryModAddSecContribEx(pmod, isect, off, cb, dwCharacteristics, dwDataCrc, dwRelocCrc).ThrowOnNotOK();
         }
 
         public HRESULT TryModAddSecContribEx(IntPtr pmod, ushort isect, int off, int cb, int dwCharacteristics, int dwDataCrc, int dwRelocCrc)
@@ -138,11 +119,8 @@ namespace ManagedCorDebug
 
         public string QueryPDBNameExW(long cchMax)
         {
-            HRESULT hr;
             string wszPDBResult;
-
-            if ((hr = TryQueryPDBNameExW(cchMax, out wszPDBResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryQueryPDBNameExW(cchMax, out wszPDBResult).ThrowOnNotOK();
 
             return wszPDBResult;
         }

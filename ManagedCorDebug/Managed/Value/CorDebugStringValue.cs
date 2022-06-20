@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -29,11 +28,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pcchString;
-
-                if ((hr = TryGetLength(out pcchString)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetLength(out pcchString).ThrowOnNotOK();
 
                 return pcchString;
             }
@@ -59,11 +55,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string szStringResult;
-
-                if ((hr = TryGetString(out szStringResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetString(out szStringResult).ThrowOnNotOK();
 
                 return szStringResult;
             }

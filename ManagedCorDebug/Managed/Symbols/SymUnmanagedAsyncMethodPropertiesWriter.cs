@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -23,10 +21,7 @@ namespace ManagedCorDebug
         /// </summary>
         public void DefineKickoffMethod(int kickoffMethod)
         {
-            HRESULT hr;
-
-            if ((hr = TryDefineKickoffMethod(kickoffMethod)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineKickoffMethod(kickoffMethod).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -48,10 +43,7 @@ namespace ManagedCorDebug
         /// </summary>
         public void DefineCatchHandlerILOffset(int catchHandlerOffset)
         {
-            HRESULT hr;
-
-            if ((hr = TryDefineCatchHandlerILOffset(catchHandlerOffset)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineCatchHandlerILOffset(catchHandlerOffset).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -74,10 +66,7 @@ namespace ManagedCorDebug
         /// </summary>
         public void DefineAsyncStepInfo(int count, int yieldOffsets, int breakpointOffset, int breakpointMethod)
         {
-            HRESULT hr;
-
-            if ((hr = TryDefineAsyncStepInfo(count, yieldOffsets, breakpointOffset, breakpointMethod)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineAsyncStepInfo(count, yieldOffsets, breakpointOffset, breakpointMethod).ThrowOnNotOK();
         }
 
         /// <summary>

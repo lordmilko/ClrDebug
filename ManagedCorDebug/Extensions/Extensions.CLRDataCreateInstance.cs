@@ -27,7 +27,7 @@ namespace ManagedCorDebug
                 var iid = typeof(T).GUID;
                 object iface;
                 var hr = clrDataCreateInstance(ref iid, target, out iface);
-                Marshal.ThrowExceptionForHR((int)hr);
+                hr.ThrowOnNotOK();
 
                 return (T)iface;
             }

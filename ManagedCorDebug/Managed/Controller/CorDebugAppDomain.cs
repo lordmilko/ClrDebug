@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -31,11 +30,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugProcess ppProcessResult;
-
-                if ((hr = TryGetProcess(out ppProcessResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetProcess(out ppProcessResult).ThrowOnNotOK();
 
                 return ppProcessResult;
             }
@@ -69,11 +65,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 bool pbAttachedResult;
-
-                if ((hr = TryIsAttached(out pbAttachedResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryIsAttached(out pbAttachedResult).ThrowOnNotOK();
 
                 return pbAttachedResult;
             }
@@ -110,11 +103,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string szNameResult;
-
-                if ((hr = TryGetName(out szNameResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetName(out szNameResult).ThrowOnNotOK();
 
                 return szNameResult;
             }
@@ -167,11 +157,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugValue ppObjectResult;
-
-                if ((hr = TryGetObject(out ppObjectResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetObject(out ppObjectResult).ThrowOnNotOK();
 
                 return ppObjectResult;
             }
@@ -211,11 +198,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pId;
-
-                if ((hr = TryGetID(out pId)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetID(out pId).ThrowOnNotOK();
 
                 return pId;
             }
@@ -243,11 +227,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugAssemblyEnum"/> object that is the enumerator for the assemblies in the application domain.</returns>
         public CorDebugAssemblyEnum EnumerateAssemblies()
         {
-            HRESULT hr;
             CorDebugAssemblyEnum ppAssembliesResult;
-
-            if ((hr = TryEnumerateAssemblies(out ppAssembliesResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateAssemblies(out ppAssembliesResult).ThrowOnNotOK();
 
             return ppAssembliesResult;
         }
@@ -280,11 +261,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugModule"/> object that represents the module corresponding to the given metadata interface.</returns>
         public CorDebugModule GetModuleFromMetaDataInterface(object pIMetaData)
         {
-            HRESULT hr;
             CorDebugModule ppModuleResult;
-
-            if ((hr = TryGetModuleFromMetaDataInterface(pIMetaData, out ppModuleResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetModuleFromMetaDataInterface(pIMetaData, out ppModuleResult).ThrowOnNotOK();
 
             return ppModuleResult;
         }
@@ -321,11 +299,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugBreakpointEnum EnumerateBreakpoints()
         {
-            HRESULT hr;
             CorDebugBreakpointEnum ppBreakpointsResult;
-
-            if ((hr = TryEnumerateBreakpoints(out ppBreakpointsResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateBreakpoints(out ppBreakpointsResult).ThrowOnNotOK();
 
             return ppBreakpointsResult;
         }
@@ -360,11 +335,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugStepperEnum"/> object that is the enumerator for all active steppers in the application domain.</returns>
         public CorDebugStepperEnum EnumerateSteppers()
         {
-            HRESULT hr;
             CorDebugStepperEnum ppSteppersResult;
-
-            if ((hr = TryEnumerateSteppers(out ppSteppersResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateSteppers(out ppSteppersResult).ThrowOnNotOK();
 
             return ppSteppersResult;
         }
@@ -399,10 +371,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Attach()
         {
-            HRESULT hr;
-
-            if ((hr = TryAttach()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryAttach().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -440,11 +409,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugType GetArrayOrPointerType(CorElementType elementType, int nRank, ICorDebugType pTypeArg)
         {
-            HRESULT hr;
             CorDebugType ppTypeResult;
-
-            if ((hr = TryGetArrayOrPointerType(elementType, nRank, pTypeArg, out ppTypeResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetArrayOrPointerType(elementType, nRank, pTypeArg, out ppTypeResult).ThrowOnNotOK();
 
             return ppTypeResult;
         }
@@ -491,11 +457,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugType"/> object that represents the pointer to the function.</returns>
         public CorDebugType GetFunctionPointerType(int nTypeArgs, ICorDebugType ppTypeArgs)
         {
-            HRESULT hr;
             CorDebugType ppTypeResult;
-
-            if ((hr = TryGetFunctionPointerType(nTypeArgs, ppTypeArgs, out ppTypeResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetFunctionPointerType(nTypeArgs, ppTypeArgs, out ppTypeResult).ThrowOnNotOK();
 
             return ppTypeResult;
         }
@@ -541,11 +504,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugGuidToTypeEnum ppGuidToTypeEnumResult;
-
-                if ((hr = TryGetCachedWinRTTypes(out ppGuidToTypeEnumResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCachedWinRTTypes(out ppGuidToTypeEnumResult).ThrowOnNotOK();
 
                 return ppGuidToTypeEnumResult;
             }
@@ -585,11 +545,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugTypeEnum GetCachedWinRTTypesForIIDs(int cReqTypes, Guid iidsToResolve)
         {
-            HRESULT hr;
             CorDebugTypeEnum ppTypesEnumResult;
-
-            if ((hr = TryGetCachedWinRTTypesForIIDs(cReqTypes, iidsToResolve, out ppTypesEnumResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetCachedWinRTTypesForIIDs(cReqTypes, iidsToResolve, out ppTypesEnumResult).ThrowOnNotOK();
 
             return ppTypesEnumResult;
         }
@@ -638,11 +595,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the address of an "ICorDebugValue" object that represents the managed object that corresponds to the given CCW pointer.</returns>
         public CorDebugValue GetObjectForCCW(CORDB_ADDRESS ccwPointer)
         {
-            HRESULT hr;
             CorDebugValue ppManagedObjectResult;
-
-            if ((hr = TryGetObjectForCCW(ccwPointer, out ppManagedObjectResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetObjectForCCW(ccwPointer, out ppManagedObjectResult).ThrowOnNotOK();
 
             return ppManagedObjectResult;
         }

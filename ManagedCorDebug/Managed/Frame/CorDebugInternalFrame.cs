@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -29,11 +28,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugInternalFrameType pType;
-
-                if ((hr = TryGetFrameType(out pType)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetFrameType(out pType).ThrowOnNotOK();
 
                 return pType;
             }
@@ -69,11 +65,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CORDB_ADDRESS pAddress;
-
-                if ((hr = TryGetAddress(out pAddress)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetAddress(out pAddress).ThrowOnNotOK();
 
                 return pAddress;
             }
@@ -116,11 +109,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int IsCloserToLeaf(ICorDebugFrame pFrameToCompare)
         {
-            HRESULT hr;
             int pIsCloser;
-
-            if ((hr = TryIsCloserToLeaf(pFrameToCompare, out pIsCloser)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryIsCloserToLeaf(pFrameToCompare, out pIsCloser).ThrowOnNotOK();
 
             return pIsCloser;
         }

@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -42,11 +41,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugPlatform pTargetPlatform;
-
-                if ((hr = TryGetPlatform(out pTargetPlatform)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetPlatform(out pTargetPlatform).ThrowOnNotOK();
 
                 return pTargetPlatform;
             }
@@ -87,11 +83,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int ReadVirtual(CORDB_ADDRESS address, IntPtr pBuffer, int bytesRequested)
         {
-            HRESULT hr;
             int pBytesRead;
-
-            if ((hr = TryReadVirtual(address, pBuffer, bytesRequested, out pBytesRead)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryReadVirtual(address, pBuffer, bytesRequested, out pBytesRead).ThrowOnNotOK();
 
             return pBytesRead;
         }
@@ -130,10 +123,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void GetThreadContext(int dwThreadId, int contextFlags, int contextSize, IntPtr pContext)
         {
-            HRESULT hr;
-
-            if ((hr = TryGetThreadContext(dwThreadId, contextFlags, contextSize, pContext)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetThreadContext(dwThreadId, contextFlags, contextSize, pContext).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -170,11 +160,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetImageFromPointerResult GetImageFromPointer(CORDB_ADDRESS addr)
         {
-            HRESULT hr;
             GetImageFromPointerResult result;
-
-            if ((hr = TryGetImageFromPointer(addr, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetImageFromPointer(addr, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -209,11 +196,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The path of the module.</returns>
         public string GetImageLocation(CORDB_ADDRESS baseAddress)
         {
-            HRESULT hr;
             string szNameResult;
-
-            if ((hr = TryGetImageLocation(baseAddress, out szNameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetImageLocation(baseAddress, out szNameResult).ThrowOnNotOK();
 
             return szNameResult;
         }
@@ -265,11 +249,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugSymbolProvider"/> object.</returns>
         public CorDebugSymbolProvider GetSymbolProviderForImage(CORDB_ADDRESS imageBaseAddress)
         {
-            HRESULT hr;
             CorDebugSymbolProvider ppSymProviderResult;
-
-            if ((hr = TryGetSymbolProviderForImage(imageBaseAddress, out ppSymProviderResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetSymbolProviderForImage(imageBaseAddress, out ppSymProviderResult).ThrowOnNotOK();
 
             return ppSymProviderResult;
         }
@@ -304,11 +285,8 @@ namespace ManagedCorDebug
         /// <returns>An array of thread identifiers.</returns>
         public int[] EnumerateThreadIDs()
         {
-            HRESULT hr;
             int[] pThreadIdsResult;
-
-            if ((hr = TryEnumerateThreadIDs(out pThreadIdsResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateThreadIDs(out pThreadIdsResult).ThrowOnNotOK();
 
             return pThreadIdsResult;
         }
@@ -358,11 +336,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugVirtualUnwinder"/> interface object.</returns>
         public CorDebugVirtualUnwinder CreateVirtualUnwinder(int nativeThreadID, int contextFlags, int cbContext, IntPtr initialContext)
         {
-            HRESULT hr;
             CorDebugVirtualUnwinder ppUnwinderResult;
-
-            if ((hr = TryCreateVirtualUnwinder(nativeThreadID, contextFlags, cbContext, initialContext, out ppUnwinderResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCreateVirtualUnwinder(nativeThreadID, contextFlags, cbContext, initialContext, out ppUnwinderResult).ThrowOnNotOK();
 
             return ppUnwinderResult;
         }
@@ -411,11 +386,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 ICorDebugLoadedModule[] pLoadedModulesResult;
-
-                if ((hr = TryGetLoadedModules(out pLoadedModulesResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetLoadedModules(out pLoadedModulesResult).ThrowOnNotOK();
 
                 return pLoadedModulesResult;
             }

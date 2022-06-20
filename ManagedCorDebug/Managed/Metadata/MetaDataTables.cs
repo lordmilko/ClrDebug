@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -28,11 +27,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pcbStrings;
-
-                if ((hr = TryGetStringHeapSize(out pcbStrings)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetStringHeapSize(out pcbStrings).ThrowOnNotOK();
 
                 return pcbStrings;
             }
@@ -58,11 +54,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pcbBlobs;
-
-                if ((hr = TryGetBlobHeapSize(out pcbBlobs)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetBlobHeapSize(out pcbBlobs).ThrowOnNotOK();
 
                 return pcbBlobs;
             }
@@ -88,11 +81,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pcbGuids;
-
-                if ((hr = TryGetGuidHeapSize(out pcbGuids)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetGuidHeapSize(out pcbGuids).ThrowOnNotOK();
 
                 return pcbGuids;
             }
@@ -118,11 +108,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pcbBlobs;
-
-                if ((hr = TryGetUserStringHeapSize(out pcbBlobs)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetUserStringHeapSize(out pcbBlobs).ThrowOnNotOK();
 
                 return pcbBlobs;
             }
@@ -148,11 +135,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pcTables;
-
-                if ((hr = TryGetNumTables(out pcTables)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetNumTables(out pcTables).ThrowOnNotOK();
 
                 return pcTables;
             }
@@ -184,11 +168,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int GetTableIndex(int token)
         {
-            HRESULT hr;
             int pixTbl;
-
-            if ((hr = TryGetTableIndex(token, out pixTbl)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetTableIndex(token, out pixTbl).ThrowOnNotOK();
 
             return pixTbl;
         }
@@ -220,11 +201,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetTableInfoResult GetTableInfo(int ixTbl)
         {
-            HRESULT hr;
             GetTableInfoResult result;
-
-            if ((hr = TryGetTableInfo(ixTbl, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetTableInfo(ixTbl, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -267,11 +245,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public GetColumnInfoResult GetColumnInfo(int ixTbl, int ixCol)
         {
-            HRESULT hr;
             GetColumnInfoResult result;
-
-            if ((hr = TryGetColumnInfo(ixTbl, ixCol, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetColumnInfo(ixTbl, ixCol, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -313,11 +288,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetCodedTokenInfoResult GetCodedTokenInfo(int ixCdTkn)
         {
-            HRESULT hr;
             GetCodedTokenInfoResult result;
-
-            if ((hr = TryGetCodedTokenInfo(ixCdTkn, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetCodedTokenInfo(ixCdTkn, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -360,11 +332,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public IntPtr GetRow(int ixTbl, int rid)
         {
-            HRESULT hr;
             IntPtr ppRow;
-
-            if ((hr = TryGetRow(ixTbl, rid, out ppRow)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetRow(ixTbl, rid, out ppRow).ThrowOnNotOK();
 
             return ppRow;
         }
@@ -403,11 +372,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int GetColumn(int ixTbl, int ixCol, int rid)
         {
-            HRESULT hr;
             int pVal;
-
-            if ((hr = TryGetColumn(ixTbl, ixCol, rid, out pVal)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetColumn(ixTbl, ixCol, rid, out pVal).ThrowOnNotOK();
 
             return pVal;
         }
@@ -439,11 +405,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to a pointer to the returned string value.</returns>
         public string GetString(int ixString)
         {
-            HRESULT hr;
             string ppStringResult;
-
-            if ((hr = TryGetString(ixString, out ppStringResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetString(ixString, out ppStringResult).ThrowOnNotOK();
 
             return ppStringResult;
         }
@@ -477,11 +440,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetBlobResult GetBlob(int ixBlob)
         {
-            HRESULT hr;
             GetBlobResult result;
-
-            if ((hr = TryGetBlob(ixBlob, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetBlob(ixBlob, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -522,11 +482,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public Guid GetGuid(int ixGuid)
         {
-            HRESULT hr;
             Guid ppGUID;
-
-            if ((hr = TryGetGuid(ixGuid, out ppGUID)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetGuid(ixGuid, out ppGUID).ThrowOnNotOK();
 
             return ppGUID;
         }
@@ -558,11 +515,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetUserStringResult GetUserString(int ixUserString)
         {
-            HRESULT hr;
             GetUserStringResult result;
-
-            if ((hr = TryGetUserString(ixUserString, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetUserString(ixUserString, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -597,11 +551,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the index of the next string in the column.</returns>
         public int GetNextString(int ixString)
         {
-            HRESULT hr;
             int pNext;
-
-            if ((hr = TryGetNextString(ixString, out pNext)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetNextString(ixString, out pNext).ThrowOnNotOK();
 
             return pNext;
         }
@@ -627,11 +578,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the index of the next BLOB.</returns>
         public int GetNextBlob(int ixBlob)
         {
-            HRESULT hr;
             int pNext;
-
-            if ((hr = TryGetNextBlob(ixBlob, out pNext)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetNextBlob(ixBlob, out pNext).ThrowOnNotOK();
 
             return pNext;
         }
@@ -663,11 +611,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int GetNextGuid(int ixGuid)
         {
-            HRESULT hr;
             int pNext;
-
-            if ((hr = TryGetNextGuid(ixGuid, out pNext)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetNextGuid(ixGuid, out pNext).ThrowOnNotOK();
 
             return pNext;
         }
@@ -705,11 +650,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int GetNextUserString(int ixUserString)
         {
-            HRESULT hr;
             int pNext;
-
-            if ((hr = TryGetNextUserString(ixUserString, out pNext)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetNextUserString(ixUserString, out pNext).ThrowOnNotOK();
 
             return pNext;
         }
@@ -747,11 +689,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 GetMetaDataStorageResult result;
-
-                if ((hr = TryGetMetaDataStorage(out result)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetMetaDataStorage(out result).ThrowOnNotOK();
 
                 return result;
             }
@@ -786,11 +725,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetMetaDataStreamInfoResult GetMetaDataStreamInfo(int ix)
         {
-            HRESULT hr;
             GetMetaDataStreamInfoResult result;
-
-            if ((hr = TryGetMetaDataStreamInfo(ix, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMetaDataStreamInfo(ix, out result).ThrowOnNotOK();
 
             return result;
         }

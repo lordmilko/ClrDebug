@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -45,11 +44,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 bool pbActiveResult;
-
-                if ((hr = TryIsActive(out pbActiveResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryIsActive(out pbActiveResult).ThrowOnNotOK();
 
                 return pbActiveResult;
             }
@@ -82,10 +78,7 @@ namespace ManagedCorDebug
         /// <param name="bActive">[in] Set this value to true to specify the state as active; otherwise, set this value to false.</param>
         public void Activate(int bActive)
         {
-            HRESULT hr;
-
-            if ((hr = TryActivate(bActive)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryActivate(bActive).ThrowOnNotOK();
         }
 
         /// <summary>

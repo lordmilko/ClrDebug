@@ -1,6 +1,5 @@
 using System;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -28,11 +27,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 mdAssembly ptkAssembly;
-
-                if ((hr = TryGetAssemblyFromScope(out ptkAssembly)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetAssemblyFromScope(out ptkAssembly).ThrowOnNotOK();
 
                 return ptkAssembly;
             }
@@ -59,11 +55,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetAssemblyPropsResult GetAssemblyProps(mdAssembly mda)
         {
-            HRESULT hr;
             GetAssemblyPropsResult result;
-
-            if ((hr = TryGetAssemblyProps(mda, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetAssemblyProps(mda, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -125,11 +118,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetAssemblyRefPropsResult GetAssemblyRefProps(mdAssemblyRef mdar)
         {
-            HRESULT hr;
             GetAssemblyRefPropsResult result;
-
-            if ((hr = TryGetAssemblyRefProps(mdar, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetAssemblyRefProps(mdar, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -194,11 +184,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetFilePropsResult GetFileProps(mdFile mdf)
         {
-            HRESULT hr;
             GetFilePropsResult result;
-
-            if ((hr = TryGetFileProps(mdf, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetFileProps(mdf, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -256,11 +243,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetExportedTypePropsResult GetExportedTypeProps(mdExportedType mdct)
         {
-            HRESULT hr;
             GetExportedTypePropsResult result;
-
-            if ((hr = TryGetExportedTypeProps(mdct, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetExportedTypeProps(mdct, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -318,11 +302,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetManifestResourcePropsResult GetManifestResourceProps(mdManifestResource mdmr)
         {
-            HRESULT hr;
             GetManifestResourcePropsResult result;
-
-            if ((hr = TryGetManifestResourceProps(mdmr, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetManifestResourceProps(mdmr, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -380,11 +361,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The enumeration of <see cref="mdAssemblyRef"/> metadata tokens.</returns>
         public mdAssemblyRef[] EnumAssemblyRefs(IntPtr phEnum)
         {
-            HRESULT hr;
             mdAssemblyRef[] rAssemblyRefsResult;
-
-            if ((hr = TryEnumAssemblyRefs(phEnum, out rAssemblyRefsResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumAssemblyRefs(phEnum, out rAssemblyRefsResult).ThrowOnNotOK();
 
             return rAssemblyRefsResult;
         }
@@ -442,11 +420,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The array used to store the <see cref="mdFile"/> metadata tokens.</returns>
         public mdFile[] EnumFiles(IntPtr phEnum)
         {
-            HRESULT hr;
             mdFile[] rFilesResult;
-
-            if ((hr = TryEnumFiles(phEnum, out rFilesResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumFiles(phEnum, out rFilesResult).ThrowOnNotOK();
 
             return rFilesResult;
         }
@@ -504,11 +479,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The enumeration of <see cref="mdExportedType"/> metadata tokens.</returns>
         public mdExportedType[] EnumExportedTypes(IntPtr phEnum)
         {
-            HRESULT hr;
             mdExportedType[] rExportedTypesResult;
-
-            if ((hr = TryEnumExportedTypes(phEnum, out rExportedTypesResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumExportedTypes(phEnum, out rExportedTypesResult).ThrowOnNotOK();
 
             return rExportedTypesResult;
         }
@@ -566,11 +538,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The array used to store the <see cref="mdManifestResource"/> metadata tokens.</returns>
         public mdManifestResource[] EnumManifestResources(IntPtr phEnum)
         {
-            HRESULT hr;
             mdManifestResource[] rManifestResourcesResult;
-
-            if ((hr = TryEnumManifestResources(phEnum, out rManifestResourcesResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumManifestResources(phEnum, out rManifestResourcesResult).ThrowOnNotOK();
 
             return rManifestResourcesResult;
         }
@@ -633,11 +602,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public mdExportedType FindExportedTypeByName(string szName, mdToken mdtExportedType)
         {
-            HRESULT hr;
             mdExportedType mdExportedType;
-
-            if ((hr = TryFindExportedTypeByName(szName, mdtExportedType, out mdExportedType)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryFindExportedTypeByName(szName, mdtExportedType, out mdExportedType).ThrowOnNotOK();
 
             return mdExportedType;
         }
@@ -675,11 +641,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public mdManifestResource[] FindManifestResourceByName(string szName)
         {
-            HRESULT hr;
             mdManifestResource[] ptkManifestResourceResult;
-
-            if ((hr = TryFindManifestResourceByName(szName, out ptkManifestResourceResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryFindManifestResourceByName(szName, out ptkManifestResourceResult).ThrowOnNotOK();
 
             return ptkManifestResourceResult;
         }
@@ -718,10 +681,7 @@ namespace ManagedCorDebug
         /// <param name="hEnum">[in] The enumeration instance to be closed.</param>
         public void CloseEnum(IntPtr hEnum)
         {
-            HRESULT hr;
-
-            if ((hr = TryCloseEnum(hEnum)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCloseEnum(hEnum).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -759,11 +719,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public object[] FindAssembliesByName(string szAppBase, string szPrivateBin, string szAssemblyName)
         {
-            HRESULT hr;
             object[] ppIUnkResult;
-
-            if ((hr = TryFindAssembliesByName(szAppBase, szPrivateBin, szAssemblyName, out ppIUnkResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryFindAssembliesByName(szAppBase, szPrivateBin, szAssemblyName, out ppIUnkResult).ThrowOnNotOK();
 
             return ppIUnkResult;
         }

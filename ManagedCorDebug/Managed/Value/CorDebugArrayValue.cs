@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -31,11 +29,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorElementType pType;
-
-                if ((hr = TryGetElementType(out pType)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetElementType(out pType).ThrowOnNotOK();
 
                 return pType;
             }
@@ -61,11 +56,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pnRank;
-
-                if ((hr = TryGetRank(out pnRank)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetRank(out pnRank).ThrowOnNotOK();
 
                 return pnRank;
             }
@@ -91,11 +83,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pnCount;
-
-                if ((hr = TryGetCount(out pnCount)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCount(out pnCount).ThrowOnNotOK();
 
                 return pnCount;
             }
@@ -121,11 +110,8 @@ namespace ManagedCorDebug
         /// <returns>[out] An array of integers, each of which specifies the number of elements in a dimension in this <see cref="ICorDebugArrayValue"/> object.</returns>
         public int[] GetDimensions(int cdim)
         {
-            HRESULT hr;
             int[] dimsResult;
-
-            if ((hr = TryGetDimensions(cdim, out dimsResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetDimensions(cdim, out dimsResult).ThrowOnNotOK();
 
             return dimsResult;
         }
@@ -158,11 +144,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to a Boolean value that is true if one or more dimensions of this <see cref="ICorDebugArrayValue"/> object have a base index of non-zero; otherwise, the Boolean value is false.</returns>
         public int HasBaseIndicies()
         {
-            HRESULT hr;
             int pbHasBaseIndicies;
-
-            if ((hr = TryHasBaseIndicies(out pbHasBaseIndicies)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryHasBaseIndicies(out pbHasBaseIndicies).ThrowOnNotOK();
 
             return pbHasBaseIndicies;
         }
@@ -187,11 +170,8 @@ namespace ManagedCorDebug
         /// <returns>[out] An array of integers, each of which is the base index (that is, the starting index) of a dimension of this <see cref="ICorDebugArrayValue"/> object.</returns>
         public int[] GetBaseIndicies(int cdim)
         {
-            HRESULT hr;
             int[] indiciesResult;
-
-            if ((hr = TryGetBaseIndicies(cdim, out indiciesResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetBaseIndicies(cdim, out indiciesResult).ThrowOnNotOK();
 
             return indiciesResult;
         }
@@ -227,11 +207,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugValue"/> object that represents the value of the specified element.</returns>
         public CorDebugValue GetElement(int cdim, int indices)
         {
-            HRESULT hr;
             CorDebugValue ppValueResult;
-
-            if ((hr = TryGetElement(cdim, indices, out ppValueResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetElement(cdim, indices, out ppValueResult).ThrowOnNotOK();
 
             return ppValueResult;
         }
@@ -273,11 +250,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugValue GetElementAtPosition(int nPosition)
         {
-            HRESULT hr;
             CorDebugValue ppValueResult;
-
-            if ((hr = TryGetElementAtPosition(nPosition, out ppValueResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetElementAtPosition(nPosition, out ppValueResult).ThrowOnNotOK();
 
             return ppValueResult;
         }

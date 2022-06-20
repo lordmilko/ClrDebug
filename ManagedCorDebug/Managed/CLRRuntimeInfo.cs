@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -29,11 +28,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string pwzBufferResult;
-
-                if ((hr = TryGetVersionString(out pwzBufferResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetVersionString(out pwzBufferResult).ThrowOnNotOK();
 
                 return pwzBufferResult;
             }
@@ -91,11 +87,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string pwzBufferResult;
-
-                if ((hr = TryGetRuntimeDirectory(out pwzBufferResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetRuntimeDirectory(out pwzBufferResult).ThrowOnNotOK();
 
                 return pwzBufferResult;
             }
@@ -150,11 +143,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 bool pbLoadableResult;
-
-                if ((hr = TryIsLoadable(out pbLoadableResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryIsLoadable(out pbLoadableResult).ThrowOnNotOK();
 
                 return pbLoadableResult;
             }
@@ -204,11 +194,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 IsStartedResult result;
-
-                if ((hr = TryIsStarted(out result)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryIsStarted(out result).ThrowOnNotOK();
 
                 return result;
             }
@@ -262,11 +249,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int IsLoaded(IntPtr hndProcess)
         {
-            HRESULT hr;
             int pbLoaded;
-
-            if ((hr = TryIsLoaded(hndProcess, out pbLoaded)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryIsLoaded(hndProcess, out pbLoaded).ThrowOnNotOK();
 
             return pbLoaded;
         }
@@ -311,11 +295,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The message string associated with the given <see cref="HRESULT"/>.</returns>
         public string LoadErrorString(HRESULT iResourceID, int iLocaleID)
         {
-            HRESULT hr;
             string pwzBufferResult;
-
-            if ((hr = TryLoadErrorString(iResourceID, iLocaleID, out pwzBufferResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryLoadErrorString(iResourceID, iLocaleID, out pwzBufferResult).ThrowOnNotOK();
 
             return pwzBufferResult;
         }
@@ -380,11 +361,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public IntPtr LoadLibrary(string pwzDllName)
         {
-            HRESULT hr;
             IntPtr phndModule;
-
-            if ((hr = TryLoadLibrary(pwzDllName, out phndModule)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryLoadLibrary(pwzDllName, out phndModule).ThrowOnNotOK();
 
             return phndModule;
         }
@@ -430,11 +408,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public IntPtr GetProcAddress(string pszProcName)
         {
-            HRESULT hr;
             IntPtr ppProc;
-
-            if ((hr = TryGetProcAddress(pszProcName, out ppProc)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetProcAddress(pszProcName, out ppProc).ThrowOnNotOK();
 
             return ppProc;
         }
@@ -481,11 +456,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public object GetInterface(Guid rclsid, Guid riid)
         {
-            HRESULT hr;
             object ppUnk;
-
-            if ((hr = TryGetInterface(rclsid, riid, out ppUnk)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetInterface(rclsid, riid, out ppUnk).ThrowOnNotOK();
 
             return ppUnk;
         }
@@ -534,10 +506,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetDefaultStartupFlags(int dwStartupFlags, string pwzHostConfigFile)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetDefaultStartupFlags(dwStartupFlags, pwzHostConfigFile)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetDefaultStartupFlags(dwStartupFlags, pwzHostConfigFile).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -577,11 +546,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public GetDefaultStartupFlagsResult GetDefaultStartupFlags()
         {
-            HRESULT hr;
             GetDefaultStartupFlagsResult result;
-
-            if ((hr = TryGetDefaultStartupFlags(out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetDefaultStartupFlags(out result).ThrowOnNotOK();
 
             return result;
         }
@@ -647,10 +613,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void BindAsLegacyV2Runtime()
         {
-            HRESULT hr;
-
-            if ((hr = TryBindAsLegacyV2Runtime()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryBindAsLegacyV2Runtime().ThrowOnNotOK();
         }
 
         /// <summary>

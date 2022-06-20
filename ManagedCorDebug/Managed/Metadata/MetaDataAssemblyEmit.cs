@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -34,11 +33,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public mdAssembly DefineAssembly(IntPtr pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, IntPtr pMetaData, CorAssemblyFlags dwAssemblyFlags)
         {
-            HRESULT hr;
             mdAssembly pma;
-
-            if ((hr = TryDefineAssembly(pbPublicKey, cbPublicKey, ulHashAlgId, szName, pMetaData, dwAssemblyFlags, out pma)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineAssembly(pbPublicKey, cbPublicKey, ulHashAlgId, szName, pMetaData, dwAssemblyFlags, out pma).ThrowOnNotOK();
 
             return pma;
         }
@@ -90,11 +86,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public mdAssemblyRef DefineAssemblyRef(IntPtr pbPublicKeyOrToken, int cbPublicKeyOrToken, string szName, ASSEMBLYMETADATA pMetaData, IntPtr pbHashValue, int cbHashValue, CorAssemblyFlags dwAssemblyRefFlags)
         {
-            HRESULT hr;
             mdAssemblyRef assemblyRefToken;
-
-            if ((hr = TryDefineAssemblyRef(pbPublicKeyOrToken, cbPublicKeyOrToken, szName, pMetaData, pbHashValue, cbHashValue, dwAssemblyRefFlags, out assemblyRefToken)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineAssemblyRef(pbPublicKeyOrToken, cbPublicKeyOrToken, szName, pMetaData, pbHashValue, cbHashValue, dwAssemblyRefFlags, out assemblyRefToken).ThrowOnNotOK();
 
             return assemblyRefToken;
         }
@@ -146,11 +139,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int DefineFile(string szName, IntPtr pbHashValue, int cbHashValue, CorFileFlags dwFileFlags)
         {
-            HRESULT hr;
             int fileToken;
-
-            if ((hr = TryDefineFile(szName, pbHashValue, cbHashValue, dwFileFlags, out fileToken)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineFile(szName, pbHashValue, cbHashValue, dwFileFlags, out fileToken).ThrowOnNotOK();
 
             return fileToken;
         }
@@ -195,11 +185,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public mdExportedType DefineExportedType(string szName, mdToken tkImplementation, mdTypeDef tkTypeDef, CorTypeAttr dwExportedTypeFlags)
         {
-            HRESULT hr;
             mdExportedType pmdct;
-
-            if ((hr = TryDefineExportedType(szName, tkImplementation, tkTypeDef, dwExportedTypeFlags, out pmdct)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineExportedType(szName, tkImplementation, tkTypeDef, dwExportedTypeFlags, out pmdct).ThrowOnNotOK();
 
             return pmdct;
         }
@@ -245,11 +232,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public mdManifestResource DefineManifestResource(string szName, mdToken tkImplementation, int dwOffset, int dwResourceFlags)
         {
-            HRESULT hr;
             mdManifestResource pmdmr;
-
-            if ((hr = TryDefineManifestResource(szName, tkImplementation, dwOffset, dwResourceFlags, out pmdmr)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineManifestResource(szName, tkImplementation, dwOffset, dwResourceFlags, out pmdmr).ThrowOnNotOK();
 
             return pmdmr;
         }
@@ -296,10 +280,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetAssemblyProps(mdAssembly pma, IntPtr pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, IntPtr pMetaData, int dwAssemblyFlags)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetAssemblyProps(pma, pbPublicKey, cbPublicKey, ulHashAlgId, szName, pMetaData, dwAssemblyFlags)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetAssemblyProps(pma, pbPublicKey, cbPublicKey, ulHashAlgId, szName, pMetaData, dwAssemblyFlags).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -347,10 +328,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetAssemblyRefProps(mdAssemblyRef ar, IntPtr pbPublicKeyOrToken, int cbPublicKeyOrToken, string szName, IntPtr pMetaData, IntPtr pbHashValue, int cbHashValue, AssemblyRefFlags dwAssemblyRefFlags)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetAssemblyRefProps(ar, pbPublicKeyOrToken, cbPublicKeyOrToken, szName, pMetaData, pbHashValue, cbHashValue, dwAssemblyRefFlags)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetAssemblyRefProps(ar, pbPublicKeyOrToken, cbPublicKeyOrToken, szName, pMetaData, pbHashValue, cbHashValue, dwAssemblyRefFlags).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -393,10 +371,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetFileProps(mdFile file, IntPtr pbHashValue, int cbHashValue, CorFileFlags dwFileFlags)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetFileProps(file, pbHashValue, cbHashValue, dwFileFlags)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetFileProps(file, pbHashValue, cbHashValue, dwFileFlags).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -434,10 +409,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetExportedTypeProps(mdExportedType ct, mdToken tkImplementation, mdTypeDef tkTypeDef, int dwExportedTypeFlags)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetExportedTypeProps(ct, tkImplementation, tkTypeDef, dwExportedTypeFlags)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetExportedTypeProps(ct, tkImplementation, tkTypeDef, dwExportedTypeFlags).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -475,10 +447,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetManifestResourceProps(mdManifestResource mr, mdToken tkImplementation, int dwOffset, int dwResourceFlags)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetManifestResourceProps(mr, tkImplementation, dwOffset, dwResourceFlags)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetManifestResourceProps(mr, tkImplementation, dwOffset, dwResourceFlags).ThrowOnNotOK();
         }
 
         /// <summary>

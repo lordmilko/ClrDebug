@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -40,11 +39,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugDebugEventKind pDebugEventKind;
-
-                if ((hr = TryGetEventKind(out pDebugEventKind)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetEventKind(out pDebugEventKind).ThrowOnNotOK();
 
                 return pDebugEventKind;
             }
@@ -74,11 +70,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugThread ppThreadResult;
-
-                if ((hr = TryGetThread(out ppThreadResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetThread(out ppThreadResult).ThrowOnNotOK();
 
                 return ppThreadResult;
             }

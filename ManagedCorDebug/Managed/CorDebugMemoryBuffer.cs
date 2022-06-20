@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -26,11 +25,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 IntPtr address;
-
-                if ((hr = TryGetStartAddress(out address)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetStartAddress(out address).ThrowOnNotOK();
 
                 return address;
             }
@@ -56,11 +52,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pcbBufferLength;
-
-                if ((hr = TryGetSize(out pcbBufferLength)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetSize(out pcbBufferLength).ThrowOnNotOK();
 
                 return pcbBufferLength;
             }

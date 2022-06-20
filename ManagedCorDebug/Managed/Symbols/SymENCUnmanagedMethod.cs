@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -26,11 +25,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pRetVal;
-
-                if ((hr = TryGetDocumentsForMethodCount(out pRetVal)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetDocumentsForMethodCount(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
@@ -58,11 +54,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 ISymUnmanagedDocument[] documentsResult;
-
-                if ((hr = TryGetDocumentsForMethod(out documentsResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetDocumentsForMethod(out documentsResult).ThrowOnNotOK();
 
                 return documentsResult;
             }
@@ -114,11 +107,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The buffer that contains the file names.</returns>
         public string GetFileNameFromOffset(int dwOffset)
         {
-            HRESULT hr;
             string szNameResult;
-
-            if ((hr = TryGetFileNameFromOffset(dwOffset, out szNameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetFileNameFromOffset(dwOffset, out szNameResult).ThrowOnNotOK();
 
             return szNameResult;
         }
@@ -171,11 +161,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetLineFromOffsetResult GetLineFromOffset(int dwOffset)
         {
-            HRESULT hr;
             GetLineFromOffsetResult result;
-
-            if ((hr = TryGetLineFromOffset(dwOffset, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetLineFromOffset(dwOffset, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -220,11 +207,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetSourceExtentInDocumentResult GetSourceExtentInDocument(ISymUnmanagedDocument document)
         {
-            HRESULT hr;
             GetSourceExtentInDocumentResult result;
-
-            if ((hr = TryGetSourceExtentInDocument(document, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetSourceExtentInDocument(document, out result).ThrowOnNotOK();
 
             return result;
         }

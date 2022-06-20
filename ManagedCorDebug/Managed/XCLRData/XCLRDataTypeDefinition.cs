@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -21,11 +20,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 XCLRDataModule modResult;
-
-                if ((hr = TryGetModule(out modResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetModule(out modResult).ThrowOnNotOK();
 
                 return modResult;
             }
@@ -53,11 +49,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 XCLRDataTypeDefinition_GetTokenAndScopeResult result;
-
-                if ((hr = TryGetTokenAndScope(out result)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetTokenAndScope(out result).ThrowOnNotOK();
 
                 return result;
             }
@@ -87,11 +80,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorElementType type;
-
-                if ((hr = TryGetCorElementType(out type)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCorElementType(out type).ThrowOnNotOK();
 
                 return type;
             }
@@ -111,11 +101,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int flags;
-
-                if ((hr = TryGetFlags(out flags)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetFlags(out flags).ThrowOnNotOK();
 
                 return flags;
             }
@@ -135,11 +122,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int rank;
-
-                if ((hr = TryGetArrayRank(out rank)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetArrayRank(out rank).ThrowOnNotOK();
 
                 return rank;
             }
@@ -159,11 +143,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 XCLRDataTypeDefinition _baseResult;
-
-                if ((hr = TryGetBase(out _baseResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetBase(out _baseResult).ThrowOnNotOK();
 
                 return _baseResult;
             }
@@ -191,20 +172,14 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int flags;
-
-                if ((hr = TryGetTypeNotification(out flags)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetTypeNotification(out flags).ThrowOnNotOK();
 
                 return flags;
             }
             set
             {
-                HRESULT hr;
-
-                if ((hr = TrySetTypeNotification(value)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TrySetTypeNotification(value).ThrowOnNotOK();
             }
         }
 
@@ -227,11 +202,8 @@ namespace ManagedCorDebug
 
         public IntPtr StartEnumMethodDefinitions()
         {
-            HRESULT hr;
             IntPtr handle;
-
-            if ((hr = TryStartEnumMethodDefinitions(out handle)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStartEnumMethodDefinitions(out handle).ThrowOnNotOK();
 
             return handle;
         }
@@ -248,11 +220,8 @@ namespace ManagedCorDebug
 
         public XCLRDataMethodDefinition EnumMethodDefinition(ref IntPtr handle)
         {
-            HRESULT hr;
             XCLRDataMethodDefinition methodDefinitionResult;
-
-            if ((hr = TryEnumMethodDefinition(ref handle, out methodDefinitionResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumMethodDefinition(ref handle, out methodDefinitionResult).ThrowOnNotOK();
 
             return methodDefinitionResult;
         }
@@ -278,10 +247,7 @@ namespace ManagedCorDebug
 
         public void EndEnumMethodDefinitions(IntPtr handle)
         {
-            HRESULT hr;
-
-            if ((hr = TryEndEnumMethodDefinitions(handle)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEndEnumMethodDefinitions(handle).ThrowOnNotOK();
         }
 
         public HRESULT TryEndEnumMethodDefinitions(IntPtr handle)
@@ -296,11 +262,8 @@ namespace ManagedCorDebug
 
         public IntPtr StartEnumMethodDefinitionsByName(string name, int flags)
         {
-            HRESULT hr;
             IntPtr handle;
-
-            if ((hr = TryStartEnumMethodDefinitionsByName(name, flags, out handle)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStartEnumMethodDefinitionsByName(name, flags, out handle).ThrowOnNotOK();
 
             return handle;
         }
@@ -319,11 +282,8 @@ namespace ManagedCorDebug
 
         public XCLRDataMethodDefinition EnumMethodDefinitionByName(ref IntPtr handle)
         {
-            HRESULT hr;
             XCLRDataMethodDefinition methodResult;
-
-            if ((hr = TryEnumMethodDefinitionByName(ref handle, out methodResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumMethodDefinitionByName(ref handle, out methodResult).ThrowOnNotOK();
 
             return methodResult;
         }
@@ -349,10 +309,7 @@ namespace ManagedCorDebug
 
         public void EndEnumMethodDefinitionsByName(IntPtr handle)
         {
-            HRESULT hr;
-
-            if ((hr = TryEndEnumMethodDefinitionsByName(handle)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEndEnumMethodDefinitionsByName(handle).ThrowOnNotOK();
         }
 
         public HRESULT TryEndEnumMethodDefinitionsByName(IntPtr handle)
@@ -367,11 +324,8 @@ namespace ManagedCorDebug
 
         public XCLRDataMethodDefinition GetMethodDefinitionByToken(mdMethodDef token)
         {
-            HRESULT hr;
             XCLRDataMethodDefinition methodDefinitionResult;
-
-            if ((hr = TryGetMethodDefinitionByToken(token, out methodDefinitionResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodDefinitionByToken(token, out methodDefinitionResult).ThrowOnNotOK();
 
             return methodDefinitionResult;
         }
@@ -397,11 +351,8 @@ namespace ManagedCorDebug
 
         public IntPtr StartEnumInstances(IXCLRDataAppDomain appDomain)
         {
-            HRESULT hr;
             IntPtr handle;
-
-            if ((hr = TryStartEnumInstances(appDomain, out handle)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStartEnumInstances(appDomain, out handle).ThrowOnNotOK();
 
             return handle;
         }
@@ -419,11 +370,8 @@ namespace ManagedCorDebug
 
         public XCLRDataTypeInstance EnumInstance(ref IntPtr handle)
         {
-            HRESULT hr;
             XCLRDataTypeInstance instanceResult;
-
-            if ((hr = TryEnumInstance(ref handle, out instanceResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumInstance(ref handle, out instanceResult).ThrowOnNotOK();
 
             return instanceResult;
         }
@@ -449,10 +397,7 @@ namespace ManagedCorDebug
 
         public void EndEnumInstances(IntPtr handle)
         {
-            HRESULT hr;
-
-            if ((hr = TryEndEnumInstances(handle)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEndEnumInstances(handle).ThrowOnNotOK();
         }
 
         public HRESULT TryEndEnumInstances(IntPtr handle)
@@ -467,11 +412,8 @@ namespace ManagedCorDebug
 
         public string GetName(int flags)
         {
-            HRESULT hr;
             string nameBufResult;
-
-            if ((hr = TryGetName(flags, out nameBufResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetName(flags, out nameBufResult).ThrowOnNotOK();
 
             return nameBufResult;
         }
@@ -513,10 +455,8 @@ namespace ManagedCorDebug
 
         public bool IsSameObject(IXCLRDataTypeDefinition type)
         {
-            HRESULT hr;
-
-            if ((hr = TryIsSameObject(type)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            HRESULT hr = TryIsSameObject(type);
+            hr.ThrowOnNotOK();
 
             return hr == HRESULT.S_OK;
         }
@@ -533,10 +473,7 @@ namespace ManagedCorDebug
 
         public void Request(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
-            HRESULT hr;
-
-            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, outBuffer)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, outBuffer).ThrowOnNotOK();
         }
 
         public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
@@ -555,11 +492,8 @@ namespace ManagedCorDebug
 
         public int GetNumFields(int flags)
         {
-            HRESULT hr;
             int numFields;
-
-            if ((hr = TryGetNumFields(flags, out numFields)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetNumFields(flags, out numFields).ThrowOnNotOK();
 
             return numFields;
         }
@@ -577,11 +511,8 @@ namespace ManagedCorDebug
 
         public IntPtr StartEnumFields(int flags)
         {
-            HRESULT hr;
             IntPtr handle;
-
-            if ((hr = TryStartEnumFields(flags, out handle)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStartEnumFields(flags, out handle).ThrowOnNotOK();
 
             return handle;
         }
@@ -599,11 +530,8 @@ namespace ManagedCorDebug
 
         public EnumFieldResult EnumField(ref IntPtr handle)
         {
-            HRESULT hr;
             EnumFieldResult result;
-
-            if ((hr = TryEnumField(ref handle, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumField(ref handle, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -651,10 +579,7 @@ namespace ManagedCorDebug
 
         public void EndEnumFields(IntPtr handle)
         {
-            HRESULT hr;
-
-            if ((hr = TryEndEnumFields(handle)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEndEnumFields(handle).ThrowOnNotOK();
         }
 
         public HRESULT TryEndEnumFields(IntPtr handle)
@@ -669,11 +594,8 @@ namespace ManagedCorDebug
 
         public IntPtr StartEnumFieldsByName(string name, int nameFlags, int fieldFlags)
         {
-            HRESULT hr;
             IntPtr handle;
-
-            if ((hr = TryStartEnumFieldsByName(name, nameFlags, fieldFlags, out handle)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStartEnumFieldsByName(name, nameFlags, fieldFlags, out handle).ThrowOnNotOK();
 
             return handle;
         }
@@ -693,11 +615,8 @@ namespace ManagedCorDebug
 
         public EnumFieldByNameResult EnumFieldByName(ref IntPtr handle)
         {
-            HRESULT hr;
             EnumFieldByNameResult result;
-
-            if ((hr = TryEnumFieldByName(ref handle, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumFieldByName(ref handle, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -727,10 +646,7 @@ namespace ManagedCorDebug
 
         public void EndEnumFieldsByName(IntPtr handle)
         {
-            HRESULT hr;
-
-            if ((hr = TryEndEnumFieldsByName(handle)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEndEnumFieldsByName(handle).ThrowOnNotOK();
         }
 
         public HRESULT TryEndEnumFieldsByName(IntPtr handle)
@@ -745,11 +661,8 @@ namespace ManagedCorDebug
 
         public GetFieldByTokenResult GetFieldByToken(mdFieldDef token)
         {
-            HRESULT hr;
             GetFieldByTokenResult result;
-
-            if ((hr = TryGetFieldByToken(token, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetFieldByToken(token, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -795,11 +708,8 @@ namespace ManagedCorDebug
 
         public EnumField2Result EnumField2(ref IntPtr handle)
         {
-            HRESULT hr;
             EnumField2Result result;
-
-            if ((hr = TryEnumField2(ref handle, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumField2(ref handle, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -849,11 +759,8 @@ namespace ManagedCorDebug
 
         public EnumFieldByName2Result EnumFieldByName2(ref IntPtr handle)
         {
-            HRESULT hr;
             EnumFieldByName2Result result;
-
-            if ((hr = TryEnumFieldByName2(ref handle, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumFieldByName2(ref handle, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -885,11 +792,8 @@ namespace ManagedCorDebug
 
         public GetFieldByToken2Result GetFieldByToken2(IXCLRDataModule tokenScope, mdFieldDef token)
         {
-            HRESULT hr;
             GetFieldByToken2Result result;
-
-            if ((hr = TryGetFieldByToken2(tokenScope, token, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetFieldByToken2(tokenScope, token, out result).ThrowOnNotOK();
 
             return result;
         }

@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -34,11 +33,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugModule pModuleResult;
-
-                if ((hr = TryGetModule(out pModuleResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetModule(out pModuleResult).ThrowOnNotOK();
 
                 return pModuleResult;
             }
@@ -72,11 +68,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 mdTypeDef pTypeDef;
-
-                if ((hr = TryGetToken(out pTypeDef)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetToken(out pTypeDef).ThrowOnNotOK();
 
                 return pTypeDef;
             }
@@ -109,11 +102,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugValue GetStaticFieldValue(int fieldDef, ICorDebugFrame pFrame)
         {
-            HRESULT hr;
             CorDebugValue ppValueResult;
-
-            if ((hr = TryGetStaticFieldValue(fieldDef, pFrame, out ppValueResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetStaticFieldValue(fieldDef, pFrame, out ppValueResult).ThrowOnNotOK();
 
             return ppValueResult;
         }
@@ -171,11 +161,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugType GetParameterizedType(CorElementType elementType, int nTypeArgs, ICorDebugType ppTypeArgs)
         {
-            HRESULT hr;
             CorDebugType ppTypeResult;
-
-            if ((hr = TryGetParameterizedType(elementType, nTypeArgs, ppTypeArgs, out ppTypeResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetParameterizedType(elementType, nTypeArgs, ppTypeArgs, out ppTypeResult).ThrowOnNotOK();
 
             return ppTypeResult;
         }
@@ -228,10 +215,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetJMCStatus(int bIsJustMyCode)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetJMCStatus(bIsJustMyCode)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetJMCStatus(bIsJustMyCode).ThrowOnNotOK();
         }
 
         /// <summary>

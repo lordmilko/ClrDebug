@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 
@@ -32,11 +31,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string szBufferResult;
-
-                if ((hr = TryGetCORSystemDirectory(out szBufferResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCORSystemDirectory(out szBufferResult).ThrowOnNotOK();
 
                 return szBufferResult;
             }
@@ -92,10 +88,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetOption(Guid optionId, object pValue)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetOption(optionId, pValue)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetOption(optionId, pValue).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -127,11 +120,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public object GetOption(Guid optionId)
         {
-            HRESULT hr;
             object pValue = default(object);
-
-            if ((hr = TryGetOption(optionId, ref pValue)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetOption(optionId, ref pValue).ThrowOnNotOK();
 
             return pValue;
         }
@@ -163,11 +153,8 @@ namespace ManagedCorDebug
         /// <returns>[out] Pointer to a pointer to the returned interface.</returns>
         public object OpenScopeOnITypeInfo(ITypeInfo pITI, int dwOpenFlags, Guid riid)
         {
-            HRESULT hr;
             object ppIUnk;
-
-            if ((hr = TryOpenScopeOnITypeInfo(pITI, dwOpenFlags, riid, out ppIUnk)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOpenScopeOnITypeInfo(pITI, dwOpenFlags, riid, out ppIUnk).ThrowOnNotOK();
 
             return ppIUnk;
         }
@@ -203,11 +190,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The simple name of the assembly.</returns>
         public string FindAssembly(string szAppBase, string szPrivateBin, string szGlobalBin, string szAssemblyName)
         {
-            HRESULT hr;
             string szNameResult;
-
-            if ((hr = TryFindAssembly(szAppBase, szPrivateBin, szGlobalBin, szAssemblyName, out szNameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryFindAssembly(szAppBase, szPrivateBin, szGlobalBin, szAssemblyName, out szNameResult).ThrowOnNotOK();
 
             return szNameResult;
         }
@@ -269,11 +253,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The simple name of the assembly.</returns>
         public string FindAssemblyModule(string szAppBase, string szPrivateBin, string szGlobalBin, string szAssemblyName, string szModuleName)
         {
-            HRESULT hr;
             string szNameResult;
-
-            if ((hr = TryFindAssemblyModule(szAppBase, szPrivateBin, szGlobalBin, szAssemblyName, szModuleName, out szNameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryFindAssemblyModule(szAppBase, szPrivateBin, szGlobalBin, szAssemblyName, szModuleName, out szNameResult).ThrowOnNotOK();
 
             return szNameResult;
         }

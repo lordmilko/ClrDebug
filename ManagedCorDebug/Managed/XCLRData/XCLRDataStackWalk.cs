@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -20,11 +19,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 long stackSizeSkipped;
-
-                if ((hr = TryGetStackSizeSkipped(out stackSizeSkipped)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetStackSizeSkipped(out stackSizeSkipped).ThrowOnNotOK();
 
                 return stackSizeSkipped;
             }
@@ -44,11 +40,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 GetFrameTypeResult result;
-
-                if ((hr = TryGetFrameType(out result)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetFrameType(out result).ThrowOnNotOK();
 
                 return result;
             }
@@ -78,11 +71,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 XCLRDataFrame frameResult;
-
-                if ((hr = TryGetFrame(out frameResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetFrame(out frameResult).ThrowOnNotOK();
 
                 return frameResult;
             }
@@ -108,11 +98,8 @@ namespace ManagedCorDebug
 
         public int GetContext(int contextFlags, int contextBufSize, IntPtr contextBuf)
         {
-            HRESULT hr;
             int contextSize;
-
-            if ((hr = TryGetContext(contextFlags, contextBufSize, out contextSize, contextBuf)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetContext(contextFlags, contextBufSize, out contextSize, contextBuf).ThrowOnNotOK();
 
             return contextSize;
         }
@@ -132,10 +119,7 @@ namespace ManagedCorDebug
 
         public void SetContext(int contextSize, IntPtr context)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetContext(contextSize, context)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetContext(contextSize, context).ThrowOnNotOK();
         }
 
         public HRESULT TrySetContext(int contextSize, IntPtr context)
@@ -151,10 +135,7 @@ namespace ManagedCorDebug
 
         public void Next()
         {
-            HRESULT hr;
-
-            if ((hr = TryNext()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryNext().ThrowOnNotOK();
         }
 
         public HRESULT TryNext()
@@ -168,10 +149,7 @@ namespace ManagedCorDebug
 
         public void Request(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
-            HRESULT hr;
-
-            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, outBuffer)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, outBuffer).ThrowOnNotOK();
         }
 
         public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
@@ -190,10 +168,7 @@ namespace ManagedCorDebug
 
         public void SetContext2(int flags, int contextSize, IntPtr context)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetContext2(flags, contextSize, context)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetContext2(flags, contextSize, context).ThrowOnNotOK();
         }
 
         public HRESULT TrySetContext2(int flags, int contextSize, IntPtr context)

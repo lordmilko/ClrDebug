@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using Microsoft.Win32;
 
 namespace ManagedCorDebug
@@ -17,7 +16,7 @@ namespace ManagedCorDebug
     /// function enables clients to get a specific implementation of <see cref="ICorDebug"/>, which also emulates a specific version
     /// of the debugging API.
     /// </remarks>
-    public class CorDebug : ComObject<ICorDebug>
+    public partial class CorDebug : ComObject<ICorDebug>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CorDebug"/> class.
@@ -39,10 +38,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Initialize()
         {
-            HRESULT hr;
-
-            if ((hr = TryInitialize()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryInitialize().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -69,10 +65,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Terminate()
         {
-            HRESULT hr;
-
-            if ((hr = TryTerminate()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryTerminate().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -101,10 +94,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetManagedHandler(ICorDebugManagedCallback pCallback)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetManagedHandler(pCallback)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetManagedHandler(pCallback).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -139,10 +129,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetUnmanagedHandler(ICorDebugUnmanagedCallback pCallback)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetUnmanagedHandler(pCallback)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetUnmanagedHandler(pCallback).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -196,11 +183,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugProcess CreateProcess(string lpApplicationName, string lpCommandLine, SECURITY_ATTRIBUTES lpProcessAttributes, SECURITY_ATTRIBUTES lpThreadAttributes, int bInheritHandles, CreateProcessFlags dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, STARTUPINFO lpStartupInfo, PROCESS_INFORMATION lpProcessInformation, CorDebugCreateProcessFlags debuggingFlags)
         {
-            HRESULT hr;
             CorDebugProcess ppProcessResult;
-
-            if ((hr = TryCreateProcess(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation, debuggingFlags, out ppProcessResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCreateProcess(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation, debuggingFlags, out ppProcessResult).ThrowOnNotOK();
 
             return ppProcessResult;
         }
@@ -273,11 +257,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugProcess DebugActiveProcess(int id, int win32Attach)
         {
-            HRESULT hr;
             CorDebugProcess ppProcessResult;
-
-            if ((hr = TryDebugActiveProcess(id, win32Attach, out ppProcessResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDebugActiveProcess(id, win32Attach, out ppProcessResult).ThrowOnNotOK();
 
             return ppProcessResult;
         }
@@ -315,11 +296,8 @@ namespace ManagedCorDebug
         /// <returns>A pointer to the address of an <see cref="ICorDebugProcessEnum"/> object that is the enumerator for the processes being debugged.</returns>
         public CorDebugProcessEnum EnumerateProcesses()
         {
-            HRESULT hr;
             CorDebugProcessEnum ppProcessResult;
-
-            if ((hr = TryEnumerateProcesses(out ppProcessResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateProcesses(out ppProcessResult).ThrowOnNotOK();
 
             return ppProcessResult;
         }
@@ -352,11 +330,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the address of a <see cref="ICorDebugProcess"/> instance for the specified process.</returns>
         public CorDebugProcess GetProcess(int dwProcessId)
         {
-            HRESULT hr;
             CorDebugProcess ppProcessResult;
-
-            if ((hr = TryGetProcess(dwProcessId, out ppProcessResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetProcess(dwProcessId, out ppProcessResult).ThrowOnNotOK();
 
             return ppProcessResult;
         }
@@ -396,10 +371,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void CanLaunchOrAttach(int dwProcessId, int win32DebuggingEnabled)
         {
-            HRESULT hr;
-
-            if ((hr = TryCanLaunchOrAttach(dwProcessId, win32DebuggingEnabled)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCanLaunchOrAttach(dwProcessId, win32DebuggingEnabled).ThrowOnNotOK();
         }
 
         /// <summary>

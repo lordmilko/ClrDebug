@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -34,11 +33,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public IntPtr ProvideLibrary(string pwszFileName, int dwTimestamp, int dwSizeOfImage)
         {
-            HRESULT hr;
             IntPtr phModule;
-
-            if ((hr = TryProvideLibrary(pwszFileName, dwTimestamp, dwSizeOfImage, out phModule)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryProvideLibrary(pwszFileName, dwTimestamp, dwSizeOfImage, out phModule).ThrowOnNotOK();
 
             return phModule;
         }

@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -27,11 +26,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugProcess ppProcessResult;
-
-                if ((hr = TryGetProcess(out ppProcessResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetProcess(out ppProcessResult).ThrowOnNotOK();
 
                 return ppProcessResult;
             }
@@ -65,11 +61,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugAppDomain ppAppDomainResult;
-
-                if ((hr = TryGetAppDomain(out ppAppDomainResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetAppDomain(out ppAppDomainResult).ThrowOnNotOK();
 
                 return ppAppDomainResult;
             }
@@ -106,11 +99,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string szNameResult;
-
-                if ((hr = TryGetCodeBase(out szNameResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCodeBase(out szNameResult).ThrowOnNotOK();
 
                 return szNameResult;
             }
@@ -157,11 +147,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string szNameResult;
-
-                if ((hr = TryGetName(out szNameResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetName(out szNameResult).ThrowOnNotOK();
 
                 return szNameResult;
             }
@@ -211,11 +198,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the address of the <see cref="ICorDebugModuleEnum"/> interface that is the enumerator.</returns>
         public CorDebugModuleEnum EnumerateModules()
         {
-            HRESULT hr;
             CorDebugModuleEnum ppModulesResult;
-
-            if ((hr = TryEnumerateModules(out ppModulesResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateModules(out ppModulesResult).ThrowOnNotOK();
 
             return ppModulesResult;
         }
@@ -254,11 +238,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 bool pbFullyTrustedResult;
-
-                if ((hr = TryIsFullyTrusted(out pbFullyTrustedResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryIsFullyTrusted(out pbFullyTrustedResult).ThrowOnNotOK();
 
                 return pbFullyTrustedResult;
             }
@@ -302,11 +283,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugAssembly ppAssemblyResult;
-
-                if ((hr = TryGetContainerAssembly(out ppAssemblyResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetContainerAssembly(out ppAssemblyResult).ThrowOnNotOK();
 
                 return ppAssemblyResult;
             }
@@ -349,11 +327,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugAssemblyEnum EnumerateContainedAssemblies()
         {
-            HRESULT hr;
             CorDebugAssemblyEnum ppAssembliesResult;
-
-            if ((hr = TryEnumerateContainedAssemblies(out ppAssembliesResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateContainedAssemblies(out ppAssembliesResult).ThrowOnNotOK();
 
             return ppAssembliesResult;
         }

@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -21,11 +20,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int flags;
-
-                if ((hr = TryGetFlags(out flags)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetFlags(out flags).ThrowOnNotOK();
 
                 return flags;
             }
@@ -45,11 +41,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 XCLRDataExceptionState exStateResult;
-
-                if ((hr = TryGetPrevious(out exStateResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetPrevious(out exStateResult).ThrowOnNotOK();
 
                 return exStateResult;
             }
@@ -77,11 +70,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 XCLRDataValue valueResult;
-
-                if ((hr = TryGetManagedObject(out valueResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetManagedObject(out valueResult).ThrowOnNotOK();
 
                 return valueResult;
             }
@@ -109,11 +99,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CLRDataBaseExceptionType type;
-
-                if ((hr = TryGetBaseType(out type)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetBaseType(out type).ThrowOnNotOK();
 
                 return type;
             }
@@ -133,11 +120,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int code;
-
-                if ((hr = TryGetCode(out code)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCode(out code).ThrowOnNotOK();
 
                 return code;
             }
@@ -157,11 +141,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string strResult;
-
-                if ((hr = TryGetString(out strResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetString(out strResult).ThrowOnNotOK();
 
                 return strResult;
             }
@@ -205,11 +186,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 XCLRDataTask taskResult;
-
-                if ((hr = TryGetTask(out taskResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetTask(out taskResult).ThrowOnNotOK();
 
                 return taskResult;
             }
@@ -235,10 +213,7 @@ namespace ManagedCorDebug
 
         public void Request(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
-            HRESULT hr;
-
-            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, outBuffer)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, outBuffer).ThrowOnNotOK();
         }
 
         public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
@@ -257,10 +232,8 @@ namespace ManagedCorDebug
 
         public bool IsSameState(EXCEPTION_RECORD64 exRecord, int contextSize, IntPtr cxRecord)
         {
-            HRESULT hr;
-
-            if ((hr = TryIsSameState(exRecord, contextSize, cxRecord)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            HRESULT hr = TryIsSameState(exRecord, contextSize, cxRecord);
+            hr.ThrowOnNotOK();
 
             return hr == HRESULT.S_OK;
         }
@@ -279,10 +252,8 @@ namespace ManagedCorDebug
 
         public bool IsSameState2(int flags, EXCEPTION_RECORD64 exRecord, int contextSize, IntPtr cxRecord)
         {
-            HRESULT hr;
-
-            if ((hr = TryIsSameState2(flags, exRecord, contextSize, cxRecord)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            HRESULT hr = TryIsSameState2(flags, exRecord, contextSize, cxRecord);
+            hr.ThrowOnNotOK();
 
             return hr == HRESULT.S_OK;
         }

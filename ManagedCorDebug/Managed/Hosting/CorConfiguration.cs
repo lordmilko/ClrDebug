@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -28,10 +26,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetGCThreadControl(IGCThreadControl pGCThreadControl)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetGCThreadControl(pGCThreadControl)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetGCThreadControl(pGCThreadControl).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -57,10 +52,7 @@ namespace ManagedCorDebug
         /// <param name="pGCHostControl">[in] A pointer to an <see cref="IGCHostControl"/> object that allows the garbage collector to request the host to change the limits of virtual memory.</param>
         public void SetGCHostControl(IGCHostControl pGCHostControl)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetGCHostControl(pGCHostControl)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetGCHostControl(pGCHostControl).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -82,10 +74,7 @@ namespace ManagedCorDebug
         /// <param name="pDebuggerThreadControl">[in] A pointer to an <see cref="IDebuggerThreadControl"/> object that notifies the host about the blocking and unblocking of threads by the debugging services.</param>
         public void SetDebuggerThreadControl(IDebuggerThreadControl pDebuggerThreadControl)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetDebuggerThreadControl(pDebuggerThreadControl)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetDebuggerThreadControl(pDebuggerThreadControl).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -111,10 +100,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void AddDebuggerSpecialThread(int dwSpecialThreadId)
         {
-            HRESULT hr;
-
-            if ((hr = TryAddDebuggerSpecialThread(dwSpecialThreadId)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryAddDebuggerSpecialThread(dwSpecialThreadId).ThrowOnNotOK();
         }
 
         /// <summary>

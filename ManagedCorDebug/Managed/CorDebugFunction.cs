@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -32,11 +31,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugModule ppModuleResult;
-
-                if ((hr = TryGetModule(out ppModuleResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetModule(out ppModuleResult).ThrowOnNotOK();
 
                 return ppModuleResult;
             }
@@ -70,11 +66,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugClass ppClassResult;
-
-                if ((hr = TryGetClass(out ppClassResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetClass(out ppClassResult).ThrowOnNotOK();
 
                 return ppClassResult;
             }
@@ -108,11 +101,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 mdMethodDef pMethodDef;
-
-                if ((hr = TryGetToken(out pMethodDef)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetToken(out pMethodDef).ThrowOnNotOK();
 
                 return pMethodDef;
             }
@@ -138,11 +128,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugCode ppCodeResult;
-
-                if ((hr = TryGetILCode(out ppCodeResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetILCode(out ppCodeResult).ThrowOnNotOK();
 
                 return ppCodeResult;
             }
@@ -180,11 +167,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugCode ppCodeResult;
-
-                if ((hr = TryGetNativeCode(out ppCodeResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetNativeCode(out ppCodeResult).ThrowOnNotOK();
 
                 return ppCodeResult;
             }
@@ -222,11 +206,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 mdSignature pmdSig;
-
-                if ((hr = TryGetLocalVarSigToken(out pmdSig)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetLocalVarSigToken(out pmdSig).ThrowOnNotOK();
 
                 return pmdSig;
             }
@@ -252,11 +233,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pnCurrentVersion;
-
-                if ((hr = TryGetCurrentVersionNumber(out pnCurrentVersion)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCurrentVersionNumber(out pnCurrentVersion).ThrowOnNotOK();
 
                 return pnCurrentVersion;
             }
@@ -286,11 +264,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugFunctionBreakpoint"/> object that represents the new breakpoint for the function.</returns>
         public CorDebugFunctionBreakpoint CreateBreakpoint()
         {
-            HRESULT hr;
             CorDebugFunctionBreakpoint ppBreakpointResult;
-
-            if ((hr = TryCreateBreakpoint(out ppBreakpointResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCreateBreakpoint(out ppBreakpointResult).ThrowOnNotOK();
 
             return ppBreakpointResult;
         }
@@ -329,20 +304,14 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pbIsJustMyCode;
-
-                if ((hr = TryGetJMCStatus(out pbIsJustMyCode)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetJMCStatus(out pbIsJustMyCode).ThrowOnNotOK();
 
                 return pbIsJustMyCode;
             }
             set
             {
-                HRESULT hr;
-
-                if ((hr = TrySetJMCStatus(value)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TrySetJMCStatus(value).ThrowOnNotOK();
             }
         }
 
@@ -388,11 +357,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pnVersion;
-
-                if ((hr = TryGetVersionNumber(out pnVersion)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetVersionNumber(out pnVersion).ThrowOnNotOK();
 
                 return pnVersion;
             }
@@ -428,11 +394,8 @@ namespace ManagedCorDebug
         /// </summary>
         public CorDebugCodeEnum EnumerateNativeCode()
         {
-            HRESULT hr;
             CorDebugCodeEnum ppCodeEnumResult;
-
-            if ((hr = TryEnumerateNativeCode(out ppCodeEnumResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateNativeCode(out ppCodeEnumResult).ThrowOnNotOK();
 
             return ppCodeEnumResult;
         }
@@ -470,11 +433,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugILCode ppReJitedILCodeResult;
-
-                if ((hr = TryGetActiveReJitRequestILCode(out ppReJitedILCodeResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetActiveReJitRequestILCode(out ppReJitedILCodeResult).ThrowOnNotOK();
 
                 return ppReJitedILCodeResult;
             }

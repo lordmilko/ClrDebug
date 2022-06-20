@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -26,11 +25,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pcchPath;
-
-                if ((hr = TryGetSearchPathLength(out pcchPath)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetSearchPathLength(out pcchPath).ThrowOnNotOK();
 
                 return pcchPath;
             }
@@ -57,11 +53,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string szPathResult;
-
-                if ((hr = TryGetSearchPath(out szPathResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetSearchPath(out szPathResult).ThrowOnNotOK();
 
                 return szPathResult;
             }
@@ -113,11 +106,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 HRESULT phr;
-
-                if ((hr = TryGetHRESULT(out phr)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetHRESULT(out phr).ThrowOnNotOK();
 
                 return phr;
             }

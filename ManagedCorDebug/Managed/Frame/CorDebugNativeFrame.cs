@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -30,20 +29,14 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pnOffset;
-
-                if ((hr = TryGetIP(out pnOffset)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetIP(out pnOffset).ThrowOnNotOK();
 
                 return pnOffset;
             }
             set
             {
-                HRESULT hr;
-
-                if ((hr = TrySetIP(value)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TrySetIP(value).ThrowOnNotOK();
             }
         }
 
@@ -91,11 +84,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugRegisterSet ppRegistersResult;
-
-                if ((hr = TryGetRegisterSet(out ppRegistersResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetRegisterSet(out ppRegistersResult).ThrowOnNotOK();
 
                 return ppRegistersResult;
             }
@@ -134,11 +124,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugValue GetLocalRegisterValue(CorDebugRegister reg, int cbSigBlob, IntPtr pvSigBlob)
         {
-            HRESULT hr;
             CorDebugValue ppValueResult;
-
-            if ((hr = TryGetLocalRegisterValue(reg, cbSigBlob, pvSigBlob, out ppValueResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetLocalRegisterValue(reg, cbSigBlob, pvSigBlob, out ppValueResult).ThrowOnNotOK();
 
             return ppValueResult;
         }
@@ -187,11 +174,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugValue GetLocalDoubleRegisterValue(CorDebugRegister highWordReg, CorDebugRegister lowWordReg, int cbSigBlob, IntPtr pvSigBlob)
         {
-            HRESULT hr;
             CorDebugValue ppValueResult;
-
-            if ((hr = TryGetLocalDoubleRegisterValue(highWordReg, lowWordReg, cbSigBlob, pvSigBlob, out ppValueResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetLocalDoubleRegisterValue(highWordReg, lowWordReg, cbSigBlob, pvSigBlob, out ppValueResult).ThrowOnNotOK();
 
             return ppValueResult;
         }
@@ -238,11 +222,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the address of an "ICorDebugValue" object representing the retrieved value that is stored in the specified memory location.</returns>
         public CorDebugValue GetLocalMemoryValue(CORDB_ADDRESS address, int cbSigBlob, IntPtr pvSigBlob)
         {
-            HRESULT hr;
             CorDebugValue ppValueResult;
-
-            if ((hr = TryGetLocalMemoryValue(address, cbSigBlob, pvSigBlob, out ppValueResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetLocalMemoryValue(address, cbSigBlob, pvSigBlob, out ppValueResult).ThrowOnNotOK();
 
             return ppValueResult;
         }
@@ -285,11 +266,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the address of an "ICorDebugValue" object representing the retrieved value that is stored in the specified register and memory location.</returns>
         public CorDebugValue GetLocalRegisterMemoryValue(CorDebugRegister highWordReg, CORDB_ADDRESS lowWordAddress, int cbSigBlob, IntPtr pvSigBlob)
         {
-            HRESULT hr;
             CorDebugValue ppValueResult;
-
-            if ((hr = TryGetLocalRegisterMemoryValue(highWordReg, lowWordAddress, cbSigBlob, pvSigBlob, out ppValueResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetLocalRegisterMemoryValue(highWordReg, lowWordAddress, cbSigBlob, pvSigBlob, out ppValueResult).ThrowOnNotOK();
 
             return ppValueResult;
         }
@@ -334,11 +312,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the address of an "ICorDebugValue" object representing the retrieved value that is stored in the specified register and memory location.</returns>
         public CorDebugValue GetLocalMemoryRegisterValue(CORDB_ADDRESS highWordAddress, CorDebugRegister lowWordRegister, int cbSigBlob, IntPtr pvSigBlob)
         {
-            HRESULT hr;
             CorDebugValue ppValueResult;
-
-            if ((hr = TryGetLocalMemoryRegisterValue(highWordAddress, lowWordRegister, cbSigBlob, pvSigBlob, out ppValueResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetLocalMemoryRegisterValue(highWordAddress, lowWordRegister, cbSigBlob, pvSigBlob, out ppValueResult).ThrowOnNotOK();
 
             return ppValueResult;
         }
@@ -384,10 +359,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void CanSetIP(int nOffset)
         {
-            HRESULT hr;
-
-            if ((hr = TryCanSetIP(nOffset)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCanSetIP(nOffset).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -421,11 +393,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 bool pIsChildResult;
-
-                if ((hr = TryIsChild(out pIsChildResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryIsChild(out pIsChildResult).ThrowOnNotOK();
 
                 return pIsChildResult;
             }
@@ -472,11 +441,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pSize;
-
-                if ((hr = TryGetStackParameterSize(out pSize)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetStackParameterSize(out pSize).ThrowOnNotOK();
 
                 return pSize;
             }
@@ -522,11 +488,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int IsMatchingParentFrame(ICorDebugNativeFrame2 pPotentialParentFrame)
         {
-            HRESULT hr;
             int pIsParent;
-
-            if ((hr = TryIsMatchingParentFrame(pPotentialParentFrame, out pIsParent)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryIsMatchingParentFrame(pPotentialParentFrame, out pIsParent).ThrowOnNotOK();
 
             return pIsParent;
         }

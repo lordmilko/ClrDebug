@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -34,20 +33,14 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 IntPtr pTo;
-
-                if ((hr = TryGetValue(out pTo)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetValue(out pTo).ThrowOnNotOK();
 
                 return pTo;
             }
             set
             {
-                HRESULT hr;
-
-                if ((hr = TrySetValue(value)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TrySetValue(value).ThrowOnNotOK();
             }
         }
 

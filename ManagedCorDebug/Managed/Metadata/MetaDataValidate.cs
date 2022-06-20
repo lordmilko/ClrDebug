@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -25,10 +23,7 @@ namespace ManagedCorDebug
         /// <param name="pUnk">[in] A pointer to an IUnknown instance that serves as a function callback for validation errors.</param>
         public void ValidatorInit(int dwModuleType, object pUnk)
         {
-            HRESULT hr;
-
-            if ((hr = TryValidatorInit(dwModuleType, pUnk)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryValidatorInit(dwModuleType, pUnk).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -50,10 +45,7 @@ namespace ManagedCorDebug
         /// </summary>
         public void ValidateMetaData()
         {
-            HRESULT hr;
-
-            if ((hr = TryValidateMetaData()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryValidateMetaData().ThrowOnNotOK();
         }
 
         /// <summary>

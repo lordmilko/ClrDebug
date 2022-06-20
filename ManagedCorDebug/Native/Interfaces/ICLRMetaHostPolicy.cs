@@ -25,6 +25,20 @@ namespace ManagedCorDebug
         /// This method does not actually load or activate the CLR, but simply returns the <see cref="ICLRRuntimeInfo"/> interface that represents the policy result.<para/>
         /// This method supersedes the GetRequestedRuntimeInfo, GetRequestedRuntimeVersion, CorBindToRuntimeHost, CorBindToRuntimeByCfg, and GetCORRequiredVersion methods.
         /// </summary>
+        /// <param name="dwPolicyFlags">[in] Required. Specifies a member of the <see cref="METAHOST_POLICY_FLAGS"/> enumeration, representing a binding policy,
+        /// and any number of modifiers. The only policy that is currently available is <see cref="METAHOST_POLICY_FLAGS.HIGHCOMPAT"/>.</param>
+        /// <param name="pwzBinary">[in] Optional. Specifies the assembly file path.</param>
+        /// <param name="pCfgStream">[in] Optional. Specifies the configuration file as a <see cref="IStream"/>.</param>
+        /// <param name="pwzVersion">[in, out] Optional. Specifies or returns the preferred CLR version to be loaded.</param>
+        /// <param name="pcchVersion">	[in, out] Required. Specifies the expected size of pwzVersion as input, to avoid buffer overruns.<para/>
+        /// If pwzVersion is null, pcchVersion contains the expected size of pwzVersion when GetRequestedRuntime returns, to allow pre-allocation; otherwise, pcchVersion contains the number of characters written to pwzVersion.</param>
+        /// <param name="pwzImageVersion">[out] Optional. When GetRequestedRuntime returns, contains the CLR version corresponding to the <see cref="ICLRRuntimeInfo"/> interface that is returned.</param>
+        /// <param name="pcchImageVersion">	[in, out] Optional. Specifies the size of pwzImageVersion as input to avoid buffer overruns. If pwzImageVersion is null, pcchImageVersion contains the required size of pwzImageVersion when GetRequestedRuntime returns, to allow pre-allocation.</param>
+        /// <param name="pdwConfigFlags">	[out] Optional. If GetRequestedRuntime uses a configuration file during the binding process, when it returns, pdwConfigFlags contains
+        /// a <see cref="METAHOST_CONFIG_FLAGS"/> value that indicates whether the &lt;startup&gt; element has the useLegacyV2RuntimeActivationPolicy attribute set, and the value of the attribute.<para/>
+        /// Apply the <see cref="METAHOST_CONFIG_FLAGS.LEGACY_V2_ACTIVATION_POLICY_MASK"/> mask to pdwConfigFlags to get the values relevant to useLegacyV2RuntimeActivationPolicy.</param>
+        /// <param name="riid">Specifies the interface identifier IID_ICLRRuntimeInfo for the requested ICLRRuntimeInfo interface.</param>
+        /// <param name="ppRuntime">[out] When GetRequestedRuntime returns, contains a pointer to the corresponding ICLRRuntimeInfo interface.</param>
         /// <returns>
         /// This method returns the following specific HRESULTs as well as HRESULT errors that indicate method failure.
         /// 
@@ -47,16 +61,13 @@ namespace ManagedCorDebug
         HRESULT GetRequestedRuntime(
             [In] METAHOST_POLICY_FLAGS dwPolicyFlags,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzBinary,
-            [MarshalAs(UnmanagedType.Interface), In]
-            IStream pCfgStream,
-            [MarshalAs(UnmanagedType.LPWStr), In] [Out]
-            StringBuilder pwzVersion,
-            [In] [Out] ref int pcchVersion,
-            [MarshalAs(UnmanagedType.LPWStr), Out]
-            StringBuilder pwzImageVersion,
-            [In] [Out] ref int pcchImageVersion,
+            [MarshalAs(UnmanagedType.Interface), In] IStream pCfgStream,
+            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder pwzVersion,
+            [In, Out] ref int pcchVersion,
+            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder pwzImageVersion,
+            [In, Out] ref int pcchImageVersion,
             [Out] out METAHOST_CONFIG_FLAGS pdwConfigFlags,
             [In] ref Guid riid,
-            [Out] out object ppRuntime);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppRuntime);
     }
 }

@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -31,11 +30,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 bool pbILResult;
-
-                if ((hr = TryIsIL(out pbILResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryIsIL(out pbILResult).ThrowOnNotOK();
 
                 return pbILResult;
             }
@@ -69,11 +65,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugFunction ppFunctionResult;
-
-                if ((hr = TryGetFunction(out ppFunctionResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetFunction(out ppFunctionResult).ThrowOnNotOK();
 
                 return ppFunctionResult;
             }
@@ -110,11 +103,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CORDB_ADDRESS pStart;
-
-                if ((hr = TryGetAddress(out pStart)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetAddress(out pStart).ThrowOnNotOK();
 
                 return pStart;
             }
@@ -140,11 +130,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pcBytes;
-
-                if ((hr = TryGetSize(out pcBytes)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetSize(out pcBytes).ThrowOnNotOK();
 
                 return pcBytes;
             }
@@ -170,11 +157,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int nVersion;
-
-                if ((hr = TryGetVersionNumber(out nVersion)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetVersionNumber(out nVersion).ThrowOnNotOK();
 
                 return nVersion;
             }
@@ -203,11 +187,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 COR_DEBUG_IL_TO_NATIVE_MAP[] mapResult;
-
-                if ((hr = TryGetILToNativeMapping(out mapResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetILToNativeMapping(out mapResult).ThrowOnNotOK();
 
                 return mapResult;
             }
@@ -261,11 +242,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int[] offsetsResult;
-
-                if ((hr = TryGetEnCRemapSequencePoints(out offsetsResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetEnCRemapSequencePoints(out offsetsResult).ThrowOnNotOK();
 
                 return offsetsResult;
             }
@@ -320,11 +298,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugFunctionBreakpoint CreateBreakpoint(int offset)
         {
-            HRESULT hr;
             CorDebugFunctionBreakpoint ppBreakpointResult;
-
-            if ((hr = TryCreateBreakpoint(offset, out ppBreakpointResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCreateBreakpoint(offset, out ppBreakpointResult).ThrowOnNotOK();
 
             return ppBreakpointResult;
         }
@@ -370,11 +345,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public byte[] GetCode(int startOffset, int endOffset)
         {
-            HRESULT hr;
             byte[] bufferResult;
-
-            if ((hr = TryGetCode(startOffset, endOffset, out bufferResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetCode(startOffset, endOffset, out bufferResult).ThrowOnNotOK();
 
             return bufferResult;
         }
@@ -439,11 +411,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CodeChunkInfo[] chunksResult;
-
-                if ((hr = TryGetCodeChunks(out chunksResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCodeChunks(out chunksResult).ThrowOnNotOK();
 
                 return chunksResult;
             }
@@ -496,11 +465,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugJITCompilerFlags pdwFlags;
-
-                if ((hr = TryGetCompilerFlags(out pdwFlags)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCompilerFlags(out pdwFlags).ThrowOnNotOK();
 
                 return pdwFlags;
             }
@@ -542,11 +508,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public GetReturnValueLiveOffsetResult GetReturnValueLiveOffset(int ilOffset, int bufferSize)
         {
-            HRESULT hr;
             GetReturnValueLiveOffsetResult result;
-
-            if ((hr = TryGetReturnValueLiveOffset(ilOffset, bufferSize, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetReturnValueLiveOffset(ilOffset, bufferSize, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -606,11 +569,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugVariableHomeEnum EnumerateVariableHomes()
         {
-            HRESULT hr;
             CorDebugVariableHomeEnum ppEnumResult;
-
-            if ((hr = TryEnumerateVariableHomes(out ppEnumResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateVariableHomes(out ppEnumResult).ThrowOnNotOK();
 
             return ppEnumResult;
         }

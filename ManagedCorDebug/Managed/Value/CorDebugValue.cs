@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -56,11 +55,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorElementType pType;
-
-                if ((hr = TryGetType(out pType)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetType(out pType).ThrowOnNotOK();
 
                 return pType;
             }
@@ -92,11 +88,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pSize;
-
-                if ((hr = TryGetSize(out pSize)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetSize(out pSize).ThrowOnNotOK();
 
                 return pSize;
             }
@@ -127,11 +120,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CORDB_ADDRESS pAddress;
-
-                if ((hr = TryGetAddress(out pAddress)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetAddress(out pAddress).ThrowOnNotOK();
 
                 return pAddress;
             }
@@ -159,11 +149,8 @@ namespace ManagedCorDebug
         /// </summary>
         public CorDebugValueBreakpoint CreateBreakpoint()
         {
-            HRESULT hr;
             CorDebugValueBreakpoint ppBreakpointResult;
-
-            if ((hr = TryCreateBreakpoint(out ppBreakpointResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCreateBreakpoint(out ppBreakpointResult).ThrowOnNotOK();
 
             return ppBreakpointResult;
         }
@@ -201,11 +188,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugType ppTypeResult;
-
-                if ((hr = TryGetExactType(out ppTypeResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetExactType(out ppTypeResult).ThrowOnNotOK();
 
                 return ppTypeResult;
             }
@@ -250,11 +234,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 long pSize;
-
-                if ((hr = TryGetSize64(out pSize)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetSize64(out pSize).ThrowOnNotOK();
 
                 return pSize;
             }

@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -26,11 +25,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string szNameResult;
-
-                if ((hr = TryGetName(out szNameResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetName(out szNameResult).ThrowOnNotOK();
 
                 return szNameResult;
             }
@@ -79,11 +75,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 ISymUnmanagedNamespace[] namespacesResult;
-
-                if ((hr = TryGetNamespaces(out namespacesResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetNamespaces(out namespacesResult).ThrowOnNotOK();
 
                 return namespacesResult;
             }
@@ -132,11 +125,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 ISymUnmanagedVariable[] pVarsResult;
-
-                if ((hr = TryGetVariables(out pVarsResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetVariables(out pVarsResult).ThrowOnNotOK();
 
                 return pVarsResult;
             }

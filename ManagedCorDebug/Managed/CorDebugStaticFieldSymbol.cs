@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -29,11 +28,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string szNameResult;
-
-                if ((hr = TryGetName(out szNameResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetName(out szNameResult).ThrowOnNotOK();
 
                 return szNameResult;
             }
@@ -81,11 +77,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pcbSize;
-
-                if ((hr = TryGetSize(out pcbSize)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetSize(out pcbSize).ThrowOnNotOK();
 
                 return pcbSize;
             }
@@ -111,11 +104,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 long pRVA;
-
-                if ((hr = TryGetAddress(out pRVA)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetAddress(out pRVA).ThrowOnNotOK();
 
                 return pRVA;
             }

@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -31,11 +30,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 IMAGE_FILE_MACHINE machineType;
-
-                if ((hr = TryGetMachineType(out machineType)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetMachineType(out machineType).ThrowOnNotOK();
 
                 return machineType;
             }
@@ -61,11 +57,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pointerSize;
-
-                if ((hr = TryGetPointerSize(out pointerSize)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetPointerSize(out pointerSize).ThrowOnNotOK();
 
                 return pointerSize;
             }
@@ -94,11 +87,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int threadID;
-
-                if ((hr = TryGetCurrentThreadID(out threadID)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCurrentThreadID(out threadID).ThrowOnNotOK();
 
                 return threadID;
             }
@@ -131,11 +121,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CLRDATA_ADDRESS GetImageBase(string imagePath)
         {
-            HRESULT hr;
             CLRDATA_ADDRESS baseAddress;
-
-            if ((hr = TryGetImageBase(imagePath, out baseAddress)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetImageBase(imagePath, out baseAddress).ThrowOnNotOK();
 
             return baseAddress;
         }
@@ -167,11 +154,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the number of bytes returned.</returns>
         public int ReadVirtual(CLRDATA_ADDRESS address, IntPtr buffer, int bytesRequested)
         {
-            HRESULT hr;
             int bytesRead;
-
-            if ((hr = TryReadVirtual(address, buffer, bytesRequested, out bytesRead)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryReadVirtual(address, buffer, bytesRequested, out bytesRead).ThrowOnNotOK();
 
             return bytesRead;
         }
@@ -201,11 +185,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the actual number of bytes that were written.</returns>
         public int WriteVirtual(CLRDATA_ADDRESS address, IntPtr buffer, int bytesRequested)
         {
-            HRESULT hr;
             int bytesWritten;
-
-            if ((hr = TryWriteVirtual(address, buffer, bytesRequested, out bytesWritten)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteVirtual(address, buffer, bytesRequested, out bytesWritten).ThrowOnNotOK();
 
             return bytesWritten;
         }
@@ -237,11 +218,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CLRDATA_ADDRESS GetTLSValue(int threadID, int index)
         {
-            HRESULT hr;
             CLRDATA_ADDRESS value;
-
-            if ((hr = TryGetTLSValue(threadID, index, out value)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetTLSValue(threadID, index, out value).ThrowOnNotOK();
 
             return value;
         }
@@ -275,10 +253,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetTLSValue(int threadID, int index, CLRDATA_ADDRESS value)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetTLSValue(threadID, index, value)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetTLSValue(threadID, index, value).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -313,10 +288,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void GetThreadContext(int threadID, int contextFlags, int contextSize, IntPtr context)
         {
-            HRESULT hr;
-
-            if ((hr = TryGetThreadContext(threadID, contextFlags, contextSize, context)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetThreadContext(threadID, contextFlags, contextSize, context).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -353,10 +325,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetThreadContext(int threadID, int contextSize, IntPtr context)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetThreadContext(threadID, contextSize, context)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetThreadContext(threadID, contextSize, context).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -394,10 +363,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Request(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
-            HRESULT hr;
-
-            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, outBuffer)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, outBuffer).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -447,11 +413,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CLRDATA_ADDRESS AllocVirtual(CLRDATA_ADDRESS addr, int size, int typeFlags, int protectFlags)
         {
-            HRESULT hr;
             CLRDATA_ADDRESS virt;
-
-            if ((hr = TryAllocVirtual(addr, size, typeFlags, protectFlags, out virt)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryAllocVirtual(addr, size, typeFlags, protectFlags, out virt).ThrowOnNotOK();
 
             return virt;
         }
@@ -489,10 +452,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void FreeVirtual(CLRDATA_ADDRESS addr, int size, int typeFlags)
         {
-            HRESULT hr;
-
-            if ((hr = TryFreeVirtual(addr, size, typeFlags)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryFreeVirtual(addr, size, typeFlags).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -527,11 +487,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int threadID;
-
-                if ((hr = TryGetExceptionThreadID(out threadID)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetExceptionThreadID(out threadID).ThrowOnNotOK();
 
                 return threadID;
             }
@@ -574,11 +531,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int GetExceptionRecord(int bufferSize, IntPtr buffer)
         {
-            HRESULT hr;
             int bufferUsed;
-
-            if ((hr = TryGetExceptionRecord(bufferSize, out bufferUsed, buffer)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetExceptionRecord(bufferSize, out bufferUsed, buffer).ThrowOnNotOK();
 
             return bufferUsed;
         }
@@ -625,11 +579,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int GetExceptionContextRecord(int bufferSize, IntPtr buffer)
         {
-            HRESULT hr;
             int bufferUsed;
-
-            if ((hr = TryGetExceptionContextRecord(bufferSize, out bufferUsed, buffer)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetExceptionContextRecord(bufferSize, out bufferUsed, buffer).ThrowOnNotOK();
 
             return bufferUsed;
         }

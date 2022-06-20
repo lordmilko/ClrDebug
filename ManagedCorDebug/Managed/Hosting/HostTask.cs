@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace ManagedCorDebug
@@ -30,20 +29,14 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pPriority;
-
-                if ((hr = TryGetPriority(out pPriority)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetPriority(out pPriority).ThrowOnNotOK();
 
                 return pPriority;
             }
             set
             {
-                HRESULT hr;
-
-                if ((hr = TrySetPriority(value)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TrySetPriority(value).ThrowOnNotOK();
             }
         }
 
@@ -109,10 +102,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Start()
         {
-            HRESULT hr;
-
-            if ((hr = TryStart()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStart().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -147,10 +137,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Alert()
         {
-            HRESULT hr;
-
-            if ((hr = TryAlert()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryAlert().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -188,10 +175,7 @@ namespace ManagedCorDebug
         /// <param name="option">[in] One of the <see cref="WAIT_OPTION"/> values. A value of WAIT_ALERTABLE instructs the host to wake the task if Alert is called before milliseconds elapses.</param>
         public void Join(int dwMilliseconds, int option)
         {
-            HRESULT hr;
-
-            if ((hr = TryJoin(dwMilliseconds, option)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryJoin(dwMilliseconds, option).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -228,10 +212,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetCLRTask(ICLRTask pCLRTask)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetCLRTask(pCLRTask)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetCLRTask(pCLRTask).ThrowOnNotOK();
         }
 
         /// <summary>

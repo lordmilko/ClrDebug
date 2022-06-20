@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -26,11 +25,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string szNameResult;
-
-                if ((hr = TryGetName(out szNameResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetName(out szNameResult).ThrowOnNotOK();
 
                 return szNameResult;
             }
@@ -82,11 +78,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string szNameResult;
-
-                if ((hr = TryGetDescription(out szNameResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetDescription(out szNameResult).ThrowOnNotOK();
 
                 return szNameResult;
             }
@@ -137,11 +130,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string szNameResult;
-
-                if ((hr = TryGetXML(out szNameResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetXML(out szNameResult).ThrowOnNotOK();
 
                 return szNameResult;
             }
@@ -192,11 +182,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pOsTid;
-
-                if ((hr = TryGetOSThreadId(out pOsTid)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetOSThreadId(out pOsTid).ThrowOnNotOK();
 
                 return pOsTid;
             }
@@ -225,10 +212,7 @@ namespace ManagedCorDebug
         /// <param name="pFlags">[in] A bitwise combination of the <see cref="CorDebugMDAFlags"/> enumeration values that specify the settings of the flags for this MDA.</param>
         public void GetFlags(CorDebugMDAFlags pFlags)
         {
-            HRESULT hr;
-
-            if ((hr = TryGetFlags(pFlags)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetFlags(pFlags).ThrowOnNotOK();
         }
 
         /// <summary>

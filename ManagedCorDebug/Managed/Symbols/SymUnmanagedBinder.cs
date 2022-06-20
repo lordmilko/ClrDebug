@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -30,11 +29,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</returns>
         public SymUnmanagedReader GetReaderForFile(IMetaDataImport importer, string fileName, string searchPath)
         {
-            HRESULT hr;
             SymUnmanagedReader pRetValResult;
-
-            if ((hr = TryGetReaderForFile(importer, fileName, searchPath, out pRetValResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetReaderForFile(importer, fileName, searchPath, out pRetValResult).ThrowOnNotOK();
 
             return pRetValResult;
         }
@@ -78,11 +74,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</returns>
         public ISymUnmanagedReader GetReaderFromStream(IMetaDataImport importer, IStream pstream)
         {
-            HRESULT hr;
             ISymUnmanagedReader pRetVal = default(ISymUnmanagedReader);
-
-            if ((hr = TryGetReaderFromStream(importer, pstream, ref pRetVal)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetReaderFromStream(importer, pstream, ref pRetVal).ThrowOnNotOK();
 
             return pRetVal;
         }
@@ -130,11 +123,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public ISymUnmanagedReader GetReaderForFile2(IMetaDataImport importer, string fileName, string searchPath, CorSymSearchPolicyAttributes searchPolicy)
         {
-            HRESULT hr;
             ISymUnmanagedReader pRetVal = default(ISymUnmanagedReader);
-
-            if ((hr = TryGetReaderForFile2(importer, fileName, searchPath, searchPolicy, ref pRetVal)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetReaderForFile2(importer, fileName, searchPath, searchPolicy, ref pRetVal).ThrowOnNotOK();
 
             return pRetVal;
         }
@@ -187,11 +177,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</returns>
         public ISymUnmanagedReader GetReaderFromCallback(object importer, string fileName, string searchPath, CorSymSearchPolicyAttributes searchPolicy, object callback)
         {
-            HRESULT hr;
             ISymUnmanagedReader pRetVal = default(ISymUnmanagedReader);
-
-            if ((hr = TryGetReaderFromCallback(importer, fileName, searchPath, searchPolicy, callback, ref pRetVal)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetReaderFromCallback(importer, fileName, searchPath, searchPolicy, callback, ref pRetVal).ThrowOnNotOK();
 
             return pRetVal;
         }

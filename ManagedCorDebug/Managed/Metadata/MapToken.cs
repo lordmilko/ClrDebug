@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -29,10 +27,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Map(mdToken tkImp, mdToken tkEmit)
         {
-            HRESULT hr;
-
-            if ((hr = TryMap(tkImp, tkEmit)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryMap(tkImp, tkEmit).ThrowOnNotOK();
         }
 
         /// <summary>

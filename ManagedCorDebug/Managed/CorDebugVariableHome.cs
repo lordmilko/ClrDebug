@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -25,11 +23,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugCode ppCodeResult;
-
-                if ((hr = TryGetCode(out ppCodeResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCode(out ppCodeResult).ThrowOnNotOK();
 
                 return ppCodeResult;
             }
@@ -63,11 +58,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pSlotIndex;
-
-                if ((hr = TryGetSlotIndex(out pSlotIndex)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetSlotIndex(out pSlotIndex).ThrowOnNotOK();
 
                 return pSlotIndex;
             }
@@ -104,11 +96,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pArgumentIndex;
-
-                if ((hr = TryGetArgumentIndex(out pArgumentIndex)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetArgumentIndex(out pArgumentIndex).ThrowOnNotOK();
 
                 return pArgumentIndex;
             }
@@ -145,11 +134,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 GetLiveRangeResult result;
-
-                if ((hr = TryGetLiveRange(out result)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetLiveRange(out result).ThrowOnNotOK();
 
                 return result;
             }
@@ -184,11 +170,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 VariableLocationType pLocationType;
-
-                if ((hr = TryGetLocationType(out pLocationType)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetLocationType(out pLocationType).ThrowOnNotOK();
 
                 return pLocationType;
             }
@@ -214,11 +197,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugRegister pRegister;
-
-                if ((hr = TryGetRegister(out pRegister)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetRegister(out pRegister).ThrowOnNotOK();
 
                 return pRegister;
             }
@@ -252,11 +232,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pOffset;
-
-                if ((hr = TryGetOffset(out pOffset)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetOffset(out pOffset).ThrowOnNotOK();
 
                 return pOffset;
             }

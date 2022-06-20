@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -25,11 +23,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 mdMethodDef pToken;
-
-                if ((hr = TryGetToken(out pToken)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetToken(out pToken).ThrowOnNotOK();
 
                 return pToken;
             }
@@ -56,11 +51,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pRetVal;
-
-                if ((hr = TryGetSequencePointCount(out pRetVal)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetSequencePointCount(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
@@ -87,11 +79,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 ISymUnmanagedScope pRetVal = default(ISymUnmanagedScope);
-
-                if ((hr = TryGetRootScope(ref pRetVal)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetRootScope(ref pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
@@ -118,11 +107,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 ISymUnmanagedVariable[] @paramsResult;
-
-                if ((hr = TryGetParameters(out @paramsResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetParameters(out @paramsResult).ThrowOnNotOK();
 
                 return @paramsResult;
             }
@@ -171,11 +157,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 SymUnmanagedNamespace pRetValResult;
-
-                if ((hr = TryGetNamespace(out pRetValResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetNamespace(out pRetValResult).ThrowOnNotOK();
 
                 return pRetValResult;
             }
@@ -210,11 +193,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer that is set to the returned <see cref="ISymUnmanagedScope"/> interface.</returns>
         public ISymUnmanagedScope GetScopeFromOffset(int offset)
         {
-            HRESULT hr;
             ISymUnmanagedScope pRetVal = default(ISymUnmanagedScope);
-
-            if ((hr = TryGetScopeFromOffset(offset, ref pRetVal)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetScopeFromOffset(offset, ref pRetVal).ThrowOnNotOK();
 
             return pRetVal;
         }
@@ -243,11 +223,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to a ULONG32 that receives the offsets.</returns>
         public int GetOffset(ISymUnmanagedDocument document, int line, int column)
         {
-            HRESULT hr;
             int pRetVal;
-
-            if ((hr = TryGetOffset(document, line, column, out pRetVal)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetOffset(document, line, column, out pRetVal).ThrowOnNotOK();
 
             return pRetVal;
         }
@@ -283,11 +260,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the buffer that receives the ranges.</returns>
         public int[] GetRanges(ISymUnmanagedDocument document, int line, int column)
         {
-            HRESULT hr;
             int[] rangesResult;
-
-            if ((hr = TryGetRanges(document, line, column, out rangesResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetRanges(document, line, column, out rangesResult).ThrowOnNotOK();
 
             return rangesResult;
         }
@@ -348,11 +322,8 @@ namespace ManagedCorDebug
         /// <returns>[out] true if positions were defined; otherwise, false.</returns>
         public int GetSourceStartEnd(ISymUnmanagedDocument[] docs, int[] lines, int[] columns)
         {
-            HRESULT hr;
             int pRetVal;
-
-            if ((hr = TryGetSourceStartEnd(docs, lines, columns, out pRetVal)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetSourceStartEnd(docs, lines, columns, out pRetVal).ThrowOnNotOK();
 
             return pRetVal;
         }
@@ -389,11 +360,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetSequencePointsResult GetSequencePoints(int cPoints, int offsets)
         {
-            HRESULT hr;
             GetSequencePointsResult result;
-
-            if ((hr = TryGetSequencePoints(cPoints, offsets, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetSequencePoints(cPoints, offsets, out result).ThrowOnNotOK();
 
             return result;
         }

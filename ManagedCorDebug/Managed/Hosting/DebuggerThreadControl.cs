@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -27,10 +25,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void ThreadIsBlockingForDebugger()
         {
-            HRESULT hr;
-
-            if ((hr = TryThreadIsBlockingForDebugger()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryThreadIsBlockingForDebugger().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -58,10 +53,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void ReleaseAllRuntimeThreads()
         {
-            HRESULT hr;
-
-            if ((hr = TryReleaseAllRuntimeThreads()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryReleaseAllRuntimeThreads().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -89,10 +81,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void StartBlockingForDebugger(int dwUnused)
         {
-            HRESULT hr;
-
-            if ((hr = TryStartBlockingForDebugger(dwUnused)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStartBlockingForDebugger(dwUnused).ThrowOnNotOK();
         }
 
         /// <summary>

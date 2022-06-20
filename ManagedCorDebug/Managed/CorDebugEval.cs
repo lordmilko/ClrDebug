@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -42,11 +41,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 bool pbActiveResult;
-
-                if ((hr = TryIsActive(out pbActiveResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryIsActive(out pbActiveResult).ThrowOnNotOK();
 
                 return pbActiveResult;
             }
@@ -80,11 +76,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugValue ppResultResult;
-
-                if ((hr = TryGetResult(out ppResultResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetResult(out ppResultResult).ThrowOnNotOK();
 
                 return ppResultResult;
             }
@@ -123,11 +116,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugThread ppThreadResult;
-
-                if ((hr = TryGetThread(out ppThreadResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetThread(out ppThreadResult).ThrowOnNotOK();
 
                 return ppThreadResult;
             }
@@ -167,10 +157,7 @@ namespace ManagedCorDebug
         [Obsolete]
         public void CallFunction(ICorDebugFunction pFunction, int nArgs, ICorDebugValue ppArgs)
         {
-            HRESULT hr;
-
-            if ((hr = TryCallFunction(pFunction, nArgs, ppArgs)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCallFunction(pFunction, nArgs, ppArgs).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -205,10 +192,7 @@ namespace ManagedCorDebug
         [Obsolete]
         public void NewObject(ICorDebugFunction pConstructor, int nArgs, ICorDebugValue ppArgs)
         {
-            HRESULT hr;
-
-            if ((hr = TryNewObject(pConstructor, nArgs, ppArgs)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryNewObject(pConstructor, nArgs, ppArgs).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -238,10 +222,7 @@ namespace ManagedCorDebug
         [Obsolete]
         public void NewObjectNoConstructor(ICorDebugClass pClass)
         {
-            HRESULT hr;
-
-            if ((hr = TryNewObjectNoConstructor(pClass)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryNewObjectNoConstructor(pClass).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -269,10 +250,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void NewString(string @string)
         {
-            HRESULT hr;
-
-            if ((hr = TryNewString(@string)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryNewString(@string).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -306,10 +284,7 @@ namespace ManagedCorDebug
         [Obsolete]
         public void NewArray(CorElementType elementType, ICorDebugClass pElementClass, int rank, int dims, int lowBounds)
         {
-            HRESULT hr;
-
-            if ((hr = TryNewArray(elementType, pElementClass, rank, dims, lowBounds)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryNewArray(elementType, pElementClass, rank, dims, lowBounds).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -348,10 +323,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Abort()
         {
-            HRESULT hr;
-
-            if ((hr = TryAbort()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryAbort().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -387,11 +359,8 @@ namespace ManagedCorDebug
         [Obsolete]
         public CorDebugValue CreateValue(int elementType, ICorDebugClass pElementClass)
         {
-            HRESULT hr;
             CorDebugValue ppValueResult;
-
-            if ((hr = TryCreateValue(elementType, pElementClass, out ppValueResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCreateValue(elementType, pElementClass, out ppValueResult).ThrowOnNotOK();
 
             return ppValueResult;
         }
@@ -454,10 +423,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void CallParameterizedFunction(ICorDebugFunction pFunction, int nTypeArgs, ICorDebugType ppTypeArgs, int nArgs, ICorDebugValue ppArgs)
         {
-            HRESULT hr;
-
-            if ((hr = TryCallParameterizedFunction(pFunction, nTypeArgs, ppTypeArgs, nArgs, ppArgs)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCallParameterizedFunction(pFunction, nTypeArgs, ppTypeArgs, nArgs, ppArgs).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -506,11 +472,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugValue CreateValueForType(ICorDebugType pType)
         {
-            HRESULT hr;
             CorDebugValue ppValueResult;
-
-            if ((hr = TryCreateValueForType(pType, out ppValueResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCreateValueForType(pType, out ppValueResult).ThrowOnNotOK();
 
             return ppValueResult;
         }
@@ -557,10 +520,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void NewParameterizedObject(ICorDebugFunction pConstructor, int nTypeArgs, ICorDebugType ppTypeArgs, int nArgs, ICorDebugValue ppArgs)
         {
-            HRESULT hr;
-
-            if ((hr = TryNewParameterizedObject(pConstructor, nTypeArgs, ppTypeArgs, nArgs, ppArgs)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryNewParameterizedObject(pConstructor, nTypeArgs, ppTypeArgs, nArgs, ppArgs).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -603,10 +563,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void NewParameterizedObjectNoConstructor(ICorDebugClass pClass, int nTypeArgs, ICorDebugType ppTypeArgs)
         {
-            HRESULT hr;
-
-            if ((hr = TryNewParameterizedObjectNoConstructor(pClass, nTypeArgs, ppTypeArgs)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryNewParameterizedObjectNoConstructor(pClass, nTypeArgs, ppTypeArgs).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -646,10 +603,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void NewParameterizedArray(ICorDebugType pElementType, int rank, int dims, int lowBounds)
         {
-            HRESULT hr;
-
-            if ((hr = TryNewParameterizedArray(pElementType, rank, dims, lowBounds)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryNewParameterizedArray(pElementType, rank, dims, lowBounds).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -689,10 +643,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void NewStringWithLength(string @string, int uiLength)
         {
-            HRESULT hr;
-
-            if ((hr = TryNewStringWithLength(@string, uiLength)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryNewStringWithLength(@string, uiLength).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -723,10 +674,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void RudeAbort()
         {
-            HRESULT hr;
-
-            if ((hr = TryRudeAbort()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryRudeAbort().ThrowOnNotOK();
         }
 
         /// <summary>

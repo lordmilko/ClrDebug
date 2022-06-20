@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -33,20 +32,14 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 IntPtr pacl;
-
-                if ((hr = TryGetDacl(out pacl)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetDacl(out pacl).ThrowOnNotOK();
 
                 return pacl;
             }
             set
             {
-                HRESULT hr;
-
-                if ((hr = TrySetDacl(value)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TrySetDacl(value).ThrowOnNotOK();
             }
         }
 
@@ -90,11 +83,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 bool pbAttachedResult;
-
-                if ((hr = TryIsDebuggerAttached(out pbAttachedResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryIsDebuggerAttached(out pbAttachedResult).ThrowOnNotOK();
 
                 return pbAttachedResult;
             }
@@ -145,10 +135,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void BeginConnection(int dwConnectionId, string szConnectionName)
         {
-            HRESULT hr;
-
-            if ((hr = TryBeginConnection(dwConnectionId, szConnectionName)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryBeginConnection(dwConnectionId, szConnectionName).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -195,10 +182,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetConnectionTasks(int id, int dwCount, IntPtr ppCLRTask)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetConnectionTasks(id, dwCount, ppCLRTask)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetConnectionTasks(id, dwCount, ppCLRTask).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -244,10 +228,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void EndConnection(int dwConnectionId)
         {
-            HRESULT hr;
-
-            if ((hr = TryEndConnection(dwConnectionId)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEndConnection(dwConnectionId).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -284,10 +265,7 @@ namespace ManagedCorDebug
         /// <param name="policy">[in] A member of the <see cref="ESymbolReadingPolicy"/> enumeration.</param>
         public void SetSymbolReadingPolicy(ESymbolReadingPolicy policy)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetSymbolReadingPolicy(policy)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetSymbolReadingPolicy(policy).ThrowOnNotOK();
         }
 
         /// <summary>

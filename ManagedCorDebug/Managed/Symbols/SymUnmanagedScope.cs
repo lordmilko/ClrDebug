@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -26,11 +25,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 ISymUnmanagedMethod pRetVal = default(ISymUnmanagedMethod);
-
-                if ((hr = TryGetMethod(ref pRetVal)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetMethod(ref pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
@@ -57,11 +53,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 ISymUnmanagedScope pRetVal = default(ISymUnmanagedScope);
-
-                if ((hr = TryGetParent(ref pRetVal)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetParent(ref pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
@@ -88,11 +81,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 ISymUnmanagedScope[] childrenResult;
-
-                if ((hr = TryGetChildren(out childrenResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetChildren(out childrenResult).ThrowOnNotOK();
 
                 return childrenResult;
             }
@@ -144,11 +134,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pRetVal;
-
-                if ((hr = TryGetStartOffset(out pRetVal)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetStartOffset(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
@@ -175,11 +162,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pRetVal;
-
-                if ((hr = TryGetEndOffset(out pRetVal)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetEndOffset(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
@@ -206,11 +190,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pRetVal;
-
-                if ((hr = TryGetLocalCount(out pRetVal)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetLocalCount(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
@@ -237,11 +218,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 ISymUnmanagedVariable[] localsResult;
-
-                if ((hr = TryGetLocals(out localsResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetLocals(out localsResult).ThrowOnNotOK();
 
                 return localsResult;
             }
@@ -293,11 +271,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 ISymUnmanagedNamespace[] namespacesResult;
-
-                if ((hr = TryGetNamespaces(out namespacesResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetNamespaces(out namespacesResult).ThrowOnNotOK();
 
                 return namespacesResult;
             }
@@ -355,11 +330,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pRetVal;
-
-                if ((hr = TryGetConstantCount(out pRetVal)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetConstantCount(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
@@ -386,11 +358,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 ISymUnmanagedConstant[] constantsResult;
-
-                if ((hr = TryGetConstants(out constantsResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetConstants(out constantsResult).ThrowOnNotOK();
 
                 return constantsResult;
             }

@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -34,10 +33,7 @@ namespace ManagedCorDebug
         /// <param name="cbClientData">[in] The size, in bytes, of the data that pvClientData points to.</param>
         public void AttachProfiler(int dwProfileeProcessID, int dwMillisecondsMax, Guid pClsidProfiler, string wszProfilerPath, IntPtr pvClientData, int cbClientData)
         {
-            HRESULT hr;
-
-            if ((hr = TryAttachProfiler(dwProfileeProcessID, dwMillisecondsMax, pClsidProfiler, wszProfilerPath, pvClientData, cbClientData)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryAttachProfiler(dwProfileeProcessID, dwMillisecondsMax, pClsidProfiler, wszProfilerPath, pvClientData, cbClientData).ThrowOnNotOK();
         }
 
         /// <summary>

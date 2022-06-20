@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -42,11 +41,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public object GetRuntime(string pwzVersion, Guid riid)
         {
-            HRESULT hr;
             object ppRuntime;
-
-            if ((hr = TryGetRuntime(pwzVersion, riid, out ppRuntime)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetRuntime(pwzVersion, riid, out ppRuntime).ThrowOnNotOK();
 
             return ppRuntime;
         }
@@ -76,7 +72,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryGetRuntime(string pwzVersion, Guid riid, out object ppRuntime)
         {
-            /*HRESULT GetRuntime([MarshalAs(UnmanagedType.LPWStr), In] string pwzVersion, [In] ref Guid riid, [Out] out object ppRuntime);*/
+            /*HRESULT GetRuntime([MarshalAs(UnmanagedType.LPWStr), In] string pwzVersion, [In] ref Guid riid, [Out, MarshalAs(UnmanagedType.Interface)] out object ppRuntime);*/
             return Raw.GetRuntime(pwzVersion, ref riid, out ppRuntime);
         }
 
@@ -92,11 +88,8 @@ namespace ManagedCorDebug
         /// Note that the "v" prefix is required.</returns>
         public string GetVersionFromFile(string pwzFilePath)
         {
-            HRESULT hr;
             string pwzBufferResult;
-
-            if ((hr = TryGetVersionFromFile(pwzFilePath, out pwzBufferResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetVersionFromFile(pwzFilePath, out pwzBufferResult).ThrowOnNotOK();
 
             return pwzBufferResult;
         }
@@ -154,11 +147,8 @@ namespace ManagedCorDebug
         /// <returns>[out] An enumeration of <see cref="ICLRRuntimeInfo"/> interfaces corresponding to each version of the CLR that is installed on the computer.</returns>
         public EnumUnknown EnumerateInstalledRuntimes()
         {
-            HRESULT hr;
             EnumUnknown ppEnumeratorResult;
-
-            if ((hr = TryEnumerateInstalledRuntimes(out ppEnumeratorResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateInstalledRuntimes(out ppEnumeratorResult).ThrowOnNotOK();
 
             return ppEnumeratorResult;
         }
@@ -203,11 +193,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public EnumUnknown EnumerateLoadedRuntimes(IntPtr hndProcess)
         {
-            HRESULT hr;
             EnumUnknown ppEnumeratorResult;
-
-            if ((hr = TryEnumerateLoadedRuntimes(hndProcess, out ppEnumeratorResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateLoadedRuntimes(hndProcess, out ppEnumeratorResult).ThrowOnNotOK();
 
             return ppEnumeratorResult;
         }
@@ -259,10 +246,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void RequestRuntimeLoadedNotification(RuntimeLoadedCallback pCallbackFunction)
         {
-            HRESULT hr;
-
-            if ((hr = TryRequestRuntimeLoadedNotification(pCallbackFunction)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryRequestRuntimeLoadedNotification(pCallbackFunction).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -301,11 +285,8 @@ namespace ManagedCorDebug
         /// <returns>[out] Required. When this method returns, contains a pointer to the <see cref="ICLRRuntimeInfo"/> interface that represents a runtime that has been bound to legacy activation policy.</returns>
         public object QueryLegacyV2RuntimeBinding(Guid riid)
         {
-            HRESULT hr;
             object ppUnk;
-
-            if ((hr = TryQueryLegacyV2RuntimeBinding(riid, out ppUnk)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryQueryLegacyV2RuntimeBinding(riid, out ppUnk).ThrowOnNotOK();
 
             return ppUnk;
         }
@@ -341,10 +322,7 @@ namespace ManagedCorDebug
         /// <param name="iExitCode">[in] The exit code for the process.</param>
         public void ExitProcess(int iExitCode)
         {
-            HRESULT hr;
-
-            if ((hr = TryExitProcess(iExitCode)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryExitProcess(iExitCode).ThrowOnNotOK();
         }
 
         /// <summary>

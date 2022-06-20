@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -31,11 +30,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public object GetHostManager(Guid riid)
         {
-            HRESULT hr;
             object ppObject;
-
-            if ((hr = TryGetHostManager(riid, out ppObject)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetHostManager(riid, out ppObject).ThrowOnNotOK();
 
             return ppObject;
         }
@@ -88,10 +84,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetAppDomainManager(int dwAppDomainID, object pUnkAppDomainManager)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetAppDomainManager(dwAppDomainID, pUnkAppDomainManager)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetAppDomainManager(dwAppDomainID, pUnkAppDomainManager).ThrowOnNotOK();
         }
 
         /// <summary>

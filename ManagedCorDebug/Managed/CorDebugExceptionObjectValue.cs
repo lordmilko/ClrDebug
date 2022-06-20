@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -34,11 +33,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugExceptionObjectCallStackEnum EnumerateExceptionCallStack()
         {
-            HRESULT hr;
             CorDebugExceptionObjectCallStackEnum ppCallStackEnumResult;
-
-            if ((hr = TryEnumerateExceptionCallStack(out ppCallStackEnumResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateExceptionCallStack(out ppCallStackEnumResult).ThrowOnNotOK();
 
             return ppCallStackEnumResult;
         }

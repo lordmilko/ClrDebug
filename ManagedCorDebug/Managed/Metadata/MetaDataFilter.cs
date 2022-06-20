@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -23,10 +21,7 @@ namespace ManagedCorDebug
         /// </summary>
         public void UnmarkAll()
         {
-            HRESULT hr;
-
-            if ((hr = TryUnmarkAll()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryUnmarkAll().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -47,10 +42,7 @@ namespace ManagedCorDebug
         /// <param name="tk">[in] The token to mark as processed.</param>
         public void MarkToken(mdToken tk)
         {
-            HRESULT hr;
-
-            if ((hr = TryMarkToken(tk)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryMarkToken(tk).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -73,11 +65,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A value that is true if tk has been processed; otherwise false.</returns>
         public int IsTokenMarked(mdToken tk)
         {
-            HRESULT hr;
             int pIsMarked;
-
-            if ((hr = TryIsTokenMarked(tk, out pIsMarked)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryIsTokenMarked(tk, out pIsMarked).ThrowOnNotOK();
 
             return pIsMarked;
         }

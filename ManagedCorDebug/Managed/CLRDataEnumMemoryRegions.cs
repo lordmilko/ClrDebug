@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -31,10 +29,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void EnumMemoryRegions(ICLRDataEnumMemoryRegionsCallback callback, int miniDumpFlags, CLRDataEnumMemoryFlags clrFlags)
         {
-            HRESULT hr;
-
-            if ((hr = TryEnumMemoryRegions(callback, miniDumpFlags, clrFlags)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumMemoryRegions(callback, miniDumpFlags, clrFlags).ThrowOnNotOK();
         }
 
         /// <summary>

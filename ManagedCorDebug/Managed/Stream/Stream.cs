@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     public class Stream : SequentialStream
@@ -20,11 +18,8 @@ namespace ManagedCorDebug
 
         public ULARGE_INTEGER RemoteSeek(LARGE_INTEGER dlibMove, int dwOrigin)
         {
-            HRESULT hr;
             ULARGE_INTEGER plibNewPosition;
-
-            if ((hr = TryRemoteSeek(dlibMove, dwOrigin, out plibNewPosition)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryRemoteSeek(dlibMove, dwOrigin, out plibNewPosition).ThrowOnNotOK();
 
             return plibNewPosition;
         }
@@ -40,10 +35,7 @@ namespace ManagedCorDebug
 
         public void SetSize(ULARGE_INTEGER libNewSize)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetSize(libNewSize)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetSize(libNewSize).ThrowOnNotOK();
         }
 
         public HRESULT TrySetSize(ULARGE_INTEGER libNewSize)
@@ -57,11 +49,8 @@ namespace ManagedCorDebug
 
         public RemoteCopyToResult RemoteCopyTo(IStream pstm, ULARGE_INTEGER cb)
         {
-            HRESULT hr;
             RemoteCopyToResult result;
-
-            if ((hr = TryRemoteCopyTo(pstm, cb, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryRemoteCopyTo(pstm, cb, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -91,10 +80,7 @@ namespace ManagedCorDebug
 
         public void Commit(int grfCommitFlags)
         {
-            HRESULT hr;
-
-            if ((hr = TryCommit(grfCommitFlags)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCommit(grfCommitFlags).ThrowOnNotOK();
         }
 
         public HRESULT TryCommit(int grfCommitFlags)
@@ -108,10 +94,7 @@ namespace ManagedCorDebug
 
         public void Revert()
         {
-            HRESULT hr;
-
-            if ((hr = TryRevert()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryRevert().ThrowOnNotOK();
         }
 
         public HRESULT TryRevert()
@@ -125,10 +108,7 @@ namespace ManagedCorDebug
 
         public void LockRegion(ULARGE_INTEGER libOffset, ULARGE_INTEGER cb, int dwLockType)
         {
-            HRESULT hr;
-
-            if ((hr = TryLockRegion(libOffset, cb, dwLockType)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryLockRegion(libOffset, cb, dwLockType).ThrowOnNotOK();
         }
 
         public HRESULT TryLockRegion(ULARGE_INTEGER libOffset, ULARGE_INTEGER cb, int dwLockType)
@@ -142,10 +122,7 @@ namespace ManagedCorDebug
 
         public void UnlockRegion(ULARGE_INTEGER libOffset, ULARGE_INTEGER cb, int dwLockType)
         {
-            HRESULT hr;
-
-            if ((hr = TryUnlockRegion(libOffset, cb, dwLockType)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryUnlockRegion(libOffset, cb, dwLockType).ThrowOnNotOK();
         }
 
         public HRESULT TryUnlockRegion(ULARGE_INTEGER libOffset, ULARGE_INTEGER cb, int dwLockType)
@@ -159,11 +136,8 @@ namespace ManagedCorDebug
 
         public tagSTATSTG Stat(int grfStatFlag)
         {
-            HRESULT hr;
             tagSTATSTG pstatstg;
-
-            if ((hr = TryStat(out pstatstg, grfStatFlag)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStat(out pstatstg, grfStatFlag).ThrowOnNotOK();
 
             return pstatstg;
         }
@@ -179,11 +153,8 @@ namespace ManagedCorDebug
 
         public Stream Clone()
         {
-            HRESULT hr;
             Stream ppstmResult;
-
-            if ((hr = TryClone(out ppstmResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryClone(out ppstmResult).ThrowOnNotOK();
 
             return ppstmResult;
         }

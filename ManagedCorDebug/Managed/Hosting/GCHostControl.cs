@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -25,11 +23,8 @@ namespace ManagedCorDebug
         /// <returns>[in, out] A pointer to the actual size of memory allocated.</returns>
         public int RequestVirtualMemLimit(int sztMaxVirtualMemMB)
         {
-            HRESULT hr;
             int psztNewMaxVirtualMemMB;
-
-            if ((hr = TryRequestVirtualMemLimit(sztMaxVirtualMemMB, out psztNewMaxVirtualMemMB)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryRequestVirtualMemLimit(sztMaxVirtualMemMB, out psztNewMaxVirtualMemMB).ThrowOnNotOK();
 
             return psztNewMaxVirtualMemMB;
         }

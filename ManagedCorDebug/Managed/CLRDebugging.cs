@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -37,11 +36,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public OpenVirtualProcessResult OpenVirtualProcess(long moduleBaseAddress, object pDataTarget, ICLRDebuggingLibraryProvider pLibraryProvider, CLR_DEBUGGING_VERSION pMaxDebuggerSupportedVersion, Guid riidProcess, ref CLR_DEBUGGING_VERSION pVersion)
         {
-            HRESULT hr;
             OpenVirtualProcessResult result;
-
-            if ((hr = TryOpenVirtualProcess(moduleBaseAddress, pDataTarget, pLibraryProvider, pMaxDebuggerSupportedVersion, riidProcess, ref pVersion, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOpenVirtualProcess(moduleBaseAddress, pDataTarget, pLibraryProvider, pMaxDebuggerSupportedVersion, riidProcess, ref pVersion, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -112,10 +108,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void CanUnloadNow(IntPtr hModule)
         {
-            HRESULT hr;
-
-            if ((hr = TryCanUnloadNow(hModule)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCanUnloadNow(hModule).ThrowOnNotOK();
         }
 
         /// <summary>

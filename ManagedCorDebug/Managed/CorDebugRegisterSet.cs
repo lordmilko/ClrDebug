@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -31,11 +30,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 long pAvailable;
-
-                if ((hr = TryGetRegistersAvailable(out pAvailable)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetRegistersAvailable(out pAvailable).ThrowOnNotOK();
 
                 return pAvailable;
             }
@@ -74,11 +70,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CORDB_REGISTER[] GetRegisters(long mask, int regCount)
         {
-            HRESULT hr;
             CORDB_REGISTER[] regBufferResult;
-
-            if ((hr = TryGetRegisters(mask, regCount, out regBufferResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetRegisters(mask, regCount, out regBufferResult).ThrowOnNotOK();
 
             return regBufferResult;
         }
@@ -119,10 +112,7 @@ namespace ManagedCorDebug
         /// </summary>
         public void SetRegisters(long mask, int regCount, IntPtr regBuffer)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetRegisters(mask, regCount, regBuffer)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetRegisters(mask, regCount, regBuffer).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -149,10 +139,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void GetThreadContext(int contextSize, IntPtr context)
         {
-            HRESULT hr;
-
-            if ((hr = TryGetThreadContext(contextSize, context)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetThreadContext(contextSize, context).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -179,10 +166,7 @@ namespace ManagedCorDebug
         /// </summary>
         public void SetThreadContext(int contextSize, IntPtr context)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetThreadContext(contextSize, context)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetThreadContext(contextSize, context).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -216,10 +200,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void GetRegistersAvailable(int numChunks, IntPtr availableRegChunks)
         {
-            HRESULT hr;
-
-            if ((hr = TryGetRegistersAvailable(numChunks, availableRegChunks)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetRegistersAvailable(numChunks, availableRegChunks).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -263,11 +244,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CORDB_REGISTER[] GetRegisters(int maskCount, byte[] mask, int regCount)
         {
-            HRESULT hr;
             CORDB_REGISTER[] regBufferResult;
-
-            if ((hr = TryGetRegisters(maskCount, mask, regCount, out regBufferResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetRegisters(maskCount, mask, regCount, out regBufferResult).ThrowOnNotOK();
 
             return regBufferResult;
         }
@@ -313,10 +291,7 @@ namespace ManagedCorDebug
         /// </summary>
         public void SetRegisters(int maskCount, byte[] mask, int regCount, CORDB_REGISTER[] regBuffer)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetRegisters(maskCount, mask, regCount, regBuffer)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetRegisters(maskCount, mask, regCount, regBuffer).ThrowOnNotOK();
         }
 
         /// <summary>

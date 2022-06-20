@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 
@@ -34,11 +33,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 GetScopePropsResult result;
-
-                if ((hr = TryGetScopeProps(out result)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetScopeProps(out result).ThrowOnNotOK();
 
                 return result;
             }
@@ -94,11 +90,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 mdModule pmd;
-
-                if ((hr = TryGetModuleFromScope(out pmd)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetModuleFromScope(out pmd).ThrowOnNotOK();
 
                 return pmd;
             }
@@ -143,11 +136,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int CountEnum(IntPtr hEnum)
         {
-            HRESULT hr;
             int pulCount;
-
-            if ((hr = TryCountEnum(hEnum, out pulCount)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCountEnum(hEnum, out pulCount).ThrowOnNotOK();
 
             return pulCount;
         }
@@ -176,10 +166,7 @@ namespace ManagedCorDebug
         /// <param name="ulPos">[in] The new position at which to place the enumerator.</param>
         public void ResetEnum(IntPtr hEnum, int ulPos)
         {
-            HRESULT hr;
-
-            if ((hr = TryResetEnum(hEnum, ulPos)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryResetEnum(hEnum, ulPos).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -208,11 +195,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int EnumTypeDefs(ref IntPtr phEnum, mdTypeDef[] typeDefs)
         {
-            HRESULT hr;
             int pcTypeDefs;
-
-            if ((hr = TryEnumTypeDefs(ref phEnum, typeDefs, out pcTypeDefs)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumTypeDefs(ref phEnum, typeDefs, out pcTypeDefs).ThrowOnNotOK();
 
             return pcTypeDefs;
         }
@@ -267,11 +251,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int EnumInterfaceImpls(ref IntPtr phEnum, mdTypeDef td, mdInterfaceImpl[] rImpls)
         {
-            HRESULT hr;
             int pcImpls;
-
-            if ((hr = TryEnumInterfaceImpls(ref phEnum, td, rImpls, out pcImpls)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumInterfaceImpls(ref phEnum, td, rImpls, out pcImpls).ThrowOnNotOK();
 
             return pcImpls;
         }
@@ -326,11 +307,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int EnumTypeRefs(ref IntPtr phEnum, mdTypeRef[] rTypeRefs)
         {
-            HRESULT hr;
             int pcTypeRefs;
-
-            if ((hr = TryEnumTypeRefs(ref phEnum, rTypeRefs, out pcTypeRefs)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumTypeRefs(ref phEnum, rTypeRefs, out pcTypeRefs).ThrowOnNotOK();
 
             return pcTypeRefs;
         }
@@ -378,11 +356,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the matching TypeDef token.</returns>
         public mdTypeDef FindTypeDefByName(string szTypeDef, mdToken tkEnclosingClass)
         {
-            HRESULT hr;
             mdTypeDef typeDef;
-
-            if ((hr = TryFindTypeDefByName(szTypeDef, tkEnclosingClass, out typeDef)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryFindTypeDefByName(szTypeDef, tkEnclosingClass, out typeDef).ThrowOnNotOK();
 
             return typeDef;
         }
@@ -412,11 +387,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetTypeDefPropsResult GetTypeDefProps(mdTypeDef td)
         {
-            HRESULT hr;
             GetTypeDefPropsResult result;
-
-            if ((hr = TryGetTypeDefProps(td, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetTypeDefProps(td, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -478,11 +450,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public GetInterfaceImplPropsResult GetInterfaceImplProps(mdInterfaceImpl iiImpl)
         {
-            HRESULT hr;
             GetInterfaceImplPropsResult result;
-
-            if ((hr = TryGetInterfaceImplProps(iiImpl, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetInterfaceImplProps(iiImpl, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -526,11 +495,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetTypeRefPropsResult GetTypeRefProps(mdTypeRef tr)
         {
-            HRESULT hr;
             GetTypeRefPropsResult result;
-
-            if ((hr = TryGetTypeRefProps(tr, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetTypeRefProps(tr, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -594,11 +560,8 @@ namespace ManagedCorDebug
         [Obsolete("This method no longer appears to exist in the IMetaDataImport vtable.")]
         public ResolveTypeRefResult ResolveTypeRef(mdTypeRef tr, Guid riid)
         {
-            HRESULT hr;
             ResolveTypeRefResult result;
-
-            if ((hr = TryResolveTypeRef(tr, riid, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryResolveTypeRef(tr, riid, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -657,11 +620,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int EnumMembers(ref IntPtr phEnum, mdTypeDef cl, mdToken[] rMembers)
         {
-            HRESULT hr;
             int pcTokens;
-
-            if ((hr = TryEnumMembers(ref phEnum, cl, rMembers, out pcTokens)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumMembers(ref phEnum, cl, rMembers, out pcTokens).ThrowOnNotOK();
 
             return pcTokens;
         }
@@ -722,11 +682,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int EnumMembersWithName(ref IntPtr phEnum, mdTypeDef cl, string szName, mdToken[] rMembers)
         {
-            HRESULT hr;
             int pcTokens;
-
-            if ((hr = TryEnumMembersWithName(ref phEnum, cl, szName, rMembers, out pcTokens)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumMembersWithName(ref phEnum, cl, szName, rMembers, out pcTokens).ThrowOnNotOK();
 
             return pcTokens;
         }
@@ -780,11 +737,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The number of MethodDef tokens returned in rMethods.</returns>
         public int EnumMethods(ref IntPtr phEnum, mdTypeDef cl, mdMethodDef[] rMethods)
         {
-            HRESULT hr;
             int pcTokens;
-
-            if ((hr = TryEnumMethods(ref phEnum, cl, rMethods, out pcTokens)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumMethods(ref phEnum, cl, rMethods, out pcTokens).ThrowOnNotOK();
 
             return pcTokens;
         }
@@ -837,11 +791,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int EnumMethodsWithName(ref IntPtr phEnum, mdTypeDef cl, string szName, mdMethodDef[] rMethods)
         {
-            HRESULT hr;
             int pcTokens;
-
-            if ((hr = TryEnumMethodsWithName(ref phEnum, cl, szName, rMethods, out pcTokens)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumMethodsWithName(ref phEnum, cl, szName, rMethods, out pcTokens).ThrowOnNotOK();
 
             return pcTokens;
         }
@@ -895,11 +846,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The actual number of FieldDef tokens returned in rFields.</returns>
         public int EnumFields(ref IntPtr phEnum, mdTypeDef cl, mdFieldDef[] rFields)
         {
-            HRESULT hr;
             int pcTokens;
-
-            if ((hr = TryEnumFields(ref phEnum, cl, rFields, out pcTokens)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumFields(ref phEnum, cl, rFields, out pcTokens).ThrowOnNotOK();
 
             return pcTokens;
         }
@@ -951,11 +899,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int EnumFieldsWithName(ref IntPtr phEnum, mdTypeDef cl, string szName, mdFieldDef[] rFields)
         {
-            HRESULT hr;
             int pcTokens;
-
-            if ((hr = TryEnumFieldsWithName(ref phEnum, cl, szName, rFields, out pcTokens)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumFieldsWithName(ref phEnum, cl, szName, rFields, out pcTokens).ThrowOnNotOK();
 
             return pcTokens;
         }
@@ -1008,11 +953,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The number of ParamDef tokens returned in rParams.</returns>
         public int EnumParams(ref IntPtr phEnum, mdMethodDef mb, mdParamDef[] rParams)
         {
-            HRESULT hr;
             int pcTokens;
-
-            if ((hr = TryEnumParams(ref phEnum, mb, rParams, out pcTokens)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumParams(ref phEnum, mb, rParams, out pcTokens).ThrowOnNotOK();
 
             return pcTokens;
         }
@@ -1060,11 +1002,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The actual number of MemberRef tokens returned in rMemberRefs.</returns>
         public int EnumMemberRefs(ref IntPtr phEnum, mdToken tkParent, mdMemberRef[] rMemberRefs)
         {
-            HRESULT hr;
             int pcTokens;
-
-            if ((hr = TryEnumMemberRefs(ref phEnum, tkParent, rMemberRefs, out pcTokens)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumMemberRefs(ref phEnum, tkParent, rMemberRefs, out pcTokens).ThrowOnNotOK();
 
             return pcTokens;
         }
@@ -1113,11 +1052,8 @@ namespace ManagedCorDebug
         /// <returns>[in] The actual number of methods returned in rMethodBody and rMethodDecl.</returns>
         public int EnumMethodImpls(ref IntPtr phEnum, mdTypeDef td, mdToken[] rMethodBody, mdToken[] rMethodDecl)
         {
-            HRESULT hr;
             int pcTokens;
-
-            if ((hr = TryEnumMethodImpls(ref phEnum, td, rMethodBody, rMethodDecl, out pcTokens)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumMethodImpls(ref phEnum, td, rMethodBody, rMethodDecl, out pcTokens).ThrowOnNotOK();
 
             return pcTokens;
         }
@@ -1168,11 +1104,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The number of Permission tokens returned in rPermission.</returns>
         public int EnumPermissionSets(ref IntPtr phEnum, mdToken tk, CorDeclSecurity dwActions, mdPermission[] rPermission)
         {
-            HRESULT hr;
             int pcTokens;
-
-            if ((hr = TryEnumPermissionSets(ref phEnum, tk, dwActions, rPermission, out pcTokens)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumPermissionSets(ref phEnum, tk, dwActions, rPermission, out pcTokens).ThrowOnNotOK();
 
             return pcTokens;
         }
@@ -1232,11 +1165,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public mdToken FindMember(mdToken td, string szName, IntPtr pvSigBlob, int cbSigBlob)
         {
-            HRESULT hr;
             mdToken pmb;
-
-            if ((hr = TryFindMember(td, szName, pvSigBlob, cbSigBlob, out pmb)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryFindMember(td, szName, pvSigBlob, cbSigBlob, out pmb).ThrowOnNotOK();
 
             return pmb;
         }
@@ -1291,11 +1221,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public mdMethodDef FindMethod(mdToken td, string szName, IntPtr pvSigBlob, int cbSigBlob)
         {
-            HRESULT hr;
             mdMethodDef pmb;
-
-            if ((hr = TryFindMethod(td, szName, pvSigBlob, cbSigBlob, out pmb)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryFindMethod(td, szName, pvSigBlob, cbSigBlob, out pmb).ThrowOnNotOK();
 
             return pmb;
         }
@@ -1349,11 +1276,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public mdFieldDef FindField(mdToken td, string szName, IntPtr pvSigBlob, int cbSigBlob)
         {
-            HRESULT hr;
             mdFieldDef pmb;
-
-            if ((hr = TryFindField(td, szName, pvSigBlob, cbSigBlob, out pmb)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryFindField(td, szName, pvSigBlob, cbSigBlob, out pmb).ThrowOnNotOK();
 
             return pmb;
         }
@@ -1406,11 +1330,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public mdMemberRef FindMemberRef(mdToken td, string szName, IntPtr pvSigBlob, int cbSigBlob)
         {
-            HRESULT hr;
             mdMemberRef pmr;
-
-            if ((hr = TryFindMemberRef(td, szName, pvSigBlob, cbSigBlob, out pmr)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryFindMemberRef(td, szName, pvSigBlob, cbSigBlob, out pmr).ThrowOnNotOK();
 
             return pmr;
         }
@@ -1451,11 +1372,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public MetaDataImport_GetMethodPropsResult GetMethodProps(mdMethodDef mb)
         {
-            HRESULT hr;
             MetaDataImport_GetMethodPropsResult result;
-
-            if ((hr = TryGetMethodProps(mb, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodProps(mb, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -1519,11 +1437,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetMemberRefPropsResult GetMemberRefProps(mdMemberRef mr)
         {
-            HRESULT hr;
             GetMemberRefPropsResult result;
-
-            if ((hr = TryGetMemberRefProps(mr, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMemberRefProps(mr, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -1583,11 +1498,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The number of PropertyDef tokens returned in rProperties.</returns>
         public int EnumProperties(ref IntPtr phEnum, mdTypeDef td, mdProperty[] rProperties)
         {
-            HRESULT hr;
             int pcProperties;
-
-            if ((hr = TryEnumProperties(ref phEnum, td, rProperties, out pcProperties)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumProperties(ref phEnum, td, rProperties, out pcProperties).ThrowOnNotOK();
 
             return pcProperties;
         }
@@ -1635,11 +1547,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The actual number of events returned in rEvents.</returns>
         public int EnumEvents(ref IntPtr phEnum, mdTypeDef td, mdEvent[] rEvents)
         {
-            HRESULT hr;
             int pcEvents;
-
-            if ((hr = TryEnumEvents(ref phEnum, td, rEvents, out pcEvents)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumEvents(ref phEnum, td, rEvents, out pcEvents).ThrowOnNotOK();
 
             return pcEvents;
         }
@@ -1685,11 +1594,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetEventPropsResult GetEventProps(mdEvent ev)
         {
-            HRESULT hr;
             GetEventPropsResult result;
-
-            if ((hr = TryGetEventProps(ev, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetEventProps(ev, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -1772,11 +1678,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int EnumMethodSemantics(ref IntPtr phEnum, mdMethodDef mb, mdToken[] rEventProp)
         {
-            HRESULT hr;
             int pcEventProp;
-
-            if ((hr = TryEnumMethodSemantics(ref phEnum, mb, rEventProp, out pcEventProp)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumMethodSemantics(ref phEnum, mb, rEventProp, out pcEventProp).ThrowOnNotOK();
 
             return pcEventProp;
         }
@@ -1835,11 +1738,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorMethodSemanticsAttr GetMethodSemantics(mdMethodDef mb, mdToken tkEventProp)
         {
-            HRESULT hr;
             CorMethodSemanticsAttr pdwSemanticsFlags;
-
-            if ((hr = TryGetMethodSemantics(mb, tkEventProp, out pdwSemanticsFlags)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodSemantics(mb, tkEventProp, out pdwSemanticsFlags).ThrowOnNotOK();
 
             return pdwSemanticsFlags;
         }
@@ -1872,11 +1772,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetClassLayoutResult GetClassLayout(mdTypeDef td)
         {
-            HRESULT hr;
             GetClassLayoutResult result;
-
-            if ((hr = TryGetClassLayout(td, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetClassLayout(td, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -1932,11 +1829,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetFieldMarshalResult GetFieldMarshal(mdToken tk)
         {
-            HRESULT hr;
             GetFieldMarshalResult result;
-
-            if ((hr = TryGetFieldMarshal(tk, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetFieldMarshal(tk, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -1974,11 +1868,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetRVAResult GetRVA(mdToken tk)
         {
-            HRESULT hr;
             GetRVAResult result;
-
-            if ((hr = TryGetRVA(tk, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetRVA(tk, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -2016,11 +1907,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetPermissionSetPropsResult GetPermissionSetProps(mdPermission pm)
         {
-            HRESULT hr;
             GetPermissionSetPropsResult result;
-
-            if ((hr = TryGetPermissionSetProps(pm, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetPermissionSetProps(pm, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -2060,11 +1948,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetSigFromTokenResult GetSigFromToken(mdSignature mdSig)
         {
-            HRESULT hr;
             GetSigFromTokenResult result;
-
-            if ((hr = TryGetSigFromToken(mdSig, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetSigFromToken(mdSig, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -2102,11 +1987,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A buffer to hold the module name.</returns>
         public string GetModuleRefProps(mdModuleRef mur)
         {
-            HRESULT hr;
             string szNameResult;
-
-            if ((hr = TryGetModuleRefProps(mur, out szNameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetModuleRefProps(mur, out szNameResult).ThrowOnNotOK();
 
             return szNameResult;
         }
@@ -2159,11 +2041,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The number of ModuleRef tokens returned in rModuleRefs.</returns>
         public int EnumModuleRefs(ref IntPtr phEnum, mdModuleRef[] rModuleRefs)
         {
-            HRESULT hr;
             int pcModuleRefs;
-
-            if ((hr = TryEnumModuleRefs(ref phEnum, rModuleRefs, out pcModuleRefs)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumModuleRefs(ref phEnum, rModuleRefs, out pcModuleRefs).ThrowOnNotOK();
 
             return pcModuleRefs;
         }
@@ -2207,11 +2086,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetTypeSpecFromTokenResult GetTypeSpecFromToken(mdTypeSpec typespec)
         {
-            HRESULT hr;
             GetTypeSpecFromTokenResult result;
-
-            if ((hr = TryGetTypeSpecFromToken(typespec, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetTypeSpecFromToken(typespec, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -2255,11 +2131,8 @@ namespace ManagedCorDebug
         [Obsolete]
         public IntPtr GetNameFromToken(mdToken tk)
         {
-            HRESULT hr;
             IntPtr pszUtf8NamePtr;
-
-            if ((hr = TryGetNameFromToken(tk, out pszUtf8NamePtr)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetNameFromToken(tk, out pszUtf8NamePtr).ThrowOnNotOK();
 
             return pszUtf8NamePtr;
         }
@@ -2300,11 +2173,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int EnumUnresolvedMethods(ref IntPtr phEnum, mdToken[] rMethods)
         {
-            HRESULT hr;
             int pcTokens;
-
-            if ((hr = TryEnumUnresolvedMethods(ref phEnum, rMethods, out pcTokens)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumUnresolvedMethods(ref phEnum, rMethods, out pcTokens).ThrowOnNotOK();
 
             return pcTokens;
         }
@@ -2355,11 +2225,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A copy of the requested string.</returns>
         public string GetUserString(mdString stk)
         {
-            HRESULT hr;
             string szStringResult;
-
-            if ((hr = TryGetUserString(stk, out szStringResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetUserString(stk, out szStringResult).ThrowOnNotOK();
 
             return szStringResult;
         }
@@ -2411,11 +2278,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetPinvokeMapResult GetPinvokeMap(mdToken tk)
         {
-            HRESULT hr;
             GetPinvokeMapResult result;
-
-            if ((hr = TryGetPinvokeMap(tk, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetPinvokeMap(tk, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -2475,11 +2339,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int EnumSignatures(ref IntPtr phEnum, mdSignature[] rSignatures)
         {
-            HRESULT hr;
             int pcSignatures;
-
-            if ((hr = TryEnumSignatures(ref phEnum, rSignatures, out pcSignatures)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumSignatures(ref phEnum, rSignatures, out pcSignatures).ThrowOnNotOK();
 
             return pcSignatures;
         }
@@ -2530,11 +2391,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int EnumTypeSpecs(ref IntPtr phEnum, mdTypeSpec[] rTypeSpecs)
         {
-            HRESULT hr;
             int pcTypeSpecs;
-
-            if ((hr = TryEnumTypeSpecs(ref phEnum, rTypeSpecs, out pcTypeSpecs)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumTypeSpecs(ref phEnum, rTypeSpecs, out pcTypeSpecs).ThrowOnNotOK();
 
             return pcTypeSpecs;
         }
@@ -2586,11 +2444,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int EnumUserStrings(ref IntPtr phEnum, mdString[] rStrings)
         {
-            HRESULT hr;
             int pcStrings;
-
-            if ((hr = TryEnumUserStrings(ref phEnum, rStrings, out pcStrings)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumUserStrings(ref phEnum, rStrings, out pcStrings).ThrowOnNotOK();
 
             return pcStrings;
         }
@@ -2639,11 +2494,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to a ParamDef token that represents the requested parameter.</returns>
         public mdParamDef GetParamForMethodIndex(mdMethodDef md, int ulParamSeq)
         {
-            HRESULT hr;
             mdParamDef ppd;
-
-            if ((hr = TryGetParamForMethodIndex(md, ulParamSeq, out ppd)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetParamForMethodIndex(md, ulParamSeq, out ppd).ThrowOnNotOK();
 
             return ppd;
         }
@@ -2676,11 +2528,8 @@ namespace ManagedCorDebug
         /// <returns>[out, optional] The actual number of token values returned in rCustomAttributes.</returns>
         public int EnumCustomAttributes(ref IntPtr phEnum, mdToken tk, mdToken tkType, mdCustomAttribute[] rCustomAttributes)
         {
-            HRESULT hr;
             int pcCustomAttributes;
-
-            if ((hr = TryEnumCustomAttributes(ref phEnum, tk, tkType, rCustomAttributes, out pcCustomAttributes)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumCustomAttributes(ref phEnum, tk, tkType, rCustomAttributes, out pcCustomAttributes).ThrowOnNotOK();
 
             return pcCustomAttributes;
         }
@@ -2731,11 +2580,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public GetCustomAttributePropsResult GetCustomAttributeProps(mdCustomAttribute cv)
         {
-            HRESULT hr;
             GetCustomAttributePropsResult result;
-
-            if ((hr = TryGetCustomAttributeProps(cv, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetCustomAttributeProps(cv, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -2781,11 +2627,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the matching TypeRef token.</returns>
         public mdTypeRef FindTypeRef(mdToken tkResolutionScope, string szName)
         {
-            HRESULT hr;
             mdTypeRef ptr;
-
-            if ((hr = TryFindTypeRef(tkResolutionScope, szName, out ptr)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryFindTypeRef(tkResolutionScope, szName, out ptr).ThrowOnNotOK();
 
             return ptr;
         }
@@ -2817,11 +2660,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetMemberPropsResult GetMemberProps(mdToken mb)
         {
-            HRESULT hr;
             GetMemberPropsResult result;
-
-            if ((hr = TryGetMemberProps(mb, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMemberProps(mb, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -2893,11 +2733,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetFieldPropsResult GetFieldProps(mdFieldDef mb)
         {
-            HRESULT hr;
             GetFieldPropsResult result;
-
-            if ((hr = TryGetFieldProps(mb, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetFieldProps(mb, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -2963,11 +2800,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetPropertyPropsResult GetPropertyProps(mdProperty prop)
         {
-            HRESULT hr;
             GetPropertyPropsResult result;
-
-            if ((hr = TryGetPropertyProps(prop, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetPropertyProps(prop, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -3048,11 +2882,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public GetParamPropsResult GetParamProps(mdParamDef tk)
         {
-            HRESULT hr;
             GetParamPropsResult result;
-
-            if ((hr = TryGetParamProps(tk, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetParamProps(tk, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -3113,11 +2944,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public GetCustomAttributeByNameResult GetCustomAttributeByName(mdToken tkObj, string szName)
         {
-            HRESULT hr;
             GetCustomAttributeByNameResult result;
-
-            if ((hr = TryGetCustomAttributeByName(tkObj, szName, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetCustomAttributeByName(tkObj, szName, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -3175,11 +3003,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the TypeDef token for the <see cref="Type"/> that tdNestedClass is nested in.</returns>
         public mdTypeDef GetNestedClassProps(mdTypeDef tdNestedClass)
         {
-            HRESULT hr;
             mdTypeDef ptdEnclosingClass;
-
-            if ((hr = TryGetNestedClassProps(tdNestedClass, out ptdEnclosingClass)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetNestedClassProps(tdNestedClass, out ptdEnclosingClass).ThrowOnNotOK();
 
             return ptdEnclosingClass;
         }
@@ -3208,11 +3033,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the native calling convention.</returns>
         public int GetNativeCallConvFromSig(IntPtr pvSig, int cbSig)
         {
-            HRESULT hr;
             int pCallConv;
-
-            if ((hr = TryGetNativeCallConvFromSig(pvSig, cbSig, out pCallConv)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetNativeCallConvFromSig(pvSig, cbSig, out pCallConv).ThrowOnNotOK();
 
             return pCallConv;
         }
@@ -3242,11 +3064,8 @@ namespace ManagedCorDebug
         /// <returns>[out] 1 if the object has global scope; otherwise, 0 (zero).</returns>
         public int IsGlobal(mdToken pd)
         {
-            HRESULT hr;
             int pbGlobal;
-
-            if ((hr = TryIsGlobal(pd, out pbGlobal)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryIsGlobal(pd, out pbGlobal).ThrowOnNotOK();
 
             return pbGlobal;
         }
@@ -3280,11 +3099,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 GetPEKindResult result;
-
-                if ((hr = TryGetPEKind(out result)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetPEKind(out result).ThrowOnNotOK();
 
                 return result;
             }
@@ -3324,11 +3140,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string pwzBufResult;
-
-                if ((hr = TryGetVersionString(out pwzBufResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetVersionString(out pwzBufResult).ThrowOnNotOK();
 
                 return pwzBufResult;
             }
@@ -3385,11 +3198,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The returned number of tokens placed in rGenericParams.</returns>
         public int EnumGenericParams(ref IntPtr phEnum, mdToken tk, mdGenericParam[] rGenericParams)
         {
-            HRESULT hr;
             int pcGenericParams;
-
-            if ((hr = TryEnumGenericParams(ref phEnum, tk, rGenericParams, out pcGenericParams)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumGenericParams(ref phEnum, tk, rGenericParams, out pcGenericParams).ThrowOnNotOK();
 
             return pcGenericParams;
         }
@@ -3435,11 +3245,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetGenericParamPropsResult GetGenericParamProps(mdGenericParam gp)
         {
-            HRESULT hr;
             GetGenericParamPropsResult result;
-
-            if ((hr = TryGetGenericParamProps(gp, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetGenericParamProps(gp, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -3499,11 +3306,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetMethodSpecPropsResult GetMethodSpecProps(mdMethodSpec mi)
         {
-            HRESULT hr;
             GetMethodSpecPropsResult result;
-
-            if ((hr = TryGetMethodSpecProps(mi, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodSpecProps(mi, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -3545,11 +3349,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the number of tokens placed in rGenericParamConstraints.</returns>
         public int EnumGenericParamConstraints(ref IntPtr phEnum, mdGenericParam tk, mdGenericParamConstraint[] rGenericParamConstraints)
         {
-            HRESULT hr;
             int pcGenericParamConstraints;
-
-            if ((hr = TryEnumGenericParamConstraints(ref phEnum, tk, rGenericParamConstraints, out pcGenericParamConstraints)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumGenericParamConstraints(ref phEnum, tk, rGenericParamConstraints, out pcGenericParamConstraints).ThrowOnNotOK();
 
             return pcGenericParamConstraints;
         }
@@ -3595,11 +3396,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetGenericParamConstraintPropsResult GetGenericParamConstraintProps(mdGenericParamConstraint gpc)
         {
-            HRESULT hr;
             GetGenericParamConstraintPropsResult result;
-
-            if ((hr = TryGetGenericParamConstraintProps(gpc, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetGenericParamConstraintProps(gpc, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -3639,11 +3437,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The returned number of tokens placed in rMethodSpecs.</returns>
         public int EnumMethodSpecs(ref IntPtr phEnum, mdToken tk, mdMethodSpec[] rMethodSpecs)
         {
-            HRESULT hr;
             int pcMethodSpecs;
-
-            if ((hr = TryEnumMethodSpecs(ref phEnum, tk, rMethodSpecs, out pcMethodSpecs)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumMethodSpecs(ref phEnum, tk, rMethodSpecs, out pcMethodSpecs).ThrowOnNotOK();
 
             return pcMethodSpecs;
         }

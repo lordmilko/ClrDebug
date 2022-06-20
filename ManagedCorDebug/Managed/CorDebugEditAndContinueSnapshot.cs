@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -27,11 +26,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 Guid pMvid;
-
-                if ((hr = TryGetMvid(out pMvid)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetMvid(out pMvid).ThrowOnNotOK();
 
                 return pMvid;
             }
@@ -58,11 +54,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pRoDataRVA;
-
-                if ((hr = TryGetRoDataRVA(out pRoDataRVA)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetRoDataRVA(out pRoDataRVA).ThrowOnNotOK();
 
                 return pRoDataRVA;
             }
@@ -89,11 +82,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pRwDataRVA;
-
-                if ((hr = TryGetRwDataRVA(out pRwDataRVA)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetRwDataRVA(out pRwDataRVA).ThrowOnNotOK();
 
                 return pRwDataRVA;
             }
@@ -118,11 +108,8 @@ namespace ManagedCorDebug
         [Obsolete]
         public Guid CopyMetaData(IStream pIStream)
         {
-            HRESULT hr;
             Guid pMvid;
-
-            if ((hr = TryCopyMetaData(pIStream, out pMvid)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCopyMetaData(pIStream, out pMvid).ThrowOnNotOK();
 
             return pMvid;
         }
@@ -147,10 +134,7 @@ namespace ManagedCorDebug
         [Obsolete]
         public void SetPEBytes(IStream pIStream)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetPEBytes(pIStream)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetPEBytes(pIStream).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -173,10 +157,7 @@ namespace ManagedCorDebug
         [Obsolete]
         public void SetILMap(mdToken mdFunction, int cMapSize, COR_IL_MAP map)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetILMap(mdFunction, cMapSize, map)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetILMap(mdFunction, cMapSize, map).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -198,10 +179,7 @@ namespace ManagedCorDebug
         [Obsolete]
         public void SetPESymbolBytes(IStream pIStream)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetPESymbolBytes(pIStream)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetPESymbolBytes(pIStream).ThrowOnNotOK();
         }
 
         /// <summary>

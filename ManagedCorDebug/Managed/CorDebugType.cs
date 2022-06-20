@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -34,11 +33,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorElementType ty;
-
-                if ((hr = TryGetType(out ty)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetType(out ty).ThrowOnNotOK();
 
                 return ty;
             }
@@ -68,11 +64,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugClass ppClassResult;
-
-                if ((hr = TryGetClass(out ppClassResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetClass(out ppClassResult).ThrowOnNotOK();
 
                 return ppClassResult;
             }
@@ -111,11 +104,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugType valueResult;
-
-                if ((hr = TryGetFirstTypeParameter(out valueResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetFirstTypeParameter(out valueResult).ThrowOnNotOK();
 
                 return valueResult;
             }
@@ -154,11 +144,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugType pBaseResult;
-
-                if ((hr = TryGetBase(out pBaseResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetBase(out pBaseResult).ThrowOnNotOK();
 
                 return pBaseResult;
             }
@@ -196,11 +183,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pnRank;
-
-                if ((hr = TryGetRank(out pnRank)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetRank(out pnRank).ThrowOnNotOK();
 
                 return pnRank;
             }
@@ -230,11 +214,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugTypeEnum EnumerateTypeParameters()
         {
-            HRESULT hr;
             CorDebugTypeEnum ppTyParEnumResult;
-
-            if ((hr = TryEnumerateTypeParameters(out ppTyParEnumResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateTypeParameters(out ppTyParEnumResult).ThrowOnNotOK();
 
             return ppTyParEnumResult;
         }
@@ -282,11 +263,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugValue GetStaticFieldValue(mdFieldDef fieldDef, ICorDebugFrame pFrame)
         {
-            HRESULT hr;
             CorDebugValue ppValueResult;
-
-            if ((hr = TryGetStaticFieldValue(fieldDef, pFrame, out ppValueResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetStaticFieldValue(fieldDef, pFrame, out ppValueResult).ThrowOnNotOK();
 
             return ppValueResult;
         }
@@ -337,11 +315,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 COR_TYPEID id;
-
-                if ((hr = TryGetTypeID(out id)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetTypeID(out id).ThrowOnNotOK();
 
                 return id;
             }

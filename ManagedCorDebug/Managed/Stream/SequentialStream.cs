@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -26,11 +25,8 @@ namespace ManagedCorDebug
 
         public int RemoteRead(IntPtr pv, int cb)
         {
-            HRESULT hr;
             int pcbRead;
-
-            if ((hr = TryRemoteRead(pv, cb, out pcbRead)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryRemoteRead(pv, cb, out pcbRead).ThrowOnNotOK();
 
             return pcbRead;
         }
@@ -46,11 +42,8 @@ namespace ManagedCorDebug
 
         public int RemoteWrite(IntPtr pv, int cb)
         {
-            HRESULT hr;
             int pcbWritten;
-
-            if ((hr = TryRemoteWrite(pv, cb, out pcbWritten)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryRemoteWrite(pv, cb, out pcbWritten).ThrowOnNotOK();
 
             return pcbWritten;
         }

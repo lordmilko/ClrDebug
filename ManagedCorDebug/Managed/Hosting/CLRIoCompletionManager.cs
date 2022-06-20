@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -37,10 +36,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void OnComplete(HRESULT dwErrorCode, int numberOfBytesTransferred, IntPtr pvOverlapped)
         {
-            HRESULT hr;
-
-            if ((hr = TryOnComplete(dwErrorCode, numberOfBytesTransferred, pvOverlapped)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOnComplete(dwErrorCode, numberOfBytesTransferred, pvOverlapped).ThrowOnNotOK();
         }
 
         /// <summary>

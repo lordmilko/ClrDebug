@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -26,11 +25,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugEHClause[] clausesResult;
-
-                if ((hr = TryGetEHClauses(out clausesResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetEHClauses(out clausesResult).ThrowOnNotOK();
 
                 return clausesResult;
             }
@@ -91,11 +87,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 mdSignature pmdSig;
-
-                if ((hr = TryGetLocalVarSigToken(out pmdSig)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetLocalVarSigToken(out pmdSig).ThrowOnNotOK();
 
                 return pmdSig;
             }
@@ -121,11 +114,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 COR_IL_MAP[] mapResult;
-
-                if ((hr = TryGetInstrumentedILMap(out mapResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetInstrumentedILMap(out mapResult).ThrowOnNotOK();
 
                 return mapResult;
             }

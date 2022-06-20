@@ -30,11 +30,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pdwProcessId;
-
-                if ((hr = TryGetID(out pdwProcessId)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetID(out pdwProcessId).ThrowOnNotOK();
 
                 return pdwProcessId;
             }
@@ -60,11 +57,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 IntPtr phProcessHandle;
-
-                if ((hr = TryGetHandle(out phProcessHandle)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetHandle(out phProcessHandle).ThrowOnNotOK();
 
                 return phProcessHandle;
             }
@@ -94,11 +88,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugValue ppObjectResult;
-
-                if ((hr = TryGetObject(out ppObjectResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetObject(out ppObjectResult).ThrowOnNotOK();
 
                 return ppObjectResult;
             }
@@ -131,11 +122,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pThreadID;
-
-                if ((hr = TryGetHelperThreadID(out pThreadID)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetHelperThreadID(out pThreadID).ThrowOnNotOK();
 
                 return pThreadID;
             }
@@ -171,11 +159,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugThread"/> object that represents the thread.</returns>
         public CorDebugThread GetThread(int dwThreadId)
         {
-            HRESULT hr;
             CorDebugThread ppThreadResult;
-
-            if ((hr = TryGetThread(dwThreadId, out ppThreadResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetThread(dwThreadId, out ppThreadResult).ThrowOnNotOK();
 
             return ppThreadResult;
         }
@@ -207,11 +192,8 @@ namespace ManagedCorDebug
         /// </summary>
         public CorDebugObjectEnum EnumerateObjects()
         {
-            HRESULT hr;
             CorDebugObjectEnum ppObjectsResult;
-
-            if ((hr = TryEnumerateObjects(out ppObjectsResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateObjects(out ppObjectsResult).ThrowOnNotOK();
 
             return ppObjectsResult;
         }
@@ -248,11 +230,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int IsTransitionStub(CORDB_ADDRESS address)
         {
-            HRESULT hr;
             int pbTransitionStub;
-
-            if ((hr = TryIsTransitionStub(address, out pbTransitionStub)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryIsTransitionStub(address, out pbTransitionStub).ThrowOnNotOK();
 
             return pbTransitionStub;
         }
@@ -290,11 +269,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int IsOSSuspended(int threadID)
         {
-            HRESULT hr;
             int pbSuspended;
-
-            if ((hr = TryIsOSSuspended(threadID, out pbSuspended)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryIsOSSuspended(threadID, out pbSuspended).ThrowOnNotOK();
 
             return pbSuspended;
         }
@@ -335,10 +311,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void GetThreadContext(int threadID, int contextSize, IntPtr context)
         {
-            HRESULT hr;
-
-            if ((hr = TryGetThreadContext(threadID, contextSize, context)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetThreadContext(threadID, contextSize, context).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -378,10 +351,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetThreadContext(int threadID, int contextSize, IntPtr context)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetThreadContext(threadID, contextSize, context)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetThreadContext(threadID, contextSize, context).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -422,11 +392,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int ReadMemory(CORDB_ADDRESS address, int size, IntPtr buffer)
         {
-            HRESULT hr;
             int read;
-
-            if ((hr = TryReadMemory(address, size, buffer, out read)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryReadMemory(address, size, buffer, out read).ThrowOnNotOK();
 
             return read;
         }
@@ -470,11 +437,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int WriteMemory(CORDB_ADDRESS address, int size, IntPtr buffer)
         {
-            HRESULT hr;
             int written;
-
-            if ((hr = TryWriteMemory(address, size, buffer, out written)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteMemory(address, size, buffer, out written).ThrowOnNotOK();
 
             return written;
         }
@@ -515,10 +479,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void ClearCurrentException(int threadID)
         {
-            HRESULT hr;
-
-            if ((hr = TryClearCurrentException(threadID)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryClearCurrentException(threadID).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -549,10 +510,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void EnableLogMessages(int fOnOff)
         {
-            HRESULT hr;
-
-            if ((hr = TryEnableLogMessages(fOnOff)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnableLogMessages(fOnOff).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -581,10 +539,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void ModifyLogSwitch(string pLogSwitchName, int lLevel)
         {
-            HRESULT hr;
-
-            if ((hr = TryModifyLogSwitch(pLogSwitchName, lLevel)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryModifyLogSwitch(pLogSwitchName, lLevel).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -613,11 +568,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugAppDomainEnum EnumerateAppDomains()
         {
-            HRESULT hr;
             CorDebugAppDomainEnum ppAppDomainsResult;
-
-            if ((hr = TryEnumerateAppDomains(out ppAppDomainsResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateAppDomains(out ppAppDomainsResult).ThrowOnNotOK();
 
             return ppAppDomainsResult;
         }
@@ -651,11 +603,8 @@ namespace ManagedCorDebug
         /// </summary>
         public CorDebugThread ThreadForFiberCookie(int fiberCookie)
         {
-            HRESULT hr;
             CorDebugThread ppThreadResult;
-
-            if ((hr = TryThreadForFiberCookie(fiberCookie, out ppThreadResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryThreadForFiberCookie(fiberCookie, out ppThreadResult).ThrowOnNotOK();
 
             return ppThreadResult;
         }
@@ -694,11 +643,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 COR_VERSION version;
-
-                if ((hr = TryGetVersion(out version)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetVersion(out version).ThrowOnNotOK();
 
                 return version;
             }
@@ -727,20 +673,14 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pdwFlags;
-
-                if ((hr = TryGetDesiredNGENCompilerFlags(out pdwFlags)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetDesiredNGENCompilerFlags(out pdwFlags).ThrowOnNotOK();
 
                 return pdwFlags;
             }
             set
             {
-                HRESULT hr;
-
-                if ((hr = TrySetDesiredNGENCompilerFlags(value)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TrySetDesiredNGENCompilerFlags(value).ThrowOnNotOK();
             }
         }
 
@@ -793,11 +733,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugThread GetThreadForTaskID(long taskid)
         {
-            HRESULT hr;
             CorDebugThread ppThreadResult;
-
-            if ((hr = TryGetThreadForTaskID(taskid, out ppThreadResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetThreadForTaskID(taskid, out ppThreadResult).ThrowOnNotOK();
 
             return ppThreadResult;
         }
@@ -838,11 +775,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public byte[] SetUnmanagedBreakpoint(CORDB_ADDRESS address)
         {
-            HRESULT hr;
             byte[] bufferResult;
-
-            if ((hr = TrySetUnmanagedBreakpoint(address, out bufferResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetUnmanagedBreakpoint(address, out bufferResult).ThrowOnNotOK();
 
             return bufferResult;
         }
@@ -903,10 +837,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void ClearUnmanagedBreakpoint(CORDB_ADDRESS address)
         {
-            HRESULT hr;
-
-            if ((hr = TryClearUnmanagedBreakpoint(address)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryClearUnmanagedBreakpoint(address).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -940,11 +871,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugReferenceValue GetReferenceValueFromGCHandle(IntPtr handle)
         {
-            HRESULT hr;
             CorDebugReferenceValue pOutValueResult;
-
-            if ((hr = TryGetReferenceValueFromGCHandle(handle, out pOutValueResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetReferenceValueFromGCHandle(handle, out pOutValueResult).ThrowOnNotOK();
 
             return pOutValueResult;
         }
@@ -997,10 +925,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetEnableCustomNotification(ICorDebugClass pClass, int fEnable)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetEnableCustomNotification(pClass, fEnable)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetEnableCustomNotification(pClass, fEnable).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1033,11 +958,8 @@ namespace ManagedCorDebug
 
         public CorDebugDebugEvent Filter(byte[] pRecord, int countBytes, CorDebugRecordFormat format, int dwFlags, int dwThreadId, ref int pContinueStatus)
         {
-            HRESULT hr;
             CorDebugDebugEvent ppEventResult;
-
-            if ((hr = TryFilter(pRecord, countBytes, format, dwFlags, dwThreadId, ref pContinueStatus, out ppEventResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryFilter(pRecord, countBytes, format, dwFlags, dwThreadId, ref pContinueStatus, out ppEventResult).ThrowOnNotOK();
 
             return ppEventResult;
         }
@@ -1068,10 +990,7 @@ namespace ManagedCorDebug
 
         public void ProcessStateChanged(CorDebugStateChange change)
         {
-            HRESULT hr;
-
-            if ((hr = TryProcessStateChanged(change)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryProcessStateChanged(change).ThrowOnNotOK();
         }
 
         public HRESULT TryProcessStateChanged(CorDebugStateChange change)
@@ -1096,11 +1015,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 COR_HEAPINFO pHeapInfo;
-
-                if ((hr = TryGetGCHeapInformation(out pHeapInfo)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetGCHeapInformation(out pHeapInfo).ThrowOnNotOK();
 
                 return pHeapInfo;
             }
@@ -1142,11 +1058,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugHeapEnum EnumerateHeap()
         {
-            HRESULT hr;
             CorDebugHeapEnum ppObjectsResult;
-
-            if ((hr = TryEnumerateHeap(out ppObjectsResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateHeap(out ppObjectsResult).ThrowOnNotOK();
 
             return ppObjectsResult;
         }
@@ -1201,11 +1114,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugHeapSegmentEnum EnumerateHeapRegions()
         {
-            HRESULT hr;
             CorDebugHeapSegmentEnum ppRegionsResult;
-
-            if ((hr = TryEnumerateHeapRegions(out ppRegionsResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateHeapRegions(out ppRegionsResult).ThrowOnNotOK();
 
             return ppRegionsResult;
         }
@@ -1253,11 +1163,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugObjectValue GetObject(CORDB_ADDRESS addr)
         {
-            HRESULT hr;
             CorDebugObjectValue pObjectResult;
-
-            if ((hr = TryGetObject(addr, out pObjectResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetObject(addr, out pObjectResult).ThrowOnNotOK();
 
             return pObjectResult;
         }
@@ -1299,11 +1206,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugGCReferenceEnum EnumerateGCReferences(int enumerateWeakReferences)
         {
-            HRESULT hr;
             CorDebugGCReferenceEnum ppEnumResult;
-
-            if ((hr = TryEnumerateGCReferences(enumerateWeakReferences, out ppEnumResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateGCReferences(enumerateWeakReferences, out ppEnumResult).ThrowOnNotOK();
 
             return ppEnumResult;
         }
@@ -1350,11 +1254,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugGCReferenceEnum EnumerateHandles(CorGCReferenceType types)
         {
-            HRESULT hr;
             CorDebugGCReferenceEnum ppEnumResult;
-
-            if ((hr = TryEnumerateHandles(types, out ppEnumResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateHandles(types, out ppEnumResult).ThrowOnNotOK();
 
             return ppEnumResult;
         }
@@ -1396,11 +1297,8 @@ namespace ManagedCorDebug
         /// <returns>A pointer to the <see cref="COR_TYPEID"/> value that identifies the object.</returns>
         public COR_TYPEID GetTypeID(CORDB_ADDRESS obj)
         {
-            HRESULT hr;
             COR_TYPEID pId;
-
-            if ((hr = TryGetTypeID(obj, out pId)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetTypeID(obj, out pId).ThrowOnNotOK();
 
             return pId;
         }
@@ -1430,11 +1328,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugType GetTypeForTypeID(COR_TYPEID id)
         {
-            HRESULT hr;
             CorDebugType ppTypeResult;
-
-            if ((hr = TryGetTypeForTypeID(id, out ppTypeResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetTypeForTypeID(id, out ppTypeResult).ThrowOnNotOK();
 
             return ppTypeResult;
         }
@@ -1472,11 +1367,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to a <see cref="COR_ARRAY_LAYOUT"/> structure that contains information about the layout of the array in memory.</returns>
         public COR_ARRAY_LAYOUT GetArrayLayout(COR_TYPEID id)
         {
-            HRESULT hr;
             COR_ARRAY_LAYOUT pLayout;
-
-            if ((hr = TryGetArrayLayout(id, out pLayout)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetArrayLayout(id, out pLayout).ThrowOnNotOK();
 
             return pLayout;
         }
@@ -1507,11 +1399,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public COR_TYPE_LAYOUT GetTypeLayout(COR_TYPEID id)
         {
-            HRESULT hr;
             COR_TYPE_LAYOUT pLayout;
-
-            if ((hr = TryGetTypeLayout(id, out pLayout)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetTypeLayout(id, out pLayout).ThrowOnNotOK();
 
             return pLayout;
         }
@@ -1546,11 +1435,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public COR_FIELD[] GetTypeFields(COR_TYPEID id)
         {
-            HRESULT hr;
             COR_FIELD[] fieldsResult;
-
-            if ((hr = TryGetTypeFields(id, out fieldsResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetTypeFields(id, out fieldsResult).ThrowOnNotOK();
 
             return fieldsResult;
         }
@@ -1608,10 +1494,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void EnableNGENPolicy(CorDebugNGenPolicy ePolicy)
         {
-            HRESULT hr;
-
-            if ((hr = TryEnableNGENPolicy(ePolicy)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnableNGENPolicy(ePolicy).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1652,11 +1535,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugDebugEvent"/> object that represents a decoded managed debug event.</returns>
         public CorDebugDebugEvent DecodeEvent(byte[] pRecord, int countBytes, CorDebugRecordFormat format, int dwFlags, int dwThreadId)
         {
-            HRESULT hr;
             CorDebugDebugEvent ppEventResult;
-
-            if ((hr = TryDecodeEvent(pRecord, countBytes, format, dwFlags, dwThreadId, out ppEventResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDecodeEvent(pRecord, countBytes, format, dwFlags, dwThreadId, out ppEventResult).ThrowOnNotOK();
 
             return ppEventResult;
         }
@@ -1701,11 +1581,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the address of an "ICorDebugCode" object that represents a segment of managed code.</returns>
         public CorDebugCode GetCode(CORDB_ADDRESS codeAddress)
         {
-            HRESULT hr;
             CorDebugCode ppCodeResult;
-
-            if ((hr = TryGetCode(codeAddress, out ppCodeResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetCode(codeAddress, out ppCodeResult).ThrowOnNotOK();
 
             return ppCodeResult;
         }
@@ -1749,10 +1626,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void EnableVirtualModuleSplitting(int enableSplitting)
         {
-            HRESULT hr;
-
-            if ((hr = TryEnableVirtualModuleSplitting(enableSplitting)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnableVirtualModuleSplitting(enableSplitting).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1785,10 +1659,7 @@ namespace ManagedCorDebug
         /// <param name="fIsAttached">true if the <see cref="Debugger.IsAttached"/> method should indicate that a debugger is attached; false otherwise.</param>
         public void MarkDebuggerAttached(int fIsAttached)
         {
-            HRESULT hr;
-
-            if ((hr = TryMarkDebuggerAttached(fIsAttached)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryMarkDebuggerAttached(fIsAttached).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1820,11 +1691,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetExportStepInfoResult GetExportStepInfo(string pszExportName)
         {
-            HRESULT hr;
             GetExportStepInfoResult result;
-
-            if ((hr = TryGetExportStepInfo(pszExportName, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetExportStepInfo(pszExportName, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -1879,10 +1747,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetWriteableMetadataUpdateMode(WriteableMetadataUpdateMode flags)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetWriteableMetadataUpdateMode(flags)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetWriteableMetadataUpdateMode(flags).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1916,10 +1781,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void EnableExceptionCallbacksOutsideOfMyCode(int enableExceptionsOutsideOfJMC)
         {
-            HRESULT hr;
-
-            if ((hr = TryEnableExceptionCallbacksOutsideOfMyCode(enableExceptionsOutsideOfJMC)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnableExceptionCallbacksOutsideOfMyCode(enableExceptionsOutsideOfJMC).ThrowOnNotOK();
         }
 
         /// <summary>

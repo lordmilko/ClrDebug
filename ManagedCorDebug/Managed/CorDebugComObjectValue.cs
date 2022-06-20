@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -29,11 +27,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugTypeEnum"/> enumerator that provides access to <see cref="ICorDebugType"/> objects that represent cached interface types filtered according to bIInspectableOnly.</returns>
         public CorDebugTypeEnum GetCachedInterfaceTypes(int bIInspectableOnly)
         {
-            HRESULT hr;
             CorDebugTypeEnum ppInterfacesEnumResult;
-
-            if ((hr = TryGetCachedInterfaceTypes(bIInspectableOnly, out ppInterfacesEnumResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetCachedInterfaceTypes(bIInspectableOnly, out ppInterfacesEnumResult).ThrowOnNotOK();
 
             return ppInterfacesEnumResult;
         }
@@ -68,11 +63,8 @@ namespace ManagedCorDebug
         /// <returns>A pointer to the starting address of an array of <see cref="CORDB_ADDRESS"/> values that contain the addresses of cached interface objects.</returns>
         public CORDB_ADDRESS[] GetCachedInterfacePointers(int bIInspectableOnly)
         {
-            HRESULT hr;
             CORDB_ADDRESS[] ptrsResult;
-
-            if ((hr = TryGetCachedInterfacePointers(bIInspectableOnly, out ptrsResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetCachedInterfacePointers(bIInspectableOnly, out ptrsResult).ThrowOnNotOK();
 
             return ptrsResult;
         }

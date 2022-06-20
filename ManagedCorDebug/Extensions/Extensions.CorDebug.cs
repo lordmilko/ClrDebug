@@ -4,6 +4,29 @@ using Microsoft.Win32.SafeHandles;
 
 namespace ManagedCorDebug
 {
+    public partial class CorDebug
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CorDebug"/> class for the common language runtime version that is running in the current process, and automatically
+        /// calls the <see cref="Initialize"/> method.<para/>
+        /// This constructor simplifies the typical pattern of calling CLRCreateInstance, retrieving a target runtime, followed by retrieving an ICorDebug interface.<para/>
+        /// For greater control over the initialization of the <see cref="CorDebug"/> class,
+        /// please see the <see cref="CorDebug(ICorDebug)"/> constructor.
+        /// </summary>
+        public CorDebug() : base(Init())
+        {
+            Initialize();
+        }
+
+        private static ICorDebug Init()
+        {
+            var metaHost = NativeMethods.CLRCreateInstance().CLRMetaHost;
+            var runtime = metaHost.GetRuntime();
+
+            return runtime.GetInterface<ICorDebug>(NativeMethods.CLSID_CLRDebuggingLegacy);
+        }
+    }
+
     public static partial class Extensions
     {
         /// <summary>
@@ -81,8 +104,7 @@ namespace ManagedCorDebug
                 if (hr == HRESULT.E_FAIL)
                     throw new InvalidOperationException($"Failed to create process: '{nameof(CorDebug)}.{nameof(CorDebug.Initialize)}' and '{nameof(CorDebug)}.{nameof(CorDebug.SetManagedHandler)}' must be called first.");
 
-
-                Marshal.ThrowExceptionForHR((int)hr);
+                hr.ThrowOnNotOK();
             }
             else
             {

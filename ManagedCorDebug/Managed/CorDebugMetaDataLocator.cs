@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -34,11 +33,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public string GetMetaData(string wszImagePath, int dwImageTimeStamp, int dwImageSize)
         {
-            HRESULT hr;
             string wszPathBufferResult;
-
-            if ((hr = TryGetMetaData(wszImagePath, dwImageTimeStamp, dwImageSize, out wszPathBufferResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMetaData(wszImagePath, dwImageTimeStamp, dwImageSize, out wszPathBufferResult).ThrowOnNotOK();
 
             return wszPathBufferResult;
         }

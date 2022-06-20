@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using System.Security.Policy;
 using System.Security.Principal;
 
@@ -29,11 +28,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 object pConfiguration;
-
-                if ((hr = TryGetConfiguration(out pConfiguration)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetConfiguration(out pConfiguration).ThrowOnNotOK();
 
                 return pConfiguration;
             }
@@ -63,11 +59,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 object pAppDomain;
-
-                if ((hr = TryGetDefaultDomain(out pAppDomain)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetDefaultDomain(out pAppDomain).ThrowOnNotOK();
 
                 return pAppDomain;
             }
@@ -100,10 +93,7 @@ namespace ManagedCorDebug
         /// </summary>
         public void CreateLogicalThreadState()
         {
-            HRESULT hr;
-
-            if ((hr = TryCreateLogicalThreadState()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCreateLogicalThreadState().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -123,10 +113,7 @@ namespace ManagedCorDebug
         /// </summary>
         public void DeleteLogicalThreadState()
         {
-            HRESULT hr;
-
-            if ((hr = TryDeleteLogicalThreadState()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDeleteLogicalThreadState().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -147,10 +134,7 @@ namespace ManagedCorDebug
         /// <param name="pFiberCookie">[in] Cookie that indicates the fiber to use.</param>
         public void SwitchInLogicalThreadState(int pFiberCookie)
         {
-            HRESULT hr;
-
-            if ((hr = TrySwitchInLogicalThreadState(pFiberCookie)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySwitchInLogicalThreadState(pFiberCookie).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -172,11 +156,8 @@ namespace ManagedCorDebug
         /// <returns>[out] Cookie that indicates the fiber being switched out.</returns>
         public int SwitchOutLogicalThreadState()
         {
-            HRESULT hr;
             int fiberCookie;
-
-            if ((hr = TrySwitchOutLogicalThreadState(out fiberCookie)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySwitchOutLogicalThreadState(out fiberCookie).ThrowOnNotOK();
 
             return fiberCookie;
         }
@@ -200,11 +181,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the number of locks that the current thread holds.</returns>
         public int LocksHeldByLogicalThread()
         {
-            HRESULT hr;
             int pCount;
-
-            if ((hr = TryLocksHeldByLogicalThread(out pCount)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryLocksHeldByLogicalThread(out pCount).ThrowOnNotOK();
 
             return pCount;
         }
@@ -230,11 +208,8 @@ namespace ManagedCorDebug
         [Obsolete]
         public IntPtr MapFile(IntPtr hFile)
         {
-            HRESULT hr;
             IntPtr hMapAddress;
-
-            if ((hr = TryMapFile(hFile, out hMapAddress)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryMapFile(hFile, out hMapAddress).ThrowOnNotOK();
 
             return hMapAddress;
         }
@@ -263,10 +238,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Start()
         {
-            HRESULT hr;
-
-            if ((hr = TryStart()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStart().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -301,10 +273,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Stop()
         {
-            HRESULT hr;
-
-            if ((hr = TryStop()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStop().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -339,11 +308,8 @@ namespace ManagedCorDebug
         /// <returns>[out] An interface pointer of type <see cref="_AppDomain"/> to an instance of <see cref="AppDomain"/> that can be used to further control the domain.</returns>
         public object CreateDomain(string pwzFriendlyName, object pIdentityArray)
         {
-            HRESULT hr;
             object pAppDomain;
-
-            if ((hr = TryCreateDomain(pwzFriendlyName, pIdentityArray, out pAppDomain)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCreateDomain(pwzFriendlyName, pIdentityArray, out pAppDomain).ThrowOnNotOK();
 
             return pAppDomain;
         }
@@ -378,11 +344,8 @@ namespace ManagedCorDebug
         /// <returns>[out] An enumerator for the domains.</returns>
         public IntPtr EnumDomains()
         {
-            HRESULT hr;
             IntPtr hEnum;
-
-            if ((hr = TryEnumDomains(out hEnum)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumDomains(out hEnum).ThrowOnNotOK();
 
             return hEnum;
         }
@@ -415,11 +378,8 @@ namespace ManagedCorDebug
         /// <returns>[out] An interface pointer to the <see cref="_AppDomain"/> type that represents the next domain in the enumeration, or null, if no more domains exist.</returns>
         public object NextDomain(IntPtr hEnum)
         {
-            HRESULT hr;
             object pAppDomain;
-
-            if ((hr = TryNextDomain(hEnum, out pAppDomain)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryNextDomain(hEnum, out pAppDomain).ThrowOnNotOK();
 
             return pAppDomain;
         }
@@ -452,10 +412,7 @@ namespace ManagedCorDebug
         /// <param name="hEnum">[in] The enumerator to reset.</param>
         public void CloseEnum(IntPtr hEnum)
         {
-            HRESULT hr;
-
-            if ((hr = TryCloseEnum(hEnum)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCloseEnum(hEnum).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -494,11 +451,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public object CreateDomainEx(string pwzFriendlyName, object pSetup, object pEvidence)
         {
-            HRESULT hr;
             object pAppDomain;
-
-            if ((hr = TryCreateDomainEx(pwzFriendlyName, pSetup, pEvidence, out pAppDomain)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCreateDomainEx(pwzFriendlyName, pSetup, pEvidence, out pAppDomain).ThrowOnNotOK();
 
             return pAppDomain;
         }
@@ -546,11 +500,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public object CreateDomainSetup()
         {
-            HRESULT hr;
             object pAppDomainSetup;
-
-            if ((hr = TryCreateDomainSetup(out pAppDomainSetup)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCreateDomainSetup(out pAppDomainSetup).ThrowOnNotOK();
 
             return pAppDomainSetup;
         }
@@ -589,11 +540,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public object CreateEvidence()
         {
-            HRESULT hr;
             object pEvidence;
-
-            if ((hr = TryCreateEvidence(out pEvidence)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCreateEvidence(out pEvidence).ThrowOnNotOK();
 
             return pEvidence;
         }
@@ -629,10 +577,7 @@ namespace ManagedCorDebug
         /// <param name="pAppDomain">[in] A pointer of type <see cref="_AppDomain"/> that represents the domain to be unloaded.</param>
         public void UnloadDomain(object pAppDomain)
         {
-            HRESULT hr;
-
-            if ((hr = TryUnloadDomain(pAppDomain)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryUnloadDomain(pAppDomain).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -662,11 +607,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer of type <see cref="AppDomain"/> that represents the thread's current application domain. This pointer is typed IUnknown, so callers should generally call QueryInterface to obtain a pointer of type <see cref="_AppDomain"/>.</returns>
         public object CurrentDomain()
         {
-            HRESULT hr;
             object pAppDomain;
-
-            if ((hr = TryCurrentDomain(out pAppDomain)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCurrentDomain(out pAppDomain).ThrowOnNotOK();
 
             return pAppDomain;
         }

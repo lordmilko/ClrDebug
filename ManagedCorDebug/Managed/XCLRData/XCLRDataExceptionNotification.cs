@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -18,10 +17,7 @@ namespace ManagedCorDebug
 
         public void OnCodeGenerated(IXCLRDataMethodInstance method)
         {
-            HRESULT hr;
-
-            if ((hr = TryOnCodeGenerated(method)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOnCodeGenerated(method).ThrowOnNotOK();
         }
 
         public HRESULT TryOnCodeGenerated(IXCLRDataMethodInstance method)
@@ -36,10 +32,7 @@ namespace ManagedCorDebug
 
         public void OnCodeDiscarded(IXCLRDataMethodInstance method)
         {
-            HRESULT hr;
-
-            if ((hr = TryOnCodeDiscarded(method)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOnCodeDiscarded(method).ThrowOnNotOK();
         }
 
         public HRESULT TryOnCodeDiscarded(IXCLRDataMethodInstance method)
@@ -54,10 +47,7 @@ namespace ManagedCorDebug
 
         public void OnProcessExecution(int state)
         {
-            HRESULT hr;
-
-            if ((hr = TryOnProcessExecution(state)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOnProcessExecution(state).ThrowOnNotOK();
         }
 
         public HRESULT TryOnProcessExecution(int state)
@@ -72,10 +62,7 @@ namespace ManagedCorDebug
 
         public void OnTaskExecution(IXCLRDataTask task, int state)
         {
-            HRESULT hr;
-
-            if ((hr = TryOnTaskExecution(task, state)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOnTaskExecution(task, state).ThrowOnNotOK();
         }
 
         public HRESULT TryOnTaskExecution(IXCLRDataTask task, int state)
@@ -91,10 +78,7 @@ namespace ManagedCorDebug
 
         public void OnModuleLoaded(IXCLRDataModule mod)
         {
-            HRESULT hr;
-
-            if ((hr = TryOnModuleLoaded(mod)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOnModuleLoaded(mod).ThrowOnNotOK();
         }
 
         public HRESULT TryOnModuleLoaded(IXCLRDataModule mod)
@@ -109,10 +93,7 @@ namespace ManagedCorDebug
 
         public void OnModuleUnloaded(IXCLRDataModule mod)
         {
-            HRESULT hr;
-
-            if ((hr = TryOnModuleUnloaded(mod)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOnModuleUnloaded(mod).ThrowOnNotOK();
         }
 
         public HRESULT TryOnModuleUnloaded(IXCLRDataModule mod)
@@ -127,10 +108,7 @@ namespace ManagedCorDebug
 
         public void OnTypeLoaded(IXCLRDataTypeInstance typeInst)
         {
-            HRESULT hr;
-
-            if ((hr = TryOnTypeLoaded(typeInst)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOnTypeLoaded(typeInst).ThrowOnNotOK();
         }
 
         public HRESULT TryOnTypeLoaded(IXCLRDataTypeInstance typeInst)
@@ -145,10 +123,7 @@ namespace ManagedCorDebug
 
         public void OnTypeUnloaded(IXCLRDataTypeInstance typeInst)
         {
-            HRESULT hr;
-
-            if ((hr = TryOnTypeUnloaded(typeInst)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOnTypeUnloaded(typeInst).ThrowOnNotOK();
         }
 
         public HRESULT TryOnTypeUnloaded(IXCLRDataTypeInstance typeInst)
@@ -169,10 +144,7 @@ namespace ManagedCorDebug
 
         public void OnAppDomainLoaded(IXCLRDataAppDomain domain)
         {
-            HRESULT hr;
-
-            if ((hr = TryOnAppDomainLoaded(domain)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOnAppDomainLoaded(domain).ThrowOnNotOK();
         }
 
         public HRESULT TryOnAppDomainLoaded(IXCLRDataAppDomain domain)
@@ -187,10 +159,7 @@ namespace ManagedCorDebug
 
         public void OnAppDomainUnloaded(IXCLRDataAppDomain domain)
         {
-            HRESULT hr;
-
-            if ((hr = TryOnAppDomainUnloaded(domain)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOnAppDomainUnloaded(domain).ThrowOnNotOK();
         }
 
         public HRESULT TryOnAppDomainUnloaded(IXCLRDataAppDomain domain)
@@ -205,10 +174,7 @@ namespace ManagedCorDebug
 
         public void OnException(IXCLRDataExceptionState exception)
         {
-            HRESULT hr;
-
-            if ((hr = TryOnException(exception)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOnException(exception).ThrowOnNotOK();
         }
 
         public HRESULT TryOnException(IXCLRDataExceptionState exception)
@@ -229,10 +195,7 @@ namespace ManagedCorDebug
 
         public void OnGcEvent(GcEvtArgs gcEvtArgs)
         {
-            HRESULT hr;
-
-            if ((hr = TryOnGcEvent(gcEvtArgs)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOnGcEvent(gcEvtArgs).ThrowOnNotOK();
         }
 
         public HRESULT TryOnGcEvent(GcEvtArgs gcEvtArgs)
@@ -253,10 +216,7 @@ namespace ManagedCorDebug
 
         public void ExceptionCatcherEnter(IXCLRDataMethodInstance catchingMethod, int catcherNativeOffset)
         {
-            HRESULT hr;
-
-            if ((hr = TryExceptionCatcherEnter(catchingMethod, catcherNativeOffset)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryExceptionCatcherEnter(catchingMethod, catcherNativeOffset).ThrowOnNotOK();
         }
 
         public HRESULT TryExceptionCatcherEnter(IXCLRDataMethodInstance catchingMethod, int catcherNativeOffset)
@@ -278,10 +238,7 @@ namespace ManagedCorDebug
 
         public void OnCodeGenerated2(IXCLRDataMethodInstance method, CLRDATA_ADDRESS nativeCodeLocation)
         {
-            HRESULT hr;
-
-            if ((hr = TryOnCodeGenerated2(method, nativeCodeLocation)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOnCodeGenerated2(method, nativeCodeLocation).ThrowOnNotOK();
         }
 
         public HRESULT TryOnCodeGenerated2(IXCLRDataMethodInstance method, CLRDATA_ADDRESS nativeCodeLocation)

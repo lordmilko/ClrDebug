@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -45,11 +44,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 bool pbNullResult;
-
-                if ((hr = TryIsNull(out pbNullResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryIsNull(out pbNullResult).ThrowOnNotOK();
 
                 return pbNullResult;
             }
@@ -83,20 +79,14 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CORDB_ADDRESS pValue;
-
-                if ((hr = TryGetValue(out pValue)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetValue(out pValue).ThrowOnNotOK();
 
                 return pValue;
             }
             set
             {
-                HRESULT hr;
-
-                if ((hr = TrySetValue(value)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TrySetValue(value).ThrowOnNotOK();
             }
         }
 
@@ -132,11 +122,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugValue Dereference()
         {
-            HRESULT hr;
             CorDebugValue ppValueResult;
-
-            if ((hr = TryDereference(out ppValueResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDereference(out ppValueResult).ThrowOnNotOK();
 
             return ppValueResult;
         }
@@ -170,11 +157,8 @@ namespace ManagedCorDebug
         /// </summary>
         public CorDebugValue DereferenceStrong()
         {
-            HRESULT hr;
             CorDebugValue ppValueResult;
-
-            if ((hr = TryDereferenceStrong(out ppValueResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDereferenceStrong(out ppValueResult).ThrowOnNotOK();
 
             return ppValueResult;
         }

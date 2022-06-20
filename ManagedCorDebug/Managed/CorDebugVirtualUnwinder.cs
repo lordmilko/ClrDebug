@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -36,11 +35,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int GetContext(int contextFlags, int cbContextBuf, IntPtr contextBuf)
         {
-            HRESULT hr;
             int contextSize;
-
-            if ((hr = TryGetContext(contextFlags, cbContextBuf, out contextSize, contextBuf)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetContext(contextFlags, cbContextBuf, out contextSize, contextBuf).ThrowOnNotOK();
 
             return contextSize;
         }
@@ -80,10 +76,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Next()
         {
-            HRESULT hr;
-
-            if ((hr = TryNext()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryNext().ThrowOnNotOK();
         }
 
         /// <summary>

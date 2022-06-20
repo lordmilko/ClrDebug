@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using Microsoft.Win32;
 
 namespace ManagedCorDebug
@@ -46,11 +45,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugProcess CreateProcessEx(ICorDebugRemoteTarget pRemoteTarget, string lpApplicationName, string lpCommandLine, SECURITY_ATTRIBUTES lpProcessAttributes, SECURITY_ATTRIBUTES lpThreadAttributes, int bInheritHandles, int dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, STARTUPINFO lpStartupInfo, PROCESS_INFORMATION lpProcessInformation, CorDebugCreateProcessFlags debuggingFlags)
         {
-            HRESULT hr;
             CorDebugProcess ppProcessResult;
-
-            if ((hr = TryCreateProcessEx(pRemoteTarget, lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation, debuggingFlags, out ppProcessResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCreateProcessEx(pRemoteTarget, lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation, debuggingFlags, out ppProcessResult).ThrowOnNotOK();
 
             return ppProcessResult;
         }
@@ -122,11 +118,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugProcess DebugActiveProcessEx(ICorDebugRemoteTarget pRemoteTarget, int dwProcessId, int fWin32Attach)
         {
-            HRESULT hr;
             CorDebugProcess ppProcessResult;
-
-            if ((hr = TryDebugActiveProcessEx(pRemoteTarget, dwProcessId, fWin32Attach, out ppProcessResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDebugActiveProcessEx(pRemoteTarget, dwProcessId, fWin32Attach, out ppProcessResult).ThrowOnNotOK();
 
             return ppProcessResult;
         }

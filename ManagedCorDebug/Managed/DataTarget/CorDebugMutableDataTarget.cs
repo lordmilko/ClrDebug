@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -44,10 +43,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void WriteVirtual(CORDB_ADDRESS address, IntPtr pBuffer, int bytesRequested)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteVirtual(address, pBuffer, bytesRequested)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteVirtual(address, pBuffer, bytesRequested).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -83,10 +79,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetThreadContext(int dwThreadId, int contextSize, IntPtr pContext)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetThreadContext(dwThreadId, contextSize, pContext)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetThreadContext(dwThreadId, contextSize, pContext).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -123,10 +116,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void ContinueStatusChanged(int dwThreadId, int continueStatus)
         {
-            HRESULT hr;
-
-            if ((hr = TryContinueStatusChanged(dwThreadId, continueStatus)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryContinueStatusChanged(dwThreadId, continueStatus).ThrowOnNotOK();
         }
 
         /// <summary>

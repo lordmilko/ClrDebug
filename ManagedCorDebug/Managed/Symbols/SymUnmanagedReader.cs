@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -28,11 +27,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 ISymUnmanagedDocument[] pDocsResult;
-
-                if ((hr = TryGetDocuments(out pDocsResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetDocuments(out pDocsResult).ThrowOnNotOK();
 
                 return pDocsResult;
             }
@@ -84,11 +80,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 mdMethodDef pToken;
-
-                if ((hr = TryGetUserEntryPoint(out pToken)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetUserEntryPoint(out pToken).ThrowOnNotOK();
 
                 return pToken;
             }
@@ -115,11 +108,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 ISymUnmanagedVariable[] pVarsResult;
-
-                if ((hr = TryGetGlobalVariables(out pVarsResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetGlobalVariables(out pVarsResult).ThrowOnNotOK();
 
                 return pVarsResult;
             }
@@ -171,11 +161,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 ISymUnmanagedNamespace[] namespacesResult;
-
-                if ((hr = TryGetNamespaces(out namespacesResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetNamespaces(out namespacesResult).ThrowOnNotOK();
 
                 return namespacesResult;
             }
@@ -227,11 +214,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string szNameResult;
-
-                if ((hr = TryGetSymbolStoreFileName(out szNameResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetSymbolStoreFileName(out szNameResult).ThrowOnNotOK();
 
                 return szNameResult;
             }
@@ -286,11 +270,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the returned interface.</returns>
         public SymUnmanagedDocument GetDocument(string url, Guid language, Guid languageVendor, Guid documentType)
         {
-            HRESULT hr;
             SymUnmanagedDocument pRetValResult;
-
-            if ((hr = TryGetDocument(url, language, languageVendor, documentType, out pRetValResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetDocument(url, language, languageVendor, documentType, out pRetValResult).ThrowOnNotOK();
 
             return pRetValResult;
         }
@@ -333,11 +314,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the returned interface.</returns>
         public ISymUnmanagedMethod GetMethod(mdMethodDef token)
         {
-            HRESULT hr;
             ISymUnmanagedMethod pRetVal = default(ISymUnmanagedMethod);
-
-            if ((hr = TryGetMethod(token, ref pRetVal)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethod(token, ref pRetVal).ThrowOnNotOK();
 
             return pRetVal;
         }
@@ -365,11 +343,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the returned interface.</returns>
         public ISymUnmanagedMethod GetMethodByVersion(mdMethodDef token, int version)
         {
-            HRESULT hr;
             ISymUnmanagedMethod pRetVal = default(ISymUnmanagedMethod);
-
-            if ((hr = TryGetMethodByVersion(token, version, ref pRetVal)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodByVersion(token, version, ref pRetVal).ThrowOnNotOK();
 
             return pRetVal;
         }
@@ -400,11 +375,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the variable that receives the variables.</returns>
         public ISymUnmanagedVariable[] GetVariables(int parent)
         {
-            HRESULT hr;
             ISymUnmanagedVariable[] pVarsResult;
-
-            if ((hr = TryGetVariables(parent, out pVarsResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetVariables(parent, out pVarsResult).ThrowOnNotOK();
 
             return pVarsResult;
         }
@@ -459,11 +431,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the address of a <see cref="ISymUnmanagedMethod"/> object that represents the method containing the breakpoint.</returns>
         public ISymUnmanagedMethod GetMethodFromDocumentPosition(ISymUnmanagedDocument document, int line, int column)
         {
-            HRESULT hr;
             ISymUnmanagedMethod pRetVal = default(ISymUnmanagedMethod);
-
-            if ((hr = TryGetMethodFromDocumentPosition(document, line, column, ref pRetVal)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodFromDocumentPosition(document, line, column, ref pRetVal).ThrowOnNotOK();
 
             return pRetVal;
         }
@@ -500,11 +469,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the variable that receives the length of the attribute data.</returns>
         public int GetSymAttribute(int parent, string name, int cBuffer, IntPtr buffer)
         {
-            HRESULT hr;
             int pcBuffer;
-
-            if ((hr = TryGetSymAttribute(parent, name, cBuffer, out pcBuffer, buffer)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetSymAttribute(parent, name, cBuffer, out pcBuffer, buffer).ThrowOnNotOK();
 
             return pcBuffer;
         }
@@ -545,10 +511,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Initialize(object importer, string filename, string searchPath, IStream pIStream)
         {
-            HRESULT hr;
-
-            if ((hr = TryInitialize(importer, filename, searchPath, pIStream)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryInitialize(importer, filename, searchPath, pIStream).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -583,10 +546,7 @@ namespace ManagedCorDebug
         /// <param name="pIStream">[in] The file stream, used as an alternative to the filename parameter.</param>
         public void UpdateSymbolStore(string filename, IStream pIStream)
         {
-            HRESULT hr;
-
-            if ((hr = TryUpdateSymbolStore(filename, pIStream)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryUpdateSymbolStore(filename, pIStream).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -612,10 +572,7 @@ namespace ManagedCorDebug
         /// <param name="pIStream">[in] The file stream, used as an alternative to the filename parameter.</param>
         public void ReplaceSymbolStore(string filename, IStream pIStream)
         {
-            HRESULT hr;
-
-            if ((hr = TryReplaceSymbolStore(filename, pIStream)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryReplaceSymbolStore(filename, pIStream).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -643,11 +600,8 @@ namespace ManagedCorDebug
         /// <returns>[out] An array of pointers, each of which points to an <see cref="ISymUnmanagedMethod"/> object that represents a method containing the breakpoint.</returns>
         public ISymUnmanagedMethod[] GetMethodsFromDocumentPosition(ISymUnmanagedDocument document, int line, int column)
         {
-            HRESULT hr;
             ISymUnmanagedMethod[] pRetValResult;
-
-            if ((hr = TryGetMethodsFromDocumentPosition(document, line, column, out pRetValResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodsFromDocumentPosition(document, line, column, out pRetValResult).ThrowOnNotOK();
 
             return pRetValResult;
         }
@@ -705,11 +659,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetDocumentVersionResult GetDocumentVersion(ISymUnmanagedDocument pDoc)
         {
-            HRESULT hr;
             GetDocumentVersionResult result;
-
-            if ((hr = TryGetDocumentVersion(pDoc, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetDocumentVersion(pDoc, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -747,11 +698,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to a variable that receives the method version.</returns>
         public int GetMethodVersion(ISymUnmanagedMethod pMethod)
         {
-            HRESULT hr;
             int version;
-
-            if ((hr = TryGetMethodVersion(pMethod, out version)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodVersion(pMethod, out version).ThrowOnNotOK();
 
             return version;
         }
@@ -786,11 +734,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the returned <see cref="ISymUnmanagedMethod"/> interface.</returns>
         public ISymUnmanagedMethod GetMethodByVersionPreRemap(mdMethodDef token, int version)
         {
-            HRESULT hr;
             ISymUnmanagedMethod pRetVal = default(ISymUnmanagedMethod);
-
-            if ((hr = TryGetMethodByVersionPreRemap(token, version, ref pRetVal)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodByVersionPreRemap(token, version, ref pRetVal).ThrowOnNotOK();
 
             return pRetVal;
         }
@@ -824,11 +769,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to a ULONG32 that receives the size of the buffer required to contain the attribute bytes.</returns>
         public int GetSymAttributePreRemap(int parent, string name, int cBuffer, IntPtr buffer)
         {
-            HRESULT hr;
             int pcBuffer;
-
-            if ((hr = TryGetSymAttributePreRemap(parent, name, cBuffer, out pcBuffer, buffer)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetSymAttributePreRemap(parent, name, cBuffer, out pcBuffer, buffer).ThrowOnNotOK();
 
             return pcBuffer;
         }
@@ -863,11 +805,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the buffer that receives the methods.</returns>
         public ISymUnmanagedMethod[] GetMethodsInDocument(ISymUnmanagedDocument document)
         {
-            HRESULT hr;
             ISymUnmanagedMethod[] pRetValResult;
-
-            if ((hr = TryGetMethodsInDocument(document, out pRetValResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodsInDocument(document, out pRetValResult).ThrowOnNotOK();
 
             return pRetValResult;
         }

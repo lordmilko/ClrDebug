@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace ManagedCorDebug
@@ -38,10 +37,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void ImpersonateLoggedOnUser(IntPtr hToken)
         {
-            HRESULT hr;
-
-            if ((hr = TryImpersonateLoggedOnUser(hToken)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryImpersonateLoggedOnUser(hToken).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -81,10 +77,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void RevertToSelf()
         {
-            HRESULT hr;
-
-            if ((hr = TryRevertToSelf()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryRevertToSelf().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -130,11 +123,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public IntPtr OpenThreadToken(int dwDesiredAccess, int bOpenAsSelf)
         {
-            HRESULT hr;
             IntPtr phThreadToken;
-
-            if ((hr = TryOpenThreadToken(dwDesiredAccess, bOpenAsSelf, out phThreadToken)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOpenThreadToken(dwDesiredAccess, bOpenAsSelf, out phThreadToken).ThrowOnNotOK();
 
             return phThreadToken;
         }
@@ -190,10 +180,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetThreadToken(IntPtr hToken)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetThreadToken(hToken)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetThreadToken(hToken).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -241,11 +228,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public HostSecurityContext GetSecurityContext(EContextType eContextType)
         {
-            HRESULT hr;
             HostSecurityContext ppSecurityContextResult;
-
-            if ((hr = TryGetSecurityContext(eContextType, out ppSecurityContextResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetSecurityContext(eContextType, out ppSecurityContextResult).ThrowOnNotOK();
 
             return ppSecurityContextResult;
         }
@@ -308,10 +292,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetSecurityContext(EContextType eContextType, IHostSecurityContext pSecurityContext)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetSecurityContext(eContextType, pSecurityContext)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetSecurityContext(eContextType, pSecurityContext).ThrowOnNotOK();
         }
 
         /// <summary>

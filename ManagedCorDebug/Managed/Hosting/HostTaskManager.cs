@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace ManagedCorDebug
@@ -32,20 +31,14 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pGuarantee;
-
-                if ((hr = TryGetStackGuarantee(out pGuarantee)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetStackGuarantee(out pGuarantee).ThrowOnNotOK();
 
                 return pGuarantee;
             }
             set
             {
-                HRESULT hr;
-
-                if ((hr = TrySetStackGuarantee(value)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TrySetStackGuarantee(value).ThrowOnNotOK();
             }
         }
 
@@ -85,11 +78,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public HostTaskManager CreateTask(int dwStackSize, LPTHREAD_START_ROUTINE pStartAddress, IntPtr pParameter)
         {
-            HRESULT hr;
             HostTaskManager ppTaskResult;
-
-            if ((hr = TryCreateTask(dwStackSize, pStartAddress, pParameter, out ppTaskResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCreateTask(dwStackSize, pStartAddress, pParameter, out ppTaskResult).ThrowOnNotOK();
 
             return ppTaskResult;
         }
@@ -148,10 +138,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Sleep(int dwMilliseconds, int option)
         {
-            HRESULT hr;
-
-            if ((hr = TrySleep(dwMilliseconds, option)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySleep(dwMilliseconds, option).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -192,10 +179,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SwitchToTask(int option)
         {
-            HRESULT hr;
-
-            if ((hr = TrySwitchToTask(option)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySwitchToTask(option).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -237,10 +221,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetUILocale(int lcid)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetUILocale(lcid)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetUILocale(lcid).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -286,10 +267,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetLocale(int lcid)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetLocale(lcid)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetLocale(lcid).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -340,11 +318,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int CallNeedsHostHook(int target)
         {
-            HRESULT hr;
             int pbCallNeedsHostHook;
-
-            if ((hr = TryCallNeedsHostHook(target, out pbCallNeedsHostHook)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCallNeedsHostHook(target, out pbCallNeedsHostHook).ThrowOnNotOK();
 
             return pbCallNeedsHostHook;
         }
@@ -396,10 +371,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void LeaveRuntime(int target)
         {
-            HRESULT hr;
-
-            if ((hr = TryLeaveRuntime(target)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryLeaveRuntime(target).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -440,10 +412,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void EnterRuntime()
         {
-            HRESULT hr;
-
-            if ((hr = TryEnterRuntime()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnterRuntime().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -483,10 +452,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void ReverseLeaveRuntime()
         {
-            HRESULT hr;
-
-            if ((hr = TryReverseLeaveRuntime()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryReverseLeaveRuntime().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -526,10 +492,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void ReverseEnterRuntime()
         {
-            HRESULT hr;
-
-            if ((hr = TryReverseEnterRuntime()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryReverseEnterRuntime().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -569,10 +532,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void BeginDelayAbort()
         {
-            HRESULT hr;
-
-            if ((hr = TryBeginDelayAbort()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryBeginDelayAbort().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -613,10 +573,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void EndDelayAbort()
         {
-            HRESULT hr;
-
-            if ((hr = TryEndDelayAbort()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEndDelayAbort().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -659,10 +616,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void BeginThreadAffinity()
         {
-            HRESULT hr;
-
-            if ((hr = TryBeginThreadAffinity()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryBeginThreadAffinity().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -704,10 +658,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void EndThreadAffinity()
         {
-            HRESULT hr;
-
-            if ((hr = TryEndThreadAffinity()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEndThreadAffinity().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -747,11 +698,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CLRTaskManager SetCLRTaskManager()
         {
-            HRESULT hr;
             CLRTaskManager ppManagerResult;
-
-            if ((hr = TrySetCLRTaskManager(out ppManagerResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetCLRTaskManager(out ppManagerResult).ThrowOnNotOK();
 
             return ppManagerResult;
         }

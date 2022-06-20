@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -22,11 +21,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 DacpThreadStoreData data;
-
-                if ((hr = TryGetThreadStoreData(out data)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetThreadStoreData(out data).ThrowOnNotOK();
 
                 return data;
             }
@@ -46,11 +42,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 DacpAppDomainStoreData data;
-
-                if ((hr = TryGetAppDomainStoreData(out data)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetAppDomainStoreData(out data).ThrowOnNotOK();
 
                 return data;
             }
@@ -73,11 +66,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CLRDATA_ADDRESS[] valuesResult;
-
-                if ((hr = TryGetAppDomainList(out valuesResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetAppDomainList(out valuesResult).ThrowOnNotOK();
 
                 return valuesResult;
             }
@@ -126,11 +116,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 DacpJitManagerInfo[] managersResult;
-
-                if ((hr = TryGetJitManagerList(out managersResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetJitManagerList(out managersResult).ThrowOnNotOK();
 
                 return managersResult;
             }
@@ -174,11 +161,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 DacpThreadpoolData data;
-
-                if ((hr = TryGetThreadpoolData(out data)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetThreadpoolData(out data).ThrowOnNotOK();
 
                 return data;
             }
@@ -198,11 +182,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 DacpGcHeapData data;
-
-                if ((hr = TryGetGCHeapData(out data)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetGCHeapData(out data).ThrowOnNotOK();
 
                 return data;
             }
@@ -222,11 +203,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CLRDATA_ADDRESS[] heapsResult;
-
-                if ((hr = TryGetGCHeapList(out heapsResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetGCHeapList(out heapsResult).ThrowOnNotOK();
 
                 return heapsResult;
             }
@@ -270,11 +248,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 DacpGcHeapDetails data;
-
-                if ((hr = TryGetGCHeapStaticData(out data)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetGCHeapStaticData(out data).ThrowOnNotOK();
 
                 return data;
             }
@@ -294,11 +269,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 DacpOomData data;
-
-                if ((hr = TryGetOOMStaticData(out data)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetOOMStaticData(out data).ThrowOnNotOK();
 
                 return data;
             }
@@ -318,11 +290,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 DacpGcHeapAnalyzeData data;
-
-                if ((hr = TryGetHeapAnalyzeStaticData(out data)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetHeapAnalyzeStaticData(out data).ThrowOnNotOK();
 
                 return data;
             }
@@ -342,11 +311,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 SOSHandleEnum ppHandleEnumResult;
-
-                if ((hr = TryGetHandleEnum(out ppHandleEnumResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetHandleEnum(out ppHandleEnumResult).ThrowOnNotOK();
 
                 return ppHandleEnumResult;
             }
@@ -374,11 +340,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CLRDATA_ADDRESS stressLog;
-
-                if ((hr = TryGetStressLogAddress(out stressLog)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetStressLogAddress(out stressLog).ThrowOnNotOK();
 
                 return stressLog;
             }
@@ -398,11 +361,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 DacpUsefulGlobalsData data;
-
-                if ((hr = TryGetUsefulGlobals(out data)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetUsefulGlobals(out data).ThrowOnNotOK();
 
                 return data;
             }
@@ -422,11 +382,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pIndex;
-
-                if ((hr = TryGetTLSIndex(out pIndex)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetTLSIndex(out pIndex).ThrowOnNotOK();
 
                 return pIndex;
             }
@@ -446,11 +403,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 IntPtr phModule;
-
-                if ((hr = TryGetDacModuleHandle(out phModule)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetDacModuleHandle(out phModule).ThrowOnNotOK();
 
                 return phModule;
             }
@@ -468,11 +422,8 @@ namespace ManagedCorDebug
 
         public DacpAppDomainData GetAppDomainData(CLRDATA_ADDRESS addr)
         {
-            HRESULT hr;
             DacpAppDomainData data;
-
-            if ((hr = TryGetAppDomainData(addr, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetAppDomainData(addr, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -490,11 +441,8 @@ namespace ManagedCorDebug
 
         public string GetAppDomainName(CLRDATA_ADDRESS addr)
         {
-            HRESULT hr;
             string nameResult;
-
-            if ((hr = TryGetAppDomainName(addr, out nameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetAppDomainName(addr, out nameResult).ThrowOnNotOK();
 
             return nameResult;
         }
@@ -536,11 +484,8 @@ namespace ManagedCorDebug
 
         public CLRDATA_ADDRESS GetDomainFromContext(CLRDATA_ADDRESS context)
         {
-            HRESULT hr;
             CLRDATA_ADDRESS domain;
-
-            if ((hr = TryGetDomainFromContext(context, out domain)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetDomainFromContext(context, out domain).ThrowOnNotOK();
 
             return domain;
         }
@@ -558,11 +503,8 @@ namespace ManagedCorDebug
 
         public CLRDATA_ADDRESS[] GetAssemblyList(CLRDATA_ADDRESS appDomain)
         {
-            HRESULT hr;
             CLRDATA_ADDRESS[] valuesResult;
-
-            if ((hr = TryGetAssemblyList(appDomain, out valuesResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetAssemblyList(appDomain, out valuesResult).ThrowOnNotOK();
 
             return valuesResult;
         }
@@ -604,11 +546,8 @@ namespace ManagedCorDebug
 
         public DacpAssemblyData GetAssemblyData(CLRDATA_ADDRESS baseDomainPtr, CLRDATA_ADDRESS assembly)
         {
-            HRESULT hr;
             DacpAssemblyData data;
-
-            if ((hr = TryGetAssemblyData(baseDomainPtr, assembly, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetAssemblyData(baseDomainPtr, assembly, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -627,11 +566,8 @@ namespace ManagedCorDebug
 
         public string GetAssemblyName(CLRDATA_ADDRESS assembly)
         {
-            HRESULT hr;
             string nameResult;
-
-            if ((hr = TryGetAssemblyName(assembly, out nameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetAssemblyName(assembly, out nameResult).ThrowOnNotOK();
 
             return nameResult;
         }
@@ -673,11 +609,8 @@ namespace ManagedCorDebug
 
         public XCLRDataModule GetModule(CLRDATA_ADDRESS addr)
         {
-            HRESULT hr;
             XCLRDataModule modResult;
-
-            if ((hr = TryGetModule(addr, out modResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetModule(addr, out modResult).ThrowOnNotOK();
 
             return modResult;
         }
@@ -703,11 +636,8 @@ namespace ManagedCorDebug
 
         public DacpModuleData GetModuleData(CLRDATA_ADDRESS moduleAddr)
         {
-            HRESULT hr;
             DacpModuleData data;
-
-            if ((hr = TryGetModuleData(moduleAddr, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetModuleData(moduleAddr, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -725,10 +655,7 @@ namespace ManagedCorDebug
 
         public void TraverseModuleMap(ModuleMapType mmt, CLRDATA_ADDRESS moduleAddr, MODULEMAPTRAVERSE pCallback, IntPtr token)
         {
-            HRESULT hr;
-
-            if ((hr = TryTraverseModuleMap(mmt, moduleAddr, pCallback, token)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryTraverseModuleMap(mmt, moduleAddr, pCallback, token).ThrowOnNotOK();
         }
 
         public HRESULT TryTraverseModuleMap(ModuleMapType mmt, CLRDATA_ADDRESS moduleAddr, MODULEMAPTRAVERSE pCallback, IntPtr token)
@@ -746,11 +673,8 @@ namespace ManagedCorDebug
 
         public CLRDATA_ADDRESS[] GetAssemblyModuleList(CLRDATA_ADDRESS assembly)
         {
-            HRESULT hr;
             CLRDATA_ADDRESS[] modulesResult;
-
-            if ((hr = TryGetAssemblyModuleList(assembly, out modulesResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetAssemblyModuleList(assembly, out modulesResult).ThrowOnNotOK();
 
             return modulesResult;
         }
@@ -792,11 +716,8 @@ namespace ManagedCorDebug
 
         public CLRDATA_ADDRESS GetILForModule(CLRDATA_ADDRESS moduleAddr, int rva)
         {
-            HRESULT hr;
             CLRDATA_ADDRESS il;
-
-            if ((hr = TryGetILForModule(moduleAddr, rva, out il)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetILForModule(moduleAddr, rva, out il).ThrowOnNotOK();
 
             return il;
         }
@@ -815,11 +736,8 @@ namespace ManagedCorDebug
 
         public DacpThreadData GetThreadData(CLRDATA_ADDRESS thread)
         {
-            HRESULT hr;
             DacpThreadData data;
-
-            if ((hr = TryGetThreadData(thread, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetThreadData(thread, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -837,11 +755,8 @@ namespace ManagedCorDebug
 
         public CLRDATA_ADDRESS GetThreadFromThinlockID(int thinLockId)
         {
-            HRESULT hr;
             CLRDATA_ADDRESS pThread;
-
-            if ((hr = TryGetThreadFromThinlockID(thinLockId, out pThread)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetThreadFromThinlockID(thinLockId, out pThread).ThrowOnNotOK();
 
             return pThread;
         }
@@ -859,11 +774,8 @@ namespace ManagedCorDebug
 
         public GetStackLimitsResult GetStackLimits(CLRDATA_ADDRESS threadPtr)
         {
-            HRESULT hr;
             GetStackLimitsResult result;
-
-            if ((hr = TryGetStackLimits(threadPtr, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetStackLimits(threadPtr, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -893,11 +805,8 @@ namespace ManagedCorDebug
 
         public GetMethodDescDataResult GetMethodDescData(CLRDATA_ADDRESS methodDesc, CLRDATA_ADDRESS ip)
         {
-            HRESULT hr;
             GetMethodDescDataResult result;
-
-            if ((hr = TryGetMethodDescData(methodDesc, ip, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodDescData(methodDesc, ip, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -942,11 +851,8 @@ namespace ManagedCorDebug
 
         public CLRDATA_ADDRESS GetMethodDescPtrFromIP(CLRDATA_ADDRESS ip)
         {
-            HRESULT hr;
             CLRDATA_ADDRESS ppMD;
-
-            if ((hr = TryGetMethodDescPtrFromIP(ip, out ppMD)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodDescPtrFromIP(ip, out ppMD).ThrowOnNotOK();
 
             return ppMD;
         }
@@ -964,11 +870,8 @@ namespace ManagedCorDebug
 
         public string GetMethodDescName(CLRDATA_ADDRESS methodDesc)
         {
-            HRESULT hr;
             string nameResult;
-
-            if ((hr = TryGetMethodDescName(methodDesc, out nameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodDescName(methodDesc, out nameResult).ThrowOnNotOK();
 
             return nameResult;
         }
@@ -1010,11 +913,8 @@ namespace ManagedCorDebug
 
         public CLRDATA_ADDRESS GetMethodDescPtrFromFrame(CLRDATA_ADDRESS frameAddr)
         {
-            HRESULT hr;
             CLRDATA_ADDRESS ppMD;
-
-            if ((hr = TryGetMethodDescPtrFromFrame(frameAddr, out ppMD)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodDescPtrFromFrame(frameAddr, out ppMD).ThrowOnNotOK();
 
             return ppMD;
         }
@@ -1032,11 +932,8 @@ namespace ManagedCorDebug
 
         public CLRDATA_ADDRESS GetMethodDescFromToken(CLRDATA_ADDRESS moduleAddr, mdToken token)
         {
-            HRESULT hr;
             CLRDATA_ADDRESS methodDesc;
-
-            if ((hr = TryGetMethodDescFromToken(moduleAddr, token, out methodDesc)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodDescFromToken(moduleAddr, token, out methodDesc).ThrowOnNotOK();
 
             return methodDesc;
         }
@@ -1055,11 +952,8 @@ namespace ManagedCorDebug
 
         public DacpMethodDescTransparencyData GetMethodDescTransparencyData(CLRDATA_ADDRESS methodDesc)
         {
-            HRESULT hr;
             DacpMethodDescTransparencyData data;
-
-            if ((hr = TryGetMethodDescTransparencyData(methodDesc, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodDescTransparencyData(methodDesc, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -1077,11 +971,8 @@ namespace ManagedCorDebug
 
         public DacpCodeHeaderData GetCodeHeaderData(CLRDATA_ADDRESS ip)
         {
-            HRESULT hr;
             DacpCodeHeaderData data;
-
-            if ((hr = TryGetCodeHeaderData(ip, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetCodeHeaderData(ip, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -1099,11 +990,8 @@ namespace ManagedCorDebug
 
         public string GetJitHelperFunctionName(CLRDATA_ADDRESS ip)
         {
-            HRESULT hr;
             string nameResult;
-
-            if ((hr = TryGetJitHelperFunctionName(ip, out nameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetJitHelperFunctionName(ip, out nameResult).ThrowOnNotOK();
 
             return nameResult;
         }
@@ -1145,11 +1033,8 @@ namespace ManagedCorDebug
 
         public GetJumpThunkTargetResult GetJumpThunkTarget(IntPtr ctx)
         {
-            HRESULT hr;
             GetJumpThunkTargetResult result;
-
-            if ((hr = TryGetJumpThunkTarget(ctx, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetJumpThunkTarget(ctx, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -1177,11 +1062,8 @@ namespace ManagedCorDebug
 
         public DacpWorkRequestData GetWorkRequestData(CLRDATA_ADDRESS addrWorkRequest)
         {
-            HRESULT hr;
             DacpWorkRequestData data;
-
-            if ((hr = TryGetWorkRequestData(addrWorkRequest, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetWorkRequestData(addrWorkRequest, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -1199,11 +1081,8 @@ namespace ManagedCorDebug
 
         public DacpHillClimbingLogEntry GetHillClimbingLogEntry(CLRDATA_ADDRESS addr)
         {
-            HRESULT hr;
             DacpHillClimbingLogEntry data;
-
-            if ((hr = TryGetHillClimbingLogEntry(addr, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetHillClimbingLogEntry(addr, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -1221,11 +1100,8 @@ namespace ManagedCorDebug
 
         public DacpObjectData GetObjectData(CLRDATA_ADDRESS objAddr)
         {
-            HRESULT hr;
             DacpObjectData data;
-
-            if ((hr = TryGetObjectData(objAddr, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetObjectData(objAddr, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -1243,11 +1119,8 @@ namespace ManagedCorDebug
 
         public string GetObjectStringData(CLRDATA_ADDRESS obj)
         {
-            HRESULT hr;
             string stringDataResult;
-
-            if ((hr = TryGetObjectStringData(obj, out stringDataResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetObjectStringData(obj, out stringDataResult).ThrowOnNotOK();
 
             return stringDataResult;
         }
@@ -1289,11 +1162,8 @@ namespace ManagedCorDebug
 
         public string GetObjectClassName(CLRDATA_ADDRESS obj)
         {
-            HRESULT hr;
             string classNameResult;
-
-            if ((hr = TryGetObjectClassName(obj, out classNameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetObjectClassName(obj, out classNameResult).ThrowOnNotOK();
 
             return classNameResult;
         }
@@ -1335,11 +1205,8 @@ namespace ManagedCorDebug
 
         public string GetMethodTableName(CLRDATA_ADDRESS mt)
         {
-            HRESULT hr;
             string mtNameResult;
-
-            if ((hr = TryGetMethodTableName(mt, out mtNameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodTableName(mt, out mtNameResult).ThrowOnNotOK();
 
             return mtNameResult;
         }
@@ -1381,11 +1248,8 @@ namespace ManagedCorDebug
 
         public DacpMethodTableData GetMethodTableData(CLRDATA_ADDRESS mt)
         {
-            HRESULT hr;
             DacpMethodTableData data;
-
-            if ((hr = TryGetMethodTableData(mt, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodTableData(mt, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -1403,11 +1267,8 @@ namespace ManagedCorDebug
 
         public CLRDATA_ADDRESS GetMethodTableSlot(CLRDATA_ADDRESS mt, int slot)
         {
-            HRESULT hr;
             CLRDATA_ADDRESS value;
-
-            if ((hr = TryGetMethodTableSlot(mt, slot, out value)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodTableSlot(mt, slot, out value).ThrowOnNotOK();
 
             return value;
         }
@@ -1426,11 +1287,8 @@ namespace ManagedCorDebug
 
         public DacpMethodTableFieldData GetMethodTableFieldData(CLRDATA_ADDRESS mt)
         {
-            HRESULT hr;
             DacpMethodTableFieldData data;
-
-            if ((hr = TryGetMethodTableFieldData(mt, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodTableFieldData(mt, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -1448,11 +1306,8 @@ namespace ManagedCorDebug
 
         public DacpMethodTableTransparencyData GetMethodTableTransparencyData(CLRDATA_ADDRESS mt)
         {
-            HRESULT hr;
             DacpMethodTableTransparencyData data;
-
-            if ((hr = TryGetMethodTableTransparencyData(mt, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodTableTransparencyData(mt, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -1470,11 +1325,8 @@ namespace ManagedCorDebug
 
         public CLRDATA_ADDRESS GetMethodTableForEEClass(CLRDATA_ADDRESS eeClass)
         {
-            HRESULT hr;
             CLRDATA_ADDRESS value;
-
-            if ((hr = TryGetMethodTableForEEClass(eeClass, out value)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodTableForEEClass(eeClass, out value).ThrowOnNotOK();
 
             return value;
         }
@@ -1492,11 +1344,8 @@ namespace ManagedCorDebug
 
         public DacpFieldDescData GetFieldDescData(CLRDATA_ADDRESS fieldDesc)
         {
-            HRESULT hr;
             DacpFieldDescData data;
-
-            if ((hr = TryGetFieldDescData(fieldDesc, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetFieldDescData(fieldDesc, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -1514,11 +1363,8 @@ namespace ManagedCorDebug
 
         public string GetFrameName(CLRDATA_ADDRESS vtable)
         {
-            HRESULT hr;
             string frameNameResult;
-
-            if ((hr = TryGetFrameName(vtable, out frameNameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetFrameName(vtable, out frameNameResult).ThrowOnNotOK();
 
             return frameNameResult;
         }
@@ -1560,11 +1406,8 @@ namespace ManagedCorDebug
 
         public CLRDATA_ADDRESS GetPEFileBase(CLRDATA_ADDRESS addr)
         {
-            HRESULT hr;
             CLRDATA_ADDRESS _base;
-
-            if ((hr = TryGetPEFileBase(addr, out _base)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetPEFileBase(addr, out _base).ThrowOnNotOK();
 
             return _base;
         }
@@ -1582,11 +1425,8 @@ namespace ManagedCorDebug
 
         public string GetPEFileName(CLRDATA_ADDRESS addr)
         {
-            HRESULT hr;
             string fileNameResult;
-
-            if ((hr = TryGetPEFileName(addr, out fileNameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetPEFileName(addr, out fileNameResult).ThrowOnNotOK();
 
             return fileNameResult;
         }
@@ -1628,11 +1468,8 @@ namespace ManagedCorDebug
 
         public DacpGcHeapDetails GetGCHeapDetails(CLRDATA_ADDRESS heap)
         {
-            HRESULT hr;
             DacpGcHeapDetails details;
-
-            if ((hr = TryGetGCHeapDetails(heap, out details)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetGCHeapDetails(heap, out details).ThrowOnNotOK();
 
             return details;
         }
@@ -1650,11 +1487,8 @@ namespace ManagedCorDebug
 
         public DacpHeapSegmentData GetHeapSegmentData(CLRDATA_ADDRESS seg)
         {
-            HRESULT hr;
             DacpHeapSegmentData data;
-
-            if ((hr = TryGetHeapSegmentData(seg, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetHeapSegmentData(seg, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -1672,11 +1506,8 @@ namespace ManagedCorDebug
 
         public DacpOomData GetOOMData(CLRDATA_ADDRESS oomAddr)
         {
-            HRESULT hr;
             DacpOomData data;
-
-            if ((hr = TryGetOOMData(oomAddr, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetOOMData(oomAddr, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -1694,11 +1525,8 @@ namespace ManagedCorDebug
 
         public DacpGcHeapAnalyzeData GetHeapAnalyzeData(CLRDATA_ADDRESS addr)
         {
-            HRESULT hr;
             DacpGcHeapAnalyzeData data;
-
-            if ((hr = TryGetHeapAnalyzeData(addr, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetHeapAnalyzeData(addr, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -1716,11 +1544,8 @@ namespace ManagedCorDebug
 
         public DacpDomainLocalModuleData GetDomainLocalModuleData(CLRDATA_ADDRESS addr)
         {
-            HRESULT hr;
             DacpDomainLocalModuleData data;
-
-            if ((hr = TryGetDomainLocalModuleData(addr, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetDomainLocalModuleData(addr, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -1738,11 +1563,8 @@ namespace ManagedCorDebug
 
         public DacpDomainLocalModuleData GetDomainLocalModuleDataFromAppDomain(CLRDATA_ADDRESS appDomainAddr, int moduleID)
         {
-            HRESULT hr;
             DacpDomainLocalModuleData data;
-
-            if ((hr = TryGetDomainLocalModuleDataFromAppDomain(appDomainAddr, moduleID, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetDomainLocalModuleDataFromAppDomain(appDomainAddr, moduleID, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -1761,11 +1583,8 @@ namespace ManagedCorDebug
 
         public DacpDomainLocalModuleData GetDomainLocalModuleDataFromModule(CLRDATA_ADDRESS moduleAddr)
         {
-            HRESULT hr;
             DacpDomainLocalModuleData data;
-
-            if ((hr = TryGetDomainLocalModuleDataFromModule(moduleAddr, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetDomainLocalModuleDataFromModule(moduleAddr, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -1783,11 +1602,8 @@ namespace ManagedCorDebug
 
         public DacpThreadLocalModuleData GetThreadLocalModuleData(CLRDATA_ADDRESS thread, int index)
         {
-            HRESULT hr;
             DacpThreadLocalModuleData data;
-
-            if ((hr = TryGetThreadLocalModuleData(thread, index, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetThreadLocalModuleData(thread, index, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -1806,11 +1622,8 @@ namespace ManagedCorDebug
 
         public DacpSyncBlockData GetSyncBlockData(int number)
         {
-            HRESULT hr;
             DacpSyncBlockData data;
-
-            if ((hr = TryGetSyncBlockData(number, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetSyncBlockData(number, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -1828,11 +1641,8 @@ namespace ManagedCorDebug
 
         public DacpSyncBlockCleanupData GetSyncBlockCleanupData(CLRDATA_ADDRESS addr)
         {
-            HRESULT hr;
             DacpSyncBlockCleanupData data;
-
-            if ((hr = TryGetSyncBlockCleanupData(addr, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetSyncBlockCleanupData(addr, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -1850,11 +1660,8 @@ namespace ManagedCorDebug
 
         public SOSHandleEnum GetHandleEnumForTypes(int[] types, int count)
         {
-            HRESULT hr;
             SOSHandleEnum ppHandleEnumResult;
-
-            if ((hr = TryGetHandleEnumForTypes(types, count, out ppHandleEnumResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetHandleEnumForTypes(types, count, out ppHandleEnumResult).ThrowOnNotOK();
 
             return ppHandleEnumResult;
         }
@@ -1881,11 +1688,8 @@ namespace ManagedCorDebug
 
         public SOSHandleEnum GetHandleEnumForGC(int gen)
         {
-            HRESULT hr;
             SOSHandleEnum ppHandleEnumResult;
-
-            if ((hr = TryGetHandleEnumForGC(gen, out ppHandleEnumResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetHandleEnumForGC(gen, out ppHandleEnumResult).ThrowOnNotOK();
 
             return ppHandleEnumResult;
         }
@@ -1911,10 +1715,7 @@ namespace ManagedCorDebug
 
         public void TraverseEHInfo(CLRDATA_ADDRESS ip, DUMPEHINFO pCallback, IntPtr token)
         {
-            HRESULT hr;
-
-            if ((hr = TryTraverseEHInfo(ip, pCallback, token)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryTraverseEHInfo(ip, pCallback, token).ThrowOnNotOK();
         }
 
         public HRESULT TryTraverseEHInfo(CLRDATA_ADDRESS ip, DUMPEHINFO pCallback, IntPtr token)
@@ -1931,11 +1732,8 @@ namespace ManagedCorDebug
 
         public GetNestedExceptionDataResult GetNestedExceptionData(CLRDATA_ADDRESS exception)
         {
-            HRESULT hr;
             GetNestedExceptionDataResult result;
-
-            if ((hr = TryGetNestedExceptionData(exception, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetNestedExceptionData(exception, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -1963,10 +1761,7 @@ namespace ManagedCorDebug
 
         public void TraverseLoaderHeap(CLRDATA_ADDRESS loaderHeapAddr, VISITHEAP pCallback)
         {
-            HRESULT hr;
-
-            if ((hr = TryTraverseLoaderHeap(loaderHeapAddr, pCallback)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryTraverseLoaderHeap(loaderHeapAddr, pCallback).ThrowOnNotOK();
         }
 
         public HRESULT TryTraverseLoaderHeap(CLRDATA_ADDRESS loaderHeapAddr, VISITHEAP pCallback)
@@ -1982,11 +1777,8 @@ namespace ManagedCorDebug
 
         public DacpJitCodeHeapInfo[] GetCodeHeapList(CLRDATA_ADDRESS jitManager)
         {
-            HRESULT hr;
             DacpJitCodeHeapInfo[] codeHeapsResult;
-
-            if ((hr = TryGetCodeHeapList(jitManager, out codeHeapsResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetCodeHeapList(jitManager, out codeHeapsResult).ThrowOnNotOK();
 
             return codeHeapsResult;
         }
@@ -2028,10 +1820,7 @@ namespace ManagedCorDebug
 
         public void TraverseVirtCallStubHeap(CLRDATA_ADDRESS pAppDomain, VCSHeapType heaptype, VISITHEAP pCallback)
         {
-            HRESULT hr;
-
-            if ((hr = TryTraverseVirtCallStubHeap(pAppDomain, heaptype, pCallback)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryTraverseVirtCallStubHeap(pAppDomain, heaptype, pCallback).ThrowOnNotOK();
         }
 
         public HRESULT TryTraverseVirtCallStubHeap(CLRDATA_ADDRESS pAppDomain, VCSHeapType heaptype, VISITHEAP pCallback)
@@ -2048,10 +1837,7 @@ namespace ManagedCorDebug
 
         public void GetClrWatsonBuckets(CLRDATA_ADDRESS thread, IntPtr pGenericModeBlock)
         {
-            HRESULT hr;
-
-            if ((hr = TryGetClrWatsonBuckets(thread, pGenericModeBlock)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetClrWatsonBuckets(thread, pGenericModeBlock).ThrowOnNotOK();
         }
 
         public HRESULT TryGetClrWatsonBuckets(CLRDATA_ADDRESS thread, IntPtr pGenericModeBlock)
@@ -2067,11 +1853,8 @@ namespace ManagedCorDebug
 
         public DacpRCWData GetRCWData(CLRDATA_ADDRESS addr)
         {
-            HRESULT hr;
             DacpRCWData data;
-
-            if ((hr = TryGetRCWData(addr, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetRCWData(addr, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -2089,11 +1872,8 @@ namespace ManagedCorDebug
 
         public DacpCOMInterfacePointerData[] GetRCWInterfaces(CLRDATA_ADDRESS rcw)
         {
-            HRESULT hr;
             DacpCOMInterfacePointerData[] interfacesResult;
-
-            if ((hr = TryGetRCWInterfaces(rcw, out interfacesResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetRCWInterfaces(rcw, out interfacesResult).ThrowOnNotOK();
 
             return interfacesResult;
         }
@@ -2135,11 +1915,8 @@ namespace ManagedCorDebug
 
         public DacpCCWData GetCCWData(CLRDATA_ADDRESS ccw)
         {
-            HRESULT hr;
             DacpCCWData data;
-
-            if ((hr = TryGetCCWData(ccw, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetCCWData(ccw, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -2157,11 +1934,8 @@ namespace ManagedCorDebug
 
         public DacpCOMInterfacePointerData[] GetCCWInterfaces(CLRDATA_ADDRESS ccw)
         {
-            HRESULT hr;
             DacpCOMInterfacePointerData[] interfacesResult;
-
-            if ((hr = TryGetCCWInterfaces(ccw, out interfacesResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetCCWInterfaces(ccw, out interfacesResult).ThrowOnNotOK();
 
             return interfacesResult;
         }
@@ -2203,10 +1977,7 @@ namespace ManagedCorDebug
 
         public void TraverseRCWCleanupList(CLRDATA_ADDRESS cleanupListPtr, VISITRCWFORCLEANUP pCallback, IntPtr token)
         {
-            HRESULT hr;
-
-            if ((hr = TryTraverseRCWCleanupList(cleanupListPtr, pCallback, token)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryTraverseRCWCleanupList(cleanupListPtr, pCallback, token).ThrowOnNotOK();
         }
 
         public HRESULT TryTraverseRCWCleanupList(CLRDATA_ADDRESS cleanupListPtr, VISITRCWFORCLEANUP pCallback, IntPtr token)
@@ -2223,11 +1994,8 @@ namespace ManagedCorDebug
 
         public SOSStackRefEnum GetStackReferences(int osThreadID)
         {
-            HRESULT hr;
             SOSStackRefEnum ppEnumResult;
-
-            if ((hr = TryGetStackReferences(osThreadID, out ppEnumResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetStackReferences(osThreadID, out ppEnumResult).ThrowOnNotOK();
 
             return ppEnumResult;
         }
@@ -2253,11 +2021,8 @@ namespace ManagedCorDebug
 
         public string GetRegisterName(int regName)
         {
-            HRESULT hr;
             string bufferResult;
-
-            if ((hr = TryGetRegisterName(regName, out bufferResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetRegisterName(regName, out bufferResult).ThrowOnNotOK();
 
             return bufferResult;
         }
@@ -2299,11 +2064,8 @@ namespace ManagedCorDebug
 
         public DacpAllocData GetThreadAllocData(CLRDATA_ADDRESS thread)
         {
-            HRESULT hr;
             DacpAllocData data;
-
-            if ((hr = TryGetThreadAllocData(thread, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetThreadAllocData(thread, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -2321,11 +2083,8 @@ namespace ManagedCorDebug
 
         public GetHeapAllocDataResult GetHeapAllocData(int count)
         {
-            HRESULT hr;
             GetHeapAllocDataResult result;
-
-            if ((hr = TryGetHeapAllocData(count, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetHeapAllocData(count, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -2353,11 +2112,8 @@ namespace ManagedCorDebug
 
         public CLRDATA_ADDRESS[] GetFailedAssemblyList(CLRDATA_ADDRESS appDomain)
         {
-            HRESULT hr;
             CLRDATA_ADDRESS[] valuesResult;
-
-            if ((hr = TryGetFailedAssemblyList(appDomain, out valuesResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetFailedAssemblyList(appDomain, out valuesResult).ThrowOnNotOK();
 
             return valuesResult;
         }
@@ -2399,11 +2155,8 @@ namespace ManagedCorDebug
 
         public string GetPrivateBinPaths(CLRDATA_ADDRESS appDomain)
         {
-            HRESULT hr;
             string pathsResult;
-
-            if ((hr = TryGetPrivateBinPaths(appDomain, out pathsResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetPrivateBinPaths(appDomain, out pathsResult).ThrowOnNotOK();
 
             return pathsResult;
         }
@@ -2445,11 +2198,8 @@ namespace ManagedCorDebug
 
         public string GetAssemblyLocation(CLRDATA_ADDRESS assembly)
         {
-            HRESULT hr;
             string locationResult;
-
-            if ((hr = TryGetAssemblyLocation(assembly, out locationResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetAssemblyLocation(assembly, out locationResult).ThrowOnNotOK();
 
             return locationResult;
         }
@@ -2491,11 +2241,8 @@ namespace ManagedCorDebug
 
         public string GetAppDomainConfigFile(CLRDATA_ADDRESS appDomain)
         {
-            HRESULT hr;
             string configFileResult;
-
-            if ((hr = TryGetAppDomainConfigFile(appDomain, out configFileResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetAppDomainConfigFile(appDomain, out configFileResult).ThrowOnNotOK();
 
             return configFileResult;
         }
@@ -2537,11 +2284,8 @@ namespace ManagedCorDebug
 
         public string GetApplicationBase(CLRDATA_ADDRESS appDomain)
         {
-            HRESULT hr;
             string _baseResult;
-
-            if ((hr = TryGetApplicationBase(appDomain, out _baseResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetApplicationBase(appDomain, out _baseResult).ThrowOnNotOK();
 
             return _baseResult;
         }
@@ -2583,11 +2327,8 @@ namespace ManagedCorDebug
 
         public GetFailedAssemblyDataResult GetFailedAssemblyData(CLRDATA_ADDRESS assembly)
         {
-            HRESULT hr;
             GetFailedAssemblyDataResult result;
-
-            if ((hr = TryGetFailedAssemblyData(assembly, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetFailedAssemblyData(assembly, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -2615,11 +2356,8 @@ namespace ManagedCorDebug
 
         public string GetFailedAssemblyLocation(CLRDATA_ADDRESS assesmbly)
         {
-            HRESULT hr;
             string locationResult;
-
-            if ((hr = TryGetFailedAssemblyLocation(assesmbly, out locationResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetFailedAssemblyLocation(assesmbly, out locationResult).ThrowOnNotOK();
 
             return locationResult;
         }
@@ -2661,11 +2399,8 @@ namespace ManagedCorDebug
 
         public string GetFailedAssemblyDisplayName(CLRDATA_ADDRESS assembly)
         {
-            HRESULT hr;
             string nameResult;
-
-            if ((hr = TryGetFailedAssemblyDisplayName(assembly, out nameResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetFailedAssemblyDisplayName(assembly, out nameResult).ThrowOnNotOK();
 
             return nameResult;
         }
@@ -2713,11 +2448,8 @@ namespace ManagedCorDebug
 
         public DacpExceptionObjectData GetObjectExceptionData(CLRDATA_ADDRESS objAddr)
         {
-            HRESULT hr;
             DacpExceptionObjectData data;
-
-            if ((hr = TryGetObjectExceptionData(objAddr, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetObjectExceptionData(objAddr, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -2735,11 +2467,8 @@ namespace ManagedCorDebug
 
         public int IsRCWDCOMProxy(CLRDATA_ADDRESS rcwAddr)
         {
-            HRESULT hr;
             int isDCOMProxy;
-
-            if ((hr = TryIsRCWDCOMProxy(rcwAddr, out isDCOMProxy)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryIsRCWDCOMProxy(rcwAddr, out isDCOMProxy).ThrowOnNotOK();
 
             return isDCOMProxy;
         }
@@ -2765,11 +2494,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 DacpGCInterestingInfoData data;
-
-                if ((hr = TryGetGCInterestingInfoStaticData(out data)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetGCInterestingInfoStaticData(out data).ThrowOnNotOK();
 
                 return data;
             }
@@ -2789,11 +2515,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 long[] globalMechanismsResult;
-
-                if ((hr = TryGetGCGlobalMechanisms(out globalMechanismsResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetGCGlobalMechanisms(out globalMechanismsResult).ThrowOnNotOK();
 
                 return globalMechanismsResult;
             }
@@ -2819,11 +2542,8 @@ namespace ManagedCorDebug
 
         public DacpGCInterestingInfoData GetGCInterestingInfoData(CLRDATA_ADDRESS interestingInfoAddr)
         {
-            HRESULT hr;
             DacpGCInterestingInfoData data;
-
-            if ((hr = TryGetGCInterestingInfoData(interestingInfoAddr, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetGCInterestingInfoData(interestingInfoAddr, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -2849,11 +2569,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CLRDATA_ADDRESS[] argumentsResult;
-
-                if ((hr = TryGetClrNotification(out argumentsResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetClrNotification(out argumentsResult).ThrowOnNotOK();
 
                 return argumentsResult;
             }
@@ -2901,11 +2618,8 @@ namespace ManagedCorDebug
 
         public DacpTieredVersionData[] GetTieredVersions(CLRDATA_ADDRESS methodDesc, int rejitId)
         {
-            HRESULT hr;
             DacpTieredVersionData[] nativeCodeAddrsResult;
-
-            if ((hr = TryGetTieredVersions(methodDesc, rejitId, out nativeCodeAddrsResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetTieredVersions(methodDesc, rejitId, out nativeCodeAddrsResult).ThrowOnNotOK();
 
             return nativeCodeAddrsResult;
         }
@@ -2954,11 +2668,8 @@ namespace ManagedCorDebug
 
         public DacpMethodTableCollectibleData GetMethodTableCollectibleData(CLRDATA_ADDRESS mt)
         {
-            HRESULT hr;
             DacpMethodTableCollectibleData data;
-
-            if ((hr = TryGetMethodTableCollectibleData(mt, out data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodTableCollectibleData(mt, out data).ThrowOnNotOK();
 
             return data;
         }
@@ -2982,11 +2693,8 @@ namespace ManagedCorDebug
 
         public int GetPendingReJITID(CLRDATA_ADDRESS methodDesc)
         {
-            HRESULT hr;
             int pRejitId;
-
-            if ((hr = TryGetPendingReJITID(methodDesc, out pRejitId)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetPendingReJITID(methodDesc, out pRejitId).ThrowOnNotOK();
 
             return pRejitId;
         }
@@ -3004,11 +2712,8 @@ namespace ManagedCorDebug
 
         public DacpReJitData2 GetReJITInformation(CLRDATA_ADDRESS methodDesc, int rejitId)
         {
-            HRESULT hr;
             DacpReJitData2 pRejitData;
-
-            if ((hr = TryGetReJITInformation(methodDesc, rejitId, out pRejitData)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetReJITInformation(methodDesc, rejitId, out pRejitData).ThrowOnNotOK();
 
             return pRejitData;
         }
@@ -3027,11 +2732,8 @@ namespace ManagedCorDebug
 
         public DacpProfilerILData GetProfilerModifiedILInformation(CLRDATA_ADDRESS methodDesc)
         {
-            HRESULT hr;
             DacpProfilerILData pILData;
-
-            if ((hr = TryGetProfilerModifiedILInformation(methodDesc, out pILData)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetProfilerModifiedILInformation(methodDesc, out pILData).ThrowOnNotOK();
 
             return pILData;
         }
@@ -3049,11 +2751,8 @@ namespace ManagedCorDebug
 
         public CLRDATA_ADDRESS[] GetMethodsWithProfilerModifiedIL(CLRDATA_ADDRESS mod)
         {
-            HRESULT hr;
             CLRDATA_ADDRESS[] methodDescsResult;
-
-            if ((hr = TryGetMethodsWithProfilerModifiedIL(mod, out methodDescsResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodsWithProfilerModifiedIL(mod, out methodDescsResult).ThrowOnNotOK();
 
             return methodDescsResult;
         }
@@ -3103,11 +2802,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pGenerations;
-
-                if ((hr = TryGetNumberGenerations(out pGenerations)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetNumberGenerations(out pGenerations).ThrowOnNotOK();
 
                 return pGenerations;
             }
@@ -3127,11 +2823,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 DacpGenerationData[] pGenerationDataResult;
-
-                if ((hr = TryGetGenerationTable(out pGenerationDataResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetGenerationTable(out pGenerationDataResult).ThrowOnNotOK();
 
                 return pGenerationDataResult;
             }
@@ -3175,11 +2868,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CLRDATA_ADDRESS[] pFinalizationFillPointersResult;
-
-                if ((hr = TryGetFinalizationFillPointers(out pFinalizationFillPointersResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetFinalizationFillPointers(out pFinalizationFillPointersResult).ThrowOnNotOK();
 
                 return pFinalizationFillPointersResult;
             }
@@ -3221,11 +2911,8 @@ namespace ManagedCorDebug
 
         public DacpGenerationData[] GetGenerationTableSvr(CLRDATA_ADDRESS heapAddr)
         {
-            HRESULT hr;
             DacpGenerationData[] pGenerationDataResult;
-
-            if ((hr = TryGetGenerationTableSvr(heapAddr, out pGenerationDataResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetGenerationTableSvr(heapAddr, out pGenerationDataResult).ThrowOnNotOK();
 
             return pGenerationDataResult;
         }
@@ -3267,11 +2954,8 @@ namespace ManagedCorDebug
 
         public CLRDATA_ADDRESS[] GetFinalizationFillPointersSvr(CLRDATA_ADDRESS heapAddr)
         {
-            HRESULT hr;
             CLRDATA_ADDRESS[] pFinalizationFillPointersResult;
-
-            if ((hr = TryGetFinalizationFillPointersSvr(heapAddr, out pFinalizationFillPointersResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetFinalizationFillPointersSvr(heapAddr, out pFinalizationFillPointersResult).ThrowOnNotOK();
 
             return pFinalizationFillPointersResult;
         }
@@ -3313,11 +2997,8 @@ namespace ManagedCorDebug
 
         public CLRDATA_ADDRESS GetAssemblyLoadContext(CLRDATA_ADDRESS methodTable)
         {
-            HRESULT hr;
             CLRDATA_ADDRESS assemblyLoadContext;
-
-            if ((hr = TryGetAssemblyLoadContext(methodTable, out assemblyLoadContext)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetAssemblyLoadContext(methodTable, out assemblyLoadContext).ThrowOnNotOK();
 
             return assemblyLoadContext;
         }
@@ -3343,11 +3024,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pVersion;
-
-                if ((hr = TryGetBreakingChangeVersion(out pVersion)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetBreakingChangeVersion(out pVersion).ThrowOnNotOK();
 
                 return pVersion;
             }
@@ -3371,11 +3049,8 @@ namespace ManagedCorDebug
 
         public GetObjectComWrappersDataResult GetObjectComWrappersData(CLRDATA_ADDRESS objAddr)
         {
-            HRESULT hr;
             GetObjectComWrappersDataResult result;
-
-            if ((hr = TryGetObjectComWrappersData(objAddr, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetObjectComWrappersData(objAddr, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -3419,11 +3094,8 @@ namespace ManagedCorDebug
 
         public int IsComWrappersCCW(CLRDATA_ADDRESS ccw)
         {
-            HRESULT hr;
             int isComWrappersCCW;
-
-            if ((hr = TryIsComWrappersCCW(ccw, out isComWrappersCCW)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryIsComWrappersCCW(ccw, out isComWrappersCCW).ThrowOnNotOK();
 
             return isComWrappersCCW;
         }
@@ -3441,11 +3113,8 @@ namespace ManagedCorDebug
 
         public GetComWrappersCCWDataResult GetComWrappersCCWData(CLRDATA_ADDRESS ccw)
         {
-            HRESULT hr;
             GetComWrappersCCWDataResult result;
-
-            if ((hr = TryGetComWrappersCCWData(ccw, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetComWrappersCCWData(ccw, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -3473,11 +3142,8 @@ namespace ManagedCorDebug
 
         public int IsComWrappersRCW(CLRDATA_ADDRESS rcw)
         {
-            HRESULT hr;
             int isComWrappersRCW;
-
-            if ((hr = TryIsComWrappersRCW(rcw, out isComWrappersRCW)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryIsComWrappersRCW(rcw, out isComWrappersRCW).ThrowOnNotOK();
 
             return isComWrappersRCW;
         }
@@ -3495,11 +3161,8 @@ namespace ManagedCorDebug
 
         public CLRDATA_ADDRESS GetComWrappersRCWData(CLRDATA_ADDRESS rcw)
         {
-            HRESULT hr;
             CLRDATA_ADDRESS identity;
-
-            if ((hr = TryGetComWrappersRCWData(rcw, out identity)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetComWrappersRCWData(rcw, out identity).ThrowOnNotOK();
 
             return identity;
         }
@@ -3523,11 +3186,8 @@ namespace ManagedCorDebug
 
         public IsTrackedTypeResult IsTrackedType(CLRDATA_ADDRESS objAddr)
         {
-            HRESULT hr;
             IsTrackedTypeResult result;
-
-            if ((hr = TryIsTrackedType(objAddr, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryIsTrackedType(objAddr, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -3555,11 +3215,8 @@ namespace ManagedCorDebug
 
         public GetTaggedMemoryResult GetTaggedMemory(CLRDATA_ADDRESS objAddr)
         {
-            HRESULT hr;
             GetTaggedMemoryResult result;
-
-            if ((hr = TryGetTaggedMemory(objAddr, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetTaggedMemory(objAddr, out result).ThrowOnNotOK();
 
             return result;
         }

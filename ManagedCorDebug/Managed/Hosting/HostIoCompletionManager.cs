@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -31,20 +30,14 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pdwMaxIOCompletionThreads;
-
-                if ((hr = TryGetMaxThreads(out pdwMaxIOCompletionThreads)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetMaxThreads(out pdwMaxIOCompletionThreads).ThrowOnNotOK();
 
                 return pdwMaxIOCompletionThreads;
             }
             set
             {
-                HRESULT hr;
-
-                if ((hr = TrySetMaxThreads(value)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TrySetMaxThreads(value).ThrowOnNotOK();
             }
         }
 
@@ -111,11 +104,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pdwAvailableIOCompletionThreads;
-
-                if ((hr = TryGetAvailableThreads(out pdwAvailableIOCompletionThreads)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetAvailableThreads(out pdwAvailableIOCompletionThreads).ThrowOnNotOK();
 
                 return pdwAvailableIOCompletionThreads;
             }
@@ -157,11 +147,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pcbSize;
-
-                if ((hr = TryGetHostOverlappedSize(out pcbSize)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetHostOverlappedSize(out pcbSize).ThrowOnNotOK();
 
                 return pcbSize;
             }
@@ -205,20 +192,14 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pdwMinIOCompletionThreads;
-
-                if ((hr = TryGetMinThreads(out pdwMinIOCompletionThreads)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetMinThreads(out pdwMinIOCompletionThreads).ThrowOnNotOK();
 
                 return pdwMinIOCompletionThreads;
             }
             set
             {
-                HRESULT hr;
-
-                if ((hr = TrySetMinThreads(value)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TrySetMinThreads(value).ThrowOnNotOK();
             }
         }
 
@@ -290,11 +271,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public IntPtr CreateIoCompletionPort()
         {
-            HRESULT hr;
             IntPtr phPort;
-
-            if ((hr = TryCreateIoCompletionPort(out phPort)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCreateIoCompletionPort(out phPort).ThrowOnNotOK();
 
             return phPort;
         }
@@ -337,10 +315,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void CloseIoCompletionPort(IntPtr hPort)
         {
-            HRESULT hr;
-
-            if ((hr = TryCloseIoCompletionPort(hPort)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCloseIoCompletionPort(hPort).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -380,10 +355,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetCLRIoCompletionManager(ICLRIoCompletionManager pManager)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetCLRIoCompletionManager(pManager)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetCLRIoCompletionManager(pManager).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -426,10 +398,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void InitializeHostOverlapped(IntPtr pvOverlapped)
         {
-            HRESULT hr;
-
-            if ((hr = TryInitializeHostOverlapped(pvOverlapped)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryInitializeHostOverlapped(pvOverlapped).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -474,10 +443,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Bind(IntPtr hPort, IntPtr hHandle)
         {
-            HRESULT hr;
-
-            if ((hr = TryBind(hPort, hHandle)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryBind(hPort, hHandle).ThrowOnNotOK();
         }
 
         /// <summary>

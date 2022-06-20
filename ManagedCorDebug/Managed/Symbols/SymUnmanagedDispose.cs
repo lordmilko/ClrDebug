@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -23,10 +21,7 @@ namespace ManagedCorDebug
         /// </summary>
         public void Destroy()
         {
-            HRESULT hr;
-
-            if ((hr = TryDestroy()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDestroy().ThrowOnNotOK();
         }
 
         /// <summary>

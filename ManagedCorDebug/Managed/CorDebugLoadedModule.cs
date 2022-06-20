@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -30,11 +29,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CORDB_ADDRESS pAddress;
-
-                if ((hr = TryGetBaseAddress(out pAddress)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetBaseAddress(out pAddress).ThrowOnNotOK();
 
                 return pAddress;
             }
@@ -60,11 +56,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string szNameResult;
-
-                if ((hr = TryGetName(out szNameResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetName(out szNameResult).ThrowOnNotOK();
 
                 return szNameResult;
             }
@@ -112,11 +105,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pcBytes;
-
-                if ((hr = TryGetSize(out pcBytes)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetSize(out pcBytes).ThrowOnNotOK();
 
                 return pcBytes;
             }

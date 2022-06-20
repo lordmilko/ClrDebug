@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -28,11 +26,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugFunction ppFunctionResult;
-
-                if ((hr = TryGetFunction(out ppFunctionResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetFunction(out ppFunctionResult).ThrowOnNotOK();
 
                 return ppFunctionResult;
             }
@@ -66,11 +61,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pnOffset;
-
-                if ((hr = TryGetOffset(out pnOffset)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetOffset(out pnOffset).ThrowOnNotOK();
 
                 return pnOffset;
             }

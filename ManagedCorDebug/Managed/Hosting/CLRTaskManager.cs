@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -32,11 +30,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CLRTask pTaskResult;
-
-                if ((hr = TryGetCurrentTask(out pTaskResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCurrentTask(out pTaskResult).ThrowOnNotOK();
 
                 return pTaskResult;
             }
@@ -85,11 +80,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 ETaskType pTaskType;
-
-                if ((hr = TryGetCurrentTaskType(out pTaskType)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCurrentTaskType(out pTaskType).ThrowOnNotOK();
 
                 return pTaskType;
             }
@@ -120,11 +112,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CLRTask CreateTask()
         {
-            HRESULT hr;
             CLRTask pTaskResult;
-
-            if ((hr = TryCreateTask(out pTaskResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCreateTask(out pTaskResult).ThrowOnNotOK();
 
             return pTaskResult;
         }
@@ -177,10 +166,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetUILocale(int lcid)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetUILocale(lcid)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetUILocale(lcid).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -219,10 +205,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetLocale(int lcid)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetLocale(lcid)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetLocale(lcid).ThrowOnNotOK();
         }
 
         /// <summary>

@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -28,10 +26,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void MarkToken(mdToken tk)
         {
-            HRESULT hr;
-
-            if ((hr = TryMarkToken(tk)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryMarkToken(tk).ThrowOnNotOK();
         }
 
         /// <summary>

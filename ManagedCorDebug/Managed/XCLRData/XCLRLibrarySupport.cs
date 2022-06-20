@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -18,11 +17,8 @@ namespace ManagedCorDebug
 
         public long LoadHardboundDependency(string name, Guid mvid)
         {
-            HRESULT hr;
             long loadedBase;
-
-            if ((hr = TryLoadHardboundDependency(name, mvid, out loadedBase)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryLoadHardboundDependency(name, mvid, out loadedBase).ThrowOnNotOK();
 
             return loadedBase;
         }
@@ -41,11 +37,8 @@ namespace ManagedCorDebug
 
         public long LoadSoftboundDependency(string name, IntPtr assemblymetadataBinding, IntPtr hash, int hashLength)
         {
-            HRESULT hr;
             long loadedBase;
-
-            if ((hr = TryLoadSoftboundDependency(name, assemblymetadataBinding, hash, hashLength, out loadedBase)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryLoadSoftboundDependency(name, assemblymetadataBinding, hash, hashLength, out loadedBase).ThrowOnNotOK();
 
             return loadedBase;
         }

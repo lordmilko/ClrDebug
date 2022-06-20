@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -43,11 +42,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugChain ppChainResult;
-
-                if ((hr = TryGetChain(out ppChainResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetChain(out ppChainResult).ThrowOnNotOK();
 
                 return ppChainResult;
             }
@@ -81,11 +77,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugCode ppCodeResult;
-
-                if ((hr = TryGetCode(out ppCodeResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCode(out ppCodeResult).ThrowOnNotOK();
 
                 return ppCodeResult;
             }
@@ -119,11 +112,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugFunction ppFunctionResult;
-
-                if ((hr = TryGetFunction(out ppFunctionResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetFunction(out ppFunctionResult).ThrowOnNotOK();
 
                 return ppFunctionResult;
             }
@@ -160,11 +150,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 mdMethodDef pToken;
-
-                if ((hr = TryGetFunctionToken(out pToken)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetFunctionToken(out pToken).ThrowOnNotOK();
 
                 return pToken;
             }
@@ -190,11 +177,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 GetStackRangeResult result;
-
-                if ((hr = TryGetStackRange(out result)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetStackRange(out result).ThrowOnNotOK();
 
                 return result;
             }
@@ -234,11 +218,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugFrame ppFrameResult;
-
-                if ((hr = TryGetCaller(out ppFrameResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCaller(out ppFrameResult).ThrowOnNotOK();
 
                 return ppFrameResult;
             }
@@ -272,11 +253,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugFrame ppFrameResult;
-
-                if ((hr = TryGetCallee(out ppFrameResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCallee(out ppFrameResult).ThrowOnNotOK();
 
                 return ppFrameResult;
             }
@@ -312,11 +290,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugStepper CreateStepper()
         {
-            HRESULT hr;
             CorDebugStepper ppStepperResult;
-
-            if ((hr = TryCreateStepper(out ppStepperResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCreateStepper(out ppStepperResult).ThrowOnNotOK();
 
             return ppStepperResult;
         }

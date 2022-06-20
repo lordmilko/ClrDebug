@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -28,11 +27,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugModule ppModuleResult;
-
-                if ((hr = TryGetModule(out ppModuleResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetModule(out ppModuleResult).ThrowOnNotOK();
 
                 return ppModuleResult;
             }
@@ -67,11 +63,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pToken;
-
-                if ((hr = TryGetToken(out pToken)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetToken(out pToken).ThrowOnNotOK();
 
                 return pToken;
             }
@@ -98,11 +91,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pHr;
-
-                if ((hr = TryGetErrorCode(out pHr)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetErrorCode(out pHr).ThrowOnNotOK();
 
                 return pHr;
             }
@@ -129,11 +119,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string szStringResult;
-
-                if ((hr = TryGetString(out szStringResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetString(out szStringResult).ThrowOnNotOK();
 
                 return szStringResult;
             }

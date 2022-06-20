@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -43,11 +42,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public object DefineScope(Guid rclsid, int dwCreateFlags, Guid riid)
         {
-            HRESULT hr;
             object ppIUnk;
-
-            if ((hr = TryDefineScope(rclsid, dwCreateFlags, riid, out ppIUnk)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineScope(rclsid, dwCreateFlags, riid, out ppIUnk).ThrowOnNotOK();
 
             return ppIUnk;
         }
@@ -99,11 +95,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public object OpenScope(string szScope, CorOpenFlags dwOpenFlags, Guid riid)
         {
-            HRESULT hr;
             object ppIUnk;
-
-            if ((hr = TryOpenScope(szScope, dwOpenFlags, riid, out ppIUnk)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOpenScope(szScope, dwOpenFlags, riid, out ppIUnk).ThrowOnNotOK();
 
             return ppIUnk;
         }
@@ -156,11 +149,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public object OpenScopeOnMemory(IntPtr pData, int cbData, CorOpenFlags dwOpenFlags, Guid riid)
         {
-            HRESULT hr;
             object ppIUnk;
-
-            if ((hr = TryOpenScopeOnMemory(pData, cbData, dwOpenFlags, riid, out ppIUnk)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOpenScopeOnMemory(pData, cbData, dwOpenFlags, riid, out ppIUnk).ThrowOnNotOK();
 
             return ppIUnk;
         }

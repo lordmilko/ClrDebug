@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -21,11 +20,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string nameResult;
-
-                if ((hr = TryGetName(out nameResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetName(out nameResult).ThrowOnNotOK();
 
                 return nameResult;
             }
@@ -69,11 +65,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string nameResult;
-
-                if ((hr = TryGetFileName(out nameResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetFileName(out nameResult).ThrowOnNotOK();
 
                 return nameResult;
             }
@@ -117,11 +110,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int flags;
-
-                if ((hr = TryGetFlags(out flags)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetFlags(out flags).ThrowOnNotOK();
 
                 return flags;
             }
@@ -141,11 +131,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string nameResult;
-
-                if ((hr = TryGetDisplayName(out nameResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetDisplayName(out nameResult).ThrowOnNotOK();
 
                 return nameResult;
             }
@@ -187,11 +174,8 @@ namespace ManagedCorDebug
 
         public IntPtr StartEnumModules()
         {
-            HRESULT hr;
             IntPtr handle;
-
-            if ((hr = TryStartEnumModules(out handle)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStartEnumModules(out handle).ThrowOnNotOK();
 
             return handle;
         }
@@ -208,11 +192,8 @@ namespace ManagedCorDebug
 
         public XCLRDataModule EnumModule(ref IntPtr handle)
         {
-            HRESULT hr;
             XCLRDataModule modResult;
-
-            if ((hr = TryEnumModule(ref handle, out modResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumModule(ref handle, out modResult).ThrowOnNotOK();
 
             return modResult;
         }
@@ -238,10 +219,7 @@ namespace ManagedCorDebug
 
         public void EndEnumModules(IntPtr handle)
         {
-            HRESULT hr;
-
-            if ((hr = TryEndEnumModules(handle)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEndEnumModules(handle).ThrowOnNotOK();
         }
 
         public HRESULT TryEndEnumModules(IntPtr handle)
@@ -256,10 +234,8 @@ namespace ManagedCorDebug
 
         public bool IsSameObject(IXCLRDataAssembly assembly)
         {
-            HRESULT hr;
-
-            if ((hr = TryIsSameObject(assembly)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            HRESULT hr = TryIsSameObject(assembly);
+            hr.ThrowOnNotOK();
 
             return hr == HRESULT.S_OK;
         }
@@ -276,10 +252,7 @@ namespace ManagedCorDebug
 
         public void Request(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
-            HRESULT hr;
-
-            if ((hr = TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, outBuffer)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, outBuffer).ThrowOnNotOK();
         }
 
         public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
@@ -298,11 +271,8 @@ namespace ManagedCorDebug
 
         public IntPtr StartEnumAppDomains()
         {
-            HRESULT hr;
             IntPtr handle;
-
-            if ((hr = TryStartEnumAppDomains(out handle)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStartEnumAppDomains(out handle).ThrowOnNotOK();
 
             return handle;
         }
@@ -319,11 +289,8 @@ namespace ManagedCorDebug
 
         public XCLRDataAppDomain EnumAppDomain(ref IntPtr handle)
         {
-            HRESULT hr;
             XCLRDataAppDomain appDomainResult;
-
-            if ((hr = TryEnumAppDomain(ref handle, out appDomainResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumAppDomain(ref handle, out appDomainResult).ThrowOnNotOK();
 
             return appDomainResult;
         }
@@ -349,10 +316,7 @@ namespace ManagedCorDebug
 
         public void EndEnumAppDomains(IntPtr handle)
         {
-            HRESULT hr;
-
-            if ((hr = TryEndEnumAppDomains(handle)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEndEnumAppDomains(handle).ThrowOnNotOK();
         }
 
         public HRESULT TryEndEnumAppDomains(IntPtr handle)

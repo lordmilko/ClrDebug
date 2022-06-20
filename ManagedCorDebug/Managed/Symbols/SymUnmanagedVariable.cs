@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -26,11 +25,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string szNameResult;
-
-                if ((hr = TryGetName(out szNameResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetName(out szNameResult).ThrowOnNotOK();
 
                 return szNameResult;
             }
@@ -79,11 +75,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorSymVarFlag pRetVal;
-
-                if ((hr = TryGetAttributes(out pRetVal)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetAttributes(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
@@ -110,11 +103,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 byte[] sigResult;
-
-                if ((hr = TryGetSignature(out sigResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetSignature(out sigResult).ThrowOnNotOK();
 
                 return sigResult;
             }
@@ -163,11 +153,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorSymAddrKind pRetVal;
-
-                if ((hr = TryGetAddressKind(out pRetVal)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetAddressKind(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
@@ -194,11 +181,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pRetVal;
-
-                if ((hr = TryGetAddressField1(out pRetVal)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetAddressField1(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
@@ -225,11 +209,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pRetVal;
-
-                if ((hr = TryGetAddressField2(out pRetVal)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetAddressField2(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
@@ -256,11 +237,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pRetVal;
-
-                if ((hr = TryGetAddressField3(out pRetVal)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetAddressField3(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
@@ -287,11 +265,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pRetVal;
-
-                if ((hr = TryGetStartOffset(out pRetVal)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetStartOffset(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
@@ -318,11 +293,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pRetVal;
-
-                if ((hr = TryGetEndOffset(out pRetVal)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetEndOffset(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }

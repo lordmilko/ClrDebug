@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace ManagedCorDebug
@@ -45,11 +44,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 bool pbValidResult;
-
-                if ((hr = TryIsValid(out pbValidResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryIsValid(out pbValidResult).ThrowOnNotOK();
 
                 return pbValidResult;
             }
@@ -86,11 +82,8 @@ namespace ManagedCorDebug
         /// </summary>
         public CorDebugValueBreakpoint CreateRelocBreakpoint()
         {
-            HRESULT hr;
             CorDebugValueBreakpoint ppBreakpointResult;
-
-            if ((hr = TryCreateRelocBreakpoint(out ppBreakpointResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCreateRelocBreakpoint(out ppBreakpointResult).ThrowOnNotOK();
 
             return ppBreakpointResult;
         }
@@ -134,11 +127,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugHandleValue CreateHandle(CorDebugHandleType type)
         {
-            HRESULT hr;
             CorDebugHandleValue ppHandleResult;
-
-            if ((hr = TryCreateHandle(type, out ppHandleResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCreateHandle(type, out ppHandleResult).ThrowOnNotOK();
 
             return ppHandleResult;
         }
@@ -185,11 +175,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 GetThreadOwningMonitorLockResult result;
-
-                if ((hr = TryGetThreadOwningMonitorLock(out result)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetThreadOwningMonitorLock(out result).ThrowOnNotOK();
 
                 return result;
             }
@@ -239,11 +226,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugThreadEnum ppThreadEnumResult;
-
-                if ((hr = TryGetMonitorEventWaitList(out ppThreadEnumResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetMonitorEventWaitList(out ppThreadEnumResult).ThrowOnNotOK();
 
                 return ppThreadEnumResult;
             }

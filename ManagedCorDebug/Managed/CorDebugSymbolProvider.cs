@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -27,11 +26,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 ICorDebugMergedAssemblyRecord[] pRecordsResult;
-
-                if ((hr = TryGetMergedAssemblyRecords(out pRecordsResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetMergedAssemblyRecords(out pRecordsResult).ThrowOnNotOK();
 
                 return pRecordsResult;
             }
@@ -82,11 +78,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugMemoryBuffer ppMemoryBufferResult;
-
-                if ((hr = TryGetAssemblyImageMetadata(out ppMemoryBufferResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetAssemblyImageMetadata(out ppMemoryBufferResult).ThrowOnNotOK();
 
                 return ppMemoryBufferResult;
             }
@@ -121,11 +114,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to an <see cref="ICorDebugStaticFieldSymbol"/> array that contains the requested static field symbols.</returns>
         public ICorDebugStaticFieldSymbol[] GetStaticFieldSymbols(int cbSignature, IntPtr typeSig)
         {
-            HRESULT hr;
             ICorDebugStaticFieldSymbol[] pSymbolsResult;
-
-            if ((hr = TryGetStaticFieldSymbols(cbSignature, typeSig, out pSymbolsResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetStaticFieldSymbols(cbSignature, typeSig, out pSymbolsResult).ThrowOnNotOK();
 
             return pSymbolsResult;
         }
@@ -180,11 +170,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to an <see cref="ICorDebugStaticFieldSymbol"/> array that contains the requested instance field symbols.</returns>
         public ICorDebugInstanceFieldSymbol[] GetInstanceFieldSymbols(int cbSignature, IntPtr typeSig)
         {
-            HRESULT hr;
             ICorDebugInstanceFieldSymbol[] pSymbolsResult;
-
-            if ((hr = TryGetInstanceFieldSymbols(cbSignature, typeSig, out pSymbolsResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetInstanceFieldSymbols(cbSignature, typeSig, out pSymbolsResult).ThrowOnNotOK();
 
             return pSymbolsResult;
         }
@@ -238,11 +225,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to an <see cref="ICorDebugVariableSymbol"/> array that contains the method's local symbols.</returns>
         public ICorDebugVariableSymbol[] GetMethodLocalSymbols(int nativeRVA)
         {
-            HRESULT hr;
             ICorDebugVariableSymbol[] pSymbolsResult;
-
-            if ((hr = TryGetMethodLocalSymbols(nativeRVA, out pSymbolsResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodLocalSymbols(nativeRVA, out pSymbolsResult).ThrowOnNotOK();
 
             return pSymbolsResult;
         }
@@ -294,11 +278,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to an <see cref="ICorDebugVariableSymbol"/> array that contains the method's local symbols.</returns>
         public ICorDebugVariableSymbol[] GetMethodParameterSymbols(int nativeRVA)
         {
-            HRESULT hr;
             ICorDebugVariableSymbol[] pSymbolsResult;
-
-            if ((hr = TryGetMethodParameterSymbols(nativeRVA, out pSymbolsResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodParameterSymbols(nativeRVA, out pSymbolsResult).ThrowOnNotOK();
 
             return pSymbolsResult;
         }
@@ -354,11 +335,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public GetMethodPropsResult GetMethodProps(int codeRva)
         {
-            HRESULT hr;
             GetMethodPropsResult result;
-
-            if ((hr = TryGetMethodProps(codeRva, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetMethodProps(codeRva, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -422,11 +400,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public byte[] GetTypeProps(int vtableRva)
         {
-            HRESULT hr;
             byte[] signatureResult;
-
-            if ((hr = TryGetTypeProps(vtableRva, out signatureResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetTypeProps(vtableRva, out signatureResult).ThrowOnNotOK();
 
             return signatureResult;
         }
@@ -482,11 +457,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetCodeRangeResult GetCodeRange(int codeRva)
         {
-            HRESULT hr;
             GetCodeRangeResult result;
-
-            if ((hr = TryGetCodeRange(codeRva, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetCodeRange(codeRva, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -522,11 +494,8 @@ namespace ManagedCorDebug
         /// <returns>A pointer to the address of an <see cref="ICorDebugMemoryBuffer"/> object that contains information about the memory buffer with merged assembly metadata.</returns>
         public CorDebugMemoryBuffer GetAssemblyImageBytes(long rva, int length)
         {
-            HRESULT hr;
             CorDebugMemoryBuffer ppMemoryBufferResult;
-
-            if ((hr = TryGetAssemblyImageBytes(rva, length, out ppMemoryBufferResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetAssemblyImageBytes(rva, length, out ppMemoryBufferResult).ThrowOnNotOK();
 
             return ppMemoryBufferResult;
         }
@@ -563,11 +532,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the size of the object.</returns>
         public int GetObjectSize(int cbSignature, IntPtr typeSig)
         {
-            HRESULT hr;
             int pObjectSize;
-
-            if ((hr = TryGetObjectSize(cbSignature, typeSig, out pObjectSize)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetObjectSize(cbSignature, typeSig, out pObjectSize).ThrowOnNotOK();
 
             return pObjectSize;
         }
@@ -600,11 +566,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugMemoryBuffer ppMemoryBufferResult;
-
-                if ((hr = TryGetGenericDictionaryInfo(out ppMemoryBufferResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetGenericDictionaryInfo(out ppMemoryBufferResult).ThrowOnNotOK();
 
                 return ppMemoryBufferResult;
             }
@@ -642,11 +605,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetFramePropsResult GetFrameProps(int codeRva)
         {
-            HRESULT hr;
             GetFramePropsResult result;
-
-            if ((hr = TryGetFrameProps(codeRva, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetFrameProps(codeRva, out result).ThrowOnNotOK();
 
             return result;
         }

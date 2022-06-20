@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -30,20 +29,14 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pdwMaxWorkerThreads;
-
-                if ((hr = TryGetMaxThreads(out pdwMaxWorkerThreads)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetMaxThreads(out pdwMaxWorkerThreads).ThrowOnNotOK();
 
                 return pdwMaxWorkerThreads;
             }
             set
             {
-                HRESULT hr;
-
-                if ((hr = TrySetMaxThreads(value)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TrySetMaxThreads(value).ThrowOnNotOK();
             }
         }
 
@@ -112,11 +105,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pdwAvailableWorkerThreads;
-
-                if ((hr = TryGetAvailableThreads(out pdwAvailableWorkerThreads)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetAvailableThreads(out pdwAvailableWorkerThreads).ThrowOnNotOK();
 
                 return pdwAvailableWorkerThreads;
             }
@@ -157,20 +147,14 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pdwMinIOCompletionThreads;
-
-                if ((hr = TryGetMinThreads(out pdwMinIOCompletionThreads)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetMinThreads(out pdwMinIOCompletionThreads).ThrowOnNotOK();
 
                 return pdwMinIOCompletionThreads;
             }
             set
             {
-                HRESULT hr;
-
-                if ((hr = TrySetMinThreads(value)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TrySetMinThreads(value).ThrowOnNotOK();
             }
         }
 
@@ -242,10 +226,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void QueueUserWorkItem(LPTHREAD_START_ROUTINE function, IntPtr context, int flags)
         {
-            HRESULT hr;
-
-            if ((hr = TryQueueUserWorkItem(function, context, flags)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryQueueUserWorkItem(function, context, flags).ThrowOnNotOK();
         }
 
         /// <summary>

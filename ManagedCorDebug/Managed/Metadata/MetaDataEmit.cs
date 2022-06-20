@@ -1,7 +1,6 @@
 using System;
 using System.Diagnostics;
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -27,10 +26,7 @@ namespace ManagedCorDebug
         /// <param name="szName">[in] The module name in Unicode. This is the file name only and not the full path name.</param>
         public void SetModuleProps(string szName)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetModuleProps(szName)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetModuleProps(szName).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -54,10 +50,7 @@ namespace ManagedCorDebug
         /// <param name="dwSaveFlags">[in] Reserved. Must be zero.</param>
         public void Save(string szFile, int dwSaveFlags)
         {
-            HRESULT hr;
-
-            if ((hr = TrySave(szFile, dwSaveFlags)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySave(szFile, dwSaveFlags).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -83,10 +76,7 @@ namespace ManagedCorDebug
         /// <param name="dwSaveFlags">[in] Reserved. Must be zero.</param>
         public void SaveToStream(object pIStream, int dwSaveFlags)
         {
-            HRESULT hr;
-
-            if ((hr = TrySaveToStream(pIStream, dwSaveFlags)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySaveToStream(pIStream, dwSaveFlags).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -127,11 +117,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int GetSaveSize(CorSaveSize fSave)
         {
-            HRESULT hr;
             int pdwSaveSize;
-
-            if ((hr = TryGetSaveSize(fSave, out pdwSaveSize)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetSaveSize(fSave, out pdwSaveSize).ThrowOnNotOK();
 
             return pdwSaveSize;
         }
@@ -188,11 +175,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public mdTypeDef DefineTypeDef(string szTypeDef, CorTypeAttr dwTypeDefFlags, mdToken tkExtends, mdToken[] rtkImplements)
         {
-            HRESULT hr;
             mdTypeDef ptd;
-
-            if ((hr = TryDefineTypeDef(szTypeDef, dwTypeDefFlags, tkExtends, rtkImplements, out ptd)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineTypeDef(szTypeDef, dwTypeDefFlags, tkExtends, rtkImplements, out ptd).ThrowOnNotOK();
 
             return ptd;
         }
@@ -241,11 +225,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The <see cref="mdTypeDef"/> token assigned.</returns>
         public mdTypeDef DefineNestedType(string szTypeDef, CorTypeAttr dwTypeDefFlags, mdToken tkExtends, mdToken[] rtkImplements, mdTypeDef tdEncloser)
         {
-            HRESULT hr;
             mdTypeDef ptd;
-
-            if ((hr = TryDefineNestedType(szTypeDef, dwTypeDefFlags, tkExtends, rtkImplements, tdEncloser, out ptd)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineNestedType(szTypeDef, dwTypeDefFlags, tkExtends, rtkImplements, tdEncloser, out ptd).ThrowOnNotOK();
 
             return ptd;
         }
@@ -286,10 +267,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetHandler(object pUnk)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetHandler(pUnk)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetHandler(pUnk).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -330,11 +308,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public mdMethodDef DefineMethod(mdTypeDef td, string szName, MethodAttributes dwMethodFlags, IntPtr pvSigBlob, int cbSigBlob, int ulCodeRVA, MethodImplAttributes dwImplFlags)
         {
-            HRESULT hr;
             mdMethodDef pmd;
-
-            if ((hr = TryDefineMethod(td, szName, dwMethodFlags, pvSigBlob, cbSigBlob, ulCodeRVA, dwImplFlags, out pmd)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineMethod(td, szName, dwMethodFlags, pvSigBlob, cbSigBlob, ulCodeRVA, dwImplFlags, out pmd).ThrowOnNotOK();
 
             return pmd;
         }
@@ -380,10 +355,7 @@ namespace ManagedCorDebug
         /// <param name="tkDecl">[in] The <see cref="mdMethodDef"/> or <see cref="mdMemberRef"/> token of the interface method being implemented.</param>
         public void DefineMethodImpl(mdTypeDef td, mdToken tkBody, mdToken tkDecl)
         {
-            HRESULT hr;
-
-            if ((hr = TryDefineMethodImpl(td, tkBody, tkDecl)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineMethodImpl(td, tkBody, tkDecl).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -412,11 +384,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the <see cref="mdTypeRef"/> token that is assigned to the type.</returns>
         public mdTypeRef DefineTypeRefByName(mdToken tkResolutionScope, string szName)
         {
-            HRESULT hr;
             mdTypeRef ptr;
-
-            if ((hr = TryDefineTypeRefByName(tkResolutionScope, szName, out ptr)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineTypeRefByName(tkResolutionScope, szName, out ptr).ThrowOnNotOK();
 
             return ptr;
         }
@@ -455,11 +424,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public mdTypeRef DefineImportType(IMetaDataAssemblyImport pAssemImport, IntPtr pbHashValue, int cbHashValue, IMetaDataImport pImport, mdTypeDef tdImport, IMetaDataAssemblyEmit pAssemEmit)
         {
-            HRESULT hr;
             mdTypeRef ptr;
-
-            if ((hr = TryDefineImportType(pAssemImport, pbHashValue, cbHashValue, pImport, tdImport, pAssemEmit, out ptr)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineImportType(pAssemImport, pbHashValue, cbHashValue, pImport, tdImport, pAssemEmit, out ptr).ThrowOnNotOK();
 
             return ptr;
         }
@@ -504,11 +470,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The <see cref="mdMemberRef"/> token assigned.</returns>
         public mdMemberRef DefineMemberRef(mdModuleRef tkImport, string szName, IntPtr pvSigBlob, int cbSigBlob)
         {
-            HRESULT hr;
             mdMemberRef pmr;
-
-            if ((hr = TryDefineMemberRef(tkImport, szName, pvSigBlob, cbSigBlob, out pmr)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineMemberRef(tkImport, szName, pvSigBlob, cbSigBlob, out pmr).ThrowOnNotOK();
 
             return pmr;
         }
@@ -556,11 +519,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public mdMemberRef DefineImportMember(IMetaDataAssemblyImport pAssemImport, IntPtr pbHashValue, int cbHashValue, IMetaDataImport pImport, mdToken mbMember, IMetaDataAssemblyEmit pAssemEmit, mdToken tkParent)
         {
-            HRESULT hr;
             mdMemberRef pmr;
-
-            if ((hr = TryDefineImportMember(pAssemImport, pbHashValue, cbHashValue, pImport, mbMember, pAssemEmit, tkParent, out pmr)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineImportMember(pAssemImport, pbHashValue, cbHashValue, pImport, mbMember, pAssemEmit, tkParent, out pmr).ThrowOnNotOK();
 
             return pmr;
         }
@@ -615,11 +575,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The metadata token assigned to the event.</returns>
         public mdToken DefineEvent(mdTypeDef td, string szEvent, int dwEventFlags, mdToken tkEventType, mdMethodDef mdAddOn, mdMethodDef mdRemoveOn, mdMethodDef mdFire, mdMethodDef[] rmdOtherMethods)
         {
-            HRESULT hr;
             mdToken pmdEvent;
-
-            if ((hr = TryDefineEvent(td, szEvent, dwEventFlags, tkEventType, mdAddOn, mdRemoveOn, mdFire, rmdOtherMethods, out pmdEvent)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineEvent(td, szEvent, dwEventFlags, tkEventType, mdAddOn, mdRemoveOn, mdFire, rmdOtherMethods, out pmdEvent).ThrowOnNotOK();
 
             return pmdEvent;
         }
@@ -671,10 +628,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetClassLayout(mdTypeDef td, int dwPackSize, mdToken[] rFieldOffsets, int ulClassSize)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetClassLayout(td, dwPackSize, rFieldOffsets, ulClassSize)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetClassLayout(td, dwPackSize, rFieldOffsets, ulClassSize).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -711,10 +665,7 @@ namespace ManagedCorDebug
         /// <param name="td">[in] An <see cref="mdTypeDef"/> metadata token that represents the type for which the class layout will be deleted.</param>
         public void DeleteClassLayout(mdTypeDef td)
         {
-            HRESULT hr;
-
-            if ((hr = TryDeleteClassLayout(td)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDeleteClassLayout(td).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -738,10 +689,7 @@ namespace ManagedCorDebug
         /// <param name="cbNativeType">[in] The count of bytes in pvNativeType.</param>
         public void SetFieldMarshal(mdToken tk, IntPtr pvNativeType, int cbNativeType)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetFieldMarshal(tk, pvNativeType, cbNativeType)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetFieldMarshal(tk, pvNativeType, cbNativeType).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -768,10 +716,7 @@ namespace ManagedCorDebug
         /// <param name="tk">[in] An <see cref="mdFieldDef"/> or <see cref="mdParamDef"/> token that represents the field or parameter for which to delete the marshalling metadata signature.</param>
         public void DeleteFieldMarshal(mdToken tk)
         {
-            HRESULT hr;
-
-            if ((hr = TryDeleteFieldMarshal(tk)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDeleteFieldMarshal(tk).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -797,11 +742,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The returned permission token.</returns>
         public mdPermission DefinePermissionSet(mdToken tk, CorDeclSecurity dwAction, IntPtr pvPermission, int cbPermission)
         {
-            HRESULT hr;
             mdPermission ppm;
-
-            if ((hr = TryDefinePermissionSet(tk, dwAction, pvPermission, cbPermission, out ppm)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefinePermissionSet(tk, dwAction, pvPermission, cbPermission, out ppm).ThrowOnNotOK();
 
             return ppm;
         }
@@ -835,10 +777,7 @@ namespace ManagedCorDebug
         /// <param name="ulRVA">[in] The address of the code or data area.</param>
         public void SetRVA(mdMethodDef md, int ulRVA)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetRVA(md, ulRVA)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetRVA(md, ulRVA).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -865,11 +804,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The <see cref="mdSignature"/> token assigned.</returns>
         public mdSignature GetTokenFromSig(IntPtr pvSig, int cbSig)
         {
-            HRESULT hr;
             mdSignature pmsig;
-
-            if ((hr = TryGetTokenFromSig(pvSig, cbSig, out pmsig)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetTokenFromSig(pvSig, cbSig, out pmsig).ThrowOnNotOK();
 
             return pmsig;
         }
@@ -899,11 +835,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The assigned <see cref="mdModuleRef"/> token.</returns>
         public mdModuleRef DefineModuleRef(string szName)
         {
-            HRESULT hr;
             mdModuleRef pmur;
-
-            if ((hr = TryDefineModuleRef(szName, out pmur)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineModuleRef(szName, out pmur).ThrowOnNotOK();
 
             return pmur;
         }
@@ -931,10 +864,7 @@ namespace ManagedCorDebug
         /// <param name="tk">[in] The <see cref="mdToken"/> for the new parent.</param>
         public void SetParent(mdMemberRef mr, mdToken tk)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetParent(mr, tk)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetParent(mr, tk).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -961,11 +891,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The <see cref="mdTypeSpec"/> token assigned.</returns>
         public mdTypeSpec GetTokenFromTypeSpec(IntPtr pvSig, int cbSig)
         {
-            HRESULT hr;
             mdTypeSpec ptypespec;
-
-            if ((hr = TryGetTokenFromTypeSpec(pvSig, cbSig, out ptypespec)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetTokenFromTypeSpec(pvSig, cbSig, out ptypespec).ThrowOnNotOK();
 
             return ptypespec;
         }
@@ -995,10 +922,7 @@ namespace ManagedCorDebug
         /// <param name="cbData">[in] The size, in bytes, of the allocated memory.</param>
         public void SaveToMemory(IntPtr pbData, int cbData)
         {
-            HRESULT hr;
-
-            if ((hr = TrySaveToMemory(pbData, cbData)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySaveToMemory(pbData, cbData).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1025,11 +949,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The string token assigned.</returns>
         public mdString DefineUserString(string szString, int cchString)
         {
-            HRESULT hr;
             mdString pstk;
-
-            if ((hr = TryDefineUserString(szString, cchString, out pstk)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineUserString(szString, cchString, out pstk).ThrowOnNotOK();
 
             return pstk;
         }
@@ -1058,10 +979,7 @@ namespace ManagedCorDebug
         /// <param name="tkObj">[in] The token to be deleted.</param>
         public void DeleteToken(mdToken tkObj)
         {
-            HRESULT hr;
-
-            if ((hr = TryDeleteToken(tkObj)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDeleteToken(tkObj).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1086,10 +1004,7 @@ namespace ManagedCorDebug
         /// <param name="dwImplFlags">[in] The implementation flags for the method.</param>
         public void SetMethodProps(mdMethodDef md, int dwMethodFlags, int ulCodeRVA, int dwImplFlags)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetMethodProps(md, dwMethodFlags, ulCodeRVA, dwImplFlags)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetMethodProps(md, dwMethodFlags, ulCodeRVA, dwImplFlags).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1122,10 +1037,7 @@ namespace ManagedCorDebug
         /// The last element of the array is must be mdTokenNil.</param>
         public void SetTypeDefProps(mdTypeDef td, CorTypeAttr dwTypeDefFlags, mdToken tkExtends, mdToken[] rtkImplements)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetTypeDefProps(td, dwTypeDefFlags, tkExtends, rtkImplements)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetTypeDefProps(td, dwTypeDefFlags, tkExtends, rtkImplements).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1161,10 +1073,7 @@ namespace ManagedCorDebug
         /// <param name="rmdOtherMethods">[in] An array of tokens for other methods associated with the event. The last element of the array must be mdMethodDefNil.</param>
         public void SetEventProps(mdEvent ev, CorEventAttr dwEventFlags, mdToken tkEventType, mdMethodDef mdAddOn, mdMethodDef mdRemoveOn, mdMethodDef mdFire, mdMethodDef[] rmdOtherMethods)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetEventProps(ev, dwEventFlags, tkEventType, mdAddOn, mdRemoveOn, mdFire, rmdOtherMethods)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetEventProps(ev, dwEventFlags, tkEventType, mdAddOn, mdRemoveOn, mdFire, rmdOtherMethods).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1203,11 +1112,8 @@ namespace ManagedCorDebug
         /// <returns>[out] An <see cref="mdPermission"/> metadata token that represents the updated permissions.</returns>
         public mdPermission SetPermissionSetProps(mdToken tk, CorDeclSecurity dwAction, IntPtr pvPermission, int cbPermission)
         {
-            HRESULT hr;
             mdPermission ppm;
-
-            if ((hr = TrySetPermissionSetProps(tk, dwAction, pvPermission, cbPermission, out ppm)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetPermissionSetProps(tk, dwAction, pvPermission, cbPermission, out ppm).ThrowOnNotOK();
 
             return ppm;
         }
@@ -1243,10 +1149,7 @@ namespace ManagedCorDebug
         /// <param name="mrImportDLL">[in] The token for the target native DLL.</param>
         public void DefinePinvokeMap(mdToken tk, int dwMappingFlags, string szImportName, mdModuleRef mrImportDLL)
         {
-            HRESULT hr;
-
-            if ((hr = TryDefinePinvokeMap(tk, dwMappingFlags, szImportName, mrImportDLL)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefinePinvokeMap(tk, dwMappingFlags, szImportName, mrImportDLL).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1278,10 +1181,7 @@ namespace ManagedCorDebug
         /// <param name="mrImportDLL">[in] The <see cref="mdModuleRef"/> token for the target unmanaged DLL.</param>
         public void SetPinvokeMap(mdToken tk, CorPinvokeMap dwMappingFlags, string szImportName, mdModuleRef mrImportDLL)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetPinvokeMap(tk, dwMappingFlags, szImportName, mrImportDLL)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetPinvokeMap(tk, dwMappingFlags, szImportName, mrImportDLL).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1310,10 +1210,7 @@ namespace ManagedCorDebug
         /// <param name="tk">[in] An <see cref="mdFieldDef"/> or <see cref="mdMethodDef"/> token that represents the object for which to delete the PInvoke mapping metadata.</param>
         public void DeletePinvokeMap(mdToken tk)
         {
-            HRESULT hr;
-
-            if ((hr = TryDeletePinvokeMap(tk)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDeletePinvokeMap(tk).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1339,11 +1236,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The <see cref="mdCustomAttribute"/> token assigned.</returns>
         public mdCustomAttribute DefineCustomAttribute(mdToken tkObj, mdToken tkType, IntPtr pCustomAttribute, int cbCustomAttribute)
         {
-            HRESULT hr;
             mdCustomAttribute pcv;
-
-            if ((hr = TryDefineCustomAttribute(tkObj, tkType, pCustomAttribute, cbCustomAttribute, out pcv)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineCustomAttribute(tkObj, tkType, pCustomAttribute, cbCustomAttribute, out pcv).ThrowOnNotOK();
 
             return pcv;
         }
@@ -1378,10 +1272,7 @@ namespace ManagedCorDebug
         /// <param name="cbCustomAttribute">[in] The size, in bytes, of the custom attribute.</param>
         public void SetCustomAttributeValue(int pcv, IntPtr pCustomAttribute, int cbCustomAttribute)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetCustomAttributeValue(pcv, pCustomAttribute, cbCustomAttribute)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetCustomAttributeValue(pcv, pCustomAttribute, cbCustomAttribute).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1416,11 +1307,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The <see cref="mdFieldDef"/> token assigned.</returns>
         public mdFieldDef DefineField(mdTypeDef td, string szName, CorFieldAttr dwFieldFlags, IntPtr pvSigBlob, int cbSigBlob, CorElementType dwCPlusTypeFlag, IntPtr pValue, int cchValue)
         {
-            HRESULT hr;
             mdFieldDef pmd;
-
-            if ((hr = TryDefineField(td, szName, dwFieldFlags, pvSigBlob, cbSigBlob, dwCPlusTypeFlag, pValue, cchValue, out pmd)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineField(td, szName, dwFieldFlags, pvSigBlob, cbSigBlob, dwCPlusTypeFlag, pValue, cchValue, out pmd).ThrowOnNotOK();
 
             return pmd;
         }
@@ -1472,11 +1360,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The <see cref="mdProperty"/> token assigned.</returns>
         public mdProperty DefineProperty(mdTypeDef td, string szProperty, CorPropertyAttr dwPropFlags, IntPtr pvSig, int cbSig, int dwCPlusTypeFlag, IntPtr cvalue, int cchValue, mdMethodDef mdSetter, mdMethodDef mdGetter, mdToken[] rmdOtherMethods)
         {
-            HRESULT hr;
             mdProperty pmdProp;
-
-            if ((hr = TryDefineProperty(td, szProperty, dwPropFlags, pvSig, cbSig, dwCPlusTypeFlag, cvalue, cchValue, mdSetter, mdGetter, rmdOtherMethods, out pmdProp)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineProperty(td, szProperty, dwPropFlags, pvSig, cbSig, dwCPlusTypeFlag, cvalue, cchValue, mdSetter, mdGetter, rmdOtherMethods, out pmdProp).ThrowOnNotOK();
 
             return pmdProp;
         }
@@ -1533,11 +1418,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public mdParamDef DefineParam(mdMethodDef md, int ulParamSeq, string szName, CorParamAttr dwParamFlags, CorElementType dwCPlusTypeFlag, IntPtr pValue, int cchValue)
         {
-            HRESULT hr;
             mdParamDef ppd;
-
-            if ((hr = TryDefineParam(md, ulParamSeq, szName, dwParamFlags, dwCPlusTypeFlag, pValue, cchValue, out ppd)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineParam(md, ulParamSeq, szName, dwParamFlags, dwCPlusTypeFlag, pValue, cchValue, out ppd).ThrowOnNotOK();
 
             return ppd;
         }
@@ -1583,10 +1465,7 @@ namespace ManagedCorDebug
         /// <param name="cchValue">[in] The size, in Unicode characters, of pValue.</param>
         public void SetFieldProps(mdFieldDef fd, CorFieldAttr dwFieldFlags, CorElementType dwCPlusTypeFlag, IntPtr pValue, int cchValue)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetFieldProps(fd, dwFieldFlags, dwCPlusTypeFlag, pValue, cchValue)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetFieldProps(fd, dwFieldFlags, dwCPlusTypeFlag, pValue, cchValue).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1624,10 +1503,7 @@ namespace ManagedCorDebug
         /// <param name="rmdOtherMethods">[in] An array of other methods associated with the property. Terminate this array with an mdTokenNil token.</param>
         public void SetPropertyProps(mdProperty pr, CorPropertyAttr dwPropFlags, int dwCPlusTypeFlag, IntPtr pValue, int cchValue, mdMethodDef mdSetter, mdMethodDef mdGetter, mdToken[] rmdOtherMethods)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetPropertyProps(pr, dwPropFlags, dwCPlusTypeFlag, pValue, cchValue, mdSetter, mdGetter, rmdOtherMethods)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetPropertyProps(pr, dwPropFlags, dwCPlusTypeFlag, pValue, cchValue, mdSetter, mdGetter, rmdOtherMethods).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1669,10 +1545,7 @@ namespace ManagedCorDebug
         /// <param name="cchValue">[in] The size in (Unicode) characters of pValue.</param>
         public void SetParamProps(mdParamDef pd, string szName, int dwParamFlags, int dwCPlusTypeFlag, IntPtr pValue, int cchValue)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetParamProps(pd, szName, dwParamFlags, dwCPlusTypeFlag, pValue, cchValue)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetParamProps(pd, szName, dwParamFlags, dwCPlusTypeFlag, pValue, cchValue).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1708,11 +1581,8 @@ namespace ManagedCorDebug
         /// <returns>[out] If the method fails, specifies the index in rSecAttrs of the element that caused the problem.</returns>
         public int DefineSecurityAttributeSet(mdToken tkObj, COR_SECATTR[] rSecAttrs, int cSecAttrs)
         {
-            HRESULT hr;
             int pulErrorAttr;
-
-            if ((hr = TryDefineSecurityAttributeSet(tkObj, rSecAttrs, cSecAttrs, out pulErrorAttr)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineSecurityAttributeSet(tkObj, rSecAttrs, cSecAttrs, out pulErrorAttr).ThrowOnNotOK();
 
             return pulErrorAttr;
         }
@@ -1743,10 +1613,7 @@ namespace ManagedCorDebug
         /// <param name="pImport">[in] Pointer to an IUnknown object that represents the delta metadata from the portable executable (PE) file. The delta metadata is the block of metadata that includes the changes that were made to the copy of the module's actual metadata.</param>
         public void ApplyEditAndContinue(object pImport)
         {
-            HRESULT hr;
-
-            if ((hr = TryApplyEditAndContinue(pImport)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryApplyEditAndContinue(pImport).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1778,11 +1645,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The number of actual bytes in the translated signature.</returns>
         public int TranslateSigWithScope(IMetaDataAssemblyImport pAssemImport, IntPtr pbHashValue, int cbHashValue, IMetaDataImport import, IntPtr pbSigBlob, int cbSigBlob, IMetaDataAssemblyEmit pAssemEmit, IMetaDataEmit emit, IntPtr pvTranslatedSig, int cbTranslatedSigMax)
         {
-            HRESULT hr;
             int pcbTranslatedSig;
-
-            if ((hr = TryTranslateSigWithScope(pAssemImport, pbHashValue, cbHashValue, import, pbSigBlob, cbSigBlob, pAssemEmit, emit, pvTranslatedSig, cbTranslatedSigMax, out pcbTranslatedSig)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryTranslateSigWithScope(pAssemImport, pbHashValue, cbHashValue, import, pbSigBlob, cbSigBlob, pAssemEmit, emit, pvTranslatedSig, cbTranslatedSigMax, out pcbTranslatedSig).ThrowOnNotOK();
 
             return pcbTranslatedSig;
         }
@@ -1828,10 +1692,7 @@ namespace ManagedCorDebug
         /// <param name="dwImplFlags">[in] A combination of the values of the <see cref="CorMethodImpl"/> enumeration that specifies the method implementation features.</param>
         public void SetMethodImplFlags(mdMethodDef md, int dwImplFlags)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetMethodImplFlags(md, dwImplFlags)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetMethodImplFlags(md, dwImplFlags).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1857,10 +1718,7 @@ namespace ManagedCorDebug
         /// <param name="ulRVA">[in] The address of a code or data area.</param>
         public void SetFieldRVA(mdFieldDef fd, int ulRVA)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetFieldRVA(fd, ulRVA)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetFieldRVA(fd, ulRVA).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1890,10 +1748,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Merge(IMetaDataImport pImport, IMapToken pHostMapToken, object pHandler)
         {
-            HRESULT hr;
-
-            if ((hr = TryMerge(pImport, pHostMapToken, pHandler)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryMerge(pImport, pHostMapToken, pHandler).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1926,10 +1781,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void MergeEnd()
         {
-            HRESULT hr;
-
-            if ((hr = TryMergeEnd()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryMergeEnd().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1963,11 +1815,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A token to the metadata signature definition of the method.</returns>
         public mdMethodSpec DefineMethodSpec(mdToken tkParent, IntPtr pvSigBlob, int cbSigBlob)
         {
-            HRESULT hr;
             mdMethodSpec pmi;
-
-            if ((hr = TryDefineMethodSpec(tkParent, pvSigBlob, cbSigBlob, out pmi)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineMethodSpec(tkParent, pvSigBlob, cbSigBlob, out pmi).ThrowOnNotOK();
 
             return pmi;
         }
@@ -1999,11 +1848,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The change in the size of the metadata.</returns>
         public int GetDeltaSaveSize(CorSaveSize fSave)
         {
-            HRESULT hr;
             int pdwSaveSize;
-
-            if ((hr = TryGetDeltaSaveSize(fSave, out pdwSaveSize)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetDeltaSaveSize(fSave, out pdwSaveSize).ThrowOnNotOK();
 
             return pdwSaveSize;
         }
@@ -2029,10 +1875,7 @@ namespace ManagedCorDebug
         /// <param name="dwSaveFlags">[in] Reserved. Must be zero.</param>
         public void SaveDelta(string szFile, int dwSaveFlags)
         {
-            HRESULT hr;
-
-            if ((hr = TrySaveDelta(szFile, dwSaveFlags)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySaveDelta(szFile, dwSaveFlags).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -2056,10 +1899,7 @@ namespace ManagedCorDebug
         /// <param name="dwSaveFlags">[in] Reserved. This value must be zero.</param>
         public void SaveDeltaToStream(object pIStream, int dwSaveFlags)
         {
-            HRESULT hr;
-
-            if ((hr = TrySaveDeltaToStream(pIStream, dwSaveFlags)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySaveDeltaToStream(pIStream, dwSaveFlags).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -2083,10 +1923,7 @@ namespace ManagedCorDebug
         /// <param name="cbData">[in] The size of the changes. Use <see cref="GetDeltaSaveSize"/> to determine the size.</param>
         public void SaveDeltaToMemory(IntPtr pbData, int cbData)
         {
-            HRESULT hr;
-
-            if ((hr = TrySaveDeltaToMemory(pbData, cbData)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySaveDeltaToMemory(pbData, cbData).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -2115,11 +1952,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A token that represents the generic parameter.</returns>
         public mdGenericParam DefineGenericParam(mdToken tk, int ulParamSeq, int dwParamFlags, string szname, int reserved, mdToken[] rtkConstraints)
         {
-            HRESULT hr;
             mdGenericParam pgp;
-
-            if ((hr = TryDefineGenericParam(tk, ulParamSeq, dwParamFlags, szname, reserved, rtkConstraints, out pgp)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineGenericParam(tk, ulParamSeq, dwParamFlags, szname, reserved, rtkConstraints, out pgp).ThrowOnNotOK();
 
             return pgp;
         }
@@ -2161,10 +1995,7 @@ namespace ManagedCorDebug
         /// <param name="rtkConstraints">[in] Optional. A zero-terminated array of type constraints. Array members must be an <see cref="mdTypeDef"/>, <see cref="mdTypeRef"/>, or <see cref="mdTypeSpec"/> metadata token.</param>
         public void SetGenericParamProps(mdGenericParam gp, int dwParamFlags, string szName, int reserved, mdToken[] rtkConstraints)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetGenericParamProps(gp, dwParamFlags, szName, reserved, rtkConstraints)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetGenericParamProps(gp, dwParamFlags, szName, reserved, rtkConstraints).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -2195,10 +2026,7 @@ namespace ManagedCorDebug
         /// </summary>
         public void ResetENCLog()
         {
-            HRESULT hr;
-
-            if ((hr = TryResetENCLog()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryResetENCLog().ThrowOnNotOK();
         }
 
         /// <summary>

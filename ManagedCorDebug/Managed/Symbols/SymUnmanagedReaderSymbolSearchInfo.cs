@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -25,11 +23,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pcSearchInfo;
-
-                if ((hr = TryGetSymbolSearchInfoCount(out pcSearchInfo)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetSymbolSearchInfoCount(out pcSearchInfo).ThrowOnNotOK();
 
                 return pcSearchInfo;
             }
@@ -56,11 +51,8 @@ namespace ManagedCorDebug
         /// <returns>The values that were emitted from the COM method.</returns>
         public GetSymbolSearchInfoResult GetSymbolSearchInfo(int cSearchInfo)
         {
-            HRESULT hr;
             GetSymbolSearchInfoResult result;
-
-            if ((hr = TryGetSymbolSearchInfo(cSearchInfo, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetSymbolSearchInfo(cSearchInfo, out result).ThrowOnNotOK();
 
             return result;
         }

@@ -1,6 +1,5 @@
 using System;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -28,11 +27,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string szNameResult;
-
-                if ((hr = TryGetSimpleName(out szNameResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetSimpleName(out szNameResult).ThrowOnNotOK();
 
                 return szNameResult;
             }
@@ -85,11 +81,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 GetVersionResult result;
-
-                if ((hr = TryGetVersion(out result)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetVersion(out result).ThrowOnNotOK();
 
                 return result;
             }
@@ -129,11 +122,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string szCultureResult;
-
-                if ((hr = TryGetCulture(out szCultureResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCulture(out szCultureResult).ThrowOnNotOK();
 
                 return szCultureResult;
             }
@@ -185,11 +175,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 byte[] pbPublicKeyResult;
-
-                if ((hr = TryGetPublicKey(out pbPublicKeyResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetPublicKey(out pbPublicKeyResult).ThrowOnNotOK();
 
                 return pbPublicKeyResult;
             }
@@ -241,11 +228,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 byte[] pbPublicKeyTokenResult;
-
-                if ((hr = TryGetPublicKeyToken(out pbPublicKeyTokenResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetPublicKeyToken(out pbPublicKeyTokenResult).ThrowOnNotOK();
 
                 return pbPublicKeyTokenResult;
             }
@@ -299,11 +283,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pIndex;
-
-                if ((hr = TryGetIndex(out pIndex)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetIndex(out pIndex).ThrowOnNotOK();
 
                 return pIndex;
             }

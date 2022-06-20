@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -36,11 +34,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public HostSecurityContext Capture()
         {
-            HRESULT hr;
             HostSecurityContext ppClonedContextResult;
-
-            if ((hr = TryCapture(out ppClonedContextResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCapture(out ppClonedContextResult).ThrowOnNotOK();
 
             return ppClonedContextResult;
         }

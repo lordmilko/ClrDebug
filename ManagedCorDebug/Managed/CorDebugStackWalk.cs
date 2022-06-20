@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -26,11 +25,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CorDebugFrame pFrameResult;
-
-                if ((hr = TryGetFrame(out pFrameResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetFrame(out pFrameResult).ThrowOnNotOK();
 
                 return pFrameResult;
             }
@@ -86,11 +82,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int GetContext(int contextFlags, int contextBufSize, IntPtr contextBuf)
         {
-            HRESULT hr;
             int contextSize;
-
-            if ((hr = TryGetContext(contextFlags, contextBufSize, out contextSize, contextBuf)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetContext(contextFlags, contextBufSize, out contextSize, contextBuf).ThrowOnNotOK();
 
             return contextSize;
         }
@@ -142,10 +135,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetContext(CorDebugSetContextFlag flag, int contextSize, IntPtr context)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetContext(flag, contextSize, context)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetContext(flag, contextSize, context).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -187,10 +177,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Next()
         {
-            HRESULT hr;
-
-            if ((hr = TryNext()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryNext().ThrowOnNotOK();
         }
 
         /// <summary>

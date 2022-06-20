@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -32,10 +31,7 @@ namespace ManagedCorDebug
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
         public void GetHashFromAssemblyFile(string pszFilePath, ref int piHashAlg, IntPtr pbHash, int cchHash)
         {
-            HRESULT hr;
-
-            if ((hr = TryGetHashFromAssemblyFile(pszFilePath, ref piHashAlg, pbHash, cchHash)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetHashFromAssemblyFile(pszFilePath, ref piHashAlg, pbHash, cchHash).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -71,10 +67,7 @@ namespace ManagedCorDebug
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
         public void GetHashFromAssemblyFileW(string pwzFilePath, ref int piHashAlg, IntPtr pbHash, int cchHash)
         {
-            HRESULT hr;
-
-            if ((hr = TryGetHashFromAssemblyFileW(pwzFilePath, ref piHashAlg, pbHash, cchHash)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetHashFromAssemblyFileW(pwzFilePath, ref piHashAlg, pbHash, cchHash).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -111,10 +104,7 @@ namespace ManagedCorDebug
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
         public void GetHashFromBlob(IntPtr pbBlob, int cchBlob, ref int piHashAlg, IntPtr pbHash, int cchHash)
         {
-            HRESULT hr;
-
-            if ((hr = TryGetHashFromBlob(pbBlob, cchBlob, ref piHashAlg, pbHash, cchHash)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetHashFromBlob(pbBlob, cchBlob, ref piHashAlg, pbHash, cchHash).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -157,10 +147,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void GetHashFromFile(string pszFilePath, ref int piHashAlg, IntPtr pbHash, int cchHash)
         {
-            HRESULT hr;
-
-            if ((hr = TryGetHashFromFile(pszFilePath, ref piHashAlg, pbHash, cchHash)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetHashFromFile(pszFilePath, ref piHashAlg, pbHash, cchHash).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -206,10 +193,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void GetHashFromFileW(string pwzFilePath, ref int piHashAlg, IntPtr pbHash, int cchHash)
         {
-            HRESULT hr;
-
-            if ((hr = TryGetHashFromFileW(pwzFilePath, ref piHashAlg, pbHash, cchHash)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetHashFromFileW(pwzFilePath, ref piHashAlg, pbHash, cchHash).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -250,10 +234,7 @@ namespace ManagedCorDebug
         /// <param name="cchHash">[in] The requested maximum size of pbHash.</param>
         public void GetHashFromHandle(IntPtr hFile, ref int piHashAlg, IntPtr pbHash, int cchHash)
         {
-            HRESULT hr;
-
-            if ((hr = TryGetHashFromHandle(hFile, ref piHashAlg, pbHash, cchHash)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetHashFromHandle(hFile, ref piHashAlg, pbHash, cchHash).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -292,11 +273,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int StrongNameCompareAssemblies(string wszAssembly1, string wszAssembly2)
         {
-            HRESULT hr;
             int pdwResult;
-
-            if ((hr = TryStrongNameCompareAssemblies(wszAssembly1, wszAssembly2, out pdwResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStrongNameCompareAssemblies(wszAssembly1, wszAssembly2, out pdwResult).ThrowOnNotOK();
 
             return pdwResult;
         }
@@ -330,10 +308,7 @@ namespace ManagedCorDebug
         /// <param name="pbMemory">[in] A pointer to the memory to free.</param>
         public void StrongNameFreeBuffer(IntPtr pbMemory)
         {
-            HRESULT hr;
-
-            if ((hr = TryStrongNameFreeBuffer(pbMemory)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStrongNameFreeBuffer(pbMemory).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -358,10 +333,7 @@ namespace ManagedCorDebug
         /// <param name="pcbBlob">[in, out] The requested maximum size, in bytes, of pbBlob. Upon return, the actual size, in bytes, of pbBlob.</param>
         public void StrongNameGetBlob(string pwzFilePath, IntPtr pbBlob, ref int pcbBlob)
         {
-            HRESULT hr;
-
-            if ((hr = TryStrongNameGetBlob(pwzFilePath, pbBlob, ref pcbBlob)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStrongNameGetBlob(pwzFilePath, pbBlob, ref pcbBlob).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -390,10 +362,7 @@ namespace ManagedCorDebug
         /// <param name="pcbBlob">[in, out] The requested maximum size, in bytes, of pbBlob. Upon return, the actual size, in bytes, of pbBlob.</param>
         public void StrongNameGetBlobFromImage(IntPtr pbBase, int dwLength, IntPtr pbBlob, ref int pcbBlob)
         {
-            HRESULT hr;
-
-            if ((hr = TryStrongNameGetBlobFromImage(pbBase, dwLength, pbBlob, ref pcbBlob)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStrongNameGetBlobFromImage(pbBase, dwLength, pbBlob, ref pcbBlob).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -433,11 +402,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public StrongNameGetPublicKeyResult StrongNameGetPublicKey(string pwzKeyContainer, IntPtr pbKeyBlob, int cbKeyBlob)
         {
-            HRESULT hr;
             StrongNameGetPublicKeyResult result;
-
-            if ((hr = TryStrongNameGetPublicKey(pwzKeyContainer, pbKeyBlob, cbKeyBlob, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStrongNameGetPublicKey(pwzKeyContainer, pbKeyBlob, cbKeyBlob, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -487,11 +453,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The returned buffer size, in bytes.</returns>
         public int StrongNameHashSize(int ulHashAlg)
         {
-            HRESULT hr;
             int pcbSize;
-
-            if ((hr = TryStrongNameHashSize(ulHashAlg, out pcbSize)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStrongNameHashSize(ulHashAlg, out pcbSize).ThrowOnNotOK();
 
             return pcbSize;
         }
@@ -520,10 +483,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void StrongNameKeyDelete(string pwzKeyContainer)
         {
-            HRESULT hr;
-
-            if ((hr = TryStrongNameKeyDelete(pwzKeyContainer)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStrongNameKeyDelete(pwzKeyContainer).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -555,11 +515,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public StrongNameKeyGenResult StrongNameKeyGen(string pwzKeyContainer, int dwFlags)
         {
-            HRESULT hr;
             StrongNameKeyGenResult result;
-
-            if ((hr = TryStrongNameKeyGen(pwzKeyContainer, dwFlags, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStrongNameKeyGen(pwzKeyContainer, dwFlags, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -611,11 +568,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public StrongNameKeyGenExResult StrongNameKeyGenEx(string pwzKeyContainer, int dwFlags, int dwKeySize)
         {
-            HRESULT hr;
             StrongNameKeyGenExResult result;
-
-            if ((hr = TryStrongNameKeyGenEx(pwzKeyContainer, dwFlags, dwKeySize, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStrongNameKeyGenEx(pwzKeyContainer, dwFlags, dwKeySize, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -667,10 +621,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void StrongNameKeyInstall(string pwzKeyContainer, IntPtr pbKeyBlob, int cbKeyBlob)
         {
-            HRESULT hr;
-
-            if ((hr = TryStrongNameKeyInstall(pwzKeyContainer, pbKeyBlob, cbKeyBlob)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStrongNameKeyInstall(pwzKeyContainer, pbKeyBlob, cbKeyBlob).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -710,11 +661,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public StrongNameSignatureGenerationResult StrongNameSignatureGeneration(string pwzFilePath, string pwzKeyContainer, IntPtr pbKeyBlob, int cbKeyBlob)
         {
-            HRESULT hr;
             StrongNameSignatureGenerationResult result;
-
-            if ((hr = TryStrongNameSignatureGeneration(pwzFilePath, pwzKeyContainer, pbKeyBlob, cbKeyBlob, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStrongNameSignatureGeneration(pwzFilePath, pwzKeyContainer, pbKeyBlob, cbKeyBlob, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -779,11 +727,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public StrongNameSignatureGenerationExResult StrongNameSignatureGenerationEx(string wszFilePath, string wszKeyContainer, IntPtr pbKeyBlob, int cbKeyBlob, int dwFlags)
         {
-            HRESULT hr;
             StrongNameSignatureGenerationExResult result;
-
-            if ((hr = TryStrongNameSignatureGenerationEx(wszFilePath, wszKeyContainer, pbKeyBlob, cbKeyBlob, dwFlags, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStrongNameSignatureGenerationEx(wszFilePath, wszKeyContainer, pbKeyBlob, cbKeyBlob, dwFlags, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -840,10 +785,7 @@ namespace ManagedCorDebug
         /// <param name="pcbSize">[in] The number of bytes required to store the strong name signature.</param>
         public void StrongNameSignatureSize(IntPtr pbPublicKeyBlob, PublicKeyBlob cbPublicKeyBlob, int pcbSize)
         {
-            HRESULT hr;
-
-            if ((hr = TryStrongNameSignatureSize(pbPublicKeyBlob, cbPublicKeyBlob, pcbSize)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStrongNameSignatureSize(pbPublicKeyBlob, cbPublicKeyBlob, pcbSize).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -870,11 +812,8 @@ namespace ManagedCorDebug
         /// <returns>[out] Flags indicating whether the strong name signature was verified. The following value is supported:</returns>
         public int StrongNameSignatureVerification(string wszFilePath, int dwInFlags)
         {
-            HRESULT hr;
             int pdwOutFlags;
-
-            if ((hr = TryStrongNameSignatureVerification(wszFilePath, dwInFlags, out pdwOutFlags)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStrongNameSignatureVerification(wszFilePath, dwInFlags, out pdwOutFlags).ThrowOnNotOK();
 
             return pdwOutFlags;
         }
@@ -911,11 +850,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int StrongNameSignatureVerificationEx(string wszFilePath, int fForceVerification)
         {
-            HRESULT hr;
             int pfWasVerified = default(int);
-
-            if ((hr = TryStrongNameSignatureVerificationEx(wszFilePath, fForceVerification, ref pfWasVerified)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStrongNameSignatureVerificationEx(wszFilePath, fForceVerification, ref pfWasVerified).ThrowOnNotOK();
 
             return pfWasVerified;
         }
@@ -953,11 +889,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A flag for additional output information. The following value is supported:</returns>
         public int StrongNameSignatureVerificationFromImage(IntPtr pbBase, int dwLength, int dwInFlags)
         {
-            HRESULT hr;
             int pdwOutFlags;
-
-            if ((hr = TryStrongNameSignatureVerificationFromImage(pbBase, dwLength, dwInFlags, out pdwOutFlags)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStrongNameSignatureVerificationFromImage(pbBase, dwLength, dwInFlags, out pdwOutFlags).ThrowOnNotOK();
 
             return pdwOutFlags;
         }
@@ -996,11 +929,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public StrongNameTokenFromAssemblyResult StrongNameTokenFromAssembly(string pwzFilePath)
         {
-            HRESULT hr;
             StrongNameTokenFromAssemblyResult result;
-
-            if ((hr = TryStrongNameTokenFromAssembly(pwzFilePath, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStrongNameTokenFromAssembly(pwzFilePath, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -1052,11 +982,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public StrongNameTokenFromAssemblyExResult StrongNameTokenFromAssemblyEx(string pwzFilePath, IntPtr ppbStrongNameToken)
         {
-            HRESULT hr;
             StrongNameTokenFromAssemblyExResult result;
-
-            if ((hr = TryStrongNameTokenFromAssemblyEx(pwzFilePath, ppbStrongNameToken, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStrongNameTokenFromAssemblyEx(pwzFilePath, ppbStrongNameToken, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -1110,11 +1037,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public StrongNameTokenFromPublicKeyResult StrongNameTokenFromPublicKey(IntPtr pbPublicKeyBlob, PublicKeyBlob cbPublicKeyBlob)
         {
-            HRESULT hr;
             StrongNameTokenFromPublicKeyResult result;
-
-            if ((hr = TryStrongNameTokenFromPublicKey(pbPublicKeyBlob, cbPublicKeyBlob, out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStrongNameTokenFromPublicKey(pbPublicKeyBlob, cbPublicKeyBlob, out result).ThrowOnNotOK();
 
             return result;
         }

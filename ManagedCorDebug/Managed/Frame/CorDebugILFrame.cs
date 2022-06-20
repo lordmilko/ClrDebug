@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -35,11 +34,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pDepth;
-
-                if ((hr = TryGetStackDepth(out pDepth)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetStackDepth(out pDepth).ThrowOnNotOK();
 
                 return pDepth;
             }
@@ -70,11 +66,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public GetIPResult GetIP()
         {
-            HRESULT hr;
             GetIPResult result;
-
-            if ((hr = TryGetIP(out result)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetIP(out result).ThrowOnNotOK();
 
             return result;
         }
@@ -122,10 +115,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetIP(int nOffset)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetIP(nOffset)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetIP(nOffset).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -160,11 +150,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugValueEnum EnumerateLocalVariables()
         {
-            HRESULT hr;
             CorDebugValueEnum ppValueEnumResult;
-
-            if ((hr = TryEnumerateLocalVariables(out ppValueEnumResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateLocalVariables(out ppValueEnumResult).ThrowOnNotOK();
 
             return ppValueEnumResult;
         }
@@ -205,11 +192,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugValue GetLocalVariable(int dwIndex)
         {
-            HRESULT hr;
             CorDebugValue ppValueResult;
-
-            if ((hr = TryGetLocalVariable(dwIndex, out ppValueResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetLocalVariable(dwIndex, out ppValueResult).ThrowOnNotOK();
 
             return ppValueResult;
         }
@@ -250,11 +234,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugValueEnum EnumerateArguments()
         {
-            HRESULT hr;
             CorDebugValueEnum ppValueEnumResult;
-
-            if ((hr = TryEnumerateArguments(out ppValueEnumResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateArguments(out ppValueEnumResult).ThrowOnNotOK();
 
             return ppValueEnumResult;
         }
@@ -295,11 +276,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugValue GetArgument(int dwIndex)
         {
-            HRESULT hr;
             CorDebugValue ppValueResult;
-
-            if ((hr = TryGetArgument(dwIndex, out ppValueResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetArgument(dwIndex, out ppValueResult).ThrowOnNotOK();
 
             return ppValueResult;
         }
@@ -334,11 +312,8 @@ namespace ManagedCorDebug
         /// </summary>
         public CorDebugValue GetStackValue(int dwIndex)
         {
-            HRESULT hr;
             CorDebugValue ppValueResult;
-
-            if ((hr = TryGetStackValue(dwIndex, out ppValueResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetStackValue(dwIndex, out ppValueResult).ThrowOnNotOK();
 
             return ppValueResult;
         }
@@ -374,10 +349,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void CanSetIP(int nOffset)
         {
-            HRESULT hr;
-
-            if ((hr = TryCanSetIP(nOffset)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCanSetIP(nOffset).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -416,10 +388,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void RemapFunction(int newILOffset)
         {
-            HRESULT hr;
-
-            if ((hr = TryRemapFunction(newILOffset)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryRemapFunction(newILOffset).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -451,11 +420,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugTypeEnum EnumerateTypeParameters()
         {
-            HRESULT hr;
             CorDebugTypeEnum ppTyParEnumResult;
-
-            if ((hr = TryEnumerateTypeParameters(out ppTyParEnumResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateTypeParameters(out ppTyParEnumResult).ThrowOnNotOK();
 
             return ppTyParEnumResult;
         }
@@ -516,11 +482,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugValue GetReturnValueForILOffset(int ilOffset)
         {
-            HRESULT hr;
             CorDebugValue ppReturnValueResult;
-
-            if ((hr = TryGetReturnValueForILOffset(ilOffset, out ppReturnValueResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetReturnValueForILOffset(ilOffset, out ppReturnValueResult).ThrowOnNotOK();
 
             return ppReturnValueResult;
         }
@@ -587,11 +550,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugValueEnum EnumerateLocalVariablesEx(ILCodeKind flags)
         {
-            HRESULT hr;
             CorDebugValueEnum ppValueEnumResult;
-
-            if ((hr = TryEnumerateLocalVariablesEx(flags, out ppValueEnumResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEnumerateLocalVariablesEx(flags, out ppValueEnumResult).ThrowOnNotOK();
 
             return ppValueEnumResult;
         }
@@ -642,11 +602,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugValue GetLocalVariableEx(ILCodeKind flags, int dwIndex)
         {
-            HRESULT hr;
             CorDebugValue ppValueResult;
-
-            if ((hr = TryGetLocalVariableEx(flags, dwIndex, out ppValueResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetLocalVariableEx(flags, dwIndex, out ppValueResult).ThrowOnNotOK();
 
             return ppValueResult;
         }
@@ -698,11 +655,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public CorDebugCode GetCodeEx(ILCodeKind flags)
         {
-            HRESULT hr;
             CorDebugCode ppCodeResult;
-
-            if ((hr = TryGetCodeEx(flags, out ppCodeResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetCodeEx(flags, out ppCodeResult).ThrowOnNotOK();
 
             return ppCodeResult;
         }

@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -27,10 +25,7 @@ namespace ManagedCorDebug
         /// <param name="cDeltaLines">[in] A ULONG that represents the number of lines that have changed.</param>
         public void UpdateSymbolStore2(IStream pIStream, SYMLINEDELTA pDeltaLines, int cDeltaLines)
         {
-            HRESULT hr;
-
-            if ((hr = TryUpdateSymbolStore2(pIStream, pDeltaLines, cDeltaLines)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryUpdateSymbolStore2(pIStream, pDeltaLines, cDeltaLines).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -58,11 +53,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to a ULONG32 that receives the size, in characters, of the buffer required to contain the number of local variables.</returns>
         public int GetLocalVariableCount(mdMethodDef mdMethodToken)
         {
-            HRESULT hr;
             int pcLocals;
-
-            if ((hr = TryGetLocalVariableCount(mdMethodToken, out pcLocals)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetLocalVariableCount(mdMethodToken, out pcLocals).ThrowOnNotOK();
 
             return pcLocals;
         }
@@ -89,11 +81,8 @@ namespace ManagedCorDebug
         /// <returns>[out] The returned array of <see cref="ISymUnmanagedVariable"/> instances.</returns>
         public ISymUnmanagedVariable[] GetLocalVariables(mdMethodDef mdMethodToken)
         {
-            HRESULT hr;
             ISymUnmanagedVariable[] rgLocalsResult;
-
-            if ((hr = TryGetLocalVariables(mdMethodToken, out rgLocalsResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetLocalVariables(mdMethodToken, out rgLocalsResult).ThrowOnNotOK();
 
             return rgLocalsResult;
         }
@@ -144,10 +133,7 @@ namespace ManagedCorDebug
         /// </summary>
         public void InitializeForEnc()
         {
-            HRESULT hr;
-
-            if ((hr = TryInitializeForEnc()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryInitializeForEnc().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -172,10 +158,7 @@ namespace ManagedCorDebug
         /// <param name="cDeltas">[in] A ULONG containing the size of the pDeltas parameter.</param>
         public void UpdateMethodLines(mdMethodDef mdMethodToken, int pDeltas, int cDeltas)
         {
-            HRESULT hr;
-
-            if ((hr = TryUpdateMethodLines(mdMethodToken, pDeltas, cDeltas)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryUpdateMethodLines(mdMethodToken, pDeltas, cDeltas).ThrowOnNotOK();
         }
 
         /// <summary>

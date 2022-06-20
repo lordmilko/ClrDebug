@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -26,10 +24,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
-
-                if ((hr = TryIsAsyncMethod()) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                HRESULT hr = TryIsAsyncMethod();
+                hr.ThrowOnNotOK();
 
                 return hr == HRESULT.S_OK;
             }
@@ -56,11 +52,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 mdToken kickoffMethod;
-
-                if ((hr = TryGetKickoffMethod(out kickoffMethod)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetKickoffMethod(out kickoffMethod).ThrowOnNotOK();
 
                 return kickoffMethod;
             }
@@ -86,11 +79,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pRetVal;
-
-                if ((hr = TryGetCatchHandlerILOffset(out pRetVal)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetCatchHandlerILOffset(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
@@ -116,11 +106,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 int pRetVal;
-
-                if ((hr = TryGetAsyncStepInfoCount(out pRetVal)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetAsyncStepInfoCount(out pRetVal).ThrowOnNotOK();
 
                 return pRetVal;
             }
@@ -146,11 +133,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 GetAsyncStepInfoResult result;
-
-                if ((hr = TryGetAsyncStepInfo(out result)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetAsyncStepInfo(out result).ThrowOnNotOK();
 
                 return result;
             }
@@ -203,10 +187,7 @@ namespace ManagedCorDebug
         /// </summary>
         public void HasCatchHandlerILOffset()
         {
-            HRESULT hr;
-
-            if ((hr = TryHasCatchHandlerILOffset()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryHasCatchHandlerILOffset().ThrowOnNotOK();
         }
 
         /// <summary>

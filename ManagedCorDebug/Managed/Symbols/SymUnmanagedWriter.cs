@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -30,11 +29,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the returned <see cref="ISymUnmanagedWriter"/> interface.</returns>
         public SymUnmanagedDocumentWriter DefineDocument(string url, Guid language, Guid languageVendor, Guid documentType)
         {
-            HRESULT hr;
             SymUnmanagedDocumentWriter pRetValResult;
-
-            if ((hr = TryDefineDocument(url, language, languageVendor, documentType, out pRetValResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineDocument(url, language, languageVendor, documentType, out pRetValResult).ThrowOnNotOK();
 
             return pRetValResult;
         }
@@ -76,10 +72,7 @@ namespace ManagedCorDebug
         /// <param name="entryMethod">[in] The metadata token for the method that is the user entry point.</param>
         public void SetUserEntryPoint(int entryMethod)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetUserEntryPoint(entryMethod)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetUserEntryPoint(entryMethod).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -104,10 +97,7 @@ namespace ManagedCorDebug
         /// <param name="method">[in] The metadata token for the method to be opened.</param>
         public void OpenMethod(int method)
         {
-            HRESULT hr;
-
-            if ((hr = TryOpenMethod(method)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOpenMethod(method).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -131,10 +121,7 @@ namespace ManagedCorDebug
         /// </summary>
         public void CloseMethod()
         {
-            HRESULT hr;
-
-            if ((hr = TryCloseMethod()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCloseMethod().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -163,11 +150,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public int OpenScope(int startOffset)
         {
-            HRESULT hr;
             int pRetVal;
-
-            if ((hr = TryOpenScope(startOffset, out pRetVal)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOpenScope(startOffset, out pRetVal).ThrowOnNotOK();
 
             return pRetVal;
         }
@@ -205,10 +189,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void CloseScope(int endOffset)
         {
-            HRESULT hr;
-
-            if ((hr = TryCloseScope(endOffset)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCloseScope(endOffset).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -245,10 +226,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SetScopeRange(int scopeID, int startOffset, int endOffset)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetScopeRange(scopeID, startOffset, endOffset)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetScopeRange(scopeID, startOffset, endOffset).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -291,10 +269,7 @@ namespace ManagedCorDebug
         /// If it is a nonzero value, the variable falls within the offsets of the current scope.</param>
         public void DefineLocalVariable(string name, int attributes, int cSig, IntPtr signature, int addrKind, int addr1, int addr2, int addr3, int startOffset, int endOffset)
         {
-            HRESULT hr;
-
-            if ((hr = TryDefineLocalVariable(name, attributes, cSig, signature, addrKind, addr1, addr2, addr3, startOffset, endOffset)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineLocalVariable(name, attributes, cSig, signature, addrKind, addr1, addr2, addr3, startOffset, endOffset).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -347,10 +322,7 @@ namespace ManagedCorDebug
         /// <param name="addr3">[in] The third address for the parameter specification.</param>
         public void DefineParameter(string name, int attributes, int sequence, int addrKind, int addr1, int addr2, int addr3)
         {
-            HRESULT hr;
-
-            if ((hr = TryDefineParameter(name, attributes, sequence, addrKind, addr1, addr2, addr3)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineParameter(name, attributes, sequence, addrKind, addr1, addr2, addr3).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -396,10 +368,7 @@ namespace ManagedCorDebug
         /// <param name="addr3">[in] The third address for the field specification.</param>
         public void DefineField(int parent, string name, int attributes, int cSig, IntPtr signature, int addrKind, int addr1, int addr2, int addr3)
         {
-            HRESULT hr;
-
-            if ((hr = TryDefineField(parent, name, attributes, cSig, signature, addrKind, addr1, addr2, addr3)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineField(parent, name, attributes, cSig, signature, addrKind, addr1, addr2, addr3).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -446,10 +415,7 @@ namespace ManagedCorDebug
         /// <param name="addr3">[in] The third address for the parameter specification.</param>
         public void DefineGlobalVariable(string name, int attributes, int cSig, IntPtr signature, int addrKind, int addr1, int addr2, int addr3)
         {
-            HRESULT hr;
-
-            if ((hr = TryDefineGlobalVariable(name, attributes, cSig, signature, addrKind, addr1, addr2, addr3)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineGlobalVariable(name, attributes, cSig, signature, addrKind, addr1, addr2, addr3).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -490,10 +456,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void Close()
         {
-            HRESULT hr;
-
-            if ((hr = TryClose()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryClose().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -522,10 +485,7 @@ namespace ManagedCorDebug
         /// <param name="data">[in] The attribute value.</param>
         public void SetSymAttribute(int parent, string name, int cData, IntPtr data)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetSymAttribute(parent, name, cData, data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetSymAttribute(parent, name, cData, data).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -551,10 +511,7 @@ namespace ManagedCorDebug
         /// <param name="name">[in] A pointer to the name of the new namespace.</param>
         public void OpenNamespace(string name)
         {
-            HRESULT hr;
-
-            if ((hr = TryOpenNamespace(name)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOpenNamespace(name).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -576,10 +533,7 @@ namespace ManagedCorDebug
         /// </summary>
         public void CloseNamespace()
         {
-            HRESULT hr;
-
-            if ((hr = TryCloseNamespace()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCloseNamespace().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -602,10 +556,7 @@ namespace ManagedCorDebug
         /// <param name="fullName">[in] A pointer to the fully qualified name of the namespace.</param>
         public void UsingNamespace(string fullName)
         {
-            HRESULT hr;
-
-            if ((hr = TryUsingNamespace(fullName)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryUsingNamespace(fullName).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -634,10 +585,7 @@ namespace ManagedCorDebug
         /// <param name="endColumn">[in] The ending column number.</param>
         public void SetMethodSourceRange(ISymUnmanagedDocumentWriter startDoc, int startLine, int startColumn, ISymUnmanagedDocumentWriter endDoc, int endLine, int endColumn)
         {
-            HRESULT hr;
-
-            if ((hr = TrySetMethodSourceRange(startDoc, startLine, startColumn, endDoc, endLine, endColumn)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySetMethodSourceRange(startDoc, startLine, startColumn, endDoc, endLine, endColumn).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -679,10 +627,7 @@ namespace ManagedCorDebug
         /// <param name="fFullBuild">[in] true if this is a full rebuild; false if this is an incremental compilation.</param>
         public void Initialize(object emitter, string filename, IStream pIStream, int fFullBuild)
         {
-            HRESULT hr;
-
-            if ((hr = TryInitialize(emitter, filename, pIStream, fFullBuild)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryInitialize(emitter, filename, pIStream, fFullBuild).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -716,11 +661,8 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to a buffer that is large enough to hold the debug data for the symbol store.</returns>
         public byte[] GetDebugInfo(ref IntPtr pIDD)
         {
-            HRESULT hr;
             byte[] dataResult;
-
-            if ((hr = TryGetDebugInfo(ref pIDD, out dataResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetDebugInfo(ref pIDD, out dataResult).ThrowOnNotOK();
 
             return dataResult;
         }
@@ -782,10 +724,7 @@ namespace ManagedCorDebug
         /// <param name="endColumns">[in] The ending column numbers of the sequence points. This parameter is optional.</param>
         public void DefineSequencePoints(ISymUnmanagedDocumentWriter document, int spCount, int offsets, int lines, int columns, int endLines, int endColumns)
         {
-            HRESULT hr;
-
-            if ((hr = TryDefineSequencePoints(document, spCount, offsets, lines, columns, endLines, endColumns)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineSequencePoints(document, spCount, offsets, lines, columns, endLines, endColumns).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -825,10 +764,7 @@ namespace ManagedCorDebug
         /// <param name="newToken">[in] The new metadata token to which oldToken was remapped.</param>
         public void RemapToken(mdToken oldToken, mdToken newToken)
         {
-            HRESULT hr;
-
-            if ((hr = TryRemapToken(oldToken, newToken)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryRemapToken(oldToken, newToken).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -858,10 +794,7 @@ namespace ManagedCorDebug
         /// <param name="finalfilename">[in] A pointer to a WCHAR that is the path string to the final location of the PDB file.</param>
         public void Initialize2(object emitter, string tempfilename, IStream pIStream, int fFullBuild, string finalfilename)
         {
-            HRESULT hr;
-
-            if ((hr = TryInitialize2(emitter, tempfilename, pIStream, fFullBuild, finalfilename)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryInitialize2(emitter, tempfilename, pIStream, fFullBuild, finalfilename).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -900,10 +833,7 @@ namespace ManagedCorDebug
         /// <param name="signature">[in] The type signature for the constant.</param>
         public void DefineConstant(string name, object value, int cSig, IntPtr signature)
         {
-            HRESULT hr;
-
-            if ((hr = TryDefineConstant(name, value, cSig, signature)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineConstant(name, value, cSig, signature).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -930,10 +860,7 @@ namespace ManagedCorDebug
         /// </summary>
         public void Abort()
         {
-            HRESULT hr;
-
-            if ((hr = TryAbort()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryAbort().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -973,10 +900,7 @@ namespace ManagedCorDebug
         /// If it is a nonzero value, the variable falls within the offsets of the current scope.</param>
         public void DefineLocalVariable2(string name, int attributes, mdSignature sigToken, int addrKind, int addr1, int addr2, int addr3, int startOffset, int endOffset)
         {
-            HRESULT hr;
-
-            if ((hr = TryDefineLocalVariable2(name, attributes, sigToken, addrKind, addr1, addr2, addr3, startOffset, endOffset)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineLocalVariable2(name, attributes, sigToken, addrKind, addr1, addr2, addr3, startOffset, endOffset).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1025,10 +949,7 @@ namespace ManagedCorDebug
         /// <param name="addr3">[in] The third address for the parameter specification.</param>
         public void DefineGlobalVariable2(string name, int attributes, mdSignature sigToken, int addrKind, int addr1, int addr2, int addr3)
         {
-            HRESULT hr;
-
-            if ((hr = TryDefineGlobalVariable2(name, attributes, sigToken, addrKind, addr1, addr2, addr3)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineGlobalVariable2(name, attributes, sigToken, addrKind, addr1, addr2, addr3).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1066,10 +987,7 @@ namespace ManagedCorDebug
         /// <param name="sigToken">[in] The metadata token of the constant.</param>
         public void DefineConstant2(string name, object value, mdSignature sigToken)
         {
-            HRESULT hr;
-
-            if ((hr = TryDefineConstant2(name, value, sigToken)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryDefineConstant2(name, value, sigToken).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1103,10 +1021,7 @@ namespace ManagedCorDebug
         /// <param name="offset">[in] The offset in the image.</param>
         public void OpenMethod2(int method, int isect, int offset)
         {
-            HRESULT hr;
-
-            if ((hr = TryOpenMethod2(method, isect, offset)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOpenMethod2(method, isect, offset).ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1130,10 +1045,7 @@ namespace ManagedCorDebug
         /// </summary>
         public void Commit()
         {
-            HRESULT hr;
-
-            if ((hr = TryCommit()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCommit().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1161,11 +1073,8 @@ namespace ManagedCorDebug
         /// </summary>
         public byte[] GetDebugInfoWithPadding(ref IntPtr pIDD)
         {
-            HRESULT hr;
             byte[] dataResult;
-
-            if ((hr = TryGetDebugInfoWithPadding(ref pIDD, out dataResult)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryGetDebugInfoWithPadding(ref pIDD, out dataResult).ThrowOnNotOK();
 
             return dataResult;
         }
@@ -1221,10 +1130,7 @@ namespace ManagedCorDebug
         /// </summary>
         public void OpenMapTokensToSourceSpans()
         {
-            HRESULT hr;
-
-            if ((hr = TryOpenMapTokensToSourceSpans()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryOpenMapTokensToSourceSpans().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1245,10 +1151,7 @@ namespace ManagedCorDebug
         /// </summary>
         public void CloseMapTokensToSourceSpans()
         {
-            HRESULT hr;
-
-            if ((hr = TryCloseMapTokensToSourceSpans()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryCloseMapTokensToSourceSpans().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -1269,10 +1172,7 @@ namespace ManagedCorDebug
         /// </summary>
         public void MapTokenToSourceSpan(mdToken token, ISymUnmanagedDocumentWriter document, int line, int column, int endLine, int endColumn)
         {
-            HRESULT hr;
-
-            if ((hr = TryMapTokenToSourceSpan(token, document, line, column, endLine, endColumn)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryMapTokenToSourceSpan(token, document, line, column, endLine, endColumn).ThrowOnNotOK();
         }
 
         /// <summary>

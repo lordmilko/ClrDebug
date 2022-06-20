@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -30,11 +29,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 string szHostNameResult;
-
-                if ((hr = TryGetHostName(out szHostNameResult)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetHostName(out szHostNameResult).ThrowOnNotOK();
 
                 return szHostNameResult;
             }

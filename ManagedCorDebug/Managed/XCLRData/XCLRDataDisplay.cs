@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace ManagedCorDebug
 {
@@ -20,11 +19,8 @@ namespace ManagedCorDebug
         {
             get
             {
-                HRESULT hr;
                 CLRNativeImageDumpOptions pOptions;
-
-                if ((hr = TryGetDumpOptions(out pOptions)) != HRESULT.S_OK)
-                    Marshal.ThrowExceptionForHR((int) hr);
+                TryGetDumpOptions(out pOptions).ThrowOnNotOK();
 
                 return pOptions;
             }
@@ -43,10 +39,7 @@ namespace ManagedCorDebug
         [Obsolete("Vararg functions cannot safely be called from managed code.")]
         public void ErrorPrintF()
         {
-            HRESULT hr;
-
-            if ((hr = TryErrorPrintF()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryErrorPrintF().ThrowOnNotOK();
         }
 
         [Obsolete("Vararg functions cannot safely be called from managed code.")]
@@ -61,10 +54,7 @@ namespace ManagedCorDebug
 
         public void NativeImageDimensions(long _base, long size, int sectionAlign)
         {
-            HRESULT hr;
-
-            if ((hr = TryNativeImageDimensions(_base, size, sectionAlign)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryNativeImageDimensions(_base, size, sectionAlign).ThrowOnNotOK();
         }
 
         public HRESULT TryNativeImageDimensions(long _base, long size, int sectionAlign)
@@ -81,10 +71,7 @@ namespace ManagedCorDebug
 
         public void Section(string name, long rva, long size)
         {
-            HRESULT hr;
-
-            if ((hr = TrySection(name, rva, size)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySection(name, rva, size).ThrowOnNotOK();
         }
 
         public HRESULT TrySection(string name, long rva, long size)
@@ -101,10 +88,7 @@ namespace ManagedCorDebug
 
         public void StartDocument()
         {
-            HRESULT hr;
-
-            if ((hr = TryStartDocument()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStartDocument().ThrowOnNotOK();
         }
 
         public HRESULT TryStartDocument()
@@ -118,10 +102,7 @@ namespace ManagedCorDebug
 
         public void EndDocument()
         {
-            HRESULT hr;
-
-            if ((hr = TryEndDocument()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEndDocument().ThrowOnNotOK();
         }
 
         public HRESULT TryEndDocument()
@@ -135,10 +116,7 @@ namespace ManagedCorDebug
 
         public void StartCategory(string name)
         {
-            HRESULT hr;
-
-            if ((hr = TryStartCategory(name)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStartCategory(name).ThrowOnNotOK();
         }
 
         public HRESULT TryStartCategory(string name)
@@ -153,10 +131,7 @@ namespace ManagedCorDebug
 
         public void EndCategory()
         {
-            HRESULT hr;
-
-            if ((hr = TryEndCategory()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEndCategory().ThrowOnNotOK();
         }
 
         public HRESULT TryEndCategory()
@@ -170,10 +145,7 @@ namespace ManagedCorDebug
 
         public void StartElement(string name)
         {
-            HRESULT hr;
-
-            if ((hr = TryStartElement(name)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStartElement(name).ThrowOnNotOK();
         }
 
         public HRESULT TryStartElement(string name)
@@ -188,10 +160,7 @@ namespace ManagedCorDebug
 
         public void EndElement()
         {
-            HRESULT hr;
-
-            if ((hr = TryEndElement()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEndElement().ThrowOnNotOK();
         }
 
         public HRESULT TryEndElement()
@@ -205,10 +174,7 @@ namespace ManagedCorDebug
 
         public void StartVStructure(string name)
         {
-            HRESULT hr;
-
-            if ((hr = TryStartVStructure(name)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStartVStructure(name).ThrowOnNotOK();
         }
 
         public HRESULT TryStartVStructure(string name)
@@ -223,10 +189,7 @@ namespace ManagedCorDebug
 
         public void StartVStructureWithOffset(string name, int fieldOffset, int fieldSize)
         {
-            HRESULT hr;
-
-            if ((hr = TryStartVStructureWithOffset(name, fieldOffset, fieldSize)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStartVStructureWithOffset(name, fieldOffset, fieldSize).ThrowOnNotOK();
         }
 
         public HRESULT TryStartVStructureWithOffset(string name, int fieldOffset, int fieldSize)
@@ -243,10 +206,7 @@ namespace ManagedCorDebug
 
         public void EndVStructure()
         {
-            HRESULT hr;
-
-            if ((hr = TryEndVStructure()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEndVStructure().ThrowOnNotOK();
         }
 
         public HRESULT TryEndVStructure()
@@ -260,10 +220,7 @@ namespace ManagedCorDebug
 
         public void StartTextElement(string name)
         {
-            HRESULT hr;
-
-            if ((hr = TryStartTextElement(name)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStartTextElement(name).ThrowOnNotOK();
         }
 
         public HRESULT TryStartTextElement(string name)
@@ -278,10 +235,7 @@ namespace ManagedCorDebug
 
         public void EndTextElement()
         {
-            HRESULT hr;
-
-            if ((hr = TryEndTextElement()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEndTextElement().ThrowOnNotOK();
         }
 
         public HRESULT TryEndTextElement()
@@ -296,10 +250,7 @@ namespace ManagedCorDebug
         [Obsolete("Vararg functions cannot safely be called from managed code.")]
         public void WriteXmlText()
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteXmlText()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteXmlText().ThrowOnNotOK();
         }
 
         [Obsolete("Vararg functions cannot safely be called from managed code.")]
@@ -315,10 +266,7 @@ namespace ManagedCorDebug
         [Obsolete("Vararg functions cannot safely be called from managed code.")]
         public void WriteXmlTextBlock()
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteXmlTextBlock()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteXmlTextBlock().ThrowOnNotOK();
         }
 
         [Obsolete("Vararg functions cannot safely be called from managed code.")]
@@ -333,10 +281,7 @@ namespace ManagedCorDebug
 
         public void WriteEmptyElement(string element)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteEmptyElement(element)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteEmptyElement(element).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteEmptyElement(string element)
@@ -351,10 +296,7 @@ namespace ManagedCorDebug
 
         public void WriteElementPointer(string element, long ptr)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteElementPointer(element, ptr)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteElementPointer(element, ptr).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteElementPointer(string element, long ptr)
@@ -370,10 +312,7 @@ namespace ManagedCorDebug
 
         public void WriteElementPointerAnnotated(string element, long ptr, string annotation)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteElementPointerAnnotated(element, ptr, annotation)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteElementPointerAnnotated(element, ptr, annotation).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteElementPointerAnnotated(string element, long ptr, string annotation)
@@ -390,10 +329,7 @@ namespace ManagedCorDebug
 
         public void WriteElementAddress(string element, long _base, long size)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteElementAddress(element, _base, size)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteElementAddress(element, _base, size).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteElementAddress(string element, long _base, long size)
@@ -410,10 +346,7 @@ namespace ManagedCorDebug
 
         public void WriteElementAddressNamed(string element, string name, long _base, long size)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteElementAddressNamed(element, name, _base, size)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteElementAddressNamed(element, name, _base, size).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteElementAddressNamed(string element, string name, long _base, long size)
@@ -431,10 +364,7 @@ namespace ManagedCorDebug
 
         public void WriteElementAddressNamedW(string element, string name, long _base, long size)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteElementAddressNamedW(element, name, _base, size)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteElementAddressNamedW(element, name, _base, size).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteElementAddressNamedW(string element, string name, long _base, long size)
@@ -452,10 +382,7 @@ namespace ManagedCorDebug
 
         public void WriteElementString(string element, string data)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteElementString(element, data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteElementString(element, data).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteElementString(string element, string data)
@@ -471,10 +398,7 @@ namespace ManagedCorDebug
 
         public void WriteElementStringW(string element, string data)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteElementStringW(element, data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteElementStringW(element, data).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteElementStringW(string element, string data)
@@ -490,10 +414,7 @@ namespace ManagedCorDebug
 
         public void WriteElementInt(string element, int value)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteElementInt(element, value)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteElementInt(element, value).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteElementInt(string element, int value)
@@ -509,10 +430,7 @@ namespace ManagedCorDebug
 
         public void WriteElementUInt(string element, int value)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteElementUInt(element, value)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteElementUInt(element, value).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteElementUInt(string element, int value)
@@ -528,10 +446,7 @@ namespace ManagedCorDebug
 
         public void WriteElementEnumerated(string element, int value, string mnemonic)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteElementEnumerated(element, value, mnemonic)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteElementEnumerated(element, value, mnemonic).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteElementEnumerated(string element, int value, string mnemonic)
@@ -548,10 +463,7 @@ namespace ManagedCorDebug
 
         public void WriteElementIntWithSuppress(string element, int value, int suppressIfEqual)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteElementIntWithSuppress(element, value, suppressIfEqual)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteElementIntWithSuppress(element, value, suppressIfEqual).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteElementIntWithSuppress(string element, int value, int suppressIfEqual)
@@ -568,10 +480,7 @@ namespace ManagedCorDebug
 
         public void WriteElementFlag(string element, int flag)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteElementFlag(element, flag)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteElementFlag(element, flag).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteElementFlag(string element, int flag)
@@ -587,10 +496,7 @@ namespace ManagedCorDebug
 
         public void StartArray(string name, string fmt)
         {
-            HRESULT hr;
-
-            if ((hr = TryStartArray(name, fmt)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStartArray(name, fmt).ThrowOnNotOK();
         }
 
         public HRESULT TryStartArray(string name, string fmt)
@@ -606,10 +512,7 @@ namespace ManagedCorDebug
 
         public void EndArray(string countPrefix)
         {
-            HRESULT hr;
-
-            if ((hr = TryEndArray(countPrefix)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEndArray(countPrefix).ThrowOnNotOK();
         }
 
         public HRESULT TryEndArray(string countPrefix)
@@ -624,10 +527,7 @@ namespace ManagedCorDebug
 
         public void StartList(string fmt)
         {
-            HRESULT hr;
-
-            if ((hr = TryStartList(fmt)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStartList(fmt).ThrowOnNotOK();
         }
 
         public HRESULT TryStartList(string fmt)
@@ -642,10 +542,7 @@ namespace ManagedCorDebug
 
         public void EndList()
         {
-            HRESULT hr;
-
-            if ((hr = TryEndList()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEndList().ThrowOnNotOK();
         }
 
         public HRESULT TryEndList()
@@ -660,10 +557,7 @@ namespace ManagedCorDebug
 
         public void StartArrayWithOffset(string name, int fieldOffset, int fieldSize, string fmt)
         {
-            HRESULT hr;
-
-            if ((hr = TryStartArrayWithOffset(name, fieldOffset, fieldSize, fmt)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStartArrayWithOffset(name, fieldOffset, fieldSize, fmt).ThrowOnNotOK();
         }
 
         public HRESULT TryStartArrayWithOffset(string name, int fieldOffset, int fieldSize, string fmt)
@@ -681,10 +575,7 @@ namespace ManagedCorDebug
 
         public void WriteFieldString(string element, int fieldOffset, int fieldSize, string data)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteFieldString(element, fieldOffset, fieldSize, data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteFieldString(element, fieldOffset, fieldSize, data).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteFieldString(string element, int fieldOffset, int fieldSize, string data)
@@ -702,10 +593,7 @@ namespace ManagedCorDebug
 
         public void WriteFieldStringW(string element, int fieldOffset, int fieldSize, string data)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteFieldStringW(element, fieldOffset, fieldSize, data)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteFieldStringW(element, fieldOffset, fieldSize, data).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteFieldStringW(string element, int fieldOffset, int fieldSize, string data)
@@ -723,10 +611,7 @@ namespace ManagedCorDebug
 
         public void WriteFieldPointer(string element, int fieldOffset, int fieldSize, long ptr)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteFieldPointer(element, fieldOffset, fieldSize, ptr)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteFieldPointer(element, fieldOffset, fieldSize, ptr).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteFieldPointer(string element, int fieldOffset, int fieldSize, long ptr)
@@ -744,10 +629,7 @@ namespace ManagedCorDebug
 
         public void WriteFieldPointerWithSize(string element, int fieldOffset, int fieldSize, long ptr, long size)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteFieldPointerWithSize(element, fieldOffset, fieldSize, ptr, size)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteFieldPointerWithSize(element, fieldOffset, fieldSize, ptr, size).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteFieldPointerWithSize(string element, int fieldOffset, int fieldSize, long ptr, long size)
@@ -766,10 +648,7 @@ namespace ManagedCorDebug
 
         public void WriteFieldInt(string element, int fieldOffset, int fieldSize, int value)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteFieldInt(element, fieldOffset, fieldSize, value)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteFieldInt(element, fieldOffset, fieldSize, value).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteFieldInt(string element, int fieldOffset, int fieldSize, int value)
@@ -787,10 +666,7 @@ namespace ManagedCorDebug
 
         public void WriteFieldUInt(string element, int fieldOffset, int fieldSize, int value)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteFieldUInt(element, fieldOffset, fieldSize, value)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteFieldUInt(element, fieldOffset, fieldSize, value).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteFieldUInt(string element, int fieldOffset, int fieldSize, int value)
@@ -808,10 +684,7 @@ namespace ManagedCorDebug
 
         public void WriteFieldEnumerated(string element, int fieldOffset, int fieldSize, int value, string mnemonic)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteFieldEnumerated(element, fieldOffset, fieldSize, value, mnemonic)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteFieldEnumerated(element, fieldOffset, fieldSize, value, mnemonic).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteFieldEnumerated(string element, int fieldOffset, int fieldSize, int value, string mnemonic)
@@ -830,10 +703,7 @@ namespace ManagedCorDebug
 
         public void WriteFieldEmpty(string element, int fieldOffset, int fieldSize)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteFieldEmpty(element, fieldOffset, fieldSize)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteFieldEmpty(element, fieldOffset, fieldSize).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteFieldEmpty(string element, int fieldOffset, int fieldSize)
@@ -850,10 +720,7 @@ namespace ManagedCorDebug
 
         public void WriteFieldFlag(string element, int fieldOffset, int fieldSize, int flag)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteFieldFlag(element, fieldOffset, fieldSize, flag)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteFieldFlag(element, fieldOffset, fieldSize, flag).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteFieldFlag(string element, int fieldOffset, int fieldSize, int flag)
@@ -871,10 +738,7 @@ namespace ManagedCorDebug
 
         public void WriteFieldPointerAnnotated(string element, int fieldOffset, int fieldSize, long ptr, string annotation)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteFieldPointerAnnotated(element, fieldOffset, fieldSize, ptr, annotation)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteFieldPointerAnnotated(element, fieldOffset, fieldSize, ptr, annotation).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteFieldPointerAnnotated(string element, int fieldOffset, int fieldSize, long ptr, string annotation)
@@ -893,10 +757,7 @@ namespace ManagedCorDebug
 
         public void WriteFieldAddress(string element, int fieldOffset, int fieldSize, long _base, long size)
         {
-            HRESULT hr;
-
-            if ((hr = TryWriteFieldAddress(element, fieldOffset, fieldSize, _base, size)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryWriteFieldAddress(element, fieldOffset, fieldSize, _base, size).ThrowOnNotOK();
         }
 
         public HRESULT TryWriteFieldAddress(string element, int fieldOffset, int fieldSize, long _base, long size)
@@ -915,10 +776,7 @@ namespace ManagedCorDebug
 
         public void StartStructure(string name, long ptr, long size)
         {
-            HRESULT hr;
-
-            if ((hr = TryStartStructure(name, ptr, size)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStartStructure(name, ptr, size).ThrowOnNotOK();
         }
 
         public HRESULT TryStartStructure(string name, long ptr, long size)
@@ -935,10 +793,7 @@ namespace ManagedCorDebug
 
         public void StartStructureWithNegSpace(string name, long ptr, long startPtr, long totalSize)
         {
-            HRESULT hr;
-
-            if ((hr = TryStartStructureWithNegSpace(name, ptr, startPtr, totalSize)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStartStructureWithNegSpace(name, ptr, startPtr, totalSize).ThrowOnNotOK();
         }
 
         public HRESULT TryStartStructureWithNegSpace(string name, long ptr, long startPtr, long totalSize)
@@ -956,10 +811,7 @@ namespace ManagedCorDebug
 
         public void StartStructureWithOffset(string name, int fieldOffset, int fieldSize, long ptr, long size)
         {
-            HRESULT hr;
-
-            if ((hr = TryStartStructureWithOffset(name, fieldOffset, fieldSize, ptr, size)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryStartStructureWithOffset(name, fieldOffset, fieldSize, ptr, size).ThrowOnNotOK();
         }
 
         public HRESULT TryStartStructureWithOffset(string name, int fieldOffset, int fieldSize, long ptr, long size)
@@ -978,10 +830,7 @@ namespace ManagedCorDebug
 
         public void EndStructure()
         {
-            HRESULT hr;
-
-            if ((hr = TryEndStructure()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryEndStructure().ThrowOnNotOK();
         }
 
         public HRESULT TryEndStructure()

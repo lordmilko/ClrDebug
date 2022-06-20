@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -26,10 +24,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void ThreadIsBlockingForSuspension()
         {
-            HRESULT hr;
-
-            if ((hr = TryThreadIsBlockingForSuspension()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TryThreadIsBlockingForSuspension().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -55,10 +50,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SuspensionStarting()
         {
-            HRESULT hr;
-
-            if ((hr = TrySuspensionStarting()) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySuspensionStarting().ThrowOnNotOK();
         }
 
         /// <summary>
@@ -85,10 +77,7 @@ namespace ManagedCorDebug
         /// </remarks>
         public void SuspensionEnding(int generation)
         {
-            HRESULT hr;
-
-            if ((hr = TrySuspensionEnding(generation)) != HRESULT.S_OK)
-                Marshal.ThrowExceptionForHR((int) hr);
+            TrySuspensionEnding(generation).ThrowOnNotOK();
         }
 
         /// <summary>
