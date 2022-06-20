@@ -3062,9 +3062,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pd">[in] A metadata token that represents a type, field, or method.</param>
         /// <returns>[out] 1 if the object has global scope; otherwise, 0 (zero).</returns>
-        public int IsGlobal(mdToken pd)
+        public bool IsGlobal(mdToken pd)
         {
-            int pbGlobal;
+            bool pbGlobal;
             TryIsGlobal(pd, out pbGlobal).ThrowOnNotOK();
 
             return pbGlobal;
@@ -3075,11 +3075,11 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pd">[in] A metadata token that represents a type, field, or method.</param>
         /// <param name="pbGlobal">[out] 1 if the object has global scope; otherwise, 0 (zero).</param>
-        public HRESULT TryIsGlobal(mdToken pd, out int pbGlobal)
+        public HRESULT TryIsGlobal(mdToken pd, out bool pbGlobal)
         {
             /*HRESULT IsGlobal(
             [In] mdToken pd,
-            [Out] out int pbGlobal);*/
+            [Out] out bool pbGlobal);*/
             return Raw.IsGlobal(pd, out pbGlobal);
         }
 

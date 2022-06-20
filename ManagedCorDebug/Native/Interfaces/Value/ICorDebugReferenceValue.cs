@@ -71,7 +71,7 @@ namespace ManagedCorDebug
         /// <param name="pbNull">[out] A pointer to a Boolean value that is true if this <see cref="ICorDebugReferenceValue"/> object is null; otherwise, pbNull is false.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsNull([Out] out int pbNull);
+        HRESULT IsNull([Out] out bool pbNull);
 
         /// <summary>
         /// Gets the current memory address of the referenced object.

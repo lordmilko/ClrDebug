@@ -47,6 +47,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetJMCStatus([In] int bIsJustMyCode);
+        HRESULT SetJMCStatus([In] bool bIsJustMyCode);
     }
 }

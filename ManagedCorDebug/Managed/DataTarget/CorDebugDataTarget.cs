@@ -20,7 +20,7 @@ namespace ManagedCorDebug
             if (value is ICorDebugMutableDataTarget)
                 return new CorDebugMutableDataTarget((ICorDebugMutableDataTarget) value);
 
-            throw new NotImplementedException("Encountered an ICorDebugDataTarget' interface of an unknown type. Cannot create wrapper type.");
+            throw new NotImplementedException("Encountered an 'ICorDebugDataTarget' interface of an unknown type. Cannot create wrapper type.");
         }
 
         /// <summary>

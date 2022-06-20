@@ -29,6 +29,6 @@ namespace ManagedCorDebug
         /// <summary>
         /// true if the mapping is known to be accurate; otherwise, false.
         /// </summary>
-        public int fAccurate;
+        public bool fAccurate;
     }
 }

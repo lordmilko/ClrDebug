@@ -11,14 +11,14 @@ namespace ManagedCorDebug
         /// <summary>
         /// true if this runtime is started; otherwise, false.
         /// </summary>
-        public int pbStarted { get; }
+        public bool pbStarted { get; }
 
         /// <summary>
         /// Returns the flags that were used to start the runtime.
         /// </summary>
         public int pdwStartupFlags { get; }
 
-        public IsStartedResult(int pbStarted, int pdwStartupFlags)
+        public IsStartedResult(bool pbStarted, int pdwStartupFlags)
         {
             this.pbStarted = pbStarted;
             this.pdwStartupFlags = pdwStartupFlags;

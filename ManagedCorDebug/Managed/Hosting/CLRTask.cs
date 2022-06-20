@@ -167,7 +167,7 @@ namespace ManagedCorDebug
         /// tasks. When the host destroys one of its <see cref="IHostTask"/> instances, it destroys the corresponding <see cref="ICLRTask"/> by calling
         /// ExitTask.
         /// </remarks>
-        public void Reset(int fFull)
+        public void Reset(bool fFull)
         {
             TryReset(fFull).ThrowOnNotOK();
         }
@@ -198,9 +198,9 @@ namespace ManagedCorDebug
         /// tasks. When the host destroys one of its <see cref="IHostTask"/> instances, it destroys the corresponding <see cref="ICLRTask"/> by calling
         /// ExitTask.
         /// </remarks>
-        public HRESULT TryReset(int fFull)
+        public HRESULT TryReset(bool fFull)
         {
-            /*HRESULT Reset([In] int fFull);*/
+            /*HRESULT Reset([In] bool fFull);*/
             return Raw.Reset(fFull);
         }
 
@@ -333,9 +333,9 @@ namespace ManagedCorDebug
         /// the potential for delays in garbage collection, and enabling the host and the runtime to cooperate in conserving
         /// memory resources.
         /// </remarks>
-        public int NeedsPriorityScheduling()
+        public bool NeedsPriorityScheduling()
         {
-            int pbNeedsPriorityScheduling;
+            bool pbNeedsPriorityScheduling;
             TryNeedsPriorityScheduling(out pbNeedsPriorityScheduling).ThrowOnNotOK();
 
             return pbNeedsPriorityScheduling;
@@ -361,9 +361,9 @@ namespace ManagedCorDebug
         /// the potential for delays in garbage collection, and enabling the host and the runtime to cooperate in conserving
         /// memory resources.
         /// </remarks>
-        public HRESULT TryNeedsPriorityScheduling(out int pbNeedsPriorityScheduling)
+        public HRESULT TryNeedsPriorityScheduling(out bool pbNeedsPriorityScheduling)
         {
-            /*HRESULT NeedsPriorityScheduling([Out] out int pbNeedsPriorityScheduling);*/
+            /*HRESULT NeedsPriorityScheduling([Out] out bool pbNeedsPriorityScheduling);*/
             return Raw.NeedsPriorityScheduling(out pbNeedsPriorityScheduling);
         }
 

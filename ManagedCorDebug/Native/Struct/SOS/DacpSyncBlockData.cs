@@ -8,7 +8,7 @@ namespace ManagedCorDebug
     public struct DacpSyncBlockData
     {
         public CLRDATA_ADDRESS Object;
-        public int bFree;
+        public bool bFree;
         public CLRDATA_ADDRESS SyncBlockPointer;
         public SYNCBLOCKDATA_COMFLAGS COMFlags;
         public int MonitorHeld;

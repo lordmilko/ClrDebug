@@ -36,7 +36,7 @@ namespace ManagedCorDebug
 
         public void Continue()
         {
-            Controller.Continue(0);
+            Controller.Continue(false);
         }
     }
 }

@@ -7,8 +7,8 @@ namespace ManagedCorDebug
     [StructLayout(LayoutKind.Sequential)]
     public struct DacpMethodDescData
     {
-        public int bHasNativeCode;
-        public int bIsDynamic;
+        public bool bHasNativeCode;
+        public bool bIsDynamic;
         public ushort wSlotNumber;
         public CLRDATA_ADDRESS NativeCodeAddr;
         public CLRDATA_ADDRESS AddressOfNativeCodeSlot;

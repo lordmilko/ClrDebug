@@ -25,7 +25,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="bIInspectableOnly">[in] A value that indicates whether the method returns only Windows Runtime interfaces (IInspectable interfaces) or all COM interfaces cached by the runtime callable wrapper (RCW).</param>
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugTypeEnum"/> enumerator that provides access to <see cref="ICorDebugType"/> objects that represent cached interface types filtered according to bIInspectableOnly.</returns>
-        public CorDebugTypeEnum GetCachedInterfaceTypes(int bIInspectableOnly)
+        public CorDebugTypeEnum GetCachedInterfaceTypes(bool bIInspectableOnly)
         {
             CorDebugTypeEnum ppInterfacesEnumResult;
             TryGetCachedInterfaceTypes(bIInspectableOnly, out ppInterfacesEnumResult).ThrowOnNotOK();
@@ -38,9 +38,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="bIInspectableOnly">[in] A value that indicates whether the method returns only Windows Runtime interfaces (IInspectable interfaces) or all COM interfaces cached by the runtime callable wrapper (RCW).</param>
         /// <param name="ppInterfacesEnumResult">[out] A pointer to the address of an <see cref="ICorDebugTypeEnum"/> enumerator that provides access to <see cref="ICorDebugType"/> objects that represent cached interface types filtered according to bIInspectableOnly.</param>
-        public HRESULT TryGetCachedInterfaceTypes(int bIInspectableOnly, out CorDebugTypeEnum ppInterfacesEnumResult)
+        public HRESULT TryGetCachedInterfaceTypes(bool bIInspectableOnly, out CorDebugTypeEnum ppInterfacesEnumResult)
         {
-            /*HRESULT GetCachedInterfaceTypes([In] int bIInspectableOnly,
+            /*HRESULT GetCachedInterfaceTypes([In] bool bIInspectableOnly,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppInterfacesEnum);*/
             ICorDebugTypeEnum ppInterfacesEnum;
             HRESULT hr = Raw.GetCachedInterfaceTypes(bIInspectableOnly, out ppInterfacesEnum);
@@ -61,7 +61,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="bIInspectableOnly">[in] A value that indicates whether the method will return only Windows Runtime interfaces (IInspectable interfaces) or all COM interfaces that are cached by the runtime callable wrapper (RCW).</param>
         /// <returns>A pointer to the starting address of an array of <see cref="CORDB_ADDRESS"/> values that contain the addresses of cached interface objects.</returns>
-        public CORDB_ADDRESS[] GetCachedInterfacePointers(int bIInspectableOnly)
+        public CORDB_ADDRESS[] GetCachedInterfacePointers(bool bIInspectableOnly)
         {
             CORDB_ADDRESS[] ptrsResult;
             TryGetCachedInterfacePointers(bIInspectableOnly, out ptrsResult).ThrowOnNotOK();
@@ -74,10 +74,10 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="bIInspectableOnly">[in] A value that indicates whether the method will return only Windows Runtime interfaces (IInspectable interfaces) or all COM interfaces that are cached by the runtime callable wrapper (RCW).</param>
         /// <param name="ptrsResult">A pointer to the starting address of an array of <see cref="CORDB_ADDRESS"/> values that contain the addresses of cached interface objects.</param>
-        public HRESULT TryGetCachedInterfacePointers(int bIInspectableOnly, out CORDB_ADDRESS[] ptrsResult)
+        public HRESULT TryGetCachedInterfacePointers(bool bIInspectableOnly, out CORDB_ADDRESS[] ptrsResult)
         {
             /*HRESULT GetCachedInterfacePointers(
-            [In] int bIInspectableOnly,
+            [In] bool bIInspectableOnly,
             [In] int celt,
             [Out] out int pceltFetched,
             [Out, MarshalAs(UnmanagedType.LPArray)] CORDB_ADDRESS[] ptrs);*/

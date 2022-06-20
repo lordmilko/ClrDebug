@@ -22,7 +22,7 @@ namespace ManagedCorDebug
         /// <param name="pbIL">[out] true if this <see cref="ICorDebugCode"/> represents code that was compiled in MSIL; otherwise, false.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsIL([Out] out int pbIL);
+        HRESULT IsIL([Out] out bool pbIL);
 
         /// <summary>
         /// Gets the "ICorDebugFunction" associated with this "ICorDebugCode".

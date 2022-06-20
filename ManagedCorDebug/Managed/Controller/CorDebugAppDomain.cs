@@ -65,32 +65,24 @@ namespace ManagedCorDebug
         {
             get
             {
-                bool pbAttachedResult;
-                TryIsAttached(out pbAttachedResult).ThrowOnNotOK();
+                bool pbAttached;
+                TryIsAttached(out pbAttached).ThrowOnNotOK();
 
-                return pbAttachedResult;
+                return pbAttached;
             }
         }
 
         /// <summary>
         /// Gets a value that indicates whether the debugger is attached to the application domain.
         /// </summary>
-        /// <param name="pbAttachedResult">[out] true if the debugger is attached to the application domain; otherwise, false.</param>
+        /// <param name="pbAttached">[out] true if the debugger is attached to the application domain; otherwise, false.</param>
         /// <remarks>
         /// The <see cref="ICorDebugController"/> methods cannot be used until the debugger attaches to the application domain.
         /// </remarks>
-        public HRESULT TryIsAttached(out bool pbAttachedResult)
+        public HRESULT TryIsAttached(out bool pbAttached)
         {
-            /*HRESULT IsAttached([Out] out int pbAttached);*/
-            int pbAttached;
-            HRESULT hr = Raw.IsAttached(out pbAttached);
-
-            if (hr == HRESULT.S_OK)
-                pbAttachedResult = pbAttached == 1;
-            else
-                pbAttachedResult = default(bool);
-
-            return hr;
+            /*HRESULT IsAttached([Out] out bool pbAttached);*/
+            return Raw.IsAttached(out pbAttached);
         }
 
         #endregion

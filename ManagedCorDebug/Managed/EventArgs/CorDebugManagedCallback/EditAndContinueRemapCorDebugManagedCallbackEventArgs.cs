@@ -37,10 +37,10 @@ namespace ManagedCorDebug
         /// <summary>
         /// This method has been deprecated. It notifies the debugger that a remap event has been sent to the integrated development environment (IDE).
         /// </summary>
-        public EditAndContinueRemapCorDebugManagedCallbackEventArgs(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugFunction pFunction, int fAccurate) : base(pAppDomain, pThread)
+        public EditAndContinueRemapCorDebugManagedCallbackEventArgs(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugFunction pFunction, bool fAccurate) : base(pAppDomain, pThread)
         {
             rawFunction = pFunction;
-            Accurate = fAccurate == 1;
+            Accurate = fAccurate;
         }
     }
 }

@@ -89,7 +89,7 @@ namespace ManagedCorDebug
                 lpCommandLine,
                 processAttribs,
                 threadAttribs,
-                bInheritHandles ? 1 : 0,
+                bInheritHandles,
                 dwCreationFlags,
                 env,
                 lpCurrentDirectory,

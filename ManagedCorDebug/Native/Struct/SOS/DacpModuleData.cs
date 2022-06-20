@@ -13,8 +13,8 @@ namespace ManagedCorDebug
         public CLRDATA_ADDRESS metadataStart;
         public long metadataSize;
         public CLRDATA_ADDRESS Assembly;
-        public int bIsReflection;
-        public int bIsPEFile;
+        public bool bIsReflection;
+        public bool bIsPEFile;
         public long dwBaseClassIndex;
         public long dwModuleID;
         public int dwTransientFlags;

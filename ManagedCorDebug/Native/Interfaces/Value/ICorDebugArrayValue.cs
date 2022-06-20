@@ -71,7 +71,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT IsValid([Out] out int pbValid);
+        new HRESULT IsValid([Out] out bool pbValid);
 
         /// <summary>
         /// This method is not implemented in the current version of the .NET Framework.
@@ -119,7 +119,7 @@ namespace ManagedCorDebug
         /// <param name="pbHasBaseIndicies">[out] A pointer to a Boolean value that is true if one or more dimensions of this <see cref="ICorDebugArrayValue"/> object have a base index of non-zero; otherwise, the Boolean value is false.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT HasBaseIndicies([Out] out int pbHasBaseIndicies);
+        HRESULT HasBaseIndicies([Out] out bool pbHasBaseIndicies);
 
         /// <summary>
         /// Gets the base index of each dimension in the array.

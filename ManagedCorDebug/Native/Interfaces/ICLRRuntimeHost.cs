@@ -130,7 +130,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
-        HRESULT UnloadAppDomain([In] int dwAppDomainID, [In] int fWaitUntilDone);
+        HRESULT UnloadAppDomain([In] int dwAppDomainID, [In] bool fWaitUntilDone);
 
         /// <summary>
         /// Specifies the <see cref="AppDomain"/> in which to execute the specified managed code.

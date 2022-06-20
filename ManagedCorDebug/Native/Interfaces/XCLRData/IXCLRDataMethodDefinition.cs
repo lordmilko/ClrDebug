@@ -86,6 +86,6 @@ namespace ManagedCorDebug
 
         [PreserveSig]
         HRESULT HasClassOrMethodInstantiation(
-            [Out] out int bGeneric);
+            [Out] out bool bGeneric);
     }
 }

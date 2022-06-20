@@ -213,7 +213,7 @@ namespace ManagedCorDebug
         /// code. SetJMCStatus returns an <see cref="HRESULT"/> value of S_FALSE if it fails to set the value for any method, even if it
         /// successfully sets the value for all other methods.
         /// </remarks>
-        public void SetJMCStatus(int bIsJustMyCode)
+        public void SetJMCStatus(bool bIsJustMyCode)
         {
             TrySetJMCStatus(bIsJustMyCode).ThrowOnNotOK();
         }
@@ -227,9 +227,9 @@ namespace ManagedCorDebug
         /// code. SetJMCStatus returns an <see cref="HRESULT"/> value of S_FALSE if it fails to set the value for any method, even if it
         /// successfully sets the value for all other methods.
         /// </remarks>
-        public HRESULT TrySetJMCStatus(int bIsJustMyCode)
+        public HRESULT TrySetJMCStatus(bool bIsJustMyCode)
         {
-            /*HRESULT SetJMCStatus([In] int bIsJustMyCode);*/
+            /*HRESULT SetJMCStatus([In] bool bIsJustMyCode);*/
             return Raw2.SetJMCStatus(bIsJustMyCode);
         }
 

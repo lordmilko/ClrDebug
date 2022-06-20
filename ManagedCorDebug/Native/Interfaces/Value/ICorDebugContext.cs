@@ -109,7 +109,7 @@ namespace ManagedCorDebug
         /// <param name="pbIsValueClass">[out] A pointer to a Boolean value that is true if the object value, represented by this "ICorDebugObjectValue", is a value type rather than a reference type; otherwise, pbIsValueClass is false.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT IsValueClass([Out] out int pbIsValueClass);
+        new HRESULT IsValueClass([Out] out bool pbIsValueClass);
 
         /// <summary>
         /// GetManagedCopy is obsolete. Do not call this method.

@@ -625,7 +625,7 @@ namespace ManagedCorDebug
         /// <param name="pIStream">[in] If specified, the symbol writer will emit the symbols into the given <see cref="IStream"/> rather than to the file specified in the filename parameter.<para/>
         /// The pIStream parameter is optional.</param>
         /// <param name="fFullBuild">[in] true if this is a full rebuild; false if this is an incremental compilation.</param>
-        public void Initialize(object emitter, string filename, IStream pIStream, int fFullBuild)
+        public void Initialize(object emitter, string filename, IStream pIStream, bool fFullBuild)
         {
             TryInitialize(emitter, filename, pIStream, fFullBuild).ThrowOnNotOK();
         }
@@ -641,11 +641,11 @@ namespace ManagedCorDebug
         /// The pIStream parameter is optional.</param>
         /// <param name="fFullBuild">[in] true if this is a full rebuild; false if this is an incremental compilation.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryInitialize(object emitter, string filename, IStream pIStream, int fFullBuild)
+        public HRESULT TryInitialize(object emitter, string filename, IStream pIStream, bool fFullBuild)
         {
             /*HRESULT Initialize([MarshalAs(UnmanagedType.IUnknown), In]
             object emitter, [In, MarshalAs(UnmanagedType.LPWStr)] string filename, [MarshalAs(UnmanagedType.Interface), In]
-            IStream pIStream, [In] int fFullBuild);*/
+            IStream pIStream, [In] bool fFullBuild);*/
             return Raw.Initialize(emitter, filename, pIStream, fFullBuild);
         }
 
@@ -792,7 +792,7 @@ namespace ManagedCorDebug
         /// The pIStream parameter is optional.</param>
         /// <param name="fFullBuild">[in] true if this is a full rebuild; false if this is an incremental compilation.</param>
         /// <param name="finalfilename">[in] A pointer to a WCHAR that is the path string to the final location of the PDB file.</param>
-        public void Initialize2(object emitter, string tempfilename, IStream pIStream, int fFullBuild, string finalfilename)
+        public void Initialize2(object emitter, string tempfilename, IStream pIStream, bool fFullBuild, string finalfilename)
         {
             TryInitialize2(emitter, tempfilename, pIStream, fFullBuild, finalfilename).ThrowOnNotOK();
         }
@@ -808,7 +808,7 @@ namespace ManagedCorDebug
         /// <param name="fFullBuild">[in] true if this is a full rebuild; false if this is an incremental compilation.</param>
         /// <param name="finalfilename">[in] A pointer to a WCHAR that is the path string to the final location of the PDB file.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryInitialize2(object emitter, string tempfilename, IStream pIStream, int fFullBuild, string finalfilename)
+        public HRESULT TryInitialize2(object emitter, string tempfilename, IStream pIStream, bool fFullBuild, string finalfilename)
         {
             /*HRESULT Initialize2(
             [MarshalAs(UnmanagedType.IUnknown), In]
@@ -816,7 +816,7 @@ namespace ManagedCorDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string tempfilename,
             [MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream,
-            [In] int fFullBuild,
+            [In] bool fFullBuild,
             [In, MarshalAs(UnmanagedType.LPWStr)] string finalfilename);*/
             return Raw.Initialize2(emitter, tempfilename, pIStream, fFullBuild, finalfilename);
         }

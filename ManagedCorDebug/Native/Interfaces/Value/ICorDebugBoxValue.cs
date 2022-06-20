@@ -68,7 +68,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT IsValid([Out] out int pbValid);
+        new HRESULT IsValid([Out] out bool pbValid);
 
         /// <summary>
         /// This method is not implemented in the current version of the .NET Framework.

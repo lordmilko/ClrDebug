@@ -355,7 +355,7 @@ namespace ManagedCorDebug
         /// JIT debugging is enabled by default for all modules that are loaded when the debugger is active. Programmatically
         /// enabling or disabling the settings overrides global settings.
         /// </remarks>
-        public void EnableJITDebugging(int bTrackJITInfo, int bAllowJitOpts)
+        public void EnableJITDebugging(bool bTrackJITInfo, bool bAllowJitOpts)
         {
             TryEnableJITDebugging(bTrackJITInfo, bAllowJitOpts).ThrowOnNotOK();
         }
@@ -369,9 +369,9 @@ namespace ManagedCorDebug
         /// JIT debugging is enabled by default for all modules that are loaded when the debugger is active. Programmatically
         /// enabling or disabling the settings overrides global settings.
         /// </remarks>
-        public HRESULT TryEnableJITDebugging(int bTrackJITInfo, int bAllowJitOpts)
+        public HRESULT TryEnableJITDebugging(bool bTrackJITInfo, bool bAllowJitOpts)
         {
-            /*HRESULT EnableJITDebugging([In] int bTrackJITInfo, [In] int bAllowJitOpts);*/
+            /*HRESULT EnableJITDebugging([In] bool bTrackJITInfo, [In] bool bAllowJitOpts);*/
             return Raw.EnableJITDebugging(bTrackJITInfo, bAllowJitOpts);
         }
 
@@ -387,7 +387,7 @@ namespace ManagedCorDebug
         /// The <see cref="ICorDebugManagedCallback.LoadClass"/> and <see cref="ICorDebugManagedCallback.UnloadClass"/> callbacks are always enabled
         /// for dynamic modules and cannot be disabled.
         /// </remarks>
-        public void EnableClassLoadCallbacks(int bClassLoadCallbacks)
+        public void EnableClassLoadCallbacks(bool bClassLoadCallbacks)
         {
             TryEnableClassLoadCallbacks(bClassLoadCallbacks).ThrowOnNotOK();
         }
@@ -401,9 +401,9 @@ namespace ManagedCorDebug
         /// The <see cref="ICorDebugManagedCallback.LoadClass"/> and <see cref="ICorDebugManagedCallback.UnloadClass"/> callbacks are always enabled
         /// for dynamic modules and cannot be disabled.
         /// </remarks>
-        public HRESULT TryEnableClassLoadCallbacks(int bClassLoadCallbacks)
+        public HRESULT TryEnableClassLoadCallbacks(bool bClassLoadCallbacks)
         {
-            /*HRESULT EnableClassLoadCallbacks([In] int bClassLoadCallbacks);*/
+            /*HRESULT EnableClassLoadCallbacks([In] bool bClassLoadCallbacks);*/
             return Raw.EnableClassLoadCallbacks(bClassLoadCallbacks);
         }
 
@@ -694,7 +694,7 @@ namespace ManagedCorDebug
         /// were set successfully. It returns a CORDBG_E_FUNCTION_NOT_DEBUGGABLE <see cref="HRESULT"/> if some functions that are marked
         /// true are not debuggable.
         /// </remarks>
-        public void SetJMCStatus(int bIsJustMyCode, int cTokens, mdToken[] pTokens)
+        public void SetJMCStatus(bool bIsJustMyCode, int cTokens, mdToken[] pTokens)
         {
             TrySetJMCStatus(bIsJustMyCode, cTokens, pTokens).ThrowOnNotOK();
         }
@@ -712,9 +712,9 @@ namespace ManagedCorDebug
         /// were set successfully. It returns a CORDBG_E_FUNCTION_NOT_DEBUGGABLE <see cref="HRESULT"/> if some functions that are marked
         /// true are not debuggable.
         /// </remarks>
-        public HRESULT TrySetJMCStatus(int bIsJustMyCode, int cTokens, mdToken[] pTokens)
+        public HRESULT TrySetJMCStatus(bool bIsJustMyCode, int cTokens, mdToken[] pTokens)
         {
-            /*HRESULT SetJMCStatus([In] int bIsJustMyCode, [In] int cTokens, [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] pTokens);*/
+            /*HRESULT SetJMCStatus([In] bool bIsJustMyCode, [In] int cTokens, [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] pTokens);*/
             return Raw2.SetJMCStatus(bIsJustMyCode, cTokens, pTokens);
         }
 

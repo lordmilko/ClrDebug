@@ -10,6 +10,6 @@ namespace ManagedCorDebug
     {
         public int nLength;
         public IntPtr lpSecurityDescriptor;
-        public int bInheritHandle;
+        public bool bInheritHandle;
     }
 }

@@ -8,7 +8,7 @@ namespace ManagedCorDebug
     public struct DacpMethodTableCollectibleData
     {
         public CLRDATA_ADDRESS LoaderAllocatorObjectHandle;
-        public int bCollectible;
+        public bool bCollectible;
 
         public HRESULT Request(ISOSDacInterface sos, CLRDATA_ADDRESS addr)
         {

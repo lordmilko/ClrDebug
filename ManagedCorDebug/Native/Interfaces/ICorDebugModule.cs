@@ -66,7 +66,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnableJITDebugging([In] int bTrackJITInfo, [In] int bAllowJitOpts);
+        HRESULT EnableJITDebugging([In] bool bTrackJITInfo, [In] bool bAllowJitOpts);
 
         /// <summary>
         /// Controls whether the <see cref="ICorDebugManagedCallback.LoadClass"/> and <see cref="ICorDebugManagedCallback.UnloadClass"/> callbacks are called for this module.
@@ -79,7 +79,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnableClassLoadCallbacks([In] int bClassLoadCallbacks);
+        HRESULT EnableClassLoadCallbacks([In] bool bClassLoadCallbacks);
 
         /// <summary>
         /// Gets the function that is specified by the metadata token.

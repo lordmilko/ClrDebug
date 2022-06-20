@@ -398,7 +398,7 @@ namespace ManagedCorDebug
             ICorDebugThread pThread,
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugFunction pFunction,
-            [In] int fAccurate);
+            [In] bool fAccurate);
 
         /// <summary>
         /// Notifies the debugger that the common language runtime was unable to accurately bind a breakpoint that was set before a function was just-in-time (JIT) compiled.

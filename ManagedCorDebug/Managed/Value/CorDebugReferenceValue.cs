@@ -20,7 +20,7 @@ namespace ManagedCorDebug
             if (value is ICorDebugHandleValue)
                 return new CorDebugHandleValue((ICorDebugHandleValue) value);
 
-            throw new NotImplementedException("Encountered an ICorDebugReferenceValue' interface of an unknown type. Cannot create wrapper type.");
+            throw new NotImplementedException("Encountered an 'ICorDebugReferenceValue' interface of an unknown type. Cannot create wrapper type.");
         }
 
         /// <summary>
@@ -44,29 +44,21 @@ namespace ManagedCorDebug
         {
             get
             {
-                bool pbNullResult;
-                TryIsNull(out pbNullResult).ThrowOnNotOK();
+                bool pbNull;
+                TryIsNull(out pbNull).ThrowOnNotOK();
 
-                return pbNullResult;
+                return pbNull;
             }
         }
 
         /// <summary>
         /// Gets a value that indicates whether this <see cref="ICorDebugReferenceValue"/> is a null value, in which case the <see cref="ICorDebugReferenceValue"/> does not point to an object.
         /// </summary>
-        /// <param name="pbNullResult">[out] A pointer to a Boolean value that is true if this <see cref="ICorDebugReferenceValue"/> object is null; otherwise, pbNull is false.</param>
-        public HRESULT TryIsNull(out bool pbNullResult)
+        /// <param name="pbNull">[out] A pointer to a Boolean value that is true if this <see cref="ICorDebugReferenceValue"/> object is null; otherwise, pbNull is false.</param>
+        public HRESULT TryIsNull(out bool pbNull)
         {
-            /*HRESULT IsNull([Out] out int pbNull);*/
-            int pbNull;
-            HRESULT hr = Raw.IsNull(out pbNull);
-
-            if (hr == HRESULT.S_OK)
-                pbNullResult = pbNull == 1;
-            else
-                pbNullResult = default(bool);
-
-            return hr;
+            /*HRESULT IsNull([Out] out bool pbNull);*/
+            return Raw.IsNull(out pbNull);
         }
 
         #endregion

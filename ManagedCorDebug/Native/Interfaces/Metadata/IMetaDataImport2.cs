@@ -1254,7 +1254,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         new HRESULT IsGlobal(
             [In] mdToken pd,
-            [Out] out int pbGlobal);
+            [Out] out bool pbGlobal);
 
         /// <summary>
         /// Gets an enumerator for an array of generic parameter tokens associated with the specified TypeDef or MethodDef token.

@@ -45,7 +45,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT Continue([In] int fIsOutOfBand);
+        new HRESULT Continue([In] bool fIsOutOfBand);
 
         /// <summary>
         /// Gets a value that indicates whether the threads in the process are currently running freely.
@@ -53,7 +53,7 @@ namespace ManagedCorDebug
         /// <param name="pbRunning">[out] A pointer to a value that is true if the threads in the process are running freely; otherwise, false.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT IsRunning([Out] out int pbRunning);
+        new HRESULT IsRunning([Out] out bool pbRunning);
 
         /// <summary>
         /// Gets a value that indicates whether any managed callbacks are currently queued for the specified thread.
@@ -72,7 +72,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT HasQueuedCallbacks([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugThread pThread, [Out] out int pbQueued);
+            ICorDebugThread pThread, [Out] out bool pbQueued);
 
         /// <summary>
         /// Gets an enumerator for the active managed threads in the process.
@@ -201,7 +201,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsTransitionStub([In] CORDB_ADDRESS address, [Out] out int pbTransitionStub);
+        HRESULT IsTransitionStub([In] CORDB_ADDRESS address, [Out] out bool pbTransitionStub);
 
         /// <summary>
         /// Gets a value that indicates whether the specified thread has been suspended as a result of the debugger stopping this process.
@@ -217,7 +217,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsOSSuspended([In] int threadID, [Out] out int pbSuspended);
+        HRESULT IsOSSuspended([In] int threadID, [Out] out bool pbSuspended);
 
         /// <summary>
         /// Gets the context for the given thread in this process.
@@ -313,7 +313,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnableLogMessages([In] int fOnOff);
+        HRESULT EnableLogMessages([In] bool fOnOff);
 
         /// <summary>
         /// Sets the severity level of the specified log switch.

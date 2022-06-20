@@ -12,7 +12,7 @@ namespace ManagedCorDebug
             if (value is IMetaDataDispenserEx)
                 return new MetaDataDispenserEx((IMetaDataDispenserEx) value);
 
-            throw new NotImplementedException("Encountered an IMetaDataDispenser' interface of an unknown type. Cannot create wrapper type.");
+            throw new NotImplementedException("Encountered an 'IMetaDataDispenser' interface of an unknown type. Cannot create wrapper type.");
         }
 
         /// <summary>

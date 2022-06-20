@@ -15,7 +15,7 @@ namespace ManagedCorDebug
         public CLRDATA_ADDRESS firstThread;
         public CLRDATA_ADDRESS finalizerThread;
         public CLRDATA_ADDRESS gcThread;
-        public int fHostConfig;
+        public bool fHostConfig;
 
         public HRESULT Request(ISOSDacInterface sos)
         {

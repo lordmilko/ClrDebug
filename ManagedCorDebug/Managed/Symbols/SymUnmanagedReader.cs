@@ -675,9 +675,9 @@ namespace ManagedCorDebug
         public HRESULT TryGetDocumentVersion(ISymUnmanagedDocument pDoc, out GetDocumentVersionResult result)
         {
             /*HRESULT GetDocumentVersion([MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocument pDoc, [Out] out int version, [Out] out int pbCurrent);*/
+            ISymUnmanagedDocument pDoc, [Out] out int version, [Out] out bool pbCurrent);*/
             int version;
-            int pbCurrent;
+            bool pbCurrent;
             HRESULT hr = Raw.GetDocumentVersion(pDoc, out version, out pbCurrent);
 
             if (hr == HRESULT.S_OK)

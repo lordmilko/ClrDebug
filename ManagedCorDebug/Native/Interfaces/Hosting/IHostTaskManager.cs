@@ -169,7 +169,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT CallNeedsHostHook(
             [In] int target,
-            [Out] out int pbCallNeedsHostHook);
+            [Out] out bool pbCallNeedsHostHook);
 
         /// <summary>
         /// Notifies the host that the currently executing task is about to leave the common language runtime (CLR) and enter unmanaged code.

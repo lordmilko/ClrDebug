@@ -1259,6 +1259,6 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT IsGlobal(
             [In] mdToken pd,
-            [Out] out int pbGlobal);
+            [Out] out bool pbGlobal);
     }
 }

@@ -83,17 +83,17 @@ namespace ManagedCorDebug
         {
             get
             {
-                bool pbAttachedResult;
-                TryIsDebuggerAttached(out pbAttachedResult).ThrowOnNotOK();
+                bool pbAttached;
+                TryIsDebuggerAttached(out pbAttached).ThrowOnNotOK();
 
-                return pbAttachedResult;
+                return pbAttached;
             }
         }
 
         /// <summary>
         /// Gets a value that indicates whether a debugger is attached to the process.
         /// </summary>
-        /// <param name="pbAttachedResult">[out] true if a debugger is attached to the process; otherwise, false.</param>
+        /// <param name="pbAttached">[out] true if a debugger is attached to the process; otherwise, false.</param>
         /// <returns>
         /// | HRESULT                | Description                                                                                                                                                                                 |
         /// | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -107,18 +107,10 @@ namespace ManagedCorDebug
         /// <remarks>
         /// IsDebuggerAttached allows the host to query the CLR to determine whether a debugger is attached to the process.
         /// </remarks>
-        public HRESULT TryIsDebuggerAttached(out bool pbAttachedResult)
+        public HRESULT TryIsDebuggerAttached(out bool pbAttached)
         {
-            /*HRESULT IsDebuggerAttached([Out] out int pbAttached);*/
-            int pbAttached;
-            HRESULT hr = Raw.IsDebuggerAttached(out pbAttached);
-
-            if (hr == HRESULT.S_OK)
-                pbAttachedResult = pbAttached == 1;
-            else
-                pbAttachedResult = default(bool);
-
-            return hr;
+            /*HRESULT IsDebuggerAttached([Out] out bool pbAttached);*/
+            return Raw.IsDebuggerAttached(out pbAttached);
         }
 
         #endregion

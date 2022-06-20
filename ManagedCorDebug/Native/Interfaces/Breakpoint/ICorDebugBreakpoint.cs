@@ -22,7 +22,7 @@ namespace ManagedCorDebug
         /// <param name="bActive">[in] Set this value to true to specify the state as active; otherwise, set this value to false.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Activate([In] int bActive);
+        HRESULT Activate([In] bool bActive);
 
         /// <summary>
         /// Gets a value that indicates whether this <see cref="ICorDebugBreakpoint"/> is active.
@@ -30,6 +30,6 @@ namespace ManagedCorDebug
         /// <param name="pbActive">[out] true if this breakpoint is active; otherwise, false.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsActive([Out] out int pbActive);
+        HRESULT IsActive([Out] out bool pbActive);
     }
 }

@@ -7,7 +7,7 @@ namespace ManagedCorDebug
     [StructLayout(LayoutKind.Sequential)]
     public struct DacpMethodTableData
     {
-        public int bIsFree;
+        public bool bIsFree;
         public CLRDATA_ADDRESS Module;
         public CLRDATA_ADDRESS Class;
         public CLRDATA_ADDRESS ParentMethodTable;
@@ -19,9 +19,9 @@ namespace ManagedCorDebug
         public int ComponentSize;
         public mdTypeDef cl;
         public CorTypeAttr dwAttrClass;
-        public int bIsShared;
-        public int bIsDynamic;
-        public int bContainsPointers;
+        public bool bIsShared;
+        public bool bIsDynamic;
+        public bool bContainsPointers;
 
         public HRESULT Request(ISOSDacInterface sos, CLRDATA_ADDRESS addr)
         {

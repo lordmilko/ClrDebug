@@ -848,9 +848,9 @@ namespace ManagedCorDebug
         /// method. However, the second input parameter and the output parameter for <see cref="StrongNameSignatureVerificationEx"/>
         /// are of type BOOLEAN instead of DWORD.
         /// </remarks>
-        public int StrongNameSignatureVerificationEx(string wszFilePath, int fForceVerification)
+        public bool StrongNameSignatureVerificationEx(string wszFilePath, bool fForceVerification)
         {
-            int pfWasVerified = default(int);
+            bool pfWasVerified = default(bool);
             TryStrongNameSignatureVerificationEx(wszFilePath, fForceVerification, ref pfWasVerified).ThrowOnNotOK();
 
             return pfWasVerified;
@@ -868,12 +868,12 @@ namespace ManagedCorDebug
         /// method. However, the second input parameter and the output parameter for <see cref="StrongNameSignatureVerificationEx"/>
         /// are of type BOOLEAN instead of DWORD.
         /// </remarks>
-        public HRESULT TryStrongNameSignatureVerificationEx(string wszFilePath, int fForceVerification, ref int pfWasVerified)
+        public HRESULT TryStrongNameSignatureVerificationEx(string wszFilePath, bool fForceVerification, ref bool pfWasVerified)
         {
             /*HRESULT StrongNameSignatureVerificationEx(
             [MarshalAs(UnmanagedType.LPWStr), In] string wszFilePath,
-            [In] int fForceVerification,
-            [Out] int pfWasVerified);*/
+            [In] bool fForceVerification,
+            [Out] bool pfWasVerified);*/
             return Raw.StrongNameSignatureVerificationEx(wszFilePath, fForceVerification, pfWasVerified);
         }
 

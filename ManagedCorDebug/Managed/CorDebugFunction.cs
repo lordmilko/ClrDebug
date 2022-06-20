@@ -300,11 +300,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets or sets a value that indicates whether the function that is represented by this <see cref="ICorDebugFunction2"/> object is marked as user code.
         /// </summary>
-        public int JMCStatus
+        public bool JMCStatus
         {
             get
             {
-                int pbIsJustMyCode;
+                bool pbIsJustMyCode;
                 TryGetJMCStatus(out pbIsJustMyCode).ThrowOnNotOK();
 
                 return pbIsJustMyCode;
@@ -322,9 +322,9 @@ namespace ManagedCorDebug
         /// <remarks>
         /// If the function represented by this <see cref="ICorDebugFunction2"/> cannot be debugged, pbIsJustMyCode will always be false.
         /// </remarks>
-        public HRESULT TryGetJMCStatus(out int pbIsJustMyCode)
+        public HRESULT TryGetJMCStatus(out bool pbIsJustMyCode)
         {
-            /*HRESULT GetJMCStatus([Out] out int pbIsJustMyCode);*/
+            /*HRESULT GetJMCStatus([Out] out bool pbIsJustMyCode);*/
             return Raw2.GetJMCStatus(out pbIsJustMyCode);
         }
 
@@ -341,9 +341,9 @@ namespace ManagedCorDebug
         /// <remarks>
         /// A Just My Code stepper will skip non-user code. User code must be a subset of debuggable code.
         /// </remarks>
-        public HRESULT TrySetJMCStatus(int bIsJustMyCode)
+        public HRESULT TrySetJMCStatus(bool bIsJustMyCode)
         {
-            /*HRESULT SetJMCStatus([In] int bIsJustMyCode);*/
+            /*HRESULT SetJMCStatus([In] bool bIsJustMyCode);*/
             return Raw2.SetJMCStatus(bIsJustMyCode);
         }
 

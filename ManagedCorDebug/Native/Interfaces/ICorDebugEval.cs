@@ -109,7 +109,7 @@ namespace ManagedCorDebug
         /// <param name="pbActive">[out] Pointer to a value that indicates whether this evaluation is active.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsActive([Out] out int pbActive);
+        HRESULT IsActive([Out] out bool pbActive);
 
         /// <summary>
         /// Aborts the computation this <see cref="ICorDebugEval"/> object is currently performing.

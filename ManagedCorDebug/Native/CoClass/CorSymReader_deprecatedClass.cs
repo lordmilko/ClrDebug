@@ -111,7 +111,7 @@ namespace ManagedCorDebug.CoClass
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocument pDoc,
             [Out] out int version,
-            [Out] out int pbCurrent);
+            [Out] out bool pbCurrent);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetMethodVersion([MarshalAs(UnmanagedType.Interface), In]

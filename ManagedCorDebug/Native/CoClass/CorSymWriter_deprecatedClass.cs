@@ -120,7 +120,7 @@ namespace ManagedCorDebug.CoClass
             [In, MarshalAs(UnmanagedType.LPWStr)] string filename,
             [MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream,
-            [In] int fFullBuild);
+            [In] bool fFullBuild);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetDebugInfo(
@@ -150,7 +150,7 @@ namespace ManagedCorDebug.CoClass
             [In, MarshalAs(UnmanagedType.LPWStr)] string tempfilename,
             [MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream,
-            [In] int fFullBuild,
+            [In] bool fFullBuild,
             [In, MarshalAs(UnmanagedType.LPWStr)] string finalfilename);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

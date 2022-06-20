@@ -86,7 +86,7 @@ namespace ManagedCorDebug
         /// </returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT MarkDebuggerAttached([In] int fIsAttached);
+        HRESULT MarkDebuggerAttached([In] bool fIsAttached);
 
         /// <summary>
         /// Provides information on runtime exported functions to help step through managed code.

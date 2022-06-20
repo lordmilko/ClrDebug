@@ -30,7 +30,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsActive([Out] out int pbActive);
+        HRESULT IsActive([Out] out bool pbActive);
 
         /// <summary>
         /// Causes this <see cref="ICorDebugStepper"/> to cancel the last step command that it received.
@@ -85,7 +85,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Step([In] int bStepIn);
+        HRESULT Step([In] bool bStepIn);
 
         /// <summary>
         /// Causes this <see cref="ICorDebugStepper"/> to single-step through its containing thread, and to return when it reaches code beyond the last of the specified ranges.
@@ -102,7 +102,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT StepRange([In] int bStepIn, [In] ref COR_DEBUG_STEP_RANGE ranges, [In] int cRangeCount);
+        HRESULT StepRange([In] bool bStepIn, [In] ref COR_DEBUG_STEP_RANGE ranges, [In] int cRangeCount);
 
         /// <summary>
         /// Causes this <see cref="ICorDebugStepper"/> to single-step through its containing thread, and to complete when the current frame returns control to the calling frame.
@@ -125,6 +125,6 @@ namespace ManagedCorDebug
         /// The default value is true.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetRangeIL([In] int bIL);
+        HRESULT SetRangeIL([In] bool bIL);
     }
 }

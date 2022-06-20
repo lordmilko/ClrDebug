@@ -21,6 +21,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsFullyTrusted([Out] out int pbFullyTrusted);
+        HRESULT IsFullyTrusted([Out] out bool pbFullyTrusted);
     }
 }

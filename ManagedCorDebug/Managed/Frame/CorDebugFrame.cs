@@ -21,7 +21,7 @@ namespace ManagedCorDebug
             if (value is ICorDebugRuntimeUnwindableFrame)
                 return new CorDebugRuntimeUnwindableFrame((ICorDebugRuntimeUnwindableFrame) value);
 
-            throw new NotImplementedException("Encountered an ICorDebugFrame' interface of an unknown type. Cannot create wrapper type.");
+            throw new NotImplementedException("Encountered an 'ICorDebugFrame' interface of an unknown type. Cannot create wrapper type.");
         }
 
         /// <summary>

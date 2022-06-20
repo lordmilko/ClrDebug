@@ -240,7 +240,7 @@ namespace ManagedCorDebug
         /// <see cref="CurrentAppDomainId"/>. This identifier corresponds to the <see cref="AppDomain.Id"/> property of
         /// the managed <see cref="AppDomain"/> type.
         /// </remarks>
-        public void UnloadAppDomain(int dwAppDomainID, int fWaitUntilDone)
+        public void UnloadAppDomain(int dwAppDomainID, bool fWaitUntilDone)
         {
             TryUnloadAppDomain(dwAppDomainID, fWaitUntilDone).ThrowOnNotOK();
         }
@@ -265,9 +265,9 @@ namespace ManagedCorDebug
         /// <see cref="CurrentAppDomainId"/>. This identifier corresponds to the <see cref="AppDomain.Id"/> property of
         /// the managed <see cref="AppDomain"/> type.
         /// </remarks>
-        public HRESULT TryUnloadAppDomain(int dwAppDomainID, int fWaitUntilDone)
+        public HRESULT TryUnloadAppDomain(int dwAppDomainID, bool fWaitUntilDone)
         {
-            /*HRESULT UnloadAppDomain([In] int dwAppDomainID, [In] int fWaitUntilDone);*/
+            /*HRESULT UnloadAppDomain([In] int dwAppDomainID, [In] bool fWaitUntilDone);*/
             return Raw.UnloadAppDomain(dwAppDomainID, fWaitUntilDone);
         }
 

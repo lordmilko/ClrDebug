@@ -7,9 +7,9 @@ namespace ManagedCorDebug
     [StructLayout(LayoutKind.Sequential)]
     public struct DacpMethodDescTransparencyData
     {
-        public int bHasCriticalTransparentInfo;
-        public int bIsCritical;
-        public int bIsTreatAsSafe;
+        public bool bHasCriticalTransparentInfo;
+        public bool bIsCritical;
+        public bool bIsTreatAsSafe;
 
         public HRESULT Request(ISOSDacInterface sos, CLRDATA_ADDRESS addr)
         {

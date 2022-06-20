@@ -399,8 +399,8 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameSignatureVerificationEx(
             [MarshalAs(UnmanagedType.LPWStr), In] string wszFilePath,
-            [In] int fForceVerification,
-            [Out] int pfWasVerified);
+            [In] bool fForceVerification,
+            [Out] bool pfWasVerified);
 
         /// <summary>
         /// Verifies that an assembly that has already been mapped to memory is valid for the associated public key.

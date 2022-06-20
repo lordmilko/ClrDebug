@@ -49,7 +49,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string lpCommandLine,
             [In] ref SECURITY_ATTRIBUTES lpProcessAttributes,
             [In] ref SECURITY_ATTRIBUTES lpThreadAttributes,
-            [In] int bInheritHandles,
+            [In] bool bInheritHandles,
             [In] int dwCreationFlags,
             [In] IntPtr lpEnvironment,
             [MarshalAs(UnmanagedType.LPWStr), In] string lpCurrentDirectory,
@@ -78,7 +78,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.Interface), In]
             ICorDebugRemoteTarget pRemoteTarget,
             [In] int dwProcessId,
-            [In] int fWin32Attach,
+            [In] bool fWin32Attach,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
     }
 }

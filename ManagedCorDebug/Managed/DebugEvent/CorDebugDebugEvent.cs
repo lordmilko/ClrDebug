@@ -18,7 +18,7 @@ namespace ManagedCorDebug
             if (value is ICorDebugModuleDebugEvent)
                 return new CorDebugModuleDebugEvent((ICorDebugModuleDebugEvent) value);
 
-            throw new NotImplementedException("Encountered an ICorDebugDebugEvent' interface of an unknown type. Cannot create wrapper type.");
+            throw new NotImplementedException("Encountered an 'ICorDebugDebugEvent' interface of an unknown type. Cannot create wrapper type.");
         }
 
         /// <summary>

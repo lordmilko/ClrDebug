@@ -142,9 +142,9 @@ namespace ManagedCorDebug
         /// Gets a value that indicates whether any dimensions of this array have a base index of non-zero.
         /// </summary>
         /// <returns>[out] A pointer to a Boolean value that is true if one or more dimensions of this <see cref="ICorDebugArrayValue"/> object have a base index of non-zero; otherwise, the Boolean value is false.</returns>
-        public int HasBaseIndicies()
+        public bool HasBaseIndicies()
         {
-            int pbHasBaseIndicies;
+            bool pbHasBaseIndicies;
             TryHasBaseIndicies(out pbHasBaseIndicies).ThrowOnNotOK();
 
             return pbHasBaseIndicies;
@@ -154,9 +154,9 @@ namespace ManagedCorDebug
         /// Gets a value that indicates whether any dimensions of this array have a base index of non-zero.
         /// </summary>
         /// <param name="pbHasBaseIndicies">[out] A pointer to a Boolean value that is true if one or more dimensions of this <see cref="ICorDebugArrayValue"/> object have a base index of non-zero; otherwise, the Boolean value is false.</param>
-        public HRESULT TryHasBaseIndicies(out int pbHasBaseIndicies)
+        public HRESULT TryHasBaseIndicies(out bool pbHasBaseIndicies)
         {
-            /*HRESULT HasBaseIndicies([Out] out int pbHasBaseIndicies);*/
+            /*HRESULT HasBaseIndicies([Out] out bool pbHasBaseIndicies);*/
             return Raw.HasBaseIndicies(out pbHasBaseIndicies);
         }
 

@@ -229,7 +229,7 @@ namespace ManagedCorDebug
         HRESULT ICorDebugManagedCallback.ControlCTrap(ICorDebugProcess pProcess) => HandleEvent(OnControlCTrap, new ControlCTrapCorDebugManagedCallbackEventArgs(pProcess));
         HRESULT ICorDebugManagedCallback.NameChange(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread) => HandleEvent(OnNameChange, new NameChangeCorDebugManagedCallbackEventArgs(pAppDomain, pThread));
         HRESULT ICorDebugManagedCallback.UpdateModuleSymbols(ICorDebugAppDomain pAppDomain, ICorDebugModule pModule, IStream pSymbolStream) => HandleEvent(OnUpdateModuleSymbols, new UpdateModuleSymbolsCorDebugManagedCallbackEventArgs(pAppDomain, pModule, pSymbolStream));
-        HRESULT ICorDebugManagedCallback.EditAndContinueRemap(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugFunction pFunction, int fAccurate) => HandleEvent(OnEditAndContinueRemap, new EditAndContinueRemapCorDebugManagedCallbackEventArgs(pAppDomain, pThread, pFunction, fAccurate));
+        HRESULT ICorDebugManagedCallback.EditAndContinueRemap(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugFunction pFunction, bool fAccurate) => HandleEvent(OnEditAndContinueRemap, new EditAndContinueRemapCorDebugManagedCallbackEventArgs(pAppDomain, pThread, pFunction, fAccurate));
         HRESULT ICorDebugManagedCallback.BreakpointSetError(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugBreakpoint pBreakpoint, int dwError) => HandleEvent(OnBreakpointSetError, new BreakpointSetErrorCorDebugManagedCallbackEventArgs(pAppDomain, pThread, pBreakpoint, dwError));
 
         #endregion

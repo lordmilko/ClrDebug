@@ -143,17 +143,17 @@ namespace ManagedCorDebug
         {
             get
             {
-                bool pbLoadableResult;
-                TryIsLoadable(out pbLoadableResult).ThrowOnNotOK();
+                bool pbLoadable;
+                TryIsLoadable(out pbLoadable).ThrowOnNotOK();
 
-                return pbLoadableResult;
+                return pbLoadable;
             }
         }
 
         /// <summary>
         /// Indicates whether the runtime associated with this interface can be loaded into the current process, taking into account other runtimes that might already be loaded into the process.
         /// </summary>
-        /// <param name="pbLoadableResult">[out] true if this runtime could be loaded into the current process; otherwise, false.</param>
+        /// <param name="pbLoadable">[out] true if this runtime could be loaded into the current process; otherwise, false.</param>
         /// <returns>
         /// This method returns the following specific HRESULTs as well as HRESULT errors that indicate method failure.
         /// 
@@ -169,19 +169,11 @@ namespace ManagedCorDebug
         /// same process with CLR version 2.0 or CLR version 1.1. However, CLR version 1.1 and CLR version 2.0 cannot run side-by-side
         /// in-process. If no runtimes are loaded into the process, this method always returns true.
         /// </remarks>
-        public HRESULT TryIsLoadable(out bool pbLoadableResult)
+        public HRESULT TryIsLoadable(out bool pbLoadable)
         {
             /*HRESULT IsLoadable(
-            [Out] out int pbLoadable);*/
-            int pbLoadable;
-            HRESULT hr = Raw.IsLoadable(out pbLoadable);
-
-            if (hr == HRESULT.S_OK)
-                pbLoadableResult = pbLoadable == 1;
-            else
-                pbLoadableResult = default(bool);
-
-            return hr;
+            [Out] out bool pbLoadable);*/
+            return Raw.IsLoadable(out pbLoadable);
         }
 
         #endregion
@@ -218,8 +210,8 @@ namespace ManagedCorDebug
         /// </remarks>
         public HRESULT TryIsStarted(out IsStartedResult result)
         {
-            /*HRESULT IsStarted([Out] out int pbStarted, [Out] out int pdwStartupFlags);*/
-            int pbStarted;
+            /*HRESULT IsStarted([Out] out bool pbStarted, [Out] out int pdwStartupFlags);*/
+            bool pbStarted;
             int pdwStartupFlags;
             HRESULT hr = Raw.IsStarted(out pbStarted, out pdwStartupFlags);
 
@@ -247,9 +239,9 @@ namespace ManagedCorDebug
         /// a <see cref="ICLRRuntimeInfo"/> interface. If the host then calls the IsLoaded method on the returned <see cref="ICLRRuntimeInfo"/>
         /// interface, pbLoaded returns true; otherwise, it returns false.
         /// </remarks>
-        public int IsLoaded(IntPtr hndProcess)
+        public bool IsLoaded(IntPtr hndProcess)
         {
-            int pbLoaded;
+            bool pbLoaded;
             TryIsLoaded(hndProcess, out pbLoaded).ThrowOnNotOK();
 
             return pbLoaded;
@@ -276,11 +268,11 @@ namespace ManagedCorDebug
         /// a <see cref="ICLRRuntimeInfo"/> interface. If the host then calls the IsLoaded method on the returned <see cref="ICLRRuntimeInfo"/>
         /// interface, pbLoaded returns true; otherwise, it returns false.
         /// </remarks>
-        public HRESULT TryIsLoaded(IntPtr hndProcess, out int pbLoaded)
+        public HRESULT TryIsLoaded(IntPtr hndProcess, out bool pbLoaded)
         {
             /*HRESULT IsLoaded(
             [In] IntPtr hndProcess,
-            [Out] out int pbLoaded);*/
+            [Out] out bool pbLoaded);*/
             return Raw.IsLoaded(hndProcess, out pbLoaded);
         }
 

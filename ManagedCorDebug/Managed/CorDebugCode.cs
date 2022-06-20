@@ -30,29 +30,21 @@ namespace ManagedCorDebug
         {
             get
             {
-                bool pbILResult;
-                TryIsIL(out pbILResult).ThrowOnNotOK();
+                bool pbIL;
+                TryIsIL(out pbIL).ThrowOnNotOK();
 
-                return pbILResult;
+                return pbIL;
             }
         }
 
         /// <summary>
         /// Gets a value that indicates whether this "ICorDebugCode" represents code that was compiled in Microsoft intermediate language (MSIL).
         /// </summary>
-        /// <param name="pbILResult">[out] true if this <see cref="ICorDebugCode"/> represents code that was compiled in MSIL; otherwise, false.</param>
-        public HRESULT TryIsIL(out bool pbILResult)
+        /// <param name="pbIL">[out] true if this <see cref="ICorDebugCode"/> represents code that was compiled in MSIL; otherwise, false.</param>
+        public HRESULT TryIsIL(out bool pbIL)
         {
-            /*HRESULT IsIL([Out] out int pbIL);*/
-            int pbIL;
-            HRESULT hr = Raw.IsIL(out pbIL);
-
-            if (hr == HRESULT.S_OK)
-                pbILResult = pbIL == 1;
-            else
-                pbILResult = default(bool);
-
-            return hr;
+            /*HRESULT IsIL([Out] out bool pbIL);*/
+            return Raw.IsIL(out pbIL);
         }
 
         #endregion

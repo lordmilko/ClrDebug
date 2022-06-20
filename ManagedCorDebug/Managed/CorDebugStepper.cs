@@ -33,34 +33,26 @@ namespace ManagedCorDebug
         {
             get
             {
-                bool pbActiveResult;
-                TryIsActive(out pbActiveResult).ThrowOnNotOK();
+                bool pbActive;
+                TryIsActive(out pbActive).ThrowOnNotOK();
 
-                return pbActiveResult;
+                return pbActive;
             }
         }
 
         /// <summary>
         /// Gets a value that indicates whether this <see cref="ICorDebugStepper"/> is currently executing a step.
         /// </summary>
-        /// <param name="pbActiveResult">[out] Returns true if the stepper is currently executing a step; otherwise, returns false.</param>
+        /// <param name="pbActive">[out] Returns true if the stepper is currently executing a step; otherwise, returns false.</param>
         /// <remarks>
         /// Any step action remains active until the debugger receives a <see cref="ICorDebugManagedCallback.StepComplete"/>
         /// call, which automatically deactivates the stepper. A stepper may also be deactivated prematurely by calling <see 
         ///cref="Deactivate"/> before the callback condition is reached.
         /// </remarks>
-        public HRESULT TryIsActive(out bool pbActiveResult)
+        public HRESULT TryIsActive(out bool pbActive)
         {
-            /*HRESULT IsActive([Out] out int pbActive);*/
-            int pbActive;
-            HRESULT hr = Raw.IsActive(out pbActive);
-
-            if (hr == HRESULT.S_OK)
-                pbActiveResult = pbActive == 1;
-            else
-                pbActiveResult = default(bool);
-
-            return hr;
+            /*HRESULT IsActive([Out] out bool pbActive);*/
+            return Raw.IsActive(out pbActive);
         }
 
         #endregion
@@ -177,7 +169,7 @@ namespace ManagedCorDebug
         /// If Step is called on a stepper, which is not in managed code, the step will complete when the next managed code
         /// instruction is executed by the thread.
         /// </remarks>
-        public void Step(int bStepIn)
+        public void Step(bool bStepIn)
         {
             TryStep(bStepIn).ThrowOnNotOK();
         }
@@ -191,9 +183,9 @@ namespace ManagedCorDebug
         /// If Step is called on a stepper, which is not in managed code, the step will complete when the next managed code
         /// instruction is executed by the thread.
         /// </remarks>
-        public HRESULT TryStep(int bStepIn)
+        public HRESULT TryStep(bool bStepIn)
         {
-            /*HRESULT Step([In] int bStepIn);*/
+            /*HRESULT Step([In] bool bStepIn);*/
             return Raw.Step(bStepIn);
         }
 
@@ -213,7 +205,7 @@ namespace ManagedCorDebug
         /// language (MSIL) code of a method. Call <see cref="SetRangeIL"/> with false to make the ranges relative to the native
         /// code of a method.
         /// </remarks>
-        public void StepRange(int bStepIn, COR_DEBUG_STEP_RANGE ranges, int cRangeCount)
+        public void StepRange(bool bStepIn, COR_DEBUG_STEP_RANGE ranges, int cRangeCount)
         {
             TryStepRange(bStepIn, ranges, cRangeCount).ThrowOnNotOK();
         }
@@ -231,9 +223,9 @@ namespace ManagedCorDebug
         /// language (MSIL) code of a method. Call <see cref="SetRangeIL"/> with false to make the ranges relative to the native
         /// code of a method.
         /// </remarks>
-        public HRESULT TryStepRange(int bStepIn, COR_DEBUG_STEP_RANGE ranges, int cRangeCount)
+        public HRESULT TryStepRange(bool bStepIn, COR_DEBUG_STEP_RANGE ranges, int cRangeCount)
         {
-            /*HRESULT StepRange([In] int bStepIn, [In] ref COR_DEBUG_STEP_RANGE ranges, [In] int cRangeCount);*/
+            /*HRESULT StepRange([In] bool bStepIn, [In] ref COR_DEBUG_STEP_RANGE ranges, [In] int cRangeCount);*/
             return Raw.StepRange(bStepIn, ref ranges, cRangeCount);
         }
 
@@ -279,7 +271,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="bIL">[in] Set to true to specify that the ranges are relative to the MSIL code. Set to false to specify that the ranges are relative to the native code.<para/>
         /// The default value is true.</param>
-        public void SetRangeIL(int bIL)
+        public void SetRangeIL(bool bIL)
         {
             TrySetRangeIL(bIL).ThrowOnNotOK();
         }
@@ -289,9 +281,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="bIL">[in] Set to true to specify that the ranges are relative to the MSIL code. Set to false to specify that the ranges are relative to the native code.<para/>
         /// The default value is true.</param>
-        public HRESULT TrySetRangeIL(int bIL)
+        public HRESULT TrySetRangeIL(bool bIL)
         {
-            /*HRESULT SetRangeIL([In] int bIL);*/
+            /*HRESULT SetRangeIL([In] bool bIL);*/
             return Raw.SetRangeIL(bIL);
         }
 
@@ -309,7 +301,7 @@ namespace ManagedCorDebug
         /// This process is also known as just my code (JMC) debugging.
         /// </summary>
         /// <param name="fIsJMCStepper">[in] Set to true to step only through code that is authored by an application's developer; otherwise, set to false.</param>
-        public void SetJMC(int fIsJMCStepper)
+        public void SetJMC(bool fIsJMCStepper)
         {
             TrySetJMC(fIsJMCStepper).ThrowOnNotOK();
         }
@@ -319,9 +311,9 @@ namespace ManagedCorDebug
         /// This process is also known as just my code (JMC) debugging.
         /// </summary>
         /// <param name="fIsJMCStepper">[in] Set to true to step only through code that is authored by an application's developer; otherwise, set to false.</param>
-        public HRESULT TrySetJMC(int fIsJMCStepper)
+        public HRESULT TrySetJMC(bool fIsJMCStepper)
         {
-            /*HRESULT SetJMC([In] int fIsJMCStepper);*/
+            /*HRESULT SetJMC([In] bool fIsJMCStepper);*/
             return Raw2.SetJMC(fIsJMCStepper);
         }
 

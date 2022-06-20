@@ -244,7 +244,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetDocumentVersion([MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocument pDoc, [Out] out int version, [Out] out int pbCurrent);
+            ISymUnmanagedDocument pDoc, [Out] out int version, [Out] out bool pbCurrent);
 
         /// <summary>
         /// Gets the method version. The method version starts at 1 and is incremented each time the method is recompiled. Recompilation can happen without changes to the method.

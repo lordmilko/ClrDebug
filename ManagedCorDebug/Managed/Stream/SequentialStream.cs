@@ -9,7 +9,7 @@ namespace ManagedCorDebug
             if (value is IStream)
                 return new Stream((IStream) value);
 
-            throw new NotImplementedException("Encountered an ISequentialStream' interface of an unknown type. Cannot create wrapper type.");
+            throw new NotImplementedException("Encountered an 'ISequentialStream' interface of an unknown type. Cannot create wrapper type.");
         }
 
         /// <summary>

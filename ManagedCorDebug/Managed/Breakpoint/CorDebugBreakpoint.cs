@@ -23,7 +23,7 @@ namespace ManagedCorDebug
             if (value is ICorDebugValueBreakpoint)
                 return new CorDebugValueBreakpoint((ICorDebugValueBreakpoint) value);
 
-            throw new NotImplementedException("Encountered an ICorDebugBreakpoint' interface of an unknown type. Cannot create wrapper type.");
+            throw new NotImplementedException("Encountered an 'ICorDebugBreakpoint' interface of an unknown type. Cannot create wrapper type.");
         }
 
         /// <summary>
@@ -44,29 +44,21 @@ namespace ManagedCorDebug
         {
             get
             {
-                bool pbActiveResult;
-                TryIsActive(out pbActiveResult).ThrowOnNotOK();
+                bool pbActive;
+                TryIsActive(out pbActive).ThrowOnNotOK();
 
-                return pbActiveResult;
+                return pbActive;
             }
         }
 
         /// <summary>
         /// Gets a value that indicates whether this <see cref="ICorDebugBreakpoint"/> is active.
         /// </summary>
-        /// <param name="pbActiveResult">[out] true if this breakpoint is active; otherwise, false.</param>
-        public HRESULT TryIsActive(out bool pbActiveResult)
+        /// <param name="pbActive">[out] true if this breakpoint is active; otherwise, false.</param>
+        public HRESULT TryIsActive(out bool pbActive)
         {
-            /*HRESULT IsActive([Out] out int pbActive);*/
-            int pbActive;
-            HRESULT hr = Raw.IsActive(out pbActive);
-
-            if (hr == HRESULT.S_OK)
-                pbActiveResult = pbActive == 1;
-            else
-                pbActiveResult = default(bool);
-
-            return hr;
+            /*HRESULT IsActive([Out] out bool pbActive);*/
+            return Raw.IsActive(out pbActive);
         }
 
         #endregion
@@ -76,7 +68,7 @@ namespace ManagedCorDebug
         /// Sets the active state of this <see cref="ICorDebugBreakpoint"/>.
         /// </summary>
         /// <param name="bActive">[in] Set this value to true to specify the state as active; otherwise, set this value to false.</param>
-        public void Activate(int bActive)
+        public void Activate(bool bActive)
         {
             TryActivate(bActive).ThrowOnNotOK();
         }
@@ -85,9 +77,9 @@ namespace ManagedCorDebug
         /// Sets the active state of this <see cref="ICorDebugBreakpoint"/>.
         /// </summary>
         /// <param name="bActive">[in] Set this value to true to specify the state as active; otherwise, set this value to false.</param>
-        public HRESULT TryActivate(int bActive)
+        public HRESULT TryActivate(bool bActive)
         {
-            /*HRESULT Activate([In] int bActive);*/
+            /*HRESULT Activate([In] bool bActive);*/
             return Raw.Activate(bActive);
         }
 

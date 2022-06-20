@@ -20,7 +20,7 @@ namespace ManagedCorDebug
             if (value is ICorDebugStringValue)
                 return new CorDebugStringValue((ICorDebugStringValue) value);
 
-            throw new NotImplementedException("Encountered an ICorDebugHeapValue' interface of an unknown type. Cannot create wrapper type.");
+            throw new NotImplementedException("Encountered an 'ICorDebugHeapValue' interface of an unknown type. Cannot create wrapper type.");
         }
 
         /// <summary>
@@ -44,34 +44,26 @@ namespace ManagedCorDebug
         {
             get
             {
-                bool pbValidResult;
-                TryIsValid(out pbValidResult).ThrowOnNotOK();
+                bool pbValid;
+                TryIsValid(out pbValid).ThrowOnNotOK();
 
-                return pbValidResult;
+                return pbValid;
             }
         }
 
         /// <summary>
         /// Gets a value that indicates whether the object represented by this <see cref="ICorDebugHeapValue"/> is valid. This method has been deprecated in the .NET Framework version 2.0.
         /// </summary>
-        /// <param name="pbValidResult">[out] A pointer to a Boolean value that indicates whether this value on the heap is valid.</param>
+        /// <param name="pbValid">[out] A pointer to a Boolean value that indicates whether this value on the heap is valid.</param>
         /// <remarks>
         /// The value is invalid if it has been reclaimed by the garbage collector. This method has been deprecated. In the
         /// .NET Framework 2.0, all values are valid until <see cref="CorDebugController.Continue"/> is called, at which time
         /// the values are invalidated.
         /// </remarks>
-        public HRESULT TryIsValid(out bool pbValidResult)
+        public HRESULT TryIsValid(out bool pbValid)
         {
-            /*HRESULT IsValid([Out] out int pbValid);*/
-            int pbValid;
-            HRESULT hr = Raw.IsValid(out pbValid);
-
-            if (hr == HRESULT.S_OK)
-                pbValidResult = pbValid == 1;
-            else
-                pbValidResult = default(bool);
-
-            return hr;
+            /*HRESULT IsValid([Out] out bool pbValid);*/
+            return Raw.IsValid(out pbValid);
         }
 
         #endregion

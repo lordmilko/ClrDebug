@@ -228,9 +228,9 @@ namespace ManagedCorDebug
         /// the managed stepper. You can also identity transition stubs by looking at information in the portable executable
         /// (PE) file.
         /// </remarks>
-        public int IsTransitionStub(CORDB_ADDRESS address)
+        public bool IsTransitionStub(CORDB_ADDRESS address)
         {
-            int pbTransitionStub;
+            bool pbTransitionStub;
             TryIsTransitionStub(address, out pbTransitionStub).ThrowOnNotOK();
 
             return pbTransitionStub;
@@ -246,9 +246,9 @@ namespace ManagedCorDebug
         /// the managed stepper. You can also identity transition stubs by looking at information in the portable executable
         /// (PE) file.
         /// </remarks>
-        public HRESULT TryIsTransitionStub(CORDB_ADDRESS address, out int pbTransitionStub)
+        public HRESULT TryIsTransitionStub(CORDB_ADDRESS address, out bool pbTransitionStub)
         {
-            /*HRESULT IsTransitionStub([In] CORDB_ADDRESS address, [Out] out int pbTransitionStub);*/
+            /*HRESULT IsTransitionStub([In] CORDB_ADDRESS address, [Out] out bool pbTransitionStub);*/
             return Raw.IsTransitionStub(address, out pbTransitionStub);
         }
 
@@ -267,9 +267,9 @@ namespace ManagedCorDebug
         /// makes sense only in the context of unmanaged debugging. During managed debugging, threads are cooperatively suspended
         /// rather than OS-suspended.
         /// </remarks>
-        public int IsOSSuspended(int threadID)
+        public bool IsOSSuspended(int threadID)
         {
-            int pbSuspended;
+            bool pbSuspended;
             TryIsOSSuspended(threadID, out pbSuspended).ThrowOnNotOK();
 
             return pbSuspended;
@@ -287,9 +287,9 @@ namespace ManagedCorDebug
         /// makes sense only in the context of unmanaged debugging. During managed debugging, threads are cooperatively suspended
         /// rather than OS-suspended.
         /// </remarks>
-        public HRESULT TryIsOSSuspended(int threadID, out int pbSuspended)
+        public HRESULT TryIsOSSuspended(int threadID, out bool pbSuspended)
         {
-            /*HRESULT IsOSSuspended([In] int threadID, [Out] out int pbSuspended);*/
+            /*HRESULT IsOSSuspended([In] int threadID, [Out] out bool pbSuspended);*/
             return Raw.IsOSSuspended(threadID, out pbSuspended);
         }
 
@@ -508,7 +508,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// This method is valid only after the <see cref="ICorDebugManagedCallback.CreateProcess"/> callback occurs.
         /// </remarks>
-        public void EnableLogMessages(int fOnOff)
+        public void EnableLogMessages(bool fOnOff)
         {
             TryEnableLogMessages(fOnOff).ThrowOnNotOK();
         }
@@ -520,9 +520,9 @@ namespace ManagedCorDebug
         /// <remarks>
         /// This method is valid only after the <see cref="ICorDebugManagedCallback.CreateProcess"/> callback occurs.
         /// </remarks>
-        public HRESULT TryEnableLogMessages(int fOnOff)
+        public HRESULT TryEnableLogMessages(bool fOnOff)
         {
-            /*HRESULT EnableLogMessages([In] int fOnOff);*/
+            /*HRESULT EnableLogMessages([In] bool fOnOff);*/
             return Raw.EnableLogMessages(fOnOff);
         }
 
@@ -923,7 +923,7 @@ namespace ManagedCorDebug
         /// domain in the process if it wants to receive the notification across the entire process. Starting with the .NET
         /// Framework 4, the only supported notification is a cross-thread dependency notification.
         /// </remarks>
-        public void SetEnableCustomNotification(ICorDebugClass pClass, int fEnable)
+        public void SetEnableCustomNotification(ICorDebugClass pClass, bool fEnable)
         {
             TrySetEnableCustomNotification(pClass, fEnable).ThrowOnNotOK();
         }
@@ -941,9 +941,9 @@ namespace ManagedCorDebug
         /// domain in the process if it wants to receive the notification across the entire process. Starting with the .NET
         /// Framework 4, the only supported notification is a cross-thread dependency notification.
         /// </remarks>
-        public HRESULT TrySetEnableCustomNotification(ICorDebugClass pClass, int fEnable)
+        public HRESULT TrySetEnableCustomNotification(ICorDebugClass pClass, bool fEnable)
         {
-            /*HRESULT SetEnableCustomNotification([In, MarshalAs(UnmanagedType.Interface)] ICorDebugClass pClass, [In] int fEnable);*/
+            /*HRESULT SetEnableCustomNotification([In, MarshalAs(UnmanagedType.Interface)] ICorDebugClass pClass, [In] bool fEnable);*/
             return Raw3.SetEnableCustomNotification(pClass, fEnable);
         }
 
@@ -1657,7 +1657,7 @@ namespace ManagedCorDebug
         /// Changes the internal state of the debugee so that the <see cref="Debugger.IsAttached"/> method in the .NET Framework Class Library returns true.
         /// </summary>
         /// <param name="fIsAttached">true if the <see cref="Debugger.IsAttached"/> method should indicate that a debugger is attached; false otherwise.</param>
-        public void MarkDebuggerAttached(int fIsAttached)
+        public void MarkDebuggerAttached(bool fIsAttached)
         {
             TryMarkDebuggerAttached(fIsAttached).ThrowOnNotOK();
         }
@@ -1675,9 +1675,9 @@ namespace ManagedCorDebug
         /// | CORDBG_E_MODULE_NOT_LOADED    | The assembly that contains the <see cref="Debugger.IsAttached"/> method is not loaded, or some other error, such as missing metadata, is preventing it from being recognized. This error is common and benign. You should call the method again when additional assemblies load. |
         /// | Other failing HRESULT values. | Other values likely indicate misbehaving debugger or compiler components.                                                                                                                                                                                                        |
         /// </returns>
-        public HRESULT TryMarkDebuggerAttached(int fIsAttached)
+        public HRESULT TryMarkDebuggerAttached(bool fIsAttached)
         {
-            /*HRESULT MarkDebuggerAttached([In] int fIsAttached);*/
+            /*HRESULT MarkDebuggerAttached([In] bool fIsAttached);*/
             return Raw6.MarkDebuggerAttached(fIsAttached);
         }
 

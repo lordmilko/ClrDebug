@@ -22,7 +22,7 @@ namespace ManagedCorDebug
         /// <param name="ppInterfacesEnum">[out] A pointer to the address of an <see cref="ICorDebugTypeEnum"/> enumerator that provides access to <see cref="ICorDebugType"/> objects that represent cached interface types filtered according to bIInspectableOnly.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCachedInterfaceTypes([In] int bIInspectableOnly,
+        HRESULT GetCachedInterfaceTypes([In] bool bIInspectableOnly,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppInterfacesEnum);
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCachedInterfacePointers(
-            [In] int bIInspectableOnly,
+            [In] bool bIInspectableOnly,
             [In] int celt,
             [Out] out int pceltFetched,
             [Out, MarshalAs(UnmanagedType.LPArray)] CORDB_ADDRESS[] ptrs);

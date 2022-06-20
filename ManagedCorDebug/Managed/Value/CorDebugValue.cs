@@ -34,7 +34,7 @@ namespace ManagedCorDebug
             if (value is ICorDebugHandleValue)
                 return new CorDebugHandleValue((ICorDebugHandleValue) value);
 
-            throw new NotImplementedException("Encountered an ICorDebugValue' interface of an unknown type. Cannot create wrapper type.");
+            throw new NotImplementedException("Encountered an 'ICorDebugValue' interface of an unknown type. Cannot create wrapper type.");
         }
 
         /// <summary>

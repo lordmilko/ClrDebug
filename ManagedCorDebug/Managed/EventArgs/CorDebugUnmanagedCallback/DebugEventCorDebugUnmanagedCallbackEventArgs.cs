@@ -27,10 +27,10 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pDebugEvent">A pointer to the native event.</param>
         /// <param name="fOutOfBand">true, if interaction with the managed process state is impossible after an unmanaged event occurs, until the debugger calls <see cref="ICorDebugController.Continue"/>; otherwise, false.</param>
-        public DebugEventCorDebugUnmanagedCallbackEventArgs(IntPtr pDebugEvent, int fOutOfBand)
+        public DebugEventCorDebugUnmanagedCallbackEventArgs(IntPtr pDebugEvent, bool fOutOfBand)
         {
             DebugEvent = pDebugEvent;
-            OutOfBand = fOutOfBand == 1;
+            OutOfBand = fOutOfBand;
         }
     }
 }

@@ -7,8 +7,8 @@ namespace ManagedCorDebug
     [StructLayout(LayoutKind.Sequential)]
     public struct DacpGcHeapData
     {
-        public int bServerMode;
-        public int bGcStructuresValid;
+        public bool bServerMode;
+        public bool bGcStructuresValid;
         public int HeapCount;
         public int g_max_generation;
 

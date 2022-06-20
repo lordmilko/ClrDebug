@@ -41,29 +41,21 @@ namespace ManagedCorDebug
         {
             get
             {
-                bool pbActiveResult;
-                TryIsActive(out pbActiveResult).ThrowOnNotOK();
+                bool pbActive;
+                TryIsActive(out pbActive).ThrowOnNotOK();
 
-                return pbActiveResult;
+                return pbActive;
             }
         }
 
         /// <summary>
         /// Gets a value that indicates whether this <see cref="ICorDebugEval"/> object is currently executing.
         /// </summary>
-        /// <param name="pbActiveResult">[out] Pointer to a value that indicates whether this evaluation is active.</param>
-        public HRESULT TryIsActive(out bool pbActiveResult)
+        /// <param name="pbActive">[out] Pointer to a value that indicates whether this evaluation is active.</param>
+        public HRESULT TryIsActive(out bool pbActive)
         {
-            /*HRESULT IsActive([Out] out int pbActive);*/
-            int pbActive;
-            HRESULT hr = Raw.IsActive(out pbActive);
-
-            if (hr == HRESULT.S_OK)
-                pbActiveResult = pbActive == 1;
-            else
-                pbActiveResult = default(bool);
-
-            return hr;
+            /*HRESULT IsActive([Out] out bool pbActive);*/
+            return Raw.IsActive(out pbActive);
         }
 
         #endregion

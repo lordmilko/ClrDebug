@@ -16,7 +16,7 @@ namespace ManagedCorDebug
             if (value is ICorDebugContext)
                 return new CorDebugContext((ICorDebugContext) value);
 
-            throw new NotImplementedException("Encountered an ICorDebugObjectValue' interface of an unknown type. Cannot create wrapper type.");
+            throw new NotImplementedException("Encountered an 'ICorDebugObjectValue' interface of an unknown type. Cannot create wrapper type.");
         }
 
         /// <summary>
@@ -113,29 +113,21 @@ namespace ManagedCorDebug
         {
             get
             {
-                bool pbIsValueClassResult;
-                TryIsValueClass(out pbIsValueClassResult).ThrowOnNotOK();
+                bool pbIsValueClass;
+                TryIsValueClass(out pbIsValueClass).ThrowOnNotOK();
 
-                return pbIsValueClassResult;
+                return pbIsValueClass;
             }
         }
 
         /// <summary>
         /// Gets a value that indicates whether this object value is a value type.
         /// </summary>
-        /// <param name="pbIsValueClassResult">[out] A pointer to a Boolean value that is true if the object value, represented by this "ICorDebugObjectValue", is a value type rather than a reference type; otherwise, pbIsValueClass is false.</param>
-        public HRESULT TryIsValueClass(out bool pbIsValueClassResult)
+        /// <param name="pbIsValueClass">[out] A pointer to a Boolean value that is true if the object value, represented by this "ICorDebugObjectValue", is a value type rather than a reference type; otherwise, pbIsValueClass is false.</param>
+        public HRESULT TryIsValueClass(out bool pbIsValueClass)
         {
-            /*HRESULT IsValueClass([Out] out int pbIsValueClass);*/
-            int pbIsValueClass;
-            HRESULT hr = Raw.IsValueClass(out pbIsValueClass);
-
-            if (hr == HRESULT.S_OK)
-                pbIsValueClassResult = pbIsValueClass == 1;
-            else
-                pbIsValueClassResult = default(bool);
-
-            return hr;
+            /*HRESULT IsValueClass([Out] out bool pbIsValueClass);*/
+            return Raw.IsValueClass(out pbIsValueClass);
         }
 
         #endregion

@@ -238,33 +238,25 @@ namespace ManagedCorDebug
         {
             get
             {
-                bool pbFullyTrustedResult;
-                TryIsFullyTrusted(out pbFullyTrustedResult).ThrowOnNotOK();
+                bool pbFullyTrusted;
+                TryIsFullyTrusted(out pbFullyTrusted).ThrowOnNotOK();
 
-                return pbFullyTrustedResult;
+                return pbFullyTrusted;
             }
         }
 
         /// <summary>
         /// Gets a value that indicates whether the assembly has been granted full trust by the runtime security system.
         /// </summary>
-        /// <param name="pbFullyTrustedResult">[out] true if the assembly has been granted full trust by the runtime security system; otherwise, false.</param>
+        /// <param name="pbFullyTrusted">[out] true if the assembly has been granted full trust by the runtime security system; otherwise, false.</param>
         /// <remarks>
         /// This method returns an <see cref="HRESULT"/> of CORDBG_E_NOTREADY if the security policy for the assembly has not yet been resolved,
         /// that is, if no code in the assembly has been run yet.
         /// </remarks>
-        public HRESULT TryIsFullyTrusted(out bool pbFullyTrustedResult)
+        public HRESULT TryIsFullyTrusted(out bool pbFullyTrusted)
         {
-            /*HRESULT IsFullyTrusted([Out] out int pbFullyTrusted);*/
-            int pbFullyTrusted;
-            HRESULT hr = Raw2.IsFullyTrusted(out pbFullyTrusted);
-
-            if (hr == HRESULT.S_OK)
-                pbFullyTrustedResult = pbFullyTrusted == 1;
-            else
-                pbFullyTrustedResult = default(bool);
-
-            return hr;
+            /*HRESULT IsFullyTrusted([Out] out bool pbFullyTrusted);*/
+            return Raw2.IsFullyTrusted(out pbFullyTrusted);
         }
 
         #endregion

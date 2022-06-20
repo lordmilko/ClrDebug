@@ -78,7 +78,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsLoaded(
             [In] IntPtr hndProcess,
-            [Out] out int pbLoaded);
+            [Out] out bool pbLoaded);
 
         /// <summary>
         /// Translates an <see cref="HRESULT"/> value into an appropriate error message for the specified culture. This method supersedes the following functions:
@@ -204,7 +204,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsLoadable(
-            [Out] out int pbLoadable);
+            [Out] out bool pbLoadable);
 
         /// <summary>
         /// Sets the startup flags and the host configuration file that will be used to start the runtime. This method supersedes the use of the startupFlags parameter in the CorBindToRuntimeEx and CorBindToRuntimeHost functions.
@@ -292,6 +292,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsStarted([Out] out int pbStarted, [Out] out int pdwStartupFlags);
+        HRESULT IsStarted([Out] out bool pbStarted, [Out] out int pdwStartupFlags);
     }
 }

@@ -316,9 +316,9 @@ namespace ManagedCorDebug
         /// code by using calls to <see cref="EnterRuntime"/>, <see cref="LeaveRuntime"/>, <see cref="ReverseEnterRuntime"/>,
         /// and <see cref="ReverseLeaveRuntime"/>.
         /// </remarks>
-        public int CallNeedsHostHook(int target)
+        public bool CallNeedsHostHook(int target)
         {
-            int pbCallNeedsHostHook;
+            bool pbCallNeedsHostHook;
             TryCallNeedsHostHook(target, out pbCallNeedsHostHook).ThrowOnNotOK();
 
             return pbCallNeedsHostHook;
@@ -349,11 +349,11 @@ namespace ManagedCorDebug
         /// code by using calls to <see cref="EnterRuntime"/>, <see cref="LeaveRuntime"/>, <see cref="ReverseEnterRuntime"/>,
         /// and <see cref="ReverseLeaveRuntime"/>.
         /// </remarks>
-        public HRESULT TryCallNeedsHostHook(int target, out int pbCallNeedsHostHook)
+        public HRESULT TryCallNeedsHostHook(int target, out bool pbCallNeedsHostHook)
         {
             /*HRESULT CallNeedsHostHook(
             [In] int target,
-            [Out] out int pbCallNeedsHostHook);*/
+            [Out] out bool pbCallNeedsHostHook);*/
             return Raw.CallNeedsHostHook(target, out pbCallNeedsHostHook);
         }
 

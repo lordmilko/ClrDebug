@@ -20,7 +20,7 @@ namespace ManagedCorDebug
             if (value is ICorDebugProcess)
                 return new CorDebugProcess((ICorDebugProcess) value);
 
-            throw new NotImplementedException("Encountered an ICorDebugController' interface of an unknown type. Cannot create wrapper type.");
+            throw new NotImplementedException("Encountered an 'ICorDebugController' interface of an unknown type. Cannot create wrapper type.");
         }
 
         /// <summary>
@@ -41,29 +41,21 @@ namespace ManagedCorDebug
         {
             get
             {
-                bool pbRunningResult;
-                TryIsRunning(out pbRunningResult).ThrowOnNotOK();
+                bool pbRunning;
+                TryIsRunning(out pbRunning).ThrowOnNotOK();
 
-                return pbRunningResult;
+                return pbRunning;
             }
         }
 
         /// <summary>
         /// Gets a value that indicates whether the threads in the process are currently running freely.
         /// </summary>
-        /// <param name="pbRunningResult">[out] A pointer to a value that is true if the threads in the process are running freely; otherwise, false.</param>
-        public HRESULT TryIsRunning(out bool pbRunningResult)
+        /// <param name="pbRunning">[out] A pointer to a value that is true if the threads in the process are running freely; otherwise, false.</param>
+        public HRESULT TryIsRunning(out bool pbRunning)
         {
-            /*HRESULT IsRunning([Out] out int pbRunning);*/
-            int pbRunning;
-            HRESULT hr = Raw.IsRunning(out pbRunning);
-
-            if (hr == HRESULT.S_OK)
-                pbRunningResult = pbRunning == 1;
-            else
-                pbRunningResult = default(bool);
-
-            return hr;
+            /*HRESULT IsRunning([Out] out bool pbRunning);*/
+            return Raw.IsRunning(out pbRunning);
         }
 
         #endregion
@@ -123,7 +115,7 @@ namespace ManagedCorDebug
         /// the debugger receives the <see cref="ICorDebugUnmanagedCallback.DebugEvent"/> callback with its fOutOfBand parameter set to
         /// true.
         /// </remarks>
-        public void Continue(int fIsOutOfBand)
+        public void Continue(bool fIsOutOfBand)
         {
             TryContinue(fIsOutOfBand).ThrowOnNotOK();
         }
@@ -142,9 +134,9 @@ namespace ManagedCorDebug
         /// the debugger receives the <see cref="ICorDebugUnmanagedCallback.DebugEvent"/> callback with its fOutOfBand parameter set to
         /// true.
         /// </remarks>
-        public HRESULT TryContinue(int fIsOutOfBand)
+        public HRESULT TryContinue(bool fIsOutOfBand)
         {
-            /*HRESULT Continue([In] int fIsOutOfBand);*/
+            /*HRESULT Continue([In] bool fIsOutOfBand);*/
             return Raw.Continue(fIsOutOfBand);
         }
 
@@ -165,9 +157,9 @@ namespace ManagedCorDebug
         /// events on thread X, and the debugger suspends thread X after the first debugging event and then calls <see cref="Continue"/>,
         /// the second debugging event for thread X will be dispatched although the thread has been suspended.
         /// </remarks>
-        public int HasQueuedCallbacks(ICorDebugThread pThread)
+        public bool HasQueuedCallbacks(ICorDebugThread pThread)
         {
-            int pbQueued;
+            bool pbQueued;
             TryHasQueuedCallbacks(pThread, out pbQueued).ThrowOnNotOK();
 
             return pbQueued;
@@ -187,10 +179,10 @@ namespace ManagedCorDebug
         /// events on thread X, and the debugger suspends thread X after the first debugging event and then calls <see cref="Continue"/>,
         /// the second debugging event for thread X will be dispatched although the thread has been suspended.
         /// </remarks>
-        public HRESULT TryHasQueuedCallbacks(ICorDebugThread pThread, out int pbQueued)
+        public HRESULT TryHasQueuedCallbacks(ICorDebugThread pThread, out bool pbQueued)
         {
             /*HRESULT HasQueuedCallbacks([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugThread pThread, [Out] out int pbQueued);*/
+            ICorDebugThread pThread, [Out] out bool pbQueued);*/
             return Raw.HasQueuedCallbacks(pThread, out pbQueued);
         }
 

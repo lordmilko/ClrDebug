@@ -364,18 +364,18 @@ namespace ManagedCorDebug
         #endregion
         #region HasClassOrMethodInstantiation
 
-        public int HasClassOrMethodInstantiation()
+        public bool HasClassOrMethodInstantiation()
         {
-            int bGeneric;
+            bool bGeneric;
             TryHasClassOrMethodInstantiation(out bGeneric).ThrowOnNotOK();
 
             return bGeneric;
         }
 
-        public HRESULT TryHasClassOrMethodInstantiation(out int bGeneric)
+        public HRESULT TryHasClassOrMethodInstantiation(out bool bGeneric)
         {
             /*HRESULT HasClassOrMethodInstantiation(
-            [Out] out int bGeneric);*/
+            [Out] out bool bGeneric);*/
             return Raw.HasClassOrMethodInstantiation(out bGeneric);
         }
 

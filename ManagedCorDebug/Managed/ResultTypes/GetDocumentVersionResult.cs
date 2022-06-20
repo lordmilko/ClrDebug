@@ -16,9 +16,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// A pointer to a variable that receives true if this is the latest version of the document, or false if it isn't the latest version.
         /// </summary>
-        public int pbCurrent { get; }
+        public bool pbCurrent { get; }
 
-        public GetDocumentVersionResult(int version, int pbCurrent)
+        public GetDocumentVersionResult(int version, bool pbCurrent)
         {
             this.version = version;
             this.pbCurrent = pbCurrent;
