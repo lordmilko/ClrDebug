@@ -27,7 +27,7 @@ namespace ManagedCorDebug
         /// <param name="fileName">[in] A pointer to the file name.</param>
         /// <param name="searchPath">[in] A pointer to the search path.</param>
         /// <returns>[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</returns>
-        public SymUnmanagedReader GetReaderForFile(IMetaDataImport importer, string fileName, string searchPath)
+        public SymUnmanagedReader GetReaderForFile(object importer, string fileName, string searchPath)
         {
             SymUnmanagedReader pRetValResult;
             TryGetReaderForFile(importer, fileName, searchPath, out pRetValResult).ThrowOnNotOK();
@@ -45,13 +45,13 @@ namespace ManagedCorDebug
         /// <param name="searchPath">[in] A pointer to the search path.</param>
         /// <param name="pRetValResult">[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetReaderForFile(IMetaDataImport importer, string fileName, string searchPath, out SymUnmanagedReader pRetValResult)
+        public HRESULT TryGetReaderForFile(object importer, string fileName, string searchPath, out SymUnmanagedReader pRetValResult)
         {
             /*HRESULT GetReaderForFile(
-            [MarshalAs(UnmanagedType.IUnknown), In] IMetaDataImport importer,
+            [MarshalAs(UnmanagedType.IUnknown), In] object importer,
             [In, MarshalAs(UnmanagedType.LPWStr)] string fileName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
-            [Out] out ISymUnmanagedReader pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedReader pRetVal);*/
             ISymUnmanagedReader pRetVal;
             HRESULT hr = Raw.GetReaderForFile(importer, fileName, searchPath, out pRetVal);
 
@@ -72,12 +72,12 @@ namespace ManagedCorDebug
         /// <param name="importer">[in] A pointer to the metadata import interface.</param>
         /// <param name="pstream">[in] A pointer to the stream that contains the symbol store.</param>
         /// <returns>[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</returns>
-        public ISymUnmanagedReader GetReaderFromStream(IMetaDataImport importer, IStream pstream)
+        public SymUnmanagedReader GetReaderFromStream(object importer, IStream pstream)
         {
-            ISymUnmanagedReader pRetVal = default(ISymUnmanagedReader);
-            TryGetReaderFromStream(importer, pstream, ref pRetVal).ThrowOnNotOK();
+            SymUnmanagedReader pRetValResult;
+            TryGetReaderFromStream(importer, pstream, out pRetValResult).ThrowOnNotOK();
 
-            return pRetVal;
+            return pRetValResult;
         }
 
         /// <summary>
@@ -85,15 +85,23 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="importer">[in] A pointer to the metadata import interface.</param>
         /// <param name="pstream">[in] A pointer to the stream that contains the symbol store.</param>
-        /// <param name="pRetVal">[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</param>
+        /// <param name="pRetValResult">[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetReaderFromStream(IMetaDataImport importer, IStream pstream, ref ISymUnmanagedReader pRetVal)
+        public HRESULT TryGetReaderFromStream(object importer, IStream pstream, out SymUnmanagedReader pRetValResult)
         {
             /*HRESULT GetReaderFromStream(
-            [MarshalAs(UnmanagedType.IUnknown), In] IMetaDataImport importer,
+            [MarshalAs(UnmanagedType.IUnknown), In] object importer,
             [MarshalAs(UnmanagedType.Interface), In] IStream pstream,
-            [Out] ISymUnmanagedReader pRetVal);*/
-            return Raw.GetReaderFromStream(importer, pstream, pRetVal);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedReader pRetVal);*/
+            ISymUnmanagedReader pRetVal;
+            HRESULT hr = Raw.GetReaderFromStream(importer, pstream, out pRetVal);
+
+            if (hr == HRESULT.S_OK)
+                pRetValResult = new SymUnmanagedReader(pRetVal);
+            else
+                pRetValResult = default(SymUnmanagedReader);
+
+            return hr;
         }
 
         #endregion
@@ -121,12 +129,12 @@ namespace ManagedCorDebug
         /// the registry or use the path in the executable file. If the searchPath parameter is provided, those directories
         /// will always be searched.
         /// </remarks>
-        public ISymUnmanagedReader GetReaderForFile2(IMetaDataImport importer, string fileName, string searchPath, CorSymSearchPolicyAttributes searchPolicy)
+        public SymUnmanagedReader GetReaderForFile2(object importer, string fileName, string searchPath, CorSymSearchPolicyAttributes searchPolicy)
         {
-            ISymUnmanagedReader pRetVal = default(ISymUnmanagedReader);
-            TryGetReaderForFile2(importer, fileName, searchPath, searchPolicy, ref pRetVal).ThrowOnNotOK();
+            SymUnmanagedReader pRetValResult;
+            TryGetReaderForFile2(importer, fileName, searchPath, searchPolicy, out pRetValResult).ThrowOnNotOK();
 
-            return pRetVal;
+            return pRetValResult;
         }
 
         /// <summary>
@@ -137,7 +145,7 @@ namespace ManagedCorDebug
         /// <param name="fileName">[in] A pointer to the file name.</param>
         /// <param name="searchPath">[in] A pointer to the search path.</param>
         /// <param name="searchPolicy">[in] A value of the <see cref="CorSymSearchPolicyAttributes"/> enumeration that specifies the policy to be used when doing a search for a symbol reader.</param>
-        /// <param name="pRetVal">[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</param>
+        /// <param name="pRetValResult">[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         /// <remarks>
         /// This version of the method can search for the PDB file in areas other than right next to the module. The search
@@ -146,15 +154,23 @@ namespace ManagedCorDebug
         /// the registry or use the path in the executable file. If the searchPath parameter is provided, those directories
         /// will always be searched.
         /// </remarks>
-        public HRESULT TryGetReaderForFile2(IMetaDataImport importer, string fileName, string searchPath, CorSymSearchPolicyAttributes searchPolicy, ref ISymUnmanagedReader pRetVal)
+        public HRESULT TryGetReaderForFile2(object importer, string fileName, string searchPath, CorSymSearchPolicyAttributes searchPolicy, out SymUnmanagedReader pRetValResult)
         {
             /*HRESULT GetReaderForFile2(
-            [MarshalAs(UnmanagedType.IUnknown), In] IMetaDataImport importer,
+            [MarshalAs(UnmanagedType.IUnknown), In] object importer,
             [In, MarshalAs(UnmanagedType.LPWStr)] string fileName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
             [In] CorSymSearchPolicyAttributes searchPolicy,
-            [Out] ISymUnmanagedReader pRetVal);*/
-            return Raw2.GetReaderForFile2(importer, fileName, searchPath, searchPolicy, pRetVal);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedReader pRetVal);*/
+            ISymUnmanagedReader pRetVal;
+            HRESULT hr = Raw2.GetReaderForFile2(importer, fileName, searchPath, searchPolicy, out pRetVal);
+
+            if (hr == HRESULT.S_OK)
+                pRetValResult = new SymUnmanagedReader(pRetVal);
+            else
+                pRetValResult = default(SymUnmanagedReader);
+
+            return hr;
         }
 
         #endregion
@@ -175,12 +191,12 @@ namespace ManagedCorDebug
         /// <param name="searchPolicy">[in] A value of the <see cref="CorSymSearchPolicyAttributes"/> enumeration that specifies the policy to be used when doing a search for a symbol reader.</param>
         /// <param name="callback">[in] A pointer to the callback function.</param>
         /// <returns>[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</returns>
-        public ISymUnmanagedReader GetReaderFromCallback(object importer, string fileName, string searchPath, CorSymSearchPolicyAttributes searchPolicy, object callback)
+        public SymUnmanagedReader GetReaderFromCallback(object importer, string fileName, string searchPath, CorSymSearchPolicyAttributes searchPolicy, object callback)
         {
-            ISymUnmanagedReader pRetVal = default(ISymUnmanagedReader);
-            TryGetReaderFromCallback(importer, fileName, searchPath, searchPolicy, callback, ref pRetVal).ThrowOnNotOK();
+            SymUnmanagedReader pRetValResult;
+            TryGetReaderFromCallback(importer, fileName, searchPath, searchPolicy, callback, out pRetValResult).ThrowOnNotOK();
 
-            return pRetVal;
+            return pRetValResult;
         }
 
         /// <summary>
@@ -191,9 +207,9 @@ namespace ManagedCorDebug
         /// <param name="searchPath">[in] A pointer to the search path.</param>
         /// <param name="searchPolicy">[in] A value of the <see cref="CorSymSearchPolicyAttributes"/> enumeration that specifies the policy to be used when doing a search for a symbol reader.</param>
         /// <param name="callback">[in] A pointer to the callback function.</param>
-        /// <param name="pRetVal">[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</param>
+        /// <param name="pRetValResult">[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetReaderFromCallback(object importer, string fileName, string searchPath, CorSymSearchPolicyAttributes searchPolicy, object callback, ref ISymUnmanagedReader pRetVal)
+        public HRESULT TryGetReaderFromCallback(object importer, string fileName, string searchPath, CorSymSearchPolicyAttributes searchPolicy, object callback, out SymUnmanagedReader pRetValResult)
         {
             /*HRESULT GetReaderFromCallback(
             [MarshalAs(UnmanagedType.IUnknown), In]
@@ -202,8 +218,16 @@ namespace ManagedCorDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
             [In] CorSymSearchPolicyAttributes searchPolicy,
             [MarshalAs(UnmanagedType.IUnknown), In] object callback,
-            [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedReader pRetVal);*/
-            return Raw3.GetReaderFromCallback(importer, fileName, searchPath, searchPolicy, callback, pRetVal);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedReader pRetVal);*/
+            ISymUnmanagedReader pRetVal;
+            HRESULT hr = Raw3.GetReaderFromCallback(importer, fileName, searchPath, searchPolicy, callback, out pRetVal);
+
+            if (hr == HRESULT.S_OK)
+                pRetValResult = new SymUnmanagedReader(pRetVal);
+            else
+                pRetValResult = default(SymUnmanagedReader);
+
+            return hr;
         }
 
         #endregion

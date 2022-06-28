@@ -292,7 +292,7 @@ namespace ManagedCorDebug
             [In] ref Guid language,
             [In] ref Guid languageVendor,
             [In] ref Guid documentType,
-            [Out] out ISymUnmanagedDocument pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedDocument pRetVal);*/
             ISymUnmanagedDocument pRetVal;
             HRESULT hr = Raw.GetDocument(url, ref language, ref languageVendor, ref documentType, out pRetVal);
 
@@ -312,24 +312,32 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="token">[in] The method token.</param>
         /// <returns>[out] A pointer to the returned interface.</returns>
-        public ISymUnmanagedMethod GetMethod(mdMethodDef token)
+        public SymUnmanagedMethod GetMethod(mdMethodDef token)
         {
-            ISymUnmanagedMethod pRetVal = default(ISymUnmanagedMethod);
-            TryGetMethod(token, ref pRetVal).ThrowOnNotOK();
+            SymUnmanagedMethod pRetValResult;
+            TryGetMethod(token, out pRetValResult).ThrowOnNotOK();
 
-            return pRetVal;
+            return pRetValResult;
         }
 
         /// <summary>
         /// Gets a symbol reader method, given a method token.
         /// </summary>
         /// <param name="token">[in] The method token.</param>
-        /// <param name="pRetVal">[out] A pointer to the returned interface.</param>
+        /// <param name="pRetValResult">[out] A pointer to the returned interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetMethod(mdMethodDef token, ref ISymUnmanagedMethod pRetVal)
+        public HRESULT TryGetMethod(mdMethodDef token, out SymUnmanagedMethod pRetValResult)
         {
-            /*HRESULT GetMethod([In] mdMethodDef token, [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);*/
-            return Raw.GetMethod(token, pRetVal);
+            /*HRESULT GetMethod([In] mdMethodDef token, [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);*/
+            ISymUnmanagedMethod pRetVal;
+            HRESULT hr = Raw.GetMethod(token, out pRetVal);
+
+            if (hr == HRESULT.S_OK)
+                pRetValResult = new SymUnmanagedMethod(pRetVal);
+            else
+                pRetValResult = default(SymUnmanagedMethod);
+
+            return hr;
         }
 
         #endregion
@@ -341,12 +349,12 @@ namespace ManagedCorDebug
         /// <param name="token">[in] The method token.</param>
         /// <param name="version">[in] The method version.</param>
         /// <returns>[out] A pointer to the returned interface.</returns>
-        public ISymUnmanagedMethod GetMethodByVersion(mdMethodDef token, int version)
+        public SymUnmanagedMethod GetMethodByVersion(mdMethodDef token, int version)
         {
-            ISymUnmanagedMethod pRetVal = default(ISymUnmanagedMethod);
-            TryGetMethodByVersion(token, version, ref pRetVal).ThrowOnNotOK();
+            SymUnmanagedMethod pRetValResult;
+            TryGetMethodByVersion(token, version, out pRetValResult).ThrowOnNotOK();
 
-            return pRetVal;
+            return pRetValResult;
         }
 
         /// <summary>
@@ -354,15 +362,23 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="token">[in] The method token.</param>
         /// <param name="version">[in] The method version.</param>
-        /// <param name="pRetVal">[out] A pointer to the returned interface.</param>
+        /// <param name="pRetValResult">[out] A pointer to the returned interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetMethodByVersion(mdMethodDef token, int version, ref ISymUnmanagedMethod pRetVal)
+        public HRESULT TryGetMethodByVersion(mdMethodDef token, int version, out SymUnmanagedMethod pRetValResult)
         {
             /*HRESULT GetMethodByVersion(
             [In] mdMethodDef token,
             [In] int version,
-            [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);*/
-            return Raw.GetMethodByVersion(token, version, pRetVal);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);*/
+            ISymUnmanagedMethod pRetVal;
+            HRESULT hr = Raw.GetMethodByVersion(token, version, out pRetVal);
+
+            if (hr == HRESULT.S_OK)
+                pRetValResult = new SymUnmanagedMethod(pRetVal);
+            else
+                pRetValResult = default(SymUnmanagedMethod);
+
+            return hr;
         }
 
         #endregion
@@ -429,12 +445,12 @@ namespace ManagedCorDebug
         /// <param name="line">[in] The line of the specified document.</param>
         /// <param name="column">[in] The column of the specified document.</param>
         /// <returns>[out] A pointer to the address of a <see cref="ISymUnmanagedMethod"/> object that represents the method containing the breakpoint.</returns>
-        public ISymUnmanagedMethod GetMethodFromDocumentPosition(ISymUnmanagedDocument document, int line, int column)
+        public SymUnmanagedMethod GetMethodFromDocumentPosition(ISymUnmanagedDocument document, int line, int column)
         {
-            ISymUnmanagedMethod pRetVal = default(ISymUnmanagedMethod);
-            TryGetMethodFromDocumentPosition(document, line, column, ref pRetVal).ThrowOnNotOK();
+            SymUnmanagedMethod pRetValResult;
+            TryGetMethodFromDocumentPosition(document, line, column, out pRetValResult).ThrowOnNotOK();
 
-            return pRetVal;
+            return pRetValResult;
         }
 
         /// <summary>
@@ -443,17 +459,25 @@ namespace ManagedCorDebug
         /// <param name="document">[in] The specified document.</param>
         /// <param name="line">[in] The line of the specified document.</param>
         /// <param name="column">[in] The column of the specified document.</param>
-        /// <param name="pRetVal">[out] A pointer to the address of a <see cref="ISymUnmanagedMethod"/> object that represents the method containing the breakpoint.</param>
+        /// <param name="pRetValResult">[out] A pointer to the address of a <see cref="ISymUnmanagedMethod"/> object that represents the method containing the breakpoint.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetMethodFromDocumentPosition(ISymUnmanagedDocument document, int line, int column, ref ISymUnmanagedMethod pRetVal)
+        public HRESULT TryGetMethodFromDocumentPosition(ISymUnmanagedDocument document, int line, int column, out SymUnmanagedMethod pRetValResult)
         {
             /*HRESULT GetMethodFromDocumentPosition(
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocument document,
             [In] int line,
             [In] int column,
-            [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);*/
-            return Raw.GetMethodFromDocumentPosition(document, line, column, pRetVal);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);*/
+            ISymUnmanagedMethod pRetVal;
+            HRESULT hr = Raw.GetMethodFromDocumentPosition(document, line, column, out pRetVal);
+
+            if (hr == HRESULT.S_OK)
+                pRetValResult = new SymUnmanagedMethod(pRetVal);
+            else
+                pRetValResult = default(SymUnmanagedMethod);
+
+            return hr;
         }
 
         #endregion
@@ -732,12 +756,12 @@ namespace ManagedCorDebug
         /// <param name="token">[in] The method metadata token.</param>
         /// <param name="version">[in] The method version.</param>
         /// <returns>[out] A pointer to the returned <see cref="ISymUnmanagedMethod"/> interface.</returns>
-        public ISymUnmanagedMethod GetMethodByVersionPreRemap(mdMethodDef token, int version)
+        public SymUnmanagedMethod GetMethodByVersionPreRemap(mdMethodDef token, int version)
         {
-            ISymUnmanagedMethod pRetVal = default(ISymUnmanagedMethod);
-            TryGetMethodByVersionPreRemap(token, version, ref pRetVal).ThrowOnNotOK();
+            SymUnmanagedMethod pRetValResult;
+            TryGetMethodByVersionPreRemap(token, version, out pRetValResult).ThrowOnNotOK();
 
-            return pRetVal;
+            return pRetValResult;
         }
 
         /// <summary>
@@ -745,15 +769,23 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="token">[in] The method metadata token.</param>
         /// <param name="version">[in] The method version.</param>
-        /// <param name="pRetVal">[out] A pointer to the returned <see cref="ISymUnmanagedMethod"/> interface.</param>
+        /// <param name="pRetValResult">[out] A pointer to the returned <see cref="ISymUnmanagedMethod"/> interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetMethodByVersionPreRemap(mdMethodDef token, int version, ref ISymUnmanagedMethod pRetVal)
+        public HRESULT TryGetMethodByVersionPreRemap(mdMethodDef token, int version, out SymUnmanagedMethod pRetValResult)
         {
             /*HRESULT GetMethodByVersionPreRemap(
             [In] mdMethodDef token,
             [In] int version,
-            [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);*/
-            return Raw2.GetMethodByVersionPreRemap(token, version, pRetVal);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);*/
+            ISymUnmanagedMethod pRetVal;
+            HRESULT hr = Raw2.GetMethodByVersionPreRemap(token, version, out pRetVal);
+
+            if (hr == HRESULT.S_OK)
+                pRetValResult = new SymUnmanagedMethod(pRetVal);
+            else
+                pRetValResult = default(SymUnmanagedMethod);
+
+            return hr;
         }
 
         #endregion

@@ -24,10 +24,10 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetReaderForFile(
-            [MarshalAs(UnmanagedType.IUnknown), In] IMetaDataImport importer,
+            [MarshalAs(UnmanagedType.IUnknown), In] object importer,
             [In, MarshalAs(UnmanagedType.LPWStr)] string fileName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
-            [Out] out ISymUnmanagedReader pRetVal);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedReader pRetVal);
 
         /// <summary>
         /// Given a metadata interface and a stream that contains the symbol store, returns the correct <see cref="ISymUnmanagedReader"/> structure that will read the debugging symbols from the given symbol store.
@@ -39,9 +39,9 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetReaderFromStream(
-            [MarshalAs(UnmanagedType.IUnknown), In] IMetaDataImport importer,
+            [MarshalAs(UnmanagedType.IUnknown), In] object importer,
             [MarshalAs(UnmanagedType.Interface), In] IStream pstream,
-            [Out] ISymUnmanagedReader pRetVal);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedReader pRetVal);
 
         /// <summary>
         /// Given a metadata interface and a file name, returns the correct <see cref="ISymUnmanagedReader"/> interface that will read the debugging symbols associated with the module.<para/>
@@ -63,10 +63,10 @@ namespace ManagedCorDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetReaderForFile2(
-            [MarshalAs(UnmanagedType.IUnknown), In] IMetaDataImport importer,
+            [MarshalAs(UnmanagedType.IUnknown), In] object importer,
             [In, MarshalAs(UnmanagedType.LPWStr)] string fileName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
             [In] CorSymSearchPolicyAttributes searchPolicy,
-            [Out] ISymUnmanagedReader pRetVal);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedReader pRetVal);
     }
 }

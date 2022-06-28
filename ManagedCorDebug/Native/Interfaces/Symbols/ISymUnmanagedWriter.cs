@@ -28,7 +28,7 @@ namespace ManagedCorDebug
             [In] ref Guid language,
             [In] ref Guid languageVendor,
             [In] ref Guid documentType,
-            [Out] out ISymUnmanagedDocumentWriter pRetVal);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedDocumentWriter pRetVal);
 
         /// <summary>
         /// Specifies the user-defined method that is the entry point for this module. For example, this entry point could be the user's main method instead of compiler-generated stubs before main.

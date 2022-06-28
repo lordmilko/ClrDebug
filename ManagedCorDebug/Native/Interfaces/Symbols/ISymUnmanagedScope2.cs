@@ -19,7 +19,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetMethod([Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);
+        new HRESULT GetMethod([Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);
 
         /// <summary>
         /// Gets the parent scope of this scope.
@@ -28,7 +28,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetParent([Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedScope pRetVal);
+        new HRESULT GetParent([Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedScope pRetVal);
 
         /// <summary>
         /// Gets the children of this scope.

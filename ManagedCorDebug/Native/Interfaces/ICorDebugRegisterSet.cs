@@ -27,7 +27,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRegistersAvailable([Out] out long pAvailable);
+        HRESULT GetRegistersAvailable([Out] out CorDebugRegister pAvailable);
 
         /// <summary>
         /// Gets the value of each register (on the computer that is currently executing code) that is specified by the bit mask.
@@ -44,7 +44,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRegisters([In] long mask, [In] int regCount, [MarshalAs(UnmanagedType.LPArray), Out]
+        HRESULT GetRegisters([In] CorDebugRegister mask, [In] int regCount, [MarshalAs(UnmanagedType.LPArray), Out]
             CORDB_REGISTER[] regBuffer);
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace ManagedCorDebug
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetRegisters([In] long mask, [In] int regCount, [In] IntPtr regBuffer);
+        HRESULT SetRegisters([In] CorDebugRegister mask, [In] int regCount, [In] IntPtr regBuffer);
 
         /// <summary>
         /// Gets the context of the current thread.

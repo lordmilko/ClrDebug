@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using Microsoft.Win32.SafeHandles;
 
 namespace ManagedCorDebug
 {
@@ -20,12 +19,12 @@ namespace ManagedCorDebug
         public int dwXCountChars;
         public int dwYCountChars;
         public int dwFillAttribute;
-        public int dwFlags;
-        public short wShowWindow;
+        public STARTF dwFlags;
+        public ShowWindow wShowWindow;
         public short cbReserved2;
         private IntPtr lpReserved2;
-        public SafeFileHandle hStdInput;
-        public SafeFileHandle hStdOutput;
-        public SafeFileHandle hStdError;
+        public IntPtr hStdInput;
+        public IntPtr hStdOutput;
+        public IntPtr hStdError;
     }
 }

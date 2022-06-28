@@ -34,11 +34,11 @@ namespace ManagedCorDebug
 
         #endregion
         
-        protected virtual HRESULT HandleEvent<T>(EventHandler<T> handler, T args)
+        protected virtual HRESULT HandleEvent<T>(EventHandler<T> handler, CLRDataEnumMemoryRegionsCallbackEventArgs args)
             where T : CLRDataEnumMemoryRegionsCallbackEventArgs
         {
             OnAnyEvent?.Invoke(this, args);
-            handler?.Invoke(this, args);
+            handler?.Invoke(this, (T) args);
 
             return HRESULT.S_OK;
         }

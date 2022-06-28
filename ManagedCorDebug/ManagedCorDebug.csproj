@@ -60,7 +60,6 @@
     <Compile Include="Managed\Callbacks\CorDebugManagedCallback.cs" />
     <Compile Include="Managed\Callbacks\CorDebugManagedCallbackKind.cs" />
     <Compile Include="Managed\Callbacks\CorDebugUnmanagedCallback.cs" />
-    <Compile Include="Managed\Callbacks\CorDebugUnmanagedCallbackKind.cs" />
     <Compile Include="Managed\CLRControl.cs" />
     <Compile Include="Managed\CLRDataEnumMemoryRegions.cs" />
     <Compile Include="Managed\CLRDataTarget.cs" />
@@ -490,9 +489,11 @@
     <Compile Include="Native\Enum\Metadata\MergeFlags.cs" />
     <Compile Include="Native\Enum\METAHOST_CONFIG_FLAGS.cs" />
     <Compile Include="Native\Enum\METAHOST_POLICY_FLAGS.cs" />
+    <Compile Include="Native\Enum\ShowWindow.cs" />
     <Compile Include="Native\Enum\SOS\DACDATAMODULEPRIV_REQUEST.cs" />
     <Compile Include="Native\Enum\SOS\DACSTACKPRIV_REQUEST.cs" />
     <Compile Include="Native\Enum\SOS\SYNCBLOCKDATA_COMFLAGS.cs" />
+    <Compile Include="Native\Enum\STARTF.cs" />
     <Compile Include="Native\Enum\SymUnmanagedReaderCreationOptions.cs" />
     <Compile Include="Native\Enum\CorSymSearchPolicyAttributes.cs" />
     <Compile Include="Native\Enum\VariableLocationType.cs" />
@@ -754,6 +755,15 @@
     <Compile Include="Native\Interfaces\Value\ICorDebugValue3.cs" />
     <Compile Include="Native\NativeMethods.cs" />
     <Compile Include="Native\Struct\COR_GC_THREAD_STATS.cs" />
+    <Compile Include="Native\Enum\ExceptionCode.cs" />
+    <Compile Include="Native\Enum\ExceptionFlags.cs" />
+    <Compile Include="Native\Enum\DebugEventType.cs" />
+    <Compile Include="Native\Enum\SLE.cs" />
+    <Compile Include="Native\Struct\AMD64_CONTEXT.cs" />
+    <Compile Include="Native\Enum\ContextFlags.cs" />
+    <Compile Include="Native\Struct\DEBUG_EVENT\CREATE_PROCESS_DEBUG_INFO.cs" />
+    <Compile Include="Native\Struct\DEBUG_EVENT\CREATE_THREAD_DEBUG_INFO.cs" />
+    <Compile Include="Native\Struct\DEBUG_EVENT\DEBUG_EVENT.cs" />
     <Compile Include="Native\Struct\Metadata\ASSEMBLYMETADATA.cs" />
     <Compile Include="Native\Struct\CLR_DEBUGGING_VERSION.cs" />
     <Compile Include="Native\Struct\CorDebugBlockingObject.cs" />
@@ -828,7 +838,8 @@
     <Compile Include="Native\Enum\XCLRData\CLRNativeImageDumpOptions.cs" />
     <Compile Include="Native\Struct\XCLRData\GcEvtArgs.cs" />
     <Compile Include="Native\Enum\XCLRData\GcEvt_t.cs" />
-    <Compile Include="Native\Struct\EXCEPTION_RECORD64.cs" />
+    <Compile Include="Native\Struct\DEBUG_EVENT\EXCEPTION_RECORD.cs" />
+    <Compile Include="Native\Struct\DEBUG_EVENT\EXCEPTION_RECORD64.cs" />
     <Compile Include="Native\Enum\SOS\CodeHeapType.cs" />
     <Compile Include="Native\Struct\SOS\DACEHInfo.cs" />
     <Compile Include="Native\Struct\SOS\DacpAllocData.cs" />
@@ -890,6 +901,15 @@
     <Compile Include="Native\Struct\SOS\SOSHandleData.cs" />
     <Compile Include="Native\Struct\SOS\SOSStackRefData.cs" />
     <Compile Include="Native\Struct\SOS\SOSStackRefError.cs" />
+    <Compile Include="Native\Struct\DEBUG_EVENT\EXCEPTION_DEBUG_INFO.cs" />
+    <Compile Include="Native\Struct\DEBUG_EVENT\EXIT_PROCESS_DEBUG_INFO.cs" />
+    <Compile Include="Native\Struct\DEBUG_EVENT\EXIT_THREAD_DEBUG_INFO.cs" />
+    <Compile Include="Native\Struct\DEBUG_EVENT\LOAD_DLL_DEBUG_INFO.cs" />
+    <Compile Include="Native\Struct\DEBUG_EVENT\OUTPUT_DEBUG_STRING_INFO.cs" />
+    <Compile Include="Native\Struct\DEBUG_EVENT\RIP_INFO.cs" />
+    <Compile Include="Native\Struct\DEBUG_EVENT\UNLOAD_DLL_DEBUG_INFO.cs" />
+    <Compile Include="Native\Struct\X86_CONTEXT.cs" />
+    <Compile Include="Native\Struct\X86_FLOATING_SAVE_AREA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -916,6 +936,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\Extensions.CLRMetaHost.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extensions\Extensions.CorDebugProcess.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extensions\Extensions.CorDebugRegisterSet.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extensions\Extensions.CorDebugDataTarget.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extensions\Extensions.CLRDataTarget.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

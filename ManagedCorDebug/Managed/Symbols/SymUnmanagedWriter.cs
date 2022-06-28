@@ -51,7 +51,7 @@ namespace ManagedCorDebug
             [In] ref Guid language,
             [In] ref Guid languageVendor,
             [In] ref Guid documentType,
-            [Out] out ISymUnmanagedDocumentWriter pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedDocumentWriter pRetVal);*/
             ISymUnmanagedDocumentWriter pRetVal;
             HRESULT hr = Raw.DefineDocument(url, ref language, ref languageVendor, ref documentType, out pRetVal);
 

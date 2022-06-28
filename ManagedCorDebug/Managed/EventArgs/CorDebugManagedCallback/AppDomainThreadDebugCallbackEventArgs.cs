@@ -51,6 +51,8 @@ namespace ManagedCorDebug
 
         protected AppDomainThreadDebugCallbackEventArgs(ICorDebugAppDomain pAppDomain, ICorDebugThread thread) : base(GetAppDomain(pAppDomain, thread))
         {
+            rawAppDomain = pAppDomain;
+            rawThread = thread;
         }
 
         private static ICorDebugAppDomain GetAppDomain(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread)

@@ -9,19 +9,19 @@ namespace ManagedCorDebug.CoClass
     [ComImport]
     public class CorSymBinder_deprecatedClass : ISymUnmanagedBinder, CorSymBinder_deprecated
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        [return: MarshalAs(UnmanagedType.Interface)]
         public virtual extern HRESULT GetReaderForFile(
-            [MarshalAs(UnmanagedType.IUnknown), In] IMetaDataImport importer,
+            [MarshalAs(UnmanagedType.IUnknown), In] object importer,
             [In, MarshalAs(UnmanagedType.LPWStr)] string fileName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
-            [Out] out ISymUnmanagedReader pRetVal);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedReader pRetVal);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        [return: MarshalAs(UnmanagedType.Interface)]
         public virtual extern HRESULT GetReaderFromStream(
-            [MarshalAs(UnmanagedType.IUnknown), In] IMetaDataImport importer,
+            [MarshalAs(UnmanagedType.IUnknown), In] object importer,
             [MarshalAs(UnmanagedType.Interface), In] IStream pstream,
-            [Out] ISymUnmanagedReader pRetVal);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedReader pRetVal);
     }
 }

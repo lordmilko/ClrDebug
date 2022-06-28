@@ -121,7 +121,7 @@ namespace ManagedCorDebug
         /// type specified by the <see cref="Platform"/> property. contextFlags must have the same values as the ContextFlags
         /// field of the CONTEXT structure. The CONTEXT structure is processor-specific; refer to the WinNT.h file for details.
         /// </remarks>
-        public void GetThreadContext(int dwThreadId, int contextFlags, int contextSize, IntPtr pContext)
+        public void GetThreadContext(int dwThreadId, ContextFlags contextFlags, int contextSize, IntPtr pContext)
         {
             TryGetThreadContext(dwThreadId, contextFlags, contextSize, pContext).ThrowOnNotOK();
         }
@@ -138,9 +138,9 @@ namespace ManagedCorDebug
         /// type specified by the <see cref="Platform"/> property. contextFlags must have the same values as the ContextFlags
         /// field of the CONTEXT structure. The CONTEXT structure is processor-specific; refer to the WinNT.h file for details.
         /// </remarks>
-        public HRESULT TryGetThreadContext(int dwThreadId, int contextFlags, int contextSize, IntPtr pContext)
+        public HRESULT TryGetThreadContext(int dwThreadId, ContextFlags contextFlags, int contextSize, IntPtr pContext)
         {
-            /*HRESULT GetThreadContext([In] int dwThreadId, [In] int contextFlags, [In] int contextSize, [Out] IntPtr pContext);*/
+            /*HRESULT GetThreadContext([In] int dwThreadId, [In] ContextFlags contextFlags, [In] int contextSize, [Out] IntPtr pContext);*/
             return Raw.GetThreadContext(dwThreadId, contextFlags, contextSize, pContext);
         }
 

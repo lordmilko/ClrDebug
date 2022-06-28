@@ -75,26 +75,34 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the root lexical scope within this method. This scope encloses the entire method.
         /// </summary>
-        public ISymUnmanagedScope RootScope
+        public SymUnmanagedScope RootScope
         {
             get
             {
-                ISymUnmanagedScope pRetVal = default(ISymUnmanagedScope);
-                TryGetRootScope(ref pRetVal).ThrowOnNotOK();
+                SymUnmanagedScope pRetValResult;
+                TryGetRootScope(out pRetValResult).ThrowOnNotOK();
 
-                return pRetVal;
+                return pRetValResult;
             }
         }
 
         /// <summary>
         /// Gets the root lexical scope within this method. This scope encloses the entire method.
         /// </summary>
-        /// <param name="pRetVal">[out] A pointer that is set to the returned <see cref="ISymUnmanagedScope"/> interface.</param>
+        /// <param name="pRetValResult">[out] A pointer that is set to the returned <see cref="ISymUnmanagedScope"/> interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetRootScope(ref ISymUnmanagedScope pRetVal)
+        public HRESULT TryGetRootScope(out SymUnmanagedScope pRetValResult)
         {
-            /*HRESULT GetRootScope([Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedScope pRetVal);*/
-            return Raw.GetRootScope(pRetVal);
+            /*HRESULT GetRootScope([Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedScope pRetVal);*/
+            ISymUnmanagedScope pRetVal;
+            HRESULT hr = Raw.GetRootScope(out pRetVal);
+
+            if (hr == HRESULT.S_OK)
+                pRetValResult = new SymUnmanagedScope(pRetVal);
+            else
+                pRetValResult = default(SymUnmanagedScope);
+
+            return hr;
         }
 
         #endregion
@@ -191,24 +199,32 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="offset">[in] A ULONG that contains the offset.</param>
         /// <returns>[out] A pointer that is set to the returned <see cref="ISymUnmanagedScope"/> interface.</returns>
-        public ISymUnmanagedScope GetScopeFromOffset(int offset)
+        public SymUnmanagedScope GetScopeFromOffset(int offset)
         {
-            ISymUnmanagedScope pRetVal = default(ISymUnmanagedScope);
-            TryGetScopeFromOffset(offset, ref pRetVal).ThrowOnNotOK();
+            SymUnmanagedScope pRetValResult;
+            TryGetScopeFromOffset(offset, out pRetValResult).ThrowOnNotOK();
 
-            return pRetVal;
+            return pRetValResult;
         }
 
         /// <summary>
         /// Gets the most enclosing lexical scope within this method that encloses the given offset. This can be used to start local variable searches.
         /// </summary>
         /// <param name="offset">[in] A ULONG that contains the offset.</param>
-        /// <param name="pRetVal">[out] A pointer that is set to the returned <see cref="ISymUnmanagedScope"/> interface.</param>
+        /// <param name="pRetValResult">[out] A pointer that is set to the returned <see cref="ISymUnmanagedScope"/> interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetScopeFromOffset(int offset, ref ISymUnmanagedScope pRetVal)
+        public HRESULT TryGetScopeFromOffset(int offset, out SymUnmanagedScope pRetValResult)
         {
-            /*HRESULT GetScopeFromOffset([In] int offset, [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedScope pRetVal);*/
-            return Raw.GetScopeFromOffset(offset, pRetVal);
+            /*HRESULT GetScopeFromOffset([In] int offset, [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedScope pRetVal);*/
+            ISymUnmanagedScope pRetVal;
+            HRESULT hr = Raw.GetScopeFromOffset(offset, out pRetVal);
+
+            if (hr == HRESULT.S_OK)
+                pRetValResult = new SymUnmanagedScope(pRetVal);
+            else
+                pRetValResult = default(SymUnmanagedScope);
+
+            return hr;
         }
 
         #endregion

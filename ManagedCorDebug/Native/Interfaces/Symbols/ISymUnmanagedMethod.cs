@@ -37,7 +37,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRootScope([Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedScope pRetVal);
+        HRESULT GetRootScope([Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedScope pRetVal);
 
         /// <summary>
         /// Gets the most enclosing lexical scope within this method that encloses the given offset. This can be used to start local variable searches.
@@ -47,7 +47,7 @@ namespace ManagedCorDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetScopeFromOffset([In] int offset, [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedScope pRetVal);
+        HRESULT GetScopeFromOffset([In] int offset, [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedScope pRetVal);
 
         /// <summary>
         /// Returns the offset within this method that corresponds to a given position within a document.

@@ -37,6 +37,6 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT DebugEvent([In] IntPtr pDebugEvent, [In] bool fOutOfBand);
+        HRESULT DebugEvent([In] ref DEBUG_EVENT pDebugEvent, [In] bool fOutOfBand);
     }
 }

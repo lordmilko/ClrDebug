@@ -21,26 +21,34 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the method that contains this scope.
         /// </summary>
-        public ISymUnmanagedMethod Method
+        public SymUnmanagedMethod Method
         {
             get
             {
-                ISymUnmanagedMethod pRetVal = default(ISymUnmanagedMethod);
-                TryGetMethod(ref pRetVal).ThrowOnNotOK();
+                SymUnmanagedMethod pRetValResult;
+                TryGetMethod(out pRetValResult).ThrowOnNotOK();
 
-                return pRetVal;
+                return pRetValResult;
             }
         }
 
         /// <summary>
         /// Gets the method that contains this scope.
         /// </summary>
-        /// <param name="pRetVal">[out] A pointer to the returned <see cref="ISymUnmanagedMethod"/> interface.</param>
+        /// <param name="pRetValResult">[out] A pointer to the returned <see cref="ISymUnmanagedMethod"/> interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetMethod(ref ISymUnmanagedMethod pRetVal)
+        public HRESULT TryGetMethod(out SymUnmanagedMethod pRetValResult)
         {
-            /*HRESULT GetMethod([Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);*/
-            return Raw.GetMethod(pRetVal);
+            /*HRESULT GetMethod([Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);*/
+            ISymUnmanagedMethod pRetVal;
+            HRESULT hr = Raw.GetMethod(out pRetVal);
+
+            if (hr == HRESULT.S_OK)
+                pRetValResult = new SymUnmanagedMethod(pRetVal);
+            else
+                pRetValResult = default(SymUnmanagedMethod);
+
+            return hr;
         }
 
         #endregion
@@ -49,26 +57,34 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the parent scope of this scope.
         /// </summary>
-        public ISymUnmanagedScope Parent
+        public SymUnmanagedScope Parent
         {
             get
             {
-                ISymUnmanagedScope pRetVal = default(ISymUnmanagedScope);
-                TryGetParent(ref pRetVal).ThrowOnNotOK();
+                SymUnmanagedScope pRetValResult;
+                TryGetParent(out pRetValResult).ThrowOnNotOK();
 
-                return pRetVal;
+                return pRetValResult;
             }
         }
 
         /// <summary>
         /// Gets the parent scope of this scope.
         /// </summary>
-        /// <param name="pRetVal">[out] A pointer to the returned <see cref="ISymUnmanagedScope"/> interface.</param>
+        /// <param name="pRetValResult">[out] A pointer to the returned <see cref="ISymUnmanagedScope"/> interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetParent(ref ISymUnmanagedScope pRetVal)
+        public HRESULT TryGetParent(out SymUnmanagedScope pRetValResult)
         {
-            /*HRESULT GetParent([Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedScope pRetVal);*/
-            return Raw.GetParent(pRetVal);
+            /*HRESULT GetParent([Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedScope pRetVal);*/
+            ISymUnmanagedScope pRetVal;
+            HRESULT hr = Raw.GetParent(out pRetVal);
+
+            if (hr == HRESULT.S_OK)
+                pRetValResult = new SymUnmanagedScope(pRetVal);
+            else
+                pRetValResult = default(SymUnmanagedScope);
+
+            return hr;
         }
 
         #endregion

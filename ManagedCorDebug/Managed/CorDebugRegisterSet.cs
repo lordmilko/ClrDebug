@@ -26,11 +26,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets a bit mask indicating which registers in this <see cref="ICorDebugRegisterSet"/> are currently available.
         /// </summary>
-        public long RegistersAvailable
+        public CorDebugRegister RegistersAvailable
         {
             get
             {
-                long pAvailable;
+                CorDebugRegister pAvailable;
                 TryGetRegistersAvailable(out pAvailable).ThrowOnNotOK();
 
                 return pAvailable;
@@ -46,9 +46,9 @@ namespace ManagedCorDebug
         /// a bit for each register (1 &lt; &lt; the register index). The bit value is 1 if the register is available, or 0
         /// if it is not available.
         /// </remarks>
-        public HRESULT TryGetRegistersAvailable(out long pAvailable)
+        public HRESULT TryGetRegistersAvailable(out CorDebugRegister pAvailable)
         {
-            /*HRESULT GetRegistersAvailable([Out] out long pAvailable);*/
+            /*HRESULT GetRegistersAvailable([Out] out CorDebugRegister pAvailable);*/
             return Raw.GetRegistersAvailable(out pAvailable);
         }
 
@@ -68,7 +68,7 @@ namespace ManagedCorDebug
         /// the set. If the regCount value is too large, the unused regBuffer elements will be unmodified. If the bit mask
         /// specifies a register that is unavailable, GetRegisters returns an indeterminate value for that register.
         /// </remarks>
-        public CORDB_REGISTER[] GetRegisters(long mask, int regCount)
+        public CORDB_REGISTER[] GetRegisters(CorDebugRegister mask, int regCount)
         {
             CORDB_REGISTER[] regBufferResult;
             TryGetRegisters(mask, regCount, out regBufferResult).ThrowOnNotOK();
@@ -89,9 +89,9 @@ namespace ManagedCorDebug
         /// the set. If the regCount value is too large, the unused regBuffer elements will be unmodified. If the bit mask
         /// specifies a register that is unavailable, GetRegisters returns an indeterminate value for that register.
         /// </remarks>
-        public HRESULT TryGetRegisters(long mask, int regCount, out CORDB_REGISTER[] regBufferResult)
+        public HRESULT TryGetRegisters(CorDebugRegister mask, int regCount, out CORDB_REGISTER[] regBufferResult)
         {
-            /*HRESULT GetRegisters([In] long mask, [In] int regCount, [MarshalAs(UnmanagedType.LPArray), Out]
+            /*HRESULT GetRegisters([In] CorDebugRegister mask, [In] int regCount, [MarshalAs(UnmanagedType.LPArray), Out]
             CORDB_REGISTER[] regBuffer);*/
             CORDB_REGISTER[] regBuffer = null;
             HRESULT hr = Raw.GetRegisters(mask, regCount, regBuffer);
@@ -110,7 +110,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// SetRegisters is not implemented in the .NET Framework version 2.0. Do not call this method.
         /// </summary>
-        public void SetRegisters(long mask, int regCount, IntPtr regBuffer)
+        public void SetRegisters(CorDebugRegister mask, int regCount, IntPtr regBuffer)
         {
             TrySetRegisters(mask, regCount, regBuffer).ThrowOnNotOK();
         }
@@ -118,9 +118,9 @@ namespace ManagedCorDebug
         /// <summary>
         /// SetRegisters is not implemented in the .NET Framework version 2.0. Do not call this method.
         /// </summary>
-        public HRESULT TrySetRegisters(long mask, int regCount, IntPtr regBuffer)
+        public HRESULT TrySetRegisters(CorDebugRegister mask, int regCount, IntPtr regBuffer)
         {
-            /*HRESULT SetRegisters([In] long mask, [In] int regCount, [In] IntPtr regBuffer);*/
+            /*HRESULT SetRegisters([In] CorDebugRegister mask, [In] int regCount, [In] IntPtr regBuffer);*/
             return Raw.SetRegisters(mask, regCount, regBuffer);
         }
 

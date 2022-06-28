@@ -17,7 +17,7 @@ namespace ManagedCorDebug
         #endregion
         #region ICorDebugUnmanagedCallback Methods
 
-        HRESULT ICorDebugUnmanagedCallback.DebugEvent(IntPtr pDebugEvent, bool fOutOfBand) => HandleEvent(OnDebugEvent, new DebugEventCorDebugUnmanagedCallbackEventArgs(pDebugEvent, fOutOfBand));
+        HRESULT ICorDebugUnmanagedCallback.DebugEvent(ref DEBUG_EVENT pDebugEvent, bool fOutOfBand) => HandleEvent(OnDebugEvent, new DebugEventCorDebugUnmanagedCallbackEventArgs(pDebugEvent, fOutOfBand));
 
         #endregion
         

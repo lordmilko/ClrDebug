@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using Microsoft.Win32.SafeHandles;
+using static ManagedCorDebug.Extensions;
 
 namespace ManagedCorDebug
 {
@@ -9,7 +9,7 @@ namespace ManagedCorDebug
         /// <summary>
         /// Initializes a new instance of the <see cref="CorDebug"/> class for the common language runtime version that is running in the current process, and automatically
         /// calls the <see cref="Initialize"/> method.<para/>
-        /// This constructor simplifies the typical pattern of calling CLRCreateInstance, retrieving a target runtime, followed by retrieving an ICorDebug interface.<para/>
+        /// This constructor simplifies the typical pattern of calling CLRCreateInstance, retrieving a target runtime, followed by retrieving and initializing an ICorDebug interface.<para/>
         /// For greater control over the initialization of the <see cref="CorDebug"/> class,
         /// please see the <see cref="CorDebug(ICorDebug)"/> constructor.
         /// </summary>
@@ -20,10 +20,10 @@ namespace ManagedCorDebug
 
         private static ICorDebug Init()
         {
-            var metaHost = NativeMethods.CLRCreateInstance().CLRMetaHost;
+            var metaHost = CLRCreateInstance().CLRMetaHost;
             var runtime = metaHost.GetRuntime();
 
-            return runtime.GetInterface<ICorDebug>(NativeMethods.CLSID_CLRDebuggingLegacy);
+            return runtime.GetInterface<ICorDebug>(CLSID_CLRDebuggingLegacy);
         }
     }
 
@@ -73,10 +73,7 @@ namespace ManagedCorDebug
             {
                 si = new STARTUPINFO
                 {
-                    cb = Marshal.SizeOf<STARTUPINFO>(),
-                    hStdInput = new SafeFileHandle(new IntPtr(0), false),
-                    hStdOutput = new SafeFileHandle(new IntPtr(0), false),
-                    hStdError = new SafeFileHandle(new IntPtr(0), false)
+                    cb = Marshal.SizeOf<STARTUPINFO>()
                 };
             }
             else

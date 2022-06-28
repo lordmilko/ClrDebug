@@ -128,7 +128,7 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetThreadContext(
             [In] int threadID,
-            [In] int contextFlags,
+            [In] ContextFlags contextFlags,
             [In] int contextSize,
             [Out] IntPtr context);
 

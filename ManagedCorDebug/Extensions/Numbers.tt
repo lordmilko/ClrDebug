@@ -53,6 +53,15 @@ if (baseType != "int")
 		public static implicit operator <#= type #>(int value) => new <#= type #>(value);
 <#
 }
+if (type == "CORDB_ADDRESS")
+{
+#>
+
+		public static implicit operator <#= type #>(IntPtr value) => new <#= type #>(value.ToInt64());
+
+		public static implicit operator IntPtr(CORDB_ADDRESS value) => new IntPtr(value);
+<#
+}
 #>
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<<#= type #>>(Value, value);

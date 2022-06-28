@@ -286,7 +286,7 @@ namespace ManagedCorDebug
         /// <remarks>
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
-        public void GetThreadContext(int threadID, int contextFlags, int contextSize, IntPtr context)
+        public void GetThreadContext(int threadID, ContextFlags contextFlags, int contextSize, IntPtr context)
         {
             TryGetThreadContext(threadID, contextFlags, contextSize, context).ThrowOnNotOK();
         }
@@ -303,9 +303,9 @@ namespace ManagedCorDebug
         /// <remarks>
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
-        public HRESULT TryGetThreadContext(int threadID, int contextFlags, int contextSize, IntPtr context)
+        public HRESULT TryGetThreadContext(int threadID, ContextFlags contextFlags, int contextSize, IntPtr context)
         {
-            /*HRESULT GetThreadContext([In] int threadID, [In] int contextFlags, [In] int contextSize, [Out] IntPtr context);*/
+            /*HRESULT GetThreadContext([In] int threadID, [In] ContextFlags contextFlags, [In] int contextSize, [Out] IntPtr context);*/
             return Raw.GetThreadContext(threadID, contextFlags, contextSize, context);
         }
 

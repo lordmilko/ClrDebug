@@ -11,32 +11,36 @@ namespace ManagedCorDebug.CoClass
     [ComImport]
     public class CorSymReader_deprecatedClass : ISymUnmanagedReader, CorSymReader_deprecated
     {
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetDocument(
             [In, MarshalAs(UnmanagedType.LPWStr)] string url,
             [In] ref Guid language,
             [In] ref Guid languageVendor,
             [In] ref Guid documentType,
-            [Out] out ISymUnmanagedDocument pRetVal);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedDocument pRetVal);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetDocuments([In] int cDocs, [Out] out int pcDocs,
             [MarshalAs(UnmanagedType.LPArray), Out] ISymUnmanagedDocument[] pDocs);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetUserEntryPoint([Out] out mdMethodDef pToken);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        [return: MarshalAs(UnmanagedType.Interface)]
-        public virtual extern HRESULT GetMethod([In] mdMethodDef token, [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);
+        public virtual extern HRESULT GetMethod([In] mdMethodDef token, [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        [return: MarshalAs(UnmanagedType.Interface)]
         public virtual extern HRESULT GetMethodByVersion(
             [In] mdMethodDef token,
             [In] int version,
-            [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetVariables(
             [In] int parent,
@@ -44,21 +48,23 @@ namespace ManagedCorDebug.CoClass
             [Out] out int pcVars,
             [MarshalAs(UnmanagedType.LPArray), Out] ISymUnmanagedVariable[] pVars);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetGlobalVariables(
             [In] int cVars,
             [Out] out int pcVars,
             [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] pVars);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        [return: MarshalAs(UnmanagedType.Interface)]
         public virtual extern HRESULT GetMethodFromDocumentPosition(
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocument document,
             [In] int line,
             [In] int column,
-            [Out, MarshalAs(UnmanagedType.Interface)] ISymUnmanagedMethod pRetVal);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetSymAttribute(
             [In] int parent,
@@ -67,12 +73,14 @@ namespace ManagedCorDebug.CoClass
             [Out] out int pcBuffer,
             [Out] IntPtr buffer);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetNamespaces(
             [In] int cNameSpaces,
             [Out] out int pcNameSpaces,
             [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedNamespace[] namespaces);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT Initialize(
             [MarshalAs(UnmanagedType.IUnknown), In]
@@ -82,20 +90,24 @@ namespace ManagedCorDebug.CoClass
             [MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT UpdateSymbolStore([In, MarshalAs(UnmanagedType.LPWStr)] string filename, [MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT ReplaceSymbolStore([In, MarshalAs(UnmanagedType.LPWStr)] string filename, [MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetSymbolStoreFileName(
             [In] int cchName,
             [Out] out int pcchName,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetMethodsFromDocumentPosition(
             [MarshalAs(UnmanagedType.Interface), In]
@@ -106,6 +118,7 @@ namespace ManagedCorDebug.CoClass
             [Out] out int pcMethod,
             [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedMethod[] pRetVal);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetDocumentVersion(
             [MarshalAs(UnmanagedType.Interface), In]
@@ -113,6 +126,7 @@ namespace ManagedCorDebug.CoClass
             [Out] out int version,
             [Out] out bool pbCurrent);
 
+        [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetMethodVersion([MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedMethod pMethod, [Out] out int version);

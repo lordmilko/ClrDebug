@@ -251,11 +251,11 @@ namespace ManagedCorDebug
 
         #endregion
         
-        protected virtual HRESULT HandleEvent<T>(EventHandler<T> handler, T args)
+        protected virtual HRESULT HandleEvent<T>(EventHandler<T> handler, CorDebugManagedCallbackEventArgs args)
             where T : CorDebugManagedCallbackEventArgs
         {
             OnAnyEvent?.Invoke(this, args);
-            handler?.Invoke(this, args);
+            handler?.Invoke(this, (T) args);
 
             return HRESULT.S_OK;
         }

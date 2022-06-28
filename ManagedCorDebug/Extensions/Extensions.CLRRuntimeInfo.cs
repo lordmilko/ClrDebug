@@ -19,30 +19,30 @@ namespace ManagedCorDebug
             /// <summary>
             /// Extends the <see cref="IMetaDataDispenser"/> interface to provide the capability to control how the metadata APIs operate on the current metadata scope.
             /// </summary>
-            public MetaDataDispenserEx MetaDataDispenserEx => new MetaDataDispenserEx(info.GetInterface<IMetaDataDispenserEx>(NativeMethods.CLSID_CorMetaDataDispenser));
+            public MetaDataDispenserEx MetaDataDispenserEx => new MetaDataDispenserEx(info.GetInterface<IMetaDataDispenserEx>(CLSID_CorMetaDataDispenser));
 
             /// <summary>
             /// Provides methods that enable the host to start and stop the common language runtime (CLR) explicitly, to create and configure application domains, to access the default domain, and to enumerate all domains running in the process.<para/>
             /// In the .NET Framework version 2.0, this interface is superseded by <see cref="ICLRRuntimeHost"/>.
             /// </summary>
-            public CorRuntimeHost CorRuntimeHost => new CorRuntimeHost(info.GetInterface<ICorRuntimeHost>(NativeMethods.CLSID_CorRuntimeHost));
+            public CorRuntimeHost CorRuntimeHost => new CorRuntimeHost(info.GetInterface<ICorRuntimeHost>(CLSID_CorRuntimeHost));
 
             /// <summary>
             /// Provides functionality similar to that of the <see cref="ICorRuntimeHost"/> interface provided in the .NET Framework version 1.
             /// </summary>
-            public CLRRuntimeHost CLRRuntimeHost => new CLRRuntimeHost(info.GetInterface<ICLRRuntimeHost>(NativeMethods.CLSID_CLRRuntimeHost));
+            public CLRRuntimeHost CLRRuntimeHost => new CLRRuntimeHost(info.GetInterface<ICLRRuntimeHost>(CLSID_CLRRuntimeHost));
 
             //TypeNameFactory
 
             /// <summary>
             /// Provides methods that allow developers to debug applications in the common language runtime (CLR) environment.
             /// </summary>
-            public CorDebug CorDebug => new CorDebug(info.GetInterface<ICorDebug>(NativeMethods.CLSID_CLRDebuggingLegacy));
+            public CorDebug CorDebug => new CorDebug(info.GetInterface<ICorDebug>(CLSID_CLRDebuggingLegacy));
 
             /// <summary>
             /// Provides basic global static functions for signing assemblies with strong names. All <see cref="ICLRStrongName"/> methods return standard COM HRESULTs.
             /// </summary>
-            public CLRStrongName CLRStrongName => new CLRStrongName(info.GetInterface<ICLRStrongName>(NativeMethods.CLSID_CLRStrongName));
+            public CLRStrongName CLRStrongName => new CLRStrongName(info.GetInterface<ICLRStrongName>(CLSID_CLRStrongName));
         }
 
         /// <summary>

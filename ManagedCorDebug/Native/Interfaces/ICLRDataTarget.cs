@@ -121,7 +121,7 @@ namespace ManagedCorDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetThreadContext([In] int threadID, [In] int contextFlags, [In] int contextSize, [Out] IntPtr context);
+        HRESULT GetThreadContext([In] int threadID, [In] ContextFlags contextFlags, [In] int contextSize, [Out] IntPtr context);
 
         /// <summary>
         /// Sets the current context of the specified thread in the target process. This method is called by the common language runtime (CLR) data access services.
