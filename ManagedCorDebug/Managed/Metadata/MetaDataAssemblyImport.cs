@@ -361,31 +361,31 @@ namespace ManagedCorDebug
         /// <returns>[out] The enumeration of <see cref="mdAssemblyRef"/> metadata tokens.</returns>
         public mdAssemblyRef[] EnumAssemblyRefs(IntPtr phEnum)
         {
-            mdAssemblyRef[] rAssemblyRefsResult;
-            TryEnumAssemblyRefs(phEnum, out rAssemblyRefsResult).ThrowOnNotOK();
+            mdAssemblyRef[] rAssemblyRefs;
+            TryEnumAssemblyRefs(phEnum, out rAssemblyRefs).ThrowOnNotOK();
 
-            return rAssemblyRefsResult;
+            return rAssemblyRefs;
         }
 
         /// <summary>
         /// Enumerates the <see cref="mdAssemblyRef"/> instances that are defined in the assembly manifest.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be a null value when the EnumAssemblyRefs method is called for the first time.</param>
-        /// <param name="rAssemblyRefsResult">[out] The enumeration of <see cref="mdAssemblyRef"/> metadata tokens.</param>
+        /// <param name="rAssemblyRefs">[out] The enumeration of <see cref="mdAssemblyRef"/> metadata tokens.</param>
         /// <returns>
         /// | HRESULT | Description                                                              |
         /// | ------- | ------------------------------------------------------------------------ |
         /// | S_OK    | EnumAssemblyRefs returned successfully.                                  |
         /// | S_FALSE | There are no tokens to enumerate. In this case, pcTokens is set to zero. |
         /// </returns>
-        public HRESULT TryEnumAssemblyRefs(IntPtr phEnum, out mdAssemblyRef[] rAssemblyRefsResult)
+        public HRESULT TryEnumAssemblyRefs(IntPtr phEnum, out mdAssemblyRef[] rAssemblyRefs)
         {
             /*HRESULT EnumAssemblyRefs(
             [In] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdAssemblyRef[] rAssemblyRefs,
             [In] int cMax,
             [Out] out int pcTokens);*/
-            mdAssemblyRef[] rAssemblyRefs = null;
+            rAssemblyRefs = null;
             int cMax = 0;
             int pcTokens;
             HRESULT hr = Raw.EnumAssemblyRefs(ref phEnum, rAssemblyRefs, cMax, out pcTokens);
@@ -396,17 +396,7 @@ namespace ManagedCorDebug
             cMax = pcTokens;
             rAssemblyRefs = new mdAssemblyRef[pcTokens];
             hr = Raw.EnumAssemblyRefs(ref phEnum, rAssemblyRefs, cMax, out pcTokens);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rAssemblyRefsResult = rAssemblyRefs;
-
-                return hr;
-            }
-
             fail:
-            rAssemblyRefsResult = default(mdAssemblyRef[]);
-
             return hr;
         }
 
@@ -420,31 +410,31 @@ namespace ManagedCorDebug
         /// <returns>[out] The array used to store the <see cref="mdFile"/> metadata tokens.</returns>
         public mdFile[] EnumFiles(IntPtr phEnum)
         {
-            mdFile[] rFilesResult;
-            TryEnumFiles(phEnum, out rFilesResult).ThrowOnNotOK();
+            mdFile[] rFiles;
+            TryEnumFiles(phEnum, out rFiles).ThrowOnNotOK();
 
-            return rFilesResult;
+            return rFiles;
         }
 
         /// <summary>
         /// Enumerates the files referenced in the current assembly manifest.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be a null value for the first call of this method.</param>
-        /// <param name="rFilesResult">[out] The array used to store the <see cref="mdFile"/> metadata tokens.</param>
+        /// <param name="rFiles">[out] The array used to store the <see cref="mdFile"/> metadata tokens.</param>
         /// <returns>
         /// | HRESULT | Description                                                              |
         /// | ------- | ------------------------------------------------------------------------ |
         /// | S_OK    | EnumFiles returned successfully.                                         |
         /// | S_FALSE | There are no tokens to enumerate. In this case, pcTokens is set to zero. |
         /// </returns>
-        public HRESULT TryEnumFiles(IntPtr phEnum, out mdFile[] rFilesResult)
+        public HRESULT TryEnumFiles(IntPtr phEnum, out mdFile[] rFiles)
         {
             /*HRESULT EnumFiles(
             [In] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdFile[] rFiles,
             [In] int cMax,
             [Out] out int pcTokens);*/
-            mdFile[] rFiles = null;
+            rFiles = null;
             int cMax = 0;
             int pcTokens;
             HRESULT hr = Raw.EnumFiles(ref phEnum, rFiles, cMax, out pcTokens);
@@ -455,17 +445,7 @@ namespace ManagedCorDebug
             cMax = pcTokens;
             rFiles = new mdFile[pcTokens];
             hr = Raw.EnumFiles(ref phEnum, rFiles, cMax, out pcTokens);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rFilesResult = rFiles;
-
-                return hr;
-            }
-
             fail:
-            rFilesResult = default(mdFile[]);
-
             return hr;
         }
 
@@ -479,31 +459,31 @@ namespace ManagedCorDebug
         /// <returns>[out] The enumeration of <see cref="mdExportedType"/> metadata tokens.</returns>
         public mdExportedType[] EnumExportedTypes(IntPtr phEnum)
         {
-            mdExportedType[] rExportedTypesResult;
-            TryEnumExportedTypes(phEnum, out rExportedTypesResult).ThrowOnNotOK();
+            mdExportedType[] rExportedTypes;
+            TryEnumExportedTypes(phEnum, out rExportedTypes).ThrowOnNotOK();
 
-            return rExportedTypesResult;
+            return rExportedTypes;
         }
 
         /// <summary>
         /// Enumerates the exported types referenced in the assembly manifest in the current metadata scope.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be a null value when the EnumExportedTypes method is called for the first time.</param>
-        /// <param name="rExportedTypesResult">[out] The enumeration of <see cref="mdExportedType"/> metadata tokens.</param>
+        /// <param name="rExportedTypes">[out] The enumeration of <see cref="mdExportedType"/> metadata tokens.</param>
         /// <returns>
         /// | HRESULT | Description                                                              |
         /// | ------- | ------------------------------------------------------------------------ |
         /// | S_OK    | EnumExportedTypes returned successfully.                                 |
         /// | S_FALSE | There are no tokens to enumerate. In this case, pcTokens is set to zero. |
         /// </returns>
-        public HRESULT TryEnumExportedTypes(IntPtr phEnum, out mdExportedType[] rExportedTypesResult)
+        public HRESULT TryEnumExportedTypes(IntPtr phEnum, out mdExportedType[] rExportedTypes)
         {
             /*HRESULT EnumExportedTypes(
             [In] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdExportedType[] rExportedTypes,
             [In] int cMax,
             [Out] out int pcTokens);*/
-            mdExportedType[] rExportedTypes = null;
+            rExportedTypes = null;
             int cMax = 0;
             int pcTokens;
             HRESULT hr = Raw.EnumExportedTypes(ref phEnum, rExportedTypes, cMax, out pcTokens);
@@ -514,17 +494,7 @@ namespace ManagedCorDebug
             cMax = pcTokens;
             rExportedTypes = new mdExportedType[pcTokens];
             hr = Raw.EnumExportedTypes(ref phEnum, rExportedTypes, cMax, out pcTokens);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rExportedTypesResult = rExportedTypes;
-
-                return hr;
-            }
-
             fail:
-            rExportedTypesResult = default(mdExportedType[]);
-
             return hr;
         }
 
@@ -538,31 +508,31 @@ namespace ManagedCorDebug
         /// <returns>[out] The array used to store the <see cref="mdManifestResource"/> metadata tokens.</returns>
         public mdManifestResource[] EnumManifestResources(IntPtr phEnum)
         {
-            mdManifestResource[] rManifestResourcesResult;
-            TryEnumManifestResources(phEnum, out rManifestResourcesResult).ThrowOnNotOK();
+            mdManifestResource[] rManifestResources;
+            TryEnumManifestResources(phEnum, out rManifestResources).ThrowOnNotOK();
 
-            return rManifestResourcesResult;
+            return rManifestResources;
         }
 
         /// <summary>
         /// Gets a pointer to an enumerator for the resources referenced in the current assembly manifest.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be a null value when the EnumManifestResources method is called for the first time.</param>
-        /// <param name="rManifestResourcesResult">[out] The array used to store the <see cref="mdManifestResource"/> metadata tokens.</param>
+        /// <param name="rManifestResources">[out] The array used to store the <see cref="mdManifestResource"/> metadata tokens.</param>
         /// <returns>
         /// | HRESULT | Description                                                              |
         /// | ------- | ------------------------------------------------------------------------ |
         /// | S_OK    | EnumManifestResources returned successfully.                             |
         /// | S_FALSE | There are no tokens to enumerate. In this case, pcTokens is set to zero. |
         /// </returns>
-        public HRESULT TryEnumManifestResources(IntPtr phEnum, out mdManifestResource[] rManifestResourcesResult)
+        public HRESULT TryEnumManifestResources(IntPtr phEnum, out mdManifestResource[] rManifestResources)
         {
             /*HRESULT EnumManifestResources(
             [In] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray)] mdManifestResource[] rManifestResources,
             [In] int cMax,
             [Out] out int pcTokens);*/
-            mdManifestResource[] rManifestResources = null;
+            rManifestResources = null;
             int cMax = 0;
             int pcTokens;
             HRESULT hr = Raw.EnumManifestResources(ref phEnum, rManifestResources, cMax, out pcTokens);
@@ -573,17 +543,7 @@ namespace ManagedCorDebug
             cMax = pcTokens;
             rManifestResources = new mdManifestResource[pcTokens];
             hr = Raw.EnumManifestResources(ref phEnum, rManifestResources, cMax, out pcTokens);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rManifestResourcesResult = rManifestResources;
-
-                return hr;
-            }
-
             fail:
-            rManifestResourcesResult = default(mdManifestResource[]);
-
             return hr;
         }
 
@@ -639,37 +599,29 @@ namespace ManagedCorDebug
         /// The FindManifestResourceByName method uses the standard rules employed by the common language runtime for resolving
         /// references.
         /// </remarks>
-        public mdManifestResource[] FindManifestResourceByName(string szName)
+        public mdManifestResource FindManifestResourceByName(string szName)
         {
-            mdManifestResource[] ptkManifestResourceResult;
-            TryFindManifestResourceByName(szName, out ptkManifestResourceResult).ThrowOnNotOK();
+            mdManifestResource ptkManifestResource;
+            TryFindManifestResourceByName(szName, out ptkManifestResource).ThrowOnNotOK();
 
-            return ptkManifestResourceResult;
+            return ptkManifestResource;
         }
 
         /// <summary>
         /// Gets a pointer to the manifest resource with the specified name.
         /// </summary>
         /// <param name="szName">[in] The name of the resource.</param>
-        /// <param name="ptkManifestResourceResult">[out] The array used to store the <see cref="mdManifestResource"/> metadata tokens, each of which represents a manifest resource.</param>
+        /// <param name="ptkManifestResource">[out] The array used to store the <see cref="mdManifestResource"/> metadata tokens, each of which represents a manifest resource.</param>
         /// <remarks>
         /// The FindManifestResourceByName method uses the standard rules employed by the common language runtime for resolving
         /// references.
         /// </remarks>
-        public HRESULT TryFindManifestResourceByName(string szName, out mdManifestResource[] ptkManifestResourceResult)
+        public HRESULT TryFindManifestResourceByName(string szName, out mdManifestResource ptkManifestResource)
         {
             /*HRESULT FindManifestResourceByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
-            [Out, MarshalAs(UnmanagedType.LPArray)] mdManifestResource[] ptkManifestResource);*/
-            mdManifestResource[] ptkManifestResource = null;
-            HRESULT hr = Raw.FindManifestResourceByName(szName, ptkManifestResource);
-
-            if (hr == HRESULT.S_OK)
-                ptkManifestResourceResult = ptkManifestResource;
-            else
-                ptkManifestResourceResult = default(mdManifestResource[]);
-
-            return hr;
+            [Out] out mdManifestResource ptkManifestResource);*/
+            return Raw.FindManifestResourceByName(szName, out ptkManifestResource);
         }
 
         #endregion
@@ -719,10 +671,10 @@ namespace ManagedCorDebug
         /// </remarks>
         public object[] FindAssembliesByName(string szAppBase, string szPrivateBin, string szAssemblyName)
         {
-            object[] ppIUnkResult;
-            TryFindAssembliesByName(szAppBase, szPrivateBin, szAssemblyName, out ppIUnkResult).ThrowOnNotOK();
+            object[] ppIUnk;
+            TryFindAssembliesByName(szAppBase, szPrivateBin, szAssemblyName, out ppIUnk).ThrowOnNotOK();
 
-            return ppIUnkResult;
+            return ppIUnk;
         }
 
         /// <summary>
@@ -732,7 +684,7 @@ namespace ManagedCorDebug
         /// <param name="szPrivateBin">[in] A list of semicolon-delimited subdirectories (for example, "bin;bin2"), under the root directory, in which to search for the assembly.<para/>
         /// These directories are probed in addition to those specified in the default probing rules.</param>
         /// <param name="szAssemblyName">[in] The name of the assembly to find. The format of this string is defined in the class reference page for <see cref="AssemblyName"/>.</param>
-        /// <param name="ppIUnkResult">[out] An array that holds the <see cref="IMetaDataAssemblyImport"/> interface pointers.</param>
+        /// <param name="ppIUnk">[out] An array that holds the <see cref="IMetaDataAssemblyImport"/> interface pointers.</param>
         /// <returns>
         /// | HRESULT | Description                                 |
         /// | ------- | ------------------------------------------- |
@@ -750,7 +702,7 @@ namespace ManagedCorDebug
         /// name is not fully specified (for example, if it does not include a version), multiple assemblies might be returned.
         /// FindAssembliesByName is commonly used by a compiler that attempts to find a referenced assembly at compile time.
         /// </remarks>
-        public HRESULT TryFindAssembliesByName(string szAppBase, string szPrivateBin, string szAssemblyName, out object[] ppIUnkResult)
+        public HRESULT TryFindAssembliesByName(string szAppBase, string szPrivateBin, string szAssemblyName, out object[] ppIUnk)
         {
             /*HRESULT FindAssembliesByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAppBase,
@@ -759,7 +711,7 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] object[] ppIUnk,
             [In] int cMax,
             [Out] out int pcAssemblies);*/
-            object[] ppIUnk = null;
+            ppIUnk = null;
             int cMax = 0;
             int pcAssemblies;
             HRESULT hr = Raw.FindAssembliesByName(szAppBase, szPrivateBin, szAssemblyName, ppIUnk, cMax, out pcAssemblies);
@@ -770,17 +722,7 @@ namespace ManagedCorDebug
             cMax = pcAssemblies;
             ppIUnk = new object[pcAssemblies];
             hr = Raw.FindAssembliesByName(szAppBase, szPrivateBin, szAssemblyName, ppIUnk, cMax, out pcAssemblies);
-
-            if (hr == HRESULT.S_OK)
-            {
-                ppIUnkResult = ppIUnk;
-
-                return hr;
-            }
-
             fail:
-            ppIUnkResult = default(object[]);
-
             return hr;
         }
 

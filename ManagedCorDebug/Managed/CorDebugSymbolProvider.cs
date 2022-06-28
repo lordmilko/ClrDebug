@@ -401,22 +401,22 @@ namespace ManagedCorDebug
         /// </remarks>
         public byte[] GetTypeProps(int vtableRva)
         {
-            byte[] signatureResult;
-            TryGetTypeProps(vtableRva, out signatureResult).ThrowOnNotOK();
+            byte[] signature;
+            TryGetTypeProps(vtableRva, out signature).ThrowOnNotOK();
 
-            return signatureResult;
+            return signature;
         }
 
         /// <summary>
         /// Returns information about a type's properties, such as the number of signature of its generic parameters, given a relative virtual address (RVA) in a vtable.
         /// </summary>
         /// <param name="vtableRva">[in] A relative virtual address (RVA) in a vtable.</param>
-        /// <param name="signatureResult">[out] A buffer that holds the typespec signatures of all generic parameters.</param>
+        /// <param name="signature">[out] A buffer that holds the typespec signatures of all generic parameters.</param>
         /// <remarks>
         /// To get the required size of the type's signature array, set the cbSignature argument to 0 and signature to null.
         /// When the method returns, pcbSignature will contain the number of bytes required for the signature array.
         /// </remarks>
-        public HRESULT TryGetTypeProps(int vtableRva, out byte[] signatureResult)
+        public HRESULT TryGetTypeProps(int vtableRva, out byte[] signature)
         {
             /*HRESULT GetTypeProps(
             [In] int vtableRva,
@@ -425,7 +425,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] signature);*/
             int cbSignature = 0;
             int pcbSignature;
-            byte[] signature = null;
+            signature = null;
             HRESULT hr = Raw.GetTypeProps(vtableRva, cbSignature, out pcbSignature, signature);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
@@ -434,17 +434,7 @@ namespace ManagedCorDebug
             cbSignature = pcbSignature;
             signature = new byte[pcbSignature];
             hr = Raw.GetTypeProps(vtableRva, cbSignature, out pcbSignature, signature);
-
-            if (hr == HRESULT.S_OK)
-            {
-                signatureResult = signature;
-
-                return hr;
-            }
-
             fail:
-            signatureResult = default(byte[]);
-
             return hr;
         }
 

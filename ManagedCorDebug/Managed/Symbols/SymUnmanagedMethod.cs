@@ -278,10 +278,10 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to the buffer that receives the ranges.</returns>
         public int[] GetRanges(ISymUnmanagedDocument document, int line, int column)
         {
-            int[] rangesResult;
-            TryGetRanges(document, line, column, out rangesResult).ThrowOnNotOK();
+            int[] ranges;
+            TryGetRanges(document, line, column, out ranges).ThrowOnNotOK();
 
-            return rangesResult;
+            return ranges;
         }
 
         /// <summary>
@@ -291,9 +291,9 @@ namespace ManagedCorDebug
         /// <param name="document">[in] The document for which the offset is requested.</param>
         /// <param name="line">[in] The document line corresponding to the ranges.</param>
         /// <param name="column">[in] The document column corresponding to the ranges.</param>
-        /// <param name="rangesResult">[out] A pointer to the buffer that receives the ranges.</param>
+        /// <param name="ranges">[out] A pointer to the buffer that receives the ranges.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetRanges(ISymUnmanagedDocument document, int line, int column, out int[] rangesResult)
+        public HRESULT TryGetRanges(ISymUnmanagedDocument document, int line, int column, out int[] ranges)
         {
             /*HRESULT GetRanges(
             [MarshalAs(UnmanagedType.Interface), In]
@@ -305,7 +305,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPArray), Out] int[] ranges);*/
             int cRanges = 0;
             int pcRanges;
-            int[] ranges = null;
+            ranges = null;
             HRESULT hr = Raw.GetRanges(document, line, column, cRanges, out pcRanges, ranges);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
@@ -314,17 +314,7 @@ namespace ManagedCorDebug
             cRanges = pcRanges;
             ranges = new int[pcRanges];
             hr = Raw.GetRanges(document, line, column, cRanges, out pcRanges, ranges);
-
-            if (hr == HRESULT.S_OK)
-            {
-                rangesResult = ranges;
-
-                return hr;
-            }
-
             fail:
-            rangesResult = default(int[]);
-
             return hr;
         }
 

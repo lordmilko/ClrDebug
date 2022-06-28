@@ -661,10 +661,10 @@ namespace ManagedCorDebug
         /// <returns>[out] A pointer to a buffer that is large enough to hold the debug data for the symbol store.</returns>
         public byte[] GetDebugInfo(ref IntPtr pIDD)
         {
-            byte[] dataResult;
-            TryGetDebugInfo(ref pIDD, out dataResult).ThrowOnNotOK();
+            byte[] data;
+            TryGetDebugInfo(ref pIDD, out data).ThrowOnNotOK();
 
-            return dataResult;
+            return data;
         }
 
         /// <summary>
@@ -673,9 +673,9 @@ namespace ManagedCorDebug
         /// The compiler should also set the TimeDateStamp field to equal the TimeDateStamp of the PE file being generated.
         /// </summary>
         /// <param name="pIDD">[in, out] A pointer to an IMAGE_DEBUG_DIRECTORY that the symbol writer will fill out.</param>
-        /// <param name="dataResult">[out] A pointer to a buffer that is large enough to hold the debug data for the symbol store.</param>
+        /// <param name="data">[out] A pointer to a buffer that is large enough to hold the debug data for the symbol store.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetDebugInfo(ref IntPtr pIDD, out byte[] dataResult)
+        public HRESULT TryGetDebugInfo(ref IntPtr pIDD, out byte[] data)
         {
             /*HRESULT GetDebugInfo(
             [In, Out] ref IntPtr pIDD,
@@ -684,7 +684,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
             int cData = 0;
             int pcData;
-            byte[] data = null;
+            data = null;
             HRESULT hr = Raw.GetDebugInfo(ref pIDD, cData, out pcData, data);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
@@ -693,17 +693,7 @@ namespace ManagedCorDebug
             cData = pcData;
             data = new byte[pcData];
             hr = Raw.GetDebugInfo(ref pIDD, cData, out pcData, data);
-
-            if (hr == HRESULT.S_OK)
-            {
-                dataResult = data;
-
-                return hr;
-            }
-
             fail:
-            dataResult = default(byte[]);
-
             return hr;
         }
 
@@ -1073,10 +1063,10 @@ namespace ManagedCorDebug
         /// </summary>
         public byte[] GetDebugInfoWithPadding(ref IntPtr pIDD)
         {
-            byte[] dataResult;
-            TryGetDebugInfoWithPadding(ref pIDD, out dataResult).ThrowOnNotOK();
+            byte[] data;
+            TryGetDebugInfoWithPadding(ref pIDD, out data).ThrowOnNotOK();
 
-            return dataResult;
+            return data;
         }
 
         /// <summary>
@@ -1084,7 +1074,7 @@ namespace ManagedCorDebug
         /// Padding is only given if the path string length itself is less than MAX_PATH. This makes it easier to write tools that difference PE files.
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
-        public HRESULT TryGetDebugInfoWithPadding(ref IntPtr pIDD, out byte[] dataResult)
+        public HRESULT TryGetDebugInfoWithPadding(ref IntPtr pIDD, out byte[] data)
         {
             /*HRESULT GetDebugInfoWithPadding(
             [In, Out] ref IntPtr pIDD,
@@ -1093,7 +1083,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
             int cData = 0;
             int pcData;
-            byte[] data = null;
+            data = null;
             HRESULT hr = Raw4.GetDebugInfoWithPadding(ref pIDD, cData, out pcData, data);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
@@ -1102,17 +1092,7 @@ namespace ManagedCorDebug
             cData = pcData;
             data = new byte[pcData];
             hr = Raw4.GetDebugInfoWithPadding(ref pIDD, cData, out pcData, data);
-
-            if (hr == HRESULT.S_OK)
-            {
-                dataResult = data;
-
-                return hr;
-            }
-
             fail:
-            dataResult = default(byte[]);
-
             return hr;
         }
 

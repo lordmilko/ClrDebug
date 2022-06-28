@@ -180,29 +180,29 @@ namespace ManagedCorDebug
         {
             get
             {
-                COR_DEBUG_IL_TO_NATIVE_MAP[] mapResult;
-                TryGetILToNativeMapping(out mapResult).ThrowOnNotOK();
+                COR_DEBUG_IL_TO_NATIVE_MAP[] map;
+                TryGetILToNativeMapping(out map).ThrowOnNotOK();
 
-                return mapResult;
+                return map;
             }
         }
 
         /// <summary>
         /// Gets an array of "COR_DEBUG_IL_TO_NATIVE_MAP" instances that represent mappings from Microsoft intermediate language (MSIL) offsets to native offsets.
         /// </summary>
-        /// <param name="mapResult">[out] An array of <see cref="COR_DEBUG_IL_TO_NATIVE_MAP"/> structures, each of which represents a mapping from an MSIL offset to a native offset.<para/>
+        /// <param name="map">[out] An array of <see cref="COR_DEBUG_IL_TO_NATIVE_MAP"/> structures, each of which represents a mapping from an MSIL offset to a native offset.<para/>
         /// There is no ordering to the array of elements returned.</param>
         /// <remarks>
         /// The GetILToNativeMapping method returns meaningful results only if this "ICorDebugCode" instance represents native
         /// code that was just-in-time (JIT) compiled from MSIL code.
         /// </remarks>
-        public HRESULT TryGetILToNativeMapping(out COR_DEBUG_IL_TO_NATIVE_MAP[] mapResult)
+        public HRESULT TryGetILToNativeMapping(out COR_DEBUG_IL_TO_NATIVE_MAP[] map)
         {
             /*HRESULT GetILToNativeMapping([In] int cMap, [Out] out int pcMap, [MarshalAs(UnmanagedType.LPArray), Out]
             COR_DEBUG_IL_TO_NATIVE_MAP[] map);*/
             int cMap = 0;
             int pcMap;
-            COR_DEBUG_IL_TO_NATIVE_MAP[] map = null;
+            map = null;
             HRESULT hr = Raw.GetILToNativeMapping(cMap, out pcMap, map);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
@@ -211,17 +211,7 @@ namespace ManagedCorDebug
             cMap = pcMap;
             map = new COR_DEBUG_IL_TO_NATIVE_MAP[pcMap];
             hr = Raw.GetILToNativeMapping(cMap, out pcMap, map);
-
-            if (hr == HRESULT.S_OK)
-            {
-                mapResult = map;
-
-                return hr;
-            }
-
             fail:
-            mapResult = default(COR_DEBUG_IL_TO_NATIVE_MAP[]);
-
             return hr;
         }
 
@@ -235,17 +225,17 @@ namespace ManagedCorDebug
         {
             get
             {
-                int[] offsetsResult;
-                TryGetEnCRemapSequencePoints(out offsetsResult).ThrowOnNotOK();
+                int[] offsets;
+                TryGetEnCRemapSequencePoints(out offsets).ThrowOnNotOK();
 
-                return offsetsResult;
+                return offsets;
             }
         }
 
         /// <summary>
         /// This method is not implemented in the current version of the .NET Framework.
         /// </summary>
-        public HRESULT TryGetEnCRemapSequencePoints(out int[] offsetsResult)
+        public HRESULT TryGetEnCRemapSequencePoints(out int[] offsets)
         {
             /*HRESULT GetEnCRemapSequencePoints(
             [In] int cMap,
@@ -253,7 +243,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPArray), Out] int[] offsets);*/
             int cMap = 0;
             int pcMap;
-            int[] offsets = null;
+            offsets = null;
             HRESULT hr = Raw.GetEnCRemapSequencePoints(cMap, out pcMap, offsets);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
@@ -262,17 +252,7 @@ namespace ManagedCorDebug
             cMap = pcMap;
             offsets = new int[pcMap];
             hr = Raw.GetEnCRemapSequencePoints(cMap, out pcMap, offsets);
-
-            if (hr == HRESULT.S_OK)
-            {
-                offsetsResult = offsets;
-
-                return hr;
-            }
-
             fail:
-            offsetsResult = default(int[]);
-
             return hr;
         }
 
@@ -338,10 +318,10 @@ namespace ManagedCorDebug
         /// </remarks>
         public byte[] GetCode(int startOffset, int endOffset)
         {
-            byte[] bufferResult;
-            TryGetCode(startOffset, endOffset, out bufferResult).ThrowOnNotOK();
+            byte[] buffer;
+            TryGetCode(startOffset, endOffset, out buffer).ThrowOnNotOK();
 
-            return bufferResult;
+            return buffer;
         }
 
         /// <summary>
@@ -350,12 +330,12 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="startOffset">[in] The offset of the beginning of the function.</param>
         /// <param name="endOffset">[in] The offset of the end of the function.</param>
-        /// <param name="bufferResult">[out] The array into which the code will be returned.</param>
+        /// <param name="buffer">[out] The array into which the code will be returned.</param>
         /// <remarks>
         /// If the function's code has been divided into multiple chunks, they are concatenated in order of increasing native
         /// offset. Instruction boundaries are not checked.
         /// </remarks>
-        public HRESULT TryGetCode(int startOffset, int endOffset, out byte[] bufferResult)
+        public HRESULT TryGetCode(int startOffset, int endOffset, out byte[] buffer)
         {
             /*HRESULT GetCode(
             [In] int startOffset,
@@ -364,7 +344,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] buffer,
             [Out] out int pcBufferSize);*/
             int cBufferAlloc = 0;
-            byte[] buffer = null;
+            buffer = null;
             int pcBufferSize;
             HRESULT hr = Raw.GetCode(startOffset, endOffset, cBufferAlloc, buffer, out pcBufferSize);
 
@@ -374,17 +354,7 @@ namespace ManagedCorDebug
             cBufferAlloc = pcBufferSize;
             buffer = new byte[pcBufferSize];
             hr = Raw.GetCode(startOffset, endOffset, cBufferAlloc, buffer, out pcBufferSize);
-
-            if (hr == HRESULT.S_OK)
-            {
-                bufferResult = buffer;
-
-                return hr;
-            }
-
             fail:
-            bufferResult = default(byte[]);
-
             return hr;
         }
 
@@ -404,28 +374,28 @@ namespace ManagedCorDebug
         {
             get
             {
-                CodeChunkInfo[] chunksResult;
-                TryGetCodeChunks(out chunksResult).ThrowOnNotOK();
+                CodeChunkInfo[] chunks;
+                TryGetCodeChunks(out chunks).ThrowOnNotOK();
 
-                return chunksResult;
+                return chunks;
             }
         }
 
         /// <summary>
         /// Gets the chunks of code that this code object is composed of.
         /// </summary>
-        /// <param name="chunksResult">[out] An array of "CodeChunkInfo" structures, each of which represents a single chunk of code. If the value of cbufSize is 0, this parameter can be null.</param>
+        /// <param name="chunks">[out] An array of "CodeChunkInfo" structures, each of which represents a single chunk of code. If the value of cbufSize is 0, this parameter can be null.</param>
         /// <remarks>
         /// The code chunks will never overlap, and they will follow the order in which they would have been concatenated by
         /// <see cref="GetCode"/>. A Microsoft intermediate language (MSIL) code object in the .NET Framework
         /// version 2.0 will comprise a single code chunk.
         /// </remarks>
-        public HRESULT TryGetCodeChunks(out CodeChunkInfo[] chunksResult)
+        public HRESULT TryGetCodeChunks(out CodeChunkInfo[] chunks)
         {
             /*HRESULT GetCodeChunks([In] int cbufSize, [Out] out int pcnumChunks, [MarshalAs(UnmanagedType.LPArray), Out] CodeChunkInfo[] chunks);*/
             int cbufSize = 0;
             int pcnumChunks;
-            CodeChunkInfo[] chunks = null;
+            chunks = null;
             HRESULT hr = Raw2.GetCodeChunks(cbufSize, out pcnumChunks, chunks);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
@@ -434,17 +404,7 @@ namespace ManagedCorDebug
             cbufSize = pcnumChunks;
             chunks = new CodeChunkInfo[pcnumChunks];
             hr = Raw2.GetCodeChunks(cbufSize, out pcnumChunks, chunks);
-
-            if (hr == HRESULT.S_OK)
-            {
-                chunksResult = chunks;
-
-                return hr;
-            }
-
             fail:
-            chunksResult = default(CodeChunkInfo[]);
-
             return hr;
         }
 

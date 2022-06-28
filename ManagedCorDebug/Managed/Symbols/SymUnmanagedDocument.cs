@@ -196,24 +196,24 @@ namespace ManagedCorDebug
         {
             get
             {
-                byte[] dataResult;
-                TryGetCheckSum(out dataResult).ThrowOnNotOK();
+                byte[] data;
+                TryGetCheckSum(out data).ThrowOnNotOK();
 
-                return dataResult;
+                return data;
             }
         }
 
         /// <summary>
         /// Gets the checksum.
         /// </summary>
-        /// <param name="dataResult">[out] The buffer that receives the checksum.</param>
+        /// <param name="data">[out] The buffer that receives the checksum.</param>
         /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
-        public HRESULT TryGetCheckSum(out byte[] dataResult)
+        public HRESULT TryGetCheckSum(out byte[] data)
         {
             /*HRESULT GetCheckSum([In] int cData, [Out] out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
             int cData = 0;
             int pcData;
-            byte[] data = null;
+            data = null;
             HRESULT hr = Raw.GetCheckSum(cData, out pcData, data);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
@@ -222,17 +222,7 @@ namespace ManagedCorDebug
             cData = pcData;
             data = new byte[pcData];
             hr = Raw.GetCheckSum(cData, out pcData, data);
-
-            if (hr == HRESULT.S_OK)
-            {
-                dataResult = data;
-
-                return hr;
-            }
-
             fail:
-            dataResult = default(byte[]);
-
             return hr;
         }
 
@@ -331,10 +321,10 @@ namespace ManagedCorDebug
         /// <returns>[out] The size and length of the specified range of the source document, in bytes.</returns>
         public byte[] GetSourceRange(int startLine, int startColumn, int endLine, int endColumn)
         {
-            byte[] sourceResult;
-            TryGetSourceRange(startLine, startColumn, endLine, endColumn, out sourceResult).ThrowOnNotOK();
+            byte[] source;
+            TryGetSourceRange(startLine, startColumn, endLine, endColumn, out source).ThrowOnNotOK();
 
-            return sourceResult;
+            return source;
         }
 
         /// <summary>
@@ -344,9 +334,9 @@ namespace ManagedCorDebug
         /// <param name="startColumn">[in] The starting column in the current document.</param>
         /// <param name="endLine">[in] The final line in the current document.</param>
         /// <param name="endColumn">[in] The final column in the current document.</param>
-        /// <param name="sourceResult">[out] The size and length of the specified range of the source document, in bytes.</param>
+        /// <param name="source">[out] The size and length of the specified range of the source document, in bytes.</param>
         /// <returns>S_OK if the method succeeds.</returns>
-        public HRESULT TryGetSourceRange(int startLine, int startColumn, int endLine, int endColumn, out byte[] sourceResult)
+        public HRESULT TryGetSourceRange(int startLine, int startColumn, int endLine, int endColumn, out byte[] source)
         {
             /*HRESULT GetSourceRange(
             [In] int startLine,
@@ -358,7 +348,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] source);*/
             int cSourceBytes = 0;
             int pcSourceBytes;
-            byte[] source = null;
+            source = null;
             HRESULT hr = Raw.GetSourceRange(startLine, startColumn, endLine, endColumn, cSourceBytes, out pcSourceBytes, source);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
@@ -367,17 +357,7 @@ namespace ManagedCorDebug
             cSourceBytes = pcSourceBytes;
             source = new byte[pcSourceBytes];
             hr = Raw.GetSourceRange(startLine, startColumn, endLine, endColumn, cSourceBytes, out pcSourceBytes, source);
-
-            if (hr == HRESULT.S_OK)
-            {
-                sourceResult = source;
-
-                return hr;
-            }
-
             fail:
-            sourceResult = default(byte[]);
-
             return hr;
         }
 

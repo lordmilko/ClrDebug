@@ -595,17 +595,17 @@ namespace ManagedCorDebug
         {
             get
             {
-                COR_ACTIVE_FUNCTION[] pFunctionsResult;
-                TryGetActiveFunctions(out pFunctionsResult).ThrowOnNotOK();
+                COR_ACTIVE_FUNCTION[] pFunctions;
+                TryGetActiveFunctions(out pFunctions).ThrowOnNotOK();
 
-                return pFunctionsResult;
+                return pFunctions;
             }
         }
 
         /// <summary>
         /// Gets information about the active function in each of this thread's frames.
         /// </summary>
-        /// <param name="pFunctionsResult">[in, out] An array of <see cref="COR_ACTIVE_FUNCTION"/> objects, each of which contains information about the active functions in this thread's frames.<para/>
+        /// <param name="pFunctions">[in, out] An array of <see cref="COR_ACTIVE_FUNCTION"/> objects, each of which contains information about the active functions in this thread's frames.<para/>
         /// The first element will be used for the leaf frame, and so on back to the root of the stack.</param>
         /// <remarks>
         /// If pFunctions is null on input, GetActiveFunctions returns only the number of functions that are on the stack.
@@ -613,13 +613,13 @@ namespace ManagedCorDebug
         /// method is intended as an optimization over getting the same information from frames in a stack trace, and includes
         /// only frames that would have had an <see cref="ICorDebugILFrame"/> object for them in the full stack trace.
         /// </remarks>
-        public HRESULT TryGetActiveFunctions(out COR_ACTIVE_FUNCTION[] pFunctionsResult)
+        public HRESULT TryGetActiveFunctions(out COR_ACTIVE_FUNCTION[] pFunctions)
         {
             /*HRESULT GetActiveFunctions([In] int cFunctions, [Out] out int pcFunctions,
             [MarshalAs(UnmanagedType.LPArray), In, Out] COR_ACTIVE_FUNCTION[] pFunctions);*/
             int cFunctions = 0;
             int pcFunctions;
-            COR_ACTIVE_FUNCTION[] pFunctions = null;
+            pFunctions = null;
             HRESULT hr = Raw2.GetActiveFunctions(cFunctions, out pcFunctions, pFunctions);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
@@ -628,17 +628,7 @@ namespace ManagedCorDebug
             cFunctions = pcFunctions;
             pFunctions = new COR_ACTIVE_FUNCTION[pcFunctions];
             hr = Raw2.GetActiveFunctions(cFunctions, out pcFunctions, pFunctions);
-
-            if (hr == HRESULT.S_OK)
-            {
-                pFunctionsResult = pFunctions;
-
-                return hr;
-            }
-
             fail:
-            pFunctionsResult = default(COR_ACTIVE_FUNCTION[]);
-
             return hr;
         }
 

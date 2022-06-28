@@ -786,22 +786,22 @@ namespace ManagedCorDebug
         /// </remarks>
         public byte[] SetUnmanagedBreakpoint(CORDB_ADDRESS address)
         {
-            byte[] bufferResult;
-            TrySetUnmanagedBreakpoint(address, out bufferResult).ThrowOnNotOK();
+            byte[] buffer;
+            TrySetUnmanagedBreakpoint(address, out buffer).ThrowOnNotOK();
 
-            return bufferResult;
+            return buffer;
         }
 
         /// <summary>
         /// Sets an unmanaged breakpoint at the specified native image offset.
         /// </summary>
         /// <param name="address">[in] A <see cref="CORDB_ADDRESS"/> object that specifies the native image offset.</param>
-        /// <param name="bufferResult">[out] An array that contains the opcode that is replaced by the breakpoint.</param>
+        /// <param name="buffer">[out] An array that contains the opcode that is replaced by the breakpoint.</param>
         /// <remarks>
         /// If the native image offset is within the common language runtime (CLR), the breakpoint will be ignored. This allows
         /// the CLR to avoid dispatching an out-of-band breakpoint, when the breakpoint is set by the debugger.
         /// </remarks>
-        public HRESULT TrySetUnmanagedBreakpoint(CORDB_ADDRESS address, out byte[] bufferResult)
+        public HRESULT TrySetUnmanagedBreakpoint(CORDB_ADDRESS address, out byte[] buffer)
         {
             /*HRESULT SetUnmanagedBreakpoint(
             [In] CORDB_ADDRESS address,
@@ -809,7 +809,7 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] byte[] buffer,
             [Out] out int bufLen);*/
             int bufsize = 0;
-            byte[] buffer = null;
+            buffer = null;
             int bufLen;
             HRESULT hr = Raw2.SetUnmanagedBreakpoint(address, bufsize, buffer, out bufLen);
 
@@ -819,17 +819,7 @@ namespace ManagedCorDebug
             bufsize = bufLen;
             buffer = new byte[bufLen];
             hr = Raw2.SetUnmanagedBreakpoint(address, bufsize, buffer, out bufLen);
-
-            if (hr == HRESULT.S_OK)
-            {
-                bufferResult = buffer;
-
-                return hr;
-            }
-
             fail:
-            bufferResult = default(byte[]);
-
             return hr;
         }
 
@@ -1456,26 +1446,26 @@ namespace ManagedCorDebug
         /// </remarks>
         public COR_FIELD[] GetTypeFields(COR_TYPEID id)
         {
-            COR_FIELD[] fieldsResult;
-            TryGetTypeFields(id, out fieldsResult).ThrowOnNotOK();
+            COR_FIELD[] fields;
+            TryGetTypeFields(id, out fields).ThrowOnNotOK();
 
-            return fieldsResult;
+            return fields;
         }
 
         /// <summary>
         /// Provides information about the fields that belong to a type.
         /// </summary>
         /// <param name="id">[in] The identifier of the type whose field information is retrieved.</param>
-        /// <param name="fieldsResult">[out] An array of <see cref="COR_FIELD"/> objects that provide information about the fields that belong to the type.</param>
+        /// <param name="fields">[out] An array of <see cref="COR_FIELD"/> objects that provide information about the fields that belong to the type.</param>
         /// <remarks>
         /// The celt parameter, which specifies the number of fields whose field information the method uses to populate fields,
         /// should correspond to the value of the <see cref="COR_TYPE_LAYOUT.numFields"/> field.
         /// </remarks>
-        public HRESULT TryGetTypeFields(COR_TYPEID id, out COR_FIELD[] fieldsResult)
+        public HRESULT TryGetTypeFields(COR_TYPEID id, out COR_FIELD[] fields)
         {
             /*HRESULT GetTypeFields([In] COR_TYPEID id, [In] int celt, [Out, MarshalAs(UnmanagedType.LPArray)] COR_FIELD[] fields, [Out] out int pceltNeeded);*/
             int celt = 0;
-            COR_FIELD[] fields = null;
+            fields = null;
             int pceltNeeded;
             HRESULT hr = Raw5.GetTypeFields(id, celt, fields, out pceltNeeded);
 
@@ -1485,17 +1475,7 @@ namespace ManagedCorDebug
             celt = pceltNeeded;
             fields = new COR_FIELD[pceltNeeded];
             hr = Raw5.GetTypeFields(id, celt, fields, out pceltNeeded);
-
-            if (hr == HRESULT.S_OK)
-            {
-                fieldsResult = fields;
-
-                return hr;
-            }
-
             fail:
-            fieldsResult = default(COR_FIELD[]);
-
             return hr;
         }
 

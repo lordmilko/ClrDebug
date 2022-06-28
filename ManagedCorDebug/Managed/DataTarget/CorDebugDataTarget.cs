@@ -286,22 +286,22 @@ namespace ManagedCorDebug
         /// <returns>An array of thread identifiers.</returns>
         public int[] EnumerateThreadIDs()
         {
-            int[] pThreadIdsResult;
-            TryEnumerateThreadIDs(out pThreadIdsResult).ThrowOnNotOK();
+            int[] pThreadIds;
+            TryEnumerateThreadIDs(out pThreadIds).ThrowOnNotOK();
 
-            return pThreadIdsResult;
+            return pThreadIds;
         }
 
         /// <summary>
         /// Returns a list of active thread IDs.
         /// </summary>
-        /// <param name="pThreadIdsResult">An array of thread identifiers.</param>
-        public HRESULT TryEnumerateThreadIDs(out int[] pThreadIdsResult)
+        /// <param name="pThreadIds">An array of thread identifiers.</param>
+        public HRESULT TryEnumerateThreadIDs(out int[] pThreadIds)
         {
             /*HRESULT EnumerateThreadIDs([In] int cThreadIds, [Out] out int pcThreadIds, [Out, MarshalAs(UnmanagedType.LPArray)] int[] pThreadIds);*/
             int cThreadIds = 0;
             int pcThreadIds;
-            int[] pThreadIds = null;
+            pThreadIds = null;
             HRESULT hr = Raw2.EnumerateThreadIDs(cThreadIds, out pcThreadIds, pThreadIds);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
@@ -310,17 +310,7 @@ namespace ManagedCorDebug
             cThreadIds = pcThreadIds;
             pThreadIds = new int[pcThreadIds];
             hr = Raw2.EnumerateThreadIDs(cThreadIds, out pcThreadIds, pThreadIds);
-
-            if (hr == HRESULT.S_OK)
-            {
-                pThreadIdsResult = pThreadIds;
-
-                return hr;
-            }
-
             fail:
-            pThreadIdsResult = default(int[]);
-
             return hr;
         }
 

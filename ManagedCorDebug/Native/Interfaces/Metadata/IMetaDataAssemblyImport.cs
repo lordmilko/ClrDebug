@@ -240,7 +240,7 @@ namespace ManagedCorDebug
         [PreserveSig]
         HRESULT FindManifestResourceByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
-            [Out, MarshalAs(UnmanagedType.LPArray)] mdManifestResource[] ptkManifestResource);
+            [Out] out mdManifestResource ptkManifestResource);
 
         /// <summary>
         /// Releases a reference to the specified enumeration instance.

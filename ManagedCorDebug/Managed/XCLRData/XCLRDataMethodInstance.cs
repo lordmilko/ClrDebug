@@ -172,14 +172,14 @@ namespace ManagedCorDebug
         {
             get
             {
-                CLRDATA_IL_ADDRESS_MAP[] mapsResult;
-                TryGetILAddressMap(out mapsResult).ThrowOnNotOK();
+                CLRDATA_IL_ADDRESS_MAP[] maps;
+                TryGetILAddressMap(out maps).ThrowOnNotOK();
 
-                return mapsResult;
+                return maps;
             }
         }
 
-        public HRESULT TryGetILAddressMap(out CLRDATA_IL_ADDRESS_MAP[] mapsResult)
+        public HRESULT TryGetILAddressMap(out CLRDATA_IL_ADDRESS_MAP[] maps)
         {
             /*HRESULT GetILAddressMap(
             [In] int mapLen,
@@ -187,7 +187,7 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_IL_ADDRESS_MAP[] maps);*/
             int mapLen = 0;
             int mapNeeded;
-            CLRDATA_IL_ADDRESS_MAP[] maps = null;
+            maps = null;
             HRESULT hr = Raw.GetILAddressMap(mapLen, out mapNeeded, maps);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
@@ -196,17 +196,7 @@ namespace ManagedCorDebug
             mapLen = mapNeeded;
             maps = new CLRDATA_IL_ADDRESS_MAP[mapNeeded];
             hr = Raw.GetILAddressMap(mapLen, out mapNeeded, maps);
-
-            if (hr == HRESULT.S_OK)
-            {
-                mapsResult = maps;
-
-                return hr;
-            }
-
             fail:
-            mapsResult = default(CLRDATA_IL_ADDRESS_MAP[]);
-
             return hr;
         }
 

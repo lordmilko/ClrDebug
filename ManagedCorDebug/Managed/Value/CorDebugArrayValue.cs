@@ -110,27 +110,22 @@ namespace ManagedCorDebug
         /// <returns>[out] An array of integers, each of which specifies the number of elements in a dimension in this <see cref="ICorDebugArrayValue"/> object.</returns>
         public int[] GetDimensions(int cdim)
         {
-            int[] dimsResult;
-            TryGetDimensions(cdim, out dimsResult).ThrowOnNotOK();
+            int[] dims;
+            TryGetDimensions(cdim, out dims).ThrowOnNotOK();
 
-            return dimsResult;
+            return dims;
         }
 
         /// <summary>
         /// Gets the number of elements in each dimension of this array.
         /// </summary>
         /// <param name="cdim">[in] The number of dimensions of this <see cref="ICorDebugArrayValue"/> object. This value is also the size of the dims array because its size is equal to the number of dimensions of the <see cref="ICorDebugArrayValue"/> object.</param>
-        /// <param name="dimsResult">[out] An array of integers, each of which specifies the number of elements in a dimension in this <see cref="ICorDebugArrayValue"/> object.</param>
-        public HRESULT TryGetDimensions(int cdim, out int[] dimsResult)
+        /// <param name="dims">[out] An array of integers, each of which specifies the number of elements in a dimension in this <see cref="ICorDebugArrayValue"/> object.</param>
+        public HRESULT TryGetDimensions(int cdim, out int[] dims)
         {
             /*HRESULT GetDimensions([In] int cdim, [MarshalAs(UnmanagedType.LPArray), Out] int[] dims);*/
-            int[] dims = null;
+            dims = null;
             HRESULT hr = Raw.GetDimensions(cdim, dims);
-
-            if (hr == HRESULT.S_OK)
-                dimsResult = dims;
-            else
-                dimsResult = default(int[]);
 
             return hr;
         }
@@ -170,27 +165,22 @@ namespace ManagedCorDebug
         /// <returns>[out] An array of integers, each of which is the base index (that is, the starting index) of a dimension of this <see cref="ICorDebugArrayValue"/> object.</returns>
         public int[] GetBaseIndicies(int cdim)
         {
-            int[] indiciesResult;
-            TryGetBaseIndicies(cdim, out indiciesResult).ThrowOnNotOK();
+            int[] indicies;
+            TryGetBaseIndicies(cdim, out indicies).ThrowOnNotOK();
 
-            return indiciesResult;
+            return indicies;
         }
 
         /// <summary>
         /// Gets the base index of each dimension in the array.
         /// </summary>
         /// <param name="cdim">[in] The number of dimensions of this <see cref="ICorDebugArrayValue"/> object. This value is also the size of the indicies array because its size is equal to the number of dimensions of the <see cref="ICorDebugArrayValue"/> object.</param>
-        /// <param name="indiciesResult">[out] An array of integers, each of which is the base index (that is, the starting index) of a dimension of this <see cref="ICorDebugArrayValue"/> object.</param>
-        public HRESULT TryGetBaseIndicies(int cdim, out int[] indiciesResult)
+        /// <param name="indicies">[out] An array of integers, each of which is the base index (that is, the starting index) of a dimension of this <see cref="ICorDebugArrayValue"/> object.</param>
+        public HRESULT TryGetBaseIndicies(int cdim, out int[] indicies)
         {
             /*HRESULT GetBaseIndicies([In] int cdim, [MarshalAs(UnmanagedType.LPArray), Out] int[] indicies);*/
-            int[] indicies = null;
+            indicies = null;
             HRESULT hr = Raw.GetBaseIndicies(cdim, indicies);
-
-            if (hr == HRESULT.S_OK)
-                indiciesResult = indicies;
-            else
-                indiciesResult = default(int[]);
 
             return hr;
         }

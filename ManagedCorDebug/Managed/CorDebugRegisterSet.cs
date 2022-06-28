@@ -70,10 +70,10 @@ namespace ManagedCorDebug
         /// </remarks>
         public CORDB_REGISTER[] GetRegisters(CorDebugRegister mask, int regCount)
         {
-            CORDB_REGISTER[] regBufferResult;
-            TryGetRegisters(mask, regCount, out regBufferResult).ThrowOnNotOK();
+            CORDB_REGISTER[] regBuffer;
+            TryGetRegisters(mask, regCount, out regBuffer).ThrowOnNotOK();
 
-            return regBufferResult;
+            return regBuffer;
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="mask">[in] A bit mask that specifies which register values are to be retrieved. Each bit corresponds to a register. If a bit is set to one, the register's value is retrieved; otherwise, the register's value is not retrieved.</param>
         /// <param name="regCount">[in] The number of register values to be retrieved.</param>
-        /// <param name="regBufferResult">[out] An array of <see cref="CORDB_REGISTER"/> objects, each of which receives a value of a register.</param>
+        /// <param name="regBuffer">[out] An array of <see cref="CORDB_REGISTER"/> objects, each of which receives a value of a register.</param>
         /// <remarks>
         /// The size of the array should be equal to the number of bits set to one in the bit mask. The regCount parameter
         /// specifies the number of elements in the buffer that will receive the register values. If the regCount value is
@@ -89,17 +89,12 @@ namespace ManagedCorDebug
         /// the set. If the regCount value is too large, the unused regBuffer elements will be unmodified. If the bit mask
         /// specifies a register that is unavailable, GetRegisters returns an indeterminate value for that register.
         /// </remarks>
-        public HRESULT TryGetRegisters(CorDebugRegister mask, int regCount, out CORDB_REGISTER[] regBufferResult)
+        public HRESULT TryGetRegisters(CorDebugRegister mask, int regCount, out CORDB_REGISTER[] regBuffer)
         {
             /*HRESULT GetRegisters([In] CorDebugRegister mask, [In] int regCount, [MarshalAs(UnmanagedType.LPArray), Out]
             CORDB_REGISTER[] regBuffer);*/
-            CORDB_REGISTER[] regBuffer = null;
+            regBuffer = null;
             HRESULT hr = Raw.GetRegisters(mask, regCount, regBuffer);
-
-            if (hr == HRESULT.S_OK)
-                regBufferResult = regBuffer;
-            else
-                regBufferResult = default(CORDB_REGISTER[]);
 
             return hr;
         }
@@ -244,10 +239,10 @@ namespace ManagedCorDebug
         /// </remarks>
         public CORDB_REGISTER[] GetRegisters(int maskCount, byte[] mask, int regCount)
         {
-            CORDB_REGISTER[] regBufferResult;
-            TryGetRegisters(maskCount, mask, regCount, out regBufferResult).ThrowOnNotOK();
+            CORDB_REGISTER[] regBuffer;
+            TryGetRegisters(maskCount, mask, regCount, out regBuffer).ThrowOnNotOK();
 
-            return regBufferResult;
+            return regBuffer;
         }
 
         /// <summary>
@@ -256,7 +251,7 @@ namespace ManagedCorDebug
         /// <param name="maskCount">[in] The size, in bytes, of the mask array.</param>
         /// <param name="mask">[in] An array of bytes, each bit of which corresponds to a register. If the bit is 1, the corresponding register's value will be retrieved.</param>
         /// <param name="regCount">[in] The number of register values to be retrieved.</param>
-        /// <param name="regBufferResult">[out] An array of <see cref="CORDB_REGISTER"/> objects, each of which receives the value of a register.</param>
+        /// <param name="regBuffer">[out] An array of <see cref="CORDB_REGISTER"/> objects, each of which receives the value of a register.</param>
         /// <remarks>
         /// The GetRegisters method returns an array of values from the registers that are specified by the mask. The array
         /// does not contain values of registers whose mask bit is not set. Thus, the size of the regBuffer array must be equal
@@ -269,16 +264,11 @@ namespace ManagedCorDebug
         /// such as x86, the GetRegisters method just translates the bytes in the mask byte array into a ULONG64 and then calls
         /// the <see cref="GetRegisters(int, byte[], int)"/> method, which takes the ULONG64 mask.
         /// </remarks>
-        public HRESULT TryGetRegisters(int maskCount, byte[] mask, int regCount, out CORDB_REGISTER[] regBufferResult)
+        public HRESULT TryGetRegisters(int maskCount, byte[] mask, int regCount, out CORDB_REGISTER[] regBuffer)
         {
             /*HRESULT GetRegisters([In] int maskCount, [In, MarshalAs(UnmanagedType.LPArray)] byte[] mask, [In] int regCount, [Out, MarshalAs(UnmanagedType.LPArray)] CORDB_REGISTER[] regBuffer);*/
-            CORDB_REGISTER[] regBuffer = null;
+            regBuffer = null;
             HRESULT hr = Raw2.GetRegisters(maskCount, mask, regCount, regBuffer);
-
-            if (hr == HRESULT.S_OK)
-                regBufferResult = regBuffer;
-            else
-                regBufferResult = default(CORDB_REGISTER[]);
 
             return hr;
         }

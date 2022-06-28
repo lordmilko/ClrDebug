@@ -66,26 +66,26 @@ namespace ManagedCorDebug
         {
             get
             {
-                CLRDATA_ADDRESS[] valuesResult;
-                TryGetAppDomainList(out valuesResult).ThrowOnNotOK();
+                CLRDATA_ADDRESS[] values;
+                TryGetAppDomainList(out values).ThrowOnNotOK();
 
-                return valuesResult;
+                return values;
             }
         }
 
         /// <summary>
         /// Gets the addresses of all AppDomains present in a process, excluding the System and Shared AppDomains.
         /// </summary>
-        /// <param name="valuesResult">The array to store the addresses of returned AppDomains.</param>
+        /// <param name="values">The array to store the addresses of returned AppDomains.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
-        public HRESULT TryGetAppDomainList(out CLRDATA_ADDRESS[] valuesResult)
+        public HRESULT TryGetAppDomainList(out CLRDATA_ADDRESS[] values)
         {
             /*HRESULT GetAppDomainList(
             [In] int count,
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] values,
             [Out] out int pNeeded);*/
             int count = 0;
-            CLRDATA_ADDRESS[] values = null;
+            values = null;
             int pNeeded;
             HRESULT hr = Raw.GetAppDomainList(count, values, out pNeeded);
 
@@ -95,17 +95,7 @@ namespace ManagedCorDebug
             count = pNeeded;
             values = new CLRDATA_ADDRESS[pNeeded];
             hr = Raw.GetAppDomainList(count, values, out pNeeded);
-
-            if (hr == HRESULT.S_OK)
-            {
-                valuesResult = values;
-
-                return hr;
-            }
-
             fail:
-            valuesResult = default(CLRDATA_ADDRESS[]);
-
             return hr;
         }
 
@@ -116,21 +106,21 @@ namespace ManagedCorDebug
         {
             get
             {
-                DacpJitManagerInfo[] managersResult;
-                TryGetJitManagerList(out managersResult).ThrowOnNotOK();
+                DacpJitManagerInfo[] managers;
+                TryGetJitManagerList(out managers).ThrowOnNotOK();
 
-                return managersResult;
+                return managers;
             }
         }
 
-        public HRESULT TryGetJitManagerList(out DacpJitManagerInfo[] managersResult)
+        public HRESULT TryGetJitManagerList(out DacpJitManagerInfo[] managers)
         {
             /*HRESULT GetJitManagerList(
             [In] int count,
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpJitManagerInfo[] managers,
             [Out] out int pNeeded);*/
             int count = 0;
-            DacpJitManagerInfo[] managers = null;
+            managers = null;
             int pNeeded;
             HRESULT hr = Raw.GetJitManagerList(count, managers, out pNeeded);
 
@@ -140,17 +130,7 @@ namespace ManagedCorDebug
             count = pNeeded;
             managers = new DacpJitManagerInfo[pNeeded];
             hr = Raw.GetJitManagerList(count, managers, out pNeeded);
-
-            if (hr == HRESULT.S_OK)
-            {
-                managersResult = managers;
-
-                return hr;
-            }
-
             fail:
-            managersResult = default(DacpJitManagerInfo[]);
-
             return hr;
         }
 
@@ -203,21 +183,21 @@ namespace ManagedCorDebug
         {
             get
             {
-                CLRDATA_ADDRESS[] heapsResult;
-                TryGetGCHeapList(out heapsResult).ThrowOnNotOK();
+                CLRDATA_ADDRESS[] heaps;
+                TryGetGCHeapList(out heaps).ThrowOnNotOK();
 
-                return heapsResult;
+                return heaps;
             }
         }
 
-        public HRESULT TryGetGCHeapList(out CLRDATA_ADDRESS[] heapsResult)
+        public HRESULT TryGetGCHeapList(out CLRDATA_ADDRESS[] heaps)
         {
             /*HRESULT GetGCHeapList(
             [In] int count,
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] heaps,
             [Out] out int pNeeded);*/
             int count = 0;
-            CLRDATA_ADDRESS[] heaps = null;
+            heaps = null;
             int pNeeded;
             HRESULT hr = Raw.GetGCHeapList(count, heaps, out pNeeded);
 
@@ -227,17 +207,7 @@ namespace ManagedCorDebug
             count = pNeeded;
             heaps = new CLRDATA_ADDRESS[pNeeded];
             hr = Raw.GetGCHeapList(count, heaps, out pNeeded);
-
-            if (hr == HRESULT.S_OK)
-            {
-                heapsResult = heaps;
-
-                return hr;
-            }
-
             fail:
-            heapsResult = default(CLRDATA_ADDRESS[]);
-
             return hr;
         }
 
@@ -503,13 +473,13 @@ namespace ManagedCorDebug
 
         public CLRDATA_ADDRESS[] GetAssemblyList(CLRDATA_ADDRESS appDomain)
         {
-            CLRDATA_ADDRESS[] valuesResult;
-            TryGetAssemblyList(appDomain, out valuesResult).ThrowOnNotOK();
+            CLRDATA_ADDRESS[] values;
+            TryGetAssemblyList(appDomain, out values).ThrowOnNotOK();
 
-            return valuesResult;
+            return values;
         }
 
-        public HRESULT TryGetAssemblyList(CLRDATA_ADDRESS appDomain, out CLRDATA_ADDRESS[] valuesResult)
+        public HRESULT TryGetAssemblyList(CLRDATA_ADDRESS appDomain, out CLRDATA_ADDRESS[] values)
         {
             /*HRESULT GetAssemblyList(
             [In] CLRDATA_ADDRESS appDomain,
@@ -517,7 +487,7 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] values,
             [Out] out int pNeeded);*/
             int count = 0;
-            CLRDATA_ADDRESS[] values = null;
+            values = null;
             int pNeeded;
             HRESULT hr = Raw.GetAssemblyList(appDomain, count, values, out pNeeded);
 
@@ -527,17 +497,7 @@ namespace ManagedCorDebug
             count = pNeeded;
             values = new CLRDATA_ADDRESS[pNeeded];
             hr = Raw.GetAssemblyList(appDomain, count, values, out pNeeded);
-
-            if (hr == HRESULT.S_OK)
-            {
-                valuesResult = values;
-
-                return hr;
-            }
-
             fail:
-            valuesResult = default(CLRDATA_ADDRESS[]);
-
             return hr;
         }
 
@@ -673,13 +633,13 @@ namespace ManagedCorDebug
 
         public CLRDATA_ADDRESS[] GetAssemblyModuleList(CLRDATA_ADDRESS assembly)
         {
-            CLRDATA_ADDRESS[] modulesResult;
-            TryGetAssemblyModuleList(assembly, out modulesResult).ThrowOnNotOK();
+            CLRDATA_ADDRESS[] modules;
+            TryGetAssemblyModuleList(assembly, out modules).ThrowOnNotOK();
 
-            return modulesResult;
+            return modules;
         }
 
-        public HRESULT TryGetAssemblyModuleList(CLRDATA_ADDRESS assembly, out CLRDATA_ADDRESS[] modulesResult)
+        public HRESULT TryGetAssemblyModuleList(CLRDATA_ADDRESS assembly, out CLRDATA_ADDRESS[] modules)
         {
             /*HRESULT GetAssemblyModuleList(
             [In] CLRDATA_ADDRESS assembly,
@@ -687,7 +647,7 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] modules,
             [Out] out int pNeeded);*/
             int count = 0;
-            CLRDATA_ADDRESS[] modules = null;
+            modules = null;
             int pNeeded;
             HRESULT hr = Raw.GetAssemblyModuleList(assembly, count, modules, out pNeeded);
 
@@ -697,17 +657,7 @@ namespace ManagedCorDebug
             count = pNeeded;
             modules = new CLRDATA_ADDRESS[pNeeded];
             hr = Raw.GetAssemblyModuleList(assembly, count, modules, out pNeeded);
-
-            if (hr == HRESULT.S_OK)
-            {
-                modulesResult = modules;
-
-                return hr;
-            }
-
             fail:
-            modulesResult = default(CLRDATA_ADDRESS[]);
-
             return hr;
         }
 
@@ -1777,13 +1727,13 @@ namespace ManagedCorDebug
 
         public DacpJitCodeHeapInfo[] GetCodeHeapList(CLRDATA_ADDRESS jitManager)
         {
-            DacpJitCodeHeapInfo[] codeHeapsResult;
-            TryGetCodeHeapList(jitManager, out codeHeapsResult).ThrowOnNotOK();
+            DacpJitCodeHeapInfo[] codeHeaps;
+            TryGetCodeHeapList(jitManager, out codeHeaps).ThrowOnNotOK();
 
-            return codeHeapsResult;
+            return codeHeaps;
         }
 
-        public HRESULT TryGetCodeHeapList(CLRDATA_ADDRESS jitManager, out DacpJitCodeHeapInfo[] codeHeapsResult)
+        public HRESULT TryGetCodeHeapList(CLRDATA_ADDRESS jitManager, out DacpJitCodeHeapInfo[] codeHeaps)
         {
             /*HRESULT GetCodeHeapList(
             [In] CLRDATA_ADDRESS jitManager,
@@ -1791,7 +1741,7 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpJitCodeHeapInfo[] codeHeaps,
             [Out] out int pNeeded);*/
             int count = 0;
-            DacpJitCodeHeapInfo[] codeHeaps = null;
+            codeHeaps = null;
             int pNeeded;
             HRESULT hr = Raw.GetCodeHeapList(jitManager, count, codeHeaps, out pNeeded);
 
@@ -1801,17 +1751,7 @@ namespace ManagedCorDebug
             count = pNeeded;
             codeHeaps = new DacpJitCodeHeapInfo[pNeeded];
             hr = Raw.GetCodeHeapList(jitManager, count, codeHeaps, out pNeeded);
-
-            if (hr == HRESULT.S_OK)
-            {
-                codeHeapsResult = codeHeaps;
-
-                return hr;
-            }
-
             fail:
-            codeHeapsResult = default(DacpJitCodeHeapInfo[]);
-
             return hr;
         }
 
@@ -1872,13 +1812,13 @@ namespace ManagedCorDebug
 
         public DacpCOMInterfacePointerData[] GetRCWInterfaces(CLRDATA_ADDRESS rcw)
         {
-            DacpCOMInterfacePointerData[] interfacesResult;
-            TryGetRCWInterfaces(rcw, out interfacesResult).ThrowOnNotOK();
+            DacpCOMInterfacePointerData[] interfaces;
+            TryGetRCWInterfaces(rcw, out interfaces).ThrowOnNotOK();
 
-            return interfacesResult;
+            return interfaces;
         }
 
-        public HRESULT TryGetRCWInterfaces(CLRDATA_ADDRESS rcw, out DacpCOMInterfacePointerData[] interfacesResult)
+        public HRESULT TryGetRCWInterfaces(CLRDATA_ADDRESS rcw, out DacpCOMInterfacePointerData[] interfaces)
         {
             /*HRESULT GetRCWInterfaces(
             [In] CLRDATA_ADDRESS rcw,
@@ -1886,7 +1826,7 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpCOMInterfacePointerData[] interfaces,
             [Out] out int pNeeded);*/
             int count = 0;
-            DacpCOMInterfacePointerData[] interfaces = null;
+            interfaces = null;
             int pNeeded;
             HRESULT hr = Raw.GetRCWInterfaces(rcw, count, interfaces, out pNeeded);
 
@@ -1896,17 +1836,7 @@ namespace ManagedCorDebug
             count = pNeeded;
             interfaces = new DacpCOMInterfacePointerData[pNeeded];
             hr = Raw.GetRCWInterfaces(rcw, count, interfaces, out pNeeded);
-
-            if (hr == HRESULT.S_OK)
-            {
-                interfacesResult = interfaces;
-
-                return hr;
-            }
-
             fail:
-            interfacesResult = default(DacpCOMInterfacePointerData[]);
-
             return hr;
         }
 
@@ -1934,13 +1864,13 @@ namespace ManagedCorDebug
 
         public DacpCOMInterfacePointerData[] GetCCWInterfaces(CLRDATA_ADDRESS ccw)
         {
-            DacpCOMInterfacePointerData[] interfacesResult;
-            TryGetCCWInterfaces(ccw, out interfacesResult).ThrowOnNotOK();
+            DacpCOMInterfacePointerData[] interfaces;
+            TryGetCCWInterfaces(ccw, out interfaces).ThrowOnNotOK();
 
-            return interfacesResult;
+            return interfaces;
         }
 
-        public HRESULT TryGetCCWInterfaces(CLRDATA_ADDRESS ccw, out DacpCOMInterfacePointerData[] interfacesResult)
+        public HRESULT TryGetCCWInterfaces(CLRDATA_ADDRESS ccw, out DacpCOMInterfacePointerData[] interfaces)
         {
             /*HRESULT GetCCWInterfaces(
             [In] CLRDATA_ADDRESS ccw,
@@ -1948,7 +1878,7 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpCOMInterfacePointerData[] interfaces,
             [Out] out int pNeeded);*/
             int count = 0;
-            DacpCOMInterfacePointerData[] interfaces = null;
+            interfaces = null;
             int pNeeded;
             HRESULT hr = Raw.GetCCWInterfaces(ccw, count, interfaces, out pNeeded);
 
@@ -1958,17 +1888,7 @@ namespace ManagedCorDebug
             count = pNeeded;
             interfaces = new DacpCOMInterfacePointerData[pNeeded];
             hr = Raw.GetCCWInterfaces(ccw, count, interfaces, out pNeeded);
-
-            if (hr == HRESULT.S_OK)
-            {
-                interfacesResult = interfaces;
-
-                return hr;
-            }
-
             fail:
-            interfacesResult = default(DacpCOMInterfacePointerData[]);
-
             return hr;
         }
 
@@ -2112,13 +2032,13 @@ namespace ManagedCorDebug
 
         public CLRDATA_ADDRESS[] GetFailedAssemblyList(CLRDATA_ADDRESS appDomain)
         {
-            CLRDATA_ADDRESS[] valuesResult;
-            TryGetFailedAssemblyList(appDomain, out valuesResult).ThrowOnNotOK();
+            CLRDATA_ADDRESS[] values;
+            TryGetFailedAssemblyList(appDomain, out values).ThrowOnNotOK();
 
-            return valuesResult;
+            return values;
         }
 
-        public HRESULT TryGetFailedAssemblyList(CLRDATA_ADDRESS appDomain, out CLRDATA_ADDRESS[] valuesResult)
+        public HRESULT TryGetFailedAssemblyList(CLRDATA_ADDRESS appDomain, out CLRDATA_ADDRESS[] values)
         {
             /*HRESULT GetFailedAssemblyList(
             [In] CLRDATA_ADDRESS appDomain,
@@ -2126,7 +2046,7 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] values,
             [Out] out int pNeeded);*/
             int count = 0;
-            CLRDATA_ADDRESS[] values = null;
+            values = null;
             int pNeeded;
             HRESULT hr = Raw.GetFailedAssemblyList(appDomain, count, values, out pNeeded);
 
@@ -2136,17 +2056,7 @@ namespace ManagedCorDebug
             count = pNeeded;
             values = new CLRDATA_ADDRESS[pNeeded];
             hr = Raw.GetFailedAssemblyList(appDomain, count, values, out pNeeded);
-
-            if (hr == HRESULT.S_OK)
-            {
-                valuesResult = values;
-
-                return hr;
-            }
-
             fail:
-            valuesResult = default(CLRDATA_ADDRESS[]);
-
             return hr;
         }
 
@@ -2515,24 +2425,19 @@ namespace ManagedCorDebug
         {
             get
             {
-                long[] globalMechanismsResult;
-                TryGetGCGlobalMechanisms(out globalMechanismsResult).ThrowOnNotOK();
+                long[] globalMechanisms;
+                TryGetGCGlobalMechanisms(out globalMechanisms).ThrowOnNotOK();
 
-                return globalMechanismsResult;
+                return globalMechanisms;
             }
         }
 
-        public HRESULT TryGetGCGlobalMechanisms(out long[] globalMechanismsResult)
+        public HRESULT TryGetGCGlobalMechanisms(out long[] globalMechanisms)
         {
             /*HRESULT GetGCGlobalMechanisms(
             [Out, MarshalAs(UnmanagedType.LPArray)] long[] globalMechanisms);*/
-            long[] globalMechanisms = null;
+            globalMechanisms = null;
             HRESULT hr = Raw3.GetGCGlobalMechanisms(globalMechanisms);
-
-            if (hr == HRESULT.S_OK)
-                globalMechanismsResult = globalMechanisms;
-            else
-                globalMechanismsResult = default(long[]);
 
             return hr;
         }
@@ -2569,20 +2474,20 @@ namespace ManagedCorDebug
         {
             get
             {
-                CLRDATA_ADDRESS[] argumentsResult;
-                TryGetClrNotification(out argumentsResult).ThrowOnNotOK();
+                CLRDATA_ADDRESS[] arguments;
+                TryGetClrNotification(out arguments).ThrowOnNotOK();
 
-                return argumentsResult;
+                return arguments;
             }
         }
 
-        public HRESULT TryGetClrNotification(out CLRDATA_ADDRESS[] argumentsResult)
+        public HRESULT TryGetClrNotification(out CLRDATA_ADDRESS[] arguments)
         {
             /*HRESULT GetClrNotification(
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] arguments,
             [In] int count,
             [Out] out int pNeeded);*/
-            CLRDATA_ADDRESS[] arguments = null;
+            arguments = null;
             int count = 0;
             int pNeeded;
             HRESULT hr = Raw4.GetClrNotification(arguments, count, out pNeeded);
@@ -2593,17 +2498,7 @@ namespace ManagedCorDebug
             count = pNeeded;
             arguments = new CLRDATA_ADDRESS[pNeeded];
             hr = Raw4.GetClrNotification(arguments, count, out pNeeded);
-
-            if (hr == HRESULT.S_OK)
-            {
-                argumentsResult = arguments;
-
-                return hr;
-            }
-
             fail:
-            argumentsResult = default(CLRDATA_ADDRESS[]);
-
             return hr;
         }
 
@@ -2618,13 +2513,13 @@ namespace ManagedCorDebug
 
         public DacpTieredVersionData[] GetTieredVersions(CLRDATA_ADDRESS methodDesc, int rejitId)
         {
-            DacpTieredVersionData[] nativeCodeAddrsResult;
-            TryGetTieredVersions(methodDesc, rejitId, out nativeCodeAddrsResult).ThrowOnNotOK();
+            DacpTieredVersionData[] nativeCodeAddrs;
+            TryGetTieredVersions(methodDesc, rejitId, out nativeCodeAddrs).ThrowOnNotOK();
 
-            return nativeCodeAddrsResult;
+            return nativeCodeAddrs;
         }
 
-        public HRESULT TryGetTieredVersions(CLRDATA_ADDRESS methodDesc, int rejitId, out DacpTieredVersionData[] nativeCodeAddrsResult)
+        public HRESULT TryGetTieredVersions(CLRDATA_ADDRESS methodDesc, int rejitId, out DacpTieredVersionData[] nativeCodeAddrs)
         {
             /*HRESULT GetTieredVersions(
             [In] CLRDATA_ADDRESS methodDesc,
@@ -2632,7 +2527,7 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpTieredVersionData[] nativeCodeAddrs,
             [In] int cNativeCodeAddrs,
             [Out] out int pcNativeCodeAddrs);*/
-            DacpTieredVersionData[] nativeCodeAddrs = null;
+            nativeCodeAddrs = null;
             int cNativeCodeAddrs = 0;
             int pcNativeCodeAddrs;
             HRESULT hr = Raw5.GetTieredVersions(methodDesc, rejitId, nativeCodeAddrs, cNativeCodeAddrs, out pcNativeCodeAddrs);
@@ -2643,17 +2538,7 @@ namespace ManagedCorDebug
             cNativeCodeAddrs = pcNativeCodeAddrs;
             nativeCodeAddrs = new DacpTieredVersionData[pcNativeCodeAddrs];
             hr = Raw5.GetTieredVersions(methodDesc, rejitId, nativeCodeAddrs, cNativeCodeAddrs, out pcNativeCodeAddrs);
-
-            if (hr == HRESULT.S_OK)
-            {
-                nativeCodeAddrsResult = nativeCodeAddrs;
-
-                return hr;
-            }
-
             fail:
-            nativeCodeAddrsResult = default(DacpTieredVersionData[]);
-
             return hr;
         }
 
@@ -2751,20 +2636,20 @@ namespace ManagedCorDebug
 
         public CLRDATA_ADDRESS[] GetMethodsWithProfilerModifiedIL(CLRDATA_ADDRESS mod)
         {
-            CLRDATA_ADDRESS[] methodDescsResult;
-            TryGetMethodsWithProfilerModifiedIL(mod, out methodDescsResult).ThrowOnNotOK();
+            CLRDATA_ADDRESS[] methodDescs;
+            TryGetMethodsWithProfilerModifiedIL(mod, out methodDescs).ThrowOnNotOK();
 
-            return methodDescsResult;
+            return methodDescs;
         }
 
-        public HRESULT TryGetMethodsWithProfilerModifiedIL(CLRDATA_ADDRESS mod, out CLRDATA_ADDRESS[] methodDescsResult)
+        public HRESULT TryGetMethodsWithProfilerModifiedIL(CLRDATA_ADDRESS mod, out CLRDATA_ADDRESS[] methodDescs)
         {
             /*HRESULT GetMethodsWithProfilerModifiedIL(
             [In] CLRDATA_ADDRESS mod,
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] methodDescs,
             [In] int cMethodDescs,
             [Out] out int pcMethodDescs);*/
-            CLRDATA_ADDRESS[] methodDescs = null;
+            methodDescs = null;
             int cMethodDescs = 0;
             int pcMethodDescs;
             HRESULT hr = Raw7.GetMethodsWithProfilerModifiedIL(mod, methodDescs, cMethodDescs, out pcMethodDescs);
@@ -2775,17 +2660,7 @@ namespace ManagedCorDebug
             cMethodDescs = pcMethodDescs;
             methodDescs = new CLRDATA_ADDRESS[pcMethodDescs];
             hr = Raw7.GetMethodsWithProfilerModifiedIL(mod, methodDescs, cMethodDescs, out pcMethodDescs);
-
-            if (hr == HRESULT.S_OK)
-            {
-                methodDescsResult = methodDescs;
-
-                return hr;
-            }
-
             fail:
-            methodDescsResult = default(CLRDATA_ADDRESS[]);
-
             return hr;
         }
 
@@ -2823,21 +2698,21 @@ namespace ManagedCorDebug
         {
             get
             {
-                DacpGenerationData[] pGenerationDataResult;
-                TryGetGenerationTable(out pGenerationDataResult).ThrowOnNotOK();
+                DacpGenerationData[] pGenerationData;
+                TryGetGenerationTable(out pGenerationData).ThrowOnNotOK();
 
-                return pGenerationDataResult;
+                return pGenerationData;
             }
         }
 
-        public HRESULT TryGetGenerationTable(out DacpGenerationData[] pGenerationDataResult)
+        public HRESULT TryGetGenerationTable(out DacpGenerationData[] pGenerationData)
         {
             /*HRESULT GetGenerationTable(
             [In] int cGenerations,
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpGenerationData[] pGenerationData,
             [Out] out int pNeeded);*/
             int cGenerations = 0;
-            DacpGenerationData[] pGenerationData = null;
+            pGenerationData = null;
             int pNeeded;
             HRESULT hr = Raw8.GetGenerationTable(cGenerations, pGenerationData, out pNeeded);
 
@@ -2847,17 +2722,7 @@ namespace ManagedCorDebug
             cGenerations = pNeeded;
             pGenerationData = new DacpGenerationData[pNeeded];
             hr = Raw8.GetGenerationTable(cGenerations, pGenerationData, out pNeeded);
-
-            if (hr == HRESULT.S_OK)
-            {
-                pGenerationDataResult = pGenerationData;
-
-                return hr;
-            }
-
             fail:
-            pGenerationDataResult = default(DacpGenerationData[]);
-
             return hr;
         }
 
@@ -2868,21 +2733,21 @@ namespace ManagedCorDebug
         {
             get
             {
-                CLRDATA_ADDRESS[] pFinalizationFillPointersResult;
-                TryGetFinalizationFillPointers(out pFinalizationFillPointersResult).ThrowOnNotOK();
+                CLRDATA_ADDRESS[] pFinalizationFillPointers;
+                TryGetFinalizationFillPointers(out pFinalizationFillPointers).ThrowOnNotOK();
 
-                return pFinalizationFillPointersResult;
+                return pFinalizationFillPointers;
             }
         }
 
-        public HRESULT TryGetFinalizationFillPointers(out CLRDATA_ADDRESS[] pFinalizationFillPointersResult)
+        public HRESULT TryGetFinalizationFillPointers(out CLRDATA_ADDRESS[] pFinalizationFillPointers)
         {
             /*HRESULT GetFinalizationFillPointers(
             [In] int cFillPointers,
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] pFinalizationFillPointers,
             [Out] out int pNeeded);*/
             int cFillPointers = 0;
-            CLRDATA_ADDRESS[] pFinalizationFillPointers = null;
+            pFinalizationFillPointers = null;
             int pNeeded;
             HRESULT hr = Raw8.GetFinalizationFillPointers(cFillPointers, pFinalizationFillPointers, out pNeeded);
 
@@ -2892,17 +2757,7 @@ namespace ManagedCorDebug
             cFillPointers = pNeeded;
             pFinalizationFillPointers = new CLRDATA_ADDRESS[pNeeded];
             hr = Raw8.GetFinalizationFillPointers(cFillPointers, pFinalizationFillPointers, out pNeeded);
-
-            if (hr == HRESULT.S_OK)
-            {
-                pFinalizationFillPointersResult = pFinalizationFillPointers;
-
-                return hr;
-            }
-
             fail:
-            pFinalizationFillPointersResult = default(CLRDATA_ADDRESS[]);
-
             return hr;
         }
 
@@ -2911,13 +2766,13 @@ namespace ManagedCorDebug
 
         public DacpGenerationData[] GetGenerationTableSvr(CLRDATA_ADDRESS heapAddr)
         {
-            DacpGenerationData[] pGenerationDataResult;
-            TryGetGenerationTableSvr(heapAddr, out pGenerationDataResult).ThrowOnNotOK();
+            DacpGenerationData[] pGenerationData;
+            TryGetGenerationTableSvr(heapAddr, out pGenerationData).ThrowOnNotOK();
 
-            return pGenerationDataResult;
+            return pGenerationData;
         }
 
-        public HRESULT TryGetGenerationTableSvr(CLRDATA_ADDRESS heapAddr, out DacpGenerationData[] pGenerationDataResult)
+        public HRESULT TryGetGenerationTableSvr(CLRDATA_ADDRESS heapAddr, out DacpGenerationData[] pGenerationData)
         {
             /*HRESULT GetGenerationTableSvr(
             [In] CLRDATA_ADDRESS heapAddr,
@@ -2925,7 +2780,7 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpGenerationData[] pGenerationData,
             [Out] out int pNeeded);*/
             int cGenerations = 0;
-            DacpGenerationData[] pGenerationData = null;
+            pGenerationData = null;
             int pNeeded;
             HRESULT hr = Raw8.GetGenerationTableSvr(heapAddr, cGenerations, pGenerationData, out pNeeded);
 
@@ -2935,17 +2790,7 @@ namespace ManagedCorDebug
             cGenerations = pNeeded;
             pGenerationData = new DacpGenerationData[pNeeded];
             hr = Raw8.GetGenerationTableSvr(heapAddr, cGenerations, pGenerationData, out pNeeded);
-
-            if (hr == HRESULT.S_OK)
-            {
-                pGenerationDataResult = pGenerationData;
-
-                return hr;
-            }
-
             fail:
-            pGenerationDataResult = default(DacpGenerationData[]);
-
             return hr;
         }
 
@@ -2954,13 +2799,13 @@ namespace ManagedCorDebug
 
         public CLRDATA_ADDRESS[] GetFinalizationFillPointersSvr(CLRDATA_ADDRESS heapAddr)
         {
-            CLRDATA_ADDRESS[] pFinalizationFillPointersResult;
-            TryGetFinalizationFillPointersSvr(heapAddr, out pFinalizationFillPointersResult).ThrowOnNotOK();
+            CLRDATA_ADDRESS[] pFinalizationFillPointers;
+            TryGetFinalizationFillPointersSvr(heapAddr, out pFinalizationFillPointers).ThrowOnNotOK();
 
-            return pFinalizationFillPointersResult;
+            return pFinalizationFillPointers;
         }
 
-        public HRESULT TryGetFinalizationFillPointersSvr(CLRDATA_ADDRESS heapAddr, out CLRDATA_ADDRESS[] pFinalizationFillPointersResult)
+        public HRESULT TryGetFinalizationFillPointersSvr(CLRDATA_ADDRESS heapAddr, out CLRDATA_ADDRESS[] pFinalizationFillPointers)
         {
             /*HRESULT GetFinalizationFillPointersSvr(
             [In] CLRDATA_ADDRESS heapAddr,
@@ -2968,7 +2813,7 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] pFinalizationFillPointers,
             [Out] out int pNeeded);*/
             int cFillPointers = 0;
-            CLRDATA_ADDRESS[] pFinalizationFillPointers = null;
+            pFinalizationFillPointers = null;
             int pNeeded;
             HRESULT hr = Raw8.GetFinalizationFillPointersSvr(heapAddr, cFillPointers, pFinalizationFillPointers, out pNeeded);
 
@@ -2978,17 +2823,7 @@ namespace ManagedCorDebug
             cFillPointers = pNeeded;
             pFinalizationFillPointers = new CLRDATA_ADDRESS[pNeeded];
             hr = Raw8.GetFinalizationFillPointersSvr(heapAddr, cFillPointers, pFinalizationFillPointers, out pNeeded);
-
-            if (hr == HRESULT.S_OK)
-            {
-                pFinalizationFillPointersResult = pFinalizationFillPointers;
-
-                return hr;
-            }
-
             fail:
-            pFinalizationFillPointersResult = default(CLRDATA_ADDRESS[]);
-
             return hr;
         }
 

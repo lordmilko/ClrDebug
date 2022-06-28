@@ -103,24 +103,24 @@ namespace ManagedCorDebug
         {
             get
             {
-                byte[] sigResult;
-                TryGetSignature(out sigResult).ThrowOnNotOK();
+                byte[] sig;
+                TryGetSignature(out sig).ThrowOnNotOK();
 
-                return sigResult;
+                return sig;
             }
         }
 
         /// <summary>
         /// Gets the signature of the constant.
         /// </summary>
-        /// <param name="sigResult">[out] The buffer that stores the signature.</param>
+        /// <param name="sig">[out] The buffer that stores the signature.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetSignature(out byte[] sigResult)
+        public HRESULT TryGetSignature(out byte[] sig)
         {
             /*HRESULT GetSignature([In] int cSig, [Out] out int pcSig, [MarshalAs(UnmanagedType.LPArray), Out] byte[] sig);*/
             int cSig = 0;
             int pcSig;
-            byte[] sig = null;
+            sig = null;
             HRESULT hr = Raw.GetSignature(cSig, out pcSig, sig);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
@@ -129,17 +129,7 @@ namespace ManagedCorDebug
             cSig = pcSig;
             sig = new byte[pcSig];
             hr = Raw.GetSignature(cSig, out pcSig, sig);
-
-            if (hr == HRESULT.S_OK)
-            {
-                sigResult = sig;
-
-                return hr;
-            }
-
             fail:
-            sigResult = default(byte[]);
-
             return hr;
         }
 

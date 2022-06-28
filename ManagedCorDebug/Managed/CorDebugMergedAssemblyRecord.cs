@@ -175,18 +175,18 @@ namespace ManagedCorDebug
         {
             get
             {
-                byte[] pbPublicKeyResult;
-                TryGetPublicKey(out pbPublicKeyResult).ThrowOnNotOK();
+                byte[] pbPublicKey;
+                TryGetPublicKey(out pbPublicKey).ThrowOnNotOK();
 
-                return pbPublicKeyResult;
+                return pbPublicKey;
             }
         }
 
         /// <summary>
         /// Gets the assembly's public key.
         /// </summary>
-        /// <param name="pbPublicKeyResult">[out] A pointer to a byte array that contains the assembly's public key.</param>
-        public HRESULT TryGetPublicKey(out byte[] pbPublicKeyResult)
+        /// <param name="pbPublicKey">[out] A pointer to a byte array that contains the assembly's public key.</param>
+        public HRESULT TryGetPublicKey(out byte[] pbPublicKey)
         {
             /*HRESULT GetPublicKey(
             [In] int cbPublicKey,
@@ -195,7 +195,7 @@ namespace ManagedCorDebug
             byte[] pbPublicKey);*/
             int cbPublicKey = 0;
             int pcbPublicKey;
-            byte[] pbPublicKey = null;
+            pbPublicKey = null;
             HRESULT hr = Raw.GetPublicKey(cbPublicKey, out pcbPublicKey, pbPublicKey);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
@@ -204,17 +204,7 @@ namespace ManagedCorDebug
             cbPublicKey = pcbPublicKey;
             pbPublicKey = new byte[pcbPublicKey];
             hr = Raw.GetPublicKey(cbPublicKey, out pcbPublicKey, pbPublicKey);
-
-            if (hr == HRESULT.S_OK)
-            {
-                pbPublicKeyResult = pbPublicKey;
-
-                return hr;
-            }
-
             fail:
-            pbPublicKeyResult = default(byte[]);
-
             return hr;
         }
 
@@ -228,21 +218,21 @@ namespace ManagedCorDebug
         {
             get
             {
-                byte[] pbPublicKeyTokenResult;
-                TryGetPublicKeyToken(out pbPublicKeyTokenResult).ThrowOnNotOK();
+                byte[] pbPublicKeyToken;
+                TryGetPublicKeyToken(out pbPublicKeyToken).ThrowOnNotOK();
 
-                return pbPublicKeyTokenResult;
+                return pbPublicKeyToken;
             }
         }
 
         /// <summary>
         /// Gets the assembly's public key token.
         /// </summary>
-        /// <param name="pbPublicKeyTokenResult">[out] A pointer to a byte array that contains the assembly's public key token.</param>
+        /// <param name="pbPublicKeyToken">[out] A pointer to a byte array that contains the assembly's public key token.</param>
         /// <remarks>
         /// An assembly's public key token is the last eight bytes of a SHA1 hash of its public key.
         /// </remarks>
-        public HRESULT TryGetPublicKeyToken(out byte[] pbPublicKeyTokenResult)
+        public HRESULT TryGetPublicKeyToken(out byte[] pbPublicKeyToken)
         {
             /*HRESULT GetPublicKeyToken(
             [In] int cbPublicKeyToken,
@@ -250,7 +240,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] pbPublicKeyToken);*/
             int cbPublicKeyToken = 0;
             int pcbPublicKeyToken;
-            byte[] pbPublicKeyToken = null;
+            pbPublicKeyToken = null;
             HRESULT hr = Raw.GetPublicKeyToken(cbPublicKeyToken, out pcbPublicKeyToken, pbPublicKeyToken);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
@@ -259,17 +249,7 @@ namespace ManagedCorDebug
             cbPublicKeyToken = pcbPublicKeyToken;
             pbPublicKeyToken = new byte[pcbPublicKeyToken];
             hr = Raw.GetPublicKeyToken(cbPublicKeyToken, out pcbPublicKeyToken, pbPublicKeyToken);
-
-            if (hr == HRESULT.S_OK)
-            {
-                pbPublicKeyTokenResult = pbPublicKeyToken;
-
-                return hr;
-            }
-
             fail:
-            pbPublicKeyTokenResult = default(byte[]);
-
             return hr;
         }
 

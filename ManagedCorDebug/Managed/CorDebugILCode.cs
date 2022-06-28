@@ -25,30 +25,30 @@ namespace ManagedCorDebug
         {
             get
             {
-                CorDebugEHClause[] clausesResult;
-                TryGetEHClauses(out clausesResult).ThrowOnNotOK();
+                CorDebugEHClause[] clauses;
+                TryGetEHClauses(out clauses).ThrowOnNotOK();
 
-                return clausesResult;
+                return clauses;
             }
         }
 
         /// <summary>
         /// [Supported in the .NET Framework 4.5.2 and later versions] Returns a pointer to a list of exception handling (EH) clauses that are defined for this intermediate language (IL).
         /// </summary>
-        /// <param name="clausesResult">[out] An array of <see cref="CorDebugEHClause"/> objects that contain information on exception handling clauses defined for this IL.</param>
+        /// <param name="clauses">[out] An array of <see cref="CorDebugEHClause"/> objects that contain information on exception handling clauses defined for this IL.</param>
         /// <remarks>
         /// If cClauses is 0 and pcClauses is non-null, pcClauses is set to the number of available exception handling clauses.
         /// If cClauses is non-zero, it represents the storage capacity of the clauses array. When the method returns, clauses
         /// contains a maximum of cClauses items, and pcClauses is set to the number of clauses actually written to the clauses
         /// array.
         /// </remarks>
-        public HRESULT TryGetEHClauses(out CorDebugEHClause[] clausesResult)
+        public HRESULT TryGetEHClauses(out CorDebugEHClause[] clauses)
         {
             /*HRESULT GetEHClauses([In] int cClauses, [Out] out int pcClauses, [MarshalAs(UnmanagedType.LPArray), Out]
             CorDebugEHClause[] clauses);*/
             int cClauses = 0;
             int pcClauses;
-            CorDebugEHClause[] clauses = null;
+            clauses = null;
             HRESULT hr = Raw.GetEHClauses(cClauses, out pcClauses, clauses);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
@@ -57,17 +57,7 @@ namespace ManagedCorDebug
             cClauses = pcClauses;
             clauses = new CorDebugEHClause[pcClauses];
             hr = Raw.GetEHClauses(cClauses, out pcClauses, clauses);
-
-            if (hr == HRESULT.S_OK)
-            {
-                clausesResult = clauses;
-
-                return hr;
-            }
-
             fail:
-            clausesResult = default(CorDebugEHClause[]);
-
             return hr;
         }
 
@@ -114,17 +104,17 @@ namespace ManagedCorDebug
         {
             get
             {
-                COR_IL_MAP[] mapResult;
-                TryGetInstrumentedILMap(out mapResult).ThrowOnNotOK();
+                COR_IL_MAP[] map;
+                TryGetInstrumentedILMap(out map).ThrowOnNotOK();
 
-                return mapResult;
+                return map;
             }
         }
 
         /// <summary>
         /// [Supported in the .NET Framework 4.5.2 and later versions] Returns a map from profiler-instrumented intermediate language (IL) offsets to original method IL offsets for this instance.
         /// </summary>
-        /// <param name="mapResult">[out] An array of <see cref="COR_IL_MAP"/> values that provide information on mappings from profiler-instrumented IL to the IL of the original method.</param>
+        /// <param name="map">[out] An array of <see cref="COR_IL_MAP"/> values that provide information on mappings from profiler-instrumented IL to the IL of the original method.</param>
         /// <remarks>
         /// If the profiler sets the mapping by calling the ICorProfilerInfo.SetILInstrumentedCodeMap method, the debugger
         /// can call this method to retrieve the mapping and to use the mapping internally when calculating IL offsets for
@@ -134,12 +124,12 @@ namespace ManagedCorDebug
         /// map array. If the IL hasn't been instrumented or the mapping wasn't provided by a profiler, this method returns
         /// S_OK and sets pcMap to 0.
         /// </remarks>
-        public HRESULT TryGetInstrumentedILMap(out COR_IL_MAP[] mapResult)
+        public HRESULT TryGetInstrumentedILMap(out COR_IL_MAP[] map)
         {
             /*HRESULT GetInstrumentedILMap([In] int cMap, [Out] out int pcMap, [MarshalAs(UnmanagedType.LPArray), Out] COR_IL_MAP[] map);*/
             int cMap = 0;
             int pcMap;
-            COR_IL_MAP[] map = null;
+            map = null;
             HRESULT hr = Raw2.GetInstrumentedILMap(cMap, out pcMap, map);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
@@ -148,17 +138,7 @@ namespace ManagedCorDebug
             cMap = pcMap;
             map = new COR_IL_MAP[pcMap];
             hr = Raw2.GetInstrumentedILMap(cMap, out pcMap, map);
-
-            if (hr == HRESULT.S_OK)
-            {
-                mapResult = map;
-
-                return hr;
-            }
-
             fail:
-            mapResult = default(COR_IL_MAP[]);
-
             return hr;
         }
 

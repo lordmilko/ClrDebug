@@ -63,18 +63,18 @@ namespace ManagedCorDebug
         /// <returns>A pointer to the starting address of an array of <see cref="CORDB_ADDRESS"/> values that contain the addresses of cached interface objects.</returns>
         public CORDB_ADDRESS[] GetCachedInterfacePointers(bool bIInspectableOnly)
         {
-            CORDB_ADDRESS[] ptrsResult;
-            TryGetCachedInterfacePointers(bIInspectableOnly, out ptrsResult).ThrowOnNotOK();
+            CORDB_ADDRESS[] ptrs;
+            TryGetCachedInterfacePointers(bIInspectableOnly, out ptrs).ThrowOnNotOK();
 
-            return ptrsResult;
+            return ptrs;
         }
 
         /// <summary>
         /// Gets the raw interface pointers cached on the current runtime callable wrapper (RCW).
         /// </summary>
         /// <param name="bIInspectableOnly">[in] A value that indicates whether the method will return only Windows Runtime interfaces (IInspectable interfaces) or all COM interfaces that are cached by the runtime callable wrapper (RCW).</param>
-        /// <param name="ptrsResult">A pointer to the starting address of an array of <see cref="CORDB_ADDRESS"/> values that contain the addresses of cached interface objects.</param>
-        public HRESULT TryGetCachedInterfacePointers(bool bIInspectableOnly, out CORDB_ADDRESS[] ptrsResult)
+        /// <param name="ptrs">A pointer to the starting address of an array of <see cref="CORDB_ADDRESS"/> values that contain the addresses of cached interface objects.</param>
+        public HRESULT TryGetCachedInterfacePointers(bool bIInspectableOnly, out CORDB_ADDRESS[] ptrs)
         {
             /*HRESULT GetCachedInterfacePointers(
             [In] bool bIInspectableOnly,
@@ -83,7 +83,7 @@ namespace ManagedCorDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] CORDB_ADDRESS[] ptrs);*/
             int celt = 0;
             int pceltFetched;
-            CORDB_ADDRESS[] ptrs = null;
+            ptrs = null;
             HRESULT hr = Raw.GetCachedInterfacePointers(bIInspectableOnly, celt, out pceltFetched, ptrs);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
@@ -92,17 +92,7 @@ namespace ManagedCorDebug
             celt = pceltFetched;
             ptrs = new CORDB_ADDRESS[pceltFetched];
             hr = Raw.GetCachedInterfacePointers(bIInspectableOnly, celt, out pceltFetched, ptrs);
-
-            if (hr == HRESULT.S_OK)
-            {
-                ptrsResult = ptrs;
-
-                return hr;
-            }
-
             fail:
-            ptrsResult = default(CORDB_ADDRESS[]);
-
             return hr;
         }
 

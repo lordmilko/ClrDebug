@@ -135,10 +135,10 @@ namespace ManagedCorDebug
         /// <returns>[out] A byte array that contains the value of the variable.</returns>
         public byte[] GetValue(int offset, int cbContext, IntPtr context)
         {
-            byte[] pValueResult;
-            TryGetValue(offset, cbContext, context, out pValueResult).ThrowOnNotOK();
+            byte[] pValue;
+            TryGetValue(offset, cbContext, context, out pValue).ThrowOnNotOK();
 
-            return pValueResult;
+            return pValue;
         }
 
         /// <summary>
@@ -147,8 +147,8 @@ namespace ManagedCorDebug
         /// <param name="offset">[in] The starting offset in the variable from which to read the value. This parameter is used when reading member fields in an object.</param>
         /// <param name="cbContext">[in] The size in bytes of the context argument.</param>
         /// <param name="context">[in] The thread context used to read the value.</param>
-        /// <param name="pValueResult">[out] A byte array that contains the value of the variable.</param>
-        public HRESULT TryGetValue(int offset, int cbContext, IntPtr context, out byte[] pValueResult)
+        /// <param name="pValue">[out] A byte array that contains the value of the variable.</param>
+        public HRESULT TryGetValue(int offset, int cbContext, IntPtr context, out byte[] pValue)
         {
             /*HRESULT GetValue(
             [In] int offset,
@@ -159,7 +159,7 @@ namespace ManagedCorDebug
             [MarshalAs(UnmanagedType.LPArray), Out] byte[] pValue);*/
             int cbValue = 0;
             int pcbValue;
-            byte[] pValue = null;
+            pValue = null;
             HRESULT hr = Raw.GetValue(offset, cbContext, context, cbValue, out pcbValue, pValue);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
@@ -168,17 +168,7 @@ namespace ManagedCorDebug
             cbValue = pcbValue;
             pValue = new byte[pcbValue];
             hr = Raw.GetValue(offset, cbContext, context, cbValue, out pcbValue, pValue);
-
-            if (hr == HRESULT.S_OK)
-            {
-                pValueResult = pValue;
-
-                return hr;
-            }
-
             fail:
-            pValueResult = default(byte[]);
-
             return hr;
         }
 
