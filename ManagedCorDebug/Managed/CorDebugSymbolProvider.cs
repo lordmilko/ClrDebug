@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 
 namespace ManagedCorDebug
 {
@@ -22,11 +23,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the symbol records for all the merged assemblies.
         /// </summary>
-        public ICorDebugMergedAssemblyRecord[] MergedAssemblyRecords
+        public CorDebugMergedAssemblyRecord[] MergedAssemblyRecords
         {
             get
             {
-                ICorDebugMergedAssemblyRecord[] pRecordsResult;
+                CorDebugMergedAssemblyRecord[] pRecordsResult;
                 TryGetMergedAssemblyRecords(out pRecordsResult).ThrowOnNotOK();
 
                 return pRecordsResult;
@@ -37,7 +38,7 @@ namespace ManagedCorDebug
         /// Gets the symbol records for all the merged assemblies.
         /// </summary>
         /// <param name="pRecordsResult">A pointer to an array of <see cref="ICorDebugMergedAssemblyRecord"/> objects.</param>
-        public HRESULT TryGetMergedAssemblyRecords(out ICorDebugMergedAssemblyRecord[] pRecordsResult)
+        public HRESULT TryGetMergedAssemblyRecords(out CorDebugMergedAssemblyRecord[] pRecordsResult)
         {
             /*HRESULT GetMergedAssemblyRecords(
             [In] int cRequestedRecords,
@@ -57,13 +58,13 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pRecordsResult = pRecords;
+                pRecordsResult = pRecords.Select(v => new CorDebugMergedAssemblyRecord(v)).ToArray();
 
                 return hr;
             }
 
             fail:
-            pRecordsResult = default(ICorDebugMergedAssemblyRecord[]);
+            pRecordsResult = default(CorDebugMergedAssemblyRecord[]);
 
             return hr;
         }
@@ -112,9 +113,9 @@ namespace ManagedCorDebug
         /// <param name="cbSignature">[in] The number of bytes in the typeSig array.</param>
         /// <param name="typeSig">[in] A byte array that contains the typespec signature.</param>
         /// <returns>[out] A pointer to an <see cref="ICorDebugStaticFieldSymbol"/> array that contains the requested static field symbols.</returns>
-        public ICorDebugStaticFieldSymbol[] GetStaticFieldSymbols(int cbSignature, IntPtr typeSig)
+        public CorDebugStaticFieldSymbol[] GetStaticFieldSymbols(int cbSignature, IntPtr typeSig)
         {
-            ICorDebugStaticFieldSymbol[] pSymbolsResult;
+            CorDebugStaticFieldSymbol[] pSymbolsResult;
             TryGetStaticFieldSymbols(cbSignature, typeSig, out pSymbolsResult).ThrowOnNotOK();
 
             return pSymbolsResult;
@@ -126,7 +127,7 @@ namespace ManagedCorDebug
         /// <param name="cbSignature">[in] The number of bytes in the typeSig array.</param>
         /// <param name="typeSig">[in] A byte array that contains the typespec signature.</param>
         /// <param name="pSymbolsResult">[out] A pointer to an <see cref="ICorDebugStaticFieldSymbol"/> array that contains the requested static field symbols.</param>
-        public HRESULT TryGetStaticFieldSymbols(int cbSignature, IntPtr typeSig, out ICorDebugStaticFieldSymbol[] pSymbolsResult)
+        public HRESULT TryGetStaticFieldSymbols(int cbSignature, IntPtr typeSig, out CorDebugStaticFieldSymbol[] pSymbolsResult)
         {
             /*HRESULT GetStaticFieldSymbols(
             [In] int cbSignature,
@@ -148,13 +149,13 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pSymbolsResult = pSymbols;
+                pSymbolsResult = pSymbols.Select(v => new CorDebugStaticFieldSymbol(v)).ToArray();
 
                 return hr;
             }
 
             fail:
-            pSymbolsResult = default(ICorDebugStaticFieldSymbol[]);
+            pSymbolsResult = default(CorDebugStaticFieldSymbol[]);
 
             return hr;
         }
@@ -168,9 +169,9 @@ namespace ManagedCorDebug
         /// <param name="cbSignature">[in] The number of bytes in the typeSig array.</param>
         /// <param name="typeSig">[in] A byte array that contains the typespec signature.</param>
         /// <returns>[out] A pointer to an <see cref="ICorDebugStaticFieldSymbol"/> array that contains the requested instance field symbols.</returns>
-        public ICorDebugInstanceFieldSymbol[] GetInstanceFieldSymbols(int cbSignature, IntPtr typeSig)
+        public CorDebugInstanceFieldSymbol[] GetInstanceFieldSymbols(int cbSignature, IntPtr typeSig)
         {
-            ICorDebugInstanceFieldSymbol[] pSymbolsResult;
+            CorDebugInstanceFieldSymbol[] pSymbolsResult;
             TryGetInstanceFieldSymbols(cbSignature, typeSig, out pSymbolsResult).ThrowOnNotOK();
 
             return pSymbolsResult;
@@ -182,7 +183,7 @@ namespace ManagedCorDebug
         /// <param name="cbSignature">[in] The number of bytes in the typeSig array.</param>
         /// <param name="typeSig">[in] A byte array that contains the typespec signature.</param>
         /// <param name="pSymbolsResult">[out] A pointer to an <see cref="ICorDebugStaticFieldSymbol"/> array that contains the requested instance field symbols.</param>
-        public HRESULT TryGetInstanceFieldSymbols(int cbSignature, IntPtr typeSig, out ICorDebugInstanceFieldSymbol[] pSymbolsResult)
+        public HRESULT TryGetInstanceFieldSymbols(int cbSignature, IntPtr typeSig, out CorDebugInstanceFieldSymbol[] pSymbolsResult)
         {
             /*HRESULT GetInstanceFieldSymbols(
             [In] int cbSignature,
@@ -204,13 +205,13 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pSymbolsResult = pSymbols;
+                pSymbolsResult = pSymbols.Select(v => new CorDebugInstanceFieldSymbol(v)).ToArray();
 
                 return hr;
             }
 
             fail:
-            pSymbolsResult = default(ICorDebugInstanceFieldSymbol[]);
+            pSymbolsResult = default(CorDebugInstanceFieldSymbol[]);
 
             return hr;
         }
@@ -223,9 +224,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="nativeRVA">[in] The native relative virtual address of the method.</param>
         /// <returns>[out] A pointer to an <see cref="ICorDebugVariableSymbol"/> array that contains the method's local symbols.</returns>
-        public ICorDebugVariableSymbol[] GetMethodLocalSymbols(int nativeRVA)
+        public CorDebugVariableSymbol[] GetMethodLocalSymbols(int nativeRVA)
         {
-            ICorDebugVariableSymbol[] pSymbolsResult;
+            CorDebugVariableSymbol[] pSymbolsResult;
             TryGetMethodLocalSymbols(nativeRVA, out pSymbolsResult).ThrowOnNotOK();
 
             return pSymbolsResult;
@@ -236,7 +237,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="nativeRVA">[in] The native relative virtual address of the method.</param>
         /// <param name="pSymbolsResult">[out] A pointer to an <see cref="ICorDebugVariableSymbol"/> array that contains the method's local symbols.</param>
-        public HRESULT TryGetMethodLocalSymbols(int nativeRVA, out ICorDebugVariableSymbol[] pSymbolsResult)
+        public HRESULT TryGetMethodLocalSymbols(int nativeRVA, out CorDebugVariableSymbol[] pSymbolsResult)
         {
             /*HRESULT GetMethodLocalSymbols(
             [In] int nativeRVA,
@@ -257,13 +258,13 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pSymbolsResult = pSymbols;
+                pSymbolsResult = pSymbols.Select(v => new CorDebugVariableSymbol(v)).ToArray();
 
                 return hr;
             }
 
             fail:
-            pSymbolsResult = default(ICorDebugVariableSymbol[]);
+            pSymbolsResult = default(CorDebugVariableSymbol[]);
 
             return hr;
         }
@@ -276,9 +277,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="nativeRVA">[in] The native relative virtual address of the method.</param>
         /// <returns>[out] A pointer to an <see cref="ICorDebugVariableSymbol"/> array that contains the method's local symbols.</returns>
-        public ICorDebugVariableSymbol[] GetMethodParameterSymbols(int nativeRVA)
+        public CorDebugVariableSymbol[] GetMethodParameterSymbols(int nativeRVA)
         {
-            ICorDebugVariableSymbol[] pSymbolsResult;
+            CorDebugVariableSymbol[] pSymbolsResult;
             TryGetMethodParameterSymbols(nativeRVA, out pSymbolsResult).ThrowOnNotOK();
 
             return pSymbolsResult;
@@ -289,7 +290,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="nativeRVA">[in] The native relative virtual address of the method.</param>
         /// <param name="pSymbolsResult">[out] A pointer to an <see cref="ICorDebugVariableSymbol"/> array that contains the method's local symbols.</param>
-        public HRESULT TryGetMethodParameterSymbols(int nativeRVA, out ICorDebugVariableSymbol[] pSymbolsResult)
+        public HRESULT TryGetMethodParameterSymbols(int nativeRVA, out CorDebugVariableSymbol[] pSymbolsResult)
         {
             /*HRESULT GetMethodParameterSymbols(
             [In] int nativeRVA,
@@ -310,13 +311,13 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pSymbolsResult = pSymbols;
+                pSymbolsResult = pSymbols.Select(v => new CorDebugVariableSymbol(v)).ToArray();
 
                 return hr;
             }
 
             fail:
-            pSymbolsResult = default(ICorDebugVariableSymbol[]);
+            pSymbolsResult = default(CorDebugVariableSymbol[]);
 
             return hr;
         }

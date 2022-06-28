@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -79,9 +81,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="mdMethodToken">[in] The metadata token of the method.</param>
         /// <returns>[out] The returned array of <see cref="ISymUnmanagedVariable"/> instances.</returns>
-        public ISymUnmanagedVariable[] GetLocalVariables(mdMethodDef mdMethodToken)
+        public SymUnmanagedVariable[] GetLocalVariables(mdMethodDef mdMethodToken)
         {
-            ISymUnmanagedVariable[] rgLocalsResult;
+            SymUnmanagedVariable[] rgLocalsResult;
             TryGetLocalVariables(mdMethodToken, out rgLocalsResult).ThrowOnNotOK();
 
             return rgLocalsResult;
@@ -93,7 +95,7 @@ namespace ManagedCorDebug
         /// <param name="mdMethodToken">[in] The metadata token of the method.</param>
         /// <param name="rgLocalsResult">[out] The returned array of <see cref="ISymUnmanagedVariable"/> instances.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetLocalVariables(mdMethodDef mdMethodToken, out ISymUnmanagedVariable[] rgLocalsResult)
+        public HRESULT TryGetLocalVariables(mdMethodDef mdMethodToken, out SymUnmanagedVariable[] rgLocalsResult)
         {
             /*HRESULT GetLocalVariables(
             [In] mdMethodDef mdMethodToken,
@@ -114,13 +116,13 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                rgLocalsResult = rgLocals;
+                rgLocalsResult = rgLocals.Select(v => new SymUnmanagedVariable(v)).ToArray();
 
                 return hr;
             }
 
             fail:
-            rgLocalsResult = default(ISymUnmanagedVariable[]);
+            rgLocalsResult = default(SymUnmanagedVariable[]);
 
             return hr;
         }

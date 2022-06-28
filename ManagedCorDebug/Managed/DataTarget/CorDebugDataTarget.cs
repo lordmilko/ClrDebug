@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -382,11 +383,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets a list of the modules that have been loaded so far.
         /// </summary>
-        public ICorDebugLoadedModule[] LoadedModules
+        public CorDebugLoadedModule[] LoadedModules
         {
             get
             {
-                ICorDebugLoadedModule[] pLoadedModulesResult;
+                CorDebugLoadedModule[] pLoadedModulesResult;
                 TryGetLoadedModules(out pLoadedModulesResult).ThrowOnNotOK();
 
                 return pLoadedModulesResult;
@@ -397,7 +398,7 @@ namespace ManagedCorDebug
         /// Gets a list of the modules that have been loaded so far.
         /// </summary>
         /// <param name="pLoadedModulesResult">[out] A pointer to an array of <see cref="ICorDebugLoadedModule"/> objects that provide information about loaded modules.</param>
-        public HRESULT TryGetLoadedModules(out ICorDebugLoadedModule[] pLoadedModulesResult)
+        public HRESULT TryGetLoadedModules(out CorDebugLoadedModule[] pLoadedModulesResult)
         {
             /*HRESULT GetLoadedModules(
             [In] int cRequestedModules,
@@ -417,13 +418,13 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pLoadedModulesResult = pLoadedModules;
+                pLoadedModulesResult = pLoadedModules.Select(v => new CorDebugLoadedModule(v)).ToArray();
 
                 return hr;
             }
 
             fail:
-            pLoadedModulesResult = default(ICorDebugLoadedModule[]);
+            pLoadedModulesResult = default(CorDebugLoadedModule[]);
 
             return hr;
         }

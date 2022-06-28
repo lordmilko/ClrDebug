@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Linq;
 
 namespace ManagedCorDebug
 {
@@ -93,11 +94,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the children of this scope.
         /// </summary>
-        public ISymUnmanagedScope[] Children
+        public SymUnmanagedScope[] Children
         {
             get
             {
-                ISymUnmanagedScope[] childrenResult;
+                SymUnmanagedScope[] childrenResult;
                 TryGetChildren(out childrenResult).ThrowOnNotOK();
 
                 return childrenResult;
@@ -109,7 +110,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="childrenResult">[out] The returned array of children.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetChildren(out ISymUnmanagedScope[] childrenResult)
+        public HRESULT TryGetChildren(out SymUnmanagedScope[] childrenResult)
         {
             /*HRESULT GetChildren(
             [In] int cChildren,
@@ -129,13 +130,13 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                childrenResult = children;
+                childrenResult = children.Select(v => new SymUnmanagedScope(v)).ToArray();
 
                 return hr;
             }
 
             fail:
-            childrenResult = default(ISymUnmanagedScope[]);
+            childrenResult = default(SymUnmanagedScope[]);
 
             return hr;
         }
@@ -230,11 +231,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the local variables defined within this scope.
         /// </summary>
-        public ISymUnmanagedVariable[] Locals
+        public SymUnmanagedVariable[] Locals
         {
             get
             {
-                ISymUnmanagedVariable[] localsResult;
+                SymUnmanagedVariable[] localsResult;
                 TryGetLocals(out localsResult).ThrowOnNotOK();
 
                 return localsResult;
@@ -246,7 +247,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="localsResult">[out] The array that receives the local variables.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetLocals(out ISymUnmanagedVariable[] localsResult)
+        public HRESULT TryGetLocals(out SymUnmanagedVariable[] localsResult)
         {
             /*HRESULT GetLocals(
             [In] int cLocals,
@@ -266,13 +267,13 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                localsResult = locals;
+                localsResult = locals.Select(v => new SymUnmanagedVariable(v)).ToArray();
 
                 return hr;
             }
 
             fail:
-            localsResult = default(ISymUnmanagedVariable[]);
+            localsResult = default(SymUnmanagedVariable[]);
 
             return hr;
         }
@@ -283,11 +284,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the namespaces that are being used within this scope.
         /// </summary>
-        public ISymUnmanagedNamespace[] Namespaces
+        public SymUnmanagedNamespace[] Namespaces
         {
             get
             {
-                ISymUnmanagedNamespace[] namespacesResult;
+                SymUnmanagedNamespace[] namespacesResult;
                 TryGetNamespaces(out namespacesResult).ThrowOnNotOK();
 
                 return namespacesResult;
@@ -299,7 +300,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="namespacesResult">[out] The array that receives the namespaces.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetNamespaces(out ISymUnmanagedNamespace[] namespacesResult)
+        public HRESULT TryGetNamespaces(out SymUnmanagedNamespace[] namespacesResult)
         {
             /*HRESULT GetNamespaces(
             [In] int cNameSpaces,
@@ -319,13 +320,13 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                namespacesResult = namespaces;
+                namespacesResult = namespaces.Select(v => new SymUnmanagedNamespace(v)).ToArray();
 
                 return hr;
             }
 
             fail:
-            namespacesResult = default(ISymUnmanagedNamespace[]);
+            namespacesResult = default(SymUnmanagedNamespace[]);
 
             return hr;
         }
@@ -370,11 +371,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the local constants defined within this scope.
         /// </summary>
-        public ISymUnmanagedConstant[] Constants
+        public SymUnmanagedConstant[] Constants
         {
             get
             {
-                ISymUnmanagedConstant[] constantsResult;
+                SymUnmanagedConstant[] constantsResult;
                 TryGetConstants(out constantsResult).ThrowOnNotOK();
 
                 return constantsResult;
@@ -386,7 +387,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="constantsResult">[out] The buffer that stores the constants.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetConstants(out ISymUnmanagedConstant[] constantsResult)
+        public HRESULT TryGetConstants(out SymUnmanagedConstant[] constantsResult)
         {
             /*HRESULT GetConstants([In] int cConstants, [Out] out int pcConstants, [MarshalAs(UnmanagedType.LPArray), Out] ISymUnmanagedConstant[] constants);*/
             int cConstants = 0;
@@ -403,13 +404,13 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                constantsResult = constants;
+                constantsResult = constants.Select(v => new SymUnmanagedConstant(v)).ToArray();
 
                 return hr;
             }
 
             fail:
-            constantsResult = default(ISymUnmanagedConstant[]);
+            constantsResult = default(SymUnmanagedConstant[]);
 
             return hr;
         }

@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -23,11 +24,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// Returns an array of all the documents defined in the symbol store.
         /// </summary>
-        public ISymUnmanagedDocument[] Documents
+        public SymUnmanagedDocument[] Documents
         {
             get
             {
-                ISymUnmanagedDocument[] pDocsResult;
+                SymUnmanagedDocument[] pDocsResult;
                 TryGetDocuments(out pDocsResult).ThrowOnNotOK();
 
                 return pDocsResult;
@@ -39,7 +40,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pDocsResult">[out] A pointer to a variable that receives the document array.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetDocuments(out ISymUnmanagedDocument[] pDocsResult)
+        public HRESULT TryGetDocuments(out SymUnmanagedDocument[] pDocsResult)
         {
             /*HRESULT GetDocuments(
             [In] int cDocs,
@@ -59,13 +60,13 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pDocsResult = pDocs;
+                pDocsResult = pDocs.Select(v => new SymUnmanagedDocument(v)).ToArray();
 
                 return hr;
             }
 
             fail:
-            pDocsResult = default(ISymUnmanagedDocument[]);
+            pDocsResult = default(SymUnmanagedDocument[]);
 
             return hr;
         }
@@ -104,11 +105,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// Returns all global variables.
         /// </summary>
-        public ISymUnmanagedVariable[] GlobalVariables
+        public SymUnmanagedVariable[] GlobalVariables
         {
             get
             {
-                ISymUnmanagedVariable[] pVarsResult;
+                SymUnmanagedVariable[] pVarsResult;
                 TryGetGlobalVariables(out pVarsResult).ThrowOnNotOK();
 
                 return pVarsResult;
@@ -120,7 +121,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pVarsResult">[out] A buffer that contains the variables.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetGlobalVariables(out ISymUnmanagedVariable[] pVarsResult)
+        public HRESULT TryGetGlobalVariables(out SymUnmanagedVariable[] pVarsResult)
         {
             /*HRESULT GetGlobalVariables(
             [In] int cVars,
@@ -140,13 +141,13 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pVarsResult = pVars;
+                pVarsResult = pVars.Select(v => new SymUnmanagedVariable(v)).ToArray();
 
                 return hr;
             }
 
             fail:
-            pVarsResult = default(ISymUnmanagedVariable[]);
+            pVarsResult = default(SymUnmanagedVariable[]);
 
             return hr;
         }
@@ -157,11 +158,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the namespaces defined at global scope within this symbol store.
         /// </summary>
-        public ISymUnmanagedNamespace[] Namespaces
+        public SymUnmanagedNamespace[] Namespaces
         {
             get
             {
-                ISymUnmanagedNamespace[] namespacesResult;
+                SymUnmanagedNamespace[] namespacesResult;
                 TryGetNamespaces(out namespacesResult).ThrowOnNotOK();
 
                 return namespacesResult;
@@ -173,7 +174,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="namespacesResult">[out] A pointer to a variable that receives the namespace list.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetNamespaces(out ISymUnmanagedNamespace[] namespacesResult)
+        public HRESULT TryGetNamespaces(out SymUnmanagedNamespace[] namespacesResult)
         {
             /*HRESULT GetNamespaces(
             [In] int cNameSpaces,
@@ -193,13 +194,13 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                namespacesResult = namespaces;
+                namespacesResult = namespaces.Select(v => new SymUnmanagedNamespace(v)).ToArray();
 
                 return hr;
             }
 
             fail:
-            namespacesResult = default(ISymUnmanagedNamespace[]);
+            namespacesResult = default(SymUnmanagedNamespace[]);
 
             return hr;
         }
@@ -389,9 +390,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="parent">[in] The parent of the variable.</param>
         /// <returns>[out] A pointer to the variable that receives the variables.</returns>
-        public ISymUnmanagedVariable[] GetVariables(int parent)
+        public SymUnmanagedVariable[] GetVariables(int parent)
         {
-            ISymUnmanagedVariable[] pVarsResult;
+            SymUnmanagedVariable[] pVarsResult;
             TryGetVariables(parent, out pVarsResult).ThrowOnNotOK();
 
             return pVarsResult;
@@ -403,7 +404,7 @@ namespace ManagedCorDebug
         /// <param name="parent">[in] The parent of the variable.</param>
         /// <param name="pVarsResult">[out] A pointer to the variable that receives the variables.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetVariables(int parent, out ISymUnmanagedVariable[] pVarsResult)
+        public HRESULT TryGetVariables(int parent, out SymUnmanagedVariable[] pVarsResult)
         {
             /*HRESULT GetVariables(
             [In] int parent,
@@ -424,13 +425,13 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pVarsResult = pVars;
+                pVarsResult = pVars.Select(v => new SymUnmanagedVariable(v)).ToArray();
 
                 return hr;
             }
 
             fail:
-            pVarsResult = default(ISymUnmanagedVariable[]);
+            pVarsResult = default(SymUnmanagedVariable[]);
 
             return hr;
         }
@@ -622,9 +623,9 @@ namespace ManagedCorDebug
         /// <param name="line">[in] The line of the specified document.</param>
         /// <param name="column">[in] The column of the specified document.</param>
         /// <returns>[out] An array of pointers, each of which points to an <see cref="ISymUnmanagedMethod"/> object that represents a method containing the breakpoint.</returns>
-        public ISymUnmanagedMethod[] GetMethodsFromDocumentPosition(ISymUnmanagedDocument document, int line, int column)
+        public SymUnmanagedMethod[] GetMethodsFromDocumentPosition(ISymUnmanagedDocument document, int line, int column)
         {
-            ISymUnmanagedMethod[] pRetValResult;
+            SymUnmanagedMethod[] pRetValResult;
             TryGetMethodsFromDocumentPosition(document, line, column, out pRetValResult).ThrowOnNotOK();
 
             return pRetValResult;
@@ -638,7 +639,7 @@ namespace ManagedCorDebug
         /// <param name="column">[in] The column of the specified document.</param>
         /// <param name="pRetValResult">[out] An array of pointers, each of which points to an <see cref="ISymUnmanagedMethod"/> object that represents a method containing the breakpoint.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetMethodsFromDocumentPosition(ISymUnmanagedDocument document, int line, int column, out ISymUnmanagedMethod[] pRetValResult)
+        public HRESULT TryGetMethodsFromDocumentPosition(ISymUnmanagedDocument document, int line, int column, out SymUnmanagedMethod[] pRetValResult)
         {
             /*HRESULT GetMethodsFromDocumentPosition(
             [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument document,
@@ -661,13 +662,13 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pRetValResult = pRetVal;
+                pRetValResult = pRetVal.Select(v => new SymUnmanagedMethod(v)).ToArray();
 
                 return hr;
             }
 
             fail:
-            pRetValResult = default(ISymUnmanagedMethod[]);
+            pRetValResult = default(SymUnmanagedMethod[]);
 
             return hr;
         }
@@ -835,9 +836,9 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="document">[in] A pointer to the document.</param>
         /// <returns>[out] A pointer to the buffer that receives the methods.</returns>
-        public ISymUnmanagedMethod[] GetMethodsInDocument(ISymUnmanagedDocument document)
+        public SymUnmanagedMethod[] GetMethodsInDocument(ISymUnmanagedDocument document)
         {
-            ISymUnmanagedMethod[] pRetValResult;
+            SymUnmanagedMethod[] pRetValResult;
             TryGetMethodsInDocument(document, out pRetValResult).ThrowOnNotOK();
 
             return pRetValResult;
@@ -849,7 +850,7 @@ namespace ManagedCorDebug
         /// <param name="document">[in] A pointer to the document.</param>
         /// <param name="pRetValResult">[out] A pointer to the buffer that receives the methods.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetMethodsInDocument(ISymUnmanagedDocument document, out ISymUnmanagedMethod[] pRetValResult)
+        public HRESULT TryGetMethodsInDocument(ISymUnmanagedDocument document, out SymUnmanagedMethod[] pRetValResult)
         {
             /*HRESULT GetMethodsInDocument(
             [MarshalAs(UnmanagedType.Interface), In]
@@ -871,13 +872,13 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pRetValResult = pRetVal;
+                pRetValResult = pRetVal.Select(v => new SymUnmanagedMethod(v)).ToArray();
 
                 return hr;
             }
 
             fail:
-            pRetValResult = default(ISymUnmanagedMethod[]);
+            pRetValResult = default(SymUnmanagedMethod[]);
 
             return hr;
         }

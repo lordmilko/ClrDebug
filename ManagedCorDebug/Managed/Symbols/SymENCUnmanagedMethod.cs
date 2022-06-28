@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -50,11 +51,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the documents that this method has lines in.
         /// </summary>
-        public ISymUnmanagedDocument[] DocumentsForMethod
+        public SymUnmanagedDocument[] DocumentsForMethod
         {
             get
             {
-                ISymUnmanagedDocument[] documentsResult;
+                SymUnmanagedDocument[] documentsResult;
                 TryGetDocumentsForMethod(out documentsResult).ThrowOnNotOK();
 
                 return documentsResult;
@@ -66,7 +67,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="documentsResult">[in] The buffer that contains the documents.</param>
         /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
-        public HRESULT TryGetDocumentsForMethod(out ISymUnmanagedDocument[] documentsResult)
+        public HRESULT TryGetDocumentsForMethod(out SymUnmanagedDocument[] documentsResult)
         {
             /*HRESULT GetDocumentsForMethod(
             [In] int cDocs,
@@ -86,13 +87,13 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                documentsResult = documents;
+                documentsResult = documents.Select(v => new SymUnmanagedDocument(v)).ToArray();
 
                 return hr;
             }
 
             fail:
-            documentsResult = default(ISymUnmanagedDocument[]);
+            documentsResult = default(SymUnmanagedDocument[]);
 
             return hr;
         }

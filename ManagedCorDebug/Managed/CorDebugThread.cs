@@ -775,11 +775,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// Returns an array of internal frames (<see cref="ICorDebugInternalFrame2"/> objects) on the stack.
         /// </summary>
-        public ICorDebugInternalFrame2[] ActiveInternalFrames
+        public CorDebugInternalFrame[] ActiveInternalFrames
         {
             get
             {
-                ICorDebugInternalFrame2[] ppInternalFramesResult;
+                CorDebugInternalFrame[] ppInternalFramesResult;
                 TryGetActiveInternalFrames(out ppInternalFramesResult).ThrowOnNotOK();
 
                 return ppInternalFramesResult;
@@ -807,7 +807,7 @@ namespace ManagedCorDebug
         /// (pcInternalFrames) in the cInternalFrames parameter, and specify a pointer to an appropriately sized array in ppInternalFrames.
         /// Use the <see cref="ActiveInternalFrames"/> property to return actual stack frames.
         /// </remarks>
-        public HRESULT TryGetActiveInternalFrames(out ICorDebugInternalFrame2[] ppInternalFramesResult)
+        public HRESULT TryGetActiveInternalFrames(out CorDebugInternalFrame[] ppInternalFramesResult)
         {
             /*HRESULT GetActiveInternalFrames(
             [In] int cInternalFrames,
@@ -827,13 +827,13 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                ppInternalFramesResult = ppInternalFrames;
+                ppInternalFramesResult = ppInternalFrames.Select(v => new CorDebugInternalFrame((ICorDebugInternalFrame) v)).ToArray();
 
                 return hr;
             }
 
             fail:
-            ppInternalFramesResult = default(ICorDebugInternalFrame2[]);
+            ppInternalFramesResult = default(CorDebugInternalFrame[]);
 
             return hr;
         }

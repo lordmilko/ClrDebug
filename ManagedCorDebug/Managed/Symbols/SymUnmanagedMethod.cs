@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace ManagedCorDebug
 {
     /// <summary>
@@ -111,14 +113,14 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the parameters for this method. The parameters are returned in the order in which they are defined within the method's signature.
         /// </summary>
-        public ISymUnmanagedVariable[] Parameters
+        public SymUnmanagedVariable[] Parameters
         {
             get
             {
-                ISymUnmanagedVariable[] @paramsResult;
-                TryGetParameters(out @paramsResult).ThrowOnNotOK();
+                SymUnmanagedVariable[] paramsResult;
+                TryGetParameters(out paramsResult).ThrowOnNotOK();
 
-                return @paramsResult;
+                return paramsResult;
             }
         }
 
@@ -127,7 +129,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="paramsResult">[out] A pointer to the buffer that receives the parameters.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetParameters(out ISymUnmanagedVariable[] @paramsResult)
+        public HRESULT TryGetParameters(out SymUnmanagedVariable[] paramsResult)
         {
             /*HRESULT GetParameters([In] int cParams, [Out] out int pcParams, [MarshalAs(UnmanagedType.LPArray), Out] ISymUnmanagedVariable[] @params);*/
             int cParams = 0;
@@ -144,13 +146,13 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                @paramsResult = @params;
+                paramsResult = @params.Select(v => new SymUnmanagedVariable(v)).ToArray();
 
                 return hr;
             }
 
             fail:
-            @paramsResult = default(ISymUnmanagedVariable[]);
+            paramsResult = default(SymUnmanagedVariable[]);
 
             return hr;
         }

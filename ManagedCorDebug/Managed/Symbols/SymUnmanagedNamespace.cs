@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Text;
 
 namespace ManagedCorDebug
@@ -71,11 +72,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// Gets the children of this namespace.
         /// </summary>
-        public ISymUnmanagedNamespace[] Namespaces
+        public SymUnmanagedNamespace[] Namespaces
         {
             get
             {
-                ISymUnmanagedNamespace[] namespacesResult;
+                SymUnmanagedNamespace[] namespacesResult;
                 TryGetNamespaces(out namespacesResult).ThrowOnNotOK();
 
                 return namespacesResult;
@@ -87,7 +88,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="namespacesResult">[out] A pointer to the buffer that contains the namespaces.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetNamespaces(out ISymUnmanagedNamespace[] namespacesResult)
+        public HRESULT TryGetNamespaces(out SymUnmanagedNamespace[] namespacesResult)
         {
             /*HRESULT GetNamespaces([In] int cNameSpaces, [Out] out int pcNameSpaces, [MarshalAs(UnmanagedType.LPArray), Out] ISymUnmanagedNamespace[] namespaces);*/
             int cNameSpaces = 0;
@@ -104,13 +105,13 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                namespacesResult = namespaces;
+                namespacesResult = namespaces.Select(v => new SymUnmanagedNamespace(v)).ToArray();
 
                 return hr;
             }
 
             fail:
-            namespacesResult = default(ISymUnmanagedNamespace[]);
+            namespacesResult = default(SymUnmanagedNamespace[]);
 
             return hr;
         }
@@ -121,11 +122,11 @@ namespace ManagedCorDebug
         /// <summary>
         /// Returns all variables defined at global scope within this namespace.
         /// </summary>
-        public ISymUnmanagedVariable[] Variables
+        public SymUnmanagedVariable[] Variables
         {
             get
             {
-                ISymUnmanagedVariable[] pVarsResult;
+                SymUnmanagedVariable[] pVarsResult;
                 TryGetVariables(out pVarsResult).ThrowOnNotOK();
 
                 return pVarsResult;
@@ -137,7 +138,7 @@ namespace ManagedCorDebug
         /// </summary>
         /// <param name="pVarsResult">[out] A pointer to a buffer that contains the namespaces.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetVariables(out ISymUnmanagedVariable[] pVarsResult)
+        public HRESULT TryGetVariables(out SymUnmanagedVariable[] pVarsResult)
         {
             /*HRESULT GetVariables([In] int cVars, [Out] out int pcVars, [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] pVars);*/
             int cVars = 0;
@@ -154,13 +155,13 @@ namespace ManagedCorDebug
 
             if (hr == HRESULT.S_OK)
             {
-                pVarsResult = pVars;
+                pVarsResult = pVars.Select(v => new SymUnmanagedVariable(v)).ToArray();
 
                 return hr;
             }
 
             fail:
-            pVarsResult = default(ISymUnmanagedVariable[]);
+            pVarsResult = default(SymUnmanagedVariable[]);
 
             return hr;
         }
