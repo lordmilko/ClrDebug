@@ -100,7 +100,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cNameSpaces = pcNameSpaces;
-            namespaces = new ISymUnmanagedNamespace[pcNameSpaces];
+            namespaces = new ISymUnmanagedNamespace[cNameSpaces];
             hr = Raw.GetNamespaces(cNameSpaces, out pcNameSpaces, namespaces);
 
             if (hr == HRESULT.S_OK)
@@ -150,7 +150,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cVars = pcVars;
-            pVars = new ISymUnmanagedVariable[pcVars];
+            pVars = new ISymUnmanagedVariable[cVars];
             hr = Raw.GetVariables(cVars, out pcVars, pVars);
 
             if (hr == HRESULT.S_OK)

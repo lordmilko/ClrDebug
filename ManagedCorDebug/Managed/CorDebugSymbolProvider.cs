@@ -53,7 +53,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cRequestedRecords = pcFetchedRecords;
-            pRecords = new ICorDebugMergedAssemblyRecord[pcFetchedRecords];
+            pRecords = new ICorDebugMergedAssemblyRecord[cRequestedRecords];
             hr = Raw.GetMergedAssemblyRecords(cRequestedRecords, out pcFetchedRecords, pRecords);
 
             if (hr == HRESULT.S_OK)
@@ -144,7 +144,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cRequestedSymbols = pcFetchedSymbols;
-            pSymbols = new ICorDebugStaticFieldSymbol[pcFetchedSymbols];
+            pSymbols = new ICorDebugStaticFieldSymbol[cRequestedSymbols];
             hr = Raw.GetStaticFieldSymbols(cbSignature, typeSig, cRequestedSymbols, out pcFetchedSymbols, pSymbols);
 
             if (hr == HRESULT.S_OK)
@@ -200,7 +200,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cRequestedSymbols = pcFetchedSymbols;
-            pSymbols = new ICorDebugInstanceFieldSymbol[pcFetchedSymbols];
+            pSymbols = new ICorDebugInstanceFieldSymbol[cRequestedSymbols];
             hr = Raw.GetInstanceFieldSymbols(cbSignature, typeSig, cRequestedSymbols, out pcFetchedSymbols, pSymbols);
 
             if (hr == HRESULT.S_OK)
@@ -253,7 +253,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cRequestedSymbols = pcFetchedSymbols;
-            pSymbols = new ICorDebugVariableSymbol[pcFetchedSymbols];
+            pSymbols = new ICorDebugVariableSymbol[cRequestedSymbols];
             hr = Raw.GetMethodLocalSymbols(nativeRVA, cRequestedSymbols, out pcFetchedSymbols, pSymbols);
 
             if (hr == HRESULT.S_OK)
@@ -306,7 +306,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cRequestedSymbols = pcFetchedSymbols;
-            pSymbols = new ICorDebugVariableSymbol[pcFetchedSymbols];
+            pSymbols = new ICorDebugVariableSymbol[cRequestedSymbols];
             hr = Raw.GetMethodParameterSymbols(nativeRVA, cRequestedSymbols, out pcFetchedSymbols, pSymbols);
 
             if (hr == HRESULT.S_OK)
@@ -371,7 +371,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cbSignature = pcbSignature;
-            signature = new byte[pcbSignature];
+            signature = new byte[cbSignature];
             hr = Raw.GetMethodProps(codeRva, out pMethodToken, out pcGenericParams, cbSignature, out pcbSignature, signature);
 
             if (hr == HRESULT.S_OK)
@@ -432,7 +432,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cbSignature = pcbSignature;
-            signature = new byte[pcbSignature];
+            signature = new byte[cbSignature];
             hr = Raw.GetTypeProps(vtableRva, cbSignature, out pcbSignature, signature);
             fail:
             return hr;

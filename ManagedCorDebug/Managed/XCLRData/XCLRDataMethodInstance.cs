@@ -194,7 +194,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             mapLen = mapNeeded;
-            maps = new CLRDATA_IL_ADDRESS_MAP[mapNeeded];
+            maps = new CLRDATA_IL_ADDRESS_MAP[mapLen];
             hr = Raw.GetILAddressMap(mapLen, out mapNeeded, maps);
             fail:
             return hr;

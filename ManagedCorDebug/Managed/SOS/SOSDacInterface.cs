@@ -93,7 +93,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             count = pNeeded;
-            values = new CLRDATA_ADDRESS[pNeeded];
+            values = new CLRDATA_ADDRESS[count];
             hr = Raw.GetAppDomainList(count, values, out pNeeded);
             fail:
             return hr;
@@ -128,7 +128,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             count = pNeeded;
-            managers = new DacpJitManagerInfo[pNeeded];
+            managers = new DacpJitManagerInfo[count];
             hr = Raw.GetJitManagerList(count, managers, out pNeeded);
             fail:
             return hr;
@@ -205,7 +205,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             count = pNeeded;
-            heaps = new CLRDATA_ADDRESS[pNeeded];
+            heaps = new CLRDATA_ADDRESS[count];
             hr = Raw.GetGCHeapList(count, heaps, out pNeeded);
             fail:
             return hr;
@@ -495,7 +495,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             count = pNeeded;
-            values = new CLRDATA_ADDRESS[pNeeded];
+            values = new CLRDATA_ADDRESS[count];
             hr = Raw.GetAssemblyList(appDomain, count, values, out pNeeded);
             fail:
             return hr;
@@ -655,7 +655,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             count = pNeeded;
-            modules = new CLRDATA_ADDRESS[pNeeded];
+            modules = new CLRDATA_ADDRESS[count];
             hr = Raw.GetAssemblyModuleList(assembly, count, modules, out pNeeded);
             fail:
             return hr;
@@ -780,7 +780,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cRevertedRejitVersions = pcNeededRevertedRejitData;
-            rgRevertedRejitData = new DacpReJitData[pcNeededRevertedRejitData];
+            rgRevertedRejitData = new DacpReJitData[cRevertedRejitVersions];
             hr = Raw.GetMethodDescData(methodDesc, ip, out data, cRevertedRejitVersions, rgRevertedRejitData, out pcNeededRevertedRejitData);
 
             if (hr == HRESULT.S_OK)
@@ -1749,7 +1749,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             count = pNeeded;
-            codeHeaps = new DacpJitCodeHeapInfo[pNeeded];
+            codeHeaps = new DacpJitCodeHeapInfo[count];
             hr = Raw.GetCodeHeapList(jitManager, count, codeHeaps, out pNeeded);
             fail:
             return hr;
@@ -1834,7 +1834,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             count = pNeeded;
-            interfaces = new DacpCOMInterfacePointerData[pNeeded];
+            interfaces = new DacpCOMInterfacePointerData[count];
             hr = Raw.GetRCWInterfaces(rcw, count, interfaces, out pNeeded);
             fail:
             return hr;
@@ -1886,7 +1886,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             count = pNeeded;
-            interfaces = new DacpCOMInterfacePointerData[pNeeded];
+            interfaces = new DacpCOMInterfacePointerData[count];
             hr = Raw.GetCCWInterfaces(ccw, count, interfaces, out pNeeded);
             fail:
             return hr;
@@ -2054,7 +2054,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             count = pNeeded;
-            values = new CLRDATA_ADDRESS[pNeeded];
+            values = new CLRDATA_ADDRESS[count];
             hr = Raw.GetFailedAssemblyList(appDomain, count, values, out pNeeded);
             fail:
             return hr;
@@ -2496,7 +2496,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             count = pNeeded;
-            arguments = new CLRDATA_ADDRESS[pNeeded];
+            arguments = new CLRDATA_ADDRESS[count];
             hr = Raw4.GetClrNotification(arguments, count, out pNeeded);
             fail:
             return hr;
@@ -2536,7 +2536,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cNativeCodeAddrs = pcNativeCodeAddrs;
-            nativeCodeAddrs = new DacpTieredVersionData[pcNativeCodeAddrs];
+            nativeCodeAddrs = new DacpTieredVersionData[cNativeCodeAddrs];
             hr = Raw5.GetTieredVersions(methodDesc, rejitId, nativeCodeAddrs, cNativeCodeAddrs, out pcNativeCodeAddrs);
             fail:
             return hr;
@@ -2658,7 +2658,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cMethodDescs = pcMethodDescs;
-            methodDescs = new CLRDATA_ADDRESS[pcMethodDescs];
+            methodDescs = new CLRDATA_ADDRESS[cMethodDescs];
             hr = Raw7.GetMethodsWithProfilerModifiedIL(mod, methodDescs, cMethodDescs, out pcMethodDescs);
             fail:
             return hr;
@@ -2720,7 +2720,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cGenerations = pNeeded;
-            pGenerationData = new DacpGenerationData[pNeeded];
+            pGenerationData = new DacpGenerationData[cGenerations];
             hr = Raw8.GetGenerationTable(cGenerations, pGenerationData, out pNeeded);
             fail:
             return hr;
@@ -2755,7 +2755,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cFillPointers = pNeeded;
-            pFinalizationFillPointers = new CLRDATA_ADDRESS[pNeeded];
+            pFinalizationFillPointers = new CLRDATA_ADDRESS[cFillPointers];
             hr = Raw8.GetFinalizationFillPointers(cFillPointers, pFinalizationFillPointers, out pNeeded);
             fail:
             return hr;
@@ -2788,7 +2788,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cGenerations = pNeeded;
-            pGenerationData = new DacpGenerationData[pNeeded];
+            pGenerationData = new DacpGenerationData[cGenerations];
             hr = Raw8.GetGenerationTableSvr(heapAddr, cGenerations, pGenerationData, out pNeeded);
             fail:
             return hr;
@@ -2821,7 +2821,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cFillPointers = pNeeded;
-            pFinalizationFillPointers = new CLRDATA_ADDRESS[pNeeded];
+            pFinalizationFillPointers = new CLRDATA_ADDRESS[cFillPointers];
             hr = Raw8.GetFinalizationFillPointersSvr(heapAddr, cFillPointers, pFinalizationFillPointers, out pNeeded);
             fail:
             return hr;
@@ -2908,7 +2908,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             count = pNeeded;
-            mowList = new CLRDATA_ADDRESS[pNeeded];
+            mowList = new CLRDATA_ADDRESS[count];
             hr = Raw10.GetObjectComWrappersData(objAddr, out rcw, count, mowList, out pNeeded);
 
             if (hr == HRESULT.S_OK)

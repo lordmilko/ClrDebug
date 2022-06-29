@@ -220,7 +220,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cData = pcData;
-            data = new byte[pcData];
+            data = new byte[cData];
             hr = Raw.GetCheckSum(cData, out pcData, data);
             fail:
             return hr;
@@ -355,7 +355,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cSourceBytes = pcSourceBytes;
-            source = new byte[pcSourceBytes];
+            source = new byte[cSourceBytes];
             hr = Raw.GetSourceRange(startLine, startColumn, endLine, endColumn, cSourceBytes, out pcSourceBytes, source);
             fail:
             return hr;

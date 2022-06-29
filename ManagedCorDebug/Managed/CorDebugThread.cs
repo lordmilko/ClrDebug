@@ -626,7 +626,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cFunctions = pcFunctions;
-            pFunctions = new COR_ACTIVE_FUNCTION[pcFunctions];
+            pFunctions = new COR_ACTIVE_FUNCTION[cFunctions];
             hr = Raw2.GetActiveFunctions(cFunctions, out pcFunctions, pFunctions);
             fail:
             return hr;
@@ -812,7 +812,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cInternalFrames = pcInternalFrames;
-            ppInternalFrames = new ICorDebugInternalFrame2[pcInternalFrames];
+            ppInternalFrames = new ICorDebugInternalFrame2[cInternalFrames];
             hr = Raw3.GetActiveInternalFrames(cInternalFrames, out pcInternalFrames, ppInternalFrames);
 
             if (hr == HRESULT.S_OK)

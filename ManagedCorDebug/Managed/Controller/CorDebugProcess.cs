@@ -817,7 +817,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             bufsize = bufLen;
-            buffer = new byte[bufLen];
+            buffer = new byte[bufsize];
             hr = Raw2.SetUnmanagedBreakpoint(address, bufsize, buffer, out bufLen);
             fail:
             return hr;
@@ -1473,7 +1473,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             celt = pceltNeeded;
-            fields = new COR_FIELD[pceltNeeded];
+            fields = new COR_FIELD[celt];
             hr = Raw5.GetTypeFields(id, celt, fields, out pceltNeeded);
             fail:
             return hr;

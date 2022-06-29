@@ -163,7 +163,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cStepInfo = pcStepInfo;
-            yieldOffsets = new int[pcStepInfo];
+            yieldOffsets = new int[cStepInfo];
             hr = Raw.GetAsyncStepInfo(cStepInfo, out pcStepInfo, yieldOffsets, breakpointOffset, breakpointMethod);
 
             if (hr == HRESULT.S_OK)

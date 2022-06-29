@@ -90,7 +90,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             celt = pceltFetched;
-            ptrs = new CORDB_ADDRESS[pceltFetched];
+            ptrs = new CORDB_ADDRESS[celt];
             hr = Raw.GetCachedInterfacePointers(bIInspectableOnly, celt, out pceltFetched, ptrs);
             fail:
             return hr;

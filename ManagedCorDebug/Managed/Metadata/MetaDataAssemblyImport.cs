@@ -394,7 +394,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cMax = pcTokens;
-            rAssemblyRefs = new mdAssemblyRef[pcTokens];
+            rAssemblyRefs = new mdAssemblyRef[cMax];
             hr = Raw.EnumAssemblyRefs(ref phEnum, rAssemblyRefs, cMax, out pcTokens);
             fail:
             return hr;
@@ -443,7 +443,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cMax = pcTokens;
-            rFiles = new mdFile[pcTokens];
+            rFiles = new mdFile[cMax];
             hr = Raw.EnumFiles(ref phEnum, rFiles, cMax, out pcTokens);
             fail:
             return hr;
@@ -492,7 +492,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cMax = pcTokens;
-            rExportedTypes = new mdExportedType[pcTokens];
+            rExportedTypes = new mdExportedType[cMax];
             hr = Raw.EnumExportedTypes(ref phEnum, rExportedTypes, cMax, out pcTokens);
             fail:
             return hr;
@@ -541,7 +541,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cMax = pcTokens;
-            rManifestResources = new mdManifestResource[pcTokens];
+            rManifestResources = new mdManifestResource[cMax];
             hr = Raw.EnumManifestResources(ref phEnum, rManifestResources, cMax, out pcTokens);
             fail:
             return hr;
@@ -720,7 +720,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cMax = pcAssemblies;
-            ppIUnk = new object[pcAssemblies];
+            ppIUnk = new object[cMax];
             hr = Raw.FindAssembliesByName(szAppBase, szPrivateBin, szAssemblyName, ppIUnk, cMax, out pcAssemblies);
             fail:
             return hr;

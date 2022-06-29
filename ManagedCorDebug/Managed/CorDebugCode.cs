@@ -209,7 +209,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cMap = pcMap;
-            map = new COR_DEBUG_IL_TO_NATIVE_MAP[pcMap];
+            map = new COR_DEBUG_IL_TO_NATIVE_MAP[cMap];
             hr = Raw.GetILToNativeMapping(cMap, out pcMap, map);
             fail:
             return hr;
@@ -250,7 +250,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cMap = pcMap;
-            offsets = new int[pcMap];
+            offsets = new int[cMap];
             hr = Raw.GetEnCRemapSequencePoints(cMap, out pcMap, offsets);
             fail:
             return hr;
@@ -352,7 +352,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cBufferAlloc = pcBufferSize;
-            buffer = new byte[pcBufferSize];
+            buffer = new byte[cBufferAlloc];
             hr = Raw.GetCode(startOffset, endOffset, cBufferAlloc, buffer, out pcBufferSize);
             fail:
             return hr;
@@ -402,7 +402,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cbufSize = pcnumChunks;
-            chunks = new CodeChunkInfo[pcnumChunks];
+            chunks = new CodeChunkInfo[cbufSize];
             hr = Raw2.GetCodeChunks(cbufSize, out pcnumChunks, chunks);
             fail:
             return hr;

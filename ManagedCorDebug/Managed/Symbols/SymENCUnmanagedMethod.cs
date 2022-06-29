@@ -82,7 +82,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cDocs = pcDocs;
-            documents = new ISymUnmanagedDocument[pcDocs];
+            documents = new ISymUnmanagedDocument[cDocs];
             hr = Raw.GetDocumentsForMethod(cDocs, out pcDocs, documents);
 
             if (hr == HRESULT.S_OK)

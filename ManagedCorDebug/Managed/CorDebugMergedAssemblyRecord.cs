@@ -202,7 +202,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cbPublicKey = pcbPublicKey;
-            pbPublicKey = new byte[pcbPublicKey];
+            pbPublicKey = new byte[cbPublicKey];
             hr = Raw.GetPublicKey(cbPublicKey, out pcbPublicKey, pbPublicKey);
             fail:
             return hr;
@@ -247,7 +247,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cbPublicKeyToken = pcbPublicKeyToken;
-            pbPublicKeyToken = new byte[pcbPublicKeyToken];
+            pbPublicKeyToken = new byte[cbPublicKeyToken];
             hr = Raw.GetPublicKeyToken(cbPublicKeyToken, out pcbPublicKeyToken, pbPublicKeyToken);
             fail:
             return hr;

@@ -111,7 +111,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cLocals = pceltFetched;
-            rgLocals = new ISymUnmanagedVariable[pceltFetched];
+            rgLocals = new ISymUnmanagedVariable[cLocals];
             hr = Raw.GetLocalVariables(mdMethodToken, cLocals, rgLocals, out pceltFetched);
 
             if (hr == HRESULT.S_OK)

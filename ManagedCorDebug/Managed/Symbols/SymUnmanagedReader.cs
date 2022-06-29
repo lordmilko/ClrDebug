@@ -55,7 +55,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cDocs = pcDocs;
-            pDocs = new ISymUnmanagedDocument[pcDocs];
+            pDocs = new ISymUnmanagedDocument[cDocs];
             hr = Raw.GetDocuments(cDocs, out pcDocs, pDocs);
 
             if (hr == HRESULT.S_OK)
@@ -136,7 +136,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cVars = pcVars;
-            pVars = new ISymUnmanagedVariable[pcVars];
+            pVars = new ISymUnmanagedVariable[cVars];
             hr = Raw.GetGlobalVariables(cVars, out pcVars, pVars);
 
             if (hr == HRESULT.S_OK)
@@ -189,7 +189,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cNameSpaces = pcNameSpaces;
-            namespaces = new ISymUnmanagedNamespace[pcNameSpaces];
+            namespaces = new ISymUnmanagedNamespace[cNameSpaces];
             hr = Raw.GetNamespaces(cNameSpaces, out pcNameSpaces, namespaces);
 
             if (hr == HRESULT.S_OK)
@@ -420,7 +420,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cVars = pcVars;
-            pVars = new ISymUnmanagedVariable[pcVars];
+            pVars = new ISymUnmanagedVariable[cVars];
             hr = Raw.GetVariables(parent, cVars, out pcVars, pVars);
 
             if (hr == HRESULT.S_OK)
@@ -657,7 +657,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cMethod = pcMethod;
-            pRetVal = new ISymUnmanagedMethod[pcMethod];
+            pRetVal = new ISymUnmanagedMethod[cMethod];
             hr = Raw.GetMethodsFromDocumentPosition(document, line, column, cMethod, out pcMethod, pRetVal);
 
             if (hr == HRESULT.S_OK)
@@ -867,7 +867,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cMethod = pcMethod;
-            pRetVal = new ISymUnmanagedMethod[pcMethod];
+            pRetVal = new ISymUnmanagedMethod[cMethod];
             hr = Raw2.GetMethodsInDocument(document, cMethod, out pcMethod, pRetVal);
 
             if (hr == HRESULT.S_OK)

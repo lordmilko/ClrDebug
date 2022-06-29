@@ -691,7 +691,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cData = pcData;
-            data = new byte[pcData];
+            data = new byte[cData];
             hr = Raw.GetDebugInfo(ref pIDD, cData, out pcData, data);
             fail:
             return hr;
@@ -1090,7 +1090,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cData = pcData;
-            data = new byte[pcData];
+            data = new byte[cData];
             hr = Raw4.GetDebugInfoWithPadding(ref pIDD, cData, out pcData, data);
             fail:
             return hr;

@@ -166,7 +166,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cbValue = pcbValue;
-            pValue = new byte[pcbValue];
+            pValue = new byte[cbValue];
             hr = Raw.GetValue(offset, cbContext, context, cbValue, out pcbValue, pValue);
             fail:
             return hr;

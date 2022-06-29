@@ -55,7 +55,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cClauses = pcClauses;
-            clauses = new CorDebugEHClause[pcClauses];
+            clauses = new CorDebugEHClause[cClauses];
             hr = Raw.GetEHClauses(cClauses, out pcClauses, clauses);
             fail:
             return hr;
@@ -136,7 +136,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cMap = pcMap;
-            map = new COR_IL_MAP[pcMap];
+            map = new COR_IL_MAP[cMap];
             hr = Raw2.GetInstrumentedILMap(cMap, out pcMap, map);
             fail:
             return hr;

@@ -125,7 +125,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cChildren = pcChildren;
-            children = new ISymUnmanagedScope[pcChildren];
+            children = new ISymUnmanagedScope[cChildren];
             hr = Raw.GetChildren(cChildren, out pcChildren, children);
 
             if (hr == HRESULT.S_OK)
@@ -262,7 +262,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cLocals = pcLocals;
-            locals = new ISymUnmanagedVariable[pcLocals];
+            locals = new ISymUnmanagedVariable[cLocals];
             hr = Raw.GetLocals(cLocals, out pcLocals, locals);
 
             if (hr == HRESULT.S_OK)
@@ -315,7 +315,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cNameSpaces = pcNameSpaces;
-            namespaces = new ISymUnmanagedNamespace[pcNameSpaces];
+            namespaces = new ISymUnmanagedNamespace[cNameSpaces];
             hr = Raw.GetNamespaces(cNameSpaces, out pcNameSpaces, namespaces);
 
             if (hr == HRESULT.S_OK)
@@ -399,7 +399,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cConstants = pcConstants;
-            constants = new ISymUnmanagedConstant[pcConstants];
+            constants = new ISymUnmanagedConstant[cConstants];
             hr = Raw2.GetConstants(cConstants, out pcConstants, constants);
 
             if (hr == HRESULT.S_OK)

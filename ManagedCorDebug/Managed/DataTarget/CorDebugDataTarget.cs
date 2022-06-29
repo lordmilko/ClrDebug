@@ -308,7 +308,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cThreadIds = pcThreadIds;
-            pThreadIds = new int[pcThreadIds];
+            pThreadIds = new int[cThreadIds];
             hr = Raw2.EnumerateThreadIDs(cThreadIds, out pcThreadIds, pThreadIds);
             fail:
             return hr;
@@ -403,7 +403,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cRequestedModules = pcFetchedModules;
-            pLoadedModules = new ICorDebugLoadedModule[pcFetchedModules];
+            pLoadedModules = new ICorDebugLoadedModule[cRequestedModules];
             hr = Raw3.GetLoadedModules(cRequestedModules, out pcFetchedModules, pLoadedModules);
 
             if (hr == HRESULT.S_OK)

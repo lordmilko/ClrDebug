@@ -1641,7 +1641,7 @@ namespace ManagedCorDebug
             cchEvent = pchEvent;
             szEvent = new StringBuilder(pchEvent);
             cMax = pcOtherMethod;
-            rmdOtherMethod = new mdMethodDef[pcOtherMethod];
+            rmdOtherMethod = new mdMethodDef[cMax];
             hr = Raw.GetEventProps(ev, out pClass, szEvent, cchEvent, out pchEvent, out pdwEventFlags, out ptkEventType, out pmdAddOn, out pmdRemoveOn, out pmdFire, rmdOtherMethod, cMax, out pcOtherMethod);
 
             if (hr == HRESULT.S_OK)
@@ -1803,7 +1803,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cMax = pcFieldOffset;
-            rFieldOffset = new COR_FIELD_OFFSET[pcFieldOffset];
+            rFieldOffset = new COR_FIELD_OFFSET[cMax];
             hr = Raw.GetClassLayout(td, out pdwPackSize, rFieldOffset, cMax, out pcFieldOffset, out pulClassSize);
 
             if (hr == HRESULT.S_OK)
@@ -2853,7 +2853,7 @@ namespace ManagedCorDebug
             cchProperty = pchProperty;
             szProperty = new StringBuilder(pchProperty);
             cMax = pcOtherMethod;
-            rmdOtherMethod = new mdMethodDef[pcOtherMethod];
+            rmdOtherMethod = new mdMethodDef[cMax];
             hr = Raw.GetPropertyProps(prop, out pClass, szProperty, cchProperty, out pchProperty, out pdwPropFlags, out ppvSig, out pbSig, out pdwCPlusTypeFlag, out ppDefaultValue, out pcchDefaultValue, out pmdSetter, out pmdGetter, rmdOtherMethod, cMax, out pcOtherMethod);
 
             if (hr == HRESULT.S_OK)

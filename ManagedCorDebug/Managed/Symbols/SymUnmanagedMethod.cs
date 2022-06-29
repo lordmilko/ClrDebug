@@ -141,7 +141,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cParams = pcParams;
-            @params = new ISymUnmanagedVariable[pcParams];
+            @params = new ISymUnmanagedVariable[cParams];
             hr = Raw.GetParameters(cParams, out pcParams, @params);
 
             if (hr == HRESULT.S_OK)
@@ -312,7 +312,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cRanges = pcRanges;
-            ranges = new int[pcRanges];
+            ranges = new int[cRanges];
             hr = Raw.GetRanges(document, line, column, cRanges, out pcRanges, ranges);
             fail:
             return hr;

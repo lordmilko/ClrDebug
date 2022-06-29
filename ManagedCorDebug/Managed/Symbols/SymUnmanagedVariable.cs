@@ -127,7 +127,7 @@ namespace ManagedCorDebug
                 goto fail;
 
             cSig = pcSig;
-            sig = new byte[pcSig];
+            sig = new byte[cSig];
             hr = Raw.GetSignature(cSig, out pcSig, sig);
             fail:
             return hr;
