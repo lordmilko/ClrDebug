@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{399EEB4C-9CBE-4929-A1E6-DDAAA0235822}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PEReader</RootNamespace>
+    <AssemblyName>PEReader</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="PE\CodeViewInfo.cs" />
+    <Compile Include="PE\COMIMAGE_FLAGS.cs" />
+    <Compile Include="PE\FileInfoFlags.cs" />
+    <Compile Include="PE\ImageCor20Header.cs" />
+    <Compile Include="PE\ImageDataDirectory.cs" />
+    <Compile Include="PE\ImageDebugDirectory.cs" />
+    <Compile Include="PE\ImageDebugType.cs" />
+    <Compile Include="PE\ImageDllCharacteristics.cs" />
+    <Compile Include="PE\ImageExportDirectory.cs" />
+    <Compile Include="PE\ImageFile.cs" />
+    <Compile Include="PE\ImageFileHeader.cs" />
+    <Compile Include="PE\ImageOptionalHeader.cs" />
+    <Compile Include="PE\ImageResourceDataEntry.cs" />
+    <Compile Include="PE\ImageResourceDirectory.cs" />
+    <Compile Include="PE\ImageResourceDirectoryEntry.cs" />
+    <Compile Include="PE\ImageResourceDirectoryString.cs" />
+    <Compile Include="PE\ImageSectionHeader.cs" />
+    <Compile Include="PE\ImageSubsystem.cs" />
+    <Compile Include="PE\IMAGE_SCN.cs" />
+    <Compile Include="PE\Info\ImageDebugDirectoryInfo.cs" />
+    <Compile Include="PE\Info\ImageResourceDirectoryEntryInfo.cs" />
+    <Compile Include="PE\Info\ImageResourceDirectoryInfo.cs" />
+    <Compile Include="PE\Info\ImageResourceDirectoryLevel.cs" />
+    <Compile Include="PE\PEBinaryReader.cs" />
+    <Compile Include="PE\PEFile.cs" />
+    <Compile Include="PE\PEMagic.cs" />
+    <Compile Include="PE\VS_FIXEDFILEINFO.cs" />
+    <Compile Include="PE\VS_VERSIONINFO.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ManagedCorDebug\ManagedCorDebug.csproj">
+      <Project>{adefc667-2811-4954-bfa4-47a6470f1843}</Project>
+      <Name>ManagedCorDebug</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

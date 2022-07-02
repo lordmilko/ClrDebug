@@ -1,4 +1,8 @@
-Samples/
+# Exclude all unfinished samples
+Samples/*
+
+# Samples to include
+!Samples/PEReader/
 
 #################
 # Visual Studio #
