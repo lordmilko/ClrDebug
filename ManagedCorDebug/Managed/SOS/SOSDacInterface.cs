@@ -57,49 +57,6 @@ namespace ManagedCorDebug
         }
 
         #endregion
-        #region AppDomainList
-
-        /// <summary>
-        /// Gets the addresses of all AppDomains present in a process, excluding the System and Shared AppDomains.
-        /// </summary>
-        public CLRDATA_ADDRESS[] AppDomainList
-        {
-            get
-            {
-                CLRDATA_ADDRESS[] values;
-                TryGetAppDomainList(out values).ThrowOnNotOK();
-
-                return values;
-            }
-        }
-
-        /// <summary>
-        /// Gets the addresses of all AppDomains present in a process, excluding the System and Shared AppDomains.
-        /// </summary>
-        /// <param name="values">The array to store the addresses of returned AppDomains.</param>
-        /// <returns>A HRESULT that indicates success or failure.</returns>
-        public HRESULT TryGetAppDomainList(out CLRDATA_ADDRESS[] values)
-        {
-            /*HRESULT GetAppDomainList(
-            [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] values,
-            [Out] out int pNeeded);*/
-            int count = 0;
-            values = null;
-            int pNeeded;
-            HRESULT hr = Raw.GetAppDomainList(count, values, out pNeeded);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            count = pNeeded;
-            values = new CLRDATA_ADDRESS[count];
-            hr = Raw.GetAppDomainList(count, values, out pNeeded);
-            fail:
-            return hr;
-        }
-
-        #endregion
         #region JitManagerList
 
         public DacpJitManagerInfo[] JitManagerList
@@ -385,6 +342,44 @@ namespace ManagedCorDebug
             /*HRESULT GetDacModuleHandle(
             [Out] out IntPtr phModule);*/
             return Raw.GetDacModuleHandle(out phModule);
+        }
+
+        #endregion
+        #region GetAppDomainList
+
+        /// <summary>
+        /// Gets the addresses of all AppDomains present in a process, excluding the System and Shared AppDomains.
+        /// </summary>
+        /// <param name="count">The size of the values array. The number of active AppDomains can be retrieved from <see cref="AppDomainStoreData"/>.</param>
+        /// <returns>The array to store the addresses of returned AppDomains.</returns>
+        public CLRDATA_ADDRESS[] GetAppDomainList(int count)
+        {
+            CLRDATA_ADDRESS[] values;
+            TryGetAppDomainList(count, out values).ThrowOnNotOK();
+
+            return values;
+        }
+
+        /// <summary>
+        /// Gets the addresses of all AppDomains present in a process, excluding the System and Shared AppDomains.
+        /// </summary>
+        /// <param name="count">The size of the <paramref name="values"/> array. The number of active AppDomains can be retrieved from <see cref="AppDomainStoreData"/>.</param>
+        /// <param name="values">The array to store the addresses of returned AppDomains.</param>
+        /// <returns>A HRESULT that indicates success or failure.</returns>
+        public HRESULT TryGetAppDomainList(int count, out CLRDATA_ADDRESS[] values)
+        {
+            /*HRESULT GetAppDomainList(
+            [In] int count,
+            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] values,
+            [Out] out int pNeeded);*/
+            values = new CLRDATA_ADDRESS[count];
+            int pNeeded;
+            HRESULT hr = Raw.GetAppDomainList(count, values, out pNeeded);
+
+            if (count != pNeeded)
+                Array.Resize(ref values, pNeeded);
+
+            return hr;
         }
 
         #endregion

@@ -49,6 +49,7 @@
     <Compile Include="Extensions\Extensions.CLRRuntimeInfo.cs" />
     <Compile Include="Extensions\Extensions.CorDebug.cs" />
     <Compile Include="Extensions\Extensions.CorDebugModule.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Extensions\Extensions.HostControl.cs" />
     <Compile Include="Extensions\Extensions.MetaDataImport.cs" />
     <Compile Include="Managed\Breakpoint\CorDebugBreakpoint.cs" />

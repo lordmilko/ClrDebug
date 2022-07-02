@@ -48,10 +48,8 @@ namespace ManagedCorDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT OpenVirtualProcess(
             [In] long moduleBaseAddress,
-            [MarshalAs(UnmanagedType.IUnknown), In]
-            object pDataTarget,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICLRDebuggingLibraryProvider pLibraryProvider,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugDataTarget pDataTarget,
+            [MarshalAs(UnmanagedType.Interface), In] ICLRDebuggingLibraryProvider pLibraryProvider,
             [In] ref CLR_DEBUGGING_VERSION pMaxDebuggerSupportedVersion,
             [In] ref Guid riidProcess,
             [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppProcess,

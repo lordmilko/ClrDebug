@@ -6,34 +6,40 @@ namespace ManagedCorDebug
     public struct X86_CONTEXT
     {
         public ContextFlags ContextFlags; //set this to an appropriate value
+
         // Retrieved by CONTEXT_DEBUG_REGISTERS
-        public uint Dr0;
-        public uint Dr1;
-        public uint Dr2;
-        public uint Dr3;
-        public uint Dr6;
-        public uint Dr7;
+        public int Dr0;
+        public int Dr1;
+        public int Dr2;
+        public int Dr3;
+        public int Dr6;
+        public int Dr7;
+
         // Retrieved by CONTEXT_FLOATING_POINT
         public X86_FLOATING_SAVE_AREA FloatSave;
+
         // Retrieved by CONTEXT_SEGMENTS
-        public uint SegGs;
-        public uint SegFs;
-        public uint SegEs;
-        public uint SegDs;
+        public int SegGs;
+        public int SegFs;
+        public int SegEs;
+        public int SegDs;
+
         // Retrieved by CONTEXT_INTEGER
-        public uint Edi;
-        public uint Esi;
-        public uint Ebx;
-        public uint Edx;
-        public uint Ecx;
-        public uint Eax;
+        public int Edi;
+        public int Esi;
+        public int Ebx;
+        public int Edx;
+        public int Ecx;
+        public int Eax;
+
         // Retrieved by CONTEXT_CONTROL
-        public uint Ebp;
+        public int Ebp;
         public int Eip;
-        public uint SegCs;
-        public uint EFlags;
-        public uint Esp;
-        public uint SegSs;
+        public int SegCs;
+        public int EFlags;
+        public int Esp;
+        public int SegSs;
+
         // Retrieved by CONTEXT_EXTENDED_REGISTERS
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 512)]
         public byte[] ExtendedRegisters;

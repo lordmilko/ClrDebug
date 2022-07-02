@@ -27,9 +27,22 @@ for(int i = 0; i < types.Length; i++)
     {
         public u<#= baseType #> Value { get; }
 
-        public <#= type #>(u<#= baseType #> value)
+        public <#= type == "CLRDATA_ADDRESS" ? "unsafe " : "" #><#= type #>(u<#= baseType #> value)
         {
+<#
+if (type == "CLRDATA_ADDRESS")
+{
+#>
+			Value = new UIntPtr((void*)value).ToUInt64();
+<#
+}
+else
+{
+#>
             Value = value;
+<#
+}
+#>
         }
 
         public <#= type #>(<#= baseType #> value) : this((u<#= baseType #>) value)
@@ -60,6 +73,19 @@ if (type == "CORDB_ADDRESS")
 		public static implicit operator <#= type #>(IntPtr value) => new <#= type #>(value.ToInt64());
 
 		public static implicit operator IntPtr(CORDB_ADDRESS value) => new IntPtr(value);
+
+		public static implicit operator CLRDATA_ADDRESS(CORDB_ADDRESS value) => new CLRDATA_ADDRESS(value);
+<#
+}
+if (type == "CLRDATA_ADDRESS")
+{
+#>
+
+		public static implicit operator <#= type #>(IntPtr value) => new <#= type #>(value.ToInt64());
+
+		public static implicit operator IntPtr(CLRDATA_ADDRESS value) => new IntPtr(value);
+
+		public static implicit operator CORDB_ADDRESS(CLRDATA_ADDRESS value) => new CORDB_ADDRESS(value);
 <#
 }
 #>

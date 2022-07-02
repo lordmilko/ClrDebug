@@ -5,6 +5,28 @@ namespace ManagedCorDebug
 {
     public static partial class Extensions
     {
+        //If an enumerator turns out to have no entries,  HENUMInternal::DestroyEnumIfEmpty will immediately delete the enumerator,
+        //and HENUMInternal::EnumWithCount will return S_FALSE seeing that cTokens == 0
+        private static readonly mdCustomAttribute[] NoCustomAttributes = new mdCustomAttribute[0];
+        private static readonly mdEvent[] NoEvents = new mdEvent[0];
+        private static readonly mdFieldDef[] NoFieldDefs = new mdFieldDef[0];
+        private static readonly mdGenericParam[] NoGenericParams = new mdGenericParam[0];
+        private static readonly mdGenericParamConstraint[] NoGenericParamConstraints = new mdGenericParamConstraint[0];
+        private static readonly mdInterfaceImpl[] NoInterfaceImpls = new mdInterfaceImpl[0];
+        private static readonly mdMemberRef[] NoMemberRefs = new mdMemberRef[0];
+        private static readonly mdMethodDef[] NoMethodDefs = new mdMethodDef[0];
+        private static readonly mdMethodSpec[] NoMethodSpecs = new mdMethodSpec[0];
+        private static readonly mdModuleRef[] NoModuleRefs = new mdModuleRef[0];
+        private static readonly mdParamDef[] NoParamDefs = new mdParamDef[0];
+        private static readonly mdPermission[] NoPermissions = new mdPermission[0];
+        private static readonly mdProperty[] NoProperties = new mdProperty[0];
+        private static readonly mdSignature[] NoSignatures = new mdSignature[0];
+        private static readonly mdString[] NoStrings = new mdString[0];
+        private static readonly mdToken[] NoTokens = new mdToken[0];
+        private static readonly mdTypeDef[] NoTypeDefs = new mdTypeDef[0];
+        private static readonly mdTypeRef[] NoTypeRefs = new mdTypeRef[0];
+        private static readonly mdTypeSpec[] NoTypeSpecs = new mdTypeSpec[0];
+
         /// <summary>
         /// Enumerates TypeDef tokens representing all types within the current scope.
         /// </summary>
@@ -17,7 +39,11 @@ namespace ManagedCorDebug
         public static mdTypeDef[] EnumTypeDefs(this MetaDataImport metaDataImport)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumTypeDefs(ref hEnum, null);
+            int pcTypeDefs;
+            metaDataImport.TryEnumTypeDefs(ref hEnum, null, out pcTypeDefs).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoTypeDefs;
 
             try
             {
@@ -49,7 +75,11 @@ namespace ManagedCorDebug
         public static mdInterfaceImpl[] EnumInterfaceImpls(this MetaDataImport metaDataImport, mdTypeDef td)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumInterfaceImpls(ref hEnum, td, null);
+            int pcImpls;
+            metaDataImport.TryEnumInterfaceImpls(ref hEnum, td, null, out pcImpls).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoInterfaceImpls;
 
             try
             {
@@ -78,7 +108,11 @@ namespace ManagedCorDebug
         public static mdTypeRef[] EnumTypeRefs(this MetaDataImport metaDataImport)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumTypeRefs(ref hEnum, null);
+            int pcTypeRefs;
+            metaDataImport.TryEnumTypeRefs(ref hEnum, null, out pcTypeRefs).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoTypeRefs;
 
             try
             {
@@ -108,12 +142,16 @@ namespace ManagedCorDebug
         /// even if the class provides an implementation for those inherited members. To enumerate inherited members, the caller
         /// must explicitly walk the inheritance chain. Note that the rules for the inheritance chain may vary depending on
         /// the language or compiler that emitted the original metadata. Properties and events are not enumerated by EnumMembers.
-        /// To enumerate those, use <see cref="MetaDataImport.EnumProperties"/> or <see cref="MetaDataImport.EnumEvents"/>.
+        /// To enumerate those, use <see cref="MetaDataImport.TryEnumProperties"/> or <see cref="MetaDataImport.TryEnumEvents"/>.
         /// </remarks>
         public static mdToken[] EnumMembers(this MetaDataImport metaDataImport, mdTypeDef cl)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumMembers(ref hEnum, cl, null);
+            int pcTokens;
+            metaDataImport.TryEnumMembers(ref hEnum, cl, null, out pcTokens).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoTokens;
 
             try
             {
@@ -145,7 +183,11 @@ namespace ManagedCorDebug
         public static mdToken[] EnumMembersWithName(this MetaDataImport metaDataImport, mdTypeDef cl, string szName)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumMembersWithName(ref hEnum, cl, szName, null);
+            int pcTokens;
+            metaDataImport.TryEnumMembersWithName(ref hEnum, cl, szName, null, out pcTokens).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoTokens;
 
             try
             {
@@ -172,7 +214,11 @@ namespace ManagedCorDebug
         public static mdMethodDef[] EnumMethods(this MetaDataImport metaDataImport, mdTypeDef cl)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumMethods(ref hEnum, cl, null);
+            int pcTokens;
+            metaDataImport.TryEnumMethods(ref hEnum, cl, null, out pcTokens).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoMethodDefs;
 
             try
             {
@@ -204,7 +250,11 @@ namespace ManagedCorDebug
         public static mdMethodDef[] EnumMethodsWithName(this MetaDataImport metaDataImport, mdTypeDef cl, string szName)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumMethodsWithName(ref hEnum, cl, szName, null);
+            int pcTokens;
+            metaDataImport.TryEnumMethodsWithName(ref hEnum, cl, szName, null, out pcTokens).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoMethodDefs;
 
             try
             {
@@ -231,7 +281,11 @@ namespace ManagedCorDebug
         public static mdFieldDef[] EnumFields(this MetaDataImport metaDataImport, mdTypeDef cl)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumFields(ref hEnum, cl, null);
+            int pcTokens;
+            metaDataImport.TryEnumFields(ref hEnum, cl, null, out pcTokens).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoFieldDefs;
 
             try
             {
@@ -262,7 +316,11 @@ namespace ManagedCorDebug
         public static mdFieldDef[] EnumFieldsWithName(this MetaDataImport metaDataImport, mdTypeDef cl, string szName)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumFieldsWithName(ref hEnum, cl, szName, null);
+            int pcTokens;
+            metaDataImport.TryEnumFieldsWithName(ref hEnum, cl, szName, null, out pcTokens).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoFieldDefs;
 
             try
             {
@@ -289,7 +347,11 @@ namespace ManagedCorDebug
         public static mdParamDef[] EnumParams(this MetaDataImport metaDataImport, mdMethodDef mb)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumParams(ref hEnum, mb, null);
+            int pcTokens;
+            metaDataImport.TryEnumParams(ref hEnum, mb, null, out pcTokens).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoParamDefs;
 
             try
             {
@@ -316,7 +378,11 @@ namespace ManagedCorDebug
         public static mdMemberRef[] EnumMemberRefs(this MetaDataImport metaDataImport, mdToken tkParent)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumMemberRefs(ref hEnum, tkParent, null);
+            int pcTokens;
+            metaDataImport.TryEnumMemberRefs(ref hEnum, tkParent, null, out pcTokens).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoMemberRefs;
 
             try
             {
@@ -343,7 +409,11 @@ namespace ManagedCorDebug
         public static EnumMethodImplsResult EnumMethodImpls(this MetaDataImport metaDataImport, mdTypeDef td)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumMethodImpls(ref hEnum, td, null, null);
+            int pcTokens;
+            metaDataImport.TryEnumMethodImpls(ref hEnum, td, null, null, out pcTokens).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return new EnumMethodImplsResult(NoTokens, NoTokens);
 
             try
             {
@@ -372,7 +442,11 @@ namespace ManagedCorDebug
         public static mdPermission[] EnumPermissionSets(this MetaDataImport metaDataImport, mdToken tk, CorDeclSecurity dwActions)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumPermissionSets(ref hEnum, tk, dwActions, null);
+            int pcTokens;
+            metaDataImport.TryEnumPermissionSets(ref hEnum, tk, dwActions, null, out pcTokens).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoPermissions;
 
             try
             {
@@ -399,7 +473,11 @@ namespace ManagedCorDebug
         public static mdProperty[] EnumProperties(this MetaDataImport metaDataImport, mdTypeDef td)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumProperties(ref hEnum, td, null);
+            int pcProperties;
+            metaDataImport.TryEnumProperties(ref hEnum, td, null, out pcProperties).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoProperties;
 
             try
             {
@@ -426,7 +504,11 @@ namespace ManagedCorDebug
         public static mdEvent[] EnumEvents(this MetaDataImport metaDataImport, mdTypeDef td)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumEvents(ref hEnum, td, null);
+            int pcEvents;
+            metaDataImport.TryEnumEvents(ref hEnum, td, null, out pcEvents).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoEvents;
 
             try
             {
@@ -462,7 +544,11 @@ namespace ManagedCorDebug
         public static mdToken[] EnumMethodSemantics(this MetaDataImport metaDataImport, mdMethodDef mb)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumMethodSemantics(ref hEnum, mb, null);
+            int pcEventProp;
+            metaDataImport.TryEnumMethodSemantics(ref hEnum, mb, null, out pcEventProp).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoTokens;
 
             try
             {
@@ -488,7 +574,11 @@ namespace ManagedCorDebug
         public static mdModuleRef[] EnumModuleRefs(this MetaDataImport metaDataImport)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumModuleRefs(ref hEnum, null);
+            int pcModuleRefs;
+            metaDataImport.TryEnumModuleRefs(ref hEnum, null, out pcModuleRefs).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoModuleRefs;
 
             try
             {
@@ -521,7 +611,11 @@ namespace ManagedCorDebug
         public static mdToken[] EnumUnresolvedMethods(this MetaDataImport metaDataImport)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumUnresolvedMethods(ref hEnum, null);
+            int pcTokens;
+            metaDataImport.TryEnumUnresolvedMethods(ref hEnum, null, out pcTokens).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoTokens;
 
             try
             {
@@ -550,7 +644,11 @@ namespace ManagedCorDebug
         public static mdSignature[] EnumSignatures(this MetaDataImport metaDataImport)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumSignatures(ref hEnum, null);
+            int pcSignatures;
+            metaDataImport.TryEnumSignatures(ref hEnum, null, out pcSignatures).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoSignatures;
 
             try
             {
@@ -579,7 +677,11 @@ namespace ManagedCorDebug
         public static mdTypeSpec[] EnumTypeSpecs(this MetaDataImport metaDataImport)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumTypeSpecs(ref hEnum, null);
+            int pcTypeSpecs;
+            metaDataImport.TryEnumTypeSpecs(ref hEnum, null, out pcTypeSpecs).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoTypeSpecs;
 
             try
             {
@@ -609,7 +711,11 @@ namespace ManagedCorDebug
         public static mdString[] EnumUserStrings(this MetaDataImport metaDataImport)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumUserStrings(ref hEnum, null);
+            int pcStrings;
+            metaDataImport.TryEnumUserStrings(ref hEnum, null, out pcStrings).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoStrings;
 
             try
             {
@@ -637,7 +743,11 @@ namespace ManagedCorDebug
         public static mdCustomAttribute[] EnumCustomAttributes(this MetaDataImport metaDataImport, mdToken tk, mdToken tkType)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumCustomAttributes(ref hEnum, tk, tkType, null);
+            int pcCustomAttributes;
+            metaDataImport.TryEnumCustomAttributes(ref hEnum, tk, tkType, null, out pcCustomAttributes).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoCustomAttributes;
 
             try
             {
@@ -664,7 +774,11 @@ namespace ManagedCorDebug
         public static mdGenericParam[] EnumGenericParams(this MetaDataImport metaDataImport, mdToken tk)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumGenericParams(ref hEnum, tk, null);
+            int pcGenericParams;
+            metaDataImport.TryEnumGenericParams(ref hEnum, tk, null, out pcGenericParams).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoGenericParams;
 
             try
             {
@@ -691,7 +805,11 @@ namespace ManagedCorDebug
         public static mdGenericParamConstraint[] EnumGenericParamConstraints(this MetaDataImport metaDataImport, mdGenericParam tk)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumGenericParamConstraints(ref hEnum, tk, null);
+            int pcGenericParamConstraints;
+            metaDataImport.TryEnumGenericParamConstraints(ref hEnum, tk, null, out pcGenericParamConstraints).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoGenericParamConstraints;
 
             try
             {
@@ -718,7 +836,11 @@ namespace ManagedCorDebug
         public static mdMethodSpec[] EnumMethodSpecs(this MetaDataImport metaDataImport, mdToken tk)
         {
             IntPtr hEnum = IntPtr.Zero;
-            metaDataImport.EnumMethodSpecs(ref hEnum, tk, null);
+            int pcMethodSpecs;
+            metaDataImport.TryEnumMethodSpecs(ref hEnum, tk, null, out pcMethodSpecs).ThrowOnFailed();
+
+            if (hEnum == IntPtr.Zero)
+                return NoMethodSpecs;
 
             try
             {

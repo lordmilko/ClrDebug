@@ -16,7 +16,7 @@
         SH5 = 0x01a8, // SH5
         ARM = 0x01c0, // ARM Little-Endian
         THUMB = 0x01c2,
-        THUMB2 = 0x1c4,
+        ARMNT = 0x1c4,
         AM33 = 0x01d3,
         POWERPC = 0x01F0, // IBM PowerPC Little-Endian
         POWERPCFP = 0x01f1,
@@ -31,6 +31,7 @@
         EBC = 0x0EBC, // EFI Byte Code
         AMD64 = 0x8664, // AMD64 (K8)
         M32R = 0x9041, // M32R little-endian
+        ARM64 = 0xAA64,
         CEE = 0xC0EE,
     }
 }

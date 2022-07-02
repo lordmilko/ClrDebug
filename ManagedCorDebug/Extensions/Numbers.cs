@@ -35,6 +35,8 @@ namespace ManagedCorDebug
 
 		public static implicit operator IntPtr(CORDB_ADDRESS value) => new IntPtr(value);
 
+		public static implicit operator CLRDATA_ADDRESS(CORDB_ADDRESS value) => new CLRDATA_ADDRESS(value);
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<CORDB_ADDRESS>(Value, value);
 
         public bool Equals(CORDB_ADDRESS other) => other.Value.Equals(Value);
@@ -86,9 +88,9 @@ namespace ManagedCorDebug
     {
         public ulong Value { get; }
 
-        public CLRDATA_ADDRESS(ulong value)
+        public unsafe CLRDATA_ADDRESS(ulong value)
         {
-            Value = value;
+			Value = new UIntPtr((void*)value).ToUInt64();
         }
 
         public CLRDATA_ADDRESS(long value) : this((ulong) value)
@@ -104,6 +106,12 @@ namespace ManagedCorDebug
         public static implicit operator CLRDATA_ADDRESS(ulong value) => new CLRDATA_ADDRESS(value);
 
 		public static implicit operator CLRDATA_ADDRESS(int value) => new CLRDATA_ADDRESS(value);
+
+		public static implicit operator CLRDATA_ADDRESS(IntPtr value) => new CLRDATA_ADDRESS(value.ToInt64());
+
+		public static implicit operator IntPtr(CLRDATA_ADDRESS value) => new IntPtr(value);
+
+		public static implicit operator CORDB_ADDRESS(CLRDATA_ADDRESS value) => new CORDB_ADDRESS(value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<CLRDATA_ADDRESS>(Value, value);
 
