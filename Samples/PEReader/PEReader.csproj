@@ -71,9 +71,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ManagedCorDebug\ManagedCorDebug.csproj">
+    <ProjectReference Include="..\..\ClrDebug\ClrDebug.csproj">
       <Project>{adefc667-2811-4954-bfa4-47a6470f1843}</Project>
-      <Name>ManagedCorDebug</Name>
+      <Name>ClrDebug</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

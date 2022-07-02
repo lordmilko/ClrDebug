@@ -52,9 +52,9 @@
     <Compile Include="SymbolStoreKey.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ManagedCorDebug\ManagedCorDebug.csproj">
+    <ProjectReference Include="..\..\ClrDebug\ClrDebug.csproj">
       <Project>{adefc667-2811-4954-bfa4-47a6470f1843}</Project>
-      <Name>ManagedCorDebug</Name>
+      <Name>ClrDebug</Name>
     </ProjectReference>
     <ProjectReference Include="..\PEReader\PEReader.csproj">
       <Project>{399eeb4c-9cbe-4929-a1e6-ddaaa0235822}</Project>

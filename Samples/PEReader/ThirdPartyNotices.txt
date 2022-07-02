@@ -1,5 +1,5 @@
-Certain ManagedCorDebug samples use third-party resources that may be distributed
-under licenses different than the ManagedCorDebug software.
+Certain ClrDebug samples use third-party resources that may be distributed
+under licenses different than the ClrDebug software.
 
 The attached notices are provided for information purposes only.
 

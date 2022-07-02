@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using PEReader.PE;
-using ManagedCorDebug;
+using ClrDebug;
 
 namespace SymStore
 {

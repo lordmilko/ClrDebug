@@ -1,4 +1,4 @@
-﻿using ManagedCorDebug;
+﻿using ClrDebug;
 
 namespace PEReader.PE
 {

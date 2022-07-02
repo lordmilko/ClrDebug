@@ -15,8 +15,8 @@ Further complicating things is the confusing nature of various PE data structure
 are all types you can easily conflate the meaning of if you haven't spent hours writing your own PE reader. This sample includes extensive XmlDoc comments on key structures to make clear what each structure does, where it comes from,
 and how it relates and differs to other similarly named structures.
 
-This sample is almost completely independent of `ManagedCorDebug`, with the exception of the `IMAGE_FILE_MACHINE` type which is used
-from the main `ManagedCorDebug` assembly rather than being redeclared.
+This sample is almost completely independent of `ClrDebug`, with the exception of the `IMAGE_FILE_MACHINE` type which is used
+from the main `ClrDebug` assembly rather than being redeclared.
 
 ## Resources
 
