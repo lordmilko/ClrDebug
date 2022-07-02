@@ -64,7 +64,7 @@ namespace ClrDebug
         /// indicating an error.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetConfiguration([Out, MarshalAs(UnmanagedType.IUnknown)] out object pConfiguration);
+        HRESULT GetConfiguration([Out, MarshalAs(UnmanagedType.Interface)] out ICorConfiguration pConfiguration);
 
         /// <summary>
         /// Starts the common language runtime (CLR).
@@ -117,7 +117,10 @@ namespace ClrDebug
         /// | HOST_E_CLRNOTAVAILABLE | The CLR has not been loaded into a process, or the CLR is in a state in which it cannot run managed code or process the call successfully.                                                                       |
         /// </returns>
         [PreserveSig]
-        HRESULT CreateDomain([In, MarshalAs(UnmanagedType.LPWStr)] string pwzFriendlyName, [In, MarshalAs(UnmanagedType.IUnknown)] object pIdentityArray, [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);
+        HRESULT CreateDomain(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string pwzFriendlyName,
+            [In, MarshalAs(UnmanagedType.LPArray)] object[] pIdentityArray,
+            [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);
 
         /// <summary>
         /// Gets an interface pointer of type <see cref="_AppDomain"/> that represents the default domain for the current process.

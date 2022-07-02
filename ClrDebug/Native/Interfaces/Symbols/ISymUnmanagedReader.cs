@@ -172,7 +172,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Initialize(
-            [MarshalAs(UnmanagedType.IUnknown), In] object importer,
+            [MarshalAs(UnmanagedType.Interface), In] IMetaDataImport importer,
             [In, MarshalAs(UnmanagedType.LPWStr)] string filename,
             [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
             [MarshalAs(UnmanagedType.Interface), In] IStream pIStream);

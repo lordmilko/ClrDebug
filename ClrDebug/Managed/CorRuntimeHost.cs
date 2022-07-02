@@ -23,29 +23,37 @@ namespace ClrDebug
         /// <summary>
         /// Gets an object that allows the host to specify the callback configuration of the common language runtime (CLR).
         /// </summary>
-        public object Configuration
+        public CorConfiguration Configuration
         {
             get
             {
-                object pConfiguration;
-                TryGetConfiguration(out pConfiguration).ThrowOnNotOK();
+                CorConfiguration pConfigurationResult;
+                TryGetConfiguration(out pConfigurationResult).ThrowOnNotOK();
 
-                return pConfiguration;
+                return pConfigurationResult;
             }
         }
 
         /// <summary>
         /// Gets an object that allows the host to specify the callback configuration of the common language runtime (CLR).
         /// </summary>
-        /// <param name="pConfiguration">[out] A pointer to the address of an <see cref="ICorConfiguration"/> object that can be used to configure the CLR.</param>
+        /// <param name="pConfigurationResult">[out] A pointer to the address of an <see cref="ICorConfiguration"/> object that can be used to configure the CLR.</param>
         /// <remarks>
         /// The CLR must be configured prior to its initialization; otherwise, the GetConfiguration method returns an <see cref="HRESULT"/>
         /// indicating an error.
         /// </remarks>
-        public HRESULT TryGetConfiguration(out object pConfiguration)
+        public HRESULT TryGetConfiguration(out CorConfiguration pConfigurationResult)
         {
-            /*HRESULT GetConfiguration([Out, MarshalAs(UnmanagedType.IUnknown)] out object pConfiguration);*/
-            return Raw.GetConfiguration(out pConfiguration);
+            /*HRESULT GetConfiguration([Out, MarshalAs(UnmanagedType.Interface)] out ICorConfiguration pConfiguration);*/
+            ICorConfiguration pConfiguration;
+            HRESULT hr = Raw.GetConfiguration(out pConfiguration);
+
+            if (hr == HRESULT.S_OK)
+                pConfigurationResult = new CorConfiguration(pConfiguration);
+            else
+                pConfigurationResult = default(CorConfiguration);
+
+            return hr;
         }
 
         #endregion
@@ -305,7 +313,7 @@ namespace ClrDebug
         /// <param name="pIdentityArray">[in] An optional array of pointers to IIdentity instances that represent evidence mapped through security policy to establish a permission set.<para/>
         /// An IIdentity object can be obtained by calling the <see cref="CreateEvidence"/> method.</param>
         /// <returns>[out] An interface pointer of type <see cref="_AppDomain"/> to an instance of <see cref="AppDomain"/> that can be used to further control the domain.</returns>
-        public object CreateDomain(string pwzFriendlyName, object pIdentityArray)
+        public object CreateDomain(string pwzFriendlyName, object[] pIdentityArray)
         {
             object pAppDomain;
             TryCreateDomain(pwzFriendlyName, pIdentityArray, out pAppDomain).ThrowOnNotOK();
@@ -328,9 +336,12 @@ namespace ClrDebug
         /// | E_FAIL                 | An unknown, catastrophic failure occurred. If a method returns E_FAIL, the common language runtime (CLR) is no longer usable in the process. Subsequent calls to any hosting APIs return HOST_E_CLRNOTAVAILABLE. |
         /// | HOST_E_CLRNOTAVAILABLE | The CLR has not been loaded into a process, or the CLR is in a state in which it cannot run managed code or process the call successfully.                                                                       |
         /// </returns>
-        public HRESULT TryCreateDomain(string pwzFriendlyName, object pIdentityArray, out object pAppDomain)
+        public HRESULT TryCreateDomain(string pwzFriendlyName, object[] pIdentityArray, out object pAppDomain)
         {
-            /*HRESULT CreateDomain([In, MarshalAs(UnmanagedType.LPWStr)] string pwzFriendlyName, [In, MarshalAs(UnmanagedType.IUnknown)] object pIdentityArray, [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);*/
+            /*HRESULT CreateDomain(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string pwzFriendlyName,
+            [In, MarshalAs(UnmanagedType.LPArray)] object[] pIdentityArray,
+            [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);*/
             return Raw.CreateDomain(pwzFriendlyName, pIdentityArray, out pAppDomain);
         }
 

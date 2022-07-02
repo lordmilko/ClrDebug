@@ -534,7 +534,7 @@ namespace ClrDebug
         /// You need to specify only one of the filename or the pIStream parameters, not both. The searchPath parameter is
         /// optional.
         /// </remarks>
-        public void Initialize(object importer, string filename, string searchPath, IStream pIStream)
+        public void Initialize(IMetaDataImport importer, string filename, string searchPath, IStream pIStream)
         {
             TryInitialize(importer, filename, searchPath, pIStream).ThrowOnNotOK();
         }
@@ -551,10 +551,10 @@ namespace ClrDebug
         /// You need to specify only one of the filename or the pIStream parameters, not both. The searchPath parameter is
         /// optional.
         /// </remarks>
-        public HRESULT TryInitialize(object importer, string filename, string searchPath, IStream pIStream)
+        public HRESULT TryInitialize(IMetaDataImport importer, string filename, string searchPath, IStream pIStream)
         {
             /*HRESULT Initialize(
-            [MarshalAs(UnmanagedType.IUnknown), In] object importer,
+            [MarshalAs(UnmanagedType.Interface), In] IMetaDataImport importer,
             [In, MarshalAs(UnmanagedType.LPWStr)] string filename,
             [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
             [MarshalAs(UnmanagedType.Interface), In] IStream pIStream);*/

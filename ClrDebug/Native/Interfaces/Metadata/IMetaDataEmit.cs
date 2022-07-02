@@ -698,7 +698,7 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pImport">[in] Pointer to an IUnknown object that represents the delta metadata from the portable executable (PE) file. The delta metadata is the block of metadata that includes the changes that were made to the copy of the module's actual metadata.</param>
         [PreserveSig]
-        HRESULT ApplyEditAndContinue([In, MarshalAs(UnmanagedType.IUnknown)] object pImport);
+        HRESULT ApplyEditAndContinue([In, MarshalAs(UnmanagedType.Interface)] IMetaDataImport pImport);
 
         /// <summary>
         /// Imports an assembly into the current scope and gets a new metadata signature for the merged scope.

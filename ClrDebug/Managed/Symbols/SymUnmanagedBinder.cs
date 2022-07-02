@@ -27,7 +27,7 @@ namespace ClrDebug
         /// <param name="fileName">[in] A pointer to the file name.</param>
         /// <param name="searchPath">[in] A pointer to the search path.</param>
         /// <returns>[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</returns>
-        public SymUnmanagedReader GetReaderForFile(object importer, string fileName, string searchPath)
+        public SymUnmanagedReader GetReaderForFile(IMetaDataImport importer, string fileName, string searchPath)
         {
             SymUnmanagedReader pRetValResult;
             TryGetReaderForFile(importer, fileName, searchPath, out pRetValResult).ThrowOnNotOK();
@@ -45,10 +45,10 @@ namespace ClrDebug
         /// <param name="searchPath">[in] A pointer to the search path.</param>
         /// <param name="pRetValResult">[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetReaderForFile(object importer, string fileName, string searchPath, out SymUnmanagedReader pRetValResult)
+        public HRESULT TryGetReaderForFile(IMetaDataImport importer, string fileName, string searchPath, out SymUnmanagedReader pRetValResult)
         {
             /*HRESULT GetReaderForFile(
-            [MarshalAs(UnmanagedType.IUnknown), In] object importer,
+            [MarshalAs(UnmanagedType.Interface), In] IMetaDataImport importer,
             [In, MarshalAs(UnmanagedType.LPWStr)] string fileName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
             [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedReader pRetVal);*/
@@ -72,7 +72,7 @@ namespace ClrDebug
         /// <param name="importer">[in] A pointer to the metadata import interface.</param>
         /// <param name="pstream">[in] A pointer to the stream that contains the symbol store.</param>
         /// <returns>[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</returns>
-        public SymUnmanagedReader GetReaderFromStream(object importer, IStream pstream)
+        public SymUnmanagedReader GetReaderFromStream(IMetaDataImport importer, IStream pstream)
         {
             SymUnmanagedReader pRetValResult;
             TryGetReaderFromStream(importer, pstream, out pRetValResult).ThrowOnNotOK();
@@ -87,10 +87,10 @@ namespace ClrDebug
         /// <param name="pstream">[in] A pointer to the stream that contains the symbol store.</param>
         /// <param name="pRetValResult">[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetReaderFromStream(object importer, IStream pstream, out SymUnmanagedReader pRetValResult)
+        public HRESULT TryGetReaderFromStream(IMetaDataImport importer, IStream pstream, out SymUnmanagedReader pRetValResult)
         {
             /*HRESULT GetReaderFromStream(
-            [MarshalAs(UnmanagedType.IUnknown), In] object importer,
+            [MarshalAs(UnmanagedType.Interface), In] IMetaDataImport importer,
             [MarshalAs(UnmanagedType.Interface), In] IStream pstream,
             [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedReader pRetVal);*/
             ISymUnmanagedReader pRetVal;
@@ -129,7 +129,7 @@ namespace ClrDebug
         /// the registry or use the path in the executable file. If the searchPath parameter is provided, those directories
         /// will always be searched.
         /// </remarks>
-        public SymUnmanagedReader GetReaderForFile2(object importer, string fileName, string searchPath, CorSymSearchPolicyAttributes searchPolicy)
+        public SymUnmanagedReader GetReaderForFile2(IMetaDataImport importer, string fileName, string searchPath, CorSymSearchPolicyAttributes searchPolicy)
         {
             SymUnmanagedReader pRetValResult;
             TryGetReaderForFile2(importer, fileName, searchPath, searchPolicy, out pRetValResult).ThrowOnNotOK();
@@ -154,10 +154,10 @@ namespace ClrDebug
         /// the registry or use the path in the executable file. If the searchPath parameter is provided, those directories
         /// will always be searched.
         /// </remarks>
-        public HRESULT TryGetReaderForFile2(object importer, string fileName, string searchPath, CorSymSearchPolicyAttributes searchPolicy, out SymUnmanagedReader pRetValResult)
+        public HRESULT TryGetReaderForFile2(IMetaDataImport importer, string fileName, string searchPath, CorSymSearchPolicyAttributes searchPolicy, out SymUnmanagedReader pRetValResult)
         {
             /*HRESULT GetReaderForFile2(
-            [MarshalAs(UnmanagedType.IUnknown), In] object importer,
+            [MarshalAs(UnmanagedType.Interface), In] IMetaDataImport importer,
             [In, MarshalAs(UnmanagedType.LPWStr)] string fileName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
             [In] CorSymSearchPolicyAttributes searchPolicy,
@@ -191,7 +191,7 @@ namespace ClrDebug
         /// <param name="searchPolicy">[in] A value of the <see cref="CorSymSearchPolicyAttributes"/> enumeration that specifies the policy to be used when doing a search for a symbol reader.</param>
         /// <param name="callback">[in] A pointer to the callback function.</param>
         /// <returns>[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</returns>
-        public SymUnmanagedReader GetReaderFromCallback(object importer, string fileName, string searchPath, CorSymSearchPolicyAttributes searchPolicy, object callback)
+        public SymUnmanagedReader GetReaderFromCallback(IMetaDataImport importer, string fileName, string searchPath, CorSymSearchPolicyAttributes searchPolicy, object callback)
         {
             SymUnmanagedReader pRetValResult;
             TryGetReaderFromCallback(importer, fileName, searchPath, searchPolicy, callback, out pRetValResult).ThrowOnNotOK();
@@ -209,11 +209,10 @@ namespace ClrDebug
         /// <param name="callback">[in] A pointer to the callback function.</param>
         /// <param name="pRetValResult">[out] A pointer that is set to the returned <see cref="ISymUnmanagedReader"/> interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryGetReaderFromCallback(object importer, string fileName, string searchPath, CorSymSearchPolicyAttributes searchPolicy, object callback, out SymUnmanagedReader pRetValResult)
+        public HRESULT TryGetReaderFromCallback(IMetaDataImport importer, string fileName, string searchPath, CorSymSearchPolicyAttributes searchPolicy, object callback, out SymUnmanagedReader pRetValResult)
         {
             /*HRESULT GetReaderFromCallback(
-            [MarshalAs(UnmanagedType.IUnknown), In]
-            object importer,
+            [MarshalAs(UnmanagedType.Interface), In] IMetaDataImport importer,
             [In, MarshalAs(UnmanagedType.LPWStr)] string fileName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
             [In] CorSymSearchPolicyAttributes searchPolicy,
