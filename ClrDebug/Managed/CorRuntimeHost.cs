@@ -1,5 +1,4 @@
 using System;
-using System.Security.Policy;
 using System.Security.Principal;
 
 namespace ClrDebug
@@ -535,7 +534,7 @@ namespace ClrDebug
         /// </summary>
         /// <returns>[out] A interface pointer to an <see cref="IIdentity"/> instance used to create security evidence. This pointer is typed IUnknown, so callers should typically call QueryInterface on this interface to obtain a pointer to an <see cref="IIdentity"/>.</returns>
         /// <remarks>
-        /// This method returns an empty collection that cannot be populated from native code. You should use the <see cref="Evidence"/>
+        /// This method returns an empty collection that cannot be populated from native code. You should use the Evidence
         /// method instead.
         /// </remarks>
         public object CreateEvidence()
@@ -559,7 +558,7 @@ namespace ClrDebug
         /// | HOST_E_CLRNOTAVAILABLE | The CLR has not been loaded into a process, or the CLR is in a state in which it cannot run managed code or process the call successfully.                                                                       |
         /// </returns>
         /// <remarks>
-        /// This method returns an empty collection that cannot be populated from native code. You should use the <see cref="Evidence"/>
+        /// This method returns an empty collection that cannot be populated from native code. You should use the Evidence
         /// method instead.
         /// </remarks>
         public HRESULT TryCreateEvidence(out object pEvidence)

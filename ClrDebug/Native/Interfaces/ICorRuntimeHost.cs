@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Security.Policy;
 using System.Security.Principal;
 
 namespace ClrDebug
@@ -241,7 +240,7 @@ namespace ClrDebug
         /// | HOST_E_CLRNOTAVAILABLE | The CLR has not been loaded into a process, or the CLR is in a state in which it cannot run managed code or process the call successfully.                                                                       |
         /// </returns>
         /// <remarks>
-        /// This method returns an empty collection that cannot be populated from native code. You should use the <see cref="Evidence"/>
+        /// This method returns an empty collection that cannot be populated from native code. You should use the Evidence
         /// method instead.
         /// </remarks>
         [PreserveSig]
