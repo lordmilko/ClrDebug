@@ -6,7 +6,6 @@ using System.Text;
 namespace ClrDebug.CoClass
 {
     [Guid("108296C2-281E-11D3-BD22-0000F80849BD")]
-    [TypeLibType(TypeLibTypeFlags.FCanCreate)]
     [ClassInterface(ClassInterfaceType.None)]
     [ComImport]
     public class CorSymReader_deprecatedClass : ISymUnmanagedReader, CorSymReader_deprecated

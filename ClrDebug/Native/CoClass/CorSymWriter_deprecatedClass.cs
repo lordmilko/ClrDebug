@@ -5,7 +5,6 @@ using System.Runtime.InteropServices;
 namespace ClrDebug.CoClass
 {
     [Guid("108296C1-281E-11D3-BD22-0000F80849BD")]
-    [TypeLibType(TypeLibTypeFlags.FCanCreate)]
     [ClassInterface(ClassInterfaceType.None)]
     [ComImport]
     public class CorSymWriter_deprecatedClass : ISymUnmanagedWriter, CorSymWriter_deprecated

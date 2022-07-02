@@ -6,7 +6,6 @@ namespace ClrDebug.CoClass
 {
     [Guid("0AE2DEB0-F901-478B-BB9F-881EE8066788")]
     [ClassInterface(ClassInterfaceType.None)]
-    [TypeLibType(TypeLibTypeFlags.FCanCreate)]
     [ComImport]
     public class CorSymWriter_SxSClass : ISymUnmanagedWriter, CorSymWriter_SxS
     {

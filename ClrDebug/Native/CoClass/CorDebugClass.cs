@@ -6,7 +6,6 @@ namespace ClrDebug.CoClass
 {
     [ClassInterface(ClassInterfaceType.None)]
     [Guid("6FEF44D0-39E7-4C77-BE8E-C9F8CF988630")]
-    [TypeLibType(TypeLibTypeFlags.FCanCreate)]
     [ComImport]
     public class CorDebugClass : ICorDebug, CorDebug
     {

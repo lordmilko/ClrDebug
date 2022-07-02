@@ -4,7 +4,6 @@ using System.Runtime.InteropServices;
 namespace ClrDebug.CoClass
 {
     [Guid("AA544D41-28CB-11D3-BD22-0000F80849BD")]
-    [TypeLibType(TypeLibTypeFlags.FCanCreate)]
     [ClassInterface(ClassInterfaceType.None)]
     [ComImport]
     public class CorSymBinder_deprecatedClass : ISymUnmanagedBinder, CorSymBinder_deprecated

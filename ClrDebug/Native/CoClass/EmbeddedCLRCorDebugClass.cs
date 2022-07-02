@@ -5,7 +5,6 @@ using System.Runtime.InteropServices;
 namespace ClrDebug.CoClass
 {
     [Guid("211F1254-BC7E-4AF5-B9AA-067308D83DD1")]
-    [TypeLibType(TypeLibTypeFlags.FCanCreate)]
     [ClassInterface(ClassInterfaceType.None)]
     [ComImport]
     public class EmbeddedCLRCorDebugClass : ICorDebug, EmbeddedCLRCorDebug
