@@ -3,6 +3,7 @@ Samples/*
 
 # Samples to include
 !Samples/PEReader/
+!Samples/SymbolStore/
 
 #################
 # Visual Studio #
