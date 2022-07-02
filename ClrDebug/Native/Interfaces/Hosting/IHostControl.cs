@@ -46,7 +46,7 @@ namespace ClrDebug
         /// Notifies the host that an application domain has been created.
         /// </summary>
         /// <param name="dwAppDomainID">[in] The numeric identifier of the selected <see cref="AppDomain"/>.</param>
-        /// <param name="pUnkAppDomainManager">[in] A pointer to the <see cref="AppDomainManager"/> object that the host implements as IUnknown.</param>
+        /// <param name="pUnkAppDomainManager">[in] A pointer to the System.AppDomainManager object that the host implements as IUnknown.</param>
         /// <returns>
         /// | HRESULT                | Description                                                                                                                                                                                |
         /// | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -58,8 +58,8 @@ namespace ClrDebug
         /// | E_FAIL                 | An unknown catastrophic failure occurred. When a method returns E_FAIL, the CLR is no longer usable within the process. Subsequent calls to hosting methods return HOST_E_CLRNOTAVAILABLE. |
         /// </returns>
         /// <remarks>
-        /// The <see cref="AppDomainManager"/> provides the host with a mechanism to bootstrap into managed code and to control
-        /// the creation and settings of each <see cref="AppDomain"/>. The <see cref="AppDomainManager"/> is loaded into each
+        /// The System.AppDomainManager provides the host with a mechanism to bootstrap into managed code and to control
+        /// the creation and settings of each <see cref="AppDomain"/>. The System.AppDomainManager is loaded into each
         /// <see cref="AppDomain"/> when that <see cref="AppDomain"/> is created. If it chooses, the CLR notifies the host
         /// that the application domain has been created by setting the value of the pUnkAppDomainManager parameter. In its
         /// implementation of the SetAppDomainManager method, the host can set the assembly name and type for the application

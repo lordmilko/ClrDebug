@@ -785,7 +785,7 @@ namespace ClrDebug
             [Out] out CorMethodImpl pdwImplFlags);
 
         /// <summary>
-        /// Gets the metadata associated with the <see cref="PermissionSet"/> represented by the specified Permission token.
+        /// Gets the metadata associated with the System.Security.PermissionSet represented by the specified Permission token.
         /// </summary>
         /// <param name="pm">[in] The Permission metadata token that represents the permission set to get the metadata properties for.</param>
         /// <param name="pdwAction">[out] A pointer to the permission set.</param>

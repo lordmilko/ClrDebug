@@ -245,7 +245,7 @@ namespace ClrDebug
             ICorDebugProcess pProcess, [MarshalAs(UnmanagedType.Error), In] HRESULT errorHR, [In] int errorCode);
 
         /// <summary>
-        /// Notifies the debugger that a common language runtime (CLR) managed thread has called a method in the <see cref="EventLog"/> class to log an event.
+        /// Notifies the debugger that a common language runtime (CLR) managed thread has called a method in the System.Diagnostics.EventLog class to log an event.
         /// </summary>
         /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain containing the managed thread that logged the event.</param>
         /// <param name="pThread">[in] A pointer to an <see cref="ICorDebugThread"/> object that represents the managed thread.</param>

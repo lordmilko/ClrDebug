@@ -187,7 +187,7 @@ namespace ClrDebug
         /// Used in manifest-based ClickOnce deployment scenarios to specify the application to be activated in a new domain.<para/>
         /// For more information about these scenarios, see ClickOnce Security and Deployment.
         /// </summary>
-        /// <param name="pwzAppFullName">[in] The full name of the application, as defined for <see cref="ApplicationIdentity"/>.</param>
+        /// <param name="pwzAppFullName">[in] The full name of the application, as defined for System.ApplicationIdentity.</param>
         /// <param name="dwManifestPaths">[in] The number of strings contained in the ppwzManifestPaths array.</param>
         /// <param name="ppwzManifestPaths">[in] Optional. A string array that contains manifest paths for the application.</param>
         /// <param name="dwActivationData">[in] The number of strings contained in the ppwzActivationData array.</param>

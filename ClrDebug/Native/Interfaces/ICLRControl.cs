@@ -34,10 +34,10 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.Interface, IidParameterIndex = 0)] out object ppObject);
 
         /// <summary>
-        /// Sets a type derived from <see cref="AppDomainManager"/> as the type for application domain managers.
+        /// Sets a type derived from System.AppDomainManager as the type for application domain managers.
         /// </summary>
-        /// <param name="pwzAppDomainManagerAssembly">[in] The name of the assembly in which the requested type derived from <see cref="AppDomainManager"/> is implemented.</param>
-        /// <param name="pwzAppDomainManagerType">[in] The name of the type implemented in the pwzAppDomainManagerAssembly parameter that implements the capabilities of <see cref="AppDomainManager"/>.</param>
+        /// <param name="pwzAppDomainManagerAssembly">[in] The name of the assembly in which the requested type derived from System.AppDomainManager is implemented.</param>
+        /// <param name="pwzAppDomainManagerType">[in] The name of the type implemented in the pwzAppDomainManagerAssembly parameter that implements the capabilities of System.AppDomainManager.</param>
         /// <returns>
         /// | HRESULT                | Description                                                                                                                                                                                 |
         /// | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

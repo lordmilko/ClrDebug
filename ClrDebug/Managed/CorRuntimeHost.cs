@@ -60,7 +60,7 @@ namespace ClrDebug
         #region DefaultDomain
 
         /// <summary>
-        /// Gets an interface pointer of type <see cref="_AppDomain"/> that represents the default domain for the current process.
+        /// Gets an interface pointer of type System._AppDomain that represents the default domain for the current process.
         /// </summary>
         public object DefaultDomain
         {
@@ -74,10 +74,10 @@ namespace ClrDebug
         }
 
         /// <summary>
-        /// Gets an interface pointer of type <see cref="_AppDomain"/> that represents the default domain for the current process.
+        /// Gets an interface pointer of type System._AppDomain that represents the default domain for the current process.
         /// </summary>
-        /// <param name="pAppDomain">[out] An interface pointer of type <see cref="_AppDomain"/> to the <see cref="AppDomain"/> instance that represents the default application domain for the process.<para/>
-        /// This pointer is typed IUnknown, so callers should generally call QueryInterface to obtain an interface pointer of type <see cref="_AppDomain"/>.</param>
+        /// <param name="pAppDomain">[out] An interface pointer of type System._AppDomain to the <see cref="AppDomain"/> instance that represents the default application domain for the process.<para/>
+        /// This pointer is typed IUnknown, so callers should generally call QueryInterface to obtain an interface pointer of type System._AppDomain.</param>
         /// <returns>
         /// | HRESULT                | Description                                                                                                                                                                                                      |
         /// | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -307,12 +307,12 @@ namespace ClrDebug
         #region CreateDomain
 
         /// <summary>
-        /// Creates an application domain. The caller receives an interface pointer of type <see cref="_AppDomain"/> to an instance of type <see cref="AppDomain"/>.
+        /// Creates an application domain. The caller receives an interface pointer of type System._AppDomain to an instance of type <see cref="AppDomain"/>.
         /// </summary>
         /// <param name="pwzFriendlyName">[in] An optional parameter used to give a friendly name to the domain. This friendly name can be displayed in user interfaces such as debuggers to identify the domain.</param>
         /// <param name="pIdentityArray">[in] An optional array of pointers to IIdentity instances that represent evidence mapped through security policy to establish a permission set.<para/>
         /// An IIdentity object can be obtained by calling the <see cref="CreateEvidence"/> method.</param>
-        /// <returns>[out] An interface pointer of type <see cref="_AppDomain"/> to an instance of <see cref="AppDomain"/> that can be used to further control the domain.</returns>
+        /// <returns>[out] An interface pointer of type System._AppDomain to an instance of <see cref="AppDomain"/> that can be used to further control the domain.</returns>
         public object CreateDomain(string pwzFriendlyName, object[] pIdentityArray)
         {
             object pAppDomain;
@@ -322,12 +322,12 @@ namespace ClrDebug
         }
 
         /// <summary>
-        /// Creates an application domain. The caller receives an interface pointer of type <see cref="_AppDomain"/> to an instance of type <see cref="AppDomain"/>.
+        /// Creates an application domain. The caller receives an interface pointer of type System._AppDomain to an instance of type <see cref="AppDomain"/>.
         /// </summary>
         /// <param name="pwzFriendlyName">[in] An optional parameter used to give a friendly name to the domain. This friendly name can be displayed in user interfaces such as debuggers to identify the domain.</param>
         /// <param name="pIdentityArray">[in] An optional array of pointers to IIdentity instances that represent evidence mapped through security policy to establish a permission set.<para/>
         /// An IIdentity object can be obtained by calling the <see cref="CreateEvidence"/> method.</param>
-        /// <param name="pAppDomain">[out] An interface pointer of type <see cref="_AppDomain"/> to an instance of <see cref="AppDomain"/> that can be used to further control the domain.</param>
+        /// <param name="pAppDomain">[out] An interface pointer of type System._AppDomain to an instance of <see cref="AppDomain"/> that can be used to further control the domain.</param>
         /// <returns>
         /// | HRESULT                | Description                                                                                                                                                                                                      |
         /// | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -385,7 +385,7 @@ namespace ClrDebug
         /// Gets an interface pointer to the next domain in the enumeration.
         /// </summary>
         /// <param name="hEnum">[in] The enumerator that was obtained through a call to <see cref="EnumDomains"/>.</param>
-        /// <returns>[out] An interface pointer to the <see cref="_AppDomain"/> type that represents the next domain in the enumeration, or null, if no more domains exist.</returns>
+        /// <returns>[out] An interface pointer to the System._AppDomain type that represents the next domain in the enumeration, or null, if no more domains exist.</returns>
         public object NextDomain(IntPtr hEnum)
         {
             object pAppDomain;
@@ -398,7 +398,7 @@ namespace ClrDebug
         /// Gets an interface pointer to the next domain in the enumeration.
         /// </summary>
         /// <param name="hEnum">[in] The enumerator that was obtained through a call to <see cref="EnumDomains"/>.</param>
-        /// <param name="pAppDomain">[out] An interface pointer to the <see cref="_AppDomain"/> type that represents the next domain in the enumeration, or null, if no more domains exist.</param>
+        /// <param name="pAppDomain">[out] An interface pointer to the System._AppDomain type that represents the next domain in the enumeration, or null, if no more domains exist.</param>
         /// <returns>
         /// | HRESULT                | Description                                                                                                                                                                                                      |
         /// | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -447,14 +447,14 @@ namespace ClrDebug
         #region CreateDomainEx
 
         /// <summary>
-        /// Creates an application domain. The caller receives an interface pointer, of type <see cref="_AppDomain"/>, to an instance of type <see cref="AppDomain"/>.<para/>
-        /// This method allows the caller to pass an IAppDomainSetup instance to configure additional features of the returned <see cref="_AppDomain"/> instance.
+        /// Creates an application domain. The caller receives an interface pointer, of type System._AppDomain, to an instance of type <see cref="AppDomain"/>.<para/>
+        /// This method allows the caller to pass an IAppDomainSetup instance to configure additional features of the returned System._AppDomain instance.
         /// </summary>
         /// <param name="pwzFriendlyName">[in] An optional parameter used to give a friendly name to the domain. This friendly name can be displayed in user interfaces such as debuggers to identify the domain.</param>
         /// <param name="pSetup">[in] An optional interface pointer of type IAppDomainSetup, obtained by a call to the <see cref="CreateDomainSetup"/> method.</param>
         /// <param name="pEvidence">[in] An optional array of pointers to IIdentity instances that represent evidence mapped through security policy to establish a permission set.<para/>
         /// An IIdentity object can be obtained by calling the <see cref="CreateEvidence"/> method.</param>
-        /// <returns>[out] An interface pointer of type <see cref="_AppDomain"/> to an instance of <see cref="AppDomain"/> that can be used to further control the domain.</returns>
+        /// <returns>[out] An interface pointer of type System._AppDomain to an instance of <see cref="AppDomain"/> that can be used to further control the domain.</returns>
         /// <remarks>
         /// CreateDomainEx extends the capabilities of <see cref="CreateDomain"/> by allowing the caller to pass in an IAppDomainSetup
         /// instance with property values for configuring the application domain.
@@ -468,14 +468,14 @@ namespace ClrDebug
         }
 
         /// <summary>
-        /// Creates an application domain. The caller receives an interface pointer, of type <see cref="_AppDomain"/>, to an instance of type <see cref="AppDomain"/>.<para/>
-        /// This method allows the caller to pass an IAppDomainSetup instance to configure additional features of the returned <see cref="_AppDomain"/> instance.
+        /// Creates an application domain. The caller receives an interface pointer, of type System._AppDomain, to an instance of type <see cref="AppDomain"/>.<para/>
+        /// This method allows the caller to pass an IAppDomainSetup instance to configure additional features of the returned System._AppDomain instance.
         /// </summary>
         /// <param name="pwzFriendlyName">[in] An optional parameter used to give a friendly name to the domain. This friendly name can be displayed in user interfaces such as debuggers to identify the domain.</param>
         /// <param name="pSetup">[in] An optional interface pointer of type IAppDomainSetup, obtained by a call to the <see cref="CreateDomainSetup"/> method.</param>
         /// <param name="pEvidence">[in] An optional array of pointers to IIdentity instances that represent evidence mapped through security policy to establish a permission set.<para/>
         /// An IIdentity object can be obtained by calling the <see cref="CreateEvidence"/> method.</param>
-        /// <param name="pAppDomain">[out] An interface pointer of type <see cref="_AppDomain"/> to an instance of <see cref="AppDomain"/> that can be used to further control the domain.</param>
+        /// <param name="pAppDomain">[out] An interface pointer of type System._AppDomain to an instance of <see cref="AppDomain"/> that can be used to further control the domain.</param>
         /// <returns>
         /// | HRESULT                | Description                                                                                                                                                                                                      |
         /// | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -502,9 +502,9 @@ namespace ClrDebug
         #region CreateDomainSetup
 
         /// <summary>
-        /// Gets an interface pointer of type IAppDomainSetup to an <see cref="AppDomainSetup"/> instance. IAppDomainSetup provides methods to configure aspects of an application domain before it is created.
+        /// Gets an interface pointer of type IAppDomainSetup to an System.AppDomainSetup instance. IAppDomainSetup provides methods to configure aspects of an application domain before it is created.
         /// </summary>
-        /// <returns>[out] An interface pointer to an <see cref="AppDomainSetup"/> instance. This parameter is typed as IUnknown, so callers should generally call QueryInterface on this pointer to obtain an interface pointer of type IAppDomainSetup.</returns>
+        /// <returns>[out] An interface pointer to an System.AppDomainSetup instance. This parameter is typed as IUnknown, so callers should generally call QueryInterface on this pointer to obtain an interface pointer of type IAppDomainSetup.</returns>
         /// <remarks>
         /// The pointer returned from this method is typically passed as a parameter to the <see cref="CreateDomainEx"/> method.
         /// </remarks>
@@ -517,9 +517,9 @@ namespace ClrDebug
         }
 
         /// <summary>
-        /// Gets an interface pointer of type IAppDomainSetup to an <see cref="AppDomainSetup"/> instance. IAppDomainSetup provides methods to configure aspects of an application domain before it is created.
+        /// Gets an interface pointer of type IAppDomainSetup to an System.AppDomainSetup instance. IAppDomainSetup provides methods to configure aspects of an application domain before it is created.
         /// </summary>
-        /// <param name="pAppDomainSetup">[out] An interface pointer to an <see cref="AppDomainSetup"/> instance. This parameter is typed as IUnknown, so callers should generally call QueryInterface on this pointer to obtain an interface pointer of type IAppDomainSetup.</param>
+        /// <param name="pAppDomainSetup">[out] An interface pointer to an System.AppDomainSetup instance. This parameter is typed as IUnknown, so callers should generally call QueryInterface on this pointer to obtain an interface pointer of type IAppDomainSetup.</param>
         /// <returns>
         /// | HRESULT                | Description                                                                                                                                                                                                      |
         /// | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -584,7 +584,7 @@ namespace ClrDebug
         /// <summary>
         /// Unloads the specified application domain from the current process.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer of type <see cref="_AppDomain"/> that represents the domain to be unloaded.</param>
+        /// <param name="pAppDomain">[in] A pointer of type System._AppDomain that represents the domain to be unloaded.</param>
         public void UnloadDomain(object pAppDomain)
         {
             TryUnloadDomain(pAppDomain).ThrowOnNotOK();
@@ -593,7 +593,7 @@ namespace ClrDebug
         /// <summary>
         /// Unloads the specified application domain from the current process.
         /// </summary>
-        /// <param name="pAppDomain">[in] A pointer of type <see cref="_AppDomain"/> that represents the domain to be unloaded.</param>
+        /// <param name="pAppDomain">[in] A pointer of type System._AppDomain that represents the domain to be unloaded.</param>
         /// <returns>
         /// | HRESULT                | Description                                                                                                                                                                                                      |
         /// | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -614,7 +614,7 @@ namespace ClrDebug
         /// <summary>
         /// Gets an interface pointer of type <see cref="AppDomain"/> that represents the domain loaded on the current thread.
         /// </summary>
-        /// <returns>[out] A pointer of type <see cref="AppDomain"/> that represents the thread's current application domain. This pointer is typed IUnknown, so callers should generally call QueryInterface to obtain a pointer of type <see cref="_AppDomain"/>.</returns>
+        /// <returns>[out] A pointer of type <see cref="AppDomain"/> that represents the thread's current application domain. This pointer is typed IUnknown, so callers should generally call QueryInterface to obtain a pointer of type System._AppDomain.</returns>
         public object CurrentDomain()
         {
             object pAppDomain;
@@ -626,7 +626,7 @@ namespace ClrDebug
         /// <summary>
         /// Gets an interface pointer of type <see cref="AppDomain"/> that represents the domain loaded on the current thread.
         /// </summary>
-        /// <param name="pAppDomain">[out] A pointer of type <see cref="AppDomain"/> that represents the thread's current application domain. This pointer is typed IUnknown, so callers should generally call QueryInterface to obtain a pointer of type <see cref="_AppDomain"/>.</param>
+        /// <param name="pAppDomain">[out] A pointer of type <see cref="AppDomain"/> that represents the thread's current application domain. This pointer is typed IUnknown, so callers should generally call QueryInterface to obtain a pointer of type System._AppDomain.</param>
         /// <returns>
         /// | HRESULT                | Description                                                                                                                                                                                                      |
         /// | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

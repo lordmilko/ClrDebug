@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Security;
 using System.Text;
 
 namespace ClrDebug
@@ -1901,7 +1900,7 @@ namespace ClrDebug
         #region GetPermissionSetProps
 
         /// <summary>
-        /// Gets the metadata associated with the <see cref="PermissionSet"/> represented by the specified Permission token.
+        /// Gets the metadata associated with the System.Security.PermissionSet represented by the specified Permission token.
         /// </summary>
         /// <param name="pm">[in] The Permission metadata token that represents the permission set to get the metadata properties for.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
@@ -1914,7 +1913,7 @@ namespace ClrDebug
         }
 
         /// <summary>
-        /// Gets the metadata associated with the <see cref="PermissionSet"/> represented by the specified Permission token.
+        /// Gets the metadata associated with the System.Security.PermissionSet represented by the specified Permission token.
         /// </summary>
         /// <param name="pm">[in] The Permission metadata token that represents the permission set to get the metadata properties for.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>

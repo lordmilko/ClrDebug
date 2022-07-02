@@ -97,7 +97,7 @@ namespace ClrDebug
         public EventHandler<DebuggerErrorCorDebugManagedCallbackEventArgs> OnDebuggerError;
 
         /// <summary>
-        /// Notifies the debugger that a common language runtime (CLR) managed thread has called a method in the <see cref="EventLog"/> class to log an event.
+        /// Notifies the debugger that a common language runtime (CLR) managed thread has called a method in the System.Diagnostics.EventLog class to log an event.
         /// </summary>
         public EventHandler<LogMessageCorDebugManagedCallbackEventArgs> OnLogMessage;
 
