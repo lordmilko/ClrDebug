@@ -3,6 +3,7 @@ Samples/*
 
 # Samples to include
 !Samples/DacTypeDump/
+!Samples/NativeSymbols/
 !Samples/PEReader/
 !Samples/SymbolStore/
 !Samples/README.md

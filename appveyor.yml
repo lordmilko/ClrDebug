@@ -20,4 +20,5 @@ skip_commits:
   files:
     - '**/*.md'
     - '**/*.yml'
+    - '**/*.png'
 skip_tags: true

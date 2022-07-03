@@ -4,16 +4,20 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E3EDB31C-712B-4DD2-88EA-3FB20F966BD0}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{28645087-106B-401E-A501-95987F3BF15D}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SymStore</RootNamespace>
-    <AssemblyName>SymbolStore</AssemblyName>
+    <RootNamespace>NativeSymbols</RootNamespace>
+    <AssemblyName>NativeSymbols</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -21,14 +25,17 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -41,29 +48,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SymbolStores\CacheSymbolStore.cs" />
-    <Compile Include="SymbolStores\HttpSymbolStore.cs" />
-    <Compile Include="ITracer.cs" />
-    <Compile Include="KeyGenerator.cs" />
-    <Compile Include="KeyTypeFlags.cs" />
-    <Compile Include="KeyGenerators\PEFileKeyGenerator.cs" />
+    <Compile Include="DbgHelp\IMAGEHLP_MODULE64.cs" />
+    <Compile Include="NativeMethods.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SymbolStores\SymbolStore.cs" />
-    <Compile Include="SymbolStoreFile.cs" />
-    <Compile Include="SymbolStoreKey.cs" />
+    <Compile Include="SymbolClient.cs" />
+    <Compile Include="SymbolInfo.cs" />
+    <Compile Include="DbgHelp\SymbolInfoFlags.cs" />
+    <Compile Include="SymbolManager.cs" />
+    <Compile Include="DbgHelp\SYMBOL_INFO.cs" />
+    <Compile Include="DbgHelp\SYMOPT.cs" />
+    <Compile Include="DbgHelp\SymTag.cs" />
+    <Compile Include="DbgHelp\SYM_TYPE.cs" />
+    <Compile Include="Tracer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ClrDebug\ClrDebug.csproj">
       <Project>{adefc667-2811-4954-bfa4-47a6470f1843}</Project>
       <Name>ClrDebug</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PEReader\PEReader.csproj">
-      <Project>{399eeb4c-9cbe-4929-a1e6-ddaaa0235822}</Project>
-      <Name>PEReader</Name>
+    <ProjectReference Include="..\SymbolStore\SymbolStore.csproj">
+      <Project>{e3edb31c-712b-4dd2-88ea-3fb20f966bd0}</Project>
+      <Name>SymbolStore</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

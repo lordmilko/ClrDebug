@@ -15,6 +15,64 @@ ClrDebug aims to be a complete wrapper around all of the essential APIs you may 
 * `IXCLR*`/`ISOS*`/DAC
 * and more
 
+## Getting Started
+
+Getting started with ClrDebug is easy! You can use `CLRCreateInstance` if you like, or use the parameterless `CorDebug`
+constructor which simplifies these starting steps for you
+
+```c#
+//Get an ICLRMetaHost, an ICLRRuntimeInfo, an ICorDebug and then call ICorDebug.Initialize()
+var corDebug = new CorDebug();
+
+var callback = new CorDebugManagedCallback();
+
+//You use event handlers for some, none, or all events
+callback.OnAnyEvent += (s, e) =>
+{
+    Console.WriteLine(e.Kind);
+    e.Continue();
+};
+
+corDebug.SetManagedHandler(callback);
+
+//Use the CreateProcess() extension method that omits lpApplicationName and contains optional parameters
+var process = corDebug.CreateProcess("powershell.exe", dwCreationFlags: CreateProcessFlags.CREATE_NEW_CONSOLE);
+
+while (true)
+    Thread.Sleep(1);
+```
+
+Nifty globals (including various CLSIDs, `CLRCreateInstance` and `CLRDataCreateInstance`) can be found under the `Extensions` class.
+
+You can do things manually
+
+```c#
+using static ClrDebug.Extensions;
+
+var clsid = CLSID_CLRMetaHost;
+var riid = typeof(ICLRMetaHost).GUID;
+object ppInterface;
+
+var hr = CLRCreateInstance(
+    ref clsid,
+    ref riid,
+    out ppInterface
+);
+
+var metaHost = new CLRMetaHost((ICLRMetaHost) ppInterface);
+```
+
+Or use some syntactic sugar
+
+```c#
+using static ClrDebug.Extensions;
+
+var metaHost = CLRCreateInstance().CLRMetaHost;
+```
+
+`HRESULT` values can easily be turned into exceptions by calling the `ThrowOnFailed()` or `ThrowOnNotOK()` extension methods (depending on whether or not you want to treat `S_FALSE` as an exception).
+A custom `COMException` type is used to properly store the `HRESULT` enum value in the exception, rather than simply showing a meaningless error code.
+
 ## Features
 
 ClrDebug provides a variety of features to make developing diagnostic applications easier, which can be broken down into the following categories
@@ -35,8 +93,8 @@ ClrDebug provides a variety of features to make developing diagnostic applicatio
 
 * Wrappers around all the common COM patterns
     * Does some method emit an array? ClrDebug will call it twice - once to get the get the size of the buffer, and again to actually fill in the buffer
-	* Does the method start with `Is*`, take no parameters and return a `HRESULT`? It'll be compared against `S_OK` to turn it into a `bool`
-	* Is an interface an enumerator with the standard `Skip`/`Reset`/`Next` methods? It's now an `IEnumerable<T>`
+    * Does the method start with `Is*`, take no parameters and return a `HRESULT`? It'll be compared against `S_OK` to turn it into a `bool`
+    * Is an interface an enumerator with the standard `Skip`/`Reset`/`Next` methods? It's now an `IEnumerable<T>`
 * Two wrapper methods for every COM method: one that returns a `HRESULT` (`TryCreateProcess`) and one with exception handling (`CreateProcess`) that simply calls the `HRESULT` variant and validates the result
 * Getters and/or setters where appropriate for easier debugging/exploration
 * Intelligent object creation for abstract data types. If an object emits an `ICorDebugValue`, it will be wrapped via `CorDebugValue.New` which will figure out which derived wrapper we should use
@@ -47,16 +105,17 @@ ClrDebug provides a variety of features to make developing diagnostic applicatio
 * `Request` methods on `Dacp*` structs, mirroring the behavior of their unmanaged counterparts
 * Extension methods around particularly complex operations, including
     * Querying for specific interfaces from a method
-	* Reading/writing complex structures to virtual memory
-	* Getting and properly initializing + setting thread context types
-	* Launching processes
-	* Enumerating the enumerators of `IMetaDataImport`
+    * Reading/writing complex structures to virtual memory
+    * Getting and properly initializing + setting thread context types
+    * Launching processes
+    * Enumerating the enumerators of `IMetaDataImport`
 
 ### User Experience
 
 * Full XmlDoc documentation on all enumerations, structs, COM interfaces and COM Wrapper types extracted from [docs.microsoft.com](https://docs.microsoft.com/en-us/dotnet/framework/unmanaged-api/debugging/debugging-interfaces),
 with proper cross references to types, properties and methods contained within XmlDocs
 * Debugger displays on all structs, making it much easier to debug without having to expand things
+* User friendly exceptions. No more having to lookup what the error code in a given `COMException` means; the relevant `HRESULT` enum member will be clearly displayed
 
 ## Samples
 
