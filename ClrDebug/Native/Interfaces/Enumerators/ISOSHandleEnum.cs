@@ -8,6 +8,17 @@ namespace ClrDebug
     public interface ISOSHandleEnum : ISOSEnum
     {
         [PreserveSig]
+        new HRESULT Skip(
+            [In] int count);
+
+        [PreserveSig]
+        new HRESULT Reset();
+
+        [PreserveSig]
+        new HRESULT GetCount(
+            [Out] out int pCount);
+
+        [PreserveSig]
         HRESULT Next(
             [In] int count,
             [Out] out SOSHandleData handles,

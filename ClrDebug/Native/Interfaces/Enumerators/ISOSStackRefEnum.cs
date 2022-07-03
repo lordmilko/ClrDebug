@@ -8,9 +8,20 @@ namespace ClrDebug
     public interface ISOSStackRefEnum : ISOSEnum
     {
         [PreserveSig]
+        new HRESULT Skip(
+            [In] int count);
+
+        [PreserveSig]
+        new HRESULT Reset();
+
+        [PreserveSig]
+        new HRESULT GetCount(
+            [Out] out int pCount);
+
+        [PreserveSig]
         HRESULT Next(
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] out SOSStackRefData _ref,
+            [Out] out SOSStackRefData _ref,
             [Out] out int pFetched);
 
         [PreserveSig]
