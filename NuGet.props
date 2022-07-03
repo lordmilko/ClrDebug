@@ -1,0 +1,33 @@
+﻿<Project>
+  <PropertyGroup>
+    <Title>ClrDebug</Title>
+    <Authors>lordmilko</Authors>
+    <Description>Managed wrappers around the .NET Unmanaged API</Description>
+    <PackageReleaseNotes>Release Notes: https://github.com/lordmilko/ClrDebug/releases/tag/v$(Version)
+
+---
+
+ClrDebug provides a collection of easy to use, managed wrappers around the .NET Unmanaged API.
+
+Rather than mess around with building layers on top of ugly COM interfaces, ClrDebug provides an automatically generated wrappers around every single method of every single interface it knows about, giving you confidence that no underlying functionality is being hidden from you from using these wrappers.
+
+ClrDebug aims to be a complete wrapper around all of the essential APIs you may need when developing diagnostic applications, including:
+
+* CorDebug (ICorDebug*)
+
+* Metadata (IMetaData*)
+
+* Diagnostics Symbol Store (ISym*)
+
+* IXCLR*/ISOS*/DAC
+
+* and more</PackageReleaseNotes>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/lordmilko/ClrDebug</PackageProjectUrl>
+    <PackageTags>dotnet debugger cordebug icordebug metadata</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE" Pack="true" PackagePath="" Visible="false"/>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,9 @@
+﻿<Project>
+  <Import Project="Version.props" />
+
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+
+    <Copyright>(c) 2022 lordmilko. All rights reserved.</Copyright>
+  </PropertyGroup>  
+</Project>

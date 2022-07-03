@@ -1,10 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="..\NuGet.props" />
+
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\ClrDebug.xml</DocumentationFile>
     <NoWarn>1701;1702;CS1591</NoWarn>
+    <IsPackable>true</IsPackable>
+    <AssemblyTitle>Managed wrappers around the .NET Unmanaged API</AssemblyTitle>
   </PropertyGroup>
 
   <!-- T4 Templates -->
