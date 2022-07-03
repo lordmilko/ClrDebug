@@ -15,8 +15,8 @@ Further complicating things is the confusing nature of various PE data structure
 are all types you can easily conflate the meaning of if you haven't spent hours writing your own PE reader. This sample includes extensive XmlDoc comments on key structures to make clear what each structure does, where it comes from,
 and how it relates and differs to other similarly named structures.
 
-This sample is almost completely independent of `ClrDebug`, with the exception of the `IMAGE_FILE_MACHINE` type which is used
-from the main `ClrDebug` assembly rather than being redeclared.
+This sample is almost completely independent of *ClrDebug*, with the exception of the `IMAGE_FILE_MACHINE` type which is used
+from the main *ClrDebug* assembly rather than being redeclared.
 
 ## Resources
 
@@ -28,22 +28,22 @@ Conceptually speaking, resources are implemented as follows
 ```c#
 class IMAGE_RESOURCE_DIRECTORY
 {
-	IMAGE_RESOURCE_DIRECTORY_ENTRY[] Entries;
+    IMAGE_RESOURCE_DIRECTORY_ENTRY[] Entries;
 }
 
 class IMAGE_RESOURCE_DIRECTORY_ENTRY
 {
-	Either<IMAGE_RESOURCE_DIRECTORY_STRING, int> NameOrId;
+    Either<IMAGE_RESOURCE_DIRECTORY_STRING, int> NameOrId;
 
-	Either<IMAGE_RESOURCE_DATA_DIRECTORY, IMAGE_RESOURCE_DIRECTORY> DataOrDirectory;	
+    Either<IMAGE_RESOURCE_DATA_DIRECTORY, IMAGE_RESOURCE_DIRECTORY> DataOrDirectory;    
 }
 ```
 
 * There is a `IMAGE_RESOURCE_DIRECTORY` at the root, which points to an `IMAGE_RESOURCE_DIRECTORY_ENTRY`
 * This `IMAGE_RESOURCE_DIRECTORY_ENTRY`
     * may be named (in which case its name can be found in an `IMAGE_RESOURCE_DIRECTORY_STRING`) or have an ID, and
-	* may point to yet another `IMAGE_RESOURCE_DIRECTORY`, or an actual `IMAGE_RESOURCE_DATA_DIRECTORY` containing the size and location of some data
-	
+    * may point to yet another `IMAGE_RESOURCE_DIRECTORY`, or an actual `IMAGE_RESOURCE_DATA_DIRECTORY` containing the size and location of some data
+    
 In reality, each structure contains a pointer to the additional structures that comprise it, and its up to you to reconstruct it properly.
 
 In order to maintain the "purity" of the underlying data structures being read from the image, this sample achieves this by creating an additional layer on top of the data structures we're reading
@@ -53,18 +53,18 @@ So instead of the above, we have something like
 ```c#
 class ImageResourceDirectoryInfo
 {
-	IMAGE_RESOURCE_DIRECTORY Directory;
-	
-	ImageResourceDirectoryEntryInfo Entries[];
+    IMAGE_RESOURCE_DIRECTORY Directory;
+    
+    ImageResourceDirectoryEntryInfo Entries[];
 }
 
 class ImageResourceDirectoryEntryInfo
 {
-	IMAGE_RESOURCE_DIRECTORY_ENTRY Entry;
-	
-	IMAGE_RESOURCE_DIRECTORY_STRING Name; //If null, Id should be retrieved from Entry.Id
+    IMAGE_RESOURCE_DIRECTORY_ENTRY Entry;
+    
+    IMAGE_RESOURCE_DIRECTORY_STRING Name; //If null, Id should be retrieved from Entry.Id
 
-	Either<IMAGE_RESOURCE_DATA_DIRECTORY, IMAGE_RESOURCE_DIRECTORY> DataOrDirectory;	
+    Either<IMAGE_RESOURCE_DATA_DIRECTORY, IMAGE_RESOURCE_DIRECTORY> DataOrDirectory;    
 }
 ```
 

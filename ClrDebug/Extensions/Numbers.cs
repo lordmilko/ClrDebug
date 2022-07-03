@@ -29,13 +29,13 @@ namespace ClrDebug
 
         public static implicit operator CORDB_ADDRESS(ulong value) => new CORDB_ADDRESS(value);
 
-		public static implicit operator CORDB_ADDRESS(int value) => new CORDB_ADDRESS(value);
+        public static implicit operator CORDB_ADDRESS(int value) => new CORDB_ADDRESS(value);
 
-		public static implicit operator CORDB_ADDRESS(IntPtr value) => new CORDB_ADDRESS(value.ToInt64());
+        public static implicit operator CORDB_ADDRESS(IntPtr value) => new CORDB_ADDRESS(value.ToInt64());
 
-		public static implicit operator IntPtr(CORDB_ADDRESS value) => new IntPtr(value);
+        public static implicit operator IntPtr(CORDB_ADDRESS value) => new IntPtr(value);
 
-		public static implicit operator CLRDATA_ADDRESS(CORDB_ADDRESS value) => new CLRDATA_ADDRESS(value);
+        public static implicit operator CLRDATA_ADDRESS(CORDB_ADDRESS value) => new CLRDATA_ADDRESS(value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<CORDB_ADDRESS>(Value, value);
 
@@ -70,7 +70,7 @@ namespace ClrDebug
 
         public static implicit operator CORDB_REGISTER(ulong value) => new CORDB_REGISTER(value);
 
-		public static implicit operator CORDB_REGISTER(int value) => new CORDB_REGISTER(value);
+        public static implicit operator CORDB_REGISTER(int value) => new CORDB_REGISTER(value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<CORDB_REGISTER>(Value, value);
 
@@ -90,7 +90,7 @@ namespace ClrDebug
 
         public unsafe CLRDATA_ADDRESS(ulong value)
         {
-			Value = new UIntPtr((void*)value).ToUInt64();
+            Value = new UIntPtr((void*)value).ToUInt64();
         }
 
         public CLRDATA_ADDRESS(long value) : this((ulong) value)
@@ -105,13 +105,13 @@ namespace ClrDebug
 
         public static implicit operator CLRDATA_ADDRESS(ulong value) => new CLRDATA_ADDRESS(value);
 
-		public static implicit operator CLRDATA_ADDRESS(int value) => new CLRDATA_ADDRESS(value);
+        public static implicit operator CLRDATA_ADDRESS(int value) => new CLRDATA_ADDRESS(value);
 
-		public static implicit operator CLRDATA_ADDRESS(IntPtr value) => new CLRDATA_ADDRESS(value.ToInt64());
+        public static implicit operator CLRDATA_ADDRESS(IntPtr value) => new CLRDATA_ADDRESS(value.ToInt64());
 
-		public static implicit operator IntPtr(CLRDATA_ADDRESS value) => new IntPtr(value);
+        public static implicit operator IntPtr(CLRDATA_ADDRESS value) => new IntPtr(value);
 
-		public static implicit operator CORDB_ADDRESS(CLRDATA_ADDRESS value) => new CORDB_ADDRESS(value);
+        public static implicit operator CORDB_ADDRESS(CLRDATA_ADDRESS value) => new CORDB_ADDRESS(value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<CLRDATA_ADDRESS>(Value, value);
 

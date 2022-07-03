@@ -1,11 +1,11 @@
 ﻿namespace ClrDebug
 {
     public enum VCSHeapType
-	{
-		IndcellHeap,
-		LookupHeap,
-		ResolveHeap,
-		DispatchHeap,
-		CacheEntryHeap
-	}
+    {
+        IndcellHeap,
+        LookupHeap,
+        ResolveHeap,
+        DispatchHeap,
+        CacheEntryHeap
+    }
 }

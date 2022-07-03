@@ -18,7 +18,7 @@ namespace ClrDebug
         /// </summary>
         public string pwzImageVersion { get; }
 
-        /// <summary>	[out] Optional. If GetRequestedRuntime uses a configuration file during the binding process, when it returns, pdwConfigFlags contains
+        /// <summary>Optional. If GetRequestedRuntime uses a configuration file during the binding process, when it returns, pdwConfigFlags contains
         /// a <see cref="METAHOST_CONFIG_FLAGS"/> value that indicates whether the &lt;startup&gt; element has the useLegacyV2RuntimeActivationPolicy attribute set, and the value of the attribute.<para/>
         /// Apply the <see cref="METAHOST_CONFIG_FLAGS.LEGACY_V2_ACTIVATION_POLICY_MASK"/> mask to pdwConfigFlags to get the values relevant to useLegacyV2RuntimeActivationPolicy.
         /// </summary>

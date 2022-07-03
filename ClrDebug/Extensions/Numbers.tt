@@ -13,14 +13,14 @@ namespace ClrDebug
 var types = new[]
 {
     Tuple.Create("CORDB_ADDRESS", "long"),
-	Tuple.Create("CORDB_REGISTER", "long"),
-	Tuple.Create("CLRDATA_ADDRESS", "long") //https://github.com/dotnet/runtime/blob/main/src/coreclr/debug/daccess/dacimpl.h
+    Tuple.Create("CORDB_REGISTER", "long"),
+    Tuple.Create("CLRDATA_ADDRESS", "long") //https://github.com/dotnet/runtime/blob/main/src/coreclr/debug/daccess/dacimpl.h
 };
 
 for(int i = 0; i < types.Length; i++)
 {
     var type = types[i].Item1;
-	var baseType = types[i].Item2;
+    var baseType = types[i].Item2;
 #>
     [DebuggerDisplay("{ToString(),nq}")]
     public struct <#= type #> : IComparable, IEquatable<<#= type #>>
@@ -33,7 +33,7 @@ for(int i = 0; i < types.Length; i++)
 if (type == "CLRDATA_ADDRESS")
 {
 #>
-			Value = new UIntPtr((void*)value).ToUInt64();
+            Value = new UIntPtr((void*)value).ToUInt64();
 <#
 }
 else
@@ -63,29 +63,29 @@ else
 if (baseType != "int")
 {
 #>
-		public static implicit operator <#= type #>(int value) => new <#= type #>(value);
+        public static implicit operator <#= type #>(int value) => new <#= type #>(value);
 <#
 }
 if (type == "CORDB_ADDRESS")
 {
 #>
 
-		public static implicit operator <#= type #>(IntPtr value) => new <#= type #>(value.ToInt64());
+        public static implicit operator <#= type #>(IntPtr value) => new <#= type #>(value.ToInt64());
 
-		public static implicit operator IntPtr(CORDB_ADDRESS value) => new IntPtr(value);
+        public static implicit operator IntPtr(CORDB_ADDRESS value) => new IntPtr(value);
 
-		public static implicit operator CLRDATA_ADDRESS(CORDB_ADDRESS value) => new CLRDATA_ADDRESS(value);
+        public static implicit operator CLRDATA_ADDRESS(CORDB_ADDRESS value) => new CLRDATA_ADDRESS(value);
 <#
 }
 if (type == "CLRDATA_ADDRESS")
 {
 #>
 
-		public static implicit operator <#= type #>(IntPtr value) => new <#= type #>(value.ToInt64());
+        public static implicit operator <#= type #>(IntPtr value) => new <#= type #>(value.ToInt64());
 
-		public static implicit operator IntPtr(CLRDATA_ADDRESS value) => new IntPtr(value);
+        public static implicit operator IntPtr(CLRDATA_ADDRESS value) => new IntPtr(value);
 
-		public static implicit operator CORDB_ADDRESS(CLRDATA_ADDRESS value) => new CORDB_ADDRESS(value);
+        public static implicit operator CORDB_ADDRESS(CLRDATA_ADDRESS value) => new CORDB_ADDRESS(value);
 <#
 }
 #>

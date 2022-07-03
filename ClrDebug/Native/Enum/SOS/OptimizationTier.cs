@@ -1,7 +1,7 @@
 ﻿namespace ClrDebug
 {
     public enum OptimizationTier : uint
-	{
+    {
         Unknown,
         MinOptJitted,
         Optimized,

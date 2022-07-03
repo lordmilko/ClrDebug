@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace ClrDebug
 {
-	[DebuggerDisplay("{ToString(),nq} [{Type}]")]
+    [DebuggerDisplay("{ToString(),nq} [{Type}]")]
     public struct mdToken : IComparable, IEquatable<mdToken>
     {
         public static readonly mdToken Nil = new mdToken();
@@ -270,7 +270,7 @@ namespace ClrDebug
 
         public static implicit operator mdModule(uint value) => new mdModule(value);
 
-		public static implicit operator mdToken(mdModule value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdModule value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdModule>(Value, value);
 
@@ -313,7 +313,7 @@ namespace ClrDebug
 
         public static implicit operator mdTypeRef(uint value) => new mdTypeRef(value);
 
-		public static implicit operator mdToken(mdTypeRef value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdTypeRef value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdTypeRef>(Value, value);
 
@@ -356,7 +356,7 @@ namespace ClrDebug
 
         public static implicit operator mdTypeDef(uint value) => new mdTypeDef(value);
 
-		public static implicit operator mdToken(mdTypeDef value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdTypeDef value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdTypeDef>(Value, value);
 
@@ -399,7 +399,7 @@ namespace ClrDebug
 
         public static implicit operator mdFieldDef(uint value) => new mdFieldDef(value);
 
-		public static implicit operator mdToken(mdFieldDef value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdFieldDef value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdFieldDef>(Value, value);
 
@@ -442,7 +442,7 @@ namespace ClrDebug
 
         public static implicit operator mdMethodDef(uint value) => new mdMethodDef(value);
 
-		public static implicit operator mdToken(mdMethodDef value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdMethodDef value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdMethodDef>(Value, value);
 
@@ -485,7 +485,7 @@ namespace ClrDebug
 
         public static implicit operator mdParamDef(uint value) => new mdParamDef(value);
 
-		public static implicit operator mdToken(mdParamDef value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdParamDef value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdParamDef>(Value, value);
 
@@ -528,7 +528,7 @@ namespace ClrDebug
 
         public static implicit operator mdInterfaceImpl(uint value) => new mdInterfaceImpl(value);
 
-		public static implicit operator mdToken(mdInterfaceImpl value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdInterfaceImpl value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdInterfaceImpl>(Value, value);
 
@@ -571,7 +571,7 @@ namespace ClrDebug
 
         public static implicit operator mdMemberRef(uint value) => new mdMemberRef(value);
 
-		public static implicit operator mdToken(mdMemberRef value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdMemberRef value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdMemberRef>(Value, value);
 
@@ -614,7 +614,7 @@ namespace ClrDebug
 
         public static implicit operator mdCustomAttribute(uint value) => new mdCustomAttribute(value);
 
-		public static implicit operator mdToken(mdCustomAttribute value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdCustomAttribute value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdCustomAttribute>(Value, value);
 
@@ -657,7 +657,7 @@ namespace ClrDebug
 
         public static implicit operator mdPermission(uint value) => new mdPermission(value);
 
-		public static implicit operator mdToken(mdPermission value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdPermission value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdPermission>(Value, value);
 
@@ -700,7 +700,7 @@ namespace ClrDebug
 
         public static implicit operator mdSignature(uint value) => new mdSignature(value);
 
-		public static implicit operator mdToken(mdSignature value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdSignature value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdSignature>(Value, value);
 
@@ -743,7 +743,7 @@ namespace ClrDebug
 
         public static implicit operator mdEvent(uint value) => new mdEvent(value);
 
-		public static implicit operator mdToken(mdEvent value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdEvent value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdEvent>(Value, value);
 
@@ -786,7 +786,7 @@ namespace ClrDebug
 
         public static implicit operator mdProperty(uint value) => new mdProperty(value);
 
-		public static implicit operator mdToken(mdProperty value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdProperty value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdProperty>(Value, value);
 
@@ -829,7 +829,7 @@ namespace ClrDebug
 
         public static implicit operator mdModuleRef(uint value) => new mdModuleRef(value);
 
-		public static implicit operator mdToken(mdModuleRef value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdModuleRef value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdModuleRef>(Value, value);
 
@@ -872,7 +872,7 @@ namespace ClrDebug
 
         public static implicit operator mdAssembly(uint value) => new mdAssembly(value);
 
-		public static implicit operator mdToken(mdAssembly value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdAssembly value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdAssembly>(Value, value);
 
@@ -915,7 +915,7 @@ namespace ClrDebug
 
         public static implicit operator mdAssemblyRef(uint value) => new mdAssemblyRef(value);
 
-		public static implicit operator mdToken(mdAssemblyRef value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdAssemblyRef value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdAssemblyRef>(Value, value);
 
@@ -958,7 +958,7 @@ namespace ClrDebug
 
         public static implicit operator mdFile(uint value) => new mdFile(value);
 
-		public static implicit operator mdToken(mdFile value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdFile value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdFile>(Value, value);
 
@@ -1001,7 +1001,7 @@ namespace ClrDebug
 
         public static implicit operator mdExportedType(uint value) => new mdExportedType(value);
 
-		public static implicit operator mdToken(mdExportedType value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdExportedType value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdExportedType>(Value, value);
 
@@ -1044,7 +1044,7 @@ namespace ClrDebug
 
         public static implicit operator mdManifestResource(uint value) => new mdManifestResource(value);
 
-		public static implicit operator mdToken(mdManifestResource value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdManifestResource value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdManifestResource>(Value, value);
 
@@ -1087,7 +1087,7 @@ namespace ClrDebug
 
         public static implicit operator mdTypeSpec(uint value) => new mdTypeSpec(value);
 
-		public static implicit operator mdToken(mdTypeSpec value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdTypeSpec value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdTypeSpec>(Value, value);
 
@@ -1130,7 +1130,7 @@ namespace ClrDebug
 
         public static implicit operator mdGenericParam(uint value) => new mdGenericParam(value);
 
-		public static implicit operator mdToken(mdGenericParam value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdGenericParam value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdGenericParam>(Value, value);
 
@@ -1173,7 +1173,7 @@ namespace ClrDebug
 
         public static implicit operator mdMethodSpec(uint value) => new mdMethodSpec(value);
 
-		public static implicit operator mdToken(mdMethodSpec value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdMethodSpec value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdMethodSpec>(Value, value);
 
@@ -1216,7 +1216,7 @@ namespace ClrDebug
 
         public static implicit operator mdGenericParamConstraint(uint value) => new mdGenericParamConstraint(value);
 
-		public static implicit operator mdToken(mdGenericParamConstraint value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdGenericParamConstraint value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdGenericParamConstraint>(Value, value);
 
@@ -1259,7 +1259,7 @@ namespace ClrDebug
 
         public static implicit operator mdString(uint value) => new mdString(value);
 
-		public static implicit operator mdToken(mdString value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdString value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdString>(Value, value);
 
@@ -1300,7 +1300,7 @@ namespace ClrDebug
 
         public static implicit operator mdCPToken(uint value) => new mdCPToken(value);
 
-		public static implicit operator mdToken(mdCPToken value) => new mdToken(value.Value);
+        public static implicit operator mdToken(mdCPToken value) => new mdToken(value.Value);
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<mdCPToken>(Value, value);
 

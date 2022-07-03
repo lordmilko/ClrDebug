@@ -30,11 +30,11 @@ namespace ClrDebug
         /// <param name="pwzBinary">[in] Optional. Specifies the assembly file path.</param>
         /// <param name="pCfgStream">[in] Optional. Specifies the configuration file as a <see cref="IStream"/>.</param>
         /// <param name="pwzVersion">[in, out] Optional. Specifies or returns the preferred CLR version to be loaded.</param>
-        /// <param name="pcchVersion">	[in, out] Required. Specifies the expected size of pwzVersion as input, to avoid buffer overruns.<para/>
+        /// <param name="pcchVersion">[in, out] Required. Specifies the expected size of pwzVersion as input, to avoid buffer overruns.<para/>
         /// If pwzVersion is null, pcchVersion contains the expected size of pwzVersion when GetRequestedRuntime returns, to allow pre-allocation; otherwise, pcchVersion contains the number of characters written to pwzVersion.</param>
         /// <param name="pwzImageVersion">[out] Optional. When GetRequestedRuntime returns, contains the CLR version corresponding to the <see cref="ICLRRuntimeInfo"/> interface that is returned.</param>
-        /// <param name="pcchImageVersion">	[in, out] Optional. Specifies the size of pwzImageVersion as input to avoid buffer overruns. If pwzImageVersion is null, pcchImageVersion contains the required size of pwzImageVersion when GetRequestedRuntime returns, to allow pre-allocation.</param>
-        /// <param name="pdwConfigFlags">	[out] Optional. If GetRequestedRuntime uses a configuration file during the binding process, when it returns, pdwConfigFlags contains
+        /// <param name="pcchImageVersion">[in, out] Optional. Specifies the size of pwzImageVersion as input to avoid buffer overruns. If pwzImageVersion is null, pcchImageVersion contains the required size of pwzImageVersion when GetRequestedRuntime returns, to allow pre-allocation.</param>
+        /// <param name="pdwConfigFlags">[out] Optional. If GetRequestedRuntime uses a configuration file during the binding process, when it returns, pdwConfigFlags contains
         /// a <see cref="METAHOST_CONFIG_FLAGS"/> value that indicates whether the &lt;startup&gt; element has the useLegacyV2RuntimeActivationPolicy attribute set, and the value of the attribute.<para/>
         /// Apply the <see cref="METAHOST_CONFIG_FLAGS.LEGACY_V2_ACTIVATION_POLICY_MASK"/> mask to pdwConfigFlags to get the values relevant to useLegacyV2RuntimeActivationPolicy.</param>
         /// <param name="riid">Specifies the interface identifier IID_ICLRRuntimeInfo for the requested ICLRRuntimeInfo interface.</param>

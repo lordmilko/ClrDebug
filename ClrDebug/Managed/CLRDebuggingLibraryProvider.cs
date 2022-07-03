@@ -21,10 +21,10 @@ namespace ClrDebug
         /// <summary>
         /// Gets a library provider callback interface that allows common language runtime (CLR) version-specific debugging libraries to be located and loaded on demand.
         /// </summary>
-        /// <param name="pwszFileName"> [in] The name of the module being requested.</param>
-        /// <param name="dwTimestamp"> [in] The date time stamp stored in the COFF file header of PE files.</param>
-        /// <param name="dwSizeOfImage"> [in] The SizeOfImage field stored in the COFF optional file header of PE files.</param>
-        /// <returns> [out] The handle to the requested module.</returns>
+        /// <param name="pwszFileName">[in] The name of the module being requested.</param>
+        /// <param name="dwTimestamp">[in] The date time stamp stored in the COFF file header of PE files.</param>
+        /// <param name="dwSizeOfImage">[in] The SizeOfImage field stored in the COFF optional file header of PE files.</param>
+        /// <returns>[out] The handle to the requested module.</returns>
         /// <remarks>
         /// ProvideLibrary allows the debugger to provide modules that are needed for debugging specific CLR files such as
         /// mscordbi.dll and mscordacwks.dll. The module handles have to remain valid until a call to the <see cref="CLRDebugging.CanUnloadNow"/>
@@ -42,10 +42,10 @@ namespace ClrDebug
         /// <summary>
         /// Gets a library provider callback interface that allows common language runtime (CLR) version-specific debugging libraries to be located and loaded on demand.
         /// </summary>
-        /// <param name="pwszFileName"> [in] The name of the module being requested.</param>
-        /// <param name="dwTimestamp"> [in] The date time stamp stored in the COFF file header of PE files.</param>
-        /// <param name="dwSizeOfImage"> [in] The SizeOfImage field stored in the COFF optional file header of PE files.</param>
-        /// <param name="phModule"> [out] The handle to the requested module.</param>
+        /// <param name="pwszFileName">[in] The name of the module being requested.</param>
+        /// <param name="dwTimestamp">[in] The date time stamp stored in the COFF file header of PE files.</param>
+        /// <param name="dwSizeOfImage">[in] The SizeOfImage field stored in the COFF optional file header of PE files.</param>
+        /// <param name="phModule">[out] The handle to the requested module.</param>
         /// <returns>
         /// This method returns the following specific HRESULTs as well as HRESULT errors that indicate method failure.
         /// 
