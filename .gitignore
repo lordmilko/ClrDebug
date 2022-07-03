@@ -2,8 +2,10 @@
 Samples/*
 
 # Samples to include
+!Samples/DacTypeDump/
 !Samples/PEReader/
 !Samples/SymbolStore/
+!Samples/README.md
 
 #################
 # Visual Studio #
