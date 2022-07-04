@@ -31,7 +31,7 @@ namespace ClrDebug
     {
         /// <summary>
         /// Launches a process and its primary thread under the control of the debugger.<para/>
-        /// For simplicity, this method omits the lpApplicationName parameter. If you wish to specify this parameter, call the normal CorDebug.CreateProcess method directly.
+        /// For simplicity, this method omits the lpApplicationName and lpProcessInformation parameters. If you wish to specify these parameters, call the normal CorDebug.CreateProcess method directly.
         /// </summary>
         /// <param name="corDebug">The <see cref="CorDebug"/> instance that should be used to create the process.</param>
         /// <param name="lpCommandLine">[in] Pointer to a null-terminated string that specifies the command line to be executed by the launched process.<para/>
@@ -46,7 +46,6 @@ namespace ClrDebug
         /// <param name="lpCurrentDirectory">[in] Pointer to a null-terminated string that specifies the full path to the current directory for the process.<para/>
         /// If this parameter is null, the new process will have the same current drive and directory as the calling process.</param>
         /// <param name="lpStartupInfo">[in] Pointer to a Win32 STARTUPINFOW structure that specifies the window station, desktop, standard handles, and appearance of the main window for the launched process.</param>
-        /// <param name="lpProcessInformation">[in] Pointer to a Win32 <see cref="PROCESS_INFORMATION"/> structure that specifies the identification information about the process to be launched.</param>
         /// <param name="debuggingFlags">[in] A value of the <see cref="CorDebugCreateProcessFlags"/> enumeration that specifies the debugging options.</param>
         /// <returns>[out] A pointer to the address of a <see cref="ICorDebugProcess"/> object that represents the process.</returns>
         public static CorDebugProcess CreateProcess(
@@ -59,13 +58,12 @@ namespace ClrDebug
             IntPtr? lpEnvironment = null,
             string lpCurrentDirectory = null,
             STARTUPINFO? lpStartupInfo = null,
-            PROCESS_INFORMATION? lpProcessInformation = null,
             CorDebugCreateProcessFlags debuggingFlags = CorDebugCreateProcessFlags.DEBUG_NO_SPECIAL_OPTIONS)
         {
             var processAttribs = lpProcessAttributes ?? new SECURITY_ATTRIBUTES();
             var threadAttribs = lpThreadAttributes ?? new SECURITY_ATTRIBUTES();
             var env = lpEnvironment ?? IntPtr.Zero;
-            var pi = lpProcessInformation ?? new PROCESS_INFORMATION();
+            var pi = new PROCESS_INFORMATION();
 
             STARTUPINFO si;
 
@@ -91,7 +89,7 @@ namespace ClrDebug
                 env,
                 lpCurrentDirectory,
                 si,
-                pi,
+                ref pi,
                 debuggingFlags,
                 out process
             );
