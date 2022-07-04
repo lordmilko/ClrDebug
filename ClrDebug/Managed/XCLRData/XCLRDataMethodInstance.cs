@@ -3,6 +3,14 @@ using System.Text;
 
 namespace ClrDebug
 {
+    /// <summary>
+    /// Provides methods for querying information about a method instance.
+    /// </summary>
+    /// <remarks>
+    /// This interface lives inside the runtime and is not exposed through any headers or library files. However, it's
+    /// a COM interface that derives from IUnknown with GUID ECD73800-22CA-4b0d-AB55-E9BA7E6318A5 that can be obtained
+    /// through the usual COM mechanisms.
+    /// </remarks>
     public class XCLRDataMethodInstance : ComObject<IXCLRDataMethodInstance>
     {
         /// <summary>
@@ -168,6 +176,9 @@ namespace ClrDebug
         #endregion
         #region ILAddressMap
 
+        /// <summary>
+        /// Gets the IL to address mapping information.
+        /// </summary>
         public CLRDATA_IL_ADDRESS_MAP[] ILAddressMap
         {
             get
@@ -179,6 +190,14 @@ namespace ClrDebug
             }
         }
 
+        /// <summary>
+        /// Gets the IL to address mapping information.
+        /// </summary>
+        /// <param name="maps">[out, size_is(mapLen)] The array for storing the map entries.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataMethodInstance interface and corresponds to the 15th slot of the virtual
+        /// method table.
+        /// </remarks>
         public HRESULT TryGetILAddressMap(out CLRDATA_IL_ADDRESS_MAP[] maps)
         {
             /*HRESULT GetILAddressMap(
@@ -203,6 +222,9 @@ namespace ClrDebug
         #endregion
         #region RepresentativeEntryAddress
 
+        /// <summary>
+        /// Gets the most representative entry point address for the native compilation of all the possible entry points for a method.
+        /// </summary>
         public CLRDATA_ADDRESS RepresentativeEntryAddress
         {
             get
@@ -214,6 +236,14 @@ namespace ClrDebug
             }
         }
 
+        /// <summary>
+        /// Gets the most representative entry point address for the native compilation of all the possible entry points for a method.
+        /// </summary>
+        /// <param name="addr">[out] The address of the most representative native entry point for the method.</param>
+        /// <remarks>
+        /// The provided method is part of the <see cref="IXCLRDataMethodInstance"/> interface and corresponds to the 20th slot of the
+        /// virtual method table.
+        /// </remarks>
         public HRESULT TryGetRepresentativeEntryAddress(out CLRDATA_ADDRESS addr)
         {
             /*HRESULT GetRepresentativeEntryAddress(

@@ -9,6 +9,14 @@ namespace ClrDebug
     public delegate void VISITHEAP(CLRDATA_ADDRESS blockData, long blockSize, bool blockIsCurrentBlock);
     public delegate void VISITRCWFORCLEANUP(CLRDATA_ADDRESS RCW, CLRDATA_ADDRESS Context, CLRDATA_ADDRESS Thread, bool bIsFreeThreaded, IntPtr token);
 
+    /// <summary>
+    /// Provides helper methods to access data from SOS.
+    /// </summary>
+    /// <remarks>
+    /// This interface lives inside the runtime and is not exposed through any headers or library files. However, it's
+    /// a COM interface that derives from IUnknown with GUID 436f00f2-b42a-4b9f-870c-e73db66ae930 that can be obtained
+    /// through the usual COM mechanisms.
+    /// </remarks>
     [Guid("436f00f2-b42a-4b9f-870c-e73db66ae930")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [ComImport]
@@ -77,6 +85,15 @@ namespace ClrDebug
             [In] CLRDATA_ADDRESS addr,
             [Out] out IXCLRDataModule mod);
 
+        /// <summary>
+        /// Fetches the data corresponding to the module loaded at a given address.
+        /// </summary>
+        /// <param name="moduleAddr">[in] The address of the module to retrieve information for.</param>
+        /// <param name="data">[out] The <see cref="DacpModuleData"/> to hold the information of the loaded module.</param>
+        /// <remarks>
+        /// The provided method is part of the ISOSDacInterface interface and corresponds to the 14th slot of the virtual method
+        /// table.
+        /// </remarks>
         [PreserveSig]
         HRESULT GetModuleData(
             [In] CLRDATA_ADDRESS moduleAddr,
@@ -119,6 +136,19 @@ namespace ClrDebug
             [Out] out CLRDATA_ADDRESS upper,
             [Out] out CLRDATA_ADDRESS fp);
 
+        /// <summary>
+        /// Gets the data for the given MethodDesc pointer.
+        /// </summary>
+        /// <param name="methodDesc">[in] The address of the MethodDesc.</param>
+        /// <param name="ip">[in] The IP address of the method.</param>
+        /// <param name="data">[out] The data associated with the MethodDesc as returned from the internal APIs.</param>
+        /// <param name="cRevertedRejitVersions">[out] The number of reverted rejit versions.</param>
+        /// <param name="rgRevertedRejitData">[out] The data associated with the reverted rejit versions as returned from the internal APIs.</param>
+        /// <param name="pcNeededRevertedRejitData">[out] The number of bytes required to store the data associated with the reverted ReJit versions.</param>
+        /// <remarks>
+        /// The provided method is part of the ISOSDacInterface interface and corresponds to the 21st slot of the virtual method
+        /// table. To be able to use them, Markdig.Syntax.Inlines.CodeInline must be defined as a 64-bit unsigned integer.
+        /// </remarks>
         [PreserveSig]
         HRESULT GetMethodDescData(
             [In] CLRDATA_ADDRESS methodDesc,
@@ -128,6 +158,15 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPArray)] DacpReJitData[] rgRevertedRejitData,
             [Out] out int pcNeededRevertedRejitData);
 
+        /// <summary>
+        /// Retrieves the pointer of the MethodDesc corresponding the method containing the given native instruction address.
+        /// </summary>
+        /// <param name="ip">[in] An address within the method at run time.</param>
+        /// <param name="ppMD">[out] The address of the MethodDesc for the particular method.</param>
+        /// <remarks>
+        /// The provided method is part of the <see cref="ISOSDacInterface"/> and corresponds to the 22nd slot of the virtual
+        /// method table.
+        /// </remarks>
         [PreserveSig]
         HRESULT GetMethodDescPtrFromIP(
             [In] CLRDATA_ADDRESS ip,

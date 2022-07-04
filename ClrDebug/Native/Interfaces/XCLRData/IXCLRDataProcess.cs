@@ -4,6 +4,14 @@ using System.Text;
 
 namespace ClrDebug
 {
+    /// <summary>
+    /// Provides methods for querying information about a process.
+    /// </summary>
+    /// <remarks>
+    /// This interface lives inside the runtime and is not exposed through any headers or library files. However, it's
+    /// a COM interface that derives from IUnknown with GUID 5c552ab6-fc09-4cb3-8e36-22fa03c798b7 that can be obtained
+    /// through the usual COM mechanisms.
+    /// </remarks>
     [Guid("5c552ab6-fc09-4cb3-8e36-22fa03c798b7")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [ComImport]
@@ -60,6 +68,19 @@ namespace ClrDebug
             [In] CLRDATA_ADDRESS address,
             [Out] out CLRDataAddressType type);
 
+        /// <summary>
+        /// Gets a name for the given address.
+        /// </summary>
+        /// <param name="address">[in] A CLRDATA_ADDRESS value that represents a code address.</param>
+        /// <param name="flags">[in] Set to '0'.</param>
+        /// <param name="bufLen">[in] The length of the buffer.</param>
+        /// <param name="nameLen">[out] A pointer to the number of characters returned.</param>
+        /// <param name="nameBuf">[out, size_is(bufLen)] The input buffer of length bufLen that stores the runtime name.</param>
+        /// <param name="displacement">[out] A CLRDATA_ADDRESS pointer to the code offset of the returned symbol.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 16th slot of the virtual-method
+        /// table.
+        /// </remarks>
         [PreserveSig]
         HRESULT GetRuntimeNameByAddress(
             [In] CLRDATA_ADDRESS address,
@@ -82,6 +103,15 @@ namespace ClrDebug
         HRESULT EndEnumAppDomains(
             [In] IntPtr handle);
 
+        /// <summary>
+        /// Gets an AppDomain in a process based on its unique identifier.
+        /// </summary>
+        /// <param name="id">[in] The unique identifier of the AppDomain</param>
+        /// <param name="appDomain">[out] The AppDomain</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 20th slot of the virtual method
+        /// table. The IXCLRDataAppDomain* returned is used for interaction with other APIs.
+        /// </remarks>
         [PreserveSig]
         HRESULT GetAppDomainByUniqueID(
             [In] long id,
@@ -100,15 +130,40 @@ namespace ClrDebug
         HRESULT EndEnumAssemblies(
             [In] IntPtr handle);
 
+        /// <summary>
+        /// Provides a handle to enumerate the modules of a process.
+        /// </summary>
+        /// <param name="handle">[out] A handle for enumerating the modules.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 24th slot of the virtual method
+        /// table.
+        /// </remarks>
         [PreserveSig]
         HRESULT StartEnumModules(
             [Out] out IntPtr handle);
 
+        /// <summary>
+        /// Enumerates the modules of this process.
+        /// </summary>
+        /// <param name="handle">[in, out] A handle for enumerating the modules.</param>
+        /// <param name="mod">[out] The enumerated module.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 25th slot of the virtual method
+        /// table.
+        /// </remarks>
         [PreserveSig]
         HRESULT EnumModule(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataModule mod);
 
+        /// <summary>
+        /// Releases the resources used by internal iterators used during module enumeration.
+        /// </summary>
+        /// <param name="handle">[out] A handle for enumerating the modules.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 26th slot of the virtual method
+        /// table.
+        /// </remarks>
         [PreserveSig]
         HRESULT EndEnumModules(
             [In] IntPtr handle);
@@ -118,17 +173,44 @@ namespace ClrDebug
             [In] CLRDATA_ADDRESS address,
             [Out] out IXCLRDataModule mod);
 
+        /// <summary>
+        /// Provides a handle to enumerate the method instances of AppDomain starting at a given address.
+        /// </summary>
+        /// <param name="address">[in] The address of the first method instance.</param>
+        /// <param name="appDomain">[in] The AppDomain of the method instances.</param>
+        /// <param name="handle">[out] A handle for enumerating the method instances.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 28th slot of the virtual method
+        /// table.
+        /// </remarks>
         [PreserveSig]
         HRESULT StartEnumMethodInstancesByAddress(
             [In] CLRDATA_ADDRESS address,
             [In] IXCLRDataAppDomain appDomain,
             [Out] out IntPtr handle);
 
+        /// <summary>
+        /// Enumerates the method instances of this process starting at an address offset.
+        /// </summary>
+        /// <param name="handle">[in] A handle for enumerating the method instances.</param>
+        /// <param name="method">[out] The enumerated method instance.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 29th slot of the virtual method
+        /// table.
+        /// </remarks>
         [PreserveSig]
         HRESULT EnumMethodInstanceByAddress(
             [In] IntPtr handle,
             [Out] out IXCLRDataMethodInstance method);
 
+        /// <summary>
+        /// Releases the resources used by internal iterators used during instance enumeration.
+        /// </summary>
+        /// <param name="handle">[out] A handle for enumerating the method instances.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 30th slot of the virtual method
+        /// table.
+        /// </remarks>
         [PreserveSig]
         HRESULT EndEnumMethodInstancesByAddress(
             [In] IntPtr handle);

@@ -4,6 +4,14 @@ using System.Text;
 
 namespace ClrDebug
 {
+    /// <summary>
+    /// Provides methods for querying information about a loaded module.
+    /// </summary>
+    /// <remarks>
+    /// This interface lives inside the runtime and is not exposed through any headers or library files. However, it's
+    /// a COM interface that derives from IUnknown with GUID 88E32849-0A0A-4cb0-9022-7CD2E9E139E2 that can be obtained
+    /// through the usual COM mechanisms.
+    /// </remarks>
     public class XCLRDataModule : ComObject<IXCLRDataModule>
     {
         /// <summary>
@@ -128,6 +136,9 @@ namespace ClrDebug
         #endregion
         #region VersionId
 
+        /// <summary>
+        /// Gets the module's version identifier.
+        /// </summary>
         public Guid VersionId
         {
             get
@@ -139,6 +150,14 @@ namespace ClrDebug
             }
         }
 
+        /// <summary>
+        /// Gets the module's version identifier.
+        /// </summary>
+        /// <param name="vid">[out] The module's version identifier.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataModule interface and corresponds to the 41st slot of the virtual method
+        /// table.
+        /// </remarks>
         public HRESULT TryGetVersionId(out Guid vid)
         {
             /*HRESULT GetVersionId(
@@ -607,6 +626,15 @@ namespace ClrDebug
         #endregion
         #region GetMethodDefinitionByToken
 
+        /// <summary>
+        /// Gets the method definition corresponding to a given metadata token.
+        /// </summary>
+        /// <param name="token">[in] The method token.</param>
+        /// <returns>[out] The method definition.</returns>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataModule interface and corresponds to the 26th slot of the virtual method
+        /// table.
+        /// </remarks>
         public XCLRDataMethodDefinition GetMethodDefinitionByToken(mdMethodDef token)
         {
             XCLRDataMethodDefinition methodDefinitionResult;
@@ -615,6 +643,15 @@ namespace ClrDebug
             return methodDefinitionResult;
         }
 
+        /// <summary>
+        /// Gets the method definition corresponding to a given metadata token.
+        /// </summary>
+        /// <param name="token">[in] The method token.</param>
+        /// <param name="methodDefinitionResult">[out] The method definition.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataModule interface and corresponds to the 26th slot of the virtual method
+        /// table.
+        /// </remarks>
         public HRESULT TryGetMethodDefinitionByToken(mdMethodDef token, out XCLRDataMethodDefinition methodDefinitionResult)
         {
             /*HRESULT GetMethodDefinitionByToken(
@@ -768,11 +805,35 @@ namespace ClrDebug
         #endregion
         #region Request
 
+        /// <summary>
+        /// Requests to populate the buffer given with the module's data.
+        /// </summary>
+        /// <param name="reqCode">[in] Request type to be sent.</param>
+        /// <param name="inBufferSize">[in] size of the input buffer to be passed in.</param>
+        /// <param name="inBuffer">[in, size_is(inBufferSize)] Buffer pointer for the raw data to be sent in the request.</param>
+        /// <param name="outBufferSize">[in] Size of the output buffer.</param>
+        /// <param name="outBuffer">[out, size_is(outBufferSize)] Buffer pointer to used to store the request response.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataModule interface and corresponds to the 37th slot of the virtual method
+        /// table.
+        /// </remarks>
         public void Request(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
             TryRequest(reqCode, inBufferSize, inBuffer, outBufferSize, outBuffer).ThrowOnNotOK();
         }
 
+        /// <summary>
+        /// Requests to populate the buffer given with the module's data.
+        /// </summary>
+        /// <param name="reqCode">[in] Request type to be sent.</param>
+        /// <param name="inBufferSize">[in] size of the input buffer to be passed in.</param>
+        /// <param name="inBuffer">[in, size_is(inBufferSize)] Buffer pointer for the raw data to be sent in the request.</param>
+        /// <param name="outBufferSize">[in] Size of the output buffer.</param>
+        /// <param name="outBuffer">[out, size_is(outBufferSize)] Buffer pointer to used to store the request response.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataModule interface and corresponds to the 37th slot of the virtual method
+        /// table.
+        /// </remarks>
         public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
             /*HRESULT Request(

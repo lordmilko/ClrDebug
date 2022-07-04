@@ -4,6 +4,14 @@ using System.Text;
 
 namespace ClrDebug
 {
+    /// <summary>
+    /// Provides methods for querying information about a method definition.
+    /// </summary>
+    /// <remarks>
+    /// This interface lives inside the runtime and is not exposed through any headers or library files. However, it's
+    /// a COM interface that derives from IUnknown with GUID AAF60008-FB2C-420b-8FB1-42D244A54A97 that can be obtained
+    /// through the usual COM mechanisms.
+    /// </remarks>
     [Guid("AAF60008-FB2C-420b-8FB1-42D244A54A97")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [ComImport]
@@ -13,16 +21,42 @@ namespace ClrDebug
         HRESULT GetTypeDefinition(
             [Out] out IXCLRDataTypeDefinition typeDefinition);
 
+        /// <summary>
+        /// Provides a handle for the enumeration of method instances for a given IXCLRDataAppDomain.
+        /// </summary>
+        /// <param name="appDomain">[in] An AppDomain for the enumeration.</param>
+        /// <param name="handle">[out] A handle for enumerating the instances.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataMethodDefinition interface and corresponds to the 5th slot of the virtual
+        /// method table.
+        /// </remarks>
         [PreserveSig]
         HRESULT StartEnumInstances(
             [In] IXCLRDataAppDomain appDomain,
             [Out] out IntPtr handle);
 
+        /// <summary>
+        /// Enumerates the instances of this method definition.
+        /// </summary>
+        /// <param name="handle">[in, out] A handle for enumerating the instances.</param>
+        /// <param name="instance">[out] The enumerated instance.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataMethodDefinition interface and corresponds to the 6th slot of the virtual
+        /// method table.
+        /// </remarks>
         [PreserveSig]
         HRESULT EnumInstance(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataMethodInstance instance);
 
+        /// <summary>
+        /// Releases the resources used by internal iterators used during instance enumeration.
+        /// </summary>
+        /// <param name="handle">[out] A handle for enumerating the instances.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataMethodDefinition interface and corresponds to the 7th slot of the virtual
+        /// method table.
+        /// </remarks>
         [PreserveSig]
         HRESULT EndEnumInstances(
             [In] IntPtr handle);

@@ -4,6 +4,14 @@ using System.Text;
 
 namespace ClrDebug
 {
+    /// <summary>
+    /// Provides methods for querying information about a loaded module.
+    /// </summary>
+    /// <remarks>
+    /// This interface lives inside the runtime and is not exposed through any headers or library files. However, it's
+    /// a COM interface that derives from IUnknown with GUID 88E32849-0A0A-4cb0-9022-7CD2E9E139E2 that can be obtained
+    /// through the usual COM mechanisms.
+    /// </remarks>
     [Guid("88E32849-0A0A-4cb0-9022-7CD2E9E139E2")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [ComImport]
@@ -116,6 +124,15 @@ namespace ClrDebug
         HRESULT EndEnumMethodInstancesByName(
             [In] IntPtr handle);
 
+        /// <summary>
+        /// Gets the method definition corresponding to a given metadata token.
+        /// </summary>
+        /// <param name="token">[in] The method token.</param>
+        /// <param name="methodDefinition">[out] The method definition.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataModule interface and corresponds to the 26th slot of the virtual method
+        /// table.
+        /// </remarks>
         [PreserveSig]
         HRESULT GetMethodDefinitionByToken(
             [In] mdMethodDef token,
@@ -171,6 +188,18 @@ namespace ClrDebug
         HRESULT EndEnumExtents(
             [In] IntPtr handle);
 
+        /// <summary>
+        /// Requests to populate the buffer given with the module's data.
+        /// </summary>
+        /// <param name="reqCode">[in] Request type to be sent.</param>
+        /// <param name="inBufferSize">[in] size of the input buffer to be passed in.</param>
+        /// <param name="inBuffer">[in, size_is(inBufferSize)] Buffer pointer for the raw data to be sent in the request.</param>
+        /// <param name="outBufferSize">[in] Size of the output buffer.</param>
+        /// <param name="outBuffer">[out, size_is(outBufferSize)] Buffer pointer to used to store the request response.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataModule interface and corresponds to the 37th slot of the virtual method
+        /// table.
+        /// </remarks>
         [PreserveSig]
         HRESULT Request(
             [In] uint reqCode,
@@ -192,6 +221,14 @@ namespace ClrDebug
         HRESULT EndEnumAppDomains(
             [In] IntPtr handle);
 
+        /// <summary>
+        /// Gets the module's version identifier.
+        /// </summary>
+        /// <param name="vid">[out] The module's version identifier.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataModule interface and corresponds to the 41st slot of the virtual method
+        /// table.
+        /// </remarks>
         [PreserveSig]
         HRESULT GetVersionId(
             [Out] out Guid vid);

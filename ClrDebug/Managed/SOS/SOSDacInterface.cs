@@ -4,6 +4,14 @@ using System.Text;
 
 namespace ClrDebug
 {
+    /// <summary>
+    /// Provides helper methods to access data from SOS.
+    /// </summary>
+    /// <remarks>
+    /// This interface lives inside the runtime and is not exposed through any headers or library files. However, it's
+    /// a COM interface that derives from IUnknown with GUID 436f00f2-b42a-4b9f-870c-e73db66ae930 that can be obtained
+    /// through the usual COM mechanisms.
+    /// </remarks>
     public class SOSDacInterface : ComObject<ISOSDacInterface>
     {
         /// <summary>
@@ -589,6 +597,15 @@ namespace ClrDebug
         #endregion
         #region GetModuleData
 
+        /// <summary>
+        /// Fetches the data corresponding to the module loaded at a given address.
+        /// </summary>
+        /// <param name="moduleAddr">[in] The address of the module to retrieve information for.</param>
+        /// <returns>[out] The <see cref="DacpModuleData"/> to hold the information of the loaded module.</returns>
+        /// <remarks>
+        /// The provided method is part of the ISOSDacInterface interface and corresponds to the 14th slot of the virtual method
+        /// table.
+        /// </remarks>
         public DacpModuleData GetModuleData(CLRDATA_ADDRESS moduleAddr)
         {
             DacpModuleData data;
@@ -597,6 +614,15 @@ namespace ClrDebug
             return data;
         }
 
+        /// <summary>
+        /// Fetches the data corresponding to the module loaded at a given address.
+        /// </summary>
+        /// <param name="moduleAddr">[in] The address of the module to retrieve information for.</param>
+        /// <param name="data">[out] The <see cref="DacpModuleData"/> to hold the information of the loaded module.</param>
+        /// <remarks>
+        /// The provided method is part of the ISOSDacInterface interface and corresponds to the 14th slot of the virtual method
+        /// table.
+        /// </remarks>
         public HRESULT TryGetModuleData(CLRDATA_ADDRESS moduleAddr, out DacpModuleData data)
         {
             /*HRESULT GetModuleData(
@@ -748,6 +774,16 @@ namespace ClrDebug
         #endregion
         #region GetMethodDescData
 
+        /// <summary>
+        /// Gets the data for the given MethodDesc pointer.
+        /// </summary>
+        /// <param name="methodDesc">[in] The address of the MethodDesc.</param>
+        /// <param name="ip">[in] The IP address of the method.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// The provided method is part of the ISOSDacInterface interface and corresponds to the 21st slot of the virtual method
+        /// table. To be able to use them, Markdig.Syntax.Inlines.CodeInline must be defined as a 64-bit unsigned integer.
+        /// </remarks>
         public GetMethodDescDataResult GetMethodDescData(CLRDATA_ADDRESS methodDesc, CLRDATA_ADDRESS ip)
         {
             GetMethodDescDataResult result;
@@ -756,6 +792,16 @@ namespace ClrDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets the data for the given MethodDesc pointer.
+        /// </summary>
+        /// <param name="methodDesc">[in] The address of the MethodDesc.</param>
+        /// <param name="ip">[in] The IP address of the method.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <remarks>
+        /// The provided method is part of the ISOSDacInterface interface and corresponds to the 21st slot of the virtual method
+        /// table. To be able to use them, Markdig.Syntax.Inlines.CodeInline must be defined as a 64-bit unsigned integer.
+        /// </remarks>
         public HRESULT TryGetMethodDescData(CLRDATA_ADDRESS methodDesc, CLRDATA_ADDRESS ip, out GetMethodDescDataResult result)
         {
             /*HRESULT GetMethodDescData(
@@ -794,6 +840,15 @@ namespace ClrDebug
         #endregion
         #region GetMethodDescPtrFromIP
 
+        /// <summary>
+        /// Retrieves the pointer of the MethodDesc corresponding the method containing the given native instruction address.
+        /// </summary>
+        /// <param name="ip">[in] An address within the method at run time.</param>
+        /// <returns>[out] The address of the MethodDesc for the particular method.</returns>
+        /// <remarks>
+        /// The provided method is part of the <see cref="ISOSDacInterface"/> and corresponds to the 22nd slot of the virtual
+        /// method table.
+        /// </remarks>
         public CLRDATA_ADDRESS GetMethodDescPtrFromIP(CLRDATA_ADDRESS ip)
         {
             CLRDATA_ADDRESS ppMD;
@@ -802,6 +857,15 @@ namespace ClrDebug
             return ppMD;
         }
 
+        /// <summary>
+        /// Retrieves the pointer of the MethodDesc corresponding the method containing the given native instruction address.
+        /// </summary>
+        /// <param name="ip">[in] An address within the method at run time.</param>
+        /// <param name="ppMD">[out] The address of the MethodDesc for the particular method.</param>
+        /// <remarks>
+        /// The provided method is part of the <see cref="ISOSDacInterface"/> and corresponds to the 22nd slot of the virtual
+        /// method table.
+        /// </remarks>
         public HRESULT TryGetMethodDescPtrFromIP(CLRDATA_ADDRESS ip, out CLRDATA_ADDRESS ppMD)
         {
             /*HRESULT GetMethodDescPtrFromIP(

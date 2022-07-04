@@ -4,6 +4,14 @@ using System.Text;
 
 namespace ClrDebug
 {
+    /// <summary>
+    /// Provides methods for querying information about a process.
+    /// </summary>
+    /// <remarks>
+    /// This interface lives inside the runtime and is not exposed through any headers or library files. However, it's
+    /// a COM interface that derives from IUnknown with GUID 5c552ab6-fc09-4cb3-8e36-22fa03c798b7 that can be obtained
+    /// through the usual COM mechanisms.
+    /// </remarks>
     public class XCLRDataProcess : ComObject<IXCLRDataProcess>
     {
         /// <summary>
@@ -296,6 +304,16 @@ namespace ClrDebug
         #endregion
         #region GetRuntimeNameByAddress
 
+        /// <summary>
+        /// Gets a name for the given address.
+        /// </summary>
+        /// <param name="address">[in] A CLRDATA_ADDRESS value that represents a code address.</param>
+        /// <param name="flags">[in] Set to '0'.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 16th slot of the virtual-method
+        /// table.
+        /// </remarks>
         public GetRuntimeNameByAddressResult GetRuntimeNameByAddress(CLRDATA_ADDRESS address, int flags)
         {
             GetRuntimeNameByAddressResult result;
@@ -304,6 +322,16 @@ namespace ClrDebug
             return result;
         }
 
+        /// <summary>
+        /// Gets a name for the given address.
+        /// </summary>
+        /// <param name="address">[in] A CLRDATA_ADDRESS value that represents a code address.</param>
+        /// <param name="flags">[in] Set to '0'.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 16th slot of the virtual-method
+        /// table.
+        /// </remarks>
         public HRESULT TryGetRuntimeNameByAddress(CLRDATA_ADDRESS address, int flags, out GetRuntimeNameByAddressResult result)
         {
             /*HRESULT GetRuntimeNameByAddress(
@@ -402,6 +430,15 @@ namespace ClrDebug
         #endregion
         #region GetAppDomainByUniqueID
 
+        /// <summary>
+        /// Gets an AppDomain in a process based on its unique identifier.
+        /// </summary>
+        /// <param name="id">[in] The unique identifier of the AppDomain</param>
+        /// <returns>[out] The AppDomain</returns>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 20th slot of the virtual method
+        /// table. The IXCLRDataAppDomain* returned is used for interaction with other APIs.
+        /// </remarks>
         public XCLRDataAppDomain GetAppDomainByUniqueID(long id)
         {
             XCLRDataAppDomain appDomainResult;
@@ -410,6 +447,15 @@ namespace ClrDebug
             return appDomainResult;
         }
 
+        /// <summary>
+        /// Gets an AppDomain in a process based on its unique identifier.
+        /// </summary>
+        /// <param name="id">[in] The unique identifier of the AppDomain</param>
+        /// <param name="appDomainResult">[out] The AppDomain</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 20th slot of the virtual method
+        /// table. The IXCLRDataAppDomain* returned is used for interaction with other APIs.
+        /// </remarks>
         public HRESULT TryGetAppDomainByUniqueID(long id, out XCLRDataAppDomain appDomainResult)
         {
             /*HRESULT GetAppDomainByUniqueID(
@@ -489,6 +535,14 @@ namespace ClrDebug
         #endregion
         #region StartEnumModules
 
+        /// <summary>
+        /// Provides a handle to enumerate the modules of a process.
+        /// </summary>
+        /// <returns>[out] A handle for enumerating the modules.</returns>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 24th slot of the virtual method
+        /// table.
+        /// </remarks>
         public IntPtr StartEnumModules()
         {
             IntPtr handle;
@@ -497,6 +551,14 @@ namespace ClrDebug
             return handle;
         }
 
+        /// <summary>
+        /// Provides a handle to enumerate the modules of a process.
+        /// </summary>
+        /// <param name="handle">[out] A handle for enumerating the modules.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 24th slot of the virtual method
+        /// table.
+        /// </remarks>
         public HRESULT TryStartEnumModules(out IntPtr handle)
         {
             /*HRESULT StartEnumModules(
@@ -507,6 +569,15 @@ namespace ClrDebug
         #endregion
         #region EnumModule
 
+        /// <summary>
+        /// Enumerates the modules of this process.
+        /// </summary>
+        /// <param name="handle">[in, out] A handle for enumerating the modules.</param>
+        /// <returns>[out] The enumerated module.</returns>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 25th slot of the virtual method
+        /// table.
+        /// </remarks>
         public XCLRDataModule EnumModule(ref IntPtr handle)
         {
             XCLRDataModule modResult;
@@ -515,6 +586,15 @@ namespace ClrDebug
             return modResult;
         }
 
+        /// <summary>
+        /// Enumerates the modules of this process.
+        /// </summary>
+        /// <param name="handle">[in, out] A handle for enumerating the modules.</param>
+        /// <param name="modResult">[out] The enumerated module.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 25th slot of the virtual method
+        /// table.
+        /// </remarks>
         public HRESULT TryEnumModule(ref IntPtr handle, out XCLRDataModule modResult)
         {
             /*HRESULT EnumModule(
@@ -534,11 +614,27 @@ namespace ClrDebug
         #endregion
         #region EndEnumModules
 
+        /// <summary>
+        /// Releases the resources used by internal iterators used during module enumeration.
+        /// </summary>
+        /// <param name="handle">[out] A handle for enumerating the modules.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 26th slot of the virtual method
+        /// table.
+        /// </remarks>
         public void EndEnumModules(IntPtr handle)
         {
             TryEndEnumModules(handle).ThrowOnNotOK();
         }
 
+        /// <summary>
+        /// Releases the resources used by internal iterators used during module enumeration.
+        /// </summary>
+        /// <param name="handle">[out] A handle for enumerating the modules.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 26th slot of the virtual method
+        /// table.
+        /// </remarks>
         public HRESULT TryEndEnumModules(IntPtr handle)
         {
             /*HRESULT EndEnumModules(
@@ -576,6 +672,16 @@ namespace ClrDebug
         #endregion
         #region StartEnumMethodInstancesByAddress
 
+        /// <summary>
+        /// Provides a handle to enumerate the method instances of AppDomain starting at a given address.
+        /// </summary>
+        /// <param name="address">[in] The address of the first method instance.</param>
+        /// <param name="appDomain">[in] The AppDomain of the method instances.</param>
+        /// <returns>[out] A handle for enumerating the method instances.</returns>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 28th slot of the virtual method
+        /// table.
+        /// </remarks>
         public IntPtr StartEnumMethodInstancesByAddress(CLRDATA_ADDRESS address, IXCLRDataAppDomain appDomain)
         {
             IntPtr handle;
@@ -584,6 +690,16 @@ namespace ClrDebug
             return handle;
         }
 
+        /// <summary>
+        /// Provides a handle to enumerate the method instances of AppDomain starting at a given address.
+        /// </summary>
+        /// <param name="address">[in] The address of the first method instance.</param>
+        /// <param name="appDomain">[in] The AppDomain of the method instances.</param>
+        /// <param name="handle">[out] A handle for enumerating the method instances.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 28th slot of the virtual method
+        /// table.
+        /// </remarks>
         public HRESULT TryStartEnumMethodInstancesByAddress(CLRDATA_ADDRESS address, IXCLRDataAppDomain appDomain, out IntPtr handle)
         {
             /*HRESULT StartEnumMethodInstancesByAddress(
@@ -596,6 +712,15 @@ namespace ClrDebug
         #endregion
         #region EnumMethodInstanceByAddress
 
+        /// <summary>
+        /// Enumerates the method instances of this process starting at an address offset.
+        /// </summary>
+        /// <param name="handle">[in] A handle for enumerating the method instances.</param>
+        /// <returns>[out] The enumerated method instance.</returns>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 29th slot of the virtual method
+        /// table.
+        /// </remarks>
         public XCLRDataMethodInstance EnumMethodInstanceByAddress(IntPtr handle)
         {
             XCLRDataMethodInstance methodResult;
@@ -604,6 +729,15 @@ namespace ClrDebug
             return methodResult;
         }
 
+        /// <summary>
+        /// Enumerates the method instances of this process starting at an address offset.
+        /// </summary>
+        /// <param name="handle">[in] A handle for enumerating the method instances.</param>
+        /// <param name="methodResult">[out] The enumerated method instance.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 29th slot of the virtual method
+        /// table.
+        /// </remarks>
         public HRESULT TryEnumMethodInstanceByAddress(IntPtr handle, out XCLRDataMethodInstance methodResult)
         {
             /*HRESULT EnumMethodInstanceByAddress(
@@ -623,11 +757,27 @@ namespace ClrDebug
         #endregion
         #region EndEnumMethodInstancesByAddress
 
+        /// <summary>
+        /// Releases the resources used by internal iterators used during instance enumeration.
+        /// </summary>
+        /// <param name="handle">[out] A handle for enumerating the method instances.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 30th slot of the virtual method
+        /// table.
+        /// </remarks>
         public void EndEnumMethodInstancesByAddress(IntPtr handle)
         {
             TryEndEnumMethodInstancesByAddress(handle).ThrowOnNotOK();
         }
 
+        /// <summary>
+        /// Releases the resources used by internal iterators used during instance enumeration.
+        /// </summary>
+        /// <param name="handle">[out] A handle for enumerating the method instances.</param>
+        /// <remarks>
+        /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 30th slot of the virtual method
+        /// table.
+        /// </remarks>
         public HRESULT TryEndEnumMethodInstancesByAddress(IntPtr handle)
         {
             /*HRESULT EndEnumMethodInstancesByAddress(

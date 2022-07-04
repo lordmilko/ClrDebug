@@ -4,10 +4,20 @@ using System.Runtime.InteropServices;
 
 namespace ClrDebug
 {
+    /// <summary>
+    /// Defines the container for a module address request.
+    /// </summary>
+    /// <remarks>
+    /// This structure lives inside the runtime and is not exposed through any headers or library files. To use it, define
+    /// the structure as specified above, where CLRDATA_ADDRESS is a 64-bit unsigned integer.
+    /// </remarks>
     [DebuggerDisplay("ModulePtr = {ModulePtr.ToString(),nq}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct DacpGetModuleAddress
     {
+        /// <summary>
+        /// The pointer to the module.
+        /// </summary>
         public CLRDATA_ADDRESS ModulePtr;
 
         public HRESULT Request(IXCLRDataModule pDataModule)

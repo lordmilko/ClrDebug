@@ -989,11 +989,27 @@ namespace ClrDebug
         #endregion
         #region ProcessStateChanged
 
+        /// <summary>
+        /// Notifies the ICorDebug pipeline that the out of process debugger is continuing the debugee's execution.
+        /// </summary>
+        /// <param name="change">[in] A member of the <see cref="CorDebugStateChange"/> describing a change in the process's execution state.</param>
+        /// <remarks>
+        /// The provided method is part of the ICorDebugProcess4 interface and corresponds to the fourth slot of the virtual
+        /// method table.
+        /// </remarks>
         public void ProcessStateChanged(CorDebugStateChange change)
         {
             TryProcessStateChanged(change).ThrowOnNotOK();
         }
 
+        /// <summary>
+        /// Notifies the ICorDebug pipeline that the out of process debugger is continuing the debugee's execution.
+        /// </summary>
+        /// <param name="change">[in] A member of the <see cref="CorDebugStateChange"/> describing a change in the process's execution state.</param>
+        /// <remarks>
+        /// The provided method is part of the ICorDebugProcess4 interface and corresponds to the fourth slot of the virtual
+        /// method table.
+        /// </remarks>
         public HRESULT TryProcessStateChanged(CorDebugStateChange change)
         {
             /*HRESULT ProcessStateChanged([In] CorDebugStateChange change);*/
