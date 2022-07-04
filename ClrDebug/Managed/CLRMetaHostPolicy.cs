@@ -13,7 +13,7 @@ namespace ClrDebug
     /// although a method might not logically require it. The <see cref="METAHOST_POLICY_FLAGS"/> enumeration provides
     /// binding policies that are common to the majority of hosts.
     /// </remarks>
-    public class CLRMetaHostPolicy : ComObject<ICLRMetaHostPolicy>
+    public partial class CLRMetaHostPolicy : ComObject<ICLRMetaHostPolicy>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CLRMetaHostPolicy"/> class.

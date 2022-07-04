@@ -1,7 +1,19 @@
 ﻿using System.Runtime.InteropServices;
+using static ClrDebug.Extensions;
+using static ClrDebug.Extensions.CLRCreateInstanceInterfaces;
 
 namespace ClrDebug
 {
+    public partial class CLRMetaHost
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CLRMetaHost"/> class from mscoree.
+        /// </summary>
+        public CLRMetaHost() : base(CreateInstance<ICLRMetaHost>(CLSID_CLRMetaHost))
+        {
+        }
+    }
+
     public static partial class Extensions
     {
         /// <summary>

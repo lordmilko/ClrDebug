@@ -363,7 +363,7 @@ namespace ClrDebug
         /// <summary>
         /// Gets the addresses of all AppDomains present in a process, excluding the System and Shared AppDomains.
         /// </summary>
-        /// <param name="count">The size of the <paramref name="values"/> array. The number of active AppDomains can be retrieved from <see cref="AppDomainStoreData"/>.</param>
+        /// <param name="count">The size of the values array. The number of active AppDomains can be retrieved from <see cref="AppDomainStoreData"/>.</param>
         /// <param name="values">The array to store the addresses of returned AppDomains.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
         public HRESULT TryGetAppDomainList(int count, out CLRDATA_ADDRESS[] values)

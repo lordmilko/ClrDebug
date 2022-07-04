@@ -12,7 +12,7 @@ namespace ClrDebug
     /// <remarks>
     /// The only way to get an instance of this interface is by calling the CLRCreateInstance function.
     /// </remarks>
-    public class CLRMetaHost : ComObject<ICLRMetaHost>
+    public partial class CLRMetaHost : ComObject<ICLRMetaHost>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CLRMetaHost"/> class.

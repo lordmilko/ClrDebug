@@ -8,7 +8,7 @@ namespace ClrDebug
     /// <remarks>
     /// You can obtain an instance of the <see cref="ICLRDebugging"/> interface by using the CLRCreateInstance function.
     /// </remarks>
-    public class CLRDebugging : ComObject<ICLRDebugging>
+    public partial class CLRDebugging : ComObject<ICLRDebugging>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CLRDebugging"/> class.

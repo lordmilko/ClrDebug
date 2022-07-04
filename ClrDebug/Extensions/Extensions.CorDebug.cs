@@ -7,7 +7,7 @@ namespace ClrDebug
     public partial class CorDebug
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CorDebug"/> class for the common language runtime version that is running in the current process, and automatically
+        /// Initializes a new instance of the <see cref="CorDebug"/> class from mscoree for the common language runtime version that is running in the current process, and automatically
         /// calls the <see cref="Initialize"/> method.<para/>
         /// This constructor simplifies the typical pattern of calling CLRCreateInstance, retrieving a target runtime, followed by retrieving and initializing an ICorDebug interface.<para/>
         /// For greater control over the initialization of the <see cref="CorDebug"/> class,

@@ -31,7 +31,7 @@ namespace ClrDebug
             /// </summary>
             public CLRDebugging CLRDebugging => new CLRDebugging(CreateInstance<ICLRDebugging>(CLSID_CLRDebugging));
 
-            private T CreateInstance<T>(Guid clsid)
+            internal static T CreateInstance<T>(Guid clsid)
             {
                 var riid = typeof(T).GUID;
                 object ppInterface;
