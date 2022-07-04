@@ -1,4 +1,4 @@
-namespace ClrDebug
+﻿namespace ClrDebug
 {
     /// <summary>
     /// Allows you to define optional async method information for each method symbol. Always use with an opened method; that is, between calls to the <see cref="SymUnmanagedWriter.OpenMethod"/> and the <see cref="SymUnmanagedWriter.CloseMethod"/>.

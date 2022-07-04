@@ -1,4 +1,4 @@
-namespace ClrDebug
+﻿namespace ClrDebug
 {
     /// <summary>
     /// This interface is the reading complement to <see cref="ISymUnmanagedAsyncMethodPropertiesWriter"/>.

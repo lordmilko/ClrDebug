@@ -1,4 +1,4 @@
-namespace ClrDebug
+﻿namespace ClrDebug
 {
     /// <summary>
     /// Provides mapping capabilities between assemblies.

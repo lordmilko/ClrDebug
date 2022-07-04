@@ -1,4 +1,4 @@
-namespace ClrDebug
+﻿namespace ClrDebug
 {
     /// <summary>
     /// A subclass of "ICorDebugHeapValue" that represents a boxed value class object.

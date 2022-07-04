@@ -1,4 +1,4 @@
-namespace ClrDebug
+﻿namespace ClrDebug
 {
     /// <summary>
     /// A subclass of <see cref="ICorDebugHeapValue"/> that represents a single-dimensional or multi-dimensional array.

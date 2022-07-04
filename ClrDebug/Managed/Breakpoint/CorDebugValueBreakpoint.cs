@@ -1,4 +1,4 @@
-namespace ClrDebug
+﻿namespace ClrDebug
 {
     /// <summary>
     /// Extends the <see cref="ICorDebugBreakpoint"/> interface to provide access to specific values.

@@ -1,4 +1,4 @@
-namespace ClrDebug
+﻿namespace ClrDebug
 {
     /// <summary>
     /// Provides methods for participating in the scheduling of threads that would otherwise be blocked for a garbage collection.

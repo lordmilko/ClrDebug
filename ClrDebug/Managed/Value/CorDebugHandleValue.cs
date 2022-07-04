@@ -1,4 +1,4 @@
-namespace ClrDebug
+﻿namespace ClrDebug
 {
     /// <summary>
     /// A subclass of <see cref="ICorDebugReferenceValue"/> that represents a reference value to which the debugger has created a handle for garbage collection.

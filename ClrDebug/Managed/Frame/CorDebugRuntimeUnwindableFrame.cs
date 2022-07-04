@@ -1,4 +1,4 @@
-namespace ClrDebug
+﻿namespace ClrDebug
 {
     /// <summary>
     /// Provides support for unmanaged methods that require the common language runtime (CLR) to unwind a frame.

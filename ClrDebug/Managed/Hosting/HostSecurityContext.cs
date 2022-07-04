@@ -1,4 +1,4 @@
-namespace ClrDebug
+﻿namespace ClrDebug
 {
     /// <summary>
     /// Allows the common language runtime (CLR) to maintain security context information implemented by the host.

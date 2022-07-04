@@ -1,4 +1,4 @@
-namespace ClrDebug
+﻿namespace ClrDebug
 {
     /// <summary>
     /// Provides methods for notifying the host about the blocking and unblocking of threads by the debugging services.

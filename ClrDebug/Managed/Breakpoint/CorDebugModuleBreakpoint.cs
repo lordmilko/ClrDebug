@@ -1,4 +1,4 @@
-namespace ClrDebug
+﻿namespace ClrDebug
 {
     /// <summary>
     /// Provides access to specific modules. This interface is a subclass of the <see cref="ICorDebugBreakpoint"/> interface.

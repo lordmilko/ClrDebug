@@ -1,4 +1,4 @@
-namespace ClrDebug
+﻿namespace ClrDebug
 {
     /// <summary>
     /// Extends the <see cref="ICorDebugDebugEvent"/> interface to support exception events.

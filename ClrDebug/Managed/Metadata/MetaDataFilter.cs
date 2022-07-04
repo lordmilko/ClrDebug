@@ -1,4 +1,4 @@
-namespace ClrDebug
+﻿namespace ClrDebug
 {
     /// <summary>
     /// Provides methods for marking and filtering metadata tokens to avoid repeating actions that have already been taken.

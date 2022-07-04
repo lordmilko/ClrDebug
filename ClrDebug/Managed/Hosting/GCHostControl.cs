@@ -1,4 +1,4 @@
-namespace ClrDebug
+﻿namespace ClrDebug
 {
     /// <summary>
     /// Provides a method that allows the garbage collector to request the host to change the limits of virtual memory.

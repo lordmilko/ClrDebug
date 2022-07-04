@@ -1,4 +1,4 @@
-namespace ClrDebug
+﻿namespace ClrDebug
 {
     /// <summary>
     /// Represents the arguments that were passed to the <see cref="ICLRDataEnumMemoryRegionsCallback.EnumMemoryRegion"/> method.
