@@ -2414,30 +2414,6 @@ namespace ClrDebug
         }
 
         #endregion
-        #region GCGlobalMechanisms
-
-        public long[] GCGlobalMechanisms
-        {
-            get
-            {
-                long[] globalMechanisms;
-                TryGetGCGlobalMechanisms(out globalMechanisms).ThrowOnNotOK();
-
-                return globalMechanisms;
-            }
-        }
-
-        public HRESULT TryGetGCGlobalMechanisms(out long[] globalMechanisms)
-        {
-            /*HRESULT GetGCGlobalMechanisms(
-            [Out, MarshalAs(UnmanagedType.LPArray)] long[] globalMechanisms);*/
-            globalMechanisms = null;
-            HRESULT hr = Raw3.GetGCGlobalMechanisms(globalMechanisms);
-
-            return hr;
-        }
-
-        #endregion
         #region GetGCInterestingInfoData
 
         public DacpGCInterestingInfoData GetGCInterestingInfoData(CLRDATA_ADDRESS interestingInfoAddr)
@@ -2454,6 +2430,21 @@ namespace ClrDebug
             [In] CLRDATA_ADDRESS interestingInfoAddr,
             [Out] out DacpGCInterestingInfoData data);*/
             return Raw3.GetGCInterestingInfoData(interestingInfoAddr, out data);
+        }
+
+        #endregion
+        #region GetGCGlobalMechanisms
+
+        public void GetGCGlobalMechanisms(long[] globalMechanisms)
+        {
+            TryGetGCGlobalMechanisms(globalMechanisms).ThrowOnNotOK();
+        }
+
+        public HRESULT TryGetGCGlobalMechanisms(long[] globalMechanisms)
+        {
+            /*HRESULT GetGCGlobalMechanisms(
+            [In, MarshalAs(UnmanagedType.LPArray)] long[] globalMechanisms);*/
+            return Raw3.GetGCGlobalMechanisms(globalMechanisms);
         }
 
         #endregion

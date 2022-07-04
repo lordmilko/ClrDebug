@@ -35,6 +35,8 @@ namespace ClrDebug
             if (psos3 == null)
                 return HRESULT.E_NOINTERFACE;
 
+            globalMechanisms = new long[DAC_MAX_GLOBAL_GC_MECHANISMS_COUNT];
+
             return psos3.GetGCGlobalMechanisms(globalMechanisms);
         }
 

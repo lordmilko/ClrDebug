@@ -16,8 +16,10 @@ namespace ClrDebug
         HRESULT GetGCInterestingInfoStaticData(
             [Out] out DacpGCInterestingInfoData data);
 
+        //This method expects an array with DAC_MAX_GLOBAL_GC_MECHANISMS_COUNT (6) items to be passed to it.
+        //This is automatically handled by DacpGCInterestingInfoData
         [PreserveSig]
         HRESULT GetGCGlobalMechanisms(
-            [Out, MarshalAs(UnmanagedType.LPArray)] long[] globalMechanisms);
+            [In, MarshalAs(UnmanagedType.LPArray)] long[] globalMechanisms);
     }
 }
