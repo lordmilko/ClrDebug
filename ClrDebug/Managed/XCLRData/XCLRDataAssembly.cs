@@ -78,17 +78,10 @@ namespace ClrDebug
             [In] int bufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name);*/
-            int bufLen = 0;
+            int bufLen = 260;
             int nameLen;
-            StringBuilder name = null;
+            StringBuilder name = new StringBuilder(bufLen);
             HRESULT hr = Raw.GetFileName(bufLen, out nameLen, name);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            bufLen = nameLen;
-            name = new StringBuilder(bufLen);
-            hr = Raw.GetFileName(bufLen, out nameLen, name);
 
             if (hr == HRESULT.S_OK)
             {
@@ -97,7 +90,6 @@ namespace ClrDebug
                 return hr;
             }
 
-            fail:
             nameResult = default(string);
 
             return hr;
