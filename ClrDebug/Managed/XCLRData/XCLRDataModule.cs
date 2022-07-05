@@ -115,21 +115,21 @@ namespace ClrDebug
         #endregion
         #region Flags
 
-        public int Flags
+        public CLRDataModuleFlag Flags
         {
             get
             {
-                int flags;
+                CLRDataModuleFlag flags;
                 TryGetFlags(out flags).ThrowOnNotOK();
 
                 return flags;
             }
         }
 
-        public HRESULT TryGetFlags(out int flags)
+        public HRESULT TryGetFlags(out CLRDataModuleFlag flags)
         {
             /*HRESULT GetFlags(
-            [Out] out int flags);*/
+            [Out] out CLRDataModuleFlag flags);*/
             return Raw.GetFlags(out flags);
         }
 
@@ -349,7 +349,7 @@ namespace ClrDebug
         #endregion
         #region StartEnumTypeDefinitionsByName
 
-        public IntPtr StartEnumTypeDefinitionsByName(string name, int flags)
+        public IntPtr StartEnumTypeDefinitionsByName(string name, CLRDataByNameFlag flags)
         {
             IntPtr handle;
             TryStartEnumTypeDefinitionsByName(name, flags, out handle).ThrowOnNotOK();
@@ -357,11 +357,11 @@ namespace ClrDebug
             return handle;
         }
 
-        public HRESULT TryStartEnumTypeDefinitionsByName(string name, int flags, out IntPtr handle)
+        public HRESULT TryStartEnumTypeDefinitionsByName(string name, CLRDataByNameFlag flags, out IntPtr handle)
         {
             /*HRESULT StartEnumTypeDefinitionsByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [In] int flags,
+            [In] CLRDataByNameFlag flags,
             [Out] out IntPtr handle);*/
             return Raw.StartEnumTypeDefinitionsByName(name, flags, out handle);
         }
@@ -411,7 +411,7 @@ namespace ClrDebug
         #endregion
         #region StartEnumTypeInstancesByName
 
-        public IntPtr StartEnumTypeInstancesByName(string name, int flags, IXCLRDataAppDomain appDomain)
+        public IntPtr StartEnumTypeInstancesByName(string name, CLRDataByNameFlag flags, IXCLRDataAppDomain appDomain)
         {
             IntPtr handle;
             TryStartEnumTypeInstancesByName(name, flags, appDomain, out handle).ThrowOnNotOK();
@@ -419,11 +419,11 @@ namespace ClrDebug
             return handle;
         }
 
-        public HRESULT TryStartEnumTypeInstancesByName(string name, int flags, IXCLRDataAppDomain appDomain, out IntPtr handle)
+        public HRESULT TryStartEnumTypeInstancesByName(string name, CLRDataByNameFlag flags, IXCLRDataAppDomain appDomain, out IntPtr handle)
         {
             /*HRESULT StartEnumTypeInstancesByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [In] int flags,
+            [In] CLRDataByNameFlag flags,
             [In] IXCLRDataAppDomain appDomain,
             [Out] out IntPtr handle);*/
             return Raw.StartEnumTypeInstancesByName(name, flags, appDomain, out handle);
@@ -501,7 +501,7 @@ namespace ClrDebug
         #endregion
         #region StartEnumMethodDefinitionsByName
 
-        public IntPtr StartEnumMethodDefinitionsByName(string name, int flags)
+        public IntPtr StartEnumMethodDefinitionsByName(string name, CLRDataByNameFlag flags)
         {
             IntPtr handle;
             TryStartEnumMethodDefinitionsByName(name, flags, out handle).ThrowOnNotOK();
@@ -509,11 +509,11 @@ namespace ClrDebug
             return handle;
         }
 
-        public HRESULT TryStartEnumMethodDefinitionsByName(string name, int flags, out IntPtr handle)
+        public HRESULT TryStartEnumMethodDefinitionsByName(string name, CLRDataByNameFlag flags, out IntPtr handle)
         {
             /*HRESULT StartEnumMethodDefinitionsByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [In] int flags,
+            [In] CLRDataByNameFlag flags,
             [Out] out IntPtr handle);*/
             return Raw.StartEnumMethodDefinitionsByName(name, flags, out handle);
         }
@@ -563,7 +563,7 @@ namespace ClrDebug
         #endregion
         #region StartEnumMethodInstancesByName
 
-        public IntPtr StartEnumMethodInstancesByName(string name, int flags, IXCLRDataAppDomain appDomain)
+        public IntPtr StartEnumMethodInstancesByName(string name, CLRDataByNameFlag flags, IXCLRDataAppDomain appDomain)
         {
             IntPtr handle;
             TryStartEnumMethodInstancesByName(name, flags, appDomain, out handle).ThrowOnNotOK();
@@ -571,11 +571,11 @@ namespace ClrDebug
             return handle;
         }
 
-        public HRESULT TryStartEnumMethodInstancesByName(string name, int flags, IXCLRDataAppDomain appDomain, out IntPtr handle)
+        public HRESULT TryStartEnumMethodInstancesByName(string name, CLRDataByNameFlag flags, IXCLRDataAppDomain appDomain, out IntPtr handle)
         {
             /*HRESULT StartEnumMethodInstancesByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [In] int flags,
+            [In] CLRDataByNameFlag flags,
             [In] IXCLRDataAppDomain appDomain,
             [Out] out IntPtr handle);*/
             return Raw.StartEnumMethodInstancesByName(name, flags, appDomain, out handle);
@@ -671,7 +671,7 @@ namespace ClrDebug
         #endregion
         #region StartEnumDataByName
 
-        public IntPtr StartEnumDataByName(string name, int flags, IXCLRDataAppDomain appDomain, IXCLRDataTask tlsTask)
+        public IntPtr StartEnumDataByName(string name, CLRDataByNameFlag flags, IXCLRDataAppDomain appDomain, IXCLRDataTask tlsTask)
         {
             IntPtr handle;
             TryStartEnumDataByName(name, flags, appDomain, tlsTask, out handle).ThrowOnNotOK();
@@ -679,11 +679,11 @@ namespace ClrDebug
             return handle;
         }
 
-        public HRESULT TryStartEnumDataByName(string name, int flags, IXCLRDataAppDomain appDomain, IXCLRDataTask tlsTask, out IntPtr handle)
+        public HRESULT TryStartEnumDataByName(string name, CLRDataByNameFlag flags, IXCLRDataAppDomain appDomain, IXCLRDataTask tlsTask, out IntPtr handle)
         {
             /*HRESULT StartEnumDataByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [In] int flags,
+            [In] CLRDataByNameFlag flags,
             [In] IXCLRDataAppDomain appDomain,
             [In] IXCLRDataTask tlsTask,
             [Out] out IntPtr handle);*/
@@ -837,7 +837,7 @@ namespace ClrDebug
         public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
             /*HRESULT Request(
-            [In] uint reqCode,
+            [In] uint reqCode, //Requests can be across a variety of enums
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,

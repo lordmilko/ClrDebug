@@ -95,21 +95,21 @@ namespace ClrDebug
         #endregion
         #region Flags
 
-        public int Flags
+        public CLRDataTaskFlag Flags
         {
             get
             {
-                int flags;
+                CLRDataTaskFlag flags;
                 TryGetFlags(out flags).ThrowOnNotOK();
 
                 return flags;
             }
         }
 
-        public HRESULT TryGetFlags(out int flags)
+        public HRESULT TryGetFlags(out CLRDataTaskFlag flags)
         {
             /*HRESULT GetFlags(
-            [Out] out int flags);*/
+            [Out] out CLRDataTaskFlag flags);*/
             return Raw.GetFlags(out flags);
         }
 
@@ -319,7 +319,7 @@ namespace ClrDebug
         #endregion
         #region CreateStackWalk
 
-        public XCLRDataStackWalk CreateStackWalk(int flags)
+        public XCLRDataStackWalk CreateStackWalk(CLRDataSimpleFrameType flags)
         {
             XCLRDataStackWalk stackWalkResult;
             TryCreateStackWalk(flags, out stackWalkResult).ThrowOnNotOK();
@@ -327,10 +327,10 @@ namespace ClrDebug
             return stackWalkResult;
         }
 
-        public HRESULT TryCreateStackWalk(int flags, out XCLRDataStackWalk stackWalkResult)
+        public HRESULT TryCreateStackWalk(CLRDataSimpleFrameType flags, out XCLRDataStackWalk stackWalkResult)
         {
             /*HRESULT CreateStackWalk(
-            [In] int flags,
+            [In] CLRDataSimpleFrameType flags,
             [Out] out IXCLRDataStackWalk stackWalk);*/
             IXCLRDataStackWalk stackWalk;
             HRESULT hr = Raw.CreateStackWalk(flags, out stackWalk);
@@ -391,7 +391,7 @@ namespace ClrDebug
         public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
             /*HRESULT Request(
-            [In] uint reqCode,
+            [In] uint reqCode, //Requests can be across a variety of enums
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,

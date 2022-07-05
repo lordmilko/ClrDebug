@@ -60,7 +60,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT StartEnumTypeDefinitionsByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [In] int flags,
+            [In] CLRDataByNameFlag flags,
             [Out] out IntPtr handle);
 
         [PreserveSig]
@@ -75,7 +75,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT StartEnumTypeInstancesByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [In] int flags,
+            [In] CLRDataByNameFlag flags,
             [In] IXCLRDataAppDomain appDomain,
             [Out] out IntPtr handle);
 
@@ -96,7 +96,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT StartEnumMethodDefinitionsByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [In] int flags,
+            [In] CLRDataByNameFlag flags,
             [Out] out IntPtr handle);
 
         [PreserveSig]
@@ -111,7 +111,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT StartEnumMethodInstancesByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [In] int flags,
+            [In] CLRDataByNameFlag flags,
             [In] IXCLRDataAppDomain appDomain,
             [Out] out IntPtr handle);
 
@@ -141,7 +141,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT StartEnumDataByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [In] int flags,
+            [In] CLRDataByNameFlag flags,
             [In] IXCLRDataAppDomain appDomain,
             [In] IXCLRDataTask tlsTask,
             [Out] out IntPtr handle);
@@ -169,7 +169,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT GetFlags(
-            [Out] out int flags);
+            [Out] out CLRDataModuleFlag flags);
 
         [PreserveSig]
         HRESULT IsSameObject(
@@ -202,7 +202,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         HRESULT Request(
-            [In] uint reqCode,
+            [In] uint reqCode, //Requests can be across a variety of enums
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,

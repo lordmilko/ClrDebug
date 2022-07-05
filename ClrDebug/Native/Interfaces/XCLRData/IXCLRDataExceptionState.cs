@@ -11,7 +11,7 @@ namespace ClrDebug
     {
         [PreserveSig]
         HRESULT GetFlags(
-            [Out] out int flags);
+            [Out] out CLRDataExceptionStateFlag flags);
 
         [PreserveSig]
         HRESULT GetPrevious(
@@ -37,7 +37,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT Request(
-            [In] uint reqCode,
+            [In] uint reqCode, //Requests can be across a variety of enums
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
@@ -51,7 +51,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT IsSameState2(
-            [In] int flags,
+            [In] CLRDataExceptionSameFlag flags,
             [In] ref EXCEPTION_RECORD64 exRecord,
             [In] int contextSize,
             [In] IntPtr cxRecord);

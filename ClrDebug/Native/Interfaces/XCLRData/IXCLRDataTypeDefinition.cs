@@ -29,7 +29,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT StartEnumMethodDefinitionsByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [In] int flags,
+            [In] CLRDataByNameFlag flags,
             [Out] out IntPtr handle);
 
         [PreserveSig]
@@ -62,7 +62,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT GetName(
-            [In] int flags,
+            [In] int flags, //Unused, always 0
             [In] int bufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf);
@@ -78,7 +78,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT GetFlags(
-            [Out] out int flags);
+            [Out] out CLRDataTypeFlag flags);
 
         [PreserveSig]
         HRESULT IsSameObject(
@@ -86,7 +86,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT Request(
-            [In] uint reqCode,
+            [In] uint reqCode, //Requests can be across a variety of enums
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
@@ -102,12 +102,12 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT GetNumFields(
-            [In] int flags,
+            [In] CLRDataFieldFlag flags,
             [Out] out int numFields);
 
         [PreserveSig]
         HRESULT StartEnumFields(
-            [In] int flags,
+            [In] CLRDataFieldFlag flags,
             [Out] out IntPtr handle);
 
         [PreserveSig]
@@ -117,7 +117,7 @@ namespace ClrDebug
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
             [Out] out IXCLRDataTypeDefinition type,
-            [Out] out int flags,
+            [Out] out CLRDataFieldFlag flags,
             [Out] out mdFieldDef token);
 
         [PreserveSig]
@@ -127,15 +127,15 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT StartEnumFieldsByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [In] int nameFlags,
-            [In] int fieldFlags,
+            [In] CLRDataByNameFlag nameFlags,
+            [In] CLRDataFieldFlag fieldFlags,
             [Out] out IntPtr handle);
 
         [PreserveSig]
         HRESULT EnumFieldByName(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataTypeDefinition type,
-            [Out] out int flags,
+            [Out] out CLRDataFieldFlag flags,
             [Out] out mdFieldDef token);
 
         [PreserveSig]
@@ -149,7 +149,7 @@ namespace ClrDebug
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
             [Out] out IXCLRDataTypeDefinition type,
-            [Out] out int flags);
+            [Out] out CLRDataValueFlag flags);
 
         [PreserveSig]
         HRESULT GetTypeNotification(
@@ -166,7 +166,7 @@ namespace ClrDebug
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
             [Out] out IXCLRDataTypeDefinition type,
-            [Out] out int flags,
+            [Out] out CLRDataFieldFlag flags,
             [Out] out IXCLRDataModule tokenScope,
             [Out] out mdFieldDef token);
 
@@ -174,7 +174,7 @@ namespace ClrDebug
         HRESULT EnumFieldByName2(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataTypeDefinition type,
-            [Out] out int flags,
+            [Out] out CLRDataFieldFlag flags,
             [Out] out IXCLRDataModule tokenScope,
             [Out] out mdFieldDef token);
 
@@ -186,6 +186,6 @@ namespace ClrDebug
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
             [Out] out IXCLRDataTypeDefinition type,
-            [Out] out int flags);
+            [Out] out CLRDataValueFlag flags);
     }
 }

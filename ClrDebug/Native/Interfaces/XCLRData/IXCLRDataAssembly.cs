@@ -36,7 +36,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT GetFlags(
-            [Out] out int flags);
+            [Out] out CLRDataAssemblyFlag flags);
 
         [PreserveSig]
         HRESULT IsSameObject(
@@ -44,7 +44,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT Request(
-            [In] uint reqCode,
+            [In] uint reqCode, //Requests can be across a variety of enums
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,

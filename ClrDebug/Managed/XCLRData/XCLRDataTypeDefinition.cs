@@ -97,21 +97,21 @@ namespace ClrDebug
         #endregion
         #region Flags
 
-        public int Flags
+        public CLRDataTypeFlag Flags
         {
             get
             {
-                int flags;
+                CLRDataTypeFlag flags;
                 TryGetFlags(out flags).ThrowOnNotOK();
 
                 return flags;
             }
         }
 
-        public HRESULT TryGetFlags(out int flags)
+        public HRESULT TryGetFlags(out CLRDataTypeFlag flags)
         {
             /*HRESULT GetFlags(
-            [Out] out int flags);*/
+            [Out] out CLRDataTypeFlag flags);*/
             return Raw.GetFlags(out flags);
         }
 
@@ -260,7 +260,7 @@ namespace ClrDebug
         #endregion
         #region StartEnumMethodDefinitionsByName
 
-        public IntPtr StartEnumMethodDefinitionsByName(string name, int flags)
+        public IntPtr StartEnumMethodDefinitionsByName(string name, CLRDataByNameFlag flags)
         {
             IntPtr handle;
             TryStartEnumMethodDefinitionsByName(name, flags, out handle).ThrowOnNotOK();
@@ -268,11 +268,11 @@ namespace ClrDebug
             return handle;
         }
 
-        public HRESULT TryStartEnumMethodDefinitionsByName(string name, int flags, out IntPtr handle)
+        public HRESULT TryStartEnumMethodDefinitionsByName(string name, CLRDataByNameFlag flags, out IntPtr handle)
         {
             /*HRESULT StartEnumMethodDefinitionsByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [In] int flags,
+            [In] CLRDataByNameFlag flags,
             [Out] out IntPtr handle);*/
             return Raw.StartEnumMethodDefinitionsByName(name, flags, out handle);
         }
@@ -421,7 +421,7 @@ namespace ClrDebug
         public HRESULT TryGetName(int flags, out string nameBufResult)
         {
             /*HRESULT GetName(
-            [In] int flags,
+            [In] int flags, //Unused, always 0
             [In] int bufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf);*/
@@ -479,7 +479,7 @@ namespace ClrDebug
         public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
             /*HRESULT Request(
-            [In] uint reqCode,
+            [In] uint reqCode, //Requests can be across a variety of enums
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
@@ -490,7 +490,7 @@ namespace ClrDebug
         #endregion
         #region GetNumFields
 
-        public int GetNumFields(int flags)
+        public int GetNumFields(CLRDataFieldFlag flags)
         {
             int numFields;
             TryGetNumFields(flags, out numFields).ThrowOnNotOK();
@@ -498,10 +498,10 @@ namespace ClrDebug
             return numFields;
         }
 
-        public HRESULT TryGetNumFields(int flags, out int numFields)
+        public HRESULT TryGetNumFields(CLRDataFieldFlag flags, out int numFields)
         {
             /*HRESULT GetNumFields(
-            [In] int flags,
+            [In] CLRDataFieldFlag flags,
             [Out] out int numFields);*/
             return Raw.GetNumFields(flags, out numFields);
         }
@@ -509,7 +509,7 @@ namespace ClrDebug
         #endregion
         #region StartEnumFields
 
-        public IntPtr StartEnumFields(int flags)
+        public IntPtr StartEnumFields(CLRDataFieldFlag flags)
         {
             IntPtr handle;
             TryStartEnumFields(flags, out handle).ThrowOnNotOK();
@@ -517,10 +517,10 @@ namespace ClrDebug
             return handle;
         }
 
-        public HRESULT TryStartEnumFields(int flags, out IntPtr handle)
+        public HRESULT TryStartEnumFields(CLRDataFieldFlag flags, out IntPtr handle)
         {
             /*HRESULT StartEnumFields(
-            [In] int flags,
+            [In] CLRDataFieldFlag flags,
             [Out] out IntPtr handle);*/
             return Raw.StartEnumFields(flags, out handle);
         }
@@ -544,13 +544,13 @@ namespace ClrDebug
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
             [Out] out IXCLRDataTypeDefinition type,
-            [Out] out int flags,
+            [Out] out CLRDataFieldFlag flags,
             [Out] out mdFieldDef token);*/
             int nameBufLen = 0;
             int nameLen;
             StringBuilder nameBuf = null;
             IXCLRDataTypeDefinition type;
-            int flags;
+            CLRDataFieldFlag flags;
             mdFieldDef token;
             HRESULT hr = Raw.EnumField(ref handle, nameBufLen, out nameLen, nameBuf, out type, out flags, out token);
 
@@ -592,7 +592,7 @@ namespace ClrDebug
         #endregion
         #region StartEnumFieldsByName
 
-        public IntPtr StartEnumFieldsByName(string name, int nameFlags, int fieldFlags)
+        public IntPtr StartEnumFieldsByName(string name, CLRDataByNameFlag nameFlags, CLRDataFieldFlag fieldFlags)
         {
             IntPtr handle;
             TryStartEnumFieldsByName(name, nameFlags, fieldFlags, out handle).ThrowOnNotOK();
@@ -600,12 +600,12 @@ namespace ClrDebug
             return handle;
         }
 
-        public HRESULT TryStartEnumFieldsByName(string name, int nameFlags, int fieldFlags, out IntPtr handle)
+        public HRESULT TryStartEnumFieldsByName(string name, CLRDataByNameFlag nameFlags, CLRDataFieldFlag fieldFlags, out IntPtr handle)
         {
             /*HRESULT StartEnumFieldsByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [In] int nameFlags,
-            [In] int fieldFlags,
+            [In] CLRDataByNameFlag nameFlags,
+            [In] CLRDataFieldFlag fieldFlags,
             [Out] out IntPtr handle);*/
             return Raw.StartEnumFieldsByName(name, nameFlags, fieldFlags, out handle);
         }
@@ -626,10 +626,10 @@ namespace ClrDebug
             /*HRESULT EnumFieldByName(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataTypeDefinition type,
-            [Out] out int flags,
+            [Out] out CLRDataFieldFlag flags,
             [Out] out mdFieldDef token);*/
             IXCLRDataTypeDefinition type;
-            int flags;
+            CLRDataFieldFlag flags;
             mdFieldDef token;
             HRESULT hr = Raw.EnumFieldByName(ref handle, out type, out flags, out token);
 
@@ -675,12 +675,12 @@ namespace ClrDebug
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
             [Out] out IXCLRDataTypeDefinition type,
-            [Out] out int flags);*/
+            [Out] out CLRDataValueFlag flags);*/
             int nameBufLen = 0;
             int nameLen;
             StringBuilder nameBuf = null;
             IXCLRDataTypeDefinition type;
-            int flags;
+            CLRDataValueFlag flags;
             HRESULT hr = Raw.GetFieldByToken(token, nameBufLen, out nameLen, nameBuf, out type, out flags);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
@@ -722,14 +722,14 @@ namespace ClrDebug
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
             [Out] out IXCLRDataTypeDefinition type,
-            [Out] out int flags,
+            [Out] out CLRDataFieldFlag flags,
             [Out] out IXCLRDataModule tokenScope,
             [Out] out mdFieldDef token);*/
             int nameBufLen = 0;
             int nameLen;
             StringBuilder nameBuf = null;
             IXCLRDataTypeDefinition type;
-            int flags;
+            CLRDataFieldFlag flags;
             IXCLRDataModule tokenScope;
             mdFieldDef token;
             HRESULT hr = Raw.EnumField2(ref handle, nameBufLen, out nameLen, nameBuf, out type, out flags, out tokenScope, out token);
@@ -770,11 +770,11 @@ namespace ClrDebug
             /*HRESULT EnumFieldByName2(
             [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataTypeDefinition type,
-            [Out] out int flags,
+            [Out] out CLRDataFieldFlag flags,
             [Out] out IXCLRDataModule tokenScope,
             [Out] out mdFieldDef token);*/
             IXCLRDataTypeDefinition type;
-            int flags;
+            CLRDataFieldFlag flags;
             IXCLRDataModule tokenScope;
             mdFieldDef token;
             HRESULT hr = Raw.EnumFieldByName2(ref handle, out type, out flags, out tokenScope, out token);
@@ -807,12 +807,12 @@ namespace ClrDebug
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
             [Out] out IXCLRDataTypeDefinition type,
-            [Out] out int flags);*/
+            [Out] out CLRDataValueFlag flags);*/
             int nameBufLen = 0;
             int nameLen;
             StringBuilder nameBuf = null;
             IXCLRDataTypeDefinition type;
-            int flags;
+            CLRDataValueFlag flags;
             HRESULT hr = Raw.GetFieldByToken2(tokenScope, token, nameBufLen, out nameLen, nameBuf, out type, out flags);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)

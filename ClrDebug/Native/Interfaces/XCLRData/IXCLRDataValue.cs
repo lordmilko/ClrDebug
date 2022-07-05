@@ -52,7 +52,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT Request(
-            [In] uint reqCode,
+            [In] uint reqCode, //Requests can be across a variety of enums
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
@@ -60,13 +60,13 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT GetNumFields2(
-            [In] int flags,
+            [In] CLRDataFieldFlag flags,
             [In] IXCLRDataTypeInstance fromType,
             [Out] out int numFields);
 
         [PreserveSig]
         HRESULT StartEnumFields(
-            [In] int flags,
+            [In] CLRDataFieldFlag flags,
             [In] IXCLRDataTypeInstance fromType,
             [Out] out IntPtr handle);
 
@@ -86,8 +86,8 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT StartEnumFieldsByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [In] int nameFlags,
-            [In] int fieldFlags,
+            [In] CLRDataByNameFlag nameFlags,
+            [In] CLRDataFieldFlag fieldFlags,
             [In] IXCLRDataTypeInstance fromType,
             [Out] out IntPtr handle);
 
@@ -171,7 +171,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetLocationByIndex(
             [In] int loc,
-            [Out] out int flags,
+            [Out] out ClrDataValueLocationFlag flags,
             [Out] out CLRDATA_ADDRESS arg);
     }
 }

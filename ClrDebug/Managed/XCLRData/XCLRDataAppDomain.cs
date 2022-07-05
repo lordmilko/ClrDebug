@@ -111,21 +111,21 @@ namespace ClrDebug
         #endregion
         #region Flags
 
-        public int Flags
+        public CLRDataAppDomainFlag Flags
         {
             get
             {
-                int flags;
+                CLRDataAppDomainFlag flags;
                 TryGetFlags(out flags).ThrowOnNotOK();
 
                 return flags;
             }
         }
 
-        public HRESULT TryGetFlags(out int flags)
+        public HRESULT TryGetFlags(out CLRDataAppDomainFlag flags)
         {
             /*HRESULT GetFlags(
-            [Out] out int flags);*/
+            [Out] out CLRDataAppDomainFlag flags);*/
             return Raw.GetFlags(out flags);
         }
 
@@ -187,7 +187,7 @@ namespace ClrDebug
         public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
             /*HRESULT Request(
-            [In] uint reqCode,
+            [In] uint reqCode, //Requests can be across a variety of enums
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,

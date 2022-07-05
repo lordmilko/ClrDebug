@@ -15,7 +15,7 @@ namespace ClrDebug
             [In] int imageSize,
             [In] ref Guid mvid,
             [In] int mdRva,
-            [In] int flags,
+            [In] int flags, //Unused, always 0
             [In] int bufferSize,
             [Out] IntPtr buffer,
             [Out] out int dataSize);

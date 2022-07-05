@@ -5,14 +5,14 @@ namespace ClrDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="XCLRDataValue.GetLocationByIndex"/> method.
     /// </summary>
-    [DebuggerDisplay("flags = {flags}, arg = {arg.ToString(),nq}")]
+    [DebuggerDisplay("flags = {flags.ToString(),nq}, arg = {arg.ToString(),nq}")]
     public struct GetLocationByIndexResult
     {
-        public int flags { get; }
+        public ClrDataValueLocationFlag flags { get; }
 
         public CLRDATA_ADDRESS arg { get; }
 
-        public GetLocationByIndexResult(int flags, CLRDATA_ADDRESS arg)
+        public GetLocationByIndexResult(ClrDataValueLocationFlag flags, CLRDATA_ADDRESS arg)
         {
             this.flags = flags;
             this.arg = arg;

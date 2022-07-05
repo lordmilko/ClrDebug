@@ -116,21 +116,21 @@ namespace ClrDebug
         #endregion
         #region Flags
 
-        public int Flags
+        public CLRDataTypeFlag Flags
         {
             get
             {
-                int flags;
+                CLRDataTypeFlag flags;
                 TryGetFlags(out flags).ThrowOnNotOK();
 
                 return flags;
             }
         }
 
-        public HRESULT TryGetFlags(out int flags)
+        public HRESULT TryGetFlags(out CLRDataTypeFlag flags)
         {
             /*HRESULT GetFlags(
-            [Out] out int flags);*/
+            [Out] out CLRDataTypeFlag flags);*/
             return Raw.GetFlags(out flags);
         }
 
@@ -226,7 +226,7 @@ namespace ClrDebug
         #endregion
         #region StartEnumMethodInstancesByName
 
-        public IntPtr StartEnumMethodInstancesByName(string name, int flags)
+        public IntPtr StartEnumMethodInstancesByName(string name, CLRDataByNameFlag flags)
         {
             IntPtr handle;
             TryStartEnumMethodInstancesByName(name, flags, out handle).ThrowOnNotOK();
@@ -234,11 +234,11 @@ namespace ClrDebug
             return handle;
         }
 
-        public HRESULT TryStartEnumMethodInstancesByName(string name, int flags, out IntPtr handle)
+        public HRESULT TryStartEnumMethodInstancesByName(string name, CLRDataByNameFlag flags, out IntPtr handle)
         {
             /*HRESULT StartEnumMethodInstancesByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [In] int flags,
+            [In] CLRDataByNameFlag flags,
             [Out] out IntPtr handle);*/
             return Raw.StartEnumMethodInstancesByName(name, flags, out handle);
         }
@@ -336,7 +336,7 @@ namespace ClrDebug
         #endregion
         #region StartEnumStaticFieldsByName
 
-        public IntPtr StartEnumStaticFieldsByName(string name, int flags, IXCLRDataTask tlsTask)
+        public IntPtr StartEnumStaticFieldsByName(string name, CLRDataByNameFlag flags, IXCLRDataTask tlsTask)
         {
             IntPtr handle;
             TryStartEnumStaticFieldsByName(name, flags, tlsTask, out handle).ThrowOnNotOK();
@@ -344,11 +344,11 @@ namespace ClrDebug
             return handle;
         }
 
-        public HRESULT TryStartEnumStaticFieldsByName(string name, int flags, IXCLRDataTask tlsTask, out IntPtr handle)
+        public HRESULT TryStartEnumStaticFieldsByName(string name, CLRDataByNameFlag flags, IXCLRDataTask tlsTask, out IntPtr handle)
         {
             /*HRESULT StartEnumStaticFieldsByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [In] int flags,
+            [In] CLRDataByNameFlag flags,
             [In] IXCLRDataTask tlsTask,
             [Out] out IntPtr handle);*/
             return Raw.StartEnumStaticFieldsByName(name, flags, tlsTask, out handle);
@@ -437,7 +437,7 @@ namespace ClrDebug
         public HRESULT TryGetName(int flags, out string nameBufResult)
         {
             /*HRESULT GetName(
-            [In] int flags,
+            [In] int flags, //Unused; must be 0
             [In] int bufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf);*/
@@ -495,7 +495,7 @@ namespace ClrDebug
         public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
             /*HRESULT Request(
-            [In] uint reqCode,
+            [In] uint reqCode, //Requests can be across a variety of enums
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
@@ -506,7 +506,7 @@ namespace ClrDebug
         #endregion
         #region GetNumStaticFields2
 
-        public int GetNumStaticFields2(int flags)
+        public int GetNumStaticFields2(CLRDataFieldFlag flags)
         {
             int numFields;
             TryGetNumStaticFields2(flags, out numFields).ThrowOnNotOK();
@@ -514,10 +514,10 @@ namespace ClrDebug
             return numFields;
         }
 
-        public HRESULT TryGetNumStaticFields2(int flags, out int numFields)
+        public HRESULT TryGetNumStaticFields2(CLRDataFieldFlag flags, out int numFields)
         {
             /*HRESULT GetNumStaticFields2(
-            [In] int flags,
+            [In] CLRDataFieldFlag flags,
             [Out] out int numFields);*/
             return Raw.GetNumStaticFields2(flags, out numFields);
         }
@@ -525,7 +525,7 @@ namespace ClrDebug
         #endregion
         #region StartEnumStaticFields
 
-        public IntPtr StartEnumStaticFields(int flags, IXCLRDataTask tlsTask)
+        public IntPtr StartEnumStaticFields(CLRDataFieldFlag flags, IXCLRDataTask tlsTask)
         {
             IntPtr handle;
             TryStartEnumStaticFields(flags, tlsTask, out handle).ThrowOnNotOK();
@@ -533,10 +533,10 @@ namespace ClrDebug
             return handle;
         }
 
-        public HRESULT TryStartEnumStaticFields(int flags, IXCLRDataTask tlsTask, out IntPtr handle)
+        public HRESULT TryStartEnumStaticFields(CLRDataFieldFlag flags, IXCLRDataTask tlsTask, out IntPtr handle)
         {
             /*HRESULT StartEnumStaticFields(
-            [In] int flags,
+            [In] CLRDataFieldFlag flags,
             [In] IXCLRDataTask tlsTask,
             [Out] out IntPtr handle);*/
             return Raw.StartEnumStaticFields(flags, tlsTask, out handle);
@@ -587,7 +587,7 @@ namespace ClrDebug
         #endregion
         #region StartEnumStaticFieldsByName2
 
-        public IntPtr StartEnumStaticFieldsByName2(string name, int nameFlags, int fieldFlags, IXCLRDataTask tlsTask)
+        public IntPtr StartEnumStaticFieldsByName2(string name, CLRDataByNameFlag nameFlags, CLRDataFieldFlag fieldFlags, IXCLRDataTask tlsTask)
         {
             IntPtr handle;
             TryStartEnumStaticFieldsByName2(name, nameFlags, fieldFlags, tlsTask, out handle).ThrowOnNotOK();
@@ -595,12 +595,12 @@ namespace ClrDebug
             return handle;
         }
 
-        public HRESULT TryStartEnumStaticFieldsByName2(string name, int nameFlags, int fieldFlags, IXCLRDataTask tlsTask, out IntPtr handle)
+        public HRESULT TryStartEnumStaticFieldsByName2(string name, CLRDataByNameFlag nameFlags, CLRDataFieldFlag fieldFlags, IXCLRDataTask tlsTask, out IntPtr handle)
         {
             /*HRESULT StartEnumStaticFieldsByName2(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [In] int nameFlags,
-            [In] int fieldFlags,
+            [In] CLRDataByNameFlag nameFlags,
+            [In] CLRDataFieldFlag fieldFlags,
             [In] IXCLRDataTask tlsTask,
             [Out] out IntPtr handle);*/
             return Raw.StartEnumStaticFieldsByName2(name, nameFlags, fieldFlags, tlsTask, out handle);

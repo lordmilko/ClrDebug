@@ -19,11 +19,12 @@
         /// Throws an exception when a <see cref="HRESULT"/> contains an error value.
         /// </summary>
         /// <param name="hr">The <see cref="HRESULT"/> to process.</param>
+        /// <returns>The original <see cref="HRESULT"/> that was passed to this method.</returns>
         /// <exception cref="CorDebugException">The <see cref="HRESULT"/> contains an error value.</exception>
-        public static void ThrowOnFailed(this HRESULT hr)
+        public static HRESULT ThrowOnFailed(this HRESULT hr)
         {
             if (hr == HRESULT.S_OK || hr == HRESULT.S_FALSE)
-                return;
+                return hr;
 
             throw new CorDebugException(hr);
         }

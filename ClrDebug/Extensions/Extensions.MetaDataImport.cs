@@ -311,7 +311,7 @@ namespace ClrDebug
         /// <param name="szName">[in] The field name that limits the scope of the enumeration.</param>
         /// <returns>Array used to store the FieldDef tokens.</returns>
         /// <remarks>
-        /// Unlike <see cref="EnumFields"/>, EnumFieldsWithName discards all field tokens that do not have the specified name.
+        /// Unlike <see cref="EnumFields(MetaDataImport, mdTypeDef)"/>, EnumFieldsWithName discards all field tokens that do not have the specified name.
         /// </remarks>
         public static mdFieldDef[] EnumFieldsWithName(this MetaDataImport metaDataImport, mdTypeDef cl, string szName)
         {

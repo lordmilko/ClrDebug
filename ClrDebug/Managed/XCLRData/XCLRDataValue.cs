@@ -357,7 +357,7 @@ namespace ClrDebug
         public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
             /*HRESULT Request(
-            [In] uint reqCode,
+            [In] uint reqCode, //Requests can be across a variety of enums
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
@@ -368,7 +368,7 @@ namespace ClrDebug
         #endregion
         #region GetNumFields2
 
-        public int GetNumFields2(int flags, IXCLRDataTypeInstance fromType)
+        public int GetNumFields2(CLRDataFieldFlag flags, IXCLRDataTypeInstance fromType)
         {
             int numFields;
             TryGetNumFields2(flags, fromType, out numFields).ThrowOnNotOK();
@@ -376,10 +376,10 @@ namespace ClrDebug
             return numFields;
         }
 
-        public HRESULT TryGetNumFields2(int flags, IXCLRDataTypeInstance fromType, out int numFields)
+        public HRESULT TryGetNumFields2(CLRDataFieldFlag flags, IXCLRDataTypeInstance fromType, out int numFields)
         {
             /*HRESULT GetNumFields2(
-            [In] int flags,
+            [In] CLRDataFieldFlag flags,
             [In] IXCLRDataTypeInstance fromType,
             [Out] out int numFields);*/
             return Raw.GetNumFields2(flags, fromType, out numFields);
@@ -388,7 +388,7 @@ namespace ClrDebug
         #endregion
         #region StartEnumFields
 
-        public IntPtr StartEnumFields(int flags, IXCLRDataTypeInstance fromType)
+        public IntPtr StartEnumFields(CLRDataFieldFlag flags, IXCLRDataTypeInstance fromType)
         {
             IntPtr handle;
             TryStartEnumFields(flags, fromType, out handle).ThrowOnNotOK();
@@ -396,10 +396,10 @@ namespace ClrDebug
             return handle;
         }
 
-        public HRESULT TryStartEnumFields(int flags, IXCLRDataTypeInstance fromType, out IntPtr handle)
+        public HRESULT TryStartEnumFields(CLRDataFieldFlag flags, IXCLRDataTypeInstance fromType, out IntPtr handle)
         {
             /*HRESULT StartEnumFields(
-            [In] int flags,
+            [In] CLRDataFieldFlag flags,
             [In] IXCLRDataTypeInstance fromType,
             [Out] out IntPtr handle);*/
             return Raw.StartEnumFields(flags, fromType, out handle);
@@ -470,7 +470,7 @@ namespace ClrDebug
         #endregion
         #region StartEnumFieldsByName
 
-        public IntPtr StartEnumFieldsByName(string name, int nameFlags, int fieldFlags, IXCLRDataTypeInstance fromType)
+        public IntPtr StartEnumFieldsByName(string name, CLRDataByNameFlag nameFlags, CLRDataFieldFlag fieldFlags, IXCLRDataTypeInstance fromType)
         {
             IntPtr handle;
             TryStartEnumFieldsByName(name, nameFlags, fieldFlags, fromType, out handle).ThrowOnNotOK();
@@ -478,12 +478,12 @@ namespace ClrDebug
             return handle;
         }
 
-        public HRESULT TryStartEnumFieldsByName(string name, int nameFlags, int fieldFlags, IXCLRDataTypeInstance fromType, out IntPtr handle)
+        public HRESULT TryStartEnumFieldsByName(string name, CLRDataByNameFlag nameFlags, CLRDataFieldFlag fieldFlags, IXCLRDataTypeInstance fromType, out IntPtr handle)
         {
             /*HRESULT StartEnumFieldsByName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [In] int nameFlags,
-            [In] int fieldFlags,
+            [In] CLRDataByNameFlag nameFlags,
+            [In] CLRDataFieldFlag fieldFlags,
             [In] IXCLRDataTypeInstance fromType,
             [Out] out IntPtr handle);*/
             return Raw.StartEnumFieldsByName(name, nameFlags, fieldFlags, fromType, out handle);
@@ -782,9 +782,9 @@ namespace ClrDebug
         {
             /*HRESULT GetLocationByIndex(
             [In] int loc,
-            [Out] out int flags,
+            [Out] out ClrDataValueLocationFlag flags,
             [Out] out CLRDATA_ADDRESS arg);*/
-            int flags;
+            ClrDataValueLocationFlag flags;
             CLRDATA_ADDRESS arg;
             HRESULT hr = Raw.GetLocationByIndex(loc, out flags, out arg);
 

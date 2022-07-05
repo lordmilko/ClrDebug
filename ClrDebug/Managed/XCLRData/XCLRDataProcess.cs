@@ -107,11 +107,11 @@ namespace ClrDebug
         #endregion
         #region OtherNotificationFlags
 
-        public int OtherNotificationFlags
+        public CLRDataOtherNotifyFlag OtherNotificationFlags
         {
             get
             {
-                int flags;
+                CLRDataOtherNotifyFlag flags;
                 TryGetOtherNotificationFlags(out flags).ThrowOnNotOK();
 
                 return flags;
@@ -122,17 +122,17 @@ namespace ClrDebug
             }
         }
 
-        public HRESULT TryGetOtherNotificationFlags(out int flags)
+        public HRESULT TryGetOtherNotificationFlags(out CLRDataOtherNotifyFlag flags)
         {
             /*HRESULT GetOtherNotificationFlags(
-            [Out] out int flags);*/
+            [Out] out CLRDataOtherNotifyFlag flags);*/
             return Raw.GetOtherNotificationFlags(out flags);
         }
 
-        public HRESULT TrySetOtherNotificationFlags(int flags)
+        public HRESULT TrySetOtherNotificationFlags(CLRDataOtherNotifyFlag flags)
         {
             /*HRESULT SetOtherNotificationFlags(
-            [In] int flags);*/
+            [In] CLRDataOtherNotifyFlag flags);*/
             return Raw.SetOtherNotificationFlags(flags);
         }
 
@@ -336,7 +336,7 @@ namespace ClrDebug
         {
             /*HRESULT GetRuntimeNameByAddress(
             [In] CLRDATA_ADDRESS address,
-            [In] int flags,
+            [In] int flags, //Unused, must be 0
             [In] int bufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
@@ -721,10 +721,10 @@ namespace ClrDebug
         /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 29th slot of the virtual method
         /// table.
         /// </remarks>
-        public XCLRDataMethodInstance EnumMethodInstanceByAddress(IntPtr handle)
+        public XCLRDataMethodInstance EnumMethodInstanceByAddress(ref IntPtr handle)
         {
             XCLRDataMethodInstance methodResult;
-            TryEnumMethodInstanceByAddress(handle, out methodResult).ThrowOnNotOK();
+            TryEnumMethodInstanceByAddress(ref handle, out methodResult).ThrowOnNotOK();
 
             return methodResult;
         }
@@ -738,13 +738,13 @@ namespace ClrDebug
         /// The provided method is part of the IXCLRDataProcess interface and corresponds to the 29th slot of the virtual method
         /// table.
         /// </remarks>
-        public HRESULT TryEnumMethodInstanceByAddress(IntPtr handle, out XCLRDataMethodInstance methodResult)
+        public HRESULT TryEnumMethodInstanceByAddress(ref IntPtr handle, out XCLRDataMethodInstance methodResult)
         {
             /*HRESULT EnumMethodInstanceByAddress(
-            [In] IntPtr handle,
+            [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataMethodInstance method);*/
             IXCLRDataMethodInstance method;
-            HRESULT hr = Raw.EnumMethodInstanceByAddress(handle, out method);
+            HRESULT hr = Raw.EnumMethodInstanceByAddress(ref handle, out method);
 
             if (hr == HRESULT.S_OK)
                 methodResult = new XCLRDataMethodInstance(method);
@@ -800,7 +800,7 @@ namespace ClrDebug
         {
             /*HRESULT GetDataByAddress(
             [In] CLRDATA_ADDRESS address,
-            [In] int flags,
+            [In] int flags, //Unused, must be 0
             [In] IXCLRDataAppDomain appDomain,
             [In] IXCLRDataTask tlsTask,
             [In] int bufLen,
@@ -889,7 +889,7 @@ namespace ClrDebug
         public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
             /*HRESULT Request(
-            [In] uint reqCode,
+            [In] uint reqCode, //Requests can be across a variety of enums
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
@@ -946,57 +946,60 @@ namespace ClrDebug
         #endregion
         #region SetAllCodeNotifications
 
-        public void SetAllCodeNotifications(IXCLRDataModule mod, int flags)
+        public void SetAllCodeNotifications(IXCLRDataModule mod, CLRDataMethodCodeNotification flags)
         {
             TrySetAllCodeNotifications(mod, flags).ThrowOnNotOK();
         }
 
-        public HRESULT TrySetAllCodeNotifications(IXCLRDataModule mod, int flags)
+        public HRESULT TrySetAllCodeNotifications(IXCLRDataModule mod, CLRDataMethodCodeNotification flags)
         {
             /*HRESULT SetAllCodeNotifications(
             [In] IXCLRDataModule mod,
-            [In] int flags);*/
+            [In] CLRDataMethodCodeNotification flags);*/
             return Raw.SetAllCodeNotifications(mod, flags);
         }
 
         #endregion
         #region GetTypeNotifications
 
-        public int GetTypeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdTypeDef tokens)
+        public int[] GetTypeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdTypeDef[] tokens)
         {
-            int flags;
+            int[] flags;
             TryGetTypeNotifications(numTokens, mods, singleMod, tokens, out flags).ThrowOnNotOK();
 
             return flags;
         }
 
-        public HRESULT TryGetTypeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdTypeDef tokens, out int flags)
+        public HRESULT TryGetTypeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdTypeDef[] tokens, out int[] flags)
         {
             /*HRESULT GetTypeNotifications(
             [In] int numTokens,
             [In, MarshalAs(UnmanagedType.LPArray)] IXCLRDataModule[] mods,
             [In] IXCLRDataModule singleMod,
-            [In] mdTypeDef tokens,
-            [Out] out int flags);*/
-            return Raw.GetTypeNotifications(numTokens, mods, singleMod, tokens, out flags);
+            [In, MarshalAs(UnmanagedType.LPArray)] mdTypeDef[] tokens,
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] flags);*/
+            flags = null;
+            HRESULT hr = Raw.GetTypeNotifications(numTokens, mods, singleMod, tokens, flags);
+
+            return hr;
         }
 
         #endregion
         #region SetTypeNotifications
 
-        public void SetTypeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdTypeDef tokens, int flags, int singleFlags)
+        public void SetTypeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdTypeDef[] tokens, int[] flags, int singleFlags)
         {
             TrySetTypeNotifications(numTokens, mods, singleMod, tokens, flags, singleFlags).ThrowOnNotOK();
         }
 
-        public HRESULT TrySetTypeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdTypeDef tokens, int flags, int singleFlags)
+        public HRESULT TrySetTypeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdTypeDef[] tokens, int[] flags, int singleFlags)
         {
             /*HRESULT SetTypeNotifications(
             [In] int numTokens,
             [In, MarshalAs(UnmanagedType.LPArray)] IXCLRDataModule[] mods,
             [In] IXCLRDataModule singleMod,
-            [In] mdTypeDef tokens,
-            [In] int flags,
+            [In, MarshalAs(UnmanagedType.LPArray)] mdTypeDef[] tokens,
+            [In, MarshalAs(UnmanagedType.LPArray)] int[] flags,
             [In] int singleFlags);*/
             return Raw.SetTypeNotifications(numTokens, mods, singleMod, tokens, flags, singleFlags);
         }
@@ -1004,41 +1007,44 @@ namespace ClrDebug
         #endregion
         #region GetCodeNotifications
 
-        public int GetCodeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdMethodDef tokens)
+        public CLRDataMethodCodeNotification[] GetCodeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdMethodDef[] tokens)
         {
-            int flags;
+            CLRDataMethodCodeNotification[] flags;
             TryGetCodeNotifications(numTokens, mods, singleMod, tokens, out flags).ThrowOnNotOK();
 
             return flags;
         }
 
-        public HRESULT TryGetCodeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdMethodDef tokens, out int flags)
+        public HRESULT TryGetCodeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdMethodDef[] tokens, out CLRDataMethodCodeNotification[] flags)
         {
             /*HRESULT GetCodeNotifications(
             [In] int numTokens,
             [In, MarshalAs(UnmanagedType.LPArray)] IXCLRDataModule[] mods,
             [In] IXCLRDataModule singleMod,
-            [In] mdMethodDef tokens,
-            [Out] out int flags);*/
-            return Raw.GetCodeNotifications(numTokens, mods, singleMod, tokens, out flags);
+            [In, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] tokens,
+            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDataMethodCodeNotification[] flags);*/
+            flags = null;
+            HRESULT hr = Raw.GetCodeNotifications(numTokens, mods, singleMod, tokens, flags);
+
+            return hr;
         }
 
         #endregion
         #region SetCodeNotifications
 
-        public void SetCodeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdMethodDef tokens, int flags, int singleFlags)
+        public void SetCodeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdMethodDef[] tokens, CLRDataMethodCodeNotification flags, int singleFlags)
         {
             TrySetCodeNotifications(numTokens, mods, singleMod, tokens, flags, singleFlags).ThrowOnNotOK();
         }
 
-        public HRESULT TrySetCodeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdMethodDef tokens, int flags, int singleFlags)
+        public HRESULT TrySetCodeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdMethodDef[] tokens, CLRDataMethodCodeNotification flags, int singleFlags)
         {
             /*HRESULT SetCodeNotifications(
             [In] int numTokens,
             [In, MarshalAs(UnmanagedType.LPArray)] IXCLRDataModule[] mods,
             [In] IXCLRDataModule singleMod,
-            [In] mdMethodDef tokens,
-            [In] int flags,
+            [In, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] tokens,
+            [In, MarshalAs(UnmanagedType.LPArray)] CLRDataMethodCodeNotification flags,
             [In] int singleFlags);*/
             return Raw.SetCodeNotifications(numTokens, mods, singleMod, tokens, flags, singleFlags);
         }
@@ -1065,21 +1071,21 @@ namespace ClrDebug
         #endregion
         #region EnumMethodDefinitionByAddress
 
-        public XCLRDataMethodDefinition EnumMethodDefinitionByAddress(IntPtr handle)
+        public XCLRDataMethodDefinition EnumMethodDefinitionByAddress(ref IntPtr handle)
         {
             XCLRDataMethodDefinition methodResult;
-            TryEnumMethodDefinitionByAddress(handle, out methodResult).ThrowOnNotOK();
+            TryEnumMethodDefinitionByAddress(ref handle, out methodResult).ThrowOnNotOK();
 
             return methodResult;
         }
 
-        public HRESULT TryEnumMethodDefinitionByAddress(IntPtr handle, out XCLRDataMethodDefinition methodResult)
+        public HRESULT TryEnumMethodDefinitionByAddress(ref IntPtr handle, out XCLRDataMethodDefinition methodResult)
         {
             /*HRESULT EnumMethodDefinitionByAddress(
-            [In] IntPtr handle,
+            [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataMethodDefinition method);*/
             IXCLRDataMethodDefinition method;
-            HRESULT hr = Raw.EnumMethodDefinitionByAddress(handle, out method);
+            HRESULT hr = Raw.EnumMethodDefinitionByAddress(ref handle, out method);
 
             if (hr == HRESULT.S_OK)
                 methodResult = new XCLRDataMethodDefinition(method);

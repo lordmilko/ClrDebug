@@ -16,21 +16,21 @@ namespace ClrDebug
         #region IXCLRDataExceptionState
         #region Flags
 
-        public int Flags
+        public CLRDataExceptionStateFlag Flags
         {
             get
             {
-                int flags;
+                CLRDataExceptionStateFlag flags;
                 TryGetFlags(out flags).ThrowOnNotOK();
 
                 return flags;
             }
         }
 
-        public HRESULT TryGetFlags(out int flags)
+        public HRESULT TryGetFlags(out CLRDataExceptionStateFlag flags)
         {
             /*HRESULT GetFlags(
-            [Out] out int flags);*/
+            [Out] out CLRDataExceptionStateFlag flags);*/
             return Raw.GetFlags(out flags);
         }
 
@@ -219,7 +219,7 @@ namespace ClrDebug
         public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
             /*HRESULT Request(
-            [In] uint reqCode,
+            [In] uint reqCode, //Requests can be across a variety of enums
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
@@ -250,7 +250,7 @@ namespace ClrDebug
         #endregion
         #region IsSameState2
 
-        public bool IsSameState2(int flags, EXCEPTION_RECORD64 exRecord, int contextSize, IntPtr cxRecord)
+        public bool IsSameState2(CLRDataExceptionSameFlag flags, EXCEPTION_RECORD64 exRecord, int contextSize, IntPtr cxRecord)
         {
             HRESULT hr = TryIsSameState2(flags, exRecord, contextSize, cxRecord);
             hr.ThrowOnNotOK();
@@ -258,10 +258,10 @@ namespace ClrDebug
             return hr == HRESULT.S_OK;
         }
 
-        public HRESULT TryIsSameState2(int flags, EXCEPTION_RECORD64 exRecord, int contextSize, IntPtr cxRecord)
+        public HRESULT TryIsSameState2(CLRDataExceptionSameFlag flags, EXCEPTION_RECORD64 exRecord, int contextSize, IntPtr cxRecord)
         {
             /*HRESULT IsSameState2(
-            [In] int flags,
+            [In] CLRDataExceptionSameFlag flags,
             [In] ref EXCEPTION_RECORD64 exRecord,
             [In] int contextSize,
             [In] IntPtr cxRecord);*/

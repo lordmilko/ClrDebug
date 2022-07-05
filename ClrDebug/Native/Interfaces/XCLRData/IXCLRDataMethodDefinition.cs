@@ -63,7 +63,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT GetName(
-            [In] int flags,
+            [In] int flags, //Unused, must be 0
             [In] int bufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name);
@@ -75,7 +75,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT GetFlags(
-            [Out] out int flags);
+            [Out] out CLRDataMethodFlag flags);
 
         [PreserveSig]
         HRESULT IsSameObject(
@@ -100,15 +100,15 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT GetCodeNotification(
-            [Out] out int flags);
+            [Out] out CLRDataMethodCodeNotification flags);
 
         [PreserveSig]
         HRESULT SetCodeNotification(
-            [In] int flags);
+            [In] CLRDataMethodCodeNotification flags);
 
         [PreserveSig]
         HRESULT Request(
-            [In] uint reqCode,
+            [In] uint reqCode, //Requests can be across a variety of enums
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,

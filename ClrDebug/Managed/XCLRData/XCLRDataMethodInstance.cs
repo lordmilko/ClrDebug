@@ -113,21 +113,21 @@ namespace ClrDebug
         #endregion
         #region Flags
 
-        public int Flags
+        public CLRDataMethodFlag Flags
         {
             get
             {
-                int flags;
+                CLRDataMethodFlag flags;
                 TryGetFlags(out flags).ThrowOnNotOK();
 
                 return flags;
             }
         }
 
-        public HRESULT TryGetFlags(out int flags)
+        public HRESULT TryGetFlags(out CLRDataMethodFlag flags)
         {
             /*HRESULT GetFlags(
-            [Out] out int flags);*/
+            [Out] out CLRDataMethodFlag flags);*/
             return Raw.GetFlags(out flags);
         }
 
@@ -265,7 +265,7 @@ namespace ClrDebug
         public HRESULT TryGetName(int flags, out string nameBufResult)
         {
             /*HRESULT GetName(
-            [In] int flags,
+            [In] int flags, //Unused, must be 0
             [In] int bufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf);*/
@@ -462,7 +462,7 @@ namespace ClrDebug
         public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
             /*HRESULT Request(
-            [In] uint reqCode,
+            [In] uint reqCode, //Requests can be across a variety of enums
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,

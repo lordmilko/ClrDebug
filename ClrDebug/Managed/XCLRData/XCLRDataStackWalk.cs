@@ -155,7 +155,7 @@ namespace ClrDebug
         public HRESULT TryRequest(uint reqCode, int inBufferSize, IntPtr inBuffer, int outBufferSize, IntPtr outBuffer)
         {
             /*HRESULT Request(
-            [In] uint reqCode,
+            [In] uint reqCode, //Requests can be across a variety of enums
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
@@ -166,15 +166,15 @@ namespace ClrDebug
         #endregion
         #region SetContext2
 
-        public void SetContext2(int flags, int contextSize, IntPtr context)
+        public void SetContext2(CLRDataStackSetContextFlag flags, int contextSize, IntPtr context)
         {
             TrySetContext2(flags, contextSize, context).ThrowOnNotOK();
         }
 
-        public HRESULT TrySetContext2(int flags, int contextSize, IntPtr context)
+        public HRESULT TrySetContext2(CLRDataStackSetContextFlag flags, int contextSize, IntPtr context)
         {
             /*HRESULT SetContext2(
-            [In] int flags,
+            [In] CLRDataStackSetContextFlag flags,
             [In] int contextSize,
             [In] IntPtr context);*/
             return Raw.SetContext2(flags, contextSize, context);

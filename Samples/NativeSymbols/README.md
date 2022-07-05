@@ -2,7 +2,7 @@
 
 ![NativeSymbols](https://raw.githubusercontent.com/lordmilko/ClrDebug/master/assets/NativeSymbols.png)
 
-The NativeSymbols sample provides a simple REPL for resolving symbols from unmanaged assemblies. *NativeSymbols* accepts expressions in the form
+The *NativeSymbols* sample provides a simple REPL for resolving symbols from unmanaged assemblies. *NativeSymbols* accepts expressions in the form
 
     <fileName>[!<expression>]
 
@@ -11,7 +11,7 @@ where `<fileName>` is one of
 * an absolute path to a file (`C:\Windows\notepad.exe`)
 * a file in system32 without extension (`kernel32`)
 * a file in system32 with extension (`kernel32.dll`)
-* `this` (which is resolved to the path to `NativeSymbols.exe`)
+* `this` (which is resolved to the path of `NativeSymbols.exe`)
 
 and `<expression>` is a symbol or wildcard expression that should be resolved from the file.
 
@@ -22,7 +22,7 @@ although those symbols likely wouldn't mean much once the managed methods have b
 
 ## Implementation
 
-In order to resolve symbols using DbgHelp, symsrv.dll must be present in the same directory as DbgHelp.dll. While DbgHelp does come with Windows, symsrv.dll is only present in the *Debugging Tools for Windows*, effectively creating a huge dependency on this arbitrary piece of software being installed (and *locatable*) on your application's user's computers. While there are other workarounds available (such as shipping DbgHelp and symsrv.dll with your application), this sample tackles this problem by implementing a rudimentary symbol client on top of the [SymbolStore](https://github.com/lordmilko/ClrDebug/tree/master/Samples/PEReader) sample.
+In order to locate symbol PDBs using DbgHelp, symsrv.dll must be present in the same directory as DbgHelp.dll. While DbgHelp does come with Windows, symsrv.dll is only present in the *Debugging Tools for Windows*, effectively creating a huge dependency on this arbitrary piece of software being installed (and *locatable*) on your application's user's computers. While there are other workarounds available (such as shipping DbgHelp and symsrv.dll with your application), this sample tackles this problem by implementing a rudimentary symbol client on top of the [SymbolStore](https://github.com/lordmilko/ClrDebug/tree/master/Samples/PEReader) sample.
 
 If the `_NT_SYMBOL_PATH` environment variable is defined on your computer, the symbol client deconstructs this and forms a *symbol store chain* that will be used to locate your PDBs. Otherwise, a default symbol store chain will be created from `http://msdl.microsoft.com/download/symbols` with `%temp%\symbols` acting as your local cache. DbgHelp is then initialized, and is told to look in our symbol cache folder in the absence of symsrv.dll being available.
 

@@ -108,7 +108,7 @@ ClrDebug provides a variety of features to make developing diagnostic applicatio
     * Reading/writing complex structures to virtual memory
     * Getting and properly initializing + setting thread context types
     * Launching processes
-    * Enumerating the enumerators of `IMetaDataImport`
+    * Enumerating the enumerators of `IMetaDataImport` and `IXCLR*` interfaces
 
 ### User Experience
 
@@ -116,6 +116,7 @@ ClrDebug provides a variety of features to make developing diagnostic applicatio
 with proper cross references to types, properties and methods contained within XmlDocs
 * Debugger displays on all structs, making it much easier to debug without having to expand things
 * User friendly exceptions. No more having to lookup what the error code in a given `COMException` means; the relevant `HRESULT` enum member will be clearly displayed
+* `ToString` overrides on any wrapper that contains a `Name` property
 
 ## Samples
 

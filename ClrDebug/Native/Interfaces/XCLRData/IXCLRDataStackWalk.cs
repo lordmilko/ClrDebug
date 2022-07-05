@@ -38,7 +38,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT Request(
-            [In] uint reqCode,
+            [In] uint reqCode, //Requests can be across a variety of enums
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
@@ -46,7 +46,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT SetContext2(
-            [In] int flags,
+            [In] CLRDataStackSetContextFlag flags,
             [In] int contextSize,
             [In] IntPtr context);
     }

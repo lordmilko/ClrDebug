@@ -84,7 +84,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetRuntimeNameByAddress(
             [In] CLRDATA_ADDRESS address,
-            [In] int flags,
+            [In] int flags, //Unused, must be 0
             [In] int bufLen,
             [Out] out int nameLen,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
@@ -200,7 +200,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         HRESULT EnumMethodInstanceByAddress(
-            [In] IntPtr handle,
+            [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataMethodInstance method);
 
         /// <summary>
@@ -218,7 +218,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetDataByAddress(
             [In] CLRDATA_ADDRESS address,
-            [In] int flags,
+            [In] int flags, //Unused, must be 0
             [In] IXCLRDataAppDomain appDomain,
             [In] IXCLRDataTask tlsTask,
             [In] int bufLen,
@@ -239,7 +239,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT Request(
-            [In] uint reqCode,
+            [In] uint reqCode, //Requests can be across a variety of enums
             [In] int inBufferSize,
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
@@ -261,23 +261,23 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT SetAllCodeNotifications(
             [In] IXCLRDataModule mod,
-            [In] int flags);
+            [In] CLRDataMethodCodeNotification flags);
 
         [PreserveSig]
         HRESULT GetTypeNotifications(
             [In] int numTokens,
             [In, MarshalAs(UnmanagedType.LPArray)] IXCLRDataModule[] mods,
             [In] IXCLRDataModule singleMod,
-            [In] mdTypeDef tokens,
-            [Out] out int flags);
+            [In, MarshalAs(UnmanagedType.LPArray)] mdTypeDef[] tokens,
+            [Out, MarshalAs(UnmanagedType.LPArray)] int[] flags);
 
         [PreserveSig]
         HRESULT SetTypeNotifications(
             [In] int numTokens,
             [In, MarshalAs(UnmanagedType.LPArray)] IXCLRDataModule[] mods,
             [In] IXCLRDataModule singleMod,
-            [In] mdTypeDef tokens,
-            [In] int flags,
+            [In, MarshalAs(UnmanagedType.LPArray)] mdTypeDef[] tokens,
+            [In, MarshalAs(UnmanagedType.LPArray)] int[] flags,
             [In] int singleFlags);
 
         [PreserveSig]
@@ -285,25 +285,25 @@ namespace ClrDebug
             [In] int numTokens,
             [In, MarshalAs(UnmanagedType.LPArray)] IXCLRDataModule[] mods,
             [In] IXCLRDataModule singleMod,
-            [In] mdMethodDef tokens,
-            [Out] out int flags);
+            [In, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] tokens,
+            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDataMethodCodeNotification[] flags);
 
         [PreserveSig]
         HRESULT SetCodeNotifications(
             [In] int numTokens,
             [In, MarshalAs(UnmanagedType.LPArray)] IXCLRDataModule[] mods,
             [In] IXCLRDataModule singleMod,
-            [In] mdMethodDef tokens,
-            [In] int flags,
+            [In, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] tokens,
+            [In, MarshalAs(UnmanagedType.LPArray)] CLRDataMethodCodeNotification flags,
             [In] int singleFlags);
 
         [PreserveSig]
         HRESULT GetOtherNotificationFlags(
-            [Out] out int flags);
+            [Out] out CLRDataOtherNotifyFlag flags);
 
         [PreserveSig]
         HRESULT SetOtherNotificationFlags(
-            [In] int flags);
+            [In] CLRDataOtherNotifyFlag flags);
 
         [PreserveSig]
         HRESULT StartEnumMethodDefinitionsByAddress(
@@ -312,7 +312,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT EnumMethodDefinitionByAddress(
-            [In] IntPtr handle,
+            [In, Out] ref IntPtr handle,
             [Out] out IXCLRDataMethodDefinition method);
 
         [PreserveSig]
