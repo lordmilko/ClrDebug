@@ -163,7 +163,7 @@ namespace ClrDebug
                 goto fail;
 
             bufLen = strLen;
-            str = new StringBuilder(strLen);
+            str = new StringBuilder(bufLen);
             hr = Raw.GetString(bufLen, out strLen, str);
 
             if (hr == HRESULT.S_OK)

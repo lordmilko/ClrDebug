@@ -62,7 +62,7 @@ namespace ClrDebug
                 goto fail;
 
             cchHostName = pcchHostName;
-            szHostName = new StringBuilder(pcchHostName);
+            szHostName = new StringBuilder(cchHostName);
             hr = Raw.GetHostName(cchHostName, out pcchHostName, szHostName);
 
             if (hr == HRESULT.S_OK)

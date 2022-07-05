@@ -436,7 +436,7 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            name = new StringBuilder(pNeeded);
+            name = new StringBuilder(count);
             hr = Raw.GetAppDomainName(addr, count, name, out pNeeded);
 
             if (hr == HRESULT.S_OK)
@@ -551,7 +551,7 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            name = new StringBuilder(pNeeded);
+            name = new StringBuilder(count);
             hr = Raw.GetAssemblyName(assembly, count, name, out pNeeded);
 
             if (hr == HRESULT.S_OK)
@@ -901,7 +901,7 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            name = new StringBuilder(pNeeded);
+            name = new StringBuilder(count);
             hr = Raw.GetMethodDescName(methodDesc, count, name, out pNeeded);
 
             if (hr == HRESULT.S_OK)
@@ -1021,7 +1021,7 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            name = new StringBuilder(pNeeded);
+            name = new StringBuilder(count);
             hr = Raw.GetJitHelperFunctionName(ip, count, name, out pNeeded);
 
             if (hr == HRESULT.S_OK)
@@ -1150,7 +1150,7 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            stringData = new StringBuilder(pNeeded);
+            stringData = new StringBuilder(count);
             hr = Raw.GetObjectStringData(obj, count, stringData, out pNeeded);
 
             if (hr == HRESULT.S_OK)
@@ -1193,7 +1193,7 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            className = new StringBuilder(pNeeded);
+            className = new StringBuilder(count);
             hr = Raw.GetObjectClassName(obj, count, className, out pNeeded);
 
             if (hr == HRESULT.S_OK)
@@ -1236,7 +1236,7 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            mtName = new StringBuilder(pNeeded);
+            mtName = new StringBuilder(count);
             hr = Raw.GetMethodTableName(mt, count, mtName, out pNeeded);
 
             if (hr == HRESULT.S_OK)
@@ -1394,7 +1394,7 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            frameName = new StringBuilder(pNeeded);
+            frameName = new StringBuilder(count);
             hr = Raw.GetFrameName(vtable, count, frameName, out pNeeded);
 
             if (hr == HRESULT.S_OK)
@@ -1456,7 +1456,7 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            fileName = new StringBuilder(pNeeded);
+            fileName = new StringBuilder(count);
             hr = Raw.GetPEFileName(addr, count, fileName, out pNeeded);
 
             if (hr == HRESULT.S_OK)
@@ -2022,7 +2022,7 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            buffer = new StringBuilder(pNeeded);
+            buffer = new StringBuilder(count);
             hr = Raw.GetRegisterName(regName, count, buffer, out pNeeded);
 
             if (hr == HRESULT.S_OK)
@@ -2146,7 +2146,7 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            paths = new StringBuilder(pNeeded);
+            paths = new StringBuilder(count);
             hr = Raw.GetPrivateBinPaths(appDomain, count, paths, out pNeeded);
 
             if (hr == HRESULT.S_OK)
@@ -2189,7 +2189,7 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            location = new StringBuilder(pNeeded);
+            location = new StringBuilder(count);
             hr = Raw.GetAssemblyLocation(assembly, count, location, out pNeeded);
 
             if (hr == HRESULT.S_OK)
@@ -2232,7 +2232,7 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            configFile = new StringBuilder(pNeeded);
+            configFile = new StringBuilder(count);
             hr = Raw.GetAppDomainConfigFile(appDomain, count, configFile, out pNeeded);
 
             if (hr == HRESULT.S_OK)
@@ -2275,7 +2275,7 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            _base = new StringBuilder(pNeeded);
+            _base = new StringBuilder(count);
             hr = Raw.GetApplicationBase(appDomain, count, _base, out pNeeded);
 
             if (hr == HRESULT.S_OK)
@@ -2347,7 +2347,7 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            location = new StringBuilder(pNeeded);
+            location = new StringBuilder(count);
             hr = Raw.GetFailedAssemblyLocation(assesmbly, count, location, out pNeeded);
 
             if (hr == HRESULT.S_OK)
@@ -2390,7 +2390,7 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            name = new StringBuilder(pNeeded);
+            name = new StringBuilder(count);
             hr = Raw.GetFailedAssemblyDisplayName(assembly, count, name, out pNeeded);
 
             if (hr == HRESULT.S_OK)

@@ -317,7 +317,7 @@ namespace ClrDebug
                 goto fail;
 
             bufLen = nameLen;
-            nameBuf = new StringBuilder(nameLen);
+            nameBuf = new StringBuilder(bufLen);
             hr = Raw.GetStaticFieldByIndex(index, tlsTask, out field, bufLen, out nameLen, nameBuf, out token);
 
             if (hr == HRESULT.S_OK)
@@ -450,7 +450,7 @@ namespace ClrDebug
                 goto fail;
 
             bufLen = nameLen;
-            nameBuf = new StringBuilder(nameLen);
+            nameBuf = new StringBuilder(bufLen);
             hr = Raw.GetName(flags, bufLen, out nameLen, nameBuf);
 
             if (hr == HRESULT.S_OK)
@@ -678,7 +678,7 @@ namespace ClrDebug
                 goto fail;
 
             bufLen = nameLen;
-            nameBuf = new StringBuilder(nameLen);
+            nameBuf = new StringBuilder(bufLen);
             hr = Raw.GetStaticFieldByToken(token, tlsTask, out field, bufLen, out nameLen, nameBuf);
 
             if (hr == HRESULT.S_OK)
@@ -727,7 +727,7 @@ namespace ClrDebug
                 goto fail;
 
             bufLen = nameLen;
-            nameBuf = new StringBuilder(nameLen);
+            nameBuf = new StringBuilder(bufLen);
             hr = Raw.EnumStaticField2(ref handle, out value, bufLen, out nameLen, nameBuf, out tokenScope, out token);
 
             if (hr == HRESULT.S_OK)
@@ -805,7 +805,7 @@ namespace ClrDebug
                 goto fail;
 
             bufLen = nameLen;
-            nameBuf = new StringBuilder(nameLen);
+            nameBuf = new StringBuilder(bufLen);
             hr = Raw.GetStaticFieldByToken2(tokenScope, token, tlsTask, out field, bufLen, out nameLen, nameBuf);
 
             if (hr == HRESULT.S_OK)

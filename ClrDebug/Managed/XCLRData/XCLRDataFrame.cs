@@ -216,7 +216,7 @@ namespace ClrDebug
                 goto fail;
 
             bufLen = nameLen;
-            name = new StringBuilder(nameLen);
+            name = new StringBuilder(bufLen);
             hr = Raw.GetArgumentByIndex(index, out arg, bufLen, out nameLen, name);
 
             if (hr == HRESULT.S_OK)
@@ -261,7 +261,7 @@ namespace ClrDebug
                 goto fail;
 
             bufLen = nameLen;
-            name = new StringBuilder(nameLen);
+            name = new StringBuilder(bufLen);
             hr = Raw.GetLocalVariableByIndex(index, out localVariable, bufLen, out nameLen, name);
 
             if (hr == HRESULT.S_OK)
@@ -304,7 +304,7 @@ namespace ClrDebug
                 goto fail;
 
             bufLen = nameLen;
-            nameBuf = new StringBuilder(nameLen);
+            nameBuf = new StringBuilder(bufLen);
             hr = Raw.GetCodeName(flags, bufLen, out nameLen, nameBuf);
 
             if (hr == HRESULT.S_OK)

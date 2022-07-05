@@ -92,7 +92,7 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pchName;
-            szName = new StringBuilder(pchName);
+            szName = new StringBuilder(cchName);
             hr = Raw.GetAssemblyProps(mda, out ppbPublicKey, out pcbPublicKey, out pulHashAlgId, szName, cchName, out pchName, out pMetaData, out pdwAssemblyFlags);
 
             if (hr == HRESULT.S_OK)
@@ -158,7 +158,7 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pchName;
-            szName = new StringBuilder(pchName);
+            szName = new StringBuilder(cchName);
             hr = Raw.GetAssemblyRefProps(mdar, out ppbPublicKeyOrToken, out pcbPublicKeyOrToken, szName, cchName, out pchName, out pMetaData, out ppbHashValue, out pcbHashValue, out pdwAssemblyFlags);
 
             if (hr == HRESULT.S_OK)
@@ -217,7 +217,7 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pchName;
-            szName = new StringBuilder(pchName);
+            szName = new StringBuilder(cchName);
             hr = Raw.GetFileProps(mdf, szName, cchName, out pchName, out ppbHashValue, out pcbHashValue, out pdwFileFlags);
 
             if (hr == HRESULT.S_OK)
@@ -276,7 +276,7 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pchName;
-            szName = new StringBuilder(pchName);
+            szName = new StringBuilder(cchName);
             hr = Raw.GetExportedTypeProps(mdct, szName, cchName, out pchName, out ptkImplementation, out ptkTypeDef, out pdwExportedTypeFlags);
 
             if (hr == HRESULT.S_OK)
@@ -335,7 +335,7 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pchName;
-            szName = new StringBuilder(pchName);
+            szName = new StringBuilder(cchName);
             hr = Raw.GetManifestResourceProps(mdmr, szName, cchName, out pchName, out ptkImplementation, out pdwOffset, out pdwResourceFlags);
 
             if (hr == HRESULT.S_OK)

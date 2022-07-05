@@ -54,7 +54,7 @@ namespace ClrDebug
                 goto fail;
 
             cchUrl = pcchUrl;
-            szUrl = new StringBuilder(pcchUrl);
+            szUrl = new StringBuilder(cchUrl);
             hr = Raw.GetURL(cchUrl, out pcchUrl, szUrl);
 
             if (hr == HRESULT.S_OK)

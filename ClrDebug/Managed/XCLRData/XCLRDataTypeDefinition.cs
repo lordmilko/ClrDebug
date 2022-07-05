@@ -434,7 +434,7 @@ namespace ClrDebug
                 goto fail;
 
             bufLen = nameLen;
-            nameBuf = new StringBuilder(nameLen);
+            nameBuf = new StringBuilder(bufLen);
             hr = Raw.GetName(flags, bufLen, out nameLen, nameBuf);
 
             if (hr == HRESULT.S_OK)
@@ -558,7 +558,7 @@ namespace ClrDebug
                 goto fail;
 
             nameBufLen = nameLen;
-            nameBuf = new StringBuilder(nameLen);
+            nameBuf = new StringBuilder(nameBufLen);
             hr = Raw.EnumField(ref handle, nameBufLen, out nameLen, nameBuf, out type, out flags, out token);
 
             if (hr == HRESULT.S_OK)
@@ -687,7 +687,7 @@ namespace ClrDebug
                 goto fail;
 
             nameBufLen = nameLen;
-            nameBuf = new StringBuilder(nameLen);
+            nameBuf = new StringBuilder(nameBufLen);
             hr = Raw.GetFieldByToken(token, nameBufLen, out nameLen, nameBuf, out type, out flags);
 
             if (hr == HRESULT.S_OK)
@@ -738,7 +738,7 @@ namespace ClrDebug
                 goto fail;
 
             nameBufLen = nameLen;
-            nameBuf = new StringBuilder(nameLen);
+            nameBuf = new StringBuilder(nameBufLen);
             hr = Raw.EnumField2(ref handle, nameBufLen, out nameLen, nameBuf, out type, out flags, out tokenScope, out token);
 
             if (hr == HRESULT.S_OK)
@@ -819,7 +819,7 @@ namespace ClrDebug
                 goto fail;
 
             nameBufLen = nameLen;
-            nameBuf = new StringBuilder(nameLen);
+            nameBuf = new StringBuilder(nameBufLen);
             hr = Raw.GetFieldByToken2(tokenScope, token, nameBufLen, out nameLen, nameBuf, out type, out flags);
 
             if (hr == HRESULT.S_OK)

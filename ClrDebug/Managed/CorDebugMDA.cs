@@ -52,7 +52,7 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder(pcchName);
+            szName = new StringBuilder(cchName);
             hr = Raw.GetName(cchName, out pcchName, szName);
 
             if (hr == HRESULT.S_OK)
@@ -104,7 +104,7 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder(pcchName);
+            szName = new StringBuilder(cchName);
             hr = Raw.GetDescription(cchName, out pcchName, szName);
 
             if (hr == HRESULT.S_OK)
@@ -156,7 +156,7 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder(pcchName);
+            szName = new StringBuilder(cchName);
             hr = Raw.GetXML(cchName, out pcchName, szName);
 
             if (hr == HRESULT.S_OK)

@@ -51,7 +51,7 @@ namespace ClrDebug
                 goto fail;
 
             bufLen = nameLen;
-            name = new StringBuilder(nameLen);
+            name = new StringBuilder(bufLen);
             hr = Raw.GetName(bufLen, out nameLen, name);
 
             if (hr == HRESULT.S_OK)
@@ -96,7 +96,7 @@ namespace ClrDebug
                 goto fail;
 
             bufLen = nameLen;
-            name = new StringBuilder(nameLen);
+            name = new StringBuilder(bufLen);
             hr = Raw.GetFileName(bufLen, out nameLen, name);
 
             if (hr == HRESULT.S_OK)

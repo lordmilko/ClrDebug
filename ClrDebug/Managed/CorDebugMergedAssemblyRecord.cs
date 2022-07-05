@@ -55,7 +55,7 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder(pcchName);
+            szName = new StringBuilder(cchName);
             hr = Raw.GetSimpleName(cchName, out pcchName, szName);
 
             if (hr == HRESULT.S_OK)
@@ -149,7 +149,7 @@ namespace ClrDebug
                 goto fail;
 
             cchCulture = pcchCulture;
-            szCulture = new StringBuilder(pcchCulture);
+            szCulture = new StringBuilder(cchCulture);
             hr = Raw.GetCulture(cchCulture, out pcchCulture, szCulture);
 
             if (hr == HRESULT.S_OK)

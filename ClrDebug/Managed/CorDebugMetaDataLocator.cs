@@ -78,7 +78,7 @@ namespace ClrDebug
                 goto fail;
 
             cchPathBuffer = pcchPathBuffer;
-            wszPathBuffer = new StringBuilder(pcchPathBuffer);
+            wszPathBuffer = new StringBuilder(cchPathBuffer);
             hr = Raw.GetMetaData(wszImagePath, dwImageTimeStamp, dwImageSize, cchPathBuffer, out pcchPathBuffer, wszPathBuffer);
 
             if (hr == HRESULT.S_OK)

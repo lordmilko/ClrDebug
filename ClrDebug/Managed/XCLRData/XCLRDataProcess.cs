@@ -351,7 +351,7 @@ namespace ClrDebug
                 goto fail;
 
             bufLen = nameLen;
-            nameBuf = new StringBuilder(nameLen);
+            nameBuf = new StringBuilder(bufLen);
             hr = Raw.GetRuntimeNameByAddress(address, flags, bufLen, out nameLen, nameBuf, out displacement);
 
             if (hr == HRESULT.S_OK)
@@ -819,7 +819,7 @@ namespace ClrDebug
                 goto fail;
 
             bufLen = nameLen;
-            nameBuf = new StringBuilder(nameLen);
+            nameBuf = new StringBuilder(bufLen);
             hr = Raw.GetDataByAddress(address, flags, appDomain, tlsTask, bufLen, out nameLen, nameBuf, out value, out displacement);
 
             if (hr == HRESULT.S_OK)

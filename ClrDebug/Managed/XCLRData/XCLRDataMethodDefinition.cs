@@ -316,7 +316,7 @@ namespace ClrDebug
                 goto fail;
 
             bufLen = nameLen;
-            name = new StringBuilder(nameLen);
+            name = new StringBuilder(bufLen);
             hr = Raw.GetName(flags, bufLen, out nameLen, name);
 
             if (hr == HRESULT.S_OK)

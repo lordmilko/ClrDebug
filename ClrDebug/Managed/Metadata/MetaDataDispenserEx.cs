@@ -58,7 +58,7 @@ namespace ClrDebug
                 goto fail;
 
             cchBuffer = pchBuffer;
-            szBuffer = new StringBuilder(pchBuffer);
+            szBuffer = new StringBuilder(cchBuffer);
             hr = Raw.GetCORSystemDirectory(szBuffer, cchBuffer, out pchBuffer);
 
             if (hr == HRESULT.S_OK)
@@ -223,7 +223,7 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pcName;
-            szName = new StringBuilder(pcName);
+            szName = new StringBuilder(cchName);
             hr = Raw.FindAssembly(szAppBase, szPrivateBin, szGlobalBin, szAssemblyName, szName, cchName, out pcName);
 
             if (hr == HRESULT.S_OK)
@@ -288,7 +288,7 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pcName;
-            szName = new StringBuilder(pcName);
+            szName = new StringBuilder(cchName);
             hr = Raw.FindAssemblyModule(szAppBase, szPrivateBin, szGlobalBin, szAssemblyName, szModuleName, szName, cchName, out pcName);
 
             if (hr == HRESULT.S_OK)

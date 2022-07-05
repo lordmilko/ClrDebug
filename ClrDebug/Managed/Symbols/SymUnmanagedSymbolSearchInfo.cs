@@ -80,7 +80,7 @@ namespace ClrDebug
                 goto fail;
 
             cchPath = pcchPath;
-            szPath = new StringBuilder(pcchPath);
+            szPath = new StringBuilder(cchPath);
             hr = Raw.GetSearchPath(cchPath, out pcchPath, szPath);
 
             if (hr == HRESULT.S_OK)

@@ -63,7 +63,7 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pchName;
-            szName = new StringBuilder(pchName);
+            szName = new StringBuilder(cchName);
             hr = Raw.GetScopeProps(szName, cchName, out pchName, out pmvid);
 
             if (hr == HRESULT.S_OK)
@@ -417,7 +417,7 @@ namespace ClrDebug
                 goto fail;
 
             cchTypeDef = pchTypeDef;
-            szTypeDef = new StringBuilder(pchTypeDef);
+            szTypeDef = new StringBuilder(cchTypeDef);
             hr = Raw.GetTypeDefProps(td, szTypeDef, cchTypeDef, out pchTypeDef, out pdwTypeDefFlags, out ptkExtends);
 
             if (hr == HRESULT.S_OK)
@@ -523,7 +523,7 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pchName;
-            szName = new StringBuilder(pchName);
+            szName = new StringBuilder(cchName);
             hr = Raw.GetTypeRefProps(tr, out ptkResolutionScope, szName, cchName, out pchName);
 
             if (hr == HRESULT.S_OK)
@@ -1410,7 +1410,7 @@ namespace ClrDebug
                 goto fail;
 
             cchMethod = pchMethod;
-            szMethod = new StringBuilder(pchMethod);
+            szMethod = new StringBuilder(cchMethod);
             hr = Raw.GetMethodProps(mb, out pClass, szMethod, cchMethod, out pchMethod, out pdwAttr, out ppvSigBlob, out pcbSigBlob, out pulCodeRVA, out pdwImplFlags);
 
             if (hr == HRESULT.S_OK)
@@ -1469,7 +1469,7 @@ namespace ClrDebug
                 goto fail;
 
             cchMember = pchMember;
-            szMember = new StringBuilder(pchMember);
+            szMember = new StringBuilder(cchMember);
             hr = Raw.GetMemberRefProps(mr, out ptk, szMember, cchMember, out pchMember, out ppvSigBlob, out pbSig);
 
             if (hr == HRESULT.S_OK)
@@ -1638,7 +1638,7 @@ namespace ClrDebug
                 goto fail;
 
             cchEvent = pchEvent;
-            szEvent = new StringBuilder(pchEvent);
+            szEvent = new StringBuilder(cchEvent);
             cMax = pcOtherMethod;
             rmdOtherMethod = new mdMethodDef[cMax];
             hr = Raw.GetEventProps(ev, out pClass, szEvent, cchEvent, out pchEvent, out pdwEventFlags, out ptkEventType, out pmdAddOn, out pmdRemoveOn, out pmdFire, rmdOtherMethod, cMax, out pcOtherMethod);
@@ -2013,7 +2013,7 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pchName;
-            szName = new StringBuilder(pchName);
+            szName = new StringBuilder(cchName);
             hr = Raw.GetModuleRefProps(mur, szName, cchName, out pchName);
 
             if (hr == HRESULT.S_OK)
@@ -2251,7 +2251,7 @@ namespace ClrDebug
                 goto fail;
 
             cchString = pchString;
-            szString = new StringBuilder(pchString);
+            szString = new StringBuilder(cchString);
             hr = Raw.GetUserString(stk, szString, cchString, out pchString);
 
             if (hr == HRESULT.S_OK)
@@ -2308,7 +2308,7 @@ namespace ClrDebug
                 goto fail;
 
             cchImportName = pchImportName;
-            szImportName = new StringBuilder(pchImportName);
+            szImportName = new StringBuilder(cchImportName);
             hr = Raw.GetPinvokeMap(tk, out pdwMappingFlags, szImportName, cchImportName, out pchImportName, out pmrImportDLL);
 
             if (hr == HRESULT.S_OK)
@@ -2706,7 +2706,7 @@ namespace ClrDebug
                 goto fail;
 
             cchMember = pchMember;
-            szMember = new StringBuilder(pchMember);
+            szMember = new StringBuilder(cchMember);
             hr = Raw.GetMemberProps(mb, out pClass, szMember, cchMember, out pchMember, out pdwAttr, out ppvSigBlob, out pcbSigBlob, out pulCodeRVA, out pdwImplFlags, out pdwCPlusTypeFlag, out ppValue, out pcchValue);
 
             if (hr == HRESULT.S_OK)
@@ -2773,7 +2773,7 @@ namespace ClrDebug
                 goto fail;
 
             cchField = pchField;
-            szField = new StringBuilder(pchField);
+            szField = new StringBuilder(cchField);
             hr = Raw.GetFieldProps(mb, out pClass, szField, cchField, out pchField, out pdwAttr, out ppvSigBlob, out pcbSigBlob, out pdwCPlusTypeFlag, out ppValue, out pcchValue);
 
             if (hr == HRESULT.S_OK)
@@ -2850,7 +2850,7 @@ namespace ClrDebug
                 goto fail;
 
             cchProperty = pchProperty;
-            szProperty = new StringBuilder(pchProperty);
+            szProperty = new StringBuilder(cchProperty);
             cMax = pcOtherMethod;
             rmdOtherMethod = new mdMethodDef[cMax];
             hr = Raw.GetPropertyProps(prop, out pClass, szProperty, cchProperty, out pchProperty, out pdwPropFlags, out ppvSig, out pbSig, out pdwCPlusTypeFlag, out ppDefaultValue, out pcchDefaultValue, out pmdSetter, out pmdGetter, rmdOtherMethod, cMax, out pcOtherMethod);
@@ -3169,7 +3169,7 @@ namespace ClrDebug
                 goto fail;
 
             ccBufSize = pccBufSize;
-            pwzBuf = new StringBuilder(pccBufSize);
+            pwzBuf = new StringBuilder(ccBufSize);
             hr = Raw2.GetVersionString(pwzBuf, ccBufSize, out pccBufSize);
 
             if (hr == HRESULT.S_OK)
@@ -3279,7 +3279,7 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pchName;
-            wzname = new StringBuilder(pchName);
+            wzname = new StringBuilder(cchName);
             hr = Raw2.GetGenericParamProps(gp, out pulParamSeq, out pdwParamFlags, out ptOwner, out reserved, wzname, cchName, out pchName);
 
             if (hr == HRESULT.S_OK)

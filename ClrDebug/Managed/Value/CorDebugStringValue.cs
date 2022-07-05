@@ -78,7 +78,7 @@ namespace ClrDebug
                 goto fail;
 
             cchString = pcchString;
-            szString = new StringBuilder(pcchString);
+            szString = new StringBuilder(cchString);
             hr = Raw.GetString(cchString, out pcchString, szString);
 
             if (hr == HRESULT.S_OK)
