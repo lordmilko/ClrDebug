@@ -547,8 +547,7 @@ namespace ClrDebug
 
         public HRESULT TryEndList()
         {
-            /*HRESULT EndList(
-            );*/
+            /*HRESULT EndList();*/
             return Raw.EndList();
         }
 

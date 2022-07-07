@@ -172,8 +172,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.Interface)] ITypeInfo pITI,
             [In] int dwOpenFlags,
             [In] ref Guid riid,
-            [Out, MarshalAs(UnmanagedType.Interface, IidParameterIndex = 2)] out object ppIUnk
-        );*/
+            [Out, MarshalAs(UnmanagedType.Interface, IidParameterIndex = 2)] out object ppIUnk);*/
             return Raw.OpenScopeOnITypeInfo(pITI, dwOpenFlags, ref riid, out ppIUnk);
         }
 

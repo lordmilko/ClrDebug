@@ -53,7 +53,7 @@ namespace ClrDebug
         public HRESULT TryGetVersionString(out string pwzBufferResult)
         {
             /*HRESULT GetVersionString([MarshalAs(UnmanagedType.LPWStr), Out]
-            StringBuilder pwzBuffer, [In] [Out] ref int pcchBuffer);*/
+            StringBuilder pwzBuffer, [In, Out] ref int pcchBuffer);*/
             StringBuilder pwzBuffer = null;
             int pcchBuffer = default(int);
             HRESULT hr = Raw.GetVersionString(pwzBuffer, ref pcchBuffer);
@@ -109,7 +109,7 @@ namespace ClrDebug
         public HRESULT TryGetRuntimeDirectory(out string pwzBufferResult)
         {
             /*HRESULT GetRuntimeDirectory([MarshalAs(UnmanagedType.LPWStr), Out]
-            StringBuilder pwzBuffer, [In] [Out] ref int pcchBuffer);*/
+            StringBuilder pwzBuffer, [In, Out] ref int pcchBuffer);*/
             StringBuilder pwzBuffer = null;
             int pcchBuffer = default(int);
             HRESULT hr = Raw.GetRuntimeDirectory(pwzBuffer, ref pcchBuffer);
@@ -566,7 +566,7 @@ namespace ClrDebug
             [Out] out int pdwStartupFlags,
             [MarshalAs(UnmanagedType.LPWStr), Out]
             StringBuilder pwzHostConfigFile,
-            [In] [Out] ref int pcchHostConfigFile);*/
+            [In, Out] ref int pcchHostConfigFile);*/
             int pdwStartupFlags;
             StringBuilder pwzHostConfigFile = null;
             int pcchHostConfigFile = default(int);

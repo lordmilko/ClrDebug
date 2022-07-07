@@ -1977,8 +1977,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string szname,
             [In] int reserved,
             [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkConstraints,
-            [Out] out mdGenericParam pgp
-        );*/
+            [Out] out mdGenericParam pgp);*/
             return Raw2.DefineGenericParam(tk, ulParamSeq, dwParamFlags, szname, reserved, rtkConstraints, out pgp);
         }
 
@@ -2013,8 +2012,7 @@ namespace ClrDebug
             [In] int dwParamFlags,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] int reserved,
-            [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkConstraints
-        );*/
+            [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkConstraints);*/
             return Raw2.SetGenericParamProps(gp, dwParamFlags, szName, reserved, rtkConstraints);
         }
 

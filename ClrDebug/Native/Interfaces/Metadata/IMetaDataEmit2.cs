@@ -75,8 +75,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string szname,
             [In] int reserved,
             [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkConstraints,
-            [Out] out mdGenericParam pgp
-        );
+            [Out] out mdGenericParam pgp);
 
         /// <summary>
         /// Sets property values for the generic parameter definition referenced by the specified token.
@@ -92,8 +91,7 @@ namespace ClrDebug
             [In] int dwParamFlags,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] int reserved,
-            [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkConstraints
-        );
+            [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkConstraints);
 
         /// <summary>
         /// Resets the edit-and-continue log and starts a new session.

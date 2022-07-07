@@ -46,7 +46,7 @@ namespace ClrDebug
         {
             /*HRESULT GetHashFromAssemblyFile(
             [MarshalAs(UnmanagedType.LPStr), In] string pszFilePath,
-            [In] [Out] ref int piHashAlg,
+            [In, Out] ref int piHashAlg,
             [Out] IntPtr pbHash,
             [In] int cchHash,
             [Out] out int pchHash);*/
@@ -82,7 +82,7 @@ namespace ClrDebug
         {
             /*HRESULT GetHashFromAssemblyFileW(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
-            [In] [Out] ref int piHashAlg,
+            [In, Out] ref int piHashAlg,
             [Out] IntPtr pbHash,
             [In] int cchHash,
             [Out] out int pchHash);*/
@@ -121,7 +121,7 @@ namespace ClrDebug
             /*HRESULT GetHashFromBlob(
             [In] IntPtr pbBlob,
             [In] int cchBlob,
-            [In] [Out] ref int piHashAlg,
+            [In, Out] ref int piHashAlg,
             [Out] IntPtr pbHash,
             [In] int cchHash,
             [Out] out int pchHash);*/
@@ -167,7 +167,7 @@ namespace ClrDebug
         {
             /*HRESULT GetHashFromFile(
             [MarshalAs(UnmanagedType.LPStr), In] string pszFilePath,
-            [In] [Out] ref int piHashAlg,
+            [In, Out] ref int piHashAlg,
             [Out] IntPtr pbHash,
             [In] int cchHash,
             [Out] out int pchHash);*/
@@ -213,7 +213,7 @@ namespace ClrDebug
         {
             /*HRESULT GetHashFromFileW(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
-            [In] [Out] ref int piHashAlg,
+            [In, Out] ref int piHashAlg,
             [Out] IntPtr pbHash,
             [In] int cchHash,
             [Out] out int pchHash);*/
@@ -249,7 +249,7 @@ namespace ClrDebug
         {
             /*HRESULT GetHashFromHandle(
             [In] IntPtr hFile,
-            [In] [Out] ref int piHashAlg,
+            [In, Out] ref int piHashAlg,
             [Out] IntPtr pbHash,
             [In] int cchHash,
             [Out] out int pchHash);*/
@@ -345,8 +345,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         public HRESULT TryStrongNameGetBlob(string pwzFilePath, IntPtr pbBlob, ref int pcbBlob)
         {
-            /*HRESULT StrongNameGetBlob([MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath, [In] [Out] IntPtr pbBlob,
-            [In] [Out] ref int pcbBlob);*/
+            /*HRESULT StrongNameGetBlob([MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath, [In, Out] IntPtr pbBlob,
+            [In, Out] ref int pcbBlob);*/
             return Raw.StrongNameGetBlob(pwzFilePath, pbBlob, ref pcbBlob);
         }
 
@@ -379,7 +379,7 @@ namespace ClrDebug
             [In] IntPtr pbBase,
             [In] int dwLength,
             [Out] IntPtr pbBlob,
-            [In] [Out] ref int pcbBlob);*/
+            [In, Out] ref int pcbBlob);*/
             return Raw.StrongNameGetBlobFromImage(pbBase, dwLength, pbBlob, ref pcbBlob);
         }
 

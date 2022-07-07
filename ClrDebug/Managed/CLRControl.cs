@@ -86,8 +86,8 @@ namespace ClrDebug
         public HRESULT TrySetAppDomainManagerType(string pwzAppDomainManagerAssembly, string pwzAppDomainManagerType)
         {
             /*HRESULT SetAppDomainManagerType(
-            [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzAppDomainManagerAssembly,
-            [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzAppDomainManagerType);*/
+            [MarshalAs(UnmanagedType.LPWStr), In] string pwzAppDomainManagerAssembly,
+            [MarshalAs(UnmanagedType.LPWStr), In] string pwzAppDomainManagerType);*/
             return Raw.SetAppDomainManagerType(pwzAppDomainManagerAssembly, pwzAppDomainManagerType);
         }
 

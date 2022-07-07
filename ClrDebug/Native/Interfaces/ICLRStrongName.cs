@@ -30,7 +30,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHashFromAssemblyFile(
             [MarshalAs(UnmanagedType.LPStr), In] string pszFilePath,
-            [In] [Out] ref int piHashAlg,
+            [In, Out] ref int piHashAlg,
             [Out] IntPtr pbHash,
             [In] int cchHash,
             [Out] out int pchHash);
@@ -48,7 +48,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHashFromAssemblyFileW(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
-            [In] [Out] ref int piHashAlg,
+            [In, Out] ref int piHashAlg,
             [Out] IntPtr pbHash,
             [In] int cchHash,
             [Out] out int pchHash);
@@ -68,7 +68,7 @@ namespace ClrDebug
         HRESULT GetHashFromBlob(
             [In] IntPtr pbBlob,
             [In] int cchBlob,
-            [In] [Out] ref int piHashAlg,
+            [In, Out] ref int piHashAlg,
             [Out] IntPtr pbHash,
             [In] int cchHash,
             [Out] out int pchHash);
@@ -91,7 +91,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHashFromFile(
             [MarshalAs(UnmanagedType.LPStr), In] string pszFilePath,
-            [In] [Out] ref int piHashAlg,
+            [In, Out] ref int piHashAlg,
             [Out] IntPtr pbHash,
             [In] int cchHash,
             [Out] out int pchHash);
@@ -114,7 +114,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHashFromFileW(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
-            [In] [Out] ref int piHashAlg,
+            [In, Out] ref int piHashAlg,
             [Out] IntPtr pbHash,
             [In] int cchHash,
             [Out] out int pchHash);
@@ -132,7 +132,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHashFromHandle(
             [In] IntPtr hFile,
-            [In] [Out] ref int piHashAlg,
+            [In, Out] ref int piHashAlg,
             [Out] IntPtr pbHash,
             [In] int cchHash,
             [Out] out int pchHash);
@@ -173,8 +173,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT StrongNameGetBlob([MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath, [In] [Out] IntPtr pbBlob,
-            [In] [Out] ref int pcbBlob);
+        HRESULT StrongNameGetBlob([MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath, [In, Out] IntPtr pbBlob,
+            [In, Out] ref int pcbBlob);
 
         /// <summary>
         /// Gets a binary representation of the assembly image at the specified memory address.
@@ -190,7 +190,7 @@ namespace ClrDebug
             [In] IntPtr pbBase,
             [In] int dwLength,
             [Out] IntPtr pbBlob,
-            [In] [Out] ref int pcbBlob);
+            [In, Out] ref int pcbBlob);
 
         /// <summary>
         /// Gets the public key from a public/private key pair. The key pair can be supplied either as a key container name within a cryptographic service provider (CSP) or as a raw collection of bytes.

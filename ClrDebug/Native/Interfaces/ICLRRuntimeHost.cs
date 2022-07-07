@@ -83,7 +83,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
-        HRESULT SetHostControl([MarshalAs(UnmanagedType.Interface)] [In] IHostControl pHostControl);
+        HRESULT SetHostControl([MarshalAs(UnmanagedType.Interface), In] IHostControl pHostControl);
 
         /// <summary>
         /// Gets an interface pointer of type <see cref="ICLRControl"/> that hosts can use to customize aspects of the common language runtime (CLR).
@@ -158,7 +158,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT ExecuteInAppDomain(
             [In] int dwAppDomainID,
-            [MarshalAs(UnmanagedType.FunctionPtr)] [In] FExecuteInAppDomainCallback pCallback,
+            [MarshalAs(UnmanagedType.FunctionPtr), In] FExecuteInAppDomainCallback pCallback,
             [In] IntPtr cookie);
 
         /// <summary>
@@ -211,11 +211,11 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT ExecuteApplication(
-            [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzAppFullName,
+            [MarshalAs(UnmanagedType.LPWStr), In] string pwzAppFullName,
             [In] int dwManifestPaths,
-            [MarshalAs(UnmanagedType.LPWStr)] [In] string ppwzManifestPaths,
+            [MarshalAs(UnmanagedType.LPWStr), In] string ppwzManifestPaths,
             [In] int dwActivationData,
-            [MarshalAs(UnmanagedType.LPWStr)] [In] string ppwzActivationData,
+            [MarshalAs(UnmanagedType.LPWStr), In] string ppwzActivationData,
             [Out] out int pReturnValue);
 
         /// <summary>
@@ -244,10 +244,10 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT ExecuteInDefaultAppDomain(
-            [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzAssemblyPath,
-            [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzTypeName,
-            [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzMethodName,
-            [MarshalAs(UnmanagedType.LPWStr)] [In] string pwzArgument, [Out] out int pReturnValue);
+            [MarshalAs(UnmanagedType.LPWStr), In] string pwzAssemblyPath,
+            [MarshalAs(UnmanagedType.LPWStr), In] string pwzTypeName,
+            [MarshalAs(UnmanagedType.LPWStr), In] string pwzMethodName,
+            [MarshalAs(UnmanagedType.LPWStr), In] string pwzArgument, [Out] out int pReturnValue);
 
     }
 }

@@ -39,7 +39,7 @@
         /// </remarks>
         public HRESULT TrySetGCThreadControl(IGCThreadControl pGCThreadControl)
         {
-            /*HRESULT SetGCThreadControl([In] [MarshalAs(UnmanagedType.Interface)] IGCThreadControl pGCThreadControl);*/
+            /*HRESULT SetGCThreadControl([In, MarshalAs(UnmanagedType.Interface)] IGCThreadControl pGCThreadControl);*/
             return Raw.SetGCThreadControl(pGCThreadControl);
         }
 
@@ -61,7 +61,7 @@
         /// <param name="pGCHostControl">[in] A pointer to an <see cref="IGCHostControl"/> object that allows the garbage collector to request the host to change the limits of virtual memory.</param>
         public HRESULT TrySetGCHostControl(IGCHostControl pGCHostControl)
         {
-            /*HRESULT SetGCHostControl([In] [MarshalAs(UnmanagedType.Interface)] IGCHostControl pGCHostControl);*/
+            /*HRESULT SetGCHostControl([In, MarshalAs(UnmanagedType.Interface)] IGCHostControl pGCHostControl);*/
             return Raw.SetGCHostControl(pGCHostControl);
         }
 
@@ -83,7 +83,7 @@
         /// <param name="pDebuggerThreadControl">[in] A pointer to an <see cref="IDebuggerThreadControl"/> object that notifies the host about the blocking and unblocking of threads by the debugging services.</param>
         public HRESULT TrySetDebuggerThreadControl(IDebuggerThreadControl pDebuggerThreadControl)
         {
-            /*HRESULT SetDebuggerThreadControl([In] [MarshalAs(UnmanagedType.Interface)] IDebuggerThreadControl pDebuggerThreadControl);*/
+            /*HRESULT SetDebuggerThreadControl([In, MarshalAs(UnmanagedType.Interface)] IDebuggerThreadControl pDebuggerThreadControl);*/
             return Raw.SetDebuggerThreadControl(pDebuggerThreadControl);
         }
 

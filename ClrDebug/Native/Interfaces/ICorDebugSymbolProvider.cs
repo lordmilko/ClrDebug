@@ -117,7 +117,7 @@ namespace ClrDebug
         /// </summary>
         /// <param name="vtableRva">[in] A relative virtual address (RVA) in a vtable.</param>
         /// <param name="cbSignature">[in] The size of the signature array. See the Remarks section.</param>
-        /// <param name="pcbSignature">[out] [out] A pointer to the size of the returned signature array.</param>
+        /// <param name="pcbSignature">[out] A pointer to the size of the returned signature array.</param>
         /// <param name="signature">[out] A buffer that holds the typespec signatures of all generic parameters.</param>
         /// <remarks>
         /// To get the required size of the type's signature array, set the cbSignature argument to 0 and signature to null.

@@ -76,7 +76,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetVersionFromFile([MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [MarshalAs(UnmanagedType.LPWStr), Out]
-            StringBuilder pwzBuffer, [In] [Out] ref int pcchBuffer);
+            StringBuilder pwzBuffer, [In, Out] ref int pcchBuffer);
 
         /// <summary>
         /// Returns an enumeration that contains a valid <see cref="ICLRRuntimeInfo"/> interface for each version of the common language runtime (CLR) that is installed on a computer.

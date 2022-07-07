@@ -79,7 +79,7 @@ namespace ClrDebug
             [In] ref CLR_DEBUGGING_VERSION pMaxDebuggerSupportedVersion,
             [In] ref Guid riidProcess,
             [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppProcess,
-            [In] [Out] ref CLR_DEBUGGING_VERSION pVersion,
+            [In, Out] ref CLR_DEBUGGING_VERSION pVersion,
             [Out] out CLR_DEBUGGING_PROCESS_FLAGS pdwFlags);*/
             object ppProcess;
             CLR_DEBUGGING_PROCESS_FLAGS pdwFlags;

@@ -159,8 +159,7 @@ namespace ClrDebug
             /*HRESULT OpenThreadToken(
             [In] int dwDesiredAccess,
             [In] bool bOpenAsSelf,
-            [Out] out IntPtr phThreadToken
-        );*/
+            [Out] out IntPtr phThreadToken);*/
             return Raw.OpenThreadToken(dwDesiredAccess, bOpenAsSelf, out phThreadToken);
         }
 

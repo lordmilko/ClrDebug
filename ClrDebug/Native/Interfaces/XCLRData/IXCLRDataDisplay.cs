@@ -162,8 +162,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string fmt);
 
         [PreserveSig]
-        HRESULT EndList(
-            );
+        HRESULT EndList();
 
         [PreserveSig]
         HRESULT StartArrayWithOffset(

@@ -90,8 +90,7 @@ namespace ClrDebug
         HRESULT OpenThreadToken(
             [In] int dwDesiredAccess,
             [In] bool bOpenAsSelf,
-            [Out] out IntPtr phThreadToken
-        );
+            [Out] out IntPtr phThreadToken);
 
         /// <summary>
         /// Sets a handle for the currently executing thread.

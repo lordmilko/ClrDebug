@@ -69,7 +69,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT SetAppDomainManager(
             [In] int dwAppDomainID,
-            [MarshalAs(UnmanagedType.IUnknown)] [In] object pUnkAppDomainManager);
+            [MarshalAs(UnmanagedType.IUnknown), In] object pUnkAppDomainManager);
 
     }
 }
