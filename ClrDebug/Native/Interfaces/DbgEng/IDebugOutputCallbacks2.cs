@@ -2,6 +2,14 @@
 
 namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// The IDebugOutputCallbacks2 interface allows clients to receive full debugger markup language (DML) content for presentation.<para/>
+    /// This interface extends the <see cref="IDebugOutputCallbacks"/> interface, not the <see cref="IDebugOutputCallbacksWide"/> interface.<para/>
+    /// Therefore, it can be passed in to the existing <see cref="IDebugClient.SetOutputCallbacks"/> method. The engine performs a QueryInterface for IDebugOutputCallbacks2 to see which interface the incoming output callback object supports.<para/>
+    /// If the object supports IDebugOutputCallbacks2, all output will be sent through the extended IDebugOutputCallbacks2 methods.<para/>
+    /// An output object can register for both text and DML content, if it can handle them both. During output processing of the callback the engine will pick the format that reduces conversions, thus supporting both may reduce conversions in the engine.<para/>
+    /// It is not necessary, though, and supporting only one format is the expected mode of operation. The basic <see cref="IDebugOutputCallbacks.Output"/> method is not used.
+    /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("67721fe9-56d2-4a44-a325-2b65513ce6eb")]
     [ComImport]
@@ -9,6 +17,12 @@ namespace ClrDebug.DbgEng
     {
         #region IDebugOutputCallbacks
 
+        /// <summary>
+        /// This method is not used.
+        /// </summary>
+        /// <param name="mask">[in] This value is not used.</param>
+        /// <param name="text">[in] This value is not used.</param>
+        /// <returns>This method is not used.</returns>
         [PreserveSig]
         new HRESULT Output(
             [In] DEBUG_OUTPUT mask,
@@ -17,10 +31,24 @@ namespace ClrDebug.DbgEng
         #endregion
         #region IDebugOutputCallbacks2
 
+        /// <summary>
+        /// Allows the callback object to describe which kinds of output notifications it wants to receive.
+        /// </summary>
+        /// <param name="mask">The type of output notification to receive.</param>
+        /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         [PreserveSig]
         HRESULT GetInterestMask(
             [Out] out DEBUG_OUTCBI mask);
 
+        /// <summary>
+        /// Returns notifications for the <see cref="IDebugOutputCallbacks2"/> interface.
+        /// </summary>
+        /// <param name="which">[in] The kind of DEBUG_OUTCB_XXX notification that is coming in. The DEBUG_OUTCB_XXX notifications are defined in the dbgeng.h header using #defines.<para/>
+        /// For more information, see DEBUG_OUTCB_XXX.</param>
+        /// <param name="flags">[in] Flags that are part of the notification payload.</param>
+        /// <param name="arg">[in] Arguments that are part of the notification payload.</param>
+        /// <param name="text">[in, optional] A pointer to text that is part of the notification payload.</param>
+        /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         [PreserveSig]
         HRESULT Output2(
             [In] DEBUG_OUTCB which,

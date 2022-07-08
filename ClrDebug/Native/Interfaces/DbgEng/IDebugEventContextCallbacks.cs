@@ -2,6 +2,12 @@
 
 namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// This interface includes a <see cref="DEBUG_EVENT_CONTEXT"/> as the “context” parameter of each event callback. The context structure contains the “ProcessEngineId”, “ThreadEngineId”, and “FrameEngineId”.<para/>
+    /// For example, for an event callbacks like a breakpoint event, it provides information on which process/thread the breakpoint hit on without having to do additional calls back into the engine.<para/>
+    /// This interface supports event context callbacks and replaces the use of the <see cref="IDebugClient.SetEventCallbacks"/> method.<para/>
+    /// Set this interface on a debugger client by using the <see cref="IDebugClient6.SetEventContextCallbacks"/> method.
+    /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("61a4905b-23f9-4247-b3c5-53d087529ab7")]
     [ComImport]
@@ -9,7 +15,7 @@ namespace ClrDebug.DbgEng
     {
         [PreserveSig]
         HRESULT GetInterestMask(
-            [Out] out DEBUG_EVENT mask);
+            [Out] out DEBUG_EVENT_TYPE mask);
 
         [PreserveSig]
         DEBUG_STATUS Breakpoint(

@@ -2,6 +2,14 @@
 
 namespace ClrDebug.DbgEng
 {
+    /// <summary>
+    /// The DEBUG_VALUE structure holds register and expression values.
+    /// </summary>
+    /// <remarks>
+    /// The Type field specifies the value type that is being held by the structure. This also specifies which field in
+    /// the structure is valid. The possible values of the Type field, and the corresponding field specified as valid in
+    /// the structure, include the following.
+    /// </remarks>
     [StructLayout(LayoutKind.Explicit)]
     public unsafe struct DEBUG_VALUE
     {
@@ -43,8 +51,16 @@ namespace ClrDebug.DbgEng
         public F128PARTS64 F128Parts64;
         [FieldOffset(0)]
         public fixed byte RawBytes[24];
+
+        /// <summary>
+        /// See Remarks.
+        /// </summary>
         [FieldOffset(24)]
         public uint TailOfRawBytes;
+
+        /// <summary>
+        /// See Remarks.
+        /// </summary>
         [FieldOffset(28)]
         public DEBUG_VALUE_TYPE Type;
     }

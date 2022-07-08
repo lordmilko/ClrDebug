@@ -4,10 +4,12 @@ using System.Text;
 namespace ClrDebug.DbgEng
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    [Guid("6b86fe2c-2c4f-4f0c-9da2-174311acc327")]
+    [Guid("489468E6-7D0F-4AF5-87AB-25207454D553")]
     [ComImport]
-    public interface IDebugSystemObjects
+    public interface IDebugSystemObjects4 : IDebugSystemObjects3
     {
+        #region IDebugSystemObjects
+
         /// <summary>
         /// The GetEventThread method returns the engine thread ID for the thread on which the last event occurred.
         /// </summary>
@@ -19,7 +21,7 @@ namespace ClrDebug.DbgEng
         /// engine events, see Monitoring Events.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetEventThread(
+        new HRESULT GetEventThread(
             [Out] out uint Id);
 
         /// <summary>
@@ -33,7 +35,7 @@ namespace ClrDebug.DbgEng
         /// Events.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetEventProcess(
+        new HRESULT GetEventProcess(
             [Out] out uint Id);
 
         /// <summary>
@@ -45,7 +47,7 @@ namespace ClrDebug.DbgEng
         /// For more information about threads, see Threads and Processes.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetCurrentThreadId(
+        new HRESULT GetCurrentThreadId(
             [Out] out uint Id);
 
         /// <summary>
@@ -59,7 +61,7 @@ namespace ClrDebug.DbgEng
         /// bit set.
         /// </remarks>
         [PreserveSig]
-        HRESULT SetCurrentThreadId(
+        new HRESULT SetCurrentThreadId(
             [In] uint Id);
 
         /// <summary>
@@ -71,7 +73,7 @@ namespace ClrDebug.DbgEng
         /// For more information about processes, see Threads and Processes.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetCurrentProcessId(
+        new HRESULT GetCurrentProcessId(
             [Out] out uint Id);
 
         /// <summary>
@@ -85,7 +87,7 @@ namespace ClrDebug.DbgEng
         /// bit set.
         /// </remarks>
         [PreserveSig]
-        HRESULT SetCurrentProcessId(
+        new HRESULT SetCurrentProcessId(
             [In] uint Id);
 
         /// <summary>
@@ -99,7 +101,7 @@ namespace ClrDebug.DbgEng
         /// events. For more information about threads, see Threads and Processes.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetNumberThreads(
+        new HRESULT GetNumberThreads(
             [Out] out uint Number);
 
         /// <summary>
@@ -112,7 +114,7 @@ namespace ClrDebug.DbgEng
         /// For more information about threads, see Threads and Processes.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetTotalNumberThreads(
+        new HRESULT GetTotalNumberThreads(
             [Out] out uint Total,
             [Out] out uint LargestProcess);
 
@@ -129,11 +131,13 @@ namespace ClrDebug.DbgEng
         /// minus one. For more information about threads, see Threads and Processes.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetThreadIdsByIndex(
+        new HRESULT GetThreadIdsByIndex(
             [In] uint Start,
             [In] uint Count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] uint[] Ids,
-            [Out, MarshalAs(UnmanagedType.LPArray)] uint[] SysIds);
+            [Out, MarshalAs(UnmanagedType.LPArray)]
+            uint[] Ids,
+            [Out, MarshalAs(UnmanagedType.LPArray)]
+            uint[] SysIds);
 
         /// <summary>
         /// The GetThreadIdByProcessor method returns the engine thread ID for the kernel-mode virtual thread corresponding to the specified processor.
@@ -145,7 +149,7 @@ namespace ClrDebug.DbgEng
         /// This method is only available in kernel-mode debugging. For more information about threads, see Threads and Processes.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetThreadIdByProcessor(
+        new HRESULT GetThreadIdByProcessor(
             [In] uint Processor,
             [Out] out uint Id);
 
@@ -161,7 +165,7 @@ namespace ClrDebug.DbgEng
         /// current thread when the last event occurred.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetCurrentThreadDataOffset(
+        new HRESULT GetCurrentThreadDataOffset(
             [Out] out ulong Offset);
 
         /// <summary>
@@ -176,7 +180,7 @@ namespace ClrDebug.DbgEng
         /// For more information about threads, see Threads and Processes.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetThreadIdByDataOffset(
+        new HRESULT GetThreadIdByDataOffset(
             [In] ulong Offset,
             [Out] out uint Id);
 
@@ -191,7 +195,7 @@ namespace ClrDebug.DbgEng
         /// on the processor represented by the current thread when the last event occurred.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetCurrentThreadTeb(
+        new HRESULT GetCurrentThreadTeb(
             [Out] out ulong Offset);
 
         /// <summary>
@@ -206,7 +210,7 @@ namespace ClrDebug.DbgEng
         /// For more information about threads, see Threads and Processes.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetThreadIdByTeb(
+        new HRESULT GetThreadIdByTeb(
             [In] ulong Offset,
             [Out] out uint Id);
 
@@ -219,7 +223,7 @@ namespace ClrDebug.DbgEng
         /// This method is only available in user-mode debugging. For more information about threads, see Threads and Processes.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetCurrentThreadSystemId(
+        new HRESULT GetCurrentThreadSystemId(
             [Out] out uint SysId);
 
         /// <summary>
@@ -232,7 +236,7 @@ namespace ClrDebug.DbgEng
         /// This method is only available in user-mode debugging. For more information about threads, see Threads and Processes.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetThreadIdBySystemId(
+        new HRESULT GetThreadIdBySystemId(
             [In] uint SysId,
             [Out] out uint Id);
 
@@ -246,7 +250,7 @@ namespace ClrDebug.DbgEng
         /// about threads, see Threads and Processes. For details on system handles, see Handles.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetCurrentThreadHandle(
+        new HRESULT GetCurrentThreadHandle(
             [Out] out ulong Handle);
 
         /// <summary>
@@ -261,7 +265,7 @@ namespace ClrDebug.DbgEng
         /// Processes. For details on system handles, see Handles.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetThreadIdByHandle(
+        new HRESULT GetThreadIdByHandle(
             [In] ulong Handle,
             [Out] out uint Id);
 
@@ -276,7 +280,7 @@ namespace ClrDebug.DbgEng
         /// about processes, see Threads and Processes.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetNumberProcesses(
+        new HRESULT GetNumberProcesses(
             [Out] out uint Number);
 
         /// <summary>
@@ -292,11 +296,13 @@ namespace ClrDebug.DbgEng
         /// cref="GetNumberProcesses"/> minus one. For more information about processes, see Threads and Processes.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetProcessIdsByIndex(
+        new HRESULT GetProcessIdsByIndex(
             [In] uint Start,
             [In] uint Count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] uint[] Ids,
-            [Out, MarshalAs(UnmanagedType.LPArray)] uint[] SysIds);
+            [Out, MarshalAs(UnmanagedType.LPArray)]
+            uint[] Ids,
+            [Out, MarshalAs(UnmanagedType.LPArray)]
+            uint[] SysIds);
 
         /// <summary>
         /// The GetCurrentProcessDataOffset method returns the location of the system data structure describing the current process.
@@ -309,7 +315,7 @@ namespace ClrDebug.DbgEng
         /// returned is of the KPROCESS structure for the system process in which the last event occurred.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetCurrentProcessDataOffset(
+        new HRESULT GetCurrentProcessDataOffset(
             [Out] out ulong Offset);
 
         /// <summary>
@@ -323,7 +329,7 @@ namespace ClrDebug.DbgEng
         /// same as <see cref="GetProcessIdByPeb"/>. For more information about processes, see Threads and Processes.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetProcessIdByDataOffset(
+        new HRESULT GetProcessIdByDataOffset(
             [In] ulong Offset,
             [Out] out uint Id);
 
@@ -338,7 +344,7 @@ namespace ClrDebug.DbgEng
         /// last event occurred.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetCurrentProcessPeb(
+        new HRESULT GetCurrentProcessPeb(
             [Out] out ulong Offset);
 
         /// <summary>
@@ -351,7 +357,7 @@ namespace ClrDebug.DbgEng
         /// This method is not available in kernel-mode debugging. For more information about processes, see Threads and Processes.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetProcessIdByPeb(
+        new HRESULT GetProcessIdByPeb(
             [In] ulong Offset,
             [Out] out uint Id);
 
@@ -364,7 +370,7 @@ namespace ClrDebug.DbgEng
         /// This method is only available in user-mode debugging. For more information about processes, see Threads and Processes.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetCurrentProcessSystemId(
+        new HRESULT GetCurrentProcessSystemId(
             [Out] out uint SysId);
 
         /// <summary>
@@ -377,7 +383,7 @@ namespace ClrDebug.DbgEng
         /// This method is only available in user-mode debugging. For more information about processes, see Threads and Processes.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetProcessIdBySystemId(
+        new HRESULT GetProcessIdBySystemId(
             [In] uint SysId,
             [Out] out uint Id);
 
@@ -392,7 +398,7 @@ namespace ClrDebug.DbgEng
         /// more information about processes, see Threads and Processes. For details on system handles, see Handles.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetCurrentProcessHandle(
+        new HRESULT GetCurrentProcessHandle(
             [Out] out ulong Handle);
 
         /// <summary>
@@ -405,7 +411,7 @@ namespace ClrDebug.DbgEng
         /// For more information about processes, see Threads and Processes. For details on system handles, see Handles.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetProcessIdByHandle(
+        new HRESULT GetProcessIdByHandle(
             [In] ulong Handle,
             [Out] out uint Id);
 
@@ -422,9 +428,220 @@ namespace ClrDebug.DbgEng
         /// file, it writes the string "?NoImage?" to the buffer. For more information about processes, see Threads and Processes.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetCurrentProcessExecutableName(
+        new HRESULT GetCurrentProcessExecutableName(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint ExeSize);
+
+        #endregion
+        #region IDebugSystemObjects2
+
+        /// <summary>
+        /// The GetCurrentProcessUpTime method returns the length of time the current process has been running.
+        /// </summary>
+        /// <param name="UpTime">[out] Receives the number of seconds the current process has been running.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        [PreserveSig]
+        new HRESULT GetCurrentProcessUpTime(
+            [Out] out uint UpTime);
+
+        /// <summary>
+        /// The GetImplicitThreadDataOffset method returns the implicit thread for the current process.
+        /// </summary>
+        /// <param name="Offset">[out] Receives the location in the target's memory address space of the data structure of the system thread that is the implicit thread for the current process.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        /// <remarks>
+        /// In kernel-mode debugging, the data structure is the KTHREAD structure for the process. In user-mode debugging,
+        /// the data structure is the thread environment block (TEB) for the process. For more information about the implicit
+        /// thread, see Threads and Processes. For details on the KTHREAD structure and TEB, see Microsoft Windows Internals
+        /// by David Solomon and Mark Russinovich.
+        /// </remarks>
+        [PreserveSig]
+        new HRESULT GetImplicitThreadDataOffset(
+            [Out] out ulong Offset);
+
+        /// <summary>
+        /// The SetImplicitThreadDataOffset method sets the implicit thread for the current process.
+        /// </summary>
+        /// <param name="Offset">[in] Specifies the location in the target's memory address space of the data structure of the system thread that is to become the implicit thread for the current process.<para/>
+        /// If this is zero, the implicit thread for the current process is set to the default implicit thread.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        /// <remarks>
+        /// In kernel-mode debugging, the data structure is the KTHREAD structure for the process. In user-mode debugging,
+        /// the data structure is the thread environment block (TEB) for the process.
+        /// </remarks>
+        [PreserveSig]
+        new HRESULT SetImplicitThreadDataOffset(
+            [In] ulong Offset);
+
+        /// <summary>
+        /// The GetImplicitProcessDataOffset method returns the implicit process for the current target.
+        /// </summary>
+        /// <param name="Offset">[out] Receives the location in the target's memory address space of the data structure of the system process that is the implicit process for the current target.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        /// <remarks>
+        /// In kernel-mode debugging, the data structure is the KPROCESS structure for the process. In user-mode debugging,
+        /// the data structure is the process environment block (PEB) for the process. For more information about the implicit
+        /// process, see Threads and Processes. For details on the KPROCESS and PEB structures, see Microsoft Windows Internals
+        /// by David Solomon and Mark Russinovich.
+        /// </remarks>
+        [PreserveSig]
+        new HRESULT GetImplicitProcessDataOffset(
+            [Out] out ulong Offset);
+
+        /// <summary>
+        /// The SetImplicitProcessDataOffset method sets the implicit process for the current target.
+        /// </summary>
+        /// <param name="Offset">[in] Specifies the location in the target's memory address space of the data structure of the system process that is to become the implicit process for the current target.<para/>
+        /// If this is zero, the implicit process for the current target is set to the default implicit process.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        /// <remarks>
+        /// In kernel-mode debugging, the data structure is the KPROCESS structure for the process. In user-mode debugging,
+        /// the data structure is the process environment block (PEB) for the process.
+        /// </remarks>
+        [PreserveSig]
+        new HRESULT SetImplicitProcessDataOffset(
+            [In] ulong Offset);
+
+        #endregion
+        #region IDebugSystemObjects3
+
+        /// <summary>
+        /// The GetEventSystem method returns the engine target ID for the target in which the last event occurred.
+        /// </summary>
+        /// <param name="id">[out] Receives the engine target ID.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        [PreserveSig]
+        new HRESULT GetEventSystem([Out] out uint id);
+
+        /// <summary>
+        /// The GetCurrentSystemId method returns the engine target ID for the current process.
+        /// </summary>
+        /// <param name="id">[out] Receives the engine target ID.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        [PreserveSig]
+        new HRESULT GetCurrentSystemId([Out] out uint id);
+
+        /// <summary>
+        /// The SetCurrentSystemId method makes the specified target the current target.
+        /// </summary>
+        /// <param name="id">[in] Specifies the engine target ID for the target that is to become the current target.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        /// <remarks>
+        /// This method also sets the current thread and current process, and may change the current computer. If the current
+        /// target is changed, the callback <see cref="IDebugEventCallbacks.ChangeEngineState"/> will be called with the DEBUG_CES_CURRENT_THREAD
+        /// bit set.
+        /// </remarks>
+        [PreserveSig]
+        new HRESULT SetCurrentSystemId([In] uint id);
+
+        /// <summary>
+        /// The GetNumberSystems method returns the number of targets to which the engine is currently connected.
+        /// </summary>
+        /// <param name="count">[out] Receives the number of targets.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        [PreserveSig]
+        new HRESULT GetNumberSystems([Out] out uint count);
+
+        /// <summary>
+        /// The GetSystemIdsByIndex method returns the engine target IDs for the specified targets.
+        /// </summary>
+        /// <param name="start">[in] Specifies the index of the first target whose target ID is requested.</param>
+        /// <param name="count">[in] Specifies the number of processes whose IDs are requested.</param>
+        /// <param name="Ids">[out] Receives the engine target IDs. If Ids is NULL, this information is not returned; otherwise, Ids is treated as an array of Count ULONG values.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        /// <remarks>
+        /// The index of the first target is zero. The index of the last target is the number of targets returned by <see cref="GetNumberSystems"/>
+        /// minus one.
+        /// </remarks>
+        [PreserveSig]
+        new HRESULT GetSystemIdsByIndex(
+            [In] uint start,
+            [In] uint count,
+            [Out, MarshalAs(UnmanagedType.LPArray)] uint[] Ids);
+
+        /// <summary>
+        /// The GetTotalNumberThreadsAndProcesses method returns the total number of threads and processes in all the targets the engine is attached to, in addition to the largest number of threads and processes in a target.
+        /// </summary>
+        /// <param name="totalThreads">[out] Receives the total number of threads in all processes in all targets.</param>
+        /// <param name="totalProcesses">[out] Receives the total number of processes in all targets.</param>
+        /// <param name="largestProcessThreads">[out] Receives the largest number of threads in any process on any target.</param>
+        /// <param name="largestSystemThreads">[out] Receives the largest number of threads in any target.</param>
+        /// <param name="largestSystemProcesses">[out] Receives the largest number of processes in any target.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        /// <remarks>
+        /// If no target is found, all the values are set to zero.
+        /// </remarks>
+        [PreserveSig]
+        new HRESULT GetTotalNumberThreadsAndProcesses(
+            [Out] out uint totalThreads,
+            [Out] out uint totalProcesses,
+            [Out] out uint largestProcessThreads,
+            [Out] out uint largestSystemThreads,
+            [Out] out uint largestSystemProcesses);
+
+        /// <summary>
+        /// Gets the server for the current process.
+        /// </summary>
+        /// <param name="server">[out] A pointer to the returned server value.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        [PreserveSig]
+        new HRESULT GetCurrentSystemServer([Out] out ulong server);
+
+        /// <summary>
+        /// Gets the system for a server.
+        /// </summary>
+        /// <param name="Buffer">[out] A pointer to an output buffer.</param>
+        /// <param name="BufferSize">[in] The size of the buffer. This size includes the space for the '\0' terminating character.</param>
+        /// <param name="NameSize">[out, optional] A pointer to the name size. This size includes the space for the '\0' terminating character.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        [PreserveSig]
+        new HRESULT GetSystemByServer([In] ulong server, [Out] out uint id);
+
+        /// <summary>
+        /// Gets the server name for the current process.
+        /// </summary>
+        /// <param name="buffer">[out] A pointer to an output buffer.</param>
+        /// <param name="size">[in] The size of the buffer. This size includes the space for the '\0' terminating character.</param>
+        /// <param name="needed">[out, optional] A pointer to the name size. This size includes the space for the '\0' terminating character.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        [PreserveSig]
+        new HRESULT GetCurrentSystemServerName([Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder buffer, [In] uint size, [Out] out uint needed);
+
+        #endregion
+        #region IDebugSystemObjects4
+
+        /// <summary>
+        /// The GetCurrentProcessExecutableNameWide method returns the name of executable file loaded in the current process.
+        /// </summary>
+        /// <param name="Buffer">[out, optional] Receives the name of the executable file. If Buffer is NULL, this information is not returned.</param>
+        /// <param name="BufferSize">[in] Specifies the size in characters of the buffer Buffer. This size includes the space for the '\0' terminating character.</param>
+        /// <param name="ExeSize">[out, optional] Receives the size in characters of the name of the executable file. This size includes the space for the '\0' terminating character.<para/>
+        /// If ExeSize is NULL, this information is not returned.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        /// <remarks>
+        /// These methods are only available in user-mode debugging. If the engine cannot determine the name of the executable
+        /// file, it writes the string "?NoImage?" to the buffer. For more information about processes, see Threads and Processes.
+        /// </remarks>
+        [PreserveSig]
+        HRESULT GetCurrentProcessExecutableNameWide(
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [In] uint BufferSize,
+            [Out] out uint ExeSize);
+
+        /// <summary>
+        /// Gets the server name for the current process.
+        /// </summary>
+        /// <param name="Buffer">[out] A pointer to an output buffer as a Unicode character string.</param>
+        /// <param name="BufferSize">[in] The buffer size. This size includes the space for the '\0' terminating character.</param>
+        /// <param name="NameSize">[out, optional] A pointer to the name size. This size includes the space for the '\0' terminating character.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        [PreserveSig]
+        HRESULT GetCurrentSystemServerNameWide(
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [In] uint BufferSize,
+            [Out] out uint NameSize);
+
+        #endregion
     }
 }
