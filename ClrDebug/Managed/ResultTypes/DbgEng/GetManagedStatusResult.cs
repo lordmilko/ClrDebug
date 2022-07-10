@@ -1,0 +1,27 @@
+﻿using System.Diagnostics;
+
+namespace ClrDebug.DbgEng
+{
+    /// <summary>
+    /// Encapsulates the results of the <see cref="DebugControl.GetManagedStatus"/> method.
+    /// </summary>
+    [DebuggerDisplay("Flags = {Flags.ToString(),nq}, String = {String}")]
+    public struct GetManagedStatusResult
+    {
+        /// <summary>
+        /// A pointer to flags from the debugging APIs.
+        /// </summary>
+        public DEBUG_MANAGED Flags { get; }
+
+        /// <summary>
+        /// A pointer to a string from the debugging APIs.
+        /// </summary>
+        public string String { get; }
+
+        public GetManagedStatusResult(DEBUG_MANAGED flags, string @string)
+        {
+            Flags = flags;
+            String = @string;
+        }
+    }
+}

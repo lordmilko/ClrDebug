@@ -509,23 +509,23 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetEventSystem method returns the engine target ID for the target in which the last event occurred.
         /// </summary>
-        /// <param name="id">[out] Receives the engine target ID.</param>
+        /// <param name="Id">[out] Receives the engine target ID.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
-        new HRESULT GetEventSystem([Out] out uint id);
+        new HRESULT GetEventSystem([Out] out uint Id);
 
         /// <summary>
         /// The GetCurrentSystemId method returns the engine target ID for the current process.
         /// </summary>
-        /// <param name="id">[out] Receives the engine target ID.</param>
+        /// <param name="Id">[out] Receives the engine target ID.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
-        new HRESULT GetCurrentSystemId([Out] out uint id);
+        new HRESULT GetCurrentSystemId([Out] out uint Id);
 
         /// <summary>
         /// The SetCurrentSystemId method makes the specified target the current target.
         /// </summary>
-        /// <param name="id">[in] Specifies the engine target ID for the target that is to become the current target.</param>
+        /// <param name="Id">[in] Specifies the engine target ID for the target that is to become the current target.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
         /// This method also sets the current thread and current process, and may change the current computer. If the current
@@ -533,21 +533,21 @@ namespace ClrDebug.DbgEng
         /// bit set.
         /// </remarks>
         [PreserveSig]
-        new HRESULT SetCurrentSystemId([In] uint id);
+        new HRESULT SetCurrentSystemId([In] uint Id);
 
         /// <summary>
         /// The GetNumberSystems method returns the number of targets to which the engine is currently connected.
         /// </summary>
-        /// <param name="count">[out] Receives the number of targets.</param>
+        /// <param name="Count">[out] Receives the number of targets.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
-        new HRESULT GetNumberSystems([Out] out uint count);
+        new HRESULT GetNumberSystems([Out] out uint Count);
 
         /// <summary>
         /// The GetSystemIdsByIndex method returns the engine target IDs for the specified targets.
         /// </summary>
-        /// <param name="start">[in] Specifies the index of the first target whose target ID is requested.</param>
-        /// <param name="count">[in] Specifies the number of processes whose IDs are requested.</param>
+        /// <param name="Start">[in] Specifies the index of the first target whose target ID is requested.</param>
+        /// <param name="Count">[in] Specifies the number of processes whose IDs are requested.</param>
         /// <param name="Ids">[out] Receives the engine target IDs. If Ids is NULL, this information is not returned; otherwise, Ids is treated as an array of Count ULONG values.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
@@ -556,29 +556,29 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetSystemIdsByIndex(
-            [In] uint start,
-            [In] uint count,
+            [In] uint Start,
+            [In] uint Count,
             [Out, MarshalAs(UnmanagedType.LPArray)] uint[] Ids);
 
         /// <summary>
         /// The GetTotalNumberThreadsAndProcesses method returns the total number of threads and processes in all the targets the engine is attached to, in addition to the largest number of threads and processes in a target.
         /// </summary>
-        /// <param name="totalThreads">[out] Receives the total number of threads in all processes in all targets.</param>
-        /// <param name="totalProcesses">[out] Receives the total number of processes in all targets.</param>
-        /// <param name="largestProcessThreads">[out] Receives the largest number of threads in any process on any target.</param>
-        /// <param name="largestSystemThreads">[out] Receives the largest number of threads in any target.</param>
-        /// <param name="largestSystemProcesses">[out] Receives the largest number of processes in any target.</param>
+        /// <param name="TotalThreads">[out] Receives the total number of threads in all processes in all targets.</param>
+        /// <param name="TotalProcesses">[out] Receives the total number of processes in all targets.</param>
+        /// <param name="LargestProcessThreads">[out] Receives the largest number of threads in any process on any target.</param>
+        /// <param name="LargestSystemThreads">[out] Receives the largest number of threads in any target.</param>
+        /// <param name="LargestSystemProcesses">[out] Receives the largest number of processes in any target.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
         /// If no target is found, all the values are set to zero.
         /// </remarks>
         [PreserveSig]
         new HRESULT GetTotalNumberThreadsAndProcesses(
-            [Out] out uint totalThreads,
-            [Out] out uint totalProcesses,
-            [Out] out uint largestProcessThreads,
-            [Out] out uint largestSystemThreads,
-            [Out] out uint largestSystemProcesses);
+            [Out] out uint TotalThreads,
+            [Out] out uint TotalProcesses,
+            [Out] out uint LargestProcessThreads,
+            [Out] out uint LargestSystemThreads,
+            [Out] out uint LargestSystemProcesses);
 
         /// <summary>
         /// Gets the server for the current process.
@@ -596,17 +596,17 @@ namespace ClrDebug.DbgEng
         /// <param name="NameSize">[out, optional] A pointer to the name size. This size includes the space for the '\0' terminating character.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
-        new HRESULT GetSystemByServer([In] ulong server, [Out] out uint id);
+        new HRESULT GetSystemByServer([In] ulong Server, [Out] out uint Id);
 
         /// <summary>
         /// Gets the server name for the current process.
         /// </summary>
-        /// <param name="buffer">[out] A pointer to an output buffer.</param>
-        /// <param name="size">[in] The size of the buffer. This size includes the space for the '\0' terminating character.</param>
-        /// <param name="needed">[out, optional] A pointer to the name size. This size includes the space for the '\0' terminating character.</param>
+        /// <param name="Buffer">[out] A pointer to an output buffer.</param>
+        /// <param name="Size">[in] The size of the buffer. This size includes the space for the '\0' terminating character.</param>
+        /// <param name="Needed">[out, optional] A pointer to the name size. This size includes the space for the '\0' terminating character.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
-        new HRESULT GetCurrentSystemServerName([Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder buffer, [In] uint size, [Out] out uint needed);
+        new HRESULT GetCurrentSystemServerName([Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] uint Size, [Out] out uint Needed);
 
         #endregion
         #region IDebugSystemObjects4
