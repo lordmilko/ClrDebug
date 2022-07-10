@@ -1846,7 +1846,7 @@ namespace ClrDebug.DbgEng
         /// a new symbol group, the old symbol group can be updated. For more information about scopes and symbol groups, see
         /// Scopes and Symbol Groups.
         /// </remarks>
-        public DebugSymbolGroup GetScopeSymbolGroup(DEBUG_SCOPE_GROUP flags, IDebugSymbolGroup update)
+        public DebugSymbolGroup GetScopeSymbolGroup(DEBUG_SCOPE_GROUP flags, IntPtr update)
         {
             DebugSymbolGroup symbolsResult;
             TryGetScopeSymbolGroup(flags, update, out symbolsResult).ThrowDbgEngNotOk();
@@ -1867,14 +1867,14 @@ namespace ClrDebug.DbgEng
         /// a new symbol group, the old symbol group can be updated. For more information about scopes and symbol groups, see
         /// Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TryGetScopeSymbolGroup(DEBUG_SCOPE_GROUP flags, IDebugSymbolGroup update, out DebugSymbolGroup symbolsResult)
+        public HRESULT TryGetScopeSymbolGroup(DEBUG_SCOPE_GROUP flags, IntPtr update, out DebugSymbolGroup symbolsResult)
         {
             InitDelegate(ref getScopeSymbolGroup, Vtbl->GetScopeSymbolGroup);
             /*HRESULT GetScopeSymbolGroup(
             [In] DEBUG_SCOPE_GROUP Flags,
-            [In, MarshalAs(UnmanagedType.Interface)] IDebugSymbolGroup Update,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugSymbolGroup Symbols);*/
-            IDebugSymbolGroup symbols;
+            [In, ComAliasName("IDebugSymbolGroup")] IntPtr Update,
+            [Out, ComAliasName("IDebugSymbolGroup")] out IntPtr Symbols);*/
+            IntPtr symbols;
             HRESULT hr = getScopeSymbolGroup(Raw, flags, update, out symbols);
 
             if (hr == HRESULT.S_OK)
@@ -1923,8 +1923,8 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref createSymbolGroup, Vtbl->CreateSymbolGroup);
             /*HRESULT CreateSymbolGroup(
-            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugSymbolGroup Group);*/
-            IDebugSymbolGroup group;
+            [Out, ComAliasName("IDebugSymbolGroup")] out IntPtr Group);*/
+            IntPtr group;
             HRESULT hr = createSymbolGroup(Raw, out group);
 
             if (hr == HRESULT.S_OK)
@@ -3732,7 +3732,7 @@ namespace ClrDebug.DbgEng
         /// a new symbol group, the old symbol group can be updated. For more information about scopes and symbol groups, see
         /// Scopes and Symbol Groups.
         /// </remarks>
-        public DebugSymbolGroup GetScopeSymbolGroup2(DEBUG_SCOPE_GROUP flags, IDebugSymbolGroup2 update)
+        public DebugSymbolGroup GetScopeSymbolGroup2(DEBUG_SCOPE_GROUP flags, IntPtr update)
         {
             DebugSymbolGroup symbolsResult;
             TryGetScopeSymbolGroup2(flags, update, out symbolsResult).ThrowDbgEngNotOk();
@@ -3753,14 +3753,14 @@ namespace ClrDebug.DbgEng
         /// a new symbol group, the old symbol group can be updated. For more information about scopes and symbol groups, see
         /// Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TryGetScopeSymbolGroup2(DEBUG_SCOPE_GROUP flags, IDebugSymbolGroup2 update, out DebugSymbolGroup symbolsResult)
+        public HRESULT TryGetScopeSymbolGroup2(DEBUG_SCOPE_GROUP flags, IntPtr update, out DebugSymbolGroup symbolsResult)
         {
             InitDelegate(ref getScopeSymbolGroup2, Vtbl3->GetScopeSymbolGroup2);
             /*HRESULT GetScopeSymbolGroup2(
             [In] DEBUG_SCOPE_GROUP Flags,
-            [In, MarshalAs(UnmanagedType.Interface)] IDebugSymbolGroup2 Update,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugSymbolGroup2 Symbols);*/
-            IDebugSymbolGroup2 symbols;
+            [In, ComAliasName("IDebugSymbolGroup2")] IntPtr Update,
+            [Out, ComAliasName("IDebugSymbolGroup2")] out IntPtr Symbols);*/
+            IntPtr symbols;
             HRESULT hr = getScopeSymbolGroup2(Raw, flags, update, out symbols);
 
             if (hr == HRESULT.S_OK)
@@ -3809,8 +3809,8 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref createSymbolGroup2, Vtbl3->CreateSymbolGroup2);
             /*HRESULT CreateSymbolGroup2(
-            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugSymbolGroup2 Group);*/
-            IDebugSymbolGroup2 group;
+            [Out, ComAliasName("IDebugSymbolGroup2")] out IntPtr Group);*/
+            IntPtr group;
             HRESULT hr = createSymbolGroup2(Raw, out group);
 
             if (hr == HRESULT.S_OK)
@@ -6950,8 +6950,8 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetScopeDelegate(IntPtr self, [Out] out ulong InstructionOffset, [Out] out DEBUG_STACK_FRAME ScopeFrame, [In] IntPtr ScopeContext, [In] uint ScopeContextSize);
         private delegate HRESULT SetScopeDelegate(IntPtr self, [In] ulong InstructionOffset, [In] DEBUG_STACK_FRAME ScopeFrame, [In] IntPtr ScopeContext, [In] uint ScopeContextSize);
         private delegate HRESULT ResetScopeDelegate(IntPtr self);
-        private delegate HRESULT GetScopeSymbolGroupDelegate(IntPtr self, [In] DEBUG_SCOPE_GROUP Flags, [In, MarshalAs(UnmanagedType.Interface)] IDebugSymbolGroup Update, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugSymbolGroup Symbols);
-        private delegate HRESULT CreateSymbolGroupDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugSymbolGroup Group);
+        private delegate HRESULT GetScopeSymbolGroupDelegate(IntPtr self, [In] DEBUG_SCOPE_GROUP Flags, [In, ComAliasName("IDebugSymbolGroup")] IntPtr Update, [Out, ComAliasName("IDebugSymbolGroup")] out IntPtr Symbols);
+        private delegate HRESULT CreateSymbolGroupDelegate(IntPtr self, [Out, ComAliasName("IDebugSymbolGroup")] out IntPtr Group);
         private delegate HRESULT StartSymbolMatchDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Pattern, [Out] out ulong Handle);
         private delegate HRESULT GetNextSymbolMatchDelegate(IntPtr self, [In] ulong Handle, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint MatchSize, [Out] out ulong Offset);
         private delegate HRESULT EndSymbolMatchDelegate(IntPtr self, [In] ulong Handle);
@@ -6996,8 +6996,8 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetTypeIdWideDelegate(IntPtr self, [In] ulong Module, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [Out] out uint TypeId);
         private delegate HRESULT GetFieldOffsetWideDelegate(IntPtr self, [In] ulong Module, [In] uint TypeId, [In, MarshalAs(UnmanagedType.LPWStr)] string Field, [Out] out uint Offset);
         private delegate HRESULT GetSymbolTypeIdWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol, [Out] out uint TypeId, [Out] out ulong Module);
-        private delegate HRESULT GetScopeSymbolGroup2Delegate(IntPtr self, [In] DEBUG_SCOPE_GROUP Flags, [In, MarshalAs(UnmanagedType.Interface)] IDebugSymbolGroup2 Update, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugSymbolGroup2 Symbols);
-        private delegate HRESULT CreateSymbolGroup2Delegate(IntPtr self, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugSymbolGroup2 Group);
+        private delegate HRESULT GetScopeSymbolGroup2Delegate(IntPtr self, [In] DEBUG_SCOPE_GROUP Flags, [In, ComAliasName("IDebugSymbolGroup2")] IntPtr Update, [Out, ComAliasName("IDebugSymbolGroup2")] out IntPtr Symbols);
+        private delegate HRESULT CreateSymbolGroup2Delegate(IntPtr self, [Out, ComAliasName("IDebugSymbolGroup2")] out IntPtr Group);
         private delegate HRESULT StartSymbolMatchWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Pattern, [Out] out ulong Handle);
         private delegate HRESULT GetNextSymbolMatchWideDelegate(IntPtr self, [In] ulong Handle, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint MatchSize, [Out] out ulong Offset);
         private delegate HRESULT ReloadWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Module);

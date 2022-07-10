@@ -2858,8 +2858,8 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getBreakpointByIndex, Vtbl->GetBreakpointByIndex);
             /*HRESULT GetBreakpointByIndex(
             [In] uint Index,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugBreakpoint bp);*/
-            IDebugBreakpoint bp;
+            [Out, ComAliasName("IDebugBreakpoint")] out IntPtr bp);*/
+            IntPtr bp;
             HRESULT hr = getBreakpointByIndex(Raw, index, out bp);
 
             if (hr == HRESULT.S_OK)
@@ -2903,8 +2903,8 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getBreakpointById, Vtbl->GetBreakpointById);
             /*HRESULT GetBreakpointById(
             [In] uint Id,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugBreakpoint bp);*/
-            IDebugBreakpoint bp;
+            [Out, ComAliasName("IDebugBreakpoint")] out IntPtr bp);*/
+            IntPtr bp;
             HRESULT hr = getBreakpointById(Raw, id, out bp);
 
             if (hr == HRESULT.S_OK)
@@ -3009,8 +3009,8 @@ namespace ClrDebug.DbgEng
             /*HRESULT AddBreakpoint(
             [In] DEBUG_BREAKPOINT_TYPE Type,
             [In] uint DesiredId,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugBreakpoint Bp);*/
-            IDebugBreakpoint bp;
+            [Out, ComAliasName("IDebugBreakpoint")] out IntPtr Bp);*/
+            IntPtr bp;
             HRESULT hr = addBreakpoint(Raw, type, desiredId, out bp);
 
             if (hr == HRESULT.S_OK)
@@ -3032,7 +3032,7 @@ namespace ClrDebug.DbgEng
         /// After RemoveBreakpoint and RemoveBreakpoint2 are called, the breakpoint object specified in the Bp parameter must
         /// not be used again.
         /// </remarks>
-        public void RemoveBreakpoint(IDebugBreakpoint bp)
+        public void RemoveBreakpoint(IntPtr bp)
         {
             TryRemoveBreakpoint(bp).ThrowDbgEngNotOk();
         }
@@ -3046,13 +3046,12 @@ namespace ClrDebug.DbgEng
         /// After RemoveBreakpoint and RemoveBreakpoint2 are called, the breakpoint object specified in the Bp parameter must
         /// not be used again.
         /// </remarks>
-        public HRESULT TryRemoveBreakpoint(IDebugBreakpoint bp)
+        public HRESULT TryRemoveBreakpoint(IntPtr bp)
         {
             InitDelegate(ref removeBreakpoint, Vtbl->RemoveBreakpoint);
 
             /*HRESULT RemoveBreakpoint(
-            [In, MarshalAs(UnmanagedType.Interface)]
-            IDebugBreakpoint Bp);*/
+            [In, ComAliasName("IDebugBreakpoint")] IntPtr Bp);*/
             return removeBreakpoint(Raw, bp);
         }
 
@@ -6031,8 +6030,8 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getBreakpointByIndex2, Vtbl4->GetBreakpointByIndex2);
             /*HRESULT GetBreakpointByIndex2(
             [In] uint Index,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugBreakpoint2 bp);*/
-            IDebugBreakpoint2 bp;
+            [Out, ComAliasName("IDebugBreakpoint2")] out IntPtr bp);*/
+            IntPtr bp;
             HRESULT hr = getBreakpointByIndex2(Raw, index, out bp);
 
             if (hr == HRESULT.S_OK)
@@ -6076,8 +6075,8 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getBreakpointById2, Vtbl4->GetBreakpointById2);
             /*HRESULT GetBreakpointById2(
             [In] uint Id,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugBreakpoint2 bp);*/
-            IDebugBreakpoint2 bp;
+            [Out, ComAliasName("IDebugBreakpoint2")] out IntPtr bp);*/
+            IntPtr bp;
             HRESULT hr = getBreakpointById2(Raw, id, out bp);
 
             if (hr == HRESULT.S_OK)
@@ -6128,8 +6127,8 @@ namespace ClrDebug.DbgEng
             /*HRESULT AddBreakpoint2(
             [In] DEBUG_BREAKPOINT_TYPE Type,
             [In] uint DesiredId,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugBreakpoint2 Bp);*/
-            IDebugBreakpoint2 bp;
+            [Out, ComAliasName("IDebugBreakpoint2")] out IntPtr Bp);*/
+            IntPtr bp;
             HRESULT hr = addBreakpoint2(Raw, type, desiredId, out bp);
 
             if (hr == HRESULT.S_OK)
@@ -6151,7 +6150,7 @@ namespace ClrDebug.DbgEng
         /// After RemoveBreakpoint and RemoveBreakpoint2 are called, the breakpoint object specified in the Bp parameter must
         /// not be used again.
         /// </remarks>
-        public void RemoveBreakpoint2(IDebugBreakpoint2 bp)
+        public void RemoveBreakpoint2(IntPtr bp)
         {
             TryRemoveBreakpoint2(bp).ThrowDbgEngNotOk();
         }
@@ -6165,12 +6164,12 @@ namespace ClrDebug.DbgEng
         /// After RemoveBreakpoint and RemoveBreakpoint2 are called, the breakpoint object specified in the Bp parameter must
         /// not be used again.
         /// </remarks>
-        public HRESULT TryRemoveBreakpoint2(IDebugBreakpoint2 bp)
+        public HRESULT TryRemoveBreakpoint2(IntPtr bp)
         {
             InitDelegate(ref removeBreakpoint2, Vtbl4->RemoveBreakpoint2);
 
             /*HRESULT RemoveBreakpoint2(
-            [In, MarshalAs(UnmanagedType.Interface)] IDebugBreakpoint2 Bp);*/
+            [In, ComAliasName("IDebugBreakpoint2")] IntPtr Bp);*/
             return removeBreakpoint2(Raw, bp);
         }
 
@@ -7863,8 +7862,8 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getBreakpointByGuid, Vtbl5->GetBreakpointByGuid);
             /*HRESULT GetBreakpointByGuid(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid Guid,
-            [Out] out IDebugBreakpoint3 Bp);*/
-            IDebugBreakpoint3 bp;
+            [Out, ComAliasName("IDebugBreakpoint3")] out IntPtr Bp);*/
+            IntPtr bp;
             HRESULT hr = getBreakpointByGuid(Raw, guid, out bp);
 
             if (hr == HRESULT.S_OK)
@@ -8399,11 +8398,11 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT CoerceValuesDelegate(IntPtr self, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_VALUE[] In, [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_VALUE_TYPE[] OutType, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_VALUE[] Out);
         private delegate HRESULT ExecuteDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPStr)] string Command, [In] DEBUG_EXECUTE Flags);
         private delegate HRESULT ExecuteCommandFileDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPStr)] string CommandFile, [In] DEBUG_EXECUTE Flags);
-        private delegate HRESULT GetBreakpointByIndexDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugBreakpoint bp);
-        private delegate HRESULT GetBreakpointByIdDelegate(IntPtr self, [In] uint Id, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugBreakpoint bp);
+        private delegate HRESULT GetBreakpointByIndexDelegate(IntPtr self, [In] uint Index, [Out, ComAliasName("IDebugBreakpoint")] out IntPtr bp);
+        private delegate HRESULT GetBreakpointByIdDelegate(IntPtr self, [In] uint Id, [Out, ComAliasName("IDebugBreakpoint")] out IntPtr bp);
         private delegate HRESULT GetBreakpointParametersDelegate(IntPtr self, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray)] uint[] Ids, [In] uint Start, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_BREAKPOINT_PARAMETERS[] Params);
-        private delegate HRESULT AddBreakpointDelegate(IntPtr self, [In] DEBUG_BREAKPOINT_TYPE Type, [In] uint DesiredId, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugBreakpoint Bp);
-        private delegate HRESULT RemoveBreakpointDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.Interface)] IDebugBreakpoint Bp);
+        private delegate HRESULT AddBreakpointDelegate(IntPtr self, [In] DEBUG_BREAKPOINT_TYPE Type, [In] uint DesiredId, [Out, ComAliasName("IDebugBreakpoint")] out IntPtr Bp);
+        private delegate HRESULT RemoveBreakpointDelegate(IntPtr self, [In, ComAliasName("IDebugBreakpoint")] IntPtr Bp);
         private delegate HRESULT AddExtensionDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Path, [In] uint Flags, [Out] out ulong Handle);
         private delegate HRESULT RemoveExtensionDelegate(IntPtr self, [In] ulong Handle);
         private delegate HRESULT GetExtensionByPathDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Path, [Out] out ulong Handle);
@@ -8479,10 +8478,10 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT EvaluateWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Expression, [In] DEBUG_VALUE_TYPE DesiredType, [Out] out DEBUG_VALUE Value, [Out] out uint RemainderIndex);
         private delegate HRESULT ExecuteWideDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPWStr)] string Command, [In] DEBUG_EXECUTE Flags);
         private delegate HRESULT ExecuteCommandFileWideDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPWStr)] string CommandFile, [In] DEBUG_EXECUTE Flags);
-        private delegate HRESULT GetBreakpointByIndex2Delegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugBreakpoint2 bp);
-        private delegate HRESULT GetBreakpointById2Delegate(IntPtr self, [In] uint Id, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugBreakpoint2 bp);
-        private delegate HRESULT AddBreakpoint2Delegate(IntPtr self, [In] DEBUG_BREAKPOINT_TYPE Type, [In] uint DesiredId, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugBreakpoint2 Bp);
-        private delegate HRESULT RemoveBreakpoint2Delegate(IntPtr self, [In, MarshalAs(UnmanagedType.Interface)] IDebugBreakpoint2 Bp);
+        private delegate HRESULT GetBreakpointByIndex2Delegate(IntPtr self, [In] uint Index, [Out, ComAliasName("IDebugBreakpoint2")] out IntPtr bp);
+        private delegate HRESULT GetBreakpointById2Delegate(IntPtr self, [In] uint Id, [Out, ComAliasName("IDebugBreakpoint2")] out IntPtr bp);
+        private delegate HRESULT AddBreakpoint2Delegate(IntPtr self, [In] DEBUG_BREAKPOINT_TYPE Type, [In] uint DesiredId, [Out, ComAliasName("IDebugBreakpoint2")] out IntPtr Bp);
+        private delegate HRESULT RemoveBreakpoint2Delegate(IntPtr self, [In, ComAliasName("IDebugBreakpoint2")] IntPtr Bp);
         private delegate HRESULT AddExtensionWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Path, [In] uint Flags, [Out] out ulong Handle);
         private delegate HRESULT GetExtensionByPathWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Path, [Out] out ulong Handle);
         private delegate HRESULT CallExtensionWideDelegate(IntPtr self, [In] ulong Handle, [In, MarshalAs(UnmanagedType.LPWStr)] string Function, [In, MarshalAs(UnmanagedType.LPWStr)] string Arguments);
@@ -8518,7 +8517,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT OutputStackTraceExDelegate(IntPtr self, [In] uint OutputControl, [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_STACK_FRAME_EX[] Frames, [In] int FramesSize, [In] DEBUG_STACK Flags);
         private delegate HRESULT GetContextStackTraceExDelegate(IntPtr self, [In] IntPtr StartContext, [In] uint StartContextSize, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_STACK_FRAME_EX[] Frames, [In] int FramesSize, [In] IntPtr FrameContexts, [In] uint FrameContextsSize, [In] uint FrameContextsEntrySize, [Out] out uint FramesFilled);
         private delegate HRESULT OutputContextStackTraceExDelegate(IntPtr self, [In] uint OutputControl, [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_STACK_FRAME_EX[] Frames, [In] int FramesSize, [In] IntPtr FrameContexts, [In] uint FrameContextsSize, [In] uint FrameContextsEntrySize, [In] DEBUG_STACK Flags);
-        private delegate HRESULT GetBreakpointByGuidDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] Guid Guid, [Out] out IDebugBreakpoint3 Bp);
+        private delegate HRESULT GetBreakpointByGuidDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] Guid Guid, [Out, ComAliasName("IDebugBreakpoint3")] out IntPtr Bp);
 
         #endregion
         #region IDebugControl6

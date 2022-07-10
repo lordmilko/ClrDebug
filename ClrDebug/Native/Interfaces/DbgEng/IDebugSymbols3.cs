@@ -650,8 +650,8 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetScopeSymbolGroup(
             [In] DEBUG_SCOPE_GROUP Flags,
-            [In, MarshalAs(UnmanagedType.Interface)] IDebugSymbolGroup Update,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugSymbolGroup Symbols);
+            [In, ComAliasName("IDebugSymbolGroup")] IntPtr Update,
+            [Out, ComAliasName("IDebugSymbolGroup")] out IntPtr Symbols);
 
         /// <summary>
         /// The CreateSymbolGroup method creates a new symbol group.
@@ -667,8 +667,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT CreateSymbolGroup(
-            [Out, MarshalAs(UnmanagedType.Interface)]
-            out IDebugSymbolGroup Group);
+            [Out, ComAliasName("IDebugSymbolGroup")] out IntPtr Group);
 
         /// <summary>
         /// The StartSymbolMatch method initializes a search for symbols whose names match a given pattern.
@@ -1353,8 +1352,8 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetScopeSymbolGroup2(
             [In] DEBUG_SCOPE_GROUP Flags,
-            [In, MarshalAs(UnmanagedType.Interface)] IDebugSymbolGroup2 Update,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugSymbolGroup2 Symbols);
+            [In, ComAliasName("IDebugSymbolGroup2")] IntPtr Update,
+            [Out, ComAliasName("IDebugSymbolGroup2")] out IntPtr Symbols);
 
         /// <summary>
         /// The CreateSymbolGroup2 method creates a new symbol group.
@@ -1370,7 +1369,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT CreateSymbolGroup2(
-            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugSymbolGroup2 Group);
+            [Out, ComAliasName("IDebugSymbolGroup2")] out IntPtr Group);
 
         /// <summary>
         /// The StartSymbolMatchWide method initializes a search for symbols whose names match a given pattern.

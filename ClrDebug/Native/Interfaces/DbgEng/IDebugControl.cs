@@ -1132,7 +1132,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetBreakpointByIndex(
             [In] uint Index,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugBreakpoint bp);
+            [Out, ComAliasName("IDebugBreakpoint")] out IntPtr bp);
 
         /// <summary>
         /// The GetBreakpointById method returns the breakpoint with the specified breakpoint ID.
@@ -1146,7 +1146,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetBreakpointById(
             [In] uint Id,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugBreakpoint bp);
+            [Out, ComAliasName("IDebugBreakpoint")] out IntPtr bp);
 
         /// <summary>
         /// The GetBreakpointParameters method returns the parameters of one or more breakpoints.
@@ -1186,7 +1186,7 @@ namespace ClrDebug.DbgEng
         HRESULT AddBreakpoint(
             [In] DEBUG_BREAKPOINT_TYPE Type,
             [In] uint DesiredId,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugBreakpoint Bp);
+            [Out, ComAliasName("IDebugBreakpoint")] out IntPtr Bp);
 
         /// <summary>
         /// The RemoveBreakpoint method removes a breakpoint.
@@ -1199,8 +1199,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT RemoveBreakpoint(
-            [In, MarshalAs(UnmanagedType.Interface)]
-            IDebugBreakpoint Bp);
+            [In, ComAliasName("IDebugBreakpoint")] IntPtr Bp);
 
         /// <summary>
         /// The AddExtension method loads an extension library into the debugger engine.

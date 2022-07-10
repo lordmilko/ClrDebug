@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
@@ -19,8 +20,7 @@ namespace ClrDebug.DbgEng
 
         [PreserveSig]
         DEBUG_STATUS Breakpoint(
-            [In, MarshalAs(UnmanagedType.Interface)]
-            IDebugBreakpoint2 bp,
+            [In, ComAliasName("IDebugBreakpoint2")] IntPtr bp,
             [In] ref DEBUG_EVENT_CONTEXT context,
             [In] uint contextSize);
 
