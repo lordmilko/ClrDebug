@@ -497,7 +497,7 @@ namespace ClrDebug.DbgEng
             [Out] out uint OffsetLine,
             [Out] out ulong StartOffset,
             [Out] out ulong EndOffset,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ulong[] LineOffsets);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] LineOffsets);
 
         /// <summary>
         /// The GetNearInstruction method returns the location of a processor instruction relative to a given location.
@@ -537,7 +537,7 @@ namespace ClrDebug.DbgEng
             [In] ulong FrameOffset,
             [In] ulong StackOffset,
             [In] ulong InstructionOffset,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_STACK_FRAME[] Frames,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_STACK_FRAME[] Frames,
             [In] int FrameSize,
             [Out] out uint FramesFilled);
 
@@ -569,7 +569,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT OutputStackTrace(
             [In] DEBUG_OUTCTL OutputControl,
-            [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_STACK_FRAME[] Frames,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] DEBUG_STACK_FRAME[] Frames,
             [In] int FramesSize,
             [In] DEBUG_STACK Flags);
 
@@ -636,7 +636,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetPossibleExecutingProcessorTypes(
             [In] uint Start,
             [In] uint Count,
-            [Out, MarshalAs(UnmanagedType.LPArray)]
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             IMAGE_FILE_MACHINE[] Types);
 
         /// <summary>
@@ -748,7 +748,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetSupportedProcessorTypes(
             [In] uint Start,
             [In] uint Count,
-            [Out, MarshalAs(UnmanagedType.LPArray)]
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             IMAGE_FILE_MACHINE[] Types);
 
         /// <summary>
@@ -1065,9 +1065,9 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT CoerceValues(
             [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_VALUE[] In,
-            [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_VALUE_TYPE[] OutType,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_VALUE[] Out);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] In,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE_TYPE[] OutType,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Out);
 
         /// <summary>
         /// The Execute method executes the specified debugger commands.
@@ -1166,9 +1166,9 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetBreakpointParameters(
             [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray)] uint[] Ids,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] uint[] Ids,
             [In] uint Start,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_BREAKPOINT_PARAMETERS[] Params);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_BREAKPOINT_PARAMETERS[] Params);
 
         /// <summary>
         /// The AddBreakpoint method creates a new breakpoint for the current target.
@@ -1407,7 +1407,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetSpecificFilterParameters(
             [In] uint Start,
             [In] uint Count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);
 
         /// <summary>
         /// The SetSpecificFilterParameters method changes the break status and handling status for some specific event filters.
@@ -1424,7 +1424,7 @@ namespace ClrDebug.DbgEng
         HRESULT SetSpecificFilterParameters(
             [In] uint Start,
             [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);
 
         [PreserveSig]
         HRESULT GetSpecificEventFilterArgument(
@@ -1454,9 +1454,9 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetExceptionFilterParameters(
             [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray)] uint[] Codes,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] uint[] Codes,
             [In] uint Start,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);
 
         /// <summary>
         /// The SetExceptionFilterParameters method changes the break status and handling status for some exception filters.
@@ -1474,7 +1474,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT SetExceptionFilterParameters(
             [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);
 
         /// <summary>
         /// The GetExceptionFilterSecondCommand method returns the command that will be executed by the debugger engine upon the second chance of a specified exception.

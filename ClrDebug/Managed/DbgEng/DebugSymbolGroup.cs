@@ -260,9 +260,9 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetSymbolParameters(
             [In] uint Start,
             [In] uint Count,
-            [Out, MarshalAs(UnmanagedType.LPArray)]
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             DEBUG_SYMBOL_PARAMETERS[] Params);*/
-            @params = null;
+            @params = new DEBUG_SYMBOL_PARAMETERS[(int) count];
             HRESULT hr = getSymbolParameters(Raw, start, count, @params);
 
             return hr;
@@ -1142,7 +1142,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT RemoveSymbolByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name);
         private delegate HRESULT RemoveSymbolsByIndexDelegate(IntPtr self, [In] uint Index);
         private delegate HRESULT GetSymbolNameDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint NameSize);
-        private delegate HRESULT GetSymbolParametersDelegate(IntPtr self, [In] uint Start, [In] uint Count, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_SYMBOL_PARAMETERS[] Params);
+        private delegate HRESULT GetSymbolParametersDelegate(IntPtr self, [In] uint Start, [In] uint Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SYMBOL_PARAMETERS[] Params);
         private delegate HRESULT ExpandSymbolDelegate(IntPtr self, [In] uint Index, [In, MarshalAs(UnmanagedType.Bool)] bool Expand);
         private delegate HRESULT OutputSymbolsDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_OUTPUT_SYMBOLS Flags, [In] uint Start, [In] uint Count);
         private delegate HRESULT WriteSymbolDelegate(IntPtr self, [In] uint Index, [In, MarshalAs(UnmanagedType.LPStr)] string Value);

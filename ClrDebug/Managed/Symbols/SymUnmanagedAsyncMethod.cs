@@ -149,9 +149,9 @@
             /*HRESULT GetAsyncStepInfo(
             [In] int cStepInfo,
             [Out] out int pcStepInfo,
-            [Out, MarshalAs(UnmanagedType.LPArray)] int[] yieldOffsets,
-            [Out, MarshalAs(UnmanagedType.LPArray)] int[] breakpointOffset,
-            [Out, MarshalAs(UnmanagedType.LPArray)] int[] breakpointMethod);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] yieldOffsets,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] breakpointOffset,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] breakpointMethod);*/
             int cStepInfo = 0;
             int pcStepInfo;
             int[] yieldOffsets = null;
@@ -164,6 +164,8 @@
 
             cStepInfo = pcStepInfo;
             yieldOffsets = new int[cStepInfo];
+            breakpointOffset = new int[cStepInfo];
+            breakpointMethod = new int[cStepInfo];
             hr = Raw.GetAsyncStepInfo(cStepInfo, out pcStepInfo, yieldOffsets, breakpointOffset, breakpointMethod);
 
             if (hr == HRESULT.S_OK)

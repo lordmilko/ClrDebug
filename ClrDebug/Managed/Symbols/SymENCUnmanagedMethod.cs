@@ -72,7 +72,7 @@ namespace ClrDebug
             /*HRESULT GetDocumentsForMethod(
             [In] int cDocs,
             [Out] out int pcDocs,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedDocument[] documents);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedDocument[] documents);*/
             int cDocs = 0;
             int pcDocs;
             ISymUnmanagedDocument[] documents = null;

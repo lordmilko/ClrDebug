@@ -122,8 +122,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetRunningProcessSystemIds(
             [In] ulong Server,
-            [Out, MarshalAs(UnmanagedType.LPArray)]
-            uint[] Ids,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] uint[] Ids,
             [In] uint Count,
             [Out] out uint ActualCount);
 

@@ -64,7 +64,7 @@
         /// Define a group of async await operations in the current method. Each yield offset matches an await's return instruction, identifying a potential yield.<para/>
         /// Each breakpointMethod/breakpointOffset pair tells us where the asynchronous operation will resume which could be in a different method.
         /// </summary>
-        public void DefineAsyncStepInfo(int count, int yieldOffsets, int breakpointOffset, int breakpointMethod)
+        public void DefineAsyncStepInfo(int count, int[] yieldOffsets, int[] breakpointOffset, int[] breakpointMethod)
         {
             TryDefineAsyncStepInfo(count, yieldOffsets, breakpointOffset, breakpointMethod).ThrowOnNotOK();
         }
@@ -74,14 +74,14 @@
         /// Each breakpointMethod/breakpointOffset pair tells us where the asynchronous operation will resume which could be in a different method.
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
-        public HRESULT TryDefineAsyncStepInfo(int count, int yieldOffsets, int breakpointOffset, int breakpointMethod)
+        public HRESULT TryDefineAsyncStepInfo(int count, int[] yieldOffsets, int[] breakpointOffset, int[] breakpointMethod)
         {
             /*HRESULT DefineAsyncStepInfo(
             [In] int count,
-            [In] ref int yieldOffsets,
-            [In] ref int breakpointOffset,
-            [In] ref int breakpointMethod);*/
-            return Raw.DefineAsyncStepInfo(count, ref yieldOffsets, ref breakpointOffset, ref breakpointMethod);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] yieldOffsets,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] breakpointOffset,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] breakpointMethod);*/
+            return Raw.DefineAsyncStepInfo(count, yieldOffsets, breakpointOffset, breakpointMethod);
         }
 
         #endregion

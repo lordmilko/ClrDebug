@@ -111,9 +111,9 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetValues(
             [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray)] uint[] Indices,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] uint[] Indices,
             [In] uint Start,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_VALUE[] Values);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);
 
         /// <summary>
         /// The SetValues method sets the value of several of the target's registers.
@@ -138,9 +138,9 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT SetValues(
             [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray)] uint[] Indices,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] uint[] Indices,
             [In] uint Start,
-            [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_VALUE[] Values);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);
 
         /// <summary>
         /// The OutputRegisters method formats and sends the target's registers to the clients as output.

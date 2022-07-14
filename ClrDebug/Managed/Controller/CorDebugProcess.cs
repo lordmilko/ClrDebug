@@ -806,7 +806,7 @@ namespace ClrDebug
             /*HRESULT SetUnmanagedBreakpoint(
             [In] CORDB_ADDRESS address,
             [In] int bufsize,
-            [Out, MarshalAs(UnmanagedType.LPArray)] byte[] buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] buffer,
             [Out] out int bufLen);*/
             int bufsize = 0;
             buffer = null;
@@ -968,7 +968,7 @@ namespace ClrDebug
         public HRESULT TryFilter(byte[] pRecord, int countBytes, CorDebugRecordFormat format, int dwFlags, int dwThreadId, ref int pContinueStatus, out CorDebugDebugEvent ppEventResult)
         {
             /*HRESULT Filter(
-            [In, MarshalAs(UnmanagedType.LPArray)] byte[] pRecord,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] pRecord,
             [In] int countBytes,
             [In] CorDebugRecordFormat format,
             [In] int dwFlags,
@@ -1479,7 +1479,7 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetTypeFields(COR_TYPEID id, out COR_FIELD[] fields)
         {
-            /*HRESULT GetTypeFields([In] COR_TYPEID id, [In] int celt, [Out, MarshalAs(UnmanagedType.LPArray)] COR_FIELD[] fields, [Out] out int pceltNeeded);*/
+            /*HRESULT GetTypeFields([In] COR_TYPEID id, [In] int celt, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] COR_FIELD[] fields, [Out] out int pceltNeeded);*/
             int celt = 0;
             fields = null;
             int pceltNeeded;
@@ -1571,7 +1571,7 @@ namespace ClrDebug
         public HRESULT TryDecodeEvent(byte[] pRecord, int countBytes, CorDebugRecordFormat format, int dwFlags, int dwThreadId, out CorDebugDebugEvent ppEventResult)
         {
             /*HRESULT DecodeEvent(
-            [In, MarshalAs(UnmanagedType.LPArray)] byte[] pRecord,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] pRecord,
             [In] int countBytes,
             [In] CorDebugRecordFormat format,
             [In] int dwFlags,

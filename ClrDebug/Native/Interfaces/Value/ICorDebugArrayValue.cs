@@ -111,7 +111,7 @@ namespace ClrDebug
         /// <param name="dims">[out] An array of integers, each of which specifies the number of elements in a dimension in this <see cref="ICorDebugArrayValue"/> object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetDimensions([In] int cdim, [MarshalAs(UnmanagedType.LPArray), Out] int[] dims);
+        HRESULT GetDimensions([In] int cdim, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] int[] dims);
 
         /// <summary>
         /// Gets a value that indicates whether any dimensions of this array have a base index of non-zero.
@@ -128,7 +128,7 @@ namespace ClrDebug
         /// <param name="indicies">[out] An array of integers, each of which is the base index (that is, the starting index) of a dimension of this <see cref="ICorDebugArrayValue"/> object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetBaseIndicies([In] int cdim, [MarshalAs(UnmanagedType.LPArray), Out] int[] indicies);
+        HRESULT GetBaseIndicies([In] int cdim, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] int[] indicies);
 
         /// <summary>
         /// Gets the value of the given array element.

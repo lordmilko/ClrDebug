@@ -305,10 +305,10 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetModuleParameters(
             [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray)]
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]
             ulong[] Bases,
             [In] uint Start,
-            [Out, MarshalAs(UnmanagedType.LPArray)]
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]
             DEBUG_MODULE_PARAMETERS[] Params);
 
         /// <summary>
@@ -942,7 +942,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSourceFileLineOffsets(
             [In, MarshalAs(UnmanagedType.LPStr)] string File,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ulong[] Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] Buffer,
             [In] int BufferLines,
             [Out] out uint FileLines);
     }

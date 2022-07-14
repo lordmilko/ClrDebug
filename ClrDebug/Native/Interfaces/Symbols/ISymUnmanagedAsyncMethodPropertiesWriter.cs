@@ -37,8 +37,8 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT DefineAsyncStepInfo(
             [In] int count,
-            [In] ref int yieldOffsets,
-            [In] ref int breakpointOffset,
-            [In] ref int breakpointMethod);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] yieldOffsets,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] breakpointOffset,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] breakpointMethod);
     }
 }

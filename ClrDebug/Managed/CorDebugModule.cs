@@ -714,7 +714,7 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetJMCStatus(bool bIsJustMyCode, int cTokens, mdToken[] pTokens)
         {
-            /*HRESULT SetJMCStatus([In] bool bIsJustMyCode, [In] int cTokens, [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] pTokens);*/
+            /*HRESULT SetJMCStatus([In] bool bIsJustMyCode, [In] int cTokens, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] mdToken[] pTokens);*/
             return Raw2.SetJMCStatus(bIsJustMyCode, cTokens, pTokens);
         }
 

@@ -841,8 +841,7 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getRunningProcessSystemIds, Vtbl->GetRunningProcessSystemIds);
             /*HRESULT GetRunningProcessSystemIds(
             [In] ulong Server,
-            [Out, MarshalAs(UnmanagedType.LPArray)]
-            uint[] Ids,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] uint[] Ids,
             [In] uint Count,
             [Out] out uint ActualCount);*/
             ids = null;
@@ -4018,7 +4017,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT StartProcessServerDelegate(IntPtr self, [In] DEBUG_CLASS Flags, [In, MarshalAs(UnmanagedType.LPStr)] string Options, [In] IntPtr Reserved);
         private delegate HRESULT ConnectProcessServerDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string RemoteOptions, [Out] out ulong Server);
         private delegate HRESULT DisconnectProcessServerDelegate(IntPtr self, [In] ulong Server);
-        private delegate HRESULT GetRunningProcessSystemIdsDelegate(IntPtr self, [In] ulong Server, [Out, MarshalAs(UnmanagedType.LPArray)] uint[] Ids, [In] uint Count, [Out] out uint ActualCount);
+        private delegate HRESULT GetRunningProcessSystemIdsDelegate(IntPtr self, [In] ulong Server, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] uint[] Ids, [In] uint Count, [Out] out uint ActualCount);
         private delegate HRESULT GetRunningProcessSystemIdByExecutableNameDelegate(IntPtr self, [In] ulong Server, [In, MarshalAs(UnmanagedType.LPStr)] string ExeName, [In] DEBUG_GET_PROC Flags, [Out] out uint Id);
         private delegate HRESULT GetRunningProcessDescriptionDelegate(IntPtr self, [In] ulong Server, [In] uint SystemId, [In] DEBUG_PROC_DESC Flags, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder ExeName, [In] int ExeNameSize, [Out] out uint ActualExeNameSize, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Description, [In] int DescriptionSize, [Out] out uint ActualDescriptionSize);
         private delegate HRESULT AttachProcessDelegate(IntPtr self, [In] ulong Server, [In] uint ProcessID, [In] DEBUG_ATTACH AttachFlags);

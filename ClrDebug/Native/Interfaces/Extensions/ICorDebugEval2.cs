@@ -112,11 +112,10 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT NewParameterizedArray(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugType pElementType,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugType pElementType,
             [In] int rank,
-            [In] ref int dims,
-            [In] ref int lowBounds);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] dims,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] lowBounds);
 
         /// <summary>
         /// Creates a string of the specified length, with the specified contents.

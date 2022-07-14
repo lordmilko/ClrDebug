@@ -77,7 +77,7 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCheckSum([In] int cData, [Out] out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);
+        HRESULT GetCheckSum([In] int cData, [Out] out int pcData, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] data);
 
         /// <summary>
         /// Returns the closest line that is a sequence point, given a line in this document that may or may not be a sequence point.
@@ -127,6 +127,6 @@ namespace ClrDebug
             [In] int endColumn,
             [In] int cSourceBytes,
             [Out] out int pcSourceBytes,
-            [MarshalAs(UnmanagedType.LPArray), Out] byte[] source);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4), Out] byte[] source);
     }
 }

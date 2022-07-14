@@ -43,7 +43,7 @@ namespace ClrDebug
         HRESULT GetDocuments(
             [In] int cDocs,
             [Out] out int pcDocs,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedDocument[] pDocs);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedDocument[] pDocs);
 
         /// <summary>
         /// Returns the method that was specified as the user entry point for the module, if any. For example, this method could be the user's main method rather than compiler-generated stubs before the main method.
@@ -92,7 +92,7 @@ namespace ClrDebug
             [In] int parent,
             [In] int cVars,
             [Out] out int pcVars,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] pVars);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ISymUnmanagedVariable[] pVars);
 
         /// <summary>
         /// Returns all global variables.
@@ -106,7 +106,7 @@ namespace ClrDebug
         HRESULT GetGlobalVariables(
             [In] int cVars,
             [Out] out int pcVars,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] pVars);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedVariable[] pVars);
 
         /// <summary>
         /// Returns the method that contains the breakpoint at the given position in a document.
@@ -155,7 +155,7 @@ namespace ClrDebug
         HRESULT GetNamespaces(
             [In] int cNameSpaces,
             [Out] out int pcNameSpaces,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedNamespace[] namespaces);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedNamespace[] namespaces);
 
         /// <summary>
         /// Initializes the symbol reader with the metadata importer interface that this reader will be associated with, along with the file name of the module.
@@ -231,7 +231,7 @@ namespace ClrDebug
             [In] int column,
             [In] int cMethod,
             [Out] out int pcMethod,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedMethod[] pRetVal);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] ISymUnmanagedMethod[] pRetVal);
 
         /// <summary>
         /// Gets the specified version of the specified document. The document version starts at 1 and is incremented each time the document is updated using the <see cref="UpdateSymbolStore"/> method.<para/>

@@ -45,7 +45,7 @@ namespace ClrDebug
             /*HRESULT GetDocuments(
             [In] int cDocs,
             [Out] out int pcDocs,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedDocument[] pDocs);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedDocument[] pDocs);*/
             int cDocs = 0;
             int pcDocs;
             ISymUnmanagedDocument[] pDocs = null;
@@ -126,7 +126,7 @@ namespace ClrDebug
             /*HRESULT GetGlobalVariables(
             [In] int cVars,
             [Out] out int pcVars,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] pVars);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedVariable[] pVars);*/
             int cVars = 0;
             int pcVars;
             ISymUnmanagedVariable[] pVars = null;
@@ -179,7 +179,7 @@ namespace ClrDebug
             /*HRESULT GetNamespaces(
             [In] int cNameSpaces,
             [Out] out int pcNameSpaces,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedNamespace[] namespaces);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedNamespace[] namespaces);*/
             int cNameSpaces = 0;
             int pcNameSpaces;
             ISymUnmanagedNamespace[] namespaces = null;
@@ -410,7 +410,7 @@ namespace ClrDebug
             [In] int parent,
             [In] int cVars,
             [Out] out int pcVars,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] pVars);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ISymUnmanagedVariable[] pVars);*/
             int cVars = 0;
             int pcVars;
             ISymUnmanagedVariable[] pVars = null;
@@ -647,7 +647,7 @@ namespace ClrDebug
             [In] int column,
             [In] int cMethod,
             [Out] out int pcMethod,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedMethod[] pRetVal);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] ISymUnmanagedMethod[] pRetVal);*/
             int cMethod = 0;
             int pcMethod;
             ISymUnmanagedMethod[] pRetVal = null;
@@ -857,7 +857,7 @@ namespace ClrDebug
             ISymUnmanagedDocument document,
             [In] int cMethod,
             [Out] out int pcMethod,
-            [MarshalAs(UnmanagedType.LPArray), Out] ISymUnmanagedMethod[] pRetVal);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] ISymUnmanagedMethod[] pRetVal);*/
             int cMethod = 0;
             int pcMethod;
             ISymUnmanagedMethod[] pRetVal = null;

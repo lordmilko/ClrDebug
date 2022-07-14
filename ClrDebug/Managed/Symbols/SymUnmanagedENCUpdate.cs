@@ -100,7 +100,7 @@ namespace ClrDebug
             /*HRESULT GetLocalVariables(
             [In] mdMethodDef mdMethodToken,
             [In] int cLocals,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] rgLocals,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ISymUnmanagedVariable[] rgLocals,
             [Out] out int pceltFetched);*/
             int cLocals = 0;
             ISymUnmanagedVariable[] rgLocals = null;
@@ -158,7 +158,7 @@ namespace ClrDebug
         /// <param name="mdMethodToken">[in] The metadata of the method token.</param>
         /// <param name="pDeltas">[in] An array of INT32 values that indicates deltas for each sequence point in the method.</param>
         /// <param name="cDeltas">[in] A ULONG containing the size of the pDeltas parameter.</param>
-        public void UpdateMethodLines(mdMethodDef mdMethodToken, int pDeltas, int cDeltas)
+        public void UpdateMethodLines(mdMethodDef mdMethodToken, int[] pDeltas, int cDeltas)
         {
             TryUpdateMethodLines(mdMethodToken, pDeltas, cDeltas).ThrowOnNotOK();
         }
@@ -171,10 +171,13 @@ namespace ClrDebug
         /// <param name="pDeltas">[in] An array of INT32 values that indicates deltas for each sequence point in the method.</param>
         /// <param name="cDeltas">[in] A ULONG containing the size of the pDeltas parameter.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryUpdateMethodLines(mdMethodDef mdMethodToken, int pDeltas, int cDeltas)
+        public HRESULT TryUpdateMethodLines(mdMethodDef mdMethodToken, int[] pDeltas, int cDeltas)
         {
-            /*HRESULT UpdateMethodLines([In] mdMethodDef mdMethodToken, [In] ref int pDeltas, [In] int cDeltas);*/
-            return Raw.UpdateMethodLines(mdMethodToken, ref pDeltas, cDeltas);
+            /*HRESULT UpdateMethodLines(
+            [In] mdMethodDef mdMethodToken,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] int[] pDeltas,
+            [In] int cDeltas);*/
+            return Raw.UpdateMethodLines(mdMethodToken, pDeltas, cDeltas);
         }
 
         #endregion

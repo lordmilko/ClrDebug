@@ -18,7 +18,7 @@ namespace ClrDebug
     {
         [PreserveSig]
         HRESULT Filter(
-            [In, MarshalAs(UnmanagedType.LPArray)] byte[] pRecord,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] pRecord,
             [In] int countBytes,
             [In] CorDebugRecordFormat format,
             [In] int dwFlags,

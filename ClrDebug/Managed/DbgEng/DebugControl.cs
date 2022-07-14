@@ -1923,11 +1923,11 @@ namespace ClrDebug.DbgEng
             [Out] out uint OffsetLine,
             [Out] out ulong StartOffset,
             [Out] out ulong EndOffset,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ulong[] LineOffsets);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] LineOffsets);*/
             uint offsetLine;
             ulong startOffset;
             ulong endOffset;
-            ulong[] lineOffsets = null;
+            ulong[] lineOffsets = new ulong[(int) totalLines];
             HRESULT hr = outputDisassemblyLines(Raw, outputControl, previousLines, totalLines, offset, flags, out offsetLine, out startOffset, out endOffset, lineOffsets);
 
             if (hr == HRESULT.S_OK)
@@ -2026,7 +2026,7 @@ namespace ClrDebug.DbgEng
             [In] ulong FrameOffset,
             [In] ulong StackOffset,
             [In] ulong InstructionOffset,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_STACK_FRAME[] Frames,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_STACK_FRAME[] Frames,
             [In] int FrameSize,
             [Out] out uint FramesFilled);*/
             frames = null;
@@ -2081,7 +2081,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT OutputStackTrace(
             [In] DEBUG_OUTCTL OutputControl,
-            [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_STACK_FRAME[] Frames,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] DEBUG_STACK_FRAME[] Frames,
             [In] int FramesSize,
             [In] DEBUG_STACK Flags);*/
             return outputStackTrace(Raw, outputControl, frames, framesSize, flags);
@@ -2125,9 +2125,9 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetPossibleExecutingProcessorTypes(
             [In] uint Start,
             [In] uint Count,
-            [Out, MarshalAs(UnmanagedType.LPArray)]
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             IMAGE_FILE_MACHINE[] Types);*/
-            types = null;
+            types = new IMAGE_FILE_MACHINE[(int) count];
             HRESULT hr = getPossibleExecutingProcessorTypes(Raw, start, count, types);
 
             return hr;
@@ -2223,9 +2223,9 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetSupportedProcessorTypes(
             [In] uint Start,
             [In] uint Count,
-            [Out, MarshalAs(UnmanagedType.LPArray)]
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             IMAGE_FILE_MACHINE[] Types);*/
-            types = null;
+            types = new IMAGE_FILE_MACHINE[(int) count];
             HRESULT hr = getSupportedProcessorTypes(Raw, start, count, types);
 
             return hr;
@@ -2721,10 +2721,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref coerceValues, Vtbl->CoerceValues);
             /*HRESULT CoerceValues(
             [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_VALUE[] In,
-            [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_VALUE_TYPE[] OutType,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_VALUE[] Out);*/
-            @out = null;
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] In,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE_TYPE[] OutType,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Out);*/
+            @out = new DEBUG_VALUE[(int) count];
             HRESULT hr = coerceValues(Raw, count, @in, outType, @out);
 
             return hr;
@@ -2960,10 +2960,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getBreakpointParameters, Vtbl->GetBreakpointParameters);
             /*HRESULT GetBreakpointParameters(
             [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray)] uint[] Ids,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] uint[] Ids,
             [In] uint Start,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_BREAKPOINT_PARAMETERS[] Params);*/
-            @params = null;
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_BREAKPOINT_PARAMETERS[] Params);*/
+            @params = new DEBUG_BREAKPOINT_PARAMETERS[(int) count];
             HRESULT hr = getBreakpointParameters(Raw, count, ids, start, @params);
 
             return hr;
@@ -3550,8 +3550,8 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetSpecificFilterParameters(
             [In] uint Start,
             [In] uint Count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);*/
-            @params = null;
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);*/
+            @params = new DEBUG_SPECIFIC_FILTER_PARAMETERS[(int) count];
             HRESULT hr = getSpecificFilterParameters(Raw, start, count, @params);
 
             return hr;
@@ -3593,7 +3593,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT SetSpecificFilterParameters(
             [In] uint Start,
             [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);*/
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);*/
             return setSpecificFilterParameters(Raw, start, count, @params);
         }
 
@@ -3700,10 +3700,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getExceptionFilterParameters, Vtbl->GetExceptionFilterParameters);
             /*HRESULT GetExceptionFilterParameters(
             [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray)] uint[] Codes,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] uint[] Codes,
             [In] uint Start,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);*/
-            @params = null;
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);*/
+            @params = new DEBUG_EXCEPTION_FILTER_PARAMETERS[(int) count];
             HRESULT hr = getExceptionFilterParameters(Raw, count, codes, start, @params);
 
             return hr;
@@ -3748,7 +3748,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT SetExceptionFilterParameters(
             [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);*/
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);*/
             return setExceptionFilterParameters(Raw, count, @params);
         }
 
@@ -7287,6 +7287,7 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="startContext">[in, optional] Specifies the register context for the top of the stack.</param>
         /// <param name="startContextSize">[in] Specifies the size, in bytes, of the StartContext register context.</param>
+        /// <param name="frameSize">[in] Specifies the number of items in the array Frames.</param>
         /// <param name="frameContexts">[out, optional] Receives the reconstructed register context for each frame in the stack. The entries in this array correspond to the entries in the Frames array.<para/>
         /// The type of the thread context is the CONTEXT structure for the target's effective processor. If FrameContexts is NULL, this information is not returned.</param>
         /// <param name="frameContextsSize">[in] Specifies the size, in bytes, of the memory pointed to by FrameContexts. The number of stack frames returned equals the number of contexts returned, and FrameContextsSize must equal FramesSize times FrameContextsEntrySize.</param>
@@ -7299,10 +7300,10 @@ namespace ClrDebug.DbgEng
         /// to preserve them. Registers that are not restored on unwind are left as the last value restored, so care should
         /// be taken when using the register state that might not be restored by an unwind.
         /// </remarks>
-        public GetContextStackTraceResult GetContextStackTrace(IntPtr startContext, uint startContextSize, IntPtr frameContexts, uint frameContextsSize, uint frameContextsEntrySize)
+        public GetContextStackTraceResult GetContextStackTrace(IntPtr startContext, uint startContextSize, int frameSize, IntPtr frameContexts, uint frameContextsSize, uint frameContextsEntrySize)
         {
             GetContextStackTraceResult result;
-            TryGetContextStackTrace(startContext, startContextSize, frameContexts, frameContextsSize, frameContextsEntrySize, out result).ThrowDbgEngNotOk();
+            TryGetContextStackTrace(startContext, startContextSize, frameSize, frameContexts, frameContextsSize, frameContextsEntrySize, out result).ThrowDbgEngNotOk();
 
             return result;
         }
@@ -7312,6 +7313,7 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="startContext">[in, optional] Specifies the register context for the top of the stack.</param>
         /// <param name="startContextSize">[in] Specifies the size, in bytes, of the StartContext register context.</param>
+        /// <param name="frameSize">[in] Specifies the number of items in the array Frames.</param>
         /// <param name="frameContexts">[out, optional] Receives the reconstructed register context for each frame in the stack. The entries in this array correspond to the entries in the Frames array.<para/>
         /// The type of the thread context is the CONTEXT structure for the target's effective processor. If FrameContexts is NULL, this information is not returned.</param>
         /// <param name="frameContextsSize">[in] Specifies the size, in bytes, of the memory pointed to by FrameContexts. The number of stack frames returned equals the number of contexts returned, and FrameContextsSize must equal FramesSize times FrameContextsEntrySize.</param>
@@ -7325,20 +7327,19 @@ namespace ClrDebug.DbgEng
         /// to preserve them. Registers that are not restored on unwind are left as the last value restored, so care should
         /// be taken when using the register state that might not be restored by an unwind.
         /// </remarks>
-        public HRESULT TryGetContextStackTrace(IntPtr startContext, uint startContextSize, IntPtr frameContexts, uint frameContextsSize, uint frameContextsEntrySize, out GetContextStackTraceResult result)
+        public HRESULT TryGetContextStackTrace(IntPtr startContext, uint startContextSize, int frameSize, IntPtr frameContexts, uint frameContextsSize, uint frameContextsEntrySize, out GetContextStackTraceResult result)
         {
             InitDelegate(ref getContextStackTrace, Vtbl4->GetContextStackTrace);
             /*HRESULT GetContextStackTrace(
             [In] IntPtr StartContext,
             [In] uint StartContextSize,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_STACK_FRAME[] Frames,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_STACK_FRAME[] Frames,
             [In] int FrameSize,
             [In] IntPtr FrameContexts,
             [In] uint FrameContextsSize,
             [In] uint FrameContextsEntrySize,
             [Out] out uint FramesFilled);*/
-            DEBUG_STACK_FRAME[] frames = null;
-            int frameSize = 0;
+            DEBUG_STACK_FRAME[] frames = new DEBUG_STACK_FRAME[frameSize];
             uint framesFilled;
             HRESULT hr = getContextStackTrace(Raw, startContext, startContextSize, frames, frameSize, frameContexts, frameContextsSize, frameContextsEntrySize, out framesFilled);
 
@@ -7393,7 +7394,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT OutputContextStackTrace(
             [In] DEBUG_OUTCTL OutputControl,
-            [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_STACK_FRAME[] Frames,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] DEBUG_STACK_FRAME[] Frames,
             [In] int FramesSize,
             [In] IntPtr FrameContexts,
             [In] uint FrameContextsSize,
@@ -7651,7 +7652,7 @@ namespace ClrDebug.DbgEng
             [In] ulong FrameOffset,
             [In] ulong StackOffset,
             [In] ulong InstructionOffset,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_STACK_FRAME_EX[] Frames,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_STACK_FRAME_EX[] Frames,
             [In] int FramesSize,
             [Out] out uint FramesFilled);*/
             frames = null;
@@ -7708,7 +7709,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT OutputStackTraceEx(
             [In] uint OutputControl,
-            [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_STACK_FRAME_EX[] Frames,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] DEBUG_STACK_FRAME_EX[] Frames,
             [In] int FramesSize,
             [In] DEBUG_STACK Flags);*/
             return outputStackTraceEx(Raw, outputControl, frames, framesSize, flags);
@@ -7723,6 +7724,7 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="startContext">[in, optional] Specifies the register context for the top of the stack.</param>
         /// <param name="startContextSize">[in] Specifies the size, in bytes, of the StartContext register context.</param>
+        /// <param name="framesSize">[in] Specifies the number of items in the array Frames.</param>
         /// <param name="frameContexts">[out, optional] Receives the reconstructed register context for each frame in the stack. The entries in this array correspond to the entries in the Frames array.<para/>
         /// The type of the thread context is the CONTEXT structure for the target's effective processor. If FrameContexts is NULL, this information is not returned.</param>
         /// <param name="frameContextsSize">[in] Specifies the size, in bytes, of the memory pointed to by FrameContexts. The number of stack frames returned equals the number of contexts returned, and FrameContextsSize must equal FramesSize times FrameContextsEntrySize.</param>
@@ -7735,10 +7737,10 @@ namespace ClrDebug.DbgEng
         /// to preserve them. Registers that are not restored on unwind are left as the last value restored, so care should
         /// be taken when using the register state that might not be restored by an unwind.
         /// </remarks>
-        public GetContextStackTraceExResult GetContextStackTraceEx(IntPtr startContext, uint startContextSize, IntPtr frameContexts, uint frameContextsSize, uint frameContextsEntrySize)
+        public GetContextStackTraceExResult GetContextStackTraceEx(IntPtr startContext, uint startContextSize, int framesSize, IntPtr frameContexts, uint frameContextsSize, uint frameContextsEntrySize)
         {
             GetContextStackTraceExResult result;
-            TryGetContextStackTraceEx(startContext, startContextSize, frameContexts, frameContextsSize, frameContextsEntrySize, out result).ThrowDbgEngNotOk();
+            TryGetContextStackTraceEx(startContext, startContextSize, framesSize, frameContexts, frameContextsSize, frameContextsEntrySize, out result).ThrowDbgEngNotOk();
 
             return result;
         }
@@ -7749,6 +7751,7 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="startContext">[in, optional] Specifies the register context for the top of the stack.</param>
         /// <param name="startContextSize">[in] Specifies the size, in bytes, of the StartContext register context.</param>
+        /// <param name="framesSize">[in] Specifies the number of items in the array Frames.</param>
         /// <param name="frameContexts">[out, optional] Receives the reconstructed register context for each frame in the stack. The entries in this array correspond to the entries in the Frames array.<para/>
         /// The type of the thread context is the CONTEXT structure for the target's effective processor. If FrameContexts is NULL, this information is not returned.</param>
         /// <param name="frameContextsSize">[in] Specifies the size, in bytes, of the memory pointed to by FrameContexts. The number of stack frames returned equals the number of contexts returned, and FrameContextsSize must equal FramesSize times FrameContextsEntrySize.</param>
@@ -7762,20 +7765,19 @@ namespace ClrDebug.DbgEng
         /// to preserve them. Registers that are not restored on unwind are left as the last value restored, so care should
         /// be taken when using the register state that might not be restored by an unwind.
         /// </remarks>
-        public HRESULT TryGetContextStackTraceEx(IntPtr startContext, uint startContextSize, IntPtr frameContexts, uint frameContextsSize, uint frameContextsEntrySize, out GetContextStackTraceExResult result)
+        public HRESULT TryGetContextStackTraceEx(IntPtr startContext, uint startContextSize, int framesSize, IntPtr frameContexts, uint frameContextsSize, uint frameContextsEntrySize, out GetContextStackTraceExResult result)
         {
             InitDelegate(ref getContextStackTraceEx, Vtbl5->GetContextStackTraceEx);
             /*HRESULT GetContextStackTraceEx(
             [In] IntPtr StartContext,
             [In] uint StartContextSize,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_STACK_FRAME_EX[] Frames,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_STACK_FRAME_EX[] Frames,
             [In] int FramesSize,
             [In] IntPtr FrameContexts,
             [In] uint FrameContextsSize,
             [In] uint FrameContextsEntrySize,
             [Out] out uint FramesFilled);*/
-            DEBUG_STACK_FRAME_EX[] frames = null;
-            int framesSize = 0;
+            DEBUG_STACK_FRAME_EX[] frames = new DEBUG_STACK_FRAME_EX[framesSize];
             uint framesFilled;
             HRESULT hr = getContextStackTraceEx(Raw, startContext, startContextSize, frames, framesSize, frameContexts, frameContextsSize, frameContextsEntrySize, out framesFilled);
 
@@ -7826,7 +7828,7 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT OutputContextStackTraceEx(
             [In] uint OutputControl,
-            [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_STACK_FRAME_EX[] Frames,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] DEBUG_STACK_FRAME_EX[] Frames,
             [In] int FramesSize,
             [In] IntPtr FrameContexts,
             [In] uint FrameContextsSize,
@@ -8379,13 +8381,13 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT AssembleDelegate(IntPtr self, [In] ulong Offset, [In, MarshalAs(UnmanagedType.LPStr)] string Instr, [Out] out ulong EndOffset);
         private delegate HRESULT DisassembleDelegate(IntPtr self, [In] ulong Offset, [In] DEBUG_DISASM Flags, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint DisassemblySize, [Out] out ulong EndOffset);
         private delegate HRESULT OutputDisassemblyDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] ulong Offset, [In] DEBUG_DISASM Flags, [Out] out ulong EndOffset);
-        private delegate HRESULT OutputDisassemblyLinesDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] uint PreviousLines, [In] uint TotalLines, [In] ulong Offset, [In] DEBUG_DISASM Flags, [Out] out uint OffsetLine, [Out] out ulong StartOffset, [Out] out ulong EndOffset, [Out, MarshalAs(UnmanagedType.LPArray)] ulong[] LineOffsets);
+        private delegate HRESULT OutputDisassemblyLinesDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] uint PreviousLines, [In] uint TotalLines, [In] ulong Offset, [In] DEBUG_DISASM Flags, [Out] out uint OffsetLine, [Out] out ulong StartOffset, [Out] out ulong EndOffset, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] LineOffsets);
         private delegate HRESULT GetNearInstructionDelegate(IntPtr self, [In] ulong Offset, [In] int Delta, [Out] out ulong NearOffset);
-        private delegate HRESULT GetStackTraceDelegate(IntPtr self, [In] ulong FrameOffset, [In] ulong StackOffset, [In] ulong InstructionOffset, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_STACK_FRAME[] Frames, [In] int FrameSize, [Out] out uint FramesFilled);
-        private delegate HRESULT OutputStackTraceDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_STACK_FRAME[] Frames, [In] int FramesSize, [In] DEBUG_STACK Flags);
-        private delegate HRESULT GetPossibleExecutingProcessorTypesDelegate(IntPtr self, [In] uint Start, [In] uint Count, [Out, MarshalAs(UnmanagedType.LPArray)] IMAGE_FILE_MACHINE[] Types);
+        private delegate HRESULT GetStackTraceDelegate(IntPtr self, [In] ulong FrameOffset, [In] ulong StackOffset, [In] ulong InstructionOffset, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_STACK_FRAME[] Frames, [In] int FrameSize, [Out] out uint FramesFilled);
+        private delegate HRESULT OutputStackTraceDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] DEBUG_STACK_FRAME[] Frames, [In] int FramesSize, [In] DEBUG_STACK Flags);
+        private delegate HRESULT GetPossibleExecutingProcessorTypesDelegate(IntPtr self, [In] uint Start, [In] uint Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] IMAGE_FILE_MACHINE[] Types);
         private delegate HRESULT ReadBugCheckDataDelegate(IntPtr self, [Out] out uint Code, [Out] out ulong Arg1, [Out] out ulong Arg2, [Out] out ulong Arg3, [Out] out ulong Arg4);
-        private delegate HRESULT GetSupportedProcessorTypesDelegate(IntPtr self, [In] uint Start, [In] uint Count, [Out, MarshalAs(UnmanagedType.LPArray)] IMAGE_FILE_MACHINE[] Types);
+        private delegate HRESULT GetSupportedProcessorTypesDelegate(IntPtr self, [In] uint Start, [In] uint Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] IMAGE_FILE_MACHINE[] Types);
         private delegate HRESULT GetProcessorTypeNamesDelegate(IntPtr self, [In] IMAGE_FILE_MACHINE Type, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder FullNameBuffer, [In] int FullNameBufferSize, [Out] out uint FullNameSize, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder AbbrevNameBuffer, [In] int AbbrevNameBufferSize, [Out] out uint AbbrevNameSize);
         private delegate HRESULT AddEngineOptionsDelegate(IntPtr self, [In] DEBUG_ENGOPT Options);
         private delegate HRESULT RemoveEngineOptionsDelegate(IntPtr self, [In] DEBUG_ENGOPT Options);
@@ -8395,12 +8397,12 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT SetTextMacroDelegate(IntPtr self, [In] uint Slot, [In, MarshalAs(UnmanagedType.LPStr)] string Macro);
         private delegate HRESULT EvaluateDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Expression, [In] DEBUG_VALUE_TYPE DesiredType, [Out] out DEBUG_VALUE Value, [Out] out uint RemainderIndex);
         private delegate HRESULT CoerceValueDelegate(IntPtr self, [In] DEBUG_VALUE In, [In] DEBUG_VALUE_TYPE OutType, [Out] out DEBUG_VALUE Out);
-        private delegate HRESULT CoerceValuesDelegate(IntPtr self, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_VALUE[] In, [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_VALUE_TYPE[] OutType, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_VALUE[] Out);
+        private delegate HRESULT CoerceValuesDelegate(IntPtr self, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] In, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE_TYPE[] OutType, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Out);
         private delegate HRESULT ExecuteDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPStr)] string Command, [In] DEBUG_EXECUTE Flags);
         private delegate HRESULT ExecuteCommandFileDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPStr)] string CommandFile, [In] DEBUG_EXECUTE Flags);
         private delegate HRESULT GetBreakpointByIndexDelegate(IntPtr self, [In] uint Index, [Out, ComAliasName("IDebugBreakpoint")] out IntPtr bp);
         private delegate HRESULT GetBreakpointByIdDelegate(IntPtr self, [In] uint Id, [Out, ComAliasName("IDebugBreakpoint")] out IntPtr bp);
-        private delegate HRESULT GetBreakpointParametersDelegate(IntPtr self, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray)] uint[] Ids, [In] uint Start, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_BREAKPOINT_PARAMETERS[] Params);
+        private delegate HRESULT GetBreakpointParametersDelegate(IntPtr self, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] uint[] Ids, [In] uint Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_BREAKPOINT_PARAMETERS[] Params);
         private delegate HRESULT AddBreakpointDelegate(IntPtr self, [In] DEBUG_BREAKPOINT_TYPE Type, [In] uint DesiredId, [Out, ComAliasName("IDebugBreakpoint")] out IntPtr Bp);
         private delegate HRESULT RemoveBreakpointDelegate(IntPtr self, [In, ComAliasName("IDebugBreakpoint")] IntPtr Bp);
         private delegate HRESULT AddExtensionDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Path, [In] uint Flags, [Out] out ulong Handle);
@@ -8413,12 +8415,12 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetEventFilterTextDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint TextSize);
         private delegate HRESULT GetEventFilterCommandDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint CommandSize);
         private delegate HRESULT SetEventFilterCommandDelegate(IntPtr self, [In] uint Index, [In, MarshalAs(UnmanagedType.LPStr)] string Command);
-        private delegate HRESULT GetSpecificFilterParametersDelegate(IntPtr self, [In] uint Start, [In] uint Count, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);
-        private delegate HRESULT SetSpecificFilterParametersDelegate(IntPtr self, [In] uint Start, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);
+        private delegate HRESULT GetSpecificFilterParametersDelegate(IntPtr self, [In] uint Start, [In] uint Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);
+        private delegate HRESULT SetSpecificFilterParametersDelegate(IntPtr self, [In] uint Start, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);
         private delegate HRESULT GetSpecificEventFilterArgumentDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint ArgumentSize);
         private delegate HRESULT SetSpecificEventFilterArgumentDelegate(IntPtr self, [In] uint Index, [In, MarshalAs(UnmanagedType.LPStr)] string Argument);
-        private delegate HRESULT GetExceptionFilterParametersDelegate(IntPtr self, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray)] uint[] Codes, [In] uint Start, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);
-        private delegate HRESULT SetExceptionFilterParametersDelegate(IntPtr self, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);
+        private delegate HRESULT GetExceptionFilterParametersDelegate(IntPtr self, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] uint[] Codes, [In] uint Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);
+        private delegate HRESULT SetExceptionFilterParametersDelegate(IntPtr self, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);
         private delegate HRESULT GetExceptionFilterSecondCommandDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint CommandSize);
         private delegate HRESULT SetExceptionFilterSecondCommandDelegate(IntPtr self, [In] uint Index, [In, MarshalAs(UnmanagedType.LPStr)] string Command);
         private delegate HRESULT WaitForEventDelegate(IntPtr self, [In] DEBUG_WAIT Flags, [In] int Timeout);
@@ -8503,8 +8505,8 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT OpenLogFile2WideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [Out] out DEBUG_LOG Flags);
         private delegate HRESULT GetSystemVersionStringDelegate(IntPtr self, [In] DEBUG_SYSVERSTR Which, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint StringSize);
         private delegate HRESULT GetSystemVersionStringWideDelegate(IntPtr self, [In] DEBUG_SYSVERSTR Which, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint StringSize);
-        private delegate HRESULT GetContextStackTraceDelegate(IntPtr self, [In] IntPtr StartContext, [In] uint StartContextSize, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_STACK_FRAME[] Frames, [In] int FrameSize, [In] IntPtr FrameContexts, [In] uint FrameContextsSize, [In] uint FrameContextsEntrySize, [Out] out uint FramesFilled);
-        private delegate HRESULT OutputContextStackTraceDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_STACK_FRAME[] Frames, [In] int FramesSize, [In] IntPtr FrameContexts, [In] uint FrameContextsSize, [In] uint FrameContextsEntrySize, [In] DEBUG_STACK Flags);
+        private delegate HRESULT GetContextStackTraceDelegate(IntPtr self, [In] IntPtr StartContext, [In] uint StartContextSize, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_STACK_FRAME[] Frames, [In] int FrameSize, [In] IntPtr FrameContexts, [In] uint FrameContextsSize, [In] uint FrameContextsEntrySize, [Out] out uint FramesFilled);
+        private delegate HRESULT OutputContextStackTraceDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] DEBUG_STACK_FRAME[] Frames, [In] int FramesSize, [In] IntPtr FrameContexts, [In] uint FrameContextsSize, [In] uint FrameContextsEntrySize, [In] DEBUG_STACK Flags);
         private delegate HRESULT GetStoredEventInformationDelegate(IntPtr self, [Out] out DEBUG_EVENT_TYPE Type, [Out] out uint ProcessId, [Out] out uint ThreadId, [In] IntPtr Context, [In] uint ContextSize, [Out] out uint ContextUsed, [In] IntPtr ExtraInformation, [In] uint ExtraInformationSize, [Out] out uint ExtraInformationUsed);
         private delegate HRESULT GetManagedStatusDelegate(IntPtr self, [Out] out DEBUG_MANAGED Flags, [In] DEBUG_MANSTR WhichString, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder String, [In] int StringSize, [Out] out uint StringNeeded);
         private delegate HRESULT GetManagedStatusWideDelegate(IntPtr self, [Out] out DEBUG_MANAGED Flags, [In] DEBUG_MANSTR WhichString, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder String, [In] int StringSize, [Out] out uint StringNeeded);
@@ -8513,10 +8515,10 @@ namespace ClrDebug.DbgEng
         #endregion
         #region IDebugControl5
 
-        private delegate HRESULT GetStackTraceExDelegate(IntPtr self, [In] ulong FrameOffset, [In] ulong StackOffset, [In] ulong InstructionOffset, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_STACK_FRAME_EX[] Frames, [In] int FramesSize, [Out] out uint FramesFilled);
-        private delegate HRESULT OutputStackTraceExDelegate(IntPtr self, [In] uint OutputControl, [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_STACK_FRAME_EX[] Frames, [In] int FramesSize, [In] DEBUG_STACK Flags);
-        private delegate HRESULT GetContextStackTraceExDelegate(IntPtr self, [In] IntPtr StartContext, [In] uint StartContextSize, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_STACK_FRAME_EX[] Frames, [In] int FramesSize, [In] IntPtr FrameContexts, [In] uint FrameContextsSize, [In] uint FrameContextsEntrySize, [Out] out uint FramesFilled);
-        private delegate HRESULT OutputContextStackTraceExDelegate(IntPtr self, [In] uint OutputControl, [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_STACK_FRAME_EX[] Frames, [In] int FramesSize, [In] IntPtr FrameContexts, [In] uint FrameContextsSize, [In] uint FrameContextsEntrySize, [In] DEBUG_STACK Flags);
+        private delegate HRESULT GetStackTraceExDelegate(IntPtr self, [In] ulong FrameOffset, [In] ulong StackOffset, [In] ulong InstructionOffset, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_STACK_FRAME_EX[] Frames, [In] int FramesSize, [Out] out uint FramesFilled);
+        private delegate HRESULT OutputStackTraceExDelegate(IntPtr self, [In] uint OutputControl, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] DEBUG_STACK_FRAME_EX[] Frames, [In] int FramesSize, [In] DEBUG_STACK Flags);
+        private delegate HRESULT GetContextStackTraceExDelegate(IntPtr self, [In] IntPtr StartContext, [In] uint StartContextSize, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_STACK_FRAME_EX[] Frames, [In] int FramesSize, [In] IntPtr FrameContexts, [In] uint FrameContextsSize, [In] uint FrameContextsEntrySize, [Out] out uint FramesFilled);
+        private delegate HRESULT OutputContextStackTraceExDelegate(IntPtr self, [In] uint OutputControl, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] DEBUG_STACK_FRAME_EX[] Frames, [In] int FramesSize, [In] IntPtr FrameContexts, [In] uint FrameContextsSize, [In] uint FrameContextsEntrySize, [In] DEBUG_STACK Flags);
         private delegate HRESULT GetBreakpointByGuidDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] Guid Guid, [Out, ComAliasName("IDebugBreakpoint3")] out IntPtr Bp);
 
         #endregion

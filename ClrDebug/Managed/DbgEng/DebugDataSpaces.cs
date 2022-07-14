@@ -329,7 +329,7 @@ namespace ClrDebug.DbgEng
             [In] uint Count,
             [In] ulong Offset,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ulong[] Ptrs);*/
-            ptrs = null;
+            ptrs = new ulong[(int) count];
             HRESULT hr = readPointersVirtual(Raw, count, offset, ptrs);
 
             return hr;
@@ -371,7 +371,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT WritePointersVirtual(
             [In] uint Count,
             [In] ulong Offset,
-            [In, MarshalAs(UnmanagedType.LPArray)] ulong[] Ptrs);*/
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ulong[] Ptrs);*/
             return writePointersVirtual(Raw, count, offset, ptrs);
         }
 
@@ -1089,7 +1089,7 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getVirtualTranslationPhysicalOffsets, Vtbl2->GetVirtualTranslationPhysicalOffsets);
             /*HRESULT GetVirtualTranslationPhysicalOffsets(
             [In] ulong Virtual,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ulong[] Offsets,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] Offsets,
             [In] uint OffsetsSize,
             [Out] out uint Levels);*/
             offsets = null;
@@ -2216,7 +2216,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT ReadVirtualUncachedDelegate(IntPtr self, [In] ulong Offset, [Out] IntPtr Buffer, [In] uint BufferSize, [Out] out uint BytesRead);
         private delegate HRESULT WriteVirtualUncachedDelegate(IntPtr self, [In] ulong Offset, [In] IntPtr Buffer, [In] uint BufferSize, [Out] out uint BytesWritten);
         private delegate HRESULT ReadPointersVirtualDelegate(IntPtr self, [In] uint Count, [In] ulong Offset, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ulong[] Ptrs);
-        private delegate HRESULT WritePointersVirtualDelegate(IntPtr self, [In] uint Count, [In] ulong Offset, [In, MarshalAs(UnmanagedType.LPArray)] ulong[] Ptrs);
+        private delegate HRESULT WritePointersVirtualDelegate(IntPtr self, [In] uint Count, [In] ulong Offset, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ulong[] Ptrs);
         private delegate HRESULT ReadPhysicalDelegate(IntPtr self, [In] ulong Offset, [Out] IntPtr Buffer, [In] uint BufferSize, [Out] out uint BytesRead);
         private delegate HRESULT WritePhysicalDelegate(IntPtr self, [In] ulong Offset, [In] IntPtr Buffer, [In] uint BufferSize, [Out] out uint BytesWritten);
         private delegate HRESULT ReadControlDelegate(IntPtr self, [In] uint Processor, [In] ulong Offset, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out uint BytesRead);
@@ -2235,7 +2235,7 @@ namespace ClrDebug.DbgEng
         #region IDebugDataSpaces2
 
         private delegate HRESULT VirtualToPhysicalDelegate(IntPtr self, [In] ulong Virtual, [Out] out ulong Physical);
-        private delegate HRESULT GetVirtualTranslationPhysicalOffsetsDelegate(IntPtr self, [In] ulong Virtual, [Out, MarshalAs(UnmanagedType.LPArray)] ulong[] Offsets, [In] uint OffsetsSize, [Out] out uint Levels);
+        private delegate HRESULT GetVirtualTranslationPhysicalOffsetsDelegate(IntPtr self, [In] ulong Virtual, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] Offsets, [In] uint OffsetsSize, [Out] out uint Levels);
         private delegate HRESULT ReadHandleDataDelegate(IntPtr self, [In] ulong Handle, [In] DEBUG_HANDLE_DATA_TYPE DataType, [Out] IntPtr Buffer, [In] uint BufferSize, [Out] out uint DataSize);
         private delegate HRESULT FillVirtualDelegate(IntPtr self, [In] ulong Start, [In] uint Size, [In] IntPtr Buffer, [In] uint PatternSize, [Out] out uint Filled);
         private delegate HRESULT FillPhysicalDelegate(IntPtr self, [In] ulong Start, [In] uint Size, [In] IntPtr Buffer, [In] uint PatternSize, [Out] out uint Filled);

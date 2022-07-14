@@ -11,7 +11,7 @@ namespace ClrDebug
         HRESULT GetTieredVersions(
             [In] CLRDATA_ADDRESS methodDesc,
             [In] int rejitId,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DacpTieredVersionData[] nativeCodeAddrs,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DacpTieredVersionData[] nativeCodeAddrs,
             [In] int cNativeCodeAddrs,
             [Out] out int pcNativeCodeAddrs);
     }

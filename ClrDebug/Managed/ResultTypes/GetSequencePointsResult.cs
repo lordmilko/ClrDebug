@@ -3,15 +3,15 @@
 namespace ClrDebug
 {
     /// <summary>
-    /// Encapsulates the results of the <see cref="SymUnmanagedMethod.GetSequencePoints"/> method.
+    /// Encapsulates the results of the <see cref="SymUnmanagedMethod.SequencePoints"/> property.
     /// </summary>
-    [DebuggerDisplay("pcPoints = {pcPoints}, documents = {documents}, lines = {lines}, columns = {columns}, endLines = {endLines}, endColumns = {endColumns}")]
+    [DebuggerDisplay("offsets = {offsets}, documents = {documents}, lines = {lines}, columns = {columns}, endLines = {endLines}, endColumns = {endColumns}")]
     public struct GetSequencePointsResult
     {
         /// <summary>
-        /// A pointer to a ULONG32 that receives the length of the buffer required to contain the sequence points.
+        /// An array in which to store the Microsoft intermediate language (MSIL) offsets from the beginning of the method for the sequence points.
         /// </summary>
-        public int pcPoints { get; }
+        public int[] offsets { get; }
 
         /// <summary>
         /// An array in which to store the documents in which the sequence points are located.
@@ -38,9 +38,9 @@ namespace ClrDebug
         /// </summary>
         public int[] endColumns { get; }
 
-        public GetSequencePointsResult(int pcPoints, ISymUnmanagedDocument[] documents, int[] lines, int[] columns, int[] endLines, int[] endColumns)
+        public GetSequencePointsResult(int[] offsets, ISymUnmanagedDocument[] documents, int[] lines, int[] columns, int[] endLines, int[] endColumns)
         {
-            this.pcPoints = pcPoints;
+            this.offsets = offsets;
             this.documents = documents;
             this.lines = lines;
             this.columns = columns;

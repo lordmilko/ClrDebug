@@ -86,7 +86,7 @@ namespace ClrDebug
         HRESULT GetILAddressMap(
             [In] int mapLen,
             [Out] out int mapNeeded,
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_IL_ADDRESS_MAP[] maps);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDATA_IL_ADDRESS_MAP[] maps);
 
         [PreserveSig]
         HRESULT StartEnumExtents(

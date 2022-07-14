@@ -308,9 +308,9 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetModuleParameters(
             [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray)] ulong[] Bases,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ulong[] Bases,
             [In] uint Start,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_MODULE_PARAMETERS[] Params);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_MODULE_PARAMETERS[] Params);
 
         /// <summary>
         /// The GetSymbolModule method returns the base address of module which contains the specified symbol.
@@ -943,7 +943,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetSourceFileLineOffsets(
             [In, MarshalAs(UnmanagedType.LPStr)] string File,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ulong[] Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] Buffer,
             [In] int BufferLines,
             [Out] out uint FileLines);
 
@@ -1631,7 +1631,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSourceFileLineOffsetsWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string File,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ulong[] Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] Buffer,
             [In] int BufferLines,
             [Out] out uint FileLines);
 
@@ -2093,8 +2093,8 @@ namespace ClrDebug.DbgEng
         HRESULT GetSymbolEntriesByOffset(
             [In] ulong Offset,
             [In] uint Flags,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_MODULE_AND_ID[] Ids,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ulong[] Displacements,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_MODULE_AND_ID[] Ids,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] ulong[] Displacements,
             [In] uint IdsCount,
             [Out] out uint Entries);
 
@@ -2115,7 +2115,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetSymbolEntriesByName(
             [In, MarshalAs(UnmanagedType.LPStr)] string Symbol,
             [In] uint Flags,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_MODULE_AND_ID[] Ids,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_MODULE_AND_ID[] Ids,
             [In] uint IdsCount,
             [Out] out uint Entries);
 
@@ -2136,7 +2136,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetSymbolEntriesByNameWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol,
             [In] uint Flags,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_MODULE_AND_ID[] Ids,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_MODULE_AND_ID[] Ids,
             [In] uint IdsCount,
             [Out] out uint Entries);
 
@@ -2226,7 +2226,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetSymbolEntryOffsetRegions(
             [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id,
             [In] uint Flags,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_OFFSET_REGION[] Regions,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions,
             [In] uint RegionsCount,
             [Out] out uint RegionsAvail);
 
@@ -2256,7 +2256,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetSourceEntriesByOffset(
             [In] ulong Offset,
             [In] uint Flags,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries,
             [In] uint EntriesCount,
             [Out] out uint EntriesAvail);
 
@@ -2283,7 +2283,7 @@ namespace ClrDebug.DbgEng
             [In] uint Line,
             [In, MarshalAs(UnmanagedType.LPStr)] string File,
             [In] uint Flags,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries,
             [In] uint EntriesCount,
             [Out] out uint EntriesAvail);
 
@@ -2310,7 +2310,7 @@ namespace ClrDebug.DbgEng
             [In] uint Line,
             [In, MarshalAs(UnmanagedType.LPWStr)] string File,
             [In] uint Flags,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries,
             [In] uint EntriesCount,
             [Out] out uint EntriesAvail);
 
@@ -2364,7 +2364,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetSourceEntryOffsetRegions(
             [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry,
             [In] uint Flags,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_OFFSET_REGION[] Regions,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions,
             [In] uint RegionsCount,
             [Out] out uint RegionsAvail);
 

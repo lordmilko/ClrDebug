@@ -125,17 +125,17 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT GetArrayProperties(
-            [Out, MarshalAs(UnmanagedType.LPArray)] int[] rank,
+            [Out] out int rank,
             [Out] out int totalElements,
             [In] int numDim,
-            [Out, MarshalAs(UnmanagedType.LPArray)] int[] dims,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] int[] dims,
             [In] int numBases,
-            [Out, MarshalAs(UnmanagedType.LPArray)] int[] bases);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] int[] bases);
 
         [PreserveSig]
         HRESULT GetArrayElement(
             [In] int numInd,
-            [In, MarshalAs(UnmanagedType.LPArray)] int[] indices,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] indices,
             [Out] out IXCLRDataValue value);
 
         [PreserveSig]

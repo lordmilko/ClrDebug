@@ -61,8 +61,8 @@ namespace ClrDebug
         HRESULT GetAsyncStepInfo(
             [In] int cStepInfo,
             [Out] out int pcStepInfo,
-            [Out, MarshalAs(UnmanagedType.LPArray)] int[] yieldOffsets,
-            [Out, MarshalAs(UnmanagedType.LPArray)] int[] breakpointOffset,
-            [Out, MarshalAs(UnmanagedType.LPArray)] int[] breakpointMethod);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] yieldOffsets,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] breakpointOffset,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] breakpointMethod);
     }
 }

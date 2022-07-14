@@ -581,29 +581,28 @@ namespace ClrDebug
         #endregion
         #region GetArrayProperties
 
-        public GetArrayPropertiesResult GetArrayProperties(int numDim)
+        public GetArrayPropertiesResult GetArrayProperties(int numDim, int numBases)
         {
             GetArrayPropertiesResult result;
-            TryGetArrayProperties(numDim, out result).ThrowOnNotOK();
+            TryGetArrayProperties(numDim, numBases, out result).ThrowOnNotOK();
 
             return result;
         }
 
-        public HRESULT TryGetArrayProperties(int numDim, out GetArrayPropertiesResult result)
+        public HRESULT TryGetArrayProperties(int numDim, int numBases, out GetArrayPropertiesResult result)
         {
             /*HRESULT GetArrayProperties(
-            [Out, MarshalAs(UnmanagedType.LPArray)] int[] rank,
+            [Out] out int rank,
             [Out] out int totalElements,
             [In] int numDim,
-            [Out, MarshalAs(UnmanagedType.LPArray)] int[] dims,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] int[] dims,
             [In] int numBases,
-            [Out, MarshalAs(UnmanagedType.LPArray)] int[] bases);*/
-            int[] rank = null;
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] int[] bases);*/
+            int rank;
             int totalElements;
-            int[] dims = null;
-            int numBases = 0;
-            int[] bases = null;
-            HRESULT hr = Raw.GetArrayProperties(rank, out totalElements, numDim, dims, numBases, bases);
+            int[] dims = new int[numDim];
+            int[] bases = new int[numBases];
+            HRESULT hr = Raw.GetArrayProperties(out rank, out totalElements, numDim, dims, numBases, bases);
 
             if (hr == HRESULT.S_OK)
                 result = new GetArrayPropertiesResult(rank, totalElements, dims, bases);
@@ -628,7 +627,7 @@ namespace ClrDebug
         {
             /*HRESULT GetArrayElement(
             [In] int numInd,
-            [In, MarshalAs(UnmanagedType.LPArray)] int[] indices,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] indices,
             [Out] out IXCLRDataValue value);*/
             IXCLRDataValue value;
             HRESULT hr = Raw.GetArrayElement(numInd, indices, out value);

@@ -1032,12 +1032,12 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getModuleParameters, Vtbl->GetModuleParameters);
             /*HRESULT GetModuleParameters(
             [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray)]
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]
             ulong[] Bases,
             [In] uint Start,
-            [Out, MarshalAs(UnmanagedType.LPArray)]
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]
             DEBUG_MODULE_PARAMETERS[] Params);*/
-            @params = null;
+            @params = new DEBUG_MODULE_PARAMETERS[(int) count];
             HRESULT hr = getModuleParameters(Raw, count, bases, start, @params);
 
             return hr;
@@ -2409,7 +2409,7 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getSourceFileLineOffsets, Vtbl->GetSourceFileLineOffsets);
             /*HRESULT GetSourceFileLineOffsets(
             [In, MarshalAs(UnmanagedType.LPStr)] string File,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ulong[] Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] Buffer,
             [In] int BufferLines,
             [Out] out uint FileLines);*/
             buffer = null;
@@ -4259,7 +4259,7 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getSourceFileLineOffsetsWide, Vtbl3->GetSourceFileLineOffsetsWide);
             /*HRESULT GetSourceFileLineOffsetsWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string File,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ulong[] Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] Buffer,
             [In] int BufferLines,
             [Out] out uint FileLines);*/
             buffer = null;
@@ -5383,8 +5383,8 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetSymbolEntriesByOffset(
             [In] ulong Offset,
             [In] uint Flags,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_MODULE_AND_ID[] Ids,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ulong[] Displacements,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_MODULE_AND_ID[] Ids,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] ulong[] Displacements,
             [In] uint IdsCount,
             [Out] out uint Entries);*/
             DEBUG_MODULE_AND_ID[] ids = null;
@@ -5398,6 +5398,7 @@ namespace ClrDebug.DbgEng
 
             idsCount = entries;
             displacements = new ulong[(int) idsCount];
+            ids = new DEBUG_MODULE_AND_ID[(int) idsCount];
             hr = getSymbolEntriesByOffset(Raw, offset, flags, ids, displacements, idsCount, out entries);
 
             if (hr == HRESULT.S_OK)
@@ -5451,7 +5452,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetSymbolEntriesByName(
             [In, MarshalAs(UnmanagedType.LPStr)] string Symbol,
             [In] uint Flags,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_MODULE_AND_ID[] Ids,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_MODULE_AND_ID[] Ids,
             [In] uint IdsCount,
             [Out] out uint Entries);*/
             ids = null;
@@ -5507,7 +5508,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetSymbolEntriesByNameWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol,
             [In] uint Flags,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_MODULE_AND_ID[] Ids,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_MODULE_AND_ID[] Ids,
             [In] uint IdsCount,
             [Out] out uint Entries);*/
             ids = null;
@@ -5762,7 +5763,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetSymbolEntryOffsetRegions(
             [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id,
             [In] uint Flags,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_OFFSET_REGION[] Regions,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions,
             [In] uint RegionsCount,
             [Out] out uint RegionsAvail);*/
             regions = null;
@@ -5845,7 +5846,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetSourceEntriesByOffset(
             [In] ulong Offset,
             [In] uint Flags,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries,
             [In] uint EntriesCount,
             [Out] out uint EntriesAvail);*/
             entries = null;
@@ -5912,7 +5913,7 @@ namespace ClrDebug.DbgEng
             [In] uint Line,
             [In, MarshalAs(UnmanagedType.LPStr)] string File,
             [In] uint Flags,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries,
             [In] uint EntriesCount,
             [Out] out uint EntriesAvail);*/
             entries = null;
@@ -5979,7 +5980,7 @@ namespace ClrDebug.DbgEng
             [In] uint Line,
             [In, MarshalAs(UnmanagedType.LPWStr)] string File,
             [In] uint Flags,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries,
             [In] uint EntriesCount,
             [Out] out uint EntriesAvail);*/
             entries = null;
@@ -6146,7 +6147,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetSourceEntryOffsetRegions(
             [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry,
             [In] uint Flags,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_OFFSET_REGION[] Regions,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions,
             [In] uint RegionsCount,
             [Out] out uint RegionsAvail);*/
             regions = null;
@@ -6933,7 +6934,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetModuleByModuleNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [In] uint StartIndex, [Out] out uint Index, [Out] out ulong Base);
         private delegate HRESULT GetModuleByOffsetDelegate(IntPtr self, [In] ulong Offset, [In] uint StartIndex, [Out] out uint Index, [Out] out ulong Base);
         private delegate HRESULT GetModuleNamesDelegate(IntPtr self, [In] uint Index, [In] ulong Base, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder ImageNameBuffer, [In] int ImageNameBufferSize, [Out] out uint ImageNameSize, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder ModuleNameBuffer, [In] int ModuleNameBufferSize, [Out] out uint ModuleNameSize, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder LoadedImageNameBuffer, [In] int LoadedImageNameBufferSize, [Out] out uint LoadedImageNameSize);
-        private delegate HRESULT GetModuleParametersDelegate(IntPtr self, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray)] ulong[] Bases, [In] uint Start, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_MODULE_PARAMETERS[] Params);
+        private delegate HRESULT GetModuleParametersDelegate(IntPtr self, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ulong[] Bases, [In] uint Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_MODULE_PARAMETERS[] Params);
         private delegate HRESULT GetSymbolModuleDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Symbol, [Out] out ulong Base);
         private delegate HRESULT GetTypeNameDelegate(IntPtr self, [In] ulong Module, [In] uint TypeId, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out uint NameSize);
         private delegate HRESULT GetTypeIdDelegate(IntPtr self, [In] ulong Module, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [Out] out uint TypeId);
@@ -6961,7 +6962,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetSourcePathElementDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint ElementSize);
         private delegate HRESULT AppendSourcePathDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Addition);
         private delegate HRESULT FindSourceFileDelegate(IntPtr self, [In] uint StartElement, [In, MarshalAs(UnmanagedType.LPStr)] string File, [In] DEBUG_FIND_SOURCE Flags, [Out] out uint FoundElement, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint FoundSize);
-        private delegate HRESULT GetSourceFileLineOffsetsDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string File, [Out, MarshalAs(UnmanagedType.LPArray)] ulong[] Buffer, [In] int BufferLines, [Out] out uint FileLines);
+        private delegate HRESULT GetSourceFileLineOffsetsDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string File, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] Buffer, [In] int BufferLines, [Out] out uint FileLines);
 
         #endregion
         #region IDebugSymbols2
@@ -7006,7 +7007,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetSourcePathElementWideDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint ElementSize);
         private delegate HRESULT AppendSourcePathWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Addition);
         private delegate HRESULT FindSourceFileWideDelegate(IntPtr self, [In] uint StartElement, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [In] DEBUG_FIND_SOURCE Flags, [Out] out uint FoundElement, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint FoundSize);
-        private delegate HRESULT GetSourceFileLineOffsetsWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [Out, MarshalAs(UnmanagedType.LPArray)] ulong[] Buffer, [In] int BufferLines, [Out] out uint FileLines);
+        private delegate HRESULT GetSourceFileLineOffsetsWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] Buffer, [In] int BufferLines, [Out] out uint FileLines);
         private delegate HRESULT GetModuleVersionInformationWideDelegate(IntPtr self, [In] uint Index, [In] ulong Base, [In, MarshalAs(UnmanagedType.LPWStr)] string Item, [In] IntPtr Buffer, [In] int BufferSize, [Out] out uint VerInfoSize);
         private delegate HRESULT GetModuleNameStringWideDelegate(IntPtr self, [In] DEBUG_MODNAME Which, [In] uint Index, [In] ulong Base, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint NameSize);
         private delegate HRESULT GetConstantNameWideDelegate(IntPtr self, [In] ulong Module, [In] uint TypeId, [In] ulong Value, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint NameSize);
@@ -7028,21 +7029,21 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT AddSyntheticSymbolDelegate(IntPtr self, [In] ulong Offset, [In] uint Size, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [In] DEBUG_ADDSYNTHSYM Flags, [Out] out DEBUG_MODULE_AND_ID Id);
         private delegate HRESULT AddSyntheticSymbolWideDelegate(IntPtr self, [In] ulong Offset, [In] uint Size, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [In] DEBUG_ADDSYNTHSYM Flags, [Out] out DEBUG_MODULE_AND_ID Id);
         private delegate HRESULT RemoveSyntheticSymbolDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id);
-        private delegate HRESULT GetSymbolEntriesByOffsetDelegate(IntPtr self, [In] ulong Offset, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_MODULE_AND_ID[] Ids, [Out, MarshalAs(UnmanagedType.LPArray)] ulong[] Displacements, [In] uint IdsCount, [Out] out uint Entries);
-        private delegate HRESULT GetSymbolEntriesByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Symbol, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_MODULE_AND_ID[] Ids, [In] uint IdsCount, [Out] out uint Entries);
-        private delegate HRESULT GetSymbolEntriesByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_MODULE_AND_ID[] Ids, [In] uint IdsCount, [Out] out uint Entries);
+        private delegate HRESULT GetSymbolEntriesByOffsetDelegate(IntPtr self, [In] ulong Offset, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_MODULE_AND_ID[] Ids, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] ulong[] Displacements, [In] uint IdsCount, [Out] out uint Entries);
+        private delegate HRESULT GetSymbolEntriesByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Symbol, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_MODULE_AND_ID[] Ids, [In] uint IdsCount, [Out] out uint Entries);
+        private delegate HRESULT GetSymbolEntriesByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_MODULE_AND_ID[] Ids, [In] uint IdsCount, [Out] out uint Entries);
         private delegate HRESULT GetSymbolEntryByTokenDelegate(IntPtr self, [In] ulong ModuleBase, [In] uint Token, [Out] out DEBUG_MODULE_AND_ID Id);
         private delegate HRESULT GetSymbolEntryInformationDelegate(IntPtr self, [In] ref DEBUG_MODULE_AND_ID Id, [Out] out DEBUG_SYMBOL_ENTRY Info);
         private delegate HRESULT GetSymbolEntryStringDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id, [In] uint Which, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint StringSize);
         private delegate HRESULT GetSymbolEntryStringWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id, [In] uint Which, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint StringSize);
-        private delegate HRESULT GetSymbolEntryOffsetRegionsDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_OFFSET_REGION[] Regions, [In] uint RegionsCount, [Out] out uint RegionsAvail);
+        private delegate HRESULT GetSymbolEntryOffsetRegionsDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions, [In] uint RegionsCount, [Out] out uint RegionsAvail);
         private delegate HRESULT GetSymbolEntryBySymbolEntryDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID FromId, [In] uint Flags, [Out] out DEBUG_MODULE_AND_ID ToId);
-        private delegate HRESULT GetSourceEntriesByOffsetDelegate(IntPtr self, [In] ulong Offset, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries, [In] uint EntriesCount, [Out] out uint EntriesAvail);
-        private delegate HRESULT GetSourceEntriesByLineDelegate(IntPtr self, [In] uint Line, [In, MarshalAs(UnmanagedType.LPStr)] string File, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries, [In] uint EntriesCount, [Out] out uint EntriesAvail);
-        private delegate HRESULT GetSourceEntriesByLineWideDelegate(IntPtr self, [In] uint Line, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries, [In] uint EntriesCount, [Out] out uint EntriesAvail);
+        private delegate HRESULT GetSourceEntriesByOffsetDelegate(IntPtr self, [In] ulong Offset, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries, [In] uint EntriesCount, [Out] out uint EntriesAvail);
+        private delegate HRESULT GetSourceEntriesByLineDelegate(IntPtr self, [In] uint Line, [In, MarshalAs(UnmanagedType.LPStr)] string File, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries, [In] uint EntriesCount, [Out] out uint EntriesAvail);
+        private delegate HRESULT GetSourceEntriesByLineWideDelegate(IntPtr self, [In] uint Line, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries, [In] uint EntriesCount, [Out] out uint EntriesAvail);
         private delegate HRESULT GetSourceEntryStringDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry, [In] uint Which, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint StringSize);
         private delegate HRESULT GetSourceEntryStringWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry, [In] uint Which, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint StringSize);
-        private delegate HRESULT GetSourceEntryOffsetRegionsDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_OFFSET_REGION[] Regions, [In] uint RegionsCount, [Out] out uint RegionsAvail);
+        private delegate HRESULT GetSourceEntryOffsetRegionsDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions, [In] uint RegionsCount, [Out] out uint RegionsAvail);
         private delegate HRESULT GetSourceEntryBySourceEntryDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY FromEntry, [In] uint Flags, [Out] out DEBUG_SYMBOL_SOURCE_ENTRY ToEntry);
 
         #endregion

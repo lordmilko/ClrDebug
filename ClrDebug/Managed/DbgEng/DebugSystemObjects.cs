@@ -715,10 +715,10 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetThreadIdsByIndex(
             [In] uint Start,
             [In] uint Count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] uint[] Ids,
-            [Out, MarshalAs(UnmanagedType.LPArray)] uint[] SysIds);*/
-            uint[] ids = null;
-            uint[] sysIds = null;
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Ids,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] SysIds);*/
+            uint[] ids = new uint[(int) count];
+            uint[] sysIds = new uint[(int) count];
             HRESULT hr = getThreadIdsByIndex(Raw, start, count, ids, sysIds);
 
             if (hr == HRESULT.S_OK)
@@ -969,10 +969,10 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetProcessIdsByIndex(
             [In] uint Start,
             [In] uint Count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] uint[] Ids,
-            [Out, MarshalAs(UnmanagedType.LPArray)] uint[] SysIds);*/
-            uint[] ids = null;
-            uint[] sysIds = null;
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Ids,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] SysIds);*/
+            uint[] ids = new uint[(int) count];
+            uint[] sysIds = new uint[(int) count];
             HRESULT hr = getProcessIdsByIndex(Raw, start, count, ids, sysIds);
 
             if (hr == HRESULT.S_OK)
@@ -1572,8 +1572,8 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetSystemIdsByIndex(
             [In] uint Start,
             [In] uint Count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] uint[] Ids);*/
-            ids = null;
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Ids);*/
+            ids = new uint[(int) count];
             HRESULT hr = getSystemIdsByIndex(Raw, start, count, ids);
 
             return hr;
@@ -1843,13 +1843,13 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetCurrentProcessSystemIdDelegate(IntPtr self, [Out] out uint SysId);
         private delegate HRESULT GetCurrentProcessHandleDelegate(IntPtr self, [Out] out ulong Handle);
         private delegate HRESULT GetCurrentProcessExecutableNameDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint ExeSize);
-        private delegate HRESULT GetThreadIdsByIndexDelegate(IntPtr self, [In] uint Start, [In] uint Count, [Out, MarshalAs(UnmanagedType.LPArray)] uint[] Ids, [Out, MarshalAs(UnmanagedType.LPArray)] uint[] SysIds);
+        private delegate HRESULT GetThreadIdsByIndexDelegate(IntPtr self, [In] uint Start, [In] uint Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Ids, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] SysIds);
         private delegate HRESULT GetThreadIdByProcessorDelegate(IntPtr self, [In] uint Processor, [Out] out uint Id);
         private delegate HRESULT GetThreadIdByDataOffsetDelegate(IntPtr self, [In] ulong Offset, [Out] out uint Id);
         private delegate HRESULT GetThreadIdByTebDelegate(IntPtr self, [In] ulong Offset, [Out] out uint Id);
         private delegate HRESULT GetThreadIdBySystemIdDelegate(IntPtr self, [In] uint SysId, [Out] out uint Id);
         private delegate HRESULT GetThreadIdByHandleDelegate(IntPtr self, [In] ulong Handle, [Out] out uint Id);
-        private delegate HRESULT GetProcessIdsByIndexDelegate(IntPtr self, [In] uint Start, [In] uint Count, [Out, MarshalAs(UnmanagedType.LPArray)] uint[] Ids, [Out, MarshalAs(UnmanagedType.LPArray)] uint[] SysIds);
+        private delegate HRESULT GetProcessIdsByIndexDelegate(IntPtr self, [In] uint Start, [In] uint Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Ids, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] SysIds);
         private delegate HRESULT GetProcessIdByDataOffsetDelegate(IntPtr self, [In] ulong Offset, [Out] out uint Id);
         private delegate HRESULT GetProcessIdByPebDelegate(IntPtr self, [In] ulong Offset, [Out] out uint Id);
         private delegate HRESULT GetProcessIdBySystemIdDelegate(IntPtr self, [In] uint SysId, [Out] out uint Id);
@@ -1874,7 +1874,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetTotalNumberThreadsAndProcessesDelegate(IntPtr self, [Out] out uint TotalThreads, [Out] out uint TotalProcesses, [Out] out uint LargestProcessThreads, [Out] out uint LargestSystemThreads, [Out] out uint LargestSystemProcesses);
         private delegate HRESULT GetCurrentSystemServerDelegate(IntPtr self, [Out] out ulong server);
         private delegate HRESULT GetCurrentSystemServerNameDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] uint Size, [Out] out uint Needed);
-        private delegate HRESULT GetSystemIdsByIndexDelegate(IntPtr self, [In] uint Start, [In] uint Count, [Out, MarshalAs(UnmanagedType.LPArray)] uint[] Ids);
+        private delegate HRESULT GetSystemIdsByIndexDelegate(IntPtr self, [In] uint Start, [In] uint Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Ids);
         private delegate HRESULT GetSystemByServerDelegate(IntPtr self, [In] ulong Server, [Out] out uint Id);
 
         #endregion

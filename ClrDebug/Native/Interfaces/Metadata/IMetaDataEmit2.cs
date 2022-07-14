@@ -63,7 +63,7 @@ namespace ClrDebug
         /// <param name="tk">[in] An <see cref="mdTypeDef"/> or <see cref="mdMethodDef"/> token that represents the method or constructor for which to define a generic parameter.</param>
         /// <param name="ulParamSeq">[in] The index of the generic parameter.</param>
         /// <param name="dwParamFlags">[in] A value of the <see cref="CorGenericParamAttr"/> enumeration that describes the type for the generic parameter.</param>
-        /// <param name="szname">[in] The name of the parameter.</param>
+        /// <param name="szName">[in] The name of the parameter.</param>
         /// <param name="reserved">[in] This parameter is reserved for future extensibility.</param>
         /// <param name="rtkConstraints">[in] A zero-terminated array of type constraints. Array members must be an <see cref="mdTypeDef"/>, <see cref="mdTypeRef"/>, or <see cref="mdTypeSpec"/> metadata token.</param>
         /// <param name="pgp">[out] A token that represents the generic parameter.</param>
@@ -72,7 +72,7 @@ namespace ClrDebug
             [In] mdToken tk,
             [In] int ulParamSeq,
             [In] int dwParamFlags,
-            [In, MarshalAs(UnmanagedType.LPWStr)] string szname,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] int reserved,
             [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkConstraints,
             [Out] out mdGenericParam pgp);

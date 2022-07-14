@@ -307,9 +307,9 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetModuleParameters(
             [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray)] ulong[] Bases,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ulong[] Bases,
             [In] uint Start,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_MODULE_PARAMETERS[] Params);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_MODULE_PARAMETERS[] Params);
 
         /// <summary>
         /// The GetSymbolModule method returns the base address of module which contains the specified symbol.
@@ -942,7 +942,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetSourceFileLineOffsets(
             [In, MarshalAs(UnmanagedType.LPStr)] string File,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ulong[] Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] Buffer,
             [In] int BufferLines,
             [Out] out uint FileLines);
 

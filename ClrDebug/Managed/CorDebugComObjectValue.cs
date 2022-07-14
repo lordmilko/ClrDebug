@@ -80,7 +80,7 @@
             [In] bool bIInspectableOnly,
             [In] int celt,
             [Out] out int pceltFetched,
-            [Out, MarshalAs(UnmanagedType.LPArray)] CORDB_ADDRESS[] ptrs);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CORDB_ADDRESS[] ptrs);*/
             int celt = 0;
             int pceltFetched;
             ptrs = null;

@@ -298,7 +298,7 @@ namespace ClrDebug
         /// <param name="pThreadIds">An array of thread identifiers.</param>
         public HRESULT TryEnumerateThreadIDs(out int[] pThreadIds)
         {
-            /*HRESULT EnumerateThreadIDs([In] int cThreadIds, [Out] out int pcThreadIds, [Out, MarshalAs(UnmanagedType.LPArray)] int[] pThreadIds);*/
+            /*HRESULT EnumerateThreadIDs([In] int cThreadIds, [Out] out int pcThreadIds, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pThreadIds);*/
             int cThreadIds = 0;
             int pcThreadIds;
             pThreadIds = null;
@@ -393,7 +393,7 @@ namespace ClrDebug
             /*HRESULT GetLoadedModules(
             [In] int cRequestedModules,
             [Out] out int pcFetchedModules,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ICorDebugLoadedModule[] pLoadedModules);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ICorDebugLoadedModule[] pLoadedModules);*/
             int cRequestedModules = 0;
             int pcFetchedModules;
             ICorDebugLoadedModule[] pLoadedModules = null;

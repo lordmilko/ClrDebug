@@ -198,7 +198,7 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetILToNativeMapping(out COR_DEBUG_IL_TO_NATIVE_MAP[] map)
         {
-            /*HRESULT GetILToNativeMapping([In] int cMap, [Out] out int pcMap, [MarshalAs(UnmanagedType.LPArray), Out]
+            /*HRESULT GetILToNativeMapping([In] int cMap, [Out] out int pcMap, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out]
             COR_DEBUG_IL_TO_NATIVE_MAP[] map);*/
             int cMap = 0;
             int pcMap;
@@ -240,7 +240,7 @@ namespace ClrDebug
             /*HRESULT GetEnCRemapSequencePoints(
             [In] int cMap,
             [Out] out int pcMap,
-            [MarshalAs(UnmanagedType.LPArray), Out] int[] offsets);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] int[] offsets);*/
             int cMap = 0;
             int pcMap;
             offsets = null;
@@ -341,7 +341,7 @@ namespace ClrDebug
             [In] int startOffset,
             [In] int endOffset,
             [In] int cBufferAlloc,
-            [MarshalAs(UnmanagedType.LPArray), Out] byte[] buffer,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2), Out] byte[] buffer,
             [Out] out int pcBufferSize);*/
             int cBufferAlloc = 0;
             buffer = null;
@@ -392,7 +392,7 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetCodeChunks(out CodeChunkInfo[] chunks)
         {
-            /*HRESULT GetCodeChunks([In] int cbufSize, [Out] out int pcnumChunks, [MarshalAs(UnmanagedType.LPArray), Out] CodeChunkInfo[] chunks);*/
+            /*HRESULT GetCodeChunks([In] int cbufSize, [Out] out int pcnumChunks, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] CodeChunkInfo[] chunks);*/
             int cbufSize = 0;
             int pcnumChunks;
             chunks = null;

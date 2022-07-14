@@ -85,7 +85,7 @@ namespace ClrDebug
             [In] int column,
             [In] int cRanges,
             [Out] out int pcRanges,
-            [MarshalAs(UnmanagedType.LPArray), Out] int[] ranges);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3), Out] int[] ranges);
 
         /// <summary>
         /// Gets the parameters for this method. The parameters are returned in the order in which they are defined within the method's signature.
@@ -96,7 +96,7 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetParameters([In] int cParams, [Out] out int pcParams, [MarshalAs(UnmanagedType.LPArray), Out] ISymUnmanagedVariable[] @params);
+        HRESULT GetParameters([In] int cParams, [Out] out int pcParams, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] ISymUnmanagedVariable[] @params);
 
         /// <summary>
         /// Gets the namespace within which this method is defined.
@@ -118,12 +118,9 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSourceStartEnd(
-            [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In]
-            ISymUnmanagedDocument[] docs,
-            [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In]
-            int[] lines,
-            [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In]
-            int[] columns,
+            [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In] ISymUnmanagedDocument[] docs,
+            [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In] int[] lines,
+            [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In] int[] columns,
             [Out] out int pRetVal);
 
         /// <summary>
@@ -143,11 +140,11 @@ namespace ClrDebug
         HRESULT GetSequencePoints(
             [In] int cPoints,
             [Out] out int pcPoints,
-            [In] ref int offsets,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedDocument[] documents,
-            [Out, MarshalAs(UnmanagedType.LPArray)] int[] lines,
-            [Out, MarshalAs(UnmanagedType.LPArray)] int[] columns,
-            [Out, MarshalAs(UnmanagedType.LPArray)] int[] endLines,
-            [Out, MarshalAs(UnmanagedType.LPArray)] int[] endColumns);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] offsets,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedDocument[] documents,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] lines,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] columns,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] endLines,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] endColumns);
     }
 }

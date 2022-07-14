@@ -27,7 +27,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetActiveFunctions([In] int cFunctions, [Out] out int pcFunctions,
-            [MarshalAs(UnmanagedType.LPArray), In, Out] COR_ACTIVE_FUNCTION[] pFunctions);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), In, Out] COR_ACTIVE_FUNCTION[] pFunctions);
 
         /// <summary>
         /// Gets the connection identifier for this <see cref="ICorDebugThread2"/> object.

@@ -44,7 +44,7 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetEHClauses(out CorDebugEHClause[] clauses)
         {
-            /*HRESULT GetEHClauses([In] int cClauses, [Out] out int pcClauses, [MarshalAs(UnmanagedType.LPArray), Out]
+            /*HRESULT GetEHClauses([In] int cClauses, [Out] out int pcClauses, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out]
             CorDebugEHClause[] clauses);*/
             int cClauses = 0;
             int pcClauses;
@@ -126,7 +126,7 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetInstrumentedILMap(out COR_IL_MAP[] map)
         {
-            /*HRESULT GetInstrumentedILMap([In] int cMap, [Out] out int pcMap, [MarshalAs(UnmanagedType.LPArray), Out] COR_IL_MAP[] map);*/
+            /*HRESULT GetInstrumentedILMap([In] int cMap, [Out] out int pcMap, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] COR_IL_MAP[] map);*/
             int cMap = 0;
             int pcMap;
             map = null;

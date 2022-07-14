@@ -71,7 +71,7 @@ namespace ClrDebug
         HRESULT GetDocumentsForMethod(
             [In] int cDocs,
             [Out] out int pcDocs,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedDocument[] documents);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedDocument[] documents);
 
         /// <summary>
         /// Gets the smallest start line and largest end line for the method in a specific document.

@@ -10,22 +10,22 @@ namespace ClrDebug
     public struct GetCustomAttributePropsResult
     {
         /// <summary>
-        /// [out, optional] A metadata token representing the object that the custom attribute modifies. This value can be any type of metadata token except <see cref="mdCustomAttribute"/>.
+        /// A metadata token representing the object that the custom attribute modifies. This value can be any type of metadata token except <see cref="mdCustomAttribute"/>.
         /// </summary>
         public mdToken ptkObj { get; }
 
         /// <summary>
-        /// [out, optional] An <see cref="mdMethodDef"/> or <see cref="mdMemberRef"/> metadata token representing the <see cref="Type"/> of the returned custom attribute.
+        /// An <see cref="mdMethodDef"/> or <see cref="mdMemberRef"/> metadata token representing the <see cref="Type"/> of the returned custom attribute.
         /// </summary>
         public mdToken ptkType { get; }
 
         /// <summary>
-        /// [out, optional] A pointer to an array of data that is the value of the custom attribute.
+        /// A pointer to an array of data that is the value of the custom attribute.
         /// </summary>
         public IntPtr ppBlob { get; }
 
         /// <summary>
-        /// [out, optional] The size in bytes of the data returned in *ppBlob.
+        /// The size in bytes of the data returned in *ppBlob.
         /// </summary>
         public int pcbSize { get; }
 

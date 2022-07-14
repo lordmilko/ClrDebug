@@ -149,14 +149,13 @@ namespace ClrDebug.CoClass
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT DefineSequencePoints(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocumentWriter document,
+            [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocumentWriter document,
             [In] int spCount,
-            [In] ref int offsets,
-            [In] ref int lines,
-            [In] ref int columns,
-            [In] ref int endLines,
-            [In] ref int endColumns);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] offsets,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] lines,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] columns,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] endLines,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] endColumns);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

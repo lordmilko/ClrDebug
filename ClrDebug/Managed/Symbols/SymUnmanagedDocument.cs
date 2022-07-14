@@ -210,7 +210,7 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
         public HRESULT TryGetCheckSum(out byte[] data)
         {
-            /*HRESULT GetCheckSum([In] int cData, [Out] out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
+            /*HRESULT GetCheckSum([In] int cData, [Out] out int pcData, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] data);*/
             int cData = 0;
             int pcData;
             data = null;
@@ -345,7 +345,7 @@ namespace ClrDebug
             [In] int endColumn,
             [In] int cSourceBytes,
             [Out] out int pcSourceBytes,
-            [MarshalAs(UnmanagedType.LPArray), Out] byte[] source);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4), Out] byte[] source);*/
             int cSourceBytes = 0;
             int pcSourceBytes;
             source = null;

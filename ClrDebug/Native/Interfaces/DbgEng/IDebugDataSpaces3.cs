@@ -151,7 +151,7 @@ namespace ClrDebug.DbgEng
         new HRESULT WritePointersVirtual(
             [In] uint Count,
             [In] ulong Offset,
-            [In, MarshalAs(UnmanagedType.LPArray)] ulong[] Ptrs);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ulong[] Ptrs);
 
         /// <summary>
         /// The ReadPhysical method reads the target's memory from the specified physical address.
@@ -459,7 +459,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetVirtualTranslationPhysicalOffsets(
             [In] ulong Virtual,
-            [Out, MarshalAs(UnmanagedType.LPArray)]
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)]
             ulong[] Offsets,
             [In] uint OffsetsSize,
             [Out] out uint Levels);

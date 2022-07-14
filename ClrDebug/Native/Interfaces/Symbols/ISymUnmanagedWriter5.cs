@@ -314,7 +314,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetDebugInfo(
-            [In, Out] ref IntPtr pIDD, [In] int cData, [Out] out int pcData, [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);
+            [In, Out] ref IntPtr pIDD, [In] int cData, [Out] out int pcData, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] byte[] data);
 
         /// <summary>
         /// Defines a group of sequence points within the current method. Each starting line and starting column define the start of a statement within a method.<para/>
@@ -332,14 +332,13 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineSequencePoints(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocumentWriter document,
+            [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocumentWriter document,
             [In] int spCount,
-            [In] ref int offsets,
-            [In] ref int lines,
-            [In] ref int columns,
-            [In] ref int endLines,
-            [In] ref int endColumns);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] offsets,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] lines,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] columns,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] endLines,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] endColumns);
 
         /// <summary>
         /// Notifies the symbol writer that a metadata token has been remapped as the metadata was emitted. If the symbol writer has stored the old token within the symbol store, it must either update the stored token with the new value, or it must save the map for the corresponding symbol reader to remap during the read phase.
@@ -488,7 +487,7 @@ namespace ClrDebug
             [In, Out] ref IntPtr pIDD,
             [In] int cData,
             [Out] out int pcData,
-            [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] byte[] data);
 
         /// <summary>
         /// Open a special custom data section to emit token-to-source span mapping information into. Opening this section when a method is already open, or vice versa, is an error.

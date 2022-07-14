@@ -48,7 +48,7 @@ namespace ClrDebug
         HRESULT GetLocalVariables(
             [In] mdMethodDef mdMethodToken,
             [In] int cLocals,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] rgLocals,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ISymUnmanagedVariable[] rgLocals,
             [Out] out int pceltFetched);
 
         /// <summary>
@@ -69,6 +69,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT UpdateMethodLines([In] mdMethodDef mdMethodToken, [In] ref int pDeltas, [In] int cDeltas);
+        HRESULT UpdateMethodLines(
+            [In] mdMethodDef mdMethodToken,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] int[] pDeltas,
+            [In] int cDeltas);
     }
 }

@@ -115,7 +115,7 @@ namespace ClrDebug
             /*HRESULT GetChildren(
             [In] int cChildren,
             [Out] out int pcChildren,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedScope[] children);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedScope[] children);*/
             int cChildren = 0;
             int pcChildren;
             ISymUnmanagedScope[] children = null;
@@ -252,7 +252,7 @@ namespace ClrDebug
             /*HRESULT GetLocals(
             [In] int cLocals,
             [Out] out int pcLocals,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] locals);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedVariable[] locals);*/
             int cLocals = 0;
             int pcLocals;
             ISymUnmanagedVariable[] locals = null;
@@ -305,7 +305,7 @@ namespace ClrDebug
             /*HRESULT GetNamespaces(
             [In] int cNameSpaces,
             [Out] out int pcNameSpaces,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedNamespace[] namespaces);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedNamespace[] namespaces);*/
             int cNameSpaces = 0;
             int pcNameSpaces;
             ISymUnmanagedNamespace[] namespaces = null;
@@ -389,7 +389,7 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetConstants(out SymUnmanagedConstant[] constantsResult)
         {
-            /*HRESULT GetConstants([In] int cConstants, [Out] out int pcConstants, [MarshalAs(UnmanagedType.LPArray), Out] ISymUnmanagedConstant[] constants);*/
+            /*HRESULT GetConstants([In] int cConstants, [Out] out int pcConstants, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] ISymUnmanagedConstant[] constants);*/
             int cConstants = 0;
             int pcConstants;
             ISymUnmanagedConstant[] constants = null;

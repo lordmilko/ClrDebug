@@ -97,7 +97,7 @@ namespace ClrDebug
         /// <param name="ppTokens">[out] A pointer to a pointer to an array that contains the list of returned tokens.</param>
         /// <param name="ppName">[out] A pointer to a pointer to the name of the token at ixCdTkn.</param>
         [PreserveSig]
-        HRESULT GetCodedTokenInfo([In] int ixCdTkn, [Out] out int pcTokens, [Out, MarshalAs(UnmanagedType.LPArray)] out int[] ppTokens, [Out, MarshalAs(UnmanagedType.LPWStr)] out StringBuilder ppName);
+        HRESULT GetCodedTokenInfo([In] int ixCdTkn, [Out] out int pcTokens, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] out int[] ppTokens, [Out, MarshalAs(UnmanagedType.LPWStr)] out StringBuilder ppName);
 
         /// <summary>
         /// Gets the row at the specified row index, in the table at the specified table index.

@@ -42,7 +42,7 @@ namespace ClrDebug
         HRESULT GetChildren(
             [In] int cChildren,
             [Out] out int pcChildren,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedScope[] children);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedScope[] children);
 
         /// <summary>
         /// Gets the start offset for this scope.
@@ -83,7 +83,7 @@ namespace ClrDebug
         HRESULT GetLocals(
             [In] int cLocals,
             [Out] out int pcLocals,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] locals);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedVariable[] locals);
 
         /// <summary>
         /// Gets the namespaces that are being used within this scope.
@@ -97,6 +97,6 @@ namespace ClrDebug
         HRESULT GetNamespaces(
             [In] int cNameSpaces,
             [Out] out int pcNameSpaces,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedNamespace[] namespaces);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedNamespace[] namespaces);
     }
 }

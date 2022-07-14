@@ -63,6 +63,6 @@ namespace ClrDebug
         HRESULT GetActiveInternalFrames(
             [In] int cInternalFrames,
             [Out] out int pcInternalFrames,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ICorDebugInternalFrame2[] ppInternalFrames);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ICorDebugInternalFrame2[] ppInternalFrames);
     }
 }

@@ -134,9 +134,9 @@ namespace ClrDebug.DbgEng
         new HRESULT GetThreadIdsByIndex(
             [In] uint Start,
             [In] uint Count,
-            [Out, MarshalAs(UnmanagedType.LPArray)]
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             uint[] Ids,
-            [Out, MarshalAs(UnmanagedType.LPArray)]
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             uint[] SysIds);
 
         /// <summary>
@@ -299,9 +299,9 @@ namespace ClrDebug.DbgEng
         new HRESULT GetProcessIdsByIndex(
             [In] uint Start,
             [In] uint Count,
-            [Out, MarshalAs(UnmanagedType.LPArray)]
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             uint[] Ids,
-            [Out, MarshalAs(UnmanagedType.LPArray)]
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             uint[] SysIds);
 
         /// <summary>
@@ -558,7 +558,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetSystemIdsByIndex(
             [In] uint Start,
             [In] uint Count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] uint[] Ids);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Ids);
 
         /// <summary>
         /// The GetTotalNumberThreadsAndProcesses method returns the total number of threads and processes in all the targets the engine is attached to, in addition to the largest number of threads and processes in a target.

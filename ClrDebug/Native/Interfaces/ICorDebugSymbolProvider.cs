@@ -27,7 +27,7 @@ namespace ClrDebug
             [In] IntPtr typeSig,
             [In] int cRequestedSymbols,
             [Out] out int pcFetchedSymbols,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ICorDebugStaticFieldSymbol[] pSymbols);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ICorDebugStaticFieldSymbol[] pSymbols);
 
         /// <summary>
         /// Gets the instance field symbols that correspond to a typespec signature.
@@ -44,7 +44,7 @@ namespace ClrDebug
             [In] IntPtr typeSig,
             [In] int cRequestedSymbols,
             [Out] out int pcFetchedSymbols,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ICorDebugInstanceFieldSymbol[] pSymbols);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ICorDebugInstanceFieldSymbol[] pSymbols);
 
         /// <summary>
         /// Gets a method's local symbols given the relative virtual address (RVA) of that method.
@@ -59,7 +59,7 @@ namespace ClrDebug
             [In] int nativeRVA,
             [In] int cRequestedSymbols,
             [Out] out int pcFetchedSymbols,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ICorDebugVariableSymbol[] pSymbols);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ICorDebugVariableSymbol[] pSymbols);
 
         /// <summary>
         /// Gets a method's parameter symbols given the relative virtual address (RVA) of that method.
@@ -74,7 +74,7 @@ namespace ClrDebug
             [In] int nativeRVA,
             [In] int cRequestedSymbols,
             [Out] out int pcFetchedSymbols,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ICorDebugVariableSymbol[] pSymbols);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ICorDebugVariableSymbol[] pSymbols);
 
         /// <summary>
         /// Gets the symbol records for all the merged assemblies.
@@ -87,7 +87,7 @@ namespace ClrDebug
         HRESULT GetMergedAssemblyRecords(
             [In] int cRequestedRecords,
             [Out] out int pcFetchedRecords,
-            [MarshalAs(UnmanagedType.LPArray), Out] ICorDebugMergedAssemblyRecord[] pRecords);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] ICorDebugMergedAssemblyRecord[] pRecords);
 
         /// <summary>
         /// Returns information about method properties, such as the method's metadata token and information about its generic parameters, given a relative virtual address (RVA) in that method.
@@ -110,7 +110,7 @@ namespace ClrDebug
             [Out] out int pcGenericParams,
             [In] int cbSignature,
             [Out] out int pcbSignature,
-            [MarshalAs(UnmanagedType.LPArray), Out] byte[] signature);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3), Out] byte[] signature);
 
         /// <summary>
         /// Returns information about a type's properties, such as the number of signature of its generic parameters, given a relative virtual address (RVA) in a vtable.
@@ -129,7 +129,7 @@ namespace ClrDebug
             [In] int vtableRva,
             [In] int cbSignature,
             [Out] out int pcbSignature,
-            [MarshalAs(UnmanagedType.LPArray), Out] byte[] signature);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] byte[] signature);
 
         /// <summary>
         /// Gets the method start address and size given a relative virtual address (RVA) in a method.

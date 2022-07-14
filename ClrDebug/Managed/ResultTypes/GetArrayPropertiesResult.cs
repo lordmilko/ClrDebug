@@ -8,7 +8,7 @@ namespace ClrDebug
     [DebuggerDisplay("rank = {rank}, totalElements = {totalElements}, dims = {dims}, bases = {bases}")]
     public struct GetArrayPropertiesResult
     {
-        public int[] rank { get; }
+        public int rank { get; }
 
         public int totalElements { get; }
 
@@ -16,7 +16,7 @@ namespace ClrDebug
 
         public int[] bases { get; }
 
-        public GetArrayPropertiesResult(int[] rank, int totalElements, int[] dims, int[] bases)
+        public GetArrayPropertiesResult(int rank, int totalElements, int[] dims, int[] bases)
         {
             this.rank = rank;
             this.totalElements = totalElements;

@@ -140,7 +140,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT EnumAssemblyRefs(
             [In] ref IntPtr phEnum,
-            [Out, MarshalAs(UnmanagedType.LPArray)] mdAssemblyRef[] rAssemblyRefs,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdAssemblyRef[] rAssemblyRefs,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -160,7 +160,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT EnumFiles(
             [In] ref IntPtr phEnum,
-            [Out, MarshalAs(UnmanagedType.LPArray)] mdFile[] rFiles,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdFile[] rFiles,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -180,7 +180,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT EnumExportedTypes(
             [In] ref IntPtr phEnum,
-            [Out, MarshalAs(UnmanagedType.LPArray)] mdExportedType[] rExportedTypes,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdExportedType[] rExportedTypes,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -200,7 +200,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT EnumManifestResources(
             [In] ref IntPtr phEnum,
-            [Out, MarshalAs(UnmanagedType.LPArray)] mdManifestResource[] rManifestResources,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdManifestResource[] rManifestResources,
             [In] int cMax,
             [Out] out int pcTokens);
 
@@ -282,7 +282,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAppBase,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szPrivateBin,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAssemblyName,
-            [Out, MarshalAs(UnmanagedType.LPArray)] object[] ppIUnk,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] object[] ppIUnk,
             [In] int cMax,
             [Out] out int pcAssemblies);
     }

@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
@@ -20,6 +21,6 @@ namespace ClrDebug
         //This is automatically handled by DacpGCInterestingInfoData
         [PreserveSig]
         HRESULT GetGCGlobalMechanisms(
-            [In, MarshalAs(UnmanagedType.LPArray)] long[] globalMechanisms);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeConst = DAC_MAX_GLOBAL_GC_MECHANISMS_COUNT)] long[] globalMechanisms);
     }
 }

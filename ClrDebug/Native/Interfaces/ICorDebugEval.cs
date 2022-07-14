@@ -97,11 +97,10 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT NewArray(
             [In] CorElementType elementType,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugClass pElementClass,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugClass pElementClass,
             [In] int rank,
-            [In] ref int dims,
-            [In] ref int lowBounds);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] int[] dims,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] int[] lowBounds);
 
         /// <summary>
         /// Gets a value that indicates whether this <see cref="ICorDebugEval"/> object is currently executing.

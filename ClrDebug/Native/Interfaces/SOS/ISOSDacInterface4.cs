@@ -9,7 +9,7 @@ namespace ClrDebug
     {
         [PreserveSig]
         HRESULT GetClrNotification(
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] arguments,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] arguments,
             [In] int count,
             [Out] out int pNeeded);
     }

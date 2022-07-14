@@ -149,7 +149,7 @@ namespace ClrDebug.DbgEng
         HRESULT WritePointersVirtual(
             [In] uint Count,
             [In] ulong Offset,
-            [In, MarshalAs(UnmanagedType.LPArray)] ulong[] Ptrs);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ulong[] Ptrs);
 
         /// <summary>
         /// The ReadPhysical method reads the target's memory from the specified physical address.

@@ -123,8 +123,8 @@
         /// <param name="dims">[out] An array of integers, each of which specifies the number of elements in a dimension in this <see cref="ICorDebugArrayValue"/> object.</param>
         public HRESULT TryGetDimensions(int cdim, out int[] dims)
         {
-            /*HRESULT GetDimensions([In] int cdim, [MarshalAs(UnmanagedType.LPArray), Out] int[] dims);*/
-            dims = null;
+            /*HRESULT GetDimensions([In] int cdim, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] int[] dims);*/
+            dims = new int[cdim];
             HRESULT hr = Raw.GetDimensions(cdim, dims);
 
             return hr;
@@ -178,8 +178,8 @@
         /// <param name="indicies">[out] An array of integers, each of which is the base index (that is, the starting index) of a dimension of this <see cref="ICorDebugArrayValue"/> object.</param>
         public HRESULT TryGetBaseIndicies(int cdim, out int[] indicies)
         {
-            /*HRESULT GetBaseIndicies([In] int cdim, [MarshalAs(UnmanagedType.LPArray), Out] int[] indicies);*/
-            indicies = null;
+            /*HRESULT GetBaseIndicies([In] int cdim, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] int[] indicies);*/
+            indicies = new int[cdim];
             HRESULT hr = Raw.GetBaseIndicies(cdim, indicies);
 
             return hr;

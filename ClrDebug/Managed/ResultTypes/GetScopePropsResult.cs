@@ -15,7 +15,7 @@ namespace ClrDebug
         public string szName { get; }
 
         /// <summary>
-        /// [out, optional] A pointer to a GUID that uniquely identifies the version of the assembly or module.
+        /// A pointer to a GUID that uniquely identifies the version of the assembly or module.
         /// </summary>
         public Guid pmvid { get; }
 

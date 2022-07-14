@@ -42,7 +42,7 @@ namespace ClrDebug
         new HRESULT GetChildren(
             [In] int cChildren,
             [Out] out int pcChildren,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedScope[] children);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedScope[] children);
 
         /// <summary>
         /// Gets the start offset for this scope.
@@ -83,7 +83,7 @@ namespace ClrDebug
         new HRESULT GetLocals(
             [In] int cLocals,
             [Out] out int pcLocals,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedVariable[] locals);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedVariable[] locals);
 
         /// <summary>
         /// Gets the namespaces that are being used within this scope.
@@ -97,7 +97,7 @@ namespace ClrDebug
         new HRESULT GetNamespaces(
             [In] int cNameSpaces,
             [Out] out int pcNameSpaces,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ISymUnmanagedNamespace[] namespaces);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedNamespace[] namespaces);
 
         /// <summary>
         /// Gets a count of the constants defined within this scope.
@@ -117,6 +117,6 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetConstants([In] int cConstants, [Out] out int pcConstants, [MarshalAs(UnmanagedType.LPArray), Out] ISymUnmanagedConstant[] constants);
+        HRESULT GetConstants([In] int cConstants, [Out] out int pcConstants, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] ISymUnmanagedConstant[] constants);
     }
 }

@@ -82,7 +82,7 @@ namespace ClrDebug
         {
             /*HRESULT GetJitManagerList(
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DacpJitManagerInfo[] managers,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DacpJitManagerInfo[] managers,
             [Out] out int pNeeded);*/
             int count = 0;
             managers = null;
@@ -159,7 +159,7 @@ namespace ClrDebug
         {
             /*HRESULT GetGCHeapList(
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] heaps,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDATA_ADDRESS[] heaps,
             [Out] out int pNeeded);*/
             int count = 0;
             heaps = null;
@@ -378,7 +378,7 @@ namespace ClrDebug
         {
             /*HRESULT GetAppDomainList(
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] values,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDATA_ADDRESS[] values,
             [Out] out int pNeeded);*/
             values = new CLRDATA_ADDRESS[count];
             int pNeeded;
@@ -487,7 +487,7 @@ namespace ClrDebug
             /*HRESULT GetAssemblyList(
             [In] CLRDATA_ADDRESS appDomain,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] values,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] values,
             [Out] out int pNeeded);*/
             int count = 0;
             values = null;
@@ -665,7 +665,7 @@ namespace ClrDebug
             /*HRESULT GetAssemblyModuleList(
             [In] CLRDATA_ADDRESS assembly,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] modules,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] modules,
             [Out] out int pNeeded);*/
             int count = 0;
             modules = null;
@@ -809,7 +809,7 @@ namespace ClrDebug
             [In] CLRDATA_ADDRESS ip,
             [Out] out DacpMethodDescData data,
             [In] int cRevertedRejitVersions,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DacpReJitData[] rgRevertedRejitData,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DacpReJitData[] rgRevertedRejitData,
             [Out] out int pcNeededRevertedRejitData);*/
             DacpMethodDescData data;
             int cRevertedRejitVersions = 0;
@@ -1678,7 +1678,7 @@ namespace ClrDebug
         public HRESULT TryGetHandleEnumForTypes(int[] types, int count, out SOSHandleEnum ppHandleEnumResult)
         {
             /*HRESULT GetHandleEnumForTypes(
-            [In, MarshalAs(UnmanagedType.LPArray)] int[] types,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] types,
             [In] int count,
             [Out] out ISOSHandleEnum ppHandleEnum);*/
             ISOSHandleEnum ppHandleEnum;
@@ -1797,7 +1797,7 @@ namespace ClrDebug
             /*HRESULT GetCodeHeapList(
             [In] CLRDATA_ADDRESS jitManager,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DacpJitCodeHeapInfo[] codeHeaps,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DacpJitCodeHeapInfo[] codeHeaps,
             [Out] out int pNeeded);*/
             int count = 0;
             codeHeaps = null;
@@ -1882,7 +1882,7 @@ namespace ClrDebug
             /*HRESULT GetRCWInterfaces(
             [In] CLRDATA_ADDRESS rcw,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DacpCOMInterfacePointerData[] interfaces,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DacpCOMInterfacePointerData[] interfaces,
             [Out] out int pNeeded);*/
             int count = 0;
             interfaces = null;
@@ -1934,7 +1934,7 @@ namespace ClrDebug
             /*HRESULT GetCCWInterfaces(
             [In] CLRDATA_ADDRESS ccw,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DacpCOMInterfacePointerData[] interfaces,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DacpCOMInterfacePointerData[] interfaces,
             [Out] out int pNeeded);*/
             int count = 0;
             interfaces = null;
@@ -2102,7 +2102,7 @@ namespace ClrDebug
             /*HRESULT GetFailedAssemblyList(
             [In] CLRDATA_ADDRESS appDomain,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] values,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] values,
             [Out] out int pNeeded);*/
             int count = 0;
             values = null;
@@ -2507,7 +2507,7 @@ namespace ClrDebug
         public HRESULT TryGetGCGlobalMechanisms(long[] globalMechanisms)
         {
             /*HRESULT GetGCGlobalMechanisms(
-            [In, MarshalAs(UnmanagedType.LPArray)] long[] globalMechanisms);*/
+            [In, MarshalAs(UnmanagedType.LPArray, SizeConst = DAC_MAX_GLOBAL_GC_MECHANISMS_COUNT)] long[] globalMechanisms);*/
             return Raw3.GetGCGlobalMechanisms(globalMechanisms);
         }
 
@@ -2534,7 +2534,7 @@ namespace ClrDebug
         public HRESULT TryGetClrNotification(out CLRDATA_ADDRESS[] arguments)
         {
             /*HRESULT GetClrNotification(
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] arguments,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] arguments,
             [In] int count,
             [Out] out int pNeeded);*/
             arguments = null;
@@ -2574,7 +2574,7 @@ namespace ClrDebug
             /*HRESULT GetTieredVersions(
             [In] CLRDATA_ADDRESS methodDesc,
             [In] int rejitId,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DacpTieredVersionData[] nativeCodeAddrs,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DacpTieredVersionData[] nativeCodeAddrs,
             [In] int cNativeCodeAddrs,
             [Out] out int pcNativeCodeAddrs);*/
             nativeCodeAddrs = null;
@@ -2696,7 +2696,7 @@ namespace ClrDebug
         {
             /*HRESULT GetMethodsWithProfilerModifiedIL(
             [In] CLRDATA_ADDRESS mod,
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] methodDescs,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CLRDATA_ADDRESS[] methodDescs,
             [In] int cMethodDescs,
             [Out] out int pcMethodDescs);*/
             methodDescs = null;
@@ -2759,7 +2759,7 @@ namespace ClrDebug
         {
             /*HRESULT GetGenerationTable(
             [In] int cGenerations,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DacpGenerationData[] pGenerationData,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DacpGenerationData[] pGenerationData,
             [Out] out int pNeeded);*/
             int cGenerations = 0;
             pGenerationData = null;
@@ -2794,7 +2794,7 @@ namespace ClrDebug
         {
             /*HRESULT GetFinalizationFillPointers(
             [In] int cFillPointers,
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] pFinalizationFillPointers,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDATA_ADDRESS[] pFinalizationFillPointers,
             [Out] out int pNeeded);*/
             int cFillPointers = 0;
             pFinalizationFillPointers = null;
@@ -2827,7 +2827,7 @@ namespace ClrDebug
             /*HRESULT GetGenerationTableSvr(
             [In] CLRDATA_ADDRESS heapAddr,
             [In] int cGenerations,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DacpGenerationData[] pGenerationData,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DacpGenerationData[] pGenerationData,
             [Out] out int pNeeded);*/
             int cGenerations = 0;
             pGenerationData = null;
@@ -2860,7 +2860,7 @@ namespace ClrDebug
             /*HRESULT GetFinalizationFillPointersSvr(
             [In] CLRDATA_ADDRESS heapAddr,
             [In] int cFillPointers,
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] pFinalizationFillPointers,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] pFinalizationFillPointers,
             [Out] out int pNeeded);*/
             int cFillPointers = 0;
             pFinalizationFillPointers = null;
@@ -2946,7 +2946,7 @@ namespace ClrDebug
             [In] CLRDATA_ADDRESS objAddr,
             [Out] out CLRDATA_ADDRESS rcw,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] mowList,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CLRDATA_ADDRESS[] mowList,
             [Out] out int pNeeded);*/
             CLRDATA_ADDRESS rcw;
             int count = 0;

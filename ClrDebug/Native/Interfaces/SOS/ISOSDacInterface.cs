@@ -40,7 +40,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetAppDomainList(
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] values,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDATA_ADDRESS[] values,
             [Out] out int pNeeded);
 
         [PreserveSig]
@@ -64,7 +64,7 @@ namespace ClrDebug
         HRESULT GetAssemblyList(
             [In] CLRDATA_ADDRESS appDomain,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] values,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] values,
             [Out] out int pNeeded);
 
         [PreserveSig]
@@ -110,7 +110,7 @@ namespace ClrDebug
         HRESULT GetAssemblyModuleList(
             [In] CLRDATA_ADDRESS assembly,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] modules,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] modules,
             [Out] out int pNeeded);
 
         [PreserveSig]
@@ -155,7 +155,7 @@ namespace ClrDebug
             [In] CLRDATA_ADDRESS ip,
             [Out] out DacpMethodDescData data,
             [In] int cRevertedRejitVersions,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DacpReJitData[] rgRevertedRejitData,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DacpReJitData[] rgRevertedRejitData,
             [Out] out int pcNeededRevertedRejitData);
 
         /// <summary>
@@ -203,7 +203,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetJitManagerList(
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DacpJitManagerInfo[] managers,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DacpJitManagerInfo[] managers,
             [Out] out int pNeeded);
 
         [PreserveSig]
@@ -316,7 +316,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetGCHeapList(
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] heaps,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDATA_ADDRESS[] heaps,
             [Out] out int pNeeded);
 
         [PreserveSig]
@@ -389,7 +389,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT GetHandleEnumForTypes(
-            [In, MarshalAs(UnmanagedType.LPArray)] int[] types,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] types,
             [In] int count,
             [Out] out ISOSHandleEnum ppHandleEnum);
 
@@ -423,7 +423,7 @@ namespace ClrDebug
         HRESULT GetCodeHeapList(
             [In] CLRDATA_ADDRESS jitManager,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DacpJitCodeHeapInfo[] codeHeaps,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DacpJitCodeHeapInfo[] codeHeaps,
             [Out] out int pNeeded);
 
         [PreserveSig]
@@ -458,7 +458,7 @@ namespace ClrDebug
         HRESULT GetRCWInterfaces(
             [In] CLRDATA_ADDRESS rcw,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DacpCOMInterfacePointerData[] interfaces,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DacpCOMInterfacePointerData[] interfaces,
             [Out] out int pNeeded);
 
         [PreserveSig]
@@ -470,7 +470,7 @@ namespace ClrDebug
         HRESULT GetCCWInterfaces(
             [In] CLRDATA_ADDRESS ccw,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DacpCOMInterfacePointerData[] interfaces,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DacpCOMInterfacePointerData[] interfaces,
             [Out] out int pNeeded);
 
         [PreserveSig]
@@ -506,7 +506,7 @@ namespace ClrDebug
         HRESULT GetFailedAssemblyList(
             [In] CLRDATA_ADDRESS appDomain,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] values,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CLRDATA_ADDRESS[] values,
             [Out] out int pNeeded);
 
         [PreserveSig]

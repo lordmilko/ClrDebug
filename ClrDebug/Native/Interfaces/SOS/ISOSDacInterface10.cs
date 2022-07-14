@@ -12,7 +12,7 @@ namespace ClrDebug
             [In] CLRDATA_ADDRESS objAddr,
             [Out] out CLRDATA_ADDRESS rcw,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] mowList,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CLRDATA_ADDRESS[] mowList,
             [Out] out int pNeeded);
 
         [PreserveSig]

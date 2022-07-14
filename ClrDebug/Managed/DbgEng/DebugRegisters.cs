@@ -410,10 +410,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getValues, Vtbl->GetValues);
             /*HRESULT GetValues(
             [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray)] uint[] Indices,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] uint[] Indices,
             [In] uint Start,
-            [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_VALUE[] Values);*/
-            values = null;
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);*/
+            values = new DEBUG_VALUE[(int) count];
             HRESULT hr = getValues(Raw, count, indices, start, values);
 
             return hr;
@@ -472,9 +472,9 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT SetValues(
             [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray)] uint[] Indices,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] uint[] Indices,
             [In] uint Start,
-            [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_VALUE[] Values);*/
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);*/
             return setValues(Raw, count, indices, start, values);
         }
 
@@ -927,12 +927,12 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetPseudoValues(
             [In] DEBUG_REGSRC Source,
             [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray)]
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             uint[] Indices,
             [In] uint Start,
-            [Out, MarshalAs(UnmanagedType.LPArray)]
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             DEBUG_VALUE[] Values);*/
-            values = null;
+            values = new DEBUG_VALUE[(int) count];
             HRESULT hr = getPseudoValues(Raw, source, count, indices, start, values);
 
             return hr;
@@ -980,10 +980,10 @@ namespace ClrDebug.DbgEng
             /*HRESULT SetPseudoValues(
             [In] DEBUG_REGSRC Source,
             [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray)]
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             uint[] Indices,
             [In] uint Start,
-            [In, MarshalAs(UnmanagedType.LPArray)]
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             DEBUG_VALUE[] Values);*/
             return setPseudoValues(Raw, source, count, indices, start, values);
         }
@@ -1040,12 +1040,12 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetValues2(
             [In] DEBUG_REGSRC Source,
             [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray)]
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             uint[] Indices,
             [In] uint Start,
-            [Out, MarshalAs(UnmanagedType.LPArray)]
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             DEBUG_VALUE[] Values);*/
-            values = null;
+            values = new DEBUG_VALUE[(int) count];
             HRESULT hr = getValues2(Raw, source, count, indices, start, values);
 
             return hr;
@@ -1105,10 +1105,10 @@ namespace ClrDebug.DbgEng
             /*HRESULT SetValues2(
             [In] DEBUG_REGSRC Source,
             [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray)]
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             uint[] Indices,
             [In] uint Start,
-            [In, MarshalAs(UnmanagedType.LPArray)]
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             DEBUG_VALUE[] Values);*/
             return setValues2(Raw, source, count, indices, start, values);
         }
@@ -1348,8 +1348,8 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetIndexByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [Out] out uint Index);
         private delegate HRESULT GetValueDelegate(IntPtr self, [In] uint Register, [Out] out DEBUG_VALUE Value);
         private delegate HRESULT SetValueDelegate(IntPtr self, [In] uint Register, [In] DEBUG_VALUE Value);
-        private delegate HRESULT GetValuesDelegate(IntPtr self, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray)] uint[] Indices, [In] uint Start, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_VALUE[] Values);
-        private delegate HRESULT SetValuesDelegate(IntPtr self, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray)] uint[] Indices, [In] uint Start, [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_VALUE[] Values);
+        private delegate HRESULT GetValuesDelegate(IntPtr self, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] uint[] Indices, [In] uint Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);
+        private delegate HRESULT SetValuesDelegate(IntPtr self, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] uint[] Indices, [In] uint Start, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);
         private delegate HRESULT OutputRegistersDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_REGISTERS Flags);
 
         #endregion
@@ -1362,10 +1362,10 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetPseudoDescriptionWideDelegate(IntPtr self, [In] uint Register, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out uint NameSize, [Out] out ulong TypeModule, [Out] out uint TypeId);
         private delegate HRESULT GetPseudoIndexByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [Out] out uint Index);
         private delegate HRESULT GetPseudoIndexByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [Out] out uint Index);
-        private delegate HRESULT GetPseudoValuesDelegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray)] uint[] Indices, [In] uint Start, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_VALUE[] Values);
-        private delegate HRESULT SetPseudoValuesDelegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray)] uint[] Indices, [In] uint Start, [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_VALUE[] Values);
-        private delegate HRESULT GetValues2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray)] uint[] Indices, [In] uint Start, [Out, MarshalAs(UnmanagedType.LPArray)] DEBUG_VALUE[] Values);
-        private delegate HRESULT SetValues2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray)] uint[] Indices, [In] uint Start, [In, MarshalAs(UnmanagedType.LPArray)] DEBUG_VALUE[] Values);
+        private delegate HRESULT GetPseudoValuesDelegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Indices, [In] uint Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
+        private delegate HRESULT SetPseudoValuesDelegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Indices, [In] uint Start, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
+        private delegate HRESULT GetValues2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Indices, [In] uint Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
+        private delegate HRESULT SetValues2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Indices, [In] uint Start, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
         private delegate HRESULT OutputRegisters2Delegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_REGSRC Source, [In] DEBUG_REGISTERS Flags);
         private delegate HRESULT GetInstructionOffset2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [Out] out ulong Offset);
         private delegate HRESULT GetStackOffset2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [Out] out ulong Offset);

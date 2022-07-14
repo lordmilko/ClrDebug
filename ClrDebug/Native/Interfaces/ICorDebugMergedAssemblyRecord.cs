@@ -68,7 +68,7 @@ namespace ClrDebug
         HRESULT GetPublicKey(
             [In] int cbPublicKey,
             [Out] out int pcbPublicKey,
-            [MarshalAs(UnmanagedType.LPArray), Out]
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out]
             byte[] pbPublicKey);
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace ClrDebug
         HRESULT GetPublicKeyToken(
             [In] int cbPublicKeyToken,
             [Out] out int pcbPublicKeyToken,
-            [MarshalAs(UnmanagedType.LPArray), Out] byte[] pbPublicKeyToken);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] pbPublicKeyToken);
 
         /// <summary>
         /// Gets the assembly's prefix index.

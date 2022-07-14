@@ -91,9 +91,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetRegisters(CorDebugRegister mask, int regCount, out CORDB_REGISTER[] regBuffer)
         {
-            /*HRESULT GetRegisters([In] CorDebugRegister mask, [In] int regCount, [MarshalAs(UnmanagedType.LPArray), Out]
+            /*HRESULT GetRegisters([In] CorDebugRegister mask, [In] int regCount, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out]
             CORDB_REGISTER[] regBuffer);*/
-            regBuffer = null;
+            regBuffer = new CORDB_REGISTER[regCount];
             HRESULT hr = Raw.GetRegisters(mask, regCount, regBuffer);
 
             return hr;
@@ -266,8 +266,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetRegisters(int maskCount, byte[] mask, int regCount, out CORDB_REGISTER[] regBuffer)
         {
-            /*HRESULT GetRegisters([In] int maskCount, [In, MarshalAs(UnmanagedType.LPArray)] byte[] mask, [In] int regCount, [Out, MarshalAs(UnmanagedType.LPArray)] CORDB_REGISTER[] regBuffer);*/
-            regBuffer = null;
+            /*HRESULT GetRegisters([In] int maskCount, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] mask, [In] int regCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CORDB_REGISTER[] regBuffer);*/
+            regBuffer = new CORDB_REGISTER[regCount];
             HRESULT hr = Raw2.GetRegisters(maskCount, mask, regCount, regBuffer);
 
             return hr;
@@ -289,7 +289,7 @@ namespace ClrDebug
         /// </summary>
         public HRESULT TrySetRegisters(int maskCount, byte[] mask, int regCount, CORDB_REGISTER[] regBuffer)
         {
-            /*HRESULT SetRegisters([In] int maskCount, [In, MarshalAs(UnmanagedType.LPArray)] byte[] mask, [In] int regCount, [In, MarshalAs(UnmanagedType.LPArray)] CORDB_REGISTER[] regBuffer);*/
+            /*HRESULT SetRegisters([In] int maskCount, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] mask, [In] int regCount, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CORDB_REGISTER[] regBuffer);*/
             return Raw2.SetRegisters(maskCount, mask, regCount, regBuffer);
         }
 

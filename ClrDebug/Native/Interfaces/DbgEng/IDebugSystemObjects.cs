@@ -132,8 +132,8 @@ namespace ClrDebug.DbgEng
         HRESULT GetThreadIdsByIndex(
             [In] uint Start,
             [In] uint Count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] uint[] Ids,
-            [Out, MarshalAs(UnmanagedType.LPArray)] uint[] SysIds);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Ids,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] SysIds);
 
         /// <summary>
         /// The GetThreadIdByProcessor method returns the engine thread ID for the kernel-mode virtual thread corresponding to the specified processor.
@@ -295,8 +295,8 @@ namespace ClrDebug.DbgEng
         HRESULT GetProcessIdsByIndex(
             [In] uint Start,
             [In] uint Count,
-            [Out, MarshalAs(UnmanagedType.LPArray)] uint[] Ids,
-            [Out, MarshalAs(UnmanagedType.LPArray)] uint[] SysIds);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Ids,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] SysIds);
 
         /// <summary>
         /// The GetCurrentProcessDataOffset method returns the location of the system data structure describing the current process.

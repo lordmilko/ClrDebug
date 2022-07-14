@@ -51,7 +51,7 @@ namespace ClrDebug
         HRESULT SetUnmanagedBreakpoint(
             [In] CORDB_ADDRESS address,
             [In] int bufsize,
-            [Out, MarshalAs(UnmanagedType.LPArray)] byte[] buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] buffer,
             [Out] out int bufLen);
 
         /// <summary>

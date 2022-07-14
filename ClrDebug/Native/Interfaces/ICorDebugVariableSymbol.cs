@@ -48,7 +48,7 @@ namespace ClrDebug
             [In] IntPtr context,
             [In] int cbValue,
             [Out] out int pcbValue,
-            [MarshalAs(UnmanagedType.LPArray), Out] byte[] pValue);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3), Out] byte[] pValue);
 
         /// <summary>
         /// Assigns the value of a byte array to a variable.

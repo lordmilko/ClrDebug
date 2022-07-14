@@ -191,7 +191,7 @@ namespace ClrDebug
             /*HRESULT GetPublicKey(
             [In] int cbPublicKey,
             [Out] out int pcbPublicKey,
-            [MarshalAs(UnmanagedType.LPArray), Out]
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out]
             byte[] pbPublicKey);*/
             int cbPublicKey = 0;
             int pcbPublicKey;
@@ -237,7 +237,7 @@ namespace ClrDebug
             /*HRESULT GetPublicKeyToken(
             [In] int cbPublicKeyToken,
             [Out] out int pcbPublicKeyToken,
-            [MarshalAs(UnmanagedType.LPArray), Out] byte[] pbPublicKeyToken);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] pbPublicKeyToken);*/
             int cbPublicKeyToken = 0;
             int pcbPublicKeyToken;
             pbPublicKeyToken = null;

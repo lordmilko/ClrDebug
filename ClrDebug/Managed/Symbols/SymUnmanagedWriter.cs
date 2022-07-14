@@ -681,7 +681,7 @@ namespace ClrDebug
             [In, Out] ref IntPtr pIDD,
             [In] int cData,
             [Out] out int pcData,
-            [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] byte[] data);*/
             int cData = 0;
             int pcData;
             data = null;
@@ -712,7 +712,7 @@ namespace ClrDebug
         /// <param name="columns">[in] The starting column numbers of the sequence points.</param>
         /// <param name="endLines">[in] The ending line numbers of the sequence points. This parameter is optional.</param>
         /// <param name="endColumns">[in] The ending column numbers of the sequence points. This parameter is optional.</param>
-        public void DefineSequencePoints(ISymUnmanagedDocumentWriter document, int spCount, int offsets, int lines, int columns, int endLines, int endColumns)
+        public void DefineSequencePoints(ISymUnmanagedDocumentWriter document, int spCount, int[] offsets, int[] lines, int[] columns, int[] endLines, int[] endColumns)
         {
             TryDefineSequencePoints(document, spCount, offsets, lines, columns, endLines, endColumns).ThrowOnNotOK();
         }
@@ -730,18 +730,17 @@ namespace ClrDebug
         /// <param name="endLines">[in] The ending line numbers of the sequence points. This parameter is optional.</param>
         /// <param name="endColumns">[in] The ending column numbers of the sequence points. This parameter is optional.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
-        public HRESULT TryDefineSequencePoints(ISymUnmanagedDocumentWriter document, int spCount, int offsets, int lines, int columns, int endLines, int endColumns)
+        public HRESULT TryDefineSequencePoints(ISymUnmanagedDocumentWriter document, int spCount, int[] offsets, int[] lines, int[] columns, int[] endLines, int[] endColumns)
         {
             /*HRESULT DefineSequencePoints(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocumentWriter document,
+            [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocumentWriter document,
             [In] int spCount,
-            [In] ref int offsets,
-            [In] ref int lines,
-            [In] ref int columns,
-            [In] ref int endLines,
-            [In] ref int endColumns);*/
-            return Raw.DefineSequencePoints(document, spCount, ref offsets, ref lines, ref columns, ref endLines, ref endColumns);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] offsets,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] lines,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] columns,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] endLines,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] endColumns);*/
+            return Raw.DefineSequencePoints(document, spCount, offsets, lines, columns, endLines, endColumns);
         }
 
         #endregion
@@ -1080,7 +1079,7 @@ namespace ClrDebug
             [In, Out] ref IntPtr pIDD,
             [In] int cData,
             [Out] out int pcData,
-            [MarshalAs(UnmanagedType.LPArray), Out] byte[] data);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] byte[] data);*/
             int cData = 0;
             int pcData;
             data = null;

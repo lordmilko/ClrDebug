@@ -974,11 +974,11 @@ namespace ClrDebug
         {
             /*HRESULT GetTypeNotifications(
             [In] int numTokens,
-            [In, MarshalAs(UnmanagedType.LPArray)] IXCLRDataModule[] mods,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] IXCLRDataModule[] mods,
             [In] IXCLRDataModule singleMod,
-            [In, MarshalAs(UnmanagedType.LPArray)] mdTypeDef[] tokens,
-            [Out, MarshalAs(UnmanagedType.LPArray)] int[] flags);*/
-            flags = null;
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] mdTypeDef[] tokens,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] flags);*/
+            flags = new int[numTokens];
             HRESULT hr = Raw.GetTypeNotifications(numTokens, mods, singleMod, tokens, flags);
 
             return hr;
@@ -996,10 +996,10 @@ namespace ClrDebug
         {
             /*HRESULT SetTypeNotifications(
             [In] int numTokens,
-            [In, MarshalAs(UnmanagedType.LPArray)] IXCLRDataModule[] mods,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] IXCLRDataModule[] mods,
             [In] IXCLRDataModule singleMod,
-            [In, MarshalAs(UnmanagedType.LPArray)] mdTypeDef[] tokens,
-            [In, MarshalAs(UnmanagedType.LPArray)] int[] flags,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] mdTypeDef[] tokens,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] flags,
             [In] int singleFlags);*/
             return Raw.SetTypeNotifications(numTokens, mods, singleMod, tokens, flags, singleFlags);
         }
@@ -1019,11 +1019,11 @@ namespace ClrDebug
         {
             /*HRESULT GetCodeNotifications(
             [In] int numTokens,
-            [In, MarshalAs(UnmanagedType.LPArray)] IXCLRDataModule[] mods,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] IXCLRDataModule[] mods,
             [In] IXCLRDataModule singleMod,
-            [In, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] tokens,
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDataMethodCodeNotification[] flags);*/
-            flags = null;
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] mdMethodDef[] tokens,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDataMethodCodeNotification[] flags);*/
+            flags = new CLRDataMethodCodeNotification[numTokens];
             HRESULT hr = Raw.GetCodeNotifications(numTokens, mods, singleMod, tokens, flags);
 
             return hr;
@@ -1041,10 +1041,10 @@ namespace ClrDebug
         {
             /*HRESULT SetCodeNotifications(
             [In] int numTokens,
-            [In, MarshalAs(UnmanagedType.LPArray)] IXCLRDataModule[] mods,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] IXCLRDataModule[] mods,
             [In] IXCLRDataModule singleMod,
-            [In, MarshalAs(UnmanagedType.LPArray)] mdMethodDef[] tokens,
-            [In, MarshalAs(UnmanagedType.LPArray)] CLRDataMethodCodeNotification flags,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] mdMethodDef[] tokens,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDataMethodCodeNotification flags,
             [In] int singleFlags);*/
             return Raw.SetCodeNotifications(numTokens, mods, singleMod, tokens, flags, singleFlags);
         }

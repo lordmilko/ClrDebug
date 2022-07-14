@@ -48,13 +48,13 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRegisters([In] int maskCount, [In, MarshalAs(UnmanagedType.LPArray)] byte[] mask, [In] int regCount, [Out, MarshalAs(UnmanagedType.LPArray)] CORDB_REGISTER[] regBuffer);
+        HRESULT GetRegisters([In] int maskCount, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] mask, [In] int regCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CORDB_REGISTER[] regBuffer);
 
         /// <summary>
         /// SetRegisters is not implemented in the .NET Framework version 2.0. Do not call this method.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetRegisters([In] int maskCount, [In, MarshalAs(UnmanagedType.LPArray)] byte[] mask, [In] int regCount, [In, MarshalAs(UnmanagedType.LPArray)] CORDB_REGISTER[] regBuffer);
+        HRESULT SetRegisters([In] int maskCount, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] mask, [In] int regCount, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CORDB_REGISTER[] regBuffer);
     }
 }

@@ -274,7 +274,7 @@ namespace ClrDebug
         /// The array is always created in the application domain in which the thread is currently executing.
         /// </remarks>
         [Obsolete]
-        public void NewArray(CorElementType elementType, ICorDebugClass pElementClass, int rank, int dims, int lowBounds)
+        public void NewArray(CorElementType elementType, ICorDebugClass pElementClass, int rank, int[] dims, int[] lowBounds)
         {
             TryNewArray(elementType, pElementClass, rank, dims, lowBounds).ThrowOnNotOK();
         }
@@ -292,16 +292,15 @@ namespace ClrDebug
         /// The array is always created in the application domain in which the thread is currently executing.
         /// </remarks>
         [Obsolete]
-        public HRESULT TryNewArray(CorElementType elementType, ICorDebugClass pElementClass, int rank, int dims, int lowBounds)
+        public HRESULT TryNewArray(CorElementType elementType, ICorDebugClass pElementClass, int rank, int[] dims, int[] lowBounds)
         {
             /*HRESULT NewArray(
             [In] CorElementType elementType,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugClass pElementClass,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugClass pElementClass,
             [In] int rank,
-            [In] ref int dims,
-            [In] ref int lowBounds);*/
-            return Raw.NewArray(elementType, pElementClass, rank, ref dims, ref lowBounds);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] int[] dims,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] int[] lowBounds);*/
+            return Raw.NewArray(elementType, pElementClass, rank, dims, lowBounds);
         }
 
         #endregion
@@ -593,7 +592,7 @@ namespace ClrDebug
         /// The elements of the array may be instances of a generic type. The array is always created in the application domain
         /// in which the thread is currently running. In the .NET Framework 2.0, the value of rank must be 1.
         /// </remarks>
-        public void NewParameterizedArray(ICorDebugType pElementType, int rank, int dims, int lowBounds)
+        public void NewParameterizedArray(ICorDebugType pElementType, int rank, int[] dims, int[] lowBounds)
         {
             TryNewParameterizedArray(pElementType, rank, dims, lowBounds).ThrowOnNotOK();
         }
@@ -609,15 +608,14 @@ namespace ClrDebug
         /// The elements of the array may be instances of a generic type. The array is always created in the application domain
         /// in which the thread is currently running. In the .NET Framework 2.0, the value of rank must be 1.
         /// </remarks>
-        public HRESULT TryNewParameterizedArray(ICorDebugType pElementType, int rank, int dims, int lowBounds)
+        public HRESULT TryNewParameterizedArray(ICorDebugType pElementType, int rank, int[] dims, int[] lowBounds)
         {
             /*HRESULT NewParameterizedArray(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugType pElementType,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugType pElementType,
             [In] int rank,
-            [In] ref int dims,
-            [In] ref int lowBounds);*/
-            return Raw2.NewParameterizedArray(pElementType, rank, ref dims, ref lowBounds);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] dims,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] lowBounds);*/
+            return Raw2.NewParameterizedArray(pElementType, rank, dims, lowBounds);
         }
 
         #endregion

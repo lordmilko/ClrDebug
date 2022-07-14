@@ -57,7 +57,7 @@ namespace ClrDebug
         /// <param name="pThreadIds">An array of thread identifiers.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateThreadIDs([In] int cThreadIds, [Out] out int pcThreadIds, [Out, MarshalAs(UnmanagedType.LPArray)] int[] pThreadIds);
+        HRESULT EnumerateThreadIDs([In] int cThreadIds, [Out] out int pcThreadIds, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pThreadIds);
 
         /// <summary>
         /// Creates a new stack unwinder that starts unwinding from an initial context (which isn't necessarily the leaf of a thread).

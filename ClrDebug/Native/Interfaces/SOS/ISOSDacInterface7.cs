@@ -26,7 +26,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetMethodsWithProfilerModifiedIL(
             [In] CLRDATA_ADDRESS mod,
-            [Out, MarshalAs(UnmanagedType.LPArray)] CLRDATA_ADDRESS[] methodDescs,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CLRDATA_ADDRESS[] methodDescs,
             [In] int cMethodDescs,
             [Out] out int pcMethodDescs);
     }

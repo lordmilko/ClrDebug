@@ -616,7 +616,7 @@ namespace ClrDebug
         public HRESULT TryGetActiveFunctions(out COR_ACTIVE_FUNCTION[] pFunctions)
         {
             /*HRESULT GetActiveFunctions([In] int cFunctions, [Out] out int pcFunctions,
-            [MarshalAs(UnmanagedType.LPArray), In, Out] COR_ACTIVE_FUNCTION[] pFunctions);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), In, Out] COR_ACTIVE_FUNCTION[] pFunctions);*/
             int cFunctions = 0;
             int pcFunctions;
             pFunctions = null;
@@ -802,7 +802,7 @@ namespace ClrDebug
             /*HRESULT GetActiveInternalFrames(
             [In] int cInternalFrames,
             [Out] out int pcInternalFrames,
-            [Out, MarshalAs(UnmanagedType.LPArray)] ICorDebugInternalFrame2[] ppInternalFrames);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ICorDebugInternalFrame2[] ppInternalFrames);*/
             int cInternalFrames = 0;
             int pcInternalFrames;
             ICorDebugInternalFrame2[] ppInternalFrames = null;
