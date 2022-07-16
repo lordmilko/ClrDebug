@@ -48,8 +48,8 @@ namespace ClrDebug
             /*HRESULT GetSimpleName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
-            StringBuilder szName = null;
-            HRESULT hr = Raw.GetSimpleName(cchName, out pcchName, szName);
+            StringBuilder szName;
+            HRESULT hr = Raw.GetSimpleName(cchName, out pcchName, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -142,8 +142,8 @@ namespace ClrDebug
             /*HRESULT GetCulture([In] int cchCulture, [Out] out int pcchCulture, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szCulture);*/
             int cchCulture = 0;
             int pcchCulture;
-            StringBuilder szCulture = null;
-            HRESULT hr = Raw.GetCulture(cchCulture, out pcchCulture, szCulture);
+            StringBuilder szCulture;
+            HRESULT hr = Raw.GetCulture(cchCulture, out pcchCulture, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -196,7 +196,7 @@ namespace ClrDebug
             int cbPublicKey = 0;
             int pcbPublicKey;
             pbPublicKey = null;
-            HRESULT hr = Raw.GetPublicKey(cbPublicKey, out pcbPublicKey, pbPublicKey);
+            HRESULT hr = Raw.GetPublicKey(cbPublicKey, out pcbPublicKey, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -241,7 +241,7 @@ namespace ClrDebug
             int cbPublicKeyToken = 0;
             int pcbPublicKeyToken;
             pbPublicKeyToken = null;
-            HRESULT hr = Raw.GetPublicKeyToken(cbPublicKeyToken, out pcbPublicKeyToken, pbPublicKeyToken);
+            HRESULT hr = Raw.GetPublicKeyToken(cbPublicKeyToken, out pcbPublicKeyToken, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

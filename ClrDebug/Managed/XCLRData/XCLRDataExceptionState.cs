@@ -156,8 +156,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder str);*/
             int bufLen = 0;
             int strLen;
-            StringBuilder str = null;
-            HRESULT hr = Raw.GetString(bufLen, out strLen, str);
+            StringBuilder str;
+            HRESULT hr = Raw.GetString(bufLen, out strLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

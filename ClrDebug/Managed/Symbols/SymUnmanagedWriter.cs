@@ -685,7 +685,7 @@ namespace ClrDebug
             int cData = 0;
             int pcData;
             data = null;
-            HRESULT hr = Raw.GetDebugInfo(ref pIDD, cData, out pcData, data);
+            HRESULT hr = Raw.GetDebugInfo(ref pIDD, cData, out pcData, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1083,7 +1083,7 @@ namespace ClrDebug
             int cData = 0;
             int pcData;
             data = null;
-            HRESULT hr = Raw4.GetDebugInfoWithPadding(ref pIDD, cData, out pcData, data);
+            HRESULT hr = Raw4.GetDebugInfoWithPadding(ref pIDD, cData, out pcData, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

@@ -53,11 +53,11 @@ namespace ClrDebug
             [In] int cchName,
             [Out] out int pchName,
             [Out] out Guid pmvid);*/
-            StringBuilder szName = null;
+            StringBuilder szName;
             int cchName = 0;
             int pchName;
             Guid pmvid;
-            HRESULT hr = Raw.GetScopeProps(szName, cchName, out pchName, out pmvid);
+            HRESULT hr = Raw.GetScopeProps(null, cchName, out pchName, out pmvid);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -406,12 +406,12 @@ namespace ClrDebug
             [Out] out int pchTypeDef,
             [Out] out CorTypeAttr pdwTypeDefFlags,
             [Out] out mdToken ptkExtends);*/
-            StringBuilder szTypeDef = null;
+            StringBuilder szTypeDef;
             int cchTypeDef = 0;
             int pchTypeDef;
             CorTypeAttr pdwTypeDefFlags;
             mdToken ptkExtends;
-            HRESULT hr = Raw.GetTypeDefProps(td, szTypeDef, cchTypeDef, out pchTypeDef, out pdwTypeDefFlags, out ptkExtends);
+            HRESULT hr = Raw.GetTypeDefProps(td, null, cchTypeDef, out pchTypeDef, out pdwTypeDefFlags, out ptkExtends);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -514,10 +514,10 @@ namespace ClrDebug
             [In] int cchName,
             [Out] out int pchName);*/
             mdToken ptkResolutionScope;
-            StringBuilder szName = null;
+            StringBuilder szName;
             int cchName = 0;
             int pchName;
-            HRESULT hr = Raw.GetTypeRefProps(tr, out ptkResolutionScope, szName, cchName, out pchName);
+            HRESULT hr = Raw.GetTypeRefProps(tr, out ptkResolutionScope, null, cchName, out pchName);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1396,7 +1396,7 @@ namespace ClrDebug
             [Out] out int pulCodeRVA,
             [Out] out CorMethodImpl pdwImplFlags);*/
             mdTypeDef pClass;
-            StringBuilder szMethod = null;
+            StringBuilder szMethod;
             int cchMethod = 0;
             int pchMethod;
             CorMethodAttr pdwAttr;
@@ -1404,7 +1404,7 @@ namespace ClrDebug
             int pcbSigBlob;
             int pulCodeRVA;
             CorMethodImpl pdwImplFlags;
-            HRESULT hr = Raw.GetMethodProps(mb, out pClass, szMethod, cchMethod, out pchMethod, out pdwAttr, out ppvSigBlob, out pcbSigBlob, out pulCodeRVA, out pdwImplFlags);
+            HRESULT hr = Raw.GetMethodProps(mb, out pClass, null, cchMethod, out pchMethod, out pdwAttr, out ppvSigBlob, out pcbSigBlob, out pulCodeRVA, out pdwImplFlags);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1458,12 +1458,12 @@ namespace ClrDebug
             [Out] out IntPtr ppvSigBlob,
             [Out] out int pbSig);*/
             mdToken ptk;
-            StringBuilder szMember = null;
+            StringBuilder szMember;
             int cchMember = 0;
             int pchMember;
             IntPtr ppvSigBlob;
             int pbSig;
-            HRESULT hr = Raw.GetMemberRefProps(mr, out ptk, szMember, cchMember, out pchMember, out ppvSigBlob, out pbSig);
+            HRESULT hr = Raw.GetMemberRefProps(mr, out ptk, null, cchMember, out pchMember, out ppvSigBlob, out pbSig);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1621,7 +1621,7 @@ namespace ClrDebug
             [In] int cMax,
             [Out] out int pcOtherMethod);*/
             mdTypeDef pClass;
-            StringBuilder szEvent = null;
+            StringBuilder szEvent;
             int cchEvent = 0;
             int pchEvent;
             CorEventAttr pdwEventFlags;
@@ -1629,10 +1629,10 @@ namespace ClrDebug
             mdMethodDef pmdAddOn;
             mdMethodDef pmdRemoveOn;
             mdMethodDef pmdFire;
-            mdMethodDef[] rmdOtherMethod = null;
+            mdMethodDef[] rmdOtherMethod;
             int cMax = 0;
             int pcOtherMethod;
-            HRESULT hr = Raw.GetEventProps(ev, out pClass, szEvent, cchEvent, out pchEvent, out pdwEventFlags, out ptkEventType, out pmdAddOn, out pmdRemoveOn, out pmdFire, rmdOtherMethod, cMax, out pcOtherMethod);
+            HRESULT hr = Raw.GetEventProps(ev, out pClass, null, cchEvent, out pchEvent, out pdwEventFlags, out ptkEventType, out pmdAddOn, out pmdRemoveOn, out pmdFire, null, cMax, out pcOtherMethod);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1792,11 +1792,11 @@ namespace ClrDebug
             [Out] out int pcFieldOffset,
             [Out] out int pulClassSize);*/
             int pdwPackSize;
-            COR_FIELD_OFFSET[] rFieldOffset = null;
+            COR_FIELD_OFFSET[] rFieldOffset;
             int cMax = 0;
             int pcFieldOffset;
             int pulClassSize;
-            HRESULT hr = Raw.GetClassLayout(td, out pdwPackSize, rFieldOffset, cMax, out pcFieldOffset, out pulClassSize);
+            HRESULT hr = Raw.GetClassLayout(td, out pdwPackSize, null, cMax, out pcFieldOffset, out pulClassSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2004,10 +2004,10 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName,
             [In] int cchName,
             [Out] out int pchName);*/
-            StringBuilder szName = null;
+            StringBuilder szName;
             int cchName = 0;
             int pchName;
-            HRESULT hr = Raw.GetModuleRefProps(mur, szName, cchName, out pchName);
+            HRESULT hr = Raw.GetModuleRefProps(mur, null, cchName, out pchName);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2242,10 +2242,10 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szString,
             [In] int cchString,
             [Out] out int pchString);*/
-            StringBuilder szString = null;
+            StringBuilder szString;
             int cchString = 0;
             int pchString;
-            HRESULT hr = Raw.GetUserString(stk, szString, cchString, out pchString);
+            HRESULT hr = Raw.GetUserString(stk, null, cchString, out pchString);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2298,11 +2298,11 @@ namespace ClrDebug
             [Out] out int pchImportName,
             [Out] out mdModuleRef pmrImportDLL);*/
             CorPinvokeMap pdwMappingFlags;
-            StringBuilder szImportName = null;
+            StringBuilder szImportName;
             int cchImportName = 0;
             int pchImportName;
             mdModuleRef pmrImportDLL;
-            HRESULT hr = Raw.GetPinvokeMap(tk, out pdwMappingFlags, szImportName, cchImportName, out pchImportName, out pmrImportDLL);
+            HRESULT hr = Raw.GetPinvokeMap(tk, out pdwMappingFlags, null, cchImportName, out pchImportName, out pmrImportDLL);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2689,7 +2689,7 @@ namespace ClrDebug
             [Out] out IntPtr ppValue,
             [Out] out int pcchValue);*/
             mdTypeDef pClass;
-            StringBuilder szMember = null;
+            StringBuilder szMember;
             int cchMember = 0;
             int pchMember;
             int pdwAttr;
@@ -2700,7 +2700,7 @@ namespace ClrDebug
             CorElementType pdwCPlusTypeFlag;
             IntPtr ppValue;
             int pcchValue;
-            HRESULT hr = Raw.GetMemberProps(mb, out pClass, szMember, cchMember, out pchMember, out pdwAttr, out ppvSigBlob, out pcbSigBlob, out pulCodeRVA, out pdwImplFlags, out pdwCPlusTypeFlag, out ppValue, out pcchValue);
+            HRESULT hr = Raw.GetMemberProps(mb, out pClass, null, cchMember, out pchMember, out pdwAttr, out ppvSigBlob, out pcbSigBlob, out pulCodeRVA, out pdwImplFlags, out pdwCPlusTypeFlag, out ppValue, out pcchValue);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2758,7 +2758,7 @@ namespace ClrDebug
             [Out] out IntPtr ppValue,
             [Out] out int pcchValue);*/
             mdTypeDef pClass;
-            StringBuilder szField = null;
+            StringBuilder szField;
             int cchField = 0;
             int pchField;
             CorFieldAttr pdwAttr;
@@ -2767,7 +2767,7 @@ namespace ClrDebug
             CorElementType pdwCPlusTypeFlag;
             IntPtr ppValue;
             int pcchValue;
-            HRESULT hr = Raw.GetFieldProps(mb, out pClass, szField, cchField, out pchField, out pdwAttr, out ppvSigBlob, out pcbSigBlob, out pdwCPlusTypeFlag, out ppValue, out pcchValue);
+            HRESULT hr = Raw.GetFieldProps(mb, out pClass, null, cchField, out pchField, out pdwAttr, out ppvSigBlob, out pcbSigBlob, out pdwCPlusTypeFlag, out ppValue, out pcchValue);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2830,7 +2830,7 @@ namespace ClrDebug
             [In] int cMax,
             [Out] out int pcOtherMethod);*/
             mdTypeDef pClass;
-            StringBuilder szProperty = null;
+            StringBuilder szProperty;
             int cchProperty = 0;
             int pchProperty;
             CorPropertyAttr pdwPropFlags;
@@ -2841,10 +2841,10 @@ namespace ClrDebug
             int pcchDefaultValue;
             mdMethodDef pmdSetter;
             mdMethodDef pmdGetter;
-            mdMethodDef[] rmdOtherMethod = null;
+            mdMethodDef[] rmdOtherMethod;
             int cMax = 0;
             int pcOtherMethod;
-            HRESULT hr = Raw.GetPropertyProps(prop, out pClass, szProperty, cchProperty, out pchProperty, out pdwPropFlags, out ppvSig, out pbSig, out pdwCPlusTypeFlag, out ppDefaultValue, out pcchDefaultValue, out pmdSetter, out pmdGetter, rmdOtherMethod, cMax, out pcOtherMethod);
+            HRESULT hr = Raw.GetPropertyProps(prop, out pClass, null, cchProperty, out pchProperty, out pdwPropFlags, out ppvSig, out pbSig, out pdwCPlusTypeFlag, out ppDefaultValue, out pcchDefaultValue, out pmdSetter, out pmdGetter, null, cMax, out pcOtherMethod);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -3160,10 +3160,10 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pwzBuf,
             [In] int ccBufSize,
             [Out] out int pccBufSize);*/
-            StringBuilder pwzBuf = null;
+            StringBuilder pwzBuf;
             int ccBufSize = 0;
             int pccBufSize;
-            HRESULT hr = Raw2.GetVersionString(pwzBuf, ccBufSize, out pccBufSize);
+            HRESULT hr = Raw2.GetVersionString(null, ccBufSize, out pccBufSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -3270,10 +3270,10 @@ namespace ClrDebug
             CorGenericParamAttr pdwParamFlags;
             mdToken ptOwner;
             int reserved;
-            StringBuilder wzname = null;
+            StringBuilder wzname;
             int cchName = 0;
             int pchName;
-            HRESULT hr = Raw2.GetGenericParamProps(gp, out pulParamSeq, out pdwParamFlags, out ptOwner, out reserved, wzname, cchName, out pchName);
+            HRESULT hr = Raw2.GetGenericParamProps(gp, out pulParamSeq, out pdwParamFlags, out ptOwner, out reserved, null, cchName, out pchName);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

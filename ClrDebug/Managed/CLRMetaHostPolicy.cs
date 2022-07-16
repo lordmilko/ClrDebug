@@ -92,13 +92,13 @@ namespace ClrDebug
             [Out] out METAHOST_CONFIG_FLAGS pdwConfigFlags,
             [In] ref Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppRuntime);*/
-            StringBuilder pwzVersion = null;
+            StringBuilder pwzVersion;
             int pcchVersion = default(int);
-            StringBuilder pwzImageVersion = null;
+            StringBuilder pwzImageVersion;
             int pcchImageVersion = default(int);
             METAHOST_CONFIG_FLAGS pdwConfigFlags;
             object ppRuntime;
-            HRESULT hr = Raw.GetRequestedRuntime(dwPolicyFlags, pwzBinary, pCfgStream, pwzVersion, ref pcchVersion, pwzImageVersion, ref pcchImageVersion, out pdwConfigFlags, ref riid, out ppRuntime);
+            HRESULT hr = Raw.GetRequestedRuntime(dwPolicyFlags, pwzBinary, pCfgStream, null, ref pcchVersion, null, ref pcchImageVersion, out pdwConfigFlags, ref riid, out ppRuntime);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

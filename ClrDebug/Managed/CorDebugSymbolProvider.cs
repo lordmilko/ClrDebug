@@ -46,8 +46,8 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] ICorDebugMergedAssemblyRecord[] pRecords);*/
             int cRequestedRecords = 0;
             int pcFetchedRecords;
-            ICorDebugMergedAssemblyRecord[] pRecords = null;
-            HRESULT hr = Raw.GetMergedAssemblyRecords(cRequestedRecords, out pcFetchedRecords, pRecords);
+            ICorDebugMergedAssemblyRecord[] pRecords;
+            HRESULT hr = Raw.GetMergedAssemblyRecords(cRequestedRecords, out pcFetchedRecords, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -137,8 +137,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ICorDebugStaticFieldSymbol[] pSymbols);*/
             int cRequestedSymbols = 0;
             int pcFetchedSymbols;
-            ICorDebugStaticFieldSymbol[] pSymbols = null;
-            HRESULT hr = Raw.GetStaticFieldSymbols(cbSignature, typeSig, cRequestedSymbols, out pcFetchedSymbols, pSymbols);
+            ICorDebugStaticFieldSymbol[] pSymbols;
+            HRESULT hr = Raw.GetStaticFieldSymbols(cbSignature, typeSig, cRequestedSymbols, out pcFetchedSymbols, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -193,8 +193,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ICorDebugInstanceFieldSymbol[] pSymbols);*/
             int cRequestedSymbols = 0;
             int pcFetchedSymbols;
-            ICorDebugInstanceFieldSymbol[] pSymbols = null;
-            HRESULT hr = Raw.GetInstanceFieldSymbols(cbSignature, typeSig, cRequestedSymbols, out pcFetchedSymbols, pSymbols);
+            ICorDebugInstanceFieldSymbol[] pSymbols;
+            HRESULT hr = Raw.GetInstanceFieldSymbols(cbSignature, typeSig, cRequestedSymbols, out pcFetchedSymbols, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -246,8 +246,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ICorDebugVariableSymbol[] pSymbols);*/
             int cRequestedSymbols = 0;
             int pcFetchedSymbols;
-            ICorDebugVariableSymbol[] pSymbols = null;
-            HRESULT hr = Raw.GetMethodLocalSymbols(nativeRVA, cRequestedSymbols, out pcFetchedSymbols, pSymbols);
+            ICorDebugVariableSymbol[] pSymbols;
+            HRESULT hr = Raw.GetMethodLocalSymbols(nativeRVA, cRequestedSymbols, out pcFetchedSymbols, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -299,8 +299,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ICorDebugVariableSymbol[] pSymbols);*/
             int cRequestedSymbols = 0;
             int pcFetchedSymbols;
-            ICorDebugVariableSymbol[] pSymbols = null;
-            HRESULT hr = Raw.GetMethodParameterSymbols(nativeRVA, cRequestedSymbols, out pcFetchedSymbols, pSymbols);
+            ICorDebugVariableSymbol[] pSymbols;
+            HRESULT hr = Raw.GetMethodParameterSymbols(nativeRVA, cRequestedSymbols, out pcFetchedSymbols, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -364,8 +364,8 @@ namespace ClrDebug
             int pcGenericParams;
             int cbSignature = 0;
             int pcbSignature;
-            byte[] signature = null;
-            HRESULT hr = Raw.GetMethodProps(codeRva, out pMethodToken, out pcGenericParams, cbSignature, out pcbSignature, signature);
+            byte[] signature;
+            HRESULT hr = Raw.GetMethodProps(codeRva, out pMethodToken, out pcGenericParams, cbSignature, out pcbSignature, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -426,7 +426,7 @@ namespace ClrDebug
             int cbSignature = 0;
             int pcbSignature;
             signature = null;
-            HRESULT hr = Raw.GetTypeProps(vtableRva, cbSignature, out pcbSignature, signature);
+            HRESULT hr = Raw.GetTypeProps(vtableRva, cbSignature, out pcbSignature, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

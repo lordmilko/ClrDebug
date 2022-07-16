@@ -118,8 +118,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedScope[] children);*/
             int cChildren = 0;
             int pcChildren;
-            ISymUnmanagedScope[] children = null;
-            HRESULT hr = Raw.GetChildren(cChildren, out pcChildren, children);
+            ISymUnmanagedScope[] children;
+            HRESULT hr = Raw.GetChildren(cChildren, out pcChildren, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -255,8 +255,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedVariable[] locals);*/
             int cLocals = 0;
             int pcLocals;
-            ISymUnmanagedVariable[] locals = null;
-            HRESULT hr = Raw.GetLocals(cLocals, out pcLocals, locals);
+            ISymUnmanagedVariable[] locals;
+            HRESULT hr = Raw.GetLocals(cLocals, out pcLocals, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -308,8 +308,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedNamespace[] namespaces);*/
             int cNameSpaces = 0;
             int pcNameSpaces;
-            ISymUnmanagedNamespace[] namespaces = null;
-            HRESULT hr = Raw.GetNamespaces(cNameSpaces, out pcNameSpaces, namespaces);
+            ISymUnmanagedNamespace[] namespaces;
+            HRESULT hr = Raw.GetNamespaces(cNameSpaces, out pcNameSpaces, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -392,8 +392,8 @@ namespace ClrDebug
             /*HRESULT GetConstants([In] int cConstants, [Out] out int pcConstants, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] ISymUnmanagedConstant[] constants);*/
             int cConstants = 0;
             int pcConstants;
-            ISymUnmanagedConstant[] constants = null;
-            HRESULT hr = Raw2.GetConstants(cConstants, out pcConstants, constants);
+            ISymUnmanagedConstant[] constants;
+            HRESULT hr = Raw2.GetConstants(cConstants, out pcConstants, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

@@ -135,8 +135,8 @@ namespace ClrDebug
             /*HRESULT GetString([In] int cchString, [Out] out int pcchString, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szString);*/
             int cchString = 0;
             int pcchString;
-            StringBuilder szString = null;
-            HRESULT hr = Raw.GetString(cchString, out pcchString, szString);
+            StringBuilder szString;
+            HRESULT hr = Raw.GetString(cchString, out pcchString, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

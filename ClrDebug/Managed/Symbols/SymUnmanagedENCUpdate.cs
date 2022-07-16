@@ -103,9 +103,9 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ISymUnmanagedVariable[] rgLocals,
             [Out] out int pceltFetched);*/
             int cLocals = 0;
-            ISymUnmanagedVariable[] rgLocals = null;
+            ISymUnmanagedVariable[] rgLocals;
             int pceltFetched;
-            HRESULT hr = Raw.GetLocalVariables(mdMethodToken, cLocals, rgLocals, out pceltFetched);
+            HRESULT hr = Raw.GetLocalVariables(mdMethodToken, cLocals, null, out pceltFetched);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

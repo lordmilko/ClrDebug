@@ -313,9 +313,9 @@ namespace ClrDebug.DbgEng
             [Out] out int FoundSize);*/
             int fileTokenSize = 0;
             int foundElement;
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int foundSize;
-            HRESULT hr = findSourceFileAndToken(Raw, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, buffer, bufferSize, out foundSize);
+            HRESULT hr = findSourceFileAndToken(Raw, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, null, bufferSize, out foundSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -394,9 +394,9 @@ namespace ClrDebug.DbgEng
             [Out] out int StringSize);*/
             int bufferSize = 0;
             int infoSize;
-            StringBuilder stringBuffer = null;
+            StringBuilder stringBuffer;
             int stringSize;
-            HRESULT hr = getSymbolInformation(Raw, which, arg64, arg32, buffer, bufferSize, out infoSize, stringBuffer, stringBufferSize, out stringSize);
+            HRESULT hr = getSymbolInformation(Raw, which, arg64, arg32, buffer, bufferSize, out infoSize, null, stringBufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -613,9 +613,9 @@ namespace ClrDebug.DbgEng
             [Out] out int FoundSize);*/
             int fileTokenSize = 0;
             int foundElement;
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int foundSize;
-            HRESULT hr = findSourceFileAndTokenWide(Raw, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, buffer, bufferSize, out foundSize);
+            HRESULT hr = findSourceFileAndTokenWide(Raw, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, null, bufferSize, out foundSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -694,9 +694,9 @@ namespace ClrDebug.DbgEng
             [Out] out int StringSize);*/
             int bufferSize = 0;
             int infoSize;
-            StringBuilder stringBuffer = null;
+            StringBuilder stringBuffer;
             int stringSize;
-            HRESULT hr = getSymbolInformationWide(Raw, which, arg64, arg32, buffer, bufferSize, out infoSize, stringBuffer, stringBufferSize, out stringSize);
+            HRESULT hr = getSymbolInformationWide(Raw, which, arg64, arg32, buffer, bufferSize, out infoSize, null, stringBufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

@@ -309,9 +309,9 @@ namespace ClrDebug
             IXCLRDataValue field;
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf = null;
+            StringBuilder nameBuf;
             mdFieldDef token;
-            HRESULT hr = Raw.GetStaticFieldByIndex(index, tlsTask, out field, bufLen, out nameLen, nameBuf, out token);
+            HRESULT hr = Raw.GetStaticFieldByIndex(index, tlsTask, out field, bufLen, out nameLen, null, out token);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -443,8 +443,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf);*/
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf = null;
-            HRESULT hr = Raw.GetName(flags, bufLen, out nameLen, nameBuf);
+            StringBuilder nameBuf;
+            HRESULT hr = Raw.GetName(flags, bufLen, out nameLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -671,8 +671,8 @@ namespace ClrDebug
             IXCLRDataValue field;
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf = null;
-            HRESULT hr = Raw.GetStaticFieldByToken(token, tlsTask, out field, bufLen, out nameLen, nameBuf);
+            StringBuilder nameBuf;
+            HRESULT hr = Raw.GetStaticFieldByToken(token, tlsTask, out field, bufLen, out nameLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -718,10 +718,10 @@ namespace ClrDebug
             IXCLRDataValue value;
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf = null;
+            StringBuilder nameBuf;
             IXCLRDataModule tokenScope;
             mdFieldDef token;
-            HRESULT hr = Raw.EnumStaticField2(ref handle, out value, bufLen, out nameLen, nameBuf, out tokenScope, out token);
+            HRESULT hr = Raw.EnumStaticField2(ref handle, out value, bufLen, out nameLen, null, out tokenScope, out token);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -798,8 +798,8 @@ namespace ClrDebug
             IXCLRDataValue field;
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf = null;
-            HRESULT hr = Raw.GetStaticFieldByToken2(tokenScope, token, tlsTask, out field, bufLen, out nameLen, nameBuf);
+            StringBuilder nameBuf;
+            HRESULT hr = Raw.GetStaticFieldByToken2(tokenScope, token, tlsTask, out field, bufLen, out nameLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

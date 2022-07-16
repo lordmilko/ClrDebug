@@ -136,11 +136,11 @@ namespace ClrDebug.DbgEng
             [In] int BufferSize,
             [Out] out uint FileSize,
             [Out, MarshalAs(UnmanagedType.Bool)] out bool Append);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint fileSize;
             bool append;
-            HRESULT hr = getLogFile(Raw, buffer, bufferSize, out fileSize, out append);
+            HRESULT hr = getLogFile(Raw, null, bufferSize, out fileSize, out append);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -246,10 +246,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint TextSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint textSize;
-            HRESULT hr = getPromptText(Raw, buffer, bufferSize, out textSize);
+            HRESULT hr = getPromptText(Raw, null, bufferSize, out textSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -620,14 +620,14 @@ namespace ClrDebug.DbgEng
             uint platformId;
             uint major;
             uint minor;
-            StringBuilder servicePackString = null;
+            StringBuilder servicePackString;
             int servicePackStringSize = 0;
             uint servicePackStringUsed;
             uint servicePackNumber;
-            StringBuilder buildString = null;
+            StringBuilder buildString;
             int buildStringSize = 0;
             uint buildStringUsed;
-            HRESULT hr = getSystemVersion(Raw, out platformId, out major, out minor, servicePackString, servicePackStringSize, out servicePackStringUsed, out servicePackNumber, buildString, buildStringSize, out buildStringUsed);
+            HRESULT hr = getSystemVersion(Raw, out platformId, out major, out minor, null, servicePackStringSize, out servicePackStringUsed, out servicePackNumber, null, buildStringSize, out buildStringUsed);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1281,10 +1281,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint InputSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint inputSize;
-            HRESULT hr = input(Raw, buffer, bufferSize, out inputSize);
+            HRESULT hr = input(Raw, null, bufferSize, out inputSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1785,11 +1785,11 @@ namespace ClrDebug.DbgEng
             [In] int BufferSize,
             [Out] out uint DisassemblySize,
             [Out] out ulong EndOffset);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint disassemblySize;
             ulong endOffset;
-            HRESULT hr = disassemble(Raw, offset, flags, buffer, bufferSize, out disassemblySize, out endOffset);
+            HRESULT hr = disassemble(Raw, offset, flags, null, bufferSize, out disassemblySize, out endOffset);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2032,7 +2032,7 @@ namespace ClrDebug.DbgEng
             frames = null;
             int frameSize = 0;
             uint framesFilled;
-            HRESULT hr = getStackTrace(Raw, frameOffset, stackOffset, instructionOffset, frames, frameSize, out framesFilled);
+            HRESULT hr = getStackTrace(Raw, frameOffset, stackOffset, instructionOffset, null, frameSize, out framesFilled);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2270,13 +2270,13 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder AbbrevNameBuffer,
             [In] int AbbrevNameBufferSize,
             [Out] out uint AbbrevNameSize);*/
-            StringBuilder fullNameBuffer = null;
+            StringBuilder fullNameBuffer;
             int fullNameBufferSize = 0;
             uint fullNameSize;
-            StringBuilder abbrevNameBuffer = null;
+            StringBuilder abbrevNameBuffer;
             int abbrevNameBufferSize = 0;
             uint abbrevNameSize;
-            HRESULT hr = getProcessorTypeNames(Raw, type, fullNameBuffer, fullNameBufferSize, out fullNameSize, abbrevNameBuffer, abbrevNameBufferSize, out abbrevNameSize);
+            HRESULT hr = getProcessorTypeNames(Raw, type, null, fullNameBufferSize, out fullNameSize, null, abbrevNameBufferSize, out abbrevNameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2513,10 +2513,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint MacroSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint macroSize;
-            HRESULT hr = getTextMacro(Raw, slot, buffer, bufferSize, out macroSize);
+            HRESULT hr = getTextMacro(Raw, slot, null, bufferSize, out macroSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -3389,10 +3389,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint TextSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint textSize;
-            HRESULT hr = getEventFilterText(Raw, index, buffer, bufferSize, out textSize);
+            HRESULT hr = getEventFilterText(Raw, index, null, bufferSize, out textSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -3452,10 +3452,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint CommandSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint commandSize;
-            HRESULT hr = getEventFilterCommand(Raw, index, buffer, bufferSize, out commandSize);
+            HRESULT hr = getEventFilterCommand(Raw, index, null, bufferSize, out commandSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -3616,10 +3616,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint ArgumentSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint argumentSize;
-            HRESULT hr = getSpecificEventFilterArgument(Raw, index, buffer, bufferSize, out argumentSize);
+            HRESULT hr = getSpecificEventFilterArgument(Raw, index, null, bufferSize, out argumentSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -3792,10 +3792,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint CommandSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint commandSize;
-            HRESULT hr = getExceptionFilterSecondCommand(Raw, index, buffer, bufferSize, out commandSize);
+            HRESULT hr = getExceptionFilterSecondCommand(Raw, index, null, bufferSize, out commandSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -3957,9 +3957,9 @@ namespace ClrDebug.DbgEng
             uint threadId;
             uint extraInformationSize = 0;
             uint extraInformationUsed;
-            StringBuilder description = null;
+            StringBuilder description;
             uint descriptionUsed;
-            HRESULT hr = getLastEventInformation(Raw, out type, out processId, out threadId, extraInformation, extraInformationSize, out extraInformationUsed, description, descriptionSize, out descriptionUsed);
+            HRESULT hr = getLastEventInformation(Raw, out type, out processId, out threadId, extraInformation, extraInformationSize, out extraInformationUsed, null, descriptionSize, out descriptionUsed);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -4176,13 +4176,13 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder DstBuffer,
             [In] int DstBufferSize,
             [Out] out uint DstSize);*/
-            StringBuilder srcBuffer = null;
+            StringBuilder srcBuffer;
             int srcBufferSize = 0;
             uint srcSize;
-            StringBuilder dstBuffer = null;
+            StringBuilder dstBuffer;
             int dstBufferSize = 0;
             uint dstSize;
-            HRESULT hr = getTextReplacement(Raw, srcText, index, srcBuffer, srcBufferSize, out srcSize, dstBuffer, dstBufferSize, out dstSize);
+            HRESULT hr = getTextReplacement(Raw, srcText, index, null, srcBufferSize, out srcSize, null, dstBufferSize, out dstSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -4706,13 +4706,13 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder AbbrevNameBuffer,
             [In] int AbbrevNameBufferSize,
             [Out] out uint AbbrevNameSize);*/
-            StringBuilder fullNameBuffer = null;
+            StringBuilder fullNameBuffer;
             int fullNameBufferSize = 0;
             uint fullNameSize;
-            StringBuilder abbrevNameBuffer = null;
+            StringBuilder abbrevNameBuffer;
             int abbrevNameBufferSize = 0;
             uint abbrevNameSize;
-            HRESULT hr = getExpressionSyntaxNames(Raw, index, fullNameBuffer, fullNameBufferSize, out fullNameSize, abbrevNameBuffer, abbrevNameBufferSize, out abbrevNameSize);
+            HRESULT hr = getExpressionSyntaxNames(Raw, index, null, fullNameBufferSize, out fullNameSize, null, abbrevNameBufferSize, out abbrevNameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -4775,10 +4775,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint DescSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint descSize;
-            HRESULT hr = getEventIndexDescription(Raw, index, which, buffer, bufferSize, out descSize);
+            HRESULT hr = getEventIndexDescription(Raw, index, which, null, bufferSize, out descSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -4886,11 +4886,11 @@ namespace ClrDebug.DbgEng
             [In] int BufferSize,
             [Out] out uint FileSize,
             [Out, MarshalAs(UnmanagedType.Bool)] out bool Append);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint fileSize;
             bool append;
-            HRESULT hr = getLogFileWide(Raw, buffer, bufferSize, out fileSize, out append);
+            HRESULT hr = getLogFileWide(Raw, null, bufferSize, out fileSize, out append);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -4945,10 +4945,10 @@ namespace ClrDebug.DbgEng
             StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint TextSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint textSize;
-            HRESULT hr = getPromptTextWide(Raw, buffer, bufferSize, out textSize);
+            HRESULT hr = getPromptTextWide(Raw, null, bufferSize, out textSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -5003,11 +5003,11 @@ namespace ClrDebug.DbgEng
             [In] int BufferSize,
             [Out] out uint FileSize,
             [Out] out DEBUG_LOG Flags);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint fileSize;
             DEBUG_LOG flags;
-            HRESULT hr = getLogFile2(Raw, buffer, bufferSize, out fileSize, out flags);
+            HRESULT hr = getLogFile2(Raw, null, bufferSize, out fileSize, out flags);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -5063,11 +5063,11 @@ namespace ClrDebug.DbgEng
             [In] int BufferSize,
             [Out] out uint FileSize,
             [Out] out DEBUG_LOG Flags);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint fileSize;
             DEBUG_LOG flags;
-            HRESULT hr = getLogFile2Wide(Raw, buffer, bufferSize, out fileSize, out flags);
+            HRESULT hr = getLogFile2Wide(Raw, null, bufferSize, out fileSize, out flags);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -5214,10 +5214,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint InputSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint inputSize;
-            HRESULT hr = inputWide(Raw, buffer, bufferSize, out inputSize);
+            HRESULT hr = inputWide(Raw, null, bufferSize, out inputSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -5643,11 +5643,11 @@ namespace ClrDebug.DbgEng
             [In] int BufferSize,
             [Out] out uint DisassemblySize,
             [Out] out ulong EndOffset);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint disassemblySize;
             ulong endOffset;
-            HRESULT hr = disassembleWide(Raw, offset, flags, buffer, bufferSize, out disassemblySize, out endOffset);
+            HRESULT hr = disassembleWide(Raw, offset, flags, null, bufferSize, out disassemblySize, out endOffset);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -5708,13 +5708,13 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder AbbrevNameBuffer,
             [In] int AbbrevNameBufferSize,
             [Out] out uint AbbrevNameSize);*/
-            StringBuilder fullNameBuffer = null;
+            StringBuilder fullNameBuffer;
             int fullNameBufferSize = 0;
             uint fullNameSize;
-            StringBuilder abbrevNameBuffer = null;
+            StringBuilder abbrevNameBuffer;
             int abbrevNameBufferSize = 0;
             uint abbrevNameSize;
-            HRESULT hr = getProcessorTypeNamesWide(Raw, type, fullNameBuffer, fullNameBufferSize, out fullNameSize, abbrevNameBuffer, abbrevNameBufferSize, out abbrevNameSize);
+            HRESULT hr = getProcessorTypeNamesWide(Raw, type, null, fullNameBufferSize, out fullNameSize, null, abbrevNameBufferSize, out abbrevNameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -5780,10 +5780,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint MacroSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint macroSize;
-            HRESULT hr = getTextMacroWide(Raw, slot, buffer, bufferSize, out macroSize);
+            HRESULT hr = getTextMacroWide(Raw, slot, null, bufferSize, out macroSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -6390,10 +6390,10 @@ namespace ClrDebug.DbgEng
             StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint TextSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint textSize;
-            HRESULT hr = getEventFilterTextWide(Raw, index, buffer, bufferSize, out textSize);
+            HRESULT hr = getEventFilterTextWide(Raw, index, null, bufferSize, out textSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -6453,10 +6453,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint CommandSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint commandSize;
-            HRESULT hr = getEventFilterCommandWide(Raw, index, buffer, bufferSize, out commandSize);
+            HRESULT hr = getEventFilterCommandWide(Raw, index, null, bufferSize, out commandSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -6534,10 +6534,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint ArgumentSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint argumentSize;
-            HRESULT hr = getSpecificEventFilterArgumentWide(Raw, index, buffer, bufferSize, out argumentSize);
+            HRESULT hr = getSpecificEventFilterArgumentWide(Raw, index, null, bufferSize, out argumentSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -6617,10 +6617,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint CommandSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint commandSize;
-            HRESULT hr = getExceptionFilterSecondCommandWide(Raw, index, buffer, bufferSize, out commandSize);
+            HRESULT hr = getExceptionFilterSecondCommandWide(Raw, index, null, bufferSize, out commandSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -6735,9 +6735,9 @@ namespace ClrDebug.DbgEng
             uint threadId;
             int extraInformationSize = 0;
             uint extraInformationUsed;
-            StringBuilder description = null;
+            StringBuilder description;
             uint descriptionUsed;
-            HRESULT hr = getLastEventInformationWide(Raw, out type, out processId, out threadId, extraInformation, extraInformationSize, out extraInformationUsed, description, descriptionSize, out descriptionUsed);
+            HRESULT hr = getLastEventInformationWide(Raw, out type, out processId, out threadId, extraInformation, extraInformationSize, out extraInformationUsed, null, descriptionSize, out descriptionUsed);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -6811,13 +6811,13 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder DstBuffer,
             [In] int DstBufferSize,
             [Out] out uint DstSize);*/
-            StringBuilder srcBuffer = null;
+            StringBuilder srcBuffer;
             int srcBufferSize = 0;
             uint srcSize;
-            StringBuilder dstBuffer = null;
+            StringBuilder dstBuffer;
             int dstBufferSize = 0;
             uint dstSize;
-            HRESULT hr = getTextReplacementWide(Raw, srcText, index, srcBuffer, srcBufferSize, out srcSize, dstBuffer, dstBufferSize, out dstSize);
+            HRESULT hr = getTextReplacementWide(Raw, srcText, index, null, srcBufferSize, out srcSize, null, dstBufferSize, out dstSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -6975,13 +6975,13 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder AbbrevNameBuffer,
             [In] int AbbrevNameBufferSize,
             [Out] out uint AbbrevNameSize);*/
-            StringBuilder fullNameBuffer = null;
+            StringBuilder fullNameBuffer;
             int fullNameBufferSize = 0;
             uint fullNameSize;
-            StringBuilder abbrevNameBuffer = null;
+            StringBuilder abbrevNameBuffer;
             int abbrevNameBufferSize = 0;
             uint abbrevNameSize;
-            HRESULT hr = getExpressionSyntaxNamesWide(Raw, index, fullNameBuffer, fullNameBufferSize, out fullNameSize, abbrevNameBuffer, abbrevNameBufferSize, out abbrevNameSize);
+            HRESULT hr = getExpressionSyntaxNamesWide(Raw, index, null, fullNameBufferSize, out fullNameSize, null, abbrevNameBufferSize, out abbrevNameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -7044,10 +7044,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint DescSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint descSize;
-            HRESULT hr = getEventIndexDescriptionWide(Raw, index, which, buffer, bufferSize, out descSize);
+            HRESULT hr = getEventIndexDescriptionWide(Raw, index, which, null, bufferSize, out descSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -7193,10 +7193,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint StringSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint stringSize;
-            HRESULT hr = getSystemVersionString(Raw, which, buffer, bufferSize, out stringSize);
+            HRESULT hr = getSystemVersionString(Raw, which, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -7254,10 +7254,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint StringSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint stringSize;
-            HRESULT hr = getSystemVersionStringWide(Raw, which, buffer, bufferSize, out stringSize);
+            HRESULT hr = getSystemVersionStringWide(Raw, which, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -7505,10 +7505,10 @@ namespace ClrDebug.DbgEng
             [In] int StringSize,
             [Out] out uint StringNeeded);*/
             DEBUG_MANAGED flags;
-            StringBuilder @string = null;
+            StringBuilder @string;
             int stringSize = 0;
             uint stringNeeded;
-            HRESULT hr = getManagedStatus(Raw, out flags, whichString, @string, stringSize, out stringNeeded);
+            HRESULT hr = getManagedStatus(Raw, out flags, whichString, null, stringSize, out stringNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -7562,10 +7562,10 @@ namespace ClrDebug.DbgEng
             [In] int StringSize,
             [Out] out uint StringNeeded);*/
             DEBUG_MANAGED flags;
-            StringBuilder @string = null;
+            StringBuilder @string;
             int stringSize = 0;
             uint stringNeeded;
-            HRESULT hr = getManagedStatusWide(Raw, out flags, whichString, @string, stringSize, out stringNeeded);
+            HRESULT hr = getManagedStatusWide(Raw, out flags, whichString, null, stringSize, out stringNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -7658,7 +7658,7 @@ namespace ClrDebug.DbgEng
             frames = null;
             int framesSize = 0;
             uint framesFilled;
-            HRESULT hr = getStackTraceEx(Raw, frameOffset, stackOffset, instructionOffset, frames, framesSize, out framesFilled);
+            HRESULT hr = getStackTraceEx(Raw, frameOffset, stackOffset, instructionOffset, null, framesSize, out framesFilled);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

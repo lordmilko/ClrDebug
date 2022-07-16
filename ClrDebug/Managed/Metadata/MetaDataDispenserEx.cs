@@ -49,10 +49,10 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder szBuffer,
             [In] int cchBuffer,
             [Out] out int pchBuffer);*/
-            StringBuilder szBuffer = null;
+            StringBuilder szBuffer;
             int cchBuffer = 0;
             int pchBuffer;
-            HRESULT hr = Raw.GetCORSystemDirectory(szBuffer, cchBuffer, out pchBuffer);
+            HRESULT hr = Raw.GetCORSystemDirectory(null, cchBuffer, out pchBuffer);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -213,10 +213,10 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 5)] StringBuilder szName,
             [In] int cchName,
             [Out] out int pcName);*/
-            StringBuilder szName = null;
+            StringBuilder szName;
             int cchName = 0;
             int pcName;
-            HRESULT hr = Raw.FindAssembly(szAppBase, szPrivateBin, szGlobalBin, szAssemblyName, szName, cchName, out pcName);
+            HRESULT hr = Raw.FindAssembly(szAppBase, szPrivateBin, szGlobalBin, szAssemblyName, null, cchName, out pcName);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -278,10 +278,10 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 6)] StringBuilder szName,
             [In] int cchName,
             [Out] out int pcName);*/
-            StringBuilder szName = null;
+            StringBuilder szName;
             int cchName = 0;
             int pcName;
-            HRESULT hr = Raw.FindAssemblyModule(szAppBase, szPrivateBin, szGlobalBin, szAssemblyName, szModuleName, szName, cchName, out pcName);
+            HRESULT hr = Raw.FindAssemblyModule(szAppBase, szPrivateBin, szGlobalBin, szAssemblyName, szModuleName, null, cchName, out pcName);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

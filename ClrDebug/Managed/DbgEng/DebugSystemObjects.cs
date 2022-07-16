@@ -652,10 +652,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint ExeSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint exeSize;
-            HRESULT hr = getCurrentProcessExecutableName(Raw, buffer, bufferSize, out exeSize);
+            HRESULT hr = getCurrentProcessExecutableName(Raw, null, bufferSize, out exeSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1509,10 +1509,10 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getCurrentSystemServerName, Vtbl3->GetCurrentSystemServerName);
             /*HRESULT GetCurrentSystemServerName([Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] uint Size, [Out] out uint Needed);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             uint size = 0;
             uint needed;
-            HRESULT hr = getCurrentSystemServerName(Raw, buffer, size, out needed);
+            HRESULT hr = getCurrentSystemServerName(Raw, null, size, out needed);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1633,10 +1633,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] uint BufferSize,
             [Out] out uint ExeSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             uint bufferSize = 0;
             uint exeSize;
-            HRESULT hr = getCurrentProcessExecutableNameWide(Raw, buffer, bufferSize, out exeSize);
+            HRESULT hr = getCurrentProcessExecutableNameWide(Raw, null, bufferSize, out exeSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1687,10 +1687,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] uint BufferSize,
             [Out] out uint NameSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             uint bufferSize = 0;
             uint nameSize;
-            HRESULT hr = getCurrentSystemServerNameWide(Raw, buffer, bufferSize, out nameSize);
+            HRESULT hr = getCurrentSystemServerNameWide(Raw, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

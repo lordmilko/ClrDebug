@@ -197,10 +197,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint NameSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint nameSize;
-            HRESULT hr = getSymbolName(Raw, index, buffer, bufferSize, out nameSize);
+            HRESULT hr = getSymbolName(Raw, index, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -557,10 +557,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint NameSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint nameSize;
-            HRESULT hr = getSymbolNameWide(Raw, index, buffer, bufferSize, out nameSize);
+            HRESULT hr = getSymbolNameWide(Raw, index, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -704,10 +704,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint NameSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint nameSize;
-            HRESULT hr = getSymbolTypeName(Raw, index, buffer, bufferSize, out nameSize);
+            HRESULT hr = getSymbolTypeName(Raw, index, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -765,10 +765,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint NameSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint nameSize;
-            HRESULT hr = getSymbolTypeNameWide(Raw, index, buffer, bufferSize, out nameSize);
+            HRESULT hr = getSymbolTypeNameWide(Raw, index, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -948,10 +948,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint NameSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint nameSize;
-            HRESULT hr = getSymbolValueText(Raw, index, buffer, bufferSize, out nameSize);
+            HRESULT hr = getSymbolValueText(Raw, index, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1013,10 +1013,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint NameSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint nameSize;
-            HRESULT hr = getSymbolValueTextWide(Raw, index, buffer, bufferSize, out nameSize);
+            HRESULT hr = getSymbolValueTextWide(Raw, index, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

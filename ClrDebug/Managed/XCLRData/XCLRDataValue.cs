@@ -206,8 +206,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder str);*/
             int bufLen = 0;
             int strLen;
-            StringBuilder str = null;
-            HRESULT hr = Raw.GetString(bufLen, out strLen, str);
+            StringBuilder str;
+            HRESULT hr = Raw.GetString(bufLen, out strLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -322,9 +322,9 @@ namespace ClrDebug
             IXCLRDataValue field;
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf = null;
+            StringBuilder nameBuf;
             mdFieldDef token;
-            HRESULT hr = Raw.GetFieldByIndex(index, out field, bufLen, out nameLen, nameBuf, out token);
+            HRESULT hr = Raw.GetFieldByIndex(index, out field, bufLen, out nameLen, null, out token);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -428,9 +428,9 @@ namespace ClrDebug
             IXCLRDataValue field;
             int nameBufLen = 0;
             int nameLen;
-            StringBuilder nameBuf = null;
+            StringBuilder nameBuf;
             mdFieldDef token;
-            HRESULT hr = Raw.EnumField(ref handle, out field, nameBufLen, out nameLen, nameBuf, out token);
+            HRESULT hr = Raw.EnumField(ref handle, out field, nameBufLen, out nameLen, null, out token);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -555,8 +555,8 @@ namespace ClrDebug
             IXCLRDataValue field;
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf = null;
-            HRESULT hr = Raw.GetFieldByToken(token, out field, bufLen, out nameLen, nameBuf);
+            StringBuilder nameBuf;
+            HRESULT hr = Raw.GetFieldByToken(token, out field, bufLen, out nameLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -664,10 +664,10 @@ namespace ClrDebug
             IXCLRDataValue field;
             int nameBufLen = 0;
             int nameLen;
-            StringBuilder nameBuf = null;
+            StringBuilder nameBuf;
             IXCLRDataModule tokenScope;
             mdFieldDef token;
-            HRESULT hr = Raw.EnumField2(ref handle, out field, nameBufLen, out nameLen, nameBuf, out tokenScope, out token);
+            HRESULT hr = Raw.EnumField2(ref handle, out field, nameBufLen, out nameLen, null, out tokenScope, out token);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -743,8 +743,8 @@ namespace ClrDebug
             IXCLRDataValue field;
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf = null;
-            HRESULT hr = Raw.GetFieldByToken2(tokenScope, token, out field, bufLen, out nameLen, nameBuf);
+            StringBuilder nameBuf;
+            HRESULT hr = Raw.GetFieldByToken2(tokenScope, token, out field, bufLen, out nameLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

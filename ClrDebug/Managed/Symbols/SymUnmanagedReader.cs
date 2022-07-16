@@ -48,8 +48,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedDocument[] pDocs);*/
             int cDocs = 0;
             int pcDocs;
-            ISymUnmanagedDocument[] pDocs = null;
-            HRESULT hr = Raw.GetDocuments(cDocs, out pcDocs, pDocs);
+            ISymUnmanagedDocument[] pDocs;
+            HRESULT hr = Raw.GetDocuments(cDocs, out pcDocs, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -129,8 +129,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedVariable[] pVars);*/
             int cVars = 0;
             int pcVars;
-            ISymUnmanagedVariable[] pVars = null;
-            HRESULT hr = Raw.GetGlobalVariables(cVars, out pcVars, pVars);
+            ISymUnmanagedVariable[] pVars;
+            HRESULT hr = Raw.GetGlobalVariables(cVars, out pcVars, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -182,8 +182,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedNamespace[] namespaces);*/
             int cNameSpaces = 0;
             int pcNameSpaces;
-            ISymUnmanagedNamespace[] namespaces = null;
-            HRESULT hr = Raw.GetNamespaces(cNameSpaces, out pcNameSpaces, namespaces);
+            ISymUnmanagedNamespace[] namespaces;
+            HRESULT hr = Raw.GetNamespaces(cNameSpaces, out pcNameSpaces, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -235,8 +235,8 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
-            StringBuilder szName = null;
-            HRESULT hr = Raw.GetSymbolStoreFileName(cchName, out pcchName, szName);
+            StringBuilder szName;
+            HRESULT hr = Raw.GetSymbolStoreFileName(cchName, out pcchName, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -413,8 +413,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ISymUnmanagedVariable[] pVars);*/
             int cVars = 0;
             int pcVars;
-            ISymUnmanagedVariable[] pVars = null;
-            HRESULT hr = Raw.GetVariables(parent, cVars, out pcVars, pVars);
+            ISymUnmanagedVariable[] pVars;
+            HRESULT hr = Raw.GetVariables(parent, cVars, out pcVars, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -650,8 +650,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] ISymUnmanagedMethod[] pRetVal);*/
             int cMethod = 0;
             int pcMethod;
-            ISymUnmanagedMethod[] pRetVal = null;
-            HRESULT hr = Raw.GetMethodsFromDocumentPosition(document, line, column, cMethod, out pcMethod, pRetVal);
+            ISymUnmanagedMethod[] pRetVal;
+            HRESULT hr = Raw.GetMethodsFromDocumentPosition(document, line, column, cMethod, out pcMethod, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -860,8 +860,8 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] ISymUnmanagedMethod[] pRetVal);*/
             int cMethod = 0;
             int pcMethod;
-            ISymUnmanagedMethod[] pRetVal = null;
-            HRESULT hr = Raw2.GetMethodsInDocument(document, cMethod, out pcMethod, pRetVal);
+            ISymUnmanagedMethod[] pRetVal;
+            HRESULT hr = Raw2.GetMethodsInDocument(document, cMethod, out pcMethod, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

@@ -811,7 +811,7 @@ namespace ClrDebug
             int bufsize = 0;
             buffer = null;
             int bufLen;
-            HRESULT hr = Raw2.SetUnmanagedBreakpoint(address, bufsize, buffer, out bufLen);
+            HRESULT hr = Raw2.SetUnmanagedBreakpoint(address, bufsize, null, out bufLen);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1483,7 +1483,7 @@ namespace ClrDebug
             int celt = 0;
             fields = null;
             int pceltNeeded;
-            HRESULT hr = Raw5.GetTypeFields(id, celt, fields, out pceltNeeded);
+            HRESULT hr = Raw5.GetTypeFields(id, celt, null, out pceltNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

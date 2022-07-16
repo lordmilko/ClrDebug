@@ -87,7 +87,7 @@ namespace ClrDebug
             int count = 0;
             managers = null;
             int pNeeded;
-            HRESULT hr = Raw.GetJitManagerList(count, managers, out pNeeded);
+            HRESULT hr = Raw.GetJitManagerList(count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -164,7 +164,7 @@ namespace ClrDebug
             int count = 0;
             heaps = null;
             int pNeeded;
-            HRESULT hr = Raw.GetGCHeapList(count, heaps, out pNeeded);
+            HRESULT hr = Raw.GetGCHeapList(count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -428,9 +428,9 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder name = null;
+            StringBuilder name;
             int pNeeded;
-            HRESULT hr = Raw.GetAppDomainName(addr, count, name, out pNeeded);
+            HRESULT hr = Raw.GetAppDomainName(addr, count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -492,7 +492,7 @@ namespace ClrDebug
             int count = 0;
             values = null;
             int pNeeded;
-            HRESULT hr = Raw.GetAssemblyList(appDomain, count, values, out pNeeded);
+            HRESULT hr = Raw.GetAssemblyList(appDomain, count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -543,9 +543,9 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder name = null;
+            StringBuilder name;
             int pNeeded;
-            HRESULT hr = Raw.GetAssemblyName(assembly, count, name, out pNeeded);
+            HRESULT hr = Raw.GetAssemblyName(assembly, count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -670,7 +670,7 @@ namespace ClrDebug
             int count = 0;
             modules = null;
             int pNeeded;
-            HRESULT hr = Raw.GetAssemblyModuleList(assembly, count, modules, out pNeeded);
+            HRESULT hr = Raw.GetAssemblyModuleList(assembly, count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -813,9 +813,9 @@ namespace ClrDebug
             [Out] out int pcNeededRevertedRejitData);*/
             DacpMethodDescData data;
             int cRevertedRejitVersions = 0;
-            DacpReJitData[] rgRevertedRejitData = null;
+            DacpReJitData[] rgRevertedRejitData;
             int pcNeededRevertedRejitData;
-            HRESULT hr = Raw.GetMethodDescData(methodDesc, ip, out data, cRevertedRejitVersions, rgRevertedRejitData, out pcNeededRevertedRejitData);
+            HRESULT hr = Raw.GetMethodDescData(methodDesc, ip, out data, cRevertedRejitVersions, null, out pcNeededRevertedRejitData);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -893,9 +893,9 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder name = null;
+            StringBuilder name;
             int pNeeded;
-            HRESULT hr = Raw.GetMethodDescName(methodDesc, count, name, out pNeeded);
+            HRESULT hr = Raw.GetMethodDescName(methodDesc, count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1013,9 +1013,9 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder name = null;
+            StringBuilder name;
             int pNeeded;
-            HRESULT hr = Raw.GetJitHelperFunctionName(ip, count, name, out pNeeded);
+            HRESULT hr = Raw.GetJitHelperFunctionName(ip, count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1142,9 +1142,9 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder stringData,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder stringData = null;
+            StringBuilder stringData;
             int pNeeded;
-            HRESULT hr = Raw.GetObjectStringData(obj, count, stringData, out pNeeded);
+            HRESULT hr = Raw.GetObjectStringData(obj, count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1185,9 +1185,9 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder className,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder className = null;
+            StringBuilder className;
             int pNeeded;
-            HRESULT hr = Raw.GetObjectClassName(obj, count, className, out pNeeded);
+            HRESULT hr = Raw.GetObjectClassName(obj, count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1228,9 +1228,9 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder mtName,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder mtName = null;
+            StringBuilder mtName;
             int pNeeded;
-            HRESULT hr = Raw.GetMethodTableName(mt, count, mtName, out pNeeded);
+            HRESULT hr = Raw.GetMethodTableName(mt, count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1386,9 +1386,9 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder frameName,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder frameName = null;
+            StringBuilder frameName;
             int pNeeded;
-            HRESULT hr = Raw.GetFrameName(vtable, count, frameName, out pNeeded);
+            HRESULT hr = Raw.GetFrameName(vtable, count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1448,9 +1448,9 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder fileName,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder fileName = null;
+            StringBuilder fileName;
             int pNeeded;
-            HRESULT hr = Raw.GetPEFileName(addr, count, fileName, out pNeeded);
+            HRESULT hr = Raw.GetPEFileName(addr, count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1802,7 +1802,7 @@ namespace ClrDebug
             int count = 0;
             codeHeaps = null;
             int pNeeded;
-            HRESULT hr = Raw.GetCodeHeapList(jitManager, count, codeHeaps, out pNeeded);
+            HRESULT hr = Raw.GetCodeHeapList(jitManager, count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1887,7 +1887,7 @@ namespace ClrDebug
             int count = 0;
             interfaces = null;
             int pNeeded;
-            HRESULT hr = Raw.GetRCWInterfaces(rcw, count, interfaces, out pNeeded);
+            HRESULT hr = Raw.GetRCWInterfaces(rcw, count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1939,7 +1939,7 @@ namespace ClrDebug
             int count = 0;
             interfaces = null;
             int pNeeded;
-            HRESULT hr = Raw.GetCCWInterfaces(ccw, count, interfaces, out pNeeded);
+            HRESULT hr = Raw.GetCCWInterfaces(ccw, count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2014,9 +2014,9 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder buffer,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int pNeeded;
-            HRESULT hr = Raw.GetRegisterName(regName, count, buffer, out pNeeded);
+            HRESULT hr = Raw.GetRegisterName(regName, count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2107,7 +2107,7 @@ namespace ClrDebug
             int count = 0;
             values = null;
             int pNeeded;
-            HRESULT hr = Raw.GetFailedAssemblyList(appDomain, count, values, out pNeeded);
+            HRESULT hr = Raw.GetFailedAssemblyList(appDomain, count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2138,9 +2138,9 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder paths,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder paths = null;
+            StringBuilder paths;
             int pNeeded;
-            HRESULT hr = Raw.GetPrivateBinPaths(appDomain, count, paths, out pNeeded);
+            HRESULT hr = Raw.GetPrivateBinPaths(appDomain, count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2181,9 +2181,9 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder location,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder location = null;
+            StringBuilder location;
             int pNeeded;
-            HRESULT hr = Raw.GetAssemblyLocation(assembly, count, location, out pNeeded);
+            HRESULT hr = Raw.GetAssemblyLocation(assembly, count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2224,9 +2224,9 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder configFile,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder configFile = null;
+            StringBuilder configFile;
             int pNeeded;
-            HRESULT hr = Raw.GetAppDomainConfigFile(appDomain, count, configFile, out pNeeded);
+            HRESULT hr = Raw.GetAppDomainConfigFile(appDomain, count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2267,9 +2267,9 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder _base,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder _base = null;
+            StringBuilder _base;
             int pNeeded;
-            HRESULT hr = Raw.GetApplicationBase(appDomain, count, _base, out pNeeded);
+            HRESULT hr = Raw.GetApplicationBase(appDomain, count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2339,9 +2339,9 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder location,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder location = null;
+            StringBuilder location;
             int pNeeded;
-            HRESULT hr = Raw.GetFailedAssemblyLocation(assesmbly, count, location, out pNeeded);
+            HRESULT hr = Raw.GetFailedAssemblyLocation(assesmbly, count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2382,9 +2382,9 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder name = null;
+            StringBuilder name;
             int pNeeded;
-            HRESULT hr = Raw.GetFailedAssemblyDisplayName(assembly, count, name, out pNeeded);
+            HRESULT hr = Raw.GetFailedAssemblyDisplayName(assembly, count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2540,7 +2540,7 @@ namespace ClrDebug
             arguments = null;
             int count = 0;
             int pNeeded;
-            HRESULT hr = Raw4.GetClrNotification(arguments, count, out pNeeded);
+            HRESULT hr = Raw4.GetClrNotification(null, count, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2580,7 +2580,7 @@ namespace ClrDebug
             nativeCodeAddrs = null;
             int cNativeCodeAddrs = 0;
             int pcNativeCodeAddrs;
-            HRESULT hr = Raw5.GetTieredVersions(methodDesc, rejitId, nativeCodeAddrs, cNativeCodeAddrs, out pcNativeCodeAddrs);
+            HRESULT hr = Raw5.GetTieredVersions(methodDesc, rejitId, null, cNativeCodeAddrs, out pcNativeCodeAddrs);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2702,7 +2702,7 @@ namespace ClrDebug
             methodDescs = null;
             int cMethodDescs = 0;
             int pcMethodDescs;
-            HRESULT hr = Raw7.GetMethodsWithProfilerModifiedIL(mod, methodDescs, cMethodDescs, out pcMethodDescs);
+            HRESULT hr = Raw7.GetMethodsWithProfilerModifiedIL(mod, null, cMethodDescs, out pcMethodDescs);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2764,7 +2764,7 @@ namespace ClrDebug
             int cGenerations = 0;
             pGenerationData = null;
             int pNeeded;
-            HRESULT hr = Raw8.GetGenerationTable(cGenerations, pGenerationData, out pNeeded);
+            HRESULT hr = Raw8.GetGenerationTable(cGenerations, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2799,7 +2799,7 @@ namespace ClrDebug
             int cFillPointers = 0;
             pFinalizationFillPointers = null;
             int pNeeded;
-            HRESULT hr = Raw8.GetFinalizationFillPointers(cFillPointers, pFinalizationFillPointers, out pNeeded);
+            HRESULT hr = Raw8.GetFinalizationFillPointers(cFillPointers, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2832,7 +2832,7 @@ namespace ClrDebug
             int cGenerations = 0;
             pGenerationData = null;
             int pNeeded;
-            HRESULT hr = Raw8.GetGenerationTableSvr(heapAddr, cGenerations, pGenerationData, out pNeeded);
+            HRESULT hr = Raw8.GetGenerationTableSvr(heapAddr, cGenerations, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2865,7 +2865,7 @@ namespace ClrDebug
             int cFillPointers = 0;
             pFinalizationFillPointers = null;
             int pNeeded;
-            HRESULT hr = Raw8.GetFinalizationFillPointersSvr(heapAddr, cFillPointers, pFinalizationFillPointers, out pNeeded);
+            HRESULT hr = Raw8.GetFinalizationFillPointersSvr(heapAddr, cFillPointers, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2950,9 +2950,9 @@ namespace ClrDebug
             [Out] out int pNeeded);*/
             CLRDATA_ADDRESS rcw;
             int count = 0;
-            CLRDATA_ADDRESS[] mowList = null;
+            CLRDATA_ADDRESS[] mowList;
             int pNeeded;
-            HRESULT hr = Raw10.GetObjectComWrappersData(objAddr, out rcw, count, mowList, out pNeeded);
+            HRESULT hr = Raw10.GetObjectComWrappersData(objAddr, out rcw, count, null, out pNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

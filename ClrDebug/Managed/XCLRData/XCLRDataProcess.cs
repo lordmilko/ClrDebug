@@ -343,9 +343,9 @@ namespace ClrDebug
             [Out] out CLRDATA_ADDRESS displacement);*/
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf = null;
+            StringBuilder nameBuf;
             CLRDATA_ADDRESS displacement;
-            HRESULT hr = Raw.GetRuntimeNameByAddress(address, flags, bufLen, out nameLen, nameBuf, out displacement);
+            HRESULT hr = Raw.GetRuntimeNameByAddress(address, flags, bufLen, out nameLen, null, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -810,10 +810,10 @@ namespace ClrDebug
             [Out] out CLRDATA_ADDRESS displacement);*/
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf = null;
+            StringBuilder nameBuf;
             IXCLRDataValue value;
             CLRDATA_ADDRESS displacement;
-            HRESULT hr = Raw.GetDataByAddress(address, flags, appDomain, tlsTask, bufLen, out nameLen, nameBuf, out value, out displacement);
+            HRESULT hr = Raw.GetDataByAddress(address, flags, appDomain, tlsTask, bufLen, out nameLen, null, out value, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

@@ -71,8 +71,8 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder wszPathBuffer);*/
             int cchPathBuffer = 0;
             int pcchPathBuffer;
-            StringBuilder wszPathBuffer = null;
-            HRESULT hr = Raw.GetMetaData(wszImagePath, dwImageTimeStamp, dwImageSize, cchPathBuffer, out pcchPathBuffer, wszPathBuffer);
+            StringBuilder wszPathBuffer;
+            HRESULT hr = Raw.GetMetaData(wszImagePath, dwImageTimeStamp, dwImageSize, cchPathBuffer, out pcchPathBuffer, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

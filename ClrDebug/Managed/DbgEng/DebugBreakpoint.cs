@@ -438,10 +438,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint CommandSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint commandSize;
-            HRESULT hr = getCommand(Raw, buffer, bufferSize, out commandSize);
+            HRESULT hr = getCommand(Raw, null, bufferSize, out commandSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -526,10 +526,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint ExpressionSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint expressionSize;
-            HRESULT hr = getOffsetExpression(Raw, buffer, bufferSize, out expressionSize);
+            HRESULT hr = getOffsetExpression(Raw, null, bufferSize, out expressionSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -836,10 +836,10 @@ namespace ClrDebug.DbgEng
             StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint CommandSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint commandSize;
-            HRESULT hr = getCommandWide(Raw, buffer, bufferSize, out commandSize);
+            HRESULT hr = getCommandWide(Raw, null, bufferSize, out commandSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -925,10 +925,10 @@ namespace ClrDebug.DbgEng
             StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint ExpressionSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint expressionSize;
-            HRESULT hr = getOffsetExpressionWide(Raw, buffer, bufferSize, out expressionSize);
+            HRESULT hr = getOffsetExpressionWide(Raw, null, bufferSize, out expressionSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

@@ -217,8 +217,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
-            StringBuilder szName = null;
-            HRESULT hr = Raw2.GetImageLocation(baseAddress, cchName, out pcchName, szName);
+            StringBuilder szName;
+            HRESULT hr = Raw2.GetImageLocation(baseAddress, cchName, out pcchName, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -302,7 +302,7 @@ namespace ClrDebug
             int cThreadIds = 0;
             int pcThreadIds;
             pThreadIds = null;
-            HRESULT hr = Raw2.EnumerateThreadIDs(cThreadIds, out pcThreadIds, pThreadIds);
+            HRESULT hr = Raw2.EnumerateThreadIDs(cThreadIds, out pcThreadIds, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -396,8 +396,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ICorDebugLoadedModule[] pLoadedModules);*/
             int cRequestedModules = 0;
             int pcFetchedModules;
-            ICorDebugLoadedModule[] pLoadedModules = null;
-            HRESULT hr = Raw3.GetLoadedModules(cRequestedModules, out pcFetchedModules, pLoadedModules);
+            ICorDebugLoadedModule[] pLoadedModules;
+            HRESULT hr = Raw3.GetLoadedModules(cRequestedModules, out pcFetchedModules, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

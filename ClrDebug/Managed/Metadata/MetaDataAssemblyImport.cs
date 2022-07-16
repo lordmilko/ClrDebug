@@ -81,12 +81,12 @@ namespace ClrDebug
             IntPtr ppbPublicKey;
             int pcbPublicKey;
             int pulHashAlgId;
-            StringBuilder szName = null;
+            StringBuilder szName;
             int cchName = 0;
             int pchName;
             ASSEMBLYMETADATA pMetaData;
             CorAssemblyFlags pdwAssemblyFlags;
-            HRESULT hr = Raw.GetAssemblyProps(mda, out ppbPublicKey, out pcbPublicKey, out pulHashAlgId, szName, cchName, out pchName, out pMetaData, out pdwAssemblyFlags);
+            HRESULT hr = Raw.GetAssemblyProps(mda, out ppbPublicKey, out pcbPublicKey, out pulHashAlgId, null, cchName, out pchName, out pMetaData, out pdwAssemblyFlags);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -145,14 +145,14 @@ namespace ClrDebug
             [Out] out CorAssemblyFlags pdwAssemblyFlags);*/
             IntPtr ppbPublicKeyOrToken;
             int pcbPublicKeyOrToken;
-            StringBuilder szName = null;
+            StringBuilder szName;
             int cchName = 0;
             int pchName;
             ASSEMBLYMETADATA pMetaData;
             IntPtr ppbHashValue;
             int pcbHashValue;
             CorAssemblyFlags pdwAssemblyFlags;
-            HRESULT hr = Raw.GetAssemblyRefProps(mdar, out ppbPublicKeyOrToken, out pcbPublicKeyOrToken, szName, cchName, out pchName, out pMetaData, out ppbHashValue, out pcbHashValue, out pdwAssemblyFlags);
+            HRESULT hr = Raw.GetAssemblyRefProps(mdar, out ppbPublicKeyOrToken, out pcbPublicKeyOrToken, null, cchName, out pchName, out pMetaData, out ppbHashValue, out pcbHashValue, out pdwAssemblyFlags);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -205,13 +205,13 @@ namespace ClrDebug
             [Out] out IntPtr ppbHashValue,
             [Out] out int pcbHashValue,
             [Out] out CorFileFlags pdwFileFlags);*/
-            StringBuilder szName = null;
+            StringBuilder szName;
             int cchName = 0;
             int pchName;
             IntPtr ppbHashValue;
             int pcbHashValue;
             CorFileFlags pdwFileFlags;
-            HRESULT hr = Raw.GetFileProps(mdf, szName, cchName, out pchName, out ppbHashValue, out pcbHashValue, out pdwFileFlags);
+            HRESULT hr = Raw.GetFileProps(mdf, null, cchName, out pchName, out ppbHashValue, out pcbHashValue, out pdwFileFlags);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -264,13 +264,13 @@ namespace ClrDebug
             [Out] out int ptkImplementation,
             [Out] out mdTypeDef ptkTypeDef,
             [Out] out CorTypeAttr pdwExportedTypeFlags);*/
-            StringBuilder szName = null;
+            StringBuilder szName;
             int cchName = 0;
             int pchName;
             int ptkImplementation;
             mdTypeDef ptkTypeDef;
             CorTypeAttr pdwExportedTypeFlags;
-            HRESULT hr = Raw.GetExportedTypeProps(mdct, szName, cchName, out pchName, out ptkImplementation, out ptkTypeDef, out pdwExportedTypeFlags);
+            HRESULT hr = Raw.GetExportedTypeProps(mdct, null, cchName, out pchName, out ptkImplementation, out ptkTypeDef, out pdwExportedTypeFlags);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -323,13 +323,13 @@ namespace ClrDebug
             [Out] out int ptkImplementation,
             [Out] out int pdwOffset,
             [Out] out CorManifestResourceFlags pdwResourceFlags);*/
-            StringBuilder szName = null;
+            StringBuilder szName;
             int cchName = 0;
             int pchName;
             int ptkImplementation;
             int pdwOffset;
             CorManifestResourceFlags pdwResourceFlags;
-            HRESULT hr = Raw.GetManifestResourceProps(mdmr, szName, cchName, out pchName, out ptkImplementation, out pdwOffset, out pdwResourceFlags);
+            HRESULT hr = Raw.GetManifestResourceProps(mdmr, null, cchName, out pchName, out ptkImplementation, out pdwOffset, out pdwResourceFlags);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -388,7 +388,7 @@ namespace ClrDebug
             rAssemblyRefs = null;
             int cMax = 0;
             int pcTokens;
-            HRESULT hr = Raw.EnumAssemblyRefs(ref phEnum, rAssemblyRefs, cMax, out pcTokens);
+            HRESULT hr = Raw.EnumAssemblyRefs(ref phEnum, null, cMax, out pcTokens);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -437,7 +437,7 @@ namespace ClrDebug
             rFiles = null;
             int cMax = 0;
             int pcTokens;
-            HRESULT hr = Raw.EnumFiles(ref phEnum, rFiles, cMax, out pcTokens);
+            HRESULT hr = Raw.EnumFiles(ref phEnum, null, cMax, out pcTokens);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -486,7 +486,7 @@ namespace ClrDebug
             rExportedTypes = null;
             int cMax = 0;
             int pcTokens;
-            HRESULT hr = Raw.EnumExportedTypes(ref phEnum, rExportedTypes, cMax, out pcTokens);
+            HRESULT hr = Raw.EnumExportedTypes(ref phEnum, null, cMax, out pcTokens);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -535,7 +535,7 @@ namespace ClrDebug
             rManifestResources = null;
             int cMax = 0;
             int pcTokens;
-            HRESULT hr = Raw.EnumManifestResources(ref phEnum, rManifestResources, cMax, out pcTokens);
+            HRESULT hr = Raw.EnumManifestResources(ref phEnum, null, cMax, out pcTokens);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -714,7 +714,7 @@ namespace ClrDebug
             ppIUnk = null;
             int cMax = 0;
             int pcAssemblies;
-            HRESULT hr = Raw.FindAssembliesByName(szAppBase, szPrivateBin, szAssemblyName, ppIUnk, cMax, out pcAssemblies);
+            HRESULT hr = Raw.FindAssembliesByName(szAppBase, szPrivateBin, szAssemblyName, null, cMax, out pcAssemblies);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

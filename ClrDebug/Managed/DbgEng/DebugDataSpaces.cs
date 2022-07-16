@@ -1095,7 +1095,7 @@ namespace ClrDebug.DbgEng
             offsets = null;
             uint offsetsSize = 0;
             uint levels;
-            HRESULT hr = getVirtualTranslationPhysicalOffsets(Raw, @virtual, offsets, offsetsSize, out levels);
+            HRESULT hr = getVirtualTranslationPhysicalOffsets(Raw, @virtual, null, offsetsSize, out levels);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1760,10 +1760,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] uint BufferSize,
             [Out] out uint StringBytes);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             uint bufferSize = 0;
             uint stringBytes;
-            HRESULT hr = readMultiByteStringVirtual(Raw, offset, maxBytes, buffer, bufferSize, out stringBytes);
+            HRESULT hr = readMultiByteStringVirtual(Raw, offset, maxBytes, null, bufferSize, out stringBytes);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1837,10 +1837,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] uint BufferSize,
             [Out] out uint StringBytes);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             uint bufferSize = 0;
             uint stringBytes;
-            HRESULT hr = readMultiByteStringVirtualWide(Raw, offset, maxBytes, codePage, buffer, bufferSize, out stringBytes);
+            HRESULT hr = readMultiByteStringVirtualWide(Raw, offset, maxBytes, codePage, null, bufferSize, out stringBytes);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1908,10 +1908,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] uint BufferSize,
             [Out] out uint StringBytes);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             uint bufferSize = 0;
             uint stringBytes;
-            HRESULT hr = readUnicodeStringVirtual(Raw, offset, maxBytes, codePage, buffer, bufferSize, out stringBytes);
+            HRESULT hr = readUnicodeStringVirtual(Raw, offset, maxBytes, codePage, null, bufferSize, out stringBytes);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1974,10 +1974,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] uint BufferSize,
             [Out] out uint StringBytes);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             uint bufferSize = 0;
             uint stringBytes;
-            HRESULT hr = readUnicodeStringVirtualWide(Raw, offset, maxBytes, buffer, bufferSize, out stringBytes);
+            HRESULT hr = readUnicodeStringVirtualWide(Raw, offset, maxBytes, null, bufferSize, out stringBytes);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

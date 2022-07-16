@@ -154,10 +154,10 @@
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] breakpointMethod);*/
             int cStepInfo = 0;
             int pcStepInfo;
-            int[] yieldOffsets = null;
-            int[] breakpointOffset = null;
-            int[] breakpointMethod = null;
-            HRESULT hr = Raw.GetAsyncStepInfo(cStepInfo, out pcStepInfo, yieldOffsets, breakpointOffset, breakpointMethod);
+            int[] yieldOffsets;
+            int[] breakpointOffset;
+            int[] breakpointMethod;
+            HRESULT hr = Raw.GetAsyncStepInfo(cStepInfo, out pcStepInfo, null, null, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

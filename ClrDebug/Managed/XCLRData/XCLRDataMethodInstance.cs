@@ -207,7 +207,7 @@ namespace ClrDebug
             int mapLen = 0;
             int mapNeeded;
             maps = null;
-            HRESULT hr = Raw.GetILAddressMap(mapLen, out mapNeeded, maps);
+            HRESULT hr = Raw.GetILAddressMap(mapLen, out mapNeeded, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -271,8 +271,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf);*/
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf = null;
-            HRESULT hr = Raw.GetName(flags, bufLen, out nameLen, nameBuf);
+            StringBuilder nameBuf;
+            HRESULT hr = Raw.GetName(flags, bufLen, out nameLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

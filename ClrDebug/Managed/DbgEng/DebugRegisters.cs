@@ -208,11 +208,11 @@ namespace ClrDebug.DbgEng
             [In] int NameBufferSize,
             [Out] out uint NameSize,
             [Out] out DEBUG_REGISTER_DESCRIPTION Desc);*/
-            StringBuilder nameBuffer = null;
+            StringBuilder nameBuffer;
             int nameBufferSize = 0;
             uint nameSize;
             DEBUG_REGISTER_DESCRIPTION desc;
-            HRESULT hr = getDescription(Raw, register, nameBuffer, nameBufferSize, out nameSize, out desc);
+            HRESULT hr = getDescription(Raw, register, null, nameBufferSize, out nameSize, out desc);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -595,11 +595,11 @@ namespace ClrDebug.DbgEng
             [In] int NameBufferSize,
             [Out] out uint NameSize,
             [Out] out DEBUG_REGISTER_DESCRIPTION Desc);*/
-            StringBuilder nameBuffer = null;
+            StringBuilder nameBuffer;
             int nameBufferSize = 0;
             uint nameSize;
             DEBUG_REGISTER_DESCRIPTION desc;
-            HRESULT hr = getDescriptionWide(Raw, register, nameBuffer, nameBufferSize, out nameSize, out desc);
+            HRESULT hr = getDescriptionWide(Raw, register, null, nameBufferSize, out nameSize, out desc);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -703,12 +703,12 @@ namespace ClrDebug.DbgEng
             [Out] out uint NameSize,
             [Out] out ulong TypeModule,
             [Out] out uint TypeId);*/
-            StringBuilder nameBuffer = null;
+            StringBuilder nameBuffer;
             int nameBufferSize = 0;
             uint nameSize;
             ulong typeModule;
             uint typeId;
-            HRESULT hr = getPseudoDescription(Raw, register, nameBuffer, nameBufferSize, out nameSize, out typeModule, out typeId);
+            HRESULT hr = getPseudoDescription(Raw, register, null, nameBufferSize, out nameSize, out typeModule, out typeId);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -774,12 +774,12 @@ namespace ClrDebug.DbgEng
             [Out] out uint NameSize,
             [Out] out ulong TypeModule,
             [Out] out uint TypeId);*/
-            StringBuilder nameBuffer = null;
+            StringBuilder nameBuffer;
             int nameBufferSize = 0;
             uint nameSize;
             ulong typeModule;
             uint typeId;
-            HRESULT hr = getPseudoDescriptionWide(Raw, register, nameBuffer, nameBufferSize, out nameSize, out typeModule, out typeId);
+            HRESULT hr = getPseudoDescriptionWide(Raw, register, null, nameBufferSize, out nameSize, out typeModule, out typeId);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

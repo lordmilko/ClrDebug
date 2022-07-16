@@ -620,7 +620,7 @@ namespace ClrDebug
             int cFunctions = 0;
             int pcFunctions;
             pFunctions = null;
-            HRESULT hr = Raw2.GetActiveFunctions(cFunctions, out pcFunctions, pFunctions);
+            HRESULT hr = Raw2.GetActiveFunctions(cFunctions, out pcFunctions, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -805,8 +805,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ICorDebugInternalFrame2[] ppInternalFrames);*/
             int cInternalFrames = 0;
             int pcInternalFrames;
-            ICorDebugInternalFrame2[] ppInternalFrames = null;
-            HRESULT hr = Raw3.GetActiveInternalFrames(cInternalFrames, out pcInternalFrames, ppInternalFrames);
+            ICorDebugInternalFrame2[] ppInternalFrames;
+            HRESULT hr = Raw3.GetActiveInternalFrames(cInternalFrames, out pcInternalFrames, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

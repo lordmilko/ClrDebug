@@ -99,8 +99,8 @@ namespace ClrDebug
             /*HRESULT GetDisplayName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
-            StringBuilder szName = null;
-            HRESULT hr = Raw.GetDisplayName(cchName, out pcchName, szName);
+            StringBuilder szName;
+            HRESULT hr = Raw.GetDisplayName(cchName, out pcchName, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

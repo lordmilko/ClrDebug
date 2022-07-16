@@ -43,8 +43,8 @@ namespace ClrDebug
             /*HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
-            StringBuilder szName = null;
-            HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
+            StringBuilder szName;
+            HRESULT hr = Raw.GetName(cchName, out pcchName, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -93,8 +93,8 @@ namespace ClrDebug
             /*HRESULT GetNamespaces([In] int cNameSpaces, [Out] out int pcNameSpaces, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] ISymUnmanagedNamespace[] namespaces);*/
             int cNameSpaces = 0;
             int pcNameSpaces;
-            ISymUnmanagedNamespace[] namespaces = null;
-            HRESULT hr = Raw.GetNamespaces(cNameSpaces, out pcNameSpaces, namespaces);
+            ISymUnmanagedNamespace[] namespaces;
+            HRESULT hr = Raw.GetNamespaces(cNameSpaces, out pcNameSpaces, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -143,8 +143,8 @@ namespace ClrDebug
             /*HRESULT GetVariables([In] int cVars, [Out] out int pcVars, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedVariable[] pVars);*/
             int cVars = 0;
             int pcVars;
-            ISymUnmanagedVariable[] pVars = null;
-            HRESULT hr = Raw.GetVariables(cVars, out pcVars, pVars);
+            ISymUnmanagedVariable[] pVars;
+            HRESULT hr = Raw.GetVariables(cVars, out pcVars, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

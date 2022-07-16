@@ -42,8 +42,8 @@ namespace ClrDebug
             /*HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
-            StringBuilder szName = null;
-            HRESULT hr = Raw.GetName(cchName, out pcchName, szName);
+            StringBuilder szName;
+            HRESULT hr = Raw.GetName(cchName, out pcchName, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -160,7 +160,7 @@ namespace ClrDebug
             int cbValue = 0;
             int pcbValue;
             pValue = null;
-            HRESULT hr = Raw.GetValue(offset, cbContext, context, cbValue, out pcbValue, pValue);
+            HRESULT hr = Raw.GetValue(offset, cbContext, context, cbValue, out pcbValue, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

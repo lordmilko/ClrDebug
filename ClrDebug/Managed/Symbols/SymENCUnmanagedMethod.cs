@@ -75,8 +75,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedDocument[] documents);*/
             int cDocs = 0;
             int pcDocs;
-            ISymUnmanagedDocument[] documents = null;
-            HRESULT hr = Raw.GetDocumentsForMethod(cDocs, out pcDocs, documents);
+            ISymUnmanagedDocument[] documents;
+            HRESULT hr = Raw.GetDocumentsForMethod(cDocs, out pcDocs, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -129,8 +129,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
-            StringBuilder szName = null;
-            HRESULT hr = Raw.GetFileNameFromOffset(dwOffset, cchName, out pcchName, szName);
+            StringBuilder szName;
+            HRESULT hr = Raw.GetFileNameFromOffset(dwOffset, cchName, out pcchName, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

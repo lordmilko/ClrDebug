@@ -54,9 +54,9 @@ namespace ClrDebug
         {
             /*HRESULT GetVersionString([MarshalAs(UnmanagedType.LPWStr), Out]
             StringBuilder pwzBuffer, [In, Out] ref int pcchBuffer);*/
-            StringBuilder pwzBuffer = null;
+            StringBuilder pwzBuffer;
             int pcchBuffer = default(int);
-            HRESULT hr = Raw.GetVersionString(pwzBuffer, ref pcchBuffer);
+            HRESULT hr = Raw.GetVersionString(null, ref pcchBuffer);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -110,9 +110,9 @@ namespace ClrDebug
         {
             /*HRESULT GetRuntimeDirectory([MarshalAs(UnmanagedType.LPWStr), Out]
             StringBuilder pwzBuffer, [In, Out] ref int pcchBuffer);*/
-            StringBuilder pwzBuffer = null;
+            StringBuilder pwzBuffer;
             int pcchBuffer = default(int);
-            HRESULT hr = Raw.GetRuntimeDirectory(pwzBuffer, ref pcchBuffer);
+            HRESULT hr = Raw.GetRuntimeDirectory(null, ref pcchBuffer);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -315,9 +315,9 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder pwzBuffer,
             [In, Out] ref int pcchBuffer,
             [In] int iLocaleID);*/
-            StringBuilder pwzBuffer = null;
+            StringBuilder pwzBuffer;
             int pcchBuffer = default(int);
-            HRESULT hr = Raw.LoadErrorString(iResourceID, pwzBuffer, ref pcchBuffer, iLocaleID);
+            HRESULT hr = Raw.LoadErrorString(iResourceID, null, ref pcchBuffer, iLocaleID);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -568,9 +568,9 @@ namespace ClrDebug
             StringBuilder pwzHostConfigFile,
             [In, Out] ref int pcchHostConfigFile);*/
             int pdwStartupFlags;
-            StringBuilder pwzHostConfigFile = null;
+            StringBuilder pwzHostConfigFile;
             int pcchHostConfigFile = default(int);
-            HRESULT hr = Raw.GetDefaultStartupFlags(out pdwStartupFlags, pwzHostConfigFile, ref pcchHostConfigFile);
+            HRESULT hr = Raw.GetDefaultStartupFlags(out pdwStartupFlags, null, ref pcchHostConfigFile);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

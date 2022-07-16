@@ -209,8 +209,8 @@ namespace ClrDebug
             IXCLRDataValue arg;
             int bufLen = 0;
             int nameLen;
-            StringBuilder name = null;
-            HRESULT hr = Raw.GetArgumentByIndex(index, out arg, bufLen, out nameLen, name);
+            StringBuilder name;
+            HRESULT hr = Raw.GetArgumentByIndex(index, out arg, bufLen, out nameLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -254,8 +254,8 @@ namespace ClrDebug
             IXCLRDataValue localVariable;
             int bufLen = 0;
             int nameLen;
-            StringBuilder name = null;
-            HRESULT hr = Raw.GetLocalVariableByIndex(index, out localVariable, bufLen, out nameLen, name);
+            StringBuilder name;
+            HRESULT hr = Raw.GetLocalVariableByIndex(index, out localVariable, bufLen, out nameLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -297,8 +297,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf);*/
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf = null;
-            HRESULT hr = Raw.GetCodeName(flags, bufLen, out nameLen, nameBuf);
+            StringBuilder nameBuf;
+            HRESULT hr = Raw.GetCodeName(flags, bufLen, out nameLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

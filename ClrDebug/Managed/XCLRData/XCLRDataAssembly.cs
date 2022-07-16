@@ -35,8 +35,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name);*/
             int bufLen = 0;
             int nameLen;
-            StringBuilder name = null;
-            HRESULT hr = Raw.GetName(bufLen, out nameLen, name);
+            StringBuilder name;
+            HRESULT hr = Raw.GetName(bufLen, out nameLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -138,8 +138,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name);*/
             int bufLen = 0;
             int nameLen;
-            StringBuilder name = null;
-            HRESULT hr = Raw.GetDisplayName(bufLen, out nameLen, name);
+            StringBuilder name;
+            HRESULT hr = Raw.GetDisplayName(bufLen, out nameLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

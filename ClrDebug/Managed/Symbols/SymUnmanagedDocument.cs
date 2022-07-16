@@ -47,8 +47,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szUrl);*/
             int cchUrl = 0;
             int pcchUrl;
-            StringBuilder szUrl = null;
-            HRESULT hr = Raw.GetURL(cchUrl, out pcchUrl, szUrl);
+            StringBuilder szUrl;
+            HRESULT hr = Raw.GetURL(cchUrl, out pcchUrl, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -214,7 +214,7 @@ namespace ClrDebug
             int cData = 0;
             int pcData;
             data = null;
-            HRESULT hr = Raw.GetCheckSum(cData, out pcData, data);
+            HRESULT hr = Raw.GetCheckSum(cData, out pcData, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -349,7 +349,7 @@ namespace ClrDebug
             int cSourceBytes = 0;
             int pcSourceBytes;
             source = null;
-            HRESULT hr = Raw.GetSourceRange(startLine, startColumn, endLine, endColumn, cSourceBytes, out pcSourceBytes, source);
+            HRESULT hr = Raw.GetSourceRange(startLine, startColumn, endLine, endColumn, cSourceBytes, out pcSourceBytes, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

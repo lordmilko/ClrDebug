@@ -134,8 +134,8 @@ namespace ClrDebug
             /*HRESULT GetParameters([In] int cParams, [Out] out int pcParams, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] ISymUnmanagedVariable[] @params);*/
             int cParams = 0;
             int pcParams;
-            ISymUnmanagedVariable[] @params = null;
-            HRESULT hr = Raw.GetParameters(cParams, out pcParams, @params);
+            ISymUnmanagedVariable[] @params;
+            HRESULT hr = Raw.GetParameters(cParams, out pcParams, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -228,13 +228,13 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] endColumns);*/
             int cPoints = 0;
             int pcPoints;
-            int[] offsets = null;
-            ISymUnmanagedDocument[] documents = null;
-            int[] lines = null;
-            int[] columns = null;
-            int[] endLines = null;
-            int[] endColumns = null;
-            HRESULT hr = Raw.GetSequencePoints(cPoints, out pcPoints, offsets, documents, lines, columns, endLines, endColumns);
+            int[] offsets;
+            ISymUnmanagedDocument[] documents;
+            int[] lines;
+            int[] columns;
+            int[] endLines;
+            int[] endColumns;
+            HRESULT hr = Raw.GetSequencePoints(cPoints, out pcPoints, null, null, null, null, null, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -374,7 +374,7 @@ namespace ClrDebug
             int cRanges = 0;
             int pcRanges;
             ranges = null;
-            HRESULT hr = Raw.GetRanges(document, line, column, cRanges, out pcRanges, ranges);
+            HRESULT hr = Raw.GetRanges(document, line, column, cRanges, out pcRanges, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

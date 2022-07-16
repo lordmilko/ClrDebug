@@ -183,10 +183,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint PathSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint pathSize;
-            HRESULT hr = getSymbolPath(Raw, buffer, bufferSize, out pathSize);
+            HRESULT hr = getSymbolPath(Raw, null, bufferSize, out pathSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -265,10 +265,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint PathSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint pathSize;
-            HRESULT hr = getImagePath(Raw, buffer, bufferSize, out pathSize);
+            HRESULT hr = getImagePath(Raw, null, bufferSize, out pathSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -346,10 +346,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint PathSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint pathSize;
-            HRESULT hr = getSourcePath(Raw, buffer, bufferSize, out pathSize);
+            HRESULT hr = getSourcePath(Raw, null, bufferSize, out pathSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -503,11 +503,11 @@ namespace ClrDebug.DbgEng
             [In] int NameBufferSize,
             [Out] out uint NameSize,
             [Out] out ulong Displacement);*/
-            StringBuilder nameBuffer = null;
+            StringBuilder nameBuffer;
             int nameBufferSize = 0;
             uint nameSize;
             ulong displacement;
-            HRESULT hr = getNameByOffset(Raw, offset, nameBuffer, nameBufferSize, out nameSize, out displacement);
+            HRESULT hr = getNameByOffset(Raw, offset, null, nameBufferSize, out nameSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -627,11 +627,11 @@ namespace ClrDebug.DbgEng
             [In] int NameBufferSize,
             [Out] out uint NameSize,
             [Out] out ulong Displacement);*/
-            StringBuilder nameBuffer = null;
+            StringBuilder nameBuffer;
             int nameBufferSize = 0;
             uint nameSize;
             ulong displacement;
-            HRESULT hr = getNearNameByOffset(Raw, offset, delta, nameBuffer, nameBufferSize, out nameSize, out displacement);
+            HRESULT hr = getNearNameByOffset(Raw, offset, delta, null, nameBufferSize, out nameSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -692,11 +692,11 @@ namespace ClrDebug.DbgEng
             [Out] out uint FileSize,
             [Out] out ulong Displacement);*/
             uint line;
-            StringBuilder fileBuffer = null;
+            StringBuilder fileBuffer;
             int fileBufferSize = 0;
             uint fileSize;
             ulong displacement;
-            HRESULT hr = getLineByOffset(Raw, offset, out line, fileBuffer, fileBufferSize, out fileSize, out displacement);
+            HRESULT hr = getLineByOffset(Raw, offset, out line, null, fileBufferSize, out fileSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -954,16 +954,16 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder LoadedImageNameBuffer,
             [In] int LoadedImageNameBufferSize,
             [Out] out uint LoadedImageNameSize);*/
-            StringBuilder imageNameBuffer = null;
+            StringBuilder imageNameBuffer;
             int imageNameBufferSize = 0;
             uint imageNameSize;
-            StringBuilder moduleNameBuffer = null;
+            StringBuilder moduleNameBuffer;
             int moduleNameBufferSize = 0;
             uint moduleNameSize;
-            StringBuilder loadedImageNameBuffer = null;
+            StringBuilder loadedImageNameBuffer;
             int loadedImageNameBufferSize = 0;
             uint loadedImageNameSize;
-            HRESULT hr = getModuleNames(Raw, index, @base, imageNameBuffer, imageNameBufferSize, out imageNameSize, moduleNameBuffer, moduleNameBufferSize, out moduleNameSize, loadedImageNameBuffer, loadedImageNameBufferSize, out loadedImageNameSize);
+            HRESULT hr = getModuleNames(Raw, index, @base, null, imageNameBufferSize, out imageNameSize, null, moduleNameBufferSize, out moduleNameSize, null, loadedImageNameBufferSize, out loadedImageNameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -1126,10 +1126,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
             [Out] out uint NameSize);*/
-            StringBuilder nameBuffer = null;
+            StringBuilder nameBuffer;
             int nameBufferSize = 0;
             uint nameSize;
-            HRESULT hr = getTypeName(Raw, module, typeId, nameBuffer, nameBufferSize, out nameSize);
+            HRESULT hr = getTypeName(Raw, module, typeId, null, nameBufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2020,11 +2020,11 @@ namespace ClrDebug.DbgEng
             [In] int BufferSize,
             [Out] out uint MatchSize,
             [Out] out ulong Offset);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint matchSize;
             ulong offset;
-            HRESULT hr = getNextSymbolMatch(Raw, handle, buffer, bufferSize, out matchSize, out offset);
+            HRESULT hr = getNextSymbolMatch(Raw, handle, null, bufferSize, out matchSize, out offset);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2230,10 +2230,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint ElementSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint elementSize;
-            HRESULT hr = getSourcePathElement(Raw, index, buffer, bufferSize, out elementSize);
+            HRESULT hr = getSourcePathElement(Raw, index, null, bufferSize, out elementSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2345,10 +2345,10 @@ namespace ClrDebug.DbgEng
             [In] int BufferSize,
             [Out] out uint FoundSize);*/
             uint foundElement;
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint foundSize;
-            HRESULT hr = findSourceFile(Raw, startElement, file, flags, out foundElement, buffer, bufferSize, out foundSize);
+            HRESULT hr = findSourceFile(Raw, startElement, file, flags, out foundElement, null, bufferSize, out foundSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2415,7 +2415,7 @@ namespace ClrDebug.DbgEng
             buffer = null;
             int bufferLines = 0;
             uint fileLines;
-            HRESULT hr = getSourceFileLineOffsets(Raw, file, buffer, bufferLines, out fileLines);
+            HRESULT hr = getSourceFileLineOffsets(Raw, file, null, bufferLines, out fileLines);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2591,10 +2591,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] uint BufferSize,
             [Out] out uint NameSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             uint bufferSize = 0;
             uint nameSize;
-            HRESULT hr = getModuleNameString(Raw, which, index, @base, buffer, bufferSize, out nameSize);
+            HRESULT hr = getModuleNameString(Raw, which, index, @base, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2658,10 +2658,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint NameSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint nameSize;
-            HRESULT hr = getConstantName(Raw, module, typeId, value, buffer, bufferSize, out nameSize);
+            HRESULT hr = getConstantName(Raw, module, typeId, value, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2725,10 +2725,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint NameSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint nameSize;
-            HRESULT hr = getFieldName(Raw, module, typeId, fieldIndex, buffer, bufferSize, out nameSize);
+            HRESULT hr = getFieldName(Raw, module, typeId, fieldIndex, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2866,10 +2866,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint PathSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint pathSize;
-            HRESULT hr = getSymbolPathWide(Raw, buffer, bufferSize, out pathSize);
+            HRESULT hr = getSymbolPathWide(Raw, null, bufferSize, out pathSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -2948,10 +2948,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint PathSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint pathSize;
-            HRESULT hr = getImagePathWide(Raw, buffer, bufferSize, out pathSize);
+            HRESULT hr = getImagePathWide(Raw, null, bufferSize, out pathSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -3029,10 +3029,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint PathSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint pathSize;
-            HRESULT hr = getSourcePathWide(Raw, buffer, bufferSize, out pathSize);
+            HRESULT hr = getSourcePathWide(Raw, null, bufferSize, out pathSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -3147,11 +3147,11 @@ namespace ClrDebug.DbgEng
             [In] int NameBufferSize,
             [Out] out uint NameSize,
             [Out] out ulong Displacement);*/
-            StringBuilder nameBuffer = null;
+            StringBuilder nameBuffer;
             int nameBufferSize = 0;
             uint nameSize;
             ulong displacement;
-            HRESULT hr = getNameByOffsetWide(Raw, offset, nameBuffer, nameBufferSize, out nameSize, out displacement);
+            HRESULT hr = getNameByOffsetWide(Raw, offset, null, nameBufferSize, out nameSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -3271,11 +3271,11 @@ namespace ClrDebug.DbgEng
             [In] int NameBufferSize,
             [Out] out uint NameSize,
             [Out] out ulong Displacement);*/
-            StringBuilder nameBuffer = null;
+            StringBuilder nameBuffer;
             int nameBufferSize = 0;
             uint nameSize;
             ulong displacement;
-            HRESULT hr = getNearNameByOffsetWide(Raw, offset, delta, nameBuffer, nameBufferSize, out nameSize, out displacement);
+            HRESULT hr = getNearNameByOffsetWide(Raw, offset, delta, null, nameBufferSize, out nameSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -3336,11 +3336,11 @@ namespace ClrDebug.DbgEng
             [Out] out uint FileSize,
             [Out] out ulong Displacement);*/
             uint line;
-            StringBuilder fileBuffer = null;
+            StringBuilder fileBuffer;
             int fileBufferSize = 0;
             uint fileSize;
             ulong displacement;
-            HRESULT hr = getLineByOffsetWide(Raw, offset, out line, fileBuffer, fileBufferSize, out fileSize, out displacement);
+            HRESULT hr = getLineByOffsetWide(Raw, offset, out line, null, fileBufferSize, out fileSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -3542,10 +3542,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
             [Out] out uint NameSize);*/
-            StringBuilder nameBuffer = null;
+            StringBuilder nameBuffer;
             int nameBufferSize = 0;
             uint nameSize;
-            HRESULT hr = getTypeNameWide(Raw, module, typeId, nameBuffer, nameBufferSize, out nameSize);
+            HRESULT hr = getTypeNameWide(Raw, module, typeId, null, nameBufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -3906,11 +3906,11 @@ namespace ClrDebug.DbgEng
             [In] int BufferSize,
             [Out] out uint MatchSize,
             [Out] out ulong Offset);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint matchSize;
             ulong offset;
-            HRESULT hr = getNextSymbolMatchWide(Raw, handle, buffer, bufferSize, out matchSize, out offset);
+            HRESULT hr = getNextSymbolMatchWide(Raw, handle, null, bufferSize, out matchSize, out offset);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -4080,10 +4080,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint ElementSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint elementSize;
-            HRESULT hr = getSourcePathElementWide(Raw, index, buffer, bufferSize, out elementSize);
+            HRESULT hr = getSourcePathElementWide(Raw, index, null, bufferSize, out elementSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -4195,10 +4195,10 @@ namespace ClrDebug.DbgEng
             [In] int BufferSize,
             [Out] out uint FoundSize);*/
             uint foundElement;
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint foundSize;
-            HRESULT hr = findSourceFileWide(Raw, startElement, file, flags, out foundElement, buffer, bufferSize, out foundSize);
+            HRESULT hr = findSourceFileWide(Raw, startElement, file, flags, out foundElement, null, bufferSize, out foundSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -4265,7 +4265,7 @@ namespace ClrDebug.DbgEng
             buffer = null;
             int bufferLines = 0;
             uint fileLines;
-            HRESULT hr = getSourceFileLineOffsetsWide(Raw, file, buffer, bufferLines, out fileLines);
+            HRESULT hr = getSourceFileLineOffsetsWide(Raw, file, null, bufferLines, out fileLines);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -4379,10 +4379,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint NameSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint nameSize;
-            HRESULT hr = getModuleNameStringWide(Raw, which, index, @base, buffer, bufferSize, out nameSize);
+            HRESULT hr = getModuleNameStringWide(Raw, which, index, @base, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -4446,10 +4446,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint NameSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint nameSize;
-            HRESULT hr = getConstantNameWide(Raw, module, typeId, value, buffer, bufferSize, out nameSize);
+            HRESULT hr = getConstantNameWide(Raw, module, typeId, value, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -4513,10 +4513,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint NameSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint nameSize;
-            HRESULT hr = getFieldNameWide(Raw, module, typeId, fieldIndex, buffer, bufferSize, out nameSize);
+            HRESULT hr = getFieldNameWide(Raw, module, typeId, fieldIndex, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -5387,11 +5387,11 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] ulong[] Displacements,
             [In] uint IdsCount,
             [Out] out uint Entries);*/
-            DEBUG_MODULE_AND_ID[] ids = null;
-            ulong[] displacements = null;
+            DEBUG_MODULE_AND_ID[] ids;
+            ulong[] displacements;
             uint idsCount = 0;
             uint entries;
-            HRESULT hr = getSymbolEntriesByOffset(Raw, offset, flags, ids, displacements, idsCount, out entries);
+            HRESULT hr = getSymbolEntriesByOffset(Raw, offset, flags, null, null, idsCount, out entries);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -5458,7 +5458,7 @@ namespace ClrDebug.DbgEng
             ids = null;
             uint idsCount = 0;
             uint entries;
-            HRESULT hr = getSymbolEntriesByName(Raw, symbol, flags, ids, idsCount, out entries);
+            HRESULT hr = getSymbolEntriesByName(Raw, symbol, flags, null, idsCount, out entries);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -5514,7 +5514,7 @@ namespace ClrDebug.DbgEng
             ids = null;
             uint idsCount = 0;
             uint entries;
-            HRESULT hr = getSymbolEntriesByNameWide(Raw, symbol, flags, ids, idsCount, out entries);
+            HRESULT hr = getSymbolEntriesByNameWide(Raw, symbol, flags, null, idsCount, out entries);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -5640,10 +5640,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint StringSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint stringSize;
-            HRESULT hr = getSymbolEntryString(Raw, id, which, buffer, bufferSize, out stringSize);
+            HRESULT hr = getSymbolEntryString(Raw, id, which, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -5706,10 +5706,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint StringSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint stringSize;
-            HRESULT hr = getSymbolEntryStringWide(Raw, id, which, buffer, bufferSize, out stringSize);
+            HRESULT hr = getSymbolEntryStringWide(Raw, id, which, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -5769,7 +5769,7 @@ namespace ClrDebug.DbgEng
             regions = null;
             uint regionsCount = 0;
             uint regionsAvail;
-            HRESULT hr = getSymbolEntryOffsetRegions(Raw, id, flags, regions, regionsCount, out regionsAvail);
+            HRESULT hr = getSymbolEntryOffsetRegions(Raw, id, flags, null, regionsCount, out regionsAvail);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -5852,7 +5852,7 @@ namespace ClrDebug.DbgEng
             entries = null;
             uint entriesCount = 0;
             uint entriesAvail;
-            HRESULT hr = getSourceEntriesByOffset(Raw, offset, flags, entries, entriesCount, out entriesAvail);
+            HRESULT hr = getSourceEntriesByOffset(Raw, offset, flags, null, entriesCount, out entriesAvail);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -5919,7 +5919,7 @@ namespace ClrDebug.DbgEng
             entries = null;
             uint entriesCount = 0;
             uint entriesAvail;
-            HRESULT hr = getSourceEntriesByLine(Raw, line, file, flags, entries, entriesCount, out entriesAvail);
+            HRESULT hr = getSourceEntriesByLine(Raw, line, file, flags, null, entriesCount, out entriesAvail);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -5986,7 +5986,7 @@ namespace ClrDebug.DbgEng
             entries = null;
             uint entriesCount = 0;
             uint entriesAvail;
-            HRESULT hr = getSourceEntriesByLineWide(Raw, line, file, flags, entries, entriesCount, out entriesAvail);
+            HRESULT hr = getSourceEntriesByLineWide(Raw, line, file, flags, null, entriesCount, out entriesAvail);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -6032,10 +6032,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint StringSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint stringSize;
-            HRESULT hr = getSourceEntryString(Raw, entry, which, buffer, bufferSize, out stringSize);
+            HRESULT hr = getSourceEntryString(Raw, entry, which, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -6091,10 +6091,10 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out uint StringSize);*/
-            StringBuilder buffer = null;
+            StringBuilder buffer;
             int bufferSize = 0;
             uint stringSize;
-            HRESULT hr = getSourceEntryStringWide(Raw, entry, which, buffer, bufferSize, out stringSize);
+            HRESULT hr = getSourceEntryStringWide(Raw, entry, which, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -6153,7 +6153,7 @@ namespace ClrDebug.DbgEng
             regions = null;
             uint regionsCount = 0;
             uint regionsAvail;
-            HRESULT hr = getSourceEntryOffsetRegions(Raw, entry, flags, regions, regionsCount, out regionsAvail);
+            HRESULT hr = getSourceEntryOffsetRegions(Raw, entry, flags, null, regionsCount, out regionsAvail);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -6315,11 +6315,11 @@ namespace ClrDebug.DbgEng
             [In] int NameBufferSize,
             [Out] out uint NameSize,
             [Out] out ulong Displacement);*/
-            StringBuilder nameBuffer = null;
+            StringBuilder nameBuffer;
             int nameBufferSize = 0;
             uint nameSize;
             ulong displacement;
-            HRESULT hr = getNameByInlineContext(Raw, offset, inlineContext, nameBuffer, nameBufferSize, out nameSize, out displacement);
+            HRESULT hr = getNameByInlineContext(Raw, offset, inlineContext, null, nameBufferSize, out nameSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -6375,11 +6375,11 @@ namespace ClrDebug.DbgEng
             [In] int NameBufferSize,
             [Out] out uint NameSize,
             [Out] out ulong Displacement);*/
-            StringBuilder nameBuffer = null;
+            StringBuilder nameBuffer;
             int nameBufferSize = 0;
             uint nameSize;
             ulong displacement;
-            HRESULT hr = getNameByInlineContextWide(Raw, offset, inlineContext, nameBuffer, nameBufferSize, out nameSize, out displacement);
+            HRESULT hr = getNameByInlineContextWide(Raw, offset, inlineContext, null, nameBufferSize, out nameSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -6438,10 +6438,10 @@ namespace ClrDebug.DbgEng
             [Out] out ulong Displacement);*/
             uint inlineContext = 0;
             uint line;
-            StringBuilder fileBuffer = null;
+            StringBuilder fileBuffer;
             uint fileSize;
             ulong displacement;
-            HRESULT hr = getLineByInlineContext(Raw, offset, inlineContext, out line, fileBuffer, fileBufferSize, out fileSize, out displacement);
+            HRESULT hr = getLineByInlineContext(Raw, offset, inlineContext, out line, null, fileBufferSize, out fileSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -6500,10 +6500,10 @@ namespace ClrDebug.DbgEng
             [Out] out ulong Displacement);*/
             uint inlineContext = 0;
             uint line;
-            StringBuilder fileBuffer = null;
+            StringBuilder fileBuffer;
             uint fileSize;
             ulong displacement;
-            HRESULT hr = getLineByInlineContextWide(Raw, offset, inlineContext, out line, fileBuffer, fileBufferSize, out fileSize, out displacement);
+            HRESULT hr = getLineByInlineContextWide(Raw, offset, inlineContext, out line, null, fileBufferSize, out fileSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

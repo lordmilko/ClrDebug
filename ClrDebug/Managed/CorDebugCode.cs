@@ -203,7 +203,7 @@ namespace ClrDebug
             int cMap = 0;
             int pcMap;
             map = null;
-            HRESULT hr = Raw.GetILToNativeMapping(cMap, out pcMap, map);
+            HRESULT hr = Raw.GetILToNativeMapping(cMap, out pcMap, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -244,7 +244,7 @@ namespace ClrDebug
             int cMap = 0;
             int pcMap;
             offsets = null;
-            HRESULT hr = Raw.GetEnCRemapSequencePoints(cMap, out pcMap, offsets);
+            HRESULT hr = Raw.GetEnCRemapSequencePoints(cMap, out pcMap, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -346,7 +346,7 @@ namespace ClrDebug
             int cBufferAlloc = 0;
             buffer = null;
             int pcBufferSize;
-            HRESULT hr = Raw.GetCode(startOffset, endOffset, cBufferAlloc, buffer, out pcBufferSize);
+            HRESULT hr = Raw.GetCode(startOffset, endOffset, cBufferAlloc, null, out pcBufferSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -396,7 +396,7 @@ namespace ClrDebug
             int cbufSize = 0;
             int pcnumChunks;
             chunks = null;
-            HRESULT hr = Raw2.GetCodeChunks(cbufSize, out pcnumChunks, chunks);
+            HRESULT hr = Raw2.GetCodeChunks(cbufSize, out pcnumChunks, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

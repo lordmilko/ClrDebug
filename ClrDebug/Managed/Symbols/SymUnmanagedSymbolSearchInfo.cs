@@ -73,8 +73,8 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szPath);*/
             int cchPath = 0;
             int pcchPath;
-            StringBuilder szPath = null;
-            HRESULT hr = Raw.GetSearchPath(cchPath, out pcchPath, szPath);
+            StringBuilder szPath;
+            HRESULT hr = Raw.GetSearchPath(cchPath, out pcchPath, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

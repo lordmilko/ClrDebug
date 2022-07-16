@@ -55,8 +55,8 @@ namespace ClrDebug
             /*HRESULT GetHostName([In] int cchHostName, [Out] out int pcchHostName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szHostName);*/
             int cchHostName = 0;
             int pcchHostName;
-            StringBuilder szHostName = null;
-            HRESULT hr = Raw.GetHostName(cchHostName, out pcchHostName, szHostName);
+            StringBuilder szHostName;
+            HRESULT hr = Raw.GetHostName(cchHostName, out pcchHostName, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;

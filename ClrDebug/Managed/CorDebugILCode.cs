@@ -49,7 +49,7 @@ namespace ClrDebug
             int cClauses = 0;
             int pcClauses;
             clauses = null;
-            HRESULT hr = Raw.GetEHClauses(cClauses, out pcClauses, clauses);
+            HRESULT hr = Raw.GetEHClauses(cClauses, out pcClauses, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
@@ -130,7 +130,7 @@ namespace ClrDebug
             int cMap = 0;
             int pcMap;
             map = null;
-            HRESULT hr = Raw2.GetInstrumentedILMap(cMap, out pcMap, map);
+            HRESULT hr = Raw2.GetInstrumentedILMap(cMap, out pcMap, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
