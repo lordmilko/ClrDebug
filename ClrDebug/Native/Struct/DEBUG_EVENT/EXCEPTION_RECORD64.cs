@@ -8,7 +8,7 @@ namespace ClrDebug
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct EXCEPTION_RECORD64
     {
-        public ExceptionCode ExceptionCode;
+        public NTSTATUS ExceptionCode;
         public ExceptionFlags ExceptionFlags;
         public IntPtr ExceptionRecord;
         public IntPtr ExceptionAddress;
