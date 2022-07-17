@@ -23,6 +23,12 @@ namespace ClrDebug
 
     public static partial class Extensions
     {
+        public const int DAC_NUM_GC_DATA_POINTS = 9;
+        public const int DAC_MAX_COMPACT_REASONS_COUNT = 11;
+        public const int DAC_MAX_EXPAND_MECHANISMS_COUNT = 6;
+        public const int DAC_MAX_GC_MECHANISM_BITS_COUNT = 2;
+        public const int DAC_MAX_GLOBAL_GC_MECHANISMS_COUNT = 6;
+
         private const string mscoree = "mscoree.dll";
 
         /// <summary>
