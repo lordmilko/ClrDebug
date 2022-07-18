@@ -15,5 +15,8 @@ namespace ClrDebug
 
         [DllImport(kernel32, SetLastError = true)]
         public static extern bool CloseHandle(IntPtr handle);
+
+        [DllImport(kernel32)]
+        public static extern void RtlZeroMemory(IntPtr Destination, int Length);
     }
 }

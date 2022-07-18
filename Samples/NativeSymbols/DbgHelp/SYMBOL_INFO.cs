@@ -19,6 +19,6 @@ namespace NativeSymbols
         public SymTag Tag;             // pdb classification
         public int NameLen;         // Actual length of name
         public int MaxNameLen;
-        public fixed char Name[1];       // Name of symbol
+        public fixed byte Name[1];       // Name of symbol
     }
 }

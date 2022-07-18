@@ -8370,11 +8370,16 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT CloseLogFileDelegate(IntPtr self);
         private delegate HRESULT InputDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint InputSize);
         private delegate HRESULT ReturnInputDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Buffer);
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate HRESULT OutputDelegate(IntPtr self, [In] DEBUG_OUTPUT Mask, [In, MarshalAs(UnmanagedType.LPStr)] string Format);
         private delegate HRESULT OutputVaListDelegate(IntPtr self, [In] DEBUG_OUTPUT Mask, [In, MarshalAs(UnmanagedType.LPStr)] string Format, [In] IntPtr va_list_Args);
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate HRESULT ControlledOutputDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_OUTPUT Mask, [In, MarshalAs(UnmanagedType.LPStr)] string Format);
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate HRESULT ControlledOutputVaListDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_OUTPUT Mask, [In, MarshalAs(UnmanagedType.LPStr)] string Format, [In] IntPtr va_list_Args);
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate HRESULT OutputPromptDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPStr)] string Format);
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate HRESULT OutputPromptVaListDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPStr)] string Format, [In] IntPtr va_list_Args);
         private delegate HRESULT OutputCurrentStateDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_CURRENT Flags);
         private delegate HRESULT OutputVersionInformationDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl);
@@ -8466,11 +8471,16 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT OpenLogFileWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [In, MarshalAs(UnmanagedType.Bool)] bool Append);
         private delegate HRESULT InputWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint InputSize);
         private delegate HRESULT ReturnInputWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Buffer);
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate HRESULT OutputWideDelegate(IntPtr self, [In] DEBUG_OUTPUT Mask, [In, MarshalAs(UnmanagedType.LPWStr)] string Format);
         private delegate HRESULT OutputVaListWideDelegate(IntPtr self, [In] DEBUG_OUTPUT Mask, [In, MarshalAs(UnmanagedType.LPWStr)] string Format, [In] IntPtr va_list_Args);
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate HRESULT ControlledOutputWideDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_OUTPUT Mask, [In, MarshalAs(UnmanagedType.LPWStr)] string Format);
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate HRESULT ControlledOutputVaListWideDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_OUTPUT Mask, [In, MarshalAs(UnmanagedType.LPWStr)] string Format, [In] IntPtr va_list_Args);
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate HRESULT OutputPromptWideDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPWStr)] string Format);
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate HRESULT OutputPromptVaListWideDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPWStr)] string Format, [In] IntPtr va_list_Args);
         private delegate HRESULT AssembleWideDelegate(IntPtr self, [In] ulong Offset, [In, MarshalAs(UnmanagedType.LPWStr)] string Instr, [Out] out ulong EndOffset);
         private delegate HRESULT DisassembleWideDelegate(IntPtr self, [In] ulong Offset, [In] DEBUG_DISASM Flags, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint DisassemblySize, [Out] out ulong EndOffset);

@@ -3,78 +3,91 @@
     public enum DEBUG_REQUEST : uint
     {
         /// <summary>
+        /// Check the source path for a source server.<para/>
         /// InBuffer - Unused.
         /// OutBuffer - Unused.
         /// </summary>
         SOURCE_PATH_HAS_SOURCE_SERVER = 0,
 
         /// <summary>
+        /// Return the thread context for the stored event in a user-mode minidump file.<para/>
         /// InBuffer - Unused.
         /// OutBuffer - Machine-specific CONTEXT.
         /// </summary>
         TARGET_EXCEPTION_CONTEXT = 1,
 
         /// <summary>
+        /// Return the operating system thread ID for the stored event in a user-mode minidump file.<para/>
         /// InBuffer - Unused.
         /// OutBuffer - ULONG system ID of thread.
         /// </summary>
         TARGET_EXCEPTION_THREAD = 2,
 
         /// <summary>
+        /// Return the exception record for the stored event in a user-mode minidump file.<para/>
         /// InBuffer - Unused.
-        /// OutBuffer - EXCEPTION_RECORD64.
+        /// OutBuffer - <see cref="EXCEPTION_RECORD64"/>.
         /// </summary>
         TARGET_EXCEPTION_RECORD = 3,
 
         /// <summary>
+        /// Return the default process creation options.<para/>
         /// InBuffer - Unused.
-        /// OutBuffer - DEBUG_CREATE_PROCESS_OPTIONS.
+        /// OutBuffer - <see cref="DEBUG_CREATE_PROCESS_OPTIONS"/>.
         /// </summary>
         GET_ADDITIONAL_CREATE_OPTIONS = 4,
 
         /// <summary>
-        /// InBuffer - DEBUG_CREATE_PROCESS_OPTIONS.
+        /// Set the default process creation options.<para/>
+        /// InBuffer - <see cref="DEBUG_CREATE_PROCESS_OPTIONS"/>.
         /// OutBuffer - Unused.
         /// </summary>
         SET_ADDITIONAL_CREATE_OPTIONS = 5,
 
         /// <summary>
+        /// Return the version of Windows that is currently running on the target.<para/>
         /// InBuffer - Unused.
         /// OutBuffer - ULONG[2] major/minor.
         /// </summary>
         GET_WIN32_MAJOR_MINOR_VERSIONS = 6,
 
         /// <summary>
-        /// InBuffer - DEBUG_READ_USER_MINIDUMP_STREAM.
+        /// Read a stream from a user-mode minidump target.<para/>
+        /// InBuffer - <see cref="DEBUG_READ_USER_MINIDUMP_STREAM"/>.
         /// OutBuffer - Unused.
         /// </summary>
         READ_USER_MINIDUMP_STREAM = 7,
 
         /// <summary>
+        /// Check to see if it is possible for the debugger engine to detach from the current process (leaving the process running but no longer being debugged).<para/>
         /// InBuffer - Unused.
         /// OutBuffer - Unused.
         /// </summary>
         TARGET_CAN_DETACH = 8,
 
         /// <summary>
+        /// Set the debugger engine's implicit command line.<para/>
         /// InBuffer - PTSTR.
         /// OutBuffer - Unused.
         /// </summary>
         SET_LOCAL_IMPLICIT_COMMAND_LINE = 9,
 
         /// <summary>
+        /// Return the current event's instruction pointer.<para/>
         /// InBuffer - Unused.
         /// OutBuffer - Event code stream offset.
         /// </summary>
         GET_CAPTURED_EVENT_CODE_OFFSET = 10,
 
         /// <summary>
+        /// Return up to 64 bytes of memory at the current event's instruction pointer.<para/>
         /// InBuffer - Unused.
         /// OutBuffer - Event code stream information.
         /// </summary>
         READ_CAPTURED_EVENT_CODE_STREAM = 11,
 
         /// <summary>
+        /// Perform a variety of different operations that aid in the interpretation of typed data.<para/>
         /// InBuffer - Input data block.
         /// OutBuffer - Processed data block.
         /// </summary>
@@ -87,19 +100,19 @@
         GET_EXTENSION_SEARCH_PATH_WIDE = 13,
 
         /// <summary>
-        /// InBuffer - DEBUG_GET_TEXT_COMPLETIONS_IN.
-        /// OutBuffer - DEBUG_GET_TEXT_COMPLETIONS_OUT.
+        /// InBuffer - <see cref="DEBUG_GET_TEXT_COMPLETIONS_IN"/>.
+        /// OutBuffer - <see cref="DEBUG_GET_TEXT_COMPLETIONS_OUT"/>.
         /// </summary>
         GET_TEXT_COMPLETIONS_WIDE = 14,
 
         /// <summary>
         /// InBuffer - ULONG64 cookie.
-        /// OutBuffer - DEBUG_CACHED_SYMBOL_INFO.
+        /// OutBuffer - <see cref="DEBUG_CACHED_SYMBOL_INFO"/>.
         /// </summary>
         GET_CACHED_SYMBOL_INFO = 15,
 
         /// <summary>
-        /// InBuffer - DEBUG_CACHED_SYMBOL_INFO.
+        /// InBuffer - <see cref="DEBUG_CACHED_SYMBOL_INFO"/>.
         /// OutBuffer - ULONG64 cookie.
         /// </summary>
         ADD_CACHED_SYMBOL_INFO = 16,
@@ -111,8 +124,8 @@
         REMOVE_CACHED_SYMBOL_INFO = 17,
 
         /// <summary>
-        /// InBuffer - DEBUG_GET_TEXT_COMPLETIONS_IN.
-        /// OutBuffer - DEBUG_GET_TEXT_COMPLETIONS_OUT.
+        /// InBuffer - <see cref="DEBUG_GET_TEXT_COMPLETIONS_IN"/>.
+        /// OutBuffer - <see cref="DEBUG_GET_TEXT_COMPLETIONS_OUT"/>.
         /// </summary>
         GET_TEXT_COMPLETIONS_ANSI = 18,
 
@@ -129,13 +142,14 @@
         GET_OFFSET_UNWIND_INFORMATION = 20,
 
         /// <summary>
+        /// Get the headers of a kernel dump or minidump.
         /// InBuffer - Unused
-        /// OutBuffer - returned DUMP_HEADER32/DUMP_HEADER64 structure.
+        /// OutBuffer - returned <see cref="DUMP_HEADER32"/>/<see cref="DUMP_HEADER64"/> structure.
         /// </summary>
         GET_DUMP_HEADER = 21,
 
         /// <summary>
-        /// InBuffer - DUMP_HEADER32/DUMP_HEADER64 structure.
+        /// InBuffer - <see cref="DUMP_HEADER32"/>/<see cref="DUMP_HEADER64"/> structure.
         /// OutBuffer - Unused
         /// </summary>
         SET_DUMP_HEADER = 22,

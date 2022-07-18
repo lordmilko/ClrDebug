@@ -30,6 +30,6 @@ namespace ClrDebug
         /// <summary>
         /// A variable-length byte array that contains the key value in the format returned by the CryptoAPI.
         /// </summary>
-        public fixed char PublicKey[1];
+        public fixed byte PublicKey[1];
     }
 }

@@ -144,7 +144,7 @@ namespace ClrDebug.DbgEng
         /// This method may also return error values. See Return Values for more details.</returns>
         public HRESULT TryRequest(DEBUG_REQUEST request, IntPtr inBuffer, int inBufferSize, IntPtr outBuffer, int outBufferSize, out int outSize)
         {
-            InitDelegate(ref request, Vtbl2->Request);
+            InitDelegate(ref this.request, Vtbl2->Request);
 
             /*HRESULT Request(
             [In] DEBUG_REQUEST Request,

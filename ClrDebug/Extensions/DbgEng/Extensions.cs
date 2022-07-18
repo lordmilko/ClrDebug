@@ -22,8 +22,21 @@ namespace ClrDebug.DbgEng
         [Out] out IntPtr Interface);
 
 
-    static class DbgEngExtensions
+    public static partial class DbgEngExtensions
     {
+        public const int DMP_PHYSICAL_MEMORY_BLOCK_SIZE_32 = 700;
+        public const int DMP_CONTEXT_RECORD_SIZE_32 = 1200;
+        public const int DMP_RESERVED_0_SIZE_32 = 1768;
+        public const int DMP_RESERVED_1_SIZE_32 = 4;
+        public const int DMP_RESERVED_2_SIZE_32 = 16;
+        public const int DMP_RESERVED_3_SIZE_32 = 56;
+
+        public const int DMP_PHYSICAL_MEMORY_BLOCK_SIZE_64 = 700;
+        public const int DMP_CONTEXT_RECORD_SIZE_64 = 3000;
+        public const int DMP_RESERVED_0_SIZE_64 = 4024;
+
+        public const int DMP_HEADER_COMMENT_SIZE = 128;
+
         public static void ThrowDbgEngNotOk(this HRESULT hr)
         {
             if (hr == HRESULT.S_FALSE)
