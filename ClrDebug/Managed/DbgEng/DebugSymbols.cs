@@ -48,13 +48,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 SYMOPT options;
-                TryGetSymbolOptions(out options).ThrowDbgEngNotOk();
+                TryGetSymbolOptions(out options).ThrowDbgEngNotOK();
 
                 return options;
             }
             set
             {
-                TrySetSymbolOptions(value).ThrowDbgEngNotOk();
+                TrySetSymbolOptions(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -107,7 +107,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 GetNumberModulesResult result;
-                TryGetNumberModules(out result).ThrowDbgEngNotOk();
+                TryGetNumberModules(out result).ThrowDbgEngNotOK();
 
                 return result;
             }
@@ -156,13 +156,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetSymbolPath(out bufferResult).ThrowDbgEngNotOk();
+                TryGetSymbolPath(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
             set
             {
-                TrySetSymbolPath(value).ThrowDbgEngNotOk();
+                TrySetSymbolPath(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -238,13 +238,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetImagePath(out bufferResult).ThrowDbgEngNotOk();
+                TryGetImagePath(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
             set
             {
-                TrySetImagePath(value).ThrowDbgEngNotOk();
+                TrySetImagePath(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -319,13 +319,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetSourcePath(out bufferResult).ThrowDbgEngNotOk();
+                TryGetSourcePath(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
             set
             {
-                TrySetSourcePath(value).ThrowDbgEngNotOk();
+                TrySetSourcePath(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -405,7 +405,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void AddSymbolOptions(SYMOPT options)
         {
-            TryAddSymbolOptions(options).ThrowDbgEngNotOk();
+            TryAddSymbolOptions(options).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -443,7 +443,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void RemoveSymbolOptions(SYMOPT options)
         {
-            TryRemoveSymbolOptions(options).ThrowDbgEngNotOk();
+            TryRemoveSymbolOptions(options).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -480,7 +480,7 @@ namespace ClrDebug.DbgEng
         public GetNameByOffsetResult GetNameByOffset(ulong offset)
         {
             GetNameByOffsetResult result;
-            TryGetNameByOffset(offset, out result).ThrowDbgEngNotOk();
+            TryGetNameByOffset(offset, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -550,7 +550,7 @@ namespace ClrDebug.DbgEng
         public ulong GetOffsetByName(string symbol)
         {
             ulong offset;
-            TryGetOffsetByName(symbol, out offset).ThrowDbgEngNotOk();
+            TryGetOffsetByName(symbol, out offset).ThrowDbgEngNotOK();
 
             return offset;
         }
@@ -599,7 +599,7 @@ namespace ClrDebug.DbgEng
         public GetNearNameByOffsetResult GetNearNameByOffset(ulong offset, int delta)
         {
             GetNearNameByOffsetResult result;
-            TryGetNearNameByOffset(offset, delta, out result).ThrowDbgEngNotOk();
+            TryGetNearNameByOffset(offset, delta, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -667,7 +667,7 @@ namespace ClrDebug.DbgEng
         public GetLineByOffsetResult GetLineByOffset(ulong offset)
         {
             GetLineByOffsetResult result;
-            TryGetLineByOffset(offset, out result).ThrowDbgEngNotOk();
+            TryGetLineByOffset(offset, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -734,7 +734,7 @@ namespace ClrDebug.DbgEng
         public ulong GetOffsetByLine(uint line, string file)
         {
             ulong offset;
-            TryGetOffsetByLine(line, file, out offset).ThrowDbgEngNotOk();
+            TryGetOffsetByLine(line, file, out offset).ThrowDbgEngNotOK();
 
             return offset;
         }
@@ -775,7 +775,7 @@ namespace ClrDebug.DbgEng
         public ulong GetModuleByIndex(uint index)
         {
             ulong @base;
-            TryGetModuleByIndex(index, out @base).ThrowDbgEngNotOk();
+            TryGetModuleByIndex(index, out @base).ThrowDbgEngNotOK();
 
             return @base;
         }
@@ -816,7 +816,7 @@ namespace ClrDebug.DbgEng
         public GetModuleByModuleNameResult GetModuleByModuleName(string name, uint startIndex)
         {
             GetModuleByModuleNameResult result;
-            TryGetModuleByModuleName(name, startIndex, out result).ThrowDbgEngNotOk();
+            TryGetModuleByModuleName(name, startIndex, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -871,7 +871,7 @@ namespace ClrDebug.DbgEng
         public GetModuleByOffsetResult GetModuleByOffset(ulong offset, uint startIndex)
         {
             GetModuleByOffsetResult result;
-            TryGetModuleByOffset(offset, startIndex, out result).ThrowDbgEngNotOk();
+            TryGetModuleByOffset(offset, startIndex, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -924,7 +924,7 @@ namespace ClrDebug.DbgEng
         public GetModuleNamesResult GetModuleNames(uint index, ulong @base)
         {
             GetModuleNamesResult result;
-            TryGetModuleNames(index, @base, out result).ThrowDbgEngNotOk();
+            TryGetModuleNames(index, @base, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -1008,7 +1008,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_MODULE_PARAMETERS[] GetModuleParameters(uint count, ulong[] bases, uint start)
         {
             DEBUG_MODULE_PARAMETERS[] @params;
-            TryGetModuleParameters(count, bases, start, out @params).ThrowDbgEngNotOk();
+            TryGetModuleParameters(count, bases, start, out @params).ThrowDbgEngNotOK();
 
             return @params;
         }
@@ -1060,7 +1060,7 @@ namespace ClrDebug.DbgEng
         public ulong GetSymbolModule(string symbol)
         {
             ulong @base;
-            TryGetSymbolModule(symbol, out @base).ThrowDbgEngNotOk();
+            TryGetSymbolModule(symbol, out @base).ThrowDbgEngNotOK();
 
             return @base;
         }
@@ -1102,7 +1102,7 @@ namespace ClrDebug.DbgEng
         public string GetTypeName(ulong module, uint typeId)
         {
             string nameBufferResult;
-            TryGetTypeName(module, typeId, out nameBufferResult).ThrowDbgEngNotOk();
+            TryGetTypeName(module, typeId, out nameBufferResult).ThrowDbgEngNotOK();
 
             return nameBufferResult;
         }
@@ -1171,7 +1171,7 @@ namespace ClrDebug.DbgEng
         public uint GetTypeId(ulong module, string name)
         {
             uint typeId;
-            TryGetTypeId(module, name, out typeId).ThrowDbgEngNotOk();
+            TryGetTypeId(module, name, out typeId).ThrowDbgEngNotOK();
 
             return typeId;
         }
@@ -1217,7 +1217,7 @@ namespace ClrDebug.DbgEng
         public uint GetTypeSize(ulong module, uint typeId)
         {
             uint size;
-            TryGetTypeSize(module, typeId, out size).ThrowDbgEngNotOk();
+            TryGetTypeSize(module, typeId, out size).ThrowDbgEngNotOK();
 
             return size;
         }
@@ -1262,7 +1262,7 @@ namespace ClrDebug.DbgEng
         public uint GetFieldOffset(ulong module, uint typeId, string field)
         {
             uint offset;
-            TryGetFieldOffset(module, typeId, field, out offset).ThrowDbgEngNotOk();
+            TryGetFieldOffset(module, typeId, field, out offset).ThrowDbgEngNotOK();
 
             return offset;
         }
@@ -1308,7 +1308,7 @@ namespace ClrDebug.DbgEng
         public GetSymbolTypeIdResult GetSymbolTypeId(string symbol)
         {
             GetSymbolTypeIdResult result;
-            TryGetSymbolTypeId(symbol, out result).ThrowDbgEngNotOk();
+            TryGetSymbolTypeId(symbol, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -1356,7 +1356,7 @@ namespace ClrDebug.DbgEng
         public GetOffsetTypeIdResult GetOffsetTypeId(ulong offset)
         {
             GetOffsetTypeIdResult result;
-            TryGetOffsetTypeId(offset, out result).ThrowDbgEngNotOk();
+            TryGetOffsetTypeId(offset, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -1409,7 +1409,7 @@ namespace ClrDebug.DbgEng
         public uint ReadTypedDataVirtual(ulong offset, ulong module, uint typeId, IntPtr buffer, uint bufferSize)
         {
             uint bytesRead;
-            TryReadTypedDataVirtual(offset, module, typeId, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOk();
+            TryReadTypedDataVirtual(offset, module, typeId, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOK();
 
             return bytesRead;
         }
@@ -1462,7 +1462,7 @@ namespace ClrDebug.DbgEng
         public uint WriteTypedDataVirtual(ulong offset, ulong module, uint typeId, IntPtr buffer, uint bufferSize)
         {
             uint bytesWritten;
-            TryWriteTypedDataVirtual(offset, module, typeId, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOk();
+            TryWriteTypedDataVirtual(offset, module, typeId, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOK();
 
             return bytesWritten;
         }
@@ -1512,7 +1512,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OutputTypedDataVirtual(DEBUG_OUTCTL outputControl, ulong offset, ulong module, uint typeId, DEBUG_TYPEOPTS flags)
         {
-            TryOutputTypedDataVirtual(outputControl, offset, module, typeId, flags).ThrowDbgEngNotOk();
+            TryOutputTypedDataVirtual(outputControl, offset, module, typeId, flags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1562,7 +1562,7 @@ namespace ClrDebug.DbgEng
         public uint ReadTypedDataPhysical(ulong offset, ulong module, uint typeId, IntPtr buffer, uint bufferSize)
         {
             uint bytesRead;
-            TryReadTypedDataPhysical(offset, module, typeId, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOk();
+            TryReadTypedDataPhysical(offset, module, typeId, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOK();
 
             return bytesRead;
         }
@@ -1617,7 +1617,7 @@ namespace ClrDebug.DbgEng
         public uint WriteTypedDataPhysical(ulong offset, ulong module, uint typeId, IntPtr buffer, uint bufferSize)
         {
             uint bytesWritten;
-            TryWriteTypedDataPhysical(offset, module, typeId, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOk();
+            TryWriteTypedDataPhysical(offset, module, typeId, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOK();
 
             return bytesWritten;
         }
@@ -1669,7 +1669,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OutputTypedDataPhysical(DEBUG_OUTCTL outputControl, ulong offset, ulong module, uint typeId, DEBUG_TYPEOPTS flags)
         {
-            TryOutputTypedDataPhysical(outputControl, offset, module, typeId, flags).ThrowDbgEngNotOk();
+            TryOutputTypedDataPhysical(outputControl, offset, module, typeId, flags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1715,7 +1715,7 @@ namespace ClrDebug.DbgEng
         public GetScopeResult GetScope(IntPtr scopeContext, uint scopeContextSize)
         {
             GetScopeResult result;
-            TryGetScope(scopeContext, scopeContextSize, out result).ThrowDbgEngNotOk();
+            TryGetScope(scopeContext, scopeContextSize, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -1771,7 +1771,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetScope(ulong instructionOffset, DEBUG_STACK_FRAME scopeFrame, IntPtr scopeContext, uint scopeContextSize)
         {
-            TrySetScope(instructionOffset, scopeFrame, scopeContext, scopeContextSize).ThrowDbgEngNotOk();
+            TrySetScope(instructionOffset, scopeFrame, scopeContext, scopeContextSize).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1813,7 +1813,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void ResetScope()
         {
-            TryResetScope().ThrowDbgEngNotOk();
+            TryResetScope().ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1849,7 +1849,7 @@ namespace ClrDebug.DbgEng
         public DebugSymbolGroup GetScopeSymbolGroup(DEBUG_SCOPE_GROUP flags, IntPtr update)
         {
             DebugSymbolGroup symbolsResult;
-            TryGetScopeSymbolGroup(flags, update, out symbolsResult).ThrowDbgEngNotOk();
+            TryGetScopeSymbolGroup(flags, update, out symbolsResult).ThrowDbgEngNotOK();
 
             return symbolsResult;
         }
@@ -1902,7 +1902,7 @@ namespace ClrDebug.DbgEng
         public DebugSymbolGroup CreateSymbolGroup()
         {
             DebugSymbolGroup groupResult;
-            TryCreateSymbolGroup(out groupResult).ThrowDbgEngNotOk();
+            TryCreateSymbolGroup(out groupResult).ThrowDbgEngNotOK();
 
             return groupResult;
         }
@@ -1952,7 +1952,7 @@ namespace ClrDebug.DbgEng
         public ulong StartSymbolMatch(string pattern)
         {
             ulong handle;
-            TryStartSymbolMatch(pattern, out handle).ThrowDbgEngNotOk();
+            TryStartSymbolMatch(pattern, out handle).ThrowDbgEngNotOK();
 
             return handle;
         }
@@ -1995,7 +1995,7 @@ namespace ClrDebug.DbgEng
         public GetNextSymbolMatchResult GetNextSymbolMatch(ulong handle)
         {
             GetNextSymbolMatchResult result;
-            TryGetNextSymbolMatch(handle, out result).ThrowDbgEngNotOk();
+            TryGetNextSymbolMatch(handle, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -2060,7 +2060,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void EndSymbolMatch(ulong handle)
         {
-            TryEndSymbolMatch(handle).ThrowDbgEngNotOk();
+            TryEndSymbolMatch(handle).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -2096,7 +2096,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void Reload(string module)
         {
-            TryReload(module).ThrowDbgEngNotOk();
+            TryReload(module).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -2132,7 +2132,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void AppendSymbolPath(string addition)
         {
-            TryAppendSymbolPath(addition).ThrowDbgEngNotOk();
+            TryAppendSymbolPath(addition).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -2167,7 +2167,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void AppendImagePath(string addition)
         {
-            TryAppendImagePath(addition).ThrowDbgEngNotOk();
+            TryAppendImagePath(addition).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -2205,7 +2205,7 @@ namespace ClrDebug.DbgEng
         public string GetSourcePathElement(uint index)
         {
             string bufferResult;
-            TryGetSourcePathElement(index, out bufferResult).ThrowDbgEngNotOk();
+            TryGetSourcePathElement(index, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -2269,7 +2269,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void AppendSourcePath(string addition)
         {
-            TryAppendSourcePath(addition).ThrowDbgEngNotOk();
+            TryAppendSourcePath(addition).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -2312,7 +2312,7 @@ namespace ClrDebug.DbgEng
         public FindSourceFileResult FindSourceFile(uint startElement, string file, DEBUG_FIND_SOURCE flags)
         {
             FindSourceFileResult result;
-            TryFindSourceFile(startElement, file, flags, out result).ThrowDbgEngNotOk();
+            TryFindSourceFile(startElement, file, flags, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -2387,7 +2387,7 @@ namespace ClrDebug.DbgEng
         public ulong[] GetSourceFileLineOffsets(string file)
         {
             ulong[] buffer;
-            TryGetSourceFileLineOffsets(file, out buffer).ThrowDbgEngNotOk();
+            TryGetSourceFileLineOffsets(file, out buffer).ThrowDbgEngNotOK();
 
             return buffer;
         }
@@ -2440,13 +2440,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 DEBUG_TYPEOPTS options;
-                TryGetTypeOptions(out options).ThrowDbgEngNotOk();
+                TryGetTypeOptions(out options).ThrowDbgEngNotOK();
 
                 return options;
             }
             set
             {
-                TrySetTypeOptions(value).ThrowDbgEngNotOk();
+                TrySetTypeOptions(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -2511,7 +2511,7 @@ namespace ClrDebug.DbgEng
         public uint GetModuleVersionInformation(uint index, ulong @base, string item, IntPtr buffer, uint bufferSize)
         {
             uint verInfoSize;
-            TryGetModuleVersionInformation(index, @base, item, buffer, bufferSize, out verInfoSize).ThrowDbgEngNotOk();
+            TryGetModuleVersionInformation(index, @base, item, buffer, bufferSize, out verInfoSize).ThrowDbgEngNotOK();
 
             return verInfoSize;
         }
@@ -2564,7 +2564,7 @@ namespace ClrDebug.DbgEng
         public string GetModuleNameString(DEBUG_MODNAME which, uint index, ulong @base)
         {
             string bufferResult;
-            TryGetModuleNameString(which, index, @base, out bufferResult).ThrowDbgEngNotOk();
+            TryGetModuleNameString(which, index, @base, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -2632,7 +2632,7 @@ namespace ClrDebug.DbgEng
         public string GetConstantName(ulong module, uint typeId, ulong value)
         {
             string bufferResult;
-            TryGetConstantName(module, typeId, value, out bufferResult).ThrowDbgEngNotOk();
+            TryGetConstantName(module, typeId, value, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -2699,7 +2699,7 @@ namespace ClrDebug.DbgEng
         public string GetFieldName(ulong module, uint typeId, uint fieldIndex)
         {
             string bufferResult;
-            TryGetFieldName(module, typeId, fieldIndex, out bufferResult).ThrowDbgEngNotOk();
+            TryGetFieldName(module, typeId, fieldIndex, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -2765,7 +2765,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void AddTypeOptions(DEBUG_TYPEOPTS options)
         {
-            TryAddTypeOptions(options).ThrowDbgEngNotOk();
+            TryAddTypeOptions(options).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -2803,7 +2803,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void RemoveTypeOptions(DEBUG_TYPEOPTS options)
         {
-            TryRemoveTypeOptions(options).ThrowDbgEngNotOk();
+            TryRemoveTypeOptions(options).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -2839,13 +2839,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetSymbolPathWide(out bufferResult).ThrowDbgEngNotOk();
+                TryGetSymbolPathWide(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
             set
             {
-                TrySetSymbolPathWide(value).ThrowDbgEngNotOk();
+                TrySetSymbolPathWide(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -2921,13 +2921,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetImagePathWide(out bufferResult).ThrowDbgEngNotOk();
+                TryGetImagePathWide(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
             set
             {
-                TrySetImagePathWide(value).ThrowDbgEngNotOk();
+                TrySetImagePathWide(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -3002,13 +3002,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetSourcePathWide(out bufferResult).ThrowDbgEngNotOk();
+                TryGetSourcePathWide(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
             set
             {
-                TrySetSourcePathWide(value).ThrowDbgEngNotOk();
+                TrySetSourcePathWide(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -3084,7 +3084,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint index;
-                TryGetCurrentScopeFrameIndex(out index).ThrowDbgEngNotOk();
+                TryGetCurrentScopeFrameIndex(out index).ThrowDbgEngNotOK();
 
                 return index;
             }
@@ -3124,7 +3124,7 @@ namespace ClrDebug.DbgEng
         public GetNameByOffsetWideResult GetNameByOffsetWide(ulong offset)
         {
             GetNameByOffsetWideResult result;
-            TryGetNameByOffsetWide(offset, out result).ThrowDbgEngNotOk();
+            TryGetNameByOffsetWide(offset, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -3194,7 +3194,7 @@ namespace ClrDebug.DbgEng
         public ulong GetOffsetByNameWide(string symbol)
         {
             ulong offset;
-            TryGetOffsetByNameWide(symbol, out offset).ThrowDbgEngNotOk();
+            TryGetOffsetByNameWide(symbol, out offset).ThrowDbgEngNotOK();
 
             return offset;
         }
@@ -3243,7 +3243,7 @@ namespace ClrDebug.DbgEng
         public GetNearNameByOffsetWideResult GetNearNameByOffsetWide(ulong offset, int delta)
         {
             GetNearNameByOffsetWideResult result;
-            TryGetNearNameByOffsetWide(offset, delta, out result).ThrowDbgEngNotOk();
+            TryGetNearNameByOffsetWide(offset, delta, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -3311,7 +3311,7 @@ namespace ClrDebug.DbgEng
         public GetLineByOffsetWideResult GetLineByOffsetWide(ulong offset)
         {
             GetLineByOffsetWideResult result;
-            TryGetLineByOffsetWide(offset, out result).ThrowDbgEngNotOk();
+            TryGetLineByOffsetWide(offset, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -3378,7 +3378,7 @@ namespace ClrDebug.DbgEng
         public ulong GetOffsetByLineWide(uint line, string file)
         {
             ulong offset;
-            TryGetOffsetByLineWide(line, file, out offset).ThrowDbgEngNotOk();
+            TryGetOffsetByLineWide(line, file, out offset).ThrowDbgEngNotOK();
 
             return offset;
         }
@@ -3422,7 +3422,7 @@ namespace ClrDebug.DbgEng
         public GetModuleByModuleNameWideResult GetModuleByModuleNameWide(string name, uint startIndex)
         {
             GetModuleByModuleNameWideResult result;
-            TryGetModuleByModuleNameWide(name, startIndex, out result).ThrowDbgEngNotOk();
+            TryGetModuleByModuleNameWide(name, startIndex, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -3476,7 +3476,7 @@ namespace ClrDebug.DbgEng
         public ulong GetSymbolModuleWide(string symbol)
         {
             ulong @base;
-            TryGetSymbolModuleWide(symbol, out @base).ThrowDbgEngNotOk();
+            TryGetSymbolModuleWide(symbol, out @base).ThrowDbgEngNotOK();
 
             return @base;
         }
@@ -3518,7 +3518,7 @@ namespace ClrDebug.DbgEng
         public string GetTypeNameWide(ulong module, uint typeId)
         {
             string nameBufferResult;
-            TryGetTypeNameWide(module, typeId, out nameBufferResult).ThrowDbgEngNotOk();
+            TryGetTypeNameWide(module, typeId, out nameBufferResult).ThrowDbgEngNotOK();
 
             return nameBufferResult;
         }
@@ -3587,7 +3587,7 @@ namespace ClrDebug.DbgEng
         public uint GetTypeIdWide(ulong module, string name)
         {
             uint typeId;
-            TryGetTypeIdWide(module, name, out typeId).ThrowDbgEngNotOk();
+            TryGetTypeIdWide(module, name, out typeId).ThrowDbgEngNotOK();
 
             return typeId;
         }
@@ -3637,7 +3637,7 @@ namespace ClrDebug.DbgEng
         public uint GetFieldOffsetWide(ulong module, uint typeId, string field)
         {
             uint offset;
-            TryGetFieldOffsetWide(module, typeId, field, out offset).ThrowDbgEngNotOk();
+            TryGetFieldOffsetWide(module, typeId, field, out offset).ThrowDbgEngNotOK();
 
             return offset;
         }
@@ -3683,7 +3683,7 @@ namespace ClrDebug.DbgEng
         public GetSymbolTypeIdWideResult GetSymbolTypeIdWide(string symbol)
         {
             GetSymbolTypeIdWideResult result;
-            TryGetSymbolTypeIdWide(symbol, out result).ThrowDbgEngNotOk();
+            TryGetSymbolTypeIdWide(symbol, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -3735,7 +3735,7 @@ namespace ClrDebug.DbgEng
         public DebugSymbolGroup GetScopeSymbolGroup2(DEBUG_SCOPE_GROUP flags, IntPtr update)
         {
             DebugSymbolGroup symbolsResult;
-            TryGetScopeSymbolGroup2(flags, update, out symbolsResult).ThrowDbgEngNotOk();
+            TryGetScopeSymbolGroup2(flags, update, out symbolsResult).ThrowDbgEngNotOK();
 
             return symbolsResult;
         }
@@ -3788,7 +3788,7 @@ namespace ClrDebug.DbgEng
         public DebugSymbolGroup CreateSymbolGroup2()
         {
             DebugSymbolGroup groupResult;
-            TryCreateSymbolGroup2(out groupResult).ThrowDbgEngNotOk();
+            TryCreateSymbolGroup2(out groupResult).ThrowDbgEngNotOK();
 
             return groupResult;
         }
@@ -3838,7 +3838,7 @@ namespace ClrDebug.DbgEng
         public ulong StartSymbolMatchWide(string pattern)
         {
             ulong handle;
-            TryStartSymbolMatchWide(pattern, out handle).ThrowDbgEngNotOk();
+            TryStartSymbolMatchWide(pattern, out handle).ThrowDbgEngNotOK();
 
             return handle;
         }
@@ -3881,7 +3881,7 @@ namespace ClrDebug.DbgEng
         public GetNextSymbolMatchWideResult GetNextSymbolMatchWide(ulong handle)
         {
             GetNextSymbolMatchWideResult result;
-            TryGetNextSymbolMatchWide(handle, out result).ThrowDbgEngNotOk();
+            TryGetNextSymbolMatchWide(handle, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -3946,7 +3946,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void ReloadWide(string module)
         {
-            TryReloadWide(module).ThrowDbgEngNotOk();
+            TryReloadWide(module).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -3982,7 +3982,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void AppendSymbolPathWide(string addition)
         {
-            TryAppendSymbolPathWide(addition).ThrowDbgEngNotOk();
+            TryAppendSymbolPathWide(addition).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -4017,7 +4017,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void AppendImagePathWide(string addition)
         {
-            TryAppendImagePathWide(addition).ThrowDbgEngNotOk();
+            TryAppendImagePathWide(addition).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -4055,7 +4055,7 @@ namespace ClrDebug.DbgEng
         public string GetSourcePathElementWide(uint index)
         {
             string bufferResult;
-            TryGetSourcePathElementWide(index, out bufferResult).ThrowDbgEngNotOk();
+            TryGetSourcePathElementWide(index, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -4119,7 +4119,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void AppendSourcePathWide(string addition)
         {
-            TryAppendSourcePathWide(addition).ThrowDbgEngNotOk();
+            TryAppendSourcePathWide(addition).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -4162,7 +4162,7 @@ namespace ClrDebug.DbgEng
         public FindSourceFileWideResult FindSourceFileWide(uint startElement, string file, DEBUG_FIND_SOURCE flags)
         {
             FindSourceFileWideResult result;
-            TryFindSourceFileWide(startElement, file, flags, out result).ThrowDbgEngNotOk();
+            TryFindSourceFileWide(startElement, file, flags, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -4237,7 +4237,7 @@ namespace ClrDebug.DbgEng
         public ulong[] GetSourceFileLineOffsetsWide(string file)
         {
             ulong[] buffer;
-            TryGetSourceFileLineOffsetsWide(file, out buffer).ThrowDbgEngNotOk();
+            TryGetSourceFileLineOffsetsWide(file, out buffer).ThrowDbgEngNotOK();
 
             return buffer;
         }
@@ -4299,7 +4299,7 @@ namespace ClrDebug.DbgEng
         public uint GetModuleVersionInformationWide(uint index, ulong @base, string item, IntPtr buffer, int bufferSize)
         {
             uint verInfoSize;
-            TryGetModuleVersionInformationWide(index, @base, item, buffer, bufferSize, out verInfoSize).ThrowDbgEngNotOk();
+            TryGetModuleVersionInformationWide(index, @base, item, buffer, bufferSize, out verInfoSize).ThrowDbgEngNotOK();
 
             return verInfoSize;
         }
@@ -4352,7 +4352,7 @@ namespace ClrDebug.DbgEng
         public string GetModuleNameStringWide(DEBUG_MODNAME which, uint index, ulong @base)
         {
             string bufferResult;
-            TryGetModuleNameStringWide(which, index, @base, out bufferResult).ThrowDbgEngNotOk();
+            TryGetModuleNameStringWide(which, index, @base, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -4420,7 +4420,7 @@ namespace ClrDebug.DbgEng
         public string GetConstantNameWide(ulong module, uint typeId, ulong value)
         {
             string bufferResult;
-            TryGetConstantNameWide(module, typeId, value, out bufferResult).ThrowDbgEngNotOk();
+            TryGetConstantNameWide(module, typeId, value, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -4487,7 +4487,7 @@ namespace ClrDebug.DbgEng
         public string GetFieldNameWide(ulong module, uint typeId, uint fieldIndex)
         {
             string bufferResult;
-            TryGetFieldNameWide(module, typeId, fieldIndex, out bufferResult).ThrowDbgEngNotOk();
+            TryGetFieldNameWide(module, typeId, fieldIndex, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -4552,7 +4552,7 @@ namespace ClrDebug.DbgEng
         public bool IsManagedModule(uint index, ulong @base)
         {
             HRESULT hr = TryIsManagedModule(index, @base);
-            hr.ThrowDbgEngNotOk();
+            hr.ThrowDbgEngNotOK();
 
             return hr == HRESULT.S_OK;
         }
@@ -4594,7 +4594,7 @@ namespace ClrDebug.DbgEng
         public GetModuleByModuleName2Result GetModuleByModuleName2(string name, uint startIndex, DEBUG_GETMOD flags)
         {
             GetModuleByModuleName2Result result;
-            TryGetModuleByModuleName2(name, startIndex, flags, out result).ThrowDbgEngNotOk();
+            TryGetModuleByModuleName2(name, startIndex, flags, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -4651,7 +4651,7 @@ namespace ClrDebug.DbgEng
         public GetModuleByModuleName2WideResult GetModuleByModuleName2Wide(string name, uint startIndex, DEBUG_GETMOD flags)
         {
             GetModuleByModuleName2WideResult result;
-            TryGetModuleByModuleName2Wide(name, startIndex, flags, out result).ThrowDbgEngNotOk();
+            TryGetModuleByModuleName2Wide(name, startIndex, flags, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -4709,7 +4709,7 @@ namespace ClrDebug.DbgEng
         public GetModuleByOffset2Result GetModuleByOffset2(ulong offset, uint startIndex, DEBUG_GETMOD flags)
         {
             GetModuleByOffset2Result result;
-            TryGetModuleByOffset2(offset, startIndex, flags, out result).ThrowDbgEngNotOk();
+            TryGetModuleByOffset2(offset, startIndex, flags, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -4769,7 +4769,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void AddSyntheticModule(ulong @base, uint size, string imagePath, string moduleName, DEBUG_ADDSYNTHMOD flags)
         {
-            TryAddSyntheticModule(@base, size, imagePath, moduleName, flags).ThrowDbgEngNotOk();
+            TryAddSyntheticModule(@base, size, imagePath, moduleName, flags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -4821,7 +4821,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void AddSyntheticModuleWide(ulong @base, uint size, string imagePath, string moduleName, DEBUG_ADDSYNTHMOD flags)
         {
-            TryAddSyntheticModuleWide(@base, size, imagePath, moduleName, flags).ThrowDbgEngNotOk();
+            TryAddSyntheticModuleWide(@base, size, imagePath, moduleName, flags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -4867,7 +4867,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void RemoveSyntheticModule(ulong @base)
         {
-            TryRemoveSyntheticModule(@base).ThrowDbgEngNotOk();
+            TryRemoveSyntheticModule(@base).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -4905,7 +4905,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetScopeFrameByIndex(uint index)
         {
-            TrySetScopeFrameByIndex(index).ThrowDbgEngNotOk();
+            TrySetScopeFrameByIndex(index).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -4939,7 +4939,7 @@ namespace ClrDebug.DbgEng
         /// <param name="infoOffset">[in] An offset for the debugging information.</param>
         public void SetScopeFromJitDebugInfo(uint outputControl, ulong infoOffset)
         {
-            TrySetScopeFromJitDebugInfo(outputControl, infoOffset).ThrowDbgEngNotOk();
+            TrySetScopeFromJitDebugInfo(outputControl, infoOffset).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -4971,7 +4971,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetScopeFromStoredEvent()
         {
-            TrySetScopeFromStoredEvent().ThrowDbgEngNotOk();
+            TrySetScopeFromStoredEvent().ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -5004,7 +5004,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OutputSymbolByOffset(uint outputControl, DEBUG_OUTSYM flags, ulong offset)
         {
-            TryOutputSymbolByOffset(outputControl, flags, offset).ThrowDbgEngNotOk();
+            TryOutputSymbolByOffset(outputControl, flags, offset).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -5048,7 +5048,7 @@ namespace ClrDebug.DbgEng
         public uint GetFunctionEntryByOffset(ulong offset, DEBUG_GETFNENT flags, IntPtr buffer, uint bufferSize)
         {
             uint bufferNeeded;
-            TryGetFunctionEntryByOffset(offset, flags, buffer, bufferSize, out bufferNeeded).ThrowDbgEngNotOk();
+            TryGetFunctionEntryByOffset(offset, flags, buffer, bufferSize, out bufferNeeded).ThrowDbgEngNotOK();
 
             return bufferNeeded;
         }
@@ -5101,7 +5101,7 @@ namespace ClrDebug.DbgEng
         public GetFieldTypeAndOffsetResult GetFieldTypeAndOffset(ulong module, uint containerTypeId, string field)
         {
             GetFieldTypeAndOffsetResult result;
-            TryGetFieldTypeAndOffset(module, containerTypeId, field, out result).ThrowDbgEngNotOk();
+            TryGetFieldTypeAndOffset(module, containerTypeId, field, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -5162,7 +5162,7 @@ namespace ClrDebug.DbgEng
         public GetFieldTypeAndOffsetWideResult GetFieldTypeAndOffsetWide(ulong module, uint containerTypeId, string field)
         {
             GetFieldTypeAndOffsetWideResult result;
-            TryGetFieldTypeAndOffsetWide(module, containerTypeId, field, out result).ThrowDbgEngNotOk();
+            TryGetFieldTypeAndOffsetWide(module, containerTypeId, field, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -5223,7 +5223,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_MODULE_AND_ID AddSyntheticSymbol(ulong offset, uint size, string name, DEBUG_ADDSYNTHSYM flags)
         {
             DEBUG_MODULE_AND_ID id;
-            TryAddSyntheticSymbol(offset, size, name, flags, out id).ThrowDbgEngNotOk();
+            TryAddSyntheticSymbol(offset, size, name, flags, out id).ThrowDbgEngNotOK();
 
             return id;
         }
@@ -5276,7 +5276,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_MODULE_AND_ID AddSyntheticSymbolWide(ulong offset, uint size, string name, DEBUG_ADDSYNTHSYM flags)
         {
             DEBUG_MODULE_AND_ID id;
-            TryAddSyntheticSymbolWide(offset, size, name, flags, out id).ThrowDbgEngNotOk();
+            TryAddSyntheticSymbolWide(offset, size, name, flags, out id).ThrowDbgEngNotOK();
 
             return id;
         }
@@ -5324,7 +5324,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void RemoveSyntheticSymbol(DEBUG_MODULE_AND_ID id)
         {
-            TryRemoveSyntheticSymbol(id).ThrowDbgEngNotOk();
+            TryRemoveSyntheticSymbol(id).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -5362,7 +5362,7 @@ namespace ClrDebug.DbgEng
         public GetSymbolEntriesByOffsetResult GetSymbolEntriesByOffset(ulong offset, uint flags)
         {
             GetSymbolEntriesByOffsetResult result;
-            TryGetSymbolEntriesByOffset(offset, flags, out result).ThrowDbgEngNotOk();
+            TryGetSymbolEntriesByOffset(offset, flags, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -5430,7 +5430,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_MODULE_AND_ID[] GetSymbolEntriesByName(string symbol, uint flags)
         {
             DEBUG_MODULE_AND_ID[] ids;
-            TryGetSymbolEntriesByName(symbol, flags, out ids).ThrowDbgEngNotOk();
+            TryGetSymbolEntriesByName(symbol, flags, out ids).ThrowDbgEngNotOK();
 
             return ids;
         }
@@ -5486,7 +5486,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_MODULE_AND_ID[] GetSymbolEntriesByNameWide(string symbol, uint flags)
         {
             DEBUG_MODULE_AND_ID[] ids;
-            TryGetSymbolEntriesByNameWide(symbol, flags, out ids).ThrowDbgEngNotOk();
+            TryGetSymbolEntriesByNameWide(symbol, flags, out ids).ThrowDbgEngNotOK();
 
             return ids;
         }
@@ -5538,7 +5538,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_MODULE_AND_ID GetSymbolEntryByToken(ulong moduleBase, uint token)
         {
             DEBUG_MODULE_AND_ID id;
-            TryGetSymbolEntryByToken(moduleBase, token, out id).ThrowDbgEngNotOk();
+            TryGetSymbolEntryByToken(moduleBase, token, out id).ThrowDbgEngNotOK();
 
             return id;
         }
@@ -5575,7 +5575,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_SYMBOL_ENTRY GetSymbolEntryInformation(DEBUG_MODULE_AND_ID id)
         {
             DEBUG_SYMBOL_ENTRY info;
-            TryGetSymbolEntryInformation(id, out info).ThrowDbgEngNotOk();
+            TryGetSymbolEntryInformation(id, out info).ThrowDbgEngNotOK();
 
             return info;
         }
@@ -5615,7 +5615,7 @@ namespace ClrDebug.DbgEng
         public string GetSymbolEntryString(DEBUG_MODULE_AND_ID id, uint which)
         {
             string bufferResult;
-            TryGetSymbolEntryString(id, which, out bufferResult).ThrowDbgEngNotOk();
+            TryGetSymbolEntryString(id, which, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -5681,7 +5681,7 @@ namespace ClrDebug.DbgEng
         public string GetSymbolEntryStringWide(DEBUG_MODULE_AND_ID id, uint which)
         {
             string bufferResult;
-            TryGetSymbolEntryStringWide(id, which, out bufferResult).ThrowDbgEngNotOk();
+            TryGetSymbolEntryStringWide(id, which, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -5743,7 +5743,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_OFFSET_REGION[] GetSymbolEntryOffsetRegions(DEBUG_MODULE_AND_ID id, uint flags)
         {
             DEBUG_OFFSET_REGION[] regions;
-            TryGetSymbolEntryOffsetRegions(id, flags, out regions).ThrowDbgEngNotOk();
+            TryGetSymbolEntryOffsetRegions(id, flags, out regions).ThrowDbgEngNotOK();
 
             return regions;
         }
@@ -5793,7 +5793,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_MODULE_AND_ID GetSymbolEntryBySymbolEntry(DEBUG_MODULE_AND_ID fromId, uint flags)
         {
             DEBUG_MODULE_AND_ID toId;
-            TryGetSymbolEntryBySymbolEntry(fromId, flags, out toId).ThrowDbgEngNotOk();
+            TryGetSymbolEntryBySymbolEntry(fromId, flags, out toId).ThrowDbgEngNotOK();
 
             return toId;
         }
@@ -5828,7 +5828,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_SYMBOL_SOURCE_ENTRY[] GetSourceEntriesByOffset(ulong offset, uint flags)
         {
             DEBUG_SYMBOL_SOURCE_ENTRY[] entries;
-            TryGetSourceEntriesByOffset(offset, flags, out entries).ThrowDbgEngNotOk();
+            TryGetSourceEntriesByOffset(offset, flags, out entries).ThrowDbgEngNotOK();
 
             return entries;
         }
@@ -5885,7 +5885,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_SYMBOL_SOURCE_ENTRY[] GetSourceEntriesByLine(uint line, string file, uint flags)
         {
             DEBUG_SYMBOL_SOURCE_ENTRY[] entries;
-            TryGetSourceEntriesByLine(line, file, flags, out entries).ThrowDbgEngNotOk();
+            TryGetSourceEntriesByLine(line, file, flags, out entries).ThrowDbgEngNotOK();
 
             return entries;
         }
@@ -5952,7 +5952,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_SYMBOL_SOURCE_ENTRY[] GetSourceEntriesByLineWide(uint line, string file, uint flags)
         {
             DEBUG_SYMBOL_SOURCE_ENTRY[] entries;
-            TryGetSourceEntriesByLineWide(line, file, flags, out entries).ThrowDbgEngNotOk();
+            TryGetSourceEntriesByLineWide(line, file, flags, out entries).ThrowDbgEngNotOK();
 
             return entries;
         }
@@ -6010,7 +6010,7 @@ namespace ClrDebug.DbgEng
         public string GetSourceEntryString(DEBUG_SYMBOL_SOURCE_ENTRY entry, uint which)
         {
             string bufferResult;
-            TryGetSourceEntryString(entry, which, out bufferResult).ThrowDbgEngNotOk();
+            TryGetSourceEntryString(entry, which, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -6069,7 +6069,7 @@ namespace ClrDebug.DbgEng
         public string GetSourceEntryStringWide(DEBUG_SYMBOL_SOURCE_ENTRY entry, uint which)
         {
             string bufferResult;
-            TryGetSourceEntryStringWide(entry, which, out bufferResult).ThrowDbgEngNotOk();
+            TryGetSourceEntryStringWide(entry, which, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -6128,7 +6128,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_OFFSET_REGION[] GetSourceEntryOffsetRegions(DEBUG_SYMBOL_SOURCE_ENTRY entry, uint flags)
         {
             DEBUG_OFFSET_REGION[] regions;
-            TryGetSourceEntryOffsetRegions(entry, flags, out regions).ThrowDbgEngNotOk();
+            TryGetSourceEntryOffsetRegions(entry, flags, out regions).ThrowDbgEngNotOK();
 
             return regions;
         }
@@ -6177,7 +6177,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_SYMBOL_SOURCE_ENTRY GetSourceEntryBySourceEntry(DEBUG_SYMBOL_SOURCE_ENTRY fromEntry, uint flags)
         {
             DEBUG_SYMBOL_SOURCE_ENTRY toEntry;
-            TryGetSourceEntryBySourceEntry(fromEntry, flags, out toEntry).ThrowDbgEngNotOk();
+            TryGetSourceEntryBySourceEntry(fromEntry, flags, out toEntry).ThrowDbgEngNotOK();
 
             return toEntry;
         }
@@ -6214,7 +6214,7 @@ namespace ClrDebug.DbgEng
         public GetScopeExResult GetScopeEx(IntPtr scopeContext, uint scopeContextSize)
         {
             GetScopeExResult result;
-            TryGetScopeEx(scopeContext, scopeContextSize, out result).ThrowDbgEngNotOk();
+            TryGetScopeEx(scopeContext, scopeContextSize, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -6258,7 +6258,7 @@ namespace ClrDebug.DbgEng
         /// <param name="scopeContextSize">[in] The size of the scope context.</param>
         public void SetScopeEx(ulong instructionOffset, DEBUG_STACK_FRAME_EX scopeFrame, IntPtr scopeContext, uint scopeContextSize)
         {
-            TrySetScopeEx(instructionOffset, scopeFrame, scopeContext, scopeContextSize).ThrowDbgEngNotOk();
+            TrySetScopeEx(instructionOffset, scopeFrame, scopeContext, scopeContextSize).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -6293,7 +6293,7 @@ namespace ClrDebug.DbgEng
         public GetNameByInlineContextResult GetNameByInlineContext(ulong offset, uint inlineContext)
         {
             GetNameByInlineContextResult result;
-            TryGetNameByInlineContext(offset, inlineContext, out result).ThrowDbgEngNotOk();
+            TryGetNameByInlineContext(offset, inlineContext, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -6353,7 +6353,7 @@ namespace ClrDebug.DbgEng
         public GetNameByInlineContextWideResult GetNameByInlineContextWide(ulong offset, uint inlineContext)
         {
             GetNameByInlineContextWideResult result;
-            TryGetNameByInlineContextWide(offset, inlineContext, out result).ThrowDbgEngNotOk();
+            TryGetNameByInlineContextWide(offset, inlineContext, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -6413,7 +6413,7 @@ namespace ClrDebug.DbgEng
         public GetLineByInlineContextResult GetLineByInlineContext(ulong offset, int fileBufferSize)
         {
             GetLineByInlineContextResult result;
-            TryGetLineByInlineContext(offset, fileBufferSize, out result).ThrowDbgEngNotOk();
+            TryGetLineByInlineContext(offset, fileBufferSize, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -6475,7 +6475,7 @@ namespace ClrDebug.DbgEng
         public GetLineByInlineContextWideResult GetLineByInlineContextWide(ulong offset, int fileBufferSize)
         {
             GetLineByInlineContextWideResult result;
-            TryGetLineByInlineContextWide(offset, fileBufferSize, out result).ThrowDbgEngNotOk();
+            TryGetLineByInlineContextWide(offset, fileBufferSize, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -6537,7 +6537,7 @@ namespace ClrDebug.DbgEng
         /// <param name="inlineContext">[in] An inline context.</param>
         public void OutputSymbolByInlineContext(uint outputControl, uint flags, ulong offset, uint inlineContext)
         {
-            TryOutputSymbolByInlineContext(outputControl, flags, offset, inlineContext).ThrowDbgEngNotOk();
+            TryOutputSymbolByInlineContext(outputControl, flags, offset, inlineContext).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -6573,7 +6573,7 @@ namespace ClrDebug.DbgEng
         public uint GetCurrentScopeFrameIndexEx(DEBUG_FRAME flags)
         {
             uint index;
-            TryGetCurrentScopeFrameIndexEx(flags, out index).ThrowDbgEngNotOk();
+            TryGetCurrentScopeFrameIndexEx(flags, out index).ThrowDbgEngNotOK();
 
             return index;
         }
@@ -6604,7 +6604,7 @@ namespace ClrDebug.DbgEng
         /// <param name="index">[in] An index by which to set the frame.</param>
         public void SetScopeFrameByIndexEx(DEBUG_FRAME flags, uint index)
         {
-            TrySetScopeFrameByIndexEx(flags, index).ThrowDbgEngNotOk();
+            TrySetScopeFrameByIndexEx(flags, index).ThrowDbgEngNotOK();
         }
 
         /// <summary>

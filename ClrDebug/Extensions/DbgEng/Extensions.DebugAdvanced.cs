@@ -10,7 +10,7 @@ namespace ClrDebug.DbgEng
         #region Request [in]
 
         public static void Request<T>(this DebugAdvanced advanced, DEBUG_REQUEST request, T value) where T : struct =>
-            advanced.TryRequest(request, value).ThrowDbgEngNotOk();
+            advanced.TryRequest(request, value).ThrowDbgEngNotOK();
 
         public static HRESULT TryRequest<T>(this DebugAdvanced advanced, DEBUG_REQUEST request, T value) where T : struct
         {
@@ -41,7 +41,7 @@ namespace ClrDebug.DbgEng
 
         public static T Request<T>(this DebugAdvanced advanced, DEBUG_REQUEST request) where T : struct
         {
-            advanced.TryRequest<T>(request, out var result).ThrowDbgEngNotOk();
+            advanced.TryRequest<T>(request, out var result).ThrowDbgEngNotOK();
             return result;
         }
         
@@ -87,7 +87,7 @@ namespace ClrDebug.DbgEng
 
             try
             {
-                advanced.TryRequest(request, IntPtr.Zero, 0, buffer, length, out _).ThrowDbgEngNotOk();
+                advanced.TryRequest(request, IntPtr.Zero, 0, buffer, length, out _).ThrowDbgEngNotOK();
 
                 if (unicode)
                     return Marshal.PtrToStringUni(buffer);
@@ -132,7 +132,7 @@ namespace ClrDebug.DbgEng
             #region ExtTypedDataAnsi
 
             public void ExtTypedDataAnsi(IntPtr buffer, int bufferSize) =>
-                TryExtTypedDataAnsi(buffer, bufferSize).ThrowDbgEngNotOk();
+                TryExtTypedDataAnsi(buffer, bufferSize).ThrowDbgEngNotOK();
 
             public HRESULT TryExtTypedDataAnsi(IntPtr buffer, int bufferSize) =>
                 advanced.TryRequest(DEBUG_REQUEST.EXT_TYPED_DATA_ANSI, buffer, bufferSize, buffer, bufferSize, out var outSize);

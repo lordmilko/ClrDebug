@@ -39,7 +39,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint number;
-                TryGetNumberRegisters(out number).ThrowDbgEngNotOk();
+                TryGetNumberRegisters(out number).ThrowDbgEngNotOK();
 
                 return number;
             }
@@ -73,7 +73,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 ulong offset;
-                TryGetInstructionOffset(out offset).ThrowDbgEngNotOk();
+                TryGetInstructionOffset(out offset).ThrowDbgEngNotOK();
 
                 return offset;
             }
@@ -110,7 +110,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 ulong offset;
-                TryGetStackOffset(out offset).ThrowDbgEngNotOk();
+                TryGetStackOffset(out offset).ThrowDbgEngNotOK();
 
                 return offset;
             }
@@ -146,7 +146,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 ulong offset;
-                TryGetFrameOffset(out offset).ThrowDbgEngNotOk();
+                TryGetFrameOffset(out offset).ThrowDbgEngNotOK();
 
                 return offset;
             }
@@ -185,7 +185,7 @@ namespace ClrDebug.DbgEng
         public GetDescriptionResult GetDescription(uint register)
         {
             GetDescriptionResult result;
-            TryGetDescription(register, out result).ThrowDbgEngNotOk();
+            TryGetDescription(register, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -248,7 +248,7 @@ namespace ClrDebug.DbgEng
         public uint GetIndexByName(string name)
         {
             uint index;
-            TryGetIndexByName(name, out index).ThrowDbgEngNotOk();
+            TryGetIndexByName(name, out index).ThrowDbgEngNotOK();
 
             return index;
         }
@@ -287,7 +287,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_VALUE GetValue(uint register)
         {
             DEBUG_VALUE value;
-            TryGetValue(register, out value).ThrowDbgEngNotOk();
+            TryGetValue(register, out value).ThrowDbgEngNotOK();
 
             return value;
         }
@@ -330,7 +330,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetValue(uint register, DEBUG_VALUE value)
         {
-            TrySetValue(register, value).ThrowDbgEngNotOk();
+            TrySetValue(register, value).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -381,7 +381,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_VALUE[] GetValues(uint count, uint[] indices, uint start)
         {
             DEBUG_VALUE[] values;
-            TryGetValues(count, indices, start, out values).ThrowDbgEngNotOk();
+            TryGetValues(count, indices, start, out values).ThrowDbgEngNotOK();
 
             return values;
         }
@@ -443,7 +443,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetValues(uint count, uint[] indices, uint start, DEBUG_VALUE[] values)
         {
-            TrySetValues(count, indices, start, values).ThrowDbgEngNotOk();
+            TrySetValues(count, indices, start, values).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -494,7 +494,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OutputRegisters(DEBUG_OUTCTL outputControl, DEBUG_REGISTERS flags)
         {
-            TryOutputRegisters(outputControl, flags).ThrowDbgEngNotOk();
+            TryOutputRegisters(outputControl, flags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -532,7 +532,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint number;
-                TryGetNumberPseudoRegisters(out number).ThrowDbgEngNotOk();
+                TryGetNumberPseudoRegisters(out number).ThrowDbgEngNotOK();
 
                 return number;
             }
@@ -571,7 +571,7 @@ namespace ClrDebug.DbgEng
         public GetDescriptionWideResult GetDescriptionWide(uint register)
         {
             GetDescriptionWideResult result;
-            TryGetDescriptionWide(register, out result).ThrowDbgEngNotOk();
+            TryGetDescriptionWide(register, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -635,7 +635,7 @@ namespace ClrDebug.DbgEng
         public uint GetIndexByNameWide(string name)
         {
             uint index;
-            TryGetIndexByNameWide(name, out index).ThrowDbgEngNotOk();
+            TryGetIndexByNameWide(name, out index).ThrowDbgEngNotOK();
 
             return index;
         }
@@ -676,7 +676,7 @@ namespace ClrDebug.DbgEng
         public GetPseudoDescriptionResult GetPseudoDescription(uint register)
         {
             GetPseudoDescriptionResult result;
-            TryGetPseudoDescription(register, out result).ThrowDbgEngNotOk();
+            TryGetPseudoDescription(register, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -747,7 +747,7 @@ namespace ClrDebug.DbgEng
         public GetPseudoDescriptionWideResult GetPseudoDescriptionWide(uint register)
         {
             GetPseudoDescriptionWideResult result;
-            TryGetPseudoDescriptionWide(register, out result).ThrowDbgEngNotOk();
+            TryGetPseudoDescriptionWide(register, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -816,7 +816,7 @@ namespace ClrDebug.DbgEng
         public uint GetPseudoIndexByName(string name)
         {
             uint index;
-            TryGetPseudoIndexByName(name, out index).ThrowDbgEngNotOk();
+            TryGetPseudoIndexByName(name, out index).ThrowDbgEngNotOK();
 
             return index;
         }
@@ -856,7 +856,7 @@ namespace ClrDebug.DbgEng
         public uint GetPseudoIndexByNameWide(string name)
         {
             uint index;
-            TryGetPseudoIndexByNameWide(name, out index).ThrowDbgEngNotOk();
+            TryGetPseudoIndexByNameWide(name, out index).ThrowDbgEngNotOK();
 
             return index;
         }
@@ -901,7 +901,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_VALUE[] GetPseudoValues(DEBUG_REGSRC source, uint count, uint[] indices, uint start)
         {
             DEBUG_VALUE[] values;
-            TryGetPseudoValues(source, count, indices, start, out values).ThrowDbgEngNotOk();
+            TryGetPseudoValues(source, count, indices, start, out values).ThrowDbgEngNotOK();
 
             return values;
         }
@@ -956,7 +956,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetPseudoValues(DEBUG_REGSRC source, uint count, uint[] indices, uint start, DEBUG_VALUE[] values)
         {
-            TrySetPseudoValues(source, count, indices, start, values).ThrowDbgEngNotOk();
+            TrySetPseudoValues(source, count, indices, start, values).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1011,7 +1011,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_VALUE[] GetValues2(DEBUG_REGSRC source, uint count, uint[] indices, uint start)
         {
             DEBUG_VALUE[] values;
-            TryGetValues2(source, count, indices, start, out values).ThrowDbgEngNotOk();
+            TryGetValues2(source, count, indices, start, out values).ThrowDbgEngNotOK();
 
             return values;
         }
@@ -1075,7 +1075,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetValues2(DEBUG_REGSRC source, uint count, uint[] indices, uint start, DEBUG_VALUE[] values)
         {
-            TrySetValues2(source, count, indices, start, values).ThrowDbgEngNotOk();
+            TrySetValues2(source, count, indices, start, values).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1129,7 +1129,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OutputRegisters2(DEBUG_OUTCTL outputControl, DEBUG_REGSRC source, DEBUG_REGISTERS flags)
         {
-            TryOutputRegisters2(outputControl, source, flags).ThrowDbgEngNotOk();
+            TryOutputRegisters2(outputControl, source, flags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1172,7 +1172,7 @@ namespace ClrDebug.DbgEng
         public ulong GetInstructionOffset2(DEBUG_REGSRC source)
         {
             ulong offset;
-            TryGetInstructionOffset2(source, out offset).ThrowDbgEngNotOk();
+            TryGetInstructionOffset2(source, out offset).ThrowDbgEngNotOK();
 
             return offset;
         }
@@ -1210,7 +1210,7 @@ namespace ClrDebug.DbgEng
         public ulong GetStackOffset2(DEBUG_REGSRC source)
         {
             ulong offset;
-            TryGetStackOffset2(source, out offset).ThrowDbgEngNotOk();
+            TryGetStackOffset2(source, out offset).ThrowDbgEngNotOK();
 
             return offset;
         }
@@ -1247,7 +1247,7 @@ namespace ClrDebug.DbgEng
         public ulong GetFrameOffset2(DEBUG_REGSRC source)
         {
             ulong offset;
-            TryGetFrameOffset2(source, out offset).ThrowDbgEngNotOk();
+            TryGetFrameOffset2(source, out offset).ThrowDbgEngNotOK();
 
             return offset;
         }

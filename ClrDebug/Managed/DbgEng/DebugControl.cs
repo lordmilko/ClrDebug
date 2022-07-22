@@ -51,13 +51,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint seconds;
-                TryGetInterruptTimeout(out seconds).ThrowDbgEngNotOk();
+                TryGetInterruptTimeout(out seconds).ThrowDbgEngNotOK();
 
                 return seconds;
             }
             set
             {
-                TrySetInterruptTimeout(value).ThrowDbgEngNotOk();
+                TrySetInterruptTimeout(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -112,7 +112,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 GetLogFileResult result;
-                TryGetLogFile(out result).ThrowDbgEngNotOk();
+                TryGetLogFile(out result).ThrowDbgEngNotOK();
 
                 return result;
             }
@@ -173,13 +173,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 DEBUG_OUTPUT mask;
-                TryGetLogMask(out mask).ThrowDbgEngNotOk();
+                TryGetLogMask(out mask).ThrowDbgEngNotOK();
 
                 return mask;
             }
             set
             {
-                TrySetLogMask(value).ThrowDbgEngNotOk();
+                TrySetLogMask(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -225,7 +225,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetPromptText(out bufferResult).ThrowDbgEngNotOk();
+                TryGetPromptText(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
@@ -282,13 +282,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 ulong handle;
-                TryGetNotifyEventHandle(out handle).ThrowDbgEngNotOk();
+                TryGetNotifyEventHandle(out handle).ThrowDbgEngNotOK();
 
                 return handle;
             }
             set
             {
-                TrySetNotifyEventHandle(value).ThrowDbgEngNotOk();
+                TrySetNotifyEventHandle(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -342,7 +342,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 ulong offset;
-                TryGetDisassembleEffectiveOffset(out offset).ThrowDbgEngNotOk();
+                TryGetDisassembleEffectiveOffset(out offset).ThrowDbgEngNotOK();
 
                 return offset;
             }
@@ -378,7 +378,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 ulong offset;
-                TryGetReturnOffset(out offset).ThrowDbgEngNotOk();
+                TryGetReturnOffset(out offset).ThrowDbgEngNotOK();
 
                 return offset;
             }
@@ -413,7 +413,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 GetDebuggeeTypeResult result;
-                TryGetDebuggeeType(out result).ThrowDbgEngNotOk();
+                TryGetDebuggeeType(out result).ThrowDbgEngNotOK();
 
                 return result;
             }
@@ -453,7 +453,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 IMAGE_FILE_MACHINE type;
-                TryGetActualProcessorType(out type).ThrowDbgEngNotOk();
+                TryGetActualProcessorType(out type).ThrowDbgEngNotOK();
 
                 return type;
             }
@@ -487,7 +487,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 IMAGE_FILE_MACHINE type;
-                TryGetExecutingProcessorType(out type).ThrowDbgEngNotOk();
+                TryGetExecutingProcessorType(out type).ThrowDbgEngNotOK();
 
                 return type;
             }
@@ -521,7 +521,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint number;
-                TryGetNumberPossibleExecutingProcessorTypes(out number).ThrowDbgEngNotOk();
+                TryGetNumberPossibleExecutingProcessorTypes(out number).ThrowDbgEngNotOK();
 
                 return number;
             }
@@ -555,7 +555,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint number;
-                TryGetNumberProcessors(out number).ThrowDbgEngNotOk();
+                TryGetNumberProcessors(out number).ThrowDbgEngNotOK();
 
                 return number;
             }
@@ -589,7 +589,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 GetSystemVersionResult result;
-                TryGetSystemVersion(out result).ThrowDbgEngNotOk();
+                TryGetSystemVersion(out result).ThrowDbgEngNotOK();
 
                 return result;
             }
@@ -662,7 +662,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint size;
-                TryGetPageSize(out size).ThrowDbgEngNotOk();
+                TryGetPageSize(out size).ThrowDbgEngNotOK();
 
                 return size;
             }
@@ -693,7 +693,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 HRESULT hr = TryIsPointer64Bit();
-                hr.ThrowDbgEngNotOk();
+                hr.ThrowDbgEngNotOK();
 
                 return hr == HRESULT.S_OK;
             }
@@ -722,7 +722,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint number;
-                TryGetNumberSupportedProcessorTypes(out number).ThrowDbgEngNotOk();
+                TryGetNumberSupportedProcessorTypes(out number).ThrowDbgEngNotOK();
 
                 return number;
             }
@@ -756,13 +756,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 IMAGE_FILE_MACHINE type;
-                TryGetEffectiveProcessorType(out type).ThrowDbgEngNotOk();
+                TryGetEffectiveProcessorType(out type).ThrowDbgEngNotOK();
 
                 return type;
             }
             set
             {
-                TrySetEffectiveProcessorType(value).ThrowDbgEngNotOk();
+                TrySetEffectiveProcessorType(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -811,13 +811,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 DEBUG_STATUS status;
-                TryGetExecutionStatus(out status).ThrowDbgEngNotOk();
+                TryGetExecutionStatus(out status).ThrowDbgEngNotOK();
 
                 return status;
             }
             set
             {
-                TrySetExecutionStatus(value).ThrowDbgEngNotOk();
+                TrySetExecutionStatus(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -866,13 +866,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 DEBUG_LEVEL level;
-                TryGetCodeLevel(out level).ThrowDbgEngNotOk();
+                TryGetCodeLevel(out level).ThrowDbgEngNotOK();
 
                 return level;
             }
             set
             {
-                TrySetCodeLevel(value).ThrowDbgEngNotOk();
+                TrySetCodeLevel(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -921,13 +921,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 DEBUG_ENGOPT options;
-                TryGetEngineOptions(out options).ThrowDbgEngNotOk();
+                TryGetEngineOptions(out options).ThrowDbgEngNotOK();
 
                 return options;
             }
             set
             {
-                TrySetEngineOptions(value).ThrowDbgEngNotOk();
+                TrySetEngineOptions(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -983,13 +983,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint radix;
-                TryGetRadix(out radix).ThrowDbgEngNotOk();
+                TryGetRadix(out radix).ThrowDbgEngNotOK();
 
                 return radix;
             }
             set
             {
-                TrySetRadix(value).ThrowDbgEngNotOk();
+                TrySetRadix(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -1040,7 +1040,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint number;
-                TryGetNumberBreakpoints(out number).ThrowDbgEngNotOk();
+                TryGetNumberBreakpoints(out number).ThrowDbgEngNotOK();
 
                 return number;
             }
@@ -1071,7 +1071,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 GetNumberEventFiltersResult result;
-                TryGetNumberEventFilters(out result).ThrowDbgEngNotOk();
+                TryGetNumberEventFilters(out result).ThrowDbgEngNotOK();
 
                 return result;
             }
@@ -1117,7 +1117,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void GetInterrupt()
         {
-            TryGetInterrupt().ThrowDbgEngNotOk();
+            TryGetInterrupt().ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1152,7 +1152,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetInterrupt(DEBUG_INTERRUPT flags)
         {
-            TrySetInterrupt(flags).ThrowDbgEngNotOk();
+            TrySetInterrupt(flags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1193,7 +1193,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OpenLogFile(string file, bool append)
         {
-            TryOpenLogFile(file, append).ThrowDbgEngNotOk();
+            TryOpenLogFile(file, append).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1230,7 +1230,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void CloseLogFile()
         {
-            TryCloseLogFile().ThrowDbgEngNotOk();
+            TryCloseLogFile().ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1261,7 +1261,7 @@ namespace ClrDebug.DbgEng
         public string Input()
         {
             string bufferResult;
-            TryInput(out bufferResult).ThrowDbgEngNotOk();
+            TryInput(out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -1318,7 +1318,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void ReturnInput(string buffer)
         {
-            TryReturnInput(buffer).ThrowDbgEngNotOk();
+            TryReturnInput(buffer).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1351,7 +1351,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void Output(DEBUG_OUTPUT mask, string format)
         {
-            TryOutput(mask, format).ThrowDbgEngNotOk();
+            TryOutput(mask, format).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1393,7 +1393,7 @@ namespace ClrDebug.DbgEng
         [Obsolete("This method cannot be safely called from managed code")]
         public void OutputVaList(DEBUG_OUTPUT mask, string format, IntPtr va_list_Args)
         {
-            TryOutputVaList(mask, format, va_list_Args).ThrowDbgEngNotOk();
+            TryOutputVaList(mask, format, va_list_Args).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1436,7 +1436,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void ControlledOutput(DEBUG_OUTCTL outputControl, DEBUG_OUTPUT mask, string format)
         {
-            TryControlledOutput(outputControl, mask, format).ThrowDbgEngNotOk();
+            TryControlledOutput(outputControl, mask, format).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1484,7 +1484,7 @@ namespace ClrDebug.DbgEng
         [Obsolete("This method cannot be safely called from managed code")]
         public void ControlledOutputVaList(DEBUG_OUTCTL outputControl, DEBUG_OUTPUT mask, string format, IntPtr va_list_Args)
         {
-            TryControlledOutputVaList(outputControl, mask, format, va_list_Args).ThrowDbgEngNotOk();
+            TryControlledOutputVaList(outputControl, mask, format, va_list_Args).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1534,7 +1534,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OutputPrompt(DEBUG_OUTCTL outputControl, string format)
         {
-            TryOutputPrompt(outputControl, format).ThrowDbgEngNotOk();
+            TryOutputPrompt(outputControl, format).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1580,7 +1580,7 @@ namespace ClrDebug.DbgEng
         [Obsolete("This method cannot be safely called from managed code")]
         public void OutputPromptVaList(DEBUG_OUTCTL outputControl, string format, IntPtr va_list_Args)
         {
-            TryOutputPromptVaList(outputControl, format, va_list_Args).ThrowDbgEngNotOk();
+            TryOutputPromptVaList(outputControl, format, va_list_Args).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1629,7 +1629,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OutputCurrentState(DEBUG_OUTCTL outputControl, DEBUG_CURRENT flags)
         {
-            TryOutputCurrentState(outputControl, flags).ThrowDbgEngNotOk();
+            TryOutputCurrentState(outputControl, flags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1668,7 +1668,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OutputVersionInformation(DEBUG_OUTCTL outputControl)
         {
-            TryOutputVersionInformation(outputControl).ThrowDbgEngNotOk();
+            TryOutputVersionInformation(outputControl).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1708,7 +1708,7 @@ namespace ClrDebug.DbgEng
         public ulong Assemble(ulong offset, string instr)
         {
             ulong endOffset;
-            TryAssemble(offset, instr, out endOffset).ThrowDbgEngNotOk();
+            TryAssemble(offset, instr, out endOffset).ThrowDbgEngNotOK();
 
             return endOffset;
         }
@@ -1756,7 +1756,7 @@ namespace ClrDebug.DbgEng
         public DisassembleResult Disassemble(ulong offset, DEBUG_DISASM flags)
         {
             DisassembleResult result;
-            TryDisassemble(offset, flags, out result).ThrowDbgEngNotOk();
+            TryDisassemble(offset, flags, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -1831,7 +1831,7 @@ namespace ClrDebug.DbgEng
         public ulong OutputDisassembly(DEBUG_OUTCTL outputControl, ulong offset, DEBUG_DISASM flags)
         {
             ulong endOffset;
-            TryOutputDisassembly(outputControl, offset, flags, out endOffset).ThrowDbgEngNotOk();
+            TryOutputDisassembly(outputControl, offset, flags, out endOffset).ThrowDbgEngNotOK();
 
             return endOffset;
         }
@@ -1887,7 +1887,7 @@ namespace ClrDebug.DbgEng
         public OutputDisassemblyLinesResult OutputDisassemblyLines(DEBUG_OUTCTL outputControl, uint previousLines, uint totalLines, ulong offset, DEBUG_DISASM flags)
         {
             OutputDisassemblyLinesResult result;
-            TryOutputDisassemblyLines(outputControl, previousLines, totalLines, offset, flags, out result).ThrowDbgEngNotOk();
+            TryOutputDisassemblyLines(outputControl, previousLines, totalLines, offset, flags, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -1956,7 +1956,7 @@ namespace ClrDebug.DbgEng
         public ulong GetNearInstruction(ulong offset, int delta)
         {
             ulong nearOffset;
-            TryGetNearInstruction(offset, delta, out nearOffset).ThrowDbgEngNotOk();
+            TryGetNearInstruction(offset, delta, out nearOffset).ThrowDbgEngNotOK();
 
             return nearOffset;
         }
@@ -2002,7 +2002,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_STACK_FRAME[] GetStackTrace(ulong frameOffset, ulong stackOffset, ulong instructionOffset)
         {
             DEBUG_STACK_FRAME[] frames;
-            TryGetStackTrace(frameOffset, stackOffset, instructionOffset, out frames).ThrowDbgEngNotOk();
+            TryGetStackTrace(frameOffset, stackOffset, instructionOffset, out frames).ThrowDbgEngNotOK();
 
             return frames;
         }
@@ -2060,7 +2060,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OutputStackTrace(DEBUG_OUTCTL outputControl, DEBUG_STACK_FRAME[] frames, int framesSize, DEBUG_STACK flags)
         {
-            TryOutputStackTrace(outputControl, frames, framesSize, flags).ThrowDbgEngNotOk();
+            TryOutputStackTrace(outputControl, frames, framesSize, flags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -2103,7 +2103,7 @@ namespace ClrDebug.DbgEng
         public IMAGE_FILE_MACHINE[] GetPossibleExecutingProcessorTypes(uint start, uint count)
         {
             IMAGE_FILE_MACHINE[] types;
-            TryGetPossibleExecutingProcessorTypes(start, count, out types).ThrowDbgEngNotOk();
+            TryGetPossibleExecutingProcessorTypes(start, count, out types).ThrowDbgEngNotOK();
 
             return types;
         }
@@ -2147,7 +2147,7 @@ namespace ClrDebug.DbgEng
         public ReadBugCheckDataResult ReadBugCheckData()
         {
             ReadBugCheckDataResult result;
-            TryReadBugCheckData(out result).ThrowDbgEngNotOk();
+            TryReadBugCheckData(out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -2201,7 +2201,7 @@ namespace ClrDebug.DbgEng
         public IMAGE_FILE_MACHINE[] GetSupportedProcessorTypes(uint start, uint count)
         {
             IMAGE_FILE_MACHINE[] types;
-            TryGetSupportedProcessorTypes(start, count, out types).ThrowDbgEngNotOk();
+            TryGetSupportedProcessorTypes(start, count, out types).ThrowDbgEngNotOK();
 
             return types;
         }
@@ -2245,7 +2245,7 @@ namespace ClrDebug.DbgEng
         public GetProcessorTypeNamesResult GetProcessorTypeNames(IMAGE_FILE_MACHINE type)
         {
             GetProcessorTypeNamesResult result;
-            TryGetProcessorTypeNames(type, out result).ThrowDbgEngNotOk();
+            TryGetProcessorTypeNames(type, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -2314,7 +2314,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void AddEngineOptions(DEBUG_ENGOPT options)
         {
-            TryAddEngineOptions(options).ThrowDbgEngNotOk();
+            TryAddEngineOptions(options).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -2350,7 +2350,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void RemoveEngineOptions(DEBUG_ENGOPT options)
         {
-            TryRemoveEngineOptions(options).ThrowDbgEngNotOk();
+            TryRemoveEngineOptions(options).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -2390,7 +2390,7 @@ namespace ClrDebug.DbgEng
         public GetSystemErrorControlResult GetSystemErrorControl()
         {
             GetSystemErrorControlResult result;
-            TryGetSystemErrorControl(out result).ThrowDbgEngNotOk();
+            TryGetSystemErrorControl(out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -2444,7 +2444,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetSystemErrorControl(ERROR_LEVEL outputLevel, ERROR_LEVEL breakLevel)
         {
-            TrySetSystemErrorControl(outputLevel, breakLevel).ThrowDbgEngNotOk();
+            TrySetSystemErrorControl(outputLevel, breakLevel).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -2488,7 +2488,7 @@ namespace ClrDebug.DbgEng
         public string GetTextMacro(uint slot)
         {
             string bufferResult;
-            TryGetTextMacro(slot, out bufferResult).ThrowDbgEngNotOk();
+            TryGetTextMacro(slot, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -2553,7 +2553,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetTextMacro(uint slot, string macro)
         {
-            TrySetTextMacro(slot, macro).ThrowDbgEngNotOk();
+            TrySetTextMacro(slot, macro).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -2596,7 +2596,7 @@ namespace ClrDebug.DbgEng
         public EvaluateResult Evaluate(string expression, DEBUG_VALUE_TYPE desiredType)
         {
             EvaluateResult result;
-            TryEvaluate(expression, desiredType, out result).ThrowDbgEngNotOk();
+            TryEvaluate(expression, desiredType, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -2651,7 +2651,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_VALUE CoerceValue(DEBUG_VALUE @in, DEBUG_VALUE_TYPE outType)
         {
             DEBUG_VALUE @out;
-            TryCoerceValue(@in, outType, out @out).ThrowDbgEngNotOk();
+            TryCoerceValue(@in, outType, out @out).ThrowDbgEngNotOK();
 
             return @out;
         }
@@ -2697,7 +2697,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_VALUE[] CoerceValues(uint count, DEBUG_VALUE[] @in, DEBUG_VALUE_TYPE[] outType)
         {
             DEBUG_VALUE[] @out;
-            TryCoerceValues(count, @in, outType, out @out).ThrowDbgEngNotOk();
+            TryCoerceValues(count, @in, outType, out @out).ThrowDbgEngNotOK();
 
             return @out;
         }
@@ -2749,7 +2749,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void Execute(DEBUG_OUTCTL outputControl, string command, DEBUG_EXECUTE flags)
         {
-            TryExecute(outputControl, command, flags).ThrowDbgEngNotOk();
+            TryExecute(outputControl, command, flags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -2794,7 +2794,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void ExecuteCommandFile(DEBUG_OUTCTL outputControl, string commandFile, DEBUG_EXECUTE flags)
         {
-            TryExecuteCommandFile(outputControl, commandFile, flags).ThrowDbgEngNotOk();
+            TryExecuteCommandFile(outputControl, commandFile, flags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -2837,7 +2837,7 @@ namespace ClrDebug.DbgEng
         public DebugBreakpoint GetBreakpointByIndex(uint index)
         {
             DebugBreakpoint bpResult;
-            TryGetBreakpointByIndex(index, out bpResult).ThrowDbgEngNotOk();
+            TryGetBreakpointByIndex(index, out bpResult).ThrowDbgEngNotOK();
 
             return bpResult;
         }
@@ -2884,7 +2884,7 @@ namespace ClrDebug.DbgEng
         public DebugBreakpoint GetBreakpointById(uint id)
         {
             DebugBreakpoint bpResult;
-            TryGetBreakpointById(id, out bpResult).ThrowDbgEngNotOk();
+            TryGetBreakpointById(id, out bpResult).ThrowDbgEngNotOK();
 
             return bpResult;
         }
@@ -2935,7 +2935,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_BREAKPOINT_PARAMETERS[] GetBreakpointParameters(uint count, uint[] ids, uint start)
         {
             DEBUG_BREAKPOINT_PARAMETERS[] @params;
-            TryGetBreakpointParameters(count, ids, start, out @params).ThrowDbgEngNotOk();
+            TryGetBreakpointParameters(count, ids, start, out @params).ThrowDbgEngNotOK();
 
             return @params;
         }
@@ -2986,7 +2986,7 @@ namespace ClrDebug.DbgEng
         public DebugBreakpoint AddBreakpoint(DEBUG_BREAKPOINT_TYPE type, uint desiredId)
         {
             DebugBreakpoint bpResult;
-            TryAddBreakpoint(type, desiredId, out bpResult).ThrowDbgEngNotOk();
+            TryAddBreakpoint(type, desiredId, out bpResult).ThrowDbgEngNotOK();
 
             return bpResult;
         }
@@ -3034,7 +3034,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void RemoveBreakpoint(IntPtr bp)
         {
-            TryRemoveBreakpoint(bp).ThrowDbgEngNotOk();
+            TryRemoveBreakpoint(bp).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -3074,7 +3074,7 @@ namespace ClrDebug.DbgEng
         public ulong AddExtension(string path, uint flags)
         {
             ulong handle;
-            TryAddExtension(path, flags, out handle).ThrowDbgEngNotOk();
+            TryAddExtension(path, flags, out handle).ThrowDbgEngNotOK();
 
             return handle;
         }
@@ -3116,7 +3116,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void RemoveExtension(ulong handle)
         {
-            TryRemoveExtension(handle).ThrowDbgEngNotOk();
+            TryRemoveExtension(handle).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -3152,7 +3152,7 @@ namespace ClrDebug.DbgEng
         public ulong GetExtensionByPath(string path)
         {
             ulong handle;
-            TryGetExtensionByPath(path, out handle).ThrowDbgEngNotOk();
+            TryGetExtensionByPath(path, out handle).ThrowDbgEngNotOK();
 
             return handle;
         }
@@ -3194,7 +3194,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void CallExtension(ulong handle, string function, string arguments)
         {
-            TryCallExtension(handle, function, arguments).ThrowDbgEngNotOk();
+            TryCallExtension(handle, function, arguments).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -3239,7 +3239,7 @@ namespace ClrDebug.DbgEng
         public IntPtr GetExtensionFunction(ulong handle, string funcName)
         {
             IntPtr function;
-            TryGetExtensionFunction(handle, funcName, out function).ThrowDbgEngNotOk();
+            TryGetExtensionFunction(handle, funcName, out function).ThrowDbgEngNotOK();
 
             return function;
         }
@@ -3285,7 +3285,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void GetWindbgExtensionApis32(ref WINDBG_EXTENSION_APIS api)
         {
-            TryGetWindbgExtensionApis32(ref api).ThrowDbgEngNotOk();
+            TryGetWindbgExtensionApis32(ref api).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -3327,7 +3327,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void GetWindbgExtensionApis64(ref WINDBG_EXTENSION_APIS api)
         {
-            TryGetWindbgExtensionApis64(ref api).ThrowDbgEngNotOk();
+            TryGetWindbgExtensionApis64(ref api).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -3367,7 +3367,7 @@ namespace ClrDebug.DbgEng
         public string GetEventFilterText(uint index)
         {
             string bufferResult;
-            TryGetEventFilterText(index, out bufferResult).ThrowDbgEngNotOk();
+            TryGetEventFilterText(index, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -3429,7 +3429,7 @@ namespace ClrDebug.DbgEng
         public string GetEventFilterCommand(uint index)
         {
             string bufferResult;
-            TryGetEventFilterCommand(index, out bufferResult).ThrowDbgEngNotOk();
+            TryGetEventFilterCommand(index, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -3491,7 +3491,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetEventFilterCommand(uint index, string command)
         {
-            TrySetEventFilterCommand(index, command).ThrowDbgEngNotOk();
+            TrySetEventFilterCommand(index, command).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -3529,7 +3529,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_SPECIFIC_FILTER_PARAMETERS[] GetSpecificFilterParameters(uint start, uint count)
         {
             DEBUG_SPECIFIC_FILTER_PARAMETERS[] @params;
-            TryGetSpecificFilterParameters(start, count, out @params).ThrowDbgEngNotOk();
+            TryGetSpecificFilterParameters(start, count, out @params).ThrowDbgEngNotOK();
 
             return @params;
         }
@@ -3572,7 +3572,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetSpecificFilterParameters(uint start, uint count, DEBUG_SPECIFIC_FILTER_PARAMETERS[] @params)
         {
-            TrySetSpecificFilterParameters(start, count, @params).ThrowDbgEngNotOk();
+            TrySetSpecificFilterParameters(start, count, @params).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -3603,7 +3603,7 @@ namespace ClrDebug.DbgEng
         public string GetSpecificEventFilterArgument(uint index)
         {
             string bufferResult;
-            TryGetSpecificEventFilterArgument(index, out bufferResult).ThrowDbgEngNotOk();
+            TryGetSpecificEventFilterArgument(index, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -3646,7 +3646,7 @@ namespace ClrDebug.DbgEng
 
         public void SetSpecificEventFilterArgument(uint index, string argument)
         {
-            TrySetSpecificEventFilterArgument(index, argument).ThrowDbgEngNotOk();
+            TrySetSpecificEventFilterArgument(index, argument).ThrowDbgEngNotOK();
         }
 
         public HRESULT TrySetSpecificEventFilterArgument(uint index, string argument)
@@ -3677,7 +3677,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_EXCEPTION_FILTER_PARAMETERS[] GetExceptionFilterParameters(uint count, uint[] codes, uint start)
         {
             DEBUG_EXCEPTION_FILTER_PARAMETERS[] @params;
-            TryGetExceptionFilterParameters(count, codes, start, out @params).ThrowDbgEngNotOk();
+            TryGetExceptionFilterParameters(count, codes, start, out @params).ThrowDbgEngNotOK();
 
             return @params;
         }
@@ -3726,7 +3726,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetExceptionFilterParameters(uint count, DEBUG_EXCEPTION_FILTER_PARAMETERS[] @params)
         {
-            TrySetExceptionFilterParameters(count, @params).ThrowDbgEngNotOk();
+            TrySetExceptionFilterParameters(count, @params).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -3768,7 +3768,7 @@ namespace ClrDebug.DbgEng
         public string GetExceptionFilterSecondCommand(uint index)
         {
             string bufferResult;
-            TryGetExceptionFilterSecondCommand(index, out bufferResult).ThrowDbgEngNotOk();
+            TryGetExceptionFilterSecondCommand(index, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -3831,7 +3831,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetExceptionFilterSecondCommand(uint index, string command)
         {
-            TrySetExceptionFilterSecondCommand(index, command).ThrowDbgEngNotOk();
+            TrySetExceptionFilterSecondCommand(index, command).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -3875,7 +3875,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void WaitForEvent(DEBUG_WAIT flags, int timeout)
         {
-            TryWaitForEvent(flags, timeout).ThrowDbgEngNotOk();
+            TryWaitForEvent(flags, timeout).ThrowDbgEngNotOK();
         }
 
         /// <param name="flags">[in] Set to zero. There are currently no flags that can be used in this parameter.</param>
@@ -3922,7 +3922,7 @@ namespace ClrDebug.DbgEng
         public GetLastEventInformationResult GetLastEventInformation(IntPtr extraInformation, int descriptionSize)
         {
             GetLastEventInformationResult result;
-            TryGetLastEventInformation(extraInformation, descriptionSize, out result).ThrowDbgEngNotOk();
+            TryGetLastEventInformation(extraInformation, descriptionSize, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -3994,7 +3994,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint timeDate;
-                TryGetCurrentTimeDate(out timeDate).ThrowDbgEngNotOk();
+                TryGetCurrentTimeDate(out timeDate).ThrowDbgEngNotOK();
 
                 return timeDate;
             }
@@ -4030,7 +4030,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint upTime;
-                TryGetCurrentSystemUpTime(out upTime).ThrowDbgEngNotOk();
+                TryGetCurrentSystemUpTime(out upTime).ThrowDbgEngNotOK();
 
                 return upTime;
             }
@@ -4064,7 +4064,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 DEBUG_FORMAT formatFlags;
-                TryGetDumpFormatFlags(out formatFlags).ThrowDbgEngNotOk();
+                TryGetDumpFormatFlags(out formatFlags).ThrowDbgEngNotOK();
 
                 return formatFlags;
             }
@@ -4100,7 +4100,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint numRepl;
-                TryGetNumberTextReplacements(out numRepl).ThrowDbgEngNotOk();
+                TryGetNumberTextReplacements(out numRepl).ThrowDbgEngNotOK();
 
                 return numRepl;
             }
@@ -4144,7 +4144,7 @@ namespace ClrDebug.DbgEng
         public GetTextReplacementResult GetTextReplacement(string srcText, uint index)
         {
             GetTextReplacementResult result;
-            TryGetTextReplacement(srcText, index, out result).ThrowDbgEngNotOk();
+            TryGetTextReplacement(srcText, index, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -4225,7 +4225,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetTextReplacement(string srcText, string dstText)
         {
-            TrySetTextReplacement(srcText, dstText).ThrowDbgEngNotOk();
+            TrySetTextReplacement(srcText, dstText).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -4265,7 +4265,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void RemoveTextReplacements()
         {
-            TryRemoveTextReplacements().ThrowDbgEngNotOk();
+            TryRemoveTextReplacements().ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -4298,7 +4298,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OutputTextReplacements(DEBUG_OUTCTL outputControl, DEBUG_OUT_TEXT_REPL flags)
         {
-            TryOutputTextReplacements(outputControl, flags).ThrowDbgEngNotOk();
+            TryOutputTextReplacements(outputControl, flags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -4334,13 +4334,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 DEBUG_ASMOPT options;
-                TryGetAssemblyOptions(out options).ThrowDbgEngNotOk();
+                TryGetAssemblyOptions(out options).ThrowDbgEngNotOK();
 
                 return options;
             }
             set
             {
-                TrySetAssemblyOptions(value).ThrowDbgEngNotOk();
+                TrySetAssemblyOptions(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -4396,13 +4396,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 DEBUG_EXPR flags;
-                TryGetExpressionSyntax(out flags).ThrowDbgEngNotOk();
+                TryGetExpressionSyntax(out flags).ThrowDbgEngNotOK();
 
                 return flags;
             }
             set
             {
-                TrySetExpressionSyntax(value).ThrowDbgEngNotOk();
+                TrySetExpressionSyntax(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -4457,7 +4457,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint number;
-                TryGetNumberExpressionSyntaxes(out number).ThrowDbgEngNotOk();
+                TryGetNumberExpressionSyntaxes(out number).ThrowDbgEngNotOK();
 
                 return number;
             }
@@ -4488,7 +4488,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint events;
-                TryGetNumberEvents(out events).ThrowDbgEngNotOk();
+                TryGetNumberEvents(out events).ThrowDbgEngNotOK();
 
                 return events;
             }
@@ -4527,7 +4527,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint index;
-                TryGetCurrentEventIndex(out index).ThrowDbgEngNotOk();
+                TryGetCurrentEventIndex(out index).ThrowDbgEngNotOK();
 
                 return index;
             }
@@ -4564,7 +4564,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void AddAssemblyOptions(DEBUG_ASMOPT options)
         {
-            TryAddAssemblyOptions(options).ThrowDbgEngNotOk();
+            TryAddAssemblyOptions(options).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -4598,7 +4598,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void RemoveAssemblyOptions(DEBUG_ASMOPT options)
         {
-            TryRemoveAssemblyOptions(options).ThrowDbgEngNotOk();
+            TryRemoveAssemblyOptions(options).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -4638,7 +4638,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetExpressionSyntaxByName(string abbrevName)
         {
-            TrySetExpressionSyntaxByName(abbrevName).ThrowDbgEngNotOk();
+            TrySetExpressionSyntaxByName(abbrevName).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -4680,7 +4680,7 @@ namespace ClrDebug.DbgEng
         public GetExpressionSyntaxNamesResult GetExpressionSyntaxNames(uint index)
         {
             GetExpressionSyntaxNamesResult result;
-            TryGetExpressionSyntaxNames(index, out result).ThrowDbgEngNotOk();
+            TryGetExpressionSyntaxNames(index, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -4751,7 +4751,7 @@ namespace ClrDebug.DbgEng
         public string GetEventIndexDescription(uint index, DEBUG_EINDEX which)
         {
             string bufferResult;
-            TryGetEventIndexDescription(index, which, out bufferResult).ThrowDbgEngNotOk();
+            TryGetEventIndexDescription(index, which, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -4819,7 +4819,7 @@ namespace ClrDebug.DbgEng
         public uint SetNextEventIndex(DEBUG_EINDEX relation, uint value)
         {
             uint nextIndex;
-            TrySetNextEventIndex(relation, value, out nextIndex).ThrowDbgEngNotOk();
+            TrySetNextEventIndex(relation, value, out nextIndex).ThrowDbgEngNotOK();
 
             return nextIndex;
         }
@@ -4862,7 +4862,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 GetLogFileWideResult result;
-                TryGetLogFileWide(out result).ThrowDbgEngNotOk();
+                TryGetLogFileWide(out result).ThrowDbgEngNotOK();
 
                 return result;
             }
@@ -4923,7 +4923,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetPromptTextWide(out bufferResult).ThrowDbgEngNotOk();
+                TryGetPromptTextWide(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
@@ -4981,7 +4981,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 GetLogFile2Result result;
-                TryGetLogFile2(out result).ThrowDbgEngNotOk();
+                TryGetLogFile2(out result).ThrowDbgEngNotOK();
 
                 return result;
             }
@@ -5040,7 +5040,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 GetLogFile2WideResult result;
-                TryGetLogFile2Wide(out result).ThrowDbgEngNotOk();
+                TryGetLogFile2Wide(out result).ThrowDbgEngNotOK();
 
                 return result;
             }
@@ -5100,7 +5100,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 GetSystemVersionValuesResult result;
-                TryGetSystemVersionValues(out result).ThrowDbgEngNotOk();
+                TryGetSystemVersionValues(out result).ThrowDbgEngNotOK();
 
                 return result;
             }
@@ -5155,7 +5155,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OpenLogFileWide(string file, bool append)
         {
-            TryOpenLogFileWide(file, append).ThrowDbgEngNotOk();
+            TryOpenLogFileWide(file, append).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -5194,7 +5194,7 @@ namespace ClrDebug.DbgEng
         public string InputWide()
         {
             string bufferResult;
-            TryInputWide(out bufferResult).ThrowDbgEngNotOk();
+            TryInputWide(out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -5251,7 +5251,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void ReturnInputWide(string buffer)
         {
-            TryReturnInputWide(buffer).ThrowDbgEngNotOk();
+            TryReturnInputWide(buffer).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -5284,7 +5284,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OutputWide(DEBUG_OUTPUT mask, string format)
         {
-            TryOutputWide(mask, format).ThrowDbgEngNotOk();
+            TryOutputWide(mask, format).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -5326,7 +5326,7 @@ namespace ClrDebug.DbgEng
         [Obsolete("This method cannot be safely called from managed code")]
         public void OutputVaListWide(DEBUG_OUTPUT mask, string format, IntPtr va_list_Args)
         {
-            TryOutputVaListWide(mask, format, va_list_Args).ThrowDbgEngNotOk();
+            TryOutputVaListWide(mask, format, va_list_Args).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -5369,7 +5369,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void ControlledOutputWide(DEBUG_OUTCTL outputControl, DEBUG_OUTPUT mask, string format)
         {
-            TryControlledOutputWide(outputControl, mask, format).ThrowDbgEngNotOk();
+            TryControlledOutputWide(outputControl, mask, format).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -5417,7 +5417,7 @@ namespace ClrDebug.DbgEng
         [Obsolete("This method cannot be safely called from managed code")]
         public void ControlledOutputVaListWide(DEBUG_OUTCTL outputControl, DEBUG_OUTPUT mask, string format, IntPtr va_list_Args)
         {
-            TryControlledOutputVaListWide(outputControl, mask, format, va_list_Args).ThrowDbgEngNotOk();
+            TryControlledOutputVaListWide(outputControl, mask, format, va_list_Args).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -5467,7 +5467,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OutputPromptWide(DEBUG_OUTCTL outputControl, string format)
         {
-            TryOutputPromptWide(outputControl, format).ThrowDbgEngNotOk();
+            TryOutputPromptWide(outputControl, format).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -5514,7 +5514,7 @@ namespace ClrDebug.DbgEng
         [Obsolete("This method cannot be safely called from managed code")]
         public void OutputPromptVaListWide(DEBUG_OUTCTL outputControl, string format, IntPtr va_list_Args)
         {
-            TryOutputPromptVaListWide(outputControl, format, va_list_Args).ThrowDbgEngNotOk();
+            TryOutputPromptVaListWide(outputControl, format, va_list_Args).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -5566,7 +5566,7 @@ namespace ClrDebug.DbgEng
         public ulong AssembleWide(ulong offset, string instr)
         {
             ulong endOffset;
-            TryAssembleWide(offset, instr, out endOffset).ThrowDbgEngNotOk();
+            TryAssembleWide(offset, instr, out endOffset).ThrowDbgEngNotOK();
 
             return endOffset;
         }
@@ -5614,7 +5614,7 @@ namespace ClrDebug.DbgEng
         public DisassembleWideResult DisassembleWide(ulong offset, DEBUG_DISASM flags)
         {
             DisassembleWideResult result;
-            TryDisassembleWide(offset, flags, out result).ThrowDbgEngNotOk();
+            TryDisassembleWide(offset, flags, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -5683,7 +5683,7 @@ namespace ClrDebug.DbgEng
         public GetProcessorTypeNamesWideResult GetProcessorTypeNamesWide(IMAGE_FILE_MACHINE type)
         {
             GetProcessorTypeNamesWideResult result;
-            TryGetProcessorTypeNamesWide(type, out result).ThrowDbgEngNotOk();
+            TryGetProcessorTypeNamesWide(type, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -5755,7 +5755,7 @@ namespace ClrDebug.DbgEng
         public string GetTextMacroWide(uint slot)
         {
             string bufferResult;
-            TryGetTextMacroWide(slot, out bufferResult).ThrowDbgEngNotOk();
+            TryGetTextMacroWide(slot, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -5820,7 +5820,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetTextMacroWide(uint slot, string macro)
         {
-            TrySetTextMacroWide(slot, macro).ThrowDbgEngNotOk();
+            TrySetTextMacroWide(slot, macro).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -5863,7 +5863,7 @@ namespace ClrDebug.DbgEng
         public EvaluateWideResult EvaluateWide(string expression, DEBUG_VALUE_TYPE desiredType)
         {
             EvaluateWideResult result;
-            TryEvaluateWide(expression, desiredType, out result).ThrowDbgEngNotOk();
+            TryEvaluateWide(expression, desiredType, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -5921,7 +5921,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void ExecuteWide(DEBUG_OUTCTL outputControl, string command, DEBUG_EXECUTE flags)
         {
-            TryExecuteWide(outputControl, command, flags).ThrowDbgEngNotOk();
+            TryExecuteWide(outputControl, command, flags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -5966,7 +5966,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void ExecuteCommandFileWide(DEBUG_OUTCTL outputControl, string commandFile, DEBUG_EXECUTE flags)
         {
-            TryExecuteCommandFileWide(outputControl, commandFile, flags).ThrowDbgEngNotOk();
+            TryExecuteCommandFileWide(outputControl, commandFile, flags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -6009,7 +6009,7 @@ namespace ClrDebug.DbgEng
         public DebugBreakpoint GetBreakpointByIndex2(uint index)
         {
             DebugBreakpoint bpResult;
-            TryGetBreakpointByIndex2(index, out bpResult).ThrowDbgEngNotOk();
+            TryGetBreakpointByIndex2(index, out bpResult).ThrowDbgEngNotOK();
 
             return bpResult;
         }
@@ -6056,7 +6056,7 @@ namespace ClrDebug.DbgEng
         public DebugBreakpoint GetBreakpointById2(uint id)
         {
             DebugBreakpoint bpResult;
-            TryGetBreakpointById2(id, out bpResult).ThrowDbgEngNotOk();
+            TryGetBreakpointById2(id, out bpResult).ThrowDbgEngNotOK();
 
             return bpResult;
         }
@@ -6104,7 +6104,7 @@ namespace ClrDebug.DbgEng
         public DebugBreakpoint AddBreakpoint2(DEBUG_BREAKPOINT_TYPE type, uint desiredId)
         {
             DebugBreakpoint bpResult;
-            TryAddBreakpoint2(type, desiredId, out bpResult).ThrowDbgEngNotOk();
+            TryAddBreakpoint2(type, desiredId, out bpResult).ThrowDbgEngNotOK();
 
             return bpResult;
         }
@@ -6152,7 +6152,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void RemoveBreakpoint2(IntPtr bp)
         {
-            TryRemoveBreakpoint2(bp).ThrowDbgEngNotOk();
+            TryRemoveBreakpoint2(bp).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -6191,7 +6191,7 @@ namespace ClrDebug.DbgEng
         public ulong AddExtensionWide(string path, uint flags)
         {
             ulong handle;
-            TryAddExtensionWide(path, flags, out handle).ThrowDbgEngNotOk();
+            TryAddExtensionWide(path, flags, out handle).ThrowDbgEngNotOK();
 
             return handle;
         }
@@ -6236,7 +6236,7 @@ namespace ClrDebug.DbgEng
         public ulong GetExtensionByPathWide(string path)
         {
             ulong handle;
-            TryGetExtensionByPathWide(path, out handle).ThrowDbgEngNotOk();
+            TryGetExtensionByPathWide(path, out handle).ThrowDbgEngNotOK();
 
             return handle;
         }
@@ -6278,7 +6278,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void CallExtensionWide(ulong handle, string function, string arguments)
         {
-            TryCallExtensionWide(handle, function, arguments).ThrowDbgEngNotOk();
+            TryCallExtensionWide(handle, function, arguments).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -6323,7 +6323,7 @@ namespace ClrDebug.DbgEng
         public IntPtr GetExtensionFunctionWide(ulong handle, string funcName)
         {
             IntPtr function;
-            TryGetExtensionFunctionWide(handle, funcName, out function).ThrowDbgEngNotOk();
+            TryGetExtensionFunctionWide(handle, funcName, out function).ThrowDbgEngNotOK();
 
             return function;
         }
@@ -6367,7 +6367,7 @@ namespace ClrDebug.DbgEng
         public string GetEventFilterTextWide(uint index)
         {
             string bufferResult;
-            TryGetEventFilterTextWide(index, out bufferResult).ThrowDbgEngNotOk();
+            TryGetEventFilterTextWide(index, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -6430,7 +6430,7 @@ namespace ClrDebug.DbgEng
         public string GetEventFilterCommandWide(uint index)
         {
             string bufferResult;
-            TryGetEventFilterCommandWide(index, out bufferResult).ThrowDbgEngNotOk();
+            TryGetEventFilterCommandWide(index, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -6492,7 +6492,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetEventFilterCommandWide(uint index, string command)
         {
-            TrySetEventFilterCommandWide(index, command).ThrowDbgEngNotOk();
+            TrySetEventFilterCommandWide(index, command).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -6521,7 +6521,7 @@ namespace ClrDebug.DbgEng
         public string GetSpecificEventFilterArgumentWide(uint index)
         {
             string bufferResult;
-            TryGetSpecificEventFilterArgumentWide(index, out bufferResult).ThrowDbgEngNotOk();
+            TryGetSpecificEventFilterArgumentWide(index, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -6564,7 +6564,7 @@ namespace ClrDebug.DbgEng
 
         public void SetSpecificEventFilterArgumentWide(uint index, string argument)
         {
-            TrySetSpecificEventFilterArgumentWide(index, argument).ThrowDbgEngNotOk();
+            TrySetSpecificEventFilterArgumentWide(index, argument).ThrowDbgEngNotOK();
         }
 
         public HRESULT TrySetSpecificEventFilterArgumentWide(uint index, string argument)
@@ -6593,7 +6593,7 @@ namespace ClrDebug.DbgEng
         public string GetExceptionFilterSecondCommandWide(uint index)
         {
             string bufferResult;
-            TryGetExceptionFilterSecondCommandWide(index, out bufferResult).ThrowDbgEngNotOk();
+            TryGetExceptionFilterSecondCommandWide(index, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -6656,7 +6656,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetExceptionFilterSecondCommandWide(uint index, string command)
         {
-            TrySetExceptionFilterSecondCommandWide(index, command).ThrowDbgEngNotOk();
+            TrySetExceptionFilterSecondCommandWide(index, command).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -6698,7 +6698,7 @@ namespace ClrDebug.DbgEng
         public GetLastEventInformationWideResult GetLastEventInformationWide(IntPtr extraInformation, int descriptionSize)
         {
             GetLastEventInformationWideResult result;
-            TryGetLastEventInformationWide(extraInformation, descriptionSize, out result).ThrowDbgEngNotOk();
+            TryGetLastEventInformationWide(extraInformation, descriptionSize, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -6779,7 +6779,7 @@ namespace ClrDebug.DbgEng
         public GetTextReplacementWideResult GetTextReplacementWide(string srcText, uint index)
         {
             GetTextReplacementWideResult result;
-            TryGetTextReplacementWide(srcText, index, out result).ThrowDbgEngNotOk();
+            TryGetTextReplacementWide(srcText, index, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -6860,7 +6860,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetTextReplacementWide(string srcText, string dstText)
         {
-            TrySetTextReplacementWide(srcText, dstText).ThrowDbgEngNotOk();
+            TrySetTextReplacementWide(srcText, dstText).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -6907,7 +6907,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetExpressionSyntaxByNameWide(string abbrevName)
         {
-            TrySetExpressionSyntaxByNameWide(abbrevName).ThrowDbgEngNotOk();
+            TrySetExpressionSyntaxByNameWide(abbrevName).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -6949,7 +6949,7 @@ namespace ClrDebug.DbgEng
         public GetExpressionSyntaxNamesWideResult GetExpressionSyntaxNamesWide(uint index)
         {
             GetExpressionSyntaxNamesWideResult result;
-            TryGetExpressionSyntaxNamesWide(index, out result).ThrowDbgEngNotOk();
+            TryGetExpressionSyntaxNamesWide(index, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -7020,7 +7020,7 @@ namespace ClrDebug.DbgEng
         public string GetEventIndexDescriptionWide(uint index, DEBUG_EINDEX which)
         {
             string bufferResult;
-            TryGetEventIndexDescriptionWide(index, which, out bufferResult).ThrowDbgEngNotOk();
+            TryGetEventIndexDescriptionWide(index, which, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -7086,7 +7086,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_LOG OpenLogFile2(string file)
         {
             DEBUG_LOG flags;
-            TryOpenLogFile2(file, out flags).ThrowDbgEngNotOk();
+            TryOpenLogFile2(file, out flags).ThrowDbgEngNotOK();
 
             return flags;
         }
@@ -7130,7 +7130,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_LOG OpenLogFile2Wide(string file)
         {
             DEBUG_LOG flags;
-            TryOpenLogFile2Wide(file, out flags).ThrowDbgEngNotOk();
+            TryOpenLogFile2Wide(file, out flags).ThrowDbgEngNotOK();
 
             return flags;
         }
@@ -7171,7 +7171,7 @@ namespace ClrDebug.DbgEng
         public string GetSystemVersionString(DEBUG_SYSVERSTR which)
         {
             string bufferResult;
-            TryGetSystemVersionString(which, out bufferResult).ThrowDbgEngNotOk();
+            TryGetSystemVersionString(which, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -7232,7 +7232,7 @@ namespace ClrDebug.DbgEng
         public string GetSystemVersionStringWide(DEBUG_SYSVERSTR which)
         {
             string bufferResult;
-            TryGetSystemVersionStringWide(which, out bufferResult).ThrowDbgEngNotOk();
+            TryGetSystemVersionStringWide(which, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -7303,7 +7303,7 @@ namespace ClrDebug.DbgEng
         public GetContextStackTraceResult GetContextStackTrace(IntPtr startContext, uint startContextSize, int frameSize, IntPtr frameContexts, uint frameContextsSize, uint frameContextsEntrySize)
         {
             GetContextStackTraceResult result;
-            TryGetContextStackTrace(startContext, startContextSize, frameSize, frameContexts, frameContextsSize, frameContextsEntrySize, out result).ThrowDbgEngNotOk();
+            TryGetContextStackTrace(startContext, startContextSize, frameSize, frameContexts, frameContextsSize, frameContextsEntrySize, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -7370,7 +7370,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OutputContextStackTrace(DEBUG_OUTCTL outputControl, DEBUG_STACK_FRAME[] frames, int framesSize, IntPtr frameContexts, uint frameContextsSize, uint frameContextsEntrySize, DEBUG_STACK flags)
         {
-            TryOutputContextStackTrace(outputControl, frames, framesSize, frameContexts, frameContextsSize, frameContextsEntrySize, flags).ThrowDbgEngNotOk();
+            TryOutputContextStackTrace(outputControl, frames, framesSize, frameContexts, frameContextsSize, frameContextsEntrySize, flags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -7424,7 +7424,7 @@ namespace ClrDebug.DbgEng
         public GetStoredEventInformationResult GetStoredEventInformation(IntPtr context, uint contextSize, IntPtr extraInformation, uint extraInformationSize)
         {
             GetStoredEventInformationResult result;
-            TryGetStoredEventInformation(context, contextSize, extraInformation, extraInformationSize, out result).ThrowDbgEngNotOk();
+            TryGetStoredEventInformation(context, contextSize, extraInformation, extraInformationSize, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -7484,7 +7484,7 @@ namespace ClrDebug.DbgEng
         public GetManagedStatusResult GetManagedStatus(DEBUG_MANSTR whichString)
         {
             GetManagedStatusResult result;
-            TryGetManagedStatus(whichString, out result).ThrowDbgEngNotOk();
+            TryGetManagedStatus(whichString, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -7541,7 +7541,7 @@ namespace ClrDebug.DbgEng
         public GetManagedStatusWideResult GetManagedStatusWide(DEBUG_MANSTR whichString)
         {
             GetManagedStatusWideResult result;
-            TryGetManagedStatusWide(whichString, out result).ThrowDbgEngNotOk();
+            TryGetManagedStatusWide(whichString, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -7596,7 +7596,7 @@ namespace ClrDebug.DbgEng
         /// <param name="flags">[in] Flags for the debugging API.</param>
         public void ResetManagedStatus(DEBUG_MANRESET flags)
         {
-            TryResetManagedStatus(flags).ThrowDbgEngNotOk();
+            TryResetManagedStatus(flags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -7630,7 +7630,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_STACK_FRAME_EX[] GetStackTraceEx(ulong frameOffset, ulong stackOffset, ulong instructionOffset)
         {
             DEBUG_STACK_FRAME_EX[] frames;
-            TryGetStackTraceEx(frameOffset, stackOffset, instructionOffset, out frames).ThrowDbgEngNotOk();
+            TryGetStackTraceEx(frameOffset, stackOffset, instructionOffset, out frames).ThrowDbgEngNotOK();
 
             return frames;
         }
@@ -7687,7 +7687,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OutputStackTraceEx(uint outputControl, DEBUG_STACK_FRAME_EX[] frames, int framesSize, DEBUG_STACK flags)
         {
-            TryOutputStackTraceEx(outputControl, frames, framesSize, flags).ThrowDbgEngNotOk();
+            TryOutputStackTraceEx(outputControl, frames, framesSize, flags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -7740,7 +7740,7 @@ namespace ClrDebug.DbgEng
         public GetContextStackTraceExResult GetContextStackTraceEx(IntPtr startContext, uint startContextSize, int framesSize, IntPtr frameContexts, uint frameContextsSize, uint frameContextsEntrySize)
         {
             GetContextStackTraceExResult result;
-            TryGetContextStackTraceEx(startContext, startContextSize, framesSize, frameContexts, frameContextsSize, frameContextsEntrySize, out result).ThrowDbgEngNotOk();
+            TryGetContextStackTraceEx(startContext, startContextSize, framesSize, frameContexts, frameContextsSize, frameContextsEntrySize, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -7806,7 +7806,7 @@ namespace ClrDebug.DbgEng
         /// <param name="flags">[in] Specifies bit flags that determine what information to output for each frame. Flags can be any combination of values from the following table.</param>
         public void OutputContextStackTraceEx(uint outputControl, DEBUG_STACK_FRAME_EX[] frames, int framesSize, IntPtr frameContexts, uint frameContextsSize, uint frameContextsEntrySize, DEBUG_STACK flags)
         {
-            TryOutputContextStackTraceEx(outputControl, frames, framesSize, frameContexts, frameContextsSize, frameContextsEntrySize, flags).ThrowDbgEngNotOk();
+            TryOutputContextStackTraceEx(outputControl, frames, framesSize, frameContexts, frameContextsSize, frameContextsEntrySize, flags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -7848,7 +7848,7 @@ namespace ClrDebug.DbgEng
         public DebugBreakpoint GetBreakpointByGuid(Guid guid)
         {
             DebugBreakpoint bpResult;
-            TryGetBreakpointByGuid(guid, out bpResult).ThrowDbgEngNotOk();
+            TryGetBreakpointByGuid(guid, out bpResult).ThrowDbgEngNotOK();
 
             return bpResult;
         }
@@ -7889,7 +7889,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 DEBUG_STATUS status;
-                TryGetExecutionStatusEx(out status).ThrowDbgEngNotOk();
+                TryGetExecutionStatusEx(out status).ThrowDbgEngNotOK();
 
                 return status;
             }
@@ -7922,7 +7922,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 GetSynchronizationStatusResult result;
-                TryGetSynchronizationStatus(out result).ThrowDbgEngNotOk();
+                TryGetSynchronizationStatus(out result).ThrowDbgEngNotOK();
 
                 return result;
             }

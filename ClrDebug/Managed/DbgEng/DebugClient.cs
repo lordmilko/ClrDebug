@@ -51,13 +51,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetKernelConnectionOptions(out bufferResult).ThrowDbgEngNotOk();
+                TryGetKernelConnectionOptions(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
             set
             {
-                TrySetKernelConnectionOptions(value).ThrowDbgEngNotOk();
+                TrySetKernelConnectionOptions(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -132,13 +132,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 DEBUG_PROCESS options;
-                TryGetProcessOptions(out options).ThrowDbgEngNotOk();
+                TryGetProcessOptions(out options).ThrowDbgEngNotOK();
 
                 return options;
             }
             set
             {
-                TrySetProcessOptions(value).ThrowDbgEngNotOk();
+                TrySetProcessOptions(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -192,7 +192,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint code;
-                TryGetExitCode(out code).ThrowDbgEngNotOk();
+                TryGetExitCode(out code).ThrowDbgEngNotOK();
 
                 return code;
             }
@@ -226,13 +226,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 IDebugInputCallbacks callbacks;
-                TryGetInputCallbacks(out callbacks).ThrowDbgEngNotOk();
+                TryGetInputCallbacks(out callbacks).ThrowDbgEngNotOK();
 
                 return callbacks;
             }
             set
             {
-                TrySetInputCallbacks(value).ThrowDbgEngNotOk();
+                TrySetInputCallbacks(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -288,13 +288,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 IDebugOutputCallbacks callbacks;
-                TryGetOutputCallbacks(out callbacks).ThrowDbgEngNotOk();
+                TryGetOutputCallbacks(out callbacks).ThrowDbgEngNotOK();
 
                 return callbacks;
             }
             set
             {
-                TrySetOutputCallbacks(value).ThrowDbgEngNotOk();
+                TrySetOutputCallbacks(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -351,13 +351,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 DEBUG_OUTPUT mask;
-                TryGetOutputMask(out mask).ThrowDbgEngNotOk();
+                TryGetOutputMask(out mask).ThrowDbgEngNotOK();
 
                 return mask;
             }
             set
             {
-                TrySetOutputMask(value).ThrowDbgEngNotOk();
+                TrySetOutputMask(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -406,13 +406,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint columns;
-                TryGetOutputWidth(out columns).ThrowDbgEngNotOk();
+                TryGetOutputWidth(out columns).ThrowDbgEngNotOK();
 
                 return columns;
             }
             set
             {
-                TrySetOutputWidth(value).ThrowDbgEngNotOk();
+                TrySetOutputWidth(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -455,13 +455,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetOutputLinePrefix(out bufferResult).ThrowDbgEngNotOk();
+                TryGetOutputLinePrefix(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
             set
             {
-                TrySetOutputLinePrefix(value).ThrowDbgEngNotOk();
+                TrySetOutputLinePrefix(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -531,7 +531,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetIdentity(out bufferResult).ThrowDbgEngNotOk();
+                TryGetIdentity(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
@@ -589,13 +589,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 IDebugEventCallbacks callbacks;
-                TryGetEventCallbacks(out callbacks).ThrowDbgEngNotOk();
+                TryGetEventCallbacks(out callbacks).ThrowDbgEngNotOK();
 
                 return callbacks;
             }
             set
             {
-                TrySetEventCallbacks(value).ThrowDbgEngNotOk();
+                TrySetEventCallbacks(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -656,7 +656,7 @@ namespace ClrDebug.DbgEng
         /// If you have an eXDI interface to your hardware probe or hardware simulator, please contact Microsoft for debugging information.</param>
         public void AttachKernel(DEBUG_ATTACH flags, string connectOptions)
         {
-            TryAttachKernel(flags, connectOptions).ThrowDbgEngNotOk();
+            TryAttachKernel(flags, connectOptions).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -699,7 +699,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void StartProcessServer(DEBUG_CLASS flags, string options, IntPtr reserved)
         {
-            TryStartProcessServer(flags, options, reserved).ThrowDbgEngNotOk();
+            TryStartProcessServer(flags, options, reserved).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -746,7 +746,7 @@ namespace ClrDebug.DbgEng
         public ulong ConnectProcessServer(string remoteOptions)
         {
             ulong server;
-            TryConnectProcessServer(remoteOptions, out server).ThrowDbgEngNotOk();
+            TryConnectProcessServer(remoteOptions, out server).ThrowDbgEngNotOK();
 
             return server;
         }
@@ -785,7 +785,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void DisconnectProcessServer(ulong server)
         {
-            TryDisconnectProcessServer(server).ThrowDbgEngNotOk();
+            TryDisconnectProcessServer(server).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -821,7 +821,7 @@ namespace ClrDebug.DbgEng
         public uint[] GetRunningProcessSystemIds(ulong server)
         {
             uint[] ids;
-            TryGetRunningProcessSystemIds(server, out ids).ThrowDbgEngNotOk();
+            TryGetRunningProcessSystemIds(server, out ids).ThrowDbgEngNotOK();
 
             return ids;
         }
@@ -876,7 +876,7 @@ namespace ClrDebug.DbgEng
         public uint GetRunningProcessSystemIdByExecutableName(ulong server, string exeName, DEBUG_GET_PROC flags)
         {
             uint id;
-            TryGetRunningProcessSystemIdByExecutableName(server, exeName, flags, out id).ThrowDbgEngNotOk();
+            TryGetRunningProcessSystemIdByExecutableName(server, exeName, flags, out id).ThrowDbgEngNotOK();
 
             return id;
         }
@@ -922,7 +922,7 @@ namespace ClrDebug.DbgEng
         public GetRunningProcessDescriptionResult GetRunningProcessDescription(ulong server, uint systemId, DEBUG_PROC_DESC flags)
         {
             GetRunningProcessDescriptionResult result;
-            TryGetRunningProcessDescription(server, systemId, flags, out result).ThrowDbgEngNotOk();
+            TryGetRunningProcessDescription(server, systemId, flags, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -1002,7 +1002,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void AttachProcess(ulong server, uint processID, DEBUG_ATTACH attachFlags)
         {
-            TryAttachProcess(server, processID, attachFlags).ThrowDbgEngNotOk();
+            TryAttachProcess(server, processID, attachFlags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1049,7 +1049,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void CreateProcess(ulong server, string commandLine, DEBUG_CREATE_PROCESS flags)
         {
-            TryCreateProcess(server, commandLine, flags).ThrowDbgEngNotOk();
+            TryCreateProcess(server, commandLine, flags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1095,7 +1095,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void CreateProcessAndAttach(ulong server, string commandLine, DEBUG_CREATE_PROCESS flags, uint processId, DEBUG_ATTACH attachFlags)
         {
-            TryCreateProcessAndAttach(server, commandLine, flags, processId, attachFlags).ThrowDbgEngNotOk();
+            TryCreateProcessAndAttach(server, commandLine, flags, processId, attachFlags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1141,7 +1141,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void AddProcessOptions(DEBUG_PROCESS options)
         {
-            TryAddProcessOptions(options).ThrowDbgEngNotOk();
+            TryAddProcessOptions(options).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1179,7 +1179,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void RemoveProcessOptions(DEBUG_PROCESS options)
         {
-            TryRemoveProcessOptions(options).ThrowDbgEngNotOk();
+            TryRemoveProcessOptions(options).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1215,7 +1215,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OpenDumpFile(string dumpFile)
         {
-            TryOpenDumpFile(dumpFile).ThrowDbgEngNotOk();
+            TryOpenDumpFile(dumpFile).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1256,7 +1256,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void WriteDumpFile(string dumpFile, DEBUG_DUMP qualifier)
         {
-            TryWriteDumpFile(dumpFile, qualifier).ThrowDbgEngNotOk();
+            TryWriteDumpFile(dumpFile, qualifier).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1303,7 +1303,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void ConnectSession(DEBUG_CONNECT_SESSION flags, uint historyLimit)
         {
-            TryConnectSession(flags, historyLimit).ThrowDbgEngNotOk();
+            TryConnectSession(flags, historyLimit).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1344,7 +1344,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void StartServer(string options)
         {
-            TryStartServer(options).ThrowDbgEngNotOk();
+            TryStartServer(options).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1371,7 +1371,7 @@ namespace ClrDebug.DbgEng
 
         public void OutputServer(DEBUG_OUTCTL outputControl, string machine, DEBUG_SERVERS flags)
         {
-            TryOutputServer(outputControl, machine, flags).ThrowDbgEngNotOk();
+            TryOutputServer(outputControl, machine, flags).ThrowDbgEngNotOK();
         }
 
         public HRESULT TryOutputServer(DEBUG_OUTCTL outputControl, string machine, DEBUG_SERVERS flags)
@@ -1398,7 +1398,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void TerminateProcesses()
         {
-            TryTerminateProcesses().ThrowDbgEngNotOk();
+            TryTerminateProcesses().ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1430,7 +1430,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void DetachProcesses()
         {
-            TryDetachProcesses().ThrowDbgEngNotOk();
+            TryDetachProcesses().ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1466,7 +1466,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void EndSession(DEBUG_END flags)
         {
-            TryEndSession(flags).ThrowDbgEngNotOk();
+            TryEndSession(flags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1508,7 +1508,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void DispatchCallbacks(uint timeout)
         {
-            TryDispatchCallbacks(timeout).ThrowDbgEngNotOk();
+            TryDispatchCallbacks(timeout).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1546,7 +1546,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void ExitDispatch(IntPtr client)
         {
-            TryExitDispatch(client).ThrowDbgEngNotOk();
+            TryExitDispatch(client).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1582,7 +1582,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void CreateClient(IntPtr client)
         {
-            TryCreateClient(client).ThrowDbgEngNotOk();
+            TryCreateClient(client).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1619,7 +1619,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_OUTPUT GetOtherOutputMask(IntPtr client)
         {
             DEBUG_OUTPUT mask;
-            TryGetOtherOutputMask(client, out mask).ThrowDbgEngNotOk();
+            TryGetOtherOutputMask(client, out mask).ThrowDbgEngNotOK();
 
             return mask;
         }
@@ -1656,7 +1656,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetOtherOutputMask(IntPtr client, DEBUG_OUTPUT mask)
         {
-            TrySetOtherOutputMask(client, mask).ThrowDbgEngNotOk();
+            TrySetOtherOutputMask(client, mask).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1693,7 +1693,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OutputIdentity(DEBUG_OUTCTL outputControl, uint flags, string format)
         {
-            TryOutputIdentity(outputControl, flags, format).ThrowDbgEngNotOk();
+            TryOutputIdentity(outputControl, flags, format).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1733,7 +1733,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void FlushCallbacks()
         {
-            TryFlushCallbacks().ThrowDbgEngNotOk();
+            TryFlushCallbacks().ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1768,7 +1768,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 HRESULT hr = TryIsKernelDebuggerEnabled();
-                hr.ThrowDbgEngNotOk();
+                hr.ThrowDbgEngNotOK();
 
                 return hr == HRESULT.S_OK;
             }
@@ -1813,7 +1813,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void WriteDumpFile2(string dumpFile, DEBUG_DUMP qualifier, DEBUG_FORMAT formatFlags, string comment)
         {
-            TryWriteDumpFile2(dumpFile, qualifier, formatFlags, comment).ThrowDbgEngNotOk();
+            TryWriteDumpFile2(dumpFile, qualifier, formatFlags, comment).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1860,7 +1860,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void AddDumpInformationFile(string infoFile, DEBUG_DUMP_FILE type)
         {
-            TryAddDumpInformationFile(infoFile, type).ThrowDbgEngNotOk();
+            TryAddDumpInformationFile(infoFile, type).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1898,7 +1898,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void EndProcessServer(ulong server)
         {
-            TryEndProcessServer(server).ThrowDbgEngNotOk();
+            TryEndProcessServer(server).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1933,7 +1933,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void WaitForProcessServerEnd(uint timeout)
         {
-            TryWaitForProcessServerEnd(timeout).ThrowDbgEngNotOk();
+            TryWaitForProcessServerEnd(timeout).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1968,7 +1968,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void TerminateCurrentProcess()
         {
-            TryTerminateCurrentProcess().ThrowDbgEngNotOk();
+            TryTerminateCurrentProcess().ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -2000,7 +2000,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void DetachCurrentProcess()
         {
-            TryDetachCurrentProcess().ThrowDbgEngNotOk();
+            TryDetachCurrentProcess().ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -2033,7 +2033,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void AbandonCurrentProcess()
         {
-            TryAbandonCurrentProcess().ThrowDbgEngNotOk();
+            TryAbandonCurrentProcess().ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -2073,7 +2073,7 @@ namespace ClrDebug.DbgEng
         public uint GetRunningProcessSystemIdByExecutableNameWide(ulong server, string exeName, DEBUG_GET_PROC flags)
         {
             uint id;
-            TryGetRunningProcessSystemIdByExecutableNameWide(server, exeName, flags, out id).ThrowDbgEngNotOk();
+            TryGetRunningProcessSystemIdByExecutableNameWide(server, exeName, flags, out id).ThrowDbgEngNotOK();
 
             return id;
         }
@@ -2119,7 +2119,7 @@ namespace ClrDebug.DbgEng
         public GetRunningProcessDescriptionWideResult GetRunningProcessDescriptionWide(ulong server, uint systemId, DEBUG_PROC_DESC flags)
         {
             GetRunningProcessDescriptionWideResult result;
-            TryGetRunningProcessDescriptionWide(server, systemId, flags, out result).ThrowDbgEngNotOk();
+            TryGetRunningProcessDescriptionWide(server, systemId, flags, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -2200,7 +2200,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void CreateProcessWide(ulong server, string commandLine, DEBUG_CREATE_PROCESS createFlags)
         {
-            TryCreateProcessWide(server, commandLine, createFlags).ThrowDbgEngNotOk();
+            TryCreateProcessWide(server, commandLine, createFlags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -2251,7 +2251,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void CreateProcessAndAttachWide(ulong server, string commandLine, DEBUG_CREATE_PROCESS createFlags, uint processId, DEBUG_ATTACH attachFlags)
         {
-            TryCreateProcessAndAttachWide(server, commandLine, createFlags, processId, attachFlags).ThrowDbgEngNotOk();
+            TryCreateProcessAndAttachWide(server, commandLine, createFlags, processId, attachFlags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -2298,7 +2298,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint number;
-                TryGetNumberDumpFiles(out number).ThrowDbgEngNotOk();
+                TryGetNumberDumpFiles(out number).ThrowDbgEngNotOK();
 
                 return number;
             }
@@ -2337,7 +2337,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OpenDumpFileWide(string fileName, ulong fileHandle)
         {
-            TryOpenDumpFileWide(fileName, fileHandle).ThrowDbgEngNotOk();
+            TryOpenDumpFileWide(fileName, fileHandle).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -2380,7 +2380,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void WriteDumpFileWide(string dumpFile, ulong fileHandle, DEBUG_DUMP qualifier, DEBUG_FORMAT formatFlags, string comment)
         {
-            TryWriteDumpFileWide(dumpFile, fileHandle, qualifier, formatFlags, comment).ThrowDbgEngNotOk();
+            TryWriteDumpFileWide(dumpFile, fileHandle, qualifier, formatFlags, comment).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -2427,7 +2427,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void AddDumpInformationFileWide(string fileName, ulong fileHandle, DEBUG_DUMP_FILE type)
         {
-            TryAddDumpInformationFileWide(fileName, fileHandle, type).ThrowDbgEngNotOk();
+            TryAddDumpInformationFileWide(fileName, fileHandle, type).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -2468,7 +2468,7 @@ namespace ClrDebug.DbgEng
         public GetDumpFileResult GetDumpFile(uint index)
         {
             GetDumpFileResult result;
-            TryGetDumpFile(index, out result).ThrowDbgEngNotOk();
+            TryGetDumpFile(index, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -2533,7 +2533,7 @@ namespace ClrDebug.DbgEng
         public GetDumpFileWideResult GetDumpFileWide(uint index)
         {
             GetDumpFileWideResult result;
-            TryGetDumpFileWide(index, out result).ThrowDbgEngNotOk();
+            TryGetDumpFileWide(index, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -2597,13 +2597,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetKernelConnectionOptionsWide(out bufferResult).ThrowDbgEngNotOk();
+                TryGetKernelConnectionOptionsWide(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
             set
             {
-                TrySetKernelConnectionOptionsWide(value).ThrowDbgEngNotOk();
+                TrySetKernelConnectionOptionsWide(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -2678,13 +2678,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 IDebugOutputCallbacksWide callbacks;
-                TryGetOutputCallbacksWide(out callbacks).ThrowDbgEngNotOk();
+                TryGetOutputCallbacksWide(out callbacks).ThrowDbgEngNotOK();
 
                 return callbacks;
             }
             set
             {
-                TrySetOutputCallbacksWide(value).ThrowDbgEngNotOk();
+                TrySetOutputCallbacksWide(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -2741,13 +2741,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetOutputLinePrefixWide(out bufferResult).ThrowDbgEngNotOk();
+                TryGetOutputLinePrefixWide(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
             set
             {
-                TrySetOutputLinePrefixWide(value).ThrowDbgEngNotOk();
+                TrySetOutputLinePrefixWide(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -2813,7 +2813,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetIdentityWide(out bufferResult).ThrowDbgEngNotOk();
+                TryGetIdentityWide(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
@@ -2871,13 +2871,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 IDebugEventCallbacksWide callbacks;
-                TryGetEventCallbacksWide(out callbacks).ThrowDbgEngNotOk();
+                TryGetEventCallbacksWide(out callbacks).ThrowDbgEngNotOK();
 
                 return callbacks;
             }
             set
             {
-                TrySetEventCallbacksWide(value).ThrowDbgEngNotOk();
+                TrySetEventCallbacksWide(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -2937,7 +2937,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint count;
-                TryGetNumberInputCallbacks(out count).ThrowDbgEngNotOk();
+                TryGetNumberInputCallbacks(out count).ThrowDbgEngNotOK();
 
                 return count;
             }
@@ -2971,7 +2971,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint count;
-                TryGetNumberOutputCallbacks(out count).ThrowDbgEngNotOk();
+                TryGetNumberOutputCallbacks(out count).ThrowDbgEngNotOK();
 
                 return count;
             }
@@ -3006,13 +3006,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetQuitLockString(out bufferResult).ThrowDbgEngNotOk();
+                TryGetQuitLockString(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
             set
             {
-                TrySetQuitLockString(value).ThrowDbgEngNotOk();
+                TrySetQuitLockString(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -3081,13 +3081,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetQuitLockStringWide(out bufferResult).ThrowDbgEngNotOk();
+                TryGetQuitLockStringWide(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
             set
             {
-                TrySetQuitLockStringWide(value).ThrowDbgEngNotOk();
+                TrySetQuitLockStringWide(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -3158,7 +3158,7 @@ namespace ClrDebug.DbgEng
         /// If you have an eXDI interface to your hardware probe or hardware simulator, please contact Microsoft for debugging information.</param>
         public void AttachKernelWide(DEBUG_ATTACH flags, string connectOptions)
         {
-            TryAttachKernelWide(flags, connectOptions).ThrowDbgEngNotOk();
+            TryAttachKernelWide(flags, connectOptions).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -3201,7 +3201,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void StartProcessServerWide(DEBUG_CLASS flags, string options, IntPtr reserved)
         {
-            TryStartProcessServerWide(flags, options, reserved).ThrowDbgEngNotOk();
+            TryStartProcessServerWide(flags, options, reserved).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -3248,7 +3248,7 @@ namespace ClrDebug.DbgEng
         public ulong ConnectProcessServerWide(string remoteOptions)
         {
             ulong server;
-            TryConnectProcessServerWide(remoteOptions, out server).ThrowDbgEngNotOk();
+            TryConnectProcessServerWide(remoteOptions, out server).ThrowDbgEngNotOK();
 
             return server;
         }
@@ -3288,7 +3288,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void StartServerWide(string options)
         {
-            TryStartServerWide(options).ThrowDbgEngNotOk();
+            TryStartServerWide(options).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -3324,7 +3324,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OutputServersWide(DEBUG_OUTCTL outputControl, string machine, DEBUG_SERVERS flags)
         {
-            TryOutputServersWide(outputControl, machine, flags).ThrowDbgEngNotOk();
+            TryOutputServersWide(outputControl, machine, flags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -3363,7 +3363,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OutputIdentityWide(DEBUG_OUTCTL outputControl, uint flags, string machine)
         {
-            TryOutputIdentityWide(outputControl, flags, machine).ThrowDbgEngNotOk();
+            TryOutputIdentityWide(outputControl, flags, machine).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -3410,7 +3410,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void CreateProcess2(ulong server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, uint optionsBufferSize, string initialDirectory, string environment)
         {
-            TryCreateProcess2(server, commandLine, optionsBuffer, optionsBufferSize, initialDirectory, environment).ThrowDbgEngNotOk();
+            TryCreateProcess2(server, commandLine, optionsBuffer, optionsBufferSize, initialDirectory, environment).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -3467,7 +3467,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void CreateProcess2Wide(ulong server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, uint optionsBufferSize, string initialDirectory, string environment)
         {
-            TryCreateProcess2Wide(server, commandLine, optionsBuffer, optionsBufferSize, initialDirectory, environment).ThrowDbgEngNotOk();
+            TryCreateProcess2Wide(server, commandLine, optionsBuffer, optionsBufferSize, initialDirectory, environment).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -3526,7 +3526,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void CreateProcessAndAttach2(ulong server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, uint optionsBufferSize, string initialDirectory, string environment, uint processId, DEBUG_ATTACH attachFlags)
         {
-            TryCreateProcessAndAttach2(server, commandLine, optionsBuffer, optionsBufferSize, initialDirectory, environment, processId, attachFlags).ThrowDbgEngNotOk();
+            TryCreateProcessAndAttach2(server, commandLine, optionsBuffer, optionsBufferSize, initialDirectory, environment, processId, attachFlags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -3589,7 +3589,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void CreateProcessAndAttach2Wide(ulong server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, uint optionsBufferSize, string initialDirectory, string environment, uint processId, DEBUG_ATTACH attachFlags)
         {
-            TryCreateProcessAndAttach2Wide(server, commandLine, optionsBuffer, optionsBufferSize, initialDirectory, environment, processId, attachFlags).ThrowDbgEngNotOk();
+            TryCreateProcessAndAttach2Wide(server, commandLine, optionsBuffer, optionsBufferSize, initialDirectory, environment, processId, attachFlags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -3636,7 +3636,7 @@ namespace ClrDebug.DbgEng
         public ulong PushOutputLinePrefix(string newPrefix)
         {
             ulong handle;
-            TryPushOutputLinePrefix(newPrefix, out handle).ThrowDbgEngNotOk();
+            TryPushOutputLinePrefix(newPrefix, out handle).ThrowDbgEngNotOK();
 
             return handle;
         }
@@ -3662,7 +3662,7 @@ namespace ClrDebug.DbgEng
         public ulong PushOutputLinePrefixWide(string newPrefix)
         {
             ulong handle;
-            TryPushOutputLinePrefixWide(newPrefix, out handle).ThrowDbgEngNotOk();
+            TryPushOutputLinePrefixWide(newPrefix, out handle).ThrowDbgEngNotOK();
 
             return handle;
         }
@@ -3689,7 +3689,7 @@ namespace ClrDebug.DbgEng
         /// <param name="handle">[in] The handle of a previously pushed prefix.</param>
         public void PopOutputLinePrefix(ulong handle)
         {
-            TryPopOutputLinePrefix(handle).ThrowDbgEngNotOk();
+            TryPopOutputLinePrefix(handle).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -3723,7 +3723,7 @@ namespace ClrDebug.DbgEng
         public uint GetNumberEventCallbacks(DEBUG_EVENT_TYPE flags)
         {
             uint count;
-            TryGetNumberEventCallbacks(flags, out count).ThrowDbgEngNotOk();
+            TryGetNumberEventCallbacks(flags, out count).ThrowDbgEngNotOK();
 
             return count;
         }
@@ -3761,7 +3761,7 @@ namespace ClrDebug.DbgEng
         /// <param name="callbacks">[in, optional] The interface pointer to the event callbacks object.</param>
         public void SetEventContextCallbacks(IDebugEventContextCallbacks callbacks)
         {
-            TrySetEventContextCallbacks(callbacks).ThrowDbgEngNotOk();
+            TrySetEventContextCallbacks(callbacks).ThrowDbgEngNotOK();
         }
 
         /// <summary>

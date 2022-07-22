@@ -45,7 +45,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void GetThreadContext(IntPtr context, uint contextSize)
         {
-            TryGetThreadContext(context, contextSize).ThrowDbgEngNotOk();
+            TryGetThreadContext(context, contextSize).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetThreadContext(IntPtr context, uint contextSize)
         {
-            TrySetThreadContext(context, contextSize).ThrowDbgEngNotOk();
+            TrySetThreadContext(context, contextSize).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace ClrDebug.DbgEng
         public int Request(DEBUG_REQUEST request, IntPtr inBuffer, int inBufferSize, IntPtr outBuffer, int outBufferSize)
         {
             int outSize;
-            TryRequest(request, inBuffer, inBufferSize, outBuffer, outBufferSize, out outSize).ThrowDbgEngNotOk();
+            TryRequest(request, inBuffer, inBufferSize, outBuffer, outBufferSize, out outSize).ThrowDbgEngNotOK();
 
             return outSize;
         }
@@ -180,7 +180,7 @@ namespace ClrDebug.DbgEng
         public int GetSourceFileInformation(DEBUG_SRCFILE which, string sourceFile, ulong arg64, uint arg32, IntPtr buffer, int bufferSize)
         {
             int infoSize;
-            TryGetSourceFileInformation(which, sourceFile, arg64, arg32, buffer, bufferSize, out infoSize).ThrowDbgEngNotOk();
+            TryGetSourceFileInformation(which, sourceFile, arg64, arg32, buffer, bufferSize, out infoSize).ThrowDbgEngNotOK();
 
             return infoSize;
         }
@@ -258,7 +258,7 @@ namespace ClrDebug.DbgEng
         public FindSourceFileAndTokenResult FindSourceFileAndToken(uint startElement, ulong modAddr, string file, DEBUG_FIND_SOURCE flags, IntPtr fileToken, int bufferSize)
         {
             FindSourceFileAndTokenResult result;
-            TryFindSourceFileAndToken(startElement, modAddr, file, flags, fileToken, bufferSize, out result).ThrowDbgEngNotOk();
+            TryFindSourceFileAndToken(startElement, modAddr, file, flags, fileToken, bufferSize, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -358,7 +358,7 @@ namespace ClrDebug.DbgEng
         public GetSymbolInformationResult GetSymbolInformation(DEBUG_SYMINFO which, ulong arg64, uint arg32, IntPtr buffer, int stringBufferSize)
         {
             GetSymbolInformationResult result;
-            TryGetSymbolInformation(which, arg64, arg32, buffer, stringBufferSize, out result).ThrowDbgEngNotOk();
+            TryGetSymbolInformation(which, arg64, arg32, buffer, stringBufferSize, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -434,7 +434,7 @@ namespace ClrDebug.DbgEng
         public int GetSystemObjectInformation(DEBUG_SYSOBJINFO which, ulong arg64, uint arg32, IntPtr buffer, int bufferSize)
         {
             int infoSize;
-            TryGetSystemObjectInformation(which, arg64, arg32, buffer, bufferSize, out infoSize).ThrowDbgEngNotOk();
+            TryGetSystemObjectInformation(which, arg64, arg32, buffer, bufferSize, out infoSize).ThrowDbgEngNotOK();
 
             return infoSize;
         }
@@ -490,7 +490,7 @@ namespace ClrDebug.DbgEng
         public int GetSourceFileInformationWide(DEBUG_SRCFILE which, string sourceFile, ulong arg64, uint arg32, IntPtr buffer, int bufferSize)
         {
             int infoSize;
-            TryGetSourceFileInformationWide(which, sourceFile, arg64, arg32, buffer, bufferSize, out infoSize).ThrowDbgEngNotOk();
+            TryGetSourceFileInformationWide(which, sourceFile, arg64, arg32, buffer, bufferSize, out infoSize).ThrowDbgEngNotOK();
 
             return infoSize;
         }
@@ -563,7 +563,7 @@ namespace ClrDebug.DbgEng
         public FindSourceFileAndTokenWideResult FindSourceFileAndTokenWide(uint startElement, ulong modAddr, string file, DEBUG_FIND_SOURCE flags, IntPtr fileToken, int bufferSize)
         {
             FindSourceFileAndTokenWideResult result;
-            TryFindSourceFileAndTokenWide(startElement, modAddr, file, flags, fileToken, bufferSize, out result).ThrowDbgEngNotOk();
+            TryFindSourceFileAndTokenWide(startElement, modAddr, file, flags, fileToken, bufferSize, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -658,7 +658,7 @@ namespace ClrDebug.DbgEng
         public GetSymbolInformationWideResult GetSymbolInformationWide(DEBUG_SYMINFO which, ulong arg64, uint arg32, IntPtr buffer, int stringBufferSize)
         {
             GetSymbolInformationWideResult result;
-            TryGetSymbolInformationWide(which, arg64, arg32, buffer, stringBufferSize, out result).ThrowDbgEngNotOk();
+            TryGetSymbolInformationWide(which, arg64, arg32, buffer, stringBufferSize, out result).ThrowDbgEngNotOK();
 
             return result;
         }

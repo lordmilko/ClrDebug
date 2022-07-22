@@ -54,7 +54,7 @@ namespace ClrDebug.DbgEng
         public uint ReadVirtual(ulong offset, IntPtr buffer, uint bufferSize)
         {
             uint bytesRead;
-            TryReadVirtual(offset, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOk();
+            TryReadVirtual(offset, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOK();
 
             return bytesRead;
         }
@@ -103,7 +103,7 @@ namespace ClrDebug.DbgEng
         public uint WriteVirtual(ulong offset, IntPtr buffer, uint bufferSize)
         {
             uint bytesWritten;
-            TryWriteVirtual(offset, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOk();
+            TryWriteVirtual(offset, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOK();
 
             return bytesWritten;
         }
@@ -154,7 +154,7 @@ namespace ClrDebug.DbgEng
         public ulong SearchVirtual(ulong offset, ulong length, IntPtr pattern, uint patternSize, uint patternGranularity)
         {
             ulong matchOffset;
-            TrySearchVirtual(offset, length, pattern, patternSize, patternGranularity, out matchOffset).ThrowDbgEngNotOk();
+            TrySearchVirtual(offset, length, pattern, patternSize, patternGranularity, out matchOffset).ThrowDbgEngNotOK();
 
             return matchOffset;
         }
@@ -209,7 +209,7 @@ namespace ClrDebug.DbgEng
         public uint ReadVirtualUncached(ulong offset, IntPtr buffer, uint bufferSize)
         {
             uint bytesRead;
-            TryReadVirtualUncached(offset, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOk();
+            TryReadVirtualUncached(offset, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOK();
 
             return bytesRead;
         }
@@ -259,7 +259,7 @@ namespace ClrDebug.DbgEng
         public uint WriteVirtualUncached(ulong offset, IntPtr buffer, uint bufferSize)
         {
             uint bytesWritten;
-            TryWriteVirtualUncached(offset, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOk();
+            TryWriteVirtualUncached(offset, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOK();
 
             return bytesWritten;
         }
@@ -306,7 +306,7 @@ namespace ClrDebug.DbgEng
         public ulong[] ReadPointersVirtual(uint count, ulong offset)
         {
             ulong[] ptrs;
-            TryReadPointersVirtual(count, offset, out ptrs).ThrowDbgEngNotOk();
+            TryReadPointersVirtual(count, offset, out ptrs).ThrowDbgEngNotOK();
 
             return ptrs;
         }
@@ -350,7 +350,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void WritePointersVirtual(uint count, ulong offset, ulong[] ptrs)
         {
-            TryWritePointersVirtual(count, offset, ptrs).ThrowDbgEngNotOk();
+            TryWritePointersVirtual(count, offset, ptrs).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -391,7 +391,7 @@ namespace ClrDebug.DbgEng
         public uint ReadPhysical(ulong offset, IntPtr buffer, uint bufferSize)
         {
             uint bytesRead;
-            TryReadPhysical(offset, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOk();
+            TryReadPhysical(offset, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOK();
 
             return bytesRead;
         }
@@ -435,7 +435,7 @@ namespace ClrDebug.DbgEng
         public uint WritePhysical(ulong offset, IntPtr buffer, uint bufferSize)
         {
             uint bytesWritten;
-            TryWritePhysical(offset, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOk();
+            TryWritePhysical(offset, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOK();
 
             return bytesWritten;
         }
@@ -480,7 +480,7 @@ namespace ClrDebug.DbgEng
         public uint ReadControl(uint processor, ulong offset, IntPtr buffer, int bufferSize)
         {
             uint bytesRead;
-            TryReadControl(processor, offset, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOk();
+            TryReadControl(processor, offset, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOK();
 
             return bytesRead;
         }
@@ -527,7 +527,7 @@ namespace ClrDebug.DbgEng
         public uint WriteControl(uint processor, ulong offset, IntPtr buffer, int bufferSize)
         {
             uint bytesWritten;
-            TryWriteControl(processor, offset, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOk();
+            TryWriteControl(processor, offset, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOK();
 
             return bytesWritten;
         }
@@ -576,7 +576,7 @@ namespace ClrDebug.DbgEng
         public uint ReadIo(INTERFACE_TYPE interfaceType, uint busNumber, uint addressSpace, ulong offset, IntPtr buffer, uint bufferSize)
         {
             uint bytesRead;
-            TryReadIo(interfaceType, busNumber, addressSpace, offset, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOk();
+            TryReadIo(interfaceType, busNumber, addressSpace, offset, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOK();
 
             return bytesRead;
         }
@@ -629,7 +629,7 @@ namespace ClrDebug.DbgEng
         public uint WriteIo(INTERFACE_TYPE interfaceType, uint busNumber, uint addressSpace, ulong offset, IntPtr buffer, uint bufferSize)
         {
             uint bytesWritten;
-            TryWriteIo(interfaceType, busNumber, addressSpace, offset, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOk();
+            TryWriteIo(interfaceType, busNumber, addressSpace, offset, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOK();
 
             return bytesWritten;
         }
@@ -678,7 +678,7 @@ namespace ClrDebug.DbgEng
         public ulong ReadMsr(uint msr)
         {
             ulong msrValue;
-            TryReadMsr(msr, out msrValue).ThrowDbgEngNotOk();
+            TryReadMsr(msr, out msrValue).ThrowDbgEngNotOK();
 
             return msrValue;
         }
@@ -717,7 +717,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void WriteMsr(uint msr, ulong msrValue)
         {
-            TryWriteMsr(msr, msrValue).ThrowDbgEngNotOk();
+            TryWriteMsr(msr, msrValue).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -760,7 +760,7 @@ namespace ClrDebug.DbgEng
         public uint ReadBusData(BUS_DATA_TYPE busDataType, uint busNumber, uint slotNumber, uint offset, IntPtr buffer, uint bufferSize)
         {
             uint bytesRead;
-            TryReadBusData(busDataType, busNumber, slotNumber, offset, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOk();
+            TryReadBusData(busDataType, busNumber, slotNumber, offset, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOK();
 
             return bytesRead;
         }
@@ -815,7 +815,7 @@ namespace ClrDebug.DbgEng
         public uint WriteBusData(BUS_DATA_TYPE busDataType, uint busNumber, uint slotNumber, uint offset, IntPtr buffer, uint bufferSize)
         {
             uint bytesWritten;
-            TryWriteBusData(busDataType, busNumber, slotNumber, offset, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOk();
+            TryWriteBusData(busDataType, busNumber, slotNumber, offset, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOK();
 
             return bytesWritten;
         }
@@ -866,7 +866,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void CheckLowMemory()
         {
-            TryCheckLowMemory().ThrowDbgEngNotOk();
+            TryCheckLowMemory().ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -911,10 +911,10 @@ namespace ClrDebug.DbgEng
         /// ReadDebuggerData, see Microsoft Windows Internals by David Solomon and Mark Russinovich, the Microsoft Windows
         /// SDK, and the Windows Driver Kit (WDK).
         /// </remarks>
-        public uint ReadDebuggerData(uint index, IntPtr buffer, uint bufferSize)
+        public uint ReadDebuggerData(DEBUG_DATA index, IntPtr buffer, uint bufferSize)
         {
             uint dataSize;
-            TryReadDebuggerData(index, buffer, bufferSize, out dataSize).ThrowDbgEngNotOk();
+            TryReadDebuggerData(index, buffer, bufferSize, out dataSize).ThrowDbgEngNotOK();
 
             return dataSize;
         }
@@ -939,12 +939,12 @@ namespace ClrDebug.DbgEng
         /// ReadDebuggerData, see Microsoft Windows Internals by David Solomon and Mark Russinovich, the Microsoft Windows
         /// SDK, and the Windows Driver Kit (WDK).
         /// </remarks>
-        public HRESULT TryReadDebuggerData(uint index, IntPtr buffer, uint bufferSize, out uint dataSize)
+        public HRESULT TryReadDebuggerData(DEBUG_DATA index, IntPtr buffer, uint bufferSize, out uint dataSize)
         {
             InitDelegate(ref readDebuggerData, Vtbl->ReadDebuggerData);
 
             /*HRESULT ReadDebuggerData(
-            [In] uint Index,
+            [In] DEBUG_DATA Index,
             [Out] IntPtr Buffer,
             [In] uint BufferSize,
             [Out] out uint DataSize);*/
@@ -972,7 +972,7 @@ namespace ClrDebug.DbgEng
         public uint ReadProcessorSystemData(uint processor, DEBUG_DATA index, IntPtr buffer, uint bufferSize)
         {
             uint dataSize;
-            TryReadProcessorSystemData(processor, index, buffer, bufferSize, out dataSize).ThrowDbgEngNotOk();
+            TryReadProcessorSystemData(processor, index, buffer, bufferSize, out dataSize).ThrowDbgEngNotOK();
 
             return dataSize;
         }
@@ -1022,7 +1022,7 @@ namespace ClrDebug.DbgEng
         public ulong VirtualToPhysical(ulong @virtual)
         {
             ulong physical;
-            TryVirtualToPhysical(@virtual, out physical).ThrowDbgEngNotOk();
+            TryVirtualToPhysical(@virtual, out physical).ThrowDbgEngNotOK();
 
             return physical;
         }
@@ -1065,7 +1065,7 @@ namespace ClrDebug.DbgEng
         public ulong[] GetVirtualTranslationPhysicalOffsets(ulong @virtual)
         {
             ulong[] offsets;
-            TryGetVirtualTranslationPhysicalOffsets(@virtual, out offsets).ThrowDbgEngNotOk();
+            TryGetVirtualTranslationPhysicalOffsets(@virtual, out offsets).ThrowDbgEngNotOK();
 
             return offsets;
         }
@@ -1127,7 +1127,7 @@ namespace ClrDebug.DbgEng
         public uint ReadHandleData(ulong handle, DEBUG_HANDLE_DATA_TYPE dataType, IntPtr buffer, uint bufferSize)
         {
             uint dataSize;
-            TryReadHandleData(handle, dataType, buffer, bufferSize, out dataSize).ThrowDbgEngNotOk();
+            TryReadHandleData(handle, dataType, buffer, bufferSize, out dataSize).ThrowDbgEngNotOK();
 
             return dataSize;
         }
@@ -1180,7 +1180,7 @@ namespace ClrDebug.DbgEng
         public uint FillVirtual(ulong start, uint size, IntPtr buffer, uint patternSize)
         {
             uint filled;
-            TryFillVirtual(start, size, buffer, patternSize, out filled).ThrowDbgEngNotOk();
+            TryFillVirtual(start, size, buffer, patternSize, out filled).ThrowDbgEngNotOK();
 
             return filled;
         }
@@ -1233,7 +1233,7 @@ namespace ClrDebug.DbgEng
         public uint FillPhysical(ulong start, uint size, IntPtr buffer, uint patternSize)
         {
             uint filled;
-            TryFillPhysical(start, size, buffer, patternSize, out filled).ThrowDbgEngNotOk();
+            TryFillPhysical(start, size, buffer, patternSize, out filled).ThrowDbgEngNotOK();
 
             return filled;
         }
@@ -1284,7 +1284,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void QueryVirtual(ulong offset, IntPtr info)
         {
-            TryQueryVirtual(offset, info).ThrowDbgEngNotOk();
+            TryQueryVirtual(offset, info).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1331,7 +1331,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void ReadImageNtHeaders(ulong imageBase, IntPtr headers)
         {
-            TryReadImageNtHeaders(imageBase, headers).ThrowDbgEngNotOk();
+            TryReadImageNtHeaders(imageBase, headers).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1378,7 +1378,7 @@ namespace ClrDebug.DbgEng
         public uint ReadTagged(Guid tag, uint offset, IntPtr buffer, uint bufferSize)
         {
             uint totalSize;
-            TryReadTagged(tag, offset, buffer, bufferSize, out totalSize).ThrowDbgEngNotOk();
+            TryReadTagged(tag, offset, buffer, bufferSize, out totalSize).ThrowDbgEngNotOK();
 
             return totalSize;
         }
@@ -1425,7 +1425,7 @@ namespace ClrDebug.DbgEng
         public ulong StartEnumTagged()
         {
             ulong handle;
-            TryStartEnumTagged(out handle).ThrowDbgEngNotOk();
+            TryStartEnumTagged(out handle).ThrowDbgEngNotOK();
 
             return handle;
         }
@@ -1458,7 +1458,7 @@ namespace ClrDebug.DbgEng
         public GetNextTaggedResult GetNextTagged(ulong handle)
         {
             GetNextTaggedResult result;
-            TryGetNextTagged(handle, out result).ThrowDbgEngNotOk();
+            TryGetNextTagged(handle, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -1500,7 +1500,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void EndEnumTagged(ulong handle)
         {
-            TryEndEnumTagged(handle).ThrowDbgEngNotOk();
+            TryEndEnumTagged(handle).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -1541,7 +1541,7 @@ namespace ClrDebug.DbgEng
         public uint GetOffsetInformation(DEBUG_DATA_SPACE space, DEBUG_OFFSINFO which, ulong offset, IntPtr buffer, uint bufferSize)
         {
             uint infoSize;
-            TryGetOffsetInformation(space, which, offset, buffer, bufferSize, out infoSize).ThrowDbgEngNotOk();
+            TryGetOffsetInformation(space, which, offset, buffer, bufferSize, out infoSize).ThrowDbgEngNotOK();
 
             return infoSize;
         }
@@ -1590,7 +1590,7 @@ namespace ClrDebug.DbgEng
         public ulong GetNextDifferentlyValidOffsetVirtual(ulong offset)
         {
             ulong nextOffset;
-            TryGetNextDifferentlyValidOffsetVirtual(offset, out nextOffset).ThrowDbgEngNotOk();
+            TryGetNextDifferentlyValidOffsetVirtual(offset, out nextOffset).ThrowDbgEngNotOK();
 
             return nextOffset;
         }
@@ -1628,7 +1628,7 @@ namespace ClrDebug.DbgEng
         public GetValidRegionVirtualResult GetValidRegionVirtual(ulong @base, uint size)
         {
             GetValidRegionVirtualResult result;
-            TryGetValidRegionVirtual(@base, size, out result).ThrowDbgEngNotOk();
+            TryGetValidRegionVirtual(@base, size, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -1682,7 +1682,7 @@ namespace ClrDebug.DbgEng
         public ulong SearchVirtual2(ulong offset, ulong length, DEBUG_VSEARCH flags, IntPtr buffer, uint patternSize, uint patternGranularity)
         {
             ulong matchOffset;
-            TrySearchVirtual2(offset, length, flags, buffer, patternSize, patternGranularity, out matchOffset).ThrowDbgEngNotOk();
+            TrySearchVirtual2(offset, length, flags, buffer, patternSize, patternGranularity, out matchOffset).ThrowDbgEngNotOK();
 
             return matchOffset;
         }
@@ -1735,7 +1735,7 @@ namespace ClrDebug.DbgEng
         public string ReadMultiByteStringVirtual(ulong offset, uint maxBytes)
         {
             string bufferResult;
-            TryReadMultiByteStringVirtual(offset, maxBytes, out bufferResult).ThrowDbgEngNotOk();
+            TryReadMultiByteStringVirtual(offset, maxBytes, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -1806,7 +1806,7 @@ namespace ClrDebug.DbgEng
         public string ReadMultiByteStringVirtualWide(ulong offset, uint maxBytes, CODE_PAGE codePage)
         {
             string bufferResult;
-            TryReadMultiByteStringVirtualWide(offset, maxBytes, codePage, out bufferResult).ThrowDbgEngNotOk();
+            TryReadMultiByteStringVirtualWide(offset, maxBytes, codePage, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -1880,7 +1880,7 @@ namespace ClrDebug.DbgEng
         public string ReadUnicodeStringVirtual(ulong offset, uint maxBytes, CODE_PAGE codePage)
         {
             string bufferResult;
-            TryReadUnicodeStringVirtual(offset, maxBytes, codePage, out bufferResult).ThrowDbgEngNotOk();
+            TryReadUnicodeStringVirtual(offset, maxBytes, codePage, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -1949,7 +1949,7 @@ namespace ClrDebug.DbgEng
         public string ReadUnicodeStringVirtualWide(ulong offset, uint maxBytes)
         {
             string bufferResult;
-            TryReadUnicodeStringVirtualWide(offset, maxBytes, out bufferResult).ThrowDbgEngNotOk();
+            TryReadUnicodeStringVirtualWide(offset, maxBytes, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -2019,7 +2019,7 @@ namespace ClrDebug.DbgEng
         public uint ReadPhysical2(ulong offset, DEBUG_PHYSICAL flags, IntPtr buffer, uint bufferSize)
         {
             uint bytesRead;
-            TryReadPhysical2(offset, flags, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOk();
+            TryReadPhysical2(offset, flags, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOK();
 
             return bytesRead;
         }
@@ -2072,7 +2072,7 @@ namespace ClrDebug.DbgEng
         public uint WritePhysical2(ulong offset, DEBUG_PHYSICAL flags, IntPtr buffer, uint bufferSize)
         {
             uint bytesWritten;
-            TryWritePhysical2(offset, flags, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOk();
+            TryWritePhysical2(offset, flags, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOK();
 
             return bytesWritten;
         }
@@ -2228,7 +2228,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT ReadBusDataDelegate(IntPtr self, [In] BUS_DATA_TYPE BusDataType, [In] uint BusNumber, [In] uint SlotNumber, [In] uint Offset, [Out] IntPtr Buffer, [In] uint BufferSize, [Out] out uint BytesRead);
         private delegate HRESULT WriteBusDataDelegate(IntPtr self, [In] BUS_DATA_TYPE BusDataType, [In] uint BusNumber, [In] uint SlotNumber, [In] uint Offset, [In] IntPtr Buffer, [In] uint BufferSize, [Out] out uint BytesWritten);
         private delegate HRESULT CheckLowMemoryDelegate(IntPtr self);
-        private delegate HRESULT ReadDebuggerDataDelegate(IntPtr self, [In] uint Index, [Out] IntPtr Buffer, [In] uint BufferSize, [Out] out uint DataSize);
+        private delegate HRESULT ReadDebuggerDataDelegate(IntPtr self, [In] DEBUG_DATA Index, [Out] IntPtr Buffer, [In] uint BufferSize, [Out] out uint DataSize);
         private delegate HRESULT ReadProcessorSystemDataDelegate(IntPtr self, [In] uint Processor, [In] DEBUG_DATA Index, [Out] IntPtr Buffer, [In] uint BufferSize, [Out] out uint DataSize);
 
         #endregion

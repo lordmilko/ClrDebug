@@ -37,7 +37,7 @@ namespace ClrDebug.DbgEng
 
         public const int DMP_HEADER_COMMENT_SIZE = 128;
 
-        public static void ThrowDbgEngNotOk(this HRESULT hr)
+        public static void ThrowDbgEngNotOK(this HRESULT hr)
         {
             if (hr == HRESULT.S_FALSE)
                 throw new DbgEngPartialResultsException($"DbgEng reported that the specified operation completed with partial results, however the caller expected DbgEng to complete with full results. HRESULT: {hr}");

@@ -42,7 +42,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint id;
-                TryGetId(out id).ThrowDbgEngNotOk();
+                TryGetId(out id).ThrowDbgEngNotOK();
 
                 return id;
             }
@@ -78,7 +78,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 GetTypeResult result;
-                TryGetType(out result).ThrowDbgEngNotOk();
+                TryGetType(out result).ThrowDbgEngNotOK();
 
                 return result;
             }
@@ -123,13 +123,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 DEBUG_BREAKPOINT_FLAG flags;
-                TryGetFlags(out flags).ThrowDbgEngNotOk();
+                TryGetFlags(out flags).ThrowDbgEngNotOK();
 
                 return flags;
             }
             set
             {
-                TrySetFlags(value).ThrowDbgEngNotOk();
+                TrySetFlags(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -180,13 +180,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 ulong offset;
-                TryGetOffset(out offset).ThrowDbgEngNotOk();
+                TryGetOffset(out offset).ThrowDbgEngNotOK();
 
                 return offset;
             }
             set
             {
-                TrySetOffset(value).ThrowDbgEngNotOk();
+                TrySetOffset(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -236,13 +236,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint count;
-                TryGetPassCount(out count).ThrowDbgEngNotOk();
+                TryGetPassCount(out count).ThrowDbgEngNotOK();
 
                 return count;
             }
             set
             {
-                TrySetPassCount(value).ThrowDbgEngNotOk();
+                TrySetPassCount(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -306,7 +306,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint count;
-                TryGetCurrentPassCount(out count).ThrowDbgEngNotOk();
+                TryGetCurrentPassCount(out count).ThrowDbgEngNotOK();
 
                 return count;
             }
@@ -349,13 +349,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint id;
-                TryGetMatchThreadId(out id).ThrowDbgEngNotOk();
+                TryGetMatchThreadId(out id).ThrowDbgEngNotOK();
 
                 return id;
             }
             set
             {
-                TrySetMatchThreadId(value).ThrowDbgEngNotOk();
+                TrySetMatchThreadId(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -410,13 +410,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetCommand(out bufferResult).ThrowDbgEngNotOk();
+                TryGetCommand(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
             set
             {
-                TrySetCommand(value).ThrowDbgEngNotOk();
+                TrySetCommand(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -496,13 +496,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetOffsetExpression(out bufferResult).ThrowDbgEngNotOk();
+                TryGetOffsetExpression(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
             set
             {
-                TrySetOffsetExpression(value).ThrowDbgEngNotOk();
+                TrySetOffsetExpression(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -580,7 +580,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 DEBUG_BREAKPOINT_PARAMETERS @params;
-                TryGetParameters(out @params).ThrowDbgEngNotOk();
+                TryGetParameters(out @params).ThrowDbgEngNotOK();
 
                 return @params;
             }
@@ -619,7 +619,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void GetAdder(IntPtr adder)
         {
-            TryGetAdder(adder).ThrowDbgEngNotOk();
+            TryGetAdder(adder).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -655,7 +655,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void AddFlags(DEBUG_BREAKPOINT_FLAG flags)
         {
-            TryAddFlags(flags).ThrowDbgEngNotOk();
+            TryAddFlags(flags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -691,7 +691,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void RemoveFlags(DEBUG_BREAKPOINT_FLAG flags)
         {
-            TryRemoveFlags(flags).ThrowDbgEngNotOk();
+            TryRemoveFlags(flags).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -727,7 +727,7 @@ namespace ClrDebug.DbgEng
         public GetDataParametersResult GetDataParameters()
         {
             GetDataParametersResult result;
-            TryGetDataParameters(out result).ThrowDbgEngNotOk();
+            TryGetDataParameters(out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -772,7 +772,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void SetDataParameters(uint size, DEBUG_BREAKPOINT_ACCESS_TYPE accessType)
         {
-            TrySetDataParameters(size, accessType).ThrowDbgEngNotOk();
+            TrySetDataParameters(size, accessType).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -807,13 +807,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetCommandWide(out bufferResult).ThrowDbgEngNotOk();
+                TryGetCommandWide(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
             set
             {
-                TrySetCommandWide(value).ThrowDbgEngNotOk();
+                TrySetCommandWide(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -894,13 +894,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetOffsetExpressionWide(out bufferResult).ThrowDbgEngNotOk();
+                TryGetOffsetExpressionWide(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
             set
             {
-                TrySetOffsetExpressionWide(value).ThrowDbgEngNotOk();
+                TrySetOffsetExpressionWide(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -980,7 +980,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 Guid guid;
-                TryGetGuid(out guid).ThrowDbgEngNotOk();
+                TryGetGuid(out guid).ThrowDbgEngNotOK();
 
                 return guid;
             }

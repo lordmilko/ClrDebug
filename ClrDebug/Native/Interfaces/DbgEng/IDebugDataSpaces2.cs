@@ -394,7 +394,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT ReadDebuggerData(
-            [In] uint Index,
+            [In] DEBUG_DATA Index,
             [Out] IntPtr Buffer,
             [In] uint BufferSize,
             [Out] out uint DataSize);

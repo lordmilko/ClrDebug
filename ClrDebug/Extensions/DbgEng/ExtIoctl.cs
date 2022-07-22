@@ -101,7 +101,7 @@ namespace ClrDebug.DbgEng
         #endregion
         #endregion
 
-        public void Execute() => TryExecute().ThrowDbgEngNotOk();
+        public void Execute() => TryExecute().ThrowDbgEngNotOK();
 
         public HRESULT TryExecute()
         {

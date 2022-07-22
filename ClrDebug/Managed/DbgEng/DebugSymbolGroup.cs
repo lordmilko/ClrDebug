@@ -39,7 +39,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint number;
-                TryGetNumberSymbols(out number).ThrowDbgEngNotOk();
+                TryGetNumberSymbols(out number).ThrowDbgEngNotOK();
 
                 return number;
             }
@@ -83,7 +83,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void AddSymbol(string name, ref uint index)
         {
-            TryAddSymbol(name, ref index).ThrowDbgEngNotOk();
+            TryAddSymbol(name, ref index).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void RemoveSymbolByName(string name)
         {
-            TryRemoveSymbolByName(name).ThrowDbgEngNotOk();
+            TryRemoveSymbolByName(name).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace ClrDebug.DbgEng
 
         public void RemoveSymbolsByIndex(uint index)
         {
-            TryRemoveSymbolsByIndex(index).ThrowDbgEngNotOk();
+            TryRemoveSymbolsByIndex(index).ThrowDbgEngNotOK();
         }
 
         public HRESULT TryRemoveSymbolsByIndex(uint index)
@@ -175,7 +175,7 @@ namespace ClrDebug.DbgEng
         public string GetSymbolName(uint index)
         {
             string bufferResult;
-            TryGetSymbolName(index, out bufferResult).ThrowDbgEngNotOk();
+            TryGetSymbolName(index, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -238,7 +238,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_SYMBOL_PARAMETERS[] GetSymbolParameters(uint start, uint count)
         {
             DEBUG_SYMBOL_PARAMETERS[] @params;
-            TryGetSymbolParameters(start, count, out @params).ThrowDbgEngNotOk();
+            TryGetSymbolParameters(start, count, out @params).ThrowDbgEngNotOK();
 
             return @params;
         }
@@ -283,7 +283,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void ExpandSymbol(uint index, bool expand)
         {
-            TryExpandSymbol(index, expand).ThrowDbgEngNotOk();
+            TryExpandSymbol(index, expand).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -325,7 +325,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OutputSymbols(DEBUG_OUTCTL outputControl, DEBUG_OUTPUT_SYMBOLS flags, uint start, uint count)
         {
-            TryOutputSymbols(outputControl, flags, start, count).ThrowDbgEngNotOk();
+            TryOutputSymbols(outputControl, flags, start, count).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -369,7 +369,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void WriteSymbol(uint index, string value)
         {
-            TryWriteSymbol(index, value).ThrowDbgEngNotOk();
+            TryWriteSymbol(index, value).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -412,7 +412,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OutputAsType(uint index, string type)
         {
-            TryOutputAsType(index, type).ThrowDbgEngNotOk();
+            TryOutputAsType(index, type).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -460,7 +460,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void AddSymbolWide(string name, ref uint index)
         {
-            TryAddSymbolWide(name, ref index).ThrowDbgEngNotOk();
+            TryAddSymbolWide(name, ref index).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -500,7 +500,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void RemoveSymbolByNameWide(string name)
         {
-            TryRemoveSymbolByNameWide(name).ThrowDbgEngNotOk();
+            TryRemoveSymbolByNameWide(name).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -535,7 +535,7 @@ namespace ClrDebug.DbgEng
         public string GetSymbolNameWide(uint index)
         {
             string bufferResult;
-            TryGetSymbolNameWide(index, out bufferResult).ThrowDbgEngNotOk();
+            TryGetSymbolNameWide(index, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -597,7 +597,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void WriteSymbolWide(uint index, string value)
         {
-            TryWriteSymbolWide(index, value).ThrowDbgEngNotOk();
+            TryWriteSymbolWide(index, value).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -640,7 +640,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         public void OutputAsTypeWide(uint index, string type)
         {
-            TryOutputAsTypeWide(index, type).ThrowDbgEngNotOk();
+            TryOutputAsTypeWide(index, type).ThrowDbgEngNotOK();
         }
 
         /// <summary>
@@ -682,7 +682,7 @@ namespace ClrDebug.DbgEng
         public string GetSymbolTypeName(uint index)
         {
             string bufferResult;
-            TryGetSymbolTypeName(index, out bufferResult).ThrowDbgEngNotOk();
+            TryGetSymbolTypeName(index, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -743,7 +743,7 @@ namespace ClrDebug.DbgEng
         public string GetSymbolTypeNameWide(uint index)
         {
             string bufferResult;
-            TryGetSymbolTypeNameWide(index, out bufferResult).ThrowDbgEngNotOk();
+            TryGetSymbolTypeNameWide(index, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -805,7 +805,7 @@ namespace ClrDebug.DbgEng
         public uint GetSymbolSize(uint index)
         {
             uint size;
-            TryGetSymbolSize(index, out size).ThrowDbgEngNotOk();
+            TryGetSymbolSize(index, out size).ThrowDbgEngNotOK();
 
             return size;
         }
@@ -844,7 +844,7 @@ namespace ClrDebug.DbgEng
         public ulong GetSymbolOffset(uint index)
         {
             ulong offset;
-            TryGetSymbolOffset(index, out offset).ThrowDbgEngNotOk();
+            TryGetSymbolOffset(index, out offset).ThrowDbgEngNotOK();
 
             return offset;
         }
@@ -883,7 +883,7 @@ namespace ClrDebug.DbgEng
         public uint GetSymbolRegister(uint index)
         {
             uint register;
-            TryGetSymbolRegister(index, out register).ThrowDbgEngNotOk();
+            TryGetSymbolRegister(index, out register).ThrowDbgEngNotOK();
 
             return register;
         }
@@ -924,7 +924,7 @@ namespace ClrDebug.DbgEng
         public string GetSymbolValueText(uint index)
         {
             string bufferResult;
-            TryGetSymbolValueText(index, out bufferResult).ThrowDbgEngNotOk();
+            TryGetSymbolValueText(index, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -989,7 +989,7 @@ namespace ClrDebug.DbgEng
         public string GetSymbolValueTextWide(uint index)
         {
             string bufferResult;
-            TryGetSymbolValueTextWide(index, out bufferResult).ThrowDbgEngNotOk();
+            TryGetSymbolValueTextWide(index, out bufferResult).ThrowDbgEngNotOK();
 
             return bufferResult;
         }
@@ -1052,7 +1052,7 @@ namespace ClrDebug.DbgEng
         public DEBUG_SYMBOL_ENTRY GetSymbolEntryInformation(uint index)
         {
             DEBUG_SYMBOL_ENTRY info;
-            TryGetSymbolEntryInformation(index, out info).ThrowDbgEngNotOk();
+            TryGetSymbolEntryInformation(index, out info).ThrowDbgEngNotOK();
 
             return info;
         }

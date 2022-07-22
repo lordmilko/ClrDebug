@@ -45,7 +45,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint id;
-                TryGetEventThread(out id).ThrowDbgEngNotOk();
+                TryGetEventThread(out id).ThrowDbgEngNotOK();
 
                 return id;
             }
@@ -81,7 +81,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint id;
-                TryGetEventProcess(out id).ThrowDbgEngNotOk();
+                TryGetEventProcess(out id).ThrowDbgEngNotOK();
 
                 return id;
             }
@@ -117,13 +117,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint id;
-                TryGetCurrentThreadId(out id).ThrowDbgEngNotOk();
+                TryGetCurrentThreadId(out id).ThrowDbgEngNotOK();
 
                 return id;
             }
             set
             {
-                TrySetCurrentThreadId(value).ThrowDbgEngNotOk();
+                TrySetCurrentThreadId(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -174,13 +174,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint id;
-                TryGetCurrentProcessId(out id).ThrowDbgEngNotOk();
+                TryGetCurrentProcessId(out id).ThrowDbgEngNotOK();
 
                 return id;
             }
             set
             {
-                TrySetCurrentProcessId(value).ThrowDbgEngNotOk();
+                TrySetCurrentProcessId(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -231,7 +231,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint number;
-                TryGetNumberThreads(out number).ThrowDbgEngNotOk();
+                TryGetNumberThreads(out number).ThrowDbgEngNotOK();
 
                 return number;
             }
@@ -267,7 +267,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 GetTotalNumberThreadsResult result;
-                TryGetTotalNumberThreads(out result).ThrowDbgEngNotOk();
+                TryGetTotalNumberThreads(out result).ThrowDbgEngNotOK();
 
                 return result;
             }
@@ -310,7 +310,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 ulong offset;
-                TryGetCurrentThreadDataOffset(out offset).ThrowDbgEngNotOk();
+                TryGetCurrentThreadDataOffset(out offset).ThrowDbgEngNotOK();
 
                 return offset;
             }
@@ -347,7 +347,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 ulong offset;
-                TryGetCurrentThreadTeb(out offset).ThrowDbgEngNotOk();
+                TryGetCurrentThreadTeb(out offset).ThrowDbgEngNotOK();
 
                 return offset;
             }
@@ -383,7 +383,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint sysId;
-                TryGetCurrentThreadSystemId(out sysId).ThrowDbgEngNotOk();
+                TryGetCurrentThreadSystemId(out sysId).ThrowDbgEngNotOK();
 
                 return sysId;
             }
@@ -417,7 +417,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 ulong handle;
-                TryGetCurrentThreadHandle(out handle).ThrowDbgEngNotOk();
+                TryGetCurrentThreadHandle(out handle).ThrowDbgEngNotOK();
 
                 return handle;
             }
@@ -452,7 +452,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint number;
-                TryGetNumberProcesses(out number).ThrowDbgEngNotOk();
+                TryGetNumberProcesses(out number).ThrowDbgEngNotOK();
 
                 return number;
             }
@@ -488,7 +488,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 ulong offset;
-                TryGetCurrentProcessDataOffset(out offset).ThrowDbgEngNotOk();
+                TryGetCurrentProcessDataOffset(out offset).ThrowDbgEngNotOK();
 
                 return offset;
             }
@@ -524,7 +524,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 ulong offset;
-                TryGetCurrentProcessPeb(out offset).ThrowDbgEngNotOk();
+                TryGetCurrentProcessPeb(out offset).ThrowDbgEngNotOK();
 
                 return offset;
             }
@@ -560,7 +560,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint sysId;
-                TryGetCurrentProcessSystemId(out sysId).ThrowDbgEngNotOk();
+                TryGetCurrentProcessSystemId(out sysId).ThrowDbgEngNotOK();
 
                 return sysId;
             }
@@ -594,7 +594,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 ulong handle;
-                TryGetCurrentProcessHandle(out handle).ThrowDbgEngNotOk();
+                TryGetCurrentProcessHandle(out handle).ThrowDbgEngNotOK();
 
                 return handle;
             }
@@ -630,7 +630,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetCurrentProcessExecutableName(out bufferResult).ThrowDbgEngNotOk();
+                TryGetCurrentProcessExecutableName(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
@@ -693,7 +693,7 @@ namespace ClrDebug.DbgEng
         public GetThreadIdsByIndexResult GetThreadIdsByIndex(uint start, uint count)
         {
             GetThreadIdsByIndexResult result;
-            TryGetThreadIdsByIndex(start, count, out result).ThrowDbgEngNotOk();
+            TryGetThreadIdsByIndex(start, count, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -743,7 +743,7 @@ namespace ClrDebug.DbgEng
         public uint GetThreadIdByProcessor(uint processor)
         {
             uint id;
-            TryGetThreadIdByProcessor(processor, out id).ThrowDbgEngNotOk();
+            TryGetThreadIdByProcessor(processor, out id).ThrowDbgEngNotOK();
 
             return id;
         }
@@ -783,7 +783,7 @@ namespace ClrDebug.DbgEng
         public uint GetThreadIdByDataOffset(ulong offset)
         {
             uint id;
-            TryGetThreadIdByDataOffset(offset, out id).ThrowDbgEngNotOk();
+            TryGetThreadIdByDataOffset(offset, out id).ThrowDbgEngNotOK();
 
             return id;
         }
@@ -825,7 +825,7 @@ namespace ClrDebug.DbgEng
         public uint GetThreadIdByTeb(ulong offset)
         {
             uint id;
-            TryGetThreadIdByTeb(offset, out id).ThrowDbgEngNotOk();
+            TryGetThreadIdByTeb(offset, out id).ThrowDbgEngNotOK();
 
             return id;
         }
@@ -865,7 +865,7 @@ namespace ClrDebug.DbgEng
         public uint GetThreadIdBySystemId(uint sysId)
         {
             uint id;
-            TryGetThreadIdBySystemId(sysId, out id).ThrowDbgEngNotOk();
+            TryGetThreadIdBySystemId(sysId, out id).ThrowDbgEngNotOK();
 
             return id;
         }
@@ -905,7 +905,7 @@ namespace ClrDebug.DbgEng
         public uint GetThreadIdByHandle(ulong handle)
         {
             uint id;
-            TryGetThreadIdByHandle(handle, out id).ThrowDbgEngNotOk();
+            TryGetThreadIdByHandle(handle, out id).ThrowDbgEngNotOK();
 
             return id;
         }
@@ -947,7 +947,7 @@ namespace ClrDebug.DbgEng
         public GetProcessIdsByIndexResult GetProcessIdsByIndex(uint start, uint count)
         {
             GetProcessIdsByIndexResult result;
-            TryGetProcessIdsByIndex(start, count, out result).ThrowDbgEngNotOk();
+            TryGetProcessIdsByIndex(start, count, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -998,7 +998,7 @@ namespace ClrDebug.DbgEng
         public uint GetProcessIdByDataOffset(ulong offset)
         {
             uint id;
-            TryGetProcessIdByDataOffset(offset, out id).ThrowDbgEngNotOk();
+            TryGetProcessIdByDataOffset(offset, out id).ThrowDbgEngNotOK();
 
             return id;
         }
@@ -1037,7 +1037,7 @@ namespace ClrDebug.DbgEng
         public uint GetProcessIdByPeb(ulong offset)
         {
             uint id;
-            TryGetProcessIdByPeb(offset, out id).ThrowDbgEngNotOk();
+            TryGetProcessIdByPeb(offset, out id).ThrowDbgEngNotOK();
 
             return id;
         }
@@ -1075,7 +1075,7 @@ namespace ClrDebug.DbgEng
         public uint GetProcessIdBySystemId(uint sysId)
         {
             uint id;
-            TryGetProcessIdBySystemId(sysId, out id).ThrowDbgEngNotOk();
+            TryGetProcessIdBySystemId(sysId, out id).ThrowDbgEngNotOK();
 
             return id;
         }
@@ -1113,7 +1113,7 @@ namespace ClrDebug.DbgEng
         public uint GetProcessIdByHandle(ulong handle)
         {
             uint id;
-            TryGetProcessIdByHandle(handle, out id).ThrowDbgEngNotOk();
+            TryGetProcessIdByHandle(handle, out id).ThrowDbgEngNotOK();
 
             return id;
         }
@@ -1150,7 +1150,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint upTime;
-                TryGetCurrentProcessUpTime(out upTime).ThrowDbgEngNotOk();
+                TryGetCurrentProcessUpTime(out upTime).ThrowDbgEngNotOK();
 
                 return upTime;
             }
@@ -1181,13 +1181,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 ulong offset;
-                TryGetImplicitThreadDataOffset(out offset).ThrowDbgEngNotOk();
+                TryGetImplicitThreadDataOffset(out offset).ThrowDbgEngNotOK();
 
                 return offset;
             }
             set
             {
-                TrySetImplicitThreadDataOffset(value).ThrowDbgEngNotOk();
+                TrySetImplicitThreadDataOffset(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -1241,13 +1241,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 ulong offset;
-                TryGetImplicitProcessDataOffset(out offset).ThrowDbgEngNotOk();
+                TryGetImplicitProcessDataOffset(out offset).ThrowDbgEngNotOK();
 
                 return offset;
             }
             set
             {
-                TrySetImplicitProcessDataOffset(value).ThrowDbgEngNotOk();
+                TrySetImplicitProcessDataOffset(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -1303,7 +1303,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint id;
-                TryGetEventSystem(out id).ThrowDbgEngNotOk();
+                TryGetEventSystem(out id).ThrowDbgEngNotOK();
 
                 return id;
             }
@@ -1333,13 +1333,13 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint id;
-                TryGetCurrentSystemId(out id).ThrowDbgEngNotOk();
+                TryGetCurrentSystemId(out id).ThrowDbgEngNotOK();
 
                 return id;
             }
             set
             {
-                TrySetCurrentSystemId(value).ThrowDbgEngNotOk();
+                TrySetCurrentSystemId(value).ThrowDbgEngNotOK();
             }
         }
 
@@ -1385,7 +1385,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 uint count;
-                TryGetNumberSystems(out count).ThrowDbgEngNotOk();
+                TryGetNumberSystems(out count).ThrowDbgEngNotOK();
 
                 return count;
             }
@@ -1415,7 +1415,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 GetTotalNumberThreadsAndProcessesResult result;
-                TryGetTotalNumberThreadsAndProcesses(out result).ThrowDbgEngNotOk();
+                TryGetTotalNumberThreadsAndProcesses(out result).ThrowDbgEngNotOK();
 
                 return result;
             }
@@ -1464,7 +1464,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 ulong server;
-                TryGetCurrentSystemServer(out server).ThrowDbgEngNotOk();
+                TryGetCurrentSystemServer(out server).ThrowDbgEngNotOK();
 
                 return server;
             }
@@ -1494,7 +1494,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetCurrentSystemServerName(out bufferResult).ThrowDbgEngNotOk();
+                TryGetCurrentSystemServerName(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
@@ -1550,7 +1550,7 @@ namespace ClrDebug.DbgEng
         public uint[] GetSystemIdsByIndex(uint start, uint count)
         {
             uint[] ids;
-            TryGetSystemIdsByIndex(start, count, out ids).ThrowDbgEngNotOk();
+            TryGetSystemIdsByIndex(start, count, out ids).ThrowDbgEngNotOK();
 
             return ids;
         }
@@ -1585,7 +1585,7 @@ namespace ClrDebug.DbgEng
         public uint GetSystemByServer(ulong server)
         {
             uint id;
-            TryGetSystemByServer(server, out id).ThrowDbgEngNotOk();
+            TryGetSystemByServer(server, out id).ThrowDbgEngNotOK();
 
             return id;
         }
@@ -1611,7 +1611,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetCurrentProcessExecutableNameWide(out bufferResult).ThrowDbgEngNotOk();
+                TryGetCurrentProcessExecutableNameWide(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
@@ -1669,7 +1669,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 string bufferResult;
-                TryGetCurrentSystemServerNameWide(out bufferResult).ThrowDbgEngNotOk();
+                TryGetCurrentSystemServerNameWide(out bufferResult).ThrowDbgEngNotOK();
 
                 return bufferResult;
             }
