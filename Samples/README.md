@@ -7,6 +7,7 @@ ClrDebug specifically, however may still prove relevant depending on the type of
 | Sample        | Description                                                                                                     |
 | ------------- | --------------------------------------------------------------------------------------------------------------- |
 | DacTypeDump   | Demonstrates how type/member information can be read from a process via the DAC                                 |
+| DbgEngConsole | Demonstrates the principles of processing input and running an engine loop in a DbgEng based debugger           |
 | NativeSymbols | Simple REPL for resolving unmanaged symbols via DbgHelp and a custom symbol store                               |
 | PEReader      | Demonstrates how to read a variety of important sections from an in memory or on disk PE file                   |
 | SymbolStore   | Simple managed implementation of symsrv.dll for resolving unmanaged symbols from local and online symbol stores |
