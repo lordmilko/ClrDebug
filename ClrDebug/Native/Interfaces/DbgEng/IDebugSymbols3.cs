@@ -2270,7 +2270,7 @@ namespace ClrDebug.DbgEng
         /// To use the default set of flags, set Flags to DEBUG_GSEL_DEFAULT. This has all the flags in the previous table turned off.</param>
         /// <param name="Entries">[out, optional] Receives the locations in the target's memory that correspond to the source lines queried for. Each entry in this array is of type <see cref="DEBUG_SYMBOL_SOURCE_ENTRY"/> and contains the source line number along with a location in the target's memory.</param>
         /// <param name="EntriesCount">[in] Specifies the number of entries in the Entries array.</param>
-        /// <param name="EntriesAvailable">[out, optional] Receives the number of locations that match the query found in the target's memory.</param>
+        /// <param name="EntriesAvail">[out, optional] Receives the number of locations that match the query found in the target's memory.</param>
         /// <returns>These methods can also return error values. See Return Values for more details.</returns>
         /// <remarks>
         /// These methods can be used by debugger applications to fetch locations in the target's memory for setting breakpoints
@@ -2297,7 +2297,7 @@ namespace ClrDebug.DbgEng
         /// To use the default set of flags, set Flags to DEBUG_GSEL_DEFAULT. This has all the flags in the previous table turned off.</param>
         /// <param name="Entries">[out, optional] Receives the locations in the target's memory that correspond to the source lines queried for. Each entry in this array is of type <see cref="DEBUG_SYMBOL_SOURCE_ENTRY"/> and contains the source line number along with a location in the target's memory.</param>
         /// <param name="EntriesCount">[in] Specifies the number of entries in the Entries array.</param>
-        /// <param name="EntriesAvailable">[out, optional] Receives the number of locations that match the query found in the target's memory.</param>
+        /// <param name="EntriesAvail">[out, optional] Receives the number of locations that match the query found in the target's memory.</param>
         /// <returns>These methods can also return error values. See Return Values for more details.</returns>
         /// <remarks>
         /// These methods can be used by debugger applications to fetch locations in the target's memory for setting breakpoints

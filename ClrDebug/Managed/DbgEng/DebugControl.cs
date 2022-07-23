@@ -1344,6 +1344,10 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The Output method formats a string and send the result to output callbacks that have been registered with the engine's clients.
         /// </summary>
+        /// <param name="mask">[in] Specifies the output-type bit field. See DEBUG_OUTPUT_XXX for possible values.</param>
+        /// <param name="format">[in] Specifies the format string, as in printf. In general, conversion characters work exactly as in C. For the floating-point conversion characters the 64-bit argument is interpreted as a 32-bit floating-point number unless the l modifier is used.<para/>
+        /// The %p conversion character is supported, but it represents a pointer in a target's address space. It cannot have any modifiers and it uses the debugger's internal address formatting.<para/>
+        /// The following additional conversion characters are supported.</param>
         /// <remarks>
         /// When generating very large output strings, it is possible to reach the limits of the debugger engine or of the
         /// operating system. For example, some versions of the debugger engine have a 16K character limit for a single output.
@@ -1357,6 +1361,10 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The Output method formats a string and send the result to output callbacks that have been registered with the engine's clients.
         /// </summary>
+        /// <param name="mask">[in] Specifies the output-type bit field. See DEBUG_OUTPUT_XXX for possible values.</param>
+        /// <param name="format">[in] Specifies the format string, as in printf. In general, conversion characters work exactly as in C. For the floating-point conversion characters the 64-bit argument is interpreted as a 32-bit floating-point number unless the l modifier is used.<para/>
+        /// The %p conversion character is supported, but it represents a pointer in a target's address space. It cannot have any modifiers and it uses the debugger's internal address formatting.<para/>
+        /// The following additional conversion characters are supported.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
         /// When generating very large output strings, it is possible to reach the limits of the debugger engine or of the
@@ -1429,6 +1437,14 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The ControlledOutput method formats a string and sends the result to output callbacks that were registered with some of the engine's clients.
         /// </summary>
+        /// <param name="outputControl">[in] Specifies an output control that determines which of the clients' output callbacks will receive the output.<para/>
+        /// For possible values, see DEBUG_OUTCTL_XXX. For more information about output, see Input and Output.</param>
+        /// <param name="mask">[in] Specifies the output-type bit field. See DEBUG_OUTPUT_XXX for possible values.</param>
+        /// <param name="format">[in] Specifies the format string, as in printf. Typically, conversion characters work exactly as they do in C. For the floating-point conversion characters, the 64-bit argument is interpreted as a 32-bit floating-point number unless the l modifier is used.<para/>
+        /// The %p conversion character is supported, but it represents a pointer in a target's address space. It might not have any modifiers and it uses the debugger's internal address formatting.<para/>
+        /// The following additional conversion characters are supported. The %Y format specifier can be used to support the Debugger Markup Language (DML).<para/>
+        /// For more information, see Customizing Debugger Output Using DML. The following table summarizes the use of the %Y format specifier.<para/>
+        /// This code snippet illustrates the use of the %Y format specifier. This sample code would generate the following output.</param>
         /// <remarks>
         /// When generating very large output strings, it is possible to reach the limits of the debugger engine or of the
         /// operating system. For example, some versions of the debugger engine have a 16K character limit for a single output.
@@ -1442,6 +1458,14 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The ControlledOutput method formats a string and sends the result to output callbacks that were registered with some of the engine's clients.
         /// </summary>
+        /// <param name="outputControl">[in] Specifies an output control that determines which of the clients' output callbacks will receive the output.<para/>
+        /// For possible values, see DEBUG_OUTCTL_XXX. For more information about output, see Input and Output.</param>
+        /// <param name="mask">[in] Specifies the output-type bit field. See DEBUG_OUTPUT_XXX for possible values.</param>
+        /// <param name="format">[in] Specifies the format string, as in printf. Typically, conversion characters work exactly as they do in C. For the floating-point conversion characters, the 64-bit argument is interpreted as a 32-bit floating-point number unless the l modifier is used.<para/>
+        /// The %p conversion character is supported, but it represents a pointer in a target's address space. It might not have any modifiers and it uses the debugger's internal address formatting.<para/>
+        /// The following additional conversion characters are supported. The %Y format specifier can be used to support the Debugger Markup Language (DML).<para/>
+        /// For more information, see Customizing Debugger Output Using DML. The following table summarizes the use of the %Y format specifier.<para/>
+        /// This code snippet illustrates the use of the %Y format specifier. This sample code would generate the following output.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
         /// When generating very large output strings, it is possible to reach the limits of the debugger engine or of the
@@ -1526,6 +1550,12 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The OutputPrompt method formats and sends a user prompt to the output callback objects.
         /// </summary>
+        /// <param name="outputControl">[in] Specifies an output control that determines which of the client's output callbacks will receive the output.<para/>
+        /// For possible values, see DEBUG_OUTCTL_XXX.</param>
+        /// <param name="format">[in, optional] Specifies the format string, as in printf. Typically, conversion characters work exactly as they do in C.<para/>
+        /// For the floating-point conversion characters, the 64-bit argument is interpreted as a 32-bit floating-point number unless the l modifier is used.<para/>
+        /// The %p conversion character is supported, but it represents a pointer in a target's address space. It might not have any modifiers and it uses the debugger's internal address formatting.<para/>
+        /// The following additional conversion characters are supported. If Format is NULL, only the standard prompt text is sent to the output callbacks.</param>
         /// <remarks>
         /// OutputPrompt and OutputPromptWide can be used to prompt the user for input. The standard prompt will be sent to
         /// the output callbacks before the formatted text described by Format. The contents of the standard prompt is returned
@@ -1540,6 +1570,12 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The OutputPrompt method formats and sends a user prompt to the output callback objects.
         /// </summary>
+        /// <param name="outputControl">[in] Specifies an output control that determines which of the client's output callbacks will receive the output.<para/>
+        /// For possible values, see DEBUG_OUTCTL_XXX.</param>
+        /// <param name="format">[in, optional] Specifies the format string, as in printf. Typically, conversion characters work exactly as they do in C.<para/>
+        /// For the floating-point conversion characters, the 64-bit argument is interpreted as a 32-bit floating-point number unless the l modifier is used.<para/>
+        /// The %p conversion character is supported, but it represents a pointer in a target's address space. It might not have any modifiers and it uses the debugger's internal address formatting.<para/>
+        /// The following additional conversion characters are supported. If Format is NULL, only the standard prompt text is sent to the output callbacks.</param>
         /// <returns>This method can also return error values. See Return Values for more details.</returns>
         /// <remarks>
         /// OutputPrompt and OutputPromptWide can be used to prompt the user for input. The standard prompt will be sent to
@@ -5277,6 +5313,10 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The OutputWide method formats a string and send the result to output callbacks that have been registered with the engine's clients.
         /// </summary>
+        /// <param name="mask">[in] Specifies the output-type bit field. See DEBUG_OUTPUT_XXX for possible values.</param>
+        /// <param name="format">[in] Specifies the format string, as in printf. In general, conversion characters work exactly as in C. For the floating-point conversion characters the 64-bit argument is interpreted as a 32-bit floating-point number unless the l modifier is used.<para/>
+        /// The %p conversion character is supported, but it represents a pointer in a target's address space. It cannot have any modifiers and it uses the debugger's internal address formatting.<para/>
+        /// The following additional conversion characters are supported.</param>
         /// <remarks>
         /// When generating very large output strings, it is possible to reach the limits of the debugger engine or of the
         /// operating system. For example, some versions of the debugger engine have a 16K character limit for a single output.
@@ -5290,6 +5330,10 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The OutputWide method formats a string and send the result to output callbacks that have been registered with the engine's clients.
         /// </summary>
+        /// <param name="mask">[in] Specifies the output-type bit field. See DEBUG_OUTPUT_XXX for possible values.</param>
+        /// <param name="format">[in] Specifies the format string, as in printf. In general, conversion characters work exactly as in C. For the floating-point conversion characters the 64-bit argument is interpreted as a 32-bit floating-point number unless the l modifier is used.<para/>
+        /// The %p conversion character is supported, but it represents a pointer in a target's address space. It cannot have any modifiers and it uses the debugger's internal address formatting.<para/>
+        /// The following additional conversion characters are supported.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
         /// When generating very large output strings, it is possible to reach the limits of the debugger engine or of the
@@ -5362,6 +5406,14 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The ControlledOutputWide method formats a string and sends the result to output callbacks that were registered with some of the engine's clients.
         /// </summary>
+        /// <param name="outputControl">[in] Specifies an output control that determines which of the clients' output callbacks will receive the output.<para/>
+        /// For possible values, see DEBUG_OUTCTL_XXX. For more information about output, see Input and Output.</param>
+        /// <param name="mask">[in] Specifies the output-type bit field. See DEBUG_OUTPUT_XXX for possible values.</param>
+        /// <param name="format">[in] Specifies the format string, as in printf. Typically, conversion characters work exactly as they do in C. For the floating-point conversion characters, the 64-bit argument is interpreted as a 32-bit floating-point number unless the l modifier is used.<para/>
+        /// The %p conversion character is supported, but it represents a pointer in a target's address space. It might not have any modifiers and it uses the debugger's internal address formatting.<para/>
+        /// The following additional conversion characters are supported. The %Y format specifier can be used to support the Debugger Markup Language (DML).<para/>
+        /// For more information, see Customizing Debugger Output Using DML. The following table summarizes the use of the %Y format specifier.<para/>
+        /// This code snippet illustrates the use of the %Y format specifier. This sample code would generate the following output.</param>
         /// <remarks>
         /// When generating very large output strings, it is possible to reach the limits of the debugger engine or of the
         /// operating system. For example, some versions of the debugger engine have a 16K character limit for a single output.
@@ -5375,6 +5427,14 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The ControlledOutputWide method formats a string and sends the result to output callbacks that were registered with some of the engine's clients.
         /// </summary>
+        /// <param name="outputControl">[in] Specifies an output control that determines which of the clients' output callbacks will receive the output.<para/>
+        /// For possible values, see DEBUG_OUTCTL_XXX. For more information about output, see Input and Output.</param>
+        /// <param name="mask">[in] Specifies the output-type bit field. See DEBUG_OUTPUT_XXX for possible values.</param>
+        /// <param name="format">[in] Specifies the format string, as in printf. Typically, conversion characters work exactly as they do in C. For the floating-point conversion characters, the 64-bit argument is interpreted as a 32-bit floating-point number unless the l modifier is used.<para/>
+        /// The %p conversion character is supported, but it represents a pointer in a target's address space. It might not have any modifiers and it uses the debugger's internal address formatting.<para/>
+        /// The following additional conversion characters are supported. The %Y format specifier can be used to support the Debugger Markup Language (DML).<para/>
+        /// For more information, see Customizing Debugger Output Using DML. The following table summarizes the use of the %Y format specifier.<para/>
+        /// This code snippet illustrates the use of the %Y format specifier. This sample code would generate the following output.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
         /// When generating very large output strings, it is possible to reach the limits of the debugger engine or of the
@@ -5459,6 +5519,12 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The OutputPromptWide method formats and sends a user prompt to the output callback objects.
         /// </summary>
+        /// <param name="outputControl">[in] Specifies an output control that determines which of the client's output callbacks will receive the output.<para/>
+        /// For possible values, see DEBUG_OUTCTL_XXX.</param>
+        /// <param name="format">[in, optional] Specifies the format string, as in printf. Typically, conversion characters work exactly as they do in C.<para/>
+        /// For the floating-point conversion characters, the 64-bit argument is interpreted as a 32-bit floating-point number unless the l modifier is used.<para/>
+        /// The %p conversion character is supported, but it represents a pointer in a target's address space. It might not have any modifiers and it uses the debugger's internal address formatting.<para/>
+        /// The following additional conversion characters are supported. If Format is NULL, only the standard prompt text is sent to the output callbacks.</param>
         /// <remarks>
         /// OutputPrompt and OutputPromptWide can be used to prompt the user for input. The standard prompt will be sent to
         /// the output callbacks before the formatted text described by Format. The contents of the standard prompt is returned
@@ -5473,6 +5539,12 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The OutputPromptWide method formats and sends a user prompt to the output callback objects.
         /// </summary>
+        /// <param name="outputControl">[in] Specifies an output control that determines which of the client's output callbacks will receive the output.<para/>
+        /// For possible values, see DEBUG_OUTCTL_XXX.</param>
+        /// <param name="format">[in, optional] Specifies the format string, as in printf. Typically, conversion characters work exactly as they do in C.<para/>
+        /// For the floating-point conversion characters, the 64-bit argument is interpreted as a 32-bit floating-point number unless the l modifier is used.<para/>
+        /// The %p conversion character is supported, but it represents a pointer in a target's address space. It might not have any modifiers and it uses the debugger's internal address formatting.<para/>
+        /// The following additional conversion characters are supported. If Format is NULL, only the standard prompt text is sent to the output callbacks.</param>
         /// <returns>This method can also return error values. See Return Values for more details.</returns>
         /// <remarks>
         /// OutputPrompt and OutputPromptWide can be used to prompt the user for input. The standard prompt will be sent to

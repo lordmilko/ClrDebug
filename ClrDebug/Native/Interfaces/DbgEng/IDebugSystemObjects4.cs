@@ -591,9 +591,6 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Gets the system for a server.
         /// </summary>
-        /// <param name="Buffer">[out] A pointer to an output buffer.</param>
-        /// <param name="BufferSize">[in] The size of the buffer. This size includes the space for the '\0' terminating character.</param>
-        /// <param name="NameSize">[out, optional] A pointer to the name size. This size includes the space for the '\0' terminating character.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
         new HRESULT GetSystemByServer([In] long Server, [Out] out int Id);

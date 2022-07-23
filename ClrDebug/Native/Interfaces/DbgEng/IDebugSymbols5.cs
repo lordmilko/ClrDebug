@@ -390,12 +390,19 @@ namespace ClrDebug.DbgEng
             [Out] out int Size);
 
         /// <summary>
-        /// The GetFieldOffset function returns the offset of a member from the beginning of a structure.
+        /// The GetFieldOffset method returns the offset of a field from the base address of an instance of a type.
         /// </summary>
-        /// <param name="Field">[in] Specifies the name of the member in the structure. Submembers can be specified by using a period-separated path, for example, "myfield.mysubfield".</param>
-        /// <param name="Type">[in] Specifies the name of the type of the structure. This can be qualified with a module name, for example, mymodule!mystruct.</param>
-        /// <param name="pOffset">[out] Receives the offset of the member from the beginning of an instance of the structure.</param>
-        /// <returns>If the function succeeds, the return value is zero. Otherwise, the return value is an IG_DUMP_SYMBOL_INFO error code.</returns>
+        /// <param name="Module">[in] Specifies the module containing the types of both the container and the field.</param>
+        /// <param name="TypeId">[in] Specifies the type ID of the type containing the field.</param>
+        /// <param name="Field">[in] Specifies the name of the field whose offset is requested. Subfields may be specified by using a dot-separated path.</param>
+        /// <param name="Offset">[out] Receives the offset of the specified field from the base memory location of an instance of the type.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        /// <remarks>
+        /// An example of a dot-separated path for the Field parameter is as follows. Suppose the MyStruct structure contains
+        /// a field MyField of type MySubStruct, and the MySubStruct structure contains the field MySubField. Then the location
+        /// of this field relative to the location of MyStruct structure can be found by setting the Field parameter to "MyField.MySubField".
+        /// For more information about types, see Types.
+        /// </remarks>
         [PreserveSig]
         new HRESULT GetFieldOffset(
             [In] long Module,
@@ -2265,7 +2272,7 @@ namespace ClrDebug.DbgEng
         /// To use the default set of flags, set Flags to DEBUG_GSEL_DEFAULT. This has all the flags in the previous table turned off.</param>
         /// <param name="Entries">[out, optional] Receives the locations in the target's memory that correspond to the source lines queried for. Each entry in this array is of type <see cref="DEBUG_SYMBOL_SOURCE_ENTRY"/> and contains the source line number along with a location in the target's memory.</param>
         /// <param name="EntriesCount">[in] Specifies the number of entries in the Entries array.</param>
-        /// <param name="EntriesAvailable">[out, optional] Receives the number of locations that match the query found in the target's memory.</param>
+        /// <param name="EntriesAvail">[out, optional] Receives the number of locations that match the query found in the target's memory.</param>
         /// <returns>These methods can also return error values. See Return Values for more details.</returns>
         /// <remarks>
         /// These methods can be used by debugger applications to fetch locations in the target's memory for setting breakpoints
@@ -2292,7 +2299,7 @@ namespace ClrDebug.DbgEng
         /// To use the default set of flags, set Flags to DEBUG_GSEL_DEFAULT. This has all the flags in the previous table turned off.</param>
         /// <param name="Entries">[out, optional] Receives the locations in the target's memory that correspond to the source lines queried for. Each entry in this array is of type <see cref="DEBUG_SYMBOL_SOURCE_ENTRY"/> and contains the source line number along with a location in the target's memory.</param>
         /// <param name="EntriesCount">[in] Specifies the number of entries in the Entries array.</param>
-        /// <param name="EntriesAvailable">[out, optional] Receives the number of locations that match the query found in the target's memory.</param>
+        /// <param name="EntriesAvail">[out, optional] Receives the number of locations that match the query found in the target's memory.</param>
         /// <returns>These methods can also return error values. See Return Values for more details.</returns>
         /// <remarks>
         /// These methods can be used by debugger applications to fetch locations in the target's memory for setting breakpoints
