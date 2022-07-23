@@ -11,7 +11,7 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Receives the line number within the source file of the instruction specified by Offset. If Line is NULL, this information is not returned.
         /// </summary>
-        public uint Line { get; }
+        public int Line { get; }
 
         /// <summary>
         /// Receives the file name of the file that contains the instruction specified by Offset. If FileBuffer is NULL, this information is not returned.
@@ -22,9 +22,9 @@ namespace ClrDebug.DbgEng
         /// Receives the difference between the location specified in Offset and the location of the first instruction of the returned line.<para/>
         /// If Displacement is NULL, this information is not returned.
         /// </summary>
-        public ulong Displacement { get; }
+        public long Displacement { get; }
 
-        public GetLineByOffsetResult(uint line, string fileBuffer, ulong displacement)
+        public GetLineByOffsetResult(int line, string fileBuffer, long displacement)
         {
             Line = line;
             FileBuffer = fileBuffer;

@@ -26,8 +26,8 @@ namespace ClrDebug.DbgEng
         public static readonly DEBUG_STATUS TIMEOUT = 17;
         public static readonly DEBUG_STATUS MASK = 0x1f;
 
-        public static readonly ulong INSIDE_WAIT = 0x100000000;
-        public static readonly ulong WAIT_TIMEOUT = 0x200000000;
+        public static readonly long INSIDE_WAIT = 0x100000000;
+        public static readonly long WAIT_TIMEOUT = 0x200000000;
 
         private int value;
 

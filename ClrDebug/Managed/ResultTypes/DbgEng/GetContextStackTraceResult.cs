@@ -17,9 +17,9 @@ namespace ClrDebug.DbgEng
         /// Receives the number of frames that were placed in the array Frames and contexts in FrameContexts.<para/>
         /// If FramesFilled is NULL, this information is not returned.
         /// </summary>
-        public uint FramesFilled { get; }
+        public int FramesFilled { get; }
 
-        public GetContextStackTraceResult(DEBUG_STACK_FRAME[] frames, uint framesFilled)
+        public GetContextStackTraceResult(DEBUG_STACK_FRAME[] frames, int framesFilled)
         {
             Frames = frames;
             FramesFilled = framesFilled;

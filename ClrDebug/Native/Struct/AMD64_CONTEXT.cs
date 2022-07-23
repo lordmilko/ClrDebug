@@ -10,23 +10,23 @@ namespace ClrDebug
     {
         // Register Parameter Home Addresses
         [FieldOffset(0x0)]
-        public ulong P1Home;
+        public long P1Home;
         [FieldOffset(0x8)]
-        public ulong P2Home;
+        public long P2Home;
         [FieldOffset(0x10)]
-        public ulong P3Home;
+        public long P3Home;
         [FieldOffset(0x18)]
-        public ulong P4Home;
+        public long P4Home;
         [FieldOffset(0x20)]
-        public ulong P5Home;
+        public long P5Home;
         [FieldOffset(0x28)]
-        public ulong P6Home;
+        public long P6Home;
 
         // Control Flags
         [FieldOffset(0x30)]
         public ContextFlags ContextFlags;
         [FieldOffset(0x34)]
-        public uint MxCsr;
+        public int MxCsr;
 
         // Segment Registers and Processor Flags
         [FieldOffset(0x38)]
@@ -42,114 +42,114 @@ namespace ClrDebug
         [FieldOffset(0x42)]
         public ushort SegSs;
         [FieldOffset(0x44)]
-        public uint EFlags;
+        public int EFlags;
 
         // Debug Registers
         [FieldOffset(0x48)]
-        public ulong Dr0;
+        public long Dr0;
         [FieldOffset(0x50)]
-        public ulong Dr1;
+        public long Dr1;
         [FieldOffset(0x58)]
-        public ulong Dr2;
+        public long Dr2;
         [FieldOffset(0x60)]
-        public ulong Dr3;
+        public long Dr3;
         [FieldOffset(0x68)]
-        public ulong Dr6;
+        public long Dr6;
         [FieldOffset(0x70)]
-        public ulong Dr7;
+        public long Dr7;
 
         // Integer Registers
         [FieldOffset(0x78)]
-        public ulong Rax;
+        public long Rax;
         [FieldOffset(0x80)]
-        public ulong Rcx;
+        public long Rcx;
         [FieldOffset(0x88)]
-        public ulong Rdx;
+        public long Rdx;
         [FieldOffset(0x90)]
-        public ulong Rbx;
+        public long Rbx;
         [FieldOffset(0x98)]
-        public ulong Rsp;
+        public long Rsp;
         [FieldOffset(0xa0)]
-        public ulong Rbp;
+        public long Rbp;
         [FieldOffset(0xa8)]
-        public ulong Rsi;
+        public long Rsi;
         [FieldOffset(0xb0)]
-        public ulong Rdi;
+        public long Rdi;
         [FieldOffset(0xb8)]
-        public ulong R8;
+        public long R8;
         [FieldOffset(0xc0)]
-        public ulong R9;
+        public long R9;
         [FieldOffset(0xc8)]
-        public ulong R10;
+        public long R10;
         [FieldOffset(0xd0)]
-        public ulong R11;
+        public long R11;
         [FieldOffset(0xd8)]
-        public ulong R12;
+        public long R12;
         [FieldOffset(0xe0)]
-        public ulong R13;
+        public long R13;
         [FieldOffset(0xe8)]
-        public ulong R14;
+        public long R14;
         [FieldOffset(0xf0)]
-        public ulong R15;
+        public long R15;
 
         // Program Counter
         [FieldOffset(0xf8)]
-        public ulong Rip;
+        public long Rip;
 
         // Floating Point State
         [FieldOffset(0x100)]
-        public ulong FltSave;
+        public long FltSave;
         [FieldOffset(0x120)]
-        public ulong Legacy;
+        public long Legacy;
         [FieldOffset(0x1a0)]
-        public ulong Xmm0;
+        public long Xmm0;
         [FieldOffset(0x1b0)]
-        public ulong Xmm1;
+        public long Xmm1;
         [FieldOffset(0x1c0)]
-        public ulong Xmm2;
+        public long Xmm2;
         [FieldOffset(0x1d0)]
-        public ulong Xmm3;
+        public long Xmm3;
         [FieldOffset(0x1e0)]
-        public ulong Xmm4;
+        public long Xmm4;
         [FieldOffset(0x1f0)]
-        public ulong Xmm5;
+        public long Xmm5;
         [FieldOffset(0x200)]
-        public ulong Xmm6;
+        public long Xmm6;
         [FieldOffset(0x210)]
-        public ulong Xmm7;
+        public long Xmm7;
         [FieldOffset(0x220)]
-        public ulong Xmm8;
+        public long Xmm8;
         [FieldOffset(0x230)]
-        public ulong Xmm9;
+        public long Xmm9;
         [FieldOffset(0x240)]
-        public ulong Xmm10;
+        public long Xmm10;
         [FieldOffset(0x250)]
-        public ulong Xmm11;
+        public long Xmm11;
         [FieldOffset(0x260)]
-        public ulong Xmm12;
+        public long Xmm12;
         [FieldOffset(0x270)]
-        public ulong Xmm13;
+        public long Xmm13;
         [FieldOffset(0x280)]
-        public ulong Xmm14;
+        public long Xmm14;
         [FieldOffset(0x290)]
-        public ulong Xmm15;
+        public long Xmm15;
 
         // Vector Registers
         [FieldOffset(0x300)]
-        public ulong VectorRegister;
+        public long VectorRegister;
         [FieldOffset(0x4a0)]
-        public ulong VectorControl;
+        public long VectorControl;
 
         // Special Debug Control Registers
         [FieldOffset(0x4a8)]
-        public ulong DebugControl;
+        public long DebugControl;
         [FieldOffset(0x4b0)]
-        public ulong LastBranchToRip;
+        public long LastBranchToRip;
         [FieldOffset(0x4b8)]
-        public ulong LastBranchFromRip;
+        public long LastBranchFromRip;
         [FieldOffset(0x4c0)]
-        public ulong LastExceptionToRip;
+        public long LastExceptionToRip;
         [FieldOffset(0x4c8)]
-        public ulong LastExceptionFromRip;
+        public long LastExceptionFromRip;
     }
 }

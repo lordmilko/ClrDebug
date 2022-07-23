@@ -16,9 +16,9 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Receives the location in the target's virtual address space of the symbol. If Offset is NULL, this information is not returned.
         /// </summary>
-        public ulong Offset { get; }
+        public long Offset { get; }
 
-        public GetNextSymbolMatchWideResult(string buffer, ulong offset)
+        public GetNextSymbolMatchWideResult(string buffer, long offset)
         {
             Buffer = buffer;
             Offset = offset;

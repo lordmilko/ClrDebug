@@ -34,11 +34,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetNumberRegisters method returns the number of registers on the target computer.
         /// </summary>
-        public uint NumberRegisters
+        public int NumberRegisters
         {
             get
             {
-                uint number;
+                int number;
                 TryGetNumberRegisters(out number).ThrowDbgEngNotOK();
 
                 return number;
@@ -53,12 +53,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For an overview of the <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public HRESULT TryGetNumberRegisters(out uint number)
+        public HRESULT TryGetNumberRegisters(out int number)
         {
             InitDelegate(ref getNumberRegisters, Vtbl->GetNumberRegisters);
 
             /*HRESULT GetNumberRegisters(
-            [Out] out uint Number);*/
+            [Out] out int Number);*/
             return getNumberRegisters(Raw, out number);
         }
 
@@ -68,11 +68,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetInstructionOffset method returns the location of the current thread's current instruction.
         /// </summary>
-        public ulong InstructionOffset
+        public long InstructionOffset
         {
             get
             {
-                ulong offset;
+                long offset;
                 TryGetInstructionOffset(out offset).ThrowDbgEngNotOK();
 
                 return offset;
@@ -90,12 +90,12 @@ namespace ClrDebug.DbgEng
         /// performs the same task as this method but also allows the register source to be specified. For an overview of the
         /// <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public HRESULT TryGetInstructionOffset(out ulong offset)
+        public HRESULT TryGetInstructionOffset(out long offset)
         {
             InitDelegate(ref getInstructionOffset, Vtbl->GetInstructionOffset);
 
             /*HRESULT GetInstructionOffset(
-            [Out] out ulong Offset);*/
+            [Out] out long Offset);*/
             return getInstructionOffset(Raw, out offset);
         }
 
@@ -105,11 +105,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetStackOffset method returns the current thread's current stack location.
         /// </summary>
-        public ulong StackOffset
+        public long StackOffset
         {
             get
             {
-                ulong offset;
+                long offset;
                 TryGetStackOffset(out offset).ThrowDbgEngNotOK();
 
                 return offset;
@@ -126,12 +126,12 @@ namespace ClrDebug.DbgEng
         /// performs the same task as this method but also allows the register source to be specified. For an overview of the
         /// <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public HRESULT TryGetStackOffset(out ulong offset)
+        public HRESULT TryGetStackOffset(out long offset)
         {
             InitDelegate(ref getStackOffset, Vtbl->GetStackOffset);
 
             /*HRESULT GetStackOffset(
-            [Out] out ulong Offset);*/
+            [Out] out long Offset);*/
             return getStackOffset(Raw, out offset);
         }
 
@@ -141,11 +141,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetFrameOffset method returns the location of the stack frame for the current function.
         /// </summary>
-        public ulong FrameOffset
+        public long FrameOffset
         {
             get
             {
-                ulong offset;
+                long offset;
                 TryGetFrameOffset(out offset).ThrowDbgEngNotOK();
 
                 return offset;
@@ -162,12 +162,12 @@ namespace ClrDebug.DbgEng
         /// performs the same task as this method but also allows the register source to be specified. For an overview of the
         /// <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public HRESULT TryGetFrameOffset(out ulong offset)
+        public HRESULT TryGetFrameOffset(out long offset)
         {
             InitDelegate(ref getFrameOffset, Vtbl->GetFrameOffset);
 
             /*HRESULT GetFrameOffset(
-            [Out] out ulong Offset);*/
+            [Out] out long Offset);*/
             return getFrameOffset(Raw, out offset);
         }
 
@@ -182,7 +182,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For an overview of the <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public GetDescriptionResult GetDescription(uint register)
+        public GetDescriptionResult GetDescription(int register)
         {
             GetDescriptionResult result;
             TryGetDescription(register, out result).ThrowDbgEngNotOK();
@@ -199,25 +199,25 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For an overview of the <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public HRESULT TryGetDescription(uint register, out GetDescriptionResult result)
+        public HRESULT TryGetDescription(int register, out GetDescriptionResult result)
         {
             InitDelegate(ref getDescription, Vtbl->GetDescription);
             /*HRESULT GetDescription(
-            [In] uint Register,
+            [In] int Register,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
-            [Out] out uint NameSize,
+            [Out] out int NameSize,
             [Out] out DEBUG_REGISTER_DESCRIPTION Desc);*/
             StringBuilder nameBuffer;
             int nameBufferSize = 0;
-            uint nameSize;
+            int nameSize;
             DEBUG_REGISTER_DESCRIPTION desc;
             HRESULT hr = getDescription(Raw, register, null, nameBufferSize, out nameSize, out desc);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            nameBufferSize = (int) nameSize;
+            nameBufferSize = nameSize;
             nameBuffer = new StringBuilder(nameBufferSize);
             hr = getDescription(Raw, register, nameBuffer, nameBufferSize, out nameSize, out desc);
 
@@ -245,9 +245,9 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For an overview of the <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public uint GetIndexByName(string name)
+        public int GetIndexByName(string name)
         {
-            uint index;
+            int index;
             TryGetIndexByName(name, out index).ThrowDbgEngNotOK();
 
             return index;
@@ -262,13 +262,13 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For an overview of the <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public HRESULT TryGetIndexByName(string name, out uint index)
+        public HRESULT TryGetIndexByName(string name, out int index)
         {
             InitDelegate(ref getIndexByName, Vtbl->GetIndexByName);
 
             /*HRESULT GetIndexByName(
             [In, MarshalAs(UnmanagedType.LPStr)] string Name,
-            [Out] out uint Index);*/
+            [Out] out int Index);*/
             return getIndexByName(Raw, name, out index);
         }
 
@@ -284,7 +284,7 @@ namespace ClrDebug.DbgEng
         /// To receive the values of multiple registers, use the <see cref="GetValues"/> method instead. For an overview of
         /// the <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public DEBUG_VALUE GetValue(uint register)
+        public DEBUG_VALUE GetValue(int register)
         {
             DEBUG_VALUE value;
             TryGetValue(register, out value).ThrowDbgEngNotOK();
@@ -302,12 +302,12 @@ namespace ClrDebug.DbgEng
         /// To receive the values of multiple registers, use the <see cref="GetValues"/> method instead. For an overview of
         /// the <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public HRESULT TryGetValue(uint register, out DEBUG_VALUE value)
+        public HRESULT TryGetValue(int register, out DEBUG_VALUE value)
         {
             InitDelegate(ref getValue, Vtbl->GetValue);
 
             /*HRESULT GetValue(
-            [In] uint Register,
+            [In] int Register,
             [Out] out DEBUG_VALUE Value);*/
             return getValue(Raw, register, out value);
         }
@@ -328,7 +328,7 @@ namespace ClrDebug.DbgEng
         /// registers, use the <see cref="SetValues"/> method instead. For an overview of the <see cref="IDebugRegisters"/>
         /// interface and other register-related methods, see Registers.
         /// </remarks>
-        public void SetValue(uint register, DEBUG_VALUE value)
+        public void SetValue(int register, DEBUG_VALUE value)
         {
             TrySetValue(register, value).ThrowDbgEngNotOK();
         }
@@ -347,12 +347,12 @@ namespace ClrDebug.DbgEng
         /// registers, use the <see cref="SetValues"/> method instead. For an overview of the <see cref="IDebugRegisters"/>
         /// interface and other register-related methods, see Registers.
         /// </remarks>
-        public HRESULT TrySetValue(uint register, DEBUG_VALUE value)
+        public HRESULT TrySetValue(int register, DEBUG_VALUE value)
         {
             InitDelegate(ref setValue, Vtbl->SetValue);
 
             /*HRESULT SetValue(
-            [In] uint Register,
+            [In] int Register,
             [In] DEBUG_VALUE Value);*/
             return setValue(Raw, register, value);
         }
@@ -378,7 +378,7 @@ namespace ClrDebug.DbgEng
         /// to be specified. For an overview of the <see cref="IDebugRegisters"/> interface and other register-related methods,
         /// see Registers.
         /// </remarks>
-        public DEBUG_VALUE[] GetValues(uint count, uint[] indices, uint start)
+        public DEBUG_VALUE[] GetValues(int count, int[] indices, int start)
         {
             DEBUG_VALUE[] values;
             TryGetValues(count, indices, start, out values).ThrowDbgEngNotOK();
@@ -405,15 +405,15 @@ namespace ClrDebug.DbgEng
         /// to be specified. For an overview of the <see cref="IDebugRegisters"/> interface and other register-related methods,
         /// see Registers.
         /// </remarks>
-        public HRESULT TryGetValues(uint count, uint[] indices, uint start, out DEBUG_VALUE[] values)
+        public HRESULT TryGetValues(int count, int[] indices, int start, out DEBUG_VALUE[] values)
         {
             InitDelegate(ref getValues, Vtbl->GetValues);
             /*HRESULT GetValues(
-            [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] uint[] Indices,
-            [In] uint Start,
+            [In] int Count,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Indices,
+            [In] int Start,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);*/
-            values = new DEBUG_VALUE[(int) count];
+            values = new DEBUG_VALUE[count];
             HRESULT hr = getValues(Raw, count, indices, start, values);
 
             return hr;
@@ -441,7 +441,7 @@ namespace ClrDebug.DbgEng
         /// also allows the register source to be specified. For an overview of the <see cref="IDebugRegisters"/> interface
         /// and other register-related methods, see Registers.
         /// </remarks>
-        public void SetValues(uint count, uint[] indices, uint start, DEBUG_VALUE[] values)
+        public void SetValues(int count, int[] indices, int start, DEBUG_VALUE[] values)
         {
             TrySetValues(count, indices, start, values).ThrowDbgEngNotOK();
         }
@@ -466,14 +466,14 @@ namespace ClrDebug.DbgEng
         /// also allows the register source to be specified. For an overview of the <see cref="IDebugRegisters"/> interface
         /// and other register-related methods, see Registers.
         /// </remarks>
-        public HRESULT TrySetValues(uint count, uint[] indices, uint start, DEBUG_VALUE[] values)
+        public HRESULT TrySetValues(int count, int[] indices, int start, DEBUG_VALUE[] values)
         {
             InitDelegate(ref setValues, Vtbl->SetValues);
 
             /*HRESULT SetValues(
-            [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] uint[] Indices,
-            [In] uint Start,
+            [In] int Count,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Indices,
+            [In] int Start,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);*/
             return setValues(Raw, count, indices, start, values);
         }
@@ -527,11 +527,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetNumberPseudoRegisters method returns the number of pseudo-registers that are maintained by the debugger engine.
         /// </summary>
-        public uint NumberPseudoRegisters
+        public int NumberPseudoRegisters
         {
             get
             {
-                uint number;
+                int number;
                 TryGetNumberPseudoRegisters(out number).ThrowDbgEngNotOK();
 
                 return number;
@@ -548,12 +548,12 @@ namespace ClrDebug.DbgEng
         /// The valid indices for pseudo-registers are between zero and the number of pseudo-registers, minus one. For an overview
         /// of the <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public HRESULT TryGetNumberPseudoRegisters(out uint number)
+        public HRESULT TryGetNumberPseudoRegisters(out int number)
         {
             InitDelegate(ref getNumberPseudoRegisters, Vtbl2->GetNumberPseudoRegisters);
 
             /*HRESULT GetNumberPseudoRegisters(
-            [Out] out uint Number);*/
+            [Out] out int Number);*/
             return getNumberPseudoRegisters(Raw, out number);
         }
 
@@ -568,7 +568,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For an overview of the <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public GetDescriptionWideResult GetDescriptionWide(uint register)
+        public GetDescriptionWideResult GetDescriptionWide(int register)
         {
             GetDescriptionWideResult result;
             TryGetDescriptionWide(register, out result).ThrowDbgEngNotOK();
@@ -585,26 +585,26 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For an overview of the <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public HRESULT TryGetDescriptionWide(uint register, out GetDescriptionWideResult result)
+        public HRESULT TryGetDescriptionWide(int register, out GetDescriptionWideResult result)
         {
             InitDelegate(ref getDescriptionWide, Vtbl2->GetDescriptionWide);
             /*HRESULT GetDescriptionWide(
-            [In] uint Register,
+            [In] int Register,
             [Out, MarshalAs(UnmanagedType.LPWStr)]
             StringBuilder NameBuffer,
             [In] int NameBufferSize,
-            [Out] out uint NameSize,
+            [Out] out int NameSize,
             [Out] out DEBUG_REGISTER_DESCRIPTION Desc);*/
             StringBuilder nameBuffer;
             int nameBufferSize = 0;
-            uint nameSize;
+            int nameSize;
             DEBUG_REGISTER_DESCRIPTION desc;
             HRESULT hr = getDescriptionWide(Raw, register, null, nameBufferSize, out nameSize, out desc);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            nameBufferSize = (int) nameSize;
+            nameBufferSize = nameSize;
             nameBuffer = new StringBuilder(nameBufferSize);
             hr = getDescriptionWide(Raw, register, nameBuffer, nameBufferSize, out nameSize, out desc);
 
@@ -632,9 +632,9 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For an overview of the <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public uint GetIndexByNameWide(string name)
+        public int GetIndexByNameWide(string name)
         {
-            uint index;
+            int index;
             TryGetIndexByNameWide(name, out index).ThrowDbgEngNotOK();
 
             return index;
@@ -649,13 +649,13 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For an overview of the <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public HRESULT TryGetIndexByNameWide(string name, out uint index)
+        public HRESULT TryGetIndexByNameWide(string name, out int index)
         {
             InitDelegate(ref getIndexByNameWide, Vtbl2->GetIndexByNameWide);
 
             /*HRESULT GetIndexByNameWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name,
-            [Out] out uint Index);*/
+            [Out] out int Index);*/
             return getIndexByNameWide(Raw, name, out index);
         }
 
@@ -673,7 +673,7 @@ namespace ClrDebug.DbgEng
         /// this method will return E_FAIL. For an overview of the <see cref="IDebugRegisters"/> interface and other register-related
         /// methods, see Registers.
         /// </remarks>
-        public GetPseudoDescriptionResult GetPseudoDescription(uint register)
+        public GetPseudoDescriptionResult GetPseudoDescription(int register)
         {
             GetPseudoDescriptionResult result;
             TryGetPseudoDescription(register, out result).ThrowDbgEngNotOK();
@@ -693,27 +693,27 @@ namespace ClrDebug.DbgEng
         /// this method will return E_FAIL. For an overview of the <see cref="IDebugRegisters"/> interface and other register-related
         /// methods, see Registers.
         /// </remarks>
-        public HRESULT TryGetPseudoDescription(uint register, out GetPseudoDescriptionResult result)
+        public HRESULT TryGetPseudoDescription(int register, out GetPseudoDescriptionResult result)
         {
             InitDelegate(ref getPseudoDescription, Vtbl2->GetPseudoDescription);
             /*HRESULT GetPseudoDescription(
-            [In] uint Register,
+            [In] int Register,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
-            [Out] out uint NameSize,
-            [Out] out ulong TypeModule,
-            [Out] out uint TypeId);*/
+            [Out] out int NameSize,
+            [Out] out long TypeModule,
+            [Out] out int TypeId);*/
             StringBuilder nameBuffer;
             int nameBufferSize = 0;
-            uint nameSize;
-            ulong typeModule;
-            uint typeId;
+            int nameSize;
+            long typeModule;
+            int typeId;
             HRESULT hr = getPseudoDescription(Raw, register, null, nameBufferSize, out nameSize, out typeModule, out typeId);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            nameBufferSize = (int) nameSize;
+            nameBufferSize = nameSize;
             nameBuffer = new StringBuilder(nameBufferSize);
             hr = getPseudoDescription(Raw, register, nameBuffer, nameBufferSize, out nameSize, out typeModule, out typeId);
 
@@ -744,7 +744,7 @@ namespace ClrDebug.DbgEng
         /// this method will return E_FAIL. For an overview of the <see cref="IDebugRegisters"/> interface and other register-related
         /// methods, see Registers.
         /// </remarks>
-        public GetPseudoDescriptionWideResult GetPseudoDescriptionWide(uint register)
+        public GetPseudoDescriptionWideResult GetPseudoDescriptionWide(int register)
         {
             GetPseudoDescriptionWideResult result;
             TryGetPseudoDescriptionWide(register, out result).ThrowDbgEngNotOK();
@@ -764,27 +764,27 @@ namespace ClrDebug.DbgEng
         /// this method will return E_FAIL. For an overview of the <see cref="IDebugRegisters"/> interface and other register-related
         /// methods, see Registers.
         /// </remarks>
-        public HRESULT TryGetPseudoDescriptionWide(uint register, out GetPseudoDescriptionWideResult result)
+        public HRESULT TryGetPseudoDescriptionWide(int register, out GetPseudoDescriptionWideResult result)
         {
             InitDelegate(ref getPseudoDescriptionWide, Vtbl2->GetPseudoDescriptionWide);
             /*HRESULT GetPseudoDescriptionWide(
-            [In] uint Register,
+            [In] int Register,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
-            [Out] out uint NameSize,
-            [Out] out ulong TypeModule,
-            [Out] out uint TypeId);*/
+            [Out] out int NameSize,
+            [Out] out long TypeModule,
+            [Out] out int TypeId);*/
             StringBuilder nameBuffer;
             int nameBufferSize = 0;
-            uint nameSize;
-            ulong typeModule;
-            uint typeId;
+            int nameSize;
+            long typeModule;
+            int typeId;
             HRESULT hr = getPseudoDescriptionWide(Raw, register, null, nameBufferSize, out nameSize, out typeModule, out typeId);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            nameBufferSize = (int) nameSize;
+            nameBufferSize = nameSize;
             nameBuffer = new StringBuilder(nameBufferSize);
             hr = getPseudoDescriptionWide(Raw, register, nameBuffer, nameBufferSize, out nameSize, out typeModule, out typeId);
 
@@ -813,9 +813,9 @@ namespace ClrDebug.DbgEng
         /// For the names of all the pseudo-registers, see Pseudo-Register Syntax. For an overview of the <see cref="IDebugRegisters"/>
         /// interface and other register-related methods, see Registers.
         /// </remarks>
-        public uint GetPseudoIndexByName(string name)
+        public int GetPseudoIndexByName(string name)
         {
-            uint index;
+            int index;
             TryGetPseudoIndexByName(name, out index).ThrowDbgEngNotOK();
 
             return index;
@@ -831,13 +831,13 @@ namespace ClrDebug.DbgEng
         /// For the names of all the pseudo-registers, see Pseudo-Register Syntax. For an overview of the <see cref="IDebugRegisters"/>
         /// interface and other register-related methods, see Registers.
         /// </remarks>
-        public HRESULT TryGetPseudoIndexByName(string name, out uint index)
+        public HRESULT TryGetPseudoIndexByName(string name, out int index)
         {
             InitDelegate(ref getPseudoIndexByName, Vtbl2->GetPseudoIndexByName);
 
             /*HRESULT GetPseudoIndexByName(
             [In, MarshalAs(UnmanagedType.LPStr)] string Name,
-            [Out] out uint Index);*/
+            [Out] out int Index);*/
             return getPseudoIndexByName(Raw, name, out index);
         }
 
@@ -853,9 +853,9 @@ namespace ClrDebug.DbgEng
         /// For the names of all the pseudo-registers, see Pseudo-Register Syntax. For an overview of the <see cref="IDebugRegisters"/>
         /// interface and other register-related methods, see Registers.
         /// </remarks>
-        public uint GetPseudoIndexByNameWide(string name)
+        public int GetPseudoIndexByNameWide(string name)
         {
-            uint index;
+            int index;
             TryGetPseudoIndexByNameWide(name, out index).ThrowDbgEngNotOK();
 
             return index;
@@ -871,13 +871,13 @@ namespace ClrDebug.DbgEng
         /// For the names of all the pseudo-registers, see Pseudo-Register Syntax. For an overview of the <see cref="IDebugRegisters"/>
         /// interface and other register-related methods, see Registers.
         /// </remarks>
-        public HRESULT TryGetPseudoIndexByNameWide(string name, out uint index)
+        public HRESULT TryGetPseudoIndexByNameWide(string name, out int index)
         {
             InitDelegate(ref getPseudoIndexByNameWide, Vtbl2->GetPseudoIndexByNameWide);
 
             /*HRESULT GetPseudoIndexByNameWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name,
-            [Out] out uint Index);*/
+            [Out] out int Index);*/
             return getPseudoIndexByNameWide(Raw, name, out index);
         }
 
@@ -898,7 +898,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For an overview of the <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public DEBUG_VALUE[] GetPseudoValues(DEBUG_REGSRC source, uint count, uint[] indices, uint start)
+        public DEBUG_VALUE[] GetPseudoValues(DEBUG_REGSRC source, int count, int[] indices, int start)
         {
             DEBUG_VALUE[] values;
             TryGetPseudoValues(source, count, indices, start, out values).ThrowDbgEngNotOK();
@@ -921,18 +921,18 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For an overview of the <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public HRESULT TryGetPseudoValues(DEBUG_REGSRC source, uint count, uint[] indices, uint start, out DEBUG_VALUE[] values)
+        public HRESULT TryGetPseudoValues(DEBUG_REGSRC source, int count, int[] indices, int start, out DEBUG_VALUE[] values)
         {
             InitDelegate(ref getPseudoValues, Vtbl2->GetPseudoValues);
             /*HRESULT GetPseudoValues(
             [In] DEBUG_REGSRC Source,
-            [In] uint Count,
+            [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            uint[] Indices,
-            [In] uint Start,
+            int[] Indices,
+            [In] int Start,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             DEBUG_VALUE[] Values);*/
-            values = new DEBUG_VALUE[(int) count];
+            values = new DEBUG_VALUE[count];
             HRESULT hr = getPseudoValues(Raw, source, count, indices, start, values);
 
             return hr;
@@ -954,7 +954,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For an overview of the <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public void SetPseudoValues(DEBUG_REGSRC source, uint count, uint[] indices, uint start, DEBUG_VALUE[] values)
+        public void SetPseudoValues(DEBUG_REGSRC source, int count, int[] indices, int start, DEBUG_VALUE[] values)
         {
             TrySetPseudoValues(source, count, indices, start, values).ThrowDbgEngNotOK();
         }
@@ -973,16 +973,16 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For an overview of the <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public HRESULT TrySetPseudoValues(DEBUG_REGSRC source, uint count, uint[] indices, uint start, DEBUG_VALUE[] values)
+        public HRESULT TrySetPseudoValues(DEBUG_REGSRC source, int count, int[] indices, int start, DEBUG_VALUE[] values)
         {
             InitDelegate(ref setPseudoValues, Vtbl2->SetPseudoValues);
 
             /*HRESULT SetPseudoValues(
             [In] DEBUG_REGSRC Source,
-            [In] uint Count,
+            [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            uint[] Indices,
-            [In] uint Start,
+            int[] Indices,
+            [In] int Start,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             DEBUG_VALUE[] Values);*/
             return setPseudoValues(Raw, source, count, indices, start, values);
@@ -1008,7 +1008,7 @@ namespace ClrDebug.DbgEng
         ///cref="GetValues"/> performs the same task as this method but always uses the target as the register source. For
         /// an overview of the <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public DEBUG_VALUE[] GetValues2(DEBUG_REGSRC source, uint count, uint[] indices, uint start)
+        public DEBUG_VALUE[] GetValues2(DEBUG_REGSRC source, int count, int[] indices, int start)
         {
             DEBUG_VALUE[] values;
             TryGetValues2(source, count, indices, start, out values).ThrowDbgEngNotOK();
@@ -1034,18 +1034,18 @@ namespace ClrDebug.DbgEng
         ///cref="GetValues"/> performs the same task as this method but always uses the target as the register source. For
         /// an overview of the <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public HRESULT TryGetValues2(DEBUG_REGSRC source, uint count, uint[] indices, uint start, out DEBUG_VALUE[] values)
+        public HRESULT TryGetValues2(DEBUG_REGSRC source, int count, int[] indices, int start, out DEBUG_VALUE[] values)
         {
             InitDelegate(ref getValues2, Vtbl2->GetValues2);
             /*HRESULT GetValues2(
             [In] DEBUG_REGSRC Source,
-            [In] uint Count,
+            [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            uint[] Indices,
-            [In] uint Start,
+            int[] Indices,
+            [In] int Start,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             DEBUG_VALUE[] Values);*/
-            values = new DEBUG_VALUE[(int) count];
+            values = new DEBUG_VALUE[count];
             HRESULT hr = getValues2(Raw, source, count, indices, start, values);
 
             return hr;
@@ -1073,7 +1073,7 @@ namespace ClrDebug.DbgEng
         /// task as this method but always uses the target as the register source. For an overview of the <see cref="IDebugRegisters"/>
         /// interface and other register-related methods, see Registers.
         /// </remarks>
-        public void SetValues2(DEBUG_REGSRC source, uint count, uint[] indices, uint start, DEBUG_VALUE[] values)
+        public void SetValues2(DEBUG_REGSRC source, int count, int[] indices, int start, DEBUG_VALUE[] values)
         {
             TrySetValues2(source, count, indices, start, values).ThrowDbgEngNotOK();
         }
@@ -1098,16 +1098,16 @@ namespace ClrDebug.DbgEng
         /// task as this method but always uses the target as the register source. For an overview of the <see cref="IDebugRegisters"/>
         /// interface and other register-related methods, see Registers.
         /// </remarks>
-        public HRESULT TrySetValues2(DEBUG_REGSRC source, uint count, uint[] indices, uint start, DEBUG_VALUE[] values)
+        public HRESULT TrySetValues2(DEBUG_REGSRC source, int count, int[] indices, int start, DEBUG_VALUE[] values)
         {
             InitDelegate(ref setValues2, Vtbl2->SetValues2);
 
             /*HRESULT SetValues2(
             [In] DEBUG_REGSRC Source,
-            [In] uint Count,
+            [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            uint[] Indices,
-            [In] uint Start,
+            int[] Indices,
+            [In] int Start,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             DEBUG_VALUE[] Values);*/
             return setValues2(Raw, source, count, indices, start, values);
@@ -1169,9 +1169,9 @@ namespace ClrDebug.DbgEng
         /// performs the same task as this method but always uses the target as the register source. For an overview of the
         /// <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public ulong GetInstructionOffset2(DEBUG_REGSRC source)
+        public long GetInstructionOffset2(DEBUG_REGSRC source)
         {
-            ulong offset;
+            long offset;
             TryGetInstructionOffset2(source, out offset).ThrowDbgEngNotOK();
 
             return offset;
@@ -1189,13 +1189,13 @@ namespace ClrDebug.DbgEng
         /// performs the same task as this method but always uses the target as the register source. For an overview of the
         /// <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public HRESULT TryGetInstructionOffset2(DEBUG_REGSRC source, out ulong offset)
+        public HRESULT TryGetInstructionOffset2(DEBUG_REGSRC source, out long offset)
         {
             InitDelegate(ref getInstructionOffset2, Vtbl2->GetInstructionOffset2);
 
             /*HRESULT GetInstructionOffset2(
             [In] DEBUG_REGSRC Source,
-            [Out] out ulong Offset);*/
+            [Out] out long Offset);*/
             return getInstructionOffset2(Raw, source, out offset);
         }
 
@@ -1207,9 +1207,9 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="source">[in] Specifies the register source to query. The possible values are listed in the following table.</param>
         /// <returns>[out] Receives the location in the process's virtual address space of the current thread's current stack.</returns>
-        public ulong GetStackOffset2(DEBUG_REGSRC source)
+        public long GetStackOffset2(DEBUG_REGSRC source)
         {
-            ulong offset;
+            long offset;
             TryGetStackOffset2(source, out offset).ThrowDbgEngNotOK();
 
             return offset;
@@ -1221,13 +1221,13 @@ namespace ClrDebug.DbgEng
         /// <param name="source">[in] Specifies the register source to query. The possible values are listed in the following table.</param>
         /// <param name="offset">[out] Receives the location in the process's virtual address space of the current thread's current stack.</param>
         /// <returns>This list does not contain all the errors that might occur. For a list of possible errors, see HRESULT Values.</returns>
-        public HRESULT TryGetStackOffset2(DEBUG_REGSRC source, out ulong offset)
+        public HRESULT TryGetStackOffset2(DEBUG_REGSRC source, out long offset)
         {
             InitDelegate(ref getStackOffset2, Vtbl2->GetStackOffset2);
 
             /*HRESULT GetStackOffset2(
             [In] DEBUG_REGSRC Source,
-            [Out] out ulong Offset);*/
+            [Out] out long Offset);*/
             return getStackOffset2(Raw, source, out offset);
         }
 
@@ -1244,9 +1244,9 @@ namespace ClrDebug.DbgEng
         /// performs the same task as this method but always uses the target as the register source. For an overview of the
         /// <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public ulong GetFrameOffset2(DEBUG_REGSRC source)
+        public long GetFrameOffset2(DEBUG_REGSRC source)
         {
-            ulong offset;
+            long offset;
             TryGetFrameOffset2(source, out offset).ThrowDbgEngNotOK();
 
             return offset;
@@ -1263,13 +1263,13 @@ namespace ClrDebug.DbgEng
         /// performs the same task as this method but always uses the target as the register source. For an overview of the
         /// <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
-        public HRESULT TryGetFrameOffset2(DEBUG_REGSRC source, out ulong offset)
+        public HRESULT TryGetFrameOffset2(DEBUG_REGSRC source, out long offset)
         {
             InitDelegate(ref getFrameOffset2, Vtbl2->GetFrameOffset2);
 
             /*HRESULT GetFrameOffset2(
             [In] DEBUG_REGSRC Source,
-            [Out] out ulong Offset);*/
+            [Out] out long Offset);*/
             return getFrameOffset2(Raw, source, out offset);
         }
 
@@ -1340,36 +1340,36 @@ namespace ClrDebug.DbgEng
         #region Delegates
         #region IDebugRegisters
 
-        private delegate HRESULT GetNumberRegistersDelegate(IntPtr self, [Out] out uint Number);
-        private delegate HRESULT GetInstructionOffsetDelegate(IntPtr self, [Out] out ulong Offset);
-        private delegate HRESULT GetStackOffsetDelegate(IntPtr self, [Out] out ulong Offset);
-        private delegate HRESULT GetFrameOffsetDelegate(IntPtr self, [Out] out ulong Offset);
-        private delegate HRESULT GetDescriptionDelegate(IntPtr self, [In] uint Register, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out uint NameSize, [Out] out DEBUG_REGISTER_DESCRIPTION Desc);
-        private delegate HRESULT GetIndexByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [Out] out uint Index);
-        private delegate HRESULT GetValueDelegate(IntPtr self, [In] uint Register, [Out] out DEBUG_VALUE Value);
-        private delegate HRESULT SetValueDelegate(IntPtr self, [In] uint Register, [In] DEBUG_VALUE Value);
-        private delegate HRESULT GetValuesDelegate(IntPtr self, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] uint[] Indices, [In] uint Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);
-        private delegate HRESULT SetValuesDelegate(IntPtr self, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] uint[] Indices, [In] uint Start, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);
+        private delegate HRESULT GetNumberRegistersDelegate(IntPtr self, [Out] out int Number);
+        private delegate HRESULT GetInstructionOffsetDelegate(IntPtr self, [Out] out long Offset);
+        private delegate HRESULT GetStackOffsetDelegate(IntPtr self, [Out] out long Offset);
+        private delegate HRESULT GetFrameOffsetDelegate(IntPtr self, [Out] out long Offset);
+        private delegate HRESULT GetDescriptionDelegate(IntPtr self, [In] int Register, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out DEBUG_REGISTER_DESCRIPTION Desc);
+        private delegate HRESULT GetIndexByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [Out] out int Index);
+        private delegate HRESULT GetValueDelegate(IntPtr self, [In] int Register, [Out] out DEBUG_VALUE Value);
+        private delegate HRESULT SetValueDelegate(IntPtr self, [In] int Register, [In] DEBUG_VALUE Value);
+        private delegate HRESULT GetValuesDelegate(IntPtr self, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Indices, [In] int Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);
+        private delegate HRESULT SetValuesDelegate(IntPtr self, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Indices, [In] int Start, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);
         private delegate HRESULT OutputRegistersDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_REGISTERS Flags);
 
         #endregion
         #region IDebugRegisters2
 
-        private delegate HRESULT GetNumberPseudoRegistersDelegate(IntPtr self, [Out] out uint Number);
-        private delegate HRESULT GetDescriptionWideDelegate(IntPtr self, [In] uint Register, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out uint NameSize, [Out] out DEBUG_REGISTER_DESCRIPTION Desc);
-        private delegate HRESULT GetIndexByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [Out] out uint Index);
-        private delegate HRESULT GetPseudoDescriptionDelegate(IntPtr self, [In] uint Register, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out uint NameSize, [Out] out ulong TypeModule, [Out] out uint TypeId);
-        private delegate HRESULT GetPseudoDescriptionWideDelegate(IntPtr self, [In] uint Register, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out uint NameSize, [Out] out ulong TypeModule, [Out] out uint TypeId);
-        private delegate HRESULT GetPseudoIndexByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [Out] out uint Index);
-        private delegate HRESULT GetPseudoIndexByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [Out] out uint Index);
-        private delegate HRESULT GetPseudoValuesDelegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Indices, [In] uint Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
-        private delegate HRESULT SetPseudoValuesDelegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Indices, [In] uint Start, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
-        private delegate HRESULT GetValues2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Indices, [In] uint Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
-        private delegate HRESULT SetValues2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Indices, [In] uint Start, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
+        private delegate HRESULT GetNumberPseudoRegistersDelegate(IntPtr self, [Out] out int Number);
+        private delegate HRESULT GetDescriptionWideDelegate(IntPtr self, [In] int Register, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out DEBUG_REGISTER_DESCRIPTION Desc);
+        private delegate HRESULT GetIndexByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [Out] out int Index);
+        private delegate HRESULT GetPseudoDescriptionDelegate(IntPtr self, [In] int Register, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out long TypeModule, [Out] out int TypeId);
+        private delegate HRESULT GetPseudoDescriptionWideDelegate(IntPtr self, [In] int Register, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out long TypeModule, [Out] out int TypeId);
+        private delegate HRESULT GetPseudoIndexByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [Out] out int Index);
+        private delegate HRESULT GetPseudoIndexByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [Out] out int Index);
+        private delegate HRESULT GetPseudoValuesDelegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices, [In] int Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
+        private delegate HRESULT SetPseudoValuesDelegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices, [In] int Start, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
+        private delegate HRESULT GetValues2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices, [In] int Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
+        private delegate HRESULT SetValues2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices, [In] int Start, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
         private delegate HRESULT OutputRegisters2Delegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_REGSRC Source, [In] DEBUG_REGISTERS Flags);
-        private delegate HRESULT GetInstructionOffset2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [Out] out ulong Offset);
-        private delegate HRESULT GetStackOffset2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [Out] out ulong Offset);
-        private delegate HRESULT GetFrameOffset2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [Out] out ulong Offset);
+        private delegate HRESULT GetInstructionOffset2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [Out] out long Offset);
+        private delegate HRESULT GetStackOffset2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [Out] out long Offset);
+        private delegate HRESULT GetFrameOffset2Delegate(IntPtr self, [In] DEBUG_REGSRC Source, [Out] out long Offset);
 
         #endregion
         #endregion

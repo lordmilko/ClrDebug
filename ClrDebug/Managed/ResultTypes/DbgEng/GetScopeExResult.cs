@@ -11,14 +11,14 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The offset of the instruction for the scope.
         /// </summary>
-        public ulong InstructionOffset { get; }
+        public long InstructionOffset { get; }
 
         /// <summary>
         /// The scope frame returned as a <see cref="DEBUG_STACK_FRAME_EX"/> structure.
         /// </summary>
         public DEBUG_STACK_FRAME_EX ScopeFrame { get; }
 
-        public GetScopeExResult(ulong instructionOffset, DEBUG_STACK_FRAME_EX scopeFrame)
+        public GetScopeExResult(long instructionOffset, DEBUG_STACK_FRAME_EX scopeFrame)
         {
             InstructionOffset = instructionOffset;
             ScopeFrame = scopeFrame;

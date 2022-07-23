@@ -16,24 +16,24 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Receives the process ID of the process in which the event occurred. If this information is not available, DEBUG_ANY_ID will be returned instead.
         /// </summary>
-        public uint ProcessId { get; }
+        public int ProcessId { get; }
 
         /// <summary>
         /// Receives the thread ID of the thread in which the last event occurred. If this information is not available, DEBUG_ANY_ID will be returned instead.
         /// </summary>
-        public uint ThreadId { get; }
+        public int ThreadId { get; }
 
         /// <summary>
         /// Receives the size in bytes of the context. If ContextUsed is NULL, this information is not returned.
         /// </summary>
-        public uint ContextUsed { get; }
+        public int ContextUsed { get; }
 
         /// <summary>
         /// Receives the size in bytes of extra information. If ExtraInformationUsed is NULL, this information is not returned.
         /// </summary>
-        public uint ExtraInformationUsed { get; }
+        public int ExtraInformationUsed { get; }
 
-        public GetStoredEventInformationResult(DEBUG_EVENT_TYPE type, uint processId, uint threadId, uint contextUsed, uint extraInformationUsed)
+        public GetStoredEventInformationResult(DEBUG_EVENT_TYPE type, int processId, int threadId, int contextUsed, int extraInformationUsed)
         {
             Type = type;
             ProcessId = processId;

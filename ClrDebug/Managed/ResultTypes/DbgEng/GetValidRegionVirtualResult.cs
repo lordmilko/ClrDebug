@@ -11,14 +11,14 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Receives the address of the beginning of the found valid memory.
         /// </summary>
-        public ulong ValidBase { get; }
+        public long ValidBase { get; }
 
         /// <summary>
         /// Receives the size, in bytes, of the valid memory.
         /// </summary>
-        public uint ValidSize { get; }
+        public int ValidSize { get; }
 
-        public GetValidRegionVirtualResult(ulong validBase, uint validSize)
+        public GetValidRegionVirtualResult(long validBase, int validSize)
         {
             ValidBase = validBase;
             ValidSize = validSize;

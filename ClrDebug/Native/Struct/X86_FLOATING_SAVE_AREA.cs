@@ -5,15 +5,15 @@ namespace ClrDebug
     [StructLayout(LayoutKind.Sequential)]
     public struct X86_FLOATING_SAVE_AREA
     {
-        public uint ControlWord;
-        public uint StatusWord;
-        public uint TagWord;
-        public uint ErrorOffset;
-        public uint ErrorSelector;
-        public uint DataOffset;
-        public uint DataSelector;
+        public int ControlWord;
+        public int StatusWord;
+        public int TagWord;
+        public int ErrorOffset;
+        public int ErrorSelector;
+        public int DataOffset;
+        public int DataSelector;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 80)]
         public byte[] RegisterArea;
-        public uint Cr0NpxState;
+        public int Cr0NpxState;
     }
 }

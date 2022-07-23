@@ -11,17 +11,17 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Receives the platform ID. PlatformId is always VER_PLATFORM_WIN32_NT for NT-based Windows.
         /// </summary>
-        public uint PlatformId { get; }
+        public int PlatformId { get; }
 
         /// <summary>
         /// Receives 0xF if the target's operating system is a free build, or 0xC if the operating system is a checked build.
         /// </summary>
-        public uint Major { get; }
+        public int Major { get; }
 
         /// <summary>
         /// Receives the build number for the target's operating system.
         /// </summary>
-        public uint Minor { get; }
+        public int Minor { get; }
 
         /// <summary>
         /// Receives the string for the service pack level of the target computer. If ServicePackString is NULL, this information is not returned.<para/>
@@ -32,14 +32,14 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Receives the service pack level of the target's operating system.
         /// </summary>
-        public uint ServicePackNumber { get; }
+        public int ServicePackNumber { get; }
 
         /// <summary>
         /// Receives the string that identifies the build of the system. If BuildString is NULL, this information is not returned.
         /// </summary>
         public string BuildString { get; }
 
-        public GetSystemVersionResult(uint platformId, uint major, uint minor, string servicePackString, uint servicePackNumber, string buildString)
+        public GetSystemVersionResult(int platformId, int major, int minor, string servicePackString, int servicePackNumber, string buildString)
         {
             PlatformId = platformId;
             Major = major;

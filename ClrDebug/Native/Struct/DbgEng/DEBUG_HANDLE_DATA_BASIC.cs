@@ -11,31 +11,31 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The size, in characters, of the object-type name. This size includes the space for the '\0' terminating character.
         /// </summary>
-        public uint TypeNameSize;
+        public int TypeNameSize;
 
         /// <summary>
         /// The size, in characters, of the object's name. This size includes the space for the '\0' terminating character.
         /// </summary>
-        public uint ObjectNameSize;
+        public int ObjectNameSize;
 
         /// <summary>
         /// A bit-set that contains the handle's attributes. For possible values, see "Handle" in the Windows Driver Kit (WDK).
         /// </summary>
-        public uint Attributes;
+        public int Attributes;
 
         /// <summary>
         /// A bit-set that specifies the access mask for the object that is represented by the handle. For details, see ACCESS_MASK in the Platform SDK documentation.
         /// </summary>
-        public uint GrantedAccess;
+        public int GrantedAccess;
 
         /// <summary>
         /// The number of handle references for the object.
         /// </summary>
-        public uint HandleCount;
+        public int HandleCount;
 
         /// <summary>
         /// The number of pointer references for the object.
         /// </summary>
-        public uint PointerCount;
+        public int PointerCount;
     }
 }

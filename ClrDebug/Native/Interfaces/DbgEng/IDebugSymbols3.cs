@@ -85,11 +85,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetNameByOffset(
-            [In] ulong Offset,
+            [In] long Offset,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
-            [Out] out uint NameSize,
-            [Out] out ulong Displacement);
+            [Out] out int NameSize,
+            [Out] out long Displacement);
 
         /// <summary>
         /// The GetOffsetByName method returns the location of a symbol identified by name.
@@ -110,7 +110,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetOffsetByName(
             [In, MarshalAs(UnmanagedType.LPStr)] string Symbol,
-            [Out] out ulong Offset);
+            [Out] out long Offset);
 
         /// <summary>
         /// The GetNearNameByOffset method returns the name of a symbol that is located near the specified location.
@@ -133,12 +133,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetNearNameByOffset(
-            [In] ulong Offset,
+            [In] long Offset,
             [In] int Delta,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
-            [Out] out uint NameSize,
-            [Out] out ulong Displacement);
+            [Out] out int NameSize,
+            [Out] out long Displacement);
 
         /// <summary>
         /// The GetLineByOffset method returns the source filename and the line number within the source file of an instruction in the target.
@@ -156,12 +156,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetLineByOffset(
-            [In] ulong Offset,
-            [Out] out uint Line,
+            [In] long Offset,
+            [Out] out int Line,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder FileBuffer,
             [In] int FileBufferSize,
-            [Out] out uint FileSize,
-            [Out] out ulong Displacement);
+            [Out] out int FileSize,
+            [Out] out long Displacement);
 
         /// <summary>
         /// The GetOffsetByLine method returns the location of the instruction that corresponds to a specified line in the source code.
@@ -176,9 +176,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetOffsetByLine(
-            [In] uint Line,
+            [In] int Line,
             [In, MarshalAs(UnmanagedType.LPStr)] string File,
-            [Out] out ulong Offset);
+            [Out] out long Offset);
 
         /// <summary>
         /// The GetNumberModules method returns the number of modules in the current process's module list.
@@ -197,8 +197,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetNumberModules(
-            [Out] out uint Loaded,
-            [Out] out uint Unloaded);
+            [Out] out int Loaded,
+            [Out] out int Unloaded);
 
         /// <summary>
         /// The GetModuleByIndex method returns the location of the module with the specified index.
@@ -211,8 +211,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetModuleByIndex(
-            [In] uint Index,
-            [Out] out ulong Base);
+            [In] int Index,
+            [Out] out long Base);
 
         /// <summary>
         /// The GetModuleByModuleName method searches through the target's modules for one with the specified name.
@@ -230,9 +230,9 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetModuleByModuleName(
             [In, MarshalAs(UnmanagedType.LPStr)] string Name,
-            [In] uint StartIndex,
-            [Out] out uint Index,
-            [Out] out ulong Base);
+            [In] int StartIndex,
+            [Out] out int Index,
+            [Out] out long Base);
 
         /// <summary>
         /// The GetModuleByOffset method searches through the target's modules for one whose memory allocation includes the specified location.
@@ -250,10 +250,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetModuleByOffset(
-            [In] ulong Offset,
-            [In] uint StartIndex,
-            [Out] out uint Index,
-            [Out] out ulong Base);
+            [In] long Offset,
+            [In] int StartIndex,
+            [Out] out int Index,
+            [Out] out long Base);
 
         /// <summary>
         /// The GetModuleNames method returns the names of the specified module.
@@ -279,17 +279,17 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetModuleNames(
-            [In] uint Index,
-            [In] ulong Base,
+            [In] int Index,
+            [In] long Base,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder ImageNameBuffer,
             [In] int ImageNameBufferSize,
-            [Out] out uint ImageNameSize,
+            [Out] out int ImageNameSize,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder ModuleNameBuffer,
             [In] int ModuleNameBufferSize,
-            [Out] out uint ModuleNameSize,
+            [Out] out int ModuleNameSize,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder LoadedImageNameBuffer,
             [In] int LoadedImageNameBufferSize,
-            [Out] out uint LoadedImageNameSize);
+            [Out] out int LoadedImageNameSize);
 
         /// <summary>
         /// The GetModuleParameters method returns parameters for modules in the target.
@@ -307,9 +307,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetModuleParameters(
-            [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ulong[] Bases,
-            [In] uint Start,
+            [In] int Count,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Bases,
+            [In] int Start,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_MODULE_PARAMETERS[] Params);
 
         /// <summary>
@@ -327,7 +327,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetSymbolModule(
             [In, MarshalAs(UnmanagedType.LPStr)] string Symbol,
-            [Out] out ulong Base);
+            [Out] out long Base);
 
         /// <summary>
         /// The GetTypeName method returns the name of the type symbol specified by its type ID and module.
@@ -344,11 +344,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetTypeName(
-            [In] ulong Module,
-            [In] uint TypeId,
+            [In] long Module,
+            [In] int TypeId,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
-            [Out] out uint NameSize);
+            [Out] out int NameSize);
 
         /// <summary>
         /// The GetTypeId method looks up the specified type and return its type ID.
@@ -367,9 +367,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetTypeId(
-            [In] ulong Module,
+            [In] long Module,
             [In, MarshalAs(UnmanagedType.LPStr)] string Name,
-            [Out] out uint TypeId);
+            [Out] out int TypeId);
 
         /// <summary>
         /// The GetTypeSize method returns the number of bytes of memory an instance of the specified type requires.
@@ -383,9 +383,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetTypeSize(
-            [In] ulong Module,
-            [In] uint TypeId,
-            [Out] out uint Size);
+            [In] long Module,
+            [In] int TypeId,
+            [Out] out int Size);
 
         /// <summary>
         /// The GetFieldOffset method returns the offset of a field from the base address of an instance of a type.
@@ -403,10 +403,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetFieldOffset(
-            [In] ulong Module,
-            [In] uint TypeId,
+            [In] long Module,
+            [In] int TypeId,
             [In, MarshalAs(UnmanagedType.LPStr)] string Field,
-            [Out] out uint Offset);
+            [Out] out int Offset);
 
         /// <summary>
         /// The GetSymbolTypeId method returns the type ID and module of the specified symbol.
@@ -423,8 +423,8 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetSymbolTypeId(
             [In, MarshalAs(UnmanagedType.LPStr)] string Symbol,
-            [Out] out uint TypeId,
-            [Out] out ulong Module);
+            [Out] out int TypeId,
+            [Out] out long Module);
 
         /// <summary>
         /// The GetOffsetTypeId method returns the type ID of the symbol closest to the specified memory location.
@@ -439,9 +439,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetOffsetTypeId(
-            [In] ulong Offset,
-            [Out] out uint TypeId,
-            [Out] out ulong Module);
+            [In] long Offset,
+            [Out] out int TypeId,
+            [Out] out long Module);
 
         /// <summary>
         /// The ReadTypedDataVirtual method reads the value of a variable in the target's virtual memory.
@@ -460,12 +460,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT ReadTypedDataVirtual(
-            [In] ulong Offset,
-            [In] ulong Module,
-            [In] uint TypeId,
+            [In] long Offset,
+            [In] long Module,
+            [In] int TypeId,
             [Out] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesRead);
+            [In] int BufferSize,
+            [Out] out int BytesRead);
 
         /// <summary>
         /// The WriteTypedDataVirtual method writes data to the target's virtual address space. The number of bytes written is the size of the specified type.
@@ -483,12 +483,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT WriteTypedDataVirtual(
-            [In] ulong Offset,
-            [In] ulong Module,
-            [In] uint TypeId,
+            [In] long Offset,
+            [In] long Module,
+            [In] int TypeId,
             [In] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesWritten);
+            [In] int BufferSize,
+            [Out] out int BytesWritten);
 
         /// <summary>
         /// The OutputTypedDataVirtual method formats the contents of a variable in the target's virtual memory, and then sends this to the output callbacks.
@@ -506,9 +506,9 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT OutputTypedDataVirtual(
             [In] DEBUG_OUTCTL OutputControl,
-            [In] ulong Offset,
-            [In] ulong Module,
-            [In] uint TypeId,
+            [In] long Offset,
+            [In] long Module,
+            [In] int TypeId,
             [In] DEBUG_TYPEOPTS Flags);
 
         /// <summary>
@@ -529,12 +529,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT ReadTypedDataPhysical(
-            [In] ulong Offset,
-            [In] ulong Module,
-            [In] uint TypeId,
+            [In] long Offset,
+            [In] long Module,
+            [In] int TypeId,
             [In] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesRead);
+            [In] int BufferSize,
+            [Out] out int BytesRead);
 
         /// <summary>
         /// The WriteTypedDataPhysical method writes the value of a variable in the target computer's physical memory.
@@ -553,12 +553,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT WriteTypedDataPhysical(
-            [In] ulong Offset,
-            [In] ulong Module,
-            [In] uint TypeId,
+            [In] long Offset,
+            [In] long Module,
+            [In] int TypeId,
             [In] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesWritten);
+            [In] int BufferSize,
+            [Out] out int BytesWritten);
 
         /// <summary>
         /// The OutputTypedDataPhysical method formats the contents of a variable in the target computer's physical memory, and then sends this to the output callbacks.
@@ -577,9 +577,9 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT OutputTypedDataPhysical(
             [In] DEBUG_OUTCTL OutputControl,
-            [In] ulong Offset,
-            [In] ulong Module,
-            [In] uint TypeId,
+            [In] long Offset,
+            [In] long Module,
+            [In] int TypeId,
             [In] DEBUG_TYPEOPTS Flags);
 
         /// <summary>
@@ -596,10 +596,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetScope(
-            [Out] out ulong InstructionOffset,
+            [Out] out long InstructionOffset,
             [Out] out DEBUG_STACK_FRAME ScopeFrame,
             [In] IntPtr ScopeContext,
-            [In] uint ScopeContextSize);
+            [In] int ScopeContextSize);
 
         /// <summary>
         /// The SetScope method sets the current scope.
@@ -619,10 +619,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT SetScope(
-            [In] ulong InstructionOffset,
+            [In] long InstructionOffset,
             [In] DEBUG_STACK_FRAME ScopeFrame,
             [In] IntPtr ScopeContext,
-            [In] uint ScopeContextSize);
+            [In] int ScopeContextSize);
 
         /// <summary>
         /// The ResetScope method resets the current scope to the default scope of the current thread.
@@ -684,7 +684,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT StartSymbolMatch(
             [In, MarshalAs(UnmanagedType.LPStr)] string Pattern,
-            [Out] out ulong Handle);
+            [Out] out long Handle);
 
         /// <summary>
         /// The GetNextSymbolMatch method returns the next symbol found in a symbol search.
@@ -703,11 +703,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetNextSymbolMatch(
-            [In] ulong Handle,
+            [In] long Handle,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint MatchSize,
-            [Out] out ulong Offset);
+            [Out] out int MatchSize,
+            [Out] out long Offset);
 
         /// <summary>
         /// The EndSymbolMatch method releases the resources used by a symbol search.
@@ -721,7 +721,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT EndSymbolMatch(
-            [In] ulong Handle);
+            [In] long Handle);
 
         /// <summary>
         /// The Reload method deletes the engine's symbol information for the specified module and reload these symbols as needed.
@@ -753,7 +753,7 @@ namespace ClrDebug.DbgEng
         new HRESULT GetSymbolPath(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint PathSize);
+            [Out] out int PathSize);
 
         /// <summary>
         /// The SetSymbolPath method sets the symbol path.
@@ -799,7 +799,7 @@ namespace ClrDebug.DbgEng
         new HRESULT GetImagePath(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint PathSize);
+            [Out] out int PathSize);
 
         /// <summary>
         /// The SetImagePath method sets the executable image path.
@@ -843,7 +843,7 @@ namespace ClrDebug.DbgEng
         new HRESULT GetSourcePath(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint PathSize);
+            [Out] out int PathSize);
 
         /// <summary>
         /// The GetSourcePathElement method returns an element from the source path.
@@ -861,10 +861,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetSourcePathElement(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint ElementSize);
+            [Out] out int ElementSize);
 
         /// <summary>
         /// The SetSourcePath method sets the source path.
@@ -918,13 +918,13 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT FindSourceFile(
-            [In] uint StartElement,
+            [In] int StartElement,
             [In, MarshalAs(UnmanagedType.LPStr)] string File,
             [In] DEBUG_FIND_SOURCE Flags,
-            [Out] out uint FoundElement,
+            [Out] out int FoundElement,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint FoundSize);
+            [Out] out int FoundSize);
 
         /// <summary>
         /// The GetSourceFileLineOffsets method maps each line in a source file to a location in the target's memory.
@@ -943,9 +943,9 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetSourceFileLineOffsets(
             [In, MarshalAs(UnmanagedType.LPStr)] string File,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] long[] Buffer,
             [In] int BufferLines,
-            [Out] out uint FileLines);
+            [Out] out int FileLines);
 
         #endregion
         #region IDebugSymbols2
@@ -969,12 +969,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetModuleVersionInformation(
-            [In] uint Index,
-            [In] ulong Base,
+            [In] int Index,
+            [In] long Base,
             [In, MarshalAs(UnmanagedType.LPStr)] string Item,
             [Out] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint VerInfoSize);
+            [In] int BufferSize,
+            [Out] out int VerInfoSize);
 
         /// <summary>
         /// The GetModuleNameString method returns the name of the specified module.
@@ -994,11 +994,11 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetModuleNameString(
             [In] DEBUG_MODNAME Which,
-            [In] uint Index,
-            [In] ulong Base,
+            [In] int Index,
+            [In] long Base,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
-            [In] uint BufferSize,
-            [Out] out uint NameSize);
+            [In] int BufferSize,
+            [Out] out int NameSize);
 
         /// <summary>
         /// The GetConstantName method returns the name of the specified constant.
@@ -1015,12 +1015,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetConstantName(
-            [In] ulong Module,
-            [In] uint TypeId,
-            [In] ulong Value,
+            [In] long Module,
+            [In] int TypeId,
+            [In] long Value,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize);
+            [Out] out int NameSize);
 
         /// <summary>
         /// The GetFieldName method returns the name of a field within a structure.
@@ -1038,12 +1038,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetFieldName(
-            [In] ulong Module,
-            [In] uint TypeId,
-            [In] uint FieldIndex,
+            [In] long Module,
+            [In] int TypeId,
+            [In] int FieldIndex,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize);
+            [Out] out int NameSize);
 
         /// <summary>
         /// The GetTypeOptions method returns the type formatting options for output generated by the engine.
@@ -1123,11 +1123,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetNameByOffsetWide(
-            [In] ulong Offset,
+            [In] long Offset,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
-            [Out] out uint NameSize,
-            [Out] out ulong Displacement);
+            [Out] out int NameSize,
+            [Out] out long Displacement);
 
         /// <summary>
         /// The GetOffsetByNameWide method returns the location of a symbol identified by name.
@@ -1148,7 +1148,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetOffsetByNameWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol,
-            [Out] out ulong Offset);
+            [Out] out long Offset);
 
         /// <summary>
         /// The GetNearNameByOffsetWide method returns the name of a symbol that is located near the specified location.
@@ -1171,12 +1171,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetNearNameByOffsetWide(
-            [In] ulong Offset,
+            [In] long Offset,
             [In] int Delta,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
-            [Out] out uint NameSize,
-            [Out] out ulong Displacement);
+            [Out] out int NameSize,
+            [Out] out long Displacement);
 
         /// <summary>
         /// The GetLineByOffsetWide method returns the source filename and the line number within the source file of an instruction in the target.
@@ -1194,12 +1194,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetLineByOffsetWide(
-            [In] ulong Offset,
-            [Out] out uint Line,
+            [In] long Offset,
+            [Out] out int Line,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder FileBuffer,
             [In] int FileBufferSize,
-            [Out] out uint FileSize,
-            [Out] out ulong Displacement);
+            [Out] out int FileSize,
+            [Out] out long Displacement);
 
         /// <summary>
         /// The GetOffsetByLineWide method returns the location of the instruction that corresponds to a specified line in the source code.
@@ -1214,9 +1214,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetOffsetByLineWide(
-            [In] uint Line,
+            [In] int Line,
             [In, MarshalAs(UnmanagedType.LPWStr)] string File,
-            [Out] out ulong Offset);
+            [Out] out long Offset);
 
         /// <summary>
         /// The GetModuleByModuleNameWide method searches through the target's modules for one with the specified name.
@@ -1234,9 +1234,9 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetModuleByModuleNameWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name,
-            [In] uint StartIndex,
-            [Out] out uint Index,
-            [Out] out ulong Base);
+            [In] int StartIndex,
+            [Out] out int Index,
+            [Out] out long Base);
 
         /// <summary>
         /// The GetSymbolModuleWide method returns the base address of module which contains the specified symbol.
@@ -1253,7 +1253,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolModuleWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol,
-            [Out] out ulong Base);
+            [Out] out long Base);
 
         /// <summary>
         /// The GetTypeNameWide method returns the name of the type symbol specified by its type ID and module.
@@ -1270,11 +1270,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetTypeNameWide(
-            [In] ulong Module,
-            [In] uint TypeId,
+            [In] long Module,
+            [In] int TypeId,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
-            [Out] out uint NameSize);
+            [Out] out int NameSize);
 
         /// <summary>
         /// The GetTypeIdWide method looks up the specified type and return its type ID.
@@ -1293,9 +1293,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetTypeIdWide(
-            [In] ulong Module,
+            [In] long Module,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name,
-            [Out] out uint TypeId);
+            [Out] out int TypeId);
 
         /// <summary>
         /// The GetFieldOffsetWide method returns the offset of a field from the base address of an instance of a type.
@@ -1313,10 +1313,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetFieldOffsetWide(
-            [In] ulong Module,
-            [In] uint TypeId,
+            [In] long Module,
+            [In] int TypeId,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Field,
-            [Out] out uint Offset);
+            [Out] out int Offset);
 
         /// <summary>
         /// The GetSymbolTypeIdWide method returns the type ID and module of the specified symbol.
@@ -1333,8 +1333,8 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolTypeIdWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol,
-            [Out] out uint TypeId,
-            [Out] out ulong Module);
+            [Out] out int TypeId,
+            [Out] out long Module);
 
         /// <summary>
         /// The GetScopeSymbolGroup2 method returns a symbol group containing the symbols in the current target's scope.
@@ -1386,7 +1386,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT StartSymbolMatchWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Pattern,
-            [Out] out ulong Handle);
+            [Out] out long Handle);
 
         /// <summary>
         /// The GetNextSymbolMatchWide method returns the next symbol found in a symbol search.
@@ -1405,11 +1405,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetNextSymbolMatchWide(
-            [In] ulong Handle,
+            [In] long Handle,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint MatchSize,
-            [Out] out ulong Offset);
+            [Out] out int MatchSize,
+            [Out] out long Offset);
 
         /// <summary>
         /// The ReloadWide method deletes the engine's symbol information for the specified module and reload these symbols as needed.
@@ -1441,7 +1441,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetSymbolPathWide(
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint PathSize);
+            [Out] out int PathSize);
 
         /// <summary>
         /// The SetSymbolPathWide method sets the symbol path.
@@ -1487,7 +1487,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetImagePathWide(
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint PathSize);
+            [Out] out int PathSize);
 
         /// <summary>
         /// The SetImagePathWide method sets the executable image path.
@@ -1531,7 +1531,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetSourcePathWide(
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint PathSize);
+            [Out] out int PathSize);
 
         /// <summary>
         /// The GetSourcePathElementWide method returns an element from the source path.
@@ -1549,10 +1549,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetSourcePathElementWide(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint ElementSize);
+            [Out] out int ElementSize);
 
         /// <summary>
         /// The SetSourcePathWide method sets the source path.
@@ -1606,13 +1606,13 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT FindSourceFileWide(
-            [In] uint StartElement,
+            [In] int StartElement,
             [In, MarshalAs(UnmanagedType.LPWStr)] string File,
             [In] DEBUG_FIND_SOURCE Flags,
-            [Out] out uint FoundElement,
+            [Out] out int FoundElement,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint FoundSize);
+            [Out] out int FoundSize);
 
         /// <summary>
         /// The GetSourceFileLineOffsetsWide method maps each line in a source file to a location in the target's memory.
@@ -1631,9 +1631,9 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSourceFileLineOffsetsWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string File,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] long[] Buffer,
             [In] int BufferLines,
-            [Out] out uint FileLines);
+            [Out] out int FileLines);
 
         /// <summary>
         /// The GetModuleVersionInformationWide method returns version information for the specified module.
@@ -1654,12 +1654,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetModuleVersionInformationWide(
-            [In] uint Index,
-            [In] ulong Base,
+            [In] int Index,
+            [In] long Base,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Item,
             [In] IntPtr Buffer,
             [In] int BufferSize,
-            [Out] out uint VerInfoSize);
+            [Out] out int VerInfoSize);
 
         /// <summary>
         /// The GetModuleNameStringWide method returns the name of the specified module.
@@ -1679,11 +1679,11 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetModuleNameStringWide(
             [In] DEBUG_MODNAME Which,
-            [In] uint Index,
-            [In] ulong Base,
+            [In] int Index,
+            [In] long Base,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize);
+            [Out] out int NameSize);
 
         /// <summary>
         /// The GetConstantNameWide method returns the name of the specified constant.
@@ -1700,12 +1700,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetConstantNameWide(
-            [In] ulong Module,
-            [In] uint TypeId,
-            [In] ulong Value,
+            [In] long Module,
+            [In] int TypeId,
+            [In] long Value,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize);
+            [Out] out int NameSize);
 
         /// <summary>
         /// The GetFieldNameWide method returns the name of a field within a structure.
@@ -1723,12 +1723,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetFieldNameWide(
-            [In] ulong Module,
-            [In] uint TypeId,
-            [In] uint FieldIndex,
+            [In] long Module,
+            [In] int TypeId,
+            [In] int FieldIndex,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize);
+            [Out] out int NameSize);
 
         /// <summary>
         /// Checks whether the engine is using manageddebugging support when it retrieves informationfor a module.
@@ -1741,8 +1741,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT IsManagedModule(
-            [In] uint Index,
-            [In] ulong Base);
+            [In] int Index,
+            [In] long Base);
 
         /// <summary>
         /// The GetModuleByModuleName2 method searches through the process's modules for one with the specified name.
@@ -1761,10 +1761,10 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetModuleByModuleName2(
             [In, MarshalAs(UnmanagedType.LPStr)] string Name,
-            [In] uint StartIndex,
+            [In] int StartIndex,
             [In] DEBUG_GETMOD Flags,
-            [Out] out uint Index,
-            [Out] out ulong Base);
+            [Out] out int Index,
+            [Out] out long Base);
 
         /// <summary>
         /// The GetModuleByModuleName2Wide method searches through the process's modules for one with the specified name.
@@ -1783,10 +1783,10 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetModuleByModuleName2Wide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name,
-            [In] uint StartIndex,
+            [In] int StartIndex,
             [In] DEBUG_GETMOD Flags,
-            [Out] out uint Index,
-            [Out] out ulong Base);
+            [Out] out int Index,
+            [Out] out long Base);
 
         /// <summary>
         /// The GetModuleByOffset2 method searches through the process's modules for one whose memory allocation includes the specified location.
@@ -1805,11 +1805,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetModuleByOffset2(
-            [In] ulong Offset,
-            [In] uint StartIndex,
+            [In] long Offset,
+            [In] int StartIndex,
             [In] DEBUG_GETMOD Flags,
-            [Out] out uint Index,
-            [Out] out ulong Base);
+            [Out] out int Index,
+            [Out] out long Base);
 
         /// <summary>
         /// The AddSyntheticModule method adds a synthetic module to the module list the debugger maintains for the current process.
@@ -1829,8 +1829,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT AddSyntheticModule(
-            [In] ulong Base,
-            [In] uint Size,
+            [In] long Base,
+            [In] int Size,
             [In, MarshalAs(UnmanagedType.LPStr)] string ImagePath,
             [In, MarshalAs(UnmanagedType.LPStr)] string ModuleName,
             [In] DEBUG_ADDSYNTHMOD Flags);
@@ -1853,8 +1853,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT AddSyntheticModuleWide(
-            [In] ulong Base,
-            [In] uint Size,
+            [In] long Base,
+            [In] int Size,
             [In, MarshalAs(UnmanagedType.LPWStr)] string ImagePath,
             [In, MarshalAs(UnmanagedType.LPWStr)] string ModuleName,
             [In] DEBUG_ADDSYNTHMOD Flags);
@@ -1871,7 +1871,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT RemoveSyntheticModule(
-            [In] ulong Base);
+            [In] long Base);
 
         /// <summary>
         /// The GetCurrentScopeFrameIndex method returns the index of the current stack frame in the call stack.
@@ -1886,7 +1886,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetCurrentScopeFrameIndex(
-            [Out] out uint Index);
+            [Out] out int Index);
 
         /// <summary>
         /// The SetScopeFrameByIndex method sets the current scope to the scope of one of the frames on the call stack.
@@ -1902,7 +1902,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT SetScopeFrameByIndex(
-            [In] uint Index);
+            [In] int Index);
 
         /// <summary>
         /// Recovers just-in-time (JIT) debugging information and sets currentdebugger scope context based on that information.
@@ -1913,8 +1913,8 @@ namespace ClrDebug.DbgEng
         /// This method is equivalent to '.jdinfo' command.</returns>
         [PreserveSig]
         HRESULT SetScopeFromJitDebugInfo(
-            [In] uint OutputControl,
-            [In] ulong InfoOffset);
+            [In] int OutputControl,
+            [In] long InfoOffset);
 
         /// <summary>
         /// The SetScopeFromStoredEvent method sets the current scope to the scope of the stored event.
@@ -1939,9 +1939,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT OutputSymbolByOffset(
-            [In] uint OutputControl,
+            [In] int OutputControl,
             [In] DEBUG_OUTSYM Flags,
-            [In] ulong Offset);
+            [In] long Offset);
 
         /// <summary>
         /// The GetFunctionEntryByOffset method returns the function entry information for a function.
@@ -1960,11 +1960,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetFunctionEntryByOffset(
-            [In] ulong Offset,
+            [In] long Offset,
             [In] DEBUG_GETFNENT Flags,
             [In] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BufferNeeded);
+            [In] int BufferSize,
+            [Out] out int BufferNeeded);
 
         /// <summary>
         /// The GetFieldTypeAndOffset method returns the type of a field and its offset within a container.
@@ -1984,11 +1984,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetFieldTypeAndOffset(
-            [In] ulong Module,
-            [In] uint ContainerTypeId,
+            [In] long Module,
+            [In] int ContainerTypeId,
             [In, MarshalAs(UnmanagedType.LPStr)] string Field,
-            [Out] out uint FieldTypeId,
-            [Out] out uint Offset);
+            [Out] out int FieldTypeId,
+            [Out] out int Offset);
 
         /// <summary>
         /// The GetFieldTypeAndOffsetWide method returns the type of a field and its offset within a container.
@@ -2008,11 +2008,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetFieldTypeAndOffsetWide(
-            [In] ulong Module,
-            [In] uint ContainerTypeId,
+            [In] long Module,
+            [In] int ContainerTypeId,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Field,
-            [Out] out uint FieldTypeId,
-            [Out] out uint Offset);
+            [Out] out int FieldTypeId,
+            [Out] out int Offset);
 
         /// <summary>
         /// The AddSyntheticSymbol method adds a synthetic symbol to a module in the current process.
@@ -2031,8 +2031,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT AddSyntheticSymbol(
-            [In] ulong Offset,
-            [In] uint Size,
+            [In] long Offset,
+            [In] int Size,
             [In, MarshalAs(UnmanagedType.LPStr)] string Name,
             [In] DEBUG_ADDSYNTHSYM Flags,
             [Out] out DEBUG_MODULE_AND_ID Id);
@@ -2054,8 +2054,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT AddSyntheticSymbolWide(
-            [In] ulong Offset,
-            [In] uint Size,
+            [In] long Offset,
+            [In] int Size,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name,
             [In] DEBUG_ADDSYNTHSYM Flags,
             [Out] out DEBUG_MODULE_AND_ID Id);
@@ -2091,12 +2091,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetSymbolEntriesByOffset(
-            [In] ulong Offset,
-            [In] uint Flags,
+            [In] long Offset,
+            [In] int Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_MODULE_AND_ID[] Ids,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] ulong[] Displacements,
-            [In] uint IdsCount,
-            [Out] out uint Entries);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] long[] Displacements,
+            [In] int IdsCount,
+            [Out] out int Entries);
 
         /// <summary>
         /// The GetSymbolEntriesByName method returns the symbols whose names match a given pattern.
@@ -2114,10 +2114,10 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolEntriesByName(
             [In, MarshalAs(UnmanagedType.LPStr)] string Symbol,
-            [In] uint Flags,
+            [In] int Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_MODULE_AND_ID[] Ids,
-            [In] uint IdsCount,
-            [Out] out uint Entries);
+            [In] int IdsCount,
+            [Out] out int Entries);
 
         /// <summary>
         /// The GetSymbolEntriesByNameWide method returns the symbols whose names match a given pattern.
@@ -2135,10 +2135,10 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolEntriesByNameWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol,
-            [In] uint Flags,
+            [In] int Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_MODULE_AND_ID[] Ids,
-            [In] uint IdsCount,
-            [Out] out uint Entries);
+            [In] int IdsCount,
+            [Out] out int Entries);
 
         /// <summary>
         /// Looks up a symbol by using a managed metadata token.
@@ -2149,8 +2149,8 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         [PreserveSig]
         HRESULT GetSymbolEntryByToken(
-            [In] ulong ModuleBase,
-            [In] uint Token,
+            [In] long ModuleBase,
+            [In] int Token,
             [Out] out DEBUG_MODULE_AND_ID Id);
 
         /// <summary>
@@ -2184,10 +2184,10 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolEntryString(
             [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id,
-            [In] uint Which,
+            [In] int Which,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint StringSize);
+            [Out] out int StringSize);
 
         /// <summary>
         /// The GetSymbolEntryStringWide method returns string information for the specified symbol.
@@ -2206,10 +2206,10 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolEntryStringWide(
             [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id,
-            [In] uint Which,
+            [In] int Which,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint StringSize);
+            [Out] out int StringSize);
 
         /// <summary>
         /// Returns all the memory regions known to be associatedwith a symbol.
@@ -2225,10 +2225,10 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolEntryOffsetRegions(
             [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id,
-            [In] uint Flags,
+            [In] int Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions,
-            [In] uint RegionsCount,
-            [Out] out uint RegionsAvail);
+            [In] int RegionsCount,
+            [Out] out int RegionsAvail);
 
         /// <summary>
         /// Allows navigation within thesymbol entry hierarchy.
@@ -2240,7 +2240,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolEntryBySymbolEntry(
             [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID FromId,
-            [In] uint Flags,
+            [In] int Flags,
             [Out] out DEBUG_MODULE_AND_ID ToId);
 
         /// <summary>
@@ -2254,11 +2254,11 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         [PreserveSig]
         HRESULT GetSourceEntriesByOffset(
-            [In] ulong Offset,
-            [In] uint Flags,
+            [In] long Offset,
+            [In] int Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries,
-            [In] uint EntriesCount,
-            [Out] out uint EntriesAvail);
+            [In] int EntriesCount,
+            [Out] out int EntriesAvail);
 
         /// <summary>
         /// The GetSourceEntriesByLine method queries symbol information and returns locations in the target's memory that correspond to lines in a source file.
@@ -2280,12 +2280,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetSourceEntriesByLine(
-            [In] uint Line,
+            [In] int Line,
             [In, MarshalAs(UnmanagedType.LPStr)] string File,
-            [In] uint Flags,
+            [In] int Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries,
-            [In] uint EntriesCount,
-            [Out] out uint EntriesAvail);
+            [In] int EntriesCount,
+            [Out] out int EntriesAvail);
 
         /// <summary>
         /// The GetSourceEntriesByLineWide method queries symbol information and returns locations in the target's memory that correspond to lines in a source file.
@@ -2307,12 +2307,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetSourceEntriesByLineWide(
-            [In] uint Line,
+            [In] int Line,
             [In, MarshalAs(UnmanagedType.LPWStr)] string File,
-            [In] uint Flags,
+            [In] int Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries,
-            [In] uint EntriesCount,
-            [Out] out uint EntriesAvail);
+            [In] int EntriesCount,
+            [Out] out int EntriesAvail);
 
         /// <summary>
         /// Queries symbol information and returns locations in the target's memory.
@@ -2327,10 +2327,10 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSourceEntryString(
             [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry,
-            [In] uint Which,
+            [In] int Which,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint StringSize);
+            [Out] out int StringSize);
 
         /// <summary>
         /// Queries symbol information and returns locations in the target's memory.
@@ -2345,10 +2345,10 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSourceEntryStringWide(
             [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry,
-            [In] uint Which,
+            [In] int Which,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint StringSize);
+            [Out] out int StringSize);
 
         /// <summary>
         /// Returns all memory regions known to be associatedwith a source entry.
@@ -2363,10 +2363,10 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSourceEntryOffsetRegions(
             [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry,
-            [In] uint Flags,
+            [In] int Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions,
-            [In] uint RegionsCount,
-            [Out] out uint RegionsAvail);
+            [In] int RegionsCount,
+            [Out] out int RegionsAvail);
 
         /// <summary>
         /// Allows navigation within thesource entries.
@@ -2378,7 +2378,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSourceEntryBySourceEntry(
             [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY FromEntry,
-            [In] uint Flags,
+            [In] int Flags,
             [Out] out DEBUG_SYMBOL_SOURCE_ENTRY ToEntry);
 
         #endregion

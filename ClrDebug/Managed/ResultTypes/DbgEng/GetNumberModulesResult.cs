@@ -11,14 +11,14 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Receives the number of loaded modules in the current process's module list.
         /// </summary>
-        public uint Loaded { get; }
+        public int Loaded { get; }
 
         /// <summary>
         /// Receives the number of unloaded modules in the current process's module list. This number will be zero if the version of Microsoft Windows running on the target computer does not track unloaded modules.
         /// </summary>
-        public uint Unloaded { get; }
+        public int Unloaded { get; }
 
-        public GetNumberModulesResult(uint loaded, uint unloaded)
+        public GetNumberModulesResult(int loaded, int unloaded)
         {
             Loaded = loaded;
             Unloaded = unloaded;

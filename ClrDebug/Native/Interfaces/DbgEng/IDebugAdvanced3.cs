@@ -24,7 +24,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetThreadContext(
             [In] IntPtr Context,
-            [In] uint ContextSize);
+            [In] int ContextSize);
 
         /// <summary>
         /// The SetThreadContext method sets the current thread context.
@@ -39,7 +39,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT SetThreadContext(
             [In] IntPtr Context,
-            [In] uint ContextSize);
+            [In] int ContextSize);
 
         #endregion
         #region IDebugAdvanced2
@@ -93,8 +93,8 @@ namespace ClrDebug.DbgEng
         new HRESULT GetSourceFileInformation(
             [In] DEBUG_SRCFILE Which,
             [In, MarshalAs(UnmanagedType.LPStr)] string SourceFile,
-            [In] ulong Arg64,
-            [In] uint Arg32,
+            [In] long Arg64,
+            [In] int Arg32,
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize);
@@ -143,8 +143,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT FindSourceFileAndToken(
-            [In] uint StartElement,
-            [In] ulong ModAddr,
+            [In] int StartElement,
+            [In] long ModAddr,
             [In, MarshalAs(UnmanagedType.LPStr)] string File,
             [In] DEBUG_FIND_SOURCE Flags,
             [Out] IntPtr FileToken,
@@ -184,8 +184,8 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetSymbolInformation(
             [In] DEBUG_SYMINFO Which,
-            [In] ulong Arg64,
-            [In] uint Arg32,
+            [In] long Arg64,
+            [In] int Arg32,
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize,
@@ -208,8 +208,8 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetSystemObjectInformation(
             [In] DEBUG_SYSOBJINFO Which,
-            [In] ulong Arg64,
-            [In] uint Arg32,
+            [In] long Arg64,
+            [In] int Arg32,
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize);
@@ -240,8 +240,8 @@ namespace ClrDebug.DbgEng
         HRESULT GetSourceFileInformationWide(
             [In] DEBUG_SRCFILE Which,
             [In, MarshalAs(UnmanagedType.LPWStr)] string SourceFile,
-            [In] ulong Arg64,
-            [In] uint Arg32,
+            [In] long Arg64,
+            [In] int Arg32,
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize);
@@ -285,8 +285,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT FindSourceFileAndTokenWide(
-            [In] uint StartElement,
-            [In] ulong ModAddr,
+            [In] int StartElement,
+            [In] long ModAddr,
             [In, MarshalAs(UnmanagedType.LPWStr)] string File,
             [In] DEBUG_FIND_SOURCE Flags,
             [Out] IntPtr FileToken,
@@ -321,8 +321,8 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolInformationWide(
             [In] DEBUG_SYMINFO Which,
-            [In] ulong Arg64,
-            [In] uint Arg32,
+            [In] long Arg64,
+            [In] int Arg32,
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize,

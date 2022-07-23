@@ -21,21 +21,21 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The size, in characters, of the name (including the terminator) of the exception filter. If the filter is an arbitrary exception filter, it does not have a name and TextSize is zero.
         /// </summary>
-        public uint TextSize;
+        public int TextSize;
 
         /// <summary>
         /// The size, in characters, of the command (including the terminator) to execute upon the first chance of the exception.
         /// </summary>
-        public uint CommandSize;
+        public int CommandSize;
 
         /// <summary>
         /// The size, in characters, of the command (including the terminator) to execute upon the second chance of the exception.
         /// </summary>
-        public uint SecondCommandSize;
+        public int SecondCommandSize;
 
         /// <summary>
         /// The exception code for the exception filter.
         /// </summary>
-        public uint ExceptionCode;
+        public int ExceptionCode;
     }
 }

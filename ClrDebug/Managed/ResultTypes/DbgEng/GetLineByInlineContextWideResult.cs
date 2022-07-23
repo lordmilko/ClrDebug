@@ -16,14 +16,14 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// A pointer to the length of the file.
         /// </summary>
-        public uint FileSize { get; }
+        public int FileSize { get; }
 
         /// <summary>
         /// A pointer to the displacement value of the file.
         /// </summary>
-        public ulong Displacement { get; }
+        public long Displacement { get; }
 
-        public GetLineByInlineContextWideResult(string fileBuffer, uint fileSize, ulong displacement)
+        public GetLineByInlineContextWideResult(string fileBuffer, int fileSize, long displacement)
         {
             FileBuffer = fileBuffer;
             FileSize = fileSize;

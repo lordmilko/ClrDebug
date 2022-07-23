@@ -11,15 +11,15 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Receives the type ID.
         /// </summary>
-        public uint TypeId { get; }
+        public int TypeId { get; }
 
         /// <summary>
         /// Receives the base address of the module containing the symbol. For more information, see Modules.<para/>
         /// If Module is NULL, this information is not returned.
         /// </summary>
-        public ulong Module { get; }
+        public long Module { get; }
 
-        public GetSymbolTypeIdResult(uint typeId, ulong module)
+        public GetSymbolTypeIdResult(int typeId, long module)
         {
             TypeId = typeId;
             Module = module;

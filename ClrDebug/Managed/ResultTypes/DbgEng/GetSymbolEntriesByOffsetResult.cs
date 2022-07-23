@@ -17,9 +17,9 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Receives the differences between the base addresses of the found symbols and the given address according to the symbol's range.
         /// </summary>
-        public ulong[] Displacements { get; }
+        public long[] Displacements { get; }
 
-        public GetSymbolEntriesByOffsetResult(DEBUG_MODULE_AND_ID[] ids, ulong[] displacements)
+        public GetSymbolEntriesByOffsetResult(DEBUG_MODULE_AND_ID[] ids, long[] displacements)
         {
             Ids = ids;
             Displacements = displacements;

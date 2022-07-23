@@ -11,14 +11,14 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Receives the engine process IDs. If Ids is NULL, this information is not returned; otherwise, Ids is treated as an array of Count ULONG values.
         /// </summary>
-        public uint[] Ids { get; }
+        public int[] Ids { get; }
 
         /// <summary>
         /// Receives the system process IDs. If SysIds is NULL, this information is not returned; otherwise, SysIds is treated as an array of Count ULONG values.
         /// </summary>
-        public uint[] SysIds { get; }
+        public int[] SysIds { get; }
 
-        public GetProcessIdsByIndexResult(uint[] ids, uint[] sysIds)
+        public GetProcessIdsByIndexResult(int[] ids, int[] sysIds)
         {
             Ids = ids;
             SysIds = sysIds;

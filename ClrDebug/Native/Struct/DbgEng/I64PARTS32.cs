@@ -6,8 +6,8 @@ namespace ClrDebug.DbgEng
     public struct I64PARTS32
     {
         [FieldOffset(0)]
-        public uint LowPart;
+        public int LowPart;
         [FieldOffset(4)]
-        public uint HighPart;
+        public int HighPart;
     }
 }

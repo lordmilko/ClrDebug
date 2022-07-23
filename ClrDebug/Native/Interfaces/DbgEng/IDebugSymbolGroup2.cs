@@ -23,7 +23,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetNumberSymbols(
-            [Out] out uint Number);
+            [Out] out int Number);
 
         /// <summary>
         /// The AddSymbol method adds a symbol to a symbol group.
@@ -42,7 +42,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT AddSymbol(
             [In, MarshalAs(UnmanagedType.LPStr)] string Name,
-            [In, Out] ref uint Index);
+            [In, Out] ref int Index);
 
         /// <summary>
         /// The RemoveSymbolByName method removes the specified symbol from a symbol group.
@@ -59,7 +59,7 @@ namespace ClrDebug.DbgEng
 
         [PreserveSig]
         new HRESULT RemoveSymbolsByIndex(
-            [In] uint Index);
+            [In] int Index);
 
         /// <summary>
         /// The GetSymbolName method returns the name of a symbol in a symbol group.
@@ -74,10 +74,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetSymbolName(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize);
+            [Out] out int NameSize);
 
         /// <summary>
         /// The GetSymbolParameters method returns the symbol parameters that describe the specified symbols in a symbol group.
@@ -92,8 +92,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetSymbolParameters(
-            [In] uint Start,
-            [In] uint Count,
+            [In] int Start,
+            [In] int Count,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SYMBOL_PARAMETERS[] Params);
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT ExpandSymbol(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.Bool)] bool Expand);
 
         /// <summary>
@@ -130,8 +130,8 @@ namespace ClrDebug.DbgEng
         new HRESULT OutputSymbols(
             [In] DEBUG_OUTCTL OutputControl,
             [In] DEBUG_OUTPUT_SYMBOLS Flags,
-            [In] uint Start,
-            [In] uint Count);
+            [In] int Start,
+            [In] int Count);
 
         /// <summary>
         /// The WriteSymbol methods set the value of the specified symbol.
@@ -146,7 +146,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT WriteSymbol(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.LPStr)] string Value);
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT OutputAsType(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.LPStr)] string Type);
 
         #endregion
@@ -189,7 +189,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT AddSymbolWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name,
-            [In, Out] ref uint Index);
+            [In, Out] ref int Index);
 
         /// <summary>
         /// The RemoveSymbolByNameWide method removes the specified symbol from a symbol group.
@@ -217,10 +217,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetSymbolNameWide(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize);
+            [Out] out int NameSize);
 
         /// <summary>
         /// The WriteSymbolWide method sets the value of the specified symbol.
@@ -235,7 +235,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT WriteSymbolWide(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Value);
 
         /// <summary>
@@ -255,7 +255,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT OutputAsTypeWide(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Type);
 
         /// <summary>
@@ -272,10 +272,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetSymbolTypeName(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize);
+            [Out] out int NameSize);
 
         /// <summary>
         /// The GetSymbolTypeNameWide method returns the name of the specified symbol's type.
@@ -291,10 +291,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetSymbolTypeNameWide(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize);
+            [Out] out int NameSize);
 
         /// <summary>
         /// The GetSymbolSize method returns the size of a symbol's value.
@@ -308,8 +308,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetSymbolSize(
-            [In] uint Index,
-            [Out] out uint Size);
+            [In] int Index,
+            [Out] out int Size);
 
         /// <summary>
         /// The GetSymbolOffset method retrieves the location in the process's virtual address space of a symbol in a symbol group, if the symbol has an absolute address.
@@ -322,8 +322,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetSymbolOffset(
-            [In] uint Index,
-            [Out] out ulong Offset);
+            [In] int Index,
+            [Out] out long Offset);
 
         /// <summary>
         /// The GetSymbolRegister method returns the register that contains the value or a pointer to the value of a symbol in a symbol group.
@@ -337,8 +337,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetSymbolRegister(
-            [In] uint Index,
-            [Out] out uint Register);
+            [In] int Index,
+            [Out] out int Register);
 
         /// <summary>
         /// The GetSymbolValueText method returns a string that represents the value of a symbol.
@@ -356,10 +356,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetSymbolValueText(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize);
+            [Out] out int NameSize);
 
         /// <summary>
         /// The GetSymbolValueTextWide method returns a string that represents the value of a symbol.
@@ -377,10 +377,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetSymbolValueTextWide(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize);
+            [Out] out int NameSize);
 
         /// <summary>
         /// The GetSymbolEntryInformation method returns information about a symbol in a symbol group.
@@ -393,7 +393,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetSymbolEntryInformation(
-            [In] uint Index,
+            [In] int Index,
             [Out] out DEBUG_SYMBOL_ENTRY Info);
 
         #endregion

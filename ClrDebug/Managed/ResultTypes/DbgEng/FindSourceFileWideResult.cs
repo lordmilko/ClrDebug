@@ -12,7 +12,7 @@ namespace ClrDebug.DbgEng
         /// Receives the index of the element within the source path that contains the file. If the file was found directly on the filing system (not using the source path) then -1 is returned to FoundElement.<para/>
         /// If FoundElement is NULL, this information is not returned.
         /// </summary>
-        public uint FoundElement { get; }
+        public int FoundElement { get; }
 
         /// <summary>
         /// Receives the path and name of the found file. If the flag DEBUG_FIND_SOURCE_FULL_PATH is set, this is the full canonical path name for the file.<para/>
@@ -21,7 +21,7 @@ namespace ClrDebug.DbgEng
         /// </summary>
         public string Buffer { get; }
 
-        public FindSourceFileWideResult(uint foundElement, string buffer)
+        public FindSourceFileWideResult(int foundElement, string buffer)
         {
             FoundElement = foundElement;
             Buffer = buffer;

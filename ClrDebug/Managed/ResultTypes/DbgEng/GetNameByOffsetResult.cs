@@ -17,9 +17,9 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Receives the difference between the value of Offset and the base location of the symbol. If Displacement is NULL, this information is not returned.
         /// </summary>
-        public ulong Displacement { get; }
+        public long Displacement { get; }
 
-        public GetNameByOffsetResult(string nameBuffer, ulong displacement)
+        public GetNameByOffsetResult(string nameBuffer, long displacement)
         {
             NameBuffer = nameBuffer;
             Displacement = displacement;

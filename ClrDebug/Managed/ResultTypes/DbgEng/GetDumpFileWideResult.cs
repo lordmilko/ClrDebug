@@ -16,14 +16,14 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Receives the file handle of the file. If Handle is NULL, this information is not returned.
         /// </summary>
-        public ulong Handle { get; }
+        public long Handle { get; }
 
         /// <summary>
         /// Receives the type of the file.
         /// </summary>
-        public uint Type { get; }
+        public int Type { get; }
 
-        public GetDumpFileWideResult(string buffer, ulong handle, uint type)
+        public GetDumpFileWideResult(string buffer, long handle, int type)
         {
             Buffer = buffer;
             Handle = handle;

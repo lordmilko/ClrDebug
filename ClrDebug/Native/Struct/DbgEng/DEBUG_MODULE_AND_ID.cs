@@ -11,11 +11,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The location in the target's virtual address space of the module's base address.
         /// </summary>
-        public ulong ModuleBase;
+        public long ModuleBase;
 
         /// <summary>
         /// The symbol ID of the symbol within the module.
         /// </summary>
-        public ulong Id;
+        public long Id;
     }
 }

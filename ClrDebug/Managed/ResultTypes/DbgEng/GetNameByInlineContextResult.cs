@@ -16,9 +16,9 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// A pointer to the displacement value of the name.
         /// </summary>
-        public ulong Displacement { get; }
+        public long Displacement { get; }
 
-        public GetNameByInlineContextResult(string nameBuffer, ulong displacement)
+        public GetNameByInlineContextResult(string nameBuffer, long displacement)
         {
             NameBuffer = nameBuffer;
             Displacement = displacement;

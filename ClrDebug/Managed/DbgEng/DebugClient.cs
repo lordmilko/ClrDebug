@@ -77,16 +77,16 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetKernelConnectionOptions(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint OptionsSize);*/
+            [Out] out int OptionsSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint optionsSize;
+            int optionsSize;
             HRESULT hr = getKernelConnectionOptions(Raw, null, bufferSize, out optionsSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) optionsSize;
+            bufferSize = optionsSize;
             buffer = new StringBuilder(bufferSize);
             hr = getKernelConnectionOptions(Raw, buffer, bufferSize, out optionsSize);
 
@@ -187,11 +187,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetExitCode method returns the exit code of the current process if that process has already run through to completion.
         /// </summary>
-        public uint ExitCode
+        public int ExitCode
         {
             get
             {
-                uint code;
+                int code;
                 TryGetExitCode(out code).ThrowDbgEngNotOK();
 
                 return code;
@@ -206,12 +206,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is available only for live user-mode debugging.
         /// </remarks>
-        public HRESULT TryGetExitCode(out uint code)
+        public HRESULT TryGetExitCode(out int code)
         {
             InitDelegate(ref getExitCode, Vtbl->GetExitCode);
 
             /*HRESULT GetExitCode(
-            [Out] out uint Code);*/
+            [Out] out int Code);*/
             return getExitCode(Raw, out code);
         }
 
@@ -401,11 +401,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Gets or sets the width of an output line forcommands that produce formatted output.
         /// </summary>
-        public uint OutputWidth
+        public int OutputWidth
         {
             get
             {
-                uint columns;
+                int columns;
                 TryGetOutputWidth(out columns).ThrowDbgEngNotOK();
 
                 return columns;
@@ -424,12 +424,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This setting is a suggestion that can be overridden by other settings.
         /// </remarks>
-        public HRESULT TryGetOutputWidth(out uint columns)
+        public HRESULT TryGetOutputWidth(out int columns)
         {
             InitDelegate(ref getOutputWidth, Vtbl->GetOutputWidth);
 
             /*HRESULT GetOutputWidth(
-            [Out] out uint Columns);*/
+            [Out] out int Columns);*/
             return getOutputWidth(Raw, out columns);
         }
 
@@ -438,12 +438,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This setting is a suggestion that can be overridden by other settings.
         /// </remarks>
-        public HRESULT TrySetOutputWidth(uint columns)
+        public HRESULT TrySetOutputWidth(int columns)
         {
             InitDelegate(ref setOutputWidth, Vtbl->SetOutputWidth);
 
             /*HRESULT SetOutputWidth(
-            [In] uint Columns);*/
+            [In] int Columns);*/
             return setOutputWidth(Raw, columns);
         }
 
@@ -478,16 +478,16 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetOutputLinePrefix(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint PrefixSize);*/
+            [Out] out int PrefixSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint prefixSize;
+            int prefixSize;
             HRESULT hr = getOutputLinePrefix(Raw, null, bufferSize, out prefixSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) prefixSize;
+            bufferSize = prefixSize;
             buffer = new StringBuilder(bufferSize);
             hr = getOutputLinePrefix(Raw, buffer, bufferSize, out prefixSize);
 
@@ -552,16 +552,16 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetIdentity(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint IdentitySize);*/
+            [Out] out int IdentitySize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint identitySize;
+            int identitySize;
             HRESULT hr = getIdentity(Raw, null, bufferSize, out identitySize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) identitySize;
+            bufferSize = identitySize;
             buffer = new StringBuilder(bufferSize);
             hr = getIdentity(Raw, buffer, bufferSize, out identitySize);
 
@@ -743,9 +743,9 @@ namespace ClrDebug.DbgEng
         /// For more information about process servers and remote debugging, see Process Servers, Kernel Connection Servers,
         /// and Smart Clients.
         /// </remarks>
-        public ulong ConnectProcessServer(string remoteOptions)
+        public long ConnectProcessServer(string remoteOptions)
         {
-            ulong server;
+            long server;
             TryConnectProcessServer(remoteOptions, out server).ThrowDbgEngNotOK();
 
             return server;
@@ -762,13 +762,13 @@ namespace ClrDebug.DbgEng
         /// For more information about process servers and remote debugging, see Process Servers, Kernel Connection Servers,
         /// and Smart Clients.
         /// </remarks>
-        public HRESULT TryConnectProcessServer(string remoteOptions, out ulong server)
+        public HRESULT TryConnectProcessServer(string remoteOptions, out long server)
         {
             InitDelegate(ref connectProcessServer, Vtbl->ConnectProcessServer);
 
             /*HRESULT ConnectProcessServer(
             [In, MarshalAs(UnmanagedType.LPStr)] string RemoteOptions,
-            [Out] out ulong Server);*/
+            [Out] out long Server);*/
             return connectProcessServer(Raw, remoteOptions, out server);
         }
 
@@ -783,7 +783,7 @@ namespace ClrDebug.DbgEng
         /// For more information about process servers and remote debugging, see Process Servers, Kernel Connection Servers,
         /// and Smart Clients.
         /// </remarks>
-        public void DisconnectProcessServer(ulong server)
+        public void DisconnectProcessServer(long server)
         {
             TryDisconnectProcessServer(server).ThrowDbgEngNotOK();
         }
@@ -797,12 +797,12 @@ namespace ClrDebug.DbgEng
         /// For more information about process servers and remote debugging, see Process Servers, Kernel Connection Servers,
         /// and Smart Clients.
         /// </remarks>
-        public HRESULT TryDisconnectProcessServer(ulong server)
+        public HRESULT TryDisconnectProcessServer(long server)
         {
             InitDelegate(ref disconnectProcessServer, Vtbl->DisconnectProcessServer);
 
             /*HRESULT DisconnectProcessServer(
-            [In] ulong Server);*/
+            [In] long Server);*/
             return disconnectProcessServer(Raw, server);
         }
 
@@ -818,9 +818,9 @@ namespace ClrDebug.DbgEng
         /// This method is available only for live user-mode debugging. For more information about creating and attaching to
         /// live user-mode targets, see Live User-Mode Targets.
         /// </remarks>
-        public uint[] GetRunningProcessSystemIds(ulong server)
+        public int[] GetRunningProcessSystemIds(long server)
         {
-            uint[] ids;
+            int[] ids;
             TryGetRunningProcessSystemIds(server, out ids).ThrowDbgEngNotOK();
 
             return ids;
@@ -836,24 +836,24 @@ namespace ClrDebug.DbgEng
         /// This method is available only for live user-mode debugging. For more information about creating and attaching to
         /// live user-mode targets, see Live User-Mode Targets.
         /// </remarks>
-        public HRESULT TryGetRunningProcessSystemIds(ulong server, out uint[] ids)
+        public HRESULT TryGetRunningProcessSystemIds(long server, out int[] ids)
         {
             InitDelegate(ref getRunningProcessSystemIds, Vtbl->GetRunningProcessSystemIds);
             /*HRESULT GetRunningProcessSystemIds(
-            [In] ulong Server,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] uint[] Ids,
-            [In] uint Count,
-            [Out] out uint ActualCount);*/
+            [In] long Server,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] int[] Ids,
+            [In] int Count,
+            [Out] out int ActualCount);*/
             ids = null;
-            uint count = 0;
-            uint actualCount;
+            int count = 0;
+            int actualCount;
             HRESULT hr = getRunningProcessSystemIds(Raw, server, null, count, out actualCount);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             count = actualCount;
-            ids = new uint[(int) count];
+            ids = new int[count];
             hr = getRunningProcessSystemIds(Raw, server, ids, count, out actualCount);
             fail:
             return hr;
@@ -873,9 +873,9 @@ namespace ClrDebug.DbgEng
         /// This method is available only for live user-mode debugging. For more information about creating and attaching to
         /// live user-mode targets, see Live User-Mode Targets.
         /// </remarks>
-        public uint GetRunningProcessSystemIdByExecutableName(ulong server, string exeName, DEBUG_GET_PROC flags)
+        public int GetRunningProcessSystemIdByExecutableName(long server, string exeName, DEBUG_GET_PROC flags)
         {
-            uint id;
+            int id;
             TryGetRunningProcessSystemIdByExecutableName(server, exeName, flags, out id).ThrowDbgEngNotOK();
 
             return id;
@@ -893,15 +893,15 @@ namespace ClrDebug.DbgEng
         /// This method is available only for live user-mode debugging. For more information about creating and attaching to
         /// live user-mode targets, see Live User-Mode Targets.
         /// </remarks>
-        public HRESULT TryGetRunningProcessSystemIdByExecutableName(ulong server, string exeName, DEBUG_GET_PROC flags, out uint id)
+        public HRESULT TryGetRunningProcessSystemIdByExecutableName(long server, string exeName, DEBUG_GET_PROC flags, out int id)
         {
             InitDelegate(ref getRunningProcessSystemIdByExecutableName, Vtbl->GetRunningProcessSystemIdByExecutableName);
 
             /*HRESULT GetRunningProcessSystemIdByExecutableName(
-            [In] ulong Server,
+            [In] long Server,
             [In, MarshalAs(UnmanagedType.LPStr)] string ExeName,
             [In] DEBUG_GET_PROC Flags,
-            [Out] out uint Id);*/
+            [Out] out int Id);*/
             return getRunningProcessSystemIdByExecutableName(Raw, server, exeName, flags, out id);
         }
 
@@ -919,7 +919,7 @@ namespace ClrDebug.DbgEng
         /// This method is available only for live user-mode debugging. For more information about creating and attaching to
         /// live user-mode targets, see Live User-Mode Targets.
         /// </remarks>
-        public GetRunningProcessDescriptionResult GetRunningProcessDescription(ulong server, uint systemId, DEBUG_PROC_DESC flags)
+        public GetRunningProcessDescriptionResult GetRunningProcessDescription(long server, int systemId, DEBUG_PROC_DESC flags)
         {
             GetRunningProcessDescriptionResult result;
             TryGetRunningProcessDescription(server, systemId, flags, out result).ThrowDbgEngNotOK();
@@ -939,33 +939,33 @@ namespace ClrDebug.DbgEng
         /// This method is available only for live user-mode debugging. For more information about creating and attaching to
         /// live user-mode targets, see Live User-Mode Targets.
         /// </remarks>
-        public HRESULT TryGetRunningProcessDescription(ulong server, uint systemId, DEBUG_PROC_DESC flags, out GetRunningProcessDescriptionResult result)
+        public HRESULT TryGetRunningProcessDescription(long server, int systemId, DEBUG_PROC_DESC flags, out GetRunningProcessDescriptionResult result)
         {
             InitDelegate(ref getRunningProcessDescription, Vtbl->GetRunningProcessDescription);
             /*HRESULT GetRunningProcessDescription(
-            [In] ulong Server,
-            [In] uint SystemId,
+            [In] long Server,
+            [In] int SystemId,
             [In] DEBUG_PROC_DESC Flags,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder ExeName,
             [In] int ExeNameSize,
-            [Out] out uint ActualExeNameSize,
+            [Out] out int ActualExeNameSize,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Description,
             [In] int DescriptionSize,
-            [Out] out uint ActualDescriptionSize);*/
+            [Out] out int ActualDescriptionSize);*/
             StringBuilder exeName;
             int exeNameSize = 0;
-            uint actualExeNameSize;
+            int actualExeNameSize;
             StringBuilder description;
             int descriptionSize = 0;
-            uint actualDescriptionSize;
+            int actualDescriptionSize;
             HRESULT hr = getRunningProcessDescription(Raw, server, systemId, flags, null, exeNameSize, out actualExeNameSize, null, descriptionSize, out actualDescriptionSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            exeNameSize = (int) actualExeNameSize;
+            exeNameSize = actualExeNameSize;
             exeName = new StringBuilder(exeNameSize);
-            descriptionSize = (int) actualDescriptionSize;
+            descriptionSize = actualDescriptionSize;
             description = new StringBuilder(descriptionSize);
             hr = getRunningProcessDescription(Raw, server, systemId, flags, exeName, exeNameSize, out actualExeNameSize, description, descriptionSize, out actualDescriptionSize);
 
@@ -1000,7 +1000,7 @@ namespace ClrDebug.DbgEng
         /// then the flag DEBUG_ATTACH_NONINVASIVE must also be set. If this flag is set, then the flags DEBUG_ATTACH_NONINVASIVE
         /// and DEBUG_ATTACH_EXISTING must not be set.
         /// </remarks>
-        public void AttachProcess(ulong server, uint processID, DEBUG_ATTACH attachFlags)
+        public void AttachProcess(long server, int processID, DEBUG_ATTACH attachFlags)
         {
             TryAttachProcess(server, processID, attachFlags).ThrowDbgEngNotOK();
         }
@@ -1021,13 +1021,13 @@ namespace ClrDebug.DbgEng
         /// then the flag DEBUG_ATTACH_NONINVASIVE must also be set. If this flag is set, then the flags DEBUG_ATTACH_NONINVASIVE
         /// and DEBUG_ATTACH_EXISTING must not be set.
         /// </remarks>
-        public HRESULT TryAttachProcess(ulong server, uint processID, DEBUG_ATTACH attachFlags)
+        public HRESULT TryAttachProcess(long server, int processID, DEBUG_ATTACH attachFlags)
         {
             InitDelegate(ref attachProcess, Vtbl->AttachProcess);
 
             /*HRESULT AttachProcess(
-            [In] ulong Server,
-            [In] uint ProcessID,
+            [In] long Server,
+            [In] int ProcessID,
             [In] DEBUG_ATTACH AttachFlags);*/
             return attachProcess(Raw, server, processID, attachFlags);
         }
@@ -1047,7 +1047,7 @@ namespace ClrDebug.DbgEng
         /// of <see cref="CreateProcessAndAttach2"/> with its argument ProcessId set to zero. For more information
         /// about creating and attaching to live user-mode targets, see Live User-Mode Targets.
         /// </remarks>
-        public void CreateProcess(ulong server, string commandLine, DEBUG_CREATE_PROCESS flags)
+        public void CreateProcess(long server, string commandLine, DEBUG_CREATE_PROCESS flags)
         {
             TryCreateProcess(server, commandLine, flags).ThrowDbgEngNotOK();
         }
@@ -1065,12 +1065,12 @@ namespace ClrDebug.DbgEng
         /// of <see cref="CreateProcessAndAttach2"/> with its argument ProcessId set to zero. For more information
         /// about creating and attaching to live user-mode targets, see Live User-Mode Targets.
         /// </remarks>
-        public HRESULT TryCreateProcess(ulong server, string commandLine, DEBUG_CREATE_PROCESS flags)
+        public HRESULT TryCreateProcess(long server, string commandLine, DEBUG_CREATE_PROCESS flags)
         {
             InitDelegate(ref createProcess, Vtbl->CreateProcess);
 
             /*HRESULT CreateProcess(
-            [In] ulong Server,
+            [In] long Server,
             [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine,
             [In] DEBUG_CREATE_PROCESS Flags);*/
             return createProcess(Raw, server, commandLine, flags);
@@ -1093,7 +1093,7 @@ namespace ClrDebug.DbgEng
         /// then the engine will create the process in a suspended state. The engine will resume this newly created process
         /// after it successfully connects to the process specified in ProcessId.
         /// </remarks>
-        public void CreateProcessAndAttach(ulong server, string commandLine, DEBUG_CREATE_PROCESS flags, uint processId, DEBUG_ATTACH attachFlags)
+        public void CreateProcessAndAttach(long server, string commandLine, DEBUG_CREATE_PROCESS flags, int processId, DEBUG_ATTACH attachFlags)
         {
             TryCreateProcessAndAttach(server, commandLine, flags, processId, attachFlags).ThrowDbgEngNotOK();
         }
@@ -1113,15 +1113,15 @@ namespace ClrDebug.DbgEng
         /// then the engine will create the process in a suspended state. The engine will resume this newly created process
         /// after it successfully connects to the process specified in ProcessId.
         /// </remarks>
-        public HRESULT TryCreateProcessAndAttach(ulong server, string commandLine, DEBUG_CREATE_PROCESS flags, uint processId, DEBUG_ATTACH attachFlags)
+        public HRESULT TryCreateProcessAndAttach(long server, string commandLine, DEBUG_CREATE_PROCESS flags, int processId, DEBUG_ATTACH attachFlags)
         {
             InitDelegate(ref createProcessAndAttach, Vtbl->CreateProcessAndAttach);
 
             /*HRESULT CreateProcessAndAttach(
-            [In] ulong Server,
+            [In] long Server,
             [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine,
             [In] DEBUG_CREATE_PROCESS Flags,
-            [In] uint ProcessId,
+            [In] int ProcessId,
             [In] DEBUG_ATTACH AttachFlags);*/
             return createProcessAndAttach(Raw, server, commandLine, flags, processId, attachFlags);
         }
@@ -1301,7 +1301,7 @@ namespace ClrDebug.DbgEng
         /// clients, see Debugging Server and Debugging Client. For more information about debugger sessions, see Debugging
         /// Session and Execution Model.
         /// </remarks>
-        public void ConnectSession(DEBUG_CONNECT_SESSION flags, uint historyLimit)
+        public void ConnectSession(DEBUG_CONNECT_SESSION flags, int historyLimit)
         {
             TryConnectSession(flags, historyLimit).ThrowDbgEngNotOK();
         }
@@ -1320,13 +1320,13 @@ namespace ClrDebug.DbgEng
         /// clients, see Debugging Server and Debugging Client. For more information about debugger sessions, see Debugging
         /// Session and Execution Model.
         /// </remarks>
-        public HRESULT TryConnectSession(DEBUG_CONNECT_SESSION flags, uint historyLimit)
+        public HRESULT TryConnectSession(DEBUG_CONNECT_SESSION flags, int historyLimit)
         {
             InitDelegate(ref connectSession, Vtbl->ConnectSession);
 
             /*HRESULT ConnectSession(
             [In] DEBUG_CONNECT_SESSION Flags,
-            [In] uint HistoryLimit);*/
+            [In] int HistoryLimit);*/
             return connectSession(Raw, flags, historyLimit);
         }
 
@@ -1506,7 +1506,7 @@ namespace ClrDebug.DbgEng
         /// to be called, unless the thread was the same thread used to start the debugger session, in which case the callbacks
         /// are called when <see cref="DebugControl.WaitForEvent"/> is called. For more information about callbacks, see Callbacks.
         /// </remarks>
-        public void DispatchCallbacks(uint timeout)
+        public void DispatchCallbacks(int timeout)
         {
             TryDispatchCallbacks(timeout).ThrowDbgEngNotOK();
         }
@@ -1524,12 +1524,12 @@ namespace ClrDebug.DbgEng
         /// to be called, unless the thread was the same thread used to start the debugger session, in which case the callbacks
         /// are called when <see cref="DebugControl.WaitForEvent"/> is called. For more information about callbacks, see Callbacks.
         /// </remarks>
-        public HRESULT TryDispatchCallbacks(uint timeout)
+        public HRESULT TryDispatchCallbacks(int timeout)
         {
             InitDelegate(ref dispatchCallbacks, Vtbl->DispatchCallbacks);
 
             /*HRESULT DispatchCallbacks(
-            [In] uint Timeout);*/
+            [In] int Timeout);*/
             return dispatchCallbacks(Raw, timeout);
         }
 
@@ -1691,7 +1691,7 @@ namespace ClrDebug.DbgEng
         /// The specific content of the string varies with the operating system. If the client is remotely connected, some
         /// network information may also be present. For more information about client objects, see Client Objects.
         /// </remarks>
-        public void OutputIdentity(DEBUG_OUTCTL outputControl, uint flags, string format)
+        public void OutputIdentity(DEBUG_OUTCTL outputControl, int flags, string format)
         {
             TryOutputIdentity(outputControl, flags, format).ThrowDbgEngNotOK();
         }
@@ -1707,13 +1707,13 @@ namespace ClrDebug.DbgEng
         /// The specific content of the string varies with the operating system. If the client is remotely connected, some
         /// network information may also be present. For more information about client objects, see Client Objects.
         /// </remarks>
-        public HRESULT TryOutputIdentity(DEBUG_OUTCTL outputControl, uint flags, string format)
+        public HRESULT TryOutputIdentity(DEBUG_OUTCTL outputControl, int flags, string format)
         {
             InitDelegate(ref outputIdentity, Vtbl->OutputIdentity);
 
             /*HRESULT OutputIdentity(
             [In] DEBUG_OUTCTL OutputControl,
-            [In] uint Flags,
+            [In] int Flags,
             [In, MarshalAs(UnmanagedType.LPStr)] string Format);*/
             return outputIdentity(Raw, outputControl, flags, format);
         }
@@ -1896,7 +1896,7 @@ namespace ClrDebug.DbgEng
         /// For more information about process servers and remote debugging, see Process Servers, Kernel Connection Servers,
         /// and Smart Clients.
         /// </remarks>
-        public void EndProcessServer(ulong server)
+        public void EndProcessServer(long server)
         {
             TryEndProcessServer(server).ThrowDbgEngNotOK();
         }
@@ -1910,12 +1910,12 @@ namespace ClrDebug.DbgEng
         /// For more information about process servers and remote debugging, see Process Servers, Kernel Connection Servers,
         /// and Smart Clients.
         /// </remarks>
-        public HRESULT TryEndProcessServer(ulong server)
+        public HRESULT TryEndProcessServer(long server)
         {
             InitDelegate(ref endProcessServer, Vtbl2->EndProcessServer);
 
             /*HRESULT EndProcessServer(
-            [In] ulong Server);*/
+            [In] long Server);*/
             return endProcessServer(Raw, server);
         }
 
@@ -1931,7 +1931,7 @@ namespace ClrDebug.DbgEng
         /// calls to this method will return immediately. For more information about process servers and remote debugging,
         /// see Process Servers, Kernel Connection Servers, and Smart Clients. The constant INFINITE is defined in Winbase.h.
         /// </remarks>
-        public void WaitForProcessServerEnd(uint timeout)
+        public void WaitForProcessServerEnd(int timeout)
         {
             TryWaitForProcessServerEnd(timeout).ThrowDbgEngNotOK();
         }
@@ -1946,12 +1946,12 @@ namespace ClrDebug.DbgEng
         /// calls to this method will return immediately. For more information about process servers and remote debugging,
         /// see Process Servers, Kernel Connection Servers, and Smart Clients. The constant INFINITE is defined in Winbase.h.
         /// </remarks>
-        public HRESULT TryWaitForProcessServerEnd(uint timeout)
+        public HRESULT TryWaitForProcessServerEnd(int timeout)
         {
             InitDelegate(ref waitForProcessServerEnd, Vtbl2->WaitForProcessServerEnd);
 
             /*HRESULT WaitForProcessServerEnd(
-            [In] uint Timeout);*/
+            [In] int Timeout);*/
             return waitForProcessServerEnd(Raw, timeout);
         }
 
@@ -2070,9 +2070,9 @@ namespace ClrDebug.DbgEng
         /// This method is available only for live user-mode debugging. For more information about creating and attaching to
         /// live user-mode targets, see Live User-Mode Targets.
         /// </remarks>
-        public uint GetRunningProcessSystemIdByExecutableNameWide(ulong server, string exeName, DEBUG_GET_PROC flags)
+        public int GetRunningProcessSystemIdByExecutableNameWide(long server, string exeName, DEBUG_GET_PROC flags)
         {
-            uint id;
+            int id;
             TryGetRunningProcessSystemIdByExecutableNameWide(server, exeName, flags, out id).ThrowDbgEngNotOK();
 
             return id;
@@ -2090,15 +2090,15 @@ namespace ClrDebug.DbgEng
         /// This method is available only for live user-mode debugging. For more information about creating and attaching to
         /// live user-mode targets, see Live User-Mode Targets.
         /// </remarks>
-        public HRESULT TryGetRunningProcessSystemIdByExecutableNameWide(ulong server, string exeName, DEBUG_GET_PROC flags, out uint id)
+        public HRESULT TryGetRunningProcessSystemIdByExecutableNameWide(long server, string exeName, DEBUG_GET_PROC flags, out int id)
         {
             InitDelegate(ref getRunningProcessSystemIdByExecutableNameWide, Vtbl3->GetRunningProcessSystemIdByExecutableNameWide);
 
             /*HRESULT GetRunningProcessSystemIdByExecutableNameWide(
-            [In] ulong Server,
+            [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string ExeName,
             [In] DEBUG_GET_PROC Flags,
-            [Out] out uint Id);*/
+            [Out] out int Id);*/
             return getRunningProcessSystemIdByExecutableNameWide(Raw, server, exeName, flags, out id);
         }
 
@@ -2116,7 +2116,7 @@ namespace ClrDebug.DbgEng
         /// This method is available only for live user-mode debugging. For more information about creating and attaching to
         /// live user-mode targets, see Live User-Mode Targets.
         /// </remarks>
-        public GetRunningProcessDescriptionWideResult GetRunningProcessDescriptionWide(ulong server, uint systemId, DEBUG_PROC_DESC flags)
+        public GetRunningProcessDescriptionWideResult GetRunningProcessDescriptionWide(long server, int systemId, DEBUG_PROC_DESC flags)
         {
             GetRunningProcessDescriptionWideResult result;
             TryGetRunningProcessDescriptionWide(server, systemId, flags, out result).ThrowDbgEngNotOK();
@@ -2136,35 +2136,35 @@ namespace ClrDebug.DbgEng
         /// This method is available only for live user-mode debugging. For more information about creating and attaching to
         /// live user-mode targets, see Live User-Mode Targets.
         /// </remarks>
-        public HRESULT TryGetRunningProcessDescriptionWide(ulong server, uint systemId, DEBUG_PROC_DESC flags, out GetRunningProcessDescriptionWideResult result)
+        public HRESULT TryGetRunningProcessDescriptionWide(long server, int systemId, DEBUG_PROC_DESC flags, out GetRunningProcessDescriptionWideResult result)
         {
             InitDelegate(ref getRunningProcessDescriptionWide, Vtbl3->GetRunningProcessDescriptionWide);
             /*HRESULT GetRunningProcessDescriptionWide(
-            [In] ulong Server,
-            [In] uint SystemId,
+            [In] long Server,
+            [In] int SystemId,
             [In] DEBUG_PROC_DESC Flags,
             [Out, MarshalAs(UnmanagedType.LPWStr)]
             StringBuilder ExeName,
             [In] int ExeNameSize,
-            [Out] out uint ActualExeNameSize,
+            [Out] out int ActualExeNameSize,
             [Out, MarshalAs(UnmanagedType.LPWStr)]
             StringBuilder Description,
             [In] int DescriptionSize,
-            [Out] out uint ActualDescriptionSize);*/
+            [Out] out int ActualDescriptionSize);*/
             StringBuilder exeName;
             int exeNameSize = 0;
-            uint actualExeNameSize;
+            int actualExeNameSize;
             StringBuilder description;
             int descriptionSize = 0;
-            uint actualDescriptionSize;
+            int actualDescriptionSize;
             HRESULT hr = getRunningProcessDescriptionWide(Raw, server, systemId, flags, null, exeNameSize, out actualExeNameSize, null, descriptionSize, out actualDescriptionSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            exeNameSize = (int) actualExeNameSize;
+            exeNameSize = actualExeNameSize;
             exeName = new StringBuilder(exeNameSize);
-            descriptionSize = (int) actualDescriptionSize;
+            descriptionSize = actualDescriptionSize;
             description = new StringBuilder(descriptionSize);
             hr = getRunningProcessDescriptionWide(Raw, server, systemId, flags, exeName, exeNameSize, out actualExeNameSize, description, descriptionSize, out actualDescriptionSize);
 
@@ -2198,7 +2198,7 @@ namespace ClrDebug.DbgEng
         /// that of <see cref="CreateProcessAndAttach2"/> when its argument ProcessId is set to zero. For more
         /// information about creating and attaching to live user-mode targets, see Live User-Mode Targets.
         /// </remarks>
-        public void CreateProcessWide(ulong server, string commandLine, DEBUG_CREATE_PROCESS createFlags)
+        public void CreateProcessWide(long server, string commandLine, DEBUG_CREATE_PROCESS createFlags)
         {
             TryCreateProcessWide(server, commandLine, createFlags).ThrowDbgEngNotOK();
         }
@@ -2218,12 +2218,12 @@ namespace ClrDebug.DbgEng
         /// that of <see cref="CreateProcessAndAttach2"/> when its argument ProcessId is set to zero. For more
         /// information about creating and attaching to live user-mode targets, see Live User-Mode Targets.
         /// </remarks>
-        public HRESULT TryCreateProcessWide(ulong server, string commandLine, DEBUG_CREATE_PROCESS createFlags)
+        public HRESULT TryCreateProcessWide(long server, string commandLine, DEBUG_CREATE_PROCESS createFlags)
         {
             InitDelegate(ref createProcessWide, Vtbl3->CreateProcessWide);
 
             /*HRESULT CreateProcessWide(
-            [In] ulong Server,
+            [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine,
             [In] DEBUG_CREATE_PROCESS CreateFlags);*/
             return createProcessWide(Raw, server, commandLine, createFlags);
@@ -2249,7 +2249,7 @@ namespace ClrDebug.DbgEng
         /// generated an event -- for example, the create-process event -- does it become available in the debugger session.
         /// For more information about creating and attaching to live user-mode targets, see Live User-Mode Targets.
         /// </remarks>
-        public void CreateProcessAndAttachWide(ulong server, string commandLine, DEBUG_CREATE_PROCESS createFlags, uint processId, DEBUG_ATTACH attachFlags)
+        public void CreateProcessAndAttachWide(long server, string commandLine, DEBUG_CREATE_PROCESS createFlags, int processId, DEBUG_ATTACH attachFlags)
         {
             TryCreateProcessAndAttachWide(server, commandLine, createFlags, processId, attachFlags).ThrowDbgEngNotOK();
         }
@@ -2272,15 +2272,15 @@ namespace ClrDebug.DbgEng
         /// generated an event -- for example, the create-process event -- does it become available in the debugger session.
         /// For more information about creating and attaching to live user-mode targets, see Live User-Mode Targets.
         /// </remarks>
-        public HRESULT TryCreateProcessAndAttachWide(ulong server, string commandLine, DEBUG_CREATE_PROCESS createFlags, uint processId, DEBUG_ATTACH attachFlags)
+        public HRESULT TryCreateProcessAndAttachWide(long server, string commandLine, DEBUG_CREATE_PROCESS createFlags, int processId, DEBUG_ATTACH attachFlags)
         {
             InitDelegate(ref createProcessAndAttachWide, Vtbl3->CreateProcessAndAttachWide);
 
             /*HRESULT CreateProcessAndAttachWide(
-            [In] ulong Server,
+            [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine,
             [In] DEBUG_CREATE_PROCESS CreateFlags,
-            [In] uint ProcessId,
+            [In] int ProcessId,
             [In] DEBUG_ATTACH AttachFlags);*/
             return createProcessAndAttachWide(Raw, server, commandLine, createFlags, processId, attachFlags);
         }
@@ -2293,11 +2293,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetNumberDumpFiles method returns the number of files containing supporting information that were used when opening the current dump target.
         /// </summary>
-        public uint NumberDumpFiles
+        public int NumberDumpFiles
         {
             get
             {
-                uint number;
+                int number;
                 TryGetNumberDumpFiles(out number).ThrowDbgEngNotOK();
 
                 return number;
@@ -2312,12 +2312,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about crash dump files, see Dump-File Targets.
         /// </remarks>
-        public HRESULT TryGetNumberDumpFiles(out uint number)
+        public HRESULT TryGetNumberDumpFiles(out int number)
         {
             InitDelegate(ref getNumberDumpFiles, Vtbl4->GetNumberDumpFiles);
 
             /*HRESULT GetNumberDumpFiles(
-            [Out] out uint Number);*/
+            [Out] out int Number);*/
             return getNumberDumpFiles(Raw, out number);
         }
 
@@ -2335,7 +2335,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// The ASCII version of this method is <see cref="OpenDumpFile"/>.
         /// </remarks>
-        public void OpenDumpFileWide(string fileName, ulong fileHandle)
+        public void OpenDumpFileWide(string fileName, long fileHandle)
         {
             TryOpenDumpFileWide(fileName, fileHandle).ThrowDbgEngNotOK();
         }
@@ -2352,13 +2352,13 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// The ASCII version of this method is <see cref="OpenDumpFile"/>.
         /// </remarks>
-        public HRESULT TryOpenDumpFileWide(string fileName, ulong fileHandle)
+        public HRESULT TryOpenDumpFileWide(string fileName, long fileHandle)
         {
             InitDelegate(ref openDumpFileWide, Vtbl4->OpenDumpFileWide);
 
             /*HRESULT OpenDumpFileWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string FileName,
-            [In] ulong FileHandle);*/
+            [In] long FileHandle);*/
             return openDumpFileWide(Raw, fileName, fileHandle);
         }
 
@@ -2378,7 +2378,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about crash dump files, see Dump-File Targets.
         /// </remarks>
-        public void WriteDumpFileWide(string dumpFile, ulong fileHandle, DEBUG_DUMP qualifier, DEBUG_FORMAT formatFlags, string comment)
+        public void WriteDumpFileWide(string dumpFile, long fileHandle, DEBUG_DUMP qualifier, DEBUG_FORMAT formatFlags, string comment)
         {
             TryWriteDumpFileWide(dumpFile, fileHandle, qualifier, formatFlags, comment).ThrowDbgEngNotOK();
         }
@@ -2397,13 +2397,13 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about crash dump files, see Dump-File Targets.
         /// </remarks>
-        public HRESULT TryWriteDumpFileWide(string dumpFile, ulong fileHandle, DEBUG_DUMP qualifier, DEBUG_FORMAT formatFlags, string comment)
+        public HRESULT TryWriteDumpFileWide(string dumpFile, long fileHandle, DEBUG_DUMP qualifier, DEBUG_FORMAT formatFlags, string comment)
         {
             InitDelegate(ref writeDumpFileWide, Vtbl4->WriteDumpFileWide);
 
             /*HRESULT WriteDumpFileWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string DumpFile,
-            [In] ulong FileHandle,
+            [In] long FileHandle,
             [In] DEBUG_DUMP Qualifier,
             [In] DEBUG_FORMAT FormatFlags,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Comment);*/
@@ -2425,7 +2425,7 @@ namespace ClrDebug.DbgEng
         /// must be called before <see cref="OpenDumpFile"/> is called. If a session has already started, this method cannot
         /// be used. For more information about crash dump files, see Dump-File Targets.
         /// </remarks>
-        public void AddDumpInformationFileWide(string fileName, ulong fileHandle, DEBUG_DUMP_FILE type)
+        public void AddDumpInformationFileWide(string fileName, long fileHandle, DEBUG_DUMP_FILE type)
         {
             TryAddDumpInformationFileWide(fileName, fileHandle, type).ThrowDbgEngNotOK();
         }
@@ -2443,13 +2443,13 @@ namespace ClrDebug.DbgEng
         /// must be called before <see cref="OpenDumpFile"/> is called. If a session has already started, this method cannot
         /// be used. For more information about crash dump files, see Dump-File Targets.
         /// </remarks>
-        public HRESULT TryAddDumpInformationFileWide(string fileName, ulong fileHandle, DEBUG_DUMP_FILE type)
+        public HRESULT TryAddDumpInformationFileWide(string fileName, long fileHandle, DEBUG_DUMP_FILE type)
         {
             InitDelegate(ref addDumpInformationFileWide, Vtbl4->AddDumpInformationFileWide);
 
             /*HRESULT AddDumpInformationFileWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string FileName,
-            [In] ulong FileHandle,
+            [In] long FileHandle,
             [In] DEBUG_DUMP_FILE Type);*/
             return addDumpInformationFileWide(Raw, fileName, fileHandle, type);
         }
@@ -2465,7 +2465,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about crash dump files, see Dump-File Targets.
         /// </remarks>
-        public GetDumpFileResult GetDumpFile(uint index)
+        public GetDumpFileResult GetDumpFile(int index)
         {
             GetDumpFileResult result;
             TryGetDumpFile(index, out result).ThrowDbgEngNotOK();
@@ -2482,27 +2482,27 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about crash dump files, see Dump-File Targets.
         /// </remarks>
-        public HRESULT TryGetDumpFile(uint index, out GetDumpFileResult result)
+        public HRESULT TryGetDumpFile(int index, out GetDumpFileResult result)
         {
             InitDelegate(ref getDumpFile, Vtbl4->GetDumpFile);
             /*HRESULT GetDumpFile(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize,
-            [Out] out ulong Handle,
-            [Out] out uint Type);*/
+            [Out] out int NameSize,
+            [Out] out long Handle,
+            [Out] out int Type);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint nameSize;
-            ulong handle;
-            uint type;
+            int nameSize;
+            long handle;
+            int type;
             HRESULT hr = getDumpFile(Raw, index, null, bufferSize, out nameSize, out handle, out type);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) nameSize;
+            bufferSize = nameSize;
             buffer = new StringBuilder(bufferSize);
             hr = getDumpFile(Raw, index, buffer, bufferSize, out nameSize, out handle, out type);
 
@@ -2530,7 +2530,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about crash dump files, see Dump-File Targets.
         /// </remarks>
-        public GetDumpFileWideResult GetDumpFileWide(uint index)
+        public GetDumpFileWideResult GetDumpFileWide(int index)
         {
             GetDumpFileWideResult result;
             TryGetDumpFileWide(index, out result).ThrowDbgEngNotOK();
@@ -2547,27 +2547,27 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about crash dump files, see Dump-File Targets.
         /// </remarks>
-        public HRESULT TryGetDumpFileWide(uint index, out GetDumpFileWideResult result)
+        public HRESULT TryGetDumpFileWide(int index, out GetDumpFileWideResult result)
         {
             InitDelegate(ref getDumpFileWide, Vtbl4->GetDumpFileWide);
             /*HRESULT GetDumpFileWide(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize,
-            [Out] out ulong Handle,
-            [Out] out uint Type);*/
+            [Out] out int NameSize,
+            [Out] out long Handle,
+            [Out] out int Type);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint nameSize;
-            ulong handle;
-            uint type;
+            int nameSize;
+            long handle;
+            int type;
             HRESULT hr = getDumpFileWide(Raw, index, null, bufferSize, out nameSize, out handle, out type);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) nameSize;
+            bufferSize = nameSize;
             buffer = new StringBuilder(bufferSize);
             hr = getDumpFileWide(Raw, index, buffer, bufferSize, out nameSize, out handle, out type);
 
@@ -2623,16 +2623,16 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetKernelConnectionOptionsWide(
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint OptionsSize);*/
+            [Out] out int OptionsSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint optionsSize;
+            int optionsSize;
             HRESULT hr = getKernelConnectionOptionsWide(Raw, null, bufferSize, out optionsSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) optionsSize;
+            bufferSize = optionsSize;
             buffer = new StringBuilder(bufferSize);
             hr = getKernelConnectionOptionsWide(Raw, buffer, bufferSize, out optionsSize);
 
@@ -2762,16 +2762,16 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetOutputLinePrefixWide(
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint PrefixSize);*/
+            [Out] out int PrefixSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint prefixSize;
+            int prefixSize;
             HRESULT hr = getOutputLinePrefixWide(Raw, null, bufferSize, out prefixSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) prefixSize;
+            bufferSize = prefixSize;
             buffer = new StringBuilder(bufferSize);
             hr = getOutputLinePrefixWide(Raw, buffer, bufferSize, out prefixSize);
 
@@ -2834,16 +2834,16 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetIdentityWide(
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint IdentitySize);*/
+            [Out] out int IdentitySize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint identitySize;
+            int identitySize;
             HRESULT hr = getIdentityWide(Raw, null, bufferSize, out identitySize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) identitySize;
+            bufferSize = identitySize;
             buffer = new StringBuilder(bufferSize);
             hr = getIdentityWide(Raw, buffer, bufferSize, out identitySize);
 
@@ -2932,11 +2932,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetNumberInputCallbacks method returns the number of input callbacks registered over all clients.
         /// </summary>
-        public uint NumberInputCallbacks
+        public int NumberInputCallbacks
         {
             get
             {
-                uint count;
+                int count;
                 TryGetNumberInputCallbacks(out count).ThrowDbgEngNotOK();
 
                 return count;
@@ -2951,12 +2951,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// Each client can have at most one input callback registered with it. For more information about callbacks, see Callbacks.
         /// </remarks>
-        public HRESULT TryGetNumberInputCallbacks(out uint count)
+        public HRESULT TryGetNumberInputCallbacks(out int count)
         {
             InitDelegate(ref getNumberInputCallbacks, Vtbl5->GetNumberInputCallbacks);
 
             /*HRESULT GetNumberInputCallbacks(
-            [Out] out uint Count);*/
+            [Out] out int Count);*/
             return getNumberInputCallbacks(Raw, out count);
         }
 
@@ -2966,11 +2966,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetNumberOutputCallbacks method returns the number of output callbacks registered over all clients.
         /// </summary>
-        public uint NumberOutputCallbacks
+        public int NumberOutputCallbacks
         {
             get
             {
-                uint count;
+                int count;
                 TryGetNumberOutputCallbacks(out count).ThrowDbgEngNotOK();
 
                 return count;
@@ -2986,12 +2986,12 @@ namespace ClrDebug.DbgEng
         /// Each client can have at most one output callback registered with it. For more information about callbacks, see
         /// Callbacks.
         /// </remarks>
-        public HRESULT TryGetNumberOutputCallbacks(out uint count)
+        public HRESULT TryGetNumberOutputCallbacks(out int count)
         {
             InitDelegate(ref getNumberOutputCallbacks, Vtbl5->GetNumberOutputCallbacks);
 
             /*HRESULT GetNumberOutputCallbacks(
-            [Out] out uint Count);*/
+            [Out] out int Count);*/
             return getNumberOutputCallbacks(Raw, out count);
         }
 
@@ -3030,16 +3030,16 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetQuitLockString(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint StringSize);*/
+            [Out] out int StringSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint stringSize;
+            int stringSize;
             HRESULT hr = getQuitLockString(Raw, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) stringSize;
+            bufferSize = stringSize;
             buffer = new StringBuilder(bufferSize);
             hr = getQuitLockString(Raw, buffer, bufferSize, out stringSize);
 
@@ -3105,16 +3105,16 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetQuitLockStringWide(
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint StringSize);*/
+            [Out] out int StringSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint stringSize;
+            int stringSize;
             HRESULT hr = getQuitLockStringWide(Raw, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) stringSize;
+            bufferSize = stringSize;
             buffer = new StringBuilder(bufferSize);
             hr = getQuitLockStringWide(Raw, buffer, bufferSize, out stringSize);
 
@@ -3245,9 +3245,9 @@ namespace ClrDebug.DbgEng
         /// For more information about process servers and remote debugging, see Process Servers, Kernel Connection Servers,
         /// and Smart Clients.
         /// </remarks>
-        public ulong ConnectProcessServerWide(string remoteOptions)
+        public long ConnectProcessServerWide(string remoteOptions)
         {
-            ulong server;
+            long server;
             TryConnectProcessServerWide(remoteOptions, out server).ThrowDbgEngNotOK();
 
             return server;
@@ -3264,13 +3264,13 @@ namespace ClrDebug.DbgEng
         /// For more information about process servers and remote debugging, see Process Servers, Kernel Connection Servers,
         /// and Smart Clients.
         /// </remarks>
-        public HRESULT TryConnectProcessServerWide(string remoteOptions, out ulong server)
+        public HRESULT TryConnectProcessServerWide(string remoteOptions, out long server)
         {
             InitDelegate(ref connectProcessServerWide, Vtbl5->ConnectProcessServerWide);
 
             /*HRESULT ConnectProcessServerWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string RemoteOptions,
-            [Out] out ulong Server);*/
+            [Out] out long Server);*/
             return connectProcessServerWide(Raw, remoteOptions, out server);
         }
 
@@ -3361,7 +3361,7 @@ namespace ClrDebug.DbgEng
         /// The specific content of the string varies with the operating system. If the client is remotely connected, some
         /// network information may also be present. For more information about client objects, see Client Objects.
         /// </remarks>
-        public void OutputIdentityWide(DEBUG_OUTCTL outputControl, uint flags, string machine)
+        public void OutputIdentityWide(DEBUG_OUTCTL outputControl, int flags, string machine)
         {
             TryOutputIdentityWide(outputControl, flags, machine).ThrowDbgEngNotOK();
         }
@@ -3377,13 +3377,13 @@ namespace ClrDebug.DbgEng
         /// The specific content of the string varies with the operating system. If the client is remotely connected, some
         /// network information may also be present. For more information about client objects, see Client Objects.
         /// </remarks>
-        public HRESULT TryOutputIdentityWide(DEBUG_OUTCTL outputControl, uint flags, string machine)
+        public HRESULT TryOutputIdentityWide(DEBUG_OUTCTL outputControl, int flags, string machine)
         {
             InitDelegate(ref outputIdentityWide, Vtbl5->OutputIdentityWide);
 
             /*HRESULT OutputIdentityWide(
             [In] DEBUG_OUTCTL OutputControl,
-            [In] uint Flags,
+            [In] int Flags,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Machine);*/
             return outputIdentityWide(Raw, outputControl, flags, machine);
         }
@@ -3408,7 +3408,7 @@ namespace ClrDebug.DbgEng
         /// of <see cref="CreateProcessAndAttach2"/> with its argument ProcessId set to zero. For more information about creating
         /// and attaching to live user-mode targets, see Live User-Mode Targets.
         /// </remarks>
-        public void CreateProcess2(ulong server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, uint optionsBufferSize, string initialDirectory, string environment)
+        public void CreateProcess2(long server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, int optionsBufferSize, string initialDirectory, string environment)
         {
             TryCreateProcess2(server, commandLine, optionsBuffer, optionsBufferSize, initialDirectory, environment).ThrowDbgEngNotOK();
         }
@@ -3431,15 +3431,15 @@ namespace ClrDebug.DbgEng
         /// of <see cref="CreateProcessAndAttach2"/> with its argument ProcessId set to zero. For more information about creating
         /// and attaching to live user-mode targets, see Live User-Mode Targets.
         /// </remarks>
-        public HRESULT TryCreateProcess2(ulong server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, uint optionsBufferSize, string initialDirectory, string environment)
+        public HRESULT TryCreateProcess2(long server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, int optionsBufferSize, string initialDirectory, string environment)
         {
             InitDelegate(ref createProcess2, Vtbl5->CreateProcess2);
 
             /*HRESULT CreateProcess2(
-            [In] ulong Server,
+            [In] long Server,
             [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine,
             [In] ref DEBUG_CREATE_PROCESS_OPTIONS OptionsBuffer,
-            [In] uint OptionsBufferSize,
+            [In] int OptionsBufferSize,
             [In, MarshalAs(UnmanagedType.LPStr)] string InitialDirectory,
             [In, MarshalAs(UnmanagedType.LPStr)] string Environment);*/
             return createProcess2(Raw, server, commandLine, ref optionsBuffer, optionsBufferSize, initialDirectory, environment);
@@ -3465,7 +3465,7 @@ namespace ClrDebug.DbgEng
         /// of <see cref="CreateProcessAndAttach2"/> with its argument ProcessId set to zero. For more information about creating
         /// and attaching to live user-mode targets, see Live User-Mode Targets.
         /// </remarks>
-        public void CreateProcess2Wide(ulong server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, uint optionsBufferSize, string initialDirectory, string environment)
+        public void CreateProcess2Wide(long server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, int optionsBufferSize, string initialDirectory, string environment)
         {
             TryCreateProcess2Wide(server, commandLine, optionsBuffer, optionsBufferSize, initialDirectory, environment).ThrowDbgEngNotOK();
         }
@@ -3488,15 +3488,15 @@ namespace ClrDebug.DbgEng
         /// of <see cref="CreateProcessAndAttach2"/> with its argument ProcessId set to zero. For more information about creating
         /// and attaching to live user-mode targets, see Live User-Mode Targets.
         /// </remarks>
-        public HRESULT TryCreateProcess2Wide(ulong server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, uint optionsBufferSize, string initialDirectory, string environment)
+        public HRESULT TryCreateProcess2Wide(long server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, int optionsBufferSize, string initialDirectory, string environment)
         {
             InitDelegate(ref createProcess2Wide, Vtbl5->CreateProcess2Wide);
 
             /*HRESULT CreateProcess2Wide(
-            [In] ulong Server,
+            [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine,
             [In] ref DEBUG_CREATE_PROCESS_OPTIONS OptionsBuffer,
-            [In] uint OptionsBufferSize,
+            [In] int OptionsBufferSize,
             [In, MarshalAs(UnmanagedType.LPWStr)] string InitialDirectory,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Environment);*/
             return createProcess2Wide(Raw, server, commandLine, ref optionsBuffer, optionsBufferSize, initialDirectory, environment);
@@ -3524,7 +3524,7 @@ namespace ClrDebug.DbgEng
         /// then the engine will create the process in a suspended state. The engine will resume this newly created process
         /// after it successfully connects to the process specified in ProcessId.
         /// </remarks>
-        public void CreateProcessAndAttach2(ulong server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, uint optionsBufferSize, string initialDirectory, string environment, uint processId, DEBUG_ATTACH attachFlags)
+        public void CreateProcessAndAttach2(long server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, int optionsBufferSize, string initialDirectory, string environment, int processId, DEBUG_ATTACH attachFlags)
         {
             TryCreateProcessAndAttach2(server, commandLine, optionsBuffer, optionsBufferSize, initialDirectory, environment, processId, attachFlags).ThrowDbgEngNotOK();
         }
@@ -3549,18 +3549,18 @@ namespace ClrDebug.DbgEng
         /// then the engine will create the process in a suspended state. The engine will resume this newly created process
         /// after it successfully connects to the process specified in ProcessId.
         /// </remarks>
-        public HRESULT TryCreateProcessAndAttach2(ulong server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, uint optionsBufferSize, string initialDirectory, string environment, uint processId, DEBUG_ATTACH attachFlags)
+        public HRESULT TryCreateProcessAndAttach2(long server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, int optionsBufferSize, string initialDirectory, string environment, int processId, DEBUG_ATTACH attachFlags)
         {
             InitDelegate(ref createProcessAndAttach2, Vtbl5->CreateProcessAndAttach2);
 
             /*HRESULT CreateProcessAndAttach2(
-            [In] ulong Server,
+            [In] long Server,
             [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine,
             [In] ref DEBUG_CREATE_PROCESS_OPTIONS OptionsBuffer,
-            [In] uint OptionsBufferSize,
+            [In] int OptionsBufferSize,
             [In, MarshalAs(UnmanagedType.LPStr)] string InitialDirectory,
             [In, MarshalAs(UnmanagedType.LPStr)] string Environment,
-            [In] uint ProcessId,
+            [In] int ProcessId,
             [In] DEBUG_ATTACH AttachFlags);*/
             return createProcessAndAttach2(Raw, server, commandLine, ref optionsBuffer, optionsBufferSize, initialDirectory, environment, processId, attachFlags);
         }
@@ -3587,7 +3587,7 @@ namespace ClrDebug.DbgEng
         /// then the engine will create the process in a suspended state. The engine will resume this newly created process
         /// after it successfully connects to the process specified in ProcessId.
         /// </remarks>
-        public void CreateProcessAndAttach2Wide(ulong server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, uint optionsBufferSize, string initialDirectory, string environment, uint processId, DEBUG_ATTACH attachFlags)
+        public void CreateProcessAndAttach2Wide(long server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, int optionsBufferSize, string initialDirectory, string environment, int processId, DEBUG_ATTACH attachFlags)
         {
             TryCreateProcessAndAttach2Wide(server, commandLine, optionsBuffer, optionsBufferSize, initialDirectory, environment, processId, attachFlags).ThrowDbgEngNotOK();
         }
@@ -3612,18 +3612,18 @@ namespace ClrDebug.DbgEng
         /// then the engine will create the process in a suspended state. The engine will resume this newly created process
         /// after it successfully connects to the process specified in ProcessId.
         /// </remarks>
-        public HRESULT TryCreateProcessAndAttach2Wide(ulong server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, uint optionsBufferSize, string initialDirectory, string environment, uint processId, DEBUG_ATTACH attachFlags)
+        public HRESULT TryCreateProcessAndAttach2Wide(long server, string commandLine, DEBUG_CREATE_PROCESS_OPTIONS optionsBuffer, int optionsBufferSize, string initialDirectory, string environment, int processId, DEBUG_ATTACH attachFlags)
         {
             InitDelegate(ref createProcessAndAttach2Wide, Vtbl5->CreateProcessAndAttach2Wide);
 
             /*HRESULT CreateProcessAndAttach2Wide(
-            [In] ulong Server,
+            [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine,
             [In] ref DEBUG_CREATE_PROCESS_OPTIONS OptionsBuffer,
-            [In] uint OptionsBufferSize,
+            [In] int OptionsBufferSize,
             [In, MarshalAs(UnmanagedType.LPWStr)] string InitialDirectory,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Environment,
-            [In] uint ProcessId,
+            [In] int ProcessId,
             [In] DEBUG_ATTACH AttachFlags);*/
             return createProcessAndAttach2Wide(Raw, server, commandLine, ref optionsBuffer, optionsBufferSize, initialDirectory, environment, processId, attachFlags);
         }
@@ -3633,9 +3633,9 @@ namespace ClrDebug.DbgEng
 
         /// <param name="newPrefix">[in, optional] A pointer to the new output line prefix.</param>
         /// <returns>[out] The handle of the previous output line prefix.</returns>
-        public ulong PushOutputLinePrefix(string newPrefix)
+        public long PushOutputLinePrefix(string newPrefix)
         {
-            ulong handle;
+            long handle;
             TryPushOutputLinePrefix(newPrefix, out handle).ThrowDbgEngNotOK();
 
             return handle;
@@ -3644,13 +3644,13 @@ namespace ClrDebug.DbgEng
         /// <param name="newPrefix">[in, optional] A pointer to the new output line prefix.</param>
         /// <param name="handle">[out] The handle of the previous output line prefix.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        public HRESULT TryPushOutputLinePrefix(string newPrefix, out ulong handle)
+        public HRESULT TryPushOutputLinePrefix(string newPrefix, out long handle)
         {
             InitDelegate(ref pushOutputLinePrefix, Vtbl5->PushOutputLinePrefix);
 
             /*HRESULT PushOutputLinePrefix(
             [In, MarshalAs(UnmanagedType.LPStr)] string NewPrefix,
-            [Out] out ulong Handle);*/
+            [Out] out long Handle);*/
             return pushOutputLinePrefix(Raw, newPrefix, out handle);
         }
 
@@ -3659,9 +3659,9 @@ namespace ClrDebug.DbgEng
 
         /// <param name="newPrefix">[in, optional] A pointer to the new output line Unicode character prefix.</param>
         /// <returns>[out] The handle of the previous output line prefix.</returns>
-        public ulong PushOutputLinePrefixWide(string newPrefix)
+        public long PushOutputLinePrefixWide(string newPrefix)
         {
-            ulong handle;
+            long handle;
             TryPushOutputLinePrefixWide(newPrefix, out handle).ThrowDbgEngNotOK();
 
             return handle;
@@ -3670,13 +3670,13 @@ namespace ClrDebug.DbgEng
         /// <param name="newPrefix">[in, optional] A pointer to the new output line Unicode character prefix.</param>
         /// <param name="handle">[out] The handle of the previous output line prefix.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        public HRESULT TryPushOutputLinePrefixWide(string newPrefix, out ulong handle)
+        public HRESULT TryPushOutputLinePrefixWide(string newPrefix, out long handle)
         {
             InitDelegate(ref pushOutputLinePrefixWide, Vtbl5->PushOutputLinePrefixWide);
 
             /*HRESULT PushOutputLinePrefixWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string NewPrefix,
-            [Out] out ulong Handle);*/
+            [Out] out long Handle);*/
             return pushOutputLinePrefixWide(Raw, newPrefix, out handle);
         }
 
@@ -3687,7 +3687,7 @@ namespace ClrDebug.DbgEng
         /// Restores a previously saved output line prefix.
         /// </summary>
         /// <param name="handle">[in] The handle of a previously pushed prefix.</param>
-        public void PopOutputLinePrefix(ulong handle)
+        public void PopOutputLinePrefix(long handle)
         {
             TryPopOutputLinePrefix(handle).ThrowDbgEngNotOK();
         }
@@ -3697,12 +3697,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="handle">[in] The handle of a previously pushed prefix.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        public HRESULT TryPopOutputLinePrefix(ulong handle)
+        public HRESULT TryPopOutputLinePrefix(long handle)
         {
             InitDelegate(ref popOutputLinePrefix, Vtbl5->PopOutputLinePrefix);
 
             /*HRESULT PopOutputLinePrefix(
-            [In] ulong Handle);*/
+            [In] long Handle);*/
             return popOutputLinePrefix(Raw, handle);
         }
 
@@ -3720,9 +3720,9 @@ namespace ClrDebug.DbgEng
         /// its <see cref="IDebugEventCallbacks.GetInterestMask"/> method is called to allow the client to specify which events
         /// it is interested in. For more information about callbacks, see Callbacks.
         /// </remarks>
-        public uint GetNumberEventCallbacks(DEBUG_EVENT_TYPE flags)
+        public int GetNumberEventCallbacks(DEBUG_EVENT_TYPE flags)
         {
-            uint count;
+            int count;
             TryGetNumberEventCallbacks(flags, out count).ThrowDbgEngNotOK();
 
             return count;
@@ -3740,13 +3740,13 @@ namespace ClrDebug.DbgEng
         /// its <see cref="IDebugEventCallbacks.GetInterestMask"/> method is called to allow the client to specify which events
         /// it is interested in. For more information about callbacks, see Callbacks.
         /// </remarks>
-        public HRESULT TryGetNumberEventCallbacks(DEBUG_EVENT_TYPE flags, out uint count)
+        public HRESULT TryGetNumberEventCallbacks(DEBUG_EVENT_TYPE flags, out int count)
         {
             InitDelegate(ref getNumberEventCallbacks, Vtbl5->GetNumberEventCallbacks);
 
             /*HRESULT GetNumberEventCallbacks(
             [In] DEBUG_EVENT_TYPE Flags,
-            [Out] out uint Count);*/
+            [Out] out int Count);*/
             return getNumberEventCallbacks(Raw, flags, out count);
         }
 
@@ -3995,50 +3995,50 @@ namespace ClrDebug.DbgEng
         #region Delegates
         #region IDebugClient
 
-        private delegate HRESULT GetKernelConnectionOptionsDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint OptionsSize);
+        private delegate HRESULT GetKernelConnectionOptionsDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int OptionsSize);
         private delegate HRESULT SetKernelConnectionOptionsDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Options);
         private delegate HRESULT GetProcessOptionsDelegate(IntPtr self, [Out] out DEBUG_PROCESS Options);
         private delegate HRESULT SetProcessOptionsDelegate(IntPtr self, [In] DEBUG_PROCESS Options);
-        private delegate HRESULT GetExitCodeDelegate(IntPtr self, [Out] out uint Code);
+        private delegate HRESULT GetExitCodeDelegate(IntPtr self, [Out] out int Code);
         private delegate HRESULT GetInputCallbacksDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.Interface)] out IDebugInputCallbacks Callbacks);
         private delegate HRESULT SetInputCallbacksDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.Interface)] IDebugInputCallbacks Callbacks);
         private delegate HRESULT GetOutputCallbacksDelegate(IntPtr self, [Out] out IDebugOutputCallbacks Callbacks);
         private delegate HRESULT SetOutputCallbacksDelegate(IntPtr self, [In] IDebugOutputCallbacks Callbacks);
         private delegate HRESULT GetOutputMaskDelegate(IntPtr self, [Out] out DEBUG_OUTPUT Mask);
         private delegate HRESULT SetOutputMaskDelegate(IntPtr self, [In] DEBUG_OUTPUT Mask);
-        private delegate HRESULT GetOutputWidthDelegate(IntPtr self, [Out] out uint Columns);
-        private delegate HRESULT SetOutputWidthDelegate(IntPtr self, [In] uint Columns);
-        private delegate HRESULT GetOutputLinePrefixDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint PrefixSize);
+        private delegate HRESULT GetOutputWidthDelegate(IntPtr self, [Out] out int Columns);
+        private delegate HRESULT SetOutputWidthDelegate(IntPtr self, [In] int Columns);
+        private delegate HRESULT GetOutputLinePrefixDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int PrefixSize);
         private delegate HRESULT SetOutputLinePrefixDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Prefix);
-        private delegate HRESULT GetIdentityDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint IdentitySize);
+        private delegate HRESULT GetIdentityDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int IdentitySize);
         private delegate HRESULT GetEventCallbacksDelegate(IntPtr self, [Out] out IDebugEventCallbacks Callbacks);
         private delegate HRESULT SetEventCallbacksDelegate(IntPtr self, [In] IDebugEventCallbacks Callbacks);
         private delegate HRESULT AttachKernelDelegate(IntPtr self, [In] DEBUG_ATTACH Flags, [In, MarshalAs(UnmanagedType.LPStr)] string ConnectOptions);
         private delegate HRESULT StartProcessServerDelegate(IntPtr self, [In] DEBUG_CLASS Flags, [In, MarshalAs(UnmanagedType.LPStr)] string Options, [In] IntPtr Reserved);
-        private delegate HRESULT ConnectProcessServerDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string RemoteOptions, [Out] out ulong Server);
-        private delegate HRESULT DisconnectProcessServerDelegate(IntPtr self, [In] ulong Server);
-        private delegate HRESULT GetRunningProcessSystemIdsDelegate(IntPtr self, [In] ulong Server, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] uint[] Ids, [In] uint Count, [Out] out uint ActualCount);
-        private delegate HRESULT GetRunningProcessSystemIdByExecutableNameDelegate(IntPtr self, [In] ulong Server, [In, MarshalAs(UnmanagedType.LPStr)] string ExeName, [In] DEBUG_GET_PROC Flags, [Out] out uint Id);
-        private delegate HRESULT GetRunningProcessDescriptionDelegate(IntPtr self, [In] ulong Server, [In] uint SystemId, [In] DEBUG_PROC_DESC Flags, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder ExeName, [In] int ExeNameSize, [Out] out uint ActualExeNameSize, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Description, [In] int DescriptionSize, [Out] out uint ActualDescriptionSize);
-        private delegate HRESULT AttachProcessDelegate(IntPtr self, [In] ulong Server, [In] uint ProcessID, [In] DEBUG_ATTACH AttachFlags);
-        private delegate HRESULT CreateProcessDelegate(IntPtr self, [In] ulong Server, [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine, [In] DEBUG_CREATE_PROCESS Flags);
-        private delegate HRESULT CreateProcessAndAttachDelegate(IntPtr self, [In] ulong Server, [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine, [In] DEBUG_CREATE_PROCESS Flags, [In] uint ProcessId, [In] DEBUG_ATTACH AttachFlags);
+        private delegate HRESULT ConnectProcessServerDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string RemoteOptions, [Out] out long Server);
+        private delegate HRESULT DisconnectProcessServerDelegate(IntPtr self, [In] long Server);
+        private delegate HRESULT GetRunningProcessSystemIdsDelegate(IntPtr self, [In] long Server, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] int[] Ids, [In] int Count, [Out] out int ActualCount);
+        private delegate HRESULT GetRunningProcessSystemIdByExecutableNameDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPStr)] string ExeName, [In] DEBUG_GET_PROC Flags, [Out] out int Id);
+        private delegate HRESULT GetRunningProcessDescriptionDelegate(IntPtr self, [In] long Server, [In] int SystemId, [In] DEBUG_PROC_DESC Flags, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder ExeName, [In] int ExeNameSize, [Out] out int ActualExeNameSize, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Description, [In] int DescriptionSize, [Out] out int ActualDescriptionSize);
+        private delegate HRESULT AttachProcessDelegate(IntPtr self, [In] long Server, [In] int ProcessID, [In] DEBUG_ATTACH AttachFlags);
+        private delegate HRESULT CreateProcessDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine, [In] DEBUG_CREATE_PROCESS Flags);
+        private delegate HRESULT CreateProcessAndAttachDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine, [In] DEBUG_CREATE_PROCESS Flags, [In] int ProcessId, [In] DEBUG_ATTACH AttachFlags);
         private delegate HRESULT AddProcessOptionsDelegate(IntPtr self, [In] DEBUG_PROCESS Options);
         private delegate HRESULT RemoveProcessOptionsDelegate(IntPtr self, [In] DEBUG_PROCESS Options);
         private delegate HRESULT OpenDumpFileDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string DumpFile);
         private delegate HRESULT WriteDumpFileDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string DumpFile, [In] DEBUG_DUMP Qualifier);
-        private delegate HRESULT ConnectSessionDelegate(IntPtr self, [In] DEBUG_CONNECT_SESSION Flags, [In] uint HistoryLimit);
+        private delegate HRESULT ConnectSessionDelegate(IntPtr self, [In] DEBUG_CONNECT_SESSION Flags, [In] int HistoryLimit);
         private delegate HRESULT StartServerDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Options);
         private delegate HRESULT OutputServerDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPStr)] string Machine, [In] DEBUG_SERVERS Flags);
         private delegate HRESULT TerminateProcessesDelegate(IntPtr self);
         private delegate HRESULT DetachProcessesDelegate(IntPtr self);
         private delegate HRESULT EndSessionDelegate(IntPtr self, [In] DEBUG_END Flags);
-        private delegate HRESULT DispatchCallbacksDelegate(IntPtr self, [In] uint Timeout);
+        private delegate HRESULT DispatchCallbacksDelegate(IntPtr self, [In] int Timeout);
         private delegate HRESULT ExitDispatchDelegate(IntPtr self, [In] IntPtr Client);
         private delegate HRESULT CreateClientDelegate(IntPtr self, [Out] IntPtr Client);
         private delegate HRESULT GetOtherOutputMaskDelegate(IntPtr self, [In] IntPtr Client, [Out] out DEBUG_OUTPUT Mask);
         private delegate HRESULT SetOtherOutputMaskDelegate(IntPtr self, [In] IntPtr Client, [In] DEBUG_OUTPUT Mask);
-        private delegate HRESULT OutputIdentityDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] uint Flags, [In, MarshalAs(UnmanagedType.LPStr)] string Format);
+        private delegate HRESULT OutputIdentityDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] int Flags, [In, MarshalAs(UnmanagedType.LPStr)] string Format);
         private delegate HRESULT FlushCallbacksDelegate(IntPtr self);
 
         #endregion
@@ -4047,8 +4047,8 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT IsKernelDebuggerEnabledDelegate(IntPtr self);
         private delegate HRESULT WriteDumpFile2Delegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string DumpFile, [In] DEBUG_DUMP Qualifier, [In] DEBUG_FORMAT FormatFlags, [In, MarshalAs(UnmanagedType.LPStr)] string Comment);
         private delegate HRESULT AddDumpInformationFileDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string InfoFile, [In] DEBUG_DUMP_FILE Type);
-        private delegate HRESULT EndProcessServerDelegate(IntPtr self, [In] ulong Server);
-        private delegate HRESULT WaitForProcessServerEndDelegate(IntPtr self, [In] uint Timeout);
+        private delegate HRESULT EndProcessServerDelegate(IntPtr self, [In] long Server);
+        private delegate HRESULT WaitForProcessServerEndDelegate(IntPtr self, [In] int Timeout);
         private delegate HRESULT TerminateCurrentProcessDelegate(IntPtr self);
         private delegate HRESULT DetachCurrentProcessDelegate(IntPtr self);
         private delegate HRESULT AbandonCurrentProcessDelegate(IntPtr self);
@@ -4056,53 +4056,53 @@ namespace ClrDebug.DbgEng
         #endregion
         #region IDebugClient3
 
-        private delegate HRESULT GetRunningProcessSystemIdByExecutableNameWideDelegate(IntPtr self, [In] ulong Server, [In, MarshalAs(UnmanagedType.LPWStr)] string ExeName, [In] DEBUG_GET_PROC Flags, [Out] out uint Id);
-        private delegate HRESULT GetRunningProcessDescriptionWideDelegate(IntPtr self, [In] ulong Server, [In] uint SystemId, [In] DEBUG_PROC_DESC Flags, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ExeName, [In] int ExeNameSize, [Out] out uint ActualExeNameSize, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Description, [In] int DescriptionSize, [Out] out uint ActualDescriptionSize);
-        private delegate HRESULT CreateProcessWideDelegate(IntPtr self, [In] ulong Server, [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine, [In] DEBUG_CREATE_PROCESS CreateFlags);
-        private delegate HRESULT CreateProcessAndAttachWideDelegate(IntPtr self, [In] ulong Server, [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine, [In] DEBUG_CREATE_PROCESS CreateFlags, [In] uint ProcessId, [In] DEBUG_ATTACH AttachFlags);
+        private delegate HRESULT GetRunningProcessSystemIdByExecutableNameWideDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPWStr)] string ExeName, [In] DEBUG_GET_PROC Flags, [Out] out int Id);
+        private delegate HRESULT GetRunningProcessDescriptionWideDelegate(IntPtr self, [In] long Server, [In] int SystemId, [In] DEBUG_PROC_DESC Flags, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ExeName, [In] int ExeNameSize, [Out] out int ActualExeNameSize, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Description, [In] int DescriptionSize, [Out] out int ActualDescriptionSize);
+        private delegate HRESULT CreateProcessWideDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine, [In] DEBUG_CREATE_PROCESS CreateFlags);
+        private delegate HRESULT CreateProcessAndAttachWideDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine, [In] DEBUG_CREATE_PROCESS CreateFlags, [In] int ProcessId, [In] DEBUG_ATTACH AttachFlags);
 
         #endregion
         #region IDebugClient4
 
-        private delegate HRESULT GetNumberDumpFilesDelegate(IntPtr self, [Out] out uint Number);
-        private delegate HRESULT OpenDumpFileWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string FileName, [In] ulong FileHandle);
-        private delegate HRESULT WriteDumpFileWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string DumpFile, [In] ulong FileHandle, [In] DEBUG_DUMP Qualifier, [In] DEBUG_FORMAT FormatFlags, [In, MarshalAs(UnmanagedType.LPWStr)] string Comment);
-        private delegate HRESULT AddDumpInformationFileWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string FileName, [In] ulong FileHandle, [In] DEBUG_DUMP_FILE Type);
-        private delegate HRESULT GetDumpFileDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint NameSize, [Out] out ulong Handle, [Out] out uint Type);
-        private delegate HRESULT GetDumpFileWideDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint NameSize, [Out] out ulong Handle, [Out] out uint Type);
+        private delegate HRESULT GetNumberDumpFilesDelegate(IntPtr self, [Out] out int Number);
+        private delegate HRESULT OpenDumpFileWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string FileName, [In] long FileHandle);
+        private delegate HRESULT WriteDumpFileWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string DumpFile, [In] long FileHandle, [In] DEBUG_DUMP Qualifier, [In] DEBUG_FORMAT FormatFlags, [In, MarshalAs(UnmanagedType.LPWStr)] string Comment);
+        private delegate HRESULT AddDumpInformationFileWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string FileName, [In] long FileHandle, [In] DEBUG_DUMP_FILE Type);
+        private delegate HRESULT GetDumpFileDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int NameSize, [Out] out long Handle, [Out] out int Type);
+        private delegate HRESULT GetDumpFileWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int NameSize, [Out] out long Handle, [Out] out int Type);
 
         #endregion
         #region IDebugClient5
 
-        private delegate HRESULT GetKernelConnectionOptionsWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint OptionsSize);
+        private delegate HRESULT GetKernelConnectionOptionsWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int OptionsSize);
         private delegate HRESULT SetKernelConnectionOptionsWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Options);
         private delegate HRESULT GetOutputCallbacksWideDelegate(IntPtr self, [Out] out IDebugOutputCallbacksWide Callbacks);
         private delegate HRESULT SetOutputCallbacksWideDelegate(IntPtr self, [In] IDebugOutputCallbacksWide Callbacks);
-        private delegate HRESULT GetOutputLinePrefixWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint PrefixSize);
+        private delegate HRESULT GetOutputLinePrefixWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int PrefixSize);
         private delegate HRESULT SetOutputLinePrefixWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Prefix);
-        private delegate HRESULT GetIdentityWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint IdentitySize);
+        private delegate HRESULT GetIdentityWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int IdentitySize);
         private delegate HRESULT GetEventCallbacksWideDelegate(IntPtr self, [Out] out IDebugEventCallbacksWide Callbacks);
         private delegate HRESULT SetEventCallbacksWideDelegate(IntPtr self, [In] IDebugEventCallbacksWide Callbacks);
-        private delegate HRESULT GetNumberInputCallbacksDelegate(IntPtr self, [Out] out uint Count);
-        private delegate HRESULT GetNumberOutputCallbacksDelegate(IntPtr self, [Out] out uint Count);
-        private delegate HRESULT GetQuitLockStringDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint StringSize);
+        private delegate HRESULT GetNumberInputCallbacksDelegate(IntPtr self, [Out] out int Count);
+        private delegate HRESULT GetNumberOutputCallbacksDelegate(IntPtr self, [Out] out int Count);
+        private delegate HRESULT GetQuitLockStringDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringSize);
         private delegate HRESULT SetQuitLockStringDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string LockString);
-        private delegate HRESULT GetQuitLockStringWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint StringSize);
+        private delegate HRESULT GetQuitLockStringWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringSize);
         private delegate HRESULT SetQuitLockStringWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string LockString);
         private delegate HRESULT AttachKernelWideDelegate(IntPtr self, [In] DEBUG_ATTACH Flags, [In, MarshalAs(UnmanagedType.LPWStr)] string ConnectOptions);
         private delegate HRESULT StartProcessServerWideDelegate(IntPtr self, [In] DEBUG_CLASS Flags, [In, MarshalAs(UnmanagedType.LPWStr)] string Options, [In] IntPtr Reserved);
-        private delegate HRESULT ConnectProcessServerWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string RemoteOptions, [Out] out ulong Server);
+        private delegate HRESULT ConnectProcessServerWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string RemoteOptions, [Out] out long Server);
         private delegate HRESULT StartServerWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Options);
         private delegate HRESULT OutputServersWideDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPWStr)] string Machine, [In] DEBUG_SERVERS Flags);
-        private delegate HRESULT OutputIdentityWideDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] uint Flags, [In, MarshalAs(UnmanagedType.LPWStr)] string Machine);
-        private delegate HRESULT CreateProcess2Delegate(IntPtr self, [In] ulong Server, [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine, [In] ref DEBUG_CREATE_PROCESS_OPTIONS OptionsBuffer, [In] uint OptionsBufferSize, [In, MarshalAs(UnmanagedType.LPStr)] string InitialDirectory, [In, MarshalAs(UnmanagedType.LPStr)] string Environment);
-        private delegate HRESULT CreateProcess2WideDelegate(IntPtr self, [In] ulong Server, [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine, [In] ref DEBUG_CREATE_PROCESS_OPTIONS OptionsBuffer, [In] uint OptionsBufferSize, [In, MarshalAs(UnmanagedType.LPWStr)] string InitialDirectory, [In, MarshalAs(UnmanagedType.LPWStr)] string Environment);
-        private delegate HRESULT CreateProcessAndAttach2Delegate(IntPtr self, [In] ulong Server, [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine, [In] ref DEBUG_CREATE_PROCESS_OPTIONS OptionsBuffer, [In] uint OptionsBufferSize, [In, MarshalAs(UnmanagedType.LPStr)] string InitialDirectory, [In, MarshalAs(UnmanagedType.LPStr)] string Environment, [In] uint ProcessId, [In] DEBUG_ATTACH AttachFlags);
-        private delegate HRESULT CreateProcessAndAttach2WideDelegate(IntPtr self, [In] ulong Server, [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine, [In] ref DEBUG_CREATE_PROCESS_OPTIONS OptionsBuffer, [In] uint OptionsBufferSize, [In, MarshalAs(UnmanagedType.LPWStr)] string InitialDirectory, [In, MarshalAs(UnmanagedType.LPWStr)] string Environment, [In] uint ProcessId, [In] DEBUG_ATTACH AttachFlags);
-        private delegate HRESULT PushOutputLinePrefixDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string NewPrefix, [Out] out ulong Handle);
-        private delegate HRESULT PushOutputLinePrefixWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string NewPrefix, [Out] out ulong Handle);
-        private delegate HRESULT PopOutputLinePrefixDelegate(IntPtr self, [In] ulong Handle);
-        private delegate HRESULT GetNumberEventCallbacksDelegate(IntPtr self, [In] DEBUG_EVENT_TYPE Flags, [Out] out uint Count);
+        private delegate HRESULT OutputIdentityWideDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] int Flags, [In, MarshalAs(UnmanagedType.LPWStr)] string Machine);
+        private delegate HRESULT CreateProcess2Delegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine, [In] ref DEBUG_CREATE_PROCESS_OPTIONS OptionsBuffer, [In] int OptionsBufferSize, [In, MarshalAs(UnmanagedType.LPStr)] string InitialDirectory, [In, MarshalAs(UnmanagedType.LPStr)] string Environment);
+        private delegate HRESULT CreateProcess2WideDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine, [In] ref DEBUG_CREATE_PROCESS_OPTIONS OptionsBuffer, [In] int OptionsBufferSize, [In, MarshalAs(UnmanagedType.LPWStr)] string InitialDirectory, [In, MarshalAs(UnmanagedType.LPWStr)] string Environment);
+        private delegate HRESULT CreateProcessAndAttach2Delegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine, [In] ref DEBUG_CREATE_PROCESS_OPTIONS OptionsBuffer, [In] int OptionsBufferSize, [In, MarshalAs(UnmanagedType.LPStr)] string InitialDirectory, [In, MarshalAs(UnmanagedType.LPStr)] string Environment, [In] int ProcessId, [In] DEBUG_ATTACH AttachFlags);
+        private delegate HRESULT CreateProcessAndAttach2WideDelegate(IntPtr self, [In] long Server, [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine, [In] ref DEBUG_CREATE_PROCESS_OPTIONS OptionsBuffer, [In] int OptionsBufferSize, [In, MarshalAs(UnmanagedType.LPWStr)] string InitialDirectory, [In, MarshalAs(UnmanagedType.LPWStr)] string Environment, [In] int ProcessId, [In] DEBUG_ATTACH AttachFlags);
+        private delegate HRESULT PushOutputLinePrefixDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string NewPrefix, [Out] out long Handle);
+        private delegate HRESULT PushOutputLinePrefixWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string NewPrefix, [Out] out long Handle);
+        private delegate HRESULT PopOutputLinePrefixDelegate(IntPtr self, [In] long Handle);
+        private delegate HRESULT GetNumberEventCallbacksDelegate(IntPtr self, [In] DEBUG_EVENT_TYPE Flags, [Out] out int Count);
 
         #endregion
         #region IDebugClient6

@@ -43,7 +43,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about the thread context, see Scopes and Symbol Groups.
         /// </remarks>
-        public void GetThreadContext(IntPtr context, uint contextSize)
+        public void GetThreadContext(IntPtr context, int contextSize)
         {
             TryGetThreadContext(context, contextSize).ThrowDbgEngNotOK();
         }
@@ -58,13 +58,13 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about the thread context, see Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TryGetThreadContext(IntPtr context, uint contextSize)
+        public HRESULT TryGetThreadContext(IntPtr context, int contextSize)
         {
             InitDelegate(ref getThreadContext, Vtbl->GetThreadContext);
 
             /*HRESULT GetThreadContext(
             [In] IntPtr Context,
-            [In] uint ContextSize);*/
+            [In] int ContextSize);*/
             return getThreadContext(Raw, context, contextSize);
         }
 
@@ -80,7 +80,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about the thread context, see Scopes and Symbol Groups.
         /// </remarks>
-        public void SetThreadContext(IntPtr context, uint contextSize)
+        public void SetThreadContext(IntPtr context, int contextSize)
         {
             TrySetThreadContext(context, contextSize).ThrowDbgEngNotOK();
         }
@@ -95,13 +95,13 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about the thread context, see Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TrySetThreadContext(IntPtr context, uint contextSize)
+        public HRESULT TrySetThreadContext(IntPtr context, int contextSize)
         {
             InitDelegate(ref setThreadContext, Vtbl->SetThreadContext);
 
             /*HRESULT SetThreadContext(
             [In] IntPtr Context,
-            [In] uint ContextSize);*/
+            [In] int ContextSize);*/
             return setThreadContext(Raw, context, contextSize);
         }
 
@@ -177,7 +177,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about source files, see Using Source Files.
         /// </remarks>
-        public int GetSourceFileInformation(DEBUG_SRCFILE which, string sourceFile, ulong arg64, uint arg32, IntPtr buffer, int bufferSize)
+        public int GetSourceFileInformation(DEBUG_SRCFILE which, string sourceFile, long arg64, int arg32, IntPtr buffer, int bufferSize)
         {
             int infoSize;
             TryGetSourceFileInformation(which, sourceFile, arg64, arg32, buffer, bufferSize, out infoSize).ThrowDbgEngNotOK();
@@ -204,15 +204,15 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about source files, see Using Source Files.
         /// </remarks>
-        public HRESULT TryGetSourceFileInformation(DEBUG_SRCFILE which, string sourceFile, ulong arg64, uint arg32, IntPtr buffer, int bufferSize, out int infoSize)
+        public HRESULT TryGetSourceFileInformation(DEBUG_SRCFILE which, string sourceFile, long arg64, int arg32, IntPtr buffer, int bufferSize, out int infoSize)
         {
             InitDelegate(ref getSourceFileInformation, Vtbl2->GetSourceFileInformation);
 
             /*HRESULT GetSourceFileInformation(
             [In] DEBUG_SRCFILE Which,
             [In, MarshalAs(UnmanagedType.LPStr)] string SourceFile,
-            [In] ulong Arg64,
-            [In] uint Arg32,
+            [In] long Arg64,
+            [In] int Arg32,
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize);*/
@@ -255,7 +255,7 @@ namespace ClrDebug.DbgEng
         /// method. The value DEBUG_FIND_SOURCE_DEFULT defines the default set of flags, which means that all of the flags
         /// in the previous table are turned off.
         /// </remarks>
-        public FindSourceFileAndTokenResult FindSourceFileAndToken(uint startElement, ulong modAddr, string file, DEBUG_FIND_SOURCE flags, IntPtr fileToken, int bufferSize)
+        public FindSourceFileAndTokenResult FindSourceFileAndToken(int startElement, long modAddr, string file, DEBUG_FIND_SOURCE flags, IntPtr fileToken, int bufferSize)
         {
             FindSourceFileAndTokenResult result;
             TryFindSourceFileAndToken(startElement, modAddr, file, flags, fileToken, bufferSize, out result).ThrowDbgEngNotOK();
@@ -297,12 +297,12 @@ namespace ClrDebug.DbgEng
         /// method. The value DEBUG_FIND_SOURCE_DEFULT defines the default set of flags, which means that all of the flags
         /// in the previous table are turned off.
         /// </remarks>
-        public HRESULT TryFindSourceFileAndToken(uint startElement, ulong modAddr, string file, DEBUG_FIND_SOURCE flags, IntPtr fileToken, int bufferSize, out FindSourceFileAndTokenResult result)
+        public HRESULT TryFindSourceFileAndToken(int startElement, long modAddr, string file, DEBUG_FIND_SOURCE flags, IntPtr fileToken, int bufferSize, out FindSourceFileAndTokenResult result)
         {
             InitDelegate(ref findSourceFileAndToken, Vtbl2->FindSourceFileAndToken);
             /*HRESULT FindSourceFileAndToken(
-            [In] uint StartElement,
-            [In] ulong ModAddr,
+            [In] int StartElement,
+            [In] long ModAddr,
             [In, MarshalAs(UnmanagedType.LPStr)] string File,
             [In] DEBUG_FIND_SOURCE Flags,
             [Out] IntPtr FileToken,
@@ -355,7 +355,7 @@ namespace ClrDebug.DbgEng
         /// If Buffer is NULL, this information is not returned.</param>
         /// <param name="stringBufferSize">[in] Specifies the size, in characters, of the string buffer StringBuffer.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetSymbolInformationResult GetSymbolInformation(DEBUG_SYMINFO which, ulong arg64, uint arg32, IntPtr buffer, int stringBufferSize)
+        public GetSymbolInformationResult GetSymbolInformation(DEBUG_SYMINFO which, long arg64, int arg32, IntPtr buffer, int stringBufferSize)
         {
             GetSymbolInformationResult result;
             TryGetSymbolInformation(which, arg64, arg32, buffer, stringBufferSize, out result).ThrowDbgEngNotOK();
@@ -379,13 +379,13 @@ namespace ClrDebug.DbgEng
         /// <param name="stringBufferSize">[in] Specifies the size, in characters, of the string buffer StringBuffer.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
-        public HRESULT TryGetSymbolInformation(DEBUG_SYMINFO which, ulong arg64, uint arg32, IntPtr buffer, int stringBufferSize, out GetSymbolInformationResult result)
+        public HRESULT TryGetSymbolInformation(DEBUG_SYMINFO which, long arg64, int arg32, IntPtr buffer, int stringBufferSize, out GetSymbolInformationResult result)
         {
             InitDelegate(ref getSymbolInformation, Vtbl2->GetSymbolInformation);
             /*HRESULT GetSymbolInformation(
             [In] DEBUG_SYMINFO Which,
-            [In] ulong Arg64,
-            [In] uint Arg32,
+            [In] long Arg64,
+            [In] int Arg32,
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize,
@@ -431,7 +431,7 @@ namespace ClrDebug.DbgEng
         /// <see cref="DEBUG_THREAD_BASIC_INFORMATION"/></param>
         /// <param name="bufferSize">[in] Specifies the size, in bytes, of the buffer Buffer.</param>
         /// <returns>[out, optional] Receives the size of the information that is returned.</returns>
-        public int GetSystemObjectInformation(DEBUG_SYSOBJINFO which, ulong arg64, uint arg32, IntPtr buffer, int bufferSize)
+        public int GetSystemObjectInformation(DEBUG_SYSOBJINFO which, long arg64, int arg32, IntPtr buffer, int bufferSize)
         {
             int infoSize;
             TryGetSystemObjectInformation(which, arg64, arg32, buffer, bufferSize, out infoSize).ThrowDbgEngNotOK();
@@ -450,14 +450,14 @@ namespace ClrDebug.DbgEng
         /// <param name="bufferSize">[in] Specifies the size, in bytes, of the buffer Buffer.</param>
         /// <param name="infoSize">[out, optional] Receives the size of the information that is returned.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
-        public HRESULT TryGetSystemObjectInformation(DEBUG_SYSOBJINFO which, ulong arg64, uint arg32, IntPtr buffer, int bufferSize, out int infoSize)
+        public HRESULT TryGetSystemObjectInformation(DEBUG_SYSOBJINFO which, long arg64, int arg32, IntPtr buffer, int bufferSize, out int infoSize)
         {
             InitDelegate(ref getSystemObjectInformation, Vtbl2->GetSystemObjectInformation);
 
             /*HRESULT GetSystemObjectInformation(
             [In] DEBUG_SYSOBJINFO Which,
-            [In] ulong Arg64,
-            [In] uint Arg32,
+            [In] long Arg64,
+            [In] int Arg32,
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize);*/
@@ -487,7 +487,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about source files, see Using Source Files.
         /// </remarks>
-        public int GetSourceFileInformationWide(DEBUG_SRCFILE which, string sourceFile, ulong arg64, uint arg32, IntPtr buffer, int bufferSize)
+        public int GetSourceFileInformationWide(DEBUG_SRCFILE which, string sourceFile, long arg64, int arg32, IntPtr buffer, int bufferSize)
         {
             int infoSize;
             TryGetSourceFileInformationWide(which, sourceFile, arg64, arg32, buffer, bufferSize, out infoSize).ThrowDbgEngNotOK();
@@ -514,15 +514,15 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about source files, see Using Source Files.
         /// </remarks>
-        public HRESULT TryGetSourceFileInformationWide(DEBUG_SRCFILE which, string sourceFile, ulong arg64, uint arg32, IntPtr buffer, int bufferSize, out int infoSize)
+        public HRESULT TryGetSourceFileInformationWide(DEBUG_SRCFILE which, string sourceFile, long arg64, int arg32, IntPtr buffer, int bufferSize, out int infoSize)
         {
             InitDelegate(ref getSourceFileInformationWide, Vtbl3->GetSourceFileInformationWide);
 
             /*HRESULT GetSourceFileInformationWide(
             [In] DEBUG_SRCFILE Which,
             [In, MarshalAs(UnmanagedType.LPWStr)] string SourceFile,
-            [In] ulong Arg64,
-            [In] uint Arg32,
+            [In] long Arg64,
+            [In] int Arg32,
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize);*/
@@ -560,7 +560,7 @@ namespace ClrDebug.DbgEng
         /// the match with the longest overlap is returned; otherwise, the first match is returned. The first match found is
         /// returned.
         /// </remarks>
-        public FindSourceFileAndTokenWideResult FindSourceFileAndTokenWide(uint startElement, ulong modAddr, string file, DEBUG_FIND_SOURCE flags, IntPtr fileToken, int bufferSize)
+        public FindSourceFileAndTokenWideResult FindSourceFileAndTokenWide(int startElement, long modAddr, string file, DEBUG_FIND_SOURCE flags, IntPtr fileToken, int bufferSize)
         {
             FindSourceFileAndTokenWideResult result;
             TryFindSourceFileAndTokenWide(startElement, modAddr, file, flags, fileToken, bufferSize, out result).ThrowDbgEngNotOK();
@@ -597,12 +597,12 @@ namespace ClrDebug.DbgEng
         /// the match with the longest overlap is returned; otherwise, the first match is returned. The first match found is
         /// returned.
         /// </remarks>
-        public HRESULT TryFindSourceFileAndTokenWide(uint startElement, ulong modAddr, string file, DEBUG_FIND_SOURCE flags, IntPtr fileToken, int bufferSize, out FindSourceFileAndTokenWideResult result)
+        public HRESULT TryFindSourceFileAndTokenWide(int startElement, long modAddr, string file, DEBUG_FIND_SOURCE flags, IntPtr fileToken, int bufferSize, out FindSourceFileAndTokenWideResult result)
         {
             InitDelegate(ref findSourceFileAndTokenWide, Vtbl3->FindSourceFileAndTokenWide);
             /*HRESULT FindSourceFileAndTokenWide(
-            [In] uint StartElement,
-            [In] ulong ModAddr,
+            [In] int StartElement,
+            [In] long ModAddr,
             [In, MarshalAs(UnmanagedType.LPWStr)] string File,
             [In] DEBUG_FIND_SOURCE Flags,
             [Out] IntPtr FileToken,
@@ -655,7 +655,7 @@ namespace ClrDebug.DbgEng
         /// If Buffer is NULL, this information is not returned.</param>
         /// <param name="stringBufferSize">[in] Specifies the size, in characters, of the string buffer StringBuffer.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetSymbolInformationWideResult GetSymbolInformationWide(DEBUG_SYMINFO which, ulong arg64, uint arg32, IntPtr buffer, int stringBufferSize)
+        public GetSymbolInformationWideResult GetSymbolInformationWide(DEBUG_SYMINFO which, long arg64, int arg32, IntPtr buffer, int stringBufferSize)
         {
             GetSymbolInformationWideResult result;
             TryGetSymbolInformationWide(which, arg64, arg32, buffer, stringBufferSize, out result).ThrowDbgEngNotOK();
@@ -679,13 +679,13 @@ namespace ClrDebug.DbgEng
         /// <param name="stringBufferSize">[in] Specifies the size, in characters, of the string buffer StringBuffer.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
-        public HRESULT TryGetSymbolInformationWide(DEBUG_SYMINFO which, ulong arg64, uint arg32, IntPtr buffer, int stringBufferSize, out GetSymbolInformationWideResult result)
+        public HRESULT TryGetSymbolInformationWide(DEBUG_SYMINFO which, long arg64, int arg32, IntPtr buffer, int stringBufferSize, out GetSymbolInformationWideResult result)
         {
             InitDelegate(ref getSymbolInformationWide, Vtbl3->GetSymbolInformationWide);
             /*HRESULT GetSymbolInformationWide(
             [In] DEBUG_SYMINFO Which,
-            [In] ulong Arg64,
-            [In] uint Arg32,
+            [In] long Arg64,
+            [In] int Arg32,
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize,
@@ -757,24 +757,24 @@ namespace ClrDebug.DbgEng
         #region Delegates
         #region IDebugAdvanced
 
-        private delegate HRESULT GetThreadContextDelegate(IntPtr self, [In] IntPtr Context, [In] uint ContextSize);
-        private delegate HRESULT SetThreadContextDelegate(IntPtr self, [In] IntPtr Context, [In] uint ContextSize);
+        private delegate HRESULT GetThreadContextDelegate(IntPtr self, [In] IntPtr Context, [In] int ContextSize);
+        private delegate HRESULT SetThreadContextDelegate(IntPtr self, [In] IntPtr Context, [In] int ContextSize);
 
         #endregion
         #region IDebugAdvanced2
 
         private delegate HRESULT RequestDelegate(IntPtr self, [In] DEBUG_REQUEST Request, [In] IntPtr InBuffer, [In] int InBufferSize, [Out] IntPtr OutBuffer, [In] int OutBufferSize, [Out] out int OutSize);
-        private delegate HRESULT GetSourceFileInformationDelegate(IntPtr self, [In] DEBUG_SRCFILE Which, [In, MarshalAs(UnmanagedType.LPStr)] string SourceFile, [In] ulong Arg64, [In] uint Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize);
-        private delegate HRESULT FindSourceFileAndTokenDelegate(IntPtr self, [In] uint StartElement, [In] ulong ModAddr, [In, MarshalAs(UnmanagedType.LPStr)] string File, [In] DEBUG_FIND_SOURCE Flags, [Out] IntPtr FileToken, [In] int FileTokenSize, [Out] out int FoundElement, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int FoundSize);
-        private delegate HRESULT GetSymbolInformationDelegate(IntPtr self, [In] DEBUG_SYMINFO Which, [In] ulong Arg64, [In] uint Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder StringBuffer, [In] int StringBufferSize, [Out] out int StringSize);
-        private delegate HRESULT GetSystemObjectInformationDelegate(IntPtr self, [In] DEBUG_SYSOBJINFO Which, [In] ulong Arg64, [In] uint Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize);
+        private delegate HRESULT GetSourceFileInformationDelegate(IntPtr self, [In] DEBUG_SRCFILE Which, [In, MarshalAs(UnmanagedType.LPStr)] string SourceFile, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize);
+        private delegate HRESULT FindSourceFileAndTokenDelegate(IntPtr self, [In] int StartElement, [In] long ModAddr, [In, MarshalAs(UnmanagedType.LPStr)] string File, [In] DEBUG_FIND_SOURCE Flags, [Out] IntPtr FileToken, [In] int FileTokenSize, [Out] out int FoundElement, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int FoundSize);
+        private delegate HRESULT GetSymbolInformationDelegate(IntPtr self, [In] DEBUG_SYMINFO Which, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder StringBuffer, [In] int StringBufferSize, [Out] out int StringSize);
+        private delegate HRESULT GetSystemObjectInformationDelegate(IntPtr self, [In] DEBUG_SYSOBJINFO Which, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize);
 
         #endregion
         #region IDebugAdvanced3
 
-        private delegate HRESULT GetSourceFileInformationWideDelegate(IntPtr self, [In] DEBUG_SRCFILE Which, [In, MarshalAs(UnmanagedType.LPWStr)] string SourceFile, [In] ulong Arg64, [In] uint Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize);
-        private delegate HRESULT FindSourceFileAndTokenWideDelegate(IntPtr self, [In] uint StartElement, [In] ulong ModAddr, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [In] DEBUG_FIND_SOURCE Flags, [Out] IntPtr FileToken, [In] int FileTokenSize, [Out] out int FoundElement, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int FoundSize);
-        private delegate HRESULT GetSymbolInformationWideDelegate(IntPtr self, [In] DEBUG_SYMINFO Which, [In] ulong Arg64, [In] uint Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder StringBuffer, [In] int StringBufferSize, [Out] out int StringSize);
+        private delegate HRESULT GetSourceFileInformationWideDelegate(IntPtr self, [In] DEBUG_SRCFILE Which, [In, MarshalAs(UnmanagedType.LPWStr)] string SourceFile, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize);
+        private delegate HRESULT FindSourceFileAndTokenWideDelegate(IntPtr self, [In] int StartElement, [In] long ModAddr, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [In] DEBUG_FIND_SOURCE Flags, [Out] IntPtr FileToken, [In] int FileTokenSize, [Out] out int FoundElement, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int FoundSize);
+        private delegate HRESULT GetSymbolInformationWideDelegate(IntPtr self, [In] DEBUG_SYMINFO Which, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder StringBuffer, [In] int StringBufferSize, [Out] out int StringSize);
 
         #endregion
         #endregion

@@ -16,10 +16,10 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The limit of matches.
         /// </summary>
-        public uint MatchCountLimit;
-        public ulong Reserved0;
-        public ulong Reserved1;
-        public ulong Reserved2;
+        public int MatchCountLimit;
+        public long Reserved0;
+        public long Reserved1;
+        public long Reserved2;
 
         //Input text string follows
     }

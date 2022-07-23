@@ -16,23 +16,23 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The index of the replace location.
         /// </summary>
-        public uint ReplaceIndex;
+        public int ReplaceIndex;
 
         /// <summary>
         /// Count value of matches.
         /// </summary>
-        public uint MatchCount;
+        public int MatchCount;
 
         /// <summary>
         /// Reserved.
         /// </summary>
-        public uint Reserved1;
+        public int Reserved1;
 
         /// <summary>
         /// Reserved.
         /// </summary>
-        public ulong Reserved2;
-        public ulong Reserved3;
+        public long Reserved2;
+        public long Reserved3;
 
         //Completions follow.
         //Completion data is zero-terminated strings ended by a final zero double-terminator.

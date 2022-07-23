@@ -17,9 +17,9 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Receives the size of the data identified by the GUID Tag.
         /// </summary>
-        public uint Size { get; }
+        public int Size { get; }
 
-        public GetNextTaggedResult(Guid tag, uint size)
+        public GetNextTaggedResult(Guid tag, int size)
         {
             Tag = tag;
             Size = size;

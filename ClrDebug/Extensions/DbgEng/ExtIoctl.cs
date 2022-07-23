@@ -91,12 +91,12 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// [in] A 64-bit number that should be passed in the request.
         /// </summary>
-        public ulong InputNumber64;
+        public long InputNumber64;
 
         /// <summary>
         /// [out] A 32-bit number that may be returned from the response.
         /// </summary>
-        public uint OutputNumber32;
+        public int OutputNumber32;
 
         #endregion
         #endregion
@@ -168,7 +168,7 @@ namespace ClrDebug.DbgEng
         {
             if (InputString != null)
             {
-                Payload->InStrIndex = (uint)((ulong)ExtraData - (ulong)Payload);
+                Payload->InStrIndex = (int)((long)ExtraData - (long)Payload);
 
                 var bytes = Encoding.ASCII.GetBytes(InputString);
 
@@ -184,8 +184,8 @@ namespace ClrDebug.DbgEng
         {
             if (OutputStringLength > 0)
             {
-                Payload->StrBufferIndex = (uint)((ulong)ExtraData - (ulong)Payload);
-                Payload->StrBufferChars = (uint) OutputStringLength;
+                Payload->StrBufferIndex = (int)((long)ExtraData - (long)Payload);
+                Payload->StrBufferChars = OutputStringLength;
                 ExtraData += OutputStringLength; //Null terminator is included in OutputStringLength
             }
         }

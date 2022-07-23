@@ -18,17 +18,17 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The type of stream.
         /// </summary>
-        public uint StreamType;
+        public int StreamType;
 
         /// <summary>
         /// Flags.
         /// </summary>
-        public uint Flags;
+        public int Flags;
 
         /// <summary>
         /// The offset of stream.
         /// </summary>
-        public ulong Offset;
+        public long Offset;
 
         /// <summary>
         /// Specifies the beginning of the buffer to read.
@@ -38,11 +38,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Specifies the length of the buffer to read.
         /// </summary>
-        public uint BufferSize;
+        public int BufferSize;
 
         /// <summary>
         /// The buffer used value.
         /// </summary>
-        public uint BufferUsed;
+        public int BufferUsed;
     }
 }

@@ -11,26 +11,26 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// A module base.
         /// </summary>
-        public ulong ModBase;
+        public long ModBase;
 
         /// <summary>
         /// An argument value.
         /// </summary>
-        public ulong Arg1;
+        public long Arg1;
 
         /// <summary>
         /// An argument value.
         /// </summary>
-        public ulong Arg2;
+        public long Arg2;
 
         /// <summary>
         /// An ID.
         /// </summary>
-        public uint Id;
+        public int Id;
 
         /// <summary>
         /// An argument value.
         /// </summary>
-        public uint Arg3;
+        public int Arg3;
     }
 }

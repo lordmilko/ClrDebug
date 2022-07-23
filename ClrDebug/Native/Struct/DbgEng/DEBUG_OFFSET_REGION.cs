@@ -11,11 +11,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The base value of the offset region.
         /// </summary>
-        public ulong Base;
+        public long Base;
 
         /// <summary>
         /// The size of the region.
         /// </summary>
-        public ulong Size;
+        public long Size;
     }
 }

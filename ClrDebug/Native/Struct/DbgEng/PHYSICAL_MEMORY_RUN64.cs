@@ -5,7 +5,7 @@ namespace ClrDebug.DbgEng
     [StructLayout(LayoutKind.Sequential)]
     public struct PHYSICAL_MEMORY_RUN64
     {
-        ulong BasePage;
-        ulong PageCount;
+        long BasePage;
+        long PageCount;
     }
 }

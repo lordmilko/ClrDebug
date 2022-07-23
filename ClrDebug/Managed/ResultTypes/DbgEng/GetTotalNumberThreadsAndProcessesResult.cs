@@ -11,29 +11,29 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Receives the total number of threads in all processes in all targets.
         /// </summary>
-        public uint TotalThreads { get; }
+        public int TotalThreads { get; }
 
         /// <summary>
         /// Receives the total number of processes in all targets.
         /// </summary>
-        public uint TotalProcesses { get; }
+        public int TotalProcesses { get; }
 
         /// <summary>
         /// Receives the largest number of threads in any process on any target.
         /// </summary>
-        public uint LargestProcessThreads { get; }
+        public int LargestProcessThreads { get; }
 
         /// <summary>
         /// Receives the largest number of threads in any target.
         /// </summary>
-        public uint LargestSystemThreads { get; }
+        public int LargestSystemThreads { get; }
 
         /// <summary>
         /// Receives the largest number of processes in any target.
         /// </summary>
-        public uint LargestSystemProcesses { get; }
+        public int LargestSystemProcesses { get; }
 
-        public GetTotalNumberThreadsAndProcessesResult(uint totalThreads, uint totalProcesses, uint largestProcessThreads, uint largestSystemThreads, uint largestSystemProcesses)
+        public GetTotalNumberThreadsAndProcessesResult(int totalThreads, int totalProcesses, int largestProcessThreads, int largestSystemThreads, int largestSystemProcesses)
         {
             TotalThreads = totalThreads;
             TotalProcesses = totalProcesses;

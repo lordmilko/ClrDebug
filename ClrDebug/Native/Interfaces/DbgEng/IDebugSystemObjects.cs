@@ -20,7 +20,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetEventThread(
-            [Out] out uint Id);
+            [Out] out int Id);
 
         /// <summary>
         /// The GetEventProcess method returns the engine process ID for the process on which the last event occurred.
@@ -34,7 +34,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetEventProcess(
-            [Out] out uint Id);
+            [Out] out int Id);
 
         /// <summary>
         /// The GetCurrentThreadId method returns the engine thread ID for the current thread.
@@ -46,7 +46,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetCurrentThreadId(
-            [Out] out uint Id);
+            [Out] out int Id);
 
         /// <summary>
         /// The SetCurrentThreadId method makes the specified thread the current thread.
@@ -60,7 +60,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT SetCurrentThreadId(
-            [In] uint Id);
+            [In] int Id);
 
         /// <summary>
         /// The GetCurrentProcessId method returns the engine process ID for the current process.
@@ -72,7 +72,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetCurrentProcessId(
-            [Out] out uint Id);
+            [Out] out int Id);
 
         /// <summary>
         /// The SetCurrentProcessId method makes the specified process the current process.
@@ -86,7 +86,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT SetCurrentProcessId(
-            [In] uint Id);
+            [In] int Id);
 
         /// <summary>
         /// The GetNumberThreads method returns the number of threads in the current process.
@@ -100,7 +100,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetNumberThreads(
-            [Out] out uint Number);
+            [Out] out int Number);
 
         /// <summary>
         /// The GetTotalNumberThreads method returns the total number of threads for all the processes in the current target, in addition to the largest number of threads in any process for the current target.
@@ -113,8 +113,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetTotalNumberThreads(
-            [Out] out uint Total,
-            [Out] out uint LargestProcess);
+            [Out] out int Total,
+            [Out] out int LargestProcess);
 
         /// <summary>
         /// The GetThreadIdsByIndex method returns the engine and system thread IDs for the specified threads in the current process.
@@ -130,10 +130,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetThreadIdsByIndex(
-            [In] uint Start,
-            [In] uint Count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Ids,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] SysIds);
+            [In] int Start,
+            [In] int Count,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Ids,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] SysIds);
 
         /// <summary>
         /// The GetThreadIdByProcessor method returns the engine thread ID for the kernel-mode virtual thread corresponding to the specified processor.
@@ -146,8 +146,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetThreadIdByProcessor(
-            [In] uint Processor,
-            [Out] out uint Id);
+            [In] int Processor,
+            [Out] out int Id);
 
         /// <summary>
         /// The GetCurrentThreadDataOffset method returns the location of the system data structure for the current thread.
@@ -162,7 +162,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetCurrentThreadDataOffset(
-            [Out] out ulong Offset);
+            [Out] out long Offset);
 
         /// <summary>
         /// The GetThreadIdByDataOffset method returns the engine thread ID for the specified thread. The thread is specified by its system data structure.
@@ -177,8 +177,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetThreadIdByDataOffset(
-            [In] ulong Offset,
-            [Out] out uint Id);
+            [In] long Offset,
+            [Out] out int Id);
 
         /// <summary>
         /// The GetCurrentThreadTeb method returns the location of the thread environment block (TEB) for the current thread.
@@ -192,7 +192,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetCurrentThreadTeb(
-            [Out] out ulong Offset);
+            [Out] out long Offset);
 
         /// <summary>
         /// The GetThreadIdByTeb method returns the engine thread ID of the specified thread. The thread is specified by its thread environment block (TEB).
@@ -207,8 +207,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetThreadIdByTeb(
-            [In] ulong Offset,
-            [Out] out uint Id);
+            [In] long Offset,
+            [Out] out int Id);
 
         /// <summary>
         /// The GetCurrentThreadSystemId method returns the system thread ID of the current thread.
@@ -220,7 +220,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetCurrentThreadSystemId(
-            [Out] out uint SysId);
+            [Out] out int SysId);
 
         /// <summary>
         /// The GetThreadIdBySystemId method returns the engine thread ID for the specified thread. The thread is specified by its system thread ID.
@@ -233,8 +233,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetThreadIdBySystemId(
-            [In] uint SysId,
-            [Out] out uint Id);
+            [In] int SysId,
+            [Out] out int Id);
 
         /// <summary>
         /// The GetCurrentThreadHandle method returns the system handle for the current thread.
@@ -247,7 +247,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetCurrentThreadHandle(
-            [Out] out ulong Handle);
+            [Out] out long Handle);
 
         /// <summary>
         /// The GetThreadIdByHandle method returns the engine thread ID for the specified thread. The thread is specified by its system handle.
@@ -262,8 +262,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetThreadIdByHandle(
-            [In] ulong Handle,
-            [Out] out uint Id);
+            [In] long Handle,
+            [Out] out int Id);
 
         /// <summary>
         /// The GetNumberProcesses method returns the number of processes for the current target.
@@ -277,7 +277,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetNumberProcesses(
-            [Out] out uint Number);
+            [Out] out int Number);
 
         /// <summary>
         /// The GetProcessIdsByIndex method returns the engine process ID and system process ID for the specified processes in the current target.
@@ -293,10 +293,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetProcessIdsByIndex(
-            [In] uint Start,
-            [In] uint Count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Ids,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] SysIds);
+            [In] int Start,
+            [In] int Count,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Ids,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] SysIds);
 
         /// <summary>
         /// The GetCurrentProcessDataOffset method returns the location of the system data structure describing the current process.
@@ -310,7 +310,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetCurrentProcessDataOffset(
-            [Out] out ulong Offset);
+            [Out] out long Offset);
 
         /// <summary>
         /// The GetProcessIdByDataOffset method returns the engine process ID for the specified process. The process is specified by its data offset.
@@ -324,8 +324,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetProcessIdByDataOffset(
-            [In] ulong Offset,
-            [Out] out uint Id);
+            [In] long Offset,
+            [Out] out int Id);
 
         /// <summary>
         /// The GetCurrentProcessPeb method returns the process environment block (PEB) of the current process.
@@ -339,7 +339,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetCurrentProcessPeb(
-            [Out] out ulong Offset);
+            [Out] out long Offset);
 
         /// <summary>
         /// The GetProcessIdByPeb method returns the engine process ID for the specified process. The process is specified by its process environment block (PEB).
@@ -352,8 +352,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetProcessIdByPeb(
-            [In] ulong Offset,
-            [Out] out uint Id);
+            [In] long Offset,
+            [Out] out int Id);
 
         /// <summary>
         /// The GetCurrentProcessSystemId method returns the system process ID of the current process.
@@ -365,7 +365,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetCurrentProcessSystemId(
-            [Out] out uint SysId);
+            [Out] out int SysId);
 
         /// <summary>
         /// The GetProcessIdBySystemId method returns the engine process ID for a process specified by its system process ID.
@@ -378,8 +378,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetProcessIdBySystemId(
-            [In] uint SysId,
-            [Out] out uint Id);
+            [In] int SysId,
+            [Out] out int Id);
 
         /// <summary>
         /// The GetCurrentProcessHandle method returns the system handle for the current process.
@@ -393,7 +393,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetCurrentProcessHandle(
-            [Out] out ulong Handle);
+            [Out] out long Handle);
 
         /// <summary>
         /// The GetProcessIdByHandle method returns the engine process ID for the specified process. The process is specified by its system handle.
@@ -406,8 +406,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetProcessIdByHandle(
-            [In] ulong Handle,
-            [Out] out uint Id);
+            [In] long Handle,
+            [Out] out int Id);
 
         /// <summary>
         /// The GetCurrentProcessExecutableName method returns the name of executable file loaded in the current process.
@@ -425,6 +425,6 @@ namespace ClrDebug.DbgEng
         HRESULT GetCurrentProcessExecutableName(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint ExeSize);
+            [Out] out int ExeSize);
     }
 }

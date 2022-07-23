@@ -6,7 +6,7 @@ namespace ClrDebug.DbgEng
     public unsafe struct PHYSICAL_MEMORY_DESCRIPTOR64
     {
         public int NumberOfRuns;
-        public ulong NumberOfPages;
+        public long NumberOfPages;
 
         public PHYSICAL_MEMORY_RUN64* Run;
     }

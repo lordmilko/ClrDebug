@@ -16,9 +16,9 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The type of the processor that the breakpoint is set for.
         /// </summary>
-        public uint ProcType { get; }
+        public int ProcType { get; }
 
-        public GetTypeResult(DEBUG_BREAKPOINT_TYPE breakType, uint procType)
+        public GetTypeResult(DEBUG_BREAKPOINT_TYPE breakType, int procType)
         {
             BreakType = breakType;
             ProcType = procType;

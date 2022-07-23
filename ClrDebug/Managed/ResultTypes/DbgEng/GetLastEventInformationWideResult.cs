@@ -16,12 +16,12 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Receives the process ID of the process in which the event occurred. If this information is not available, DEBUG_ANY_ID will be returned instead.
         /// </summary>
-        public uint ProcessId { get; }
+        public int ProcessId { get; }
 
         /// <summary>
         /// Receives the thread ID of the thread in which the last event occurred. If this information is not available, DEBUG_ANY_ID will be returned instead.
         /// </summary>
-        public uint ThreadId { get; }
+        public int ThreadId { get; }
 
         /// <summary>
         /// Receives the description of the event. If Description is NULL, this information is not returned.
@@ -32,9 +32,9 @@ namespace ClrDebug.DbgEng
         /// Receives the size in characters of the description of the event. This size includes the space for the '\0' terminating character.<para/>
         /// If DescriptionUsed is NULL, this information is not returned.
         /// </summary>
-        public uint DescriptionUsed { get; }
+        public int DescriptionUsed { get; }
 
-        public GetLastEventInformationWideResult(DEBUG_EVENT_TYPE type, uint processId, uint threadId, string description, uint descriptionUsed)
+        public GetLastEventInformationWideResult(DEBUG_EVENT_TYPE type, int processId, int threadId, string description, int descriptionUsed)
         {
             Type = type;
             ProcessId = processId;

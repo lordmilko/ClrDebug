@@ -25,10 +25,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT ReadVirtual(
-            [In] ulong Offset,
+            [In] long Offset,
             [Out] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesRead);
+            [In] int BufferSize,
+            [Out] out int BytesRead);
 
         /// <summary>
         /// The WriteVirtual method writes data to the target's virtual address space.
@@ -44,10 +44,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT WriteVirtual(
-            [In] ulong Offset,
+            [In] long Offset,
             [In] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesWritten);
+            [In] int BufferSize,
+            [Out] out int BytesWritten);
 
         /// <summary>
         /// The SearchVirtual method searches the target's virtual memory for a specified pattern of bytes.
@@ -68,12 +68,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT SearchVirtual(
-            [In] ulong Offset,
-            [In] ulong Length,
+            [In] long Offset,
+            [In] long Length,
             [In] IntPtr Pattern,
-            [In] uint PatternSize,
-            [In] uint PatternGranularity,
-            [Out] out ulong MatchOffset);
+            [In] int PatternSize,
+            [In] int PatternGranularity,
+            [Out] out long MatchOffset);
 
         /// <summary>
         /// The ReadVirtualUncached method reads memory from the target's virtual address space.
@@ -91,10 +91,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT ReadVirtualUncached(
-            [In] ulong Offset,
+            [In] long Offset,
             [Out] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesRead);
+            [In] int BufferSize,
+            [Out] out int BytesRead);
 
         /// <summary>
         /// The WriteVirtualUncached method writes data to the target's virtual address space.
@@ -112,10 +112,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT WriteVirtualUncached(
-            [In] ulong Offset,
+            [In] long Offset,
             [In] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesWritten);
+            [In] int BufferSize,
+            [Out] out int BytesWritten);
 
         /// <summary>
         /// The ReadPointersVirtual method is a convenience method for reading pointers from the target's virtual address space.
@@ -130,9 +130,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT ReadPointersVirtual(
-            [In] uint Count,
-            [In] ulong Offset,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ulong[] Ptrs);
+            [In] int Count,
+            [In] long Offset,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Ptrs);
 
         /// <summary>
         /// The WritePointersVirtual method is a convenience method for writing pointers to the target's virtual address space.
@@ -147,9 +147,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT WritePointersVirtual(
-            [In] uint Count,
-            [In] ulong Offset,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ulong[] Ptrs);
+            [In] int Count,
+            [In] long Offset,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Ptrs);
 
         /// <summary>
         /// The ReadPhysical method reads the target's memory from the specified physical address.
@@ -164,10 +164,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT ReadPhysical(
-            [In] ulong Offset,
+            [In] long Offset,
             [Out] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesRead);
+            [In] int BufferSize,
+            [Out] out int BytesRead);
 
         /// <summary>
         /// The WritePhysical method writes data to the specified physical address in the target's memory.
@@ -182,10 +182,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT WritePhysical(
-            [In] ulong Offset,
+            [In] long Offset,
             [In] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesWritten);
+            [In] int BufferSize,
+            [Out] out int BytesWritten);
 
         /// <summary>
         /// The ReadControl method reads implementation-specific system data.
@@ -201,11 +201,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT ReadControl(
-            [In] uint Processor,
-            [In] ulong Offset,
+            [In] int Processor,
+            [In] long Offset,
             [Out] IntPtr Buffer,
             [In] int BufferSize,
-            [Out] out uint BytesRead);
+            [Out] out int BytesRead);
 
         /// <summary>
         /// The WriteControl method writes implementation-specific system data.
@@ -221,11 +221,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT WriteControl(
-            [In] uint Processor,
-            [In] ulong Offset,
+            [In] int Processor,
+            [In] long Offset,
             [In] IntPtr Buffer,
             [In] int BufferSize,
-            [Out] out uint BytesWritten);
+            [Out] out int BytesWritten);
 
         /// <summary>
         /// The ReadIo method reads from the system and bus I/O memory.
@@ -244,12 +244,12 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT ReadIo(
             [In] INTERFACE_TYPE InterfaceType,
-            [In] uint BusNumber,
-            [In] uint AddressSpace,
-            [In] ulong Offset,
+            [In] int BusNumber,
+            [In] int AddressSpace,
+            [In] long Offset,
             [Out] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesRead);
+            [In] int BufferSize,
+            [Out] out int BytesRead);
 
         /// <summary>
         /// The WriteIo method writes to the system and bus I/O memory.
@@ -268,12 +268,12 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT WriteIo(
             [In] INTERFACE_TYPE InterfaceType,
-            [In] uint BusNumber,
-            [In] uint AddressSpace,
-            [In] ulong Offset,
+            [In] int BusNumber,
+            [In] int AddressSpace,
+            [In] long Offset,
             [In] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesWritten);
+            [In] int BufferSize,
+            [Out] out int BytesWritten);
 
         /// <summary>
         /// The ReadMsr method reads a specified Model-Specific Register (MSR).
@@ -287,8 +287,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT ReadMsr(
-            [In] uint Msr,
-            [Out] out ulong MsrValue);
+            [In] int Msr,
+            [Out] out long MsrValue);
 
         /// <summary>
         /// The WriteMsr method writes a value to the specified Model-Specific Register (MSR).
@@ -302,8 +302,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT WriteMsr(
-            [In] uint Msr,
-            [In] ulong MsrValue);
+            [In] int Msr,
+            [In] long MsrValue);
 
         /// <summary>
         /// The ReadBusData method reads data from a system bus.
@@ -323,12 +323,12 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT ReadBusData(
             [In] BUS_DATA_TYPE BusDataType,
-            [In] uint BusNumber,
-            [In] uint SlotNumber,
-            [In] uint Offset,
+            [In] int BusNumber,
+            [In] int SlotNumber,
+            [In] int Offset,
             [Out] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesRead);
+            [In] int BufferSize,
+            [Out] out int BytesRead);
 
         /// <summary>
         /// The WriteBusData method writes data to a system bus.
@@ -348,12 +348,12 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT WriteBusData(
             [In] BUS_DATA_TYPE BusDataType,
-            [In] uint BusNumber,
-            [In] uint SlotNumber,
-            [In] uint Offset,
+            [In] int BusNumber,
+            [In] int SlotNumber,
+            [In] int Offset,
             [In] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesWritten);
+            [In] int BufferSize,
+            [Out] out int BytesWritten);
 
         /// <summary>
         /// The CheckLowMemory method checks for memory corruption in the low 4 GB of memory.
@@ -394,8 +394,8 @@ namespace ClrDebug.DbgEng
         HRESULT ReadDebuggerData(
             [In] DEBUG_DATA Index,
             [Out] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint DataSize);
+            [In] int BufferSize,
+            [Out] out int DataSize);
 
         /// <summary>
         /// The ReadProcessorSystemData method returns data about the specified processor.
@@ -415,10 +415,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT ReadProcessorSystemData(
-            [In] uint Processor,
+            [In] int Processor,
             [In] DEBUG_DATA Index,
             [Out] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint DataSize);
+            [In] int BufferSize,
+            [Out] out int DataSize);
     }
 }

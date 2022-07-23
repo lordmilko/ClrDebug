@@ -18,9 +18,9 @@ namespace ClrDebug.DbgEng
         /// Receives the difference between the value of Offset and the location in the target's memory address space of the symbol.<para/>
         /// If Displacement is NULL, this information is not returned.
         /// </summary>
-        public ulong Displacement { get; }
+        public long Displacement { get; }
 
-        public GetNearNameByOffsetResult(string nameBuffer, ulong displacement)
+        public GetNearNameByOffsetResult(string nameBuffer, long displacement)
         {
             NameBuffer = nameBuffer;
             Displacement = displacement;

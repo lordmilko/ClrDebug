@@ -20,7 +20,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetNumberRegisters(
-            [Out] out uint Number);
+            [Out] out int Number);
 
         /// <summary>
         /// The GetDescription method returns the description of a register.
@@ -37,10 +37,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetDescription(
-            [In] uint Register,
+            [In] int Register,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
-            [Out] out uint NameSize,
+            [Out] out int NameSize,
             [Out] out DEBUG_REGISTER_DESCRIPTION Desc);
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetIndexByName(
             [In, MarshalAs(UnmanagedType.LPStr)] string Name,
-            [Out] out uint Index);
+            [Out] out int Index);
 
         /// <summary>
         /// The GetValue method gets the value of one of the target's registers.
@@ -69,7 +69,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetValue(
-            [In] uint Register,
+            [In] int Register,
             [Out] out DEBUG_VALUE Value);
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT SetValue(
-            [In] uint Register,
+            [In] int Register,
             [In] DEBUG_VALUE Value);
 
         /// <summary>
@@ -111,9 +111,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetValues(
-            [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] uint[] Indices,
-            [In] uint Start,
+            [In] int Count,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Indices,
+            [In] int Start,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);
 
         /// <summary>
@@ -138,10 +138,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT SetValues(
-            [In] uint Count,
+            [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]
-            uint[] Indices,
-            [In] uint Start,
+            int[] Indices,
+            [In] int Start,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]
             DEBUG_VALUE[] Values);
 
@@ -175,7 +175,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetInstructionOffset(
-            [Out] out ulong Offset);
+            [Out] out long Offset);
 
         /// <summary>
         /// The GetStackOffset method returns the current thread's current stack location.
@@ -189,7 +189,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetStackOffset(
-            [Out] out ulong Offset);
+            [Out] out long Offset);
 
         /// <summary>
         /// The GetFrameOffset method returns the location of the stack frame for the current function.
@@ -203,7 +203,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetFrameOffset(
-            [Out] out ulong Offset);
+            [Out] out long Offset);
 
         #endregion
         #region IDebugRegisters2
@@ -223,11 +223,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetDescriptionWide(
-            [In] uint Register,
+            [In] int Register,
             [Out, MarshalAs(UnmanagedType.LPWStr)]
             StringBuilder NameBuffer,
             [In] int NameBufferSize,
-            [Out] out uint NameSize,
+            [Out] out int NameSize,
             [Out] out DEBUG_REGISTER_DESCRIPTION Desc);
 
         /// <summary>
@@ -242,7 +242,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetIndexByNameWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name,
-            [Out] out uint Index);
+            [Out] out int Index);
 
         /// <summary>
         /// The GetNumberPseudoRegisters method returns the number of pseudo-registers that are maintained by the debugger engine.
@@ -256,7 +256,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetNumberPseudoRegisters(
-            [Out] out uint Number);
+            [Out] out int Number);
 
         /// <summary>
         /// The GetPseudoDescription method returns a description of a pseudo-register, including its name and type.
@@ -279,12 +279,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetPseudoDescription(
-            [In] uint Register,
+            [In] int Register,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
-            [Out] out uint NameSize,
-            [Out] out ulong TypeModule,
-            [Out] out uint TypeId);
+            [Out] out int NameSize,
+            [Out] out long TypeModule,
+            [Out] out int TypeId);
 
         /// <summary>
         /// The GetPseudoDescriptionWide method returns a description of a pseudo-register, including its name and type.
@@ -307,12 +307,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetPseudoDescriptionWide(
-            [In] uint Register,
+            [In] int Register,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
-            [Out] out uint NameSize,
-            [Out] out ulong TypeModule,
-            [Out] out uint TypeId);
+            [Out] out int NameSize,
+            [Out] out long TypeModule,
+            [Out] out int TypeId);
 
         /// <summary>
         /// The GetPseudoIndexByName method returns the index of a pseudo-register.
@@ -327,7 +327,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetPseudoIndexByName(
             [In, MarshalAs(UnmanagedType.LPStr)] string Name,
-            [Out] out uint Index);
+            [Out] out int Index);
 
         /// <summary>
         /// The GetPseudoIndexByNameWide method returns the index of a pseudo-register.
@@ -342,7 +342,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetPseudoIndexByNameWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name,
-            [Out] out uint Index);
+            [Out] out int Index);
 
         /// <summary>
         /// The GetPseudoValues method returns the values of a number of pseudo-registers.
@@ -362,10 +362,10 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetPseudoValues(
             [In] DEBUG_REGSRC Source,
-            [In] uint Count,
+            [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            uint[] Indices,
-            [In] uint Start,
+            int[] Indices,
+            [In] int Start,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             DEBUG_VALUE[] Values);
 
@@ -386,10 +386,10 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT SetPseudoValues(
             [In] DEBUG_REGSRC Source,
-            [In] uint Count,
+            [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            uint[] Indices,
-            [In] uint Start,
+            int[] Indices,
+            [In] int Start,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             DEBUG_VALUE[] Values);
 
@@ -414,10 +414,10 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetValues2(
             [In] DEBUG_REGSRC Source,
-            [In] uint Count,
+            [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            uint[] Indices,
-            [In] uint Start,
+            int[] Indices,
+            [In] int Start,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             DEBUG_VALUE[] Values);
 
@@ -444,10 +444,10 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT SetValues2(
             [In] DEBUG_REGSRC Source,
-            [In] uint Count,
+            [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            uint[] Indices,
-            [In] uint Start,
+            int[] Indices,
+            [In] int Start,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             DEBUG_VALUE[] Values);
 
@@ -484,7 +484,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetInstructionOffset2(
             [In] DEBUG_REGSRC Source,
-            [Out] out ulong Offset);
+            [Out] out long Offset);
 
         /// <summary>
         /// The GetStackOffset2 method returns the current thread's current stack location.
@@ -495,7 +495,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetStackOffset2(
             [In] DEBUG_REGSRC Source,
-            [Out] out ulong Offset);
+            [Out] out long Offset);
 
         /// <summary>
         /// The GetFrameOffset2 method returns the location of the stack frame for the current function.
@@ -511,7 +511,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetFrameOffset2(
             [In] DEBUG_REGSRC Source,
-            [Out] out ulong Offset);
+            [Out] out long Offset);
 
         #endregion
     }

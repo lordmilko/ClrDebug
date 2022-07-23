@@ -21,7 +21,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetThreadContext(
             [In] IntPtr Context,
-            [In] uint ContextSize);
+            [In] int ContextSize);
 
         /// <summary>
         /// The SetThreadContext method sets the current thread context.
@@ -36,6 +36,6 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT SetThreadContext(
             [In] IntPtr Context,
-            [In] uint ContextSize);
+            [In] int ContextSize);
     }
 }

@@ -40,11 +40,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetEventThread method returns the engine thread ID for the thread on which the last event occurred.
         /// </summary>
-        public uint EventThread
+        public int EventThread
         {
             get
             {
-                uint id;
+                int id;
                 TryGetEventThread(out id).ThrowDbgEngNotOK();
 
                 return id;
@@ -61,12 +61,12 @@ namespace ClrDebug.DbgEng
         /// occurred is returned. For more information about threads, see Threads and Processes. For details about debugger
         /// engine events, see Monitoring Events.
         /// </remarks>
-        public HRESULT TryGetEventThread(out uint id)
+        public HRESULT TryGetEventThread(out int id)
         {
             InitDelegate(ref getEventThread, Vtbl->GetEventThread);
 
             /*HRESULT GetEventThread(
-            [Out] out uint Id);*/
+            [Out] out int Id);*/
             return getEventThread(Raw, out id);
         }
 
@@ -76,11 +76,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetEventProcess method returns the engine process ID for the process on which the last event occurred.
         /// </summary>
-        public uint EventProcess
+        public int EventProcess
         {
             get
             {
-                uint id;
+                int id;
                 TryGetEventProcess(out id).ThrowDbgEngNotOK();
 
                 return id;
@@ -97,12 +97,12 @@ namespace ClrDebug.DbgEng
         /// more information about processes, see Threads and Processes. For details about debugger engine events, see Monitoring
         /// Events.
         /// </remarks>
-        public HRESULT TryGetEventProcess(out uint id)
+        public HRESULT TryGetEventProcess(out int id)
         {
             InitDelegate(ref getEventProcess, Vtbl->GetEventProcess);
 
             /*HRESULT GetEventProcess(
-            [Out] out uint Id);*/
+            [Out] out int Id);*/
             return getEventProcess(Raw, out id);
         }
 
@@ -112,11 +112,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetCurrentThreadId method returns the engine thread ID for the current thread.
         /// </summary>
-        public uint CurrentThreadId
+        public int CurrentThreadId
         {
             get
             {
-                uint id;
+                int id;
                 TryGetCurrentThreadId(out id).ThrowDbgEngNotOK();
 
                 return id;
@@ -135,12 +135,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about threads, see Threads and Processes.
         /// </remarks>
-        public HRESULT TryGetCurrentThreadId(out uint id)
+        public HRESULT TryGetCurrentThreadId(out int id)
         {
             InitDelegate(ref getCurrentThreadId, Vtbl->GetCurrentThreadId);
 
             /*HRESULT GetCurrentThreadId(
-            [Out] out uint Id);*/
+            [Out] out int Id);*/
             return getCurrentThreadId(Raw, out id);
         }
 
@@ -154,12 +154,12 @@ namespace ClrDebug.DbgEng
         /// the callback <see cref="IDebugEventCallbacks.ChangeEngineState"/> will be called with the DEBUG_CES_CURRENT_THREAD
         /// bit set.
         /// </remarks>
-        public HRESULT TrySetCurrentThreadId(uint id)
+        public HRESULT TrySetCurrentThreadId(int id)
         {
             InitDelegate(ref setCurrentThreadId, Vtbl->SetCurrentThreadId);
 
             /*HRESULT SetCurrentThreadId(
-            [In] uint Id);*/
+            [In] int Id);*/
             return setCurrentThreadId(Raw, id);
         }
 
@@ -169,11 +169,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetCurrentProcessId method returns the engine process ID for the current process.
         /// </summary>
-        public uint CurrentProcessId
+        public int CurrentProcessId
         {
             get
             {
-                uint id;
+                int id;
                 TryGetCurrentProcessId(out id).ThrowDbgEngNotOK();
 
                 return id;
@@ -192,12 +192,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about processes, see Threads and Processes.
         /// </remarks>
-        public HRESULT TryGetCurrentProcessId(out uint id)
+        public HRESULT TryGetCurrentProcessId(out int id)
         {
             InitDelegate(ref getCurrentProcessId, Vtbl->GetCurrentProcessId);
 
             /*HRESULT GetCurrentProcessId(
-            [Out] out uint Id);*/
+            [Out] out int Id);*/
             return getCurrentProcessId(Raw, out id);
         }
 
@@ -211,12 +211,12 @@ namespace ClrDebug.DbgEng
         /// is changed, the callback <see cref="IDebugEventCallbacks.ChangeEngineState"/> will be called with the DEBUG_CES_CURRENT_THREAD
         /// bit set.
         /// </remarks>
-        public HRESULT TrySetCurrentProcessId(uint id)
+        public HRESULT TrySetCurrentProcessId(int id)
         {
             InitDelegate(ref setCurrentProcessId, Vtbl->SetCurrentProcessId);
 
             /*HRESULT SetCurrentProcessId(
-            [In] uint Id);*/
+            [In] int Id);*/
             return setCurrentProcessId(Raw, id);
         }
 
@@ -226,11 +226,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetNumberThreads method returns the number of threads in the current process.
         /// </summary>
-        public uint NumberThreads
+        public int NumberThreads
         {
             get
             {
-                uint number;
+                int number;
                 TryGetNumberThreads(out number).ThrowDbgEngNotOK();
 
                 return number;
@@ -247,12 +247,12 @@ namespace ClrDebug.DbgEng
         /// of threads changes with the <see cref="IDebugEventCallbacks.CreateThread"/> and <see cref="IDebugEventCallbacks.ExitThread"/>
         /// events. For more information about threads, see Threads and Processes.
         /// </remarks>
-        public HRESULT TryGetNumberThreads(out uint number)
+        public HRESULT TryGetNumberThreads(out int number)
         {
             InitDelegate(ref getNumberThreads, Vtbl->GetNumberThreads);
 
             /*HRESULT GetNumberThreads(
-            [Out] out uint Number);*/
+            [Out] out int Number);*/
             return getNumberThreads(Raw, out number);
         }
 
@@ -285,10 +285,10 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getTotalNumberThreads, Vtbl->GetTotalNumberThreads);
             /*HRESULT GetTotalNumberThreads(
-            [Out] out uint Total,
-            [Out] out uint LargestProcess);*/
-            uint total;
-            uint largestProcess;
+            [Out] out int Total,
+            [Out] out int LargestProcess);*/
+            int total;
+            int largestProcess;
             HRESULT hr = getTotalNumberThreads(Raw, out total, out largestProcess);
 
             if (hr == HRESULT.S_OK)
@@ -305,11 +305,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetCurrentThreadDataOffset method returns the location of the system data structure for the current thread.
         /// </summary>
-        public ulong CurrentThreadDataOffset
+        public long CurrentThreadDataOffset
         {
             get
             {
-                ulong offset;
+                long offset;
                 TryGetCurrentThreadDataOffset(out offset).ThrowDbgEngNotOK();
 
                 return offset;
@@ -327,12 +327,12 @@ namespace ClrDebug.DbgEng
         /// returned is of the KTHREAD structure of the system thread that was executing on the processor represented by the
         /// current thread when the last event occurred.
         /// </remarks>
-        public HRESULT TryGetCurrentThreadDataOffset(out ulong offset)
+        public HRESULT TryGetCurrentThreadDataOffset(out long offset)
         {
             InitDelegate(ref getCurrentThreadDataOffset, Vtbl->GetCurrentThreadDataOffset);
 
             /*HRESULT GetCurrentThreadDataOffset(
-            [Out] out ulong Offset);*/
+            [Out] out long Offset);*/
             return getCurrentThreadDataOffset(Raw, out offset);
         }
 
@@ -342,11 +342,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetCurrentThreadTeb method returns the location of the thread environment block (TEB) for the current thread.
         /// </summary>
-        public ulong CurrentThreadTeb
+        public long CurrentThreadTeb
         {
             get
             {
-                ulong offset;
+                long offset;
                 TryGetCurrentThreadTeb(out offset).ThrowDbgEngNotOK();
 
                 return offset;
@@ -363,12 +363,12 @@ namespace ClrDebug.DbgEng
         /// In kernel-mode debugging, the location returned is of the TEB structure of the system thread that was executing
         /// on the processor represented by the current thread when the last event occurred.
         /// </remarks>
-        public HRESULT TryGetCurrentThreadTeb(out ulong offset)
+        public HRESULT TryGetCurrentThreadTeb(out long offset)
         {
             InitDelegate(ref getCurrentThreadTeb, Vtbl->GetCurrentThreadTeb);
 
             /*HRESULT GetCurrentThreadTeb(
-            [Out] out ulong Offset);*/
+            [Out] out long Offset);*/
             return getCurrentThreadTeb(Raw, out offset);
         }
 
@@ -378,11 +378,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetCurrentThreadSystemId method returns the system thread ID of the current thread.
         /// </summary>
-        public uint CurrentThreadSystemId
+        public int CurrentThreadSystemId
         {
             get
             {
-                uint sysId;
+                int sysId;
                 TryGetCurrentThreadSystemId(out sysId).ThrowDbgEngNotOK();
 
                 return sysId;
@@ -397,12 +397,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in user-mode debugging. For more information about threads, see Threads and Processes.
         /// </remarks>
-        public HRESULT TryGetCurrentThreadSystemId(out uint sysId)
+        public HRESULT TryGetCurrentThreadSystemId(out int sysId)
         {
             InitDelegate(ref getCurrentThreadSystemId, Vtbl->GetCurrentThreadSystemId);
 
             /*HRESULT GetCurrentThreadSystemId(
-            [Out] out uint SysId);*/
+            [Out] out int SysId);*/
             return getCurrentThreadSystemId(Raw, out sysId);
         }
 
@@ -412,11 +412,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetCurrentThreadHandle method returns the system handle for the current thread.
         /// </summary>
-        public ulong CurrentThreadHandle
+        public long CurrentThreadHandle
         {
             get
             {
-                ulong handle;
+                long handle;
                 TryGetCurrentThreadHandle(out handle).ThrowDbgEngNotOK();
 
                 return handle;
@@ -432,12 +432,12 @@ namespace ClrDebug.DbgEng
         /// In kernel-mode debugging, an artificial handle is created because the threads are virtual threads. For more information
         /// about threads, see Threads and Processes. For details on system handles, see Handles.
         /// </remarks>
-        public HRESULT TryGetCurrentThreadHandle(out ulong handle)
+        public HRESULT TryGetCurrentThreadHandle(out long handle)
         {
             InitDelegate(ref getCurrentThreadHandle, Vtbl->GetCurrentThreadHandle);
 
             /*HRESULT GetCurrentThreadHandle(
-            [Out] out ulong Handle);*/
+            [Out] out long Handle);*/
             return getCurrentThreadHandle(Raw, out handle);
         }
 
@@ -447,11 +447,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetNumberProcesses method returns the number of processes for the current target.
         /// </summary>
-        public uint NumberProcesses
+        public int NumberProcesses
         {
             get
             {
-                uint number;
+                int number;
                 TryGetNumberProcesses(out number).ThrowDbgEngNotOK();
 
                 return number;
@@ -468,12 +468,12 @@ namespace ClrDebug.DbgEng
         /// the number of processes changes with the create-process and exit-process debugging events. For more information
         /// about processes, see Threads and Processes.
         /// </remarks>
-        public HRESULT TryGetNumberProcesses(out uint number)
+        public HRESULT TryGetNumberProcesses(out int number)
         {
             InitDelegate(ref getNumberProcesses, Vtbl->GetNumberProcesses);
 
             /*HRESULT GetNumberProcesses(
-            [Out] out uint Number);*/
+            [Out] out int Number);*/
             return getNumberProcesses(Raw, out number);
         }
 
@@ -483,11 +483,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetCurrentProcessDataOffset method returns the location of the system data structure describing the current process.
         /// </summary>
-        public ulong CurrentProcessDataOffset
+        public long CurrentProcessDataOffset
         {
             get
             {
-                ulong offset;
+                long offset;
                 TryGetCurrentProcessDataOffset(out offset).ThrowDbgEngNotOK();
 
                 return offset;
@@ -504,12 +504,12 @@ namespace ClrDebug.DbgEng
         /// This is the same location returned by <see cref="CurrentProcessPeb"/>. In kernel-mode debugging, the location
         /// returned is of the KPROCESS structure for the system process in which the last event occurred.
         /// </remarks>
-        public HRESULT TryGetCurrentProcessDataOffset(out ulong offset)
+        public HRESULT TryGetCurrentProcessDataOffset(out long offset)
         {
             InitDelegate(ref getCurrentProcessDataOffset, Vtbl->GetCurrentProcessDataOffset);
 
             /*HRESULT GetCurrentProcessDataOffset(
-            [Out] out ulong Offset);*/
+            [Out] out long Offset);*/
             return getCurrentProcessDataOffset(Raw, out offset);
         }
 
@@ -519,11 +519,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetCurrentProcessPeb method returns the process environment block (PEB) of the current process.
         /// </summary>
-        public ulong CurrentProcessPeb
+        public long CurrentProcessPeb
         {
             get
             {
-                ulong offset;
+                long offset;
                 TryGetCurrentProcessPeb(out offset).ThrowDbgEngNotOK();
 
                 return offset;
@@ -540,12 +540,12 @@ namespace ClrDebug.DbgEng
         /// In kernel-mode debugging, the location returned is that of the PEB structure for the system process in which the
         /// last event occurred.
         /// </remarks>
-        public HRESULT TryGetCurrentProcessPeb(out ulong offset)
+        public HRESULT TryGetCurrentProcessPeb(out long offset)
         {
             InitDelegate(ref getCurrentProcessPeb, Vtbl->GetCurrentProcessPeb);
 
             /*HRESULT GetCurrentProcessPeb(
-            [Out] out ulong Offset);*/
+            [Out] out long Offset);*/
             return getCurrentProcessPeb(Raw, out offset);
         }
 
@@ -555,11 +555,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetCurrentProcessSystemId method returns the system process ID of the current process.
         /// </summary>
-        public uint CurrentProcessSystemId
+        public int CurrentProcessSystemId
         {
             get
             {
-                uint sysId;
+                int sysId;
                 TryGetCurrentProcessSystemId(out sysId).ThrowDbgEngNotOK();
 
                 return sysId;
@@ -574,12 +574,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in user-mode debugging. For more information about processes, see Threads and Processes.
         /// </remarks>
-        public HRESULT TryGetCurrentProcessSystemId(out uint sysId)
+        public HRESULT TryGetCurrentProcessSystemId(out int sysId)
         {
             InitDelegate(ref getCurrentProcessSystemId, Vtbl->GetCurrentProcessSystemId);
 
             /*HRESULT GetCurrentProcessSystemId(
-            [Out] out uint SysId);*/
+            [Out] out int SysId);*/
             return getCurrentProcessSystemId(Raw, out sysId);
         }
 
@@ -589,11 +589,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetCurrentProcessHandle method returns the system handle for the current process.
         /// </summary>
-        public ulong CurrentProcessHandle
+        public long CurrentProcessHandle
         {
             get
             {
-                ulong handle;
+                long handle;
                 TryGetCurrentProcessHandle(out handle).ThrowDbgEngNotOK();
 
                 return handle;
@@ -610,12 +610,12 @@ namespace ClrDebug.DbgEng
         /// case, an artificial handle is created. The artificial handle can only be used with the debugger engine API. For
         /// more information about processes, see Threads and Processes. For details on system handles, see Handles.
         /// </remarks>
-        public HRESULT TryGetCurrentProcessHandle(out ulong handle)
+        public HRESULT TryGetCurrentProcessHandle(out long handle)
         {
             InitDelegate(ref getCurrentProcessHandle, Vtbl->GetCurrentProcessHandle);
 
             /*HRESULT GetCurrentProcessHandle(
-            [Out] out ulong Handle);*/
+            [Out] out long Handle);*/
             return getCurrentProcessHandle(Raw, out handle);
         }
 
@@ -651,16 +651,16 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetCurrentProcessExecutableName(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint ExeSize);*/
+            [Out] out int ExeSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint exeSize;
+            int exeSize;
             HRESULT hr = getCurrentProcessExecutableName(Raw, null, bufferSize, out exeSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) exeSize;
+            bufferSize = exeSize;
             buffer = new StringBuilder(bufferSize);
             hr = getCurrentProcessExecutableName(Raw, buffer, bufferSize, out exeSize);
 
@@ -690,7 +690,7 @@ namespace ClrDebug.DbgEng
         /// The index of the first thread is zero. The index of the last thread is the number of threads returned by <see cref="NumberThreads"/>
         /// minus one. For more information about threads, see Threads and Processes.
         /// </remarks>
-        public GetThreadIdsByIndexResult GetThreadIdsByIndex(uint start, uint count)
+        public GetThreadIdsByIndexResult GetThreadIdsByIndex(int start, int count)
         {
             GetThreadIdsByIndexResult result;
             TryGetThreadIdsByIndex(start, count, out result).ThrowDbgEngNotOK();
@@ -709,16 +709,16 @@ namespace ClrDebug.DbgEng
         /// The index of the first thread is zero. The index of the last thread is the number of threads returned by <see cref="NumberThreads"/>
         /// minus one. For more information about threads, see Threads and Processes.
         /// </remarks>
-        public HRESULT TryGetThreadIdsByIndex(uint start, uint count, out GetThreadIdsByIndexResult result)
+        public HRESULT TryGetThreadIdsByIndex(int start, int count, out GetThreadIdsByIndexResult result)
         {
             InitDelegate(ref getThreadIdsByIndex, Vtbl->GetThreadIdsByIndex);
             /*HRESULT GetThreadIdsByIndex(
-            [In] uint Start,
-            [In] uint Count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Ids,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] SysIds);*/
-            uint[] ids = new uint[(int) count];
-            uint[] sysIds = new uint[(int) count];
+            [In] int Start,
+            [In] int Count,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Ids,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] SysIds);*/
+            int[] ids = new int[count];
+            int[] sysIds = new int[count];
             HRESULT hr = getThreadIdsByIndex(Raw, start, count, ids, sysIds);
 
             if (hr == HRESULT.S_OK)
@@ -740,9 +740,9 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in kernel-mode debugging. For more information about threads, see Threads and Processes.
         /// </remarks>
-        public uint GetThreadIdByProcessor(uint processor)
+        public int GetThreadIdByProcessor(int processor)
         {
-            uint id;
+            int id;
             TryGetThreadIdByProcessor(processor, out id).ThrowDbgEngNotOK();
 
             return id;
@@ -757,13 +757,13 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in kernel-mode debugging. For more information about threads, see Threads and Processes.
         /// </remarks>
-        public HRESULT TryGetThreadIdByProcessor(uint processor, out uint id)
+        public HRESULT TryGetThreadIdByProcessor(int processor, out int id)
         {
             InitDelegate(ref getThreadIdByProcessor, Vtbl->GetThreadIdByProcessor);
 
             /*HRESULT GetThreadIdByProcessor(
-            [In] uint Processor,
-            [Out] out uint Id);*/
+            [In] int Processor,
+            [Out] out int Id);*/
             return getThreadIdByProcessor(Raw, processor, out id);
         }
 
@@ -780,9 +780,9 @@ namespace ClrDebug.DbgEng
         /// on which the specified thread is executing. If the thread is not executing on a processor, this method will fail.
         /// For more information about threads, see Threads and Processes.
         /// </remarks>
-        public uint GetThreadIdByDataOffset(ulong offset)
+        public int GetThreadIdByDataOffset(long offset)
         {
-            uint id;
+            int id;
             TryGetThreadIdByDataOffset(offset, out id).ThrowDbgEngNotOK();
 
             return id;
@@ -799,13 +799,13 @@ namespace ClrDebug.DbgEng
         /// on which the specified thread is executing. If the thread is not executing on a processor, this method will fail.
         /// For more information about threads, see Threads and Processes.
         /// </remarks>
-        public HRESULT TryGetThreadIdByDataOffset(ulong offset, out uint id)
+        public HRESULT TryGetThreadIdByDataOffset(long offset, out int id)
         {
             InitDelegate(ref getThreadIdByDataOffset, Vtbl->GetThreadIdByDataOffset);
 
             /*HRESULT GetThreadIdByDataOffset(
-            [In] ulong Offset,
-            [Out] out uint Id);*/
+            [In] long Offset,
+            [Out] out int Id);*/
             return getThreadIdByDataOffset(Raw, offset, out id);
         }
 
@@ -822,9 +822,9 @@ namespace ClrDebug.DbgEng
         /// on which the specified thread is executing. If the thread is not executing on a processor, this method will fail.
         /// For more information about threads, see Threads and Processes.
         /// </remarks>
-        public uint GetThreadIdByTeb(ulong offset)
+        public int GetThreadIdByTeb(long offset)
         {
-            uint id;
+            int id;
             TryGetThreadIdByTeb(offset, out id).ThrowDbgEngNotOK();
 
             return id;
@@ -841,13 +841,13 @@ namespace ClrDebug.DbgEng
         /// on which the specified thread is executing. If the thread is not executing on a processor, this method will fail.
         /// For more information about threads, see Threads and Processes.
         /// </remarks>
-        public HRESULT TryGetThreadIdByTeb(ulong offset, out uint id)
+        public HRESULT TryGetThreadIdByTeb(long offset, out int id)
         {
             InitDelegate(ref getThreadIdByTeb, Vtbl->GetThreadIdByTeb);
 
             /*HRESULT GetThreadIdByTeb(
-            [In] ulong Offset,
-            [Out] out uint Id);*/
+            [In] long Offset,
+            [Out] out int Id);*/
             return getThreadIdByTeb(Raw, offset, out id);
         }
 
@@ -862,9 +862,9 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in user-mode debugging. For more information about threads, see Threads and Processes.
         /// </remarks>
-        public uint GetThreadIdBySystemId(uint sysId)
+        public int GetThreadIdBySystemId(int sysId)
         {
-            uint id;
+            int id;
             TryGetThreadIdBySystemId(sysId, out id).ThrowDbgEngNotOK();
 
             return id;
@@ -879,13 +879,13 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in user-mode debugging. For more information about threads, see Threads and Processes.
         /// </remarks>
-        public HRESULT TryGetThreadIdBySystemId(uint sysId, out uint id)
+        public HRESULT TryGetThreadIdBySystemId(int sysId, out int id)
         {
             InitDelegate(ref getThreadIdBySystemId, Vtbl->GetThreadIdBySystemId);
 
             /*HRESULT GetThreadIdBySystemId(
-            [In] uint SysId,
-            [Out] out uint Id);*/
+            [In] int SysId,
+            [Out] out int Id);*/
             return getThreadIdBySystemId(Raw, sysId, out id);
         }
 
@@ -902,9 +902,9 @@ namespace ClrDebug.DbgEng
         /// thread ID for the virtual thread representing that processor. For more information about threads, see Threads and
         /// Processes. For details on system handles, see Handles.
         /// </remarks>
-        public uint GetThreadIdByHandle(ulong handle)
+        public int GetThreadIdByHandle(long handle)
         {
-            uint id;
+            int id;
             TryGetThreadIdByHandle(handle, out id).ThrowDbgEngNotOK();
 
             return id;
@@ -921,13 +921,13 @@ namespace ClrDebug.DbgEng
         /// thread ID for the virtual thread representing that processor. For more information about threads, see Threads and
         /// Processes. For details on system handles, see Handles.
         /// </remarks>
-        public HRESULT TryGetThreadIdByHandle(ulong handle, out uint id)
+        public HRESULT TryGetThreadIdByHandle(long handle, out int id)
         {
             InitDelegate(ref getThreadIdByHandle, Vtbl->GetThreadIdByHandle);
 
             /*HRESULT GetThreadIdByHandle(
-            [In] ulong Handle,
-            [Out] out uint Id);*/
+            [In] long Handle,
+            [Out] out int Id);*/
             return getThreadIdByHandle(Raw, handle, out id);
         }
 
@@ -944,7 +944,7 @@ namespace ClrDebug.DbgEng
         /// The index of the first process is zero. The index of the last process is the number of processes returned by <see 
         ///cref="NumberProcesses"/> minus one. For more information about processes, see Threads and Processes.
         /// </remarks>
-        public GetProcessIdsByIndexResult GetProcessIdsByIndex(uint start, uint count)
+        public GetProcessIdsByIndexResult GetProcessIdsByIndex(int start, int count)
         {
             GetProcessIdsByIndexResult result;
             TryGetProcessIdsByIndex(start, count, out result).ThrowDbgEngNotOK();
@@ -963,16 +963,16 @@ namespace ClrDebug.DbgEng
         /// The index of the first process is zero. The index of the last process is the number of processes returned by <see 
         ///cref="NumberProcesses"/> minus one. For more information about processes, see Threads and Processes.
         /// </remarks>
-        public HRESULT TryGetProcessIdsByIndex(uint start, uint count, out GetProcessIdsByIndexResult result)
+        public HRESULT TryGetProcessIdsByIndex(int start, int count, out GetProcessIdsByIndexResult result)
         {
             InitDelegate(ref getProcessIdsByIndex, Vtbl->GetProcessIdsByIndex);
             /*HRESULT GetProcessIdsByIndex(
-            [In] uint Start,
-            [In] uint Count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Ids,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] SysIds);*/
-            uint[] ids = new uint[(int) count];
-            uint[] sysIds = new uint[(int) count];
+            [In] int Start,
+            [In] int Count,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Ids,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] SysIds);*/
+            int[] ids = new int[count];
+            int[] sysIds = new int[count];
             HRESULT hr = getProcessIdsByIndex(Raw, start, count, ids, sysIds);
 
             if (hr == HRESULT.S_OK)
@@ -995,9 +995,9 @@ namespace ClrDebug.DbgEng
         /// This method is currently not available in kernel-mode debugging. In user-mode debugging, this method behaves the
         /// same as <see cref="GetProcessIdByPeb"/>. For more information about processes, see Threads and Processes.
         /// </remarks>
-        public uint GetProcessIdByDataOffset(ulong offset)
+        public int GetProcessIdByDataOffset(long offset)
         {
-            uint id;
+            int id;
             TryGetProcessIdByDataOffset(offset, out id).ThrowDbgEngNotOK();
 
             return id;
@@ -1013,13 +1013,13 @@ namespace ClrDebug.DbgEng
         /// This method is currently not available in kernel-mode debugging. In user-mode debugging, this method behaves the
         /// same as <see cref="GetProcessIdByPeb"/>. For more information about processes, see Threads and Processes.
         /// </remarks>
-        public HRESULT TryGetProcessIdByDataOffset(ulong offset, out uint id)
+        public HRESULT TryGetProcessIdByDataOffset(long offset, out int id)
         {
             InitDelegate(ref getProcessIdByDataOffset, Vtbl->GetProcessIdByDataOffset);
 
             /*HRESULT GetProcessIdByDataOffset(
-            [In] ulong Offset,
-            [Out] out uint Id);*/
+            [In] long Offset,
+            [Out] out int Id);*/
             return getProcessIdByDataOffset(Raw, offset, out id);
         }
 
@@ -1034,9 +1034,9 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is not available in kernel-mode debugging. For more information about processes, see Threads and Processes.
         /// </remarks>
-        public uint GetProcessIdByPeb(ulong offset)
+        public int GetProcessIdByPeb(long offset)
         {
-            uint id;
+            int id;
             TryGetProcessIdByPeb(offset, out id).ThrowDbgEngNotOK();
 
             return id;
@@ -1051,13 +1051,13 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is not available in kernel-mode debugging. For more information about processes, see Threads and Processes.
         /// </remarks>
-        public HRESULT TryGetProcessIdByPeb(ulong offset, out uint id)
+        public HRESULT TryGetProcessIdByPeb(long offset, out int id)
         {
             InitDelegate(ref getProcessIdByPeb, Vtbl->GetProcessIdByPeb);
 
             /*HRESULT GetProcessIdByPeb(
-            [In] ulong Offset,
-            [Out] out uint Id);*/
+            [In] long Offset,
+            [Out] out int Id);*/
             return getProcessIdByPeb(Raw, offset, out id);
         }
 
@@ -1072,9 +1072,9 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in user-mode debugging. For more information about processes, see Threads and Processes.
         /// </remarks>
-        public uint GetProcessIdBySystemId(uint sysId)
+        public int GetProcessIdBySystemId(int sysId)
         {
-            uint id;
+            int id;
             TryGetProcessIdBySystemId(sysId, out id).ThrowDbgEngNotOK();
 
             return id;
@@ -1089,13 +1089,13 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in user-mode debugging. For more information about processes, see Threads and Processes.
         /// </remarks>
-        public HRESULT TryGetProcessIdBySystemId(uint sysId, out uint id)
+        public HRESULT TryGetProcessIdBySystemId(int sysId, out int id)
         {
             InitDelegate(ref getProcessIdBySystemId, Vtbl->GetProcessIdBySystemId);
 
             /*HRESULT GetProcessIdBySystemId(
-            [In] uint SysId,
-            [Out] out uint Id);*/
+            [In] int SysId,
+            [Out] out int Id);*/
             return getProcessIdBySystemId(Raw, sysId, out id);
         }
 
@@ -1110,9 +1110,9 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about processes, see Threads and Processes. For details on system handles, see Handles.
         /// </remarks>
-        public uint GetProcessIdByHandle(ulong handle)
+        public int GetProcessIdByHandle(long handle)
         {
-            uint id;
+            int id;
             TryGetProcessIdByHandle(handle, out id).ThrowDbgEngNotOK();
 
             return id;
@@ -1127,13 +1127,13 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about processes, see Threads and Processes. For details on system handles, see Handles.
         /// </remarks>
-        public HRESULT TryGetProcessIdByHandle(ulong handle, out uint id)
+        public HRESULT TryGetProcessIdByHandle(long handle, out int id)
         {
             InitDelegate(ref getProcessIdByHandle, Vtbl->GetProcessIdByHandle);
 
             /*HRESULT GetProcessIdByHandle(
-            [In] ulong Handle,
-            [Out] out uint Id);*/
+            [In] long Handle,
+            [Out] out int Id);*/
             return getProcessIdByHandle(Raw, handle, out id);
         }
 
@@ -1145,11 +1145,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetCurrentProcessUpTime method returns the length of time the current process has been running.
         /// </summary>
-        public uint CurrentProcessUpTime
+        public int CurrentProcessUpTime
         {
             get
             {
-                uint upTime;
+                int upTime;
                 TryGetCurrentProcessUpTime(out upTime).ThrowDbgEngNotOK();
 
                 return upTime;
@@ -1161,12 +1161,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="upTime">[out] Receives the number of seconds the current process has been running.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
-        public HRESULT TryGetCurrentProcessUpTime(out uint upTime)
+        public HRESULT TryGetCurrentProcessUpTime(out int upTime)
         {
             InitDelegate(ref getCurrentProcessUpTime, Vtbl2->GetCurrentProcessUpTime);
 
             /*HRESULT GetCurrentProcessUpTime(
-            [Out] out uint UpTime);*/
+            [Out] out int UpTime);*/
             return getCurrentProcessUpTime(Raw, out upTime);
         }
 
@@ -1176,11 +1176,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetImplicitThreadDataOffset method returns the implicit thread for the current process.
         /// </summary>
-        public ulong ImplicitThreadDataOffset
+        public long ImplicitThreadDataOffset
         {
             get
             {
-                ulong offset;
+                long offset;
                 TryGetImplicitThreadDataOffset(out offset).ThrowDbgEngNotOK();
 
                 return offset;
@@ -1202,12 +1202,12 @@ namespace ClrDebug.DbgEng
         /// thread, see Threads and Processes. For details on the KTHREAD structure and TEB, see Microsoft Windows Internals
         /// by David Solomon and Mark Russinovich.
         /// </remarks>
-        public HRESULT TryGetImplicitThreadDataOffset(out ulong offset)
+        public HRESULT TryGetImplicitThreadDataOffset(out long offset)
         {
             InitDelegate(ref getImplicitThreadDataOffset, Vtbl2->GetImplicitThreadDataOffset);
 
             /*HRESULT GetImplicitThreadDataOffset(
-            [Out] out ulong Offset);*/
+            [Out] out long Offset);*/
             return getImplicitThreadDataOffset(Raw, out offset);
         }
 
@@ -1221,12 +1221,12 @@ namespace ClrDebug.DbgEng
         /// In kernel-mode debugging, the data structure is the KTHREAD structure for the process. In user-mode debugging,
         /// the data structure is the thread environment block (TEB) for the process.
         /// </remarks>
-        public HRESULT TrySetImplicitThreadDataOffset(ulong offset)
+        public HRESULT TrySetImplicitThreadDataOffset(long offset)
         {
             InitDelegate(ref setImplicitThreadDataOffset, Vtbl2->SetImplicitThreadDataOffset);
 
             /*HRESULT SetImplicitThreadDataOffset(
-            [In] ulong Offset);*/
+            [In] long Offset);*/
             return setImplicitThreadDataOffset(Raw, offset);
         }
 
@@ -1236,11 +1236,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetImplicitProcessDataOffset method returns the implicit process for the current target.
         /// </summary>
-        public ulong ImplicitProcessDataOffset
+        public long ImplicitProcessDataOffset
         {
             get
             {
-                ulong offset;
+                long offset;
                 TryGetImplicitProcessDataOffset(out offset).ThrowDbgEngNotOK();
 
                 return offset;
@@ -1262,12 +1262,12 @@ namespace ClrDebug.DbgEng
         /// process, see Threads and Processes. For details on the KPROCESS and PEB structures, see Microsoft Windows Internals
         /// by David Solomon and Mark Russinovich.
         /// </remarks>
-        public HRESULT TryGetImplicitProcessDataOffset(out ulong offset)
+        public HRESULT TryGetImplicitProcessDataOffset(out long offset)
         {
             InitDelegate(ref getImplicitProcessDataOffset, Vtbl2->GetImplicitProcessDataOffset);
 
             /*HRESULT GetImplicitProcessDataOffset(
-            [Out] out ulong Offset);*/
+            [Out] out long Offset);*/
             return getImplicitProcessDataOffset(Raw, out offset);
         }
 
@@ -1281,12 +1281,12 @@ namespace ClrDebug.DbgEng
         /// In kernel-mode debugging, the data structure is the KPROCESS structure for the process. In user-mode debugging,
         /// the data structure is the process environment block (PEB) for the process.
         /// </remarks>
-        public HRESULT TrySetImplicitProcessDataOffset(ulong offset)
+        public HRESULT TrySetImplicitProcessDataOffset(long offset)
         {
             InitDelegate(ref setImplicitProcessDataOffset, Vtbl2->SetImplicitProcessDataOffset);
 
             /*HRESULT SetImplicitProcessDataOffset(
-            [In] ulong Offset);*/
+            [In] long Offset);*/
             return setImplicitProcessDataOffset(Raw, offset);
         }
 
@@ -1298,11 +1298,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetEventSystem method returns the engine target ID for the target in which the last event occurred.
         /// </summary>
-        public uint EventSystem
+        public int EventSystem
         {
             get
             {
-                uint id;
+                int id;
                 TryGetEventSystem(out id).ThrowDbgEngNotOK();
 
                 return id;
@@ -1314,11 +1314,11 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="id">[out] Receives the engine target ID.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
-        public HRESULT TryGetEventSystem(out uint id)
+        public HRESULT TryGetEventSystem(out int id)
         {
             InitDelegate(ref getEventSystem, Vtbl3->GetEventSystem);
 
-            /*HRESULT GetEventSystem([Out] out uint Id);*/
+            /*HRESULT GetEventSystem([Out] out int Id);*/
             return getEventSystem(Raw, out id);
         }
 
@@ -1328,11 +1328,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetCurrentSystemId method returns the engine target ID for the current process.
         /// </summary>
-        public uint CurrentSystemId
+        public int CurrentSystemId
         {
             get
             {
-                uint id;
+                int id;
                 TryGetCurrentSystemId(out id).ThrowDbgEngNotOK();
 
                 return id;
@@ -1348,11 +1348,11 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="id">[out] Receives the engine target ID.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
-        public HRESULT TryGetCurrentSystemId(out uint id)
+        public HRESULT TryGetCurrentSystemId(out int id)
         {
             InitDelegate(ref getCurrentSystemId, Vtbl3->GetCurrentSystemId);
 
-            /*HRESULT GetCurrentSystemId([Out] out uint Id);*/
+            /*HRESULT GetCurrentSystemId([Out] out int Id);*/
             return getCurrentSystemId(Raw, out id);
         }
 
@@ -1366,11 +1366,11 @@ namespace ClrDebug.DbgEng
         /// target is changed, the callback <see cref="IDebugEventCallbacks.ChangeEngineState"/> will be called with the DEBUG_CES_CURRENT_THREAD
         /// bit set.
         /// </remarks>
-        public HRESULT TrySetCurrentSystemId(uint id)
+        public HRESULT TrySetCurrentSystemId(int id)
         {
             InitDelegate(ref setCurrentSystemId, Vtbl3->SetCurrentSystemId);
 
-            /*HRESULT SetCurrentSystemId([In] uint Id);*/
+            /*HRESULT SetCurrentSystemId([In] int Id);*/
             return setCurrentSystemId(Raw, id);
         }
 
@@ -1380,11 +1380,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetNumberSystems method returns the number of targets to which the engine is currently connected.
         /// </summary>
-        public uint NumberSystems
+        public int NumberSystems
         {
             get
             {
-                uint count;
+                int count;
                 TryGetNumberSystems(out count).ThrowDbgEngNotOK();
 
                 return count;
@@ -1396,11 +1396,11 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="count">[out] Receives the number of targets.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
-        public HRESULT TryGetNumberSystems(out uint count)
+        public HRESULT TryGetNumberSystems(out int count)
         {
             InitDelegate(ref getNumberSystems, Vtbl3->GetNumberSystems);
 
-            /*HRESULT GetNumberSystems([Out] out uint Count);*/
+            /*HRESULT GetNumberSystems([Out] out int Count);*/
             return getNumberSystems(Raw, out count);
         }
 
@@ -1433,16 +1433,16 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getTotalNumberThreadsAndProcesses, Vtbl3->GetTotalNumberThreadsAndProcesses);
             /*HRESULT GetTotalNumberThreadsAndProcesses(
-            [Out] out uint TotalThreads,
-            [Out] out uint TotalProcesses,
-            [Out] out uint LargestProcessThreads,
-            [Out] out uint LargestSystemThreads,
-            [Out] out uint LargestSystemProcesses);*/
-            uint totalThreads;
-            uint totalProcesses;
-            uint largestProcessThreads;
-            uint largestSystemThreads;
-            uint largestSystemProcesses;
+            [Out] out int TotalThreads,
+            [Out] out int TotalProcesses,
+            [Out] out int LargestProcessThreads,
+            [Out] out int LargestSystemThreads,
+            [Out] out int LargestSystemProcesses);*/
+            int totalThreads;
+            int totalProcesses;
+            int largestProcessThreads;
+            int largestSystemThreads;
+            int largestSystemProcesses;
             HRESULT hr = getTotalNumberThreadsAndProcesses(Raw, out totalThreads, out totalProcesses, out largestProcessThreads, out largestSystemThreads, out largestSystemProcesses);
 
             if (hr == HRESULT.S_OK)
@@ -1459,11 +1459,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Gets the server for the current process.
         /// </summary>
-        public ulong CurrentSystemServer
+        public long CurrentSystemServer
         {
             get
             {
-                ulong server;
+                long server;
                 TryGetCurrentSystemServer(out server).ThrowDbgEngNotOK();
 
                 return server;
@@ -1475,11 +1475,11 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="server">[out] A pointer to the returned server value.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
-        public HRESULT TryGetCurrentSystemServer(out ulong server)
+        public HRESULT TryGetCurrentSystemServer(out long server)
         {
             InitDelegate(ref getCurrentSystemServer, Vtbl3->GetCurrentSystemServer);
 
-            /*HRESULT GetCurrentSystemServer([Out] out ulong server);*/
+            /*HRESULT GetCurrentSystemServer([Out] out long server);*/
             return getCurrentSystemServer(Raw, out server);
         }
 
@@ -1508,17 +1508,17 @@ namespace ClrDebug.DbgEng
         public HRESULT TryGetCurrentSystemServerName(out string bufferResult)
         {
             InitDelegate(ref getCurrentSystemServerName, Vtbl3->GetCurrentSystemServerName);
-            /*HRESULT GetCurrentSystemServerName([Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] uint Size, [Out] out uint Needed);*/
+            /*HRESULT GetCurrentSystemServerName([Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int Size, [Out] out int Needed);*/
             StringBuilder buffer;
-            uint size = 0;
-            uint needed;
+            int size = 0;
+            int needed;
             HRESULT hr = getCurrentSystemServerName(Raw, null, size, out needed);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             size = needed;
-            buffer = new StringBuilder((int) size);
+            buffer = new StringBuilder(size);
             hr = getCurrentSystemServerName(Raw, buffer, size, out needed);
 
             if (hr == HRESULT.S_OK)
@@ -1547,9 +1547,9 @@ namespace ClrDebug.DbgEng
         /// The index of the first target is zero. The index of the last target is the number of targets returned by <see cref="NumberSystems"/>
         /// minus one.
         /// </remarks>
-        public uint[] GetSystemIdsByIndex(uint start, uint count)
+        public int[] GetSystemIdsByIndex(int start, int count)
         {
-            uint[] ids;
+            int[] ids;
             TryGetSystemIdsByIndex(start, count, out ids).ThrowDbgEngNotOK();
 
             return ids;
@@ -1566,14 +1566,14 @@ namespace ClrDebug.DbgEng
         /// The index of the first target is zero. The index of the last target is the number of targets returned by <see cref="NumberSystems"/>
         /// minus one.
         /// </remarks>
-        public HRESULT TryGetSystemIdsByIndex(uint start, uint count, out uint[] ids)
+        public HRESULT TryGetSystemIdsByIndex(int start, int count, out int[] ids)
         {
             InitDelegate(ref getSystemIdsByIndex, Vtbl3->GetSystemIdsByIndex);
             /*HRESULT GetSystemIdsByIndex(
-            [In] uint Start,
-            [In] uint Count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Ids);*/
-            ids = new uint[(int) count];
+            [In] int Start,
+            [In] int Count,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Ids);*/
+            ids = new int[count];
             HRESULT hr = getSystemIdsByIndex(Raw, start, count, ids);
 
             return hr;
@@ -1582,19 +1582,19 @@ namespace ClrDebug.DbgEng
         #endregion
         #region GetSystemByServer
 
-        public uint GetSystemByServer(ulong server)
+        public int GetSystemByServer(long server)
         {
-            uint id;
+            int id;
             TryGetSystemByServer(server, out id).ThrowDbgEngNotOK();
 
             return id;
         }
 
-        public HRESULT TryGetSystemByServer(ulong server, out uint id)
+        public HRESULT TryGetSystemByServer(long server, out int id)
         {
             InitDelegate(ref getSystemByServer, Vtbl3->GetSystemByServer);
 
-            /*HRESULT GetSystemByServer([In] ulong Server, [Out] out uint Id);*/
+            /*HRESULT GetSystemByServer([In] long Server, [Out] out int Id);*/
             return getSystemByServer(Raw, server, out id);
         }
 
@@ -1631,18 +1631,18 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getCurrentProcessExecutableNameWide, Vtbl4->GetCurrentProcessExecutableNameWide);
             /*HRESULT GetCurrentProcessExecutableNameWide(
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
-            [In] uint BufferSize,
-            [Out] out uint ExeSize);*/
+            [In] int BufferSize,
+            [Out] out int ExeSize);*/
             StringBuilder buffer;
-            uint bufferSize = 0;
-            uint exeSize;
+            int bufferSize = 0;
+            int exeSize;
             HRESULT hr = getCurrentProcessExecutableNameWide(Raw, null, bufferSize, out exeSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = exeSize;
-            buffer = new StringBuilder((int) bufferSize);
+            buffer = new StringBuilder(bufferSize);
             hr = getCurrentProcessExecutableNameWide(Raw, buffer, bufferSize, out exeSize);
 
             if (hr == HRESULT.S_OK)
@@ -1685,18 +1685,18 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getCurrentSystemServerNameWide, Vtbl4->GetCurrentSystemServerNameWide);
             /*HRESULT GetCurrentSystemServerNameWide(
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
-            [In] uint BufferSize,
-            [Out] out uint NameSize);*/
+            [In] int BufferSize,
+            [Out] out int NameSize);*/
             StringBuilder buffer;
-            uint bufferSize = 0;
-            uint nameSize;
+            int bufferSize = 0;
+            int nameSize;
             HRESULT hr = getCurrentSystemServerNameWide(Raw, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
-            buffer = new StringBuilder((int) bufferSize);
+            buffer = new StringBuilder(bufferSize);
             hr = getCurrentSystemServerNameWide(Raw, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
@@ -1825,63 +1825,63 @@ namespace ClrDebug.DbgEng
         #region Delegates
         #region IDebugSystemObjects
 
-        private delegate HRESULT GetEventThreadDelegate(IntPtr self, [Out] out uint Id);
-        private delegate HRESULT GetEventProcessDelegate(IntPtr self, [Out] out uint Id);
-        private delegate HRESULT GetCurrentThreadIdDelegate(IntPtr self, [Out] out uint Id);
-        private delegate HRESULT SetCurrentThreadIdDelegate(IntPtr self, [In] uint Id);
-        private delegate HRESULT GetCurrentProcessIdDelegate(IntPtr self, [Out] out uint Id);
-        private delegate HRESULT SetCurrentProcessIdDelegate(IntPtr self, [In] uint Id);
-        private delegate HRESULT GetNumberThreadsDelegate(IntPtr self, [Out] out uint Number);
-        private delegate HRESULT GetTotalNumberThreadsDelegate(IntPtr self, [Out] out uint Total, [Out] out uint LargestProcess);
-        private delegate HRESULT GetCurrentThreadDataOffsetDelegate(IntPtr self, [Out] out ulong Offset);
-        private delegate HRESULT GetCurrentThreadTebDelegate(IntPtr self, [Out] out ulong Offset);
-        private delegate HRESULT GetCurrentThreadSystemIdDelegate(IntPtr self, [Out] out uint SysId);
-        private delegate HRESULT GetCurrentThreadHandleDelegate(IntPtr self, [Out] out ulong Handle);
-        private delegate HRESULT GetNumberProcessesDelegate(IntPtr self, [Out] out uint Number);
-        private delegate HRESULT GetCurrentProcessDataOffsetDelegate(IntPtr self, [Out] out ulong Offset);
-        private delegate HRESULT GetCurrentProcessPebDelegate(IntPtr self, [Out] out ulong Offset);
-        private delegate HRESULT GetCurrentProcessSystemIdDelegate(IntPtr self, [Out] out uint SysId);
-        private delegate HRESULT GetCurrentProcessHandleDelegate(IntPtr self, [Out] out ulong Handle);
-        private delegate HRESULT GetCurrentProcessExecutableNameDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint ExeSize);
-        private delegate HRESULT GetThreadIdsByIndexDelegate(IntPtr self, [In] uint Start, [In] uint Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Ids, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] SysIds);
-        private delegate HRESULT GetThreadIdByProcessorDelegate(IntPtr self, [In] uint Processor, [Out] out uint Id);
-        private delegate HRESULT GetThreadIdByDataOffsetDelegate(IntPtr self, [In] ulong Offset, [Out] out uint Id);
-        private delegate HRESULT GetThreadIdByTebDelegate(IntPtr self, [In] ulong Offset, [Out] out uint Id);
-        private delegate HRESULT GetThreadIdBySystemIdDelegate(IntPtr self, [In] uint SysId, [Out] out uint Id);
-        private delegate HRESULT GetThreadIdByHandleDelegate(IntPtr self, [In] ulong Handle, [Out] out uint Id);
-        private delegate HRESULT GetProcessIdsByIndexDelegate(IntPtr self, [In] uint Start, [In] uint Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Ids, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] SysIds);
-        private delegate HRESULT GetProcessIdByDataOffsetDelegate(IntPtr self, [In] ulong Offset, [Out] out uint Id);
-        private delegate HRESULT GetProcessIdByPebDelegate(IntPtr self, [In] ulong Offset, [Out] out uint Id);
-        private delegate HRESULT GetProcessIdBySystemIdDelegate(IntPtr self, [In] uint SysId, [Out] out uint Id);
-        private delegate HRESULT GetProcessIdByHandleDelegate(IntPtr self, [In] ulong Handle, [Out] out uint Id);
+        private delegate HRESULT GetEventThreadDelegate(IntPtr self, [Out] out int Id);
+        private delegate HRESULT GetEventProcessDelegate(IntPtr self, [Out] out int Id);
+        private delegate HRESULT GetCurrentThreadIdDelegate(IntPtr self, [Out] out int Id);
+        private delegate HRESULT SetCurrentThreadIdDelegate(IntPtr self, [In] int Id);
+        private delegate HRESULT GetCurrentProcessIdDelegate(IntPtr self, [Out] out int Id);
+        private delegate HRESULT SetCurrentProcessIdDelegate(IntPtr self, [In] int Id);
+        private delegate HRESULT GetNumberThreadsDelegate(IntPtr self, [Out] out int Number);
+        private delegate HRESULT GetTotalNumberThreadsDelegate(IntPtr self, [Out] out int Total, [Out] out int LargestProcess);
+        private delegate HRESULT GetCurrentThreadDataOffsetDelegate(IntPtr self, [Out] out long Offset);
+        private delegate HRESULT GetCurrentThreadTebDelegate(IntPtr self, [Out] out long Offset);
+        private delegate HRESULT GetCurrentThreadSystemIdDelegate(IntPtr self, [Out] out int SysId);
+        private delegate HRESULT GetCurrentThreadHandleDelegate(IntPtr self, [Out] out long Handle);
+        private delegate HRESULT GetNumberProcessesDelegate(IntPtr self, [Out] out int Number);
+        private delegate HRESULT GetCurrentProcessDataOffsetDelegate(IntPtr self, [Out] out long Offset);
+        private delegate HRESULT GetCurrentProcessPebDelegate(IntPtr self, [Out] out long Offset);
+        private delegate HRESULT GetCurrentProcessSystemIdDelegate(IntPtr self, [Out] out int SysId);
+        private delegate HRESULT GetCurrentProcessHandleDelegate(IntPtr self, [Out] out long Handle);
+        private delegate HRESULT GetCurrentProcessExecutableNameDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int ExeSize);
+        private delegate HRESULT GetThreadIdsByIndexDelegate(IntPtr self, [In] int Start, [In] int Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Ids, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] SysIds);
+        private delegate HRESULT GetThreadIdByProcessorDelegate(IntPtr self, [In] int Processor, [Out] out int Id);
+        private delegate HRESULT GetThreadIdByDataOffsetDelegate(IntPtr self, [In] long Offset, [Out] out int Id);
+        private delegate HRESULT GetThreadIdByTebDelegate(IntPtr self, [In] long Offset, [Out] out int Id);
+        private delegate HRESULT GetThreadIdBySystemIdDelegate(IntPtr self, [In] int SysId, [Out] out int Id);
+        private delegate HRESULT GetThreadIdByHandleDelegate(IntPtr self, [In] long Handle, [Out] out int Id);
+        private delegate HRESULT GetProcessIdsByIndexDelegate(IntPtr self, [In] int Start, [In] int Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Ids, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] SysIds);
+        private delegate HRESULT GetProcessIdByDataOffsetDelegate(IntPtr self, [In] long Offset, [Out] out int Id);
+        private delegate HRESULT GetProcessIdByPebDelegate(IntPtr self, [In] long Offset, [Out] out int Id);
+        private delegate HRESULT GetProcessIdBySystemIdDelegate(IntPtr self, [In] int SysId, [Out] out int Id);
+        private delegate HRESULT GetProcessIdByHandleDelegate(IntPtr self, [In] long Handle, [Out] out int Id);
 
         #endregion
         #region IDebugSystemObjects2
 
-        private delegate HRESULT GetCurrentProcessUpTimeDelegate(IntPtr self, [Out] out uint UpTime);
-        private delegate HRESULT GetImplicitThreadDataOffsetDelegate(IntPtr self, [Out] out ulong Offset);
-        private delegate HRESULT SetImplicitThreadDataOffsetDelegate(IntPtr self, [In] ulong Offset);
-        private delegate HRESULT GetImplicitProcessDataOffsetDelegate(IntPtr self, [Out] out ulong Offset);
-        private delegate HRESULT SetImplicitProcessDataOffsetDelegate(IntPtr self, [In] ulong Offset);
+        private delegate HRESULT GetCurrentProcessUpTimeDelegate(IntPtr self, [Out] out int UpTime);
+        private delegate HRESULT GetImplicitThreadDataOffsetDelegate(IntPtr self, [Out] out long Offset);
+        private delegate HRESULT SetImplicitThreadDataOffsetDelegate(IntPtr self, [In] long Offset);
+        private delegate HRESULT GetImplicitProcessDataOffsetDelegate(IntPtr self, [Out] out long Offset);
+        private delegate HRESULT SetImplicitProcessDataOffsetDelegate(IntPtr self, [In] long Offset);
 
         #endregion
         #region IDebugSystemObjects3
 
-        private delegate HRESULT GetEventSystemDelegate(IntPtr self, [Out] out uint Id);
-        private delegate HRESULT GetCurrentSystemIdDelegate(IntPtr self, [Out] out uint Id);
-        private delegate HRESULT SetCurrentSystemIdDelegate(IntPtr self, [In] uint Id);
-        private delegate HRESULT GetNumberSystemsDelegate(IntPtr self, [Out] out uint Count);
-        private delegate HRESULT GetTotalNumberThreadsAndProcessesDelegate(IntPtr self, [Out] out uint TotalThreads, [Out] out uint TotalProcesses, [Out] out uint LargestProcessThreads, [Out] out uint LargestSystemThreads, [Out] out uint LargestSystemProcesses);
-        private delegate HRESULT GetCurrentSystemServerDelegate(IntPtr self, [Out] out ulong server);
-        private delegate HRESULT GetCurrentSystemServerNameDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] uint Size, [Out] out uint Needed);
-        private delegate HRESULT GetSystemIdsByIndexDelegate(IntPtr self, [In] uint Start, [In] uint Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] Ids);
-        private delegate HRESULT GetSystemByServerDelegate(IntPtr self, [In] ulong Server, [Out] out uint Id);
+        private delegate HRESULT GetEventSystemDelegate(IntPtr self, [Out] out int Id);
+        private delegate HRESULT GetCurrentSystemIdDelegate(IntPtr self, [Out] out int Id);
+        private delegate HRESULT SetCurrentSystemIdDelegate(IntPtr self, [In] int Id);
+        private delegate HRESULT GetNumberSystemsDelegate(IntPtr self, [Out] out int Count);
+        private delegate HRESULT GetTotalNumberThreadsAndProcessesDelegate(IntPtr self, [Out] out int TotalThreads, [Out] out int TotalProcesses, [Out] out int LargestProcessThreads, [Out] out int LargestSystemThreads, [Out] out int LargestSystemProcesses);
+        private delegate HRESULT GetCurrentSystemServerDelegate(IntPtr self, [Out] out long server);
+        private delegate HRESULT GetCurrentSystemServerNameDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int Size, [Out] out int Needed);
+        private delegate HRESULT GetSystemIdsByIndexDelegate(IntPtr self, [In] int Start, [In] int Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Ids);
+        private delegate HRESULT GetSystemByServerDelegate(IntPtr self, [In] long Server, [Out] out int Id);
 
         #endregion
         #region IDebugSystemObjects4
 
-        private delegate HRESULT GetCurrentProcessExecutableNameWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] uint BufferSize, [Out] out uint ExeSize);
-        private delegate HRESULT GetCurrentSystemServerNameWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] uint BufferSize, [Out] out uint NameSize);
+        private delegate HRESULT GetCurrentProcessExecutableNameWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int ExeSize);
+        private delegate HRESULT GetCurrentSystemServerNameWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int NameSize);
 
         #endregion
         #endregion

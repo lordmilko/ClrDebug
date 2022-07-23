@@ -10,8 +10,8 @@ namespace ClrDebug
     {
         public NTSTATUS ExceptionCode;
         public ExceptionFlags ExceptionFlags;
-        public ulong ExceptionRecord;
-        public ulong ExceptionAddress;
+        public long ExceptionRecord;
+        public long ExceptionAddress;
         public int NumberParameters;
         public int __unusedAlignment;
         public fixed long ExceptionInformation[15];

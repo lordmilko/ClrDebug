@@ -23,11 +23,11 @@ namespace ClrDebug.DbgEng
         /// The Application Verifier flags. Only used if DEBUG_ECREATE_PROCESS_USE_VERIFIER_FLAGS is set in the EngCreateFlags field.<para/>
         /// For possible values, see the Application Verifier documentation.
         /// </summary>
-        public uint VerifierFlags;
+        public int VerifierFlags;
 
         /// <summary>
         /// Set to zero.
         /// </summary>
-        public uint Reserved;
+        public int Reserved;
     }
 }

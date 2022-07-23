@@ -22,76 +22,76 @@ namespace ClrDebug.DbgEng
         DEBUG_STATUS Breakpoint(
             [In, ComAliasName("IDebugBreakpoint2")] IntPtr bp,
             [In] ref DEBUG_EVENT_CONTEXT context,
-            [In] uint contextSize);
+            [In] int contextSize);
 
         [PreserveSig]
         DEBUG_STATUS Exception(
             [In] ref EXCEPTION_RECORD64 exception,
-            [In] uint firstChance,
+            [In] int firstChance,
             [In] ref DEBUG_EVENT_CONTEXT context,
-            [In] uint contextSize);
+            [In] int contextSize);
 
         [PreserveSig]
         DEBUG_STATUS CreateThread(
-            [In] ulong handle,
-            [In] ulong dataOffset,
-            [In] ulong startOffset,
+            [In] long handle,
+            [In] long dataOffset,
+            [In] long startOffset,
             [In] ref DEBUG_EVENT_CONTEXT context,
-            [In] uint contextSize);
+            [In] int contextSize);
 
         [PreserveSig]
         DEBUG_STATUS ExitThread(
-            [In] uint exitCode,
+            [In] int exitCode,
             [In] ref DEBUG_EVENT_CONTEXT context,
-            [In] uint contextSize);
+            [In] int contextSize);
 
         [PreserveSig]
         DEBUG_STATUS CreateProcess(
-            [In] ulong imageFileHandle,
-            [In] ulong handle,
-            [In] ulong baseOffset,
-            [In] uint moduleSize,
+            [In] long imageFileHandle,
+            [In] long handle,
+            [In] long baseOffset,
+            [In] int moduleSize,
             [In, MarshalAs(UnmanagedType.LPWStr)] string moduleName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string imageName,
-            [In] uint checkSum,
-            [In] uint timeDateStamp,
-            [In] ulong initialThreadHandle,
-            [In] ulong threadDataOffset,
-            [In] ulong startOffset,
+            [In] int checkSum,
+            [In] int timeDateStamp,
+            [In] long initialThreadHandle,
+            [In] long threadDataOffset,
+            [In] long startOffset,
             [In] ref DEBUG_EVENT_CONTEXT context,
-            [In] uint contextSize);
+            [In] int contextSize);
 
         [PreserveSig]
         DEBUG_STATUS ExitProcess(
-            [In] uint exitCode,
+            [In] int exitCode,
             [In] ref DEBUG_EVENT_CONTEXT context,
-            [In] uint contextSize);
+            [In] int contextSize);
 
         [PreserveSig]
         DEBUG_STATUS LoadModule(
-            [In] ulong imageFileHandle,
-            [In] ulong baseOffset,
-            [In] uint moduleSize,
+            [In] long imageFileHandle,
+            [In] long baseOffset,
+            [In] int moduleSize,
             [In, MarshalAs(UnmanagedType.LPWStr)] string moduleName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string imageName,
-            [In] uint checkSum,
-            [In] uint timeDateStamp,
+            [In] int checkSum,
+            [In] int timeDateStamp,
             [In] ref DEBUG_EVENT_CONTEXT context,
-            [In] uint contextSize);
+            [In] int contextSize);
 
         [PreserveSig]
         DEBUG_STATUS UnloadModule(
             [In, MarshalAs(UnmanagedType.LPWStr)] string imageBaseName,
-            [In] ulong baseOffset,
+            [In] long baseOffset,
             [In] ref DEBUG_EVENT_CONTEXT context,
-            [In] uint contextSize);
+            [In] int contextSize);
 
         [PreserveSig]
         DEBUG_STATUS SystemError(
-            [In] uint error,
-            [In] uint level,
+            [In] int error,
+            [In] int level,
             [In] ref DEBUG_EVENT_CONTEXT context,
-            [In] uint contextSize);
+            [In] int contextSize);
 
         [PreserveSig]
         HRESULT SessionStatus(
@@ -100,20 +100,20 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT ChangeDebuggeeState(
             [In] DEBUG_CDS flags,
-            [In] ulong argument,
+            [In] long argument,
             [In] ref DEBUG_EVENT_CONTEXT context,
-            [In] uint contextSize);
+            [In] int contextSize);
 
         [PreserveSig]
         HRESULT ChangeEngineState(
             [In] DEBUG_CES flags,
-            [In] ulong argument,
+            [In] long argument,
             [In] ref DEBUG_EVENT_CONTEXT context,
-            [In] uint contextSize);
+            [In] int contextSize);
 
         [PreserveSig]
         HRESULT ChangeSymbolState(
             [In] DEBUG_CSS flags,
-            [In] ulong argument);
+            [In] long argument);
     }
 }

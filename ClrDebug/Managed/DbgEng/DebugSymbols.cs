@@ -131,10 +131,10 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getNumberModules, Vtbl->GetNumberModules);
             /*HRESULT GetNumberModules(
-            [Out] out uint Loaded,
-            [Out] out uint Unloaded);*/
-            uint loaded;
-            uint unloaded;
+            [Out] out int Loaded,
+            [Out] out int Unloaded);*/
+            int loaded;
+            int unloaded;
             HRESULT hr = getNumberModules(Raw, out loaded, out unloaded);
 
             if (hr == HRESULT.S_OK)
@@ -182,16 +182,16 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetSymbolPath(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint PathSize);*/
+            [Out] out int PathSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint pathSize;
+            int pathSize;
             HRESULT hr = getSymbolPath(Raw, null, bufferSize, out pathSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) pathSize;
+            bufferSize = pathSize;
             buffer = new StringBuilder(bufferSize);
             hr = getSymbolPath(Raw, buffer, bufferSize, out pathSize);
 
@@ -264,16 +264,16 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetImagePath(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint PathSize);*/
+            [Out] out int PathSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint pathSize;
+            int pathSize;
             HRESULT hr = getImagePath(Raw, null, bufferSize, out pathSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) pathSize;
+            bufferSize = pathSize;
             buffer = new StringBuilder(bufferSize);
             hr = getImagePath(Raw, buffer, bufferSize, out pathSize);
 
@@ -345,16 +345,16 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetSourcePath(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint PathSize);*/
+            [Out] out int PathSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint pathSize;
+            int pathSize;
             HRESULT hr = getSourcePath(Raw, null, bufferSize, out pathSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) pathSize;
+            bufferSize = pathSize;
             buffer = new StringBuilder(bufferSize);
             hr = getSourcePath(Raw, buffer, bufferSize, out pathSize);
 
@@ -477,7 +477,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols and symbol names, see Symbols.
         /// </remarks>
-        public GetNameByOffsetResult GetNameByOffset(ulong offset)
+        public GetNameByOffsetResult GetNameByOffset(long offset)
         {
             GetNameByOffsetResult result;
             TryGetNameByOffset(offset, out result).ThrowDbgEngNotOK();
@@ -494,25 +494,25 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols and symbol names, see Symbols.
         /// </remarks>
-        public HRESULT TryGetNameByOffset(ulong offset, out GetNameByOffsetResult result)
+        public HRESULT TryGetNameByOffset(long offset, out GetNameByOffsetResult result)
         {
             InitDelegate(ref getNameByOffset, Vtbl->GetNameByOffset);
             /*HRESULT GetNameByOffset(
-            [In] ulong Offset,
+            [In] long Offset,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
-            [Out] out uint NameSize,
-            [Out] out ulong Displacement);*/
+            [Out] out int NameSize,
+            [Out] out long Displacement);*/
             StringBuilder nameBuffer;
             int nameBufferSize = 0;
-            uint nameSize;
-            ulong displacement;
+            int nameSize;
+            long displacement;
             HRESULT hr = getNameByOffset(Raw, offset, null, nameBufferSize, out nameSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            nameBufferSize = (int) nameSize;
+            nameBufferSize = nameSize;
             nameBuffer = new StringBuilder(nameBufferSize);
             hr = getNameByOffset(Raw, offset, nameBuffer, nameBufferSize, out nameSize, out displacement);
 
@@ -547,9 +547,9 @@ namespace ClrDebug.DbgEng
         /// for a lot of modules. If the symbol name is qualified with a module name, the engine only searches the symbols
         /// for that module. For more information about symbols and symbol names, see Symbols.
         /// </remarks>
-        public ulong GetOffsetByName(string symbol)
+        public long GetOffsetByName(string symbol)
         {
-            ulong offset;
+            long offset;
             TryGetOffsetByName(symbol, out offset).ThrowDbgEngNotOK();
 
             return offset;
@@ -571,13 +571,13 @@ namespace ClrDebug.DbgEng
         /// for a lot of modules. If the symbol name is qualified with a module name, the engine only searches the symbols
         /// for that module. For more information about symbols and symbol names, see Symbols.
         /// </remarks>
-        public HRESULT TryGetOffsetByName(string symbol, out ulong offset)
+        public HRESULT TryGetOffsetByName(string symbol, out long offset)
         {
             InitDelegate(ref getOffsetByName, Vtbl->GetOffsetByName);
 
             /*HRESULT GetOffsetByName(
             [In, MarshalAs(UnmanagedType.LPStr)] string Symbol,
-            [Out] out ulong Offset);*/
+            [Out] out long Offset);*/
             return getOffsetByName(Raw, symbol, out offset);
         }
 
@@ -596,7 +596,7 @@ namespace ClrDebug.DbgEng
         /// starting at a particular location. If Delta is zero, these methods behave the same way as <see cref="GetNameByOffset"/>.
         /// For more information about symbols and symbol names, see Symbols.
         /// </remarks>
-        public GetNearNameByOffsetResult GetNearNameByOffset(ulong offset, int delta)
+        public GetNearNameByOffsetResult GetNearNameByOffset(long offset, int delta)
         {
             GetNearNameByOffsetResult result;
             TryGetNearNameByOffset(offset, delta, out result).ThrowDbgEngNotOK();
@@ -617,26 +617,26 @@ namespace ClrDebug.DbgEng
         /// starting at a particular location. If Delta is zero, these methods behave the same way as <see cref="GetNameByOffset"/>.
         /// For more information about symbols and symbol names, see Symbols.
         /// </remarks>
-        public HRESULT TryGetNearNameByOffset(ulong offset, int delta, out GetNearNameByOffsetResult result)
+        public HRESULT TryGetNearNameByOffset(long offset, int delta, out GetNearNameByOffsetResult result)
         {
             InitDelegate(ref getNearNameByOffset, Vtbl->GetNearNameByOffset);
             /*HRESULT GetNearNameByOffset(
-            [In] ulong Offset,
+            [In] long Offset,
             [In] int Delta,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
-            [Out] out uint NameSize,
-            [Out] out ulong Displacement);*/
+            [Out] out int NameSize,
+            [Out] out long Displacement);*/
             StringBuilder nameBuffer;
             int nameBufferSize = 0;
-            uint nameSize;
-            ulong displacement;
+            int nameSize;
+            long displacement;
             HRESULT hr = getNearNameByOffset(Raw, offset, delta, null, nameBufferSize, out nameSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            nameBufferSize = (int) nameSize;
+            nameBufferSize = nameSize;
             nameBuffer = new StringBuilder(nameBufferSize);
             hr = getNearNameByOffset(Raw, offset, delta, nameBuffer, nameBufferSize, out nameSize, out displacement);
 
@@ -664,7 +664,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about source files, see Using Source Files.
         /// </remarks>
-        public GetLineByOffsetResult GetLineByOffset(ulong offset)
+        public GetLineByOffsetResult GetLineByOffset(long offset)
         {
             GetLineByOffsetResult result;
             TryGetLineByOffset(offset, out result).ThrowDbgEngNotOK();
@@ -681,27 +681,27 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about source files, see Using Source Files.
         /// </remarks>
-        public HRESULT TryGetLineByOffset(ulong offset, out GetLineByOffsetResult result)
+        public HRESULT TryGetLineByOffset(long offset, out GetLineByOffsetResult result)
         {
             InitDelegate(ref getLineByOffset, Vtbl->GetLineByOffset);
             /*HRESULT GetLineByOffset(
-            [In] ulong Offset,
-            [Out] out uint Line,
+            [In] long Offset,
+            [Out] out int Line,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder FileBuffer,
             [In] int FileBufferSize,
-            [Out] out uint FileSize,
-            [Out] out ulong Displacement);*/
-            uint line;
+            [Out] out int FileSize,
+            [Out] out long Displacement);*/
+            int line;
             StringBuilder fileBuffer;
             int fileBufferSize = 0;
-            uint fileSize;
-            ulong displacement;
+            int fileSize;
+            long displacement;
             HRESULT hr = getLineByOffset(Raw, offset, out line, null, fileBufferSize, out fileSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            fileBufferSize = (int) fileSize;
+            fileBufferSize = fileSize;
             fileBuffer = new StringBuilder(fileBufferSize);
             hr = getLineByOffset(Raw, offset, out line, fileBuffer, fileBufferSize, out fileSize, out displacement);
 
@@ -731,9 +731,9 @@ namespace ClrDebug.DbgEng
         /// A line in a source file might correspond to multiple instructions and this method can return any one of these instructions.
         /// For more information about source files, see Using Source Files.
         /// </remarks>
-        public ulong GetOffsetByLine(uint line, string file)
+        public long GetOffsetByLine(int line, string file)
         {
-            ulong offset;
+            long offset;
             TryGetOffsetByLine(line, file, out offset).ThrowDbgEngNotOK();
 
             return offset;
@@ -750,14 +750,14 @@ namespace ClrDebug.DbgEng
         /// A line in a source file might correspond to multiple instructions and this method can return any one of these instructions.
         /// For more information about source files, see Using Source Files.
         /// </remarks>
-        public HRESULT TryGetOffsetByLine(uint line, string file, out ulong offset)
+        public HRESULT TryGetOffsetByLine(int line, string file, out long offset)
         {
             InitDelegate(ref getOffsetByLine, Vtbl->GetOffsetByLine);
 
             /*HRESULT GetOffsetByLine(
-            [In] uint Line,
+            [In] int Line,
             [In, MarshalAs(UnmanagedType.LPStr)] string File,
-            [Out] out ulong Offset);*/
+            [Out] out long Offset);*/
             return getOffsetByLine(Raw, line, file, out offset);
         }
 
@@ -772,9 +772,9 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about modules, see Modules.
         /// </remarks>
-        public ulong GetModuleByIndex(uint index)
+        public long GetModuleByIndex(int index)
         {
-            ulong @base;
+            long @base;
             TryGetModuleByIndex(index, out @base).ThrowDbgEngNotOK();
 
             return @base;
@@ -789,13 +789,13 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about modules, see Modules.
         /// </remarks>
-        public HRESULT TryGetModuleByIndex(uint index, out ulong @base)
+        public HRESULT TryGetModuleByIndex(int index, out long @base)
         {
             InitDelegate(ref getModuleByIndex, Vtbl->GetModuleByIndex);
 
             /*HRESULT GetModuleByIndex(
-            [In] uint Index,
-            [Out] out ulong Base);*/
+            [In] int Index,
+            [Out] out long Base);*/
             return getModuleByIndex(Raw, index, out @base);
         }
 
@@ -813,7 +813,7 @@ namespace ClrDebug.DbgEng
         /// target has more than one module with this name, then subsequent modules can be found by repeated calls to these
         /// methods with higher values of StartIndex. For more information about modules, see Modules.
         /// </remarks>
-        public GetModuleByModuleNameResult GetModuleByModuleName(string name, uint startIndex)
+        public GetModuleByModuleNameResult GetModuleByModuleName(string name, int startIndex)
         {
             GetModuleByModuleNameResult result;
             TryGetModuleByModuleName(name, startIndex, out result).ThrowDbgEngNotOK();
@@ -833,16 +833,16 @@ namespace ClrDebug.DbgEng
         /// target has more than one module with this name, then subsequent modules can be found by repeated calls to these
         /// methods with higher values of StartIndex. For more information about modules, see Modules.
         /// </remarks>
-        public HRESULT TryGetModuleByModuleName(string name, uint startIndex, out GetModuleByModuleNameResult result)
+        public HRESULT TryGetModuleByModuleName(string name, int startIndex, out GetModuleByModuleNameResult result)
         {
             InitDelegate(ref getModuleByModuleName, Vtbl->GetModuleByModuleName);
             /*HRESULT GetModuleByModuleName(
             [In, MarshalAs(UnmanagedType.LPStr)] string Name,
-            [In] uint StartIndex,
-            [Out] out uint Index,
-            [Out] out ulong Base);*/
-            uint index;
-            ulong @base;
+            [In] int StartIndex,
+            [Out] out int Index,
+            [Out] out long Base);*/
+            int index;
+            long @base;
             HRESULT hr = getModuleByModuleName(Raw, name, startIndex, out index, out @base);
 
             if (hr == HRESULT.S_OK)
@@ -868,7 +868,7 @@ namespace ClrDebug.DbgEng
         /// this location, then subsequent modules can be found by repeated calls to this method with higher values of StartIndex.
         /// For more information about modules, see Modules.
         /// </remarks>
-        public GetModuleByOffsetResult GetModuleByOffset(ulong offset, uint startIndex)
+        public GetModuleByOffsetResult GetModuleByOffset(long offset, int startIndex)
         {
             GetModuleByOffsetResult result;
             TryGetModuleByOffset(offset, startIndex, out result).ThrowDbgEngNotOK();
@@ -889,16 +889,16 @@ namespace ClrDebug.DbgEng
         /// this location, then subsequent modules can be found by repeated calls to this method with higher values of StartIndex.
         /// For more information about modules, see Modules.
         /// </remarks>
-        public HRESULT TryGetModuleByOffset(ulong offset, uint startIndex, out GetModuleByOffsetResult result)
+        public HRESULT TryGetModuleByOffset(long offset, int startIndex, out GetModuleByOffsetResult result)
         {
             InitDelegate(ref getModuleByOffset, Vtbl->GetModuleByOffset);
             /*HRESULT GetModuleByOffset(
-            [In] ulong Offset,
-            [In] uint StartIndex,
-            [Out] out uint Index,
-            [Out] out ulong Base);*/
-            uint index;
-            ulong @base;
+            [In] long Offset,
+            [In] int StartIndex,
+            [Out] out int Index,
+            [Out] out long Base);*/
+            int index;
+            long @base;
             HRESULT hr = getModuleByOffset(Raw, offset, startIndex, out index, out @base);
 
             if (hr == HRESULT.S_OK)
@@ -921,7 +921,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about modules, see Modules.
         /// </remarks>
-        public GetModuleNamesResult GetModuleNames(uint index, ulong @base)
+        public GetModuleNamesResult GetModuleNames(int index, long @base)
         {
             GetModuleNamesResult result;
             TryGetModuleNames(index, @base, out result).ThrowDbgEngNotOK();
@@ -939,40 +939,40 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about modules, see Modules.
         /// </remarks>
-        public HRESULT TryGetModuleNames(uint index, ulong @base, out GetModuleNamesResult result)
+        public HRESULT TryGetModuleNames(int index, long @base, out GetModuleNamesResult result)
         {
             InitDelegate(ref getModuleNames, Vtbl->GetModuleNames);
             /*HRESULT GetModuleNames(
-            [In] uint Index,
-            [In] ulong Base,
+            [In] int Index,
+            [In] long Base,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder ImageNameBuffer,
             [In] int ImageNameBufferSize,
-            [Out] out uint ImageNameSize,
+            [Out] out int ImageNameSize,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder ModuleNameBuffer,
             [In] int ModuleNameBufferSize,
-            [Out] out uint ModuleNameSize,
+            [Out] out int ModuleNameSize,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder LoadedImageNameBuffer,
             [In] int LoadedImageNameBufferSize,
-            [Out] out uint LoadedImageNameSize);*/
+            [Out] out int LoadedImageNameSize);*/
             StringBuilder imageNameBuffer;
             int imageNameBufferSize = 0;
-            uint imageNameSize;
+            int imageNameSize;
             StringBuilder moduleNameBuffer;
             int moduleNameBufferSize = 0;
-            uint moduleNameSize;
+            int moduleNameSize;
             StringBuilder loadedImageNameBuffer;
             int loadedImageNameBufferSize = 0;
-            uint loadedImageNameSize;
+            int loadedImageNameSize;
             HRESULT hr = getModuleNames(Raw, index, @base, null, imageNameBufferSize, out imageNameSize, null, moduleNameBufferSize, out moduleNameSize, null, loadedImageNameBufferSize, out loadedImageNameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            imageNameBufferSize = (int) imageNameSize;
+            imageNameBufferSize = imageNameSize;
             imageNameBuffer = new StringBuilder(imageNameBufferSize);
-            moduleNameBufferSize = (int) moduleNameSize;
+            moduleNameBufferSize = moduleNameSize;
             moduleNameBuffer = new StringBuilder(moduleNameBufferSize);
-            loadedImageNameBufferSize = (int) loadedImageNameSize;
+            loadedImageNameBufferSize = loadedImageNameSize;
             loadedImageNameBuffer = new StringBuilder(loadedImageNameBufferSize);
             hr = getModuleNames(Raw, index, @base, imageNameBuffer, imageNameBufferSize, out imageNameSize, moduleNameBuffer, moduleNameBufferSize, out moduleNameSize, loadedImageNameBuffer, loadedImageNameBufferSize, out loadedImageNameSize);
 
@@ -1005,7 +1005,7 @@ namespace ClrDebug.DbgEng
         /// not be found have their Base field set to DEBUG_INVALID_OFFSET. See <see cref="DEBUG_MODULE_PARAMETERS"/>. For
         /// more information about modules, see Modules.
         /// </remarks>
-        public DEBUG_MODULE_PARAMETERS[] GetModuleParameters(uint count, ulong[] bases, uint start)
+        public DEBUG_MODULE_PARAMETERS[] GetModuleParameters(int count, long[] bases, int start)
         {
             DEBUG_MODULE_PARAMETERS[] @params;
             TryGetModuleParameters(count, bases, start, out @params).ThrowDbgEngNotOK();
@@ -1027,17 +1027,17 @@ namespace ClrDebug.DbgEng
         /// not be found have their Base field set to DEBUG_INVALID_OFFSET. See <see cref="DEBUG_MODULE_PARAMETERS"/>. For
         /// more information about modules, see Modules.
         /// </remarks>
-        public HRESULT TryGetModuleParameters(uint count, ulong[] bases, uint start, out DEBUG_MODULE_PARAMETERS[] @params)
+        public HRESULT TryGetModuleParameters(int count, long[] bases, int start, out DEBUG_MODULE_PARAMETERS[] @params)
         {
             InitDelegate(ref getModuleParameters, Vtbl->GetModuleParameters);
             /*HRESULT GetModuleParameters(
-            [In] uint Count,
+            [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]
-            ulong[] Bases,
-            [In] uint Start,
+            long[] Bases,
+            [In] int Start,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]
             DEBUG_MODULE_PARAMETERS[] Params);*/
-            @params = new DEBUG_MODULE_PARAMETERS[(int) count];
+            @params = new DEBUG_MODULE_PARAMETERS[count];
             HRESULT hr = getModuleParameters(Raw, count, bases, start, @params);
 
             return hr;
@@ -1057,9 +1057,9 @@ namespace ClrDebug.DbgEng
         /// return the module in which it is found. If Symbol contains just a module name (for example, mymodule!) the engine
         /// returns the first module with this module name. For more information about symbols, see Symbols.
         /// </remarks>
-        public ulong GetSymbolModule(string symbol)
+        public long GetSymbolModule(string symbol)
         {
-            ulong @base;
+            long @base;
             TryGetSymbolModule(symbol, out @base).ThrowDbgEngNotOK();
 
             return @base;
@@ -1077,13 +1077,13 @@ namespace ClrDebug.DbgEng
         /// return the module in which it is found. If Symbol contains just a module name (for example, mymodule!) the engine
         /// returns the first module with this module name. For more information about symbols, see Symbols.
         /// </remarks>
-        public HRESULT TryGetSymbolModule(string symbol, out ulong @base)
+        public HRESULT TryGetSymbolModule(string symbol, out long @base)
         {
             InitDelegate(ref getSymbolModule, Vtbl->GetSymbolModule);
 
             /*HRESULT GetSymbolModule(
             [In, MarshalAs(UnmanagedType.LPStr)] string Symbol,
-            [Out] out ulong Base);*/
+            [Out] out long Base);*/
             return getSymbolModule(Raw, symbol, out @base);
         }
 
@@ -1099,7 +1099,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public string GetTypeName(ulong module, uint typeId)
+        public string GetTypeName(long module, int typeId)
         {
             string nameBufferResult;
             TryGetTypeName(module, typeId, out nameBufferResult).ThrowDbgEngNotOK();
@@ -1117,24 +1117,24 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public HRESULT TryGetTypeName(ulong module, uint typeId, out string nameBufferResult)
+        public HRESULT TryGetTypeName(long module, int typeId, out string nameBufferResult)
         {
             InitDelegate(ref getTypeName, Vtbl->GetTypeName);
             /*HRESULT GetTypeName(
-            [In] ulong Module,
-            [In] uint TypeId,
+            [In] long Module,
+            [In] int TypeId,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
-            [Out] out uint NameSize);*/
+            [Out] out int NameSize);*/
             StringBuilder nameBuffer;
             int nameBufferSize = 0;
-            uint nameSize;
+            int nameSize;
             HRESULT hr = getTypeName(Raw, module, typeId, null, nameBufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            nameBufferSize = (int) nameSize;
+            nameBufferSize = nameSize;
             nameBuffer = new StringBuilder(nameBufferSize);
             hr = getTypeName(Raw, module, typeId, nameBuffer, nameBufferSize, out nameSize);
 
@@ -1168,9 +1168,9 @@ namespace ClrDebug.DbgEng
         /// calling these methods for MyStruct and MyType yields type IDs corresponding to MyStruct and MyType, respectively.
         /// For more information about symbols and symbol names, see Symbols.
         /// </remarks>
-        public uint GetTypeId(ulong module, string name)
+        public int GetTypeId(long module, string name)
         {
-            uint typeId;
+            int typeId;
             TryGetTypeId(module, name, out typeId).ThrowDbgEngNotOK();
 
             return typeId;
@@ -1191,14 +1191,14 @@ namespace ClrDebug.DbgEng
         /// calling these methods for MyStruct and MyType yields type IDs corresponding to MyStruct and MyType, respectively.
         /// For more information about symbols and symbol names, see Symbols.
         /// </remarks>
-        public HRESULT TryGetTypeId(ulong module, string name, out uint typeId)
+        public HRESULT TryGetTypeId(long module, string name, out int typeId)
         {
             InitDelegate(ref getTypeId, Vtbl->GetTypeId);
 
             /*HRESULT GetTypeId(
-            [In] ulong Module,
+            [In] long Module,
             [In, MarshalAs(UnmanagedType.LPStr)] string Name,
-            [Out] out uint TypeId);*/
+            [Out] out int TypeId);*/
             return getTypeId(Raw, module, name, out typeId);
         }
 
@@ -1214,9 +1214,9 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public uint GetTypeSize(ulong module, uint typeId)
+        public int GetTypeSize(long module, int typeId)
         {
-            uint size;
+            int size;
             TryGetTypeSize(module, typeId, out size).ThrowDbgEngNotOK();
 
             return size;
@@ -1232,14 +1232,14 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public HRESULT TryGetTypeSize(ulong module, uint typeId, out uint size)
+        public HRESULT TryGetTypeSize(long module, int typeId, out int size)
         {
             InitDelegate(ref getTypeSize, Vtbl->GetTypeSize);
 
             /*HRESULT GetTypeSize(
-            [In] ulong Module,
-            [In] uint TypeId,
-            [Out] out uint Size);*/
+            [In] long Module,
+            [In] int TypeId,
+            [Out] out int Size);*/
             return getTypeSize(Raw, module, typeId, out size);
         }
 
@@ -1259,9 +1259,9 @@ namespace ClrDebug.DbgEng
         /// of this field relative to the location of MyStruct structure can be found by setting the Field parameter to "MyField.MySubField".
         /// For more information about types, see Types.
         /// </remarks>
-        public uint GetFieldOffset(ulong module, uint typeId, string field)
+        public int GetFieldOffset(long module, int typeId, string field)
         {
-            uint offset;
+            int offset;
             TryGetFieldOffset(module, typeId, field, out offset).ThrowDbgEngNotOK();
 
             return offset;
@@ -1281,15 +1281,15 @@ namespace ClrDebug.DbgEng
         /// of this field relative to the location of MyStruct structure can be found by setting the Field parameter to "MyField.MySubField".
         /// For more information about types, see Types.
         /// </remarks>
-        public HRESULT TryGetFieldOffset(ulong module, uint typeId, string field, out uint offset)
+        public HRESULT TryGetFieldOffset(long module, int typeId, string field, out int offset)
         {
             InitDelegate(ref getFieldOffset, Vtbl->GetFieldOffset);
 
             /*HRESULT GetFieldOffset(
-            [In] ulong Module,
-            [In] uint TypeId,
+            [In] long Module,
+            [In] int TypeId,
             [In, MarshalAs(UnmanagedType.LPStr)] string Field,
-            [Out] out uint Offset);*/
+            [Out] out int Offset);*/
             return getFieldOffset(Raw, module, typeId, field, out offset);
         }
 
@@ -1328,10 +1328,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getSymbolTypeId, Vtbl->GetSymbolTypeId);
             /*HRESULT GetSymbolTypeId(
             [In, MarshalAs(UnmanagedType.LPStr)] string Symbol,
-            [Out] out uint TypeId,
-            [Out] out ulong Module);*/
-            uint typeId;
-            ulong module;
+            [Out] out int TypeId,
+            [Out] out long Module);*/
+            int typeId;
+            long module;
             HRESULT hr = getSymbolTypeId(Raw, symbol, out typeId, out module);
 
             if (hr == HRESULT.S_OK)
@@ -1353,7 +1353,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public GetOffsetTypeIdResult GetOffsetTypeId(ulong offset)
+        public GetOffsetTypeIdResult GetOffsetTypeId(long offset)
         {
             GetOffsetTypeIdResult result;
             TryGetOffsetTypeId(offset, out result).ThrowDbgEngNotOK();
@@ -1370,15 +1370,15 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public HRESULT TryGetOffsetTypeId(ulong offset, out GetOffsetTypeIdResult result)
+        public HRESULT TryGetOffsetTypeId(long offset, out GetOffsetTypeIdResult result)
         {
             InitDelegate(ref getOffsetTypeId, Vtbl->GetOffsetTypeId);
             /*HRESULT GetOffsetTypeId(
-            [In] ulong Offset,
-            [Out] out uint TypeId,
-            [Out] out ulong Module);*/
-            uint typeId;
-            ulong module;
+            [In] long Offset,
+            [Out] out int TypeId,
+            [Out] out long Module);*/
+            int typeId;
+            long module;
             HRESULT hr = getOffsetTypeId(Raw, offset, out typeId, out module);
 
             if (hr == HRESULT.S_OK)
@@ -1406,9 +1406,9 @@ namespace ClrDebug.DbgEng
         /// This is a convenience method. The same result can be obtained by calling <see cref="GetTypeSize"/> and <see cref="DebugDataSpaces.ReadVirtual"/>.
         /// For more information about types, see Types.
         /// </remarks>
-        public uint ReadTypedDataVirtual(ulong offset, ulong module, uint typeId, IntPtr buffer, uint bufferSize)
+        public int ReadTypedDataVirtual(long offset, long module, int typeId, IntPtr buffer, int bufferSize)
         {
-            uint bytesRead;
+            int bytesRead;
             TryReadTypedDataVirtual(offset, module, typeId, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOK();
 
             return bytesRead;
@@ -1429,17 +1429,17 @@ namespace ClrDebug.DbgEng
         /// This is a convenience method. The same result can be obtained by calling <see cref="GetTypeSize"/> and <see cref="DebugDataSpaces.ReadVirtual"/>.
         /// For more information about types, see Types.
         /// </remarks>
-        public HRESULT TryReadTypedDataVirtual(ulong offset, ulong module, uint typeId, IntPtr buffer, uint bufferSize, out uint bytesRead)
+        public HRESULT TryReadTypedDataVirtual(long offset, long module, int typeId, IntPtr buffer, int bufferSize, out int bytesRead)
         {
             InitDelegate(ref readTypedDataVirtual, Vtbl->ReadTypedDataVirtual);
 
             /*HRESULT ReadTypedDataVirtual(
-            [In] ulong Offset,
-            [In] ulong Module,
-            [In] uint TypeId,
+            [In] long Offset,
+            [In] long Module,
+            [In] int TypeId,
             [Out] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesRead);*/
+            [In] int BufferSize,
+            [Out] out int BytesRead);*/
             return readTypedDataVirtual(Raw, offset, module, typeId, buffer, bufferSize, out bytesRead);
         }
 
@@ -1459,9 +1459,9 @@ namespace ClrDebug.DbgEng
         /// This is a convenience method. The same result can be obtained by calling <see cref="GetTypeSize"/> and <see cref="DebugDataSpaces.WriteVirtual"/>.
         /// For more information about types, see Types.
         /// </remarks>
-        public uint WriteTypedDataVirtual(ulong offset, ulong module, uint typeId, IntPtr buffer, uint bufferSize)
+        public int WriteTypedDataVirtual(long offset, long module, int typeId, IntPtr buffer, int bufferSize)
         {
-            uint bytesWritten;
+            int bytesWritten;
             TryWriteTypedDataVirtual(offset, module, typeId, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOK();
 
             return bytesWritten;
@@ -1481,17 +1481,17 @@ namespace ClrDebug.DbgEng
         /// This is a convenience method. The same result can be obtained by calling <see cref="GetTypeSize"/> and <see cref="DebugDataSpaces.WriteVirtual"/>.
         /// For more information about types, see Types.
         /// </remarks>
-        public HRESULT TryWriteTypedDataVirtual(ulong offset, ulong module, uint typeId, IntPtr buffer, uint bufferSize, out uint bytesWritten)
+        public HRESULT TryWriteTypedDataVirtual(long offset, long module, int typeId, IntPtr buffer, int bufferSize, out int bytesWritten)
         {
             InitDelegate(ref writeTypedDataVirtual, Vtbl->WriteTypedDataVirtual);
 
             /*HRESULT WriteTypedDataVirtual(
-            [In] ulong Offset,
-            [In] ulong Module,
-            [In] uint TypeId,
+            [In] long Offset,
+            [In] long Module,
+            [In] int TypeId,
             [In] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesWritten);*/
+            [In] int BufferSize,
+            [Out] out int BytesWritten);*/
             return writeTypedDataVirtual(Raw, offset, module, typeId, buffer, bufferSize, out bytesWritten);
         }
 
@@ -1510,7 +1510,7 @@ namespace ClrDebug.DbgEng
         /// The output produced by this method is the same as for the debugger command DT. See dt (Display Type). For more
         /// information about types, see Types. For more information about output, see Input and Output.
         /// </remarks>
-        public void OutputTypedDataVirtual(DEBUG_OUTCTL outputControl, ulong offset, ulong module, uint typeId, DEBUG_TYPEOPTS flags)
+        public void OutputTypedDataVirtual(DEBUG_OUTCTL outputControl, long offset, long module, int typeId, DEBUG_TYPEOPTS flags)
         {
             TryOutputTypedDataVirtual(outputControl, offset, module, typeId, flags).ThrowDbgEngNotOK();
         }
@@ -1528,15 +1528,15 @@ namespace ClrDebug.DbgEng
         /// The output produced by this method is the same as for the debugger command DT. See dt (Display Type). For more
         /// information about types, see Types. For more information about output, see Input and Output.
         /// </remarks>
-        public HRESULT TryOutputTypedDataVirtual(DEBUG_OUTCTL outputControl, ulong offset, ulong module, uint typeId, DEBUG_TYPEOPTS flags)
+        public HRESULT TryOutputTypedDataVirtual(DEBUG_OUTCTL outputControl, long offset, long module, int typeId, DEBUG_TYPEOPTS flags)
         {
             InitDelegate(ref outputTypedDataVirtual, Vtbl->OutputTypedDataVirtual);
 
             /*HRESULT OutputTypedDataVirtual(
             [In] DEBUG_OUTCTL OutputControl,
-            [In] ulong Offset,
-            [In] ulong Module,
-            [In] uint TypeId,
+            [In] long Offset,
+            [In] long Module,
+            [In] int TypeId,
             [In] DEBUG_TYPEOPTS Flags);*/
             return outputTypedDataVirtual(Raw, outputControl, offset, module, typeId, flags);
         }
@@ -1559,9 +1559,9 @@ namespace ClrDebug.DbgEng
         /// be obtained by calling <see cref="GetTypeSize"/> and <see cref="DebugDataSpaces.ReadPhysical"/>. For more information
         /// about types, see Types.
         /// </remarks>
-        public uint ReadTypedDataPhysical(ulong offset, ulong module, uint typeId, IntPtr buffer, uint bufferSize)
+        public int ReadTypedDataPhysical(long offset, long module, int typeId, IntPtr buffer, int bufferSize)
         {
-            uint bytesRead;
+            int bytesRead;
             TryReadTypedDataPhysical(offset, module, typeId, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOK();
 
             return bytesRead;
@@ -1583,17 +1583,17 @@ namespace ClrDebug.DbgEng
         /// be obtained by calling <see cref="GetTypeSize"/> and <see cref="DebugDataSpaces.ReadPhysical"/>. For more information
         /// about types, see Types.
         /// </remarks>
-        public HRESULT TryReadTypedDataPhysical(ulong offset, ulong module, uint typeId, IntPtr buffer, uint bufferSize, out uint bytesRead)
+        public HRESULT TryReadTypedDataPhysical(long offset, long module, int typeId, IntPtr buffer, int bufferSize, out int bytesRead)
         {
             InitDelegate(ref readTypedDataPhysical, Vtbl->ReadTypedDataPhysical);
 
             /*HRESULT ReadTypedDataPhysical(
-            [In] ulong Offset,
-            [In] ulong Module,
-            [In] uint TypeId,
+            [In] long Offset,
+            [In] long Module,
+            [In] int TypeId,
             [In] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesRead);*/
+            [In] int BufferSize,
+            [Out] out int BytesRead);*/
             return readTypedDataPhysical(Raw, offset, module, typeId, buffer, bufferSize, out bytesRead);
         }
 
@@ -1614,9 +1614,9 @@ namespace ClrDebug.DbgEng
         /// smaller of the size of the buffer and the size of the variable. This is a convenience method. The same result can
         /// be obtained by calling <see cref="GetTypeSize"/> and WritePhysical. For more information about types, see Types.
         /// </remarks>
-        public uint WriteTypedDataPhysical(ulong offset, ulong module, uint typeId, IntPtr buffer, uint bufferSize)
+        public int WriteTypedDataPhysical(long offset, long module, int typeId, IntPtr buffer, int bufferSize)
         {
-            uint bytesWritten;
+            int bytesWritten;
             TryWriteTypedDataPhysical(offset, module, typeId, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOK();
 
             return bytesWritten;
@@ -1637,17 +1637,17 @@ namespace ClrDebug.DbgEng
         /// smaller of the size of the buffer and the size of the variable. This is a convenience method. The same result can
         /// be obtained by calling <see cref="GetTypeSize"/> and WritePhysical. For more information about types, see Types.
         /// </remarks>
-        public HRESULT TryWriteTypedDataPhysical(ulong offset, ulong module, uint typeId, IntPtr buffer, uint bufferSize, out uint bytesWritten)
+        public HRESULT TryWriteTypedDataPhysical(long offset, long module, int typeId, IntPtr buffer, int bufferSize, out int bytesWritten)
         {
             InitDelegate(ref writeTypedDataPhysical, Vtbl->WriteTypedDataPhysical);
 
             /*HRESULT WriteTypedDataPhysical(
-            [In] ulong Offset,
-            [In] ulong Module,
-            [In] uint TypeId,
+            [In] long Offset,
+            [In] long Module,
+            [In] int TypeId,
             [In] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesWritten);*/
+            [In] int BufferSize,
+            [Out] out int BytesWritten);*/
             return writeTypedDataPhysical(Raw, offset, module, typeId, buffer, bufferSize, out bytesWritten);
         }
 
@@ -1667,7 +1667,7 @@ namespace ClrDebug.DbgEng
         /// debugger command DT. See dt (Display Type). For more information about types, see Types. For information about
         /// output, see Input and Output.
         /// </remarks>
-        public void OutputTypedDataPhysical(DEBUG_OUTCTL outputControl, ulong offset, ulong module, uint typeId, DEBUG_TYPEOPTS flags)
+        public void OutputTypedDataPhysical(DEBUG_OUTCTL outputControl, long offset, long module, int typeId, DEBUG_TYPEOPTS flags)
         {
             TryOutputTypedDataPhysical(outputControl, offset, module, typeId, flags).ThrowDbgEngNotOK();
         }
@@ -1686,15 +1686,15 @@ namespace ClrDebug.DbgEng
         /// debugger command DT. See dt (Display Type). For more information about types, see Types. For information about
         /// output, see Input and Output.
         /// </remarks>
-        public HRESULT TryOutputTypedDataPhysical(DEBUG_OUTCTL outputControl, ulong offset, ulong module, uint typeId, DEBUG_TYPEOPTS flags)
+        public HRESULT TryOutputTypedDataPhysical(DEBUG_OUTCTL outputControl, long offset, long module, int typeId, DEBUG_TYPEOPTS flags)
         {
             InitDelegate(ref outputTypedDataPhysical, Vtbl->OutputTypedDataPhysical);
 
             /*HRESULT OutputTypedDataPhysical(
             [In] DEBUG_OUTCTL OutputControl,
-            [In] ulong Offset,
-            [In] ulong Module,
-            [In] uint TypeId,
+            [In] long Offset,
+            [In] long Module,
+            [In] int TypeId,
             [In] DEBUG_TYPEOPTS Flags);*/
             return outputTypedDataPhysical(Raw, outputControl, offset, module, typeId, flags);
         }
@@ -1712,7 +1712,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about scopes, see Scopes and Symbol Groups.
         /// </remarks>
-        public GetScopeResult GetScope(IntPtr scopeContext, uint scopeContextSize)
+        public GetScopeResult GetScope(IntPtr scopeContext, int scopeContextSize)
         {
             GetScopeResult result;
             TryGetScope(scopeContext, scopeContextSize, out result).ThrowDbgEngNotOK();
@@ -1731,15 +1731,15 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about scopes, see Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TryGetScope(IntPtr scopeContext, uint scopeContextSize, out GetScopeResult result)
+        public HRESULT TryGetScope(IntPtr scopeContext, int scopeContextSize, out GetScopeResult result)
         {
             InitDelegate(ref getScope, Vtbl->GetScope);
             /*HRESULT GetScope(
-            [Out] out ulong InstructionOffset,
+            [Out] out long InstructionOffset,
             [Out] out DEBUG_STACK_FRAME ScopeFrame,
             [In] IntPtr ScopeContext,
-            [In] uint ScopeContextSize);*/
-            ulong instructionOffset;
+            [In] int ScopeContextSize);*/
+            long instructionOffset;
             DEBUG_STACK_FRAME scopeFrame;
             HRESULT hr = getScope(Raw, out instructionOffset, out scopeFrame, scopeContext, scopeContextSize);
 
@@ -1769,7 +1769,7 @@ namespace ClrDebug.DbgEng
         /// to a frame on the current stack, <see cref="SetScopeFrameByIndex"/> can be used. For more information
         /// about scopes, see Scopes and Symbol Groups.
         /// </remarks>
-        public void SetScope(ulong instructionOffset, DEBUG_STACK_FRAME scopeFrame, IntPtr scopeContext, uint scopeContextSize)
+        public void SetScope(long instructionOffset, DEBUG_STACK_FRAME scopeFrame, IntPtr scopeContext, int scopeContextSize)
         {
             TrySetScope(instructionOffset, scopeFrame, scopeContext, scopeContextSize).ThrowDbgEngNotOK();
         }
@@ -1790,15 +1790,15 @@ namespace ClrDebug.DbgEng
         /// to a frame on the current stack, <see cref="SetScopeFrameByIndex"/> can be used. For more information
         /// about scopes, see Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TrySetScope(ulong instructionOffset, DEBUG_STACK_FRAME scopeFrame, IntPtr scopeContext, uint scopeContextSize)
+        public HRESULT TrySetScope(long instructionOffset, DEBUG_STACK_FRAME scopeFrame, IntPtr scopeContext, int scopeContextSize)
         {
             InitDelegate(ref setScope, Vtbl->SetScope);
 
             /*HRESULT SetScope(
-            [In] ulong InstructionOffset,
+            [In] long InstructionOffset,
             [In] DEBUG_STACK_FRAME ScopeFrame,
             [In] IntPtr ScopeContext,
-            [In] uint ScopeContextSize);*/
+            [In] int ScopeContextSize);*/
             return setScope(Raw, instructionOffset, scopeFrame, scopeContext, scopeContextSize);
         }
 
@@ -1949,9 +1949,9 @@ namespace ClrDebug.DbgEng
         /// When all the desired results have been found, use <see cref="EndSymbolMatch"/> to release resources the engine
         /// holds for the search. For more information about symbols, see Symbols.
         /// </remarks>
-        public ulong StartSymbolMatch(string pattern)
+        public long StartSymbolMatch(string pattern)
         {
-            ulong handle;
+            long handle;
             TryStartSymbolMatch(pattern, out handle).ThrowDbgEngNotOK();
 
             return handle;
@@ -1969,13 +1969,13 @@ namespace ClrDebug.DbgEng
         /// When all the desired results have been found, use <see cref="EndSymbolMatch"/> to release resources the engine
         /// holds for the search. For more information about symbols, see Symbols.
         /// </remarks>
-        public HRESULT TryStartSymbolMatch(string pattern, out ulong handle)
+        public HRESULT TryStartSymbolMatch(string pattern, out long handle)
         {
             InitDelegate(ref startSymbolMatch, Vtbl->StartSymbolMatch);
 
             /*HRESULT StartSymbolMatch(
             [In, MarshalAs(UnmanagedType.LPStr)] string Pattern,
-            [Out] out ulong Handle);*/
+            [Out] out long Handle);*/
             return startSymbolMatch(Raw, pattern, out handle);
         }
 
@@ -1992,7 +1992,7 @@ namespace ClrDebug.DbgEng
         /// found, <see cref="EndSymbolMatch"/> can be used to release the resources the engine holds for the search. For more
         /// information about symbols, see Symbols.
         /// </remarks>
-        public GetNextSymbolMatchResult GetNextSymbolMatch(ulong handle)
+        public GetNextSymbolMatchResult GetNextSymbolMatch(long handle)
         {
             GetNextSymbolMatchResult result;
             TryGetNextSymbolMatch(handle, out result).ThrowDbgEngNotOK();
@@ -2011,25 +2011,25 @@ namespace ClrDebug.DbgEng
         /// found, <see cref="EndSymbolMatch"/> can be used to release the resources the engine holds for the search. For more
         /// information about symbols, see Symbols.
         /// </remarks>
-        public HRESULT TryGetNextSymbolMatch(ulong handle, out GetNextSymbolMatchResult result)
+        public HRESULT TryGetNextSymbolMatch(long handle, out GetNextSymbolMatchResult result)
         {
             InitDelegate(ref getNextSymbolMatch, Vtbl->GetNextSymbolMatch);
             /*HRESULT GetNextSymbolMatch(
-            [In] ulong Handle,
+            [In] long Handle,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint MatchSize,
-            [Out] out ulong Offset);*/
+            [Out] out int MatchSize,
+            [Out] out long Offset);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint matchSize;
-            ulong offset;
+            int matchSize;
+            long offset;
             HRESULT hr = getNextSymbolMatch(Raw, handle, null, bufferSize, out matchSize, out offset);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) matchSize;
+            bufferSize = matchSize;
             buffer = new StringBuilder(bufferSize);
             hr = getNextSymbolMatch(Raw, handle, buffer, bufferSize, out matchSize, out offset);
 
@@ -2058,7 +2058,7 @@ namespace ClrDebug.DbgEng
         /// the handle becomes invalid, so it must not be passed to <see cref="GetNextSymbolMatch"/> after it has been passed
         /// to this method. For more information about symbols, see Symbols.
         /// </remarks>
-        public void EndSymbolMatch(ulong handle)
+        public void EndSymbolMatch(long handle)
         {
             TryEndSymbolMatch(handle).ThrowDbgEngNotOK();
         }
@@ -2073,12 +2073,12 @@ namespace ClrDebug.DbgEng
         /// the handle becomes invalid, so it must not be passed to <see cref="GetNextSymbolMatch"/> after it has been passed
         /// to this method. For more information about symbols, see Symbols.
         /// </remarks>
-        public HRESULT TryEndSymbolMatch(ulong handle)
+        public HRESULT TryEndSymbolMatch(long handle)
         {
             InitDelegate(ref endSymbolMatch, Vtbl->EndSymbolMatch);
 
             /*HRESULT EndSymbolMatch(
-            [In] ulong Handle);*/
+            [In] long Handle);*/
             return endSymbolMatch(Raw, handle);
         }
 
@@ -2202,7 +2202,7 @@ namespace ClrDebug.DbgEng
         /// The source path is used by the engine when searching for source files. For more information about manipulating
         /// the source path, see Using Source Files. For an overview of the source path and its syntax, see Source Path.
         /// </remarks>
-        public string GetSourcePathElement(uint index)
+        public string GetSourcePathElement(int index)
         {
             string bufferResult;
             TryGetSourcePathElement(index, out bufferResult).ThrowDbgEngNotOK();
@@ -2222,23 +2222,23 @@ namespace ClrDebug.DbgEng
         /// The source path is used by the engine when searching for source files. For more information about manipulating
         /// the source path, see Using Source Files. For an overview of the source path and its syntax, see Source Path.
         /// </remarks>
-        public HRESULT TryGetSourcePathElement(uint index, out string bufferResult)
+        public HRESULT TryGetSourcePathElement(int index, out string bufferResult)
         {
             InitDelegate(ref getSourcePathElement, Vtbl->GetSourcePathElement);
             /*HRESULT GetSourcePathElement(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint ElementSize);*/
+            [Out] out int ElementSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint elementSize;
+            int elementSize;
             HRESULT hr = getSourcePathElement(Raw, index, null, bufferSize, out elementSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) elementSize;
+            bufferSize = elementSize;
             buffer = new StringBuilder(bufferSize);
             hr = getSourcePathElement(Raw, index, buffer, bufferSize, out elementSize);
 
@@ -2309,7 +2309,7 @@ namespace ClrDebug.DbgEng
         /// is set, the match with the longest overlap is returned; otherwise, the first match is returned. The first match
         /// found is returned.
         /// </remarks>
-        public FindSourceFileResult FindSourceFile(uint startElement, string file, DEBUG_FIND_SOURCE flags)
+        public FindSourceFileResult FindSourceFile(int startElement, string file, DEBUG_FIND_SOURCE flags)
         {
             FindSourceFileResult result;
             TryFindSourceFile(startElement, file, flags, out result).ThrowDbgEngNotOK();
@@ -2333,27 +2333,27 @@ namespace ClrDebug.DbgEng
         /// is set, the match with the longest overlap is returned; otherwise, the first match is returned. The first match
         /// found is returned.
         /// </remarks>
-        public HRESULT TryFindSourceFile(uint startElement, string file, DEBUG_FIND_SOURCE flags, out FindSourceFileResult result)
+        public HRESULT TryFindSourceFile(int startElement, string file, DEBUG_FIND_SOURCE flags, out FindSourceFileResult result)
         {
             InitDelegate(ref findSourceFile, Vtbl->FindSourceFile);
             /*HRESULT FindSourceFile(
-            [In] uint StartElement,
+            [In] int StartElement,
             [In, MarshalAs(UnmanagedType.LPStr)] string File,
             [In] DEBUG_FIND_SOURCE Flags,
-            [Out] out uint FoundElement,
+            [Out] out int FoundElement,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint FoundSize);*/
-            uint foundElement;
+            [Out] out int FoundSize);*/
+            int foundElement;
             StringBuilder buffer;
             int bufferSize = 0;
-            uint foundSize;
+            int foundSize;
             HRESULT hr = findSourceFile(Raw, startElement, file, flags, out foundElement, null, bufferSize, out foundSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) foundSize;
+            bufferSize = foundSize;
             buffer = new StringBuilder(bufferSize);
             hr = findSourceFile(Raw, startElement, file, flags, out foundElement, buffer, bufferSize, out foundSize);
 
@@ -2384,9 +2384,9 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about using the source path, see Using Source Files.
         /// </remarks>
-        public ulong[] GetSourceFileLineOffsets(string file)
+        public long[] GetSourceFileLineOffsets(string file)
         {
-            ulong[] buffer;
+            long[] buffer;
             TryGetSourceFileLineOffsets(file, out buffer).ThrowDbgEngNotOK();
 
             return buffer;
@@ -2404,24 +2404,24 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about using the source path, see Using Source Files.
         /// </remarks>
-        public HRESULT TryGetSourceFileLineOffsets(string file, out ulong[] buffer)
+        public HRESULT TryGetSourceFileLineOffsets(string file, out long[] buffer)
         {
             InitDelegate(ref getSourceFileLineOffsets, Vtbl->GetSourceFileLineOffsets);
             /*HRESULT GetSourceFileLineOffsets(
             [In, MarshalAs(UnmanagedType.LPStr)] string File,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] long[] Buffer,
             [In] int BufferLines,
-            [Out] out uint FileLines);*/
+            [Out] out int FileLines);*/
             buffer = null;
             int bufferLines = 0;
-            uint fileLines;
+            int fileLines;
             HRESULT hr = getSourceFileLineOffsets(Raw, file, null, bufferLines, out fileLines);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferLines = (int) fileLines;
-            buffer = new ulong[bufferLines];
+            bufferLines = fileLines;
+            buffer = new long[bufferLines];
             hr = getSourceFileLineOffsets(Raw, file, buffer, bufferLines, out fileLines);
             fail:
             return hr;
@@ -2508,9 +2508,9 @@ namespace ClrDebug.DbgEng
         /// Module version information is available only for loaded modules and may not be available in all sessions. For more
         /// information about modules, see Modules.
         /// </remarks>
-        public uint GetModuleVersionInformation(uint index, ulong @base, string item, IntPtr buffer, uint bufferSize)
+        public int GetModuleVersionInformation(int index, long @base, string item, IntPtr buffer, int bufferSize)
         {
-            uint verInfoSize;
+            int verInfoSize;
             TryGetModuleVersionInformation(index, @base, item, buffer, bufferSize, out verInfoSize).ThrowDbgEngNotOK();
 
             return verInfoSize;
@@ -2533,17 +2533,17 @@ namespace ClrDebug.DbgEng
         /// Module version information is available only for loaded modules and may not be available in all sessions. For more
         /// information about modules, see Modules.
         /// </remarks>
-        public HRESULT TryGetModuleVersionInformation(uint index, ulong @base, string item, IntPtr buffer, uint bufferSize, out uint verInfoSize)
+        public HRESULT TryGetModuleVersionInformation(int index, long @base, string item, IntPtr buffer, int bufferSize, out int verInfoSize)
         {
             InitDelegate(ref getModuleVersionInformation, Vtbl2->GetModuleVersionInformation);
 
             /*HRESULT GetModuleVersionInformation(
-            [In] uint Index,
-            [In] ulong Base,
+            [In] int Index,
+            [In] long Base,
             [In, MarshalAs(UnmanagedType.LPStr)] string Item,
             [Out] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint VerInfoSize);*/
+            [In] int BufferSize,
+            [Out] out int VerInfoSize);*/
             return getModuleVersionInformation(Raw, index, @base, item, buffer, bufferSize, out verInfoSize);
         }
 
@@ -2561,7 +2561,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about modules, see Modules.
         /// </remarks>
-        public string GetModuleNameString(DEBUG_MODNAME which, uint index, ulong @base)
+        public string GetModuleNameString(DEBUG_MODNAME which, int index, long @base)
         {
             string bufferResult;
             TryGetModuleNameString(which, index, @base, out bufferResult).ThrowDbgEngNotOK();
@@ -2581,26 +2581,26 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about modules, see Modules.
         /// </remarks>
-        public HRESULT TryGetModuleNameString(DEBUG_MODNAME which, uint index, ulong @base, out string bufferResult)
+        public HRESULT TryGetModuleNameString(DEBUG_MODNAME which, int index, long @base, out string bufferResult)
         {
             InitDelegate(ref getModuleNameString, Vtbl2->GetModuleNameString);
             /*HRESULT GetModuleNameString(
             [In] DEBUG_MODNAME Which,
-            [In] uint Index,
-            [In] ulong Base,
+            [In] int Index,
+            [In] long Base,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
-            [In] uint BufferSize,
-            [Out] out uint NameSize);*/
+            [In] int BufferSize,
+            [Out] out int NameSize);*/
             StringBuilder buffer;
-            uint bufferSize = 0;
-            uint nameSize;
+            int bufferSize = 0;
+            int nameSize;
             HRESULT hr = getModuleNameString(Raw, which, index, @base, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = nameSize;
-            buffer = new StringBuilder((int) bufferSize);
+            buffer = new StringBuilder(bufferSize);
             hr = getModuleNameString(Raw, which, index, @base, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
@@ -2629,7 +2629,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public string GetConstantName(ulong module, uint typeId, ulong value)
+        public string GetConstantName(long module, int typeId, long value)
         {
             string bufferResult;
             TryGetConstantName(module, typeId, value, out bufferResult).ThrowDbgEngNotOK();
@@ -2648,25 +2648,25 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public HRESULT TryGetConstantName(ulong module, uint typeId, ulong value, out string bufferResult)
+        public HRESULT TryGetConstantName(long module, int typeId, long value, out string bufferResult)
         {
             InitDelegate(ref getConstantName, Vtbl2->GetConstantName);
             /*HRESULT GetConstantName(
-            [In] ulong Module,
-            [In] uint TypeId,
-            [In] ulong Value,
+            [In] long Module,
+            [In] int TypeId,
+            [In] long Value,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize);*/
+            [Out] out int NameSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint nameSize;
+            int nameSize;
             HRESULT hr = getConstantName(Raw, module, typeId, value, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) nameSize;
+            bufferSize = nameSize;
             buffer = new StringBuilder(bufferSize);
             hr = getConstantName(Raw, module, typeId, value, buffer, bufferSize, out nameSize);
 
@@ -2696,7 +2696,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public string GetFieldName(ulong module, uint typeId, uint fieldIndex)
+        public string GetFieldName(long module, int typeId, int fieldIndex)
         {
             string bufferResult;
             TryGetFieldName(module, typeId, fieldIndex, out bufferResult).ThrowDbgEngNotOK();
@@ -2715,25 +2715,25 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public HRESULT TryGetFieldName(ulong module, uint typeId, uint fieldIndex, out string bufferResult)
+        public HRESULT TryGetFieldName(long module, int typeId, int fieldIndex, out string bufferResult)
         {
             InitDelegate(ref getFieldName, Vtbl2->GetFieldName);
             /*HRESULT GetFieldName(
-            [In] ulong Module,
-            [In] uint TypeId,
-            [In] uint FieldIndex,
+            [In] long Module,
+            [In] int TypeId,
+            [In] int FieldIndex,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize);*/
+            [Out] out int NameSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint nameSize;
+            int nameSize;
             HRESULT hr = getFieldName(Raw, module, typeId, fieldIndex, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) nameSize;
+            bufferSize = nameSize;
             buffer = new StringBuilder(bufferSize);
             hr = getFieldName(Raw, module, typeId, fieldIndex, buffer, bufferSize, out nameSize);
 
@@ -2865,16 +2865,16 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetSymbolPathWide(
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint PathSize);*/
+            [Out] out int PathSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint pathSize;
+            int pathSize;
             HRESULT hr = getSymbolPathWide(Raw, null, bufferSize, out pathSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) pathSize;
+            bufferSize = pathSize;
             buffer = new StringBuilder(bufferSize);
             hr = getSymbolPathWide(Raw, buffer, bufferSize, out pathSize);
 
@@ -2947,16 +2947,16 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetImagePathWide(
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint PathSize);*/
+            [Out] out int PathSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint pathSize;
+            int pathSize;
             HRESULT hr = getImagePathWide(Raw, null, bufferSize, out pathSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) pathSize;
+            bufferSize = pathSize;
             buffer = new StringBuilder(bufferSize);
             hr = getImagePathWide(Raw, buffer, bufferSize, out pathSize);
 
@@ -3028,16 +3028,16 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetSourcePathWide(
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint PathSize);*/
+            [Out] out int PathSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint pathSize;
+            int pathSize;
             HRESULT hr = getSourcePathWide(Raw, null, bufferSize, out pathSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) pathSize;
+            bufferSize = pathSize;
             buffer = new StringBuilder(bufferSize);
             hr = getSourcePathWide(Raw, buffer, bufferSize, out pathSize);
 
@@ -3079,11 +3079,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetCurrentScopeFrameIndex method returns the index of the current stack frame in the call stack.
         /// </summary>
-        public uint CurrentScopeFrameIndex
+        public int CurrentScopeFrameIndex
         {
             get
             {
-                uint index;
+                int index;
                 TryGetCurrentScopeFrameIndex(out index).ThrowDbgEngNotOK();
 
                 return index;
@@ -3101,12 +3101,12 @@ namespace ClrDebug.DbgEng
         /// the DEBUG_STACK_TRACE structure passed to the ScopeFrame parameter of SetScope. For more information about scopes,
         /// see Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TryGetCurrentScopeFrameIndex(out uint index)
+        public HRESULT TryGetCurrentScopeFrameIndex(out int index)
         {
             InitDelegate(ref getCurrentScopeFrameIndex, Vtbl3->GetCurrentScopeFrameIndex);
 
             /*HRESULT GetCurrentScopeFrameIndex(
-            [Out] out uint Index);*/
+            [Out] out int Index);*/
             return getCurrentScopeFrameIndex(Raw, out index);
         }
 
@@ -3121,7 +3121,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols and symbol names, see Symbols.
         /// </remarks>
-        public GetNameByOffsetWideResult GetNameByOffsetWide(ulong offset)
+        public GetNameByOffsetWideResult GetNameByOffsetWide(long offset)
         {
             GetNameByOffsetWideResult result;
             TryGetNameByOffsetWide(offset, out result).ThrowDbgEngNotOK();
@@ -3138,25 +3138,25 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols and symbol names, see Symbols.
         /// </remarks>
-        public HRESULT TryGetNameByOffsetWide(ulong offset, out GetNameByOffsetWideResult result)
+        public HRESULT TryGetNameByOffsetWide(long offset, out GetNameByOffsetWideResult result)
         {
             InitDelegate(ref getNameByOffsetWide, Vtbl3->GetNameByOffsetWide);
             /*HRESULT GetNameByOffsetWide(
-            [In] ulong Offset,
+            [In] long Offset,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
-            [Out] out uint NameSize,
-            [Out] out ulong Displacement);*/
+            [Out] out int NameSize,
+            [Out] out long Displacement);*/
             StringBuilder nameBuffer;
             int nameBufferSize = 0;
-            uint nameSize;
-            ulong displacement;
+            int nameSize;
+            long displacement;
             HRESULT hr = getNameByOffsetWide(Raw, offset, null, nameBufferSize, out nameSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            nameBufferSize = (int) nameSize;
+            nameBufferSize = nameSize;
             nameBuffer = new StringBuilder(nameBufferSize);
             hr = getNameByOffsetWide(Raw, offset, nameBuffer, nameBufferSize, out nameSize, out displacement);
 
@@ -3191,9 +3191,9 @@ namespace ClrDebug.DbgEng
         /// for a lot of modules. If the symbol name is qualified with a module name, the engine only searches the symbols
         /// for that module. For more information about symbols and symbol names, see Symbols.
         /// </remarks>
-        public ulong GetOffsetByNameWide(string symbol)
+        public long GetOffsetByNameWide(string symbol)
         {
-            ulong offset;
+            long offset;
             TryGetOffsetByNameWide(symbol, out offset).ThrowDbgEngNotOK();
 
             return offset;
@@ -3215,13 +3215,13 @@ namespace ClrDebug.DbgEng
         /// for a lot of modules. If the symbol name is qualified with a module name, the engine only searches the symbols
         /// for that module. For more information about symbols and symbol names, see Symbols.
         /// </remarks>
-        public HRESULT TryGetOffsetByNameWide(string symbol, out ulong offset)
+        public HRESULT TryGetOffsetByNameWide(string symbol, out long offset)
         {
             InitDelegate(ref getOffsetByNameWide, Vtbl3->GetOffsetByNameWide);
 
             /*HRESULT GetOffsetByNameWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol,
-            [Out] out ulong Offset);*/
+            [Out] out long Offset);*/
             return getOffsetByNameWide(Raw, symbol, out offset);
         }
 
@@ -3240,7 +3240,7 @@ namespace ClrDebug.DbgEng
         /// starting at a particular location. If Delta is zero, these methods behave the same way as <see cref="GetNameByOffset"/>.
         /// For more information about symbols and symbol names, see Symbols.
         /// </remarks>
-        public GetNearNameByOffsetWideResult GetNearNameByOffsetWide(ulong offset, int delta)
+        public GetNearNameByOffsetWideResult GetNearNameByOffsetWide(long offset, int delta)
         {
             GetNearNameByOffsetWideResult result;
             TryGetNearNameByOffsetWide(offset, delta, out result).ThrowDbgEngNotOK();
@@ -3261,26 +3261,26 @@ namespace ClrDebug.DbgEng
         /// starting at a particular location. If Delta is zero, these methods behave the same way as <see cref="GetNameByOffset"/>.
         /// For more information about symbols and symbol names, see Symbols.
         /// </remarks>
-        public HRESULT TryGetNearNameByOffsetWide(ulong offset, int delta, out GetNearNameByOffsetWideResult result)
+        public HRESULT TryGetNearNameByOffsetWide(long offset, int delta, out GetNearNameByOffsetWideResult result)
         {
             InitDelegate(ref getNearNameByOffsetWide, Vtbl3->GetNearNameByOffsetWide);
             /*HRESULT GetNearNameByOffsetWide(
-            [In] ulong Offset,
+            [In] long Offset,
             [In] int Delta,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
-            [Out] out uint NameSize,
-            [Out] out ulong Displacement);*/
+            [Out] out int NameSize,
+            [Out] out long Displacement);*/
             StringBuilder nameBuffer;
             int nameBufferSize = 0;
-            uint nameSize;
-            ulong displacement;
+            int nameSize;
+            long displacement;
             HRESULT hr = getNearNameByOffsetWide(Raw, offset, delta, null, nameBufferSize, out nameSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            nameBufferSize = (int) nameSize;
+            nameBufferSize = nameSize;
             nameBuffer = new StringBuilder(nameBufferSize);
             hr = getNearNameByOffsetWide(Raw, offset, delta, nameBuffer, nameBufferSize, out nameSize, out displacement);
 
@@ -3308,7 +3308,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about source files, see Using Source Files.
         /// </remarks>
-        public GetLineByOffsetWideResult GetLineByOffsetWide(ulong offset)
+        public GetLineByOffsetWideResult GetLineByOffsetWide(long offset)
         {
             GetLineByOffsetWideResult result;
             TryGetLineByOffsetWide(offset, out result).ThrowDbgEngNotOK();
@@ -3325,27 +3325,27 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about source files, see Using Source Files.
         /// </remarks>
-        public HRESULT TryGetLineByOffsetWide(ulong offset, out GetLineByOffsetWideResult result)
+        public HRESULT TryGetLineByOffsetWide(long offset, out GetLineByOffsetWideResult result)
         {
             InitDelegate(ref getLineByOffsetWide, Vtbl3->GetLineByOffsetWide);
             /*HRESULT GetLineByOffsetWide(
-            [In] ulong Offset,
-            [Out] out uint Line,
+            [In] long Offset,
+            [Out] out int Line,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder FileBuffer,
             [In] int FileBufferSize,
-            [Out] out uint FileSize,
-            [Out] out ulong Displacement);*/
-            uint line;
+            [Out] out int FileSize,
+            [Out] out long Displacement);*/
+            int line;
             StringBuilder fileBuffer;
             int fileBufferSize = 0;
-            uint fileSize;
-            ulong displacement;
+            int fileSize;
+            long displacement;
             HRESULT hr = getLineByOffsetWide(Raw, offset, out line, null, fileBufferSize, out fileSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            fileBufferSize = (int) fileSize;
+            fileBufferSize = fileSize;
             fileBuffer = new StringBuilder(fileBufferSize);
             hr = getLineByOffsetWide(Raw, offset, out line, fileBuffer, fileBufferSize, out fileSize, out displacement);
 
@@ -3375,9 +3375,9 @@ namespace ClrDebug.DbgEng
         /// A line in a source file might correspond to multiple instructions and this method can return any one of these instructions.
         /// For more information about source files, see Using Source Files.
         /// </remarks>
-        public ulong GetOffsetByLineWide(uint line, string file)
+        public long GetOffsetByLineWide(int line, string file)
         {
-            ulong offset;
+            long offset;
             TryGetOffsetByLineWide(line, file, out offset).ThrowDbgEngNotOK();
 
             return offset;
@@ -3394,14 +3394,14 @@ namespace ClrDebug.DbgEng
         /// A line in a source file might correspond to multiple instructions and this method can return any one of these instructions.
         /// For more information about source files, see Using Source Files.
         /// </remarks>
-        public HRESULT TryGetOffsetByLineWide(uint line, string file, out ulong offset)
+        public HRESULT TryGetOffsetByLineWide(int line, string file, out long offset)
         {
             InitDelegate(ref getOffsetByLineWide, Vtbl3->GetOffsetByLineWide);
 
             /*HRESULT GetOffsetByLineWide(
-            [In] uint Line,
+            [In] int Line,
             [In, MarshalAs(UnmanagedType.LPWStr)] string File,
-            [Out] out ulong Offset);*/
+            [Out] out long Offset);*/
             return getOffsetByLineWide(Raw, line, file, out offset);
         }
 
@@ -3419,7 +3419,7 @@ namespace ClrDebug.DbgEng
         /// target has more than one module with this name, then subsequent modules can be found by repeated calls to these
         /// methods with higher values of StartIndex. For more information about modules, see Modules.
         /// </remarks>
-        public GetModuleByModuleNameWideResult GetModuleByModuleNameWide(string name, uint startIndex)
+        public GetModuleByModuleNameWideResult GetModuleByModuleNameWide(string name, int startIndex)
         {
             GetModuleByModuleNameWideResult result;
             TryGetModuleByModuleNameWide(name, startIndex, out result).ThrowDbgEngNotOK();
@@ -3439,16 +3439,16 @@ namespace ClrDebug.DbgEng
         /// target has more than one module with this name, then subsequent modules can be found by repeated calls to these
         /// methods with higher values of StartIndex. For more information about modules, see Modules.
         /// </remarks>
-        public HRESULT TryGetModuleByModuleNameWide(string name, uint startIndex, out GetModuleByModuleNameWideResult result)
+        public HRESULT TryGetModuleByModuleNameWide(string name, int startIndex, out GetModuleByModuleNameWideResult result)
         {
             InitDelegate(ref getModuleByModuleNameWide, Vtbl3->GetModuleByModuleNameWide);
             /*HRESULT GetModuleByModuleNameWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name,
-            [In] uint StartIndex,
-            [Out] out uint Index,
-            [Out] out ulong Base);*/
-            uint index;
-            ulong @base;
+            [In] int StartIndex,
+            [Out] out int Index,
+            [Out] out long Base);*/
+            int index;
+            long @base;
             HRESULT hr = getModuleByModuleNameWide(Raw, name, startIndex, out index, out @base);
 
             if (hr == HRESULT.S_OK)
@@ -3473,9 +3473,9 @@ namespace ClrDebug.DbgEng
         /// return the module in which it is found. If Symbol contains just a module name (for example, mymodule!) the engine
         /// returns the first module with this module name. For more information about symbols, see Symbols.
         /// </remarks>
-        public ulong GetSymbolModuleWide(string symbol)
+        public long GetSymbolModuleWide(string symbol)
         {
-            ulong @base;
+            long @base;
             TryGetSymbolModuleWide(symbol, out @base).ThrowDbgEngNotOK();
 
             return @base;
@@ -3493,13 +3493,13 @@ namespace ClrDebug.DbgEng
         /// return the module in which it is found. If Symbol contains just a module name (for example, mymodule!) the engine
         /// returns the first module with this module name. For more information about symbols, see Symbols.
         /// </remarks>
-        public HRESULT TryGetSymbolModuleWide(string symbol, out ulong @base)
+        public HRESULT TryGetSymbolModuleWide(string symbol, out long @base)
         {
             InitDelegate(ref getSymbolModuleWide, Vtbl3->GetSymbolModuleWide);
 
             /*HRESULT GetSymbolModuleWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol,
-            [Out] out ulong Base);*/
+            [Out] out long Base);*/
             return getSymbolModuleWide(Raw, symbol, out @base);
         }
 
@@ -3515,7 +3515,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public string GetTypeNameWide(ulong module, uint typeId)
+        public string GetTypeNameWide(long module, int typeId)
         {
             string nameBufferResult;
             TryGetTypeNameWide(module, typeId, out nameBufferResult).ThrowDbgEngNotOK();
@@ -3533,24 +3533,24 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public HRESULT TryGetTypeNameWide(ulong module, uint typeId, out string nameBufferResult)
+        public HRESULT TryGetTypeNameWide(long module, int typeId, out string nameBufferResult)
         {
             InitDelegate(ref getTypeNameWide, Vtbl3->GetTypeNameWide);
             /*HRESULT GetTypeNameWide(
-            [In] ulong Module,
-            [In] uint TypeId,
+            [In] long Module,
+            [In] int TypeId,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
-            [Out] out uint NameSize);*/
+            [Out] out int NameSize);*/
             StringBuilder nameBuffer;
             int nameBufferSize = 0;
-            uint nameSize;
+            int nameSize;
             HRESULT hr = getTypeNameWide(Raw, module, typeId, null, nameBufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            nameBufferSize = (int) nameSize;
+            nameBufferSize = nameSize;
             nameBuffer = new StringBuilder(nameBufferSize);
             hr = getTypeNameWide(Raw, module, typeId, nameBuffer, nameBufferSize, out nameSize);
 
@@ -3584,9 +3584,9 @@ namespace ClrDebug.DbgEng
         /// calling these methods for MyStruct and MyType yields type IDs corresponding to MyStruct and MyType, respectively.
         /// For more information about symbols and symbol names, see Symbols.
         /// </remarks>
-        public uint GetTypeIdWide(ulong module, string name)
+        public int GetTypeIdWide(long module, string name)
         {
-            uint typeId;
+            int typeId;
             TryGetTypeIdWide(module, name, out typeId).ThrowDbgEngNotOK();
 
             return typeId;
@@ -3607,14 +3607,14 @@ namespace ClrDebug.DbgEng
         /// calling these methods for MyStruct and MyType yields type IDs corresponding to MyStruct and MyType, respectively.
         /// For more information about symbols and symbol names, see Symbols.
         /// </remarks>
-        public HRESULT TryGetTypeIdWide(ulong module, string name, out uint typeId)
+        public HRESULT TryGetTypeIdWide(long module, string name, out int typeId)
         {
             InitDelegate(ref getTypeIdWide, Vtbl3->GetTypeIdWide);
 
             /*HRESULT GetTypeIdWide(
-            [In] ulong Module,
+            [In] long Module,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name,
-            [Out] out uint TypeId);*/
+            [Out] out int TypeId);*/
             return getTypeIdWide(Raw, module, name, out typeId);
         }
 
@@ -3634,9 +3634,9 @@ namespace ClrDebug.DbgEng
         /// of this field relative to the location of MyStruct structure can be found by setting the Field parameter to "MyField.MySubField".
         /// For more information about types, see Types.
         /// </remarks>
-        public uint GetFieldOffsetWide(ulong module, uint typeId, string field)
+        public int GetFieldOffsetWide(long module, int typeId, string field)
         {
-            uint offset;
+            int offset;
             TryGetFieldOffsetWide(module, typeId, field, out offset).ThrowDbgEngNotOK();
 
             return offset;
@@ -3656,15 +3656,15 @@ namespace ClrDebug.DbgEng
         /// of this field relative to the location of MyStruct structure can be found by setting the Field parameter to "MyField.MySubField".
         /// For more information about types, see Types.
         /// </remarks>
-        public HRESULT TryGetFieldOffsetWide(ulong module, uint typeId, string field, out uint offset)
+        public HRESULT TryGetFieldOffsetWide(long module, int typeId, string field, out int offset)
         {
             InitDelegate(ref getFieldOffsetWide, Vtbl3->GetFieldOffsetWide);
 
             /*HRESULT GetFieldOffsetWide(
-            [In] ulong Module,
-            [In] uint TypeId,
+            [In] long Module,
+            [In] int TypeId,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Field,
-            [Out] out uint Offset);*/
+            [Out] out int Offset);*/
             return getFieldOffsetWide(Raw, module, typeId, field, out offset);
         }
 
@@ -3703,10 +3703,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getSymbolTypeIdWide, Vtbl3->GetSymbolTypeIdWide);
             /*HRESULT GetSymbolTypeIdWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol,
-            [Out] out uint TypeId,
-            [Out] out ulong Module);*/
-            uint typeId;
-            ulong module;
+            [Out] out int TypeId,
+            [Out] out long Module);*/
+            int typeId;
+            long module;
             HRESULT hr = getSymbolTypeIdWide(Raw, symbol, out typeId, out module);
 
             if (hr == HRESULT.S_OK)
@@ -3835,9 +3835,9 @@ namespace ClrDebug.DbgEng
         /// When all the desired results have been found, use <see cref="EndSymbolMatch"/> to release resources the engine
         /// holds for the search. For more information about symbols, see Symbols.
         /// </remarks>
-        public ulong StartSymbolMatchWide(string pattern)
+        public long StartSymbolMatchWide(string pattern)
         {
-            ulong handle;
+            long handle;
             TryStartSymbolMatchWide(pattern, out handle).ThrowDbgEngNotOK();
 
             return handle;
@@ -3855,13 +3855,13 @@ namespace ClrDebug.DbgEng
         /// When all the desired results have been found, use <see cref="EndSymbolMatch"/> to release resources the engine
         /// holds for the search. For more information about symbols, see Symbols.
         /// </remarks>
-        public HRESULT TryStartSymbolMatchWide(string pattern, out ulong handle)
+        public HRESULT TryStartSymbolMatchWide(string pattern, out long handle)
         {
             InitDelegate(ref startSymbolMatchWide, Vtbl3->StartSymbolMatchWide);
 
             /*HRESULT StartSymbolMatchWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Pattern,
-            [Out] out ulong Handle);*/
+            [Out] out long Handle);*/
             return startSymbolMatchWide(Raw, pattern, out handle);
         }
 
@@ -3878,7 +3878,7 @@ namespace ClrDebug.DbgEng
         /// found, <see cref="EndSymbolMatch"/> can be used to release the resources the engine holds for the search. For more
         /// information about symbols, see Symbols.
         /// </remarks>
-        public GetNextSymbolMatchWideResult GetNextSymbolMatchWide(ulong handle)
+        public GetNextSymbolMatchWideResult GetNextSymbolMatchWide(long handle)
         {
             GetNextSymbolMatchWideResult result;
             TryGetNextSymbolMatchWide(handle, out result).ThrowDbgEngNotOK();
@@ -3897,25 +3897,25 @@ namespace ClrDebug.DbgEng
         /// found, <see cref="EndSymbolMatch"/> can be used to release the resources the engine holds for the search. For more
         /// information about symbols, see Symbols.
         /// </remarks>
-        public HRESULT TryGetNextSymbolMatchWide(ulong handle, out GetNextSymbolMatchWideResult result)
+        public HRESULT TryGetNextSymbolMatchWide(long handle, out GetNextSymbolMatchWideResult result)
         {
             InitDelegate(ref getNextSymbolMatchWide, Vtbl3->GetNextSymbolMatchWide);
             /*HRESULT GetNextSymbolMatchWide(
-            [In] ulong Handle,
+            [In] long Handle,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint MatchSize,
-            [Out] out ulong Offset);*/
+            [Out] out int MatchSize,
+            [Out] out long Offset);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint matchSize;
-            ulong offset;
+            int matchSize;
+            long offset;
             HRESULT hr = getNextSymbolMatchWide(Raw, handle, null, bufferSize, out matchSize, out offset);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) matchSize;
+            bufferSize = matchSize;
             buffer = new StringBuilder(bufferSize);
             hr = getNextSymbolMatchWide(Raw, handle, buffer, bufferSize, out matchSize, out offset);
 
@@ -4052,7 +4052,7 @@ namespace ClrDebug.DbgEng
         /// The source path is used by the engine when searching for source files. For more information about manipulating
         /// the source path, see Using Source Files. For an overview of the source path and its syntax, see Source Path.
         /// </remarks>
-        public string GetSourcePathElementWide(uint index)
+        public string GetSourcePathElementWide(int index)
         {
             string bufferResult;
             TryGetSourcePathElementWide(index, out bufferResult).ThrowDbgEngNotOK();
@@ -4072,23 +4072,23 @@ namespace ClrDebug.DbgEng
         /// The source path is used by the engine when searching for source files. For more information about manipulating
         /// the source path, see Using Source Files. For an overview of the source path and its syntax, see Source Path.
         /// </remarks>
-        public HRESULT TryGetSourcePathElementWide(uint index, out string bufferResult)
+        public HRESULT TryGetSourcePathElementWide(int index, out string bufferResult)
         {
             InitDelegate(ref getSourcePathElementWide, Vtbl3->GetSourcePathElementWide);
             /*HRESULT GetSourcePathElementWide(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint ElementSize);*/
+            [Out] out int ElementSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint elementSize;
+            int elementSize;
             HRESULT hr = getSourcePathElementWide(Raw, index, null, bufferSize, out elementSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) elementSize;
+            bufferSize = elementSize;
             buffer = new StringBuilder(bufferSize);
             hr = getSourcePathElementWide(Raw, index, buffer, bufferSize, out elementSize);
 
@@ -4159,7 +4159,7 @@ namespace ClrDebug.DbgEng
         /// is set, the match with the longest overlap is returned; otherwise, the first match is returned. The first match
         /// found is returned.
         /// </remarks>
-        public FindSourceFileWideResult FindSourceFileWide(uint startElement, string file, DEBUG_FIND_SOURCE flags)
+        public FindSourceFileWideResult FindSourceFileWide(int startElement, string file, DEBUG_FIND_SOURCE flags)
         {
             FindSourceFileWideResult result;
             TryFindSourceFileWide(startElement, file, flags, out result).ThrowDbgEngNotOK();
@@ -4183,27 +4183,27 @@ namespace ClrDebug.DbgEng
         /// is set, the match with the longest overlap is returned; otherwise, the first match is returned. The first match
         /// found is returned.
         /// </remarks>
-        public HRESULT TryFindSourceFileWide(uint startElement, string file, DEBUG_FIND_SOURCE flags, out FindSourceFileWideResult result)
+        public HRESULT TryFindSourceFileWide(int startElement, string file, DEBUG_FIND_SOURCE flags, out FindSourceFileWideResult result)
         {
             InitDelegate(ref findSourceFileWide, Vtbl3->FindSourceFileWide);
             /*HRESULT FindSourceFileWide(
-            [In] uint StartElement,
+            [In] int StartElement,
             [In, MarshalAs(UnmanagedType.LPWStr)] string File,
             [In] DEBUG_FIND_SOURCE Flags,
-            [Out] out uint FoundElement,
+            [Out] out int FoundElement,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint FoundSize);*/
-            uint foundElement;
+            [Out] out int FoundSize);*/
+            int foundElement;
             StringBuilder buffer;
             int bufferSize = 0;
-            uint foundSize;
+            int foundSize;
             HRESULT hr = findSourceFileWide(Raw, startElement, file, flags, out foundElement, null, bufferSize, out foundSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) foundSize;
+            bufferSize = foundSize;
             buffer = new StringBuilder(bufferSize);
             hr = findSourceFileWide(Raw, startElement, file, flags, out foundElement, buffer, bufferSize, out foundSize);
 
@@ -4234,9 +4234,9 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about using the source path, see Using Source Files.
         /// </remarks>
-        public ulong[] GetSourceFileLineOffsetsWide(string file)
+        public long[] GetSourceFileLineOffsetsWide(string file)
         {
-            ulong[] buffer;
+            long[] buffer;
             TryGetSourceFileLineOffsetsWide(file, out buffer).ThrowDbgEngNotOK();
 
             return buffer;
@@ -4254,24 +4254,24 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about using the source path, see Using Source Files.
         /// </remarks>
-        public HRESULT TryGetSourceFileLineOffsetsWide(string file, out ulong[] buffer)
+        public HRESULT TryGetSourceFileLineOffsetsWide(string file, out long[] buffer)
         {
             InitDelegate(ref getSourceFileLineOffsetsWide, Vtbl3->GetSourceFileLineOffsetsWide);
             /*HRESULT GetSourceFileLineOffsetsWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string File,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] long[] Buffer,
             [In] int BufferLines,
-            [Out] out uint FileLines);*/
+            [Out] out int FileLines);*/
             buffer = null;
             int bufferLines = 0;
-            uint fileLines;
+            int fileLines;
             HRESULT hr = getSourceFileLineOffsetsWide(Raw, file, null, bufferLines, out fileLines);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferLines = (int) fileLines;
-            buffer = new ulong[bufferLines];
+            bufferLines = fileLines;
+            buffer = new long[bufferLines];
             hr = getSourceFileLineOffsetsWide(Raw, file, buffer, bufferLines, out fileLines);
             fail:
             return hr;
@@ -4296,9 +4296,9 @@ namespace ClrDebug.DbgEng
         /// Module version information is available only for loaded modules and may not be available in all sessions. For more
         /// information about modules, see Modules.
         /// </remarks>
-        public uint GetModuleVersionInformationWide(uint index, ulong @base, string item, IntPtr buffer, int bufferSize)
+        public int GetModuleVersionInformationWide(int index, long @base, string item, IntPtr buffer, int bufferSize)
         {
-            uint verInfoSize;
+            int verInfoSize;
             TryGetModuleVersionInformationWide(index, @base, item, buffer, bufferSize, out verInfoSize).ThrowDbgEngNotOK();
 
             return verInfoSize;
@@ -4321,17 +4321,17 @@ namespace ClrDebug.DbgEng
         /// Module version information is available only for loaded modules and may not be available in all sessions. For more
         /// information about modules, see Modules.
         /// </remarks>
-        public HRESULT TryGetModuleVersionInformationWide(uint index, ulong @base, string item, IntPtr buffer, int bufferSize, out uint verInfoSize)
+        public HRESULT TryGetModuleVersionInformationWide(int index, long @base, string item, IntPtr buffer, int bufferSize, out int verInfoSize)
         {
             InitDelegate(ref getModuleVersionInformationWide, Vtbl3->GetModuleVersionInformationWide);
 
             /*HRESULT GetModuleVersionInformationWide(
-            [In] uint Index,
-            [In] ulong Base,
+            [In] int Index,
+            [In] long Base,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Item,
             [In] IntPtr Buffer,
             [In] int BufferSize,
-            [Out] out uint VerInfoSize);*/
+            [Out] out int VerInfoSize);*/
             return getModuleVersionInformationWide(Raw, index, @base, item, buffer, bufferSize, out verInfoSize);
         }
 
@@ -4349,7 +4349,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about modules, see Modules.
         /// </remarks>
-        public string GetModuleNameStringWide(DEBUG_MODNAME which, uint index, ulong @base)
+        public string GetModuleNameStringWide(DEBUG_MODNAME which, int index, long @base)
         {
             string bufferResult;
             TryGetModuleNameStringWide(which, index, @base, out bufferResult).ThrowDbgEngNotOK();
@@ -4369,25 +4369,25 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about modules, see Modules.
         /// </remarks>
-        public HRESULT TryGetModuleNameStringWide(DEBUG_MODNAME which, uint index, ulong @base, out string bufferResult)
+        public HRESULT TryGetModuleNameStringWide(DEBUG_MODNAME which, int index, long @base, out string bufferResult)
         {
             InitDelegate(ref getModuleNameStringWide, Vtbl3->GetModuleNameStringWide);
             /*HRESULT GetModuleNameStringWide(
             [In] DEBUG_MODNAME Which,
-            [In] uint Index,
-            [In] ulong Base,
+            [In] int Index,
+            [In] long Base,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize);*/
+            [Out] out int NameSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint nameSize;
+            int nameSize;
             HRESULT hr = getModuleNameStringWide(Raw, which, index, @base, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) nameSize;
+            bufferSize = nameSize;
             buffer = new StringBuilder(bufferSize);
             hr = getModuleNameStringWide(Raw, which, index, @base, buffer, bufferSize, out nameSize);
 
@@ -4417,7 +4417,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public string GetConstantNameWide(ulong module, uint typeId, ulong value)
+        public string GetConstantNameWide(long module, int typeId, long value)
         {
             string bufferResult;
             TryGetConstantNameWide(module, typeId, value, out bufferResult).ThrowDbgEngNotOK();
@@ -4436,25 +4436,25 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public HRESULT TryGetConstantNameWide(ulong module, uint typeId, ulong value, out string bufferResult)
+        public HRESULT TryGetConstantNameWide(long module, int typeId, long value, out string bufferResult)
         {
             InitDelegate(ref getConstantNameWide, Vtbl3->GetConstantNameWide);
             /*HRESULT GetConstantNameWide(
-            [In] ulong Module,
-            [In] uint TypeId,
-            [In] ulong Value,
+            [In] long Module,
+            [In] int TypeId,
+            [In] long Value,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize);*/
+            [Out] out int NameSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint nameSize;
+            int nameSize;
             HRESULT hr = getConstantNameWide(Raw, module, typeId, value, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) nameSize;
+            bufferSize = nameSize;
             buffer = new StringBuilder(bufferSize);
             hr = getConstantNameWide(Raw, module, typeId, value, buffer, bufferSize, out nameSize);
 
@@ -4484,7 +4484,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public string GetFieldNameWide(ulong module, uint typeId, uint fieldIndex)
+        public string GetFieldNameWide(long module, int typeId, int fieldIndex)
         {
             string bufferResult;
             TryGetFieldNameWide(module, typeId, fieldIndex, out bufferResult).ThrowDbgEngNotOK();
@@ -4503,25 +4503,25 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public HRESULT TryGetFieldNameWide(ulong module, uint typeId, uint fieldIndex, out string bufferResult)
+        public HRESULT TryGetFieldNameWide(long module, int typeId, int fieldIndex, out string bufferResult)
         {
             InitDelegate(ref getFieldNameWide, Vtbl3->GetFieldNameWide);
             /*HRESULT GetFieldNameWide(
-            [In] ulong Module,
-            [In] uint TypeId,
-            [In] uint FieldIndex,
+            [In] long Module,
+            [In] int TypeId,
+            [In] int FieldIndex,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize);*/
+            [Out] out int NameSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint nameSize;
+            int nameSize;
             HRESULT hr = getFieldNameWide(Raw, module, typeId, fieldIndex, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) nameSize;
+            bufferSize = nameSize;
             buffer = new StringBuilder(bufferSize);
             hr = getFieldNameWide(Raw, module, typeId, fieldIndex, buffer, bufferSize, out nameSize);
 
@@ -4549,7 +4549,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// It can be expensive to run this check.
         /// </remarks>
-        public bool IsManagedModule(uint index, ulong @base)
+        public bool IsManagedModule(int index, long @base)
         {
             HRESULT hr = TryIsManagedModule(index, @base);
             hr.ThrowDbgEngNotOK();
@@ -4566,13 +4566,13 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// It can be expensive to run this check.
         /// </remarks>
-        public HRESULT TryIsManagedModule(uint index, ulong @base)
+        public HRESULT TryIsManagedModule(int index, long @base)
         {
             InitDelegate(ref isManagedModule, Vtbl3->IsManagedModule);
 
             /*HRESULT IsManagedModule(
-            [In] uint Index,
-            [In] ulong Base);*/
+            [In] int Index,
+            [In] long Base);*/
             return isManagedModule(Raw, index, @base);
         }
 
@@ -4591,7 +4591,7 @@ namespace ClrDebug.DbgEng
         /// target has more than one module with this name, then subsequent modules can be found by repeated calls to these
         /// methods with higher values of StartIndex. For more information about modules, see Modules.
         /// </remarks>
-        public GetModuleByModuleName2Result GetModuleByModuleName2(string name, uint startIndex, DEBUG_GETMOD flags)
+        public GetModuleByModuleName2Result GetModuleByModuleName2(string name, int startIndex, DEBUG_GETMOD flags)
         {
             GetModuleByModuleName2Result result;
             TryGetModuleByModuleName2(name, startIndex, flags, out result).ThrowDbgEngNotOK();
@@ -4612,17 +4612,17 @@ namespace ClrDebug.DbgEng
         /// target has more than one module with this name, then subsequent modules can be found by repeated calls to these
         /// methods with higher values of StartIndex. For more information about modules, see Modules.
         /// </remarks>
-        public HRESULT TryGetModuleByModuleName2(string name, uint startIndex, DEBUG_GETMOD flags, out GetModuleByModuleName2Result result)
+        public HRESULT TryGetModuleByModuleName2(string name, int startIndex, DEBUG_GETMOD flags, out GetModuleByModuleName2Result result)
         {
             InitDelegate(ref getModuleByModuleName2, Vtbl3->GetModuleByModuleName2);
             /*HRESULT GetModuleByModuleName2(
             [In, MarshalAs(UnmanagedType.LPStr)] string Name,
-            [In] uint StartIndex,
+            [In] int StartIndex,
             [In] DEBUG_GETMOD Flags,
-            [Out] out uint Index,
-            [Out] out ulong Base);*/
-            uint index;
-            ulong @base;
+            [Out] out int Index,
+            [Out] out long Base);*/
+            int index;
+            long @base;
             HRESULT hr = getModuleByModuleName2(Raw, name, startIndex, flags, out index, out @base);
 
             if (hr == HRESULT.S_OK)
@@ -4648,7 +4648,7 @@ namespace ClrDebug.DbgEng
         /// target has more than one module with this name, then subsequent modules can be found by repeated calls to these
         /// methods with higher values of StartIndex. For more information about modules, see Modules.
         /// </remarks>
-        public GetModuleByModuleName2WideResult GetModuleByModuleName2Wide(string name, uint startIndex, DEBUG_GETMOD flags)
+        public GetModuleByModuleName2WideResult GetModuleByModuleName2Wide(string name, int startIndex, DEBUG_GETMOD flags)
         {
             GetModuleByModuleName2WideResult result;
             TryGetModuleByModuleName2Wide(name, startIndex, flags, out result).ThrowDbgEngNotOK();
@@ -4669,17 +4669,17 @@ namespace ClrDebug.DbgEng
         /// target has more than one module with this name, then subsequent modules can be found by repeated calls to these
         /// methods with higher values of StartIndex. For more information about modules, see Modules.
         /// </remarks>
-        public HRESULT TryGetModuleByModuleName2Wide(string name, uint startIndex, DEBUG_GETMOD flags, out GetModuleByModuleName2WideResult result)
+        public HRESULT TryGetModuleByModuleName2Wide(string name, int startIndex, DEBUG_GETMOD flags, out GetModuleByModuleName2WideResult result)
         {
             InitDelegate(ref getModuleByModuleName2Wide, Vtbl3->GetModuleByModuleName2Wide);
             /*HRESULT GetModuleByModuleName2Wide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name,
-            [In] uint StartIndex,
+            [In] int StartIndex,
             [In] DEBUG_GETMOD Flags,
-            [Out] out uint Index,
-            [Out] out ulong Base);*/
-            uint index;
-            ulong @base;
+            [Out] out int Index,
+            [Out] out long Base);*/
+            int index;
+            long @base;
             HRESULT hr = getModuleByModuleName2Wide(Raw, name, startIndex, flags, out index, out @base);
 
             if (hr == HRESULT.S_OK)
@@ -4706,7 +4706,7 @@ namespace ClrDebug.DbgEng
         /// this location, then subsequent modules can be found by repeated calls to this method with higher values of StartIndex.
         /// For more information about modules, see Modules.
         /// </remarks>
-        public GetModuleByOffset2Result GetModuleByOffset2(ulong offset, uint startIndex, DEBUG_GETMOD flags)
+        public GetModuleByOffset2Result GetModuleByOffset2(long offset, int startIndex, DEBUG_GETMOD flags)
         {
             GetModuleByOffset2Result result;
             TryGetModuleByOffset2(offset, startIndex, flags, out result).ThrowDbgEngNotOK();
@@ -4728,17 +4728,17 @@ namespace ClrDebug.DbgEng
         /// this location, then subsequent modules can be found by repeated calls to this method with higher values of StartIndex.
         /// For more information about modules, see Modules.
         /// </remarks>
-        public HRESULT TryGetModuleByOffset2(ulong offset, uint startIndex, DEBUG_GETMOD flags, out GetModuleByOffset2Result result)
+        public HRESULT TryGetModuleByOffset2(long offset, int startIndex, DEBUG_GETMOD flags, out GetModuleByOffset2Result result)
         {
             InitDelegate(ref getModuleByOffset2, Vtbl3->GetModuleByOffset2);
             /*HRESULT GetModuleByOffset2(
-            [In] ulong Offset,
-            [In] uint StartIndex,
+            [In] long Offset,
+            [In] int StartIndex,
             [In] DEBUG_GETMOD Flags,
-            [Out] out uint Index,
-            [Out] out ulong Base);*/
-            uint index;
-            ulong @base;
+            [Out] out int Index,
+            [Out] out long Base);*/
+            int index;
+            long @base;
             HRESULT hr = getModuleByOffset2(Raw, offset, startIndex, flags, out index, out @base);
 
             if (hr == HRESULT.S_OK)
@@ -4767,7 +4767,7 @@ namespace ClrDebug.DbgEng
         /// the Module parameter set to an empty string - all synthetic modules will be discarded. For more information about
         /// synthetic modules, see Synthetic Modules.
         /// </remarks>
-        public void AddSyntheticModule(ulong @base, uint size, string imagePath, string moduleName, DEBUG_ADDSYNTHMOD flags)
+        public void AddSyntheticModule(long @base, int size, string imagePath, string moduleName, DEBUG_ADDSYNTHMOD flags)
         {
             TryAddSyntheticModule(@base, size, imagePath, moduleName, flags).ThrowDbgEngNotOK();
         }
@@ -4788,13 +4788,13 @@ namespace ClrDebug.DbgEng
         /// the Module parameter set to an empty string - all synthetic modules will be discarded. For more information about
         /// synthetic modules, see Synthetic Modules.
         /// </remarks>
-        public HRESULT TryAddSyntheticModule(ulong @base, uint size, string imagePath, string moduleName, DEBUG_ADDSYNTHMOD flags)
+        public HRESULT TryAddSyntheticModule(long @base, int size, string imagePath, string moduleName, DEBUG_ADDSYNTHMOD flags)
         {
             InitDelegate(ref addSyntheticModule, Vtbl3->AddSyntheticModule);
 
             /*HRESULT AddSyntheticModule(
-            [In] ulong Base,
-            [In] uint Size,
+            [In] long Base,
+            [In] int Size,
             [In, MarshalAs(UnmanagedType.LPStr)] string ImagePath,
             [In, MarshalAs(UnmanagedType.LPStr)] string ModuleName,
             [In] DEBUG_ADDSYNTHMOD Flags);*/
@@ -4819,7 +4819,7 @@ namespace ClrDebug.DbgEng
         /// the Module parameter set to an empty string - all synthetic modules will be discarded. For more information about
         /// synthetic modules, see Synthetic Modules.
         /// </remarks>
-        public void AddSyntheticModuleWide(ulong @base, uint size, string imagePath, string moduleName, DEBUG_ADDSYNTHMOD flags)
+        public void AddSyntheticModuleWide(long @base, int size, string imagePath, string moduleName, DEBUG_ADDSYNTHMOD flags)
         {
             TryAddSyntheticModuleWide(@base, size, imagePath, moduleName, flags).ThrowDbgEngNotOK();
         }
@@ -4840,13 +4840,13 @@ namespace ClrDebug.DbgEng
         /// the Module parameter set to an empty string - all synthetic modules will be discarded. For more information about
         /// synthetic modules, see Synthetic Modules.
         /// </remarks>
-        public HRESULT TryAddSyntheticModuleWide(ulong @base, uint size, string imagePath, string moduleName, DEBUG_ADDSYNTHMOD flags)
+        public HRESULT TryAddSyntheticModuleWide(long @base, int size, string imagePath, string moduleName, DEBUG_ADDSYNTHMOD flags)
         {
             InitDelegate(ref addSyntheticModuleWide, Vtbl3->AddSyntheticModuleWide);
 
             /*HRESULT AddSyntheticModuleWide(
-            [In] ulong Base,
-            [In] uint Size,
+            [In] long Base,
+            [In] int Size,
             [In, MarshalAs(UnmanagedType.LPWStr)] string ImagePath,
             [In, MarshalAs(UnmanagedType.LPWStr)] string ModuleName,
             [In] DEBUG_ADDSYNTHMOD Flags);*/
@@ -4865,7 +4865,7 @@ namespace ClrDebug.DbgEng
         /// the empty string - all synthetic modules will be discarded. For more information about synthetic modules, see Synthetic
         /// Modules.
         /// </remarks>
-        public void RemoveSyntheticModule(ulong @base)
+        public void RemoveSyntheticModule(long @base)
         {
             TryRemoveSyntheticModule(@base).ThrowDbgEngNotOK();
         }
@@ -4880,12 +4880,12 @@ namespace ClrDebug.DbgEng
         /// the empty string - all synthetic modules will be discarded. For more information about synthetic modules, see Synthetic
         /// Modules.
         /// </remarks>
-        public HRESULT TryRemoveSyntheticModule(ulong @base)
+        public HRESULT TryRemoveSyntheticModule(long @base)
         {
             InitDelegate(ref removeSyntheticModule, Vtbl3->RemoveSyntheticModule);
 
             /*HRESULT RemoveSyntheticModule(
-            [In] ulong Base);*/
+            [In] long Base);*/
             return removeSyntheticModule(Raw, @base);
         }
 
@@ -4903,7 +4903,7 @@ namespace ClrDebug.DbgEng
         /// the current scope to the caller of the current function; with Index set to two, the scope is changed to the caller's
         /// caller, and so on. For more information about scopes, see Scopes and Symbol Groups.
         /// </remarks>
-        public void SetScopeFrameByIndex(uint index)
+        public void SetScopeFrameByIndex(int index)
         {
             TrySetScopeFrameByIndex(index).ThrowDbgEngNotOK();
         }
@@ -4920,12 +4920,12 @@ namespace ClrDebug.DbgEng
         /// the current scope to the caller of the current function; with Index set to two, the scope is changed to the caller's
         /// caller, and so on. For more information about scopes, see Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TrySetScopeFrameByIndex(uint index)
+        public HRESULT TrySetScopeFrameByIndex(int index)
         {
             InitDelegate(ref setScopeFrameByIndex, Vtbl3->SetScopeFrameByIndex);
 
             /*HRESULT SetScopeFrameByIndex(
-            [In] uint Index);*/
+            [In] int Index);*/
             return setScopeFrameByIndex(Raw, index);
         }
 
@@ -4937,7 +4937,7 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="outputControl">[in] An output control.</param>
         /// <param name="infoOffset">[in] An offset for the debugging information.</param>
-        public void SetScopeFromJitDebugInfo(uint outputControl, ulong infoOffset)
+        public void SetScopeFromJitDebugInfo(int outputControl, long infoOffset)
         {
             TrySetScopeFromJitDebugInfo(outputControl, infoOffset).ThrowDbgEngNotOK();
         }
@@ -4949,13 +4949,13 @@ namespace ClrDebug.DbgEng
         /// <param name="infoOffset">[in] An offset for the debugging information.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code. The method gets JUT debugging information from a specified address from the debugging target, and then sets the currentdebugger scope context from that information.<para/>
         /// This method is equivalent to '.jdinfo' command.</returns>
-        public HRESULT TrySetScopeFromJitDebugInfo(uint outputControl, ulong infoOffset)
+        public HRESULT TrySetScopeFromJitDebugInfo(int outputControl, long infoOffset)
         {
             InitDelegate(ref setScopeFromJitDebugInfo, Vtbl3->SetScopeFromJitDebugInfo);
 
             /*HRESULT SetScopeFromJitDebugInfo(
-            [In] uint OutputControl,
-            [In] ulong InfoOffset);*/
+            [In] int OutputControl,
+            [In] long InfoOffset);*/
             return setScopeFromJitDebugInfo(Raw, outputControl, infoOffset);
         }
 
@@ -5002,7 +5002,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public void OutputSymbolByOffset(uint outputControl, DEBUG_OUTSYM flags, ulong offset)
+        public void OutputSymbolByOffset(int outputControl, DEBUG_OUTSYM flags, long offset)
         {
             TryOutputSymbolByOffset(outputControl, flags, offset).ThrowDbgEngNotOK();
         }
@@ -5017,14 +5017,14 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public HRESULT TryOutputSymbolByOffset(uint outputControl, DEBUG_OUTSYM flags, ulong offset)
+        public HRESULT TryOutputSymbolByOffset(int outputControl, DEBUG_OUTSYM flags, long offset)
         {
             InitDelegate(ref outputSymbolByOffset, Vtbl3->OutputSymbolByOffset);
 
             /*HRESULT OutputSymbolByOffset(
-            [In] uint OutputControl,
+            [In] int OutputControl,
             [In] DEBUG_OUTSYM Flags,
-            [In] ulong Offset);*/
+            [In] long Offset);*/
             return outputSymbolByOffset(Raw, outputControl, flags, offset);
         }
 
@@ -5045,9 +5045,9 @@ namespace ClrDebug.DbgEng
         /// The structures FPO_DATA and IMAGE_FUNCTION_ENTRY are documented in "Image Help Library" which is included in Debugging
         /// Tools For Windows in the DbgHelp.chm file.
         /// </remarks>
-        public uint GetFunctionEntryByOffset(ulong offset, DEBUG_GETFNENT flags, IntPtr buffer, uint bufferSize)
+        public int GetFunctionEntryByOffset(long offset, DEBUG_GETFNENT flags, IntPtr buffer, int bufferSize)
         {
-            uint bufferNeeded;
+            int bufferNeeded;
             TryGetFunctionEntryByOffset(offset, flags, buffer, bufferSize, out bufferNeeded).ThrowDbgEngNotOK();
 
             return bufferNeeded;
@@ -5068,16 +5068,16 @@ namespace ClrDebug.DbgEng
         /// The structures FPO_DATA and IMAGE_FUNCTION_ENTRY are documented in "Image Help Library" which is included in Debugging
         /// Tools For Windows in the DbgHelp.chm file.
         /// </remarks>
-        public HRESULT TryGetFunctionEntryByOffset(ulong offset, DEBUG_GETFNENT flags, IntPtr buffer, uint bufferSize, out uint bufferNeeded)
+        public HRESULT TryGetFunctionEntryByOffset(long offset, DEBUG_GETFNENT flags, IntPtr buffer, int bufferSize, out int bufferNeeded)
         {
             InitDelegate(ref getFunctionEntryByOffset, Vtbl3->GetFunctionEntryByOffset);
 
             /*HRESULT GetFunctionEntryByOffset(
-            [In] ulong Offset,
+            [In] long Offset,
             [In] DEBUG_GETFNENT Flags,
             [In] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BufferNeeded);*/
+            [In] int BufferSize,
+            [Out] out int BufferNeeded);*/
             return getFunctionEntryByOffset(Raw, offset, flags, buffer, bufferSize, out bufferNeeded);
         }
 
@@ -5098,7 +5098,7 @@ namespace ClrDebug.DbgEng
         /// as the Field parameter to this method. For more information about types, see Types. For more information about
         /// symbols, see Symbols.
         /// </remarks>
-        public GetFieldTypeAndOffsetResult GetFieldTypeAndOffset(ulong module, uint containerTypeId, string field)
+        public GetFieldTypeAndOffsetResult GetFieldTypeAndOffset(long module, int containerTypeId, string field)
         {
             GetFieldTypeAndOffsetResult result;
             TryGetFieldTypeAndOffset(module, containerTypeId, field, out result).ThrowDbgEngNotOK();
@@ -5121,17 +5121,17 @@ namespace ClrDebug.DbgEng
         /// as the Field parameter to this method. For more information about types, see Types. For more information about
         /// symbols, see Symbols.
         /// </remarks>
-        public HRESULT TryGetFieldTypeAndOffset(ulong module, uint containerTypeId, string field, out GetFieldTypeAndOffsetResult result)
+        public HRESULT TryGetFieldTypeAndOffset(long module, int containerTypeId, string field, out GetFieldTypeAndOffsetResult result)
         {
             InitDelegate(ref getFieldTypeAndOffset, Vtbl3->GetFieldTypeAndOffset);
             /*HRESULT GetFieldTypeAndOffset(
-            [In] ulong Module,
-            [In] uint ContainerTypeId,
+            [In] long Module,
+            [In] int ContainerTypeId,
             [In, MarshalAs(UnmanagedType.LPStr)] string Field,
-            [Out] out uint FieldTypeId,
-            [Out] out uint Offset);*/
-            uint fieldTypeId;
-            uint offset;
+            [Out] out int FieldTypeId,
+            [Out] out int Offset);*/
+            int fieldTypeId;
+            int offset;
             HRESULT hr = getFieldTypeAndOffset(Raw, module, containerTypeId, field, out fieldTypeId, out offset);
 
             if (hr == HRESULT.S_OK)
@@ -5159,7 +5159,7 @@ namespace ClrDebug.DbgEng
         /// as the Field parameter to this method. For more information about types, see Types. For more information about
         /// symbols, see Symbols.
         /// </remarks>
-        public GetFieldTypeAndOffsetWideResult GetFieldTypeAndOffsetWide(ulong module, uint containerTypeId, string field)
+        public GetFieldTypeAndOffsetWideResult GetFieldTypeAndOffsetWide(long module, int containerTypeId, string field)
         {
             GetFieldTypeAndOffsetWideResult result;
             TryGetFieldTypeAndOffsetWide(module, containerTypeId, field, out result).ThrowDbgEngNotOK();
@@ -5182,17 +5182,17 @@ namespace ClrDebug.DbgEng
         /// as the Field parameter to this method. For more information about types, see Types. For more information about
         /// symbols, see Symbols.
         /// </remarks>
-        public HRESULT TryGetFieldTypeAndOffsetWide(ulong module, uint containerTypeId, string field, out GetFieldTypeAndOffsetWideResult result)
+        public HRESULT TryGetFieldTypeAndOffsetWide(long module, int containerTypeId, string field, out GetFieldTypeAndOffsetWideResult result)
         {
             InitDelegate(ref getFieldTypeAndOffsetWide, Vtbl3->GetFieldTypeAndOffsetWide);
             /*HRESULT GetFieldTypeAndOffsetWide(
-            [In] ulong Module,
-            [In] uint ContainerTypeId,
+            [In] long Module,
+            [In] int ContainerTypeId,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Field,
-            [Out] out uint FieldTypeId,
-            [Out] out uint Offset);*/
-            uint fieldTypeId;
-            uint offset;
+            [Out] out int FieldTypeId,
+            [Out] out int Offset);*/
+            int fieldTypeId;
+            int offset;
             HRESULT hr = getFieldTypeAndOffsetWide(Raw, module, containerTypeId, field, out fieldTypeId, out offset);
 
             if (hr == HRESULT.S_OK)
@@ -5220,7 +5220,7 @@ namespace ClrDebug.DbgEng
         /// the name of the module - the synthetic symbol will be discarded. For more information about synthetic symbols,
         /// see Synthetic Symbols.
         /// </remarks>
-        public DEBUG_MODULE_AND_ID AddSyntheticSymbol(ulong offset, uint size, string name, DEBUG_ADDSYNTHSYM flags)
+        public DEBUG_MODULE_AND_ID AddSyntheticSymbol(long offset, int size, string name, DEBUG_ADDSYNTHSYM flags)
         {
             DEBUG_MODULE_AND_ID id;
             TryAddSyntheticSymbol(offset, size, name, flags, out id).ThrowDbgEngNotOK();
@@ -5243,13 +5243,13 @@ namespace ClrDebug.DbgEng
         /// the name of the module - the synthetic symbol will be discarded. For more information about synthetic symbols,
         /// see Synthetic Symbols.
         /// </remarks>
-        public HRESULT TryAddSyntheticSymbol(ulong offset, uint size, string name, DEBUG_ADDSYNTHSYM flags, out DEBUG_MODULE_AND_ID id)
+        public HRESULT TryAddSyntheticSymbol(long offset, int size, string name, DEBUG_ADDSYNTHSYM flags, out DEBUG_MODULE_AND_ID id)
         {
             InitDelegate(ref addSyntheticSymbol, Vtbl3->AddSyntheticSymbol);
 
             /*HRESULT AddSyntheticSymbol(
-            [In] ulong Offset,
-            [In] uint Size,
+            [In] long Offset,
+            [In] int Size,
             [In, MarshalAs(UnmanagedType.LPStr)] string Name,
             [In] DEBUG_ADDSYNTHSYM Flags,
             [Out] out DEBUG_MODULE_AND_ID Id);*/
@@ -5273,7 +5273,7 @@ namespace ClrDebug.DbgEng
         /// the name of the module - the synthetic symbol will be discarded. For more information about synthetic symbols,
         /// see Synthetic Symbols.
         /// </remarks>
-        public DEBUG_MODULE_AND_ID AddSyntheticSymbolWide(ulong offset, uint size, string name, DEBUG_ADDSYNTHSYM flags)
+        public DEBUG_MODULE_AND_ID AddSyntheticSymbolWide(long offset, int size, string name, DEBUG_ADDSYNTHSYM flags)
         {
             DEBUG_MODULE_AND_ID id;
             TryAddSyntheticSymbolWide(offset, size, name, flags, out id).ThrowDbgEngNotOK();
@@ -5296,13 +5296,13 @@ namespace ClrDebug.DbgEng
         /// the name of the module - the synthetic symbol will be discarded. For more information about synthetic symbols,
         /// see Synthetic Symbols.
         /// </remarks>
-        public HRESULT TryAddSyntheticSymbolWide(ulong offset, uint size, string name, DEBUG_ADDSYNTHSYM flags, out DEBUG_MODULE_AND_ID id)
+        public HRESULT TryAddSyntheticSymbolWide(long offset, int size, string name, DEBUG_ADDSYNTHSYM flags, out DEBUG_MODULE_AND_ID id)
         {
             InitDelegate(ref addSyntheticSymbolWide, Vtbl3->AddSyntheticSymbolWide);
 
             /*HRESULT AddSyntheticSymbolWide(
-            [In] ulong Offset,
-            [In] uint Size,
+            [In] long Offset,
+            [In] int Size,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name,
             [In] DEBUG_ADDSYNTHSYM Flags,
             [Out] out DEBUG_MODULE_AND_ID Id);*/
@@ -5359,7 +5359,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public GetSymbolEntriesByOffsetResult GetSymbolEntriesByOffset(ulong offset, uint flags)
+        public GetSymbolEntriesByOffsetResult GetSymbolEntriesByOffset(long offset, int flags)
         {
             GetSymbolEntriesByOffsetResult result;
             TryGetSymbolEntriesByOffset(offset, flags, out result).ThrowDbgEngNotOK();
@@ -5377,28 +5377,28 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public HRESULT TryGetSymbolEntriesByOffset(ulong offset, uint flags, out GetSymbolEntriesByOffsetResult result)
+        public HRESULT TryGetSymbolEntriesByOffset(long offset, int flags, out GetSymbolEntriesByOffsetResult result)
         {
             InitDelegate(ref getSymbolEntriesByOffset, Vtbl3->GetSymbolEntriesByOffset);
             /*HRESULT GetSymbolEntriesByOffset(
-            [In] ulong Offset,
-            [In] uint Flags,
+            [In] long Offset,
+            [In] int Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_MODULE_AND_ID[] Ids,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] ulong[] Displacements,
-            [In] uint IdsCount,
-            [Out] out uint Entries);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] long[] Displacements,
+            [In] int IdsCount,
+            [Out] out int Entries);*/
             DEBUG_MODULE_AND_ID[] ids;
-            ulong[] displacements;
-            uint idsCount = 0;
-            uint entries;
+            long[] displacements;
+            int idsCount = 0;
+            int entries;
             HRESULT hr = getSymbolEntriesByOffset(Raw, offset, flags, null, null, idsCount, out entries);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             idsCount = entries;
-            displacements = new ulong[(int) idsCount];
-            ids = new DEBUG_MODULE_AND_ID[(int) idsCount];
+            displacements = new long[idsCount];
+            ids = new DEBUG_MODULE_AND_ID[idsCount];
             hr = getSymbolEntriesByOffset(Raw, offset, flags, ids, displacements, idsCount, out entries);
 
             if (hr == HRESULT.S_OK)
@@ -5427,7 +5427,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public DEBUG_MODULE_AND_ID[] GetSymbolEntriesByName(string symbol, uint flags)
+        public DEBUG_MODULE_AND_ID[] GetSymbolEntriesByName(string symbol, int flags)
         {
             DEBUG_MODULE_AND_ID[] ids;
             TryGetSymbolEntriesByName(symbol, flags, out ids).ThrowDbgEngNotOK();
@@ -5446,25 +5446,25 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public HRESULT TryGetSymbolEntriesByName(string symbol, uint flags, out DEBUG_MODULE_AND_ID[] ids)
+        public HRESULT TryGetSymbolEntriesByName(string symbol, int flags, out DEBUG_MODULE_AND_ID[] ids)
         {
             InitDelegate(ref getSymbolEntriesByName, Vtbl3->GetSymbolEntriesByName);
             /*HRESULT GetSymbolEntriesByName(
             [In, MarshalAs(UnmanagedType.LPStr)] string Symbol,
-            [In] uint Flags,
+            [In] int Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_MODULE_AND_ID[] Ids,
-            [In] uint IdsCount,
-            [Out] out uint Entries);*/
+            [In] int IdsCount,
+            [Out] out int Entries);*/
             ids = null;
-            uint idsCount = 0;
-            uint entries;
+            int idsCount = 0;
+            int entries;
             HRESULT hr = getSymbolEntriesByName(Raw, symbol, flags, null, idsCount, out entries);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             idsCount = entries;
-            ids = new DEBUG_MODULE_AND_ID[(int) idsCount];
+            ids = new DEBUG_MODULE_AND_ID[idsCount];
             hr = getSymbolEntriesByName(Raw, symbol, flags, ids, idsCount, out entries);
             fail:
             return hr;
@@ -5483,7 +5483,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public DEBUG_MODULE_AND_ID[] GetSymbolEntriesByNameWide(string symbol, uint flags)
+        public DEBUG_MODULE_AND_ID[] GetSymbolEntriesByNameWide(string symbol, int flags)
         {
             DEBUG_MODULE_AND_ID[] ids;
             TryGetSymbolEntriesByNameWide(symbol, flags, out ids).ThrowDbgEngNotOK();
@@ -5502,25 +5502,25 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public HRESULT TryGetSymbolEntriesByNameWide(string symbol, uint flags, out DEBUG_MODULE_AND_ID[] ids)
+        public HRESULT TryGetSymbolEntriesByNameWide(string symbol, int flags, out DEBUG_MODULE_AND_ID[] ids)
         {
             InitDelegate(ref getSymbolEntriesByNameWide, Vtbl3->GetSymbolEntriesByNameWide);
             /*HRESULT GetSymbolEntriesByNameWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol,
-            [In] uint Flags,
+            [In] int Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_MODULE_AND_ID[] Ids,
-            [In] uint IdsCount,
-            [Out] out uint Entries);*/
+            [In] int IdsCount,
+            [Out] out int Entries);*/
             ids = null;
-            uint idsCount = 0;
-            uint entries;
+            int idsCount = 0;
+            int entries;
             HRESULT hr = getSymbolEntriesByNameWide(Raw, symbol, flags, null, idsCount, out entries);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             idsCount = entries;
-            ids = new DEBUG_MODULE_AND_ID[(int) idsCount];
+            ids = new DEBUG_MODULE_AND_ID[idsCount];
             hr = getSymbolEntriesByNameWide(Raw, symbol, flags, ids, idsCount, out entries);
             fail:
             return hr;
@@ -5535,7 +5535,7 @@ namespace ClrDebug.DbgEng
         /// <param name="moduleBase">[in] The base of the module.</param>
         /// <param name="token">[in] The token to use to look up the symbol.</param>
         /// <returns>[out] A pointer to the module as a <see cref="DEBUG_MODULE_AND_ID"/> structure.</returns>
-        public DEBUG_MODULE_AND_ID GetSymbolEntryByToken(ulong moduleBase, uint token)
+        public DEBUG_MODULE_AND_ID GetSymbolEntryByToken(long moduleBase, int token)
         {
             DEBUG_MODULE_AND_ID id;
             TryGetSymbolEntryByToken(moduleBase, token, out id).ThrowDbgEngNotOK();
@@ -5550,13 +5550,13 @@ namespace ClrDebug.DbgEng
         /// <param name="token">[in] The token to use to look up the symbol.</param>
         /// <param name="id">[out] A pointer to the module as a <see cref="DEBUG_MODULE_AND_ID"/> structure.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        public HRESULT TryGetSymbolEntryByToken(ulong moduleBase, uint token, out DEBUG_MODULE_AND_ID id)
+        public HRESULT TryGetSymbolEntryByToken(long moduleBase, int token, out DEBUG_MODULE_AND_ID id)
         {
             InitDelegate(ref getSymbolEntryByToken, Vtbl3->GetSymbolEntryByToken);
 
             /*HRESULT GetSymbolEntryByToken(
-            [In] ulong ModuleBase,
-            [In] uint Token,
+            [In] long ModuleBase,
+            [In] int Token,
             [Out] out DEBUG_MODULE_AND_ID Id);*/
             return getSymbolEntryByToken(Raw, moduleBase, token, out id);
         }
@@ -5612,7 +5612,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public string GetSymbolEntryString(DEBUG_MODULE_AND_ID id, uint which)
+        public string GetSymbolEntryString(DEBUG_MODULE_AND_ID id, int which)
         {
             string bufferResult;
             TryGetSymbolEntryString(id, which, out bufferResult).ThrowDbgEngNotOK();
@@ -5631,24 +5631,24 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public HRESULT TryGetSymbolEntryString(DEBUG_MODULE_AND_ID id, uint which, out string bufferResult)
+        public HRESULT TryGetSymbolEntryString(DEBUG_MODULE_AND_ID id, int which, out string bufferResult)
         {
             InitDelegate(ref getSymbolEntryString, Vtbl3->GetSymbolEntryString);
             /*HRESULT GetSymbolEntryString(
             [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id,
-            [In] uint Which,
+            [In] int Which,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint StringSize);*/
+            [Out] out int StringSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint stringSize;
+            int stringSize;
             HRESULT hr = getSymbolEntryString(Raw, id, which, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) stringSize;
+            bufferSize = stringSize;
             buffer = new StringBuilder(bufferSize);
             hr = getSymbolEntryString(Raw, id, which, buffer, bufferSize, out stringSize);
 
@@ -5678,7 +5678,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public string GetSymbolEntryStringWide(DEBUG_MODULE_AND_ID id, uint which)
+        public string GetSymbolEntryStringWide(DEBUG_MODULE_AND_ID id, int which)
         {
             string bufferResult;
             TryGetSymbolEntryStringWide(id, which, out bufferResult).ThrowDbgEngNotOK();
@@ -5697,24 +5697,24 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbols, see Symbols.
         /// </remarks>
-        public HRESULT TryGetSymbolEntryStringWide(DEBUG_MODULE_AND_ID id, uint which, out string bufferResult)
+        public HRESULT TryGetSymbolEntryStringWide(DEBUG_MODULE_AND_ID id, int which, out string bufferResult)
         {
             InitDelegate(ref getSymbolEntryStringWide, Vtbl3->GetSymbolEntryStringWide);
             /*HRESULT GetSymbolEntryStringWide(
             [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id,
-            [In] uint Which,
+            [In] int Which,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint StringSize);*/
+            [Out] out int StringSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint stringSize;
+            int stringSize;
             HRESULT hr = getSymbolEntryStringWide(Raw, id, which, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) stringSize;
+            bufferSize = stringSize;
             buffer = new StringBuilder(bufferSize);
             hr = getSymbolEntryStringWide(Raw, id, which, buffer, bufferSize, out stringSize);
 
@@ -5740,7 +5740,7 @@ namespace ClrDebug.DbgEng
         /// <param name="id">[in] The ID of a module as a pointer to a <see cref="DEBUG_MODULE_AND_ID"/> structure.</param>
         /// <param name="flags">[in] A bit-set that contains options that affect the behavior of this method.</param>
         /// <returns>[out] The memory regions associated with the symbol.</returns>
-        public DEBUG_OFFSET_REGION[] GetSymbolEntryOffsetRegions(DEBUG_MODULE_AND_ID id, uint flags)
+        public DEBUG_OFFSET_REGION[] GetSymbolEntryOffsetRegions(DEBUG_MODULE_AND_ID id, int flags)
         {
             DEBUG_OFFSET_REGION[] regions;
             TryGetSymbolEntryOffsetRegions(id, flags, out regions).ThrowDbgEngNotOK();
@@ -5757,25 +5757,25 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code. This function returns all known memory regions that associatedwith a specified symbol.<para/>
         /// Simple symbols have a single region that starts from their base. More complicated regions, such as functions that have multiple code areas, can have an arbitrarilylarge number of regions.<para/>
         /// The quality of information returned is highlydependent on the symbolic information available.</returns>
-        public HRESULT TryGetSymbolEntryOffsetRegions(DEBUG_MODULE_AND_ID id, uint flags, out DEBUG_OFFSET_REGION[] regions)
+        public HRESULT TryGetSymbolEntryOffsetRegions(DEBUG_MODULE_AND_ID id, int flags, out DEBUG_OFFSET_REGION[] regions)
         {
             InitDelegate(ref getSymbolEntryOffsetRegions, Vtbl3->GetSymbolEntryOffsetRegions);
             /*HRESULT GetSymbolEntryOffsetRegions(
             [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id,
-            [In] uint Flags,
+            [In] int Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions,
-            [In] uint RegionsCount,
-            [Out] out uint RegionsAvail);*/
+            [In] int RegionsCount,
+            [Out] out int RegionsAvail);*/
             regions = null;
-            uint regionsCount = 0;
-            uint regionsAvail;
+            int regionsCount = 0;
+            int regionsAvail;
             HRESULT hr = getSymbolEntryOffsetRegions(Raw, id, flags, null, regionsCount, out regionsAvail);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             regionsCount = regionsAvail;
-            regions = new DEBUG_OFFSET_REGION[(int) regionsCount];
+            regions = new DEBUG_OFFSET_REGION[regionsCount];
             hr = getSymbolEntryOffsetRegions(Raw, id, flags, regions, regionsCount, out regionsAvail);
             fail:
             return hr;
@@ -5790,7 +5790,7 @@ namespace ClrDebug.DbgEng
         /// <param name="fromId">[in] A pointer to a <see cref="DEBUG_MODULE_AND_ID"/> structure as the input ID.</param>
         /// <param name="flags">[in] A bit-set that contains options that affect the behavior of this method.</param>
         /// <returns>[out] A pointer to a <see cref="DEBUG_MODULE_AND_ID"/> structure as the output ID.</returns>
-        public DEBUG_MODULE_AND_ID GetSymbolEntryBySymbolEntry(DEBUG_MODULE_AND_ID fromId, uint flags)
+        public DEBUG_MODULE_AND_ID GetSymbolEntryBySymbolEntry(DEBUG_MODULE_AND_ID fromId, int flags)
         {
             DEBUG_MODULE_AND_ID toId;
             TryGetSymbolEntryBySymbolEntry(fromId, flags, out toId).ThrowDbgEngNotOK();
@@ -5805,13 +5805,13 @@ namespace ClrDebug.DbgEng
         /// <param name="flags">[in] A bit-set that contains options that affect the behavior of this method.</param>
         /// <param name="toId">[out] A pointer to a <see cref="DEBUG_MODULE_AND_ID"/> structure as the output ID.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        public HRESULT TryGetSymbolEntryBySymbolEntry(DEBUG_MODULE_AND_ID fromId, uint flags, out DEBUG_MODULE_AND_ID toId)
+        public HRESULT TryGetSymbolEntryBySymbolEntry(DEBUG_MODULE_AND_ID fromId, int flags, out DEBUG_MODULE_AND_ID toId)
         {
             InitDelegate(ref getSymbolEntryBySymbolEntry, Vtbl3->GetSymbolEntryBySymbolEntry);
 
             /*HRESULT GetSymbolEntryBySymbolEntry(
             [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID FromId,
-            [In] uint Flags,
+            [In] int Flags,
             [Out] out DEBUG_MODULE_AND_ID ToId);*/
             return getSymbolEntryBySymbolEntry(Raw, fromId, flags, out toId);
         }
@@ -5825,7 +5825,7 @@ namespace ClrDebug.DbgEng
         /// <param name="offset">[in] The offset of the entry.</param>
         /// <param name="flags">[in] A bit-set that contains options that affect the behavior of this method.</param>
         /// <returns>[out] A pointer to a returned entry as a <see cref="DEBUG_SYMBOL_SOURCE_ENTRY"/> structure.</returns>
-        public DEBUG_SYMBOL_SOURCE_ENTRY[] GetSourceEntriesByOffset(ulong offset, uint flags)
+        public DEBUG_SYMBOL_SOURCE_ENTRY[] GetSourceEntriesByOffset(long offset, int flags)
         {
             DEBUG_SYMBOL_SOURCE_ENTRY[] entries;
             TryGetSourceEntriesByOffset(offset, flags, out entries).ThrowDbgEngNotOK();
@@ -5840,25 +5840,25 @@ namespace ClrDebug.DbgEng
         /// <param name="flags">[in] A bit-set that contains options that affect the behavior of this method.</param>
         /// <param name="entries">[out] A pointer to a returned entry as a <see cref="DEBUG_SYMBOL_SOURCE_ENTRY"/> structure.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        public HRESULT TryGetSourceEntriesByOffset(ulong offset, uint flags, out DEBUG_SYMBOL_SOURCE_ENTRY[] entries)
+        public HRESULT TryGetSourceEntriesByOffset(long offset, int flags, out DEBUG_SYMBOL_SOURCE_ENTRY[] entries)
         {
             InitDelegate(ref getSourceEntriesByOffset, Vtbl3->GetSourceEntriesByOffset);
             /*HRESULT GetSourceEntriesByOffset(
-            [In] ulong Offset,
-            [In] uint Flags,
+            [In] long Offset,
+            [In] int Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries,
-            [In] uint EntriesCount,
-            [Out] out uint EntriesAvail);*/
+            [In] int EntriesCount,
+            [Out] out int EntriesAvail);*/
             entries = null;
-            uint entriesCount = 0;
-            uint entriesAvail;
+            int entriesCount = 0;
+            int entriesAvail;
             HRESULT hr = getSourceEntriesByOffset(Raw, offset, flags, null, entriesCount, out entriesAvail);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             entriesCount = entriesAvail;
-            entries = new DEBUG_SYMBOL_SOURCE_ENTRY[(int) entriesCount];
+            entries = new DEBUG_SYMBOL_SOURCE_ENTRY[entriesCount];
             hr = getSourceEntriesByOffset(Raw, offset, flags, entries, entriesCount, out entriesAvail);
             fail:
             return hr;
@@ -5882,7 +5882,7 @@ namespace ClrDebug.DbgEng
         /// and DEBUG_GSEL_NEAREST_ONLY will return the target's memory location for the first piece of code starting at the
         /// specified line. For more information about source files, see Using Source Files.
         /// </remarks>
-        public DEBUG_SYMBOL_SOURCE_ENTRY[] GetSourceEntriesByLine(uint line, string file, uint flags)
+        public DEBUG_SYMBOL_SOURCE_ENTRY[] GetSourceEntriesByLine(int line, string file, int flags)
         {
             DEBUG_SYMBOL_SOURCE_ENTRY[] entries;
             TryGetSourceEntriesByLine(line, file, flags, out entries).ThrowDbgEngNotOK();
@@ -5906,26 +5906,26 @@ namespace ClrDebug.DbgEng
         /// and DEBUG_GSEL_NEAREST_ONLY will return the target's memory location for the first piece of code starting at the
         /// specified line. For more information about source files, see Using Source Files.
         /// </remarks>
-        public HRESULT TryGetSourceEntriesByLine(uint line, string file, uint flags, out DEBUG_SYMBOL_SOURCE_ENTRY[] entries)
+        public HRESULT TryGetSourceEntriesByLine(int line, string file, int flags, out DEBUG_SYMBOL_SOURCE_ENTRY[] entries)
         {
             InitDelegate(ref getSourceEntriesByLine, Vtbl3->GetSourceEntriesByLine);
             /*HRESULT GetSourceEntriesByLine(
-            [In] uint Line,
+            [In] int Line,
             [In, MarshalAs(UnmanagedType.LPStr)] string File,
-            [In] uint Flags,
+            [In] int Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries,
-            [In] uint EntriesCount,
-            [Out] out uint EntriesAvail);*/
+            [In] int EntriesCount,
+            [Out] out int EntriesAvail);*/
             entries = null;
-            uint entriesCount = 0;
-            uint entriesAvail;
+            int entriesCount = 0;
+            int entriesAvail;
             HRESULT hr = getSourceEntriesByLine(Raw, line, file, flags, null, entriesCount, out entriesAvail);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             entriesCount = entriesAvail;
-            entries = new DEBUG_SYMBOL_SOURCE_ENTRY[(int) entriesCount];
+            entries = new DEBUG_SYMBOL_SOURCE_ENTRY[entriesCount];
             hr = getSourceEntriesByLine(Raw, line, file, flags, entries, entriesCount, out entriesAvail);
             fail:
             return hr;
@@ -5949,7 +5949,7 @@ namespace ClrDebug.DbgEng
         /// and DEBUG_GSEL_NEAREST_ONLY will return the target's memory location for the first piece of code starting at the
         /// specified line. For more information about source files, see Using Source Files.
         /// </remarks>
-        public DEBUG_SYMBOL_SOURCE_ENTRY[] GetSourceEntriesByLineWide(uint line, string file, uint flags)
+        public DEBUG_SYMBOL_SOURCE_ENTRY[] GetSourceEntriesByLineWide(int line, string file, int flags)
         {
             DEBUG_SYMBOL_SOURCE_ENTRY[] entries;
             TryGetSourceEntriesByLineWide(line, file, flags, out entries).ThrowDbgEngNotOK();
@@ -5973,26 +5973,26 @@ namespace ClrDebug.DbgEng
         /// and DEBUG_GSEL_NEAREST_ONLY will return the target's memory location for the first piece of code starting at the
         /// specified line. For more information about source files, see Using Source Files.
         /// </remarks>
-        public HRESULT TryGetSourceEntriesByLineWide(uint line, string file, uint flags, out DEBUG_SYMBOL_SOURCE_ENTRY[] entries)
+        public HRESULT TryGetSourceEntriesByLineWide(int line, string file, int flags, out DEBUG_SYMBOL_SOURCE_ENTRY[] entries)
         {
             InitDelegate(ref getSourceEntriesByLineWide, Vtbl3->GetSourceEntriesByLineWide);
             /*HRESULT GetSourceEntriesByLineWide(
-            [In] uint Line,
+            [In] int Line,
             [In, MarshalAs(UnmanagedType.LPWStr)] string File,
-            [In] uint Flags,
+            [In] int Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries,
-            [In] uint EntriesCount,
-            [Out] out uint EntriesAvail);*/
+            [In] int EntriesCount,
+            [Out] out int EntriesAvail);*/
             entries = null;
-            uint entriesCount = 0;
-            uint entriesAvail;
+            int entriesCount = 0;
+            int entriesAvail;
             HRESULT hr = getSourceEntriesByLineWide(Raw, line, file, flags, null, entriesCount, out entriesAvail);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             entriesCount = entriesAvail;
-            entries = new DEBUG_SYMBOL_SOURCE_ENTRY[(int) entriesCount];
+            entries = new DEBUG_SYMBOL_SOURCE_ENTRY[entriesCount];
             hr = getSourceEntriesByLineWide(Raw, line, file, flags, entries, entriesCount, out entriesAvail);
             fail:
             return hr;
@@ -6007,7 +6007,7 @@ namespace ClrDebug.DbgEng
         /// <param name="entry">[in] An entry as a <see cref="DEBUG_SYMBOL_SOURCE_ENTRY"/> structure.</param>
         /// <param name="which">[in] A value that determines which types to return.</param>
         /// <returns>[out] A pointer to a string buffer for the results.</returns>
-        public string GetSourceEntryString(DEBUG_SYMBOL_SOURCE_ENTRY entry, uint which)
+        public string GetSourceEntryString(DEBUG_SYMBOL_SOURCE_ENTRY entry, int which)
         {
             string bufferResult;
             TryGetSourceEntryString(entry, which, out bufferResult).ThrowDbgEngNotOK();
@@ -6023,24 +6023,24 @@ namespace ClrDebug.DbgEng
         /// <param name="bufferResult">[out] A pointer to a string buffer for the results.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code. This method can return multiple results for a source lookup.<para/>
         /// This allows for all possible results to be returned.</returns>
-        public HRESULT TryGetSourceEntryString(DEBUG_SYMBOL_SOURCE_ENTRY entry, uint which, out string bufferResult)
+        public HRESULT TryGetSourceEntryString(DEBUG_SYMBOL_SOURCE_ENTRY entry, int which, out string bufferResult)
         {
             InitDelegate(ref getSourceEntryString, Vtbl3->GetSourceEntryString);
             /*HRESULT GetSourceEntryString(
             [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry,
-            [In] uint Which,
+            [In] int Which,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint StringSize);*/
+            [Out] out int StringSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint stringSize;
+            int stringSize;
             HRESULT hr = getSourceEntryString(Raw, entry, which, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) stringSize;
+            bufferSize = stringSize;
             buffer = new StringBuilder(bufferSize);
             hr = getSourceEntryString(Raw, entry, which, buffer, bufferSize, out stringSize);
 
@@ -6066,7 +6066,7 @@ namespace ClrDebug.DbgEng
         /// <param name="entry">[in] An entry as a <see cref="DEBUG_SYMBOL_SOURCE_ENTRY"/> structure.</param>
         /// <param name="which">[in] A value that determines which types to return.</param>
         /// <returns>[out] A pointer to a Unicode character string buffer for the results.</returns>
-        public string GetSourceEntryStringWide(DEBUG_SYMBOL_SOURCE_ENTRY entry, uint which)
+        public string GetSourceEntryStringWide(DEBUG_SYMBOL_SOURCE_ENTRY entry, int which)
         {
             string bufferResult;
             TryGetSourceEntryStringWide(entry, which, out bufferResult).ThrowDbgEngNotOK();
@@ -6082,24 +6082,24 @@ namespace ClrDebug.DbgEng
         /// <param name="bufferResult">[out] A pointer to a Unicode character string buffer for the results.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code. This method can return multiple results for a source lookup.<para/>
         /// This allows for all possible results to be returned.</returns>
-        public HRESULT TryGetSourceEntryStringWide(DEBUG_SYMBOL_SOURCE_ENTRY entry, uint which, out string bufferResult)
+        public HRESULT TryGetSourceEntryStringWide(DEBUG_SYMBOL_SOURCE_ENTRY entry, int which, out string bufferResult)
         {
             InitDelegate(ref getSourceEntryStringWide, Vtbl3->GetSourceEntryStringWide);
             /*HRESULT GetSourceEntryStringWide(
             [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry,
-            [In] uint Which,
+            [In] int Which,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint StringSize);*/
+            [Out] out int StringSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint stringSize;
+            int stringSize;
             HRESULT hr = getSourceEntryStringWide(Raw, entry, which, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) stringSize;
+            bufferSize = stringSize;
             buffer = new StringBuilder(bufferSize);
             hr = getSourceEntryStringWide(Raw, entry, which, buffer, bufferSize, out stringSize);
 
@@ -6125,7 +6125,7 @@ namespace ClrDebug.DbgEng
         /// <param name="entry">[in] An entry as a <see cref="DEBUG_SYMBOL_SOURCE_ENTRY"/> structure.</param>
         /// <param name="flags">[in] A bit-set that contains options that affect the behavior of this method.</param>
         /// <returns>[out] The memory regions associated with the source entry.</returns>
-        public DEBUG_OFFSET_REGION[] GetSourceEntryOffsetRegions(DEBUG_SYMBOL_SOURCE_ENTRY entry, uint flags)
+        public DEBUG_OFFSET_REGION[] GetSourceEntryOffsetRegions(DEBUG_SYMBOL_SOURCE_ENTRY entry, int flags)
         {
             DEBUG_OFFSET_REGION[] regions;
             TryGetSourceEntryOffsetRegions(entry, flags, out regions).ThrowDbgEngNotOK();
@@ -6141,25 +6141,25 @@ namespace ClrDebug.DbgEng
         /// <param name="regions">[out] The memory regions associated with the source entry.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code. This function returns all known memory regions that associatedwith a specified source entry.<para/>
         /// Simple symbols have a single region that starts from their base. More complicated regions, such as functions that have multiple code areas, can have an arbitrarilylarge number of regions.</returns>
-        public HRESULT TryGetSourceEntryOffsetRegions(DEBUG_SYMBOL_SOURCE_ENTRY entry, uint flags, out DEBUG_OFFSET_REGION[] regions)
+        public HRESULT TryGetSourceEntryOffsetRegions(DEBUG_SYMBOL_SOURCE_ENTRY entry, int flags, out DEBUG_OFFSET_REGION[] regions)
         {
             InitDelegate(ref getSourceEntryOffsetRegions, Vtbl3->GetSourceEntryOffsetRegions);
             /*HRESULT GetSourceEntryOffsetRegions(
             [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry,
-            [In] uint Flags,
+            [In] int Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions,
-            [In] uint RegionsCount,
-            [Out] out uint RegionsAvail);*/
+            [In] int RegionsCount,
+            [Out] out int RegionsAvail);*/
             regions = null;
-            uint regionsCount = 0;
-            uint regionsAvail;
+            int regionsCount = 0;
+            int regionsAvail;
             HRESULT hr = getSourceEntryOffsetRegions(Raw, entry, flags, null, regionsCount, out regionsAvail);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             regionsCount = regionsAvail;
-            regions = new DEBUG_OFFSET_REGION[(int) regionsCount];
+            regions = new DEBUG_OFFSET_REGION[regionsCount];
             hr = getSourceEntryOffsetRegions(Raw, entry, flags, regions, regionsCount, out regionsAvail);
             fail:
             return hr;
@@ -6174,7 +6174,7 @@ namespace ClrDebug.DbgEng
         /// <param name="fromEntry">[in] A pointer to a <see cref="DEBUG_SYMBOL_SOURCE_ENTRY"/> as the input entry.</param>
         /// <param name="flags">[in] A bit-set that contains options that affect the behavior of this method.</param>
         /// <returns>[out] A pointer to a <see cref="DEBUG_SYMBOL_SOURCE_ENTRY"/> as the output entry.</returns>
-        public DEBUG_SYMBOL_SOURCE_ENTRY GetSourceEntryBySourceEntry(DEBUG_SYMBOL_SOURCE_ENTRY fromEntry, uint flags)
+        public DEBUG_SYMBOL_SOURCE_ENTRY GetSourceEntryBySourceEntry(DEBUG_SYMBOL_SOURCE_ENTRY fromEntry, int flags)
         {
             DEBUG_SYMBOL_SOURCE_ENTRY toEntry;
             TryGetSourceEntryBySourceEntry(fromEntry, flags, out toEntry).ThrowDbgEngNotOK();
@@ -6189,13 +6189,13 @@ namespace ClrDebug.DbgEng
         /// <param name="flags">[in] A bit-set that contains options that affect the behavior of this method.</param>
         /// <param name="toEntry">[out] A pointer to a <see cref="DEBUG_SYMBOL_SOURCE_ENTRY"/> as the output entry.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        public HRESULT TryGetSourceEntryBySourceEntry(DEBUG_SYMBOL_SOURCE_ENTRY fromEntry, uint flags, out DEBUG_SYMBOL_SOURCE_ENTRY toEntry)
+        public HRESULT TryGetSourceEntryBySourceEntry(DEBUG_SYMBOL_SOURCE_ENTRY fromEntry, int flags, out DEBUG_SYMBOL_SOURCE_ENTRY toEntry)
         {
             InitDelegate(ref getSourceEntryBySourceEntry, Vtbl3->GetSourceEntryBySourceEntry);
 
             /*HRESULT GetSourceEntryBySourceEntry(
             [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY FromEntry,
-            [In] uint Flags,
+            [In] int Flags,
             [Out] out DEBUG_SYMBOL_SOURCE_ENTRY ToEntry);*/
             return getSourceEntryBySourceEntry(Raw, fromEntry, flags, out toEntry);
         }
@@ -6211,7 +6211,7 @@ namespace ClrDebug.DbgEng
         /// <param name="scopeContext">[out] A pointer to the scope context returned.</param>
         /// <param name="scopeContextSize">[in] The size of the scope context.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetScopeExResult GetScopeEx(IntPtr scopeContext, uint scopeContextSize)
+        public GetScopeExResult GetScopeEx(IntPtr scopeContext, int scopeContextSize)
         {
             GetScopeExResult result;
             TryGetScopeEx(scopeContext, scopeContextSize, out result).ThrowDbgEngNotOK();
@@ -6226,15 +6226,15 @@ namespace ClrDebug.DbgEng
         /// <param name="scopeContextSize">[in] The size of the scope context.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        public HRESULT TryGetScopeEx(IntPtr scopeContext, uint scopeContextSize, out GetScopeExResult result)
+        public HRESULT TryGetScopeEx(IntPtr scopeContext, int scopeContextSize, out GetScopeExResult result)
         {
             InitDelegate(ref getScopeEx, Vtbl4->GetScopeEx);
             /*HRESULT GetScopeEx(
-            [Out] out ulong InstructionOffset,
+            [Out] out long InstructionOffset,
             [Out] out DEBUG_STACK_FRAME_EX ScopeFrame,
             [In] IntPtr ScopeContext,
-            [In] uint ScopeContextSize);*/
-            ulong instructionOffset;
+            [In] int ScopeContextSize);*/
+            long instructionOffset;
             DEBUG_STACK_FRAME_EX scopeFrame;
             HRESULT hr = getScopeEx(Raw, out instructionOffset, out scopeFrame, scopeContext, scopeContextSize);
 
@@ -6256,7 +6256,7 @@ namespace ClrDebug.DbgEng
         /// <param name="scopeFrame">[in, optional] The scope frame to set as a <see cref="DEBUG_STACK_FRAME_EX"/> structure.</param>
         /// <param name="scopeContext">[in] A pointer to a scope context.</param>
         /// <param name="scopeContextSize">[in] The size of the scope context.</param>
-        public void SetScopeEx(ulong instructionOffset, DEBUG_STACK_FRAME_EX scopeFrame, IntPtr scopeContext, uint scopeContextSize)
+        public void SetScopeEx(long instructionOffset, DEBUG_STACK_FRAME_EX scopeFrame, IntPtr scopeContext, int scopeContextSize)
         {
             TrySetScopeEx(instructionOffset, scopeFrame, scopeContext, scopeContextSize).ThrowDbgEngNotOK();
         }
@@ -6269,15 +6269,15 @@ namespace ClrDebug.DbgEng
         /// <param name="scopeContext">[in] A pointer to a scope context.</param>
         /// <param name="scopeContextSize">[in] The size of the scope context.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        public HRESULT TrySetScopeEx(ulong instructionOffset, DEBUG_STACK_FRAME_EX scopeFrame, IntPtr scopeContext, uint scopeContextSize)
+        public HRESULT TrySetScopeEx(long instructionOffset, DEBUG_STACK_FRAME_EX scopeFrame, IntPtr scopeContext, int scopeContextSize)
         {
             InitDelegate(ref setScopeEx, Vtbl4->SetScopeEx);
 
             /*HRESULT SetScopeEx(
-            [In] ulong InstructionOffset,
+            [In] long InstructionOffset,
             [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_STACK_FRAME_EX ScopeFrame,
             [In] IntPtr ScopeContext,
-            [In] uint ScopeContextSize);*/
+            [In] int ScopeContextSize);*/
             return setScopeEx(Raw, instructionOffset, scopeFrame, scopeContext, scopeContextSize);
         }
 
@@ -6290,7 +6290,7 @@ namespace ClrDebug.DbgEng
         /// <param name="offset">[in] An offset for the name.</param>
         /// <param name="inlineContext">[in] The inline context.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetNameByInlineContextResult GetNameByInlineContext(ulong offset, uint inlineContext)
+        public GetNameByInlineContextResult GetNameByInlineContext(long offset, int inlineContext)
         {
             GetNameByInlineContextResult result;
             TryGetNameByInlineContext(offset, inlineContext, out result).ThrowDbgEngNotOK();
@@ -6305,26 +6305,26 @@ namespace ClrDebug.DbgEng
         /// <param name="inlineContext">[in] The inline context.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        public HRESULT TryGetNameByInlineContext(ulong offset, uint inlineContext, out GetNameByInlineContextResult result)
+        public HRESULT TryGetNameByInlineContext(long offset, int inlineContext, out GetNameByInlineContextResult result)
         {
             InitDelegate(ref getNameByInlineContext, Vtbl4->GetNameByInlineContext);
             /*HRESULT GetNameByInlineContext(
-            [In] ulong Offset,
-            [In] uint InlineContext,
+            [In] long Offset,
+            [In] int InlineContext,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
-            [Out] out uint NameSize,
-            [Out] out ulong Displacement);*/
+            [Out] out int NameSize,
+            [Out] out long Displacement);*/
             StringBuilder nameBuffer;
             int nameBufferSize = 0;
-            uint nameSize;
-            ulong displacement;
+            int nameSize;
+            long displacement;
             HRESULT hr = getNameByInlineContext(Raw, offset, inlineContext, null, nameBufferSize, out nameSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            nameBufferSize = (int) nameSize;
+            nameBufferSize = nameSize;
             nameBuffer = new StringBuilder(nameBufferSize);
             hr = getNameByInlineContext(Raw, offset, inlineContext, nameBuffer, nameBufferSize, out nameSize, out displacement);
 
@@ -6350,7 +6350,7 @@ namespace ClrDebug.DbgEng
         /// <param name="offset">[in] An offset for the inline context.</param>
         /// <param name="inlineContext">[in] The inline context.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetNameByInlineContextWideResult GetNameByInlineContextWide(ulong offset, uint inlineContext)
+        public GetNameByInlineContextWideResult GetNameByInlineContextWide(long offset, int inlineContext)
         {
             GetNameByInlineContextWideResult result;
             TryGetNameByInlineContextWide(offset, inlineContext, out result).ThrowDbgEngNotOK();
@@ -6365,26 +6365,26 @@ namespace ClrDebug.DbgEng
         /// <param name="inlineContext">[in] The inline context.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        public HRESULT TryGetNameByInlineContextWide(ulong offset, uint inlineContext, out GetNameByInlineContextWideResult result)
+        public HRESULT TryGetNameByInlineContextWide(long offset, int inlineContext, out GetNameByInlineContextWideResult result)
         {
             InitDelegate(ref getNameByInlineContextWide, Vtbl4->GetNameByInlineContextWide);
             /*HRESULT GetNameByInlineContextWide(
-            [In] ulong Offset,
-            [In] uint InlineContext,
+            [In] long Offset,
+            [In] int InlineContext,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
-            [Out] out uint NameSize,
-            [Out] out ulong Displacement);*/
+            [Out] out int NameSize,
+            [Out] out long Displacement);*/
             StringBuilder nameBuffer;
             int nameBufferSize = 0;
-            uint nameSize;
-            ulong displacement;
+            int nameSize;
+            long displacement;
             HRESULT hr = getNameByInlineContextWide(Raw, offset, inlineContext, null, nameBufferSize, out nameSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            nameBufferSize = (int) nameSize;
+            nameBufferSize = nameSize;
             nameBuffer = new StringBuilder(nameBufferSize);
             hr = getNameByInlineContextWide(Raw, offset, inlineContext, nameBuffer, nameBufferSize, out nameSize, out displacement);
 
@@ -6410,7 +6410,7 @@ namespace ClrDebug.DbgEng
         /// <param name="offset">[in] An offset for the line.</param>
         /// <param name="fileBufferSize">[in] The size of the file buffer.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetLineByInlineContextResult GetLineByInlineContext(ulong offset, int fileBufferSize)
+        public GetLineByInlineContextResult GetLineByInlineContext(long offset, int fileBufferSize)
         {
             GetLineByInlineContextResult result;
             TryGetLineByInlineContext(offset, fileBufferSize, out result).ThrowDbgEngNotOK();
@@ -6425,29 +6425,29 @@ namespace ClrDebug.DbgEng
         /// <param name="fileBufferSize">[in] The size of the file buffer.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        public HRESULT TryGetLineByInlineContext(ulong offset, int fileBufferSize, out GetLineByInlineContextResult result)
+        public HRESULT TryGetLineByInlineContext(long offset, int fileBufferSize, out GetLineByInlineContextResult result)
         {
             InitDelegate(ref getLineByInlineContext, Vtbl4->GetLineByInlineContext);
             /*HRESULT GetLineByInlineContext(
-            [In] ulong Offset,
-            [In] uint InlineContext,
-            [Out] out uint Line,
+            [In] long Offset,
+            [In] int InlineContext,
+            [Out] out int Line,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder FileBuffer,
             [In] int FileBufferSize,
-            [Out] out uint FileSize,
-            [Out] out ulong Displacement);*/
-            uint inlineContext = 0;
-            uint line;
+            [Out] out int FileSize,
+            [Out] out long Displacement);*/
+            int inlineContext = 0;
+            int line;
             StringBuilder fileBuffer;
-            uint fileSize;
-            ulong displacement;
+            int fileSize;
+            long displacement;
             HRESULT hr = getLineByInlineContext(Raw, offset, inlineContext, out line, null, fileBufferSize, out fileSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             inlineContext = line;
-            fileBuffer = new StringBuilder((int) inlineContext);
+            fileBuffer = new StringBuilder(inlineContext);
             hr = getLineByInlineContext(Raw, offset, inlineContext, out line, fileBuffer, fileBufferSize, out fileSize, out displacement);
 
             if (hr == HRESULT.S_OK)
@@ -6472,7 +6472,7 @@ namespace ClrDebug.DbgEng
         /// <param name="offset">[in] An offset for the line.</param>
         /// <param name="fileBufferSize">[in] The size of the file buffer.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetLineByInlineContextWideResult GetLineByInlineContextWide(ulong offset, int fileBufferSize)
+        public GetLineByInlineContextWideResult GetLineByInlineContextWide(long offset, int fileBufferSize)
         {
             GetLineByInlineContextWideResult result;
             TryGetLineByInlineContextWide(offset, fileBufferSize, out result).ThrowDbgEngNotOK();
@@ -6487,29 +6487,29 @@ namespace ClrDebug.DbgEng
         /// <param name="fileBufferSize">[in] The size of the file buffer.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        public HRESULT TryGetLineByInlineContextWide(ulong offset, int fileBufferSize, out GetLineByInlineContextWideResult result)
+        public HRESULT TryGetLineByInlineContextWide(long offset, int fileBufferSize, out GetLineByInlineContextWideResult result)
         {
             InitDelegate(ref getLineByInlineContextWide, Vtbl4->GetLineByInlineContextWide);
             /*HRESULT GetLineByInlineContextWide(
-            [In] ulong Offset,
-            [In] uint InlineContext,
-            [Out] out uint Line,
+            [In] long Offset,
+            [In] int InlineContext,
+            [Out] out int Line,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder FileBuffer,
             [In] int FileBufferSize,
-            [Out] out uint FileSize,
-            [Out] out ulong Displacement);*/
-            uint inlineContext = 0;
-            uint line;
+            [Out] out int FileSize,
+            [Out] out long Displacement);*/
+            int inlineContext = 0;
+            int line;
             StringBuilder fileBuffer;
-            uint fileSize;
-            ulong displacement;
+            int fileSize;
+            long displacement;
             HRESULT hr = getLineByInlineContextWide(Raw, offset, inlineContext, out line, null, fileBufferSize, out fileSize, out displacement);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             inlineContext = line;
-            fileBuffer = new StringBuilder((int) inlineContext);
+            fileBuffer = new StringBuilder(inlineContext);
             hr = getLineByInlineContextWide(Raw, offset, inlineContext, out line, fileBuffer, fileBufferSize, out fileSize, out displacement);
 
             if (hr == HRESULT.S_OK)
@@ -6535,7 +6535,7 @@ namespace ClrDebug.DbgEng
         /// <param name="flags">[in] A bit-set that contains options that affect the behavior of this method.</param>
         /// <param name="offset">[in] An offset.</param>
         /// <param name="inlineContext">[in] An inline context.</param>
-        public void OutputSymbolByInlineContext(uint outputControl, uint flags, ulong offset, uint inlineContext)
+        public void OutputSymbolByInlineContext(int outputControl, int flags, long offset, int inlineContext)
         {
             TryOutputSymbolByInlineContext(outputControl, flags, offset, inlineContext).ThrowDbgEngNotOK();
         }
@@ -6548,15 +6548,15 @@ namespace ClrDebug.DbgEng
         /// <param name="offset">[in] An offset.</param>
         /// <param name="inlineContext">[in] An inline context.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        public HRESULT TryOutputSymbolByInlineContext(uint outputControl, uint flags, ulong offset, uint inlineContext)
+        public HRESULT TryOutputSymbolByInlineContext(int outputControl, int flags, long offset, int inlineContext)
         {
             InitDelegate(ref outputSymbolByInlineContext, Vtbl4->OutputSymbolByInlineContext);
 
             /*HRESULT OutputSymbolByInlineContext(
-            [In] uint OutputControl,
-            [In] uint Flags,
-            [In] ulong Offset,
-            [In] uint InlineContext);*/
+            [In] int OutputControl,
+            [In] int Flags,
+            [In] long Offset,
+            [In] int InlineContext);*/
             return outputSymbolByInlineContext(Raw, outputControl, flags, offset, inlineContext);
         }
 
@@ -6570,9 +6570,9 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="flags">[in] A bit-set that contains options that affect the behavior of this method.</param>
         /// <returns>[out] A pointer to an index that this function gets.</returns>
-        public uint GetCurrentScopeFrameIndexEx(DEBUG_FRAME flags)
+        public int GetCurrentScopeFrameIndexEx(DEBUG_FRAME flags)
         {
-            uint index;
+            int index;
             TryGetCurrentScopeFrameIndexEx(flags, out index).ThrowDbgEngNotOK();
 
             return index;
@@ -6584,13 +6584,13 @@ namespace ClrDebug.DbgEng
         /// <param name="flags">[in] A bit-set that contains options that affect the behavior of this method.</param>
         /// <param name="index">[out] A pointer to an index that this function gets.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        public HRESULT TryGetCurrentScopeFrameIndexEx(DEBUG_FRAME flags, out uint index)
+        public HRESULT TryGetCurrentScopeFrameIndexEx(DEBUG_FRAME flags, out int index)
         {
             InitDelegate(ref getCurrentScopeFrameIndexEx, Vtbl5->GetCurrentScopeFrameIndexEx);
 
             /*HRESULT GetCurrentScopeFrameIndexEx(
             [In] DEBUG_FRAME Flags,
-            [Out] out uint Index);*/
+            [Out] out int Index);*/
             return getCurrentScopeFrameIndexEx(Raw, flags, out index);
         }
 
@@ -6602,7 +6602,7 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="flags">[in] A bit-set that contains options that affect the behavior of this method.</param>
         /// <param name="index">[in] An index by which to set the frame.</param>
-        public void SetScopeFrameByIndexEx(DEBUG_FRAME flags, uint index)
+        public void SetScopeFrameByIndexEx(DEBUG_FRAME flags, int index)
         {
             TrySetScopeFrameByIndexEx(flags, index).ThrowDbgEngNotOK();
         }
@@ -6613,13 +6613,13 @@ namespace ClrDebug.DbgEng
         /// <param name="flags">[in] A bit-set that contains options that affect the behavior of this method.</param>
         /// <param name="index">[in] An index by which to set the frame.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        public HRESULT TrySetScopeFrameByIndexEx(DEBUG_FRAME flags, uint index)
+        public HRESULT TrySetScopeFrameByIndexEx(DEBUG_FRAME flags, int index)
         {
             InitDelegate(ref setScopeFrameByIndexEx, Vtbl5->SetScopeFrameByIndexEx);
 
             /*HRESULT SetScopeFrameByIndexEx(
             [In] DEBUG_FRAME Flags,
-            [In] uint Index);*/
+            [In] int Index);*/
             return setScopeFrameByIndexEx(Raw, flags, index);
         }
 
@@ -6916,152 +6916,152 @@ namespace ClrDebug.DbgEng
 
         private delegate HRESULT GetSymbolOptionsDelegate(IntPtr self, [Out] out SYMOPT Options);
         private delegate HRESULT SetSymbolOptionsDelegate(IntPtr self, [In] SYMOPT Options);
-        private delegate HRESULT GetNumberModulesDelegate(IntPtr self, [Out] out uint Loaded, [Out] out uint Unloaded);
-        private delegate HRESULT GetSymbolPathDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint PathSize);
+        private delegate HRESULT GetNumberModulesDelegate(IntPtr self, [Out] out int Loaded, [Out] out int Unloaded);
+        private delegate HRESULT GetSymbolPathDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int PathSize);
         private delegate HRESULT SetSymbolPathDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Path);
-        private delegate HRESULT GetImagePathDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint PathSize);
+        private delegate HRESULT GetImagePathDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int PathSize);
         private delegate HRESULT SetImagePathDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Path);
-        private delegate HRESULT GetSourcePathDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint PathSize);
+        private delegate HRESULT GetSourcePathDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int PathSize);
         private delegate HRESULT SetSourcePathDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Path);
         private delegate HRESULT AddSymbolOptionsDelegate(IntPtr self, [In] SYMOPT Options);
         private delegate HRESULT RemoveSymbolOptionsDelegate(IntPtr self, [In] SYMOPT Options);
-        private delegate HRESULT GetNameByOffsetDelegate(IntPtr self, [In] ulong Offset, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out uint NameSize, [Out] out ulong Displacement);
-        private delegate HRESULT GetOffsetByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Symbol, [Out] out ulong Offset);
-        private delegate HRESULT GetNearNameByOffsetDelegate(IntPtr self, [In] ulong Offset, [In] int Delta, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out uint NameSize, [Out] out ulong Displacement);
-        private delegate HRESULT GetLineByOffsetDelegate(IntPtr self, [In] ulong Offset, [Out] out uint Line, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder FileBuffer, [In] int FileBufferSize, [Out] out uint FileSize, [Out] out ulong Displacement);
-        private delegate HRESULT GetOffsetByLineDelegate(IntPtr self, [In] uint Line, [In, MarshalAs(UnmanagedType.LPStr)] string File, [Out] out ulong Offset);
-        private delegate HRESULT GetModuleByIndexDelegate(IntPtr self, [In] uint Index, [Out] out ulong Base);
-        private delegate HRESULT GetModuleByModuleNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [In] uint StartIndex, [Out] out uint Index, [Out] out ulong Base);
-        private delegate HRESULT GetModuleByOffsetDelegate(IntPtr self, [In] ulong Offset, [In] uint StartIndex, [Out] out uint Index, [Out] out ulong Base);
-        private delegate HRESULT GetModuleNamesDelegate(IntPtr self, [In] uint Index, [In] ulong Base, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder ImageNameBuffer, [In] int ImageNameBufferSize, [Out] out uint ImageNameSize, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder ModuleNameBuffer, [In] int ModuleNameBufferSize, [Out] out uint ModuleNameSize, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder LoadedImageNameBuffer, [In] int LoadedImageNameBufferSize, [Out] out uint LoadedImageNameSize);
-        private delegate HRESULT GetModuleParametersDelegate(IntPtr self, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ulong[] Bases, [In] uint Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_MODULE_PARAMETERS[] Params);
-        private delegate HRESULT GetSymbolModuleDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Symbol, [Out] out ulong Base);
-        private delegate HRESULT GetTypeNameDelegate(IntPtr self, [In] ulong Module, [In] uint TypeId, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out uint NameSize);
-        private delegate HRESULT GetTypeIdDelegate(IntPtr self, [In] ulong Module, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [Out] out uint TypeId);
-        private delegate HRESULT GetTypeSizeDelegate(IntPtr self, [In] ulong Module, [In] uint TypeId, [Out] out uint Size);
-        private delegate HRESULT GetFieldOffsetDelegate(IntPtr self, [In] ulong Module, [In] uint TypeId, [In, MarshalAs(UnmanagedType.LPStr)] string Field, [Out] out uint Offset);
-        private delegate HRESULT GetSymbolTypeIdDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Symbol, [Out] out uint TypeId, [Out] out ulong Module);
-        private delegate HRESULT GetOffsetTypeIdDelegate(IntPtr self, [In] ulong Offset, [Out] out uint TypeId, [Out] out ulong Module);
-        private delegate HRESULT ReadTypedDataVirtualDelegate(IntPtr self, [In] ulong Offset, [In] ulong Module, [In] uint TypeId, [Out] IntPtr Buffer, [In] uint BufferSize, [Out] out uint BytesRead);
-        private delegate HRESULT WriteTypedDataVirtualDelegate(IntPtr self, [In] ulong Offset, [In] ulong Module, [In] uint TypeId, [In] IntPtr Buffer, [In] uint BufferSize, [Out] out uint BytesWritten);
-        private delegate HRESULT OutputTypedDataVirtualDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] ulong Offset, [In] ulong Module, [In] uint TypeId, [In] DEBUG_TYPEOPTS Flags);
-        private delegate HRESULT ReadTypedDataPhysicalDelegate(IntPtr self, [In] ulong Offset, [In] ulong Module, [In] uint TypeId, [In] IntPtr Buffer, [In] uint BufferSize, [Out] out uint BytesRead);
-        private delegate HRESULT WriteTypedDataPhysicalDelegate(IntPtr self, [In] ulong Offset, [In] ulong Module, [In] uint TypeId, [In] IntPtr Buffer, [In] uint BufferSize, [Out] out uint BytesWritten);
-        private delegate HRESULT OutputTypedDataPhysicalDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] ulong Offset, [In] ulong Module, [In] uint TypeId, [In] DEBUG_TYPEOPTS Flags);
-        private delegate HRESULT GetScopeDelegate(IntPtr self, [Out] out ulong InstructionOffset, [Out] out DEBUG_STACK_FRAME ScopeFrame, [In] IntPtr ScopeContext, [In] uint ScopeContextSize);
-        private delegate HRESULT SetScopeDelegate(IntPtr self, [In] ulong InstructionOffset, [In] DEBUG_STACK_FRAME ScopeFrame, [In] IntPtr ScopeContext, [In] uint ScopeContextSize);
+        private delegate HRESULT GetNameByOffsetDelegate(IntPtr self, [In] long Offset, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out long Displacement);
+        private delegate HRESULT GetOffsetByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Symbol, [Out] out long Offset);
+        private delegate HRESULT GetNearNameByOffsetDelegate(IntPtr self, [In] long Offset, [In] int Delta, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out long Displacement);
+        private delegate HRESULT GetLineByOffsetDelegate(IntPtr self, [In] long Offset, [Out] out int Line, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder FileBuffer, [In] int FileBufferSize, [Out] out int FileSize, [Out] out long Displacement);
+        private delegate HRESULT GetOffsetByLineDelegate(IntPtr self, [In] int Line, [In, MarshalAs(UnmanagedType.LPStr)] string File, [Out] out long Offset);
+        private delegate HRESULT GetModuleByIndexDelegate(IntPtr self, [In] int Index, [Out] out long Base);
+        private delegate HRESULT GetModuleByModuleNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [In] int StartIndex, [Out] out int Index, [Out] out long Base);
+        private delegate HRESULT GetModuleByOffsetDelegate(IntPtr self, [In] long Offset, [In] int StartIndex, [Out] out int Index, [Out] out long Base);
+        private delegate HRESULT GetModuleNamesDelegate(IntPtr self, [In] int Index, [In] long Base, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder ImageNameBuffer, [In] int ImageNameBufferSize, [Out] out int ImageNameSize, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder ModuleNameBuffer, [In] int ModuleNameBufferSize, [Out] out int ModuleNameSize, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder LoadedImageNameBuffer, [In] int LoadedImageNameBufferSize, [Out] out int LoadedImageNameSize);
+        private delegate HRESULT GetModuleParametersDelegate(IntPtr self, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Bases, [In] int Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_MODULE_PARAMETERS[] Params);
+        private delegate HRESULT GetSymbolModuleDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Symbol, [Out] out long Base);
+        private delegate HRESULT GetTypeNameDelegate(IntPtr self, [In] long Module, [In] int TypeId, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out int NameSize);
+        private delegate HRESULT GetTypeIdDelegate(IntPtr self, [In] long Module, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [Out] out int TypeId);
+        private delegate HRESULT GetTypeSizeDelegate(IntPtr self, [In] long Module, [In] int TypeId, [Out] out int Size);
+        private delegate HRESULT GetFieldOffsetDelegate(IntPtr self, [In] long Module, [In] int TypeId, [In, MarshalAs(UnmanagedType.LPStr)] string Field, [Out] out int Offset);
+        private delegate HRESULT GetSymbolTypeIdDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Symbol, [Out] out int TypeId, [Out] out long Module);
+        private delegate HRESULT GetOffsetTypeIdDelegate(IntPtr self, [In] long Offset, [Out] out int TypeId, [Out] out long Module);
+        private delegate HRESULT ReadTypedDataVirtualDelegate(IntPtr self, [In] long Offset, [In] long Module, [In] int TypeId, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesRead);
+        private delegate HRESULT WriteTypedDataVirtualDelegate(IntPtr self, [In] long Offset, [In] long Module, [In] int TypeId, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
+        private delegate HRESULT OutputTypedDataVirtualDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] long Offset, [In] long Module, [In] int TypeId, [In] DEBUG_TYPEOPTS Flags);
+        private delegate HRESULT ReadTypedDataPhysicalDelegate(IntPtr self, [In] long Offset, [In] long Module, [In] int TypeId, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesRead);
+        private delegate HRESULT WriteTypedDataPhysicalDelegate(IntPtr self, [In] long Offset, [In] long Module, [In] int TypeId, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
+        private delegate HRESULT OutputTypedDataPhysicalDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] long Offset, [In] long Module, [In] int TypeId, [In] DEBUG_TYPEOPTS Flags);
+        private delegate HRESULT GetScopeDelegate(IntPtr self, [Out] out long InstructionOffset, [Out] out DEBUG_STACK_FRAME ScopeFrame, [In] IntPtr ScopeContext, [In] int ScopeContextSize);
+        private delegate HRESULT SetScopeDelegate(IntPtr self, [In] long InstructionOffset, [In] DEBUG_STACK_FRAME ScopeFrame, [In] IntPtr ScopeContext, [In] int ScopeContextSize);
         private delegate HRESULT ResetScopeDelegate(IntPtr self);
         private delegate HRESULT GetScopeSymbolGroupDelegate(IntPtr self, [In] DEBUG_SCOPE_GROUP Flags, [In, ComAliasName("IDebugSymbolGroup")] IntPtr Update, [Out, ComAliasName("IDebugSymbolGroup")] out IntPtr Symbols);
         private delegate HRESULT CreateSymbolGroupDelegate(IntPtr self, [Out, ComAliasName("IDebugSymbolGroup")] out IntPtr Group);
-        private delegate HRESULT StartSymbolMatchDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Pattern, [Out] out ulong Handle);
-        private delegate HRESULT GetNextSymbolMatchDelegate(IntPtr self, [In] ulong Handle, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint MatchSize, [Out] out ulong Offset);
-        private delegate HRESULT EndSymbolMatchDelegate(IntPtr self, [In] ulong Handle);
+        private delegate HRESULT StartSymbolMatchDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Pattern, [Out] out long Handle);
+        private delegate HRESULT GetNextSymbolMatchDelegate(IntPtr self, [In] long Handle, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int MatchSize, [Out] out long Offset);
+        private delegate HRESULT EndSymbolMatchDelegate(IntPtr self, [In] long Handle);
         private delegate HRESULT ReloadDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Module);
         private delegate HRESULT AppendSymbolPathDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Addition);
         private delegate HRESULT AppendImagePathDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Addition);
-        private delegate HRESULT GetSourcePathElementDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint ElementSize);
+        private delegate HRESULT GetSourcePathElementDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int ElementSize);
         private delegate HRESULT AppendSourcePathDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Addition);
-        private delegate HRESULT FindSourceFileDelegate(IntPtr self, [In] uint StartElement, [In, MarshalAs(UnmanagedType.LPStr)] string File, [In] DEBUG_FIND_SOURCE Flags, [Out] out uint FoundElement, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint FoundSize);
-        private delegate HRESULT GetSourceFileLineOffsetsDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string File, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] Buffer, [In] int BufferLines, [Out] out uint FileLines);
+        private delegate HRESULT FindSourceFileDelegate(IntPtr self, [In] int StartElement, [In, MarshalAs(UnmanagedType.LPStr)] string File, [In] DEBUG_FIND_SOURCE Flags, [Out] out int FoundElement, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int FoundSize);
+        private delegate HRESULT GetSourceFileLineOffsetsDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string File, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] long[] Buffer, [In] int BufferLines, [Out] out int FileLines);
 
         #endregion
         #region IDebugSymbols2
 
         private delegate HRESULT GetTypeOptionsDelegate(IntPtr self, [Out] out DEBUG_TYPEOPTS Options);
         private delegate HRESULT SetTypeOptionsDelegate(IntPtr self, [In] DEBUG_TYPEOPTS Options);
-        private delegate HRESULT GetModuleVersionInformationDelegate(IntPtr self, [In] uint Index, [In] ulong Base, [In, MarshalAs(UnmanagedType.LPStr)] string Item, [Out] IntPtr Buffer, [In] uint BufferSize, [Out] out uint VerInfoSize);
-        private delegate HRESULT GetModuleNameStringDelegate(IntPtr self, [In] DEBUG_MODNAME Which, [In] uint Index, [In] ulong Base, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] uint BufferSize, [Out] out uint NameSize);
-        private delegate HRESULT GetConstantNameDelegate(IntPtr self, [In] ulong Module, [In] uint TypeId, [In] ulong Value, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint NameSize);
-        private delegate HRESULT GetFieldNameDelegate(IntPtr self, [In] ulong Module, [In] uint TypeId, [In] uint FieldIndex, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint NameSize);
+        private delegate HRESULT GetModuleVersionInformationDelegate(IntPtr self, [In] int Index, [In] long Base, [In, MarshalAs(UnmanagedType.LPStr)] string Item, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int VerInfoSize);
+        private delegate HRESULT GetModuleNameStringDelegate(IntPtr self, [In] DEBUG_MODNAME Which, [In] int Index, [In] long Base, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int NameSize);
+        private delegate HRESULT GetConstantNameDelegate(IntPtr self, [In] long Module, [In] int TypeId, [In] long Value, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int NameSize);
+        private delegate HRESULT GetFieldNameDelegate(IntPtr self, [In] long Module, [In] int TypeId, [In] int FieldIndex, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int NameSize);
         private delegate HRESULT AddTypeOptionsDelegate(IntPtr self, [In] DEBUG_TYPEOPTS Options);
         private delegate HRESULT RemoveTypeOptionsDelegate(IntPtr self, [In] DEBUG_TYPEOPTS Options);
 
         #endregion
         #region IDebugSymbols3
 
-        private delegate HRESULT GetSymbolPathWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint PathSize);
+        private delegate HRESULT GetSymbolPathWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int PathSize);
         private delegate HRESULT SetSymbolPathWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Path);
-        private delegate HRESULT GetImagePathWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint PathSize);
+        private delegate HRESULT GetImagePathWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int PathSize);
         private delegate HRESULT SetImagePathWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Path);
-        private delegate HRESULT GetSourcePathWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint PathSize);
+        private delegate HRESULT GetSourcePathWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int PathSize);
         private delegate HRESULT SetSourcePathWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Path);
-        private delegate HRESULT GetCurrentScopeFrameIndexDelegate(IntPtr self, [Out] out uint Index);
-        private delegate HRESULT GetNameByOffsetWideDelegate(IntPtr self, [In] ulong Offset, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out uint NameSize, [Out] out ulong Displacement);
-        private delegate HRESULT GetOffsetByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol, [Out] out ulong Offset);
-        private delegate HRESULT GetNearNameByOffsetWideDelegate(IntPtr self, [In] ulong Offset, [In] int Delta, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out uint NameSize, [Out] out ulong Displacement);
-        private delegate HRESULT GetLineByOffsetWideDelegate(IntPtr self, [In] ulong Offset, [Out] out uint Line, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder FileBuffer, [In] int FileBufferSize, [Out] out uint FileSize, [Out] out ulong Displacement);
-        private delegate HRESULT GetOffsetByLineWideDelegate(IntPtr self, [In] uint Line, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [Out] out ulong Offset);
-        private delegate HRESULT GetModuleByModuleNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [In] uint StartIndex, [Out] out uint Index, [Out] out ulong Base);
-        private delegate HRESULT GetSymbolModuleWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol, [Out] out ulong Base);
-        private delegate HRESULT GetTypeNameWideDelegate(IntPtr self, [In] ulong Module, [In] uint TypeId, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out uint NameSize);
-        private delegate HRESULT GetTypeIdWideDelegate(IntPtr self, [In] ulong Module, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [Out] out uint TypeId);
-        private delegate HRESULT GetFieldOffsetWideDelegate(IntPtr self, [In] ulong Module, [In] uint TypeId, [In, MarshalAs(UnmanagedType.LPWStr)] string Field, [Out] out uint Offset);
-        private delegate HRESULT GetSymbolTypeIdWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol, [Out] out uint TypeId, [Out] out ulong Module);
+        private delegate HRESULT GetCurrentScopeFrameIndexDelegate(IntPtr self, [Out] out int Index);
+        private delegate HRESULT GetNameByOffsetWideDelegate(IntPtr self, [In] long Offset, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out long Displacement);
+        private delegate HRESULT GetOffsetByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol, [Out] out long Offset);
+        private delegate HRESULT GetNearNameByOffsetWideDelegate(IntPtr self, [In] long Offset, [In] int Delta, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out long Displacement);
+        private delegate HRESULT GetLineByOffsetWideDelegate(IntPtr self, [In] long Offset, [Out] out int Line, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder FileBuffer, [In] int FileBufferSize, [Out] out int FileSize, [Out] out long Displacement);
+        private delegate HRESULT GetOffsetByLineWideDelegate(IntPtr self, [In] int Line, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [Out] out long Offset);
+        private delegate HRESULT GetModuleByModuleNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [In] int StartIndex, [Out] out int Index, [Out] out long Base);
+        private delegate HRESULT GetSymbolModuleWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol, [Out] out long Base);
+        private delegate HRESULT GetTypeNameWideDelegate(IntPtr self, [In] long Module, [In] int TypeId, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out int NameSize);
+        private delegate HRESULT GetTypeIdWideDelegate(IntPtr self, [In] long Module, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [Out] out int TypeId);
+        private delegate HRESULT GetFieldOffsetWideDelegate(IntPtr self, [In] long Module, [In] int TypeId, [In, MarshalAs(UnmanagedType.LPWStr)] string Field, [Out] out int Offset);
+        private delegate HRESULT GetSymbolTypeIdWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol, [Out] out int TypeId, [Out] out long Module);
         private delegate HRESULT GetScopeSymbolGroup2Delegate(IntPtr self, [In] DEBUG_SCOPE_GROUP Flags, [In, ComAliasName("IDebugSymbolGroup2")] IntPtr Update, [Out, ComAliasName("IDebugSymbolGroup2")] out IntPtr Symbols);
         private delegate HRESULT CreateSymbolGroup2Delegate(IntPtr self, [Out, ComAliasName("IDebugSymbolGroup2")] out IntPtr Group);
-        private delegate HRESULT StartSymbolMatchWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Pattern, [Out] out ulong Handle);
-        private delegate HRESULT GetNextSymbolMatchWideDelegate(IntPtr self, [In] ulong Handle, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint MatchSize, [Out] out ulong Offset);
+        private delegate HRESULT StartSymbolMatchWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Pattern, [Out] out long Handle);
+        private delegate HRESULT GetNextSymbolMatchWideDelegate(IntPtr self, [In] long Handle, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int MatchSize, [Out] out long Offset);
         private delegate HRESULT ReloadWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Module);
         private delegate HRESULT AppendSymbolPathWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Addition);
         private delegate HRESULT AppendImagePathWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Addition);
-        private delegate HRESULT GetSourcePathElementWideDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint ElementSize);
+        private delegate HRESULT GetSourcePathElementWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int ElementSize);
         private delegate HRESULT AppendSourcePathWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Addition);
-        private delegate HRESULT FindSourceFileWideDelegate(IntPtr self, [In] uint StartElement, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [In] DEBUG_FIND_SOURCE Flags, [Out] out uint FoundElement, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint FoundSize);
-        private delegate HRESULT GetSourceFileLineOffsetsWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] Buffer, [In] int BufferLines, [Out] out uint FileLines);
-        private delegate HRESULT GetModuleVersionInformationWideDelegate(IntPtr self, [In] uint Index, [In] ulong Base, [In, MarshalAs(UnmanagedType.LPWStr)] string Item, [In] IntPtr Buffer, [In] int BufferSize, [Out] out uint VerInfoSize);
-        private delegate HRESULT GetModuleNameStringWideDelegate(IntPtr self, [In] DEBUG_MODNAME Which, [In] uint Index, [In] ulong Base, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint NameSize);
-        private delegate HRESULT GetConstantNameWideDelegate(IntPtr self, [In] ulong Module, [In] uint TypeId, [In] ulong Value, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint NameSize);
-        private delegate HRESULT GetFieldNameWideDelegate(IntPtr self, [In] ulong Module, [In] uint TypeId, [In] uint FieldIndex, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint NameSize);
-        private delegate HRESULT IsManagedModuleDelegate(IntPtr self, [In] uint Index, [In] ulong Base);
-        private delegate HRESULT GetModuleByModuleName2Delegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [In] uint StartIndex, [In] DEBUG_GETMOD Flags, [Out] out uint Index, [Out] out ulong Base);
-        private delegate HRESULT GetModuleByModuleName2WideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [In] uint StartIndex, [In] DEBUG_GETMOD Flags, [Out] out uint Index, [Out] out ulong Base);
-        private delegate HRESULT GetModuleByOffset2Delegate(IntPtr self, [In] ulong Offset, [In] uint StartIndex, [In] DEBUG_GETMOD Flags, [Out] out uint Index, [Out] out ulong Base);
-        private delegate HRESULT AddSyntheticModuleDelegate(IntPtr self, [In] ulong Base, [In] uint Size, [In, MarshalAs(UnmanagedType.LPStr)] string ImagePath, [In, MarshalAs(UnmanagedType.LPStr)] string ModuleName, [In] DEBUG_ADDSYNTHMOD Flags);
-        private delegate HRESULT AddSyntheticModuleWideDelegate(IntPtr self, [In] ulong Base, [In] uint Size, [In, MarshalAs(UnmanagedType.LPWStr)] string ImagePath, [In, MarshalAs(UnmanagedType.LPWStr)] string ModuleName, [In] DEBUG_ADDSYNTHMOD Flags);
-        private delegate HRESULT RemoveSyntheticModuleDelegate(IntPtr self, [In] ulong Base);
-        private delegate HRESULT SetScopeFrameByIndexDelegate(IntPtr self, [In] uint Index);
-        private delegate HRESULT SetScopeFromJitDebugInfoDelegate(IntPtr self, [In] uint OutputControl, [In] ulong InfoOffset);
+        private delegate HRESULT FindSourceFileWideDelegate(IntPtr self, [In] int StartElement, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [In] DEBUG_FIND_SOURCE Flags, [Out] out int FoundElement, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int FoundSize);
+        private delegate HRESULT GetSourceFileLineOffsetsWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] long[] Buffer, [In] int BufferLines, [Out] out int FileLines);
+        private delegate HRESULT GetModuleVersionInformationWideDelegate(IntPtr self, [In] int Index, [In] long Base, [In, MarshalAs(UnmanagedType.LPWStr)] string Item, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int VerInfoSize);
+        private delegate HRESULT GetModuleNameStringWideDelegate(IntPtr self, [In] DEBUG_MODNAME Which, [In] int Index, [In] long Base, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int NameSize);
+        private delegate HRESULT GetConstantNameWideDelegate(IntPtr self, [In] long Module, [In] int TypeId, [In] long Value, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int NameSize);
+        private delegate HRESULT GetFieldNameWideDelegate(IntPtr self, [In] long Module, [In] int TypeId, [In] int FieldIndex, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int NameSize);
+        private delegate HRESULT IsManagedModuleDelegate(IntPtr self, [In] int Index, [In] long Base);
+        private delegate HRESULT GetModuleByModuleName2Delegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [In] int StartIndex, [In] DEBUG_GETMOD Flags, [Out] out int Index, [Out] out long Base);
+        private delegate HRESULT GetModuleByModuleName2WideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [In] int StartIndex, [In] DEBUG_GETMOD Flags, [Out] out int Index, [Out] out long Base);
+        private delegate HRESULT GetModuleByOffset2Delegate(IntPtr self, [In] long Offset, [In] int StartIndex, [In] DEBUG_GETMOD Flags, [Out] out int Index, [Out] out long Base);
+        private delegate HRESULT AddSyntheticModuleDelegate(IntPtr self, [In] long Base, [In] int Size, [In, MarshalAs(UnmanagedType.LPStr)] string ImagePath, [In, MarshalAs(UnmanagedType.LPStr)] string ModuleName, [In] DEBUG_ADDSYNTHMOD Flags);
+        private delegate HRESULT AddSyntheticModuleWideDelegate(IntPtr self, [In] long Base, [In] int Size, [In, MarshalAs(UnmanagedType.LPWStr)] string ImagePath, [In, MarshalAs(UnmanagedType.LPWStr)] string ModuleName, [In] DEBUG_ADDSYNTHMOD Flags);
+        private delegate HRESULT RemoveSyntheticModuleDelegate(IntPtr self, [In] long Base);
+        private delegate HRESULT SetScopeFrameByIndexDelegate(IntPtr self, [In] int Index);
+        private delegate HRESULT SetScopeFromJitDebugInfoDelegate(IntPtr self, [In] int OutputControl, [In] long InfoOffset);
         private delegate HRESULT SetScopeFromStoredEventDelegate(IntPtr self);
-        private delegate HRESULT OutputSymbolByOffsetDelegate(IntPtr self, [In] uint OutputControl, [In] DEBUG_OUTSYM Flags, [In] ulong Offset);
-        private delegate HRESULT GetFunctionEntryByOffsetDelegate(IntPtr self, [In] ulong Offset, [In] DEBUG_GETFNENT Flags, [In] IntPtr Buffer, [In] uint BufferSize, [Out] out uint BufferNeeded);
-        private delegate HRESULT GetFieldTypeAndOffsetDelegate(IntPtr self, [In] ulong Module, [In] uint ContainerTypeId, [In, MarshalAs(UnmanagedType.LPStr)] string Field, [Out] out uint FieldTypeId, [Out] out uint Offset);
-        private delegate HRESULT GetFieldTypeAndOffsetWideDelegate(IntPtr self, [In] ulong Module, [In] uint ContainerTypeId, [In, MarshalAs(UnmanagedType.LPWStr)] string Field, [Out] out uint FieldTypeId, [Out] out uint Offset);
-        private delegate HRESULT AddSyntheticSymbolDelegate(IntPtr self, [In] ulong Offset, [In] uint Size, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [In] DEBUG_ADDSYNTHSYM Flags, [Out] out DEBUG_MODULE_AND_ID Id);
-        private delegate HRESULT AddSyntheticSymbolWideDelegate(IntPtr self, [In] ulong Offset, [In] uint Size, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [In] DEBUG_ADDSYNTHSYM Flags, [Out] out DEBUG_MODULE_AND_ID Id);
+        private delegate HRESULT OutputSymbolByOffsetDelegate(IntPtr self, [In] int OutputControl, [In] DEBUG_OUTSYM Flags, [In] long Offset);
+        private delegate HRESULT GetFunctionEntryByOffsetDelegate(IntPtr self, [In] long Offset, [In] DEBUG_GETFNENT Flags, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BufferNeeded);
+        private delegate HRESULT GetFieldTypeAndOffsetDelegate(IntPtr self, [In] long Module, [In] int ContainerTypeId, [In, MarshalAs(UnmanagedType.LPStr)] string Field, [Out] out int FieldTypeId, [Out] out int Offset);
+        private delegate HRESULT GetFieldTypeAndOffsetWideDelegate(IntPtr self, [In] long Module, [In] int ContainerTypeId, [In, MarshalAs(UnmanagedType.LPWStr)] string Field, [Out] out int FieldTypeId, [Out] out int Offset);
+        private delegate HRESULT AddSyntheticSymbolDelegate(IntPtr self, [In] long Offset, [In] int Size, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [In] DEBUG_ADDSYNTHSYM Flags, [Out] out DEBUG_MODULE_AND_ID Id);
+        private delegate HRESULT AddSyntheticSymbolWideDelegate(IntPtr self, [In] long Offset, [In] int Size, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [In] DEBUG_ADDSYNTHSYM Flags, [Out] out DEBUG_MODULE_AND_ID Id);
         private delegate HRESULT RemoveSyntheticSymbolDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id);
-        private delegate HRESULT GetSymbolEntriesByOffsetDelegate(IntPtr self, [In] ulong Offset, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_MODULE_AND_ID[] Ids, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] ulong[] Displacements, [In] uint IdsCount, [Out] out uint Entries);
-        private delegate HRESULT GetSymbolEntriesByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Symbol, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_MODULE_AND_ID[] Ids, [In] uint IdsCount, [Out] out uint Entries);
-        private delegate HRESULT GetSymbolEntriesByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_MODULE_AND_ID[] Ids, [In] uint IdsCount, [Out] out uint Entries);
-        private delegate HRESULT GetSymbolEntryByTokenDelegate(IntPtr self, [In] ulong ModuleBase, [In] uint Token, [Out] out DEBUG_MODULE_AND_ID Id);
+        private delegate HRESULT GetSymbolEntriesByOffsetDelegate(IntPtr self, [In] long Offset, [In] int Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_MODULE_AND_ID[] Ids, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] long[] Displacements, [In] int IdsCount, [Out] out int Entries);
+        private delegate HRESULT GetSymbolEntriesByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Symbol, [In] int Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_MODULE_AND_ID[] Ids, [In] int IdsCount, [Out] out int Entries);
+        private delegate HRESULT GetSymbolEntriesByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol, [In] int Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_MODULE_AND_ID[] Ids, [In] int IdsCount, [Out] out int Entries);
+        private delegate HRESULT GetSymbolEntryByTokenDelegate(IntPtr self, [In] long ModuleBase, [In] int Token, [Out] out DEBUG_MODULE_AND_ID Id);
         private delegate HRESULT GetSymbolEntryInformationDelegate(IntPtr self, [In] ref DEBUG_MODULE_AND_ID Id, [Out] out DEBUG_SYMBOL_ENTRY Info);
-        private delegate HRESULT GetSymbolEntryStringDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id, [In] uint Which, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint StringSize);
-        private delegate HRESULT GetSymbolEntryStringWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id, [In] uint Which, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint StringSize);
-        private delegate HRESULT GetSymbolEntryOffsetRegionsDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions, [In] uint RegionsCount, [Out] out uint RegionsAvail);
-        private delegate HRESULT GetSymbolEntryBySymbolEntryDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID FromId, [In] uint Flags, [Out] out DEBUG_MODULE_AND_ID ToId);
-        private delegate HRESULT GetSourceEntriesByOffsetDelegate(IntPtr self, [In] ulong Offset, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries, [In] uint EntriesCount, [Out] out uint EntriesAvail);
-        private delegate HRESULT GetSourceEntriesByLineDelegate(IntPtr self, [In] uint Line, [In, MarshalAs(UnmanagedType.LPStr)] string File, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries, [In] uint EntriesCount, [Out] out uint EntriesAvail);
-        private delegate HRESULT GetSourceEntriesByLineWideDelegate(IntPtr self, [In] uint Line, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries, [In] uint EntriesCount, [Out] out uint EntriesAvail);
-        private delegate HRESULT GetSourceEntryStringDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry, [In] uint Which, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint StringSize);
-        private delegate HRESULT GetSourceEntryStringWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry, [In] uint Which, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint StringSize);
-        private delegate HRESULT GetSourceEntryOffsetRegionsDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry, [In] uint Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions, [In] uint RegionsCount, [Out] out uint RegionsAvail);
-        private delegate HRESULT GetSourceEntryBySourceEntryDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY FromEntry, [In] uint Flags, [Out] out DEBUG_SYMBOL_SOURCE_ENTRY ToEntry);
+        private delegate HRESULT GetSymbolEntryStringDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id, [In] int Which, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringSize);
+        private delegate HRESULT GetSymbolEntryStringWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id, [In] int Which, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringSize);
+        private delegate HRESULT GetSymbolEntryOffsetRegionsDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id, [In] int Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions, [In] int RegionsCount, [Out] out int RegionsAvail);
+        private delegate HRESULT GetSymbolEntryBySymbolEntryDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID FromId, [In] int Flags, [Out] out DEBUG_MODULE_AND_ID ToId);
+        private delegate HRESULT GetSourceEntriesByOffsetDelegate(IntPtr self, [In] long Offset, [In] int Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries, [In] int EntriesCount, [Out] out int EntriesAvail);
+        private delegate HRESULT GetSourceEntriesByLineDelegate(IntPtr self, [In] int Line, [In, MarshalAs(UnmanagedType.LPStr)] string File, [In] int Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries, [In] int EntriesCount, [Out] out int EntriesAvail);
+        private delegate HRESULT GetSourceEntriesByLineWideDelegate(IntPtr self, [In] int Line, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [In] int Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries, [In] int EntriesCount, [Out] out int EntriesAvail);
+        private delegate HRESULT GetSourceEntryStringDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry, [In] int Which, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringSize);
+        private delegate HRESULT GetSourceEntryStringWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry, [In] int Which, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringSize);
+        private delegate HRESULT GetSourceEntryOffsetRegionsDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry, [In] int Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions, [In] int RegionsCount, [Out] out int RegionsAvail);
+        private delegate HRESULT GetSourceEntryBySourceEntryDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY FromEntry, [In] int Flags, [Out] out DEBUG_SYMBOL_SOURCE_ENTRY ToEntry);
 
         #endregion
         #region IDebugSymbols4
 
-        private delegate HRESULT GetScopeExDelegate(IntPtr self, [Out] out ulong InstructionOffset, [Out] out DEBUG_STACK_FRAME_EX ScopeFrame, [In] IntPtr ScopeContext, [In] uint ScopeContextSize);
-        private delegate HRESULT SetScopeExDelegate(IntPtr self, [In] ulong InstructionOffset, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_STACK_FRAME_EX ScopeFrame, [In] IntPtr ScopeContext, [In] uint ScopeContextSize);
-        private delegate HRESULT GetNameByInlineContextDelegate(IntPtr self, [In] ulong Offset, [In] uint InlineContext, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out uint NameSize, [Out] out ulong Displacement);
-        private delegate HRESULT GetNameByInlineContextWideDelegate(IntPtr self, [In] ulong Offset, [In] uint InlineContext, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out uint NameSize, [Out] out ulong Displacement);
-        private delegate HRESULT GetLineByInlineContextDelegate(IntPtr self, [In] ulong Offset, [In] uint InlineContext, [Out] out uint Line, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder FileBuffer, [In] int FileBufferSize, [Out] out uint FileSize, [Out] out ulong Displacement);
-        private delegate HRESULT GetLineByInlineContextWideDelegate(IntPtr self, [In] ulong Offset, [In] uint InlineContext, [Out] out uint Line, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder FileBuffer, [In] int FileBufferSize, [Out] out uint FileSize, [Out] out ulong Displacement);
-        private delegate HRESULT OutputSymbolByInlineContextDelegate(IntPtr self, [In] uint OutputControl, [In] uint Flags, [In] ulong Offset, [In] uint InlineContext);
+        private delegate HRESULT GetScopeExDelegate(IntPtr self, [Out] out long InstructionOffset, [Out] out DEBUG_STACK_FRAME_EX ScopeFrame, [In] IntPtr ScopeContext, [In] int ScopeContextSize);
+        private delegate HRESULT SetScopeExDelegate(IntPtr self, [In] long InstructionOffset, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_STACK_FRAME_EX ScopeFrame, [In] IntPtr ScopeContext, [In] int ScopeContextSize);
+        private delegate HRESULT GetNameByInlineContextDelegate(IntPtr self, [In] long Offset, [In] int InlineContext, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out long Displacement);
+        private delegate HRESULT GetNameByInlineContextWideDelegate(IntPtr self, [In] long Offset, [In] int InlineContext, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out long Displacement);
+        private delegate HRESULT GetLineByInlineContextDelegate(IntPtr self, [In] long Offset, [In] int InlineContext, [Out] out int Line, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder FileBuffer, [In] int FileBufferSize, [Out] out int FileSize, [Out] out long Displacement);
+        private delegate HRESULT GetLineByInlineContextWideDelegate(IntPtr self, [In] long Offset, [In] int InlineContext, [Out] out int Line, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder FileBuffer, [In] int FileBufferSize, [Out] out int FileSize, [Out] out long Displacement);
+        private delegate HRESULT OutputSymbolByInlineContextDelegate(IntPtr self, [In] int OutputControl, [In] int Flags, [In] long Offset, [In] int InlineContext);
 
         #endregion
         #region IDebugSymbols5
 
-        private delegate HRESULT GetCurrentScopeFrameIndexExDelegate(IntPtr self, [In] DEBUG_FRAME Flags, [Out] out uint Index);
-        private delegate HRESULT SetScopeFrameByIndexExDelegate(IntPtr self, [In] DEBUG_FRAME Flags, [In] uint Index);
+        private delegate HRESULT GetCurrentScopeFrameIndexExDelegate(IntPtr self, [In] DEBUG_FRAME Flags, [Out] out int Index);
+        private delegate HRESULT SetScopeFrameByIndexExDelegate(IntPtr self, [In] DEBUG_FRAME Flags, [In] int Index);
 
         #endregion
         #endregion

@@ -11,14 +11,14 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Receives the type ID of the field.
         /// </summary>
-        public uint FieldTypeId { get; }
+        public int FieldTypeId { get; }
 
         /// <summary>
         /// Receives the offset of the field Field from the base memory location of an instance of the container.
         /// </summary>
-        public uint Offset { get; }
+        public int Offset { get; }
 
-        public GetFieldTypeAndOffsetWideResult(uint fieldTypeId, uint offset)
+        public GetFieldTypeAndOffsetWideResult(int fieldTypeId, int offset)
         {
             FieldTypeId = fieldTypeId;
             Offset = offset;

@@ -45,7 +45,7 @@ namespace ClrDebug.DbgEng
         new HRESULT GetKernelConnectionOptions(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint OptionsSize);
+            [Out] out int OptionsSize);
 
         /// <summary>
         /// The SetKernelConnectionOptions method updates some of the connection options for a live kernel target.
@@ -97,7 +97,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT ConnectProcessServer(
             [In, MarshalAs(UnmanagedType.LPStr)] string RemoteOptions,
-            [Out] out ulong Server);
+            [Out] out long Server);
 
         /// <summary>
         /// The DisconnectProcessServer method disconnects the debugger engine from a process server.
@@ -110,7 +110,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT DisconnectProcessServer(
-            [In] ulong Server);
+            [In] long Server);
 
         /// <summary>
         /// The GetRunningProcessSystemIds method returns the process IDs for each running process.
@@ -126,11 +126,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetRunningProcessSystemIds(
-            [In] ulong Server,
+            [In] long Server,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)]
-            uint[] Ids,
-            [In] uint Count,
-            [Out] out uint ActualCount);
+            int[] Ids,
+            [In] int Count,
+            [Out] out int ActualCount);
 
         /// <summary>
         /// The GetRunningProcessSystemIdByExecutableName method searches for a process with a given executable file name and return its process ID.
@@ -146,10 +146,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetRunningProcessSystemIdByExecutableName(
-            [In] ulong Server,
+            [In] long Server,
             [In, MarshalAs(UnmanagedType.LPStr)] string ExeName,
             [In] DEBUG_GET_PROC Flags,
-            [Out] out uint Id);
+            [Out] out int Id);
 
         /// <summary>
         /// The GetRunningProcessDescription method returns a description of the process that includes the executable image name, the service names, the MTS package names, and the command line.
@@ -173,15 +173,15 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetRunningProcessDescription(
-            [In] ulong Server,
-            [In] uint SystemId,
+            [In] long Server,
+            [In] int SystemId,
             [In] DEBUG_PROC_DESC Flags,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder ExeName,
             [In] int ExeNameSize,
-            [Out] out uint ActualExeNameSize,
+            [Out] out int ActualExeNameSize,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Description,
             [In] int DescriptionSize,
-            [Out] out uint ActualDescriptionSize);
+            [Out] out int ActualDescriptionSize);
 
         /// <summary>
         /// The AttachProcess method connects the debugger engine to a user-modeprocess.
@@ -201,8 +201,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT AttachProcess(
-            [In] ulong Server,
-            [In] uint ProcessID,
+            [In] long Server,
+            [In] int ProcessID,
             [In] DEBUG_ATTACH AttachFlags);
 
         /// <summary>
@@ -220,7 +220,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT CreateProcess(
-            [In] ulong Server,
+            [In] long Server,
             [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine,
             [In] DEBUG_CREATE_PROCESS Flags);
 
@@ -241,10 +241,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT CreateProcessAndAttach(
-            [In] ulong Server,
+            [In] long Server,
             [In, MarshalAs(UnmanagedType.LPStr)] string CommandLine,
             [In] DEBUG_CREATE_PROCESS Flags,
-            [In] uint ProcessId,
+            [In] int ProcessId,
             [In] DEBUG_ATTACH AttachFlags);
 
         /// <summary>
@@ -357,7 +357,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT ConnectSession(
             [In] DEBUG_CONNECT_SESSION Flags,
-            [In] uint HistoryLimit);
+            [In] int HistoryLimit);
 
         /// <summary>
         /// The StartServer method starts a debugging server.
@@ -429,7 +429,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetExitCode(
-            [Out] out uint Code);
+            [Out] out int Code);
 
         /// <summary>
         /// The DispatchCallbacks method lets the debugger engine use the current thread for callbacks.
@@ -446,7 +446,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT DispatchCallbacks(
-            [In] uint Timeout);
+            [In] int Timeout);
 
         /// <summary>
         /// The ExitDispatch method causes the <see cref="DispatchCallbacks"/> method to return.
@@ -603,7 +603,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetOutputWidth(
-            [Out] out uint Columns);
+            [Out] out int Columns);
 
         /// <param name="Columns">[in] The number of columns in the output.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
@@ -612,7 +612,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT SetOutputWidth(
-            [In] uint Columns);
+            [In] int Columns);
 
         /// <param name="Buffer">[out] A pointer to the buffer to get the prefix.</param>
         /// <param name="BufferSize">[in] The size of the buffer.</param>
@@ -627,7 +627,7 @@ namespace ClrDebug.DbgEng
         new HRESULT GetOutputLinePrefix(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint PrefixSize);
+            [Out] out int PrefixSize);
 
         /// <param name="Prefix">[in, optional] A pointer to the prefix value.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
@@ -655,7 +655,7 @@ namespace ClrDebug.DbgEng
         new HRESULT GetIdentity(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint IdentitySize);
+            [Out] out int IdentitySize);
 
         /// <summary>
         /// The OutputIdentity method formats and outputs a string describing the computer and user this client represents.
@@ -671,7 +671,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT OutputIdentity(
             [In] DEBUG_OUTCTL OutputControl,
-            [In] uint Flags,
+            [In] int Flags,
             [In, MarshalAs(UnmanagedType.LPStr)] string Format);
 
         /// <summary>
@@ -776,7 +776,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT EndProcessServer(
-            [In] ulong Server);
+            [In] long Server);
 
         /// <summary>
         /// The WaitForProcessServerEnd method waits for a local process server to exit.
@@ -790,7 +790,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT WaitForProcessServerEnd(
-            [In] uint Timeout);
+            [In] int Timeout);
 
         /// <summary>
         /// The IsKernelDebuggerEnabled method checks whether kernel debugging is enabled for the local kernel.
@@ -859,10 +859,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetRunningProcessSystemIdByExecutableNameWide(
-            [In] ulong Server,
+            [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string ExeName,
             [In] DEBUG_GET_PROC Flags,
-            [Out] out uint Id);
+            [Out] out int Id);
 
         /// <summary>
         /// The GetRunningProcessDescriptionWide method returns a description of the process that includes the executable image name, the service names, the MTS package names, and the command line.
@@ -886,17 +886,17 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetRunningProcessDescriptionWide(
-            [In] ulong Server,
-            [In] uint SystemId,
+            [In] long Server,
+            [In] int SystemId,
             [In] DEBUG_PROC_DESC Flags,
             [Out, MarshalAs(UnmanagedType.LPWStr)]
             StringBuilder ExeName,
             [In] int ExeNameSize,
-            [Out] out uint ActualExeNameSize,
+            [Out] out int ActualExeNameSize,
             [Out, MarshalAs(UnmanagedType.LPWStr)]
             StringBuilder Description,
             [In] int DescriptionSize,
-            [Out] out uint ActualDescriptionSize);
+            [Out] out int ActualDescriptionSize);
 
         /// <summary>
         /// The CreateProcessWide method creates a process from the specified command line.
@@ -915,7 +915,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT CreateProcessWide(
-            [In] ulong Server,
+            [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine,
             [In] DEBUG_CREATE_PROCESS CreateFlags);
 
@@ -939,10 +939,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT CreateProcessAndAttachWide(
-            [In] ulong Server,
+            [In] long Server,
             [In, MarshalAs(UnmanagedType.LPWStr)] string CommandLine,
             [In] DEBUG_CREATE_PROCESS CreateFlags,
-            [In] uint ProcessId,
+            [In] int ProcessId,
             [In] DEBUG_ATTACH AttachFlags);
 
         #endregion
@@ -963,7 +963,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT OpenDumpFileWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string FileName,
-            [In] ulong FileHandle);
+            [In] long FileHandle);
 
         /// <summary>
         /// The WriteDumpFileWide method creates a user-mode or kernel-modecrash dump file.
@@ -982,7 +982,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT WriteDumpFileWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string DumpFile,
-            [In] ulong FileHandle,
+            [In] long FileHandle,
             [In] DEBUG_DUMP Qualifier,
             [In] DEBUG_FORMAT FormatFlags,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Comment);
@@ -1003,7 +1003,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT AddDumpInformationFileWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string FileName,
-            [In] ulong FileHandle,
+            [In] long FileHandle,
             [In] DEBUG_DUMP_FILE Type);
 
         /// <summary>
@@ -1016,7 +1016,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetNumberDumpFiles(
-            [Out] out uint Number);
+            [Out] out int Number);
 
         /// <summary>
         /// The GetDumpFile method describes the files containing supporting information that were used when opening the current dump target.
@@ -1034,12 +1034,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetDumpFile(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize,
-            [Out] out ulong Handle,
-            [Out] out uint Type);
+            [Out] out int NameSize,
+            [Out] out long Handle,
+            [Out] out int Type);
 
         /// <summary>
         /// The GetDumpFileWide method describes the files containing supporting information that were used when opening the current dump target.
@@ -1057,12 +1057,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetDumpFileWide(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize,
-            [Out] out ulong Handle,
-            [Out] out uint Type);
+            [Out] out int NameSize,
+            [Out] out long Handle,
+            [Out] out int Type);
 
         #endregion
     }

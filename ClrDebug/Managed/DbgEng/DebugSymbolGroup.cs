@@ -34,11 +34,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetNumberSymbols method returns the number of symbols that are contained in a symbol group.
         /// </summary>
-        public uint NumberSymbols
+        public int NumberSymbols
         {
             get
             {
-                uint number;
+                int number;
                 TryGetNumberSymbols(out number).ThrowDbgEngNotOK();
 
                 return number;
@@ -56,12 +56,12 @@ namespace ClrDebug.DbgEng
         /// of all of the symbols in the group might change. For more information about symbol groups, see Scopes and Symbol
         /// Groups.
         /// </remarks>
-        public HRESULT TryGetNumberSymbols(out uint number)
+        public HRESULT TryGetNumberSymbols(out int number)
         {
             InitDelegate(ref getNumberSymbols, Vtbl->GetNumberSymbols);
 
             /*HRESULT GetNumberSymbols(
-            [Out] out uint Number);*/
+            [Out] out int Number);*/
             return getNumberSymbols(Raw, out number);
         }
 
@@ -81,7 +81,7 @@ namespace ClrDebug.DbgEng
         /// index. If the desired index is larger than the size of the symbol group, the new symbol is added to the end of
         /// the list (as in the case of DEBUG_ANY_ID). For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public void AddSymbol(string name, ref uint index)
+        public void AddSymbol(string name, ref int index)
         {
             TryAddSymbol(name, ref index).ThrowDbgEngNotOK();
         }
@@ -100,13 +100,13 @@ namespace ClrDebug.DbgEng
         /// index. If the desired index is larger than the size of the symbol group, the new symbol is added to the end of
         /// the list (as in the case of DEBUG_ANY_ID). For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TryAddSymbol(string name, ref uint index)
+        public HRESULT TryAddSymbol(string name, ref int index)
         {
             InitDelegate(ref addSymbol, Vtbl->AddSymbol);
 
             /*HRESULT AddSymbol(
             [In, MarshalAs(UnmanagedType.LPStr)] string Name,
-            [In, Out] ref uint Index);*/
+            [In, Out] ref int Index);*/
             return addSymbol(Raw, name, ref index);
         }
 
@@ -147,17 +147,17 @@ namespace ClrDebug.DbgEng
         #endregion
         #region RemoveSymbolsByIndex
 
-        public void RemoveSymbolsByIndex(uint index)
+        public void RemoveSymbolsByIndex(int index)
         {
             TryRemoveSymbolsByIndex(index).ThrowDbgEngNotOK();
         }
 
-        public HRESULT TryRemoveSymbolsByIndex(uint index)
+        public HRESULT TryRemoveSymbolsByIndex(int index)
         {
             InitDelegate(ref removeSymbolsByIndex, Vtbl->RemoveSymbolsByIndex);
 
             /*HRESULT RemoveSymbolsByIndex(
-            [In] uint Index);*/
+            [In] int Index);*/
             return removeSymbolsByIndex(Raw, index);
         }
 
@@ -172,7 +172,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public string GetSymbolName(uint index)
+        public string GetSymbolName(int index)
         {
             string bufferResult;
             TryGetSymbolName(index, out bufferResult).ThrowDbgEngNotOK();
@@ -189,23 +189,23 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TryGetSymbolName(uint index, out string bufferResult)
+        public HRESULT TryGetSymbolName(int index, out string bufferResult)
         {
             InitDelegate(ref getSymbolName, Vtbl->GetSymbolName);
             /*HRESULT GetSymbolName(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize);*/
+            [Out] out int NameSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint nameSize;
+            int nameSize;
             HRESULT hr = getSymbolName(Raw, index, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) nameSize;
+            bufferSize = nameSize;
             buffer = new StringBuilder(bufferSize);
             hr = getSymbolName(Raw, index, buffer, bufferSize, out nameSize);
 
@@ -235,7 +235,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public DEBUG_SYMBOL_PARAMETERS[] GetSymbolParameters(uint start, uint count)
+        public DEBUG_SYMBOL_PARAMETERS[] GetSymbolParameters(int start, int count)
         {
             DEBUG_SYMBOL_PARAMETERS[] @params;
             TryGetSymbolParameters(start, count, out @params).ThrowDbgEngNotOK();
@@ -254,15 +254,15 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TryGetSymbolParameters(uint start, uint count, out DEBUG_SYMBOL_PARAMETERS[] @params)
+        public HRESULT TryGetSymbolParameters(int start, int count, out DEBUG_SYMBOL_PARAMETERS[] @params)
         {
             InitDelegate(ref getSymbolParameters, Vtbl->GetSymbolParameters);
             /*HRESULT GetSymbolParameters(
-            [In] uint Start,
-            [In] uint Count,
+            [In] int Start,
+            [In] int Count,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             DEBUG_SYMBOL_PARAMETERS[] Params);*/
-            @params = new DEBUG_SYMBOL_PARAMETERS[(int) count];
+            @params = new DEBUG_SYMBOL_PARAMETERS[count];
             HRESULT hr = getSymbolParameters(Raw, start, count, @params);
 
             return hr;
@@ -281,7 +281,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public void ExpandSymbol(uint index, bool expand)
+        public void ExpandSymbol(int index, bool expand)
         {
             TryExpandSymbol(index, expand).ThrowDbgEngNotOK();
         }
@@ -297,12 +297,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TryExpandSymbol(uint index, bool expand)
+        public HRESULT TryExpandSymbol(int index, bool expand)
         {
             InitDelegate(ref expandSymbol, Vtbl->ExpandSymbol);
 
             /*HRESULT ExpandSymbol(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.Bool)] bool Expand);*/
             return expandSymbol(Raw, index, expand);
         }
@@ -323,7 +323,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public void OutputSymbols(DEBUG_OUTCTL outputControl, DEBUG_OUTPUT_SYMBOLS flags, uint start, uint count)
+        public void OutputSymbols(DEBUG_OUTCTL outputControl, DEBUG_OUTPUT_SYMBOLS flags, int start, int count)
         {
             TryOutputSymbols(outputControl, flags, start, count).ThrowDbgEngNotOK();
         }
@@ -342,15 +342,15 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TryOutputSymbols(DEBUG_OUTCTL outputControl, DEBUG_OUTPUT_SYMBOLS flags, uint start, uint count)
+        public HRESULT TryOutputSymbols(DEBUG_OUTCTL outputControl, DEBUG_OUTPUT_SYMBOLS flags, int start, int count)
         {
             InitDelegate(ref outputSymbols, Vtbl->OutputSymbols);
 
             /*HRESULT OutputSymbols(
             [In] DEBUG_OUTCTL OutputControl,
             [In] DEBUG_OUTPUT_SYMBOLS Flags,
-            [In] uint Start,
-            [In] uint Count);*/
+            [In] int Start,
+            [In] int Count);*/
             return outputSymbols(Raw, outputControl, flags, start, count);
         }
 
@@ -367,7 +367,7 @@ namespace ClrDebug.DbgEng
         /// the debugger engine knowns and if they have not had their type changed to an extension by using the <see cref="OutputAsType"/>
         /// method. For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public void WriteSymbol(uint index, string value)
+        public void WriteSymbol(int index, string value)
         {
             TryWriteSymbol(index, value).ThrowDbgEngNotOK();
         }
@@ -383,12 +383,12 @@ namespace ClrDebug.DbgEng
         /// the debugger engine knowns and if they have not had their type changed to an extension by using the <see cref="OutputAsType"/>
         /// method. For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TryWriteSymbol(uint index, string value)
+        public HRESULT TryWriteSymbol(int index, string value)
         {
             InitDelegate(ref writeSymbol, Vtbl->WriteSymbol);
 
             /*HRESULT WriteSymbol(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.LPStr)] string Value);*/
             return writeSymbol(Raw, index, value);
         }
@@ -410,7 +410,7 @@ namespace ClrDebug.DbgEng
         /// text and you cannot manipulate them in any way. For example, if the name of a variable is @$teb, you can change
         /// its type to !teb. For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public void OutputAsType(uint index, string type)
+        public void OutputAsType(int index, string type)
         {
             TryOutputAsType(index, type).ThrowDbgEngNotOK();
         }
@@ -430,12 +430,12 @@ namespace ClrDebug.DbgEng
         /// text and you cannot manipulate them in any way. For example, if the name of a variable is @$teb, you can change
         /// its type to !teb. For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TryOutputAsType(uint index, string type)
+        public HRESULT TryOutputAsType(int index, string type)
         {
             InitDelegate(ref outputAsType, Vtbl->OutputAsType);
 
             /*HRESULT OutputAsType(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.LPStr)] string Type);*/
             return outputAsType(Raw, index, type);
         }
@@ -458,7 +458,7 @@ namespace ClrDebug.DbgEng
         /// index. If the desired index is larger than the size of the symbol group, the new symbol is added to the end of
         /// the list (as in the case of DEBUG_ANY_ID). For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public void AddSymbolWide(string name, ref uint index)
+        public void AddSymbolWide(string name, ref int index)
         {
             TryAddSymbolWide(name, ref index).ThrowDbgEngNotOK();
         }
@@ -477,13 +477,13 @@ namespace ClrDebug.DbgEng
         /// index. If the desired index is larger than the size of the symbol group, the new symbol is added to the end of
         /// the list (as in the case of DEBUG_ANY_ID). For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TryAddSymbolWide(string name, ref uint index)
+        public HRESULT TryAddSymbolWide(string name, ref int index)
         {
             InitDelegate(ref addSymbolWide, Vtbl2->AddSymbolWide);
 
             /*HRESULT AddSymbolWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Name,
-            [In, Out] ref uint Index);*/
+            [In, Out] ref int Index);*/
             return addSymbolWide(Raw, name, ref index);
         }
 
@@ -532,7 +532,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public string GetSymbolNameWide(uint index)
+        public string GetSymbolNameWide(int index)
         {
             string bufferResult;
             TryGetSymbolNameWide(index, out bufferResult).ThrowDbgEngNotOK();
@@ -549,23 +549,23 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TryGetSymbolNameWide(uint index, out string bufferResult)
+        public HRESULT TryGetSymbolNameWide(int index, out string bufferResult)
         {
             InitDelegate(ref getSymbolNameWide, Vtbl2->GetSymbolNameWide);
             /*HRESULT GetSymbolNameWide(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize);*/
+            [Out] out int NameSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint nameSize;
+            int nameSize;
             HRESULT hr = getSymbolNameWide(Raw, index, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) nameSize;
+            bufferSize = nameSize;
             buffer = new StringBuilder(bufferSize);
             hr = getSymbolNameWide(Raw, index, buffer, bufferSize, out nameSize);
 
@@ -595,7 +595,7 @@ namespace ClrDebug.DbgEng
         /// engine knowns and if they have not had their type changed to an extension by using the <see cref="OutputAsType"/>
         /// method. For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public void WriteSymbolWide(uint index, string value)
+        public void WriteSymbolWide(int index, string value)
         {
             TryWriteSymbolWide(index, value).ThrowDbgEngNotOK();
         }
@@ -611,12 +611,12 @@ namespace ClrDebug.DbgEng
         /// engine knowns and if they have not had their type changed to an extension by using the <see cref="OutputAsType"/>
         /// method. For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TryWriteSymbolWide(uint index, string value)
+        public HRESULT TryWriteSymbolWide(int index, string value)
         {
             InitDelegate(ref writeSymbolWide, Vtbl2->WriteSymbolWide);
 
             /*HRESULT WriteSymbolWide(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Value);*/
             return writeSymbolWide(Raw, index, value);
         }
@@ -638,7 +638,7 @@ namespace ClrDebug.DbgEng
         /// text and you cannot manipulate them in any way. For example, if the name of a variable is @$teb, you can change
         /// its type to !teb. For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public void OutputAsTypeWide(uint index, string type)
+        public void OutputAsTypeWide(int index, string type)
         {
             TryOutputAsTypeWide(index, type).ThrowDbgEngNotOK();
         }
@@ -658,12 +658,12 @@ namespace ClrDebug.DbgEng
         /// text and you cannot manipulate them in any way. For example, if the name of a variable is @$teb, you can change
         /// its type to !teb. For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TryOutputAsTypeWide(uint index, string type)
+        public HRESULT TryOutputAsTypeWide(int index, string type)
         {
             InitDelegate(ref outputAsTypeWide, Vtbl2->OutputAsTypeWide);
 
             /*HRESULT OutputAsTypeWide(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Type);*/
             return outputAsTypeWide(Raw, index, type);
         }
@@ -679,7 +679,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public string GetSymbolTypeName(uint index)
+        public string GetSymbolTypeName(int index)
         {
             string bufferResult;
             TryGetSymbolTypeName(index, out bufferResult).ThrowDbgEngNotOK();
@@ -696,23 +696,23 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TryGetSymbolTypeName(uint index, out string bufferResult)
+        public HRESULT TryGetSymbolTypeName(int index, out string bufferResult)
         {
             InitDelegate(ref getSymbolTypeName, Vtbl2->GetSymbolTypeName);
             /*HRESULT GetSymbolTypeName(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize);*/
+            [Out] out int NameSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint nameSize;
+            int nameSize;
             HRESULT hr = getSymbolTypeName(Raw, index, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) nameSize;
+            bufferSize = nameSize;
             buffer = new StringBuilder(bufferSize);
             hr = getSymbolTypeName(Raw, index, buffer, bufferSize, out nameSize);
 
@@ -740,7 +740,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public string GetSymbolTypeNameWide(uint index)
+        public string GetSymbolTypeNameWide(int index)
         {
             string bufferResult;
             TryGetSymbolTypeNameWide(index, out bufferResult).ThrowDbgEngNotOK();
@@ -757,23 +757,23 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TryGetSymbolTypeNameWide(uint index, out string bufferResult)
+        public HRESULT TryGetSymbolTypeNameWide(int index, out string bufferResult)
         {
             InitDelegate(ref getSymbolTypeNameWide, Vtbl2->GetSymbolTypeNameWide);
             /*HRESULT GetSymbolTypeNameWide(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize);*/
+            [Out] out int NameSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint nameSize;
+            int nameSize;
             HRESULT hr = getSymbolTypeNameWide(Raw, index, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) nameSize;
+            bufferSize = nameSize;
             buffer = new StringBuilder(bufferSize);
             hr = getSymbolTypeNameWide(Raw, index, buffer, bufferSize, out nameSize);
 
@@ -802,9 +802,9 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public uint GetSymbolSize(uint index)
+        public int GetSymbolSize(int index)
         {
-            uint size;
+            int size;
             TryGetSymbolSize(index, out size).ThrowDbgEngNotOK();
 
             return size;
@@ -820,13 +820,13 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TryGetSymbolSize(uint index, out uint size)
+        public HRESULT TryGetSymbolSize(int index, out int size)
         {
             InitDelegate(ref getSymbolSize, Vtbl2->GetSymbolSize);
 
             /*HRESULT GetSymbolSize(
-            [In] uint Index,
-            [Out] out uint Size);*/
+            [In] int Index,
+            [Out] out int Size);*/
             return getSymbolSize(Raw, index, out size);
         }
 
@@ -841,9 +841,9 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public ulong GetSymbolOffset(uint index)
+        public long GetSymbolOffset(int index)
         {
-            ulong offset;
+            long offset;
             TryGetSymbolOffset(index, out offset).ThrowDbgEngNotOK();
 
             return offset;
@@ -858,13 +858,13 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TryGetSymbolOffset(uint index, out ulong offset)
+        public HRESULT TryGetSymbolOffset(int index, out long offset)
         {
             InitDelegate(ref getSymbolOffset, Vtbl2->GetSymbolOffset);
 
             /*HRESULT GetSymbolOffset(
-            [In] uint Index,
-            [Out] out ulong Offset);*/
+            [In] int Index,
+            [Out] out long Offset);*/
             return getSymbolOffset(Raw, index, out offset);
         }
 
@@ -880,9 +880,9 @@ namespace ClrDebug.DbgEng
         /// For more information about symbol groups, see Scopes and Symbol Groups. For more information about registers and
         /// the register index, see Registers.
         /// </remarks>
-        public uint GetSymbolRegister(uint index)
+        public int GetSymbolRegister(int index)
         {
-            uint register;
+            int register;
             TryGetSymbolRegister(index, out register).ThrowDbgEngNotOK();
 
             return register;
@@ -898,13 +898,13 @@ namespace ClrDebug.DbgEng
         /// For more information about symbol groups, see Scopes and Symbol Groups. For more information about registers and
         /// the register index, see Registers.
         /// </remarks>
-        public HRESULT TryGetSymbolRegister(uint index, out uint register)
+        public HRESULT TryGetSymbolRegister(int index, out int register)
         {
             InitDelegate(ref getSymbolRegister, Vtbl2->GetSymbolRegister);
 
             /*HRESULT GetSymbolRegister(
-            [In] uint Index,
-            [Out] out uint Register);*/
+            [In] int Index,
+            [Out] out int Register);*/
             return getSymbolRegister(Raw, index, out register);
         }
 
@@ -921,7 +921,7 @@ namespace ClrDebug.DbgEng
         /// to Buffer is the name of the symbol that is passed to AddSymbol. For more information about symbol groups, see
         /// Scopes and Symbol Groups.
         /// </remarks>
-        public string GetSymbolValueText(uint index)
+        public string GetSymbolValueText(int index)
         {
             string bufferResult;
             TryGetSymbolValueText(index, out bufferResult).ThrowDbgEngNotOK();
@@ -940,23 +940,23 @@ namespace ClrDebug.DbgEng
         /// to Buffer is the name of the symbol that is passed to AddSymbol. For more information about symbol groups, see
         /// Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TryGetSymbolValueText(uint index, out string bufferResult)
+        public HRESULT TryGetSymbolValueText(int index, out string bufferResult)
         {
             InitDelegate(ref getSymbolValueText, Vtbl2->GetSymbolValueText);
             /*HRESULT GetSymbolValueText(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize);*/
+            [Out] out int NameSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint nameSize;
+            int nameSize;
             HRESULT hr = getSymbolValueText(Raw, index, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) nameSize;
+            bufferSize = nameSize;
             buffer = new StringBuilder(bufferSize);
             hr = getSymbolValueText(Raw, index, buffer, bufferSize, out nameSize);
 
@@ -986,7 +986,7 @@ namespace ClrDebug.DbgEng
         /// to Buffer is the name of the symbol that is passed to AddSymbol. For more information about symbol groups, see
         /// Scopes and Symbol Groups.
         /// </remarks>
-        public string GetSymbolValueTextWide(uint index)
+        public string GetSymbolValueTextWide(int index)
         {
             string bufferResult;
             TryGetSymbolValueTextWide(index, out bufferResult).ThrowDbgEngNotOK();
@@ -1005,23 +1005,23 @@ namespace ClrDebug.DbgEng
         /// to Buffer is the name of the symbol that is passed to AddSymbol. For more information about symbol groups, see
         /// Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TryGetSymbolValueTextWide(uint index, out string bufferResult)
+        public HRESULT TryGetSymbolValueTextWide(int index, out string bufferResult)
         {
             InitDelegate(ref getSymbolValueTextWide, Vtbl2->GetSymbolValueTextWide);
             /*HRESULT GetSymbolValueTextWide(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize);*/
+            [Out] out int NameSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint nameSize;
+            int nameSize;
             HRESULT hr = getSymbolValueTextWide(Raw, index, null, bufferSize, out nameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) nameSize;
+            bufferSize = nameSize;
             buffer = new StringBuilder(bufferSize);
             hr = getSymbolValueTextWide(Raw, index, buffer, bufferSize, out nameSize);
 
@@ -1049,7 +1049,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public DEBUG_SYMBOL_ENTRY GetSymbolEntryInformation(uint index)
+        public DEBUG_SYMBOL_ENTRY GetSymbolEntryInformation(int index)
         {
             DEBUG_SYMBOL_ENTRY info;
             TryGetSymbolEntryInformation(index, out info).ThrowDbgEngNotOK();
@@ -1066,12 +1066,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about symbol groups, see Scopes and Symbol Groups.
         /// </remarks>
-        public HRESULT TryGetSymbolEntryInformation(uint index, out DEBUG_SYMBOL_ENTRY info)
+        public HRESULT TryGetSymbolEntryInformation(int index, out DEBUG_SYMBOL_ENTRY info)
         {
             InitDelegate(ref getSymbolEntryInformation, Vtbl2->GetSymbolEntryInformation);
 
             /*HRESULT GetSymbolEntryInformation(
-            [In] uint Index,
+            [In] int Index,
             [Out] out DEBUG_SYMBOL_ENTRY Info);*/
             return getSymbolEntryInformation(Raw, index, out info);
         }
@@ -1137,33 +1137,33 @@ namespace ClrDebug.DbgEng
         #region Delegates
         #region IDebugSymbolGroup
 
-        private delegate HRESULT GetNumberSymbolsDelegate(IntPtr self, [Out] out uint Number);
-        private delegate HRESULT AddSymbolDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [In, Out] ref uint Index);
+        private delegate HRESULT GetNumberSymbolsDelegate(IntPtr self, [Out] out int Number);
+        private delegate HRESULT AddSymbolDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [In, Out] ref int Index);
         private delegate HRESULT RemoveSymbolByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name);
-        private delegate HRESULT RemoveSymbolsByIndexDelegate(IntPtr self, [In] uint Index);
-        private delegate HRESULT GetSymbolNameDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint NameSize);
-        private delegate HRESULT GetSymbolParametersDelegate(IntPtr self, [In] uint Start, [In] uint Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SYMBOL_PARAMETERS[] Params);
-        private delegate HRESULT ExpandSymbolDelegate(IntPtr self, [In] uint Index, [In, MarshalAs(UnmanagedType.Bool)] bool Expand);
-        private delegate HRESULT OutputSymbolsDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_OUTPUT_SYMBOLS Flags, [In] uint Start, [In] uint Count);
-        private delegate HRESULT WriteSymbolDelegate(IntPtr self, [In] uint Index, [In, MarshalAs(UnmanagedType.LPStr)] string Value);
-        private delegate HRESULT OutputAsTypeDelegate(IntPtr self, [In] uint Index, [In, MarshalAs(UnmanagedType.LPStr)] string Type);
+        private delegate HRESULT RemoveSymbolsByIndexDelegate(IntPtr self, [In] int Index);
+        private delegate HRESULT GetSymbolNameDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int NameSize);
+        private delegate HRESULT GetSymbolParametersDelegate(IntPtr self, [In] int Start, [In] int Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SYMBOL_PARAMETERS[] Params);
+        private delegate HRESULT ExpandSymbolDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.Bool)] bool Expand);
+        private delegate HRESULT OutputSymbolsDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_OUTPUT_SYMBOLS Flags, [In] int Start, [In] int Count);
+        private delegate HRESULT WriteSymbolDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPStr)] string Value);
+        private delegate HRESULT OutputAsTypeDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPStr)] string Type);
 
         #endregion
         #region IDebugSymbolGroup2
 
-        private delegate HRESULT AddSymbolWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [In, Out] ref uint Index);
+        private delegate HRESULT AddSymbolWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [In, Out] ref int Index);
         private delegate HRESULT RemoveSymbolByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Name);
-        private delegate HRESULT GetSymbolNameWideDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint NameSize);
-        private delegate HRESULT WriteSymbolWideDelegate(IntPtr self, [In] uint Index, [In, MarshalAs(UnmanagedType.LPWStr)] string Value);
-        private delegate HRESULT OutputAsTypeWideDelegate(IntPtr self, [In] uint Index, [In, MarshalAs(UnmanagedType.LPWStr)] string Type);
-        private delegate HRESULT GetSymbolTypeNameDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint NameSize);
-        private delegate HRESULT GetSymbolTypeNameWideDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint NameSize);
-        private delegate HRESULT GetSymbolSizeDelegate(IntPtr self, [In] uint Index, [Out] out uint Size);
-        private delegate HRESULT GetSymbolOffsetDelegate(IntPtr self, [In] uint Index, [Out] out ulong Offset);
-        private delegate HRESULT GetSymbolRegisterDelegate(IntPtr self, [In] uint Index, [Out] out uint Register);
-        private delegate HRESULT GetSymbolValueTextDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint NameSize);
-        private delegate HRESULT GetSymbolValueTextWideDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint NameSize);
-        private delegate HRESULT GetSymbolEntryInformationDelegate(IntPtr self, [In] uint Index, [Out] out DEBUG_SYMBOL_ENTRY Info);
+        private delegate HRESULT GetSymbolNameWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int NameSize);
+        private delegate HRESULT WriteSymbolWideDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPWStr)] string Value);
+        private delegate HRESULT OutputAsTypeWideDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPWStr)] string Type);
+        private delegate HRESULT GetSymbolTypeNameDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int NameSize);
+        private delegate HRESULT GetSymbolTypeNameWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int NameSize);
+        private delegate HRESULT GetSymbolSizeDelegate(IntPtr self, [In] int Index, [Out] out int Size);
+        private delegate HRESULT GetSymbolOffsetDelegate(IntPtr self, [In] int Index, [Out] out long Offset);
+        private delegate HRESULT GetSymbolRegisterDelegate(IntPtr self, [In] int Index, [Out] out int Register);
+        private delegate HRESULT GetSymbolValueTextDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int NameSize);
+        private delegate HRESULT GetSymbolValueTextWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int NameSize);
+        private delegate HRESULT GetSymbolEntryInformationDelegate(IntPtr self, [In] int Index, [Out] out DEBUG_SYMBOL_ENTRY Info);
 
         #endregion
         #endregion

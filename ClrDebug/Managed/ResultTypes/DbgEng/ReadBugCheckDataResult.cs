@@ -11,29 +11,29 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Receives the bug check code.
         /// </summary>
-        public uint Code { get; }
+        public int Code { get; }
 
         /// <summary>
         /// Receives the first parameter associated with the bug check. The interpretation of this parameter depends on the bug check code.
         /// </summary>
-        public ulong Arg1 { get; }
+        public long Arg1 { get; }
 
         /// <summary>
         /// Receives the second parameter associated with the bug check. The interpretation of this parameter depends on the bug check code.
         /// </summary>
-        public ulong Arg2 { get; }
+        public long Arg2 { get; }
 
         /// <summary>
         /// Receives the third parameter associated with the bug check. The interpretation of this parameter depends on the bug check code.
         /// </summary>
-        public ulong Arg3 { get; }
+        public long Arg3 { get; }
 
         /// <summary>
         /// Receives the fourth parameter associated with the bug check. The interpretation of this parameter depends on the bug check code.
         /// </summary>
-        public ulong Arg4 { get; }
+        public long Arg4 { get; }
 
-        public ReadBugCheckDataResult(uint code, ulong arg1, ulong arg2, ulong arg3, ulong arg4)
+        public ReadBugCheckDataResult(int code, long arg1, long arg2, long arg3, long arg4)
         {
             Code = code;
             Arg1 = arg1;

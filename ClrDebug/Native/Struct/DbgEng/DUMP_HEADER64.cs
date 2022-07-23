@@ -22,16 +22,16 @@ namespace ClrDebug.DbgEng
         public int MinorVersion;
 
         [FieldOffset(16)]
-        public ulong DirectoryTableBase;
+        public long DirectoryTableBase;
 
         [FieldOffset(24)]
-        public ulong PfnDataBase;
+        public long PfnDataBase;
 
         [FieldOffset(32)]
-        public ulong PsLoadedModuleList;
+        public long PsLoadedModuleList;
 
         [FieldOffset(40)]
-        public ulong PsActiveProcessHead;
+        public long PsActiveProcessHead;
 
         [FieldOffset(48)]
         public IMAGE_FILE_MACHINE MachineImageType;
@@ -45,23 +45,23 @@ namespace ClrDebug.DbgEng
         //Compiler pads 4 bytes here in C# and C++
 
         [FieldOffset(64)]
-        public ulong BugCheckParameter1;
+        public long BugCheckParameter1;
 
         [FieldOffset(72)]
-        public ulong BugCheckParameter2;
+        public long BugCheckParameter2;
 
         [FieldOffset(80)]
-        public ulong BugCheckParameter3;
+        public long BugCheckParameter3;
 
         [FieldOffset(88)]
-        public ulong BugCheckParameter4;
+        public long BugCheckParameter4;
 
         [FieldOffset(96)]
         [MarshalAs(UnmanagedType.ByValArray, ArraySubType = UnmanagedType.LPStr, SizeConst = 32)]
         public char[] VersionUser;
 
         [FieldOffset(128)]
-        public ulong KdDebuggerDataBlock;
+        public long KdDebuggerDataBlock;
 
         [FieldOffset(136)]
         public PHYSICAL_MEMORY_DESCRIPTOR64 PhysicalMemoryBlock;

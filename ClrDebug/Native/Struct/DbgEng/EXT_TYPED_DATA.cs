@@ -48,27 +48,27 @@ namespace ClrDebug.DbgEng
         /// The string is part of the input to the operation and InStrIndex must be smaller than InBufferSize, the size of the input buffer passed to Request.<para/>
         /// The interpretation of the string depends on the value of Operation.
         /// </summary>
-        public uint InStrIndex;
+        public int InStrIndex;
 
         /// <summary>
         /// Specifies a 32-bit parameter to be used as input to the operation. The interpretation of In32 depends on the value of Operation.
         /// </summary>
-        public uint In32;
+        public int In32;
 
         /// <summary>
         /// Receives a 32-bit value as output from the operation. The interpretation of Out32 depends on the value of Operation.
         /// </summary>
-        public uint Out32;
+        public int Out32;
 
         /// <summary>
         /// Specifies a 64-bit parameter to be used as input to the operation. The interpretation of In64 depends on the value of Operation.
         /// </summary>
-        public ulong In64;
+        public long In64;
 
         /// <summary>
         /// Receives a 64-bit value as output from the operation. The interpretation of Out64 depends on the value of Operation.
         /// </summary>
-        public ulong Out64;
+        public long Out64;
 
         /// <summary>
         /// Specifies the position to return an ANSI string as output from the operation. StrBufferIndex can be zero if no ANSI string is to be received from the operation.<para/>
@@ -76,32 +76,32 @@ namespace ClrDebug.DbgEng
         /// The string is part of the output from the suboperation, and StrBufferIndex plus StrBufferChars must be smaller than OutBufferSize, the size of the output buffer passed to Request.<para/>
         /// The interpretation of the string depends on the value of Operation.
         /// </summary>
-        public uint StrBufferIndex;
+        public int StrBufferIndex;
 
         /// <summary>
         /// Specifies the size in characters of the ANSI string buffer specified by StrBufferIndex.
         /// </summary>
-        public uint StrBufferChars;
+        public int StrBufferChars;
 
         /// <summary>
         /// Receives the number of characters needed by the string buffer specified by StrBufferIndex.
         /// </summary>
-        public uint StrCharsNeeded;
+        public int StrCharsNeeded;
 
         /// <summary>
         /// Set to zero.
         /// </summary>
-        public uint DataBufferIndex;
+        public int DataBufferIndex;
 
         /// <summary>
         /// Set to zero.
         /// </summary>
-        public uint DataBufferBytes;
+        public int DataBufferBytes;
 
         /// <summary>
         /// Set to zero,
         /// </summary>
-        public uint DataBytesNeeded;
+        public int DataBytesNeeded;
 
         /// <summary>
         /// Receives the status code returned by the operation. This is the same value returned by Request.
@@ -111,6 +111,6 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Set to zero.
         /// </summary>
-        public fixed ulong Reserved[8];
+        public fixed long Reserved[8];
     }
 }

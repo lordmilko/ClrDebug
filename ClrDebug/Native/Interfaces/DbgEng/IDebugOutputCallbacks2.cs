@@ -53,7 +53,7 @@ namespace ClrDebug.DbgEng
         HRESULT Output2(
             [In] DEBUG_OUTCB which,
             [In] DEBUG_OUTCBF flags,
-            [In] ulong arg,
+            [In] long arg,
             [In, MarshalAs(UnmanagedType.LPWStr)] string text);
 
         #endregion

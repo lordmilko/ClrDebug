@@ -21,7 +21,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetNumberSymbols(
-            [Out] out uint Number);
+            [Out] out int Number);
 
         /// <summary>
         /// The AddSymbol method adds a symbol to a symbol group.
@@ -40,7 +40,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT AddSymbol(
             [In, MarshalAs(UnmanagedType.LPStr)] string Name,
-            [In, Out] ref uint Index);
+            [In, Out] ref int Index);
 
         /// <summary>
         /// The RemoveSymbolByName method removes the specified symbol from a symbol group.
@@ -57,7 +57,7 @@ namespace ClrDebug.DbgEng
 
         [PreserveSig]
         HRESULT RemoveSymbolsByIndex(
-            [In] uint Index);
+            [In] int Index);
 
         /// <summary>
         /// The GetSymbolName method returns the name of a symbol in a symbol group.
@@ -72,10 +72,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetSymbolName(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint NameSize);
+            [Out] out int NameSize);
 
         /// <summary>
         /// The GetSymbolParameters method returns the symbol parameters that describe the specified symbols in a symbol group.
@@ -90,8 +90,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetSymbolParameters(
-            [In] uint Start,
-            [In] uint Count,
+            [In] int Start,
+            [In] int Count,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             DEBUG_SYMBOL_PARAMETERS[] Params);
 
@@ -108,7 +108,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT ExpandSymbol(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.Bool)] bool Expand);
 
         /// <summary>
@@ -129,8 +129,8 @@ namespace ClrDebug.DbgEng
         HRESULT OutputSymbols(
             [In] DEBUG_OUTCTL OutputControl,
             [In] DEBUG_OUTPUT_SYMBOLS Flags,
-            [In] uint Start,
-            [In] uint Count);
+            [In] int Start,
+            [In] int Count);
 
         /// <summary>
         /// The WriteSymbol methods set the value of the specified symbol.
@@ -145,7 +145,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT WriteSymbol(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.LPStr)] string Value);
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT OutputAsType(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.LPStr)] string Type);
     }
 }

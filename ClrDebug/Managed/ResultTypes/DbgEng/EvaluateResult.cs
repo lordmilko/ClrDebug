@@ -16,9 +16,9 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Receives the index of the first character of the expression not used in the evaluation. If RemainderIndex is NULL, this information isn't returned.
         /// </summary>
-        public uint RemainderIndex { get; }
+        public int RemainderIndex { get; }
 
-        public EvaluateResult(DEBUG_VALUE value, uint remainderIndex)
+        public EvaluateResult(DEBUG_VALUE value, int remainderIndex)
         {
             Value = value;
             RemainderIndex = remainderIndex;

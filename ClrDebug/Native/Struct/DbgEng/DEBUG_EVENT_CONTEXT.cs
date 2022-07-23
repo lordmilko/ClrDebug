@@ -11,21 +11,21 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The size of the event.
         /// </summary>
-        public uint Size;
+        public int Size;
 
         /// <summary>
         /// The process engine ID of the event.
         /// </summary>
-        public uint ProcessEngineId;
+        public int ProcessEngineId;
 
         /// <summary>
         /// The process thread ID of the event.
         /// </summary>
-        public uint ThreadEngineId;
+        public int ThreadEngineId;
 
         /// <summary>
         /// The frame engine ID of the event.
         /// </summary>
-        public uint FrameEngineId;
+        public int FrameEngineId;
     }
 }

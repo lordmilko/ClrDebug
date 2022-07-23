@@ -23,7 +23,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetId(
-            [Out] out uint Id);
+            [Out] out int Id);
 
         /// <summary>
         /// The GetType method returns the type of the breakpoint and the type of the processor that a breakpoint is set for.
@@ -39,7 +39,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetType(
             [Out] out DEBUG_BREAKPOINT_TYPE BreakType,
-            [Out] out uint ProcType);
+            [Out] out int ProcType);
 
         /// <summary>
         /// The GetAdder method returns the client that owns the breakpoint.
@@ -120,7 +120,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetOffset(
-            [Out] out ulong Offset);
+            [Out] out long Offset);
 
         /// <summary>
         /// The SetOffset method sets the location that triggers a breakpoint.
@@ -132,7 +132,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT SetOffset(
-            [In] ulong Offset);
+            [In] long Offset);
 
         /// <summary>
         /// The GetDataParameters method returns the parameters for a processor breakpoint.
@@ -146,7 +146,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetDataParameters(
-            [Out] out uint Size,
+            [Out] out int Size,
             [Out] out DEBUG_BREAKPOINT_ACCESS_TYPE AccessType);
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT SetDataParameters(
-            [In] uint Size,
+            [In] int Size,
             [In] DEBUG_BREAKPOINT_ACCESS_TYPE AccessType);
 
         /// <summary>
@@ -183,7 +183,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetPassCount(
-            [Out] out uint Count);
+            [Out] out int Count);
 
         /// <summary>
         /// The SetPassCount method sets the number of times that the target must reach the breakpoint location before the breakpoint is triggered.
@@ -200,7 +200,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT SetPassCount(
-            [In] uint Count);
+            [In] int Count);
 
         /// <summary>
         /// The GetCurrentPassCount method returns the remaining number of times that the target must reach the breakpoint location before the breakpoint is triggered.
@@ -221,7 +221,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetCurrentPassCount(
-            [Out] out uint Count);
+            [Out] out int Count);
 
         /// <summary>
         /// The GetMatchThreadId method returns the engine thread ID of the thread that can trigger a breakpoint.
@@ -236,7 +236,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetMatchThreadId(
-            [Out] out uint Id);
+            [Out] out int Id);
 
         /// <summary>
         /// The SetMatchThreadId method sets the engine thread ID of the thread that can trigger a breakpoint.
@@ -251,7 +251,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT SetMatchThreadId(
-            [In] uint Thread);
+            [In] int Thread);
 
         /// <summary>
         /// The GetCommand method returns the command string that is executed when a breakpoint is triggered.
@@ -270,7 +270,7 @@ namespace ClrDebug.DbgEng
         new HRESULT GetCommand(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint CommandSize);
+            [Out] out int CommandSize);
 
         /// <summary>
         /// The SetCommand method sets the command that is executed when a breakpoint is triggered.
@@ -308,7 +308,7 @@ namespace ClrDebug.DbgEng
         new HRESULT GetOffsetExpression(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint ExpressionSize);
+            [Out] out int ExpressionSize);
 
         /// <summary>
         /// The SetOffsetExpression methods set an expression string that evaluates to the location that triggers a breakpoint.
@@ -358,7 +358,7 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)]
             StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint CommandSize);
+            [Out] out int CommandSize);
 
         /// <summary>
         /// The SetCommandWide method sets the command that is executed when a breakpoint is triggered.
@@ -397,7 +397,7 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)]
             StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint ExpressionSize);
+            [Out] out int ExpressionSize);
 
         /// <summary>
         /// The SetOffsetExpressionWide methods set an expression string that evaluates to the location that triggers a breakpoint.

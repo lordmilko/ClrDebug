@@ -51,7 +51,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetInterruptTimeout(
-            [Out] out uint Seconds);
+            [Out] out int Seconds);
 
         /// <summary>
         /// The SetInterruptTimeout method sets the number of seconds that the debugger engine should wait when requesting a break into the debugger.
@@ -66,7 +66,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT SetInterruptTimeout(
-            [In] uint Seconds);
+            [In] int Seconds);
 
         /// <summary>
         /// The GetLogFile method returns the name of the currently open log file.
@@ -85,7 +85,7 @@ namespace ClrDebug.DbgEng
         new HRESULT GetLogFile(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint FileSize,
+            [Out] out int FileSize,
             [Out, MarshalAs(UnmanagedType.Bool)] out bool Append);
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace ClrDebug.DbgEng
         new HRESULT Input(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint InputSize);
+            [Out] out int InputSize);
 
         /// <summary>
         /// The ReturnInput method is used by IDebugInputCallbacks objects to send an input string to the engine following a request for input.
@@ -320,7 +320,7 @@ namespace ClrDebug.DbgEng
         new HRESULT GetPromptText(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint TextSize);
+            [Out] out int TextSize);
 
         /// <summary>
         /// The OutputCurrentState method prints the current state of the current target to the debugger console.
@@ -366,7 +366,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetNotifyEventHandle(
-            [Out] out ulong Handle);
+            [Out] out long Handle);
 
         /// <summary>
         /// The SetNotifyEventHandle method sets the event that will be signaled after the next exception in a target.
@@ -380,7 +380,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT SetNotifyEventHandle(
-            [In] ulong Handle);
+            [In] long Handle);
 
         /// <summary>
         /// The Assemble method assembles a single processor instruction. The assembled instruction is placed in the target's memory.
@@ -397,9 +397,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT Assemble(
-            [In] ulong Offset,
+            [In] long Offset,
             [In, MarshalAs(UnmanagedType.LPStr)] string Instr,
-            [Out] out ulong EndOffset);
+            [Out] out long EndOffset);
 
         /// <summary>
         /// The Disassemble method disassembles a processor instruction in the target's memory.
@@ -420,12 +420,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT Disassemble(
-            [In] ulong Offset,
+            [In] long Offset,
             [In] DEBUG_DISASM Flags,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint DisassemblySize,
-            [Out] out ulong EndOffset);
+            [Out] out int DisassemblySize,
+            [Out] out long EndOffset);
 
         /// <summary>
         /// The GetDisassembleEffectiveOffset method returns the address of the last instruction disassembled using <see cref="Disassemble"/>.
@@ -439,7 +439,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetDisassembleEffectiveOffset(
-            [Out] out ulong Offset);
+            [Out] out long Offset);
 
         /// <summary>
         /// The OutputDisassembly method disassembles a processor instruction and sends the disassembly to the output callbacks.
@@ -459,9 +459,9 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT OutputDisassembly(
             [In] DEBUG_OUTCTL OutputControl,
-            [In] ulong Offset,
+            [In] long Offset,
             [In] DEBUG_DISASM Flags,
-            [Out] out ulong EndOffset);
+            [Out] out long EndOffset);
 
         /// <summary>
         /// The OutputDisassemblyLines method disassembles several processor instructions and sends the resulting assembly instructions to the output callbacks.
@@ -492,14 +492,14 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT OutputDisassemblyLines(
             [In] DEBUG_OUTCTL OutputControl,
-            [In] uint PreviousLines,
-            [In] uint TotalLines,
-            [In] ulong Offset,
+            [In] int PreviousLines,
+            [In] int TotalLines,
+            [In] long Offset,
             [In] DEBUG_DISASM Flags,
-            [Out] out uint OffsetLine,
-            [Out] out ulong StartOffset,
-            [Out] out ulong EndOffset,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] LineOffsets);
+            [Out] out int OffsetLine,
+            [Out] out long StartOffset,
+            [Out] out long EndOffset,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] long[] LineOffsets);
 
         /// <summary>
         /// The GetNearInstruction method returns the location of a processor instruction relative to a given location.
@@ -516,9 +516,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetNearInstruction(
-            [In] ulong Offset,
+            [In] long Offset,
             [In] int Delta,
-            [Out] out ulong NearOffset);
+            [Out] out long NearOffset);
 
         /// <summary>
         /// The GetStackTrace method returns the frames at the top of the specified call stack.
@@ -536,12 +536,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetStackTrace(
-            [In] ulong FrameOffset,
-            [In] ulong StackOffset,
-            [In] ulong InstructionOffset,
+            [In] long FrameOffset,
+            [In] long StackOffset,
+            [In] long InstructionOffset,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_STACK_FRAME[] Frames,
             [In] int FrameSize,
-            [Out] out uint FramesFilled);
+            [Out] out int FramesFilled);
 
         /// <summary>
         /// The GetReturnOffset method returns the return address for the current function.
@@ -554,7 +554,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetReturnOffset(
-            [Out] out ulong Offset);
+            [Out] out long Offset);
 
         /// <summary>
         /// The OutputStackTrace method outputs either the supplied stack frame or the current stack frames.
@@ -621,7 +621,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetNumberPossibleExecutingProcessorTypes(
-            [Out] out uint Number);
+            [Out] out int Number);
 
         /// <summary>
         /// The GetPossibleExecutingProcessorTypes method returns the processor types that are supported by the computer running the current target.
@@ -636,8 +636,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetPossibleExecutingProcessorTypes(
-            [In] uint Start,
-            [In] uint Count,
+            [In] int Start,
+            [In] int Count,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] IMAGE_FILE_MACHINE[] Types);
 
         /// <summary>
@@ -650,7 +650,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetNumberProcessors(
-            [Out] out uint Number);
+            [Out] out int Number);
 
         /// <summary>
         /// The GetSystemVersion method returns information that identifies the operating system on the computer that is running the current target.
@@ -674,16 +674,16 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetSystemVersion(
-            [Out] out uint PlatformId,
-            [Out] out uint Major,
-            [Out] out uint Minor,
+            [Out] out int PlatformId,
+            [Out] out int Major,
+            [Out] out int Minor,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder ServicePackString,
             [In] int ServicePackStringSize,
-            [Out] out uint ServicePackStringUsed,
-            [Out] out uint ServicePackNumber,
+            [Out] out int ServicePackStringUsed,
+            [Out] out int ServicePackNumber,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder BuildString,
             [In] int BuildStringSize,
-            [Out] out uint BuildStringUsed);
+            [Out] out int BuildStringUsed);
 
         /// <summary>
         /// The GetPageSize method returns the page size for the effective processor mode.
@@ -692,7 +692,7 @@ namespace ClrDebug.DbgEng
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
         new HRESULT GetPageSize(
-            [Out] out uint Size);
+            [Out] out int Size);
 
         /// <summary>
         /// The IsPointer64Bit method determines if the effective processor uses 64-bit pointers.
@@ -716,11 +716,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT ReadBugCheckData(
-            [Out] out uint Code,
-            [Out] out ulong Arg1,
-            [Out] out ulong Arg2,
-            [Out] out ulong Arg3,
-            [Out] out ulong Arg4);
+            [Out] out int Code,
+            [Out] out long Arg1,
+            [Out] out long Arg2,
+            [Out] out long Arg3,
+            [Out] out long Arg4);
 
         /// <summary>
         /// The GetNumberSupportedProcessorTypes method returns the number of processor types supported by the engine.
@@ -732,7 +732,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetNumberSupportedProcessorTypes(
-            [Out] out uint Number);
+            [Out] out int Number);
 
         /// <summary>
         /// The GetSupportedProcessorTypes method returns the processor types supported by the debugger engine.
@@ -747,8 +747,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetSupportedProcessorTypes(
-            [In] uint Start,
-            [In] uint Count,
+            [In] int Start,
+            [In] int Count,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] IMAGE_FILE_MACHINE[] Types);
 
         /// <summary>
@@ -772,10 +772,10 @@ namespace ClrDebug.DbgEng
             [In] IMAGE_FILE_MACHINE Type,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder FullNameBuffer,
             [In] int FullNameBufferSize,
-            [Out] out uint FullNameSize,
+            [Out] out int FullNameSize,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder AbbrevNameBuffer,
             [In] int AbbrevNameBufferSize,
-            [Out] out uint AbbrevNameSize);
+            [Out] out int AbbrevNameSize);
 
         /// <summary>
         /// The GetEffectiveProcessorType method returns the effective processor type of the processor of the computer that is running the target.
@@ -962,10 +962,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetTextMacro(
-            [In] uint Slot,
+            [In] int Slot,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint MacroSize);
+            [Out] out int MacroSize);
 
         /// <summary>
         /// The SetTextMacro method sets the value of a fixed-name alias.
@@ -980,7 +980,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT SetTextMacro(
-            [In] uint Slot,
+            [In] int Slot,
             [In, MarshalAs(UnmanagedType.LPStr)] string Macro);
 
         /// <summary>
@@ -993,7 +993,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetRadix(
-            [Out] out uint Radix);
+            [Out] out int Radix);
 
         /// <summary>
         /// The SetRadix method sets the default radix (number base) used by the debugger engine when it evaluates and displays MASM expressions, and when it displays symbol information.
@@ -1007,7 +1007,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT SetRadix(
-            [In] uint Radix);
+            [In] int Radix);
 
         /// <summary>
         /// The Evaluate method evaluates an expression, returning the result.
@@ -1029,7 +1029,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPStr)] string Expression,
             [In] DEBUG_VALUE_TYPE DesiredType,
             [Out] out DEBUG_VALUE Value,
-            [Out] out uint RemainderIndex);
+            [Out] out int RemainderIndex);
 
         /// <summary>
         /// The CoerceValue method converts a value of one type into a value of another type.
@@ -1064,7 +1064,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT CoerceValues(
-            [In] uint Count,
+            [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] In,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE_TYPE[] OutType,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Out);
@@ -1116,7 +1116,7 @@ namespace ClrDebug.DbgEng
         /// <returns>This method can also return error values. See Return Values for more details.</returns>
         [PreserveSig]
         new HRESULT GetNumberBreakpoints(
-            [Out] out uint Number);
+            [Out] out int Number);
 
         /// <summary>
         /// The GetBreakpointByIndex method returns the breakpoint located at the specified index.
@@ -1131,7 +1131,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetBreakpointByIndex(
-            [In] uint Index,
+            [In] int Index,
             [Out, ComAliasName("IDebugBreakpoint")] out IntPtr bp);
 
         /// <summary>
@@ -1145,7 +1145,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetBreakpointById(
-            [In] uint Id,
+            [In] int Id,
             [Out, ComAliasName("IDebugBreakpoint")] out IntPtr bp);
 
         /// <summary>
@@ -1165,9 +1165,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetBreakpointParameters(
-            [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] uint[] Ids,
-            [In] uint Start,
+            [In] int Count,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Ids,
+            [In] int Start,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_BREAKPOINT_PARAMETERS[] Params);
 
         /// <summary>
@@ -1185,7 +1185,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT AddBreakpoint(
             [In] DEBUG_BREAKPOINT_TYPE Type,
-            [In] uint DesiredId,
+            [In] int DesiredId,
             [Out, ComAliasName("IDebugBreakpoint")] out IntPtr Bp);
 
         /// <summary>
@@ -1218,8 +1218,8 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT AddExtension(
             [In, MarshalAs(UnmanagedType.LPStr)] string Path,
-            [In] uint Flags,
-            [Out] out ulong Handle);
+            [In] int Flags,
+            [Out] out long Handle);
 
         /// <summary>
         /// The RemoveExtension method unloads an extension library.
@@ -1231,7 +1231,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT RemoveExtension(
-            [In] ulong Handle);
+            [In] long Handle);
 
         /// <summary>
         /// The GetExtensionByPath method returns the handle for an already loaded extension library.
@@ -1247,7 +1247,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetExtensionByPath(
             [In, MarshalAs(UnmanagedType.LPStr)] string Path,
-            [Out] out ulong Handle);
+            [Out] out long Handle);
 
         /// <summary>
         /// The CallExtension method calls a debugger extension.
@@ -1263,7 +1263,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT CallExtension(
-            [In] ulong Handle,
+            [In] long Handle,
             [In, MarshalAs(UnmanagedType.LPStr)] string Function,
             [In, MarshalAs(UnmanagedType.LPStr)] string Arguments);
 
@@ -1283,7 +1283,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetExtensionFunction(
-            [In] ulong Handle,
+            [In] long Handle,
             [In, MarshalAs(UnmanagedType.LPStr)] string FuncName,
             [Out] out IntPtr Function);
 
@@ -1335,9 +1335,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetNumberEventFilters(
-            [Out] out uint SpecificEvents,
-            [Out] out uint SpecificExceptions,
-            [Out] out uint ArbitraryExceptions);
+            [Out] out int SpecificEvents,
+            [Out] out int SpecificExceptions,
+            [Out] out int ArbitraryExceptions);
 
         /// <summary>
         /// The GetEventFilterText method returns a short description of an event for a specific filter.
@@ -1353,10 +1353,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetEventFilterText(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint TextSize);
+            [Out] out int TextSize);
 
         /// <summary>
         /// The GetEventFilterCommand method returns the debugger command that the engine will execute when a specified event occurs.
@@ -1373,10 +1373,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetEventFilterCommand(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint CommandSize);
+            [Out] out int CommandSize);
 
         /// <summary>
         /// The SetEventFilterCommand method sets a debugger command for the engine to execute when a specified event occurs.
@@ -1390,7 +1390,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT SetEventFilterCommand(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.LPStr)] string Command);
 
         /// <summary>
@@ -1405,8 +1405,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetSpecificFilterParameters(
-            [In] uint Start,
-            [In] uint Count,
+            [In] int Start,
+            [In] int Count,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);
 
         /// <summary>
@@ -1422,20 +1422,20 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT SetSpecificFilterParameters(
-            [In] uint Start,
-            [In] uint Count,
+            [In] int Start,
+            [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);
 
         [PreserveSig]
         new HRESULT GetSpecificEventFilterArgument(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint ArgumentSize);
+            [Out] out int ArgumentSize);
 
         [PreserveSig]
         new HRESULT SetSpecificEventFilterArgument(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.LPStr)] string Argument);
 
         /// <summary>
@@ -1453,10 +1453,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetExceptionFilterParameters(
-            [In] uint Count,
+            [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]
-            uint[] Codes,
-            [In] uint Start,
+            int[] Codes,
+            [In] int Start,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);
 
         /// <summary>
@@ -1474,7 +1474,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT SetExceptionFilterParameters(
-            [In] uint Count,
+            [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);
 
         /// <summary>
@@ -1493,10 +1493,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetExceptionFilterSecondCommand(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint CommandSize);
+            [Out] out int CommandSize);
 
         /// <summary>
         /// The SetExceptionFilterSecondCommand method sets the command that will be executed by the debugger engine on the second chance of a specified exception.
@@ -1510,7 +1510,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT SetExceptionFilterSecondCommand(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.LPStr)] string Command);
 
         /// <param name="Flags">[in] Set to zero. There are currently no flags that can be used in this parameter.</param>
@@ -1557,14 +1557,14 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetLastEventInformation(
             [Out] out DEBUG_EVENT_TYPE Type,
-            [Out] out uint ProcessId,
-            [Out] out uint ThreadId,
+            [Out] out int ProcessId,
+            [Out] out int ThreadId,
             [In] IntPtr ExtraInformation,
-            [In] uint ExtraInformationSize,
-            [Out] out uint ExtraInformationUsed,
+            [In] int ExtraInformationSize,
+            [Out] out int ExtraInformationUsed,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Description,
             [In] int DescriptionSize,
-            [Out] out uint DescriptionUsed);
+            [Out] out int DescriptionUsed);
 
         #endregion
         #region IDebugControl2
@@ -1581,7 +1581,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetCurrentTimeDate(
-            [Out] out uint TimeDate);
+            [Out] out int TimeDate);
 
         /// <summary>
         /// The GetCurrentSystemUpTime method returns the number of seconds the current target's computer has been running since it was last started.
@@ -1593,7 +1593,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetCurrentSystemUpTime(
-            [Out] out uint UpTime);
+            [Out] out int UpTime);
 
         /// <summary>
         /// The GetDumpFormatFlags method returns the flags that describe what information is available in a dump file target.
@@ -1620,7 +1620,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetNumberTextReplacements(
-            [Out] out uint NumRepl);
+            [Out] out int NumRepl);
 
         /// <summary>
         /// The GetTextReplacement method returns the value of a user-named alias or an automatic alias.
@@ -1645,13 +1645,13 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetTextReplacement(
             [In, MarshalAs(UnmanagedType.LPStr)] string SrcText,
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder SrcBuffer,
             [In] int SrcBufferSize,
-            [Out] out uint SrcSize,
+            [Out] out int SrcSize,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder DstBuffer,
             [In] int DstBufferSize,
-            [Out] out uint DstSize);
+            [Out] out int DstSize);
 
         /// <summary>
         /// The SetTextReplacement method sets the value of a user-named alias.
@@ -1815,7 +1815,7 @@ namespace ClrDebug.DbgEng
         /// <returns>This method can also return error values. See Return Values for more details.</returns>
         [PreserveSig]
         new HRESULT GetNumberExpressionSyntaxes(
-            [Out] out uint Number);
+            [Out] out int Number);
 
         /// <summary>
         /// The GetExpressionSyntaxNames method returns the full and abbreviated names of an expression syntax.
@@ -1837,13 +1837,13 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetExpressionSyntaxNames(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder FullNameBuffer,
             [In] int FullNameBufferSize,
-            [Out] out uint FullNameSize,
+            [Out] out int FullNameSize,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder AbbrevNameBuffer,
             [In] int AbbrevNameBufferSize,
-            [Out] out uint AbbrevNameSize);
+            [Out] out int AbbrevNameSize);
 
         /// <summary>
         /// The GetNumberEvents method returns the number of events for the current target, if the number of events is fixed.
@@ -1860,7 +1860,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetNumberEvents(
-            [Out] out uint Events);
+            [Out] out int Events);
 
         /// <summary>
         /// The GetEventIndexDescription method describes the specified event in a static list of events for the current target.
@@ -1876,11 +1876,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetEventIndexDescription(
-            [In] uint Index,
+            [In] int Index,
             [In] DEBUG_EINDEX Which,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint DescSize);
+            [Out] out int DescSize);
 
         /// <summary>
         /// The GetCurrentEventIndex method returns the index of the current event within the current list of events for the current target, if such a list exists.
@@ -1893,7 +1893,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetCurrentEventIndex(
-            [Out] out uint Index);
+            [Out] out int Index);
 
         /// <summary>
         /// The SetNextEventIndex method sets the next event for the current target by selecting the event from the static list of events for the target, if such a list exists.
@@ -1912,8 +1912,8 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT SetNextEventIndex(
             [In] DEBUG_EINDEX Relation,
-            [In] uint Value,
-            [Out] out uint NextIndex);
+            [In] int Value,
+            [Out] out int NextIndex);
 
         #endregion
         #region IDebugControl4
@@ -1935,7 +1935,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetLogFileWide(
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint FileSize,
+            [Out] out int FileSize,
             [Out, MarshalAs(UnmanagedType.Bool)] out bool Append);
 
         /// <summary>
@@ -1971,7 +1971,7 @@ namespace ClrDebug.DbgEng
         HRESULT InputWide(
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint InputSize);
+            [Out] out int InputSize);
 
         /// <summary>
         /// The ReturnInputWide method is used by IDebugInputCallbacks objects to send an input string to the engine following a request for input.
@@ -2141,7 +2141,7 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)]
             StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint TextSize);
+            [Out] out int TextSize);
 
         /// <summary>
         /// The AssembleWide method assembles a single processor instruction. The assembled instruction is placed in the target's memory.
@@ -2158,9 +2158,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT AssembleWide(
-            [In] ulong Offset,
+            [In] long Offset,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Instr,
-            [Out] out ulong EndOffset);
+            [Out] out long EndOffset);
 
         /// <summary>
         /// The DisassembleWide method disassembles a processor instruction in the target's memory.
@@ -2181,12 +2181,12 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT DisassembleWide(
-            [In] ulong Offset,
+            [In] long Offset,
             [In] DEBUG_DISASM Flags,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint DisassemblySize,
-            [Out] out ulong EndOffset);
+            [Out] out int DisassemblySize,
+            [Out] out long EndOffset);
 
         /// <summary>
         /// The GetProcessorTypeNamesWide method returns the full name and abbreviated name of the specified processor type.
@@ -2209,10 +2209,10 @@ namespace ClrDebug.DbgEng
             [In] IMAGE_FILE_MACHINE Type,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder FullNameBuffer,
             [In] int FullNameBufferSize,
-            [Out] out uint FullNameSize,
+            [Out] out int FullNameSize,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder AbbrevNameBuffer,
             [In] int AbbrevNameBufferSize,
-            [Out] out uint AbbrevNameSize);
+            [Out] out int AbbrevNameSize);
 
         /// <summary>
         /// The GetTextMacroWide method returns the value of a fixed-name alias.
@@ -2230,10 +2230,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetTextMacroWide(
-            [In] uint Slot,
+            [In] int Slot,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint MacroSize);
+            [Out] out int MacroSize);
 
         /// <summary>
         /// The SetTextMacroWide method sets the value of a fixed-name alias.
@@ -2248,7 +2248,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT SetTextMacroWide(
-            [In] uint Slot,
+            [In] int Slot,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Macro);
 
         /// <summary>
@@ -2271,7 +2271,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPWStr)] string Expression,
             [In] DEBUG_VALUE_TYPE DesiredType,
             [Out] out DEBUG_VALUE Value,
-            [Out] out uint RemainderIndex);
+            [Out] out int RemainderIndex);
 
         /// <summary>
         /// The ExecuteWide method executes the specified debugger commands.
@@ -2326,7 +2326,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetBreakpointByIndex2(
-            [In] uint Index,
+            [In] int Index,
             [Out, ComAliasName("IDebugBreakpoint2")] out IntPtr bp);
 
         /// <summary>
@@ -2340,7 +2340,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetBreakpointById2(
-            [In] uint Id,
+            [In] int Id,
             [Out, ComAliasName("IDebugBreakpoint2")] out IntPtr bp);
 
         /// <summary>
@@ -2358,7 +2358,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT AddBreakpoint2(
             [In] DEBUG_BREAKPOINT_TYPE Type,
-            [In] uint DesiredId,
+            [In] int DesiredId,
             [Out, ComAliasName("IDebugBreakpoint2")] out IntPtr Bp);
 
         /// <summary>
@@ -2390,8 +2390,8 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT AddExtensionWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Path,
-            [In] uint Flags,
-            [Out] out ulong Handle);
+            [In] int Flags,
+            [Out] out long Handle);
 
         /// <summary>
         /// The GetExtensionByPathWide method returns the handle for an already loaded extension library.
@@ -2407,7 +2407,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetExtensionByPathWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Path,
-            [Out] out ulong Handle);
+            [Out] out long Handle);
 
         /// <summary>
         /// The CallExtensionWide method calls a debugger extension.
@@ -2423,7 +2423,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT CallExtensionWide(
-            [In] ulong Handle,
+            [In] long Handle,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Function,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Arguments);
 
@@ -2443,7 +2443,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetExtensionFunctionWide(
-            [In] ulong Handle,
+            [In] long Handle,
             [In, MarshalAs(UnmanagedType.LPWStr)] string FuncName,
             [Out] out IntPtr Function);
 
@@ -2461,11 +2461,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetEventFilterTextWide(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPWStr)]
             StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint TextSize);
+            [Out] out int TextSize);
 
         /// <summary>
         /// The GetEventFilterCommandWide method returns the debugger command that the engine will execute when a specified event occurs.
@@ -2482,10 +2482,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetEventFilterCommandWide(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint CommandSize);
+            [Out] out int CommandSize);
 
         /// <summary>
         /// The SetEventFilterCommandWide method sets a debugger command for the engine to execute when a specified event occurs.
@@ -2499,19 +2499,19 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT SetEventFilterCommandWide(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Command);
 
         [PreserveSig]
         HRESULT GetSpecificEventFilterArgumentWide(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint ArgumentSize);
+            [Out] out int ArgumentSize);
 
         [PreserveSig]
         HRESULT SetSpecificEventFilterArgumentWide(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Argument);
 
         /// <summary>
@@ -2530,10 +2530,10 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetExceptionFilterSecondCommandWide(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint CommandSize);
+            [Out] out int CommandSize);
 
         /// <summary>
         /// The SetExceptionFilterSecondCommandWide method sets the command that will be executed by the debugger engine on the second chance of a specified exception.
@@ -2547,7 +2547,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT SetExceptionFilterSecondCommandWide(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Command);
 
         /// <summary>
@@ -2574,14 +2574,14 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetLastEventInformationWide(
             [Out] out DEBUG_EVENT_TYPE Type,
-            [Out] out uint ProcessId,
-            [Out] out uint ThreadId,
+            [Out] out int ProcessId,
+            [Out] out int ThreadId,
             [In] IntPtr ExtraInformation,
             [In] int ExtraInformationSize,
-            [Out] out uint ExtraInformationUsed,
+            [Out] out int ExtraInformationUsed,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Description,
             [In] int DescriptionSize,
-            [Out] out uint DescriptionUsed);
+            [Out] out int DescriptionUsed);
 
         /// <summary>
         /// The GetTextReplacementWide method returns the value of a user-named alias or an automatic alias.
@@ -2606,13 +2606,13 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetTextReplacementWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string SrcText,
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder SrcBuffer,
             [In] int SrcBufferSize,
-            [Out] out uint SrcSize,
+            [Out] out int SrcSize,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder DstBuffer,
             [In] int DstBufferSize,
-            [Out] out uint DstSize);
+            [Out] out int DstSize);
 
         /// <summary>
         /// The SetTextReplacementWide method sets the value of a user-named alias.
@@ -2672,13 +2672,13 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetExpressionSyntaxNamesWide(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder FullNameBuffer,
             [In] int FullNameBufferSize,
-            [Out] out uint FullNameSize,
+            [Out] out int FullNameSize,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder AbbrevNameBuffer,
             [In] int AbbrevNameBufferSize,
-            [Out] out uint AbbrevNameSize);
+            [Out] out int AbbrevNameSize);
 
         /// <summary>
         /// The GetEventIndexDescriptionWide method describes the specified event in a static list of events for the current target.
@@ -2694,11 +2694,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetEventIndexDescriptionWide(
-            [In] uint Index,
+            [In] int Index,
             [In] DEBUG_EINDEX Which,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint DescSize);
+            [Out] out int DescSize);
 
         /// <summary>
         /// The GetLogFile2 method returns the name of the currently open log file.
@@ -2715,7 +2715,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetLogFile2(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint FileSize,
+            [Out] out int FileSize,
             [Out] out DEBUG_LOG Flags);
 
         /// <summary>
@@ -2751,7 +2751,7 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)]
             StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint FileSize,
+            [Out] out int FileSize,
             [Out] out DEBUG_LOG Flags);
 
         /// <summary>
@@ -2787,11 +2787,11 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetSystemVersionValues(
-            [Out] out uint PlatformId,
-            [Out] out uint Win32Major,
-            [Out] out uint Win32Minor,
-            [Out] out uint KdMajor,
-            [Out] out uint KdMinor);
+            [Out] out int PlatformId,
+            [Out] out int Win32Major,
+            [Out] out int Win32Minor,
+            [Out] out int KdMajor,
+            [Out] out int KdMinor);
 
         /// <summary>
         /// The GetSystemVersionString method returns a string that describes the target's operating system version.
@@ -2810,7 +2810,7 @@ namespace ClrDebug.DbgEng
             [In] DEBUG_SYSVERSTR Which,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint StringSize);
+            [Out] out int StringSize);
 
         /// <summary>
         /// The GetSystemVersionStringWide method returns a string that describes the target's operating system version.
@@ -2829,7 +2829,7 @@ namespace ClrDebug.DbgEng
             [In] DEBUG_SYSVERSTR Which,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint StringSize);
+            [Out] out int StringSize);
 
         /// <summary>
         /// The GetContextStackTrace method returns the frames at the top of the call stack, starting with an arbitrary register context and returning the reconstructed register context for each stack frame.
@@ -2855,13 +2855,13 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetContextStackTrace(
             [In] IntPtr StartContext,
-            [In] uint StartContextSize,
+            [In] int StartContextSize,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_STACK_FRAME[] Frames,
             [In] int FrameSize,
             [In] IntPtr FrameContexts,
-            [In] uint FrameContextsSize,
-            [In] uint FrameContextsEntrySize,
-            [Out] out uint FramesFilled);
+            [In] int FrameContextsSize,
+            [In] int FrameContextsEntrySize,
+            [Out] out int FramesFilled);
 
         /// <summary>
         /// The OutputContextStackTrace method prints the call stack specified by an array of stack frames and corresponding register contexts.
@@ -2884,8 +2884,8 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] DEBUG_STACK_FRAME[] Frames,
             [In] int FramesSize,
             [In] IntPtr FrameContexts,
-            [In] uint FrameContextsSize,
-            [In] uint FrameContextsEntrySize,
+            [In] int FrameContextsSize,
+            [In] int FrameContextsEntrySize,
             [In] DEBUG_STACK Flags);
 
         /// <summary>
@@ -2911,14 +2911,14 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetStoredEventInformation(
             [Out] out DEBUG_EVENT_TYPE Type,
-            [Out] out uint ProcessId,
-            [Out] out uint ThreadId,
+            [Out] out int ProcessId,
+            [Out] out int ThreadId,
             [In] IntPtr Context,
-            [In] uint ContextSize,
-            [Out] out uint ContextUsed,
+            [In] int ContextSize,
+            [Out] out int ContextUsed,
             [In] IntPtr ExtraInformation,
-            [In] uint ExtraInformationSize,
-            [Out] out uint ExtraInformationUsed);
+            [In] int ExtraInformationSize,
+            [Out] out int ExtraInformationUsed);
 
         /// <summary>
         /// Provides feedback on the engine'suse of the runtime debugging APIs provided by the common language runtime (CLR).
@@ -2935,7 +2935,7 @@ namespace ClrDebug.DbgEng
             [In] DEBUG_MANSTR WhichString,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder String,
             [In] int StringSize,
-            [Out] out uint StringNeeded);
+            [Out] out int StringNeeded);
 
         /// <summary>
         /// Provides feedback as a Unicode character string on the engine'suse of the runtime debugging APIs provided by the common language runtime (CLR).
@@ -2952,7 +2952,7 @@ namespace ClrDebug.DbgEng
             [In] DEBUG_MANSTR WhichString,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder String,
             [In] int StringSize,
-            [Out] out uint StringNeeded);
+            [Out] out int StringNeeded);
 
         /// <summary>
         /// Clears and reinitializes the engine's managed code debugging support of the runtime debugging APIs provided by the common language runtime (CLR).

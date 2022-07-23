@@ -60,7 +60,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         DEBUG_STATUS Exception(
             [In] ref EXCEPTION_RECORD64 exception,
-            [In] uint firstChance);
+            [In] int firstChance);
 
         /// <summary>
         /// The CreateThread callback method is called by the engine when a create-thread debugging event occurs in the target.
@@ -78,9 +78,9 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         DEBUG_STATUS CreateThread(
-            [In] ulong handle,
-            [In] ulong dataOffset,
-            [In] ulong startOffset);
+            [In] long handle,
+            [In] long dataOffset,
+            [In] long startOffset);
 
         /// <summary>
         /// The ExitThread callback method is called by the engine when an exit-threaddebugging event occurs in the target.
@@ -95,7 +95,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         DEBUG_STATUS ExitThread(
-            [In] uint exitCode);
+            [In] int exitCode);
 
         /// <summary>
         /// The CreateProcess callback method is called by the engine when a create-process debugging event occurs in the target.
@@ -124,17 +124,17 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         DEBUG_STATUS CreateProcess(
-            [In] ulong imageFileHandle,
-            [In] ulong handle,
-            [In] ulong baseOffset,
-            [In] uint moduleSize,
+            [In] long imageFileHandle,
+            [In] long handle,
+            [In] long baseOffset,
+            [In] int moduleSize,
             [In, MarshalAs(UnmanagedType.LPWStr)] string moduleName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string imageName,
-            [In] uint checkSum,
-            [In] uint timeDateStamp,
-            [In] ulong initialThreadHandle,
-            [In] ulong threadDataOffset,
-            [In] ulong startOffset);
+            [In] int checkSum,
+            [In] int timeDateStamp,
+            [In] long initialThreadHandle,
+            [In] long threadDataOffset,
+            [In] long startOffset);
 
         /// <summary>
         /// The ExitProcess callback method is called by the engine when an exit-processdebugging event occurs in the target.
@@ -149,7 +149,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         DEBUG_STATUS ExitProcess(
-            [In] uint exitCode);
+            [In] int exitCode);
 
         /// <summary>
         /// The LoadModule callback method is called by the engine when a module-load debugging event occurs in the target.
@@ -172,13 +172,13 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         DEBUG_STATUS LoadModule(
-            [In] ulong imageFileHandle,
-            [In] ulong baseOffset,
-            [In] uint moduleSize,
+            [In] long imageFileHandle,
+            [In] long baseOffset,
+            [In] int moduleSize,
             [In, MarshalAs(UnmanagedType.LPWStr)] string moduleName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string imageName,
-            [In] uint checkSum,
-            [In] uint timeDateStamp);
+            [In] int checkSum,
+            [In] int timeDateStamp);
 
         /// <summary>
         /// The UnloadModule callback method is called by the engine when a module-unload debugging event occurs in the target.
@@ -196,7 +196,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         DEBUG_STATUS UnloadModule(
             [In, MarshalAs(UnmanagedType.LPWStr)] string imageBaseName,
-            [In] ulong baseOffset);
+            [In] long baseOffset);
 
         /// <summary>
         /// The SystemError callback method is called by the engine when a system error occurs in the target.
@@ -211,8 +211,8 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         DEBUG_STATUS SystemError(
-            [In] uint error,
-            [In] uint level);
+            [In] int error,
+            [In] int level);
 
         /// <summary>
         /// The SessionStatus callback method is called by the engine when a change occurs in the debugger session.
@@ -251,7 +251,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT ChangeDebuggeeState(
             [In] DEBUG_CDS flags,
-            [In] ulong argument);
+            [In] long argument);
 
         /// <summary>
         /// The ChangeEngineState callback method is called by the engine when its state has changed.
@@ -274,7 +274,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT ChangeEngineState(
             [In] DEBUG_CES flags,
-            [In] ulong argument);
+            [In] long argument);
 
         /// <summary>
         /// The ChangeSymbolState callback method is called by the engine when the symbol state changes.
@@ -293,6 +293,6 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT ChangeSymbolState(
             [In] DEBUG_CSS flags,
-            [In] ulong argument);
+            [In] long argument);
     }
 }

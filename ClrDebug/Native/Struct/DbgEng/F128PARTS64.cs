@@ -6,8 +6,8 @@ namespace ClrDebug.DbgEng
     public struct F128PARTS64
     {
         [FieldOffset(0)]
-        public ulong LowPart;
+        public long LowPart;
         [FieldOffset(8)]
-        public ulong HighPart;
+        public long HighPart;
     }
 }

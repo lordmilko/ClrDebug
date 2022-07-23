@@ -11,14 +11,14 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Receives the index of the module. If Index is NULL, this information is not returned.
         /// </summary>
-        public uint Index { get; }
+        public int Index { get; }
 
         /// <summary>
         /// Receives the location in the target's memory address space of the base of the module. If Base is NULL, this information is not returned.
         /// </summary>
-        public ulong Base { get; }
+        public long Base { get; }
 
-        public GetModuleByOffset2Result(uint index, ulong @base)
+        public GetModuleByOffset2Result(int index, long @base)
         {
             Index = index;
             Base = @base;

@@ -16,22 +16,22 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The location in the target's virtual address space of the module's base. If the value of Base is DEBUG_INVALID_OFFSET, the structure is invalid.
         /// </summary>
-        public ulong Base;
+        public long Base;
 
         /// <summary>
         /// The size, in bytes, of the memory range that is occupied by the module.
         /// </summary>
-        public uint Size;
+        public int Size;
 
         /// <summary>
         /// The date and time stamp of the module's executable file. This is the number of seconds elapsed since midnight (00:00:00), January 1, 1970 Coordinated Universal Time (UTC) as stored in the image file header.
         /// </summary>
-        public uint TimeDateStamp;
+        public int TimeDateStamp;
 
         /// <summary>
         /// The checksum of the image. This value can be zero.
         /// </summary>
-        public uint Checksum;
+        public int Checksum;
 
         /// <summary>
         /// A bit-set that contains the module's flags. The bit-flags that can be present are as follows.
@@ -46,31 +46,31 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The size of the file name for the module. The size is measured in characters, including the terminator.
         /// </summary>
-        public uint ImageNameSize;
+        public int ImageNameSize;
 
         /// <summary>
         /// The size of the module name of the module. The size is measured in characters, including the terminator.
         /// </summary>
-        public uint ModuleNameSize;
+        public int ModuleNameSize;
 
         /// <summary>
         /// The size of the loaded image name for the module. The size is measured in characters, including the terminator.
         /// </summary>
-        public uint LoadedImageNameSize;
+        public int LoadedImageNameSize;
 
         /// <summary>
         /// The size of the symbol file name for the module. The size is measured in characters, including the terminator.
         /// </summary>
-        public uint SymbolFileNameSize;
+        public int SymbolFileNameSize;
 
         /// <summary>
         /// The size of the mapped image name of the module. The size is measured in characters, including the terminator.
         /// </summary>
-        public uint MappedImageNameSize;
+        public int MappedImageNameSize;
 
         /// <summary>
         /// Reserved for system use.
         /// </summary>
-        public fixed ulong Reserved[2];
+        public fixed long Reserved[2];
     }
 }

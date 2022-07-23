@@ -18,11 +18,11 @@ namespace ClrDebug.DbgEng
         [FieldOffset(0)]
         public ushort I16;
         [FieldOffset(0)]
-        public uint I32;
+        public int I32;
         [FieldOffset(0)]
-        public ulong I64;
+        public long I64;
         [FieldOffset(8)]
-        public uint Nat;
+        public int Nat;
         [FieldOffset(0)]
         public float F32;
         [FieldOffset(0)]
@@ -38,9 +38,9 @@ namespace ClrDebug.DbgEng
         [FieldOffset(0)]
         public fixed ushort VI16[8];
         [FieldOffset(0)]
-        public fixed uint VI32[4];
+        public fixed int VI32[4];
         [FieldOffset(0)]
-        public fixed ulong VI64[2];
+        public fixed long VI64[2];
         [FieldOffset(0)]
         public fixed float VF32[4];
         [FieldOffset(0)]
@@ -56,7 +56,7 @@ namespace ClrDebug.DbgEng
         /// See Remarks.
         /// </summary>
         [FieldOffset(24)]
-        public uint TailOfRawBytes;
+        public int TailOfRawBytes;
 
         /// <summary>
         /// See Remarks.

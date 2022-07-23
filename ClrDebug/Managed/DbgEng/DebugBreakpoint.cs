@@ -37,11 +37,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetId method returns a breakpoint ID, which is the engine's unique identifier for a breakpoint.
         /// </summary>
-        public uint Id
+        public int Id
         {
             get
             {
-                uint id;
+                int id;
                 TryGetId(out id).ThrowDbgEngNotOK();
 
                 return id;
@@ -58,12 +58,12 @@ namespace ClrDebug.DbgEng
         /// you can use its ID for another breakpoint. The <see cref="Parameters"/> property also returns the breakpoint ID.
         /// For more information about how to use breakpoints, see Using Breakpoints.
         /// </remarks>
-        public HRESULT TryGetId(out uint id)
+        public HRESULT TryGetId(out int id)
         {
             InitDelegate(ref getId, Vtbl->GetId);
 
             /*HRESULT GetId(
-            [Out] out uint Id);*/
+            [Out] out int Id);*/
             return getId(Raw, out id);
         }
 
@@ -99,9 +99,9 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getType, Vtbl->GetType);
             /*HRESULT GetType(
             [Out] out DEBUG_BREAKPOINT_TYPE BreakType,
-            [Out] out uint ProcType);*/
+            [Out] out int ProcType);*/
             DEBUG_BREAKPOINT_TYPE breakType;
-            uint procType;
+            int procType;
             HRESULT hr = getType(Raw, out breakType, out procType);
 
             if (hr == HRESULT.S_OK)
@@ -175,11 +175,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetOffset method returns the location that triggers a breakpoint.
         /// </summary>
-        public ulong Offset
+        public long Offset
         {
             get
             {
-                ulong offset;
+                long offset;
                 TryGetOffset(out offset).ThrowDbgEngNotOK();
 
                 return offset;
@@ -199,12 +199,12 @@ namespace ClrDebug.DbgEng
         /// The <see cref="Parameters"/> property also returns the location that triggers a breakpoint. For more information
         /// about how to use breakpoints, see Using Breakpoints.
         /// </remarks>
-        public HRESULT TryGetOffset(out ulong offset)
+        public HRESULT TryGetOffset(out long offset)
         {
             InitDelegate(ref getOffset, Vtbl->GetOffset);
 
             /*HRESULT GetOffset(
-            [Out] out ulong Offset);*/
+            [Out] out long Offset);*/
             return getOffset(Raw, out offset);
         }
 
@@ -216,12 +216,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about how to use breakpoints, see Using Breakpoints.
         /// </remarks>
-        public HRESULT TrySetOffset(ulong offset)
+        public HRESULT TrySetOffset(long offset)
         {
             InitDelegate(ref setOffset, Vtbl->SetOffset);
 
             /*HRESULT SetOffset(
-            [In] ulong Offset);*/
+            [In] long Offset);*/
             return setOffset(Raw, offset);
         }
 
@@ -231,11 +231,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetPassCount method returns the number of times that the target was originally required to reach the breakpoint location before the breakpoint is triggered.
         /// </summary>
-        public uint PassCount
+        public int PassCount
         {
             get
             {
-                uint count;
+                int count;
                 TryGetPassCount(out count).ThrowDbgEngNotOK();
 
                 return count;
@@ -264,12 +264,12 @@ namespace ClrDebug.DbgEng
         /// breakpoint is triggered. The <see cref="Parameters"/> property also returns the information that is returned in
         /// Count. For more information about breakpoint properties, see Controlling Breakpoint Flags and Parameters.
         /// </remarks>
-        public HRESULT TryGetPassCount(out uint count)
+        public HRESULT TryGetPassCount(out int count)
         {
             InitDelegate(ref getPassCount, Vtbl->GetPassCount);
 
             /*HRESULT GetPassCount(
-            [Out] out uint Count);*/
+            [Out] out int Count);*/
             return getPassCount(Raw, out count);
         }
 
@@ -286,12 +286,12 @@ namespace ClrDebug.DbgEng
         /// not contribute to the number of times that remain before the breakpoint is triggered. For more information about
         /// breakpoint properties, see Controlling Breakpoint Flags and Parameters.
         /// </remarks>
-        public HRESULT TrySetPassCount(uint count)
+        public HRESULT TrySetPassCount(int count)
         {
             InitDelegate(ref setPassCount, Vtbl->SetPassCount);
 
             /*HRESULT SetPassCount(
-            [In] uint Count);*/
+            [In] int Count);*/
             return setPassCount(Raw, count);
         }
 
@@ -301,11 +301,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetCurrentPassCount method returns the remaining number of times that the target must reach the breakpoint location before the breakpoint is triggered.
         /// </summary>
-        public uint CurrentPassCount
+        public int CurrentPassCount
         {
             get
             {
-                uint count;
+                int count;
                 TryGetCurrentPassCount(out count).ThrowDbgEngNotOK();
 
                 return count;
@@ -329,12 +329,12 @@ namespace ClrDebug.DbgEng
         /// The <see cref="Parameters"/> property also returns the information that is returned in Count. For more information
         /// about breakpoint properties, see Controlling Breakpoint Flags and Parameters.
         /// </remarks>
-        public HRESULT TryGetCurrentPassCount(out uint count)
+        public HRESULT TryGetCurrentPassCount(out int count)
         {
             InitDelegate(ref getCurrentPassCount, Vtbl->GetCurrentPassCount);
 
             /*HRESULT GetCurrentPassCount(
-            [Out] out uint Count);*/
+            [Out] out int Count);*/
             return getCurrentPassCount(Raw, out count);
         }
 
@@ -344,11 +344,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetMatchThreadId method returns the engine thread ID of the thread that can trigger a breakpoint.
         /// </summary>
-        public uint MatchThreadId
+        public int MatchThreadId
         {
             get
             {
-                uint id;
+                int id;
                 TryGetMatchThreadId(out id).ThrowDbgEngNotOK();
 
                 return id;
@@ -370,12 +370,12 @@ namespace ClrDebug.DbgEng
         /// property also returns the engine thread ID of the thread that can trigger the breakpoint. For more information about
         /// breakpoint properties, see Controlling Breakpoint Flags and Parameters.
         /// </remarks>
-        public HRESULT TryGetMatchThreadId(out uint id)
+        public HRESULT TryGetMatchThreadId(out int id)
         {
             InitDelegate(ref getMatchThreadId, Vtbl->GetMatchThreadId);
 
             /*HRESULT GetMatchThreadId(
-            [Out] out uint Id);*/
+            [Out] out int Id);*/
             return getMatchThreadId(Raw, out id);
         }
 
@@ -390,12 +390,12 @@ namespace ClrDebug.DbgEng
         /// setting by setting Id to DEBUG_ANY_ID. For more information about breakpoint properties, see Controlling Breakpoint
         /// Flags and Parameters.
         /// </remarks>
-        public HRESULT TrySetMatchThreadId(uint thread)
+        public HRESULT TrySetMatchThreadId(int thread)
         {
             InitDelegate(ref setMatchThreadId, Vtbl->SetMatchThreadId);
 
             /*HRESULT SetMatchThreadId(
-            [In] uint Thread);*/
+            [In] int Thread);*/
             return setMatchThreadId(Raw, thread);
         }
 
@@ -437,16 +437,16 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetCommand(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint CommandSize);*/
+            [Out] out int CommandSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint commandSize;
+            int commandSize;
             HRESULT hr = getCommand(Raw, null, bufferSize, out commandSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) commandSize;
+            bufferSize = commandSize;
             buffer = new StringBuilder(bufferSize);
             hr = getCommand(Raw, buffer, bufferSize, out commandSize);
 
@@ -525,16 +525,16 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetOffsetExpression(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint ExpressionSize);*/
+            [Out] out int ExpressionSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint expressionSize;
+            int expressionSize;
             HRESULT hr = getOffsetExpression(Raw, null, bufferSize, out expressionSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) expressionSize;
+            bufferSize = expressionSize;
             buffer = new StringBuilder(bufferSize);
             hr = getOffsetExpression(Raw, buffer, bufferSize, out expressionSize);
 
@@ -745,9 +745,9 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getDataParameters, Vtbl->GetDataParameters);
             /*HRESULT GetDataParameters(
-            [Out] out uint Size,
+            [Out] out int Size,
             [Out] out DEBUG_BREAKPOINT_ACCESS_TYPE AccessType);*/
-            uint size;
+            int size;
             DEBUG_BREAKPOINT_ACCESS_TYPE accessType;
             HRESULT hr = getDataParameters(Raw, out size, out accessType);
 
@@ -770,7 +770,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about breakpoint properties, see Controlling Breakpoint Flags and Parameters.
         /// </remarks>
-        public void SetDataParameters(uint size, DEBUG_BREAKPOINT_ACCESS_TYPE accessType)
+        public void SetDataParameters(int size, DEBUG_BREAKPOINT_ACCESS_TYPE accessType)
         {
             TrySetDataParameters(size, accessType).ThrowDbgEngNotOK();
         }
@@ -784,12 +784,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about breakpoint properties, see Controlling Breakpoint Flags and Parameters.
         /// </remarks>
-        public HRESULT TrySetDataParameters(uint size, DEBUG_BREAKPOINT_ACCESS_TYPE accessType)
+        public HRESULT TrySetDataParameters(int size, DEBUG_BREAKPOINT_ACCESS_TYPE accessType)
         {
             InitDelegate(ref setDataParameters, Vtbl->SetDataParameters);
 
             /*HRESULT SetDataParameters(
-            [In] uint Size,
+            [In] int Size,
             [In] DEBUG_BREAKPOINT_ACCESS_TYPE AccessType);*/
             return setDataParameters(Raw, size, accessType);
         }
@@ -835,16 +835,16 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)]
             StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint CommandSize);*/
+            [Out] out int CommandSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint commandSize;
+            int commandSize;
             HRESULT hr = getCommandWide(Raw, null, bufferSize, out commandSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) commandSize;
+            bufferSize = commandSize;
             buffer = new StringBuilder(bufferSize);
             hr = getCommandWide(Raw, buffer, bufferSize, out commandSize);
 
@@ -924,16 +924,16 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)]
             StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint ExpressionSize);*/
+            [Out] out int ExpressionSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint expressionSize;
+            int expressionSize;
             HRESULT hr = getOffsetExpressionWide(Raw, null, bufferSize, out expressionSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) expressionSize;
+            bufferSize = expressionSize;
             buffer = new StringBuilder(bufferSize);
             hr = getOffsetExpressionWide(Raw, buffer, bufferSize, out expressionSize);
 
@@ -1070,34 +1070,34 @@ namespace ClrDebug.DbgEng
         #region Delegates
         #region IDebugBreakpoint
 
-        private delegate HRESULT GetIdDelegate(IntPtr self, [Out] out uint Id);
-        private delegate HRESULT GetTypeDelegate(IntPtr self, [Out] out DEBUG_BREAKPOINT_TYPE BreakType, [Out] out uint ProcType);
+        private delegate HRESULT GetIdDelegate(IntPtr self, [Out] out int Id);
+        private delegate HRESULT GetTypeDelegate(IntPtr self, [Out] out DEBUG_BREAKPOINT_TYPE BreakType, [Out] out int ProcType);
         private delegate HRESULT GetFlagsDelegate(IntPtr self, [Out] out DEBUG_BREAKPOINT_FLAG Flags);
         private delegate HRESULT SetFlagsDelegate(IntPtr self, [In] DEBUG_BREAKPOINT_FLAG Flags);
-        private delegate HRESULT GetOffsetDelegate(IntPtr self, [Out] out ulong Offset);
-        private delegate HRESULT SetOffsetDelegate(IntPtr self, [In] ulong Offset);
-        private delegate HRESULT GetPassCountDelegate(IntPtr self, [Out] out uint Count);
-        private delegate HRESULT SetPassCountDelegate(IntPtr self, [In] uint Count);
-        private delegate HRESULT GetCurrentPassCountDelegate(IntPtr self, [Out] out uint Count);
-        private delegate HRESULT GetMatchThreadIdDelegate(IntPtr self, [Out] out uint Id);
-        private delegate HRESULT SetMatchThreadIdDelegate(IntPtr self, [In] uint Thread);
-        private delegate HRESULT GetCommandDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint CommandSize);
+        private delegate HRESULT GetOffsetDelegate(IntPtr self, [Out] out long Offset);
+        private delegate HRESULT SetOffsetDelegate(IntPtr self, [In] long Offset);
+        private delegate HRESULT GetPassCountDelegate(IntPtr self, [Out] out int Count);
+        private delegate HRESULT SetPassCountDelegate(IntPtr self, [In] int Count);
+        private delegate HRESULT GetCurrentPassCountDelegate(IntPtr self, [Out] out int Count);
+        private delegate HRESULT GetMatchThreadIdDelegate(IntPtr self, [Out] out int Id);
+        private delegate HRESULT SetMatchThreadIdDelegate(IntPtr self, [In] int Thread);
+        private delegate HRESULT GetCommandDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int CommandSize);
         private delegate HRESULT SetCommandDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Command);
-        private delegate HRESULT GetOffsetExpressionDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint ExpressionSize);
+        private delegate HRESULT GetOffsetExpressionDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int ExpressionSize);
         private delegate HRESULT SetOffsetExpressionDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Expression);
         private delegate HRESULT GetParametersDelegate(IntPtr self, [Out] out DEBUG_BREAKPOINT_PARAMETERS Params);
         private delegate HRESULT GetAdderDelegate(IntPtr self, [Out] IntPtr Adder);
         private delegate HRESULT AddFlagsDelegate(IntPtr self, [In] DEBUG_BREAKPOINT_FLAG Flags);
         private delegate HRESULT RemoveFlagsDelegate(IntPtr self, [In] DEBUG_BREAKPOINT_FLAG Flags);
-        private delegate HRESULT GetDataParametersDelegate(IntPtr self, [Out] out uint Size, [Out] out DEBUG_BREAKPOINT_ACCESS_TYPE AccessType);
-        private delegate HRESULT SetDataParametersDelegate(IntPtr self, [In] uint Size, [In] DEBUG_BREAKPOINT_ACCESS_TYPE AccessType);
+        private delegate HRESULT GetDataParametersDelegate(IntPtr self, [Out] out int Size, [Out] out DEBUG_BREAKPOINT_ACCESS_TYPE AccessType);
+        private delegate HRESULT SetDataParametersDelegate(IntPtr self, [In] int Size, [In] DEBUG_BREAKPOINT_ACCESS_TYPE AccessType);
 
         #endregion
         #region IDebugBreakpoint2
 
-        private delegate HRESULT GetCommandWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint CommandSize);
+        private delegate HRESULT GetCommandWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int CommandSize);
         private delegate HRESULT SetCommandWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Command);
-        private delegate HRESULT GetOffsetExpressionWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint ExpressionSize);
+        private delegate HRESULT GetOffsetExpressionWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int ExpressionSize);
         private delegate HRESULT SetOffsetExpressionWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Command);
 
         #endregion

@@ -27,26 +27,26 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The index of the register of which this register is a sub-register. This field is only used if the DEBUG_REGISTER_SUB_REGISTER bit is set in Flags; otherwise, it is set to zero.
         /// </summary>
-        public ulong SubregMaster;
+        public long SubregMaster;
 
         /// <summary>
         /// The size, in bits, of this sub-register. This field is only used if the DEBUG_REGISTER_SUB_REGISTER bit is set in Flags; otherwise, it is set to zero.
         /// </summary>
-        public ulong SubregLength;
+        public long SubregLength;
 
         /// <summary>
         /// The bit mask that converts the register specified in SubregMaster into this sub-register. This field is only used if the DEBUG_REGISTER_SUB_REGISTER bit is set in Flags; otherwise, it is set to zero.
         /// </summary>
-        public ulong SubregMask;
+        public long SubregMask;
 
         /// <summary>
         /// The bit shift that converts the register specified in SubregMaster into this sub-register. This field is only used if the DEBUG_REGISTER_SUB_REGISTER bit is set in Flags; otherwise, it is set to zero.
         /// </summary>
-        public ulong SubregShift;
+        public long SubregShift;
 
         /// <summary>
         /// Reserved for system use.
         /// </summary>
-        public ulong Reserved0;
+        public long Reserved0;
     }
 }

@@ -46,11 +46,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetInterruptTimeout method returns the number of seconds that the engine will wait when requesting a break into the debugger.
         /// </summary>
-        public uint InterruptTimeout
+        public int InterruptTimeout
         {
             get
             {
-                uint seconds;
+                int seconds;
                 TryGetInterruptTimeout(out seconds).ThrowDbgEngNotOK();
 
                 return seconds;
@@ -72,12 +72,12 @@ namespace ClrDebug.DbgEng
         /// callback objects's <see cref="IDebugEventCallbacks.Exception"/> method. Most targets do not support interrupt time-outs.
         /// Live user-mode debugging is one of the targets that does support them.
         /// </remarks>
-        public HRESULT TryGetInterruptTimeout(out uint seconds)
+        public HRESULT TryGetInterruptTimeout(out int seconds)
         {
             InitDelegate(ref getInterruptTimeout, Vtbl->GetInterruptTimeout);
 
             /*HRESULT GetInterruptTimeout(
-            [Out] out uint Seconds);*/
+            [Out] out int Seconds);*/
             return getInterruptTimeout(Raw, out seconds);
         }
 
@@ -92,12 +92,12 @@ namespace ClrDebug.DbgEng
         /// to event callback objects's <see cref="IDebugEventCallbacks.Exception"/> method. Most targets do not support interrupt
         /// time-outs. Live user-mode debugging is one of the targets that does support them.
         /// </remarks>
-        public HRESULT TrySetInterruptTimeout(uint seconds)
+        public HRESULT TrySetInterruptTimeout(int seconds)
         {
             InitDelegate(ref setInterruptTimeout, Vtbl->SetInterruptTimeout);
 
             /*HRESULT SetInterruptTimeout(
-            [In] uint Seconds);*/
+            [In] int Seconds);*/
             return setInterruptTimeout(Raw, seconds);
         }
 
@@ -134,18 +134,18 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetLogFile(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint FileSize,
+            [Out] out int FileSize,
             [Out, MarshalAs(UnmanagedType.Bool)] out bool Append);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint fileSize;
+            int fileSize;
             bool append;
             HRESULT hr = getLogFile(Raw, null, bufferSize, out fileSize, out append);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) fileSize;
+            bufferSize = fileSize;
             buffer = new StringBuilder(bufferSize);
             hr = getLogFile(Raw, buffer, bufferSize, out fileSize, out append);
 
@@ -245,16 +245,16 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetPromptText(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint TextSize);*/
+            [Out] out int TextSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint textSize;
+            int textSize;
             HRESULT hr = getPromptText(Raw, null, bufferSize, out textSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) textSize;
+            bufferSize = textSize;
             buffer = new StringBuilder(bufferSize);
             hr = getPromptText(Raw, buffer, bufferSize, out textSize);
 
@@ -277,11 +277,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetNotifyEventHandle method receives the handle of the event that will be signaled after the next exception in a target.
         /// </summary>
-        public ulong NotifyEventHandle
+        public long NotifyEventHandle
         {
             get
             {
-                ulong handle;
+                long handle;
                 TryGetNotifyEventHandle(out handle).ThrowDbgEngNotOK();
 
                 return handle;
@@ -303,12 +303,12 @@ namespace ClrDebug.DbgEng
         /// method will return NULL to Handle, unless <see cref="NotifyEventHandle"/> is called to set another event to
         /// signal.
         /// </remarks>
-        public HRESULT TryGetNotifyEventHandle(out ulong handle)
+        public HRESULT TryGetNotifyEventHandle(out long handle)
         {
             InitDelegate(ref getNotifyEventHandle, Vtbl->GetNotifyEventHandle);
 
             /*HRESULT GetNotifyEventHandle(
-            [Out] out ulong Handle);*/
+            [Out] out long Handle);*/
             return getNotifyEventHandle(Raw, out handle);
         }
 
@@ -322,12 +322,12 @@ namespace ClrDebug.DbgEng
         /// in the target, the event will be signaled. The event will only be signaled once. After it has been signaled, GetNotifyEventHandle
         /// will return NULL, unless this method is called to set another event to signal.
         /// </remarks>
-        public HRESULT TrySetNotifyEventHandle(ulong handle)
+        public HRESULT TrySetNotifyEventHandle(long handle)
         {
             InitDelegate(ref setNotifyEventHandle, Vtbl->SetNotifyEventHandle);
 
             /*HRESULT SetNotifyEventHandle(
-            [In] ulong Handle);*/
+            [In] long Handle);*/
             return setNotifyEventHandle(Raw, handle);
         }
 
@@ -337,11 +337,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetDisassembleEffectiveOffset method returns the address of the last instruction disassembled using <see cref="Disassemble"/>.
         /// </summary>
-        public ulong DisassembleEffectiveOffset
+        public long DisassembleEffectiveOffset
         {
             get
             {
-                ulong offset;
+                long offset;
                 TryGetDisassembleEffectiveOffset(out offset).ThrowDbgEngNotOK();
 
                 return offset;
@@ -358,12 +358,12 @@ namespace ClrDebug.DbgEng
         /// disassembled is move ax, [ebp+4], the effective address is the value of ebp+4. This corresponds to the $ea pseudo-register.
         /// For more information about using assembly with the debugger engine API, see Assembling and Disassembling Instructions.
         /// </remarks>
-        public HRESULT TryGetDisassembleEffectiveOffset(out ulong offset)
+        public HRESULT TryGetDisassembleEffectiveOffset(out long offset)
         {
             InitDelegate(ref getDisassembleEffectiveOffset, Vtbl->GetDisassembleEffectiveOffset);
 
             /*HRESULT GetDisassembleEffectiveOffset(
-            [Out] out ulong Offset);*/
+            [Out] out long Offset);*/
             return getDisassembleEffectiveOffset(Raw, out offset);
         }
 
@@ -373,11 +373,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetReturnOffset method returns the return address for the current function.
         /// </summary>
-        public ulong ReturnOffset
+        public long ReturnOffset
         {
             get
             {
-                ulong offset;
+                long offset;
                 TryGetReturnOffset(out offset).ThrowDbgEngNotOK();
 
                 return offset;
@@ -393,12 +393,12 @@ namespace ClrDebug.DbgEng
         /// The return address is the location in the process's virtual address space of the instruction that will be executed
         /// when the current function returns.
         /// </remarks>
-        public HRESULT TryGetReturnOffset(out ulong offset)
+        public HRESULT TryGetReturnOffset(out long offset)
         {
             InitDelegate(ref getReturnOffset, Vtbl->GetReturnOffset);
 
             /*HRESULT GetReturnOffset(
-            [Out] out ulong Offset);*/
+            [Out] out long Offset);*/
             return getReturnOffset(Raw, out offset);
         }
 
@@ -516,11 +516,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetNumberPossibleExecutingProcessorTypes method returns the number of processor types that are supported by the computer running the current target.
         /// </summary>
-        public uint NumberPossibleExecutingProcessorTypes
+        public int NumberPossibleExecutingProcessorTypes
         {
             get
             {
-                uint number;
+                int number;
                 TryGetNumberPossibleExecutingProcessorTypes(out number).ThrowDbgEngNotOK();
 
                 return number;
@@ -535,12 +535,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information, see Target Information.
         /// </remarks>
-        public HRESULT TryGetNumberPossibleExecutingProcessorTypes(out uint number)
+        public HRESULT TryGetNumberPossibleExecutingProcessorTypes(out int number)
         {
             InitDelegate(ref getNumberPossibleExecutingProcessorTypes, Vtbl->GetNumberPossibleExecutingProcessorTypes);
 
             /*HRESULT GetNumberPossibleExecutingProcessorTypes(
-            [Out] out uint Number);*/
+            [Out] out int Number);*/
             return getNumberPossibleExecutingProcessorTypes(Raw, out number);
         }
 
@@ -550,11 +550,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetNumberProcessors method returns the number of processors on the computer running the current target.
         /// </summary>
-        public uint NumberProcessors
+        public int NumberProcessors
         {
             get
             {
-                uint number;
+                int number;
                 TryGetNumberProcessors(out number).ThrowDbgEngNotOK();
 
                 return number;
@@ -569,12 +569,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information, see Target Information.
         /// </remarks>
-        public HRESULT TryGetNumberProcessors(out uint number)
+        public HRESULT TryGetNumberProcessors(out int number)
         {
             InitDelegate(ref getNumberProcessors, Vtbl->GetNumberProcessors);
 
             /*HRESULT GetNumberProcessors(
-            [Out] out uint Number);*/
+            [Out] out int Number);*/
             return getNumberProcessors(Raw, out number);
         }
 
@@ -607,34 +607,34 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getSystemVersion, Vtbl->GetSystemVersion);
             /*HRESULT GetSystemVersion(
-            [Out] out uint PlatformId,
-            [Out] out uint Major,
-            [Out] out uint Minor,
+            [Out] out int PlatformId,
+            [Out] out int Major,
+            [Out] out int Minor,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder ServicePackString,
             [In] int ServicePackStringSize,
-            [Out] out uint ServicePackStringUsed,
-            [Out] out uint ServicePackNumber,
+            [Out] out int ServicePackStringUsed,
+            [Out] out int ServicePackNumber,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder BuildString,
             [In] int BuildStringSize,
-            [Out] out uint BuildStringUsed);*/
-            uint platformId;
-            uint major;
-            uint minor;
+            [Out] out int BuildStringUsed);*/
+            int platformId;
+            int major;
+            int minor;
             StringBuilder servicePackString;
             int servicePackStringSize = 0;
-            uint servicePackStringUsed;
-            uint servicePackNumber;
+            int servicePackStringUsed;
+            int servicePackNumber;
             StringBuilder buildString;
             int buildStringSize = 0;
-            uint buildStringUsed;
+            int buildStringUsed;
             HRESULT hr = getSystemVersion(Raw, out platformId, out major, out minor, null, servicePackStringSize, out servicePackStringUsed, out servicePackNumber, null, buildStringSize, out buildStringUsed);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            servicePackStringSize = (int) servicePackStringUsed;
+            servicePackStringSize = servicePackStringUsed;
             servicePackString = new StringBuilder(servicePackStringSize);
-            buildStringSize = (int) buildStringUsed;
+            buildStringSize = buildStringUsed;
             buildString = new StringBuilder(buildStringSize);
             hr = getSystemVersion(Raw, out platformId, out major, out minor, servicePackString, servicePackStringSize, out servicePackStringUsed, out servicePackNumber, buildString, buildStringSize, out buildStringUsed);
 
@@ -657,11 +657,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetPageSize method returns the page size for the effective processor mode.
         /// </summary>
-        public uint PageSize
+        public int PageSize
         {
             get
             {
-                uint size;
+                int size;
                 TryGetPageSize(out size).ThrowDbgEngNotOK();
 
                 return size;
@@ -673,12 +673,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="size">[out] Receives the page size.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
-        public HRESULT TryGetPageSize(out uint size)
+        public HRESULT TryGetPageSize(out int size)
         {
             InitDelegate(ref getPageSize, Vtbl->GetPageSize);
 
             /*HRESULT GetPageSize(
-            [Out] out uint Size);*/
+            [Out] out int Size);*/
             return getPageSize(Raw, out size);
         }
 
@@ -717,11 +717,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetNumberSupportedProcessorTypes method returns the number of processor types supported by the engine.
         /// </summary>
-        public uint NumberSupportedProcessorTypes
+        public int NumberSupportedProcessorTypes
         {
             get
             {
-                uint number;
+                int number;
                 TryGetNumberSupportedProcessorTypes(out number).ThrowDbgEngNotOK();
 
                 return number;
@@ -736,12 +736,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information, see Target Information.
         /// </remarks>
-        public HRESULT TryGetNumberSupportedProcessorTypes(out uint number)
+        public HRESULT TryGetNumberSupportedProcessorTypes(out int number)
         {
             InitDelegate(ref getNumberSupportedProcessorTypes, Vtbl->GetNumberSupportedProcessorTypes);
 
             /*HRESULT GetNumberSupportedProcessorTypes(
-            [Out] out uint Number);*/
+            [Out] out int Number);*/
             return getNumberSupportedProcessorTypes(Raw, out number);
         }
 
@@ -978,11 +978,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetRadix method returns the default radix (number base) used by the debugger engine when it evaluates and displays MASM expressions, and when it displays symbol information.
         /// </summary>
-        public uint Radix
+        public int Radix
         {
             get
             {
-                uint radix;
+                int radix;
                 TryGetRadix(out radix).ThrowDbgEngNotOK();
 
                 return radix;
@@ -1001,12 +1001,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about the default radix, see Using Input and Output.
         /// </remarks>
-        public HRESULT TryGetRadix(out uint radix)
+        public HRESULT TryGetRadix(out int radix)
         {
             InitDelegate(ref getRadix, Vtbl->GetRadix);
 
             /*HRESULT GetRadix(
-            [Out] out uint Radix);*/
+            [Out] out int Radix);*/
             return getRadix(Raw, out radix);
         }
 
@@ -1020,12 +1020,12 @@ namespace ClrDebug.DbgEng
         ///cref="IDebugEventCallbacks.ChangeEngineState"/> callback method. For more information about the default radix,
         /// see Using Input and Output.
         /// </remarks>
-        public HRESULT TrySetRadix(uint radix)
+        public HRESULT TrySetRadix(int radix)
         {
             InitDelegate(ref setRadix, Vtbl->SetRadix);
 
             /*HRESULT SetRadix(
-            [In] uint Radix);*/
+            [In] int Radix);*/
             return setRadix(Raw, radix);
         }
 
@@ -1035,11 +1035,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetNumberBreakpoints method returns the number of breakpoints for the current process.
         /// </summary>
-        public uint NumberBreakpoints
+        public int NumberBreakpoints
         {
             get
             {
-                uint number;
+                int number;
                 TryGetNumberBreakpoints(out number).ThrowDbgEngNotOK();
 
                 return number;
@@ -1051,12 +1051,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="number">[out] Receives the number of breakpoints.</param>
         /// <returns>This method can also return error values. See Return Values for more details.</returns>
-        public HRESULT TryGetNumberBreakpoints(out uint number)
+        public HRESULT TryGetNumberBreakpoints(out int number)
         {
             InitDelegate(ref getNumberBreakpoints, Vtbl->GetNumberBreakpoints);
 
             /*HRESULT GetNumberBreakpoints(
-            [Out] out uint Number);*/
+            [Out] out int Number);*/
             return getNumberBreakpoints(Raw, out number);
         }
 
@@ -1089,12 +1089,12 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getNumberEventFilters, Vtbl->GetNumberEventFilters);
             /*HRESULT GetNumberEventFilters(
-            [Out] out uint SpecificEvents,
-            [Out] out uint SpecificExceptions,
-            [Out] out uint ArbitraryExceptions);*/
-            uint specificEvents;
-            uint specificExceptions;
-            uint arbitraryExceptions;
+            [Out] out int SpecificEvents,
+            [Out] out int SpecificExceptions,
+            [Out] out int ArbitraryExceptions);*/
+            int specificEvents;
+            int specificExceptions;
+            int arbitraryExceptions;
             HRESULT hr = getNumberEventFilters(Raw, out specificEvents, out specificExceptions, out arbitraryExceptions);
 
             if (hr == HRESULT.S_OK)
@@ -1280,16 +1280,16 @@ namespace ClrDebug.DbgEng
             /*HRESULT Input(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint InputSize);*/
+            [Out] out int InputSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint inputSize;
+            int inputSize;
             HRESULT hr = input(Raw, null, bufferSize, out inputSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) inputSize;
+            bufferSize = inputSize;
             buffer = new StringBuilder(bufferSize);
             hr = input(Raw, buffer, bufferSize, out inputSize);
 
@@ -1705,9 +1705,9 @@ namespace ClrDebug.DbgEng
         /// see Debugging in Assembly Mode. For more information about using assembly with the debugger engine API, see Assembling
         /// and Disassembling Instructions.
         /// </remarks>
-        public ulong Assemble(ulong offset, string instr)
+        public long Assemble(long offset, string instr)
         {
-            ulong endOffset;
+            long endOffset;
             TryAssemble(offset, instr, out endOffset).ThrowDbgEngNotOK();
 
             return endOffset;
@@ -1726,14 +1726,14 @@ namespace ClrDebug.DbgEng
         /// see Debugging in Assembly Mode. For more information about using assembly with the debugger engine API, see Assembling
         /// and Disassembling Instructions.
         /// </remarks>
-        public HRESULT TryAssemble(ulong offset, string instr, out ulong endOffset)
+        public HRESULT TryAssemble(long offset, string instr, out long endOffset)
         {
             InitDelegate(ref assemble, Vtbl->Assemble);
 
             /*HRESULT Assemble(
-            [In] ulong Offset,
+            [In] long Offset,
             [In, MarshalAs(UnmanagedType.LPStr)] string Instr,
-            [Out] out ulong EndOffset);*/
+            [Out] out long EndOffset);*/
             return assemble(Raw, offset, instr, out endOffset);
         }
 
@@ -1753,7 +1753,7 @@ namespace ClrDebug.DbgEng
         /// Mode. For more information about using assembly with the debugger engine API, see Assembling and Disassembling
         /// Instructions.
         /// </remarks>
-        public DisassembleResult Disassemble(ulong offset, DEBUG_DISASM flags)
+        public DisassembleResult Disassemble(long offset, DEBUG_DISASM flags)
         {
             DisassembleResult result;
             TryDisassemble(offset, flags, out result).ThrowDbgEngNotOK();
@@ -1775,26 +1775,26 @@ namespace ClrDebug.DbgEng
         /// Mode. For more information about using assembly with the debugger engine API, see Assembling and Disassembling
         /// Instructions.
         /// </remarks>
-        public HRESULT TryDisassemble(ulong offset, DEBUG_DISASM flags, out DisassembleResult result)
+        public HRESULT TryDisassemble(long offset, DEBUG_DISASM flags, out DisassembleResult result)
         {
             InitDelegate(ref disassemble, Vtbl->Disassemble);
             /*HRESULT Disassemble(
-            [In] ulong Offset,
+            [In] long Offset,
             [In] DEBUG_DISASM Flags,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint DisassemblySize,
-            [Out] out ulong EndOffset);*/
+            [Out] out int DisassemblySize,
+            [Out] out long EndOffset);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint disassemblySize;
-            ulong endOffset;
+            int disassemblySize;
+            long endOffset;
             HRESULT hr = disassemble(Raw, offset, flags, null, bufferSize, out disassemblySize, out endOffset);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) disassemblySize;
+            bufferSize = disassemblySize;
             buffer = new StringBuilder(bufferSize);
             hr = disassemble(Raw, offset, flags, buffer, bufferSize, out disassemblySize, out endOffset);
 
@@ -1828,9 +1828,9 @@ namespace ClrDebug.DbgEng
         /// in Assembly Mode. For more information about using assembly with the debugger engine API, see Assembling and Disassembling
         /// Instructions.
         /// </remarks>
-        public ulong OutputDisassembly(DEBUG_OUTCTL outputControl, ulong offset, DEBUG_DISASM flags)
+        public long OutputDisassembly(DEBUG_OUTCTL outputControl, long offset, DEBUG_DISASM flags)
         {
-            ulong endOffset;
+            long endOffset;
             TryOutputDisassembly(outputControl, offset, flags, out endOffset).ThrowDbgEngNotOK();
 
             return endOffset;
@@ -1851,15 +1851,15 @@ namespace ClrDebug.DbgEng
         /// in Assembly Mode. For more information about using assembly with the debugger engine API, see Assembling and Disassembling
         /// Instructions.
         /// </remarks>
-        public HRESULT TryOutputDisassembly(DEBUG_OUTCTL outputControl, ulong offset, DEBUG_DISASM flags, out ulong endOffset)
+        public HRESULT TryOutputDisassembly(DEBUG_OUTCTL outputControl, long offset, DEBUG_DISASM flags, out long endOffset)
         {
             InitDelegate(ref outputDisassembly, Vtbl->OutputDisassembly);
 
             /*HRESULT OutputDisassembly(
             [In] DEBUG_OUTCTL OutputControl,
-            [In] ulong Offset,
+            [In] long Offset,
             [In] DEBUG_DISASM Flags,
-            [Out] out ulong EndOffset);*/
+            [Out] out long EndOffset);*/
             return outputDisassembly(Raw, outputControl, offset, flags, out endOffset);
         }
 
@@ -1884,7 +1884,7 @@ namespace ClrDebug.DbgEng
         /// in Assembly Mode. For more information about using assembly with the debugger engine API, see Assembling and Disassembling
         /// Instructions.
         /// </remarks>
-        public OutputDisassemblyLinesResult OutputDisassemblyLines(DEBUG_OUTCTL outputControl, uint previousLines, uint totalLines, ulong offset, DEBUG_DISASM flags)
+        public OutputDisassemblyLinesResult OutputDisassemblyLines(DEBUG_OUTCTL outputControl, int previousLines, int totalLines, long offset, DEBUG_DISASM flags)
         {
             OutputDisassemblyLinesResult result;
             TryOutputDisassemblyLines(outputControl, previousLines, totalLines, offset, flags, out result).ThrowDbgEngNotOK();
@@ -1911,23 +1911,23 @@ namespace ClrDebug.DbgEng
         /// in Assembly Mode. For more information about using assembly with the debugger engine API, see Assembling and Disassembling
         /// Instructions.
         /// </remarks>
-        public HRESULT TryOutputDisassemblyLines(DEBUG_OUTCTL outputControl, uint previousLines, uint totalLines, ulong offset, DEBUG_DISASM flags, out OutputDisassemblyLinesResult result)
+        public HRESULT TryOutputDisassemblyLines(DEBUG_OUTCTL outputControl, int previousLines, int totalLines, long offset, DEBUG_DISASM flags, out OutputDisassemblyLinesResult result)
         {
             InitDelegate(ref outputDisassemblyLines, Vtbl->OutputDisassemblyLines);
             /*HRESULT OutputDisassemblyLines(
             [In] DEBUG_OUTCTL OutputControl,
-            [In] uint PreviousLines,
-            [In] uint TotalLines,
-            [In] ulong Offset,
+            [In] int PreviousLines,
+            [In] int TotalLines,
+            [In] long Offset,
             [In] DEBUG_DISASM Flags,
-            [Out] out uint OffsetLine,
-            [Out] out ulong StartOffset,
-            [Out] out ulong EndOffset,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] LineOffsets);*/
-            uint offsetLine;
-            ulong startOffset;
-            ulong endOffset;
-            ulong[] lineOffsets = new ulong[(int) totalLines];
+            [Out] out int OffsetLine,
+            [Out] out long StartOffset,
+            [Out] out long EndOffset,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] long[] LineOffsets);*/
+            int offsetLine;
+            long startOffset;
+            long endOffset;
+            long[] lineOffsets = new long[totalLines];
             HRESULT hr = outputDisassemblyLines(Raw, outputControl, previousLines, totalLines, offset, flags, out offsetLine, out startOffset, out endOffset, lineOffsets);
 
             if (hr == HRESULT.S_OK)
@@ -1953,9 +1953,9 @@ namespace ClrDebug.DbgEng
         /// will search backward from Offset until it encounters a location such that there are the Delta number of instructions
         /// between that location and Offset.
         /// </remarks>
-        public ulong GetNearInstruction(ulong offset, int delta)
+        public long GetNearInstruction(long offset, int delta)
         {
-            ulong nearOffset;
+            long nearOffset;
             TryGetNearInstruction(offset, delta, out nearOffset).ThrowDbgEngNotOK();
 
             return nearOffset;
@@ -1974,14 +1974,14 @@ namespace ClrDebug.DbgEng
         /// will search backward from Offset until it encounters a location such that there are the Delta number of instructions
         /// between that location and Offset.
         /// </remarks>
-        public HRESULT TryGetNearInstruction(ulong offset, int delta, out ulong nearOffset)
+        public HRESULT TryGetNearInstruction(long offset, int delta, out long nearOffset)
         {
             InitDelegate(ref getNearInstruction, Vtbl->GetNearInstruction);
 
             /*HRESULT GetNearInstruction(
-            [In] ulong Offset,
+            [In] long Offset,
             [In] int Delta,
-            [Out] out ulong NearOffset);*/
+            [Out] out long NearOffset);*/
             return getNearInstruction(Raw, offset, delta, out nearOffset);
         }
 
@@ -1999,7 +1999,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// The stack trace returned to Frames can be printed using <see cref="OutputStackTrace"/>.
         /// </remarks>
-        public DEBUG_STACK_FRAME[] GetStackTrace(ulong frameOffset, ulong stackOffset, ulong instructionOffset)
+        public DEBUG_STACK_FRAME[] GetStackTrace(long frameOffset, long stackOffset, long instructionOffset)
         {
             DEBUG_STACK_FRAME[] frames;
             TryGetStackTrace(frameOffset, stackOffset, instructionOffset, out frames).ThrowDbgEngNotOK();
@@ -2019,25 +2019,25 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// The stack trace returned to Frames can be printed using <see cref="OutputStackTrace"/>.
         /// </remarks>
-        public HRESULT TryGetStackTrace(ulong frameOffset, ulong stackOffset, ulong instructionOffset, out DEBUG_STACK_FRAME[] frames)
+        public HRESULT TryGetStackTrace(long frameOffset, long stackOffset, long instructionOffset, out DEBUG_STACK_FRAME[] frames)
         {
             InitDelegate(ref getStackTrace, Vtbl->GetStackTrace);
             /*HRESULT GetStackTrace(
-            [In] ulong FrameOffset,
-            [In] ulong StackOffset,
-            [In] ulong InstructionOffset,
+            [In] long FrameOffset,
+            [In] long StackOffset,
+            [In] long InstructionOffset,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_STACK_FRAME[] Frames,
             [In] int FrameSize,
-            [Out] out uint FramesFilled);*/
+            [Out] out int FramesFilled);*/
             frames = null;
             int frameSize = 0;
-            uint framesFilled;
+            int framesFilled;
             HRESULT hr = getStackTrace(Raw, frameOffset, stackOffset, instructionOffset, null, frameSize, out framesFilled);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            frameSize = (int) framesFilled;
+            frameSize = framesFilled;
             frames = new DEBUG_STACK_FRAME[frameSize];
             hr = getStackTrace(Raw, frameOffset, stackOffset, instructionOffset, frames, frameSize, out framesFilled);
             fail:
@@ -2100,7 +2100,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information, see Target Information.
         /// </remarks>
-        public IMAGE_FILE_MACHINE[] GetPossibleExecutingProcessorTypes(uint start, uint count)
+        public IMAGE_FILE_MACHINE[] GetPossibleExecutingProcessorTypes(int start, int count)
         {
             IMAGE_FILE_MACHINE[] types;
             TryGetPossibleExecutingProcessorTypes(start, count, out types).ThrowDbgEngNotOK();
@@ -2119,15 +2119,15 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information, see Target Information.
         /// </remarks>
-        public HRESULT TryGetPossibleExecutingProcessorTypes(uint start, uint count, out IMAGE_FILE_MACHINE[] types)
+        public HRESULT TryGetPossibleExecutingProcessorTypes(int start, int count, out IMAGE_FILE_MACHINE[] types)
         {
             InitDelegate(ref getPossibleExecutingProcessorTypes, Vtbl->GetPossibleExecutingProcessorTypes);
             /*HRESULT GetPossibleExecutingProcessorTypes(
-            [In] uint Start,
-            [In] uint Count,
+            [In] int Start,
+            [In] int Count,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             IMAGE_FILE_MACHINE[] Types);*/
-            types = new IMAGE_FILE_MACHINE[(int) count];
+            types = new IMAGE_FILE_MACHINE[count];
             HRESULT hr = getPossibleExecutingProcessorTypes(Raw, start, count, types);
 
             return hr;
@@ -2165,16 +2165,16 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref readBugCheckData, Vtbl->ReadBugCheckData);
             /*HRESULT ReadBugCheckData(
-            [Out] out uint Code,
-            [Out] out ulong Arg1,
-            [Out] out ulong Arg2,
-            [Out] out ulong Arg3,
-            [Out] out ulong Arg4);*/
-            uint code;
-            ulong arg1;
-            ulong arg2;
-            ulong arg3;
-            ulong arg4;
+            [Out] out int Code,
+            [Out] out long Arg1,
+            [Out] out long Arg2,
+            [Out] out long Arg3,
+            [Out] out long Arg4);*/
+            int code;
+            long arg1;
+            long arg2;
+            long arg3;
+            long arg4;
             HRESULT hr = readBugCheckData(Raw, out code, out arg1, out arg2, out arg3, out arg4);
 
             if (hr == HRESULT.S_OK)
@@ -2198,7 +2198,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information, see Target Information.
         /// </remarks>
-        public IMAGE_FILE_MACHINE[] GetSupportedProcessorTypes(uint start, uint count)
+        public IMAGE_FILE_MACHINE[] GetSupportedProcessorTypes(int start, int count)
         {
             IMAGE_FILE_MACHINE[] types;
             TryGetSupportedProcessorTypes(start, count, out types).ThrowDbgEngNotOK();
@@ -2217,15 +2217,15 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information, see Target Information.
         /// </remarks>
-        public HRESULT TryGetSupportedProcessorTypes(uint start, uint count, out IMAGE_FILE_MACHINE[] types)
+        public HRESULT TryGetSupportedProcessorTypes(int start, int count, out IMAGE_FILE_MACHINE[] types)
         {
             InitDelegate(ref getSupportedProcessorTypes, Vtbl->GetSupportedProcessorTypes);
             /*HRESULT GetSupportedProcessorTypes(
-            [In] uint Start,
-            [In] uint Count,
+            [In] int Start,
+            [In] int Count,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
             IMAGE_FILE_MACHINE[] Types);*/
-            types = new IMAGE_FILE_MACHINE[(int) count];
+            types = new IMAGE_FILE_MACHINE[count];
             HRESULT hr = getSupportedProcessorTypes(Raw, start, count, types);
 
             return hr;
@@ -2266,24 +2266,24 @@ namespace ClrDebug.DbgEng
             [In] IMAGE_FILE_MACHINE Type,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder FullNameBuffer,
             [In] int FullNameBufferSize,
-            [Out] out uint FullNameSize,
+            [Out] out int FullNameSize,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder AbbrevNameBuffer,
             [In] int AbbrevNameBufferSize,
-            [Out] out uint AbbrevNameSize);*/
+            [Out] out int AbbrevNameSize);*/
             StringBuilder fullNameBuffer;
             int fullNameBufferSize = 0;
-            uint fullNameSize;
+            int fullNameSize;
             StringBuilder abbrevNameBuffer;
             int abbrevNameBufferSize = 0;
-            uint abbrevNameSize;
+            int abbrevNameSize;
             HRESULT hr = getProcessorTypeNames(Raw, type, null, fullNameBufferSize, out fullNameSize, null, abbrevNameBufferSize, out abbrevNameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            fullNameBufferSize = (int) fullNameSize;
+            fullNameBufferSize = fullNameSize;
             fullNameBuffer = new StringBuilder(fullNameBufferSize);
-            abbrevNameBufferSize = (int) abbrevNameSize;
+            abbrevNameBufferSize = abbrevNameSize;
             abbrevNameBuffer = new StringBuilder(abbrevNameBufferSize);
             hr = getProcessorTypeNames(Raw, type, fullNameBuffer, fullNameBufferSize, out fullNameSize, abbrevNameBuffer, abbrevNameBufferSize, out abbrevNameSize);
 
@@ -2485,7 +2485,7 @@ namespace ClrDebug.DbgEng
         /// see Using Aliases. For more information about using aliases with the debugger engine API, see Interacting with
         /// the Engine.
         /// </remarks>
-        public string GetTextMacro(uint slot)
+        public string GetTextMacro(int slot)
         {
             string bufferResult;
             TryGetTextMacro(slot, out bufferResult).ThrowDbgEngNotOK();
@@ -2505,23 +2505,23 @@ namespace ClrDebug.DbgEng
         /// see Using Aliases. For more information about using aliases with the debugger engine API, see Interacting with
         /// the Engine.
         /// </remarks>
-        public HRESULT TryGetTextMacro(uint slot, out string bufferResult)
+        public HRESULT TryGetTextMacro(int slot, out string bufferResult)
         {
             InitDelegate(ref getTextMacro, Vtbl->GetTextMacro);
             /*HRESULT GetTextMacro(
-            [In] uint Slot,
+            [In] int Slot,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint MacroSize);*/
+            [Out] out int MacroSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint macroSize;
+            int macroSize;
             HRESULT hr = getTextMacro(Raw, slot, null, bufferSize, out macroSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) macroSize;
+            bufferSize = macroSize;
             buffer = new StringBuilder(bufferSize);
             hr = getTextMacro(Raw, slot, buffer, bufferSize, out macroSize);
 
@@ -2551,7 +2551,7 @@ namespace ClrDebug.DbgEng
         /// with the value of the alias (specified by Macro). For an overview of aliases used by the debugger engine, see Using
         /// Aliases. For more information about using aliases with the debugger engine API, see Interacting with the Engine.
         /// </remarks>
-        public void SetTextMacro(uint slot, string macro)
+        public void SetTextMacro(int slot, string macro)
         {
             TrySetTextMacro(slot, macro).ThrowDbgEngNotOK();
         }
@@ -2567,12 +2567,12 @@ namespace ClrDebug.DbgEng
         /// with the value of the alias (specified by Macro). For an overview of aliases used by the debugger engine, see Using
         /// Aliases. For more information about using aliases with the debugger engine API, see Interacting with the Engine.
         /// </remarks>
-        public HRESULT TrySetTextMacro(uint slot, string macro)
+        public HRESULT TrySetTextMacro(int slot, string macro)
         {
             InitDelegate(ref setTextMacro, Vtbl->SetTextMacro);
 
             /*HRESULT SetTextMacro(
-            [In] uint Slot,
+            [In] int Slot,
             [In, MarshalAs(UnmanagedType.LPStr)] string Macro);*/
             return setTextMacro(Raw, slot, macro);
         }
@@ -2622,9 +2622,9 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPStr)] string Expression,
             [In] DEBUG_VALUE_TYPE DesiredType,
             [Out] out DEBUG_VALUE Value,
-            [Out] out uint RemainderIndex);*/
+            [Out] out int RemainderIndex);*/
             DEBUG_VALUE value;
-            uint remainderIndex;
+            int remainderIndex;
             HRESULT hr = evaluate(Raw, expression, desiredType, out value, out remainderIndex);
 
             if (hr == HRESULT.S_OK)
@@ -2694,7 +2694,7 @@ namespace ClrDebug.DbgEng
         /// This method converts an array of values of one type into values of another type. Some of these conversions can
         /// result in loss of precision.
         /// </remarks>
-        public DEBUG_VALUE[] CoerceValues(uint count, DEBUG_VALUE[] @in, DEBUG_VALUE_TYPE[] outType)
+        public DEBUG_VALUE[] CoerceValues(int count, DEBUG_VALUE[] @in, DEBUG_VALUE_TYPE[] outType)
         {
             DEBUG_VALUE[] @out;
             TryCoerceValues(count, @in, outType, out @out).ThrowDbgEngNotOK();
@@ -2716,15 +2716,15 @@ namespace ClrDebug.DbgEng
         /// This method converts an array of values of one type into values of another type. Some of these conversions can
         /// result in loss of precision.
         /// </remarks>
-        public HRESULT TryCoerceValues(uint count, DEBUG_VALUE[] @in, DEBUG_VALUE_TYPE[] outType, out DEBUG_VALUE[] @out)
+        public HRESULT TryCoerceValues(int count, DEBUG_VALUE[] @in, DEBUG_VALUE_TYPE[] outType, out DEBUG_VALUE[] @out)
         {
             InitDelegate(ref coerceValues, Vtbl->CoerceValues);
             /*HRESULT CoerceValues(
-            [In] uint Count,
+            [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] In,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE_TYPE[] OutType,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Out);*/
-            @out = new DEBUG_VALUE[(int) count];
+            @out = new DEBUG_VALUE[count];
             HRESULT hr = coerceValues(Raw, count, @in, outType, @out);
 
             return hr;
@@ -2834,7 +2834,7 @@ namespace ClrDebug.DbgEng
         /// The index and returned breakpoint are specific to the current process. The same index will return a different breakpoint
         /// if the current process is changed.
         /// </remarks>
-        public DebugBreakpoint GetBreakpointByIndex(uint index)
+        public DebugBreakpoint GetBreakpointByIndex(int index)
         {
             DebugBreakpoint bpResult;
             TryGetBreakpointByIndex(index, out bpResult).ThrowDbgEngNotOK();
@@ -2853,11 +2853,11 @@ namespace ClrDebug.DbgEng
         /// The index and returned breakpoint are specific to the current process. The same index will return a different breakpoint
         /// if the current process is changed.
         /// </remarks>
-        public HRESULT TryGetBreakpointByIndex(uint index, out DebugBreakpoint bpResult)
+        public HRESULT TryGetBreakpointByIndex(int index, out DebugBreakpoint bpResult)
         {
             InitDelegate(ref getBreakpointByIndex, Vtbl->GetBreakpointByIndex);
             /*HRESULT GetBreakpointByIndex(
-            [In] uint Index,
+            [In] int Index,
             [Out, ComAliasName("IDebugBreakpoint")] out IntPtr bp);*/
             IntPtr bp;
             HRESULT hr = getBreakpointByIndex(Raw, index, out bp);
@@ -2881,7 +2881,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// If the specified breakpoint does not belong to the current process, the method will fail.
         /// </remarks>
-        public DebugBreakpoint GetBreakpointById(uint id)
+        public DebugBreakpoint GetBreakpointById(int id)
         {
             DebugBreakpoint bpResult;
             TryGetBreakpointById(id, out bpResult).ThrowDbgEngNotOK();
@@ -2898,11 +2898,11 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// If the specified breakpoint does not belong to the current process, the method will fail.
         /// </remarks>
-        public HRESULT TryGetBreakpointById(uint id, out DebugBreakpoint bpResult)
+        public HRESULT TryGetBreakpointById(int id, out DebugBreakpoint bpResult)
         {
             InitDelegate(ref getBreakpointById, Vtbl->GetBreakpointById);
             /*HRESULT GetBreakpointById(
-            [In] uint Id,
+            [In] int Id,
             [Out, ComAliasName("IDebugBreakpoint")] out IntPtr bp);*/
             IntPtr bp;
             HRESULT hr = getBreakpointById(Raw, id, out bp);
@@ -2932,7 +2932,7 @@ namespace ClrDebug.DbgEng
         /// Some of the parameters might not be returned. This happens if either a breakpoint could not be found or a breakpoint
         /// is private (see <see cref="DebugBreakpoint.Flags"/>).
         /// </remarks>
-        public DEBUG_BREAKPOINT_PARAMETERS[] GetBreakpointParameters(uint count, uint[] ids, uint start)
+        public DEBUG_BREAKPOINT_PARAMETERS[] GetBreakpointParameters(int count, int[] ids, int start)
         {
             DEBUG_BREAKPOINT_PARAMETERS[] @params;
             TryGetBreakpointParameters(count, ids, start, out @params).ThrowDbgEngNotOK();
@@ -2955,15 +2955,15 @@ namespace ClrDebug.DbgEng
         /// Some of the parameters might not be returned. This happens if either a breakpoint could not be found or a breakpoint
         /// is private (see <see cref="DebugBreakpoint.Flags"/>).
         /// </remarks>
-        public HRESULT TryGetBreakpointParameters(uint count, uint[] ids, uint start, out DEBUG_BREAKPOINT_PARAMETERS[] @params)
+        public HRESULT TryGetBreakpointParameters(int count, int[] ids, int start, out DEBUG_BREAKPOINT_PARAMETERS[] @params)
         {
             InitDelegate(ref getBreakpointParameters, Vtbl->GetBreakpointParameters);
             /*HRESULT GetBreakpointParameters(
-            [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] uint[] Ids,
-            [In] uint Start,
+            [In] int Count,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Ids,
+            [In] int Start,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_BREAKPOINT_PARAMETERS[] Params);*/
-            @params = new DEBUG_BREAKPOINT_PARAMETERS[(int) count];
+            @params = new DEBUG_BREAKPOINT_PARAMETERS[count];
             HRESULT hr = getBreakpointParameters(Raw, count, ids, start, @params);
 
             return hr;
@@ -2983,7 +2983,7 @@ namespace ClrDebug.DbgEng
         /// Breakpoints are created empty and disabled. See Using Breakpoints for details on configuring and enabling the breakpoint.
         /// The client is saved as the adder of the new breakpoint. See <see cref="DebugBreakpoint.GetAdder"/>.
         /// </remarks>
-        public DebugBreakpoint AddBreakpoint(DEBUG_BREAKPOINT_TYPE type, uint desiredId)
+        public DebugBreakpoint AddBreakpoint(DEBUG_BREAKPOINT_TYPE type, int desiredId)
         {
             DebugBreakpoint bpResult;
             TryAddBreakpoint(type, desiredId, out bpResult).ThrowDbgEngNotOK();
@@ -3003,12 +3003,12 @@ namespace ClrDebug.DbgEng
         /// Breakpoints are created empty and disabled. See Using Breakpoints for details on configuring and enabling the breakpoint.
         /// The client is saved as the adder of the new breakpoint. See <see cref="DebugBreakpoint.GetAdder"/>.
         /// </remarks>
-        public HRESULT TryAddBreakpoint(DEBUG_BREAKPOINT_TYPE type, uint desiredId, out DebugBreakpoint bpResult)
+        public HRESULT TryAddBreakpoint(DEBUG_BREAKPOINT_TYPE type, int desiredId, out DebugBreakpoint bpResult)
         {
             InitDelegate(ref addBreakpoint, Vtbl->AddBreakpoint);
             /*HRESULT AddBreakpoint(
             [In] DEBUG_BREAKPOINT_TYPE Type,
-            [In] uint DesiredId,
+            [In] int DesiredId,
             [Out, ComAliasName("IDebugBreakpoint")] out IntPtr Bp);*/
             IntPtr bp;
             HRESULT hr = addBreakpoint(Raw, type, desiredId, out bp);
@@ -3071,9 +3071,9 @@ namespace ClrDebug.DbgEng
         /// the extension DLL. To make the extension available for use, make a subsequent call to the <see cref="GetExtensionFunction"/>.
         /// For more information on using extension libraries, see Calling Extensions and Extension Functions.
         /// </remarks>
-        public ulong AddExtension(string path, uint flags)
+        public long AddExtension(string path, int flags)
         {
-            ulong handle;
+            long handle;
             TryAddExtension(path, flags, out handle).ThrowDbgEngNotOK();
 
             return handle;
@@ -3093,14 +3093,14 @@ namespace ClrDebug.DbgEng
         /// the extension DLL. To make the extension available for use, make a subsequent call to the <see cref="GetExtensionFunction"/>.
         /// For more information on using extension libraries, see Calling Extensions and Extension Functions.
         /// </remarks>
-        public HRESULT TryAddExtension(string path, uint flags, out ulong handle)
+        public HRESULT TryAddExtension(string path, int flags, out long handle)
         {
             InitDelegate(ref addExtension, Vtbl->AddExtension);
 
             /*HRESULT AddExtension(
             [In, MarshalAs(UnmanagedType.LPStr)] string Path,
-            [In] uint Flags,
-            [Out] out ulong Handle);*/
+            [In] int Flags,
+            [Out] out long Handle);*/
             return addExtension(Raw, path, flags, out handle);
         }
 
@@ -3114,7 +3114,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information on using extension libraries, see Calling Extensions and Extension Functions.
         /// </remarks>
-        public void RemoveExtension(ulong handle)
+        public void RemoveExtension(long handle)
         {
             TryRemoveExtension(handle).ThrowDbgEngNotOK();
         }
@@ -3127,12 +3127,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information on using extension libraries, see Calling Extensions and Extension Functions.
         /// </remarks>
-        public HRESULT TryRemoveExtension(ulong handle)
+        public HRESULT TryRemoveExtension(long handle)
         {
             InitDelegate(ref removeExtension, Vtbl->RemoveExtension);
 
             /*HRESULT RemoveExtension(
-            [In] ulong Handle);*/
+            [In] long Handle);*/
             return removeExtension(Raw, handle);
         }
 
@@ -3149,9 +3149,9 @@ namespace ClrDebug.DbgEng
         /// library. Path is a path and file name for the host engine. For more information on using extension libraries, see
         /// Calling Extensions and Extension Functions.
         /// </remarks>
-        public ulong GetExtensionByPath(string path)
+        public long GetExtensionByPath(string path)
         {
-            ulong handle;
+            long handle;
             TryGetExtensionByPath(path, out handle).ThrowDbgEngNotOK();
 
             return handle;
@@ -3168,13 +3168,13 @@ namespace ClrDebug.DbgEng
         /// library. Path is a path and file name for the host engine. For more information on using extension libraries, see
         /// Calling Extensions and Extension Functions.
         /// </remarks>
-        public HRESULT TryGetExtensionByPath(string path, out ulong handle)
+        public HRESULT TryGetExtensionByPath(string path, out long handle)
         {
             InitDelegate(ref getExtensionByPath, Vtbl->GetExtensionByPath);
 
             /*HRESULT GetExtensionByPath(
             [In, MarshalAs(UnmanagedType.LPStr)] string Path,
-            [Out] out ulong Handle);*/
+            [Out] out long Handle);*/
             return getExtensionByPath(Raw, path, out handle);
         }
 
@@ -3192,7 +3192,7 @@ namespace ClrDebug.DbgEng
         /// extension will then be called. If the extension returns DEBUG_EXTENSION_CONTINUE_SEARCH, the search will continue.
         /// For more information on using extension libraries, see Calling Extensions and Extension Functions.
         /// </remarks>
-        public void CallExtension(ulong handle, string function, string arguments)
+        public void CallExtension(long handle, string function, string arguments)
         {
             TryCallExtension(handle, function, arguments).ThrowDbgEngNotOK();
         }
@@ -3209,12 +3209,12 @@ namespace ClrDebug.DbgEng
         /// extension will then be called. If the extension returns DEBUG_EXTENSION_CONTINUE_SEARCH, the search will continue.
         /// For more information on using extension libraries, see Calling Extensions and Extension Functions.
         /// </remarks>
-        public HRESULT TryCallExtension(ulong handle, string function, string arguments)
+        public HRESULT TryCallExtension(long handle, string function, string arguments)
         {
             InitDelegate(ref callExtension, Vtbl->CallExtension);
 
             /*HRESULT CallExtension(
-            [In] ulong Handle,
+            [In] long Handle,
             [In, MarshalAs(UnmanagedType.LPStr)] string Function,
             [In, MarshalAs(UnmanagedType.LPStr)] string Arguments);*/
             return callExtension(Raw, handle, function, arguments);
@@ -3236,7 +3236,7 @@ namespace ClrDebug.DbgEng
         /// prototype. In order for any program to call this extension function, the extension function should be cast to the
         /// correct prototype. For more information on using extension functions, see Calling Extensions and Extension Functions.
         /// </remarks>
-        public IntPtr GetExtensionFunction(ulong handle, string funcName)
+        public IntPtr GetExtensionFunction(long handle, string funcName)
         {
             IntPtr function;
             TryGetExtensionFunction(handle, funcName, out function).ThrowDbgEngNotOK();
@@ -3258,12 +3258,12 @@ namespace ClrDebug.DbgEng
         /// prototype. In order for any program to call this extension function, the extension function should be cast to the
         /// correct prototype. For more information on using extension functions, see Calling Extensions and Extension Functions.
         /// </remarks>
-        public HRESULT TryGetExtensionFunction(ulong handle, string funcName, out IntPtr function)
+        public HRESULT TryGetExtensionFunction(long handle, string funcName, out IntPtr function)
         {
             InitDelegate(ref getExtensionFunction, Vtbl->GetExtensionFunction);
 
             /*HRESULT GetExtensionFunction(
-            [In] ulong Handle,
+            [In] long Handle,
             [In, MarshalAs(UnmanagedType.LPStr)] string FuncName,
             [Out] out IntPtr Function);*/
             return getExtensionFunction(Raw, handle, funcName, out function);
@@ -3364,7 +3364,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about event filters, see Event Filters.
         /// </remarks>
-        public string GetEventFilterText(uint index)
+        public string GetEventFilterText(int index)
         {
             string bufferResult;
             TryGetEventFilterText(index, out bufferResult).ThrowDbgEngNotOK();
@@ -3381,23 +3381,23 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about event filters, see Event Filters.
         /// </remarks>
-        public HRESULT TryGetEventFilterText(uint index, out string bufferResult)
+        public HRESULT TryGetEventFilterText(int index, out string bufferResult)
         {
             InitDelegate(ref getEventFilterText, Vtbl->GetEventFilterText);
             /*HRESULT GetEventFilterText(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint TextSize);*/
+            [Out] out int TextSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint textSize;
+            int textSize;
             HRESULT hr = getEventFilterText(Raw, index, null, bufferSize, out textSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) textSize;
+            bufferSize = textSize;
             buffer = new StringBuilder(bufferSize);
             hr = getEventFilterText(Raw, index, buffer, bufferSize, out textSize);
 
@@ -3426,7 +3426,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about event filters, see Event Filters.
         /// </remarks>
-        public string GetEventFilterCommand(uint index)
+        public string GetEventFilterCommand(int index)
         {
             string bufferResult;
             TryGetEventFilterCommand(index, out bufferResult).ThrowDbgEngNotOK();
@@ -3444,23 +3444,23 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about event filters, see Event Filters.
         /// </remarks>
-        public HRESULT TryGetEventFilterCommand(uint index, out string bufferResult)
+        public HRESULT TryGetEventFilterCommand(int index, out string bufferResult)
         {
             InitDelegate(ref getEventFilterCommand, Vtbl->GetEventFilterCommand);
             /*HRESULT GetEventFilterCommand(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint CommandSize);*/
+            [Out] out int CommandSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint commandSize;
+            int commandSize;
             HRESULT hr = getEventFilterCommand(Raw, index, null, bufferSize, out commandSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) commandSize;
+            bufferSize = commandSize;
             buffer = new StringBuilder(bufferSize);
             hr = getEventFilterCommand(Raw, index, buffer, bufferSize, out commandSize);
 
@@ -3489,7 +3489,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about event filters, see Event Filters.
         /// </remarks>
-        public void SetEventFilterCommand(uint index, string command)
+        public void SetEventFilterCommand(int index, string command)
         {
             TrySetEventFilterCommand(index, command).ThrowDbgEngNotOK();
         }
@@ -3504,12 +3504,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about event filters, see Event Filters.
         /// </remarks>
-        public HRESULT TrySetEventFilterCommand(uint index, string command)
+        public HRESULT TrySetEventFilterCommand(int index, string command)
         {
             InitDelegate(ref setEventFilterCommand, Vtbl->SetEventFilterCommand);
 
             /*HRESULT SetEventFilterCommand(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.LPStr)] string Command);*/
             return setEventFilterCommand(Raw, index, command);
         }
@@ -3526,7 +3526,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about event filters, see Event Filters.
         /// </remarks>
-        public DEBUG_SPECIFIC_FILTER_PARAMETERS[] GetSpecificFilterParameters(uint start, uint count)
+        public DEBUG_SPECIFIC_FILTER_PARAMETERS[] GetSpecificFilterParameters(int start, int count)
         {
             DEBUG_SPECIFIC_FILTER_PARAMETERS[] @params;
             TryGetSpecificFilterParameters(start, count, out @params).ThrowDbgEngNotOK();
@@ -3544,14 +3544,14 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about event filters, see Event Filters.
         /// </remarks>
-        public HRESULT TryGetSpecificFilterParameters(uint start, uint count, out DEBUG_SPECIFIC_FILTER_PARAMETERS[] @params)
+        public HRESULT TryGetSpecificFilterParameters(int start, int count, out DEBUG_SPECIFIC_FILTER_PARAMETERS[] @params)
         {
             InitDelegate(ref getSpecificFilterParameters, Vtbl->GetSpecificFilterParameters);
             /*HRESULT GetSpecificFilterParameters(
-            [In] uint Start,
-            [In] uint Count,
+            [In] int Start,
+            [In] int Count,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);*/
-            @params = new DEBUG_SPECIFIC_FILTER_PARAMETERS[(int) count];
+            @params = new DEBUG_SPECIFIC_FILTER_PARAMETERS[count];
             HRESULT hr = getSpecificFilterParameters(Raw, start, count, @params);
 
             return hr;
@@ -3570,7 +3570,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about event filters, see Event Filters.
         /// </remarks>
-        public void SetSpecificFilterParameters(uint start, uint count, DEBUG_SPECIFIC_FILTER_PARAMETERS[] @params)
+        public void SetSpecificFilterParameters(int start, int count, DEBUG_SPECIFIC_FILTER_PARAMETERS[] @params)
         {
             TrySetSpecificFilterParameters(start, count, @params).ThrowDbgEngNotOK();
         }
@@ -3586,13 +3586,13 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about event filters, see Event Filters.
         /// </remarks>
-        public HRESULT TrySetSpecificFilterParameters(uint start, uint count, DEBUG_SPECIFIC_FILTER_PARAMETERS[] @params)
+        public HRESULT TrySetSpecificFilterParameters(int start, int count, DEBUG_SPECIFIC_FILTER_PARAMETERS[] @params)
         {
             InitDelegate(ref setSpecificFilterParameters, Vtbl->SetSpecificFilterParameters);
 
             /*HRESULT SetSpecificFilterParameters(
-            [In] uint Start,
-            [In] uint Count,
+            [In] int Start,
+            [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);*/
             return setSpecificFilterParameters(Raw, start, count, @params);
         }
@@ -3600,7 +3600,7 @@ namespace ClrDebug.DbgEng
         #endregion
         #region GetSpecificEventFilterArgument
 
-        public string GetSpecificEventFilterArgument(uint index)
+        public string GetSpecificEventFilterArgument(int index)
         {
             string bufferResult;
             TryGetSpecificEventFilterArgument(index, out bufferResult).ThrowDbgEngNotOK();
@@ -3608,23 +3608,23 @@ namespace ClrDebug.DbgEng
             return bufferResult;
         }
 
-        public HRESULT TryGetSpecificEventFilterArgument(uint index, out string bufferResult)
+        public HRESULT TryGetSpecificEventFilterArgument(int index, out string bufferResult)
         {
             InitDelegate(ref getSpecificEventFilterArgument, Vtbl->GetSpecificEventFilterArgument);
             /*HRESULT GetSpecificEventFilterArgument(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint ArgumentSize);*/
+            [Out] out int ArgumentSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint argumentSize;
+            int argumentSize;
             HRESULT hr = getSpecificEventFilterArgument(Raw, index, null, bufferSize, out argumentSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) argumentSize;
+            bufferSize = argumentSize;
             buffer = new StringBuilder(bufferSize);
             hr = getSpecificEventFilterArgument(Raw, index, buffer, bufferSize, out argumentSize);
 
@@ -3644,17 +3644,17 @@ namespace ClrDebug.DbgEng
         #endregion
         #region SetSpecificEventFilterArgument
 
-        public void SetSpecificEventFilterArgument(uint index, string argument)
+        public void SetSpecificEventFilterArgument(int index, string argument)
         {
             TrySetSpecificEventFilterArgument(index, argument).ThrowDbgEngNotOK();
         }
 
-        public HRESULT TrySetSpecificEventFilterArgument(uint index, string argument)
+        public HRESULT TrySetSpecificEventFilterArgument(int index, string argument)
         {
             InitDelegate(ref setSpecificEventFilterArgument, Vtbl->SetSpecificEventFilterArgument);
 
             /*HRESULT SetSpecificEventFilterArgument(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.LPStr)] string Argument);*/
             return setSpecificEventFilterArgument(Raw, index, argument);
         }
@@ -3674,7 +3674,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about event filters, see Event Filters.
         /// </remarks>
-        public DEBUG_EXCEPTION_FILTER_PARAMETERS[] GetExceptionFilterParameters(uint count, uint[] codes, uint start)
+        public DEBUG_EXCEPTION_FILTER_PARAMETERS[] GetExceptionFilterParameters(int count, int[] codes, int start)
         {
             DEBUG_EXCEPTION_FILTER_PARAMETERS[] @params;
             TryGetExceptionFilterParameters(count, codes, start, out @params).ThrowDbgEngNotOK();
@@ -3695,15 +3695,15 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about event filters, see Event Filters.
         /// </remarks>
-        public HRESULT TryGetExceptionFilterParameters(uint count, uint[] codes, uint start, out DEBUG_EXCEPTION_FILTER_PARAMETERS[] @params)
+        public HRESULT TryGetExceptionFilterParameters(int count, int[] codes, int start, out DEBUG_EXCEPTION_FILTER_PARAMETERS[] @params)
         {
             InitDelegate(ref getExceptionFilterParameters, Vtbl->GetExceptionFilterParameters);
             /*HRESULT GetExceptionFilterParameters(
-            [In] uint Count,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] uint[] Codes,
-            [In] uint Start,
+            [In] int Count,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Codes,
+            [In] int Start,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);*/
-            @params = new DEBUG_EXCEPTION_FILTER_PARAMETERS[(int) count];
+            @params = new DEBUG_EXCEPTION_FILTER_PARAMETERS[count];
             HRESULT hr = getExceptionFilterParameters(Raw, count, codes, start, @params);
 
             return hr;
@@ -3724,7 +3724,7 @@ namespace ClrDebug.DbgEng
         /// has a filter (specific or arbitrary), that filter will be changed. Otherwise, a new arbitrary exception filter
         /// will be added for the exception. For more information about event filters, see Event Filters.
         /// </remarks>
-        public void SetExceptionFilterParameters(uint count, DEBUG_EXCEPTION_FILTER_PARAMETERS[] @params)
+        public void SetExceptionFilterParameters(int count, DEBUG_EXCEPTION_FILTER_PARAMETERS[] @params)
         {
             TrySetExceptionFilterParameters(count, @params).ThrowDbgEngNotOK();
         }
@@ -3742,12 +3742,12 @@ namespace ClrDebug.DbgEng
         /// has a filter (specific or arbitrary), that filter will be changed. Otherwise, a new arbitrary exception filter
         /// will be added for the exception. For more information about event filters, see Event Filters.
         /// </remarks>
-        public HRESULT TrySetExceptionFilterParameters(uint count, DEBUG_EXCEPTION_FILTER_PARAMETERS[] @params)
+        public HRESULT TrySetExceptionFilterParameters(int count, DEBUG_EXCEPTION_FILTER_PARAMETERS[] @params)
         {
             InitDelegate(ref setExceptionFilterParameters, Vtbl->SetExceptionFilterParameters);
 
             /*HRESULT SetExceptionFilterParameters(
-            [In] uint Count,
+            [In] int Count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);*/
             return setExceptionFilterParameters(Raw, count, @params);
         }
@@ -3765,7 +3765,7 @@ namespace ClrDebug.DbgEng
         /// returned to Buffer will be empty. The returned command will also be empty if no second-chance command has been
         /// set for the specified exception. For more information about event filters, see Event Filters.
         /// </remarks>
-        public string GetExceptionFilterSecondCommand(uint index)
+        public string GetExceptionFilterSecondCommand(int index)
         {
             string bufferResult;
             TryGetExceptionFilterSecondCommand(index, out bufferResult).ThrowDbgEngNotOK();
@@ -3784,23 +3784,23 @@ namespace ClrDebug.DbgEng
         /// returned to Buffer will be empty. The returned command will also be empty if no second-chance command has been
         /// set for the specified exception. For more information about event filters, see Event Filters.
         /// </remarks>
-        public HRESULT TryGetExceptionFilterSecondCommand(uint index, out string bufferResult)
+        public HRESULT TryGetExceptionFilterSecondCommand(int index, out string bufferResult)
         {
             InitDelegate(ref getExceptionFilterSecondCommand, Vtbl->GetExceptionFilterSecondCommand);
             /*HRESULT GetExceptionFilterSecondCommand(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint CommandSize);*/
+            [Out] out int CommandSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint commandSize;
+            int commandSize;
             HRESULT hr = getExceptionFilterSecondCommand(Raw, index, null, bufferSize, out commandSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) commandSize;
+            bufferSize = commandSize;
             buffer = new StringBuilder(bufferSize);
             hr = getExceptionFilterSecondCommand(Raw, index, buffer, bufferSize, out commandSize);
 
@@ -3829,7 +3829,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about event filters, see Event Filters.
         /// </remarks>
-        public void SetExceptionFilterSecondCommand(uint index, string command)
+        public void SetExceptionFilterSecondCommand(int index, string command)
         {
             TrySetExceptionFilterSecondCommand(index, command).ThrowDbgEngNotOK();
         }
@@ -3844,12 +3844,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about event filters, see Event Filters.
         /// </remarks>
-        public HRESULT TrySetExceptionFilterSecondCommand(uint index, string command)
+        public HRESULT TrySetExceptionFilterSecondCommand(int index, string command)
         {
             InitDelegate(ref setExceptionFilterSecondCommand, Vtbl->SetExceptionFilterSecondCommand);
 
             /*HRESULT SetExceptionFilterSecondCommand(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.LPStr)] string Command);*/
             return setExceptionFilterSecondCommand(Raw, index, command);
         }
@@ -3944,28 +3944,28 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getLastEventInformation, Vtbl->GetLastEventInformation);
             /*HRESULT GetLastEventInformation(
             [Out] out DEBUG_EVENT_TYPE Type,
-            [Out] out uint ProcessId,
-            [Out] out uint ThreadId,
+            [Out] out int ProcessId,
+            [Out] out int ThreadId,
             [In] IntPtr ExtraInformation,
-            [In] uint ExtraInformationSize,
-            [Out] out uint ExtraInformationUsed,
+            [In] int ExtraInformationSize,
+            [Out] out int ExtraInformationUsed,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Description,
             [In] int DescriptionSize,
-            [Out] out uint DescriptionUsed);*/
+            [Out] out int DescriptionUsed);*/
             DEBUG_EVENT_TYPE type;
-            uint processId;
-            uint threadId;
-            uint extraInformationSize = 0;
-            uint extraInformationUsed;
+            int processId;
+            int threadId;
+            int extraInformationSize = 0;
+            int extraInformationUsed;
             StringBuilder description;
-            uint descriptionUsed;
+            int descriptionUsed;
             HRESULT hr = getLastEventInformation(Raw, out type, out processId, out threadId, extraInformation, extraInformationSize, out extraInformationUsed, null, descriptionSize, out descriptionUsed);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             extraInformationSize = extraInformationUsed;
-            description = new StringBuilder((int) extraInformationSize);
+            description = new StringBuilder(extraInformationSize);
             hr = getLastEventInformation(Raw, out type, out processId, out threadId, extraInformation, extraInformationSize, out extraInformationUsed, description, descriptionSize, out descriptionUsed);
 
             if (hr == HRESULT.S_OK)
@@ -3989,11 +3989,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetCurrentTimeDate method returns the time of the current target.
         /// </summary>
-        public uint CurrentTimeDate
+        public int CurrentTimeDate
         {
             get
             {
-                uint timeDate;
+                int timeDate;
                 TryGetCurrentTimeDate(out timeDate).ThrowDbgEngNotOK();
 
                 return timeDate;
@@ -4010,12 +4010,12 @@ namespace ClrDebug.DbgEng
         /// sessions, such as crash dump files, this will be the time the crash dump file was created. For more information,
         /// see Target Information.
         /// </remarks>
-        public HRESULT TryGetCurrentTimeDate(out uint timeDate)
+        public HRESULT TryGetCurrentTimeDate(out int timeDate)
         {
             InitDelegate(ref getCurrentTimeDate, Vtbl2->GetCurrentTimeDate);
 
             /*HRESULT GetCurrentTimeDate(
-            [Out] out uint TimeDate);*/
+            [Out] out int TimeDate);*/
             return getCurrentTimeDate(Raw, out timeDate);
         }
 
@@ -4025,11 +4025,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetCurrentSystemUpTime method returns the number of seconds the current target's computer has been running since it was last started.
         /// </summary>
-        public uint CurrentSystemUpTime
+        public int CurrentSystemUpTime
         {
             get
             {
-                uint upTime;
+                int upTime;
                 TryGetCurrentSystemUpTime(out upTime).ThrowDbgEngNotOK();
 
                 return upTime;
@@ -4044,12 +4044,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information, see Target Information.
         /// </remarks>
-        public HRESULT TryGetCurrentSystemUpTime(out uint upTime)
+        public HRESULT TryGetCurrentSystemUpTime(out int upTime)
         {
             InitDelegate(ref getCurrentSystemUpTime, Vtbl2->GetCurrentSystemUpTime);
 
             /*HRESULT GetCurrentSystemUpTime(
-            [Out] out uint UpTime);*/
+            [Out] out int UpTime);*/
             return getCurrentSystemUpTime(Raw, out upTime);
         }
 
@@ -4095,11 +4095,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetNumberTextReplacements method returns the number of currently defined user-named and automatic aliases.
         /// </summary>
-        public uint NumberTextReplacements
+        public int NumberTextReplacements
         {
             get
             {
-                uint numRepl;
+                int numRepl;
                 TryGetNumberTextReplacements(out numRepl).ThrowDbgEngNotOK();
 
                 return numRepl;
@@ -4115,12 +4115,12 @@ namespace ClrDebug.DbgEng
         /// For an overview of aliases used by the debugger engine, see Using Aliases. For more information about using aliases
         /// with the debugger engine API, see Interacting with the Engine.
         /// </remarks>
-        public HRESULT TryGetNumberTextReplacements(out uint numRepl)
+        public HRESULT TryGetNumberTextReplacements(out int numRepl)
         {
             InitDelegate(ref getNumberTextReplacements, Vtbl2->GetNumberTextReplacements);
 
             /*HRESULT GetNumberTextReplacements(
-            [Out] out uint NumRepl);*/
+            [Out] out int NumRepl);*/
             return getNumberTextReplacements(Raw, out numRepl);
         }
 
@@ -4141,7 +4141,7 @@ namespace ClrDebug.DbgEng
         /// Using Aliases. For more information about using aliases with the debugger engine API, see Interacting with the
         /// Engine.
         /// </remarks>
-        public GetTextReplacementResult GetTextReplacement(string srcText, uint index)
+        public GetTextReplacementResult GetTextReplacement(string srcText, int index)
         {
             GetTextReplacementResult result;
             TryGetTextReplacement(srcText, index, out result).ThrowDbgEngNotOK();
@@ -4164,32 +4164,32 @@ namespace ClrDebug.DbgEng
         /// Using Aliases. For more information about using aliases with the debugger engine API, see Interacting with the
         /// Engine.
         /// </remarks>
-        public HRESULT TryGetTextReplacement(string srcText, uint index, out GetTextReplacementResult result)
+        public HRESULT TryGetTextReplacement(string srcText, int index, out GetTextReplacementResult result)
         {
             InitDelegate(ref getTextReplacement, Vtbl2->GetTextReplacement);
             /*HRESULT GetTextReplacement(
             [In, MarshalAs(UnmanagedType.LPStr)] string SrcText,
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder SrcBuffer,
             [In] int SrcBufferSize,
-            [Out] out uint SrcSize,
+            [Out] out int SrcSize,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder DstBuffer,
             [In] int DstBufferSize,
-            [Out] out uint DstSize);*/
+            [Out] out int DstSize);*/
             StringBuilder srcBuffer;
             int srcBufferSize = 0;
-            uint srcSize;
+            int srcSize;
             StringBuilder dstBuffer;
             int dstBufferSize = 0;
-            uint dstSize;
+            int dstSize;
             HRESULT hr = getTextReplacement(Raw, srcText, index, null, srcBufferSize, out srcSize, null, dstBufferSize, out dstSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            srcBufferSize = (int) srcSize;
+            srcBufferSize = srcSize;
             srcBuffer = new StringBuilder(srcBufferSize);
-            dstBufferSize = (int) dstSize;
+            dstBufferSize = dstSize;
             dstBuffer = new StringBuilder(dstBufferSize);
             hr = getTextReplacement(Raw, srcText, index, srcBuffer, srcBufferSize, out srcSize, dstBuffer, dstBufferSize, out dstSize);
 
@@ -4452,11 +4452,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetNumberExpressionSyntaxes method returns the number of expression syntaxes that are supported by the engine.
         /// </summary>
-        public uint NumberExpressionSyntaxes
+        public int NumberExpressionSyntaxes
         {
             get
             {
-                uint number;
+                int number;
                 TryGetNumberExpressionSyntaxes(out number).ThrowDbgEngNotOK();
 
                 return number;
@@ -4468,12 +4468,12 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="number">[out] Receives the number of expression syntaxes.</param>
         /// <returns>This method can also return error values. See Return Values for more details.</returns>
-        public HRESULT TryGetNumberExpressionSyntaxes(out uint number)
+        public HRESULT TryGetNumberExpressionSyntaxes(out int number)
         {
             InitDelegate(ref getNumberExpressionSyntaxes, Vtbl3->GetNumberExpressionSyntaxes);
 
             /*HRESULT GetNumberExpressionSyntaxes(
-            [Out] out uint Number);*/
+            [Out] out int Number);*/
             return getNumberExpressionSyntaxes(Raw, out number);
         }
 
@@ -4483,11 +4483,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetNumberEvents method returns the number of events for the current target, if the number of events is fixed.
         /// </summary>
-        public uint NumberEvents
+        public int NumberEvents
         {
             get
             {
-                uint events;
+                int events;
                 TryGetNumberEvents(out events).ThrowDbgEngNotOK();
 
                 return events;
@@ -4507,12 +4507,12 @@ namespace ClrDebug.DbgEng
         /// the current target is a live target with unconstrained number of events, this method sets Events to the number
         /// of events currently available and returns S_FALSE. For more information, see the topic Event Information.
         /// </remarks>
-        public HRESULT TryGetNumberEvents(out uint events)
+        public HRESULT TryGetNumberEvents(out int events)
         {
             InitDelegate(ref getNumberEvents, Vtbl3->GetNumberEvents);
 
             /*HRESULT GetNumberEvents(
-            [Out] out uint Events);*/
+            [Out] out int Events);*/
             return getNumberEvents(Raw, out events);
         }
 
@@ -4522,11 +4522,11 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The GetCurrentEventIndex method returns the index of the current event within the current list of events for the current target, if such a list exists.
         /// </summary>
-        public uint CurrentEventIndex
+        public int CurrentEventIndex
         {
             get
             {
-                uint index;
+                int index;
                 TryGetCurrentEventIndex(out index).ThrowDbgEngNotOK();
 
                 return index;
@@ -4542,12 +4542,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// Targets that do not have fixed sets of events will always return zero to Index.
         /// </remarks>
-        public HRESULT TryGetCurrentEventIndex(out uint index)
+        public HRESULT TryGetCurrentEventIndex(out int index)
         {
             InitDelegate(ref getCurrentEventIndex, Vtbl3->GetCurrentEventIndex);
 
             /*HRESULT GetCurrentEventIndex(
-            [Out] out uint Index);*/
+            [Out] out int Index);*/
             return getCurrentEventIndex(Raw, out index);
         }
 
@@ -4677,7 +4677,7 @@ namespace ClrDebug.DbgEng
         /// Currently, there are two expression syntaxes, their full names are "Microsoft Assembler expressions" and "C++ source
         /// expressions." The corresponding abbreviated expression syntaxes are "MASM" and "C++."
         /// </remarks>
-        public GetExpressionSyntaxNamesResult GetExpressionSyntaxNames(uint index)
+        public GetExpressionSyntaxNamesResult GetExpressionSyntaxNames(int index)
         {
             GetExpressionSyntaxNamesResult result;
             TryGetExpressionSyntaxNames(index, out result).ThrowDbgEngNotOK();
@@ -4695,31 +4695,31 @@ namespace ClrDebug.DbgEng
         /// Currently, there are two expression syntaxes, their full names are "Microsoft Assembler expressions" and "C++ source
         /// expressions." The corresponding abbreviated expression syntaxes are "MASM" and "C++."
         /// </remarks>
-        public HRESULT TryGetExpressionSyntaxNames(uint index, out GetExpressionSyntaxNamesResult result)
+        public HRESULT TryGetExpressionSyntaxNames(int index, out GetExpressionSyntaxNamesResult result)
         {
             InitDelegate(ref getExpressionSyntaxNames, Vtbl3->GetExpressionSyntaxNames);
             /*HRESULT GetExpressionSyntaxNames(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder FullNameBuffer,
             [In] int FullNameBufferSize,
-            [Out] out uint FullNameSize,
+            [Out] out int FullNameSize,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder AbbrevNameBuffer,
             [In] int AbbrevNameBufferSize,
-            [Out] out uint AbbrevNameSize);*/
+            [Out] out int AbbrevNameSize);*/
             StringBuilder fullNameBuffer;
             int fullNameBufferSize = 0;
-            uint fullNameSize;
+            int fullNameSize;
             StringBuilder abbrevNameBuffer;
             int abbrevNameBufferSize = 0;
-            uint abbrevNameSize;
+            int abbrevNameSize;
             HRESULT hr = getExpressionSyntaxNames(Raw, index, null, fullNameBufferSize, out fullNameSize, null, abbrevNameBufferSize, out abbrevNameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            fullNameBufferSize = (int) fullNameSize;
+            fullNameBufferSize = fullNameSize;
             fullNameBuffer = new StringBuilder(fullNameBufferSize);
-            abbrevNameBufferSize = (int) abbrevNameSize;
+            abbrevNameBufferSize = abbrevNameSize;
             abbrevNameBuffer = new StringBuilder(abbrevNameBufferSize);
             hr = getExpressionSyntaxNames(Raw, index, fullNameBuffer, fullNameBufferSize, out fullNameSize, abbrevNameBuffer, abbrevNameBufferSize, out abbrevNameSize);
 
@@ -4748,7 +4748,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// The amount of descriptive information available for a particular target varies depending on the type of the target.
         /// </remarks>
-        public string GetEventIndexDescription(uint index, DEBUG_EINDEX which)
+        public string GetEventIndexDescription(int index, DEBUG_EINDEX which)
         {
             string bufferResult;
             TryGetEventIndexDescription(index, which, out bufferResult).ThrowDbgEngNotOK();
@@ -4766,24 +4766,24 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// The amount of descriptive information available for a particular target varies depending on the type of the target.
         /// </remarks>
-        public HRESULT TryGetEventIndexDescription(uint index, DEBUG_EINDEX which, out string bufferResult)
+        public HRESULT TryGetEventIndexDescription(int index, DEBUG_EINDEX which, out string bufferResult)
         {
             InitDelegate(ref getEventIndexDescription, Vtbl3->GetEventIndexDescription);
             /*HRESULT GetEventIndexDescription(
-            [In] uint Index,
+            [In] int Index,
             [In] DEBUG_EINDEX Which,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint DescSize);*/
+            [Out] out int DescSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint descSize;
+            int descSize;
             HRESULT hr = getEventIndexDescription(Raw, index, which, null, bufferSize, out descSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) descSize;
+            bufferSize = descSize;
             buffer = new StringBuilder(bufferSize);
             hr = getEventIndexDescription(Raw, index, which, buffer, bufferSize, out descSize);
 
@@ -4816,9 +4816,9 @@ namespace ClrDebug.DbgEng
         /// is called, the engine will generate the specified event for the event callbacks and set it as the current event.
         /// This method is only useful if the target offers a list of events.
         /// </remarks>
-        public uint SetNextEventIndex(DEBUG_EINDEX relation, uint value)
+        public int SetNextEventIndex(DEBUG_EINDEX relation, int value)
         {
-            uint nextIndex;
+            int nextIndex;
             TrySetNextEventIndex(relation, value, out nextIndex).ThrowDbgEngNotOK();
 
             return nextIndex;
@@ -4838,14 +4838,14 @@ namespace ClrDebug.DbgEng
         /// is called, the engine will generate the specified event for the event callbacks and set it as the current event.
         /// This method is only useful if the target offers a list of events.
         /// </remarks>
-        public HRESULT TrySetNextEventIndex(DEBUG_EINDEX relation, uint value, out uint nextIndex)
+        public HRESULT TrySetNextEventIndex(DEBUG_EINDEX relation, int value, out int nextIndex)
         {
             InitDelegate(ref setNextEventIndex, Vtbl3->SetNextEventIndex);
 
             /*HRESULT SetNextEventIndex(
             [In] DEBUG_EINDEX Relation,
-            [In] uint Value,
-            [Out] out uint NextIndex);*/
+            [In] int Value,
+            [Out] out int NextIndex);*/
             return setNextEventIndex(Raw, relation, value, out nextIndex);
         }
 
@@ -4884,18 +4884,18 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetLogFileWide(
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint FileSize,
+            [Out] out int FileSize,
             [Out, MarshalAs(UnmanagedType.Bool)] out bool Append);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint fileSize;
+            int fileSize;
             bool append;
             HRESULT hr = getLogFileWide(Raw, null, bufferSize, out fileSize, out append);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) fileSize;
+            bufferSize = fileSize;
             buffer = new StringBuilder(bufferSize);
             hr = getLogFileWide(Raw, buffer, bufferSize, out fileSize, out append);
 
@@ -4944,16 +4944,16 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)]
             StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint TextSize);*/
+            [Out] out int TextSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint textSize;
+            int textSize;
             HRESULT hr = getPromptTextWide(Raw, null, bufferSize, out textSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) textSize;
+            bufferSize = textSize;
             buffer = new StringBuilder(bufferSize);
             hr = getPromptTextWide(Raw, buffer, bufferSize, out textSize);
 
@@ -5001,18 +5001,18 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetLogFile2(
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint FileSize,
+            [Out] out int FileSize,
             [Out] out DEBUG_LOG Flags);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint fileSize;
+            int fileSize;
             DEBUG_LOG flags;
             HRESULT hr = getLogFile2(Raw, null, bufferSize, out fileSize, out flags);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) fileSize;
+            bufferSize = fileSize;
             buffer = new StringBuilder(bufferSize);
             hr = getLogFile2(Raw, buffer, bufferSize, out fileSize, out flags);
 
@@ -5061,18 +5061,18 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)]
             StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint FileSize,
+            [Out] out int FileSize,
             [Out] out DEBUG_LOG Flags);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint fileSize;
+            int fileSize;
             DEBUG_LOG flags;
             HRESULT hr = getLogFile2Wide(Raw, null, bufferSize, out fileSize, out flags);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) fileSize;
+            bufferSize = fileSize;
             buffer = new StringBuilder(bufferSize);
             hr = getLogFile2Wide(Raw, buffer, bufferSize, out fileSize, out flags);
 
@@ -5118,16 +5118,16 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getSystemVersionValues, Vtbl4->GetSystemVersionValues);
             /*HRESULT GetSystemVersionValues(
-            [Out] out uint PlatformId,
-            [Out] out uint Win32Major,
-            [Out] out uint Win32Minor,
-            [Out] out uint KdMajor,
-            [Out] out uint KdMinor);*/
-            uint platformId;
-            uint win32Major;
-            uint win32Minor;
-            uint kdMajor;
-            uint kdMinor;
+            [Out] out int PlatformId,
+            [Out] out int Win32Major,
+            [Out] out int Win32Minor,
+            [Out] out int KdMajor,
+            [Out] out int KdMinor);*/
+            int platformId;
+            int win32Major;
+            int win32Minor;
+            int kdMajor;
+            int kdMinor;
             HRESULT hr = getSystemVersionValues(Raw, out platformId, out win32Major, out win32Minor, out kdMajor, out kdMinor);
 
             if (hr == HRESULT.S_OK)
@@ -5213,16 +5213,16 @@ namespace ClrDebug.DbgEng
             /*HRESULT InputWide(
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint InputSize);*/
+            [Out] out int InputSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint inputSize;
+            int inputSize;
             HRESULT hr = inputWide(Raw, null, bufferSize, out inputSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) inputSize;
+            bufferSize = inputSize;
             buffer = new StringBuilder(bufferSize);
             hr = inputWide(Raw, buffer, bufferSize, out inputSize);
 
@@ -5563,9 +5563,9 @@ namespace ClrDebug.DbgEng
         /// see Debugging in Assembly Mode. For more information about using assembly with the debugger engine API, see Assembling
         /// and Disassembling Instructions.
         /// </remarks>
-        public ulong AssembleWide(ulong offset, string instr)
+        public long AssembleWide(long offset, string instr)
         {
-            ulong endOffset;
+            long endOffset;
             TryAssembleWide(offset, instr, out endOffset).ThrowDbgEngNotOK();
 
             return endOffset;
@@ -5584,14 +5584,14 @@ namespace ClrDebug.DbgEng
         /// see Debugging in Assembly Mode. For more information about using assembly with the debugger engine API, see Assembling
         /// and Disassembling Instructions.
         /// </remarks>
-        public HRESULT TryAssembleWide(ulong offset, string instr, out ulong endOffset)
+        public HRESULT TryAssembleWide(long offset, string instr, out long endOffset)
         {
             InitDelegate(ref assembleWide, Vtbl4->AssembleWide);
 
             /*HRESULT AssembleWide(
-            [In] ulong Offset,
+            [In] long Offset,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Instr,
-            [Out] out ulong EndOffset);*/
+            [Out] out long EndOffset);*/
             return assembleWide(Raw, offset, instr, out endOffset);
         }
 
@@ -5611,7 +5611,7 @@ namespace ClrDebug.DbgEng
         /// Mode. For more information about using assembly with the debugger engine API, see Assembling and Disassembling
         /// Instructions.
         /// </remarks>
-        public DisassembleWideResult DisassembleWide(ulong offset, DEBUG_DISASM flags)
+        public DisassembleWideResult DisassembleWide(long offset, DEBUG_DISASM flags)
         {
             DisassembleWideResult result;
             TryDisassembleWide(offset, flags, out result).ThrowDbgEngNotOK();
@@ -5633,26 +5633,26 @@ namespace ClrDebug.DbgEng
         /// Mode. For more information about using assembly with the debugger engine API, see Assembling and Disassembling
         /// Instructions.
         /// </remarks>
-        public HRESULT TryDisassembleWide(ulong offset, DEBUG_DISASM flags, out DisassembleWideResult result)
+        public HRESULT TryDisassembleWide(long offset, DEBUG_DISASM flags, out DisassembleWideResult result)
         {
             InitDelegate(ref disassembleWide, Vtbl4->DisassembleWide);
             /*HRESULT DisassembleWide(
-            [In] ulong Offset,
+            [In] long Offset,
             [In] DEBUG_DISASM Flags,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint DisassemblySize,
-            [Out] out ulong EndOffset);*/
+            [Out] out int DisassemblySize,
+            [Out] out long EndOffset);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint disassemblySize;
-            ulong endOffset;
+            int disassemblySize;
+            long endOffset;
             HRESULT hr = disassembleWide(Raw, offset, flags, null, bufferSize, out disassemblySize, out endOffset);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) disassemblySize;
+            bufferSize = disassemblySize;
             buffer = new StringBuilder(bufferSize);
             hr = disassembleWide(Raw, offset, flags, buffer, bufferSize, out disassemblySize, out endOffset);
 
@@ -5704,24 +5704,24 @@ namespace ClrDebug.DbgEng
             [In] IMAGE_FILE_MACHINE Type,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder FullNameBuffer,
             [In] int FullNameBufferSize,
-            [Out] out uint FullNameSize,
+            [Out] out int FullNameSize,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder AbbrevNameBuffer,
             [In] int AbbrevNameBufferSize,
-            [Out] out uint AbbrevNameSize);*/
+            [Out] out int AbbrevNameSize);*/
             StringBuilder fullNameBuffer;
             int fullNameBufferSize = 0;
-            uint fullNameSize;
+            int fullNameSize;
             StringBuilder abbrevNameBuffer;
             int abbrevNameBufferSize = 0;
-            uint abbrevNameSize;
+            int abbrevNameSize;
             HRESULT hr = getProcessorTypeNamesWide(Raw, type, null, fullNameBufferSize, out fullNameSize, null, abbrevNameBufferSize, out abbrevNameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            fullNameBufferSize = (int) fullNameSize;
+            fullNameBufferSize = fullNameSize;
             fullNameBuffer = new StringBuilder(fullNameBufferSize);
-            abbrevNameBufferSize = (int) abbrevNameSize;
+            abbrevNameBufferSize = abbrevNameSize;
             abbrevNameBuffer = new StringBuilder(abbrevNameBufferSize);
             hr = getProcessorTypeNamesWide(Raw, type, fullNameBuffer, fullNameBufferSize, out fullNameSize, abbrevNameBuffer, abbrevNameBufferSize, out abbrevNameSize);
 
@@ -5752,7 +5752,7 @@ namespace ClrDebug.DbgEng
         /// see Using Aliases. For more information about using aliases with the debugger engine API, see Interacting with
         /// the Engine.
         /// </remarks>
-        public string GetTextMacroWide(uint slot)
+        public string GetTextMacroWide(int slot)
         {
             string bufferResult;
             TryGetTextMacroWide(slot, out bufferResult).ThrowDbgEngNotOK();
@@ -5772,23 +5772,23 @@ namespace ClrDebug.DbgEng
         /// see Using Aliases. For more information about using aliases with the debugger engine API, see Interacting with
         /// the Engine.
         /// </remarks>
-        public HRESULT TryGetTextMacroWide(uint slot, out string bufferResult)
+        public HRESULT TryGetTextMacroWide(int slot, out string bufferResult)
         {
             InitDelegate(ref getTextMacroWide, Vtbl4->GetTextMacroWide);
             /*HRESULT GetTextMacroWide(
-            [In] uint Slot,
+            [In] int Slot,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint MacroSize);*/
+            [Out] out int MacroSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint macroSize;
+            int macroSize;
             HRESULT hr = getTextMacroWide(Raw, slot, null, bufferSize, out macroSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) macroSize;
+            bufferSize = macroSize;
             buffer = new StringBuilder(bufferSize);
             hr = getTextMacroWide(Raw, slot, buffer, bufferSize, out macroSize);
 
@@ -5818,7 +5818,7 @@ namespace ClrDebug.DbgEng
         /// with the value of the alias (specified by Macro). For an overview of aliases used by the debugger engine, see Using
         /// Aliases. For more information about using aliases with the debugger engine API, see Interacting with the Engine.
         /// </remarks>
-        public void SetTextMacroWide(uint slot, string macro)
+        public void SetTextMacroWide(int slot, string macro)
         {
             TrySetTextMacroWide(slot, macro).ThrowDbgEngNotOK();
         }
@@ -5834,12 +5834,12 @@ namespace ClrDebug.DbgEng
         /// with the value of the alias (specified by Macro). For an overview of aliases used by the debugger engine, see Using
         /// Aliases. For more information about using aliases with the debugger engine API, see Interacting with the Engine.
         /// </remarks>
-        public HRESULT TrySetTextMacroWide(uint slot, string macro)
+        public HRESULT TrySetTextMacroWide(int slot, string macro)
         {
             InitDelegate(ref setTextMacroWide, Vtbl4->SetTextMacroWide);
 
             /*HRESULT SetTextMacroWide(
-            [In] uint Slot,
+            [In] int Slot,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Macro);*/
             return setTextMacroWide(Raw, slot, macro);
         }
@@ -5889,9 +5889,9 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPWStr)] string Expression,
             [In] DEBUG_VALUE_TYPE DesiredType,
             [Out] out DEBUG_VALUE Value,
-            [Out] out uint RemainderIndex);*/
+            [Out] out int RemainderIndex);*/
             DEBUG_VALUE value;
-            uint remainderIndex;
+            int remainderIndex;
             HRESULT hr = evaluateWide(Raw, expression, desiredType, out value, out remainderIndex);
 
             if (hr == HRESULT.S_OK)
@@ -6006,7 +6006,7 @@ namespace ClrDebug.DbgEng
         /// The index and returned breakpoint are specific to the current process. The same index will return a different breakpoint
         /// if the current process is changed.
         /// </remarks>
-        public DebugBreakpoint GetBreakpointByIndex2(uint index)
+        public DebugBreakpoint GetBreakpointByIndex2(int index)
         {
             DebugBreakpoint bpResult;
             TryGetBreakpointByIndex2(index, out bpResult).ThrowDbgEngNotOK();
@@ -6025,11 +6025,11 @@ namespace ClrDebug.DbgEng
         /// The index and returned breakpoint are specific to the current process. The same index will return a different breakpoint
         /// if the current process is changed.
         /// </remarks>
-        public HRESULT TryGetBreakpointByIndex2(uint index, out DebugBreakpoint bpResult)
+        public HRESULT TryGetBreakpointByIndex2(int index, out DebugBreakpoint bpResult)
         {
             InitDelegate(ref getBreakpointByIndex2, Vtbl4->GetBreakpointByIndex2);
             /*HRESULT GetBreakpointByIndex2(
-            [In] uint Index,
+            [In] int Index,
             [Out, ComAliasName("IDebugBreakpoint2")] out IntPtr bp);*/
             IntPtr bp;
             HRESULT hr = getBreakpointByIndex2(Raw, index, out bp);
@@ -6053,7 +6053,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// If the specified breakpoint does not belong to the current process, the method will fail.
         /// </remarks>
-        public DebugBreakpoint GetBreakpointById2(uint id)
+        public DebugBreakpoint GetBreakpointById2(int id)
         {
             DebugBreakpoint bpResult;
             TryGetBreakpointById2(id, out bpResult).ThrowDbgEngNotOK();
@@ -6070,11 +6070,11 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// If the specified breakpoint does not belong to the current process, the method will fail.
         /// </remarks>
-        public HRESULT TryGetBreakpointById2(uint id, out DebugBreakpoint bpResult)
+        public HRESULT TryGetBreakpointById2(int id, out DebugBreakpoint bpResult)
         {
             InitDelegate(ref getBreakpointById2, Vtbl4->GetBreakpointById2);
             /*HRESULT GetBreakpointById2(
-            [In] uint Id,
+            [In] int Id,
             [Out, ComAliasName("IDebugBreakpoint2")] out IntPtr bp);*/
             IntPtr bp;
             HRESULT hr = getBreakpointById2(Raw, id, out bp);
@@ -6101,7 +6101,7 @@ namespace ClrDebug.DbgEng
         /// Breakpoints are created empty and disabled. See Using Breakpoints for details on configuring and enabling the breakpoint.
         /// The client is saved as the adder of the new breakpoint. See <see cref="DebugBreakpoint.GetAdder"/>.
         /// </remarks>
-        public DebugBreakpoint AddBreakpoint2(DEBUG_BREAKPOINT_TYPE type, uint desiredId)
+        public DebugBreakpoint AddBreakpoint2(DEBUG_BREAKPOINT_TYPE type, int desiredId)
         {
             DebugBreakpoint bpResult;
             TryAddBreakpoint2(type, desiredId, out bpResult).ThrowDbgEngNotOK();
@@ -6121,12 +6121,12 @@ namespace ClrDebug.DbgEng
         /// Breakpoints are created empty and disabled. See Using Breakpoints for details on configuring and enabling the breakpoint.
         /// The client is saved as the adder of the new breakpoint. See <see cref="DebugBreakpoint.GetAdder"/>.
         /// </remarks>
-        public HRESULT TryAddBreakpoint2(DEBUG_BREAKPOINT_TYPE type, uint desiredId, out DebugBreakpoint bpResult)
+        public HRESULT TryAddBreakpoint2(DEBUG_BREAKPOINT_TYPE type, int desiredId, out DebugBreakpoint bpResult)
         {
             InitDelegate(ref addBreakpoint2, Vtbl4->AddBreakpoint2);
             /*HRESULT AddBreakpoint2(
             [In] DEBUG_BREAKPOINT_TYPE Type,
-            [In] uint DesiredId,
+            [In] int DesiredId,
             [Out, ComAliasName("IDebugBreakpoint2")] out IntPtr Bp);*/
             IntPtr bp;
             HRESULT hr = addBreakpoint2(Raw, type, desiredId, out bp);
@@ -6188,9 +6188,9 @@ namespace ClrDebug.DbgEng
         /// file name for this instance of the debugger engine. For more information on using extension libraries, see Calling
         /// Extensions and Extension Functions.
         /// </remarks>
-        public ulong AddExtensionWide(string path, uint flags)
+        public long AddExtensionWide(string path, int flags)
         {
-            ulong handle;
+            long handle;
             TryAddExtensionWide(path, flags, out handle).ThrowDbgEngNotOK();
 
             return handle;
@@ -6209,14 +6209,14 @@ namespace ClrDebug.DbgEng
         /// file name for this instance of the debugger engine. For more information on using extension libraries, see Calling
         /// Extensions and Extension Functions.
         /// </remarks>
-        public HRESULT TryAddExtensionWide(string path, uint flags, out ulong handle)
+        public HRESULT TryAddExtensionWide(string path, int flags, out long handle)
         {
             InitDelegate(ref addExtensionWide, Vtbl4->AddExtensionWide);
 
             /*HRESULT AddExtensionWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Path,
-            [In] uint Flags,
-            [Out] out ulong Handle);*/
+            [In] int Flags,
+            [Out] out long Handle);*/
             return addExtensionWide(Raw, path, flags, out handle);
         }
 
@@ -6233,9 +6233,9 @@ namespace ClrDebug.DbgEng
         /// library. Path is a path and file name for the host engine. For more information on using extension libraries, see
         /// Calling Extensions and Extension Functions.
         /// </remarks>
-        public ulong GetExtensionByPathWide(string path)
+        public long GetExtensionByPathWide(string path)
         {
-            ulong handle;
+            long handle;
             TryGetExtensionByPathWide(path, out handle).ThrowDbgEngNotOK();
 
             return handle;
@@ -6252,13 +6252,13 @@ namespace ClrDebug.DbgEng
         /// library. Path is a path and file name for the host engine. For more information on using extension libraries, see
         /// Calling Extensions and Extension Functions.
         /// </remarks>
-        public HRESULT TryGetExtensionByPathWide(string path, out ulong handle)
+        public HRESULT TryGetExtensionByPathWide(string path, out long handle)
         {
             InitDelegate(ref getExtensionByPathWide, Vtbl4->GetExtensionByPathWide);
 
             /*HRESULT GetExtensionByPathWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string Path,
-            [Out] out ulong Handle);*/
+            [Out] out long Handle);*/
             return getExtensionByPathWide(Raw, path, out handle);
         }
 
@@ -6276,7 +6276,7 @@ namespace ClrDebug.DbgEng
         /// extension will then be called. If the extension returns DEBUG_EXTENSION_CONTINUE_SEARCH, the search will continue.
         /// For more information on using extension libraries, see Calling Extensions and Extension Functions.
         /// </remarks>
-        public void CallExtensionWide(ulong handle, string function, string arguments)
+        public void CallExtensionWide(long handle, string function, string arguments)
         {
             TryCallExtensionWide(handle, function, arguments).ThrowDbgEngNotOK();
         }
@@ -6293,12 +6293,12 @@ namespace ClrDebug.DbgEng
         /// extension will then be called. If the extension returns DEBUG_EXTENSION_CONTINUE_SEARCH, the search will continue.
         /// For more information on using extension libraries, see Calling Extensions and Extension Functions.
         /// </remarks>
-        public HRESULT TryCallExtensionWide(ulong handle, string function, string arguments)
+        public HRESULT TryCallExtensionWide(long handle, string function, string arguments)
         {
             InitDelegate(ref callExtensionWide, Vtbl4->CallExtensionWide);
 
             /*HRESULT CallExtensionWide(
-            [In] ulong Handle,
+            [In] long Handle,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Function,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Arguments);*/
             return callExtensionWide(Raw, handle, function, arguments);
@@ -6320,7 +6320,7 @@ namespace ClrDebug.DbgEng
         /// prototype. In order for any program to call this extension function, the extension function should be cast to the
         /// correct prototype. For more information on using extension functions, see Calling Extensions and Extension Functions.
         /// </remarks>
-        public IntPtr GetExtensionFunctionWide(ulong handle, string funcName)
+        public IntPtr GetExtensionFunctionWide(long handle, string funcName)
         {
             IntPtr function;
             TryGetExtensionFunctionWide(handle, funcName, out function).ThrowDbgEngNotOK();
@@ -6342,12 +6342,12 @@ namespace ClrDebug.DbgEng
         /// prototype. In order for any program to call this extension function, the extension function should be cast to the
         /// correct prototype. For more information on using extension functions, see Calling Extensions and Extension Functions.
         /// </remarks>
-        public HRESULT TryGetExtensionFunctionWide(ulong handle, string funcName, out IntPtr function)
+        public HRESULT TryGetExtensionFunctionWide(long handle, string funcName, out IntPtr function)
         {
             InitDelegate(ref getExtensionFunctionWide, Vtbl4->GetExtensionFunctionWide);
 
             /*HRESULT GetExtensionFunctionWide(
-            [In] ulong Handle,
+            [In] long Handle,
             [In, MarshalAs(UnmanagedType.LPWStr)] string FuncName,
             [Out] out IntPtr Function);*/
             return getExtensionFunctionWide(Raw, handle, funcName, out function);
@@ -6364,7 +6364,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about event filters, see Event Filters.
         /// </remarks>
-        public string GetEventFilterTextWide(uint index)
+        public string GetEventFilterTextWide(int index)
         {
             string bufferResult;
             TryGetEventFilterTextWide(index, out bufferResult).ThrowDbgEngNotOK();
@@ -6381,24 +6381,24 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about event filters, see Event Filters.
         /// </remarks>
-        public HRESULT TryGetEventFilterTextWide(uint index, out string bufferResult)
+        public HRESULT TryGetEventFilterTextWide(int index, out string bufferResult)
         {
             InitDelegate(ref getEventFilterTextWide, Vtbl4->GetEventFilterTextWide);
             /*HRESULT GetEventFilterTextWide(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPWStr)]
             StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint TextSize);*/
+            [Out] out int TextSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint textSize;
+            int textSize;
             HRESULT hr = getEventFilterTextWide(Raw, index, null, bufferSize, out textSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) textSize;
+            bufferSize = textSize;
             buffer = new StringBuilder(bufferSize);
             hr = getEventFilterTextWide(Raw, index, buffer, bufferSize, out textSize);
 
@@ -6427,7 +6427,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about event filters, see Event Filters.
         /// </remarks>
-        public string GetEventFilterCommandWide(uint index)
+        public string GetEventFilterCommandWide(int index)
         {
             string bufferResult;
             TryGetEventFilterCommandWide(index, out bufferResult).ThrowDbgEngNotOK();
@@ -6445,23 +6445,23 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about event filters, see Event Filters.
         /// </remarks>
-        public HRESULT TryGetEventFilterCommandWide(uint index, out string bufferResult)
+        public HRESULT TryGetEventFilterCommandWide(int index, out string bufferResult)
         {
             InitDelegate(ref getEventFilterCommandWide, Vtbl4->GetEventFilterCommandWide);
             /*HRESULT GetEventFilterCommandWide(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint CommandSize);*/
+            [Out] out int CommandSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint commandSize;
+            int commandSize;
             HRESULT hr = getEventFilterCommandWide(Raw, index, null, bufferSize, out commandSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) commandSize;
+            bufferSize = commandSize;
             buffer = new StringBuilder(bufferSize);
             hr = getEventFilterCommandWide(Raw, index, buffer, bufferSize, out commandSize);
 
@@ -6490,7 +6490,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about event filters, see Event Filters.
         /// </remarks>
-        public void SetEventFilterCommandWide(uint index, string command)
+        public void SetEventFilterCommandWide(int index, string command)
         {
             TrySetEventFilterCommandWide(index, command).ThrowDbgEngNotOK();
         }
@@ -6505,12 +6505,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about event filters, see Event Filters.
         /// </remarks>
-        public HRESULT TrySetEventFilterCommandWide(uint index, string command)
+        public HRESULT TrySetEventFilterCommandWide(int index, string command)
         {
             InitDelegate(ref setEventFilterCommandWide, Vtbl4->SetEventFilterCommandWide);
 
             /*HRESULT SetEventFilterCommandWide(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Command);*/
             return setEventFilterCommandWide(Raw, index, command);
         }
@@ -6518,7 +6518,7 @@ namespace ClrDebug.DbgEng
         #endregion
         #region GetSpecificEventFilterArgumentWide
 
-        public string GetSpecificEventFilterArgumentWide(uint index)
+        public string GetSpecificEventFilterArgumentWide(int index)
         {
             string bufferResult;
             TryGetSpecificEventFilterArgumentWide(index, out bufferResult).ThrowDbgEngNotOK();
@@ -6526,23 +6526,23 @@ namespace ClrDebug.DbgEng
             return bufferResult;
         }
 
-        public HRESULT TryGetSpecificEventFilterArgumentWide(uint index, out string bufferResult)
+        public HRESULT TryGetSpecificEventFilterArgumentWide(int index, out string bufferResult)
         {
             InitDelegate(ref getSpecificEventFilterArgumentWide, Vtbl4->GetSpecificEventFilterArgumentWide);
             /*HRESULT GetSpecificEventFilterArgumentWide(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint ArgumentSize);*/
+            [Out] out int ArgumentSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint argumentSize;
+            int argumentSize;
             HRESULT hr = getSpecificEventFilterArgumentWide(Raw, index, null, bufferSize, out argumentSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) argumentSize;
+            bufferSize = argumentSize;
             buffer = new StringBuilder(bufferSize);
             hr = getSpecificEventFilterArgumentWide(Raw, index, buffer, bufferSize, out argumentSize);
 
@@ -6562,17 +6562,17 @@ namespace ClrDebug.DbgEng
         #endregion
         #region SetSpecificEventFilterArgumentWide
 
-        public void SetSpecificEventFilterArgumentWide(uint index, string argument)
+        public void SetSpecificEventFilterArgumentWide(int index, string argument)
         {
             TrySetSpecificEventFilterArgumentWide(index, argument).ThrowDbgEngNotOK();
         }
 
-        public HRESULT TrySetSpecificEventFilterArgumentWide(uint index, string argument)
+        public HRESULT TrySetSpecificEventFilterArgumentWide(int index, string argument)
         {
             InitDelegate(ref setSpecificEventFilterArgumentWide, Vtbl4->SetSpecificEventFilterArgumentWide);
 
             /*HRESULT SetSpecificEventFilterArgumentWide(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Argument);*/
             return setSpecificEventFilterArgumentWide(Raw, index, argument);
         }
@@ -6590,7 +6590,7 @@ namespace ClrDebug.DbgEng
         /// returned to Buffer will be empty. The returned command will also be empty if no second-chance command has been
         /// set for the specified exception. For more information about event filters, see Event Filters.
         /// </remarks>
-        public string GetExceptionFilterSecondCommandWide(uint index)
+        public string GetExceptionFilterSecondCommandWide(int index)
         {
             string bufferResult;
             TryGetExceptionFilterSecondCommandWide(index, out bufferResult).ThrowDbgEngNotOK();
@@ -6609,23 +6609,23 @@ namespace ClrDebug.DbgEng
         /// returned to Buffer will be empty. The returned command will also be empty if no second-chance command has been
         /// set for the specified exception. For more information about event filters, see Event Filters.
         /// </remarks>
-        public HRESULT TryGetExceptionFilterSecondCommandWide(uint index, out string bufferResult)
+        public HRESULT TryGetExceptionFilterSecondCommandWide(int index, out string bufferResult)
         {
             InitDelegate(ref getExceptionFilterSecondCommandWide, Vtbl4->GetExceptionFilterSecondCommandWide);
             /*HRESULT GetExceptionFilterSecondCommandWide(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint CommandSize);*/
+            [Out] out int CommandSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint commandSize;
+            int commandSize;
             HRESULT hr = getExceptionFilterSecondCommandWide(Raw, index, null, bufferSize, out commandSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) commandSize;
+            bufferSize = commandSize;
             buffer = new StringBuilder(bufferSize);
             hr = getExceptionFilterSecondCommandWide(Raw, index, buffer, bufferSize, out commandSize);
 
@@ -6654,7 +6654,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about event filters, see Event Filters.
         /// </remarks>
-        public void SetExceptionFilterSecondCommandWide(uint index, string command)
+        public void SetExceptionFilterSecondCommandWide(int index, string command)
         {
             TrySetExceptionFilterSecondCommandWide(index, command).ThrowDbgEngNotOK();
         }
@@ -6669,12 +6669,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// For more information about event filters, see Event Filters.
         /// </remarks>
-        public HRESULT TrySetExceptionFilterSecondCommandWide(uint index, string command)
+        public HRESULT TrySetExceptionFilterSecondCommandWide(int index, string command)
         {
             InitDelegate(ref setExceptionFilterSecondCommandWide, Vtbl4->SetExceptionFilterSecondCommandWide);
 
             /*HRESULT SetExceptionFilterSecondCommandWide(
-            [In] uint Index,
+            [In] int Index,
             [In, MarshalAs(UnmanagedType.LPWStr)] string Command);*/
             return setExceptionFilterSecondCommandWide(Raw, index, command);
         }
@@ -6722,27 +6722,27 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getLastEventInformationWide, Vtbl4->GetLastEventInformationWide);
             /*HRESULT GetLastEventInformationWide(
             [Out] out DEBUG_EVENT_TYPE Type,
-            [Out] out uint ProcessId,
-            [Out] out uint ThreadId,
+            [Out] out int ProcessId,
+            [Out] out int ThreadId,
             [In] IntPtr ExtraInformation,
             [In] int ExtraInformationSize,
-            [Out] out uint ExtraInformationUsed,
+            [Out] out int ExtraInformationUsed,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Description,
             [In] int DescriptionSize,
-            [Out] out uint DescriptionUsed);*/
+            [Out] out int DescriptionUsed);*/
             DEBUG_EVENT_TYPE type;
-            uint processId;
-            uint threadId;
+            int processId;
+            int threadId;
             int extraInformationSize = 0;
-            uint extraInformationUsed;
+            int extraInformationUsed;
             StringBuilder description;
-            uint descriptionUsed;
+            int descriptionUsed;
             HRESULT hr = getLastEventInformationWide(Raw, out type, out processId, out threadId, extraInformation, extraInformationSize, out extraInformationUsed, null, descriptionSize, out descriptionUsed);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            extraInformationSize = (int) extraInformationUsed;
+            extraInformationSize = extraInformationUsed;
             description = new StringBuilder(extraInformationSize);
             hr = getLastEventInformationWide(Raw, out type, out processId, out threadId, extraInformation, extraInformationSize, out extraInformationUsed, description, descriptionSize, out descriptionUsed);
 
@@ -6776,7 +6776,7 @@ namespace ClrDebug.DbgEng
         /// Using Aliases. For more information about using aliases with the debugger engine API, see Interacting with the
         /// Engine.
         /// </remarks>
-        public GetTextReplacementWideResult GetTextReplacementWide(string srcText, uint index)
+        public GetTextReplacementWideResult GetTextReplacementWide(string srcText, int index)
         {
             GetTextReplacementWideResult result;
             TryGetTextReplacementWide(srcText, index, out result).ThrowDbgEngNotOK();
@@ -6799,32 +6799,32 @@ namespace ClrDebug.DbgEng
         /// Using Aliases. For more information about using aliases with the debugger engine API, see Interacting with the
         /// Engine.
         /// </remarks>
-        public HRESULT TryGetTextReplacementWide(string srcText, uint index, out GetTextReplacementWideResult result)
+        public HRESULT TryGetTextReplacementWide(string srcText, int index, out GetTextReplacementWideResult result)
         {
             InitDelegate(ref getTextReplacementWide, Vtbl4->GetTextReplacementWide);
             /*HRESULT GetTextReplacementWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string SrcText,
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder SrcBuffer,
             [In] int SrcBufferSize,
-            [Out] out uint SrcSize,
+            [Out] out int SrcSize,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder DstBuffer,
             [In] int DstBufferSize,
-            [Out] out uint DstSize);*/
+            [Out] out int DstSize);*/
             StringBuilder srcBuffer;
             int srcBufferSize = 0;
-            uint srcSize;
+            int srcSize;
             StringBuilder dstBuffer;
             int dstBufferSize = 0;
-            uint dstSize;
+            int dstSize;
             HRESULT hr = getTextReplacementWide(Raw, srcText, index, null, srcBufferSize, out srcSize, null, dstBufferSize, out dstSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            srcBufferSize = (int) srcSize;
+            srcBufferSize = srcSize;
             srcBuffer = new StringBuilder(srcBufferSize);
-            dstBufferSize = (int) dstSize;
+            dstBufferSize = dstSize;
             dstBuffer = new StringBuilder(dstBufferSize);
             hr = getTextReplacementWide(Raw, srcText, index, srcBuffer, srcBufferSize, out srcSize, dstBuffer, dstBufferSize, out dstSize);
 
@@ -6946,7 +6946,7 @@ namespace ClrDebug.DbgEng
         /// Currently, there are two expression syntaxes, their full names are "Microsoft Assembler expressions" and "C++ source
         /// expressions." The corresponding abbreviated expression syntaxes are "MASM" and "C++."
         /// </remarks>
-        public GetExpressionSyntaxNamesWideResult GetExpressionSyntaxNamesWide(uint index)
+        public GetExpressionSyntaxNamesWideResult GetExpressionSyntaxNamesWide(int index)
         {
             GetExpressionSyntaxNamesWideResult result;
             TryGetExpressionSyntaxNamesWide(index, out result).ThrowDbgEngNotOK();
@@ -6964,31 +6964,31 @@ namespace ClrDebug.DbgEng
         /// Currently, there are two expression syntaxes, their full names are "Microsoft Assembler expressions" and "C++ source
         /// expressions." The corresponding abbreviated expression syntaxes are "MASM" and "C++."
         /// </remarks>
-        public HRESULT TryGetExpressionSyntaxNamesWide(uint index, out GetExpressionSyntaxNamesWideResult result)
+        public HRESULT TryGetExpressionSyntaxNamesWide(int index, out GetExpressionSyntaxNamesWideResult result)
         {
             InitDelegate(ref getExpressionSyntaxNamesWide, Vtbl4->GetExpressionSyntaxNamesWide);
             /*HRESULT GetExpressionSyntaxNamesWide(
-            [In] uint Index,
+            [In] int Index,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder FullNameBuffer,
             [In] int FullNameBufferSize,
-            [Out] out uint FullNameSize,
+            [Out] out int FullNameSize,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder AbbrevNameBuffer,
             [In] int AbbrevNameBufferSize,
-            [Out] out uint AbbrevNameSize);*/
+            [Out] out int AbbrevNameSize);*/
             StringBuilder fullNameBuffer;
             int fullNameBufferSize = 0;
-            uint fullNameSize;
+            int fullNameSize;
             StringBuilder abbrevNameBuffer;
             int abbrevNameBufferSize = 0;
-            uint abbrevNameSize;
+            int abbrevNameSize;
             HRESULT hr = getExpressionSyntaxNamesWide(Raw, index, null, fullNameBufferSize, out fullNameSize, null, abbrevNameBufferSize, out abbrevNameSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            fullNameBufferSize = (int) fullNameSize;
+            fullNameBufferSize = fullNameSize;
             fullNameBuffer = new StringBuilder(fullNameBufferSize);
-            abbrevNameBufferSize = (int) abbrevNameSize;
+            abbrevNameBufferSize = abbrevNameSize;
             abbrevNameBuffer = new StringBuilder(abbrevNameBufferSize);
             hr = getExpressionSyntaxNamesWide(Raw, index, fullNameBuffer, fullNameBufferSize, out fullNameSize, abbrevNameBuffer, abbrevNameBufferSize, out abbrevNameSize);
 
@@ -7017,7 +7017,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// The amount of descriptive information available for a particular target varies depending on the type of the target.
         /// </remarks>
-        public string GetEventIndexDescriptionWide(uint index, DEBUG_EINDEX which)
+        public string GetEventIndexDescriptionWide(int index, DEBUG_EINDEX which)
         {
             string bufferResult;
             TryGetEventIndexDescriptionWide(index, which, out bufferResult).ThrowDbgEngNotOK();
@@ -7035,24 +7035,24 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// The amount of descriptive information available for a particular target varies depending on the type of the target.
         /// </remarks>
-        public HRESULT TryGetEventIndexDescriptionWide(uint index, DEBUG_EINDEX which, out string bufferResult)
+        public HRESULT TryGetEventIndexDescriptionWide(int index, DEBUG_EINDEX which, out string bufferResult)
         {
             InitDelegate(ref getEventIndexDescriptionWide, Vtbl4->GetEventIndexDescriptionWide);
             /*HRESULT GetEventIndexDescriptionWide(
-            [In] uint Index,
+            [In] int Index,
             [In] DEBUG_EINDEX Which,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint DescSize);*/
+            [Out] out int DescSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint descSize;
+            int descSize;
             HRESULT hr = getEventIndexDescriptionWide(Raw, index, which, null, bufferSize, out descSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) descSize;
+            bufferSize = descSize;
             buffer = new StringBuilder(bufferSize);
             hr = getEventIndexDescriptionWide(Raw, index, which, buffer, bufferSize, out descSize);
 
@@ -7192,16 +7192,16 @@ namespace ClrDebug.DbgEng
             [In] DEBUG_SYSVERSTR Which,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint StringSize);*/
+            [Out] out int StringSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint stringSize;
+            int stringSize;
             HRESULT hr = getSystemVersionString(Raw, which, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) stringSize;
+            bufferSize = stringSize;
             buffer = new StringBuilder(bufferSize);
             hr = getSystemVersionString(Raw, which, buffer, bufferSize, out stringSize);
 
@@ -7253,16 +7253,16 @@ namespace ClrDebug.DbgEng
             [In] DEBUG_SYSVERSTR Which,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
-            [Out] out uint StringSize);*/
+            [Out] out int StringSize);*/
             StringBuilder buffer;
             int bufferSize = 0;
-            uint stringSize;
+            int stringSize;
             HRESULT hr = getSystemVersionStringWide(Raw, which, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = (int) stringSize;
+            bufferSize = stringSize;
             buffer = new StringBuilder(bufferSize);
             hr = getSystemVersionStringWide(Raw, which, buffer, bufferSize, out stringSize);
 
@@ -7300,7 +7300,7 @@ namespace ClrDebug.DbgEng
         /// to preserve them. Registers that are not restored on unwind are left as the last value restored, so care should
         /// be taken when using the register state that might not be restored by an unwind.
         /// </remarks>
-        public GetContextStackTraceResult GetContextStackTrace(IntPtr startContext, uint startContextSize, int frameSize, IntPtr frameContexts, uint frameContextsSize, uint frameContextsEntrySize)
+        public GetContextStackTraceResult GetContextStackTrace(IntPtr startContext, int startContextSize, int frameSize, IntPtr frameContexts, int frameContextsSize, int frameContextsEntrySize)
         {
             GetContextStackTraceResult result;
             TryGetContextStackTrace(startContext, startContextSize, frameSize, frameContexts, frameContextsSize, frameContextsEntrySize, out result).ThrowDbgEngNotOK();
@@ -7327,20 +7327,20 @@ namespace ClrDebug.DbgEng
         /// to preserve them. Registers that are not restored on unwind are left as the last value restored, so care should
         /// be taken when using the register state that might not be restored by an unwind.
         /// </remarks>
-        public HRESULT TryGetContextStackTrace(IntPtr startContext, uint startContextSize, int frameSize, IntPtr frameContexts, uint frameContextsSize, uint frameContextsEntrySize, out GetContextStackTraceResult result)
+        public HRESULT TryGetContextStackTrace(IntPtr startContext, int startContextSize, int frameSize, IntPtr frameContexts, int frameContextsSize, int frameContextsEntrySize, out GetContextStackTraceResult result)
         {
             InitDelegate(ref getContextStackTrace, Vtbl4->GetContextStackTrace);
             /*HRESULT GetContextStackTrace(
             [In] IntPtr StartContext,
-            [In] uint StartContextSize,
+            [In] int StartContextSize,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_STACK_FRAME[] Frames,
             [In] int FrameSize,
             [In] IntPtr FrameContexts,
-            [In] uint FrameContextsSize,
-            [In] uint FrameContextsEntrySize,
-            [Out] out uint FramesFilled);*/
+            [In] int FrameContextsSize,
+            [In] int FrameContextsEntrySize,
+            [Out] out int FramesFilled);*/
             DEBUG_STACK_FRAME[] frames = new DEBUG_STACK_FRAME[frameSize];
-            uint framesFilled;
+            int framesFilled;
             HRESULT hr = getContextStackTrace(Raw, startContext, startContextSize, frames, frameSize, frameContexts, frameContextsSize, frameContextsEntrySize, out framesFilled);
 
             if (hr == HRESULT.S_OK)
@@ -7368,7 +7368,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// The array of stack frames can be obtained using <see cref="GetContextStackTrace"/>.
         /// </remarks>
-        public void OutputContextStackTrace(DEBUG_OUTCTL outputControl, DEBUG_STACK_FRAME[] frames, int framesSize, IntPtr frameContexts, uint frameContextsSize, uint frameContextsEntrySize, DEBUG_STACK flags)
+        public void OutputContextStackTrace(DEBUG_OUTCTL outputControl, DEBUG_STACK_FRAME[] frames, int framesSize, IntPtr frameContexts, int frameContextsSize, int frameContextsEntrySize, DEBUG_STACK flags)
         {
             TryOutputContextStackTrace(outputControl, frames, framesSize, frameContexts, frameContextsSize, frameContextsEntrySize, flags).ThrowDbgEngNotOK();
         }
@@ -7388,7 +7388,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// The array of stack frames can be obtained using <see cref="GetContextStackTrace"/>.
         /// </remarks>
-        public HRESULT TryOutputContextStackTrace(DEBUG_OUTCTL outputControl, DEBUG_STACK_FRAME[] frames, int framesSize, IntPtr frameContexts, uint frameContextsSize, uint frameContextsEntrySize, DEBUG_STACK flags)
+        public HRESULT TryOutputContextStackTrace(DEBUG_OUTCTL outputControl, DEBUG_STACK_FRAME[] frames, int framesSize, IntPtr frameContexts, int frameContextsSize, int frameContextsEntrySize, DEBUG_STACK flags)
         {
             InitDelegate(ref outputContextStackTrace, Vtbl4->OutputContextStackTrace);
 
@@ -7397,8 +7397,8 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] DEBUG_STACK_FRAME[] Frames,
             [In] int FramesSize,
             [In] IntPtr FrameContexts,
-            [In] uint FrameContextsSize,
-            [In] uint FrameContextsEntrySize,
+            [In] int FrameContextsSize,
+            [In] int FrameContextsEntrySize,
             [In] DEBUG_STACK Flags);*/
             return outputContextStackTrace(Raw, outputControl, frames, framesSize, frameContexts, frameContextsSize, frameContextsEntrySize, flags);
         }
@@ -7421,7 +7421,7 @@ namespace ClrDebug.DbgEng
         /// may store an additional event. Typically, this is the event that provoked the generator to save the dump file.
         /// For more information, see the topic Event Information.
         /// </remarks>
-        public GetStoredEventInformationResult GetStoredEventInformation(IntPtr context, uint contextSize, IntPtr extraInformation, uint extraInformationSize)
+        public GetStoredEventInformationResult GetStoredEventInformation(IntPtr context, int contextSize, IntPtr extraInformation, int extraInformationSize)
         {
             GetStoredEventInformationResult result;
             TryGetStoredEventInformation(context, contextSize, extraInformation, extraInformationSize, out result).ThrowDbgEngNotOK();
@@ -7445,24 +7445,24 @@ namespace ClrDebug.DbgEng
         /// may store an additional event. Typically, this is the event that provoked the generator to save the dump file.
         /// For more information, see the topic Event Information.
         /// </remarks>
-        public HRESULT TryGetStoredEventInformation(IntPtr context, uint contextSize, IntPtr extraInformation, uint extraInformationSize, out GetStoredEventInformationResult result)
+        public HRESULT TryGetStoredEventInformation(IntPtr context, int contextSize, IntPtr extraInformation, int extraInformationSize, out GetStoredEventInformationResult result)
         {
             InitDelegate(ref getStoredEventInformation, Vtbl4->GetStoredEventInformation);
             /*HRESULT GetStoredEventInformation(
             [Out] out DEBUG_EVENT_TYPE Type,
-            [Out] out uint ProcessId,
-            [Out] out uint ThreadId,
+            [Out] out int ProcessId,
+            [Out] out int ThreadId,
             [In] IntPtr Context,
-            [In] uint ContextSize,
-            [Out] out uint ContextUsed,
+            [In] int ContextSize,
+            [Out] out int ContextUsed,
             [In] IntPtr ExtraInformation,
-            [In] uint ExtraInformationSize,
-            [Out] out uint ExtraInformationUsed);*/
+            [In] int ExtraInformationSize,
+            [Out] out int ExtraInformationUsed);*/
             DEBUG_EVENT_TYPE type;
-            uint processId;
-            uint threadId;
-            uint contextUsed;
-            uint extraInformationUsed;
+            int processId;
+            int threadId;
+            int contextUsed;
+            int extraInformationUsed;
             HRESULT hr = getStoredEventInformation(Raw, out type, out processId, out threadId, context, contextSize, out contextUsed, extraInformation, extraInformationSize, out extraInformationUsed);
 
             if (hr == HRESULT.S_OK)
@@ -7503,17 +7503,17 @@ namespace ClrDebug.DbgEng
             [In] DEBUG_MANSTR WhichString,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder String,
             [In] int StringSize,
-            [Out] out uint StringNeeded);*/
+            [Out] out int StringNeeded);*/
             DEBUG_MANAGED flags;
             StringBuilder @string;
             int stringSize = 0;
-            uint stringNeeded;
+            int stringNeeded;
             HRESULT hr = getManagedStatus(Raw, out flags, whichString, null, stringSize, out stringNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            stringSize = (int) stringNeeded;
+            stringSize = stringNeeded;
             @string = new StringBuilder(stringSize);
             hr = getManagedStatus(Raw, out flags, whichString, @string, stringSize, out stringNeeded);
 
@@ -7560,17 +7560,17 @@ namespace ClrDebug.DbgEng
             [In] DEBUG_MANSTR WhichString,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder String,
             [In] int StringSize,
-            [Out] out uint StringNeeded);*/
+            [Out] out int StringNeeded);*/
             DEBUG_MANAGED flags;
             StringBuilder @string;
             int stringSize = 0;
-            uint stringNeeded;
+            int stringNeeded;
             HRESULT hr = getManagedStatusWide(Raw, out flags, whichString, null, stringSize, out stringNeeded);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            stringSize = (int) stringNeeded;
+            stringSize = stringNeeded;
             @string = new StringBuilder(stringSize);
             hr = getManagedStatusWide(Raw, out flags, whichString, @string, stringSize, out stringNeeded);
 
@@ -7627,7 +7627,7 @@ namespace ClrDebug.DbgEng
         /// <param name="instructionOffset">[in] Specifies the location of the instruction of interest for the function that is represented by the stack frame at the top of the stack.<para/>
         /// If InstructionOffset is set to zero, the current instruction is used instead.</param>
         /// <returns>[out] Receives the stack frames. The number of elements this array holds is FrameSize.</returns>
-        public DEBUG_STACK_FRAME_EX[] GetStackTraceEx(ulong frameOffset, ulong stackOffset, ulong instructionOffset)
+        public DEBUG_STACK_FRAME_EX[] GetStackTraceEx(long frameOffset, long stackOffset, long instructionOffset)
         {
             DEBUG_STACK_FRAME_EX[] frames;
             TryGetStackTraceEx(frameOffset, stackOffset, instructionOffset, out frames).ThrowDbgEngNotOK();
@@ -7645,25 +7645,25 @@ namespace ClrDebug.DbgEng
         /// If InstructionOffset is set to zero, the current instruction is used instead.</param>
         /// <param name="frames">[out] Receives the stack frames. The number of elements this array holds is FrameSize.</param>
         /// <returns>This method may also return other error values. See Return Values for more details.</returns>
-        public HRESULT TryGetStackTraceEx(ulong frameOffset, ulong stackOffset, ulong instructionOffset, out DEBUG_STACK_FRAME_EX[] frames)
+        public HRESULT TryGetStackTraceEx(long frameOffset, long stackOffset, long instructionOffset, out DEBUG_STACK_FRAME_EX[] frames)
         {
             InitDelegate(ref getStackTraceEx, Vtbl5->GetStackTraceEx);
             /*HRESULT GetStackTraceEx(
-            [In] ulong FrameOffset,
-            [In] ulong StackOffset,
-            [In] ulong InstructionOffset,
+            [In] long FrameOffset,
+            [In] long StackOffset,
+            [In] long InstructionOffset,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_STACK_FRAME_EX[] Frames,
             [In] int FramesSize,
-            [Out] out uint FramesFilled);*/
+            [Out] out int FramesFilled);*/
             frames = null;
             int framesSize = 0;
-            uint framesFilled;
+            int framesFilled;
             HRESULT hr = getStackTraceEx(Raw, frameOffset, stackOffset, instructionOffset, null, framesSize, out framesFilled);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            framesSize = (int) framesFilled;
+            framesSize = framesFilled;
             frames = new DEBUG_STACK_FRAME_EX[framesSize];
             hr = getStackTraceEx(Raw, frameOffset, stackOffset, instructionOffset, frames, framesSize, out framesFilled);
             fail:
@@ -7685,7 +7685,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// The array of stack frames can be obtained using <see cref="GetStackTraceEx"/>.
         /// </remarks>
-        public void OutputStackTraceEx(uint outputControl, DEBUG_STACK_FRAME_EX[] frames, int framesSize, DEBUG_STACK flags)
+        public void OutputStackTraceEx(int outputControl, DEBUG_STACK_FRAME_EX[] frames, int framesSize, DEBUG_STACK flags)
         {
             TryOutputStackTraceEx(outputControl, frames, framesSize, flags).ThrowDbgEngNotOK();
         }
@@ -7703,12 +7703,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// The array of stack frames can be obtained using <see cref="GetStackTraceEx"/>.
         /// </remarks>
-        public HRESULT TryOutputStackTraceEx(uint outputControl, DEBUG_STACK_FRAME_EX[] frames, int framesSize, DEBUG_STACK flags)
+        public HRESULT TryOutputStackTraceEx(int outputControl, DEBUG_STACK_FRAME_EX[] frames, int framesSize, DEBUG_STACK flags)
         {
             InitDelegate(ref outputStackTraceEx, Vtbl5->OutputStackTraceEx);
 
             /*HRESULT OutputStackTraceEx(
-            [In] uint OutputControl,
+            [In] int OutputControl,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] DEBUG_STACK_FRAME_EX[] Frames,
             [In] int FramesSize,
             [In] DEBUG_STACK Flags);*/
@@ -7737,7 +7737,7 @@ namespace ClrDebug.DbgEng
         /// to preserve them. Registers that are not restored on unwind are left as the last value restored, so care should
         /// be taken when using the register state that might not be restored by an unwind.
         /// </remarks>
-        public GetContextStackTraceExResult GetContextStackTraceEx(IntPtr startContext, uint startContextSize, int framesSize, IntPtr frameContexts, uint frameContextsSize, uint frameContextsEntrySize)
+        public GetContextStackTraceExResult GetContextStackTraceEx(IntPtr startContext, int startContextSize, int framesSize, IntPtr frameContexts, int frameContextsSize, int frameContextsEntrySize)
         {
             GetContextStackTraceExResult result;
             TryGetContextStackTraceEx(startContext, startContextSize, framesSize, frameContexts, frameContextsSize, frameContextsEntrySize, out result).ThrowDbgEngNotOK();
@@ -7765,20 +7765,20 @@ namespace ClrDebug.DbgEng
         /// to preserve them. Registers that are not restored on unwind are left as the last value restored, so care should
         /// be taken when using the register state that might not be restored by an unwind.
         /// </remarks>
-        public HRESULT TryGetContextStackTraceEx(IntPtr startContext, uint startContextSize, int framesSize, IntPtr frameContexts, uint frameContextsSize, uint frameContextsEntrySize, out GetContextStackTraceExResult result)
+        public HRESULT TryGetContextStackTraceEx(IntPtr startContext, int startContextSize, int framesSize, IntPtr frameContexts, int frameContextsSize, int frameContextsEntrySize, out GetContextStackTraceExResult result)
         {
             InitDelegate(ref getContextStackTraceEx, Vtbl5->GetContextStackTraceEx);
             /*HRESULT GetContextStackTraceEx(
             [In] IntPtr StartContext,
-            [In] uint StartContextSize,
+            [In] int StartContextSize,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_STACK_FRAME_EX[] Frames,
             [In] int FramesSize,
             [In] IntPtr FrameContexts,
-            [In] uint FrameContextsSize,
-            [In] uint FrameContextsEntrySize,
-            [Out] out uint FramesFilled);*/
+            [In] int FrameContextsSize,
+            [In] int FrameContextsEntrySize,
+            [Out] out int FramesFilled);*/
             DEBUG_STACK_FRAME_EX[] frames = new DEBUG_STACK_FRAME_EX[framesSize];
-            uint framesFilled;
+            int framesFilled;
             HRESULT hr = getContextStackTraceEx(Raw, startContext, startContextSize, frames, framesSize, frameContexts, frameContextsSize, frameContextsEntrySize, out framesFilled);
 
             if (hr == HRESULT.S_OK)
@@ -7804,7 +7804,7 @@ namespace ClrDebug.DbgEng
         /// <param name="frameContextsSize">[in] Specifies the size, in bytes, of the memory pointed to by FrameContexts. The number of stack frames must equal the number of contexts, and FrameContextsSize must equal FramesSize multiplied by FrameContextsEntrySize.</param>
         /// <param name="frameContextsEntrySize">[in] Specifies the size, in bytes, of each frame context in FrameContexts.</param>
         /// <param name="flags">[in] Specifies bit flags that determine what information to output for each frame. Flags can be any combination of values from the following table.</param>
-        public void OutputContextStackTraceEx(uint outputControl, DEBUG_STACK_FRAME_EX[] frames, int framesSize, IntPtr frameContexts, uint frameContextsSize, uint frameContextsEntrySize, DEBUG_STACK flags)
+        public void OutputContextStackTraceEx(int outputControl, DEBUG_STACK_FRAME_EX[] frames, int framesSize, IntPtr frameContexts, int frameContextsSize, int frameContextsEntrySize, DEBUG_STACK flags)
         {
             TryOutputContextStackTraceEx(outputControl, frames, framesSize, frameContexts, frameContextsSize, frameContextsEntrySize, flags).ThrowDbgEngNotOK();
         }
@@ -7822,17 +7822,17 @@ namespace ClrDebug.DbgEng
         /// <param name="frameContextsEntrySize">[in] Specifies the size, in bytes, of each frame context in FrameContexts.</param>
         /// <param name="flags">[in] Specifies bit flags that determine what information to output for each frame. Flags can be any combination of values from the following table.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
-        public HRESULT TryOutputContextStackTraceEx(uint outputControl, DEBUG_STACK_FRAME_EX[] frames, int framesSize, IntPtr frameContexts, uint frameContextsSize, uint frameContextsEntrySize, DEBUG_STACK flags)
+        public HRESULT TryOutputContextStackTraceEx(int outputControl, DEBUG_STACK_FRAME_EX[] frames, int framesSize, IntPtr frameContexts, int frameContextsSize, int frameContextsEntrySize, DEBUG_STACK flags)
         {
             InitDelegate(ref outputContextStackTraceEx, Vtbl5->OutputContextStackTraceEx);
 
             /*HRESULT OutputContextStackTraceEx(
-            [In] uint OutputControl,
+            [In] int OutputControl,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] DEBUG_STACK_FRAME_EX[] Frames,
             [In] int FramesSize,
             [In] IntPtr FrameContexts,
-            [In] uint FrameContextsSize,
-            [In] uint FrameContextsEntrySize,
+            [In] int FrameContextsSize,
+            [In] int FrameContextsEntrySize,
             [In] DEBUG_STACK Flags);*/
             return outputContextStackTraceEx(Raw, outputControl, frames, framesSize, frameContexts, frameContextsSize, frameContextsEntrySize, flags);
         }
@@ -7942,10 +7942,10 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getSynchronizationStatus, Vtbl6->GetSynchronizationStatus);
             /*HRESULT GetSynchronizationStatus(
-            [Out] out uint SendsAttempted,
-            [Out] out uint SecondsSinceLastResponse);*/
-            uint sendsAttempted;
-            uint secondsSinceLastResponse;
+            [Out] out int SendsAttempted,
+            [Out] out int SecondsSinceLastResponse);*/
+            int sendsAttempted;
+            int secondsSinceLastResponse;
             HRESULT hr = getSynchronizationStatus(Raw, out sendsAttempted, out secondsSinceLastResponse);
 
             if (hr == HRESULT.S_OK)
@@ -8333,25 +8333,25 @@ namespace ClrDebug.DbgEng
         #region Delegates
         #region IDebugControl
 
-        private delegate HRESULT GetInterruptTimeoutDelegate(IntPtr self, [Out] out uint Seconds);
-        private delegate HRESULT SetInterruptTimeoutDelegate(IntPtr self, [In] uint Seconds);
-        private delegate HRESULT GetLogFileDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint FileSize, [Out, MarshalAs(UnmanagedType.Bool)] out bool Append);
+        private delegate HRESULT GetInterruptTimeoutDelegate(IntPtr self, [Out] out int Seconds);
+        private delegate HRESULT SetInterruptTimeoutDelegate(IntPtr self, [In] int Seconds);
+        private delegate HRESULT GetLogFileDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int FileSize, [Out, MarshalAs(UnmanagedType.Bool)] out bool Append);
         private delegate HRESULT GetLogMaskDelegate(IntPtr self, [Out] out DEBUG_OUTPUT Mask);
         private delegate HRESULT SetLogMaskDelegate(IntPtr self, [In] DEBUG_OUTPUT Mask);
-        private delegate HRESULT GetPromptTextDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint TextSize);
-        private delegate HRESULT GetNotifyEventHandleDelegate(IntPtr self, [Out] out ulong Handle);
-        private delegate HRESULT SetNotifyEventHandleDelegate(IntPtr self, [In] ulong Handle);
-        private delegate HRESULT GetDisassembleEffectiveOffsetDelegate(IntPtr self, [Out] out ulong Offset);
-        private delegate HRESULT GetReturnOffsetDelegate(IntPtr self, [Out] out ulong Offset);
+        private delegate HRESULT GetPromptTextDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int TextSize);
+        private delegate HRESULT GetNotifyEventHandleDelegate(IntPtr self, [Out] out long Handle);
+        private delegate HRESULT SetNotifyEventHandleDelegate(IntPtr self, [In] long Handle);
+        private delegate HRESULT GetDisassembleEffectiveOffsetDelegate(IntPtr self, [Out] out long Offset);
+        private delegate HRESULT GetReturnOffsetDelegate(IntPtr self, [Out] out long Offset);
         private delegate HRESULT GetDebuggeeTypeDelegate(IntPtr self, [Out] out DEBUG_CLASS Class, [Out] out DEBUG_CLASS_QUALIFIER Qualifier);
         private delegate HRESULT GetActualProcessorTypeDelegate(IntPtr self, [Out] out IMAGE_FILE_MACHINE Type);
         private delegate HRESULT GetExecutingProcessorTypeDelegate(IntPtr self, [Out] out IMAGE_FILE_MACHINE Type);
-        private delegate HRESULT GetNumberPossibleExecutingProcessorTypesDelegate(IntPtr self, [Out] out uint Number);
-        private delegate HRESULT GetNumberProcessorsDelegate(IntPtr self, [Out] out uint Number);
-        private delegate HRESULT GetSystemVersionDelegate(IntPtr self, [Out] out uint PlatformId, [Out] out uint Major, [Out] out uint Minor, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder ServicePackString, [In] int ServicePackStringSize, [Out] out uint ServicePackStringUsed, [Out] out uint ServicePackNumber, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder BuildString, [In] int BuildStringSize, [Out] out uint BuildStringUsed);
-        private delegate HRESULT GetPageSizeDelegate(IntPtr self, [Out] out uint Size);
+        private delegate HRESULT GetNumberPossibleExecutingProcessorTypesDelegate(IntPtr self, [Out] out int Number);
+        private delegate HRESULT GetNumberProcessorsDelegate(IntPtr self, [Out] out int Number);
+        private delegate HRESULT GetSystemVersionDelegate(IntPtr self, [Out] out int PlatformId, [Out] out int Major, [Out] out int Minor, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder ServicePackString, [In] int ServicePackStringSize, [Out] out int ServicePackStringUsed, [Out] out int ServicePackNumber, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder BuildString, [In] int BuildStringSize, [Out] out int BuildStringUsed);
+        private delegate HRESULT GetPageSizeDelegate(IntPtr self, [Out] out int Size);
         private delegate HRESULT IsPointer64BitDelegate(IntPtr self);
-        private delegate HRESULT GetNumberSupportedProcessorTypesDelegate(IntPtr self, [Out] out uint Number);
+        private delegate HRESULT GetNumberSupportedProcessorTypesDelegate(IntPtr self, [Out] out int Number);
         private delegate HRESULT GetEffectiveProcessorTypeDelegate(IntPtr self, [Out] out IMAGE_FILE_MACHINE Type);
         private delegate HRESULT SetEffectiveProcessorTypeDelegate(IntPtr self, [In] IMAGE_FILE_MACHINE Type);
         private delegate HRESULT GetExecutionStatusDelegate(IntPtr self, [Out] out DEBUG_STATUS Status);
@@ -8360,15 +8360,15 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT SetCodeLevelDelegate(IntPtr self, [In] DEBUG_LEVEL Level);
         private delegate HRESULT GetEngineOptionsDelegate(IntPtr self, [Out] out DEBUG_ENGOPT Options);
         private delegate HRESULT SetEngineOptionsDelegate(IntPtr self, [In] DEBUG_ENGOPT Options);
-        private delegate HRESULT GetRadixDelegate(IntPtr self, [Out] out uint Radix);
-        private delegate HRESULT SetRadixDelegate(IntPtr self, [In] uint Radix);
-        private delegate HRESULT GetNumberBreakpointsDelegate(IntPtr self, [Out] out uint Number);
-        private delegate HRESULT GetNumberEventFiltersDelegate(IntPtr self, [Out] out uint SpecificEvents, [Out] out uint SpecificExceptions, [Out] out uint ArbitraryExceptions);
+        private delegate HRESULT GetRadixDelegate(IntPtr self, [Out] out int Radix);
+        private delegate HRESULT SetRadixDelegate(IntPtr self, [In] int Radix);
+        private delegate HRESULT GetNumberBreakpointsDelegate(IntPtr self, [Out] out int Number);
+        private delegate HRESULT GetNumberEventFiltersDelegate(IntPtr self, [Out] out int SpecificEvents, [Out] out int SpecificExceptions, [Out] out int ArbitraryExceptions);
         private delegate HRESULT GetInterruptDelegate(IntPtr self);
         private delegate HRESULT SetInterruptDelegate(IntPtr self, [In] DEBUG_INTERRUPT Flags);
         private delegate HRESULT OpenLogFileDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string File, [In, MarshalAs(UnmanagedType.Bool)] bool Append);
         private delegate HRESULT CloseLogFileDelegate(IntPtr self);
-        private delegate HRESULT InputDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint InputSize);
+        private delegate HRESULT InputDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int InputSize);
         private delegate HRESULT ReturnInputDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Buffer);
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate HRESULT OutputDelegate(IntPtr self, [In] DEBUG_OUTPUT Mask, [In, MarshalAs(UnmanagedType.LPStr)] string Format);
@@ -8383,62 +8383,62 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT OutputPromptVaListDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPStr)] string Format, [In] IntPtr va_list_Args);
         private delegate HRESULT OutputCurrentStateDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_CURRENT Flags);
         private delegate HRESULT OutputVersionInformationDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl);
-        private delegate HRESULT AssembleDelegate(IntPtr self, [In] ulong Offset, [In, MarshalAs(UnmanagedType.LPStr)] string Instr, [Out] out ulong EndOffset);
-        private delegate HRESULT DisassembleDelegate(IntPtr self, [In] ulong Offset, [In] DEBUG_DISASM Flags, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint DisassemblySize, [Out] out ulong EndOffset);
-        private delegate HRESULT OutputDisassemblyDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] ulong Offset, [In] DEBUG_DISASM Flags, [Out] out ulong EndOffset);
-        private delegate HRESULT OutputDisassemblyLinesDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] uint PreviousLines, [In] uint TotalLines, [In] ulong Offset, [In] DEBUG_DISASM Flags, [Out] out uint OffsetLine, [Out] out ulong StartOffset, [Out] out ulong EndOffset, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] LineOffsets);
-        private delegate HRESULT GetNearInstructionDelegate(IntPtr self, [In] ulong Offset, [In] int Delta, [Out] out ulong NearOffset);
-        private delegate HRESULT GetStackTraceDelegate(IntPtr self, [In] ulong FrameOffset, [In] ulong StackOffset, [In] ulong InstructionOffset, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_STACK_FRAME[] Frames, [In] int FrameSize, [Out] out uint FramesFilled);
+        private delegate HRESULT AssembleDelegate(IntPtr self, [In] long Offset, [In, MarshalAs(UnmanagedType.LPStr)] string Instr, [Out] out long EndOffset);
+        private delegate HRESULT DisassembleDelegate(IntPtr self, [In] long Offset, [In] DEBUG_DISASM Flags, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int DisassemblySize, [Out] out long EndOffset);
+        private delegate HRESULT OutputDisassemblyDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] long Offset, [In] DEBUG_DISASM Flags, [Out] out long EndOffset);
+        private delegate HRESULT OutputDisassemblyLinesDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] int PreviousLines, [In] int TotalLines, [In] long Offset, [In] DEBUG_DISASM Flags, [Out] out int OffsetLine, [Out] out long StartOffset, [Out] out long EndOffset, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] long[] LineOffsets);
+        private delegate HRESULT GetNearInstructionDelegate(IntPtr self, [In] long Offset, [In] int Delta, [Out] out long NearOffset);
+        private delegate HRESULT GetStackTraceDelegate(IntPtr self, [In] long FrameOffset, [In] long StackOffset, [In] long InstructionOffset, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_STACK_FRAME[] Frames, [In] int FrameSize, [Out] out int FramesFilled);
         private delegate HRESULT OutputStackTraceDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] DEBUG_STACK_FRAME[] Frames, [In] int FramesSize, [In] DEBUG_STACK Flags);
-        private delegate HRESULT GetPossibleExecutingProcessorTypesDelegate(IntPtr self, [In] uint Start, [In] uint Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] IMAGE_FILE_MACHINE[] Types);
-        private delegate HRESULT ReadBugCheckDataDelegate(IntPtr self, [Out] out uint Code, [Out] out ulong Arg1, [Out] out ulong Arg2, [Out] out ulong Arg3, [Out] out ulong Arg4);
-        private delegate HRESULT GetSupportedProcessorTypesDelegate(IntPtr self, [In] uint Start, [In] uint Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] IMAGE_FILE_MACHINE[] Types);
-        private delegate HRESULT GetProcessorTypeNamesDelegate(IntPtr self, [In] IMAGE_FILE_MACHINE Type, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder FullNameBuffer, [In] int FullNameBufferSize, [Out] out uint FullNameSize, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder AbbrevNameBuffer, [In] int AbbrevNameBufferSize, [Out] out uint AbbrevNameSize);
+        private delegate HRESULT GetPossibleExecutingProcessorTypesDelegate(IntPtr self, [In] int Start, [In] int Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] IMAGE_FILE_MACHINE[] Types);
+        private delegate HRESULT ReadBugCheckDataDelegate(IntPtr self, [Out] out int Code, [Out] out long Arg1, [Out] out long Arg2, [Out] out long Arg3, [Out] out long Arg4);
+        private delegate HRESULT GetSupportedProcessorTypesDelegate(IntPtr self, [In] int Start, [In] int Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] IMAGE_FILE_MACHINE[] Types);
+        private delegate HRESULT GetProcessorTypeNamesDelegate(IntPtr self, [In] IMAGE_FILE_MACHINE Type, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder FullNameBuffer, [In] int FullNameBufferSize, [Out] out int FullNameSize, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder AbbrevNameBuffer, [In] int AbbrevNameBufferSize, [Out] out int AbbrevNameSize);
         private delegate HRESULT AddEngineOptionsDelegate(IntPtr self, [In] DEBUG_ENGOPT Options);
         private delegate HRESULT RemoveEngineOptionsDelegate(IntPtr self, [In] DEBUG_ENGOPT Options);
         private delegate HRESULT GetSystemErrorControlDelegate(IntPtr self, [Out] out ERROR_LEVEL OutputLevel, [Out] out ERROR_LEVEL BreakLevel);
         private delegate HRESULT SetSystemErrorControlDelegate(IntPtr self, [In] ERROR_LEVEL OutputLevel, [In] ERROR_LEVEL BreakLevel);
-        private delegate HRESULT GetTextMacroDelegate(IntPtr self, [In] uint Slot, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint MacroSize);
-        private delegate HRESULT SetTextMacroDelegate(IntPtr self, [In] uint Slot, [In, MarshalAs(UnmanagedType.LPStr)] string Macro);
-        private delegate HRESULT EvaluateDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Expression, [In] DEBUG_VALUE_TYPE DesiredType, [Out] out DEBUG_VALUE Value, [Out] out uint RemainderIndex);
+        private delegate HRESULT GetTextMacroDelegate(IntPtr self, [In] int Slot, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int MacroSize);
+        private delegate HRESULT SetTextMacroDelegate(IntPtr self, [In] int Slot, [In, MarshalAs(UnmanagedType.LPStr)] string Macro);
+        private delegate HRESULT EvaluateDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Expression, [In] DEBUG_VALUE_TYPE DesiredType, [Out] out DEBUG_VALUE Value, [Out] out int RemainderIndex);
         private delegate HRESULT CoerceValueDelegate(IntPtr self, [In] DEBUG_VALUE In, [In] DEBUG_VALUE_TYPE OutType, [Out] out DEBUG_VALUE Out);
-        private delegate HRESULT CoerceValuesDelegate(IntPtr self, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] In, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE_TYPE[] OutType, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Out);
+        private delegate HRESULT CoerceValuesDelegate(IntPtr self, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] In, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE_TYPE[] OutType, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Out);
         private delegate HRESULT ExecuteDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPStr)] string Command, [In] DEBUG_EXECUTE Flags);
         private delegate HRESULT ExecuteCommandFileDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPStr)] string CommandFile, [In] DEBUG_EXECUTE Flags);
-        private delegate HRESULT GetBreakpointByIndexDelegate(IntPtr self, [In] uint Index, [Out, ComAliasName("IDebugBreakpoint")] out IntPtr bp);
-        private delegate HRESULT GetBreakpointByIdDelegate(IntPtr self, [In] uint Id, [Out, ComAliasName("IDebugBreakpoint")] out IntPtr bp);
-        private delegate HRESULT GetBreakpointParametersDelegate(IntPtr self, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] uint[] Ids, [In] uint Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_BREAKPOINT_PARAMETERS[] Params);
-        private delegate HRESULT AddBreakpointDelegate(IntPtr self, [In] DEBUG_BREAKPOINT_TYPE Type, [In] uint DesiredId, [Out, ComAliasName("IDebugBreakpoint")] out IntPtr Bp);
+        private delegate HRESULT GetBreakpointByIndexDelegate(IntPtr self, [In] int Index, [Out, ComAliasName("IDebugBreakpoint")] out IntPtr bp);
+        private delegate HRESULT GetBreakpointByIdDelegate(IntPtr self, [In] int Id, [Out, ComAliasName("IDebugBreakpoint")] out IntPtr bp);
+        private delegate HRESULT GetBreakpointParametersDelegate(IntPtr self, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Ids, [In] int Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_BREAKPOINT_PARAMETERS[] Params);
+        private delegate HRESULT AddBreakpointDelegate(IntPtr self, [In] DEBUG_BREAKPOINT_TYPE Type, [In] int DesiredId, [Out, ComAliasName("IDebugBreakpoint")] out IntPtr Bp);
         private delegate HRESULT RemoveBreakpointDelegate(IntPtr self, [In, ComAliasName("IDebugBreakpoint")] IntPtr Bp);
-        private delegate HRESULT AddExtensionDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Path, [In] uint Flags, [Out] out ulong Handle);
-        private delegate HRESULT RemoveExtensionDelegate(IntPtr self, [In] ulong Handle);
-        private delegate HRESULT GetExtensionByPathDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Path, [Out] out ulong Handle);
-        private delegate HRESULT CallExtensionDelegate(IntPtr self, [In] ulong Handle, [In, MarshalAs(UnmanagedType.LPStr)] string Function, [In, MarshalAs(UnmanagedType.LPStr)] string Arguments);
-        private delegate HRESULT GetExtensionFunctionDelegate(IntPtr self, [In] ulong Handle, [In, MarshalAs(UnmanagedType.LPStr)] string FuncName, [Out] out IntPtr Function);
+        private delegate HRESULT AddExtensionDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Path, [In] int Flags, [Out] out long Handle);
+        private delegate HRESULT RemoveExtensionDelegate(IntPtr self, [In] long Handle);
+        private delegate HRESULT GetExtensionByPathDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Path, [Out] out long Handle);
+        private delegate HRESULT CallExtensionDelegate(IntPtr self, [In] long Handle, [In, MarshalAs(UnmanagedType.LPStr)] string Function, [In, MarshalAs(UnmanagedType.LPStr)] string Arguments);
+        private delegate HRESULT GetExtensionFunctionDelegate(IntPtr self, [In] long Handle, [In, MarshalAs(UnmanagedType.LPStr)] string FuncName, [Out] out IntPtr Function);
         private delegate HRESULT GetWindbgExtensionApis32Delegate(IntPtr self, [In, Out] ref WINDBG_EXTENSION_APIS Api);
         private delegate HRESULT GetWindbgExtensionApis64Delegate(IntPtr self, [In, Out] ref WINDBG_EXTENSION_APIS Api);
-        private delegate HRESULT GetEventFilterTextDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint TextSize);
-        private delegate HRESULT GetEventFilterCommandDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint CommandSize);
-        private delegate HRESULT SetEventFilterCommandDelegate(IntPtr self, [In] uint Index, [In, MarshalAs(UnmanagedType.LPStr)] string Command);
-        private delegate HRESULT GetSpecificFilterParametersDelegate(IntPtr self, [In] uint Start, [In] uint Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);
-        private delegate HRESULT SetSpecificFilterParametersDelegate(IntPtr self, [In] uint Start, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);
-        private delegate HRESULT GetSpecificEventFilterArgumentDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint ArgumentSize);
-        private delegate HRESULT SetSpecificEventFilterArgumentDelegate(IntPtr self, [In] uint Index, [In, MarshalAs(UnmanagedType.LPStr)] string Argument);
-        private delegate HRESULT GetExceptionFilterParametersDelegate(IntPtr self, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] uint[] Codes, [In] uint Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);
-        private delegate HRESULT SetExceptionFilterParametersDelegate(IntPtr self, [In] uint Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);
-        private delegate HRESULT GetExceptionFilterSecondCommandDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint CommandSize);
-        private delegate HRESULT SetExceptionFilterSecondCommandDelegate(IntPtr self, [In] uint Index, [In, MarshalAs(UnmanagedType.LPStr)] string Command);
+        private delegate HRESULT GetEventFilterTextDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int TextSize);
+        private delegate HRESULT GetEventFilterCommandDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int CommandSize);
+        private delegate HRESULT SetEventFilterCommandDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPStr)] string Command);
+        private delegate HRESULT GetSpecificFilterParametersDelegate(IntPtr self, [In] int Start, [In] int Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);
+        private delegate HRESULT SetSpecificFilterParametersDelegate(IntPtr self, [In] int Start, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);
+        private delegate HRESULT GetSpecificEventFilterArgumentDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int ArgumentSize);
+        private delegate HRESULT SetSpecificEventFilterArgumentDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPStr)] string Argument);
+        private delegate HRESULT GetExceptionFilterParametersDelegate(IntPtr self, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Codes, [In] int Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);
+        private delegate HRESULT SetExceptionFilterParametersDelegate(IntPtr self, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);
+        private delegate HRESULT GetExceptionFilterSecondCommandDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int CommandSize);
+        private delegate HRESULT SetExceptionFilterSecondCommandDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPStr)] string Command);
         private delegate HRESULT WaitForEventDelegate(IntPtr self, [In] DEBUG_WAIT Flags, [In] int Timeout);
-        private delegate HRESULT GetLastEventInformationDelegate(IntPtr self, [Out] out DEBUG_EVENT_TYPE Type, [Out] out uint ProcessId, [Out] out uint ThreadId, [In] IntPtr ExtraInformation, [In] uint ExtraInformationSize, [Out] out uint ExtraInformationUsed, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Description, [In] int DescriptionSize, [Out] out uint DescriptionUsed);
+        private delegate HRESULT GetLastEventInformationDelegate(IntPtr self, [Out] out DEBUG_EVENT_TYPE Type, [Out] out int ProcessId, [Out] out int ThreadId, [In] IntPtr ExtraInformation, [In] int ExtraInformationSize, [Out] out int ExtraInformationUsed, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Description, [In] int DescriptionSize, [Out] out int DescriptionUsed);
 
         #endregion
         #region IDebugControl2
 
-        private delegate HRESULT GetCurrentTimeDateDelegate(IntPtr self, [Out] out uint TimeDate);
-        private delegate HRESULT GetCurrentSystemUpTimeDelegate(IntPtr self, [Out] out uint UpTime);
+        private delegate HRESULT GetCurrentTimeDateDelegate(IntPtr self, [Out] out int TimeDate);
+        private delegate HRESULT GetCurrentSystemUpTimeDelegate(IntPtr self, [Out] out int UpTime);
         private delegate HRESULT GetDumpFormatFlagsDelegate(IntPtr self, [Out] out DEBUG_FORMAT FormatFlags);
-        private delegate HRESULT GetNumberTextReplacementsDelegate(IntPtr self, [Out] out uint NumRepl);
-        private delegate HRESULT GetTextReplacementDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string SrcText, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder SrcBuffer, [In] int SrcBufferSize, [Out] out uint SrcSize, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder DstBuffer, [In] int DstBufferSize, [Out] out uint DstSize);
+        private delegate HRESULT GetNumberTextReplacementsDelegate(IntPtr self, [Out] out int NumRepl);
+        private delegate HRESULT GetTextReplacementDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string SrcText, [In] int Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder SrcBuffer, [In] int SrcBufferSize, [Out] out int SrcSize, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder DstBuffer, [In] int DstBufferSize, [Out] out int DstSize);
         private delegate HRESULT SetTextReplacementDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string SrcText, [In, MarshalAs(UnmanagedType.LPStr)] string DstText);
         private delegate HRESULT RemoveTextReplacementsDelegate(IntPtr self);
         private delegate HRESULT OutputTextReplacementsDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_OUT_TEXT_REPL Flags);
@@ -8450,26 +8450,26 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT SetAssemblyOptionsDelegate(IntPtr self, [In] DEBUG_ASMOPT Options);
         private delegate HRESULT GetExpressionSyntaxDelegate(IntPtr self, [Out] out DEBUG_EXPR Flags);
         private delegate HRESULT SetExpressionSyntaxDelegate(IntPtr self, [In] DEBUG_EXPR Flags);
-        private delegate HRESULT GetNumberExpressionSyntaxesDelegate(IntPtr self, [Out] out uint Number);
-        private delegate HRESULT GetNumberEventsDelegate(IntPtr self, [Out] out uint Events);
-        private delegate HRESULT GetCurrentEventIndexDelegate(IntPtr self, [Out] out uint Index);
+        private delegate HRESULT GetNumberExpressionSyntaxesDelegate(IntPtr self, [Out] out int Number);
+        private delegate HRESULT GetNumberEventsDelegate(IntPtr self, [Out] out int Events);
+        private delegate HRESULT GetCurrentEventIndexDelegate(IntPtr self, [Out] out int Index);
         private delegate HRESULT AddAssemblyOptionsDelegate(IntPtr self, [In] DEBUG_ASMOPT Options);
         private delegate HRESULT RemoveAssemblyOptionsDelegate(IntPtr self, [In] DEBUG_ASMOPT Options);
         private delegate HRESULT SetExpressionSyntaxByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string AbbrevName);
-        private delegate HRESULT GetExpressionSyntaxNamesDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder FullNameBuffer, [In] int FullNameBufferSize, [Out] out uint FullNameSize, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder AbbrevNameBuffer, [In] int AbbrevNameBufferSize, [Out] out uint AbbrevNameSize);
-        private delegate HRESULT GetEventIndexDescriptionDelegate(IntPtr self, [In] uint Index, [In] DEBUG_EINDEX Which, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint DescSize);
-        private delegate HRESULT SetNextEventIndexDelegate(IntPtr self, [In] DEBUG_EINDEX Relation, [In] uint Value, [Out] out uint NextIndex);
+        private delegate HRESULT GetExpressionSyntaxNamesDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder FullNameBuffer, [In] int FullNameBufferSize, [Out] out int FullNameSize, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder AbbrevNameBuffer, [In] int AbbrevNameBufferSize, [Out] out int AbbrevNameSize);
+        private delegate HRESULT GetEventIndexDescriptionDelegate(IntPtr self, [In] int Index, [In] DEBUG_EINDEX Which, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int DescSize);
+        private delegate HRESULT SetNextEventIndexDelegate(IntPtr self, [In] DEBUG_EINDEX Relation, [In] int Value, [Out] out int NextIndex);
 
         #endregion
         #region IDebugControl4
 
-        private delegate HRESULT GetLogFileWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint FileSize, [Out, MarshalAs(UnmanagedType.Bool)] out bool Append);
-        private delegate HRESULT GetPromptTextWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint TextSize);
-        private delegate HRESULT GetLogFile2Delegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint FileSize, [Out] out DEBUG_LOG Flags);
-        private delegate HRESULT GetLogFile2WideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint FileSize, [Out] out DEBUG_LOG Flags);
-        private delegate HRESULT GetSystemVersionValuesDelegate(IntPtr self, [Out] out uint PlatformId, [Out] out uint Win32Major, [Out] out uint Win32Minor, [Out] out uint KdMajor, [Out] out uint KdMinor);
+        private delegate HRESULT GetLogFileWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int FileSize, [Out, MarshalAs(UnmanagedType.Bool)] out bool Append);
+        private delegate HRESULT GetPromptTextWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int TextSize);
+        private delegate HRESULT GetLogFile2Delegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int FileSize, [Out] out DEBUG_LOG Flags);
+        private delegate HRESULT GetLogFile2WideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int FileSize, [Out] out DEBUG_LOG Flags);
+        private delegate HRESULT GetSystemVersionValuesDelegate(IntPtr self, [Out] out int PlatformId, [Out] out int Win32Major, [Out] out int Win32Minor, [Out] out int KdMajor, [Out] out int KdMinor);
         private delegate HRESULT OpenLogFileWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [In, MarshalAs(UnmanagedType.Bool)] bool Append);
-        private delegate HRESULT InputWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint InputSize);
+        private delegate HRESULT InputWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int InputSize);
         private delegate HRESULT ReturnInputWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Buffer);
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate HRESULT OutputWideDelegate(IntPtr self, [In] DEBUG_OUTPUT Mask, [In, MarshalAs(UnmanagedType.LPWStr)] string Format);
@@ -8482,60 +8482,60 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT OutputPromptWideDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPWStr)] string Format);
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate HRESULT OutputPromptVaListWideDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPWStr)] string Format, [In] IntPtr va_list_Args);
-        private delegate HRESULT AssembleWideDelegate(IntPtr self, [In] ulong Offset, [In, MarshalAs(UnmanagedType.LPWStr)] string Instr, [Out] out ulong EndOffset);
-        private delegate HRESULT DisassembleWideDelegate(IntPtr self, [In] ulong Offset, [In] DEBUG_DISASM Flags, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint DisassemblySize, [Out] out ulong EndOffset);
-        private delegate HRESULT GetProcessorTypeNamesWideDelegate(IntPtr self, [In] IMAGE_FILE_MACHINE Type, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder FullNameBuffer, [In] int FullNameBufferSize, [Out] out uint FullNameSize, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder AbbrevNameBuffer, [In] int AbbrevNameBufferSize, [Out] out uint AbbrevNameSize);
-        private delegate HRESULT GetTextMacroWideDelegate(IntPtr self, [In] uint Slot, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint MacroSize);
-        private delegate HRESULT SetTextMacroWideDelegate(IntPtr self, [In] uint Slot, [In, MarshalAs(UnmanagedType.LPWStr)] string Macro);
-        private delegate HRESULT EvaluateWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Expression, [In] DEBUG_VALUE_TYPE DesiredType, [Out] out DEBUG_VALUE Value, [Out] out uint RemainderIndex);
+        private delegate HRESULT AssembleWideDelegate(IntPtr self, [In] long Offset, [In, MarshalAs(UnmanagedType.LPWStr)] string Instr, [Out] out long EndOffset);
+        private delegate HRESULT DisassembleWideDelegate(IntPtr self, [In] long Offset, [In] DEBUG_DISASM Flags, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int DisassemblySize, [Out] out long EndOffset);
+        private delegate HRESULT GetProcessorTypeNamesWideDelegate(IntPtr self, [In] IMAGE_FILE_MACHINE Type, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder FullNameBuffer, [In] int FullNameBufferSize, [Out] out int FullNameSize, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder AbbrevNameBuffer, [In] int AbbrevNameBufferSize, [Out] out int AbbrevNameSize);
+        private delegate HRESULT GetTextMacroWideDelegate(IntPtr self, [In] int Slot, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int MacroSize);
+        private delegate HRESULT SetTextMacroWideDelegate(IntPtr self, [In] int Slot, [In, MarshalAs(UnmanagedType.LPWStr)] string Macro);
+        private delegate HRESULT EvaluateWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Expression, [In] DEBUG_VALUE_TYPE DesiredType, [Out] out DEBUG_VALUE Value, [Out] out int RemainderIndex);
         private delegate HRESULT ExecuteWideDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPWStr)] string Command, [In] DEBUG_EXECUTE Flags);
         private delegate HRESULT ExecuteCommandFileWideDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPWStr)] string CommandFile, [In] DEBUG_EXECUTE Flags);
-        private delegate HRESULT GetBreakpointByIndex2Delegate(IntPtr self, [In] uint Index, [Out, ComAliasName("IDebugBreakpoint2")] out IntPtr bp);
-        private delegate HRESULT GetBreakpointById2Delegate(IntPtr self, [In] uint Id, [Out, ComAliasName("IDebugBreakpoint2")] out IntPtr bp);
-        private delegate HRESULT AddBreakpoint2Delegate(IntPtr self, [In] DEBUG_BREAKPOINT_TYPE Type, [In] uint DesiredId, [Out, ComAliasName("IDebugBreakpoint2")] out IntPtr Bp);
+        private delegate HRESULT GetBreakpointByIndex2Delegate(IntPtr self, [In] int Index, [Out, ComAliasName("IDebugBreakpoint2")] out IntPtr bp);
+        private delegate HRESULT GetBreakpointById2Delegate(IntPtr self, [In] int Id, [Out, ComAliasName("IDebugBreakpoint2")] out IntPtr bp);
+        private delegate HRESULT AddBreakpoint2Delegate(IntPtr self, [In] DEBUG_BREAKPOINT_TYPE Type, [In] int DesiredId, [Out, ComAliasName("IDebugBreakpoint2")] out IntPtr Bp);
         private delegate HRESULT RemoveBreakpoint2Delegate(IntPtr self, [In, ComAliasName("IDebugBreakpoint2")] IntPtr Bp);
-        private delegate HRESULT AddExtensionWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Path, [In] uint Flags, [Out] out ulong Handle);
-        private delegate HRESULT GetExtensionByPathWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Path, [Out] out ulong Handle);
-        private delegate HRESULT CallExtensionWideDelegate(IntPtr self, [In] ulong Handle, [In, MarshalAs(UnmanagedType.LPWStr)] string Function, [In, MarshalAs(UnmanagedType.LPWStr)] string Arguments);
-        private delegate HRESULT GetExtensionFunctionWideDelegate(IntPtr self, [In] ulong Handle, [In, MarshalAs(UnmanagedType.LPWStr)] string FuncName, [Out] out IntPtr Function);
-        private delegate HRESULT GetEventFilterTextWideDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint TextSize);
-        private delegate HRESULT GetEventFilterCommandWideDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint CommandSize);
-        private delegate HRESULT SetEventFilterCommandWideDelegate(IntPtr self, [In] uint Index, [In, MarshalAs(UnmanagedType.LPWStr)] string Command);
-        private delegate HRESULT GetSpecificEventFilterArgumentWideDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint ArgumentSize);
-        private delegate HRESULT SetSpecificEventFilterArgumentWideDelegate(IntPtr self, [In] uint Index, [In, MarshalAs(UnmanagedType.LPWStr)] string Argument);
-        private delegate HRESULT GetExceptionFilterSecondCommandWideDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint CommandSize);
-        private delegate HRESULT SetExceptionFilterSecondCommandWideDelegate(IntPtr self, [In] uint Index, [In, MarshalAs(UnmanagedType.LPWStr)] string Command);
-        private delegate HRESULT GetLastEventInformationWideDelegate(IntPtr self, [Out] out DEBUG_EVENT_TYPE Type, [Out] out uint ProcessId, [Out] out uint ThreadId, [In] IntPtr ExtraInformation, [In] int ExtraInformationSize, [Out] out uint ExtraInformationUsed, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Description, [In] int DescriptionSize, [Out] out uint DescriptionUsed);
-        private delegate HRESULT GetTextReplacementWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string SrcText, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder SrcBuffer, [In] int SrcBufferSize, [Out] out uint SrcSize, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder DstBuffer, [In] int DstBufferSize, [Out] out uint DstSize);
+        private delegate HRESULT AddExtensionWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Path, [In] int Flags, [Out] out long Handle);
+        private delegate HRESULT GetExtensionByPathWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Path, [Out] out long Handle);
+        private delegate HRESULT CallExtensionWideDelegate(IntPtr self, [In] long Handle, [In, MarshalAs(UnmanagedType.LPWStr)] string Function, [In, MarshalAs(UnmanagedType.LPWStr)] string Arguments);
+        private delegate HRESULT GetExtensionFunctionWideDelegate(IntPtr self, [In] long Handle, [In, MarshalAs(UnmanagedType.LPWStr)] string FuncName, [Out] out IntPtr Function);
+        private delegate HRESULT GetEventFilterTextWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int TextSize);
+        private delegate HRESULT GetEventFilterCommandWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int CommandSize);
+        private delegate HRESULT SetEventFilterCommandWideDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPWStr)] string Command);
+        private delegate HRESULT GetSpecificEventFilterArgumentWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int ArgumentSize);
+        private delegate HRESULT SetSpecificEventFilterArgumentWideDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPWStr)] string Argument);
+        private delegate HRESULT GetExceptionFilterSecondCommandWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int CommandSize);
+        private delegate HRESULT SetExceptionFilterSecondCommandWideDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPWStr)] string Command);
+        private delegate HRESULT GetLastEventInformationWideDelegate(IntPtr self, [Out] out DEBUG_EVENT_TYPE Type, [Out] out int ProcessId, [Out] out int ThreadId, [In] IntPtr ExtraInformation, [In] int ExtraInformationSize, [Out] out int ExtraInformationUsed, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Description, [In] int DescriptionSize, [Out] out int DescriptionUsed);
+        private delegate HRESULT GetTextReplacementWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string SrcText, [In] int Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder SrcBuffer, [In] int SrcBufferSize, [Out] out int SrcSize, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder DstBuffer, [In] int DstBufferSize, [Out] out int DstSize);
         private delegate HRESULT SetTextReplacementWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string SrcText, [In, MarshalAs(UnmanagedType.LPWStr)] string DstText);
         private delegate HRESULT SetExpressionSyntaxByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string AbbrevName);
-        private delegate HRESULT GetExpressionSyntaxNamesWideDelegate(IntPtr self, [In] uint Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder FullNameBuffer, [In] int FullNameBufferSize, [Out] out uint FullNameSize, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder AbbrevNameBuffer, [In] int AbbrevNameBufferSize, [Out] out uint AbbrevNameSize);
-        private delegate HRESULT GetEventIndexDescriptionWideDelegate(IntPtr self, [In] uint Index, [In] DEBUG_EINDEX Which, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint DescSize);
+        private delegate HRESULT GetExpressionSyntaxNamesWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder FullNameBuffer, [In] int FullNameBufferSize, [Out] out int FullNameSize, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder AbbrevNameBuffer, [In] int AbbrevNameBufferSize, [Out] out int AbbrevNameSize);
+        private delegate HRESULT GetEventIndexDescriptionWideDelegate(IntPtr self, [In] int Index, [In] DEBUG_EINDEX Which, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int DescSize);
         private delegate HRESULT OpenLogFile2Delegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string File, [Out] out DEBUG_LOG Flags);
         private delegate HRESULT OpenLogFile2WideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [Out] out DEBUG_LOG Flags);
-        private delegate HRESULT GetSystemVersionStringDelegate(IntPtr self, [In] DEBUG_SYSVERSTR Which, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint StringSize);
-        private delegate HRESULT GetSystemVersionStringWideDelegate(IntPtr self, [In] DEBUG_SYSVERSTR Which, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out uint StringSize);
-        private delegate HRESULT GetContextStackTraceDelegate(IntPtr self, [In] IntPtr StartContext, [In] uint StartContextSize, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_STACK_FRAME[] Frames, [In] int FrameSize, [In] IntPtr FrameContexts, [In] uint FrameContextsSize, [In] uint FrameContextsEntrySize, [Out] out uint FramesFilled);
-        private delegate HRESULT OutputContextStackTraceDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] DEBUG_STACK_FRAME[] Frames, [In] int FramesSize, [In] IntPtr FrameContexts, [In] uint FrameContextsSize, [In] uint FrameContextsEntrySize, [In] DEBUG_STACK Flags);
-        private delegate HRESULT GetStoredEventInformationDelegate(IntPtr self, [Out] out DEBUG_EVENT_TYPE Type, [Out] out uint ProcessId, [Out] out uint ThreadId, [In] IntPtr Context, [In] uint ContextSize, [Out] out uint ContextUsed, [In] IntPtr ExtraInformation, [In] uint ExtraInformationSize, [Out] out uint ExtraInformationUsed);
-        private delegate HRESULT GetManagedStatusDelegate(IntPtr self, [Out] out DEBUG_MANAGED Flags, [In] DEBUG_MANSTR WhichString, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder String, [In] int StringSize, [Out] out uint StringNeeded);
-        private delegate HRESULT GetManagedStatusWideDelegate(IntPtr self, [Out] out DEBUG_MANAGED Flags, [In] DEBUG_MANSTR WhichString, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder String, [In] int StringSize, [Out] out uint StringNeeded);
+        private delegate HRESULT GetSystemVersionStringDelegate(IntPtr self, [In] DEBUG_SYSVERSTR Which, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringSize);
+        private delegate HRESULT GetSystemVersionStringWideDelegate(IntPtr self, [In] DEBUG_SYSVERSTR Which, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringSize);
+        private delegate HRESULT GetContextStackTraceDelegate(IntPtr self, [In] IntPtr StartContext, [In] int StartContextSize, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_STACK_FRAME[] Frames, [In] int FrameSize, [In] IntPtr FrameContexts, [In] int FrameContextsSize, [In] int FrameContextsEntrySize, [Out] out int FramesFilled);
+        private delegate HRESULT OutputContextStackTraceDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] DEBUG_STACK_FRAME[] Frames, [In] int FramesSize, [In] IntPtr FrameContexts, [In] int FrameContextsSize, [In] int FrameContextsEntrySize, [In] DEBUG_STACK Flags);
+        private delegate HRESULT GetStoredEventInformationDelegate(IntPtr self, [Out] out DEBUG_EVENT_TYPE Type, [Out] out int ProcessId, [Out] out int ThreadId, [In] IntPtr Context, [In] int ContextSize, [Out] out int ContextUsed, [In] IntPtr ExtraInformation, [In] int ExtraInformationSize, [Out] out int ExtraInformationUsed);
+        private delegate HRESULT GetManagedStatusDelegate(IntPtr self, [Out] out DEBUG_MANAGED Flags, [In] DEBUG_MANSTR WhichString, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder String, [In] int StringSize, [Out] out int StringNeeded);
+        private delegate HRESULT GetManagedStatusWideDelegate(IntPtr self, [Out] out DEBUG_MANAGED Flags, [In] DEBUG_MANSTR WhichString, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder String, [In] int StringSize, [Out] out int StringNeeded);
         private delegate HRESULT ResetManagedStatusDelegate(IntPtr self, [In] DEBUG_MANRESET Flags);
 
         #endregion
         #region IDebugControl5
 
-        private delegate HRESULT GetStackTraceExDelegate(IntPtr self, [In] ulong FrameOffset, [In] ulong StackOffset, [In] ulong InstructionOffset, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_STACK_FRAME_EX[] Frames, [In] int FramesSize, [Out] out uint FramesFilled);
-        private delegate HRESULT OutputStackTraceExDelegate(IntPtr self, [In] uint OutputControl, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] DEBUG_STACK_FRAME_EX[] Frames, [In] int FramesSize, [In] DEBUG_STACK Flags);
-        private delegate HRESULT GetContextStackTraceExDelegate(IntPtr self, [In] IntPtr StartContext, [In] uint StartContextSize, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_STACK_FRAME_EX[] Frames, [In] int FramesSize, [In] IntPtr FrameContexts, [In] uint FrameContextsSize, [In] uint FrameContextsEntrySize, [Out] out uint FramesFilled);
-        private delegate HRESULT OutputContextStackTraceExDelegate(IntPtr self, [In] uint OutputControl, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] DEBUG_STACK_FRAME_EX[] Frames, [In] int FramesSize, [In] IntPtr FrameContexts, [In] uint FrameContextsSize, [In] uint FrameContextsEntrySize, [In] DEBUG_STACK Flags);
+        private delegate HRESULT GetStackTraceExDelegate(IntPtr self, [In] long FrameOffset, [In] long StackOffset, [In] long InstructionOffset, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_STACK_FRAME_EX[] Frames, [In] int FramesSize, [Out] out int FramesFilled);
+        private delegate HRESULT OutputStackTraceExDelegate(IntPtr self, [In] int OutputControl, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] DEBUG_STACK_FRAME_EX[] Frames, [In] int FramesSize, [In] DEBUG_STACK Flags);
+        private delegate HRESULT GetContextStackTraceExDelegate(IntPtr self, [In] IntPtr StartContext, [In] int StartContextSize, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_STACK_FRAME_EX[] Frames, [In] int FramesSize, [In] IntPtr FrameContexts, [In] int FrameContextsSize, [In] int FrameContextsEntrySize, [Out] out int FramesFilled);
+        private delegate HRESULT OutputContextStackTraceExDelegate(IntPtr self, [In] int OutputControl, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] DEBUG_STACK_FRAME_EX[] Frames, [In] int FramesSize, [In] IntPtr FrameContexts, [In] int FrameContextsSize, [In] int FrameContextsEntrySize, [In] DEBUG_STACK Flags);
         private delegate HRESULT GetBreakpointByGuidDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] Guid Guid, [Out, ComAliasName("IDebugBreakpoint3")] out IntPtr Bp);
 
         #endregion
         #region IDebugControl6
 
         private delegate HRESULT GetExecutionStatusExDelegate(IntPtr self, [Out] out DEBUG_STATUS Status);
-        private delegate HRESULT GetSynchronizationStatusDelegate(IntPtr self, [Out] out uint SendsAttempted, [Out] out uint SecondsSinceLastResponse);
+        private delegate HRESULT GetSynchronizationStatusDelegate(IntPtr self, [Out] out int SendsAttempted, [Out] out int SecondsSinceLastResponse);
 
         #endregion
         #endregion

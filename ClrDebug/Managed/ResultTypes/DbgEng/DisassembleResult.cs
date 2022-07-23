@@ -16,9 +16,9 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// Receives the location in the target's memory of the instruction following the disassembled instruction.
         /// </summary>
-        public ulong EndOffset { get; }
+        public long EndOffset { get; }
 
-        public DisassembleResult(string buffer, ulong endOffset)
+        public DisassembleResult(string buffer, long endOffset)
         {
             Buffer = buffer;
             EndOffset = endOffset;

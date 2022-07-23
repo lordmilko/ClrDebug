@@ -51,9 +51,9 @@ namespace ClrDebug.DbgEng
         /// are for the target's virtual address space and not the engine's. For example, if a data structure contained a string,
         /// a second call to this method may be needed to read the contents of the string.
         /// </remarks>
-        public uint ReadVirtual(ulong offset, IntPtr buffer, uint bufferSize)
+        public int ReadVirtual(long offset, IntPtr buffer, int bufferSize)
         {
-            uint bytesRead;
+            int bytesRead;
             TryReadVirtual(offset, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOK();
 
             return bytesRead;
@@ -74,15 +74,15 @@ namespace ClrDebug.DbgEng
         /// are for the target's virtual address space and not the engine's. For example, if a data structure contained a string,
         /// a second call to this method may be needed to read the contents of the string.
         /// </remarks>
-        public HRESULT TryReadVirtual(ulong offset, IntPtr buffer, uint bufferSize, out uint bytesRead)
+        public HRESULT TryReadVirtual(long offset, IntPtr buffer, int bufferSize, out int bytesRead)
         {
             InitDelegate(ref readVirtual, Vtbl->ReadVirtual);
 
             /*HRESULT ReadVirtual(
-            [In] ulong Offset,
+            [In] long Offset,
             [Out] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesRead);*/
+            [In] int BufferSize,
+            [Out] out int BytesRead);*/
             return readVirtual(Raw, offset, buffer, bufferSize, out bytesRead);
         }
 
@@ -100,9 +100,9 @@ namespace ClrDebug.DbgEng
         /// This method writes the buffer to the memory in the target's virtual address space. This method may only write to
         /// a cache of memory data when storing data. To avoid caching, use <see cref="WriteVirtualUncached"/> instead.
         /// </remarks>
-        public uint WriteVirtual(ulong offset, IntPtr buffer, uint bufferSize)
+        public int WriteVirtual(long offset, IntPtr buffer, int bufferSize)
         {
-            uint bytesWritten;
+            int bytesWritten;
             TryWriteVirtual(offset, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOK();
 
             return bytesWritten;
@@ -120,15 +120,15 @@ namespace ClrDebug.DbgEng
         /// This method writes the buffer to the memory in the target's virtual address space. This method may only write to
         /// a cache of memory data when storing data. To avoid caching, use <see cref="WriteVirtualUncached"/> instead.
         /// </remarks>
-        public HRESULT TryWriteVirtual(ulong offset, IntPtr buffer, uint bufferSize, out uint bytesWritten)
+        public HRESULT TryWriteVirtual(long offset, IntPtr buffer, int bufferSize, out int bytesWritten)
         {
             InitDelegate(ref writeVirtual, Vtbl->WriteVirtual);
 
             /*HRESULT WriteVirtual(
-            [In] ulong Offset,
+            [In] long Offset,
             [In] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesWritten);*/
+            [In] int BufferSize,
+            [Out] out int BytesWritten);*/
             return writeVirtual(Raw, offset, buffer, bufferSize, out bytesWritten);
         }
 
@@ -151,9 +151,9 @@ namespace ClrDebug.DbgEng
         /// require alignment to a DWORD. A value of 0x1 can be used to allow the pattern to start anywhere. For additional
         /// options, including the ability to restrict the search to writable memory, see <see cref="SearchVirtual2"/>.
         /// </remarks>
-        public ulong SearchVirtual(ulong offset, ulong length, IntPtr pattern, uint patternSize, uint patternGranularity)
+        public long SearchVirtual(long offset, long length, IntPtr pattern, int patternSize, int patternGranularity)
         {
-            ulong matchOffset;
+            long matchOffset;
             TrySearchVirtual(offset, length, pattern, patternSize, patternGranularity, out matchOffset).ThrowDbgEngNotOK();
 
             return matchOffset;
@@ -176,17 +176,17 @@ namespace ClrDebug.DbgEng
         /// require alignment to a DWORD. A value of 0x1 can be used to allow the pattern to start anywhere. For additional
         /// options, including the ability to restrict the search to writable memory, see <see cref="SearchVirtual2"/>.
         /// </remarks>
-        public HRESULT TrySearchVirtual(ulong offset, ulong length, IntPtr pattern, uint patternSize, uint patternGranularity, out ulong matchOffset)
+        public HRESULT TrySearchVirtual(long offset, long length, IntPtr pattern, int patternSize, int patternGranularity, out long matchOffset)
         {
             InitDelegate(ref searchVirtual, Vtbl->SearchVirtual);
 
             /*HRESULT SearchVirtual(
-            [In] ulong Offset,
-            [In] ulong Length,
+            [In] long Offset,
+            [In] long Length,
             [In] IntPtr Pattern,
-            [In] uint PatternSize,
-            [In] uint PatternGranularity,
-            [Out] out ulong MatchOffset);*/
+            [In] int PatternSize,
+            [In] int PatternGranularity,
+            [Out] out long MatchOffset);*/
             return searchVirtual(Raw, offset, length, pattern, patternSize, patternGranularity, out matchOffset);
         }
 
@@ -206,9 +206,9 @@ namespace ClrDebug.DbgEng
         /// useful for reading inherently volatile virtual memory, such as memory-mapped device areas, without contaminating
         /// or invalidating the cache.
         /// </remarks>
-        public uint ReadVirtualUncached(ulong offset, IntPtr buffer, uint bufferSize)
+        public int ReadVirtualUncached(long offset, IntPtr buffer, int bufferSize)
         {
-            uint bytesRead;
+            int bytesRead;
             TryReadVirtualUncached(offset, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOK();
 
             return bytesRead;
@@ -228,15 +228,15 @@ namespace ClrDebug.DbgEng
         /// useful for reading inherently volatile virtual memory, such as memory-mapped device areas, without contaminating
         /// or invalidating the cache.
         /// </remarks>
-        public HRESULT TryReadVirtualUncached(ulong offset, IntPtr buffer, uint bufferSize, out uint bytesRead)
+        public HRESULT TryReadVirtualUncached(long offset, IntPtr buffer, int bufferSize, out int bytesRead)
         {
             InitDelegate(ref readVirtualUncached, Vtbl->ReadVirtualUncached);
 
             /*HRESULT ReadVirtualUncached(
-            [In] ulong Offset,
+            [In] long Offset,
             [Out] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesRead);*/
+            [In] int BufferSize,
+            [Out] out int BytesRead);*/
             return readVirtualUncached(Raw, offset, buffer, bufferSize, out bytesRead);
         }
 
@@ -256,9 +256,9 @@ namespace ClrDebug.DbgEng
         /// reading inherently volatile virtual memory, such as memory-mapped device areas, without contaminating or invalidating
         /// the cache.
         /// </remarks>
-        public uint WriteVirtualUncached(ulong offset, IntPtr buffer, uint bufferSize)
+        public int WriteVirtualUncached(long offset, IntPtr buffer, int bufferSize)
         {
-            uint bytesWritten;
+            int bytesWritten;
             TryWriteVirtualUncached(offset, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOK();
 
             return bytesWritten;
@@ -278,15 +278,15 @@ namespace ClrDebug.DbgEng
         /// reading inherently volatile virtual memory, such as memory-mapped device areas, without contaminating or invalidating
         /// the cache.
         /// </remarks>
-        public HRESULT TryWriteVirtualUncached(ulong offset, IntPtr buffer, uint bufferSize, out uint bytesWritten)
+        public HRESULT TryWriteVirtualUncached(long offset, IntPtr buffer, int bufferSize, out int bytesWritten)
         {
             InitDelegate(ref writeVirtualUncached, Vtbl->WriteVirtualUncached);
 
             /*HRESULT WriteVirtualUncached(
-            [In] ulong Offset,
+            [In] long Offset,
             [In] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesWritten);*/
+            [In] int BufferSize,
+            [Out] out int BytesWritten);*/
             return writeVirtualUncached(Raw, offset, buffer, bufferSize, out bytesWritten);
         }
 
@@ -303,9 +303,9 @@ namespace ClrDebug.DbgEng
         /// This method reads from the memory from the target's virtual address space. The memory is then treated as a list
         /// of pointers. Any 32-bit pointers are then sign-extended to 64-bit values.
         /// </remarks>
-        public ulong[] ReadPointersVirtual(uint count, ulong offset)
+        public long[] ReadPointersVirtual(int count, long offset)
         {
-            ulong[] ptrs;
+            long[] ptrs;
             TryReadPointersVirtual(count, offset, out ptrs).ThrowDbgEngNotOK();
 
             return ptrs;
@@ -322,14 +322,14 @@ namespace ClrDebug.DbgEng
         /// This method reads from the memory from the target's virtual address space. The memory is then treated as a list
         /// of pointers. Any 32-bit pointers are then sign-extended to 64-bit values.
         /// </remarks>
-        public HRESULT TryReadPointersVirtual(uint count, ulong offset, out ulong[] ptrs)
+        public HRESULT TryReadPointersVirtual(int count, long offset, out long[] ptrs)
         {
             InitDelegate(ref readPointersVirtual, Vtbl->ReadPointersVirtual);
             /*HRESULT ReadPointersVirtual(
-            [In] uint Count,
-            [In] ulong Offset,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ulong[] Ptrs);*/
-            ptrs = new ulong[(int) count];
+            [In] int Count,
+            [In] long Offset,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Ptrs);*/
+            ptrs = new long[count];
             HRESULT hr = readPointersVirtual(Raw, count, offset, ptrs);
 
             return hr;
@@ -348,7 +348,7 @@ namespace ClrDebug.DbgEng
         /// If the target uses 32-bit pointers, this method casts the specified 64-bit values into 32-bit pointers. Then it
         /// writes these pointers to the target's memory.
         /// </remarks>
-        public void WritePointersVirtual(uint count, ulong offset, ulong[] ptrs)
+        public void WritePointersVirtual(int count, long offset, long[] ptrs)
         {
             TryWritePointersVirtual(count, offset, ptrs).ThrowDbgEngNotOK();
         }
@@ -364,14 +364,14 @@ namespace ClrDebug.DbgEng
         /// If the target uses 32-bit pointers, this method casts the specified 64-bit values into 32-bit pointers. Then it
         /// writes these pointers to the target's memory.
         /// </remarks>
-        public HRESULT TryWritePointersVirtual(uint count, ulong offset, ulong[] ptrs)
+        public HRESULT TryWritePointersVirtual(int count, long offset, long[] ptrs)
         {
             InitDelegate(ref writePointersVirtual, Vtbl->WritePointersVirtual);
 
             /*HRESULT WritePointersVirtual(
-            [In] uint Count,
-            [In] ulong Offset,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ulong[] Ptrs);*/
+            [In] int Count,
+            [In] long Offset,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Ptrs);*/
             return writePointersVirtual(Raw, count, offset, ptrs);
         }
 
@@ -388,9 +388,9 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in kernel-mode debugging.
         /// </remarks>
-        public uint ReadPhysical(ulong offset, IntPtr buffer, uint bufferSize)
+        public int ReadPhysical(long offset, IntPtr buffer, int bufferSize)
         {
-            uint bytesRead;
+            int bytesRead;
             TryReadPhysical(offset, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOK();
 
             return bytesRead;
@@ -407,15 +407,15 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in kernel-mode debugging.
         /// </remarks>
-        public HRESULT TryReadPhysical(ulong offset, IntPtr buffer, uint bufferSize, out uint bytesRead)
+        public HRESULT TryReadPhysical(long offset, IntPtr buffer, int bufferSize, out int bytesRead)
         {
             InitDelegate(ref readPhysical, Vtbl->ReadPhysical);
 
             /*HRESULT ReadPhysical(
-            [In] ulong Offset,
+            [In] long Offset,
             [Out] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesRead);*/
+            [In] int BufferSize,
+            [Out] out int BytesRead);*/
             return readPhysical(Raw, offset, buffer, bufferSize, out bytesRead);
         }
 
@@ -432,9 +432,9 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in kernel-mode debugging.
         /// </remarks>
-        public uint WritePhysical(ulong offset, IntPtr buffer, uint bufferSize)
+        public int WritePhysical(long offset, IntPtr buffer, int bufferSize)
         {
-            uint bytesWritten;
+            int bytesWritten;
             TryWritePhysical(offset, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOK();
 
             return bytesWritten;
@@ -451,15 +451,15 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in kernel-mode debugging.
         /// </remarks>
-        public HRESULT TryWritePhysical(ulong offset, IntPtr buffer, uint bufferSize, out uint bytesWritten)
+        public HRESULT TryWritePhysical(long offset, IntPtr buffer, int bufferSize, out int bytesWritten)
         {
             InitDelegate(ref writePhysical, Vtbl->WritePhysical);
 
             /*HRESULT WritePhysical(
-            [In] ulong Offset,
+            [In] long Offset,
             [In] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesWritten);*/
+            [In] int BufferSize,
+            [Out] out int BytesWritten);*/
             return writePhysical(Raw, offset, buffer, bufferSize, out bytesWritten);
         }
 
@@ -477,9 +477,9 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in kernel-mode debugging.
         /// </remarks>
-        public uint ReadControl(uint processor, ulong offset, IntPtr buffer, int bufferSize)
+        public int ReadControl(int processor, long offset, IntPtr buffer, int bufferSize)
         {
-            uint bytesRead;
+            int bytesRead;
             TryReadControl(processor, offset, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOK();
 
             return bytesRead;
@@ -497,16 +497,16 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in kernel-mode debugging.
         /// </remarks>
-        public HRESULT TryReadControl(uint processor, ulong offset, IntPtr buffer, int bufferSize, out uint bytesRead)
+        public HRESULT TryReadControl(int processor, long offset, IntPtr buffer, int bufferSize, out int bytesRead)
         {
             InitDelegate(ref readControl, Vtbl->ReadControl);
 
             /*HRESULT ReadControl(
-            [In] uint Processor,
-            [In] ulong Offset,
+            [In] int Processor,
+            [In] long Offset,
             [Out] IntPtr Buffer,
             [In] int BufferSize,
-            [Out] out uint BytesRead);*/
+            [Out] out int BytesRead);*/
             return readControl(Raw, processor, offset, buffer, bufferSize, out bytesRead);
         }
 
@@ -524,9 +524,9 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in kernel-mode debugging.
         /// </remarks>
-        public uint WriteControl(uint processor, ulong offset, IntPtr buffer, int bufferSize)
+        public int WriteControl(int processor, long offset, IntPtr buffer, int bufferSize)
         {
-            uint bytesWritten;
+            int bytesWritten;
             TryWriteControl(processor, offset, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOK();
 
             return bytesWritten;
@@ -544,16 +544,16 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in kernel-mode debugging.
         /// </remarks>
-        public HRESULT TryWriteControl(uint processor, ulong offset, IntPtr buffer, int bufferSize, out uint bytesWritten)
+        public HRESULT TryWriteControl(int processor, long offset, IntPtr buffer, int bufferSize, out int bytesWritten)
         {
             InitDelegate(ref writeControl, Vtbl->WriteControl);
 
             /*HRESULT WriteControl(
-            [In] uint Processor,
-            [In] ulong Offset,
+            [In] int Processor,
+            [In] long Offset,
             [In] IntPtr Buffer,
             [In] int BufferSize,
-            [Out] out uint BytesWritten);*/
+            [Out] out int BytesWritten);*/
             return writeControl(Raw, processor, offset, buffer, bufferSize, out bytesWritten);
         }
 
@@ -573,9 +573,9 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in kernel-mode debugging.
         /// </remarks>
-        public uint ReadIo(INTERFACE_TYPE interfaceType, uint busNumber, uint addressSpace, ulong offset, IntPtr buffer, uint bufferSize)
+        public int ReadIo(INTERFACE_TYPE interfaceType, int busNumber, int addressSpace, long offset, IntPtr buffer, int bufferSize)
         {
-            uint bytesRead;
+            int bytesRead;
             TryReadIo(interfaceType, busNumber, addressSpace, offset, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOK();
 
             return bytesRead;
@@ -595,18 +595,18 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in kernel-mode debugging.
         /// </remarks>
-        public HRESULT TryReadIo(INTERFACE_TYPE interfaceType, uint busNumber, uint addressSpace, ulong offset, IntPtr buffer, uint bufferSize, out uint bytesRead)
+        public HRESULT TryReadIo(INTERFACE_TYPE interfaceType, int busNumber, int addressSpace, long offset, IntPtr buffer, int bufferSize, out int bytesRead)
         {
             InitDelegate(ref readIo, Vtbl->ReadIo);
 
             /*HRESULT ReadIo(
             [In] INTERFACE_TYPE InterfaceType,
-            [In] uint BusNumber,
-            [In] uint AddressSpace,
-            [In] ulong Offset,
+            [In] int BusNumber,
+            [In] int AddressSpace,
+            [In] long Offset,
             [Out] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesRead);*/
+            [In] int BufferSize,
+            [Out] out int BytesRead);*/
             return readIo(Raw, interfaceType, busNumber, addressSpace, offset, buffer, bufferSize, out bytesRead);
         }
 
@@ -626,9 +626,9 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in kernel-mode debugging.
         /// </remarks>
-        public uint WriteIo(INTERFACE_TYPE interfaceType, uint busNumber, uint addressSpace, ulong offset, IntPtr buffer, uint bufferSize)
+        public int WriteIo(INTERFACE_TYPE interfaceType, int busNumber, int addressSpace, long offset, IntPtr buffer, int bufferSize)
         {
-            uint bytesWritten;
+            int bytesWritten;
             TryWriteIo(interfaceType, busNumber, addressSpace, offset, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOK();
 
             return bytesWritten;
@@ -648,18 +648,18 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in kernel-mode debugging.
         /// </remarks>
-        public HRESULT TryWriteIo(INTERFACE_TYPE interfaceType, uint busNumber, uint addressSpace, ulong offset, IntPtr buffer, uint bufferSize, out uint bytesWritten)
+        public HRESULT TryWriteIo(INTERFACE_TYPE interfaceType, int busNumber, int addressSpace, long offset, IntPtr buffer, int bufferSize, out int bytesWritten)
         {
             InitDelegate(ref writeIo, Vtbl->WriteIo);
 
             /*HRESULT WriteIo(
             [In] INTERFACE_TYPE InterfaceType,
-            [In] uint BusNumber,
-            [In] uint AddressSpace,
-            [In] ulong Offset,
+            [In] int BusNumber,
+            [In] int AddressSpace,
+            [In] long Offset,
             [In] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesWritten);*/
+            [In] int BufferSize,
+            [Out] out int BytesWritten);*/
             return writeIo(Raw, interfaceType, busNumber, addressSpace, offset, buffer, bufferSize, out bytesWritten);
         }
 
@@ -675,9 +675,9 @@ namespace ClrDebug.DbgEng
         /// This method is only available in kernel-mode debugging. For details on the addresses and values of MSRs, see the
         /// processor documentation.
         /// </remarks>
-        public ulong ReadMsr(uint msr)
+        public long ReadMsr(int msr)
         {
-            ulong msrValue;
+            long msrValue;
             TryReadMsr(msr, out msrValue).ThrowDbgEngNotOK();
 
             return msrValue;
@@ -693,13 +693,13 @@ namespace ClrDebug.DbgEng
         /// This method is only available in kernel-mode debugging. For details on the addresses and values of MSRs, see the
         /// processor documentation.
         /// </remarks>
-        public HRESULT TryReadMsr(uint msr, out ulong msrValue)
+        public HRESULT TryReadMsr(int msr, out long msrValue)
         {
             InitDelegate(ref readMsr, Vtbl->ReadMsr);
 
             /*HRESULT ReadMsr(
-            [In] uint Msr,
-            [Out] out ulong MsrValue);*/
+            [In] int Msr,
+            [Out] out long MsrValue);*/
             return readMsr(Raw, msr, out msrValue);
         }
 
@@ -715,7 +715,7 @@ namespace ClrDebug.DbgEng
         /// This method is only available in kernel-mode debugging. For details on the addresses and values of MSRs, see the
         /// processor documentation.
         /// </remarks>
-        public void WriteMsr(uint msr, ulong msrValue)
+        public void WriteMsr(int msr, long msrValue)
         {
             TryWriteMsr(msr, msrValue).ThrowDbgEngNotOK();
         }
@@ -730,13 +730,13 @@ namespace ClrDebug.DbgEng
         /// This method is only available in kernel-mode debugging. For details on the addresses and values of MSRs, see the
         /// processor documentation.
         /// </remarks>
-        public HRESULT TryWriteMsr(uint msr, ulong msrValue)
+        public HRESULT TryWriteMsr(int msr, long msrValue)
         {
             InitDelegate(ref writeMsr, Vtbl->WriteMsr);
 
             /*HRESULT WriteMsr(
-            [In] uint Msr,
-            [In] ulong MsrValue);*/
+            [In] int Msr,
+            [In] long MsrValue);*/
             return writeMsr(Raw, msr, msrValue);
         }
 
@@ -757,9 +757,9 @@ namespace ClrDebug.DbgEng
         /// This method is only available in kernel-mode debugging. The nature of the data read from the bus is system, bus,
         /// and slot dependent.
         /// </remarks>
-        public uint ReadBusData(BUS_DATA_TYPE busDataType, uint busNumber, uint slotNumber, uint offset, IntPtr buffer, uint bufferSize)
+        public int ReadBusData(BUS_DATA_TYPE busDataType, int busNumber, int slotNumber, int offset, IntPtr buffer, int bufferSize)
         {
-            uint bytesRead;
+            int bytesRead;
             TryReadBusData(busDataType, busNumber, slotNumber, offset, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOK();
 
             return bytesRead;
@@ -780,18 +780,18 @@ namespace ClrDebug.DbgEng
         /// This method is only available in kernel-mode debugging. The nature of the data read from the bus is system, bus,
         /// and slot dependent.
         /// </remarks>
-        public HRESULT TryReadBusData(BUS_DATA_TYPE busDataType, uint busNumber, uint slotNumber, uint offset, IntPtr buffer, uint bufferSize, out uint bytesRead)
+        public HRESULT TryReadBusData(BUS_DATA_TYPE busDataType, int busNumber, int slotNumber, int offset, IntPtr buffer, int bufferSize, out int bytesRead)
         {
             InitDelegate(ref readBusData, Vtbl->ReadBusData);
 
             /*HRESULT ReadBusData(
             [In] BUS_DATA_TYPE BusDataType,
-            [In] uint BusNumber,
-            [In] uint SlotNumber,
-            [In] uint Offset,
+            [In] int BusNumber,
+            [In] int SlotNumber,
+            [In] int Offset,
             [Out] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesRead);*/
+            [In] int BufferSize,
+            [Out] out int BytesRead);*/
             return readBusData(Raw, busDataType, busNumber, slotNumber, offset, buffer, bufferSize, out bytesRead);
         }
 
@@ -812,9 +812,9 @@ namespace ClrDebug.DbgEng
         /// This method is only available in kernel-mode debugging. The nature of the data read from the bus is system, bus,
         /// and slot dependent.
         /// </remarks>
-        public uint WriteBusData(BUS_DATA_TYPE busDataType, uint busNumber, uint slotNumber, uint offset, IntPtr buffer, uint bufferSize)
+        public int WriteBusData(BUS_DATA_TYPE busDataType, int busNumber, int slotNumber, int offset, IntPtr buffer, int bufferSize)
         {
-            uint bytesWritten;
+            int bytesWritten;
             TryWriteBusData(busDataType, busNumber, slotNumber, offset, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOK();
 
             return bytesWritten;
@@ -835,18 +835,18 @@ namespace ClrDebug.DbgEng
         /// This method is only available in kernel-mode debugging. The nature of the data read from the bus is system, bus,
         /// and slot dependent.
         /// </remarks>
-        public HRESULT TryWriteBusData(BUS_DATA_TYPE busDataType, uint busNumber, uint slotNumber, uint offset, IntPtr buffer, uint bufferSize, out uint bytesWritten)
+        public HRESULT TryWriteBusData(BUS_DATA_TYPE busDataType, int busNumber, int slotNumber, int offset, IntPtr buffer, int bufferSize, out int bytesWritten)
         {
             InitDelegate(ref writeBusData, Vtbl->WriteBusData);
 
             /*HRESULT WriteBusData(
             [In] BUS_DATA_TYPE BusDataType,
-            [In] uint BusNumber,
-            [In] uint SlotNumber,
-            [In] uint Offset,
+            [In] int BusNumber,
+            [In] int SlotNumber,
+            [In] int Offset,
             [In] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesWritten);*/
+            [In] int BufferSize,
+            [Out] out int BytesWritten);*/
             return writeBusData(Raw, busDataType, busNumber, slotNumber, offset, buffer, bufferSize, out bytesWritten);
         }
 
@@ -911,9 +911,9 @@ namespace ClrDebug.DbgEng
         /// ReadDebuggerData, see Microsoft Windows Internals by David Solomon and Mark Russinovich, the Microsoft Windows
         /// SDK, and the Windows Driver Kit (WDK).
         /// </remarks>
-        public uint ReadDebuggerData(DEBUG_DATA index, IntPtr buffer, uint bufferSize)
+        public int ReadDebuggerData(DEBUG_DATA index, IntPtr buffer, int bufferSize)
         {
-            uint dataSize;
+            int dataSize;
             TryReadDebuggerData(index, buffer, bufferSize, out dataSize).ThrowDbgEngNotOK();
 
             return dataSize;
@@ -939,15 +939,15 @@ namespace ClrDebug.DbgEng
         /// ReadDebuggerData, see Microsoft Windows Internals by David Solomon and Mark Russinovich, the Microsoft Windows
         /// SDK, and the Windows Driver Kit (WDK).
         /// </remarks>
-        public HRESULT TryReadDebuggerData(DEBUG_DATA index, IntPtr buffer, uint bufferSize, out uint dataSize)
+        public HRESULT TryReadDebuggerData(DEBUG_DATA index, IntPtr buffer, int bufferSize, out int dataSize)
         {
             InitDelegate(ref readDebuggerData, Vtbl->ReadDebuggerData);
 
             /*HRESULT ReadDebuggerData(
             [In] DEBUG_DATA Index,
             [Out] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint DataSize);*/
+            [In] int BufferSize,
+            [Out] out int DataSize);*/
             return readDebuggerData(Raw, index, buffer, bufferSize, out dataSize);
         }
 
@@ -969,9 +969,9 @@ namespace ClrDebug.DbgEng
         /// This method is only available in kernel-mode debugging. For information about the PCR, PRCB, and KTHREAD structures,
         /// as well as information about paging tables, see Microsoft Windows Internals by David Solomon and Mark Russinovich.
         /// </remarks>
-        public uint ReadProcessorSystemData(uint processor, DEBUG_DATA index, IntPtr buffer, uint bufferSize)
+        public int ReadProcessorSystemData(int processor, DEBUG_DATA index, IntPtr buffer, int bufferSize)
         {
-            uint dataSize;
+            int dataSize;
             TryReadProcessorSystemData(processor, index, buffer, bufferSize, out dataSize).ThrowDbgEngNotOK();
 
             return dataSize;
@@ -993,16 +993,16 @@ namespace ClrDebug.DbgEng
         /// This method is only available in kernel-mode debugging. For information about the PCR, PRCB, and KTHREAD structures,
         /// as well as information about paging tables, see Microsoft Windows Internals by David Solomon and Mark Russinovich.
         /// </remarks>
-        public HRESULT TryReadProcessorSystemData(uint processor, DEBUG_DATA index, IntPtr buffer, uint bufferSize, out uint dataSize)
+        public HRESULT TryReadProcessorSystemData(int processor, DEBUG_DATA index, IntPtr buffer, int bufferSize, out int dataSize)
         {
             InitDelegate(ref readProcessorSystemData, Vtbl->ReadProcessorSystemData);
 
             /*HRESULT ReadProcessorSystemData(
-            [In] uint Processor,
+            [In] int Processor,
             [In] DEBUG_DATA Index,
             [Out] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint DataSize);*/
+            [In] int BufferSize,
+            [Out] out int DataSize);*/
             return readProcessorSystemData(Raw, processor, index, buffer, bufferSize, out dataSize);
         }
 
@@ -1019,9 +1019,9 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in kernel-mode debugging.
         /// </remarks>
-        public ulong VirtualToPhysical(ulong @virtual)
+        public long VirtualToPhysical(long @virtual)
         {
-            ulong physical;
+            long physical;
             TryVirtualToPhysical(@virtual, out physical).ThrowDbgEngNotOK();
 
             return physical;
@@ -1036,13 +1036,13 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in kernel-mode debugging.
         /// </remarks>
-        public HRESULT TryVirtualToPhysical(ulong @virtual, out ulong physical)
+        public HRESULT TryVirtualToPhysical(long @virtual, out long physical)
         {
             InitDelegate(ref virtualToPhysical, Vtbl2->VirtualToPhysical);
 
             /*HRESULT VirtualToPhysical(
-            [In] ulong Virtual,
-            [Out] out ulong Physical);*/
+            [In] long Virtual,
+            [Out] out long Physical);*/
             return virtualToPhysical(Raw, @virtual, out physical);
         }
 
@@ -1062,9 +1062,9 @@ namespace ClrDebug.DbgEng
         /// the specified virtual address. This is what <see cref="VirtualToPhysical"/> would return. For details on how virtual
         /// addresses are translated into physical addresses, see Microsoft Windows Internals by David Solomon and Mark Russinovich.
         /// </remarks>
-        public ulong[] GetVirtualTranslationPhysicalOffsets(ulong @virtual)
+        public long[] GetVirtualTranslationPhysicalOffsets(long @virtual)
         {
-            ulong[] offsets;
+            long[] offsets;
             TryGetVirtualTranslationPhysicalOffsets(@virtual, out offsets).ThrowDbgEngNotOK();
 
             return offsets;
@@ -1084,24 +1084,24 @@ namespace ClrDebug.DbgEng
         /// the specified virtual address. This is what <see cref="VirtualToPhysical"/> would return. For details on how virtual
         /// addresses are translated into physical addresses, see Microsoft Windows Internals by David Solomon and Mark Russinovich.
         /// </remarks>
-        public HRESULT TryGetVirtualTranslationPhysicalOffsets(ulong @virtual, out ulong[] offsets)
+        public HRESULT TryGetVirtualTranslationPhysicalOffsets(long @virtual, out long[] offsets)
         {
             InitDelegate(ref getVirtualTranslationPhysicalOffsets, Vtbl2->GetVirtualTranslationPhysicalOffsets);
             /*HRESULT GetVirtualTranslationPhysicalOffsets(
-            [In] ulong Virtual,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] Offsets,
-            [In] uint OffsetsSize,
-            [Out] out uint Levels);*/
+            [In] long Virtual,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] long[] Offsets,
+            [In] int OffsetsSize,
+            [Out] out int Levels);*/
             offsets = null;
-            uint offsetsSize = 0;
-            uint levels;
+            int offsetsSize = 0;
+            int levels;
             HRESULT hr = getVirtualTranslationPhysicalOffsets(Raw, @virtual, null, offsetsSize, out levels);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             offsetsSize = levels;
-            offsets = new ulong[(int) offsetsSize];
+            offsets = new long[offsetsSize];
             hr = getVirtualTranslationPhysicalOffsets(Raw, @virtual, offsets, offsetsSize, out levels);
             fail:
             return hr;
@@ -1124,9 +1124,9 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in user-mode debugging.
         /// </remarks>
-        public uint ReadHandleData(ulong handle, DEBUG_HANDLE_DATA_TYPE dataType, IntPtr buffer, uint bufferSize)
+        public int ReadHandleData(long handle, DEBUG_HANDLE_DATA_TYPE dataType, IntPtr buffer, int bufferSize)
         {
-            uint dataSize;
+            int dataSize;
             TryReadHandleData(handle, dataType, buffer, bufferSize, out dataSize).ThrowDbgEngNotOK();
 
             return dataSize;
@@ -1147,16 +1147,16 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// This method is only available in user-mode debugging.
         /// </remarks>
-        public HRESULT TryReadHandleData(ulong handle, DEBUG_HANDLE_DATA_TYPE dataType, IntPtr buffer, uint bufferSize, out uint dataSize)
+        public HRESULT TryReadHandleData(long handle, DEBUG_HANDLE_DATA_TYPE dataType, IntPtr buffer, int bufferSize, out int dataSize)
         {
             InitDelegate(ref readHandleData, Vtbl2->ReadHandleData);
 
             /*HRESULT ReadHandleData(
-            [In] ulong Handle,
+            [In] long Handle,
             [In] DEBUG_HANDLE_DATA_TYPE DataType,
             [Out] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint DataSize);*/
+            [In] int BufferSize,
+            [Out] out int DataSize);*/
             return readHandleData(Raw, handle, dataType, buffer, bufferSize, out dataSize);
         }
 
@@ -1177,9 +1177,9 @@ namespace ClrDebug.DbgEng
         /// the case where the size of the pattern is larger than the value of Size, and the extra bytes in the pattern are
         /// ignored.
         /// </remarks>
-        public uint FillVirtual(ulong start, uint size, IntPtr buffer, uint patternSize)
+        public int FillVirtual(long start, int size, IntPtr buffer, int patternSize)
         {
-            uint filled;
+            int filled;
             TryFillVirtual(start, size, buffer, patternSize, out filled).ThrowDbgEngNotOK();
 
             return filled;
@@ -1200,16 +1200,16 @@ namespace ClrDebug.DbgEng
         /// the case where the size of the pattern is larger than the value of Size, and the extra bytes in the pattern are
         /// ignored.
         /// </remarks>
-        public HRESULT TryFillVirtual(ulong start, uint size, IntPtr buffer, uint patternSize, out uint filled)
+        public HRESULT TryFillVirtual(long start, int size, IntPtr buffer, int patternSize, out int filled)
         {
             InitDelegate(ref fillVirtual, Vtbl2->FillVirtual);
 
             /*HRESULT FillVirtual(
-            [In] ulong Start,
-            [In] uint Size,
+            [In] long Start,
+            [In] int Size,
             [In] IntPtr Buffer,
-            [In] uint PatternSize,
-            [Out] out uint Filled);*/
+            [In] int PatternSize,
+            [Out] out int Filled);*/
             return fillVirtual(Raw, start, size, buffer, patternSize, out filled);
         }
 
@@ -1230,9 +1230,9 @@ namespace ClrDebug.DbgEng
         /// the case where the size of the pattern is larger than the value of Size, and the extra bytes in the pattern are
         /// ignored.
         /// </remarks>
-        public uint FillPhysical(ulong start, uint size, IntPtr buffer, uint patternSize)
+        public int FillPhysical(long start, int size, IntPtr buffer, int patternSize)
         {
-            uint filled;
+            int filled;
             TryFillPhysical(start, size, buffer, patternSize, out filled).ThrowDbgEngNotOK();
 
             return filled;
@@ -1253,16 +1253,16 @@ namespace ClrDebug.DbgEng
         /// the case where the size of the pattern is larger than the value of Size, and the extra bytes in the pattern are
         /// ignored.
         /// </remarks>
-        public HRESULT TryFillPhysical(ulong start, uint size, IntPtr buffer, uint patternSize, out uint filled)
+        public HRESULT TryFillPhysical(long start, int size, IntPtr buffer, int patternSize, out int filled)
         {
             InitDelegate(ref fillPhysical, Vtbl2->FillPhysical);
 
             /*HRESULT FillPhysical(
-            [In] ulong Start,
-            [In] uint Size,
+            [In] long Start,
+            [In] int Size,
             [In] IntPtr Buffer,
-            [In] uint PatternSize,
-            [Out] out uint Filled);*/
+            [In] int PatternSize,
+            [Out] out int Filled);*/
             return fillPhysical(Raw, start, size, buffer, patternSize, out filled);
         }
 
@@ -1282,7 +1282,7 @@ namespace ClrDebug.DbgEng
         /// is described in the Windows SDK documentation. This method behaves in a similar way to the Windows SDK function
         /// VirtualQuery. See Windows SDK documentation for details.
         /// </remarks>
-        public void QueryVirtual(ulong offset, IntPtr info)
+        public void QueryVirtual(long offset, IntPtr info)
         {
             TryQueryVirtual(offset, info).ThrowDbgEngNotOK();
         }
@@ -1301,12 +1301,12 @@ namespace ClrDebug.DbgEng
         /// is described in the Windows SDK documentation. This method behaves in a similar way to the Windows SDK function
         /// VirtualQuery. See Windows SDK documentation for details.
         /// </remarks>
-        public HRESULT TryQueryVirtual(ulong offset, IntPtr info)
+        public HRESULT TryQueryVirtual(long offset, IntPtr info)
         {
             InitDelegate(ref queryVirtual, Vtbl2->QueryVirtual);
 
             /*HRESULT QueryVirtual(
-            [In] ulong Offset,
+            [In] long Offset,
             [Out] IntPtr Info);*/
             return queryVirtual(Raw, offset, info);
         }
@@ -1329,7 +1329,7 @@ namespace ClrDebug.DbgEng
         /// and IMAGE_NT_OPTIONAL_HDR64_MAGIC appear in the Microsoft Windows SDK header file winnt.h. IMAGE_NT_HEADERS64 is
         /// the 64-bit equivalent of IMAGE_NT_HEADERS, which is described in the Windows SDK documentation.
         /// </remarks>
-        public void ReadImageNtHeaders(ulong imageBase, IntPtr headers)
+        public void ReadImageNtHeaders(long imageBase, IntPtr headers)
         {
             TryReadImageNtHeaders(imageBase, headers).ThrowDbgEngNotOK();
         }
@@ -1348,12 +1348,12 @@ namespace ClrDebug.DbgEng
         /// and IMAGE_NT_OPTIONAL_HDR64_MAGIC appear in the Microsoft Windows SDK header file winnt.h. IMAGE_NT_HEADERS64 is
         /// the 64-bit equivalent of IMAGE_NT_HEADERS, which is described in the Windows SDK documentation.
         /// </remarks>
-        public HRESULT TryReadImageNtHeaders(ulong imageBase, IntPtr headers)
+        public HRESULT TryReadImageNtHeaders(long imageBase, IntPtr headers)
         {
             InitDelegate(ref readImageNtHeaders, Vtbl3->ReadImageNtHeaders);
 
             /*HRESULT ReadImageNtHeaders(
-            [In] ulong ImageBase,
+            [In] long ImageBase,
             [Out] IntPtr Headers);*/
             return readImageNtHeaders(Raw, imageBase, headers);
         }
@@ -1375,9 +1375,9 @@ namespace ClrDebug.DbgEng
         /// global unique identifier and can only be retrieved via the tag. LPGUID is a pointer to a 128-bit unique identifier.
         /// It is defined in the Microsoft Windows SDK header file guiddef.h.
         /// </remarks>
-        public uint ReadTagged(Guid tag, uint offset, IntPtr buffer, uint bufferSize)
+        public int ReadTagged(Guid tag, int offset, IntPtr buffer, int bufferSize)
         {
-            uint totalSize;
+            int totalSize;
             TryReadTagged(tag, offset, buffer, bufferSize, out totalSize).ThrowDbgEngNotOK();
 
             return totalSize;
@@ -1398,17 +1398,17 @@ namespace ClrDebug.DbgEng
         /// global unique identifier and can only be retrieved via the tag. LPGUID is a pointer to a 128-bit unique identifier.
         /// It is defined in the Microsoft Windows SDK header file guiddef.h.
         /// </remarks>
-        public HRESULT TryReadTagged(Guid tag, uint offset, IntPtr buffer, uint bufferSize, out uint totalSize)
+        public HRESULT TryReadTagged(Guid tag, int offset, IntPtr buffer, int bufferSize, out int totalSize)
         {
             InitDelegate(ref readTagged, Vtbl3->ReadTagged);
 
             /*HRESULT ReadTagged(
             [In, MarshalAs(UnmanagedType.LPStruct)]
             Guid Tag,
-            [In] uint Offset,
+            [In] int Offset,
             [Out] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint TotalSize);*/
+            [In] int BufferSize,
+            [Out] out int TotalSize);*/
             return readTagged(Raw, tag, offset, buffer, bufferSize, out totalSize);
         }
 
@@ -1422,9 +1422,9 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// The resources held by an enumeration created with this method can be released using <see cref="EndEnumTagged"/>.
         /// </remarks>
-        public ulong StartEnumTagged()
+        public long StartEnumTagged()
         {
-            ulong handle;
+            long handle;
             TryStartEnumTagged(out handle).ThrowDbgEngNotOK();
 
             return handle;
@@ -1438,12 +1438,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// The resources held by an enumeration created with this method can be released using <see cref="EndEnumTagged"/>.
         /// </remarks>
-        public HRESULT TryStartEnumTagged(out ulong handle)
+        public HRESULT TryStartEnumTagged(out long handle)
         {
             InitDelegate(ref startEnumTagged, Vtbl3->StartEnumTagged);
 
             /*HRESULT StartEnumTagged(
-            [Out] out ulong Handle);*/
+            [Out] out long Handle);*/
             return startEnumTagged(Raw, out handle);
         }
 
@@ -1455,7 +1455,7 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="handle">[in] Specifies the handle identifying the enumeration. This is the handle returned by <see cref="StartEnumTagged"/>.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetNextTaggedResult GetNextTagged(ulong handle)
+        public GetNextTaggedResult GetNextTagged(long handle)
         {
             GetNextTaggedResult result;
             TryGetNextTagged(handle, out result).ThrowDbgEngNotOK();
@@ -1469,15 +1469,15 @@ namespace ClrDebug.DbgEng
         /// <param name="handle">[in] Specifies the handle identifying the enumeration. This is the handle returned by <see cref="StartEnumTagged"/>.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>This method can also return error values. See Return Values for more details.</returns>
-        public HRESULT TryGetNextTagged(ulong handle, out GetNextTaggedResult result)
+        public HRESULT TryGetNextTagged(long handle, out GetNextTaggedResult result)
         {
             InitDelegate(ref getNextTagged, Vtbl3->GetNextTagged);
             /*HRESULT GetNextTagged(
-            [In] ulong Handle,
+            [In] long Handle,
             [Out] out Guid Tag,
-            [Out] out uint Size);*/
+            [Out] out int Size);*/
             Guid tag;
-            uint size;
+            int size;
             HRESULT hr = getNextTagged(Raw, handle, out tag, out size);
 
             if (hr == HRESULT.S_OK)
@@ -1498,7 +1498,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// After a handle has been passed to this method it is no longer valid and must not be used again.
         /// </remarks>
-        public void EndEnumTagged(ulong handle)
+        public void EndEnumTagged(long handle)
         {
             TryEndEnumTagged(handle).ThrowDbgEngNotOK();
         }
@@ -1511,12 +1511,12 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// After a handle has been passed to this method it is no longer valid and must not be used again.
         /// </remarks>
-        public HRESULT TryEndEnumTagged(ulong handle)
+        public HRESULT TryEndEnumTagged(long handle)
         {
             InitDelegate(ref endEnumTagged, Vtbl3->EndEnumTagged);
 
             /*HRESULT EndEnumTagged(
-            [In] ulong Handle);*/
+            [In] long Handle);*/
             return endEnumTagged(Raw, handle);
         }
 
@@ -1538,9 +1538,9 @@ namespace ClrDebug.DbgEng
         /// If Buffer is NULL, this information is not returned.</param>
         /// <param name="bufferSize">[in] Specifies the size, in bytes, of the Buffer buffer.</param>
         /// <returns>[out, optional] Receives the size, in bytes, of the information that is returned. If InfoSize is NULL, this information is not returned.</returns>
-        public uint GetOffsetInformation(DEBUG_DATA_SPACE space, DEBUG_OFFSINFO which, ulong offset, IntPtr buffer, uint bufferSize)
+        public int GetOffsetInformation(DEBUG_DATA_SPACE space, DEBUG_OFFSINFO which, long offset, IntPtr buffer, int bufferSize)
         {
-            uint infoSize;
+            int infoSize;
             TryGetOffsetInformation(space, which, offset, buffer, bufferSize, out infoSize).ThrowDbgEngNotOK();
 
             return infoSize;
@@ -1560,17 +1560,17 @@ namespace ClrDebug.DbgEng
         /// <param name="bufferSize">[in] Specifies the size, in bytes, of the Buffer buffer.</param>
         /// <param name="infoSize">[out, optional] Receives the size, in bytes, of the information that is returned. If InfoSize is NULL, this information is not returned.</param>
         /// <returns>This method can also return error values. See Return Values for more details.</returns>
-        public HRESULT TryGetOffsetInformation(DEBUG_DATA_SPACE space, DEBUG_OFFSINFO which, ulong offset, IntPtr buffer, uint bufferSize, out uint infoSize)
+        public HRESULT TryGetOffsetInformation(DEBUG_DATA_SPACE space, DEBUG_OFFSINFO which, long offset, IntPtr buffer, int bufferSize, out int infoSize)
         {
             InitDelegate(ref getOffsetInformation, Vtbl4->GetOffsetInformation);
 
             /*HRESULT GetOffsetInformation(
             [In] DEBUG_DATA_SPACE Space,
             [In] DEBUG_OFFSINFO Which,
-            [In] ulong Offset,
+            [In] long Offset,
             [Out] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint InfoSize);*/
+            [In] int BufferSize,
+            [Out] out int InfoSize);*/
             return getOffsetInformation(Raw, space, which, offset, buffer, bufferSize, out infoSize);
         }
 
@@ -1587,9 +1587,9 @@ namespace ClrDebug.DbgEng
         /// virtual address validity changes from page to page, NextOffset will receive the address of the next page. In user-mode
         /// dump files the validity can change from byte to byte.
         /// </remarks>
-        public ulong GetNextDifferentlyValidOffsetVirtual(ulong offset)
+        public long GetNextDifferentlyValidOffsetVirtual(long offset)
         {
-            ulong nextOffset;
+            long nextOffset;
             TryGetNextDifferentlyValidOffsetVirtual(offset, out nextOffset).ThrowDbgEngNotOK();
 
             return nextOffset;
@@ -1606,13 +1606,13 @@ namespace ClrDebug.DbgEng
         /// virtual address validity changes from page to page, NextOffset will receive the address of the next page. In user-mode
         /// dump files the validity can change from byte to byte.
         /// </remarks>
-        public HRESULT TryGetNextDifferentlyValidOffsetVirtual(ulong offset, out ulong nextOffset)
+        public HRESULT TryGetNextDifferentlyValidOffsetVirtual(long offset, out long nextOffset)
         {
             InitDelegate(ref getNextDifferentlyValidOffsetVirtual, Vtbl4->GetNextDifferentlyValidOffsetVirtual);
 
             /*HRESULT GetNextDifferentlyValidOffsetVirtual(
-            [In] ulong Offset,
-            [Out] out ulong NextOffset);*/
+            [In] long Offset,
+            [Out] out long NextOffset);*/
             return getNextDifferentlyValidOffsetVirtual(Raw, offset, out nextOffset);
         }
 
@@ -1625,7 +1625,7 @@ namespace ClrDebug.DbgEng
         /// <param name="base">[in] Specifies the address of the beginning of the memory range to search for valid memory.</param>
         /// <param name="size">[in] Specifies the size, in bytes, of the memory range to search.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetValidRegionVirtualResult GetValidRegionVirtual(ulong @base, uint size)
+        public GetValidRegionVirtualResult GetValidRegionVirtual(long @base, int size)
         {
             GetValidRegionVirtualResult result;
             TryGetValidRegionVirtual(@base, size, out result).ThrowDbgEngNotOK();
@@ -1640,16 +1640,16 @@ namespace ClrDebug.DbgEng
         /// <param name="size">[in] Specifies the size, in bytes, of the memory range to search.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>This method can also return error values. See Return Values for more details.</returns>
-        public HRESULT TryGetValidRegionVirtual(ulong @base, uint size, out GetValidRegionVirtualResult result)
+        public HRESULT TryGetValidRegionVirtual(long @base, int size, out GetValidRegionVirtualResult result)
         {
             InitDelegate(ref getValidRegionVirtual, Vtbl4->GetValidRegionVirtual);
             /*HRESULT GetValidRegionVirtual(
-            [In] ulong Base,
-            [In] uint Size,
-            [Out] out ulong ValidBase,
-            [Out] out uint ValidSize);*/
-            ulong validBase;
-            uint validSize;
+            [In] long Base,
+            [In] int Size,
+            [Out] out long ValidBase,
+            [Out] out int ValidSize);*/
+            long validBase;
+            int validSize;
             HRESULT hr = getValidRegionVirtual(Raw, @base, size, out validBase, out validSize);
 
             if (hr == HRESULT.S_OK)
@@ -1679,9 +1679,9 @@ namespace ClrDebug.DbgEng
         /// can be used to ensure the alignment of the match relative to Offset. For example, a value of 0x4 can be used to
         /// require alignment to a DWORD. A value of 0x1 can be used to allow the pattern to start anywhere.
         /// </remarks>
-        public ulong SearchVirtual2(ulong offset, ulong length, DEBUG_VSEARCH flags, IntPtr buffer, uint patternSize, uint patternGranularity)
+        public long SearchVirtual2(long offset, long length, DEBUG_VSEARCH flags, IntPtr buffer, int patternSize, int patternGranularity)
         {
-            ulong matchOffset;
+            long matchOffset;
             TrySearchVirtual2(offset, length, flags, buffer, patternSize, patternGranularity, out matchOffset).ThrowDbgEngNotOK();
 
             return matchOffset;
@@ -1704,18 +1704,18 @@ namespace ClrDebug.DbgEng
         /// can be used to ensure the alignment of the match relative to Offset. For example, a value of 0x4 can be used to
         /// require alignment to a DWORD. A value of 0x1 can be used to allow the pattern to start anywhere.
         /// </remarks>
-        public HRESULT TrySearchVirtual2(ulong offset, ulong length, DEBUG_VSEARCH flags, IntPtr buffer, uint patternSize, uint patternGranularity, out ulong matchOffset)
+        public HRESULT TrySearchVirtual2(long offset, long length, DEBUG_VSEARCH flags, IntPtr buffer, int patternSize, int patternGranularity, out long matchOffset)
         {
             InitDelegate(ref searchVirtual2, Vtbl4->SearchVirtual2);
 
             /*HRESULT SearchVirtual2(
-            [In] ulong Offset,
-            [In] ulong Length,
+            [In] long Offset,
+            [In] long Length,
             [In] DEBUG_VSEARCH Flags,
             [In] IntPtr Buffer,
-            [In] uint PatternSize,
-            [In] uint PatternGranularity,
-            [Out] out ulong MatchOffset);*/
+            [In] int PatternSize,
+            [In] int PatternGranularity,
+            [Out] out long MatchOffset);*/
             return searchVirtual2(Raw, offset, length, flags, buffer, patternSize, patternGranularity, out matchOffset);
         }
 
@@ -1732,7 +1732,7 @@ namespace ClrDebug.DbgEng
         /// The engine will read up to MaxBytes from the target looking for a null-terminator. If the string has more than
         /// BufferSize characters, the string will be truncated to fit in Buffer.
         /// </remarks>
-        public string ReadMultiByteStringVirtual(ulong offset, uint maxBytes)
+        public string ReadMultiByteStringVirtual(long offset, int maxBytes)
         {
             string bufferResult;
             TryReadMultiByteStringVirtual(offset, maxBytes, out bufferResult).ThrowDbgEngNotOK();
@@ -1751,25 +1751,25 @@ namespace ClrDebug.DbgEng
         /// The engine will read up to MaxBytes from the target looking for a null-terminator. If the string has more than
         /// BufferSize characters, the string will be truncated to fit in Buffer.
         /// </remarks>
-        public HRESULT TryReadMultiByteStringVirtual(ulong offset, uint maxBytes, out string bufferResult)
+        public HRESULT TryReadMultiByteStringVirtual(long offset, int maxBytes, out string bufferResult)
         {
             InitDelegate(ref readMultiByteStringVirtual, Vtbl4->ReadMultiByteStringVirtual);
             /*HRESULT ReadMultiByteStringVirtual(
-            [In] ulong Offset,
-            [In] uint MaxBytes,
+            [In] long Offset,
+            [In] int MaxBytes,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
-            [In] uint BufferSize,
-            [Out] out uint StringBytes);*/
+            [In] int BufferSize,
+            [Out] out int StringBytes);*/
             StringBuilder buffer;
-            uint bufferSize = 0;
-            uint stringBytes;
+            int bufferSize = 0;
+            int stringBytes;
             HRESULT hr = readMultiByteStringVirtual(Raw, offset, maxBytes, null, bufferSize, out stringBytes);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringBytes;
-            buffer = new StringBuilder((int) bufferSize);
+            buffer = new StringBuilder(bufferSize);
             hr = readMultiByteStringVirtual(Raw, offset, maxBytes, buffer, bufferSize, out stringBytes);
 
             if (hr == HRESULT.S_OK)
@@ -1803,7 +1803,7 @@ namespace ClrDebug.DbgEng
         /// truncated string is null-terminated if Buffer has space for at least one character. After the call returns, check
         /// to see if *StringBytes is bigger than BufferSize.
         /// </remarks>
-        public string ReadMultiByteStringVirtualWide(ulong offset, uint maxBytes, CODE_PAGE codePage)
+        public string ReadMultiByteStringVirtualWide(long offset, int maxBytes, CODE_PAGE codePage)
         {
             string bufferResult;
             TryReadMultiByteStringVirtualWide(offset, maxBytes, codePage, out bufferResult).ThrowDbgEngNotOK();
@@ -1827,26 +1827,26 @@ namespace ClrDebug.DbgEng
         /// truncated string is null-terminated if Buffer has space for at least one character. After the call returns, check
         /// to see if *StringBytes is bigger than BufferSize.
         /// </remarks>
-        public HRESULT TryReadMultiByteStringVirtualWide(ulong offset, uint maxBytes, CODE_PAGE codePage, out string bufferResult)
+        public HRESULT TryReadMultiByteStringVirtualWide(long offset, int maxBytes, CODE_PAGE codePage, out string bufferResult)
         {
             InitDelegate(ref readMultiByteStringVirtualWide, Vtbl4->ReadMultiByteStringVirtualWide);
             /*HRESULT ReadMultiByteStringVirtualWide(
-            [In] ulong Offset,
-            [In] uint MaxBytes,
+            [In] long Offset,
+            [In] int MaxBytes,
             [In] CODE_PAGE CodePage,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
-            [In] uint BufferSize,
-            [Out] out uint StringBytes);*/
+            [In] int BufferSize,
+            [Out] out int StringBytes);*/
             StringBuilder buffer;
-            uint bufferSize = 0;
-            uint stringBytes;
+            int bufferSize = 0;
+            int stringBytes;
             HRESULT hr = readMultiByteStringVirtualWide(Raw, offset, maxBytes, codePage, null, bufferSize, out stringBytes);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringBytes;
-            buffer = new StringBuilder((int) bufferSize);
+            buffer = new StringBuilder(bufferSize);
             hr = readMultiByteStringVirtualWide(Raw, offset, maxBytes, codePage, buffer, bufferSize, out stringBytes);
 
             if (hr == HRESULT.S_OK)
@@ -1877,7 +1877,7 @@ namespace ClrDebug.DbgEng
         /// The engine will read up to MaxBytes from the target, looking for a null-terminator. If the string has more than
         /// BufferSize characters, the string will be truncated to fit in Buffer.
         /// </remarks>
-        public string ReadUnicodeStringVirtual(ulong offset, uint maxBytes, CODE_PAGE codePage)
+        public string ReadUnicodeStringVirtual(long offset, int maxBytes, CODE_PAGE codePage)
         {
             string bufferResult;
             TryReadUnicodeStringVirtual(offset, maxBytes, codePage, out bufferResult).ThrowDbgEngNotOK();
@@ -1898,26 +1898,26 @@ namespace ClrDebug.DbgEng
         /// The engine will read up to MaxBytes from the target, looking for a null-terminator. If the string has more than
         /// BufferSize characters, the string will be truncated to fit in Buffer.
         /// </remarks>
-        public HRESULT TryReadUnicodeStringVirtual(ulong offset, uint maxBytes, CODE_PAGE codePage, out string bufferResult)
+        public HRESULT TryReadUnicodeStringVirtual(long offset, int maxBytes, CODE_PAGE codePage, out string bufferResult)
         {
             InitDelegate(ref readUnicodeStringVirtual, Vtbl4->ReadUnicodeStringVirtual);
             /*HRESULT ReadUnicodeStringVirtual(
-            [In] ulong Offset,
-            [In] uint MaxBytes,
+            [In] long Offset,
+            [In] int MaxBytes,
             [In] CODE_PAGE CodePage,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
-            [In] uint BufferSize,
-            [Out] out uint StringBytes);*/
+            [In] int BufferSize,
+            [Out] out int StringBytes);*/
             StringBuilder buffer;
-            uint bufferSize = 0;
-            uint stringBytes;
+            int bufferSize = 0;
+            int stringBytes;
             HRESULT hr = readUnicodeStringVirtual(Raw, offset, maxBytes, codePage, null, bufferSize, out stringBytes);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringBytes;
-            buffer = new StringBuilder((int) bufferSize);
+            buffer = new StringBuilder(bufferSize);
             hr = readUnicodeStringVirtual(Raw, offset, maxBytes, codePage, buffer, bufferSize, out stringBytes);
 
             if (hr == HRESULT.S_OK)
@@ -1946,7 +1946,7 @@ namespace ClrDebug.DbgEng
         /// The engine will read up to MaxBytes from the target, looking for a null-terminator. If the string has more than
         /// BufferSize characters, the string will be truncated to fit in Buffer.
         /// </remarks>
-        public string ReadUnicodeStringVirtualWide(ulong offset, uint maxBytes)
+        public string ReadUnicodeStringVirtualWide(long offset, int maxBytes)
         {
             string bufferResult;
             TryReadUnicodeStringVirtualWide(offset, maxBytes, out bufferResult).ThrowDbgEngNotOK();
@@ -1965,25 +1965,25 @@ namespace ClrDebug.DbgEng
         /// The engine will read up to MaxBytes from the target, looking for a null-terminator. If the string has more than
         /// BufferSize characters, the string will be truncated to fit in Buffer.
         /// </remarks>
-        public HRESULT TryReadUnicodeStringVirtualWide(ulong offset, uint maxBytes, out string bufferResult)
+        public HRESULT TryReadUnicodeStringVirtualWide(long offset, int maxBytes, out string bufferResult)
         {
             InitDelegate(ref readUnicodeStringVirtualWide, Vtbl4->ReadUnicodeStringVirtualWide);
             /*HRESULT ReadUnicodeStringVirtualWide(
-            [In] ulong Offset,
-            [In] uint MaxBytes,
+            [In] long Offset,
+            [In] int MaxBytes,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
-            [In] uint BufferSize,
-            [Out] out uint StringBytes);*/
+            [In] int BufferSize,
+            [Out] out int StringBytes);*/
             StringBuilder buffer;
-            uint bufferSize = 0;
-            uint stringBytes;
+            int bufferSize = 0;
+            int stringBytes;
             HRESULT hr = readUnicodeStringVirtualWide(Raw, offset, maxBytes, null, bufferSize, out stringBytes);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringBytes;
-            buffer = new StringBuilder((int) bufferSize);
+            buffer = new StringBuilder(bufferSize);
             hr = readUnicodeStringVirtualWide(Raw, offset, maxBytes, buffer, bufferSize, out stringBytes);
 
             if (hr == HRESULT.S_OK)
@@ -2016,9 +2016,9 @@ namespace ClrDebug.DbgEng
         /// and DEBUG_PHYSICAL_WRITE_COMBINED can only be used when the target is a live kernel target that is being debugged
         /// in the standard way (using a COM port, 1394 bus, or named pipe).
         /// </remarks>
-        public uint ReadPhysical2(ulong offset, DEBUG_PHYSICAL flags, IntPtr buffer, uint bufferSize)
+        public int ReadPhysical2(long offset, DEBUG_PHYSICAL flags, IntPtr buffer, int bufferSize)
         {
-            uint bytesRead;
+            int bytesRead;
             TryReadPhysical2(offset, flags, buffer, bufferSize, out bytesRead).ThrowDbgEngNotOK();
 
             return bytesRead;
@@ -2039,16 +2039,16 @@ namespace ClrDebug.DbgEng
         /// and DEBUG_PHYSICAL_WRITE_COMBINED can only be used when the target is a live kernel target that is being debugged
         /// in the standard way (using a COM port, 1394 bus, or named pipe).
         /// </remarks>
-        public HRESULT TryReadPhysical2(ulong offset, DEBUG_PHYSICAL flags, IntPtr buffer, uint bufferSize, out uint bytesRead)
+        public HRESULT TryReadPhysical2(long offset, DEBUG_PHYSICAL flags, IntPtr buffer, int bufferSize, out int bytesRead)
         {
             InitDelegate(ref readPhysical2, Vtbl4->ReadPhysical2);
 
             /*HRESULT ReadPhysical2(
-            [In] ulong Offset,
+            [In] long Offset,
             [In] DEBUG_PHYSICAL Flags,
             [Out] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesRead);*/
+            [In] int BufferSize,
+            [Out] out int BytesRead);*/
             return readPhysical2(Raw, offset, flags, buffer, bufferSize, out bytesRead);
         }
 
@@ -2069,9 +2069,9 @@ namespace ClrDebug.DbgEng
         /// and DEBUG_PHYSICAL_WRITE_COMBINED can only be used when the target is a live kernel target that is being debugged
         /// in the standard way (using a COM port, 1394 bus, or named pipe).
         /// </remarks>
-        public uint WritePhysical2(ulong offset, DEBUG_PHYSICAL flags, IntPtr buffer, uint bufferSize)
+        public int WritePhysical2(long offset, DEBUG_PHYSICAL flags, IntPtr buffer, int bufferSize)
         {
-            uint bytesWritten;
+            int bytesWritten;
             TryWritePhysical2(offset, flags, buffer, bufferSize, out bytesWritten).ThrowDbgEngNotOK();
 
             return bytesWritten;
@@ -2092,16 +2092,16 @@ namespace ClrDebug.DbgEng
         /// and DEBUG_PHYSICAL_WRITE_COMBINED can only be used when the target is a live kernel target that is being debugged
         /// in the standard way (using a COM port, 1394 bus, or named pipe).
         /// </remarks>
-        public HRESULT TryWritePhysical2(ulong offset, DEBUG_PHYSICAL flags, IntPtr buffer, uint bufferSize, out uint bytesWritten)
+        public HRESULT TryWritePhysical2(long offset, DEBUG_PHYSICAL flags, IntPtr buffer, int bufferSize, out int bytesWritten)
         {
             InitDelegate(ref writePhysical2, Vtbl4->WritePhysical2);
 
             /*HRESULT WritePhysical2(
-            [In] ulong Offset,
+            [In] long Offset,
             [In] DEBUG_PHYSICAL Flags,
             [In] IntPtr Buffer,
-            [In] uint BufferSize,
-            [Out] out uint BytesWritten);*/
+            [In] int BufferSize,
+            [Out] out int BytesWritten);*/
             return writePhysical2(Raw, offset, flags, buffer, bufferSize, out bytesWritten);
         }
 
@@ -2210,59 +2210,59 @@ namespace ClrDebug.DbgEng
         #region Delegates
         #region IDebugDataSpaces
 
-        private delegate HRESULT ReadVirtualDelegate(IntPtr self, [In] ulong Offset, [Out] IntPtr Buffer, [In] uint BufferSize, [Out] out uint BytesRead);
-        private delegate HRESULT WriteVirtualDelegate(IntPtr self, [In] ulong Offset, [In] IntPtr Buffer, [In] uint BufferSize, [Out] out uint BytesWritten);
-        private delegate HRESULT SearchVirtualDelegate(IntPtr self, [In] ulong Offset, [In] ulong Length, [In] IntPtr Pattern, [In] uint PatternSize, [In] uint PatternGranularity, [Out] out ulong MatchOffset);
-        private delegate HRESULT ReadVirtualUncachedDelegate(IntPtr self, [In] ulong Offset, [Out] IntPtr Buffer, [In] uint BufferSize, [Out] out uint BytesRead);
-        private delegate HRESULT WriteVirtualUncachedDelegate(IntPtr self, [In] ulong Offset, [In] IntPtr Buffer, [In] uint BufferSize, [Out] out uint BytesWritten);
-        private delegate HRESULT ReadPointersVirtualDelegate(IntPtr self, [In] uint Count, [In] ulong Offset, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ulong[] Ptrs);
-        private delegate HRESULT WritePointersVirtualDelegate(IntPtr self, [In] uint Count, [In] ulong Offset, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ulong[] Ptrs);
-        private delegate HRESULT ReadPhysicalDelegate(IntPtr self, [In] ulong Offset, [Out] IntPtr Buffer, [In] uint BufferSize, [Out] out uint BytesRead);
-        private delegate HRESULT WritePhysicalDelegate(IntPtr self, [In] ulong Offset, [In] IntPtr Buffer, [In] uint BufferSize, [Out] out uint BytesWritten);
-        private delegate HRESULT ReadControlDelegate(IntPtr self, [In] uint Processor, [In] ulong Offset, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out uint BytesRead);
-        private delegate HRESULT WriteControlDelegate(IntPtr self, [In] uint Processor, [In] ulong Offset, [In] IntPtr Buffer, [In] int BufferSize, [Out] out uint BytesWritten);
-        private delegate HRESULT ReadIoDelegate(IntPtr self, [In] INTERFACE_TYPE InterfaceType, [In] uint BusNumber, [In] uint AddressSpace, [In] ulong Offset, [Out] IntPtr Buffer, [In] uint BufferSize, [Out] out uint BytesRead);
-        private delegate HRESULT WriteIoDelegate(IntPtr self, [In] INTERFACE_TYPE InterfaceType, [In] uint BusNumber, [In] uint AddressSpace, [In] ulong Offset, [In] IntPtr Buffer, [In] uint BufferSize, [Out] out uint BytesWritten);
-        private delegate HRESULT ReadMsrDelegate(IntPtr self, [In] uint Msr, [Out] out ulong MsrValue);
-        private delegate HRESULT WriteMsrDelegate(IntPtr self, [In] uint Msr, [In] ulong MsrValue);
-        private delegate HRESULT ReadBusDataDelegate(IntPtr self, [In] BUS_DATA_TYPE BusDataType, [In] uint BusNumber, [In] uint SlotNumber, [In] uint Offset, [Out] IntPtr Buffer, [In] uint BufferSize, [Out] out uint BytesRead);
-        private delegate HRESULT WriteBusDataDelegate(IntPtr self, [In] BUS_DATA_TYPE BusDataType, [In] uint BusNumber, [In] uint SlotNumber, [In] uint Offset, [In] IntPtr Buffer, [In] uint BufferSize, [Out] out uint BytesWritten);
+        private delegate HRESULT ReadVirtualDelegate(IntPtr self, [In] long Offset, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesRead);
+        private delegate HRESULT WriteVirtualDelegate(IntPtr self, [In] long Offset, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
+        private delegate HRESULT SearchVirtualDelegate(IntPtr self, [In] long Offset, [In] long Length, [In] IntPtr Pattern, [In] int PatternSize, [In] int PatternGranularity, [Out] out long MatchOffset);
+        private delegate HRESULT ReadVirtualUncachedDelegate(IntPtr self, [In] long Offset, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesRead);
+        private delegate HRESULT WriteVirtualUncachedDelegate(IntPtr self, [In] long Offset, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
+        private delegate HRESULT ReadPointersVirtualDelegate(IntPtr self, [In] int Count, [In] long Offset, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Ptrs);
+        private delegate HRESULT WritePointersVirtualDelegate(IntPtr self, [In] int Count, [In] long Offset, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Ptrs);
+        private delegate HRESULT ReadPhysicalDelegate(IntPtr self, [In] long Offset, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesRead);
+        private delegate HRESULT WritePhysicalDelegate(IntPtr self, [In] long Offset, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
+        private delegate HRESULT ReadControlDelegate(IntPtr self, [In] int Processor, [In] long Offset, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesRead);
+        private delegate HRESULT WriteControlDelegate(IntPtr self, [In] int Processor, [In] long Offset, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
+        private delegate HRESULT ReadIoDelegate(IntPtr self, [In] INTERFACE_TYPE InterfaceType, [In] int BusNumber, [In] int AddressSpace, [In] long Offset, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesRead);
+        private delegate HRESULT WriteIoDelegate(IntPtr self, [In] INTERFACE_TYPE InterfaceType, [In] int BusNumber, [In] int AddressSpace, [In] long Offset, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
+        private delegate HRESULT ReadMsrDelegate(IntPtr self, [In] int Msr, [Out] out long MsrValue);
+        private delegate HRESULT WriteMsrDelegate(IntPtr self, [In] int Msr, [In] long MsrValue);
+        private delegate HRESULT ReadBusDataDelegate(IntPtr self, [In] BUS_DATA_TYPE BusDataType, [In] int BusNumber, [In] int SlotNumber, [In] int Offset, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesRead);
+        private delegate HRESULT WriteBusDataDelegate(IntPtr self, [In] BUS_DATA_TYPE BusDataType, [In] int BusNumber, [In] int SlotNumber, [In] int Offset, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
         private delegate HRESULT CheckLowMemoryDelegate(IntPtr self);
-        private delegate HRESULT ReadDebuggerDataDelegate(IntPtr self, [In] DEBUG_DATA Index, [Out] IntPtr Buffer, [In] uint BufferSize, [Out] out uint DataSize);
-        private delegate HRESULT ReadProcessorSystemDataDelegate(IntPtr self, [In] uint Processor, [In] DEBUG_DATA Index, [Out] IntPtr Buffer, [In] uint BufferSize, [Out] out uint DataSize);
+        private delegate HRESULT ReadDebuggerDataDelegate(IntPtr self, [In] DEBUG_DATA Index, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int DataSize);
+        private delegate HRESULT ReadProcessorSystemDataDelegate(IntPtr self, [In] int Processor, [In] DEBUG_DATA Index, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int DataSize);
 
         #endregion
         #region IDebugDataSpaces2
 
-        private delegate HRESULT VirtualToPhysicalDelegate(IntPtr self, [In] ulong Virtual, [Out] out ulong Physical);
-        private delegate HRESULT GetVirtualTranslationPhysicalOffsetsDelegate(IntPtr self, [In] ulong Virtual, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ulong[] Offsets, [In] uint OffsetsSize, [Out] out uint Levels);
-        private delegate HRESULT ReadHandleDataDelegate(IntPtr self, [In] ulong Handle, [In] DEBUG_HANDLE_DATA_TYPE DataType, [Out] IntPtr Buffer, [In] uint BufferSize, [Out] out uint DataSize);
-        private delegate HRESULT FillVirtualDelegate(IntPtr self, [In] ulong Start, [In] uint Size, [In] IntPtr Buffer, [In] uint PatternSize, [Out] out uint Filled);
-        private delegate HRESULT FillPhysicalDelegate(IntPtr self, [In] ulong Start, [In] uint Size, [In] IntPtr Buffer, [In] uint PatternSize, [Out] out uint Filled);
-        private delegate HRESULT QueryVirtualDelegate(IntPtr self, [In] ulong Offset, [Out] IntPtr Info);
+        private delegate HRESULT VirtualToPhysicalDelegate(IntPtr self, [In] long Virtual, [Out] out long Physical);
+        private delegate HRESULT GetVirtualTranslationPhysicalOffsetsDelegate(IntPtr self, [In] long Virtual, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] long[] Offsets, [In] int OffsetsSize, [Out] out int Levels);
+        private delegate HRESULT ReadHandleDataDelegate(IntPtr self, [In] long Handle, [In] DEBUG_HANDLE_DATA_TYPE DataType, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int DataSize);
+        private delegate HRESULT FillVirtualDelegate(IntPtr self, [In] long Start, [In] int Size, [In] IntPtr Buffer, [In] int PatternSize, [Out] out int Filled);
+        private delegate HRESULT FillPhysicalDelegate(IntPtr self, [In] long Start, [In] int Size, [In] IntPtr Buffer, [In] int PatternSize, [Out] out int Filled);
+        private delegate HRESULT QueryVirtualDelegate(IntPtr self, [In] long Offset, [Out] IntPtr Info);
 
         #endregion
         #region IDebugDataSpaces3
 
-        private delegate HRESULT ReadImageNtHeadersDelegate(IntPtr self, [In] ulong ImageBase, [Out] IntPtr Headers);
-        private delegate HRESULT ReadTaggedDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] Guid Tag, [In] uint Offset, [Out] IntPtr Buffer, [In] uint BufferSize, [Out] out uint TotalSize);
-        private delegate HRESULT StartEnumTaggedDelegate(IntPtr self, [Out] out ulong Handle);
-        private delegate HRESULT GetNextTaggedDelegate(IntPtr self, [In] ulong Handle, [Out] out Guid Tag, [Out] out uint Size);
-        private delegate HRESULT EndEnumTaggedDelegate(IntPtr self, [In] ulong Handle);
+        private delegate HRESULT ReadImageNtHeadersDelegate(IntPtr self, [In] long ImageBase, [Out] IntPtr Headers);
+        private delegate HRESULT ReadTaggedDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] Guid Tag, [In] int Offset, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int TotalSize);
+        private delegate HRESULT StartEnumTaggedDelegate(IntPtr self, [Out] out long Handle);
+        private delegate HRESULT GetNextTaggedDelegate(IntPtr self, [In] long Handle, [Out] out Guid Tag, [Out] out int Size);
+        private delegate HRESULT EndEnumTaggedDelegate(IntPtr self, [In] long Handle);
 
         #endregion
         #region IDebugDataSpaces4
 
-        private delegate HRESULT GetOffsetInformationDelegate(IntPtr self, [In] DEBUG_DATA_SPACE Space, [In] DEBUG_OFFSINFO Which, [In] ulong Offset, [Out] IntPtr Buffer, [In] uint BufferSize, [Out] out uint InfoSize);
-        private delegate HRESULT GetNextDifferentlyValidOffsetVirtualDelegate(IntPtr self, [In] ulong Offset, [Out] out ulong NextOffset);
-        private delegate HRESULT GetValidRegionVirtualDelegate(IntPtr self, [In] ulong Base, [In] uint Size, [Out] out ulong ValidBase, [Out] out uint ValidSize);
-        private delegate HRESULT SearchVirtual2Delegate(IntPtr self, [In] ulong Offset, [In] ulong Length, [In] DEBUG_VSEARCH Flags, [In] IntPtr Buffer, [In] uint PatternSize, [In] uint PatternGranularity, [Out] out ulong MatchOffset);
-        private delegate HRESULT ReadMultiByteStringVirtualDelegate(IntPtr self, [In] ulong Offset, [In] uint MaxBytes, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] uint BufferSize, [Out] out uint StringBytes);
-        private delegate HRESULT ReadMultiByteStringVirtualWideDelegate(IntPtr self, [In] ulong Offset, [In] uint MaxBytes, [In] CODE_PAGE CodePage, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] uint BufferSize, [Out] out uint StringBytes);
-        private delegate HRESULT ReadUnicodeStringVirtualDelegate(IntPtr self, [In] ulong Offset, [In] uint MaxBytes, [In] CODE_PAGE CodePage, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] uint BufferSize, [Out] out uint StringBytes);
-        private delegate HRESULT ReadUnicodeStringVirtualWideDelegate(IntPtr self, [In] ulong Offset, [In] uint MaxBytes, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] uint BufferSize, [Out] out uint StringBytes);
-        private delegate HRESULT ReadPhysical2Delegate(IntPtr self, [In] ulong Offset, [In] DEBUG_PHYSICAL Flags, [Out] IntPtr Buffer, [In] uint BufferSize, [Out] out uint BytesRead);
-        private delegate HRESULT WritePhysical2Delegate(IntPtr self, [In] ulong Offset, [In] DEBUG_PHYSICAL Flags, [In] IntPtr Buffer, [In] uint BufferSize, [Out] out uint BytesWritten);
+        private delegate HRESULT GetOffsetInformationDelegate(IntPtr self, [In] DEBUG_DATA_SPACE Space, [In] DEBUG_OFFSINFO Which, [In] long Offset, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize);
+        private delegate HRESULT GetNextDifferentlyValidOffsetVirtualDelegate(IntPtr self, [In] long Offset, [Out] out long NextOffset);
+        private delegate HRESULT GetValidRegionVirtualDelegate(IntPtr self, [In] long Base, [In] int Size, [Out] out long ValidBase, [Out] out int ValidSize);
+        private delegate HRESULT SearchVirtual2Delegate(IntPtr self, [In] long Offset, [In] long Length, [In] DEBUG_VSEARCH Flags, [In] IntPtr Buffer, [In] int PatternSize, [In] int PatternGranularity, [Out] out long MatchOffset);
+        private delegate HRESULT ReadMultiByteStringVirtualDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringBytes);
+        private delegate HRESULT ReadMultiByteStringVirtualWideDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [In] CODE_PAGE CodePage, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringBytes);
+        private delegate HRESULT ReadUnicodeStringVirtualDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [In] CODE_PAGE CodePage, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringBytes);
+        private delegate HRESULT ReadUnicodeStringVirtualWideDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringBytes);
+        private delegate HRESULT ReadPhysical2Delegate(IntPtr self, [In] long Offset, [In] DEBUG_PHYSICAL Flags, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesRead);
+        private delegate HRESULT WritePhysical2Delegate(IntPtr self, [In] long Offset, [In] DEBUG_PHYSICAL Flags, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
 
         #endregion
         #endregion

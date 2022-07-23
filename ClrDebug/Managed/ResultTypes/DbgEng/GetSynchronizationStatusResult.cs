@@ -12,14 +12,14 @@ namespace ClrDebug.DbgEng
         /// The number of packet sends that have been attempted by the current debugger-engine kernel transport mechanism.<para/>
         /// This number will be incremented if engine did not receive a packet "ACK" for the last packet sent by the engine to the target.
         /// </summary>
-        public uint SendsAttempted { get; }
+        public int SendsAttempted { get; }
 
         /// <summary>
         /// The number of seconds since the last response.
         /// </summary>
-        public uint SecondsSinceLastResponse { get; }
+        public int SecondsSinceLastResponse { get; }
 
-        public GetSynchronizationStatusResult(uint sendsAttempted, uint secondsSinceLastResponse)
+        public GetSynchronizationStatusResult(int sendsAttempted, int secondsSinceLastResponse)
         {
             SendsAttempted = sendsAttempted;
             SecondsSinceLastResponse = secondsSinceLastResponse;
