@@ -17,6 +17,10 @@ and `<expression>` is a symbol or wildcard expression that should be resolved fr
 
 Note that unlike a real debugger, this sample does not support specifying wildcard characters in the `<fileName>` component of the symbol to resolve. This is because the way this sample works is it loads arbitrary files on disk to then retrieve their symbols; in a real debugger, the scope of available modules would be limited to those that have already been loaded into the process, thereby allowing wildcard module searches to be performed.
 
+By default, only function/method symbols will be displayed. To display all all symbols in the DLL, specify `-a`. To specify just user defined types (UDTs), specify `-t`
+
+    ntdll!*peb* -t
+
 In addition, while this sample is principally designed around demonstrating how unmanaged symbols can be resolved from a symbol store, DbgHelp is also capable of resolving symbols from managed PDBs,
 although those symbols likely wouldn't mean much once the managed methods have been JITted.
 
@@ -30,6 +34,10 @@ When attempting to resolve a for a module that hasn't been seen before, the modu
 
 If no symbols could be found for a given module in the symbol store chain, DbgHelp will still try and find symbols for module using some basic heuristics. If a module was locally built and its PE metadata points to a PDB on your system, DbgHelp will successfully locate this PDB and you'll be able to resolve symbols.
 
+Despite what you may think, DbgHelp's `SymEnumSymbols` function does not in fact enumerate all symbols; rather, it appears to only enumerate symbols of type `Function` or `PublicSymbol` (which pretty much seems to be functions too). To *actually* enumerate all symbols, one must use the `SymSearch` function instead. Typically you would instruct `SymSearch` to display top level (global) symbols only, however for the purposes of this sample we display nested symbols as well (such as UDT fields, denoted as type `Data`).
+
 ## Gotchas
 
 * [Microsoft.SymbolStore](https://github.com/dotnet/symstore) (which our *SymbolStore* sample is based on) combines base HTTP URLs with the relative path to your PDB via the `Uri.TryCreate` method; a side effect of this is that part of the base URL will be truncated if it does not end in a trailing slash. For consistency with *Microsoft.SymbolStore* (in case you decide to use that instead), our *SymbolStore* sample retains this dodgy URI creation behavior, which *NativeSymbols* demonstrates how to work around
+* `SymEnumTypes` does not allow specifying a mask; as such, it's better to use `SymEnumTypesByName` instead
+* Not all symbols can be used with all symbol functions. You can't `SymFromAddr` a UDT for example

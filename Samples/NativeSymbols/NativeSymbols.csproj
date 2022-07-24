@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbgHelp\IMAGEHLP_MODULE64.cs" />
+    <Compile Include="DbgHelp\SYMSEARCH.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,8 +59,8 @@
     <Compile Include="SymbolManager.cs" />
     <Compile Include="DbgHelp\SYMBOL_INFO.cs" />
     <Compile Include="DbgHelp\SYMOPT.cs" />
-    <Compile Include="DbgHelp\SymTag.cs" />
     <Compile Include="DbgHelp\SYM_TYPE.cs" />
+    <Compile Include="SymbolMode.cs" />
     <Compile Include="Tracer.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace NativeSymbols
@@ -45,7 +46,8 @@ namespace NativeSymbols
         {
             string fileName;
             string expr;
-            ParseExpression(expression, out fileName, out expr);
+            SymbolMode mode;
+            ParseExpression(expression, out fileName, out expr, out mode);
 
             var moduleInfo = EnsureSymbols(fileName);
 
@@ -55,7 +57,90 @@ namespace NativeSymbols
              * base address, if you wanted to search for everything, you would have to do *!* instead of merely *
              * If a baseAddress IS specified, the pattern is scoped to the module in question */
 
+            SymbolInfo[] results;
+
+            switch (mode)
+            {
+                case SymbolMode.All:
+                    results = GetAllSymbols(moduleInfo, expr);
+                    break;
+                case SymbolMode.UserDefinedType:
+                    results = GetUserDefinedTypes(moduleInfo, expr);
+                    break;
+                case SymbolMode.Function:
+                    results = GetFunctionSymbols(moduleInfo, expr);
+                    break;
+                default:
+                    throw new NotImplementedException($"Don't know how to handle symbol mode '{mode}'");
+            }
+
+            return results.ToArray();
+        }
+
+        private SymbolInfo[] GetAllSymbols(IMAGEHLP_MODULE64 moduleInfo, string expr)
+        {
             var results = new List<SymbolInfo>();
+
+            //When DbgEng executes TypeInfoFound(), it searches with SYMSEARCH.GLOBALSONLY.
+            //SymSearch() utilizes diaSearch()
+
+            var result = NativeMethods.SymSearch(
+                identifier,
+                moduleInfo.BaseOfImage,
+                0,
+                0,
+                expr,
+                0,
+                (info, size, context) =>
+                {
+                    var symbol = new SymbolInfo(identifier, info, moduleInfo.ModuleName);
+
+                    results.Add(symbol);
+
+                    return true;
+                },
+                IntPtr.Zero,
+                SYMSEARCH.ALLITEMS
+            );
+
+            if (!result)
+                Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
+
+            return results.ToArray();
+        }
+
+        private SymbolInfo[] GetUserDefinedTypes(IMAGEHLP_MODULE64 moduleInfo, string expr)
+        {
+            var results = new List<SymbolInfo>();
+
+            //SymEnumTypes() ultimately leads to diaEnumUDT()
+
+            var result = NativeMethods.SymEnumTypesByName(
+                identifier,
+                moduleInfo.BaseOfImage,
+                expr,
+                (info, size, context) =>
+                {
+                    var symbol = new SymbolInfo(identifier, info, moduleInfo.ModuleName);
+
+                    results.Add(symbol);
+
+                    return true;
+                },
+                IntPtr.Zero
+            );
+
+            if (!result)
+                Marshal.ThrowExceptionForHR(Marshal.GetHRForLastWin32Error());
+
+            return results.ToArray();
+        }
+
+        private SymbolInfo[] GetFunctionSymbols(IMAGEHLP_MODULE64 moduleInfo, string expr)
+        {
+            var results = new List<SymbolInfo>();
+
+            //SymEnumSymbols() ultimately leads to diaEnumerateSymbols()
 
             var result = NativeMethods.SymEnumSymbols(
                 identifier,
@@ -145,7 +230,7 @@ namespace NativeSymbols
             return address;
         }
 
-        private void ParseExpression(string expression, out string fileName, out string expr)
+        private void ParseExpression(string expression, out string fileName, out string expr, out SymbolMode mode)
         {
             if (!expression.Contains("!"))
             {
@@ -161,6 +246,28 @@ namespace NativeSymbols
 
                 fileName = split[0];
                 expr = split[1];
+            }
+
+            mode = GetSymbolMode(ref expr);
+        }
+
+        private SymbolMode GetSymbolMode(ref string expr)
+        {
+            var split = expr.Split(' ');
+
+            if (split.Length != 2)
+                return SymbolMode.Function;
+
+            expr = split[0];
+
+            switch (split[1])
+            {
+                case "-a":
+                    return SymbolMode.All;
+                case "-t":
+                    return SymbolMode.UserDefinedType;
+                default:
+                    return SymbolMode.Function;
             }
         }
 

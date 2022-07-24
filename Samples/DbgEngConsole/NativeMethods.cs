@@ -12,5 +12,8 @@ namespace DbgEngConsole
 
         [DllImport(kernel32, CharSet = CharSet.Unicode, SetLastError = true, EntryPoint = "LoadLibraryW")]
         public static extern IntPtr LoadLibrary(string lpLibFileName);
+
+        [DllImport(kernel32, CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern bool SetDllDirectory(string lpPathName);
     }
 }

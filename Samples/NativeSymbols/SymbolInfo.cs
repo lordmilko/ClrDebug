@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using ClrDebug.DbgEng;
 
 namespace NativeSymbols
 {

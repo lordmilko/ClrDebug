@@ -69,7 +69,7 @@ namespace DbgEngConsole
             }
         }
 
-        private void InputLoop()
+        protected virtual void InputLoop()
         {
             //As long as we're still in break mode, keep prompting for input. The execution status will be updated from our event callback
             //if a command is executed that results in a change of states
@@ -98,6 +98,11 @@ namespace DbgEngConsole
 
         private static DebugClient CreateDebugClient()
         {
+            //DbgEng will want to load DbgHelp, which later on will want to load symsrv.dll. To make sure everyone loads out of the right directory (and not system32),
+            //we need to use SetDllDirectory. If we want to use Windows' provided DbgEng/DbgHelp DLLs, symsrv.dll will be unavailable, and we'll need to hook DbgEng to manually
+            //tell it where our symbols are
+            NativeMethods.SetDllDirectory("C:\\Program Files (x86)\\Windows Kits\\10\\Debuggers\\" + (IntPtr.Size == 8 ? "x64" :"x86"));
+            
             var dbgEng = NativeMethods.LoadLibrary("dbgeng.dll");
             var debugCreatePtr = NativeMethods.GetProcAddress(dbgEng, "DebugCreate");
             var debugCreate = Marshal.GetDelegateForFunctionPointer<DebugCreateDelegate>(debugCreatePtr);

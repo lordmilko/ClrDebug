@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using ClrDebug.DbgEng;
 
 namespace NativeSymbols
 {
@@ -33,7 +34,16 @@ namespace NativeSymbols
             [In] IntPtr hProcess,
             [In] ulong BaseofDll,
             [In, MarshalAs(UnmanagedType.LPStr)] string Mask,
-            [In] PSYM_ENUMERATESYMBOLS_CALLBACK EnumSymbolsCallback,
+            [In, MarshalAs(UnmanagedType.FunctionPtr)] PSYM_ENUMERATESYMBOLS_CALLBACK EnumSymbolsCallback,
+            [In] IntPtr UserContext);
+
+        [DllImport(dbghelp, SetLastError = true)]
+        internal static extern bool SymEnumTypesByName(
+            [In] IntPtr hProcess,
+            [In] ulong BaseOfDll,
+            [In, MarshalAs(UnmanagedType.LPStr)] string Mask,
+            [In, MarshalAs(UnmanagedType.FunctionPtr)]
+            PSYM_ENUMERATESYMBOLS_CALLBACK EnumSymbolsCallback,
             [In] IntPtr UserContext);
 
         [DllImport(dbghelp, SetLastError = true)]
@@ -56,5 +66,17 @@ namespace NativeSymbols
         internal static extern ulong SymGetModuleBase64(
             [In] IntPtr hProcess,
             [In] ulong qwAddr);
+
+        [DllImport(dbghelp, SetLastError = true)]
+        internal static extern bool SymSearch(
+            [In] IntPtr hProcess,
+            [In] ulong BaseOfDll,
+            [In] int Index,
+            [In] SymTag SymTag,
+            [In, MarshalAs(UnmanagedType.LPStr)] string Mask,
+            [In] ulong Address,
+            [In, MarshalAs(UnmanagedType.FunctionPtr)] PSYM_ENUMERATESYMBOLS_CALLBACK EnumSymbolsCallback,
+            [In] IntPtr UserContext,
+            [In] SYMSEARCH Options);
     }
 }
