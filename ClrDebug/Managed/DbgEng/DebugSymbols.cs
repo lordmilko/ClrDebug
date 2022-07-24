@@ -4542,7 +4542,7 @@ namespace ClrDebug.DbgEng
         #region IsManagedModule
 
         /// <summary>
-        /// Checks whether the engine is using manageddebugging support when it retrieves informationfor a module.
+        /// Checks whether the engine is using manageddebugging support when it retrieves information for a module.
         /// </summary>
         /// <param name="index">[in] The index of a module.</param>
         /// <param name="base">[in] The base of the module.</param>
@@ -4552,17 +4552,17 @@ namespace ClrDebug.DbgEng
         public bool IsManagedModule(int index, long @base)
         {
             HRESULT hr = TryIsManagedModule(index, @base);
-            hr.ThrowDbgEngNotOK();
+            hr.ThrowDbgEngFailed();
 
             return hr == HRESULT.S_OK;
         }
 
         /// <summary>
-        /// Checks whether the engine is using manageddebugging support when it retrieves informationfor a module.
+        /// Checks whether the engine is using manageddebugging support when it retrieves information for a module.
         /// </summary>
         /// <param name="index">[in] The index of a module.</param>
         /// <param name="base">[in] The base of the module.</param>
-        /// <returns>IDebugSymbols3::IsManagedModule returns a value of S_OK if the engine is using manageddebugging support when it retrieves informationfor a module.</returns>
+        /// <returns>IDebugSymbols3::IsManagedModule returns a value of S_OK if the engine is using manageddebugging support when it retrieves information for a module.</returns>
         /// <remarks>
         /// It can be expensive to run this check.
         /// </remarks>

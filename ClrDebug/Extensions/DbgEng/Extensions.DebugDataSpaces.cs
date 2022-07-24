@@ -92,7 +92,7 @@ namespace ClrDebug.DbgEng
 
                 if (hr == HRESULT.S_OK)
                 {
-                    value = new byte[size];
+                    value = new byte[read];
                     Marshal.Copy(buffer, value, 0, read);
                 }
                 else
@@ -107,6 +107,7 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
+        #region WriteVirtual<T>
 
         /// <summary>
         /// The WriteVirtual method writes data to the target's virtual address space.
@@ -151,6 +152,9 @@ namespace ClrDebug.DbgEng
                 Marshal.FreeHGlobal(buffer);
             }
         }
+
+        #endregion
+        #region WriteVirtual (byte[])
 
         /// <summary>
         /// The WriteVirtual method writes data to the target's virtual address space.
@@ -201,6 +205,9 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        #endregion
+        #region SearchVirtual<T>
+
         /// <summary>
         /// The SearchVirtual method searches the target's virtual memory for a specified pattern of bytes.
         /// </summary>
@@ -248,6 +255,9 @@ namespace ClrDebug.DbgEng
                 Marshal.FreeHGlobal(buffer);
             }
         }
+
+        #endregion
+        #region SearchVirtual (byte[])
 
         /// <summary>
         /// The SearchVirtual method searches the target's virtual memory for a specified pattern of bytes.
@@ -302,6 +312,7 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        #endregion
         #region ReadVirtualUncached<T>
 
         /// <summary>
@@ -387,7 +398,7 @@ namespace ClrDebug.DbgEng
 
                 if (hr == HRESULT.S_OK)
                 {
-                    value = new byte[size];
+                    value = new byte[read];
                     Marshal.Copy(buffer, value, 0, read);
                 }
                 else
@@ -402,6 +413,7 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
+        #region WriteVirtualUncached<T>
 
         /// <summary>
         /// The WriteVirtualUncached method writes data to the target's virtual address space.
@@ -446,6 +458,9 @@ namespace ClrDebug.DbgEng
                 Marshal.FreeHGlobal(buffer);
             }
         }
+
+        #endregion
+        #region WriteVirtualUncached (byte[])
 
         /// <summary>
         /// The WriteVirtualUncached method writes data to the target's virtual address space.
@@ -496,6 +511,7 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        #endregion
         #region ReadPhysical<T>
 
         /// <summary>
@@ -581,7 +597,7 @@ namespace ClrDebug.DbgEng
 
                 if (hr == HRESULT.S_OK)
                 {
-                    value = new byte[size];
+                    value = new byte[read];
                     Marshal.Copy(buffer, value, 0, read);
                 }
                 else
@@ -596,6 +612,7 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
+        #region WritePhysical<T>
 
         /// <summary>
         /// The WritePhysical method writes data to the specified physical address in the target's memory.
@@ -640,6 +657,9 @@ namespace ClrDebug.DbgEng
                 Marshal.FreeHGlobal(buffer);
             }
         }
+
+        #endregion
+        #region WritePhysical (byte[])
 
         /// <summary>
         /// The WritePhysical method writes data to the specified physical address in the target's memory.
@@ -690,6 +710,7 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        #endregion
         #region ReadControl<T>
 
         /// <summary>
@@ -779,7 +800,7 @@ namespace ClrDebug.DbgEng
 
                 if (hr == HRESULT.S_OK)
                 {
-                    value = new byte[size];
+                    value = new byte[read];
                     Marshal.Copy(buffer, value, 0, read);
                 }
                 else
@@ -794,6 +815,7 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
+        #region WriteControl<T>
 
         /// <summary>
         /// The WriteControl method writes implementation-specific system data.
@@ -840,6 +862,9 @@ namespace ClrDebug.DbgEng
                 Marshal.FreeHGlobal(buffer);
             }
         }
+
+        #endregion
+        #region WriteControl (byte[])
 
         /// <summary>
         /// The WriteControl method writes implementation-specific system data.
@@ -892,6 +917,7 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        #endregion
         #region ReadIo<T>
 
         /// <summary>
@@ -989,7 +1015,7 @@ namespace ClrDebug.DbgEng
 
                 if (hr == HRESULT.S_OK)
                 {
-                    value = new byte[size];
+                    value = new byte[read];
                     Marshal.Copy(buffer, value, 0, read);
                 }
                 else
@@ -1004,6 +1030,7 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
+        #region WriteIo<T>
 
         /// <summary>
         /// The WriteIo method writes to the system and bus I/O memory.
@@ -1054,6 +1081,9 @@ namespace ClrDebug.DbgEng
                 Marshal.FreeHGlobal(buffer);
             }
         }
+
+        #endregion
+        #region WriteIo (byte[])
 
         /// <summary>
         /// The WriteIo method writes to the system and bus I/O memory.
@@ -1110,6 +1140,7 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        #endregion
         #region ReadBusData<T>
 
         /// <summary>
@@ -1207,7 +1238,7 @@ namespace ClrDebug.DbgEng
 
                 if (hr == HRESULT.S_OK)
                 {
-                    value = new byte[size];
+                    value = new byte[read];
                     Marshal.Copy(buffer, value, 0, read);
                 }
                 else
@@ -1222,6 +1253,7 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
+        #region WriteBusData<T>
 
         /// <summary>
         /// The WriteBusData method writes data to a system bus.
@@ -1272,6 +1304,9 @@ namespace ClrDebug.DbgEng
                 Marshal.FreeHGlobal(buffer);
             }
         }
+
+        #endregion
+        #region WriteBusData (byte[])
 
         /// <summary>
         /// The WriteBusData method writes data to a system bus.
@@ -1328,6 +1363,7 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        #endregion
         #region ReadDebuggerData<T>
 
         /// <summary>
@@ -1437,7 +1473,7 @@ namespace ClrDebug.DbgEng
 
                 if (hr == HRESULT.S_OK)
                 {
-                    value = new byte[size];
+                    value = new byte[read];
                     Marshal.Copy(buffer, value, 0, read);
                 }
                 else
@@ -1553,7 +1589,7 @@ namespace ClrDebug.DbgEng
 
                 if (hr == HRESULT.S_OK)
                 {
-                    value = new byte[size];
+                    value = new byte[read];
                     Marshal.Copy(buffer, value, 0, read);
                 }
                 else
@@ -1669,7 +1705,7 @@ namespace ClrDebug.DbgEng
 
                 if (hr == HRESULT.S_OK)
                 {
-                    value = new byte[size];
+                    value = new byte[read];
                     Marshal.Copy(buffer, value, 0, read);
                 }
                 else
@@ -1684,6 +1720,7 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
+        #region FillVirtual<T>
 
         /// <summary>
         /// The FillVirtual method writes a pattern of bytes to the target's virtual memory. The pattern is written repeatedly until the specified memory range is filled.
@@ -1730,6 +1767,9 @@ namespace ClrDebug.DbgEng
                 Marshal.FreeHGlobal(buffer);
             }
         }
+
+        #endregion
+        #region FillVirtual (byte[])
 
         /// <summary>
         /// The FillVirtual method writes a pattern of bytes to the target's virtual memory. The pattern is written repeatedly until the specified memory range is filled.
@@ -1782,6 +1822,9 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        #endregion
+        #region FillPhysical<T>
+
         /// <summary>
         /// The FillPhysical method writes a pattern of bytes to the target's physical memory. The pattern is written repeatedly until the specified memory range is filled.
         /// </summary>
@@ -1827,6 +1870,9 @@ namespace ClrDebug.DbgEng
                 Marshal.FreeHGlobal(buffer);
             }
         }
+
+        #endregion
+        #region FillPhysical (byte[])
 
         /// <summary>
         /// The FillPhysical method writes a pattern of bytes to the target's physical memory. The pattern is written repeatedly until the specified memory range is filled.
@@ -1879,6 +1925,7 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        #endregion
         #region ReadTagged<T>
 
         /// <summary>
@@ -1968,7 +2015,7 @@ namespace ClrDebug.DbgEng
 
                 if (hr == HRESULT.S_OK)
                 {
-                    value = new byte[size];
+                    value = new byte[read];
                     Marshal.Copy(buffer, value, 0, read);
                 }
                 else
@@ -1983,6 +2030,7 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
+        #region GetOffsetInformation<T>
 
         /// <summary>
         /// The GetOffsetInformation method provides general information about an address in a process's data space.
@@ -2039,6 +2087,9 @@ namespace ClrDebug.DbgEng
                 Marshal.FreeHGlobal(buffer);
             }
         }
+
+        #endregion
+        #region GetOffsetInformation (byte[])
 
         /// <summary>
         /// The GetOffsetInformation method provides general information about an address in a process's data space.
@@ -2101,6 +2152,9 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        #endregion
+        #region SearchVirtual2<T>
+
         /// <summary>
         /// The SearchVirtual2 method searches the process's virtual memory for a specified pattern of bytes.
         /// </summary>
@@ -2150,6 +2204,9 @@ namespace ClrDebug.DbgEng
                 Marshal.FreeHGlobal(buffer);
             }
         }
+
+        #endregion
+        #region SearchVirtual2 (byte[])
 
         /// <summary>
         /// The SearchVirtual2 method searches the process's virtual memory for a specified pattern of bytes.
@@ -2206,6 +2263,7 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        #endregion
         #region ReadPhysical2<T>
 
         /// <summary>
@@ -2299,7 +2357,7 @@ namespace ClrDebug.DbgEng
 
                 if (hr == HRESULT.S_OK)
                 {
-                    value = new byte[size];
+                    value = new byte[read];
                     Marshal.Copy(buffer, value, 0, read);
                 }
                 else
@@ -2314,6 +2372,7 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
+        #region WritePhysical2<T>
 
         /// <summary>
         /// The WritePhysical2 method writes data to the specified physical address in the target's memory.
@@ -2362,6 +2421,9 @@ namespace ClrDebug.DbgEng
                 Marshal.FreeHGlobal(buffer);
             }
         }
+
+        #endregion
+        #region WritePhysical2 (byte[])
 
         /// <summary>
         /// The WritePhysical2 method writes data to the specified physical address in the target's memory.
@@ -2415,5 +2477,7 @@ namespace ClrDebug.DbgEng
                     Marshal.FreeHGlobal(buffer);
             }
         }
+
+        #endregion
     }
 }

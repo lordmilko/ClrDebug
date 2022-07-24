@@ -456,7 +456,7 @@ namespace ClrDebug
         public bool IsSameObject(IXCLRDataTypeDefinition type)
         {
             HRESULT hr = TryIsSameObject(type);
-            hr.ThrowOnNotOK();
+            hr.ThrowOnFailed();
 
             return hr == HRESULT.S_OK;
         }

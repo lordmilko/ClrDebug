@@ -233,7 +233,7 @@ namespace ClrDebug
         public bool IsSameState(EXCEPTION_RECORD64 exRecord, int contextSize, IntPtr cxRecord)
         {
             HRESULT hr = TryIsSameState(exRecord, contextSize, cxRecord);
-            hr.ThrowOnNotOK();
+            hr.ThrowOnFailed();
 
             return hr == HRESULT.S_OK;
         }
@@ -253,7 +253,7 @@ namespace ClrDebug
         public bool IsSameState2(CLRDataExceptionSameFlag flags, EXCEPTION_RECORD64 exRecord, int contextSize, IntPtr cxRecord)
         {
             HRESULT hr = TryIsSameState2(flags, exRecord, contextSize, cxRecord);
-            hr.ThrowOnNotOK();
+            hr.ThrowOnFailed();
 
             return hr == HRESULT.S_OK;
         }

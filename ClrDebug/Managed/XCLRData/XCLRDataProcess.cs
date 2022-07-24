@@ -270,7 +270,7 @@ namespace ClrDebug
         public bool IsSameObject(IXCLRDataProcess process)
         {
             HRESULT hr = TryIsSameObject(process);
-            hr.ThrowOnNotOK();
+            hr.ThrowOnFailed();
 
             return hr == HRESULT.S_OK;
         }

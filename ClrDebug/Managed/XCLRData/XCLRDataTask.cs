@@ -304,7 +304,7 @@ namespace ClrDebug
         public bool IsSameObject(IXCLRDataTask task)
         {
             HRESULT hr = TryIsSameObject(task);
-            hr.ThrowOnNotOK();
+            hr.ThrowOnFailed();
 
             return hr == HRESULT.S_OK;
         }

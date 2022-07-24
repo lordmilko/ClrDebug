@@ -25,7 +25,7 @@
             get
             {
                 HRESULT hr = TryIsAsyncMethod();
-                hr.ThrowOnNotOK();
+                hr.ThrowOnFailed();
 
                 return hr == HRESULT.S_OK;
             }

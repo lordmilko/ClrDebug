@@ -75,6 +75,7 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
+        #region Request (Other)
 
         internal static HRESULT RequestHRESULT(this DebugAdvanced advanced, DEBUG_REQUEST request) =>
             advanced.TryRequest(request, IntPtr.Zero, 0, IntPtr.Zero, 0, out var outSize).ThrowDbgEngFailed();
@@ -100,6 +101,9 @@ namespace ClrDebug.DbgEng
             }
         }
 
+        #endregion
+        #region DebugAdvancedRequests
+
         public class DebugAdvancedRequests
         {
             private DebugAdvanced advanced;
@@ -108,6 +112,8 @@ namespace ClrDebug.DbgEng
             {
                 this.advanced = advanced;
             }
+
+            #region NotImplemented
 
             private void AddCachedSymbolInfo()
             {
@@ -129,6 +135,7 @@ namespace ClrDebug.DbgEng
                 throw new NotImplementedException();
             }
 
+            #endregion
             #region ExtTypedDataAnsi
 
             public void ExtTypedDataAnsi(IntPtr buffer, int bufferSize) =>
@@ -145,13 +152,17 @@ namespace ClrDebug.DbgEng
             public void GetAdditionalCreateOptions() =>
                 advanced.Request<DEBUG_CREATE_PROCESS_OPTIONS>(DEBUG_REQUEST.GET_ADDITIONAL_CREATE_OPTIONS);
 
+            #region NotImplemented
+
             private void GetCachedSymbolInfo()
             {
                 throw new NotImplementedException();
             }
 
+            #endregion
+
             public void GetCapturedEventCodeOffset() =>
-                advanced.Request<ulong>(DEBUG_REQUEST.GET_CAPTURED_EVENT_CODE_OFFSET);
+                advanced.Request<long>(DEBUG_REQUEST.GET_CAPTURED_EVENT_CODE_OFFSET);
 
             //Only works with kernel dumps; DbgEng sets the type to "2" for user mode dumps,
             //but Request() wants the type to be "1"
@@ -160,6 +171,8 @@ namespace ClrDebug.DbgEng
 
             public string GetExtensionSearchPathWide() =>
                 advanced.RequestString(DEBUG_REQUEST.GET_EXTENSION_SEARCH_PATH_WIDE, true);
+
+            #region NotImplemented
 
             private void GetOffsetUnwindInformation()
             {
@@ -176,9 +189,11 @@ namespace ClrDebug.DbgEng
                 throw new NotImplementedException();
             }
 
+            #endregion
+
             public Version GetWin32MajorMinorVersions()
             {
-                var value = advanced.Request<ulong>(DEBUG_REQUEST.GET_WIN32_MAJOR_MINOR_VERSIONS);
+                var value = advanced.Request<long>(DEBUG_REQUEST.GET_WIN32_MAJOR_MINOR_VERSIONS);
 
                 //While the major version was located first in memory, little endianness swaps
                 //their positions around, so high is minor and low is major
@@ -187,6 +202,8 @@ namespace ClrDebug.DbgEng
 
                 return new Version(low, high);
             }
+
+            #region NotImplemented
 
             private void LiveUserNonInvasive()
             {
@@ -246,8 +263,12 @@ namespace ClrDebug.DbgEng
                 throw new NotImplementedException();
             }
 
+            #endregion
+
             public void SetAdditionalCreateOptions(DEBUG_CREATE_PROCESS_OPTIONS options) =>
                 advanced.Request(DEBUG_REQUEST.SET_ADDITIONAL_CREATE_OPTIONS, options);
+
+            #region NotImplemented
 
             private void SetDumpHeader()
             {
@@ -258,6 +279,8 @@ namespace ClrDebug.DbgEng
             {
                 throw new NotImplementedException();
             }
+
+            #endregion
 
             //Check the source path for a source server.
             public bool SourcePathHasSourceServer() =>
@@ -276,6 +299,8 @@ namespace ClrDebug.DbgEng
             public void TargetExceptionThread() =>
                 advanced.Request<int>(DEBUG_REQUEST.TARGET_EXCEPTION_THREAD);
 
+            #region NotImplemented
+
             private void WowModule()
             {
                 throw new NotImplementedException();
@@ -285,7 +310,12 @@ namespace ClrDebug.DbgEng
             {
                 throw new NotImplementedException();
             }
+
+            #endregion
         }
+
+        #endregion
+        #region DebugAdvancedExtTypedDataAnsiRequests
 
         public class DebugAdvancedExtTypedDataAnsiRequests
         {
@@ -296,21 +326,53 @@ namespace ClrDebug.DbgEng
                 this.advanced = advanced;
             }
 
-            public DEBUG_TYPED_DATA Copy(DEBUG_TYPED_DATA typedData)
+            #region Copy
+
+            public DEBUG_TYPED_DATA Copy(DEBUG_TYPED_DATA original)
+            {
+                TryCopy(original, out var copy).ThrowDbgEngNotOK();
+                return copy;
+            }
+
+            public HRESULT TryCopy(DEBUG_TYPED_DATA original, out DEBUG_TYPED_DATA copy)
             {
                 var ioctl = new ExtIoctl
                 {
                     Operation = EXT_TDOP.EXT_TDOP_COPY,
-                    InputTypedData = typedData
+                    InputTypedData = original
                 };
 
-                ioctl.Execute();
+                var hr = ioctl.TryExecute();
 
-                return ioctl.OutputTypedData;
+                if (hr == HRESULT.S_OK)
+                    copy = ioctl.OutputTypedData;
+                else
+                    copy = default(DEBUG_TYPED_DATA);
+
+                return hr;
             }
+
+            #endregion
+            #region Evaluate
 
             //Similar to SET_FROM_EXPR except you can optionally specify an input typed data
             public DEBUG_TYPED_DATA Evaluate(string expr, DEBUG_TYPED_DATA typedData = default(DEBUG_TYPED_DATA), EXT_TDF flags = 0)
+            {
+                TryEvaluate(expr, typedData, flags, out var result).ThrowDbgEngNotOK();
+                return result;
+            }
+
+            public HRESULT TryEvaluate(string expr, out DEBUG_TYPED_DATA result) =>
+                TryEvaluate(expr, default(DEBUG_TYPED_DATA), 0, out result);
+
+            public HRESULT TryEvaluate(string expr, DEBUG_TYPED_DATA typedData, out DEBUG_TYPED_DATA result) =>
+                TryEvaluate(expr, typedData, 0, out result);
+
+            public HRESULT TryEvaluate(
+                string expr,
+                DEBUG_TYPED_DATA typedData,
+                EXT_TDF flags,
+                out DEBUG_TYPED_DATA result)
             {
                 if (expr == null)
                     throw new ArgumentNullException(nameof(expr));
@@ -324,41 +386,83 @@ namespace ClrDebug.DbgEng
                     Flags = flags
                 };
 
-                ioctl.Execute();
+                var hr = ioctl.TryExecute();
 
-                return ioctl.OutputTypedData;
+                if (hr == HRESULT.S_OK)
+                    result = ioctl.OutputTypedData;
+                else
+                    result = default(DEBUG_TYPED_DATA);
+
+                return hr;
             }
 
-            public DEBUG_TYPED_DATA GetArrayElement(DEBUG_TYPED_DATA typedData, int index)
+            #endregion
+            #region GetArrayElement
+
+            public DEBUG_TYPED_DATA GetArrayElement(DEBUG_TYPED_DATA input, int index)
+            {
+                TryGetArrayElement(input, index, out var result).ThrowDbgEngNotOK();
+                return result;
+            }
+
+            public HRESULT TryGetArrayElement(DEBUG_TYPED_DATA input, int index, out DEBUG_TYPED_DATA element)
             {
                 var ioctl = new ExtIoctl
                 {
                     Advanced = advanced,
                     Operation = EXT_TDOP.EXT_TDOP_GET_ARRAY_ELEMENT,
-                    InputTypedData = typedData,
-                    InputNumber64 = (ulong) index
+                    InputTypedData = input,
+                    InputNumber64 = (long)index
                 };
 
-                ioctl.Execute();
+                var hr = ioctl.TryExecute();
 
-                return ioctl.OutputTypedData;
+                if (hr == HRESULT.S_OK)
+                    element = ioctl.OutputTypedData;
+                else
+                    element = default(DEBUG_TYPED_DATA);
+
+                return hr;
             }
 
-            public DEBUG_TYPED_DATA GetDereference(DEBUG_TYPED_DATA typedData)
+            #endregion
+            #region GetDereference
+
+            public DEBUG_TYPED_DATA GetDereference(DEBUG_TYPED_DATA type)
+            {
+                TryGetDereference(type, out var output).ThrowDbgEngNotOK();
+                return output;
+            }
+
+            public HRESULT TryGetDereference(DEBUG_TYPED_DATA type, out DEBUG_TYPED_DATA result)
             {
                 var ioctl = new ExtIoctl
                 {
                     Advanced = advanced,
                     Operation = EXT_TDOP.EXT_TDOP_GET_DEREFERENCE,
-                    InputTypedData = typedData
+                    InputTypedData = type
                 };
 
-                ioctl.Execute();
+                var hr = ioctl.TryExecute();
 
-                return ioctl.OutputTypedData;
+                if (hr == HRESULT.S_OK)
+                    result = ioctl.OutputTypedData;
+                else
+                    result = default(DEBUG_TYPED_DATA);
+
+                return hr;
             }
 
-            public DEBUG_TYPED_DATA GetField(DEBUG_TYPED_DATA typedData, string name)
+            #endregion
+            #region GetField
+
+            public DEBUG_TYPED_DATA GetField(DEBUG_TYPED_DATA type, string name)
+            {
+                TryGetField(type, name, out var field).ThrowDbgEngNotOK();
+                return field;
+            }
+
+            public HRESULT TryGetField(DEBUG_TYPED_DATA type, string name, out DEBUG_TYPED_DATA field)
             {
                 if (name == null)
                     throw new ArgumentNullException(nameof(name));
@@ -368,15 +472,29 @@ namespace ClrDebug.DbgEng
                     Advanced = advanced,
                     Operation = EXT_TDOP.EXT_TDOP_GET_FIELD,
                     InputString = name,
-                    InputTypedData = typedData
+                    InputTypedData = type
                 };
 
-                ioctl.Execute();
+                var hr = ioctl.TryExecute();
 
-                return ioctl.OutputTypedData;
+                if (hr == HRESULT.S_OK)
+                    field = ioctl.OutputTypedData;
+                else
+                    field = default(DEBUG_TYPED_DATA);
+
+                return hr;
             }
 
-            public uint GetFieldOffset(DEBUG_TYPED_DATA typedData, string name)
+            #endregion
+            #region GetFieldOffset
+
+            public int GetFieldOffset(DEBUG_TYPED_DATA type, string name)
+            {
+                TryGetFieldOffset(type, name, out var offset).ThrowDbgEngNotOK();
+                return offset;
+            }
+
+            public HRESULT TryGetFieldOffset(DEBUG_TYPED_DATA type, string name, out int offset)
             {
                 if (name == null)
                     throw new ArgumentNullException(nameof(name));
@@ -385,59 +503,109 @@ namespace ClrDebug.DbgEng
                 {
                     Advanced = advanced,
                     Operation = EXT_TDOP.EXT_TDOP_GET_FIELD_OFFSET,
-                    InputTypedData = typedData,
+                    InputTypedData = type,
                     InputString = name
                 };
 
-                ioctl.Execute();
+                var hr = ioctl.TryExecute();
 
-                return ioctl.OutputNumber32;
+                if (hr == HRESULT.S_OK)
+                    offset = ioctl.OutputNumber32;
+                else
+                    offset = 0;
+
+                return hr;
             }
 
-            public DEBUG_TYPED_DATA GetPointerTo(DEBUG_TYPED_DATA typedData)
+            #endregion
+            #region GetPointerTo
+
+            public DEBUG_TYPED_DATA GetPointerTo(DEBUG_TYPED_DATA type)
+            {
+                TryGetPointerTo(type, out var ptr).ThrowDbgEngNotOK();
+                return ptr;
+            }
+
+            public HRESULT TryGetPointerTo(DEBUG_TYPED_DATA type, out DEBUG_TYPED_DATA ptr)
             {
                 var ioctl = new ExtIoctl
                 {
                     Advanced = advanced,
                     Operation = EXT_TDOP.EXT_TDOP_GET_POINTER_TO,
-                    InputTypedData = typedData
+                    InputTypedData = type
                 };
 
-                ioctl.Execute();
+                var hr = ioctl.TryExecute();
 
-                return ioctl.OutputTypedData;
+                if (hr == HRESULT.S_OK)
+                    ptr = ioctl.OutputTypedData;
+                else
+                    ptr = default(DEBUG_TYPED_DATA);
+
+                return hr;
             }
 
-            public string GetTypeName(DEBUG_TYPED_DATA typedData)
+            #endregion
+            #region GetTypeName
+
+            public string GetTypeName(DEBUG_TYPED_DATA type)
+            {
+                TryGetTypeName(type, out var name).ThrowDbgEngNotOK();
+                return name;
+            }
+
+            public HRESULT TryGetTypeName(DEBUG_TYPED_DATA type, out string name)
             {
                 var ioctl = new ExtIoctl
                 {
                     Advanced = advanced,
                     Operation = EXT_TDOP.EXT_TDOP_GET_TYPE_NAME,
                     OutputStringLength = 256, //The Visual C++ debugger has a maximum symbol length of 256
-                    InputTypedData = typedData
+                    InputTypedData = type
                 };
 
-                ioctl.Execute();
+                var hr = ioctl.TryExecute();
 
-                return ioctl.OutputString;
+                if (hr == HRESULT.S_OK)
+                    name = ioctl.OutputString;
+                else
+                    name = null;
+
+                return hr;
             }
 
-            public uint GetTypeSize(DEBUG_TYPED_DATA typedData)
+            #endregion
+            #region GetTypeSize
+
+            public int GetTypeSize(DEBUG_TYPED_DATA type)
+            {
+                TryGetTypeSize(type, out var size).ThrowDbgEngNotOK();
+                return size;
+            }
+
+            public HRESULT TryGetTypeSize(DEBUG_TYPED_DATA type, out int size)
             {
                 var ioctl = new ExtIoctl
                 {
                     Advanced = advanced,
                     Operation = EXT_TDOP.EXT_TDOP_GET_TYPE_SIZE,
-                    InputTypedData = typedData
+                    InputTypedData = type
                 };
 
-                ioctl.Execute();
+                var hr = ioctl.TryExecute();
 
-                return ioctl.OutputNumber32;
+                if (hr == HRESULT.S_OK)
+                    size = ioctl.OutputNumber32;
+                else
+                    size = 0;
+
+                return hr;
             }
 
-            public bool HasField(DEBUG_TYPED_DATA typedData, string name)
+            #endregion
+            #region HasField
+
+            public bool HasField(DEBUG_TYPED_DATA type, string name)
             {
                 if (name == null)
                     throw new ArgumentNullException(nameof(name));
@@ -447,7 +615,7 @@ namespace ClrDebug.DbgEng
                     Advanced = advanced,
                     Operation = EXT_TDOP.EXT_TDOP_HAS_FIELD,
                     InputString = name,
-                    InputTypedData = typedData
+                    InputTypedData = type
                 };
 
                 var hr = ioctl.TryExecute();
@@ -455,66 +623,121 @@ namespace ClrDebug.DbgEng
                 return hr == HRESULT.S_OK;
             }
 
-            public void OutputFullValue(DEBUG_TYPED_DATA typedData)
+            #endregion
+            #region OutputFullValue
+
+            public void OutputFullValue(DEBUG_TYPED_DATA type)
+            {
+                TryOutputFullValue(type).ThrowDbgEngNotOK();
+            }
+
+            public HRESULT TryOutputFullValue(DEBUG_TYPED_DATA type)
             {
                 var ioctl = new ExtIoctl
                 {
                     Advanced = advanced,
                     Operation = EXT_TDOP.EXT_TDOP_OUTPUT_FULL_VALUE,
-                    InputTypedData = typedData
+                    InputTypedData = type
                 };
 
-                ioctl.Execute();
+                return ioctl.TryExecute();
             }
 
-            public void OutputSimpleValue(DEBUG_TYPED_DATA typedData)
+            #endregion
+            #region OutputSimpleValue
+
+            public void OutputSimpleValue(DEBUG_TYPED_DATA type)
+            {
+                TryOutputSimpleValue(type).ThrowDbgEngNotOK();
+            }
+
+            public HRESULT TryOutputSimpleValue(DEBUG_TYPED_DATA type)
             {
                 var ioctl = new ExtIoctl
                 {
                     Advanced = advanced,
                     Operation = EXT_TDOP.EXT_TDOP_OUTPUT_SIMPLE_VALUE,
-                    InputTypedData = typedData
+                    InputTypedData = type
                 };
 
-                ioctl.Execute();
+                return ioctl.TryExecute();
             }
 
-            public void OutputTypeDefinition(DEBUG_TYPED_DATA typedData)
+            #endregion
+            #region OutputTypeDefinition
+
+            public void OutputTypeDefinition(DEBUG_TYPED_DATA type)
+            {
+                TryOutputTypeDefinition(type).ThrowDbgEngNotOK();
+            }
+
+            public HRESULT TryOutputTypeDefinition(DEBUG_TYPED_DATA type)
             {
                 var ioctl = new ExtIoctl
                 {
                     Advanced = advanced,
                     Operation = EXT_TDOP.EXT_TDOP_OUTPUT_TYPE_DEFINITION,
-                    InputTypedData = typedData
+                    InputTypedData = type
                 };
 
-                ioctl.Execute();
+                return ioctl.TryExecute();
             }
 
-            public void OutputTypeName(DEBUG_TYPED_DATA typedData)
+            #endregion
+            #region OutputTypeName
+
+            public void OutputTypeName(DEBUG_TYPED_DATA type)
+            {
+                TryOutputTypeName(type).ThrowDbgEngNotOK();
+            }
+
+            public HRESULT TryOutputTypeName(DEBUG_TYPED_DATA type)
             {
                 var ioctl = new ExtIoctl
                 {
                     Advanced = advanced,
                     Operation = EXT_TDOP.EXT_TDOP_OUTPUT_TYPE_NAME,
-                    InputTypedData = typedData
+                    InputTypedData = type
                 };
 
-                ioctl.Execute();
+                return ioctl.TryExecute();
             }
 
-            public void Release(DEBUG_TYPED_DATA typedData)
+            #endregion
+            #region Release
+
+            public void Release(DEBUG_TYPED_DATA type)
+            {
+                TryRelease(type).ThrowDbgEngNotOK();
+            }
+
+            public HRESULT TryRelease(DEBUG_TYPED_DATA type)
             {
                 var ioctl = new ExtIoctl
                 {
                     Operation = EXT_TDOP.EXT_TDOP_RELEASE,
-                    InputTypedData = typedData
+                    InputTypedData = type
                 };
 
-                ioctl.Execute();
+                return ioctl.TryExecute();
             }
 
+            #endregion
+            #region SetFromExpr
+
             public DEBUG_TYPED_DATA SetFromExpr(string expr, EXT_TDF flags = 0)
+            {
+                TrySetFromExpr(expr, flags, out var result).ThrowDbgEngNotOK();
+                return result;
+            }
+
+            public HRESULT TrySetFromExpr(string expr, out DEBUG_TYPED_DATA result) =>
+                TrySetFromExpr(expr, 0, out result);
+
+            public HRESULT TrySetFromExpr(
+                string expr,
+                EXT_TDF flags,
+                out DEBUG_TYPED_DATA result)
             {
                 if (expr == null)
                     throw new ArgumentNullException(nameof(expr));
@@ -527,14 +750,38 @@ namespace ClrDebug.DbgEng
                     Flags = flags
                 };
 
-                ioctl.Execute();
+                var hr = ioctl.TryExecute();
 
-                return ioctl.OutputTypedData;
+                if (hr == HRESULT.S_OK)
+                    result = ioctl.OutputTypedData;
+                else
+                    result = default(DEBUG_TYPED_DATA);
+
+                return hr;
             }
 
+            #endregion
             #region SetFromTypeIdAndU64
 
-            public DEBUG_TYPED_DATA SetFromTypeIdAndU64(ulong modBase, ulong offset, uint typeId, EXT_TDF flags = 0)
+            public DEBUG_TYPED_DATA SetFromTypeIdAndU64(long modBase, long offset, int typeId, EXT_TDF flags = 0)
+            {
+                TrySetFromTypeIdAndU64(modBase, offset, typeId, flags, out var result).ThrowDbgEngNotOK();
+                return result;
+            }
+
+            public HRESULT TrySetFromTypeIdAndU64(
+                long modBase,
+                long offset,
+                int typeId,
+                out DEBUG_TYPED_DATA result) =>
+                TrySetFromTypeIdAndU64(modBase, offset, typeId, 0, out result);
+
+            public HRESULT TrySetFromTypeIdAndU64(
+                long modBase,
+                long offset,
+                int typeId,
+                EXT_TDF flags,
+                out DEBUG_TYPED_DATA result)
             {
                 var typedData = new DEBUG_TYPED_DATA
                 {
@@ -543,10 +790,19 @@ namespace ClrDebug.DbgEng
                     TypeId = typeId
                 };
 
-                return SetFromTypeIdAndU64(typedData, flags);
+                return TrySetFromTypeIdAndU64(typedData, flags, out result);
             }
 
             public DEBUG_TYPED_DATA SetFromTypeIdAndU64(DEBUG_TYPED_DATA typedData, EXT_TDF flags = 0)
+            {
+                TrySetFromTypeIdAndU64(typedData, flags, out var result).ThrowDbgEngNotOK();
+                return result;
+            }
+
+            public HRESULT TrySetFromTypeIdAndU64(DEBUG_TYPED_DATA typedData, out DEBUG_TYPED_DATA result) =>
+                TrySetFromTypeIdAndU64(typedData, 0, out result);
+
+            public HRESULT TrySetFromTypeIdAndU64(DEBUG_TYPED_DATA typedData, EXT_TDF flags, out DEBUG_TYPED_DATA result)
             {
                 var ioctl = new ExtIoctl
                 {
@@ -556,19 +812,58 @@ namespace ClrDebug.DbgEng
                     Flags = flags
                 };
 
-                ioctl.Execute();
+                var hr = ioctl.TryExecute();
 
-                return ioctl.OutputTypedData;
+                if (hr == HRESULT.S_OK)
+                    result = ioctl.OutputTypedData;
+                else
+                    result = default(DEBUG_TYPED_DATA);
+
+                return hr;
             }
 
             #endregion
             #region SetFromU64Expr
 
+            public DEBUG_TYPED_DATA SetFromU64Expr(
+                string expr,
+                DEBUG_TYPED_DATA typedData = default(DEBUG_TYPED_DATA),
+                long offset = 0,
+                EXT_TDF flags = 0)
+            {
+                TrySetFromU64Expr(expr, typedData, offset, flags, out var result).ThrowDbgEngNotOK();
+                return result;
+            }
+
+            public HRESULT TrySetFromU64Expr(string expr, out DEBUG_TYPED_DATA result) =>
+                TrySetFromU64Expr(expr, default(DEBUG_TYPED_DATA), 0, out result);
+
+            public HRESULT TrySetFromU64Expr(
+                string expr,
+                DEBUG_TYPED_DATA typedData,
+                out DEBUG_TYPED_DATA result) =>
+                TrySetFromU64Expr(expr, typedData, 0, 0, out result);
+
+            public HRESULT TrySetFromU64Expr(
+                string expr,
+                DEBUG_TYPED_DATA typedData,
+                long offset,
+                out DEBUG_TYPED_DATA result) =>
+                TrySetFromU64Expr(expr, typedData, offset, 0, out result);
+
             //This uses the address from DEBUG_TYPED_DATA, while Evaluate uses the "value" apprently
-            public DEBUG_TYPED_DATA SetFromU64Expr(string expr, DEBUG_TYPED_DATA typedData = default(DEBUG_TYPED_DATA), EXT_TDF flags = 0)
+            public HRESULT TrySetFromU64Expr(
+                string expr,
+                DEBUG_TYPED_DATA typedData,
+                long offset,
+                EXT_TDF flags,
+                out DEBUG_TYPED_DATA result
+                )
             {
                 if (expr == null)
                     throw new ArgumentNullException(nameof(expr));
+
+                typedData.Offset = offset;
 
                 var ioctl = new ExtIoctl
                 {
@@ -579,15 +874,38 @@ namespace ClrDebug.DbgEng
                     Flags = flags
                 };
 
-                ioctl.Execute();
+                var hr = ioctl.TryExecute();
 
-                return ioctl.OutputTypedData;
+                if (hr == HRESULT.S_OK)
+                    result = ioctl.OutputTypedData;
+                else
+                    result = default(DEBUG_TYPED_DATA);
+
+                return hr;
             }
 
             #endregion
             #region SetPtrFromTypeIdAndU64
 
-            public DEBUG_TYPED_DATA SetPtrFromTypeIdAndU64(ulong modBase, ulong offset, uint typeId, EXT_TDF flags = 0)
+            public DEBUG_TYPED_DATA SetPtrFromTypeIdAndU64(long modBase, long offset, int typeId, EXT_TDF flags = 0)
+            {
+                TrySetPtrFromTypeIdAndU64(modBase, offset, typeId, flags, out var result).ThrowDbgEngNotOK();
+                return result;
+            }
+
+            public HRESULT TrySetPtrFromTypeIdAndU64(
+                long modBase,
+                long offset,
+                int typeId,
+                out DEBUG_TYPED_DATA result) =>
+                TrySetPtrFromTypeIdAndU64(modBase, offset, typeId, 0, out result);
+
+            public HRESULT TrySetPtrFromTypeIdAndU64(
+                long modBase,
+                long offset,
+                int typeId,
+                EXT_TDF flags,
+                out DEBUG_TYPED_DATA result)
             {
                 var typedData = new DEBUG_TYPED_DATA
                 {
@@ -596,10 +914,24 @@ namespace ClrDebug.DbgEng
                     TypeId = typeId
                 };
 
-                return SetPtrFromTypeIdAndU64(typedData, flags);
+                return TrySetPtrFromTypeIdAndU64(typedData, flags, out result);
             }
 
             public DEBUG_TYPED_DATA SetPtrFromTypeIdAndU64(DEBUG_TYPED_DATA typedData, EXT_TDF flags = 0)
+            {
+                TrySetPtrFromTypeIdAndU64(typedData, flags, out var result).ThrowDbgEngNotOK();
+                return result;
+            }
+
+            public HRESULT TrySetPtrFromTypeIdAndU64(
+                DEBUG_TYPED_DATA typedData,
+                out DEBUG_TYPED_DATA result) =>
+                TrySetPtrFromTypeIdAndU64(typedData, 0, out result);
+
+            public HRESULT TrySetPtrFromTypeIdAndU64(
+                DEBUG_TYPED_DATA typedData,
+                EXT_TDF flags,
+                out DEBUG_TYPED_DATA result)
             {
                 var ioctl = new ExtIoctl
                 {
@@ -609,12 +941,19 @@ namespace ClrDebug.DbgEng
                     Flags = flags,
                 };
 
-                ioctl.Execute();
+                var hr = ioctl.TryExecute();
 
-                return ioctl.OutputTypedData;
+                if (hr == HRESULT.S_OK)
+                    result = ioctl.OutputTypedData;
+                else
+                    result = default(DEBUG_TYPED_DATA);
+
+                return hr;
             }
 
             #endregion
         }
+
+        #endregion
     }
 }

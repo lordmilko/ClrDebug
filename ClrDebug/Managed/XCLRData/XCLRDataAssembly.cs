@@ -227,7 +227,7 @@ namespace ClrDebug
         public bool IsSameObject(IXCLRDataAssembly assembly)
         {
             HRESULT hr = TryIsSameObject(assembly);
-            hr.ThrowOnNotOK();
+            hr.ThrowOnFailed();
 
             return hr == HRESULT.S_OK;
         }

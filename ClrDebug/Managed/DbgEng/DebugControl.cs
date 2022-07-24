@@ -693,7 +693,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 HRESULT hr = TryIsPointer64Bit();
-                hr.ThrowDbgEngNotOK();
+                hr.ThrowDbgEngFailed();
 
                 return hr == HRESULT.S_OK;
             }

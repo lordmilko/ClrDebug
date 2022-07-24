@@ -730,7 +730,7 @@ namespace ClrDebug
         public bool IsSameObject(IXCLRDataModule mod)
         {
             HRESULT hr = TryIsSameObject(mod);
-            hr.ThrowOnNotOK();
+            hr.ThrowOnFailed();
 
             return hr == HRESULT.S_OK;
         }

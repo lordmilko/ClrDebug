@@ -37,6 +37,8 @@ namespace ClrDebug.DbgEng
 
         public const int DMP_HEADER_COMMENT_SIZE = 128;
 
+        public const int DEBUG_ANY_ID = -1;
+
         public static void ThrowDbgEngNotOK(this HRESULT hr)
         {
             if (hr == HRESULT.S_FALSE)
@@ -47,7 +49,7 @@ namespace ClrDebug.DbgEng
 
         public static HRESULT ThrowDbgEngFailed(this HRESULT hr)
         {
-            if (hr == HRESULT.S_OK)
+            if (hr == HRESULT.S_OK || hr == HRESULT.S_FALSE)
                 return hr;
 
             if (hr == HRESULT.E_FAIL)

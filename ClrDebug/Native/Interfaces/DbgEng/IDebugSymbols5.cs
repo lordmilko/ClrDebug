@@ -1733,11 +1733,11 @@ namespace ClrDebug.DbgEng
             [Out] out int NameSize);
 
         /// <summary>
-        /// Checks whether the engine is using manageddebugging support when it retrieves informationfor a module.
+        /// Checks whether the engine is using manageddebugging support when it retrieves information for a module.
         /// </summary>
         /// <param name="Index">[in] The index of a module.</param>
         /// <param name="Base">[in] The base of the module.</param>
-        /// <returns>IDebugSymbols3::IsManagedModule returns a value of S_OK if the engine is using manageddebugging support when it retrieves informationfor a module.</returns>
+        /// <returns>IDebugSymbols3::IsManagedModule returns a value of S_OK if the engine is using manageddebugging support when it retrieves information for a module.</returns>
         /// <remarks>
         /// It can be expensive to run this check.
         /// </remarks>

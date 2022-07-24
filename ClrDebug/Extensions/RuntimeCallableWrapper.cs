@@ -109,7 +109,7 @@ namespace ClrDebug
             return Marshal.GetIUnknownForObject(value);
         }
 
-        protected internal static void InitDelegate<T>(ref T @delegate, IntPtr vtablePtr)
+        protected void InitDelegate<T>(ref T @delegate, IntPtr vtablePtr)
         {
             //If we've already initialized this delegate, no need to do it again
             if (@delegate != null)

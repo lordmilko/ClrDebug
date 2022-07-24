@@ -349,7 +349,10 @@ namespace ClrDebug
         {
             /*HRESULT SetAssemblyRefProps(
             [In] mdAssemblyRef ar,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] IntPtr pbPublicKeyOrToken, [In] int cbPublicKeyOrToken, [In, MarshalAs(UnmanagedType.LPWStr)] string szName, [In] IntPtr pMetaData,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] IntPtr pbPublicKeyOrToken,
+            [In] int cbPublicKeyOrToken,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
+            [In] IntPtr pMetaData,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] IntPtr pbHashValue,
             [In] int cbHashValue,
             [In] AssemblyRefFlags dwAssemblyRefFlags);*/

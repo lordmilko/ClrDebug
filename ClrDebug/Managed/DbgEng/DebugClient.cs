@@ -1768,7 +1768,7 @@ namespace ClrDebug.DbgEng
             get
             {
                 HRESULT hr = TryIsKernelDebuggerEnabled();
-                hr.ThrowDbgEngNotOK();
+                hr.ThrowDbgEngFailed();
 
                 return hr == HRESULT.S_OK;
             }

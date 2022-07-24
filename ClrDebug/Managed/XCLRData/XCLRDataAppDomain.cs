@@ -164,7 +164,7 @@ namespace ClrDebug
         public bool IsSameObject(IXCLRDataAppDomain appDomain)
         {
             HRESULT hr = TryIsSameObject(appDomain);
-            hr.ThrowOnNotOK();
+            hr.ThrowOnFailed();
 
             return hr == HRESULT.S_OK;
         }
