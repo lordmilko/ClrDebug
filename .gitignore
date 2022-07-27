@@ -3,6 +3,8 @@ Samples/*
 
 # Samples to include
 !Samples/DacTypeDump/
+!Samples/DbgEngConsole/
+!Samples/DbgEngTypedData/
 !Samples/NativeSymbols/
 !Samples/PEReader/
 !Samples/SymbolStore/

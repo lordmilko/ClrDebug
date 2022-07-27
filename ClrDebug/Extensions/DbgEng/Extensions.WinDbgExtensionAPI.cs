@@ -71,6 +71,17 @@ namespace ClrDebug.DbgEng
 
             #endregion
             #region DumpSymbolInfo
+            #region GetFieldOffset
+
+            public int GetFieldOffset(string type, string field)
+            {
+                var result = TryGetFieldOffset(type, field, out var offset);
+
+                if (result != 0)
+                    throw new InvalidOperationException($"Failed to symbol info of field '{type}.{field}': {result}");
+
+                return offset;
+            }
 
             public unsafe IoctlDumpError TryGetFieldOffset(string type, string field, out int offset)
             {
@@ -85,6 +96,7 @@ namespace ClrDebug.DbgEng
                     );
 
                     var result = TryDumpSymbolInfo(
+                        out _,
                         name: type,
                         options: DBG_DUMP.NO_PRINT,
                         nFields: 1,
@@ -107,12 +119,69 @@ namespace ClrDebug.DbgEng
                 }
             }
 
+            #endregion
+
+            public DumpSymbolInfoResult DumpSymbolInfo(
+                string name = null,
+                DBG_DUMP options = 0,
+                long addr = 0,
+                IntPtr listLink = default(IntPtr),
+                IntPtr bufferOrContext = default(IntPtr),
+                int bufferSize = 0,
+                PSYM_DUMP_FIELD_CALLBACK callbackRoutine = null,
+                int nFields = 0,
+                IntPtr fields = default(IntPtr))
+            {
+                var error = TryDumpSymbolInfo(
+                    out var result,
+                    name,
+                    options,
+                    addr,
+                    listLink,
+                    bufferOrContext,
+                    bufferSize,
+                    callbackRoutine,
+                    nFields,
+                    fields);
+
+                if (error != 0)
+                    throw new InvalidOperationException($"Failed to dump symbol info: {error}");
+
+                return result;
+            }
+
             public unsafe IoctlDumpError TryDumpSymbolInfo(
                 string name = null,
                 DBG_DUMP options = 0,
                 long addr = 0,
                 IntPtr listLink = default(IntPtr),
                 IntPtr bufferOrContext = default(IntPtr),
+                int bufferSize = 0,
+                PSYM_DUMP_FIELD_CALLBACK callbackRoutine = null,
+                int nFields = 0,
+                IntPtr fields = default(IntPtr))
+            {
+                return TryDumpSymbolInfo(
+                    out var result,
+                    name,
+                    options,
+                    addr,
+                    listLink,
+                    bufferOrContext,
+                    bufferSize,
+                    callbackRoutine,
+                    nFields,
+                    fields);
+            }
+
+            public unsafe IoctlDumpError TryDumpSymbolInfo(
+                out DumpSymbolInfoResult result,
+                string name = null,
+                DBG_DUMP options = 0,
+                long addr = 0,
+                IntPtr listLink = default(IntPtr),
+                IntPtr bufferOrContext = default(IntPtr),
+                int bufferSize = 0,
                 PSYM_DUMP_FIELD_CALLBACK callbackRoutine = null,
                 int nFields = 0,
                 IntPtr fields = default(IntPtr))
@@ -132,6 +201,7 @@ namespace ClrDebug.DbgEng
                     symDumpParam->addr = addr;
                     symDumpParam->listLink = listLink;
                     symDumpParam->BufferOrContext = bufferOrContext;
+                    symDumpParam->BufferSize = bufferSize;
                     symDumpParam->nFields = nFields;
                     symDumpParam->Fields = fields;
 
@@ -144,7 +214,21 @@ namespace ClrDebug.DbgEng
                         symDumpParam->sName = namePtr;
                     }
 
-                    return (IoctlDumpError) api.Ioctl(IG.DUMP_SYMBOL_INFO, symDumpParamBuffer, symDumpParamSize);
+                    var error = (IoctlDumpError) api.Ioctl(IG.DUMP_SYMBOL_INFO, symDumpParamBuffer, symDumpParamSize);
+
+                    if (error == 0)
+                    {
+                        result = new DumpSymbolInfoResult(
+                            symDumpParam->ModBase,
+                            symDumpParam->TypeId,
+                            symDumpParam->TypeSize,
+                            symDumpParam->Flags
+                        );
+                    }
+                    else
+                        result = default(DumpSymbolInfoResult);
+
+                    return error;
                 }
                 finally
                 {

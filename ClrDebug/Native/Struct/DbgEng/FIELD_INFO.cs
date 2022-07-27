@@ -5,7 +5,6 @@ using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
-    [DebuggerDisplay("{fName,nq}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct FIELD_INFO
     {
@@ -25,6 +24,13 @@ namespace ClrDebug.DbgEng
         public int BitField;
 
         public BitVector32 Flags;
+
+        public bool IsPointer => (Flags.Data & 0x0001) != 0;
+        public bool IsPointer64 => (Flags.Data & 0x0002) != 0;
+        public bool IsArray => (Flags.Data & 0x0004) != 0;
+        public bool IsStruct => (Flags.Data & 0x0008) != 0;
+        public bool IsConstant => (Flags.Data & 0x0010) != 0;
+        public bool IsStatic => (Flags.Data & 0x0020) != 0;
       /*public uint Flags;
         public uint fPointer:2;  // OUT set to 1 for pointers, 3 for 64bit pointers
         public uint fArray:1;    // OUT set to 1 for array types

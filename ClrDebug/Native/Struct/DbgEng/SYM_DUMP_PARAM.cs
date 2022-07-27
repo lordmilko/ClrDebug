@@ -4,7 +4,8 @@ using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
-    public delegate int PSYM_DUMP_FIELD_CALLBACK(FIELD_INFO pField, IntPtr UserContext);
+    //This callback stops when a non-zero value is returned. 
+    public delegate int PSYM_DUMP_FIELD_CALLBACK(IntPtr pField, IntPtr UserContext);
 
     [StructLayout(LayoutKind.Sequential)]
     internal unsafe struct SYM_DUMP_PARAM
@@ -15,6 +16,8 @@ namespace ClrDebug.DbgEng
 
         public IntPtr sName;           // type name
         public DBG_DUMP Options;       // Dump options
+
+        //If addr is specified, SymFromAddr will be performed
         public long addr;             // Address to take data for type
         public IntPtr listLink;        // fName here would be used to do list dump   // PFIELD_INFO
 

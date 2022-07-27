@@ -39,11 +39,11 @@
         VectorType,          // 34
         MatrixType,          // 35
         HLSLType,            // 36
-        SymTagCaller,        // 37
-        SymTagCallee,        // 38
-        SymTagExport,        // 39
-        SymTagHeapAllocationSite, // 40
-        SymTagCoffGroup,     // 41
+        Caller,              // 37
+        Callee,              // 38
+        Export,              // 39
+        HeapAllocationSite,  // 40
+        CoffGroup,           // 41
         SymTagMax
     }
 }

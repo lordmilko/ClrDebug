@@ -2,6 +2,8 @@
 {
     public enum NTSTATUS : uint
     {
+        STATUS_SUCCESS = 0,
+
         STATUS_INFO_LENGTH_MISMATCH = 0xC0000004,
 
         /// <summary>
