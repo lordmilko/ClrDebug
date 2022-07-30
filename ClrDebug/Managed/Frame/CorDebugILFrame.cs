@@ -26,51 +26,20 @@ namespace ClrDebug
 
         public new ICorDebugILFrame Raw => (ICorDebugILFrame) base.Raw;
 
-        #region StackDepth
-
-        /// <summary>
-        /// This method has not been implemented.
-        /// </summary>
-        public int StackDepth
-        {
-            get
-            {
-                int pDepth;
-                TryGetStackDepth(out pDepth).ThrowOnNotOK();
-
-                return pDepth;
-            }
-        }
-
-        /// <summary>
-        /// This method has not been implemented.
-        /// </summary>
-        public HRESULT TryGetStackDepth(out int pDepth)
-        {
-            /*HRESULT GetStackDepth([Out] out int pDepth);*/
-            return Raw.GetStackDepth(out pDepth);
-        }
-
-        #endregion
-        #region GetIP
+        #region IP
 
         /// <summary>
         /// Gets the value of the instruction pointer and a bitwise combination value that describes how the value of the instruction pointer was obtained.
         /// </summary>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        /// <remarks>
-        /// The value of the instruction pointer is the stack frame's offset into the function's Microsoft intermediate language
-        /// (MSIL) code. If the stack frame is active, this address is the next instruction to execute. If the stack frame
-        /// is not active, this address is the next instruction to execute when the stack frame is reactivated. If this frame
-        /// is a just-in-time (JIT) compiled frame, the value of the instruction pointer will be determined by mapping backwards
-        /// from the actual native instruction pointer, so the value may be only approximate.
-        /// </remarks>
-        public GetIPResult GetIP()
+        public GetIPResult IP
         {
-            GetIPResult result;
-            TryGetIP(out result).ThrowOnNotOK();
+            get
+            {
+                GetIPResult result;
+                TryGetIP(out result).ThrowOnNotOK();
 
-            return result;
+                return result;
+            }
         }
 
         /// <summary>
@@ -97,6 +66,32 @@ namespace ClrDebug
                 result = default(GetIPResult);
 
             return hr;
+        }
+
+        #endregion
+        #region StackDepth
+
+        /// <summary>
+        /// This method has not been implemented.
+        /// </summary>
+        public int StackDepth
+        {
+            get
+            {
+                int pDepth;
+                TryGetStackDepth(out pDepth).ThrowOnNotOK();
+
+                return pDepth;
+            }
+        }
+
+        /// <summary>
+        /// This method has not been implemented.
+        /// </summary>
+        public HRESULT TryGetStackDepth(out int pDepth)
+        {
+            /*HRESULT GetStackDepth([Out] out int pDepth);*/
+            return Raw.GetStackDepth(out pDepth);
         }
 
         #endregion

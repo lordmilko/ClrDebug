@@ -2902,7 +2902,7 @@ namespace ClrDebug
             [Out] out mdMethodDef pmd,
             [Out] out int pulSequence,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName,
-            [Out] out int cchName,
+            [In] int cchName,
             [Out] out int pchName,
             [Out] out CorParamAttr pdwAttr,
             [Out] out CorElementType pdwCPlusTypeFlag,
@@ -2910,19 +2910,31 @@ namespace ClrDebug
             [Out] out IntPtr pcchValue);*/
             mdMethodDef pmd;
             int pulSequence;
-            StringBuilder szName = null;
-            int cchName;
+            StringBuilder szName;
+            int cchName = 0;
             int pchName;
             CorParamAttr pdwAttr;
             CorElementType pdwCPlusTypeFlag;
             IntPtr ppValue;
             IntPtr pcchValue;
-            HRESULT hr = Raw.GetParamProps(tk, out pmd, out pulSequence, szName, out cchName, out pchName, out pdwAttr, out pdwCPlusTypeFlag, out ppValue, out pcchValue);
+            HRESULT hr = Raw.GetParamProps(tk, out pmd, out pulSequence, null, cchName, out pchName, out pdwAttr, out pdwCPlusTypeFlag, out ppValue, out pcchValue);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cchName = pchName;
+            szName = new StringBuilder(cchName);
+            hr = Raw.GetParamProps(tk, out pmd, out pulSequence, szName, cchName, out pchName, out pdwAttr, out pdwCPlusTypeFlag, out ppValue, out pcchValue);
 
             if (hr == HRESULT.S_OK)
-                result = new GetParamPropsResult(pmd, pulSequence, szName.ToString(), cchName, pchName, pdwAttr, pdwCPlusTypeFlag, ppValue, pcchValue);
-            else
-                result = default(GetParamPropsResult);
+            {
+                result = new GetParamPropsResult(pmd, pulSequence, szName.ToString(), pdwAttr, pdwCPlusTypeFlag, ppValue, pcchValue);
+
+                return hr;
+            }
+
+            fail:
+            result = default(GetParamPropsResult);
 
             return hr;
         }

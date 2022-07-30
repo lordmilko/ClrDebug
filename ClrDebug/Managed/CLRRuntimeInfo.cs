@@ -177,6 +177,70 @@ namespace ClrDebug
         }
 
         #endregion
+        #region DefaultStartupFlags
+
+        /// <summary>
+        /// Gets the startup flags and host configuration file that will be used to start the runtime.
+        /// </summary>
+        public GetDefaultStartupFlagsResult DefaultStartupFlags
+        {
+            get
+            {
+                GetDefaultStartupFlagsResult result;
+                TryGetDefaultStartupFlags(out result).ThrowOnNotOK();
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Gets the startup flags and host configuration file that will be used to start the runtime.
+        /// </summary>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>
+        /// This method returns the following specific HRESULT as well as HRESULT errors that indicate method failure.
+        /// 
+        /// | HRESULT | Description                        |
+        /// | ------- | ---------------------------------- |
+        /// | S_OK    | The method completed successfully. |
+        /// </returns>
+        /// <remarks>
+        /// This method returns the default flag values (STARTUP_CONCURRENT_GC and NULL), or the values provided by a previous
+        /// call to the <see cref="SetDefaultStartupFlags"/>, or the values set by any of the CorBind* methods if they are
+        /// bound to this runtime.
+        /// </remarks>
+        public HRESULT TryGetDefaultStartupFlags(out GetDefaultStartupFlagsResult result)
+        {
+            /*HRESULT GetDefaultStartupFlags(
+            [Out] out int pdwStartupFlags,
+            [MarshalAs(UnmanagedType.LPWStr), Out]
+            StringBuilder pwzHostConfigFile,
+            [In, Out] ref int pcchHostConfigFile);*/
+            int pdwStartupFlags;
+            StringBuilder pwzHostConfigFile;
+            int pcchHostConfigFile = default(int);
+            HRESULT hr = Raw.GetDefaultStartupFlags(out pdwStartupFlags, null, ref pcchHostConfigFile);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            pwzHostConfigFile = new StringBuilder(pcchHostConfigFile);
+            hr = Raw.GetDefaultStartupFlags(out pdwStartupFlags, pwzHostConfigFile, ref pcchHostConfigFile);
+
+            if (hr == HRESULT.S_OK)
+            {
+                result = new GetDefaultStartupFlagsResult(pdwStartupFlags, pwzHostConfigFile.ToString());
+
+                return hr;
+            }
+
+            fail:
+            result = default(GetDefaultStartupFlagsResult);
+
+            return hr;
+        }
+
+        #endregion
         #region IsStarted
 
         /// <summary>
@@ -522,73 +586,6 @@ namespace ClrDebug
             /*HRESULT SetDefaultStartupFlags([In] int dwStartupFlags,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzHostConfigFile);*/
             return Raw.SetDefaultStartupFlags(dwStartupFlags, pwzHostConfigFile);
-        }
-
-        #endregion
-        #region GetDefaultStartupFlags
-
-        /// <summary>
-        /// Gets the startup flags and host configuration file that will be used to start the runtime.
-        /// </summary>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        /// <remarks>
-        /// This method returns the default flag values (STARTUP_CONCURRENT_GC and NULL), or the values provided by a previous
-        /// call to the <see cref="SetDefaultStartupFlags"/>, or the values set by any of the CorBind* methods if they are
-        /// bound to this runtime.
-        /// </remarks>
-        public GetDefaultStartupFlagsResult GetDefaultStartupFlags()
-        {
-            GetDefaultStartupFlagsResult result;
-            TryGetDefaultStartupFlags(out result).ThrowOnNotOK();
-
-            return result;
-        }
-
-        /// <summary>
-        /// Gets the startup flags and host configuration file that will be used to start the runtime.
-        /// </summary>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        /// <returns>
-        /// This method returns the following specific HRESULT as well as HRESULT errors that indicate method failure.
-        /// 
-        /// | HRESULT | Description                        |
-        /// | ------- | ---------------------------------- |
-        /// | S_OK    | The method completed successfully. |
-        /// </returns>
-        /// <remarks>
-        /// This method returns the default flag values (STARTUP_CONCURRENT_GC and NULL), or the values provided by a previous
-        /// call to the <see cref="SetDefaultStartupFlags"/>, or the values set by any of the CorBind* methods if they are
-        /// bound to this runtime.
-        /// </remarks>
-        public HRESULT TryGetDefaultStartupFlags(out GetDefaultStartupFlagsResult result)
-        {
-            /*HRESULT GetDefaultStartupFlags(
-            [Out] out int pdwStartupFlags,
-            [MarshalAs(UnmanagedType.LPWStr), Out]
-            StringBuilder pwzHostConfigFile,
-            [In, Out] ref int pcchHostConfigFile);*/
-            int pdwStartupFlags;
-            StringBuilder pwzHostConfigFile;
-            int pcchHostConfigFile = default(int);
-            HRESULT hr = Raw.GetDefaultStartupFlags(out pdwStartupFlags, null, ref pcchHostConfigFile);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            pwzHostConfigFile = new StringBuilder(pcchHostConfigFile);
-            hr = Raw.GetDefaultStartupFlags(out pdwStartupFlags, pwzHostConfigFile, ref pcchHostConfigFile);
-
-            if (hr == HRESULT.S_OK)
-            {
-                result = new GetDefaultStartupFlagsResult(pdwStartupFlags, pwzHostConfigFile.ToString());
-
-                return hr;
-            }
-
-            fail:
-            result = default(GetDefaultStartupFlagsResult);
-
-            return hr;
         }
 
         #endregion

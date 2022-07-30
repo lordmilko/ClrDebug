@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace ClrDebug
@@ -311,15 +312,16 @@ namespace ClrDebug
         /// </summary>
         /// <param name="startOffset">[in] The offset of the beginning of the function.</param>
         /// <param name="endOffset">[in] The offset of the end of the function.</param>
+        /// <param name="cBufferAlloc">[in] The size of the buffer array into which the code will be returned.</param>
         /// <returns>[out] The array into which the code will be returned.</returns>
         /// <remarks>
         /// If the function's code has been divided into multiple chunks, they are concatenated in order of increasing native
         /// offset. Instruction boundaries are not checked.
         /// </remarks>
-        public byte[] GetCode(int startOffset, int endOffset)
+        public byte[] GetCode(int startOffset, int endOffset, int cBufferAlloc)
         {
             byte[] buffer;
-            TryGetCode(startOffset, endOffset, out buffer).ThrowOnNotOK();
+            TryGetCode(startOffset, endOffset, cBufferAlloc, out buffer).ThrowOnNotOK();
 
             return buffer;
         }
@@ -330,12 +332,13 @@ namespace ClrDebug
         /// </summary>
         /// <param name="startOffset">[in] The offset of the beginning of the function.</param>
         /// <param name="endOffset">[in] The offset of the end of the function.</param>
+        /// <param name="cBufferAlloc">[in] The size of the buffer array into which the code will be returned.</param>
         /// <param name="buffer">[out] The array into which the code will be returned.</param>
         /// <remarks>
         /// If the function's code has been divided into multiple chunks, they are concatenated in order of increasing native
         /// offset. Instruction boundaries are not checked.
         /// </remarks>
-        public HRESULT TryGetCode(int startOffset, int endOffset, out byte[] buffer)
+        public HRESULT TryGetCode(int startOffset, int endOffset, int cBufferAlloc, out byte[] buffer)
         {
             /*HRESULT GetCode(
             [In] int startOffset,
@@ -343,18 +346,13 @@ namespace ClrDebug
             [In] int cBufferAlloc,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2), Out] byte[] buffer,
             [Out] out int pcBufferSize);*/
-            int cBufferAlloc = 0;
-            buffer = null;
-            int pcBufferSize;
-            HRESULT hr = Raw.GetCode(startOffset, endOffset, cBufferAlloc, null, out pcBufferSize);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            cBufferAlloc = pcBufferSize;
             buffer = new byte[cBufferAlloc];
-            hr = Raw.GetCode(startOffset, endOffset, cBufferAlloc, buffer, out pcBufferSize);
-            fail:
+            int pcBufferSize;
+            HRESULT hr = Raw.GetCode(startOffset, endOffset, cBufferAlloc, buffer, out pcBufferSize);
+
+            if (cBufferAlloc != pcBufferSize)
+                Array.Resize(ref buffer, pcBufferSize);
+
             return hr;
         }
 

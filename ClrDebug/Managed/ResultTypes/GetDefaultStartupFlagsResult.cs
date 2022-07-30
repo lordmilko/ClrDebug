@@ -3,7 +3,7 @@
 namespace ClrDebug
 {
     /// <summary>
-    /// Encapsulates the results of the <see cref="CLRRuntimeInfo.GetDefaultStartupFlags"/> method.
+    /// Encapsulates the results of the <see cref="CLRRuntimeInfo.DefaultStartupFlags"/> property.
     /// </summary>
     [DebuggerDisplay("pdwStartupFlags = {pdwStartupFlags}, pwzHostConfigFile = {pwzHostConfigFile}")]
     public struct GetDefaultStartupFlagsResult

@@ -254,8 +254,8 @@ namespace ClrDebug
         protected virtual HRESULT HandleEvent<T>(EventHandler<T> handler, CorDebugManagedCallbackEventArgs args)
             where T : CorDebugManagedCallbackEventArgs
         {
-            OnAnyEvent?.Invoke(this, args);
             handler?.Invoke(this, (T) args);
+            OnAnyEvent?.Invoke(this, args);
 
             return HRESULT.S_OK;
         }

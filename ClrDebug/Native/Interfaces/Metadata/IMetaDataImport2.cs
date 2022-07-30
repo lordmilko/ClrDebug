@@ -1191,7 +1191,7 @@ namespace ClrDebug
             [Out] out mdMethodDef pmd,
             [Out] out int pulSequence,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName,
-            [Out] out int cchName,
+            [In] int cchName,
             [Out] out int pchName,
             [Out] out CorParamAttr pdwAttr,
             [Out] out CorElementType pdwCPlusTypeFlag,

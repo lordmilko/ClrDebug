@@ -102,7 +102,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT StepRange([In] bool bStepIn, [In] ref COR_DEBUG_STEP_RANGE ranges, [In] int cRangeCount);
+        HRESULT StepRange(
+            [In] bool bStepIn,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] COR_DEBUG_STEP_RANGE[] ranges,
+            [In] int cRangeCount);
 
         /// <summary>
         /// Causes this <see cref="ICorDebugStepper"/> to single-step through its containing thread, and to complete when the current frame returns control to the calling frame.

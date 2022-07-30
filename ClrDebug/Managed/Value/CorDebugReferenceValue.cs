@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ClrDebug
+﻿namespace ClrDebug
 {
     /// <summary>
     /// Provides methods that manage a value that is a reference to an object. (That is, this interface provides methods that manage a pointer.) This interface implements "ICorDebugValue".
@@ -13,21 +11,13 @@ namespace ClrDebug
     /// the debugged process has been continued. The derived "ICorDebugHandleValue" is not invalidated until it is explicitly
     /// released or exposed.
     /// </remarks>
-    public abstract class CorDebugReferenceValue : CorDebugValue
+    public class CorDebugReferenceValue : CorDebugValue
     {
-        public static CorDebugReferenceValue New(ICorDebugReferenceValue value)
-        {
-            if (value is ICorDebugHandleValue)
-                return new CorDebugHandleValue((ICorDebugHandleValue) value);
-
-            throw new NotImplementedException("Encountered an 'ICorDebugReferenceValue' interface of an unknown type. Cannot create wrapper type.");
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CorDebugReferenceValue"/> class.
         /// </summary>
         /// <param name="raw">The raw COM interface that should be contained in this object.</param>
-        protected CorDebugReferenceValue(ICorDebugReferenceValue raw) : base(raw)
+        public CorDebugReferenceValue(ICorDebugReferenceValue raw) : base(raw)
         {
         }
 

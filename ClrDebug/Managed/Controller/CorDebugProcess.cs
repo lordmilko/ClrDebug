@@ -680,11 +680,11 @@ namespace ClrDebug
         /// <summary>
         /// Gets or sets the current compiler flag settings that the common language runtime (CLR) uses to select the correct precompiled (that is, native) image to be loaded into this process.
         /// </summary>
-        public int DesiredNGENCompilerFlags
+        public CorDebugJITCompilerFlags DesiredNGENCompilerFlags
         {
             get
             {
-                int pdwFlags;
+                CorDebugJITCompilerFlags pdwFlags;
                 TryGetDesiredNGENCompilerFlags(out pdwFlags).ThrowOnNotOK();
 
                 return pdwFlags;
@@ -703,9 +703,9 @@ namespace ClrDebug
         /// Use the <see cref="DesiredNGENCompilerFlags"/> property to set the flags that the CLR will use to select the correct
         /// pre-compiled image to load.
         /// </remarks>
-        public HRESULT TryGetDesiredNGENCompilerFlags(out int pdwFlags)
+        public HRESULT TryGetDesiredNGENCompilerFlags(out CorDebugJITCompilerFlags pdwFlags)
         {
-            /*HRESULT GetDesiredNGENCompilerFlags([Out] out int pdwFlags);*/
+            /*HRESULT GetDesiredNGENCompilerFlags([Out] out CorDebugJITCompilerFlags pdwFlags);*/
             return Raw2.GetDesiredNGENCompilerFlags(out pdwFlags);
         }
 
@@ -725,9 +725,9 @@ namespace ClrDebug
         /// the SetDesiredNGENCompilerFlags method afterwards will fail. Also, attempts to set flags that are either not defined
         /// in the <see cref="CorDebugJITCompilerFlags"/> enumeration or are not legal for the given process will fail.
         /// </remarks>
-        public HRESULT TrySetDesiredNGENCompilerFlags(int pdwFlags)
+        public HRESULT TrySetDesiredNGENCompilerFlags(CorDebugJITCompilerFlags pdwFlags)
         {
-            /*HRESULT SetDesiredNGENCompilerFlags([In] int pdwFlags);*/
+            /*HRESULT SetDesiredNGENCompilerFlags([In] CorDebugJITCompilerFlags pdwFlags);*/
             return Raw2.SetDesiredNGENCompilerFlags(pdwFlags);
         }
 
@@ -895,7 +895,7 @@ namespace ClrDebug
             HRESULT hr = Raw2.GetReferenceValueFromGCHandle(handle, out pOutValue);
 
             if (hr == HRESULT.S_OK)
-                pOutValueResult = CorDebugReferenceValue.New(pOutValue);
+                pOutValueResult = new CorDebugReferenceValue(pOutValue);
             else
                 pOutValueResult = default(CorDebugReferenceValue);
 

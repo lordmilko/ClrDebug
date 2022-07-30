@@ -635,11 +635,11 @@ namespace ClrDebug
         /// <summary>
         /// Gets or sets the flags that control the just-in-time (JIT) compilation of this <see cref="ICorDebugModule2"/>.
         /// </summary>
-        public int JITCompilerFlags
+        public CorDebugJITCompilerFlags JITCompilerFlags
         {
             get
             {
-                int pdwFlags;
+                CorDebugJITCompilerFlags pdwFlags;
                 TryGetJITCompilerFlags(out pdwFlags).ThrowOnNotOK();
 
                 return pdwFlags;
@@ -654,9 +654,9 @@ namespace ClrDebug
         /// Gets the flags that control the just-in-time (JIT) compilation of this <see cref="ICorDebugModule2"/>.
         /// </summary>
         /// <param name="pdwFlags">[out] A pointer to a value of the <see cref="CorDebugJITCompilerFlags"/> enumeration that controls the JIT compilation.</param>
-        public HRESULT TryGetJITCompilerFlags(out int pdwFlags)
+        public HRESULT TryGetJITCompilerFlags(out CorDebugJITCompilerFlags pdwFlags)
         {
-            /*HRESULT GetJITCompilerFlags([Out] out int pdwFlags);*/
+            /*HRESULT GetJITCompilerFlags([Out] out CorDebugJITCompilerFlags pdwFlags);*/
             return Raw2.GetJITCompilerFlags(out pdwFlags);
         }
 
@@ -672,9 +672,9 @@ namespace ClrDebug
         /// of these two platforms with the CORDEBUG_JIT_ENABLE_ENC flag set in dwFlags, the SetJITCompilerFlags method and
         /// all methods specific to Edit and Continue, such as <see cref="ApplyChanges"/>, will fail.
         /// </remarks>
-        public HRESULT TrySetJITCompilerFlags(int dwFlags)
+        public HRESULT TrySetJITCompilerFlags(CorDebugJITCompilerFlags dwFlags)
         {
-            /*HRESULT SetJITCompilerFlags([In] int dwFlags);*/
+            /*HRESULT SetJITCompilerFlags([In] CorDebugJITCompilerFlags dwFlags);*/
             return Raw2.SetJITCompilerFlags(dwFlags);
         }
 

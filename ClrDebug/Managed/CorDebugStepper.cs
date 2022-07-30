@@ -205,7 +205,7 @@ namespace ClrDebug
         /// language (MSIL) code of a method. Call <see cref="SetRangeIL"/> with false to make the ranges relative to the native
         /// code of a method.
         /// </remarks>
-        public void StepRange(bool bStepIn, COR_DEBUG_STEP_RANGE ranges, int cRangeCount)
+        public void StepRange(bool bStepIn, COR_DEBUG_STEP_RANGE[] ranges, int cRangeCount)
         {
             TryStepRange(bStepIn, ranges, cRangeCount).ThrowOnNotOK();
         }
@@ -223,10 +223,13 @@ namespace ClrDebug
         /// language (MSIL) code of a method. Call <see cref="SetRangeIL"/> with false to make the ranges relative to the native
         /// code of a method.
         /// </remarks>
-        public HRESULT TryStepRange(bool bStepIn, COR_DEBUG_STEP_RANGE ranges, int cRangeCount)
+        public HRESULT TryStepRange(bool bStepIn, COR_DEBUG_STEP_RANGE[] ranges, int cRangeCount)
         {
-            /*HRESULT StepRange([In] bool bStepIn, [In] ref COR_DEBUG_STEP_RANGE ranges, [In] int cRangeCount);*/
-            return Raw.StepRange(bStepIn, ref ranges, cRangeCount);
+            /*HRESULT StepRange(
+            [In] bool bStepIn,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] COR_DEBUG_STEP_RANGE[] ranges,
+            [In] int cRangeCount);*/
+            return Raw.StepRange(bStepIn, ranges, cRangeCount);
         }
 
         #endregion

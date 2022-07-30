@@ -86,7 +86,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetDesiredNGENCompilerFlags([In] int pdwFlags);
+        HRESULT SetDesiredNGENCompilerFlags([In] CorDebugJITCompilerFlags pdwFlags);
 
         /// <summary>
         /// Gets the current compiler flag settings that the common language runtime (CLR) uses to select the correct precompiled (that is, native) image to be loaded into this process.
@@ -98,7 +98,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetDesiredNGENCompilerFlags([Out] out int pdwFlags);
+        HRESULT GetDesiredNGENCompilerFlags([Out] out CorDebugJITCompilerFlags pdwFlags);
 
         /// <summary>
         /// Gets a reference pointer to the specified managed object that has a garbage collection handle.

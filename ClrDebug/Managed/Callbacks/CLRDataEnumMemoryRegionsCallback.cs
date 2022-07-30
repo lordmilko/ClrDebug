@@ -37,8 +37,8 @@ namespace ClrDebug
         protected virtual HRESULT HandleEvent<T>(EventHandler<T> handler, CLRDataEnumMemoryRegionsCallbackEventArgs args)
             where T : CLRDataEnumMemoryRegionsCallbackEventArgs
         {
-            OnAnyEvent?.Invoke(this, args);
             handler?.Invoke(this, (T) args);
+            OnAnyEvent?.Invoke(this, args);
 
             return HRESULT.S_OK;
         }

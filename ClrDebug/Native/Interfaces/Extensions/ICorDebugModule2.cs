@@ -70,7 +70,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetJITCompilerFlags([In] int dwFlags);
+        HRESULT SetJITCompilerFlags([In] CorDebugJITCompilerFlags dwFlags);
 
         /// <summary>
         /// Gets the flags that control the just-in-time (JIT) compilation of this <see cref="ICorDebugModule2"/>.
@@ -78,7 +78,7 @@ namespace ClrDebug
         /// <param name="pdwFlags">[out] A pointer to a value of the <see cref="CorDebugJITCompilerFlags"/> enumeration that controls the JIT compilation.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetJITCompilerFlags([Out] out int pdwFlags);
+        HRESULT GetJITCompilerFlags([Out] out CorDebugJITCompilerFlags pdwFlags);
 
         /// <summary>
         /// Resolves the assembly referenced by the specified metadata token.

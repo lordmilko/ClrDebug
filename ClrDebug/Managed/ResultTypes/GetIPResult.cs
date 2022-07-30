@@ -3,7 +3,7 @@
 namespace ClrDebug
 {
     /// <summary>
-    /// Encapsulates the results of the <see cref="CorDebugILFrame.GetIP"/> method.
+    /// Encapsulates the results of the <see cref="CorDebugILFrame.IP"/> property.
     /// </summary>
     [DebuggerDisplay("pnOffset = {pnOffset}, pMappingResult = {pMappingResult.ToString(),nq}")]
     public struct GetIPResult

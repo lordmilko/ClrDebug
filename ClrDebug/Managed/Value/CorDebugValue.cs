@@ -34,6 +34,9 @@ namespace ClrDebug
             if (value is ICorDebugHandleValue)
                 return new CorDebugHandleValue((ICorDebugHandleValue) value);
 
+            if (value is ICorDebugReferenceValue)
+                return new CorDebugReferenceValue((ICorDebugReferenceValue) value);
+
             throw new NotImplementedException("Encountered an 'ICorDebugValue' interface of an unknown type. Cannot create wrapper type.");
         }
 
