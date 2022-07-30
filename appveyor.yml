@@ -6,8 +6,8 @@ before_build:
 build_script:
 - dotnet build
 test_script:
-- vstest.console /logger:Appveyor ClrDebug.Tests\bin\%CONFIGURATION%\net461\ClrDebug.Tests.dll /platform:x86 /InIsolation
-- vstest.console /logger:Appveyor ClrDebug.Tests\bin\%CONFIGURATION%\net461\ClrDebug.Tests.dll /platform:x64 /InIsolation
+- vstest.console /logger:Appveyor ClrDebug.Tests\bin\%CONFIGURATION%\net461\ClrDebug.Tests.dll /platform:x86 /InIsolation /TestCaseFilter:TestCategory!=SkipCI
+- vstest.console /logger:Appveyor ClrDebug.Tests\bin\%CONFIGURATION%\net461\ClrDebug.Tests.dll /platform:x64 /InIsolation /TestCaseFilter:TestCategory!=SkipCI
 after_test:
 - dotnet pack ClrDebug\ClrDebug.csproj
 - 7z a ClrDebug.zip .\ClrDebug\bin\%CONFIGURATION%\netstandard2.0\* -xr!*.json

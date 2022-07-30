@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ClrDebug\ClrDebug.csproj" />
+    <ProjectReference Include="..\Samples\SymbolStore\SymbolStore.csproj" />
   </ItemGroup>
 
 </Project>

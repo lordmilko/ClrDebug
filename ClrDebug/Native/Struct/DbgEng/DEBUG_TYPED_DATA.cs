@@ -59,7 +59,7 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The symbol tag of the typed data. This is a value from the SymTagEnum enumeration. For descriptions of the values, see the DbgHelp API documentation.
         /// </summary>
-        public SymTagEnum Tag;
+        public SymTag Tag;
 
         /// <summary>
         /// The index of the processor's register containing the data, or zero if the data is not contained in a register. (Note that the zero value can represent either that the data is not in a register or that it is in the register whose index is zero.)
