@@ -10,7 +10,7 @@ namespace ClrDebug
     {
         [PreserveSig]
         HRESULT GetContext(
-            [In] int contextFlags,
+            [In] ContextFlags contextFlags,
             [In] int contextBufSize,
             [Out] out int contextSize,
             [Out] IntPtr contextBuf);

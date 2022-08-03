@@ -8,7 +8,7 @@ namespace ClrDebug
         /// Gets the context of the current thread.
         /// </summary>
         /// <typeparam name="T">The type of a processor specific CONTEXT structure that stores the thread context.</typeparam>
-        /// <param name="registerSet">The <see cref="CorDebugRegisterSet"/> context should be retrieved.</param>
+        /// <param name="registerSet">The <see cref="CorDebugRegisterSet"/> whose context should be retrieved.</param>
         /// <param name="contextFlags">A bitwise combination of platform-dependent flags that indicate which portions of the context should be read.</param>
         /// <returns>The thread context that was read.</returns>
         public static T GetThreadContext<T>(this CorDebugRegisterSet registerSet, ContextFlags contextFlags) where T : struct
@@ -22,7 +22,7 @@ namespace ClrDebug
         /// Tries to get the context of the current thread.
         /// </summary>
         /// <typeparam name="T">The type of a processor specific CONTEXT structure that stores the thread context.</typeparam>
-        /// <param name="registerSet">The <see cref="CorDebugRegisterSet"/> context should be retrieved.</param>
+        /// <param name="registerSet">The <see cref="CorDebugRegisterSet"/> whose context should be retrieved.</param>
         /// <param name="contextFlags">A bitwise combination of platform-dependent flags that indicate which portions of the context should be read.</param>
         /// <param name="context">The thread context that was read.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>

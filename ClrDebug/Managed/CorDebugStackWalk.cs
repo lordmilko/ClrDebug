@@ -80,7 +80,7 @@ namespace ClrDebug
         /// Because unwinding restores only a subset of the registers, such as non-volatile registers, the context may not
         /// exactly match the register state at the time of the call.
         /// </remarks>
-        public int GetContext(int contextFlags, int contextBufSize, IntPtr contextBuf)
+        public int GetContext(ContextFlags contextFlags, int contextBufSize, IntPtr contextBuf)
         {
             int contextSize;
             TryGetContext(contextFlags, contextBufSize, out contextSize, contextBuf).ThrowOnNotOK();
@@ -109,10 +109,10 @@ namespace ClrDebug
         /// Because unwinding restores only a subset of the registers, such as non-volatile registers, the context may not
         /// exactly match the register state at the time of the call.
         /// </remarks>
-        public HRESULT TryGetContext(int contextFlags, int contextBufSize, out int contextSize, IntPtr contextBuf)
+        public HRESULT TryGetContext(ContextFlags contextFlags, int contextBufSize, out int contextSize, IntPtr contextBuf)
         {
             /*HRESULT GetContext(
-            [In] int contextFlags,
+            [In] ContextFlags contextFlags,
             [In] int contextBufSize,
             [Out] out int contextSize,
             [Out] IntPtr contextBuf);*/

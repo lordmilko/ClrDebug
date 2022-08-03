@@ -5,6 +5,61 @@ namespace ClrDebug
 {
     public static partial class Extensions
     {
+        #region CreateVirtualUnwinder
+
+        /// <summary>
+        /// Creates a new stack unwinder that starts unwinding from an initial context (which isn't necessarily the leaf of a thread).
+        /// </summary>
+        /// <typeparam name="T">The type of a processor specific CONTEXT structure to be passed as the initial context.</typeparam>
+        /// <param name="dataTarget">The <see cref="CorDebugDataTarget"/> containing the stack to unwind.</param>
+        /// <param name="nativeThreadID">The native thread ID of the thread whose stack is to be unwound.</param>
+        /// <param name="contextFlags">Flags that specify which parts of the context are defined in initialContext.</param>
+        /// <param name="initialContext">The initial context to pass to the unwinder.</param>
+        /// <returns>A <see cref="CorDebugVirtualUnwinder"/> object.</returns>
+        public static CorDebugVirtualUnwinder CreateVirtualUnwinder<T>(
+            this CorDebugDataTarget dataTarget,
+            int nativeThreadID,
+            ContextFlags contextFlags,
+            T initialContext)
+        {
+            CorDebugVirtualUnwinder ppUnwinderResult;
+            TryCreateVirtualUnwinder<T>(dataTarget, nativeThreadID, contextFlags, initialContext, out ppUnwinderResult).ThrowOnNotOK();
+            return ppUnwinderResult;
+        }
+
+        /// <summary>
+        /// Tries to create a new stack unwinder that starts unwinding from an initial context (which isn't necessarily the leaf of a thread).
+        /// </summary>
+        /// <typeparam name="T">The type of a processor specific CONTEXT structure to be passed as the initial context.</typeparam>
+        /// <param name="dataTarget">The <see cref="CorDebugDataTarget"/> containing the stack to unwind.</param>
+        /// <param name="nativeThreadID">The native thread ID of the thread whose stack is to be unwound.</param>
+        /// <param name="contextFlags">Flags that specify which parts of the context are defined in initialContext.</param>
+        /// <param name="initialContext">The initial context to pass to the unwinder.</param>
+        /// <param name="ppUnwinderResult">A <see cref="CorDebugVirtualUnwinder"/> object.</param>
+        /// <returns>A HRESULT that indicates success or failure.</returns>
+        public static HRESULT TryCreateVirtualUnwinder<T>(
+            this CorDebugDataTarget dataTarget,
+            int nativeThreadID,
+            ContextFlags contextFlags,
+            T initialContext,
+            out CorDebugVirtualUnwinder ppUnwinderResult)
+        {
+            var size = Marshal.SizeOf<T>();
+            var buffer = Marshal.AllocHGlobal(size);
+
+            try
+            {
+                Marshal.StructureToPtr(initialContext, buffer, false);
+
+                return dataTarget.TryCreateVirtualUnwinder(nativeThreadID, contextFlags, size, buffer, out ppUnwinderResult);
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(buffer);
+            }
+        }
+
+        #endregion
         #region ReadVirtual<T>
 
         /// <summary>

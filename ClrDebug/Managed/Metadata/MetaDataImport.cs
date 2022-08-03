@@ -2256,7 +2256,7 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                szStringResult = szString.ToString();
+                szStringResult = szString.ToString(0, pchString);
 
                 return hr;
             }

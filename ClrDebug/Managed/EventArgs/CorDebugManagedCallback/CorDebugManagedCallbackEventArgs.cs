@@ -34,9 +34,6 @@ namespace ClrDebug
             rawController = controller;
         }
 
-        public void Continue()
-        {
-            Controller.Continue(false);
-        }
+        public bool Continue { get; set; } = true;
     }
 }

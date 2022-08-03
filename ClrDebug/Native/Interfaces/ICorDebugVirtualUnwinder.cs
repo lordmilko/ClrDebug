@@ -31,7 +31,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetContext(
-            [In] int contextFlags,
+            [In] ContextFlags contextFlags,
             [In] int cbContextBuf,
             [Out] out int contextSize,
             [Out] IntPtr contextBuf);

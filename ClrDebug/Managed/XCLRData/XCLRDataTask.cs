@@ -346,7 +346,7 @@ namespace ClrDebug
         #endregion
         #region GetContext
 
-        public int GetContext(int contextFlags, int contextBufSize, IntPtr contextBuf)
+        public int GetContext(ContextFlags contextFlags, int contextBufSize, IntPtr contextBuf)
         {
             int contextSize;
             TryGetContext(contextFlags, contextBufSize, out contextSize, contextBuf).ThrowOnNotOK();
@@ -354,10 +354,10 @@ namespace ClrDebug
             return contextSize;
         }
 
-        public HRESULT TryGetContext(int contextFlags, int contextBufSize, out int contextSize, IntPtr contextBuf)
+        public HRESULT TryGetContext(ContextFlags contextFlags, int contextBufSize, out int contextSize, IntPtr contextBuf)
         {
             /*HRESULT GetContext(
-            [In] int contextFlags,
+            [In] ContextFlags contextFlags,
             [In] int contextBufSize,
             [Out] out int contextSize,
             [Out] IntPtr contextBuf);*/

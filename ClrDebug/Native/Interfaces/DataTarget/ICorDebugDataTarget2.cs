@@ -72,7 +72,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateVirtualUnwinder(
             [In] int nativeThreadID,
-            [In] int contextFlags,
+            [In] ContextFlags contextFlags,
             [In] int cbContext,
             [In] IntPtr initialContext,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugVirtualUnwinder ppUnwinder);

@@ -325,7 +325,7 @@ namespace ClrDebug
         /// <param name="cbContext">[in] The size of initialContext.</param>
         /// <param name="initialContext">[in] The data in the context.</param>
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugVirtualUnwinder"/> interface object.</returns>
-        public CorDebugVirtualUnwinder CreateVirtualUnwinder(int nativeThreadID, int contextFlags, int cbContext, IntPtr initialContext)
+        public CorDebugVirtualUnwinder CreateVirtualUnwinder(int nativeThreadID, ContextFlags contextFlags, int cbContext, IntPtr initialContext)
         {
             CorDebugVirtualUnwinder ppUnwinderResult;
             TryCreateVirtualUnwinder(nativeThreadID, contextFlags, cbContext, initialContext, out ppUnwinderResult).ThrowOnNotOK();
@@ -342,11 +342,11 @@ namespace ClrDebug
         /// <param name="initialContext">[in] The data in the context.</param>
         /// <param name="ppUnwinderResult">[out] A pointer to the address of an <see cref="ICorDebugVirtualUnwinder"/> interface object.</param>
         /// <returns>S_OK if successful. Any other <see cref="HRESULT"/> indicates failure. Any failing <see cref="HRESULT"/> received by mscordbi is considered fatal and causes <see cref="ICorDebug"/> methods to return CORDBG_E_DATA_TARGET_ERROR.</returns>
-        public HRESULT TryCreateVirtualUnwinder(int nativeThreadID, int contextFlags, int cbContext, IntPtr initialContext, out CorDebugVirtualUnwinder ppUnwinderResult)
+        public HRESULT TryCreateVirtualUnwinder(int nativeThreadID, ContextFlags contextFlags, int cbContext, IntPtr initialContext, out CorDebugVirtualUnwinder ppUnwinderResult)
         {
             /*HRESULT CreateVirtualUnwinder(
             [In] int nativeThreadID,
-            [In] int contextFlags,
+            [In] ContextFlags contextFlags,
             [In] int cbContext,
             [In] IntPtr initialContext,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugVirtualUnwinder ppUnwinder);*/
