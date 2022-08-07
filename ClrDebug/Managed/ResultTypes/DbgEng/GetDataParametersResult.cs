@@ -3,7 +3,7 @@
 namespace ClrDebug.DbgEng
 {
     /// <summary>
-    /// Encapsulates the results of the <see cref="DebugBreakpoint.GetDataParameters"/> method.
+    /// Encapsulates the results of the <see cref="DebugBreakpoint.DataParameters"/> property.
     /// </summary>
     [DebuggerDisplay("Size = {Size}, AccessType = {AccessType.ToString(),nq}")]
     public struct GetDataParametersResult

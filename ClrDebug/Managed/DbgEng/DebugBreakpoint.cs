@@ -226,6 +226,50 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
+        #region DataParameters
+
+        /// <summary>
+        /// The GetDataParameters method returns the parameters for a processor breakpoint.
+        /// </summary>
+        public GetDataParametersResult DataParameters
+        {
+            get
+            {
+                GetDataParametersResult result;
+                TryGetDataParameters(out result).ThrowDbgEngNotOK();
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// The GetDataParameters method returns the parameters for a processor breakpoint.
+        /// </summary>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>This method can also return other error values. For more information, see Return Values.</returns>
+        /// <remarks>
+        /// The <see cref="Parameters"/> property also returns the information that is returned in Size and AccessType. For
+        /// more information about breakpoint properties, see Controlling Breakpoint Flags and Parameters.
+        /// </remarks>
+        public HRESULT TryGetDataParameters(out GetDataParametersResult result)
+        {
+            InitDelegate(ref getDataParameters, Vtbl->GetDataParameters);
+            /*HRESULT GetDataParameters(
+            [Out] out int Size,
+            [Out] out DEBUG_BREAKPOINT_ACCESS_TYPE AccessType);*/
+            int size;
+            DEBUG_BREAKPOINT_ACCESS_TYPE accessType;
+            HRESULT hr = getDataParameters(Raw, out size, out accessType);
+
+            if (hr == HRESULT.S_OK)
+                result = new GetDataParametersResult(size, accessType);
+            else
+                result = default(GetDataParametersResult);
+
+            return hr;
+        }
+
+        #endregion
         #region PassCount
 
         /// <summary>
@@ -714,52 +758,6 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
-        #region GetDataParameters
-
-        /// <summary>
-        /// The GetDataParameters method returns the parameters for a processor breakpoint.
-        /// </summary>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        /// <remarks>
-        /// The <see cref="Parameters"/> property also returns the information that is returned in Size and AccessType. For
-        /// more information about breakpoint properties, see Controlling Breakpoint Flags and Parameters.
-        /// </remarks>
-        public GetDataParametersResult GetDataParameters()
-        {
-            GetDataParametersResult result;
-            TryGetDataParameters(out result).ThrowDbgEngNotOK();
-
-            return result;
-        }
-
-        /// <summary>
-        /// The GetDataParameters method returns the parameters for a processor breakpoint.
-        /// </summary>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        /// <returns>This method can also return other error values. For more information, see Return Values.</returns>
-        /// <remarks>
-        /// The <see cref="Parameters"/> property also returns the information that is returned in Size and AccessType. For
-        /// more information about breakpoint properties, see Controlling Breakpoint Flags and Parameters.
-        /// </remarks>
-        public HRESULT TryGetDataParameters(out GetDataParametersResult result)
-        {
-            InitDelegate(ref getDataParameters, Vtbl->GetDataParameters);
-            /*HRESULT GetDataParameters(
-            [Out] out int Size,
-            [Out] out DEBUG_BREAKPOINT_ACCESS_TYPE AccessType);*/
-            int size;
-            DEBUG_BREAKPOINT_ACCESS_TYPE accessType;
-            HRESULT hr = getDataParameters(Raw, out size, out accessType);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetDataParametersResult(size, accessType);
-            else
-                result = default(GetDataParametersResult);
-
-            return hr;
-        }
-
-        #endregion
         #region SetDataParameters
 
         /// <summary>
@@ -1017,6 +1015,8 @@ namespace ClrDebug.DbgEng
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private SetOffsetDelegate setOffset;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private GetDataParametersDelegate getDataParameters;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private GetPassCountDelegate getPassCount;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private SetPassCountDelegate setPassCount;
@@ -1042,8 +1042,6 @@ namespace ClrDebug.DbgEng
         private AddFlagsDelegate addFlags;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private RemoveFlagsDelegate removeFlags;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetDataParametersDelegate getDataParameters;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private SetDataParametersDelegate setDataParameters;
 
@@ -1076,6 +1074,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT SetFlagsDelegate(IntPtr self, [In] DEBUG_BREAKPOINT_FLAG Flags);
         private delegate HRESULT GetOffsetDelegate(IntPtr self, [Out] out long Offset);
         private delegate HRESULT SetOffsetDelegate(IntPtr self, [In] long Offset);
+        private delegate HRESULT GetDataParametersDelegate(IntPtr self, [Out] out int Size, [Out] out DEBUG_BREAKPOINT_ACCESS_TYPE AccessType);
         private delegate HRESULT GetPassCountDelegate(IntPtr self, [Out] out int Count);
         private delegate HRESULT SetPassCountDelegate(IntPtr self, [In] int Count);
         private delegate HRESULT GetCurrentPassCountDelegate(IntPtr self, [Out] out int Count);
@@ -1089,7 +1088,6 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetAdderDelegate(IntPtr self, [Out] IntPtr Adder);
         private delegate HRESULT AddFlagsDelegate(IntPtr self, [In] DEBUG_BREAKPOINT_FLAG Flags);
         private delegate HRESULT RemoveFlagsDelegate(IntPtr self, [In] DEBUG_BREAKPOINT_FLAG Flags);
-        private delegate HRESULT GetDataParametersDelegate(IntPtr self, [Out] out int Size, [Out] out DEBUG_BREAKPOINT_ACCESS_TYPE AccessType);
         private delegate HRESULT SetDataParametersDelegate(IntPtr self, [In] int Size, [In] DEBUG_BREAKPOINT_ACCESS_TYPE AccessType);
 
         #endregion

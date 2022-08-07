@@ -973,6 +973,54 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
+        #region SystemErrorControl
+
+        /// <summary>
+        /// The GetSystemErrorControl method returns the control values for handling system errors.
+        /// </summary>
+        public GetSystemErrorControlResult SystemErrorControl
+        {
+            get
+            {
+                GetSystemErrorControlResult result;
+                TryGetSystemErrorControl(out result).ThrowDbgEngNotOK();
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// The GetSystemErrorControl method returns the control values for handling system errors.
+        /// </summary>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        /// <remarks>
+        /// The level of a system error can take one of the following three values, listed from lowest to highest: SLE_ERROR,
+        /// SLE_MINORERROR, and SLE_WARNING. These values are defined in Winuser.h. When a system error occurs, the engine
+        /// calls the <see cref="IDebugEventCallbacks.SystemError"/> method of the event callbacks. If the level is less than
+        /// or equal to BreakLevel, the error will break into the debugger. If the level is greater than BreakLevel, the engine
+        /// will proceed with execution in the target as indicated by the IDebugEventCallbacks::SystemError method calls. For
+        /// more information about how the engine proceeds after an event, see Monitoring Events.
+        /// </remarks>
+        public HRESULT TryGetSystemErrorControl(out GetSystemErrorControlResult result)
+        {
+            InitDelegate(ref getSystemErrorControl, Vtbl->GetSystemErrorControl);
+            /*HRESULT GetSystemErrorControl(
+            [Out] out ERROR_LEVEL OutputLevel,
+            [Out] out ERROR_LEVEL BreakLevel);*/
+            ERROR_LEVEL outputLevel;
+            ERROR_LEVEL breakLevel;
+            HRESULT hr = getSystemErrorControl(Raw, out outputLevel, out breakLevel);
+
+            if (hr == HRESULT.S_OK)
+                result = new GetSystemErrorControlResult(outputLevel, breakLevel);
+            else
+                result = default(GetSystemErrorControlResult);
+
+            return hr;
+        }
+
+        #endregion
         #region Radix
 
         /// <summary>
@@ -2406,60 +2454,6 @@ namespace ClrDebug.DbgEng
             /*HRESULT RemoveEngineOptions(
             [In] DEBUG_ENGOPT Options);*/
             return removeEngineOptions(Raw, options);
-        }
-
-        #endregion
-        #region GetSystemErrorControl
-
-        /// <summary>
-        /// The GetSystemErrorControl method returns the control values for handling system errors.
-        /// </summary>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        /// <remarks>
-        /// The level of a system error can take one of the following three values, listed from lowest to highest: SLE_ERROR,
-        /// SLE_MINORERROR, and SLE_WARNING. These values are defined in Winuser.h. When a system error occurs, the engine
-        /// calls the <see cref="IDebugEventCallbacks.SystemError"/> method of the event callbacks. If the level is less than
-        /// or equal to BreakLevel, the error will break into the debugger. If the level is greater than BreakLevel, the engine
-        /// will proceed with execution in the target as indicated by the IDebugEventCallbacks::SystemError method calls. For
-        /// more information about how the engine proceeds after an event, see Monitoring Events.
-        /// </remarks>
-        public GetSystemErrorControlResult GetSystemErrorControl()
-        {
-            GetSystemErrorControlResult result;
-            TryGetSystemErrorControl(out result).ThrowDbgEngNotOK();
-
-            return result;
-        }
-
-        /// <summary>
-        /// The GetSystemErrorControl method returns the control values for handling system errors.
-        /// </summary>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        /// <returns>This method may also return error values. See Return Values for more details.</returns>
-        /// <remarks>
-        /// The level of a system error can take one of the following three values, listed from lowest to highest: SLE_ERROR,
-        /// SLE_MINORERROR, and SLE_WARNING. These values are defined in Winuser.h. When a system error occurs, the engine
-        /// calls the <see cref="IDebugEventCallbacks.SystemError"/> method of the event callbacks. If the level is less than
-        /// or equal to BreakLevel, the error will break into the debugger. If the level is greater than BreakLevel, the engine
-        /// will proceed with execution in the target as indicated by the IDebugEventCallbacks::SystemError method calls. For
-        /// more information about how the engine proceeds after an event, see Monitoring Events.
-        /// </remarks>
-        public HRESULT TryGetSystemErrorControl(out GetSystemErrorControlResult result)
-        {
-            InitDelegate(ref getSystemErrorControl, Vtbl->GetSystemErrorControl);
-            /*HRESULT GetSystemErrorControl(
-            [Out] out ERROR_LEVEL OutputLevel,
-            [Out] out ERROR_LEVEL BreakLevel);*/
-            ERROR_LEVEL outputLevel;
-            ERROR_LEVEL breakLevel;
-            HRESULT hr = getSystemErrorControl(Raw, out outputLevel, out breakLevel);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetSystemErrorControlResult(outputLevel, breakLevel);
-            else
-                result = default(GetSystemErrorControlResult);
-
-            return hr;
         }
 
         #endregion
@@ -3949,16 +3943,16 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="extraInformation">[out, optional] Receives extra information about the event. The contents of this extra information depends on the type of the event.<para/>
         /// If ExtraInformation is NULL, this information is not returned.</param>
-        /// <param name="descriptionSize">[in] Specifies the size, in characters, of the buffer that Description specifies. This size includes the space for the '\0' terminating character.</param>
+        /// <param name="extraInformationSize">[in] Specifies the size, in bytes, of the buffer that ExtraInformation specifies.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// For thread and process creation events, the thread index and process ID returned to ThreadId and ProcessId are
         /// for the newly created thread or process. For more information about the last event, see the topic Event Information.
         /// </remarks>
-        public GetLastEventInformationResult GetLastEventInformation(IntPtr extraInformation, int descriptionSize)
+        public GetLastEventInformationResult GetLastEventInformation(IntPtr extraInformation, int extraInformationSize)
         {
             GetLastEventInformationResult result;
-            TryGetLastEventInformation(extraInformation, descriptionSize, out result).ThrowDbgEngNotOK();
+            TryGetLastEventInformation(extraInformation, extraInformationSize, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -3968,14 +3962,14 @@ namespace ClrDebug.DbgEng
         /// </summary>
         /// <param name="extraInformation">[out, optional] Receives extra information about the event. The contents of this extra information depends on the type of the event.<para/>
         /// If ExtraInformation is NULL, this information is not returned.</param>
-        /// <param name="descriptionSize">[in] Specifies the size, in characters, of the buffer that Description specifies. This size includes the space for the '\0' terminating character.</param>
+        /// <param name="extraInformationSize">[in] Specifies the size, in bytes, of the buffer that ExtraInformation specifies.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
         /// For thread and process creation events, the thread index and process ID returned to ThreadId and ProcessId are
         /// for the newly created thread or process. For more information about the last event, see the topic Event Information.
         /// </remarks>
-        public HRESULT TryGetLastEventInformation(IntPtr extraInformation, int descriptionSize, out GetLastEventInformationResult result)
+        public HRESULT TryGetLastEventInformation(IntPtr extraInformation, int extraInformationSize, out GetLastEventInformationResult result)
         {
             InitDelegate(ref getLastEventInformation, Vtbl->GetLastEventInformation);
             /*HRESULT GetLastEventInformation(
@@ -3991,22 +3985,22 @@ namespace ClrDebug.DbgEng
             DEBUG_EVENT_TYPE type;
             int processId;
             int threadId;
-            int extraInformationSize = 0;
             int extraInformationUsed;
             StringBuilder description;
+            int descriptionSize = 0;
             int descriptionUsed;
             HRESULT hr = getLastEventInformation(Raw, out type, out processId, out threadId, extraInformation, extraInformationSize, out extraInformationUsed, null, descriptionSize, out descriptionUsed);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            extraInformationSize = extraInformationUsed;
-            description = new StringBuilder(extraInformationSize);
+            descriptionSize = descriptionUsed;
+            description = new StringBuilder(descriptionSize);
             hr = getLastEventInformation(Raw, out type, out processId, out threadId, extraInformation, extraInformationSize, out extraInformationUsed, description, descriptionSize, out descriptionUsed);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetLastEventInformationResult(type, processId, threadId, description.ToString(), descriptionUsed);
+                result = new GetLastEventInformationResult(type, processId, threadId, extraInformationUsed, description.ToString());
 
                 return hr;
             }
@@ -6761,16 +6755,16 @@ namespace ClrDebug.DbgEng
         /// For example, if Type is breakpoint, ExtraInformation contains a DEBUG_LAST_EVENT_INFO_BREAKPOINT; if Type is Exception, ExtraInformation contains a DEBUG_LAST_EVENT_INFO_EXCEPTION.<para/>
         /// Refer to DEBUG_EVENT_XXX for the complete list of event types and the dbgeng.h header file for the structure definitions for each event type.<para/>
         /// If ExtraInformation is NULL, this information is not returned.</param>
-        /// <param name="descriptionSize">[in] Specifies the size, in characters, of the buffer that Description specifies. This size includes the space for the '\0' terminating character.</param>
+        /// <param name="extraInformationSize">[in] Specifies the size, in bytes, of the buffer that ExtraInformation specifies.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// For thread and process creation events, the thread ID and process ID returned to ThreadId and ProcessId are for
         /// the newly created thread or process. For more information about the last event, see the topic Event Information.
         /// </remarks>
-        public GetLastEventInformationWideResult GetLastEventInformationWide(IntPtr extraInformation, int descriptionSize)
+        public GetLastEventInformationWideResult GetLastEventInformationWide(IntPtr extraInformation, int extraInformationSize)
         {
             GetLastEventInformationWideResult result;
-            TryGetLastEventInformationWide(extraInformation, descriptionSize, out result).ThrowDbgEngNotOK();
+            TryGetLastEventInformationWide(extraInformation, extraInformationSize, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -6782,14 +6776,14 @@ namespace ClrDebug.DbgEng
         /// For example, if Type is breakpoint, ExtraInformation contains a DEBUG_LAST_EVENT_INFO_BREAKPOINT; if Type is Exception, ExtraInformation contains a DEBUG_LAST_EVENT_INFO_EXCEPTION.<para/>
         /// Refer to DEBUG_EVENT_XXX for the complete list of event types and the dbgeng.h header file for the structure definitions for each event type.<para/>
         /// If ExtraInformation is NULL, this information is not returned.</param>
-        /// <param name="descriptionSize">[in] Specifies the size, in characters, of the buffer that Description specifies. This size includes the space for the '\0' terminating character.</param>
+        /// <param name="extraInformationSize">[in] Specifies the size, in bytes, of the buffer that ExtraInformation specifies.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
         /// For thread and process creation events, the thread ID and process ID returned to ThreadId and ProcessId are for
         /// the newly created thread or process. For more information about the last event, see the topic Event Information.
         /// </remarks>
-        public HRESULT TryGetLastEventInformationWide(IntPtr extraInformation, int descriptionSize, out GetLastEventInformationWideResult result)
+        public HRESULT TryGetLastEventInformationWide(IntPtr extraInformation, int extraInformationSize, out GetLastEventInformationWideResult result)
         {
             InitDelegate(ref getLastEventInformationWide, Vtbl4->GetLastEventInformationWide);
             /*HRESULT GetLastEventInformationWide(
@@ -6805,22 +6799,22 @@ namespace ClrDebug.DbgEng
             DEBUG_EVENT_TYPE type;
             int processId;
             int threadId;
-            int extraInformationSize = 0;
             int extraInformationUsed;
             StringBuilder description;
+            int descriptionSize = 0;
             int descriptionUsed;
             HRESULT hr = getLastEventInformationWide(Raw, out type, out processId, out threadId, extraInformation, extraInformationSize, out extraInformationUsed, null, descriptionSize, out descriptionUsed);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            extraInformationSize = extraInformationUsed;
-            description = new StringBuilder(extraInformationSize);
+            descriptionSize = descriptionUsed;
+            description = new StringBuilder(descriptionSize);
             hr = getLastEventInformationWide(Raw, out type, out processId, out threadId, extraInformation, extraInformationSize, out extraInformationUsed, description, descriptionSize, out descriptionUsed);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetLastEventInformationWideResult(type, processId, threadId, description.ToString(), descriptionUsed);
+                result = new GetLastEventInformationWideResult(type, processId, threadId, extraInformationUsed, description.ToString());
 
                 return hr;
             }
@@ -8088,6 +8082,8 @@ namespace ClrDebug.DbgEng
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private SetEngineOptionsDelegate setEngineOptions;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private GetSystemErrorControlDelegate getSystemErrorControl;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private GetRadixDelegate getRadix;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private SetRadixDelegate setRadix;
@@ -8149,8 +8145,6 @@ namespace ClrDebug.DbgEng
         private AddEngineOptionsDelegate addEngineOptions;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private RemoveEngineOptionsDelegate removeEngineOptions;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetSystemErrorControlDelegate getSystemErrorControl;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private SetSystemErrorControlDelegate setSystemErrorControl;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -8432,6 +8426,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT SetCodeLevelDelegate(IntPtr self, [In] DEBUG_LEVEL Level);
         private delegate HRESULT GetEngineOptionsDelegate(IntPtr self, [Out] out DEBUG_ENGOPT Options);
         private delegate HRESULT SetEngineOptionsDelegate(IntPtr self, [In] DEBUG_ENGOPT Options);
+        private delegate HRESULT GetSystemErrorControlDelegate(IntPtr self, [Out] out ERROR_LEVEL OutputLevel, [Out] out ERROR_LEVEL BreakLevel);
         private delegate HRESULT GetRadixDelegate(IntPtr self, [Out] out int Radix);
         private delegate HRESULT SetRadixDelegate(IntPtr self, [In] int Radix);
         private delegate HRESULT GetNumberBreakpointsDelegate(IntPtr self, [Out] out int Number);
@@ -8468,7 +8463,6 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetProcessorTypeNamesDelegate(IntPtr self, [In] IMAGE_FILE_MACHINE Type, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder FullNameBuffer, [In] int FullNameBufferSize, [Out] out int FullNameSize, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder AbbrevNameBuffer, [In] int AbbrevNameBufferSize, [Out] out int AbbrevNameSize);
         private delegate HRESULT AddEngineOptionsDelegate(IntPtr self, [In] DEBUG_ENGOPT Options);
         private delegate HRESULT RemoveEngineOptionsDelegate(IntPtr self, [In] DEBUG_ENGOPT Options);
-        private delegate HRESULT GetSystemErrorControlDelegate(IntPtr self, [Out] out ERROR_LEVEL OutputLevel, [Out] out ERROR_LEVEL BreakLevel);
         private delegate HRESULT SetSystemErrorControlDelegate(IntPtr self, [In] ERROR_LEVEL OutputLevel, [In] ERROR_LEVEL BreakLevel);
         private delegate HRESULT GetTextMacroDelegate(IntPtr self, [In] int Slot, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int MacroSize);
         private delegate HRESULT SetTextMacroDelegate(IntPtr self, [In] int Slot, [In, MarshalAs(UnmanagedType.LPStr)] string Macro);

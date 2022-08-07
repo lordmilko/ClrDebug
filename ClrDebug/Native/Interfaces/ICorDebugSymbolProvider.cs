@@ -24,7 +24,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetStaticFieldSymbols(
             [In] int cbSignature,
-            [In] IntPtr typeSig,
+            [In, MarshalAs(UnmanagedType.SysInt, SizeParamIndex = 0)] IntPtr typeSig,
             [In] int cRequestedSymbols,
             [Out] out int pcFetchedSymbols,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ICorDebugStaticFieldSymbol[] pSymbols);
@@ -41,7 +41,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetInstanceFieldSymbols(
             [In] int cbSignature,
-            [In] IntPtr typeSig,
+            [In, MarshalAs(UnmanagedType.SysInt, SizeParamIndex = 0)] IntPtr typeSig,
             [In] int cRequestedSymbols,
             [Out] out int pcFetchedSymbols,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] ICorDebugInstanceFieldSymbol[] pSymbols);

@@ -5,7 +5,7 @@ namespace ClrDebug.DbgEng
     /// <summary>
     /// Encapsulates the results of the <see cref="DebugControl.GetLastEventInformation"/> method.
     /// </summary>
-    [DebuggerDisplay("Type = {Type.ToString(),nq}, ProcessId = {ProcessId}, ThreadId = {ThreadId}, Description = {Description}, DescriptionUsed = {DescriptionUsed}")]
+    [DebuggerDisplay("Type = {Type.ToString(),nq}, ProcessId = {ProcessId}, ThreadId = {ThreadId}, ExtraInformationUsed = {ExtraInformationUsed}, Description = {Description}")]
     public struct GetLastEventInformationResult
     {
         /// <summary>
@@ -24,23 +24,22 @@ namespace ClrDebug.DbgEng
         public int ThreadId { get; }
 
         /// <summary>
+        /// Receives the size, in bytes, of extra information. If ExtraInformationUsed is NULL, this information is not returned.
+        /// </summary>
+        public int ExtraInformationUsed { get; }
+
+        /// <summary>
         /// Receives the description of the event. If Description is NULL, this information is not returned.
         /// </summary>
         public string Description { get; }
 
-        /// <summary>
-        /// Receives the size in characters of the description of the event. This size includes the space for the '\0' terminating character.<para/>
-        /// If DescriptionUsed is NULL, this information is not returned.
-        /// </summary>
-        public int DescriptionUsed { get; }
-
-        public GetLastEventInformationResult(DEBUG_EVENT_TYPE type, int processId, int threadId, string description, int descriptionUsed)
+        public GetLastEventInformationResult(DEBUG_EVENT_TYPE type, int processId, int threadId, int extraInformationUsed, string description)
         {
             Type = type;
             ProcessId = processId;
             ThreadId = threadId;
+            ExtraInformationUsed = extraInformationUsed;
             Description = description;
-            DescriptionUsed = descriptionUsed;
         }
     }
 }

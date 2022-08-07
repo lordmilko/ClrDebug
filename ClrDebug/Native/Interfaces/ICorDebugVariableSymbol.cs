@@ -45,7 +45,7 @@ namespace ClrDebug
         HRESULT GetValue(
             [In] int offset,
             [In] int cbContext,
-            [In] IntPtr context,
+            [In, MarshalAs(UnmanagedType.SysInt, SizeParamIndex = 1)] IntPtr context,
             [In] int cbValue,
             [Out] out int pcbValue,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3), Out] byte[] pValue);
@@ -65,9 +65,9 @@ namespace ClrDebug
             [In] int offset,
             [In] int threadID,
             [In] int cbContext,
-            [In] IntPtr context,
+            [In, MarshalAs(UnmanagedType.SysInt, SizeParamIndex = 2)] IntPtr context,
             [In] int cbValue,
-            [In] IntPtr pValue);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] pValue);
 
         /// <summary>
         /// Gets the managed slot index of a local variable.

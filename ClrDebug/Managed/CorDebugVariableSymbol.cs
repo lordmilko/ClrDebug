@@ -153,7 +153,7 @@ namespace ClrDebug
             /*HRESULT GetValue(
             [In] int offset,
             [In] int cbContext,
-            [In] IntPtr context,
+            [In, MarshalAs(UnmanagedType.SysInt, SizeParamIndex = 1)] IntPtr context,
             [In] int cbValue,
             [Out] out int pcbValue,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3), Out] byte[] pValue);*/
@@ -184,7 +184,7 @@ namespace ClrDebug
         /// <param name="context">[in] The thread context used to write the value.</param>
         /// <param name="cbValue">[in] The size in bytes of the pValue buffer.</param>
         /// <param name="pValue">[in] The buffer that contains the value to set.</param>
-        public void SetValue(int offset, int threadID, int cbContext, IntPtr context, int cbValue, IntPtr pValue)
+        public void SetValue(int offset, int threadID, int cbContext, IntPtr context, int cbValue, byte[] pValue)
         {
             TrySetValue(offset, threadID, cbContext, context, cbValue, pValue).ThrowOnNotOK();
         }
@@ -198,15 +198,15 @@ namespace ClrDebug
         /// <param name="context">[in] The thread context used to write the value.</param>
         /// <param name="cbValue">[in] The size in bytes of the pValue buffer.</param>
         /// <param name="pValue">[in] The buffer that contains the value to set.</param>
-        public HRESULT TrySetValue(int offset, int threadID, int cbContext, IntPtr context, int cbValue, IntPtr pValue)
+        public HRESULT TrySetValue(int offset, int threadID, int cbContext, IntPtr context, int cbValue, byte[] pValue)
         {
             /*HRESULT SetValue(
             [In] int offset,
             [In] int threadID,
             [In] int cbContext,
-            [In] IntPtr context,
+            [In, MarshalAs(UnmanagedType.SysInt, SizeParamIndex = 2)] IntPtr context,
             [In] int cbValue,
-            [In] IntPtr pValue);*/
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] pValue);*/
             return Raw.SetValue(offset, threadID, cbContext, context, cbValue, pValue);
         }
 

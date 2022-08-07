@@ -237,8 +237,7 @@ namespace ClrDebug.DbgEng
         /// <param name="flags">[in] Specifies the flags that control the behavior of this method. For a description of these flags, see Remarks.</param>
         /// <param name="fileToken">[in, optional] Specifies a file token representing a file on a source server. A file token can be obtained by setting Which to DEBUG_SRCFILE_SYMBOL_TOKEN in the method <see cref="GetSourceFileInformation"/>.<para/>
         /// If the flag DEBUG_FIND_SOURCE_TOKEN_LOOKUP is set, FileToken must not be NULL.</param>
-        /// <param name="bufferSize">[in] Specifies the size in characters of the Buffer buffer. This size includes the space for the '\0' terminating character.<para/>
-        /// If Buffer is NULL, this parameter is ignored.</param>
+        /// <param name="fileTokenSize">[in] Specifies the size in bytes of the FileToken token. If FileToken is NULL, this parameter is ignored.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// When the flag DEBUG_SRCFILE_SYMBOL_TOKEN is set in Flags, this method does not search for a file on the source
@@ -255,10 +254,10 @@ namespace ClrDebug.DbgEng
         /// method. The value DEBUG_FIND_SOURCE_DEFULT defines the default set of flags, which means that all of the flags
         /// in the previous table are turned off.
         /// </remarks>
-        public FindSourceFileAndTokenResult FindSourceFileAndToken(int startElement, long modAddr, string file, DEBUG_FIND_SOURCE flags, IntPtr fileToken, int bufferSize)
+        public FindSourceFileAndTokenResult FindSourceFileAndToken(int startElement, long modAddr, string file, DEBUG_FIND_SOURCE flags, IntPtr fileToken, int fileTokenSize)
         {
             FindSourceFileAndTokenResult result;
-            TryFindSourceFileAndToken(startElement, modAddr, file, flags, fileToken, bufferSize, out result).ThrowDbgEngNotOK();
+            TryFindSourceFileAndToken(startElement, modAddr, file, flags, fileToken, fileTokenSize, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -278,8 +277,7 @@ namespace ClrDebug.DbgEng
         /// <param name="flags">[in] Specifies the flags that control the behavior of this method. For a description of these flags, see Remarks.</param>
         /// <param name="fileToken">[in, optional] Specifies a file token representing a file on a source server. A file token can be obtained by setting Which to DEBUG_SRCFILE_SYMBOL_TOKEN in the method <see cref="GetSourceFileInformation"/>.<para/>
         /// If the flag DEBUG_FIND_SOURCE_TOKEN_LOOKUP is set, FileToken must not be NULL.</param>
-        /// <param name="bufferSize">[in] Specifies the size in characters of the Buffer buffer. This size includes the space for the '\0' terminating character.<para/>
-        /// If Buffer is NULL, this parameter is ignored.</param>
+        /// <param name="fileTokenSize">[in] Specifies the size in bytes of the FileToken token. If FileToken is NULL, this parameter is ignored.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
@@ -297,7 +295,7 @@ namespace ClrDebug.DbgEng
         /// method. The value DEBUG_FIND_SOURCE_DEFULT defines the default set of flags, which means that all of the flags
         /// in the previous table are turned off.
         /// </remarks>
-        public HRESULT TryFindSourceFileAndToken(int startElement, long modAddr, string file, DEBUG_FIND_SOURCE flags, IntPtr fileToken, int bufferSize, out FindSourceFileAndTokenResult result)
+        public HRESULT TryFindSourceFileAndToken(int startElement, long modAddr, string file, DEBUG_FIND_SOURCE flags, IntPtr fileToken, int fileTokenSize, out FindSourceFileAndTokenResult result)
         {
             InitDelegate(ref findSourceFileAndToken, Vtbl2->FindSourceFileAndToken);
             /*HRESULT FindSourceFileAndToken(
@@ -311,22 +309,22 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int FoundSize);*/
-            int fileTokenSize = 0;
             int foundElement;
             StringBuilder buffer;
+            int bufferSize = 0;
             int foundSize;
             HRESULT hr = findSourceFileAndToken(Raw, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, null, bufferSize, out foundSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            fileTokenSize = foundElement;
-            buffer = new StringBuilder(fileTokenSize);
+            bufferSize = foundSize;
+            buffer = new StringBuilder(bufferSize);
             hr = findSourceFileAndToken(Raw, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, buffer, bufferSize, out foundSize);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new FindSourceFileAndTokenResult(buffer.ToString(), foundSize);
+                result = new FindSourceFileAndTokenResult(foundElement, buffer.ToString());
 
                 return hr;
             }
@@ -353,12 +351,12 @@ namespace ClrDebug.DbgEng
         /// For more information, see PDB documentation.</param>
         /// <param name="buffer">[out, optional] Receives the requested symbol information. The type of the data returned depends on the value of Which.<para/>
         /// If Buffer is NULL, this information is not returned.</param>
-        /// <param name="stringBufferSize">[in] Specifies the size, in characters, of the string buffer StringBuffer.</param>
+        /// <param name="bufferSize">[in] Specifies the size, in bytes, of the buffer Buffer.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetSymbolInformationResult GetSymbolInformation(DEBUG_SYMINFO which, long arg64, int arg32, IntPtr buffer, int stringBufferSize)
+        public GetSymbolInformationResult GetSymbolInformation(DEBUG_SYMINFO which, long arg64, int arg32, IntPtr buffer, int bufferSize)
         {
             GetSymbolInformationResult result;
-            TryGetSymbolInformation(which, arg64, arg32, buffer, stringBufferSize, out result).ThrowDbgEngNotOK();
+            TryGetSymbolInformation(which, arg64, arg32, buffer, bufferSize, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -376,10 +374,10 @@ namespace ClrDebug.DbgEng
         /// For more information, see PDB documentation.</param>
         /// <param name="buffer">[out, optional] Receives the requested symbol information. The type of the data returned depends on the value of Which.<para/>
         /// If Buffer is NULL, this information is not returned.</param>
-        /// <param name="stringBufferSize">[in] Specifies the size, in characters, of the string buffer StringBuffer.</param>
+        /// <param name="bufferSize">[in] Specifies the size, in bytes, of the buffer Buffer.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
-        public HRESULT TryGetSymbolInformation(DEBUG_SYMINFO which, long arg64, int arg32, IntPtr buffer, int stringBufferSize, out GetSymbolInformationResult result)
+        public HRESULT TryGetSymbolInformation(DEBUG_SYMINFO which, long arg64, int arg32, IntPtr buffer, int bufferSize, out GetSymbolInformationResult result)
         {
             InitDelegate(ref getSymbolInformation, Vtbl2->GetSymbolInformation);
             /*HRESULT GetSymbolInformation(
@@ -392,22 +390,22 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder StringBuffer,
             [In] int StringBufferSize,
             [Out] out int StringSize);*/
-            int bufferSize = 0;
             int infoSize;
             StringBuilder stringBuffer;
+            int stringBufferSize = 0;
             int stringSize;
             HRESULT hr = getSymbolInformation(Raw, which, arg64, arg32, buffer, bufferSize, out infoSize, null, stringBufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = infoSize;
-            stringBuffer = new StringBuilder(bufferSize);
+            stringBufferSize = stringSize;
+            stringBuffer = new StringBuilder(stringBufferSize);
             hr = getSymbolInformation(Raw, which, arg64, arg32, buffer, bufferSize, out infoSize, stringBuffer, stringBufferSize, out stringSize);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetSymbolInformationResult(stringBuffer.ToString(), stringSize);
+                result = new GetSymbolInformationResult(infoSize, stringBuffer.ToString());
 
                 return hr;
             }
@@ -547,8 +545,7 @@ namespace ClrDebug.DbgEng
         /// <param name="flags">[in] Specifies the flags that control the behavior of this method. For a description of these flags, see DEBUG_FIND_SOURCE_XXX.</param>
         /// <param name="fileToken">[in, optional] Specifies a file token representing a file on a source server. A file token can be obtained by setting Which to DEBUG_SRCFILE_SYMBOL_TOKEN in the method <see cref="GetSourceFileInformation"/>.<para/>
         /// If the flag DEBUG_FIND_SOURCE_TOKEN_LOOKUP is set, FileToken must not be NULL.</param>
-        /// <param name="bufferSize">[in] Specifies the size in characters of the Buffer buffer. This size includes the space for the '\0' terminating character.<para/>
-        /// If Buffer is NULL, this parameter is ignored.</param>
+        /// <param name="fileTokenSize">[in] Specifies the size in bytes of the FileToken token. If FileToken is NULL, this parameter is ignored.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// When the flag DEBUG_SRCFILE_SYMBOL_TOKEN is set in Flags, this method does not search for a file on the source
@@ -560,10 +557,10 @@ namespace ClrDebug.DbgEng
         /// the match with the longest overlap is returned; otherwise, the first match is returned. The first match found is
         /// returned.
         /// </remarks>
-        public FindSourceFileAndTokenWideResult FindSourceFileAndTokenWide(int startElement, long modAddr, string file, DEBUG_FIND_SOURCE flags, IntPtr fileToken, int bufferSize)
+        public FindSourceFileAndTokenWideResult FindSourceFileAndTokenWide(int startElement, long modAddr, string file, DEBUG_FIND_SOURCE flags, IntPtr fileToken, int fileTokenSize)
         {
             FindSourceFileAndTokenWideResult result;
-            TryFindSourceFileAndTokenWide(startElement, modAddr, file, flags, fileToken, bufferSize, out result).ThrowDbgEngNotOK();
+            TryFindSourceFileAndTokenWide(startElement, modAddr, file, flags, fileToken, fileTokenSize, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -583,8 +580,7 @@ namespace ClrDebug.DbgEng
         /// <param name="flags">[in] Specifies the flags that control the behavior of this method. For a description of these flags, see DEBUG_FIND_SOURCE_XXX.</param>
         /// <param name="fileToken">[in, optional] Specifies a file token representing a file on a source server. A file token can be obtained by setting Which to DEBUG_SRCFILE_SYMBOL_TOKEN in the method <see cref="GetSourceFileInformation"/>.<para/>
         /// If the flag DEBUG_FIND_SOURCE_TOKEN_LOOKUP is set, FileToken must not be NULL.</param>
-        /// <param name="bufferSize">[in] Specifies the size in characters of the Buffer buffer. This size includes the space for the '\0' terminating character.<para/>
-        /// If Buffer is NULL, this parameter is ignored.</param>
+        /// <param name="fileTokenSize">[in] Specifies the size in bytes of the FileToken token. If FileToken is NULL, this parameter is ignored.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
@@ -597,7 +593,7 @@ namespace ClrDebug.DbgEng
         /// the match with the longest overlap is returned; otherwise, the first match is returned. The first match found is
         /// returned.
         /// </remarks>
-        public HRESULT TryFindSourceFileAndTokenWide(int startElement, long modAddr, string file, DEBUG_FIND_SOURCE flags, IntPtr fileToken, int bufferSize, out FindSourceFileAndTokenWideResult result)
+        public HRESULT TryFindSourceFileAndTokenWide(int startElement, long modAddr, string file, DEBUG_FIND_SOURCE flags, IntPtr fileToken, int fileTokenSize, out FindSourceFileAndTokenWideResult result)
         {
             InitDelegate(ref findSourceFileAndTokenWide, Vtbl3->FindSourceFileAndTokenWide);
             /*HRESULT FindSourceFileAndTokenWide(
@@ -611,22 +607,22 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int FoundSize);*/
-            int fileTokenSize = 0;
             int foundElement;
             StringBuilder buffer;
+            int bufferSize = 0;
             int foundSize;
             HRESULT hr = findSourceFileAndTokenWide(Raw, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, null, bufferSize, out foundSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            fileTokenSize = foundElement;
-            buffer = new StringBuilder(fileTokenSize);
+            bufferSize = foundSize;
+            buffer = new StringBuilder(bufferSize);
             hr = findSourceFileAndTokenWide(Raw, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, buffer, bufferSize, out foundSize);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new FindSourceFileAndTokenWideResult(buffer.ToString(), foundSize);
+                result = new FindSourceFileAndTokenWideResult(foundElement, buffer.ToString());
 
                 return hr;
             }
@@ -653,12 +649,12 @@ namespace ClrDebug.DbgEng
         /// For more information, see PDB documentation.</param>
         /// <param name="buffer">[out, optional] Receives the requested symbol information. The type of the data returned depends on the value of Which.<para/>
         /// If Buffer is NULL, this information is not returned.</param>
-        /// <param name="stringBufferSize">[in] Specifies the size, in characters, of the string buffer StringBuffer.</param>
+        /// <param name="bufferSize">[in] Specifies the size, in bytes, of the buffer Buffer.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetSymbolInformationWideResult GetSymbolInformationWide(DEBUG_SYMINFO which, long arg64, int arg32, IntPtr buffer, int stringBufferSize)
+        public GetSymbolInformationWideResult GetSymbolInformationWide(DEBUG_SYMINFO which, long arg64, int arg32, IntPtr buffer, int bufferSize)
         {
             GetSymbolInformationWideResult result;
-            TryGetSymbolInformationWide(which, arg64, arg32, buffer, stringBufferSize, out result).ThrowDbgEngNotOK();
+            TryGetSymbolInformationWide(which, arg64, arg32, buffer, bufferSize, out result).ThrowDbgEngNotOK();
 
             return result;
         }
@@ -676,10 +672,10 @@ namespace ClrDebug.DbgEng
         /// For more information, see PDB documentation.</param>
         /// <param name="buffer">[out, optional] Receives the requested symbol information. The type of the data returned depends on the value of Which.<para/>
         /// If Buffer is NULL, this information is not returned.</param>
-        /// <param name="stringBufferSize">[in] Specifies the size, in characters, of the string buffer StringBuffer.</param>
+        /// <param name="bufferSize">[in] Specifies the size, in bytes, of the buffer Buffer.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
-        public HRESULT TryGetSymbolInformationWide(DEBUG_SYMINFO which, long arg64, int arg32, IntPtr buffer, int stringBufferSize, out GetSymbolInformationWideResult result)
+        public HRESULT TryGetSymbolInformationWide(DEBUG_SYMINFO which, long arg64, int arg32, IntPtr buffer, int bufferSize, out GetSymbolInformationWideResult result)
         {
             InitDelegate(ref getSymbolInformationWide, Vtbl3->GetSymbolInformationWide);
             /*HRESULT GetSymbolInformationWide(
@@ -692,22 +688,22 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder StringBuffer,
             [In] int StringBufferSize,
             [Out] out int StringSize);*/
-            int bufferSize = 0;
             int infoSize;
             StringBuilder stringBuffer;
+            int stringBufferSize = 0;
             int stringSize;
             HRESULT hr = getSymbolInformationWide(Raw, which, arg64, arg32, buffer, bufferSize, out infoSize, null, stringBufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            bufferSize = infoSize;
-            stringBuffer = new StringBuilder(bufferSize);
+            stringBufferSize = stringSize;
+            stringBuffer = new StringBuilder(stringBufferSize);
             hr = getSymbolInformationWide(Raw, which, arg64, arg32, buffer, bufferSize, out infoSize, stringBuffer, stringBufferSize, out stringSize);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetSymbolInformationWideResult(stringBuffer.ToString(), stringSize);
+                result = new GetSymbolInformationWideResult(infoSize, stringBuffer.ToString());
 
                 return hr;
             }

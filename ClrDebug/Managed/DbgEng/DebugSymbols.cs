@@ -1505,12 +1505,12 @@ namespace ClrDebug.DbgEng
         /// <param name="offset">[in] Specifies the location in the target's virtual address space of the variable.</param>
         /// <param name="module">[in] Specifies the base address of the module containing the type.</param>
         /// <param name="typeId">[in] Specifies the type ID of the type.</param>
-        /// <param name="flags">[in] Specifies the formatting flags. See DEBUG_TYPEOPTS_XXX for possible values.</param>
+        /// <param name="flags">[in] Specifies the formatting flags.</param>
         /// <remarks>
         /// The output produced by this method is the same as for the debugger command DT. See dt (Display Type). For more
         /// information about types, see Types. For more information about output, see Input and Output.
         /// </remarks>
-        public void OutputTypedDataVirtual(DEBUG_OUTCTL outputControl, long offset, long module, int typeId, DEBUG_TYPEOPTS flags)
+        public void OutputTypedDataVirtual(DEBUG_OUTCTL outputControl, long offset, long module, int typeId, DEBUG_OUTTYPE flags)
         {
             TryOutputTypedDataVirtual(outputControl, offset, module, typeId, flags).ThrowDbgEngNotOK();
         }
@@ -1522,13 +1522,13 @@ namespace ClrDebug.DbgEng
         /// <param name="offset">[in] Specifies the location in the target's virtual address space of the variable.</param>
         /// <param name="module">[in] Specifies the base address of the module containing the type.</param>
         /// <param name="typeId">[in] Specifies the type ID of the type.</param>
-        /// <param name="flags">[in] Specifies the formatting flags. See DEBUG_TYPEOPTS_XXX for possible values.</param>
+        /// <param name="flags">[in] Specifies the formatting flags.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
         /// The output produced by this method is the same as for the debugger command DT. See dt (Display Type). For more
         /// information about types, see Types. For more information about output, see Input and Output.
         /// </remarks>
-        public HRESULT TryOutputTypedDataVirtual(DEBUG_OUTCTL outputControl, long offset, long module, int typeId, DEBUG_TYPEOPTS flags)
+        public HRESULT TryOutputTypedDataVirtual(DEBUG_OUTCTL outputControl, long offset, long module, int typeId, DEBUG_OUTTYPE flags)
         {
             InitDelegate(ref outputTypedDataVirtual, Vtbl->OutputTypedDataVirtual);
 
@@ -1537,7 +1537,7 @@ namespace ClrDebug.DbgEng
             [In] long Offset,
             [In] long Module,
             [In] int TypeId,
-            [In] DEBUG_TYPEOPTS Flags);*/
+            [In] DEBUG_OUTTYPE Flags);*/
             return outputTypedDataVirtual(Raw, outputControl, offset, module, typeId, flags);
         }
 
@@ -1661,13 +1661,13 @@ namespace ClrDebug.DbgEng
         /// <param name="offset">[in] Specifies the physical address in the target computer's memory of the variable.</param>
         /// <param name="module">[in] Specifies the base address of the module containing the type of the variable.</param>
         /// <param name="typeId">[in] Specifies the type ID of the type of the variable.</param>
-        /// <param name="flags">[in] Specifies the bit-set containing the formatting options. See DEBUG_TYPEOPTS_XXX for possible values.</param>
+        /// <param name="flags">[in] Specifies the bit-set containing the formatting options.</param>
         /// <remarks>
         /// This method is only available in kernel mode debugging. The output produced by this method is the same as for the
         /// debugger command DT. See dt (Display Type). For more information about types, see Types. For information about
         /// output, see Input and Output.
         /// </remarks>
-        public void OutputTypedDataPhysical(DEBUG_OUTCTL outputControl, long offset, long module, int typeId, DEBUG_TYPEOPTS flags)
+        public void OutputTypedDataPhysical(DEBUG_OUTCTL outputControl, long offset, long module, int typeId, DEBUG_OUTTYPE flags)
         {
             TryOutputTypedDataPhysical(outputControl, offset, module, typeId, flags).ThrowDbgEngNotOK();
         }
@@ -1679,14 +1679,14 @@ namespace ClrDebug.DbgEng
         /// <param name="offset">[in] Specifies the physical address in the target computer's memory of the variable.</param>
         /// <param name="module">[in] Specifies the base address of the module containing the type of the variable.</param>
         /// <param name="typeId">[in] Specifies the type ID of the type of the variable.</param>
-        /// <param name="flags">[in] Specifies the bit-set containing the formatting options. See DEBUG_TYPEOPTS_XXX for possible values.</param>
+        /// <param name="flags">[in] Specifies the bit-set containing the formatting options.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
         /// This method is only available in kernel mode debugging. The output produced by this method is the same as for the
         /// debugger command DT. See dt (Display Type). For more information about types, see Types. For information about
         /// output, see Input and Output.
         /// </remarks>
-        public HRESULT TryOutputTypedDataPhysical(DEBUG_OUTCTL outputControl, long offset, long module, int typeId, DEBUG_TYPEOPTS flags)
+        public HRESULT TryOutputTypedDataPhysical(DEBUG_OUTCTL outputControl, long offset, long module, int typeId, DEBUG_OUTTYPE flags)
         {
             InitDelegate(ref outputTypedDataPhysical, Vtbl->OutputTypedDataPhysical);
 
@@ -1695,7 +1695,7 @@ namespace ClrDebug.DbgEng
             [In] long Offset,
             [In] long Module,
             [In] int TypeId,
-            [In] DEBUG_TYPEOPTS Flags);*/
+            [In] DEBUG_OUTTYPE Flags);*/
             return outputTypedDataPhysical(Raw, outputControl, offset, module, typeId, flags);
         }
 
@@ -5882,7 +5882,7 @@ namespace ClrDebug.DbgEng
         /// and DEBUG_GSEL_NEAREST_ONLY will return the target's memory location for the first piece of code starting at the
         /// specified line. For more information about source files, see Using Source Files.
         /// </remarks>
-        public DEBUG_SYMBOL_SOURCE_ENTRY[] GetSourceEntriesByLine(int line, string file, int flags)
+        public DEBUG_SYMBOL_SOURCE_ENTRY[] GetSourceEntriesByLine(int line, string file, DEBUG_GSEL flags)
         {
             DEBUG_SYMBOL_SOURCE_ENTRY[] entries;
             TryGetSourceEntriesByLine(line, file, flags, out entries).ThrowDbgEngNotOK();
@@ -5906,13 +5906,13 @@ namespace ClrDebug.DbgEng
         /// and DEBUG_GSEL_NEAREST_ONLY will return the target's memory location for the first piece of code starting at the
         /// specified line. For more information about source files, see Using Source Files.
         /// </remarks>
-        public HRESULT TryGetSourceEntriesByLine(int line, string file, int flags, out DEBUG_SYMBOL_SOURCE_ENTRY[] entries)
+        public HRESULT TryGetSourceEntriesByLine(int line, string file, DEBUG_GSEL flags, out DEBUG_SYMBOL_SOURCE_ENTRY[] entries)
         {
             InitDelegate(ref getSourceEntriesByLine, Vtbl3->GetSourceEntriesByLine);
             /*HRESULT GetSourceEntriesByLine(
             [In] int Line,
             [In, MarshalAs(UnmanagedType.LPStr)] string File,
-            [In] int Flags,
+            [In] DEBUG_GSEL Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries,
             [In] int EntriesCount,
             [Out] out int EntriesAvail);*/
@@ -5949,7 +5949,7 @@ namespace ClrDebug.DbgEng
         /// and DEBUG_GSEL_NEAREST_ONLY will return the target's memory location for the first piece of code starting at the
         /// specified line. For more information about source files, see Using Source Files.
         /// </remarks>
-        public DEBUG_SYMBOL_SOURCE_ENTRY[] GetSourceEntriesByLineWide(int line, string file, int flags)
+        public DEBUG_SYMBOL_SOURCE_ENTRY[] GetSourceEntriesByLineWide(int line, string file, DEBUG_GSEL flags)
         {
             DEBUG_SYMBOL_SOURCE_ENTRY[] entries;
             TryGetSourceEntriesByLineWide(line, file, flags, out entries).ThrowDbgEngNotOK();
@@ -5973,13 +5973,13 @@ namespace ClrDebug.DbgEng
         /// and DEBUG_GSEL_NEAREST_ONLY will return the target's memory location for the first piece of code starting at the
         /// specified line. For more information about source files, see Using Source Files.
         /// </remarks>
-        public HRESULT TryGetSourceEntriesByLineWide(int line, string file, int flags, out DEBUG_SYMBOL_SOURCE_ENTRY[] entries)
+        public HRESULT TryGetSourceEntriesByLineWide(int line, string file, DEBUG_GSEL flags, out DEBUG_SYMBOL_SOURCE_ENTRY[] entries)
         {
             InitDelegate(ref getSourceEntriesByLineWide, Vtbl3->GetSourceEntriesByLineWide);
             /*HRESULT GetSourceEntriesByLineWide(
             [In] int Line,
             [In, MarshalAs(UnmanagedType.LPWStr)] string File,
-            [In] int Flags,
+            [In] DEBUG_GSEL Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries,
             [In] int EntriesCount,
             [Out] out int EntriesAvail);*/
@@ -6944,10 +6944,10 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetOffsetTypeIdDelegate(IntPtr self, [In] long Offset, [Out] out int TypeId, [Out] out long Module);
         private delegate HRESULT ReadTypedDataVirtualDelegate(IntPtr self, [In] long Offset, [In] long Module, [In] int TypeId, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesRead);
         private delegate HRESULT WriteTypedDataVirtualDelegate(IntPtr self, [In] long Offset, [In] long Module, [In] int TypeId, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
-        private delegate HRESULT OutputTypedDataVirtualDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] long Offset, [In] long Module, [In] int TypeId, [In] DEBUG_TYPEOPTS Flags);
+        private delegate HRESULT OutputTypedDataVirtualDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] long Offset, [In] long Module, [In] int TypeId, [In] DEBUG_OUTTYPE Flags);
         private delegate HRESULT ReadTypedDataPhysicalDelegate(IntPtr self, [In] long Offset, [In] long Module, [In] int TypeId, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesRead);
         private delegate HRESULT WriteTypedDataPhysicalDelegate(IntPtr self, [In] long Offset, [In] long Module, [In] int TypeId, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
-        private delegate HRESULT OutputTypedDataPhysicalDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] long Offset, [In] long Module, [In] int TypeId, [In] DEBUG_TYPEOPTS Flags);
+        private delegate HRESULT OutputTypedDataPhysicalDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] long Offset, [In] long Module, [In] int TypeId, [In] DEBUG_OUTTYPE Flags);
         private delegate HRESULT GetScopeDelegate(IntPtr self, [Out] out long InstructionOffset, [Out] out DEBUG_STACK_FRAME ScopeFrame, [In] IntPtr ScopeContext, [In] int ScopeContextSize);
         private delegate HRESULT SetScopeDelegate(IntPtr self, [In] long InstructionOffset, [In] DEBUG_STACK_FRAME ScopeFrame, [In] IntPtr ScopeContext, [In] int ScopeContextSize);
         private delegate HRESULT ResetScopeDelegate(IntPtr self);
@@ -7039,8 +7039,8 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetSymbolEntryOffsetRegionsDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id, [In] int Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions, [In] int RegionsCount, [Out] out int RegionsAvail);
         private delegate HRESULT GetSymbolEntryBySymbolEntryDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID FromId, [In] int Flags, [Out] out DEBUG_MODULE_AND_ID ToId);
         private delegate HRESULT GetSourceEntriesByOffsetDelegate(IntPtr self, [In] long Offset, [In] int Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries, [In] int EntriesCount, [Out] out int EntriesAvail);
-        private delegate HRESULT GetSourceEntriesByLineDelegate(IntPtr self, [In] int Line, [In, MarshalAs(UnmanagedType.LPStr)] string File, [In] int Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries, [In] int EntriesCount, [Out] out int EntriesAvail);
-        private delegate HRESULT GetSourceEntriesByLineWideDelegate(IntPtr self, [In] int Line, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [In] int Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries, [In] int EntriesCount, [Out] out int EntriesAvail);
+        private delegate HRESULT GetSourceEntriesByLineDelegate(IntPtr self, [In] int Line, [In, MarshalAs(UnmanagedType.LPStr)] string File, [In] DEBUG_GSEL Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries, [In] int EntriesCount, [Out] out int EntriesAvail);
+        private delegate HRESULT GetSourceEntriesByLineWideDelegate(IntPtr self, [In] int Line, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [In] DEBUG_GSEL Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries, [In] int EntriesCount, [Out] out int EntriesAvail);
         private delegate HRESULT GetSourceEntryStringDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry, [In] int Which, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringSize);
         private delegate HRESULT GetSourceEntryStringWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry, [In] int Which, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringSize);
         private delegate HRESULT GetSourceEntryOffsetRegionsDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry, [In] int Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions, [In] int RegionsCount, [Out] out int RegionsAvail);

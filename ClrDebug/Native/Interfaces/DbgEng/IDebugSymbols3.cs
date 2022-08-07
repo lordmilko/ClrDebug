@@ -497,7 +497,7 @@ namespace ClrDebug.DbgEng
         /// <param name="Offset">[in] Specifies the location in the target's virtual address space of the variable.</param>
         /// <param name="Module">[in] Specifies the base address of the module containing the type.</param>
         /// <param name="TypeId">[in] Specifies the type ID of the type.</param>
-        /// <param name="Flags">[in] Specifies the formatting flags. See DEBUG_TYPEOPTS_XXX for possible values.</param>
+        /// <param name="Flags">[in] Specifies the formatting flags.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
         /// The output produced by this method is the same as for the debugger command DT. See dt (Display Type). For more
@@ -509,7 +509,7 @@ namespace ClrDebug.DbgEng
             [In] long Offset,
             [In] long Module,
             [In] int TypeId,
-            [In] DEBUG_TYPEOPTS Flags);
+            [In] DEBUG_OUTTYPE Flags);
 
         /// <summary>
         /// The ReadTypedDataPhysical method reads the value of a variable from the target computer's physical memory.
@@ -567,7 +567,7 @@ namespace ClrDebug.DbgEng
         /// <param name="Offset">[in] Specifies the physical address in the target computer's memory of the variable.</param>
         /// <param name="Module">[in] Specifies the base address of the module containing the type of the variable.</param>
         /// <param name="TypeId">[in] Specifies the type ID of the type of the variable.</param>
-        /// <param name="Flags">[in] Specifies the bit-set containing the formatting options. See DEBUG_TYPEOPTS_XXX for possible values.</param>
+        /// <param name="Flags">[in] Specifies the bit-set containing the formatting options.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
         /// This method is only available in kernel mode debugging. The output produced by this method is the same as for the
@@ -580,7 +580,7 @@ namespace ClrDebug.DbgEng
             [In] long Offset,
             [In] long Module,
             [In] int TypeId,
-            [In] DEBUG_TYPEOPTS Flags);
+            [In] DEBUG_OUTTYPE Flags);
 
         /// <summary>
         /// The GetScope method returns information about the current scope.
@@ -2282,7 +2282,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetSourceEntriesByLine(
             [In] int Line,
             [In, MarshalAs(UnmanagedType.LPStr)] string File,
-            [In] int Flags,
+            [In] DEBUG_GSEL Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries,
             [In] int EntriesCount,
             [Out] out int EntriesAvail);
@@ -2309,7 +2309,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetSourceEntriesByLineWide(
             [In] int Line,
             [In, MarshalAs(UnmanagedType.LPWStr)] string File,
-            [In] int Flags,
+            [In] DEBUG_GSEL Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries,
             [In] int EntriesCount,
             [Out] out int EntriesAvail);

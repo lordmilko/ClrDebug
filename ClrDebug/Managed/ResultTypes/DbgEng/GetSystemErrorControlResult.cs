@@ -3,7 +3,7 @@
 namespace ClrDebug.DbgEng
 {
     /// <summary>
-    /// Encapsulates the results of the <see cref="DebugControl.GetSystemErrorControl"/> method.
+    /// Encapsulates the results of the <see cref="DebugControl.SystemErrorControl"/> property.
     /// </summary>
     [DebuggerDisplay("OutputLevel = {OutputLevel.ToString(),nq}, BreakLevel = {BreakLevel.ToString(),nq}")]
     public struct GetSystemErrorControlResult
