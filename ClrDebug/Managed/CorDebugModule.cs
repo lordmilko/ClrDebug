@@ -881,6 +881,32 @@ namespace ClrDebug
 
         #endregion
         #endregion
+        #region ICorDebugModule4
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public ICorDebugModule4 Raw4 => (ICorDebugModule4) Raw;
+
+        #region IsMappedLayout
+
+        public bool IsMappedLayout
+        {
+            get
+            {
+                bool pIsMapped;
+                TryIsMappedLayout(out pIsMapped).ThrowOnNotOK();
+
+                return pIsMapped;
+            }
+        }
+
+        public HRESULT TryIsMappedLayout(out bool pIsMapped)
+        {
+            /*HRESULT IsMappedLayout(out bool pIsMapped);*/
+            return Raw4.IsMappedLayout(out pIsMapped);
+        }
+
+        #endregion
+        #endregion
         
         /// <summary>
         /// Returns a string that represents the current object.

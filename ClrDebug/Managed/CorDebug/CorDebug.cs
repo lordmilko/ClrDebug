@@ -255,7 +255,7 @@ namespace ClrDebug
         /// <remarks>
         /// Interop debugging is not supported on Win9x and non-x86 platforms, such as IA-64-based and AMD64-based platforms.
         /// </remarks>
-        public CorDebugProcess DebugActiveProcess(int id, int win32Attach)
+        public CorDebugProcess DebugActiveProcess(int id, bool win32Attach)
         {
             CorDebugProcess ppProcessResult;
             TryDebugActiveProcess(id, win32Attach, out ppProcessResult).ThrowOnNotOK();
@@ -272,9 +272,9 @@ namespace ClrDebug
         /// <remarks>
         /// Interop debugging is not supported on Win9x and non-x86 platforms, such as IA-64-based and AMD64-based platforms.
         /// </remarks>
-        public HRESULT TryDebugActiveProcess(int id, int win32Attach, out CorDebugProcess ppProcessResult)
+        public HRESULT TryDebugActiveProcess(int id, bool win32Attach, out CorDebugProcess ppProcessResult)
         {
-            /*HRESULT DebugActiveProcess([In] int id, [In] int win32Attach,
+            /*HRESULT DebugActiveProcess([In] int id, [In] bool win32Attach,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
             ICorDebugProcess ppProcess;
             HRESULT hr = Raw.DebugActiveProcess(id, win32Attach, out ppProcess);

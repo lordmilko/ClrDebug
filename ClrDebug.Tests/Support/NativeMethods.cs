@@ -26,7 +26,7 @@ namespace ClrDebug.Tests.DbgEng
         [DllImport(DbgHelp, SetLastError = true)]
         internal static extern bool SymGetSearchPath(IntPtr hProcess, IntPtr SearchPath, [In] int SearchPathLength);
 
-        [DllImport(kernel32)]
+        [DllImport(kernel32, SetLastError = true)]
         public static extern IntPtr GetProcAddress(IntPtr hModule, string lpProcName);
 
         [DllImport(kernel32, CharSet = CharSet.Unicode, SetLastError = true, EntryPoint = "LoadLibraryW")]

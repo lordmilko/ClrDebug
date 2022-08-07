@@ -18,8 +18,8 @@ namespace ClrDebug
     /// </remarks>
     public delegate HRESULT CLRDataCreateInstanceDelegate(
         [In] ref Guid iid,
-        [MarshalAs(UnmanagedType.Interface), In] ICLRDataTarget target,
-        [MarshalAs(UnmanagedType.Interface), Out] out object iface);
+        [In, MarshalAs(UnmanagedType.Interface)] ICLRDataTarget target,
+        [MarshalAs(UnmanagedType.IUnknown), Out] out object iface);
 
     public static partial class Extensions
     {
@@ -45,6 +45,8 @@ namespace ClrDebug
         public static readonly Guid CLSID_CorMetaDataDispenser = new Guid("E5CB7A31-7512-11d2-89CE-0080C792E5D8");
         public static readonly Guid CLSID_CorRuntimeHost = new Guid("CB2F6723-AB3A-11d2-9C40-00C04FA30A3E");
         public static readonly Guid CLSID_TypeNameFactory = new Guid("B81FF171-20F3-11d2-8DCC-00A0C9B00525");
+
+        #region CLRCreateInstance
 
         /// <summary>
         /// Provides one of three interfaces: <see cref="ICLRMetaHost"/>, <see cref="ICLRMetaHostPolicy"/> or <see cref="ICLRDebugging"/>.
@@ -74,6 +76,9 @@ namespace ClrDebug
 
             return new CLRCreateInstanceInterfaces();
         }
+
+        #endregion
+        #region CLRDataCreateInstance
 
         /// <summary>
         /// Provides facilities for retrieving interfaces that are commonly retrieved from a <see cref="CLRDataCreateInstanceDelegate"/>.<para/>
@@ -113,6 +118,8 @@ namespace ClrDebug
         /// <returns>The common interfaces that can be retrieved from a <see cref="CLRDataCreateInstanceDelegate"/>.</returns>
         public static CLRDataCreateInstanceInterfaces CLRDataCreateInstance(CLRDataCreateInstanceDelegate clrDataCreateInstance, ICLRDataTarget target) =>
             new CLRDataCreateInstanceInterfaces(clrDataCreateInstance, target);
+
+        #endregion
 
         private static IntPtr AllocAndInitContext<T>(int size, ContextFlags contextFlags)
         {

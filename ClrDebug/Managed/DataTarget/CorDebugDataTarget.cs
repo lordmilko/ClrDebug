@@ -421,5 +421,25 @@ namespace ClrDebug
 
         #endregion
         #endregion
+        #region ICorDebugDataTarget4
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public ICorDebugDataTarget4 Raw4 => (ICorDebugDataTarget4) Raw;
+
+        #region VirtualUnwind
+
+        public void VirtualUnwind(int threadID, int contextSize, IntPtr context)
+        {
+            TryVirtualUnwind(threadID, contextSize, context).ThrowOnNotOK();
+        }
+
+        public HRESULT TryVirtualUnwind(int threadID, int contextSize, IntPtr context)
+        {
+            /*HRESULT VirtualUnwind([In] int threadID, [In] int contextSize, [In, Out] IntPtr context);*/
+            return Raw4.VirtualUnwind(threadID, contextSize, context);
+        }
+
+        #endregion
+        #endregion
     }
 }

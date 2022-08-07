@@ -47,7 +47,7 @@ namespace ClrDebug.CoClass
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT DebugActiveProcess(
             [In] int id,
-            [In] int win32Attach,
+            [In] bool win32Attach,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
         [PreserveSig]

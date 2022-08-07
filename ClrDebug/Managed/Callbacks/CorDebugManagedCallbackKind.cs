@@ -36,6 +36,9 @@
         ExceptionUnwind,
         FunctionRemapComplete,
         MDANotification,
-        CustomNotification
+        CustomNotification,
+        BeforeGarbageCollection,
+        AfterGarbageCollection,
+        DataBreakpoint
     }
 }

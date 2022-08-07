@@ -50,6 +50,6 @@ namespace ClrDebug
         /// <param name="pceltFetched">[out] Pointer to the number of objects actually returned. This value may be null if celt is one.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Next([In] int celt, [MarshalAs(UnmanagedType.Interface), Out] out CORDB_ADDRESS objects, [Out] out int pceltFetched);
+        HRESULT Next([In] int celt, [Out] out CORDB_ADDRESS objects, [Out] out int pceltFetched);
     }
 }

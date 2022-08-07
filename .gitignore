@@ -7,6 +7,7 @@ Samples/*
 !Samples/DbgEngTypedData/
 !Samples/NativeSymbols/
 !Samples/PEReader/
+!Samples/SigBlobParser/
 !Samples/SymbolStore/
 !Samples/README.md
 

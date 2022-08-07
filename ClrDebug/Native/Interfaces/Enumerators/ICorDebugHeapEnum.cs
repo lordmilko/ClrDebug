@@ -61,6 +61,6 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Next([In] int celt, [MarshalAs(UnmanagedType.Interface), Out] out COR_HEAPOBJECT objects, [Out] out int pceltFetched);
+        HRESULT Next([In] int celt, [Out] out COR_HEAPOBJECT objects, [Out] out int pceltFetched);
     }
 }

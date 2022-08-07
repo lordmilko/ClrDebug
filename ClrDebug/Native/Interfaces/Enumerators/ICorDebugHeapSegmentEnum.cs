@@ -58,6 +58,6 @@ namespace ClrDebug
         /// <param name="pceltFetched">[out] A pointer to the number of <see cref="COR_SEGMENT"/> objects actually returned in segments. This value may be null if celt is 1.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Next([In] int celt, [MarshalAs(UnmanagedType.Interface), Out] out COR_SEGMENT segments, [Out] out int pceltFetched);
+        HRESULT Next([In] int celt, [Out] out COR_SEGMENT segments, [Out] out int pceltFetched);
     }
 }

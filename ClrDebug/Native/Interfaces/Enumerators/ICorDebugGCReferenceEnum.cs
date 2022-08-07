@@ -56,6 +56,6 @@ namespace ClrDebug
         /// <param name="pceltFetched">[out] A pointer to the number of <see cref="COR_GC_REFERENCE"/> objects actually returned in roots. This value may be null if celt is 1.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Next([In] int celt, [MarshalAs(UnmanagedType.Interface), Out] out COR_GC_REFERENCE roots, [Out] out int pceltFetched);
+        HRESULT Next([In] int celt, [Out] out COR_GC_REFERENCE roots, [Out] out int pceltFetched);
     }
 }

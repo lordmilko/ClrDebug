@@ -7,7 +7,7 @@ namespace DbgEngConsole
     {
         private const string kernel32 = "kernel32.dll";
 
-        [DllImport(kernel32)]
+        [DllImport(kernel32, SetLastError = true)]
         public static extern IntPtr GetProcAddress(IntPtr hModule, string lpProcName);
 
         [DllImport(kernel32, CharSet = CharSet.Unicode, SetLastError = true, EntryPoint = "LoadLibraryW")]

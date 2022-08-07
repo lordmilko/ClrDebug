@@ -474,5 +474,36 @@ namespace ClrDebug
 
         #endregion
         #endregion
+        #region ICorDebugFunction4
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public ICorDebugFunction4 Raw4 => (ICorDebugFunction4) Raw;
+
+        #region CreateNativeBreakpoint
+
+        public CorDebugFunctionBreakpoint CreateNativeBreakpoint()
+        {
+            CorDebugFunctionBreakpoint ppBreakpointResult;
+            TryCreateNativeBreakpoint(out ppBreakpointResult).ThrowOnNotOK();
+
+            return ppBreakpointResult;
+        }
+
+        public HRESULT TryCreateNativeBreakpoint(out CorDebugFunctionBreakpoint ppBreakpointResult)
+        {
+            /*HRESULT CreateNativeBreakpoint([MarshalAs(UnmanagedType.Interface)] out ICorDebugFunctionBreakpoint ppBreakpoint);*/
+            ICorDebugFunctionBreakpoint ppBreakpoint;
+            HRESULT hr = Raw4.CreateNativeBreakpoint(out ppBreakpoint);
+
+            if (hr == HRESULT.S_OK)
+                ppBreakpointResult = new CorDebugFunctionBreakpoint(ppBreakpoint);
+            else
+                ppBreakpointResult = default(CorDebugFunctionBreakpoint);
+
+            return hr;
+        }
+
+        #endregion
+        #endregion
     }
 }

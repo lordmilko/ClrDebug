@@ -1816,5 +1816,58 @@ namespace ClrDebug
 
         #endregion
         #endregion
+        #region ICorDebugProcess10
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public ICorDebugProcess10 Raw10 => (ICorDebugProcess10) Raw;
+
+        #region EnableGCNotificationEvents
+
+        public void EnableGCNotificationEvents(bool fEnable)
+        {
+            TryEnableGCNotificationEvents(fEnable).ThrowOnNotOK();
+        }
+
+        public HRESULT TryEnableGCNotificationEvents(bool fEnable)
+        {
+            /*HRESULT EnableGCNotificationEvents(bool fEnable);*/
+            return Raw10.EnableGCNotificationEvents(fEnable);
+        }
+
+        #endregion
+        #endregion
+        #region ICorDebugProcess11
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public ICorDebugProcess11 Raw11 => (ICorDebugProcess11) Raw;
+
+        #region EnumerateLoaderHeapMemoryRegions
+
+        public COR_MEMORY_RANGE[] LoaderHeapMemoryRegions => EnumerateLoaderHeapMemoryRegions().ToArray();
+
+        public CorDebugMemoryRangeEnum EnumerateLoaderHeapMemoryRegions()
+        {
+            CorDebugMemoryRangeEnum ppRangesResult;
+            TryEnumerateLoaderHeapMemoryRegions(out ppRangesResult).ThrowOnNotOK();
+
+            return ppRangesResult;
+        }
+
+        public HRESULT TryEnumerateLoaderHeapMemoryRegions(out CorDebugMemoryRangeEnum ppRangesResult)
+        {
+            /*HRESULT EnumerateLoaderHeapMemoryRegions([MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryRangeEnum ppRanges);*/
+            ICorDebugMemoryRangeEnum ppRanges;
+            HRESULT hr = Raw11.EnumerateLoaderHeapMemoryRegions(out ppRanges);
+
+            if (hr == HRESULT.S_OK)
+                ppRangesResult = new CorDebugMemoryRangeEnum(ppRanges);
+            else
+                ppRangesResult = default(CorDebugMemoryRangeEnum);
+
+            return hr;
+        }
+
+        #endregion
+        #endregion
     }
 }

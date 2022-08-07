@@ -15,7 +15,7 @@ namespace ClrDebug
     /// if it is debugging .NET Framework version 2.0 applications. An instance of <see cref="ICorDebugManagedCallback"/> or <see cref="ICorDebugManagedCallback2"/>
     /// is passed as the callback object to <see cref="CorDebug.SetManagedHandler"/>.
     /// </remarks>
-    public class CorDebugManagedCallback : ICorDebugManagedCallback, ICorDebugManagedCallback2, ICorDebugManagedCallback3
+    public class CorDebugManagedCallback : ICorDebugManagedCallback, ICorDebugManagedCallback2, ICorDebugManagedCallback3, ICorDebugManagedCallback4
     {
         public EventHandler<CorDebugManagedCallbackEventArgs> OnAnyEvent;
 
@@ -203,6 +203,13 @@ namespace ClrDebug
         public EventHandler<CustomNotificationCorDebugManagedCallbackEventArgs> OnCustomNotification;
 
         #endregion
+        #region ICorDebugManagedCallback4 EventHandlers
+
+        public EventHandler<BeforeGarbageCollectionCorDebugManagedCallbackEventArgs> OnBeforeGarbageCollection;
+        public EventHandler<AfterGarbageCollectionCorDebugManagedCallbackEventArgs> OnAfterGarbageCollection;
+        public EventHandler<DataBreakpointCorDebugManagedCallbackEventArgs> OnDataBreakpoint;
+
+        #endregion
         #region ICorDebugManagedCallback Methods
 
         HRESULT ICorDebugManagedCallback.Breakpoint(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugBreakpoint pBreakpoint) => HandleEvent(OnBreakpoint, new BreakpointCorDebugManagedCallbackEventArgs(pAppDomain, pThread, pBreakpoint));
@@ -248,6 +255,13 @@ namespace ClrDebug
         #region ICorDebugManagedCallback3 Methods
 
         HRESULT ICorDebugManagedCallback3.CustomNotification(ICorDebugThread pThread, ICorDebugAppDomain pAppDomain) => HandleEvent(OnCustomNotification, new CustomNotificationCorDebugManagedCallbackEventArgs(pThread, pAppDomain));
+
+        #endregion
+        #region ICorDebugManagedCallback4 Methods
+
+        HRESULT ICorDebugManagedCallback4.BeforeGarbageCollection(ICorDebugProcess pProcess) => HandleEvent(OnBeforeGarbageCollection, new BeforeGarbageCollectionCorDebugManagedCallbackEventArgs(pProcess));
+        HRESULT ICorDebugManagedCallback4.AfterGarbageCollection(ICorDebugProcess pProcess) => HandleEvent(OnAfterGarbageCollection, new AfterGarbageCollectionCorDebugManagedCallbackEventArgs(pProcess));
+        HRESULT ICorDebugManagedCallback4.DataBreakpoint(ICorDebugProcess pProcess, ICorDebugThread pThread, IntPtr pContext, int contextSize) => HandleEvent(OnDataBreakpoint, new DataBreakpointCorDebugManagedCallbackEventArgs(pProcess, pThread, pContext, contextSize));
 
         #endregion
         

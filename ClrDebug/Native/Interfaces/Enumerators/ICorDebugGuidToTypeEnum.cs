@@ -57,6 +57,6 @@ namespace ClrDebug
         /// <param name="pceltFetched">[out] A pointer to the number of <see cref="CorDebugGuidToTypeMapping"/> objects actually returned in values.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Next([In] int celt, [MarshalAs(UnmanagedType.Interface), Out] out CorDebugGuidToTypeMapping values, [Out] out int pceltFetched);
+        HRESULT Next([In] int celt, [Out] out CorDebugGuidToTypeMapping values, [Out] out int pceltFetched);
     }
 }
