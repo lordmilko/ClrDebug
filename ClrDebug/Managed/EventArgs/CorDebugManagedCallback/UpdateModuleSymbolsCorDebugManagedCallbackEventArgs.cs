@@ -61,17 +61,17 @@ namespace ClrDebug
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly IStream rawSymbolStream;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private Stream symbolStream;
+        private ComStream symbolStream;
 
         /// <summary>
         /// A pointer to a Win32 COM <see cref="IStream"/> object that contains the modified symbols.
         /// </summary>
-        public Stream SymbolStream
+        public ComStream SymbolStream
         {
             get
             {
                 if (symbolStream == null && rawSymbolStream != null)
-                    symbolStream = new Stream(rawSymbolStream);
+                    symbolStream = new ComStream(rawSymbolStream);
 
                 return symbolStream;
             }

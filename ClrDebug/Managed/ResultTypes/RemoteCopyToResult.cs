@@ -3,7 +3,7 @@
 namespace ClrDebug
 {
     /// <summary>
-    /// Encapsulates the results of the <see cref="Stream.RemoteCopyTo"/> method.
+    /// Encapsulates the results of the <see cref="ComStream.RemoteCopyTo"/> method.
     /// </summary>
     [DebuggerDisplay("pcbRead = {pcbRead.ToString(),nq}, pcbWritten = {pcbWritten.ToString(),nq}")]
     public struct RemoteCopyToResult

@@ -1,12 +1,12 @@
 ﻿namespace ClrDebug
 {
-    public class Stream : SequentialStream
+    public class ComStream : SequentialStream
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Stream"/> class.
+        /// Initializes a new instance of the <see cref="ComStream"/> class.
         /// </summary>
         /// <param name="raw">The raw COM interface that should be contained in this object.</param>
-        public Stream(IStream raw) : base(raw)
+        public ComStream(IStream raw) : base(raw)
         {
         }
 
@@ -151,24 +151,24 @@
         #endregion
         #region Clone
 
-        public Stream Clone()
+        public ComStream Clone()
         {
-            Stream ppstmResult;
+            ComStream ppstmResult;
             TryClone(out ppstmResult).ThrowOnNotOK();
 
             return ppstmResult;
         }
 
-        public HRESULT TryClone(out Stream ppstmResult)
+        public HRESULT TryClone(out ComStream ppstmResult)
         {
             /*HRESULT Clone([Out, MarshalAs(UnmanagedType.Interface)] out IStream ppstm);*/
             IStream ppstm;
             HRESULT hr = Raw.Clone(out ppstm);
 
             if (hr == HRESULT.S_OK)
-                ppstmResult = new Stream(ppstm);
+                ppstmResult = new ComStream(ppstm);
             else
-                ppstmResult = default(Stream);
+                ppstmResult = default(ComStream);
 
             return hr;
         }

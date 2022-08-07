@@ -7,7 +7,7 @@ namespace ClrDebug
         public static SequentialStream New(ISequentialStream value)
         {
             if (value is IStream)
-                return new Stream((IStream) value);
+                return new ComStream((IStream) value);
 
             throw new NotImplementedException("Encountered an 'ISequentialStream' interface of an unknown type. Cannot create wrapper type.");
         }
