@@ -6,8 +6,8 @@ Samples/*
 !Samples/DbgEngConsole/
 !Samples/DbgEngTypedData/
 !Samples/NativeSymbols/
+!Samples/NetCore/
 !Samples/PEReader/
-!Samples/SigBlobParser/
 !Samples/SymbolStore/
 !Samples/README.md
 

@@ -10,5 +10,6 @@ ClrDebug specifically, however may still prove relevant depending on the type of
 | DbgEngConsole   | Demonstrates the principles of processing input and running an engine loop in a DbgEng based debugger           |
 | DbgEngTypedData | Demonstrates how to interact with typed data using DbgEng                                                       |
 | NativeSymbols   | Simple REPL for resolving unmanaged symbols via DbgHelp and a custom symbol store                               |
+| NetCore         | Demonstrates how a .NET Core debugger can be created via DbgShim                                                |
 | PEReader        | Demonstrates how to read a variety of important sections from an in memory or on disk PE file                   |
 | SymbolStore     | Simple managed implementation of symsrv.dll for resolving unmanaged symbols from local and online symbol stores |
