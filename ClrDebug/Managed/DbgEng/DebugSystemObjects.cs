@@ -941,8 +941,8 @@ namespace ClrDebug.DbgEng
         /// <param name="count">[in] Specifies the number of processes whose IDs are requested.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
-        /// The index of the first process is zero. The index of the last process is the number of processes returned by <see 
-        ///cref="NumberProcesses"/> minus one. For more information about processes, see Threads and Processes.
+        /// The index of the first process is zero. The index of the last process is the number of processes returned by <see
+        /// cref="NumberProcesses"/> minus one. For more information about processes, see Threads and Processes.
         /// </remarks>
         public GetProcessIdsByIndexResult GetProcessIdsByIndex(int start, int count)
         {
@@ -960,8 +960,8 @@ namespace ClrDebug.DbgEng
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
-        /// The index of the first process is zero. The index of the last process is the number of processes returned by <see 
-        ///cref="NumberProcesses"/> minus one. For more information about processes, see Threads and Processes.
+        /// The index of the first process is zero. The index of the last process is the number of processes returned by <see
+        /// cref="NumberProcesses"/> minus one. For more information about processes, see Threads and Processes.
         /// </remarks>
         public HRESULT TryGetProcessIdsByIndex(int start, int count, out GetProcessIdsByIndexResult result)
         {
@@ -1318,7 +1318,8 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getEventSystem, Vtbl3->GetEventSystem);
 
-            /*HRESULT GetEventSystem([Out] out int Id);*/
+            /*HRESULT GetEventSystem(
+            [Out] out int Id);*/
             return getEventSystem(Raw, out id);
         }
 
@@ -1352,7 +1353,8 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getCurrentSystemId, Vtbl3->GetCurrentSystemId);
 
-            /*HRESULT GetCurrentSystemId([Out] out int Id);*/
+            /*HRESULT GetCurrentSystemId(
+            [Out] out int Id);*/
             return getCurrentSystemId(Raw, out id);
         }
 
@@ -1370,7 +1372,8 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref setCurrentSystemId, Vtbl3->SetCurrentSystemId);
 
-            /*HRESULT SetCurrentSystemId([In] int Id);*/
+            /*HRESULT SetCurrentSystemId(
+            [In] int Id);*/
             return setCurrentSystemId(Raw, id);
         }
 
@@ -1400,7 +1403,8 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getNumberSystems, Vtbl3->GetNumberSystems);
 
-            /*HRESULT GetNumberSystems([Out] out int Count);*/
+            /*HRESULT GetNumberSystems(
+            [Out] out int Count);*/
             return getNumberSystems(Raw, out count);
         }
 
@@ -1479,7 +1483,8 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getCurrentSystemServer, Vtbl3->GetCurrentSystemServer);
 
-            /*HRESULT GetCurrentSystemServer([Out] out long server);*/
+            /*HRESULT GetCurrentSystemServer(
+            [Out] out long server);*/
             return getCurrentSystemServer(Raw, out server);
         }
 
@@ -1508,7 +1513,10 @@ namespace ClrDebug.DbgEng
         public HRESULT TryGetCurrentSystemServerName(out string bufferResult)
         {
             InitDelegate(ref getCurrentSystemServerName, Vtbl3->GetCurrentSystemServerName);
-            /*HRESULT GetCurrentSystemServerName([Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int Size, [Out] out int Needed);*/
+            /*HRESULT GetCurrentSystemServerName(
+            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [In] int Size,
+            [Out] out int Needed);*/
             StringBuilder buffer;
             int size = 0;
             int needed;
@@ -1601,7 +1609,9 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getSystemByServer, Vtbl3->GetSystemByServer);
 
-            /*HRESULT GetSystemByServer([In] long Server, [Out] out int Id);*/
+            /*HRESULT GetSystemByServer(
+            [In] long Server,
+            [Out] out int Id);*/
             return getSystemByServer(Raw, server, out id);
         }
 

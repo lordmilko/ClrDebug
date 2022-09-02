@@ -21,7 +21,8 @@ namespace ClrDebug
         /// </summary>
         /// <param name="tk">[in] The token to mark as processed.</param>
         [PreserveSig]
-        HRESULT MarkToken([In] mdToken tk);
+        HRESULT MarkToken(
+            [In] mdToken tk);
 
         /// <summary>
         /// Gets a value indicating whether the specified metadata token has been marked as processed.
@@ -29,6 +30,8 @@ namespace ClrDebug
         /// <param name="tk">[in] The token to examine for a processing mark.</param>
         /// <param name="pIsMarked">[out] A value that is true if tk has been processed; otherwise false.</param>
         [PreserveSig]
-        HRESULT IsTokenMarked([In] mdToken tk, [Out] out int pIsMarked);
+        HRESULT IsTokenMarked(
+            [In] mdToken tk,
+            [Out] out int pIsMarked);
     }
 }

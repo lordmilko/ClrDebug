@@ -31,7 +31,9 @@ namespace ClrDebug
         /// <param name="fSave">[in] One of the <see cref="CorSaveSize"/> values, indicating the level of precision desired. For the .NET Framework version 2.0, this parameter is ignored.</param>
         /// <param name="pdwSaveSize">[out] The change in the size of the metadata.</param>
         [PreserveSig]
-        HRESULT GetDeltaSaveSize([In] CorSaveSize fSave, [Out] out int pdwSaveSize);
+        HRESULT GetDeltaSaveSize(
+            [In] CorSaveSize fSave,
+            [Out] out int pdwSaveSize);
 
         /// <summary>
         /// Saves changes from the current edit-and-continue session to the specified file.
@@ -39,7 +41,9 @@ namespace ClrDebug
         /// <param name="szFile">[in] The file name under which to save changes.</param>
         /// <param name="dwSaveFlags">[in] Reserved. Must be zero.</param>
         [PreserveSig]
-        HRESULT SaveDelta([In, MarshalAs(UnmanagedType.LPWStr)] string szFile, [In] int dwSaveFlags);
+        HRESULT SaveDelta(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szFile,
+            [In] int dwSaveFlags);
 
         /// <summary>
         /// Saves changes from the current edit-and-continue session to the specified stream.
@@ -47,7 +51,9 @@ namespace ClrDebug
         /// <param name="pIStream">[in] An interface pointer to the writable stream to which to save changes.</param>
         /// <param name="dwSaveFlags">[in] Reserved. This value must be zero.</param>
         [PreserveSig]
-        HRESULT SaveDeltaToStream([In, MarshalAs(UnmanagedType.Interface)] object pIStream, [In] int dwSaveFlags);
+        HRESULT SaveDeltaToStream(
+            [In, MarshalAs(UnmanagedType.Interface)] object pIStream,
+            [In] int dwSaveFlags);
 
         /// <summary>
         /// Saves changes from the current edit-and-continue session to memory.
@@ -55,7 +61,9 @@ namespace ClrDebug
         /// <param name="pbData">[out] The address at which to begin writing the metadata delta.</param>
         /// <param name="cbData">[in] The size of the changes. Use <see cref="GetDeltaSaveSize"/> to determine the size.</param>
         [PreserveSig]
-        HRESULT SaveDeltaToMemory([In] IntPtr pbData, [In] int cbData);
+        HRESULT SaveDeltaToMemory(
+            [In] IntPtr pbData,
+            [In] int cbData);
 
         /// <summary>
         /// Creates a definition for a generic type parameter, and gets a token to that generic type parameter.

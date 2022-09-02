@@ -48,7 +48,8 @@ namespace ClrDebug
         /// <param name="pGuarantee">[out] A pointer to the number of bytes that are available.</param>
         public HRESULT TryGetStackGuarantee(out int pGuarantee)
         {
-            /*HRESULT GetStackGuarantee([Out] out int pGuarantee);*/
+            /*HRESULT GetStackGuarantee(
+            [Out] out int pGuarantee);*/
             return Raw.GetStackGuarantee(out pGuarantee);
         }
 
@@ -57,7 +58,8 @@ namespace ClrDebug
         /// </summary>
         public HRESULT TrySetStackGuarantee(int guarantee)
         {
-            /*HRESULT SetStackGuarantee([In] int guarantee);*/
+            /*HRESULT SetStackGuarantee(
+            [In] int guarantee);*/
             return Raw.SetStackGuarantee(guarantee);
         }
 
@@ -396,7 +398,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryLeaveRuntime(int target)
         {
-            /*HRESULT LeaveRuntime([In] int target);*/
+            /*HRESULT LeaveRuntime(
+            [In] int target);*/
             return Raw.LeaveRuntime(target);
         }
 
@@ -723,7 +726,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetCLRTaskManager(out CLRTaskManager ppManagerResult)
         {
-            /*HRESULT SetCLRTaskManager([Out] out ICLRTaskManager ppManager);*/
+            /*HRESULT SetCLRTaskManager(
+            [Out] out ICLRTaskManager ppManager);*/
             ICLRTaskManager ppManager;
             HRESULT hr = Raw.SetCLRTaskManager(out ppManager);
 

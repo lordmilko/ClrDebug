@@ -28,6 +28,7 @@ namespace ClrDebug
         #region IEnumerable
 
         public IEnumerator<SOSStackRefError> GetEnumerator() => this;
+
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion

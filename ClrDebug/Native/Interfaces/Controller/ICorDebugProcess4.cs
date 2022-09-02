@@ -36,6 +36,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ProcessStateChanged([In] CorDebugStateChange change);
+        HRESULT ProcessStateChanged(
+            [In] CorDebugStateChange change);
     }
 }

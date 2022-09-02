@@ -47,7 +47,8 @@
         /// <param name="pbNull">[out] A pointer to a Boolean value that is true if this <see cref="ICorDebugReferenceValue"/> object is null; otherwise, pbNull is false.</param>
         public HRESULT TryIsNull(out bool pbNull)
         {
-            /*HRESULT IsNull([Out] out bool pbNull);*/
+            /*HRESULT IsNull(
+            [Out] out bool pbNull);*/
             return Raw.IsNull(out pbNull);
         }
 
@@ -78,7 +79,8 @@
         /// <param name="pValue">[out] A pointer to a <see cref="CORDB_ADDRESS"/> value that specifies the address of the object to which this <see cref="ICorDebugReferenceValue"/> object points.</param>
         public HRESULT TryGetValue(out CORDB_ADDRESS pValue)
         {
-            /*HRESULT GetValue([Out] out CORDB_ADDRESS pValue);*/
+            /*HRESULT GetValue(
+            [Out] out CORDB_ADDRESS pValue);*/
             return Raw.GetValue(out pValue);
         }
 
@@ -88,7 +90,8 @@
         /// <param name="value">[in] A <see cref="CORDB_ADDRESS"/> value that specifies the address of the object to which this <see cref="ICorDebugReferenceValue"/> points.</param>
         public HRESULT TrySetValue(CORDB_ADDRESS value)
         {
-            /*HRESULT SetValue([In] CORDB_ADDRESS value);*/
+            /*HRESULT SetValue(
+            [In] CORDB_ADDRESS value);*/
             return Raw.SetValue(value);
         }
 
@@ -119,7 +122,8 @@
         /// </remarks>
         public HRESULT TryDereference(out CorDebugValue ppValueResult)
         {
-            /*HRESULT Dereference([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            /*HRESULT Dereference(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.Dereference(out ppValue);
 
@@ -150,7 +154,8 @@
         /// </summary>
         public HRESULT TryDereferenceStrong(out CorDebugValue ppValueResult)
         {
-            /*HRESULT DereferenceStrong([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            /*HRESULT DereferenceStrong(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.DereferenceStrong(out ppValue);
 

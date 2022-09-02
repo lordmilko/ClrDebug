@@ -50,7 +50,8 @@ namespace ClrDebug
         /// <param name="pTo">[out] A pointer to the value that is represented by this <see cref="ICorDebugGenericValue"/> object. The value may be a simple type or a reference type (that is, a pointer).</param>
         public HRESULT TryGetValue(out IntPtr pTo)
         {
-            /*HRESULT GetValue([Out] out IntPtr pTo);*/
+            /*HRESULT GetValue(
+            [Out] out IntPtr pTo);*/
             return Raw.GetValue(out pTo);
         }
 
@@ -63,7 +64,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetValue(IntPtr pFrom)
         {
-            /*HRESULT SetValue([In] IntPtr pFrom);*/
+            /*HRESULT SetValue(
+            [In] IntPtr pFrom);*/
             return Raw.SetValue(pFrom);
         }
 

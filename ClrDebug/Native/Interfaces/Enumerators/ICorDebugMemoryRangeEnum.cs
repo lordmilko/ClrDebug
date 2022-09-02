@@ -14,7 +14,8 @@ namespace ClrDebug
         /// <param name="celt">[in] The number of items by which to move the cursor forward.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT Skip([In] int celt);
+        new HRESULT Skip(
+            [In] int celt);
 
         /// <summary>
         /// Moves the cursor to the beginning of the enumeration.
@@ -25,14 +26,19 @@ namespace ClrDebug
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT Clone([MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);
+        new HRESULT Clone(
+            [MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetCount(out int pcelt);
+        new HRESULT GetCount(
+            out int pcelt);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Next([In] int celt, [Out] out COR_MEMORY_RANGE objects, out int pceltFetched);
+        HRESULT Next(
+            [In] int celt,
+            [Out] out COR_MEMORY_RANGE objects,
+            out int pceltFetched);
     }
 }

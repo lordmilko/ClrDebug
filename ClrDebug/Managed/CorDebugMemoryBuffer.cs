@@ -38,7 +38,8 @@ namespace ClrDebug
         /// <param name="address">[out] A pointer to the starting address of the memory buffer.</param>
         public HRESULT TryGetStartAddress(out IntPtr address)
         {
-            /*HRESULT GetStartAddress([Out] out IntPtr address);*/
+            /*HRESULT GetStartAddress(
+            [Out] out IntPtr address);*/
             return Raw.GetStartAddress(out address);
         }
 
@@ -65,7 +66,8 @@ namespace ClrDebug
         /// <param name="pcbBufferLength">[out] A pointer to the size of the memory buffer.</param>
         public HRESULT TryGetSize(out int pcbBufferLength)
         {
-            /*HRESULT GetSize([Out] out int pcbBufferLength);*/
+            /*HRESULT GetSize(
+            [Out] out int pcbBufferLength);*/
             return Raw.GetSize(out pcbBufferLength);
         }
 

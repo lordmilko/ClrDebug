@@ -32,7 +32,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Stop([In] int dwTimeoutIgnored);
+        HRESULT Stop(
+            [In] int dwTimeoutIgnored);
 
         /// <summary>
         /// Resumes execution of managed threads after a call to <see cref="Stop"/>.
@@ -50,7 +51,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Continue([In] bool fIsOutOfBand);
+        HRESULT Continue(
+            [In] bool fIsOutOfBand);
 
         /// <summary>
         /// Gets a value that indicates whether the threads in the process are currently running freely.
@@ -58,7 +60,8 @@ namespace ClrDebug
         /// <param name="pbRunning">[out] A pointer to a value that is true if the threads in the process are running freely; otherwise, false.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsRunning([Out] out bool pbRunning);
+        HRESULT IsRunning(
+            [Out] out bool pbRunning);
 
         /// <summary>
         /// Gets a value that indicates whether any managed callbacks are currently queued for the specified thread.
@@ -76,8 +79,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT HasQueuedCallbacks([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugThread pThread, [Out] out bool pbQueued);
+        HRESULT HasQueuedCallbacks(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
+            [Out] out bool pbQueued);
 
         /// <summary>
         /// Gets an enumerator for the active managed threads in the process.
@@ -91,7 +95,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateThreads([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThreadEnum ppThreads);
+        HRESULT EnumerateThreads(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThreadEnum ppThreads);
 
         /// <summary>
         /// Sets the debug state of all managed threads in the process.
@@ -106,8 +111,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetAllThreadsDebugState([In] CorDebugThreadState state, [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugThread pExceptThisThread);
+        HRESULT SetAllThreadsDebugState(
+            [In] CorDebugThreadState state,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pExceptThisThread);
 
         /// <summary>
         /// Detaches the debugger from the process or application domain.
@@ -132,7 +138,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Terminate([In] int exitCode);
+        HRESULT Terminate(
+            [In] int exitCode);
 
         /// <summary>
         /// CanCommitChanges is obsolete. Do not call this method.
@@ -142,8 +149,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CanCommitChanges(
             [In] int cSnapshots,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ref ICorDebugEditAndContinueSnapshot pSnapshots,
+            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugEditAndContinueSnapshot pSnapshots,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugErrorInfoEnum pError);
 
         /// <summary>
@@ -154,8 +160,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CommitChanges(
             [In] int cSnapshots,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ref ICorDebugEditAndContinueSnapshot pSnapshots,
+            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugEditAndContinueSnapshot pSnapshots,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugErrorInfoEnum pError);
     }
 }

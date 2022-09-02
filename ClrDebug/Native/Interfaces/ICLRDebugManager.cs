@@ -95,7 +95,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EndConnection([In] int dwConnectionId);
+        HRESULT EndConnection(
+            [In] int dwConnectionId);
 
         /// <summary>
         /// This method is not implemented.
@@ -108,7 +109,8 @@ namespace ClrDebug
         /// </returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetDacl([In] IntPtr pacl);
+        HRESULT SetDacl(
+            [In] IntPtr pacl);
 
         /// <summary>
         /// This method is not implemented.
@@ -121,7 +123,8 @@ namespace ClrDebug
         /// </returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetDacl([Out] out IntPtr pacl);
+        HRESULT GetDacl(
+            [Out] out IntPtr pacl);
 
         /// <summary>
         /// Gets a value that indicates whether a debugger is attached to the process.
@@ -142,7 +145,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsDebuggerAttached([Out] out bool pbAttached);
+        HRESULT IsDebuggerAttached(
+            [Out] out bool pbAttached);
 
         /// <summary>
         /// Sets the policy for reading program database (PDB) files. The policy determines whether information about line numbers and files is included in call stacks.
@@ -157,6 +161,7 @@ namespace ClrDebug
         /// </returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetSymbolReadingPolicy([In] ESymbolReadingPolicy policy);
+        HRESULT SetSymbolReadingPolicy(
+            [In] ESymbolReadingPolicy policy);
     }
 }

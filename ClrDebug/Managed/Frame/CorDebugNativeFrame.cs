@@ -51,7 +51,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetIP(out int pnOffset)
         {
-            /*HRESULT GetIP([Out] out int pnOffset);*/
+            /*HRESULT GetIP(
+            [Out] out int pnOffset);*/
             return Raw.GetIP(out pnOffset);
         }
 
@@ -70,7 +71,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetIP(int nOffset)
         {
-            /*HRESULT SetIP([In] int nOffset);*/
+            /*HRESULT SetIP(
+            [In] int nOffset);*/
             return Raw.SetIP(nOffset);
         }
 
@@ -97,7 +99,8 @@ namespace ClrDebug
         /// <param name="ppRegistersResult">[out] A pointer to the address of an <see cref="ICorDebugRegisterSet"/> object that represents the register set for this stack frame.</param>
         public HRESULT TryGetRegisterSet(out CorDebugRegisterSet ppRegistersResult)
         {
-            /*HRESULT GetRegisterSet([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugRegisterSet ppRegisters);*/
+            /*HRESULT GetRegisterSet(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugRegisterSet ppRegisters);*/
             ICorDebugRegisterSet ppRegisters;
             HRESULT hr = Raw.GetRegisterSet(out ppRegisters);
 
@@ -373,7 +376,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryCanSetIP(int nOffset)
         {
-            /*HRESULT CanSetIP([In] int nOffset);*/
+            /*HRESULT CanSetIP(
+            [In] int nOffset);*/
             return Raw.CanSetIP(nOffset);
         }
 
@@ -419,7 +423,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryIsChild(out bool pIsChildResult)
         {
-            /*HRESULT IsChild([Out] out int pIsChild);*/
+            /*HRESULT IsChild(
+            [Out] out int pIsChild);*/
             int pIsChild;
             HRESULT hr = Raw2.IsChild(out pIsChild);
 
@@ -469,7 +474,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetStackParameterSize(out int pSize)
         {
-            /*HRESULT GetStackParameterSize([Out] out int pSize);*/
+            /*HRESULT GetStackParameterSize(
+            [Out] out int pSize);*/
             return Raw2.GetStackParameterSize(out pSize);
         }
 
@@ -515,8 +521,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryIsMatchingParentFrame(ICorDebugNativeFrame2 pPotentialParentFrame, out int pIsParent)
         {
-            /*HRESULT IsMatchingParentFrame([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugNativeFrame2 pPotentialParentFrame, [Out] out int pIsParent);*/
+            /*HRESULT IsMatchingParentFrame(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugNativeFrame2 pPotentialParentFrame,
+            [Out] out int pIsParent);*/
             return Raw2.IsMatchingParentFrame(pPotentialParentFrame, out pIsParent);
         }
 

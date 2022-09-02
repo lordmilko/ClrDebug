@@ -23,7 +23,10 @@ namespace ClrDebug
         /// <param name="szName">[out] A character array that stores the returned name.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
+        HRESULT GetName(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
 
         /// <summary>
         /// Gets the size in bytes of the instance field.
@@ -31,7 +34,8 @@ namespace ClrDebug
         /// <param name="pcbSize">[out] A pointer to length of the field.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSize([Out] out int pcbSize);
+        HRESULT GetSize(
+            [Out] out int pcbSize);
 
         /// <summary>
         /// Gets the offset in bytes of this instance field in its parent class.
@@ -39,6 +43,7 @@ namespace ClrDebug
         /// <param name="pcbOffset">A pointer to the number of bytes that this instance field is offset in its parent class.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetOffset([Out] out int pcbOffset);
+        HRESULT GetOffset(
+            [Out] out int pcbOffset);
     }
 }

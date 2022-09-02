@@ -297,10 +297,8 @@ namespace ClrDebug.DbgEng
         new HRESULT GetProcessIdsByIndex(
             [In] int Start,
             [In] int Count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            int[] Ids,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            int[] SysIds);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Ids,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] SysIds);
 
         /// <summary>
         /// The GetCurrentProcessDataOffset method returns the location of the system data structure describing the current process.

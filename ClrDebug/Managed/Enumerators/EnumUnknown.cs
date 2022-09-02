@@ -39,6 +39,7 @@ namespace ClrDebug
         #region IEnumerable
 
         public IEnumerator<object> GetEnumerator() => this;
+
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion

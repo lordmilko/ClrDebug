@@ -33,7 +33,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetPlatform([Out] out CorDebugPlatform pTargetPlatform);
+        HRESULT GetPlatform(
+            [Out] out CorDebugPlatform pTargetPlatform);
 
         /// <summary>
         /// Gets a block of contiguous memory starting at the specified address, and returns it in the supplied buffer.
@@ -48,7 +49,11 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ReadVirtual([In] CORDB_ADDRESS address, [Out] IntPtr pBuffer, [In] int bytesRequested, [Out] out int pBytesRead);
+        HRESULT ReadVirtual(
+            [In] CORDB_ADDRESS address,
+            [Out] IntPtr pBuffer,
+            [In] int bytesRequested,
+            [Out] out int pBytesRead);
 
         /// <summary>
         /// Returns the current thread context for the specified thread.
@@ -64,6 +69,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetThreadContext([In] int dwThreadId, [In] ContextFlags contextFlags, [In] int contextSize, [Out] IntPtr pContext);
+        HRESULT GetThreadContext(
+            [In] int dwThreadId,
+            [In] ContextFlags contextFlags,
+            [In] int contextSize,
+            [Out] IntPtr pContext);
     }
 }

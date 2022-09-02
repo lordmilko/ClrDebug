@@ -1403,8 +1403,7 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref readTagged, Vtbl3->ReadTagged);
 
             /*HRESULT ReadTagged(
-            [In, MarshalAs(UnmanagedType.LPStruct)]
-            Guid Tag,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid Tag,
             [In] int Offset,
             [Out] IntPtr Buffer,
             [In] int BufferSize,

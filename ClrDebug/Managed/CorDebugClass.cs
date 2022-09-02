@@ -46,7 +46,8 @@ namespace ClrDebug
         /// <param name="pModuleResult">[out] A pointer to the address of an <see cref="ICorDebugModule"/> object that represents the module in which this class is defined.</param>
         public HRESULT TryGetModule(out CorDebugModule pModuleResult)
         {
-            /*HRESULT GetModule([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule pModule);*/
+            /*HRESULT GetModule(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule pModule);*/
             ICorDebugModule pModule;
             HRESULT hr = Raw.GetModule(out pModule);
 
@@ -81,7 +82,8 @@ namespace ClrDebug
         /// <param name="pTypeDef">[out] A pointer to an <see cref="mdTypeDef"/> token that references the definition of this class.</param>
         public HRESULT TryGetToken(out mdTypeDef pTypeDef)
         {
-            /*HRESULT GetToken([Out] out mdTypeDef pTypeDef);*/
+            /*HRESULT GetToken(
+            [Out] out mdTypeDef pTypeDef);*/
             return Raw.GetToken(out pTypeDef);
         }
 
@@ -122,8 +124,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetStaticFieldValue(int fieldDef, ICorDebugFrame pFrame, out CorDebugValue ppValueResult)
         {
-            /*HRESULT GetStaticFieldValue([In] int fieldDef, [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFrame pFrame, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            /*HRESULT GetStaticFieldValue(
+            [In] int fieldDef,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugFrame pFrame,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetStaticFieldValue(fieldDef, pFrame, out ppValue);
 
@@ -187,8 +191,7 @@ namespace ClrDebug
             /*HRESULT GetParameterizedType(
             [In] CorElementType elementType,
             [In] int nTypeArgs,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ref ICorDebugType ppTypeArgs,
+            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugType ppTypeArgs,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);*/
             ICorDebugType ppType;
             HRESULT hr = Raw2.GetParameterizedType(elementType, nTypeArgs, ref ppTypeArgs, out ppType);
@@ -229,7 +232,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetJMCStatus(bool bIsJustMyCode)
         {
-            /*HRESULT SetJMCStatus([In] bool bIsJustMyCode);*/
+            /*HRESULT SetJMCStatus(
+            [In] bool bIsJustMyCode);*/
             return Raw2.SetJMCStatus(bIsJustMyCode);
         }
 

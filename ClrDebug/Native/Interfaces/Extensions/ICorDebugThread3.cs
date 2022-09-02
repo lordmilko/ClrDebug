@@ -33,7 +33,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CreateStackWalk([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugStackWalk ppStackWalk);
+        HRESULT CreateStackWalk(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugStackWalk ppStackWalk);
 
         /// <summary>
         /// Returns an array of internal frames (<see cref="ICorDebugInternalFrame2"/> objects) on the stack.

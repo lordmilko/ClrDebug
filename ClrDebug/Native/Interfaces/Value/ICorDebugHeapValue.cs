@@ -23,7 +23,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetType([Out] out CorElementType pType);
+        new HRESULT GetType(
+            [Out] out CorElementType pType);
 
         /// <summary>
         /// Gets the size, in bytes, of this "ICorDebugValue" object.
@@ -36,7 +37,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetSize([Out] out int pSize);
+        new HRESULT GetSize(
+            [Out] out int pSize);
 
         /// <summary>
         /// Gets the address of this "ICorDebugValue" object, which is in the process of being debugged.
@@ -48,14 +50,16 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetAddress([Out] out CORDB_ADDRESS pAddress);
+        new HRESULT GetAddress(
+            [Out] out CORDB_ADDRESS pAddress);
 
         /// <summary>
         /// The CreateBreakpoint method is currently not implemented.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT CreateBreakpoint([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
+        new HRESULT CreateBreakpoint(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
 
         /// <summary>
         /// Gets a value that indicates whether the object represented by this <see cref="ICorDebugHeapValue"/> is valid. This method has been deprecated in the .NET Framework version 2.0.
@@ -68,13 +72,15 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsValid([Out] out bool pbValid);
+        HRESULT IsValid(
+            [Out] out bool pbValid);
 
         /// <summary>
         /// This method is not implemented in the current version of the .NET Framework.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CreateRelocBreakpoint([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
+        HRESULT CreateRelocBreakpoint(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
     }
 }

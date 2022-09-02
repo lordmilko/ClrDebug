@@ -19,7 +19,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetMethod([Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);
+        HRESULT GetMethod(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);
 
         /// <summary>
         /// Gets the parent scope of this scope.
@@ -28,7 +29,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetParent([Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedScope pRetVal);
+        HRESULT GetParent(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedScope pRetVal);
 
         /// <summary>
         /// Gets the children of this scope.
@@ -51,7 +53,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetStartOffset([Out] out int pRetVal);
+        HRESULT GetStartOffset(
+            [Out] out int pRetVal);
 
         /// <summary>
         /// Gets the end offset for this scope.
@@ -60,7 +63,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetEndOffset([Out] out int pRetVal);
+        HRESULT GetEndOffset(
+            [Out] out int pRetVal);
 
         /// <summary>
         /// Gets a count of the local variables defined within this scope.
@@ -69,7 +73,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetLocalCount([Out] out int pRetVal);
+        HRESULT GetLocalCount(
+            [Out] out int pRetVal);
 
         /// <summary>
         /// Gets the local variables defined within this scope.

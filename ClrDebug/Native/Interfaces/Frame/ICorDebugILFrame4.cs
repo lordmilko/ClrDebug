@@ -33,7 +33,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateLocalVariablesEx([In] ILCodeKind flags,
+        HRESULT EnumerateLocalVariablesEx(
+            [In] ILCodeKind flags,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueEnum ppValueEnum);
 
         /// <summary>

@@ -139,11 +139,9 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT SetValues(
             [In] int Count,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]
-            int[] Indices,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Indices,
             [In] int Start,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]
-            DEBUG_VALUE[] Values);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);
 
         /// <summary>
         /// The OutputRegisters method formats and sends the target's registers to the clients as output.
@@ -224,8 +222,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetDescriptionWide(
             [In] int Register,
-            [Out, MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder NameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out DEBUG_REGISTER_DESCRIPTION Desc);
@@ -363,11 +360,9 @@ namespace ClrDebug.DbgEng
         HRESULT GetPseudoValues(
             [In] DEBUG_REGSRC Source,
             [In] int Count,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            int[] Indices,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices,
             [In] int Start,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            DEBUG_VALUE[] Values);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
 
         /// <summary>
         /// The SetPseudoValues method sets the value of several pseudo-registers.
@@ -387,11 +382,9 @@ namespace ClrDebug.DbgEng
         HRESULT SetPseudoValues(
             [In] DEBUG_REGSRC Source,
             [In] int Count,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            int[] Indices,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices,
             [In] int Start,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            DEBUG_VALUE[] Values);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
 
         /// <summary>
         /// The GetValues2 method fetches the value of several of the target's registers.
@@ -415,11 +408,9 @@ namespace ClrDebug.DbgEng
         HRESULT GetValues2(
             [In] DEBUG_REGSRC Source,
             [In] int Count,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            int[] Indices,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices,
             [In] int Start,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            DEBUG_VALUE[] Values);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
 
         /// <summary>
         /// The SetValues2 method sets the value of several of the target's registers.
@@ -445,11 +436,9 @@ namespace ClrDebug.DbgEng
         HRESULT SetValues2(
             [In] DEBUG_REGSRC Source,
             [In] int Count,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            int[] Indices,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices,
             [In] int Start,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            DEBUG_VALUE[] Values);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);
 
         /// <summary>
         /// The OutputRegisters2 method formats and outputs the target's registers.

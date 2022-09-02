@@ -53,8 +53,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetManagedHandler([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugManagedCallback pCallback);
+        HRESULT SetManagedHandler(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugManagedCallback pCallback);
 
         /// <summary>
         /// Specifies the event handler object for unmanaged events.
@@ -69,8 +69,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetUnmanagedHandler([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugUnmanagedCallback pCallback);
+        HRESULT SetUnmanagedHandler(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugUnmanagedCallback pCallback);
 
         /// <summary>
         /// Launches a process and its primary thread under the control of the debugger.
@@ -127,7 +127,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT DebugActiveProcess([In] int id, [In] bool win32Attach,
+        HRESULT DebugActiveProcess(
+            [In] int id,
+            [In] bool win32Attach,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
         /// <summary>
@@ -136,7 +138,8 @@ namespace ClrDebug
         /// <param name="ppProcess">A pointer to the address of an <see cref="ICorDebugProcessEnum"/> object that is the enumerator for the processes being debugged.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateProcesses([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcessEnum ppProcess);
+        HRESULT EnumerateProcesses(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcessEnum ppProcess);
 
         /// <summary>
         /// Gets a pointer to the "ICorDebugProcess" instance for the specified process.
@@ -145,7 +148,9 @@ namespace ClrDebug
         /// <param name="ppProcess">[out] A pointer to the address of a <see cref="ICorDebugProcess"/> instance for the specified process.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetProcess([In] int dwProcessId, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
+        HRESULT GetProcess(
+            [In] int dwProcessId,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
         /// <summary>
         /// Returns an <see cref="HRESULT"/> that indicates whether launching a new process or attaching to the specified existing process is possible within the context of the current machine and runtime configuration.
@@ -168,6 +173,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CanLaunchOrAttach([In] int dwProcessId, [In] int win32DebuggingEnabled);
+        HRESULT CanLaunchOrAttach(
+            [In] int dwProcessId,
+            [In] int win32DebuggingEnabled);
     }
 }

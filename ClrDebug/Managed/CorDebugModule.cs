@@ -40,7 +40,8 @@ namespace ClrDebug
         /// <param name="ppProcessResult">[out] A pointer to the address of an <see cref="ICorDebugProcess"/> object that represents the process containing this module.</param>
         public HRESULT TryGetProcess(out CorDebugProcess ppProcessResult)
         {
-            /*HRESULT GetProcess([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
+            /*HRESULT GetProcess(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
             ICorDebugProcess ppProcess;
             HRESULT hr = Raw.GetProcess(out ppProcess);
 
@@ -79,7 +80,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetBaseAddress(out CORDB_ADDRESS pAddress)
         {
-            /*HRESULT GetBaseAddress([Out] out CORDB_ADDRESS pAddress);*/
+            /*HRESULT GetBaseAddress(
+            [Out] out CORDB_ADDRESS pAddress);*/
             return Raw.GetBaseAddress(out pAddress);
         }
 
@@ -106,7 +108,8 @@ namespace ClrDebug
         /// <param name="ppAssemblyResult">[out] A pointer to an <see cref="ICorDebugAssembly"/> object that represents the assembly containing this module.</param>
         public HRESULT TryGetAssembly(out CorDebugAssembly ppAssemblyResult)
         {
-            /*HRESULT GetAssembly([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAssembly ppAssembly);*/
+            /*HRESULT GetAssembly(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAssembly ppAssembly);*/
             ICorDebugAssembly ppAssembly;
             HRESULT hr = Raw.GetAssembly(out ppAssembly);
 
@@ -145,7 +148,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] int cchName, [Out] out int pcchName, [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);*/
+            /*HRESULT GetName(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName;
@@ -233,7 +239,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetToken(out mdModule pToken)
         {
-            /*HRESULT GetToken([Out] out mdModule pToken);*/
+            /*HRESULT GetToken(
+            [Out] out mdModule pToken);*/
             return Raw.GetToken(out pToken);
         }
 
@@ -259,13 +266,14 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pDynamicResult">[out] true if this module is dynamic; otherwise, false.</param>
         /// <remarks>
-        /// A dynamic module can add new classes and delete existing classes even after the module has been loaded. The <see 
-        ///cref="ICorDebugManagedCallback.LoadClass"/> and <see cref="ICorDebugManagedCallback.UnloadClass"/> callbacks inform
+        /// A dynamic module can add new classes and delete existing classes even after the module has been loaded. The <see
+        /// cref="ICorDebugManagedCallback.LoadClass"/> and <see cref="ICorDebugManagedCallback.UnloadClass"/> callbacks inform
         /// the debugger when a class has been added or deleted.
         /// </remarks>
         public HRESULT TryIsDynamic(out bool pDynamicResult)
         {
-            /*HRESULT IsDynamic([Out] out int pDynamic);*/
+            /*HRESULT IsDynamic(
+            [Out] out int pDynamic);*/
             int pDynamic;
             HRESULT hr = Raw.IsDynamic(out pDynamic);
 
@@ -300,7 +308,8 @@ namespace ClrDebug
         /// <param name="pcBytes">[out] The size of the module in bytes. If the module was produced from the native image generator (NGen.exe), the size of the module will be zero.</param>
         public HRESULT TryGetSize(out int pcBytes)
         {
-            /*HRESULT GetSize([Out] out int pcBytes);*/
+            /*HRESULT GetSize(
+            [Out] out int pcBytes);*/
             return Raw.GetSize(out pcBytes);
         }
 
@@ -331,7 +340,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryIsInMemory(out bool pInMemoryResult)
         {
-            /*HRESULT IsInMemory([Out] out int pInMemory);*/
+            /*HRESULT IsInMemory(
+            [Out] out int pInMemory);*/
             int pInMemory;
             HRESULT hr = Raw.IsInMemory(out pInMemory);
 
@@ -371,7 +381,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryEnableJITDebugging(bool bTrackJITInfo, bool bAllowJitOpts)
         {
-            /*HRESULT EnableJITDebugging([In] bool bTrackJITInfo, [In] bool bAllowJitOpts);*/
+            /*HRESULT EnableJITDebugging(
+            [In] bool bTrackJITInfo,
+            [In] bool bAllowJitOpts);*/
             return Raw.EnableJITDebugging(bTrackJITInfo, bAllowJitOpts);
         }
 
@@ -403,7 +415,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryEnableClassLoadCallbacks(bool bClassLoadCallbacks)
         {
-            /*HRESULT EnableClassLoadCallbacks([In] bool bClassLoadCallbacks);*/
+            /*HRESULT EnableClassLoadCallbacks(
+            [In] bool bClassLoadCallbacks);*/
             return Raw.EnableClassLoadCallbacks(bClassLoadCallbacks);
         }
 
@@ -438,7 +451,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetFunctionFromToken(mdMethodDef methodDef, out CorDebugFunction ppFunctionResult)
         {
-            /*HRESULT GetFunctionFromToken([In] mdMethodDef methodDef,
+            /*HRESULT GetFunctionFromToken(
+            [In] mdMethodDef methodDef,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
             ICorDebugFunction ppFunction;
             HRESULT hr = Raw.GetFunctionFromToken(methodDef, out ppFunction);
@@ -470,7 +484,9 @@ namespace ClrDebug
         /// </summary>
         public HRESULT TryGetFunctionFromRVA(long rva, out CorDebugFunction ppFunctionResult)
         {
-            /*HRESULT GetFunctionFromRVA([In] long rva, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
+            /*HRESULT GetFunctionFromRVA(
+            [In] long rva,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
             ICorDebugFunction ppFunction;
             HRESULT hr = Raw.GetFunctionFromRVA(rva, out ppFunction);
 
@@ -505,7 +521,9 @@ namespace ClrDebug
         /// <param name="ppClassResult">[out] A pointer to the address of an <see cref="ICorDebugClass"/> object that represents the class.</param>
         public HRESULT TryGetClassFromToken(mdTypeDef typeDef, out CorDebugClass ppClassResult)
         {
-            /*HRESULT GetClassFromToken([In] mdTypeDef typeDef, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);*/
+            /*HRESULT GetClassFromToken(
+            [In] mdTypeDef typeDef,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);*/
             ICorDebugClass ppClass;
             HRESULT hr = Raw.GetClassFromToken(typeDef, out ppClass);
 
@@ -536,7 +554,8 @@ namespace ClrDebug
         /// </summary>
         public HRESULT TryCreateBreakpoint(out CorDebugModuleBreakpoint ppBreakpointResult)
         {
-            /*HRESULT CreateBreakpoint([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModuleBreakpoint ppBreakpoint);*/
+            /*HRESULT CreateBreakpoint(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModuleBreakpoint ppBreakpoint);*/
             ICorDebugModuleBreakpoint ppBreakpoint;
             HRESULT hr = Raw.CreateBreakpoint(out ppBreakpoint);
 
@@ -583,7 +602,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetMetaDataInterface(Guid riid, out object ppObj)
         {
-            /*HRESULT GetMetaDataInterface([In] ref Guid riid, [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppObj);*/
+            /*HRESULT GetMetaDataInterface(
+            [In] ref Guid riid,
+            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppObj);*/
             return Raw.GetMetaDataInterface(ref riid, out ppObj);
         }
 
@@ -610,7 +631,8 @@ namespace ClrDebug
         /// <param name="ppValueResult">[out] A pointer to the address of an <see cref="ICorDebugValue"/> object that represents the value of the specified global variable.</param>
         public HRESULT TryGetGlobalVariableValue(mdFieldDef fieldDef, out CorDebugValue ppValueResult)
         {
-            /*HRESULT GetGlobalVariableValue([In] mdFieldDef fieldDef,
+            /*HRESULT GetGlobalVariableValue(
+            [In] mdFieldDef fieldDef,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetGlobalVariableValue(fieldDef, out ppValue);
@@ -656,7 +678,8 @@ namespace ClrDebug
         /// <param name="pdwFlags">[out] A pointer to a value of the <see cref="CorDebugJITCompilerFlags"/> enumeration that controls the JIT compilation.</param>
         public HRESULT TryGetJITCompilerFlags(out CorDebugJITCompilerFlags pdwFlags)
         {
-            /*HRESULT GetJITCompilerFlags([Out] out CorDebugJITCompilerFlags pdwFlags);*/
+            /*HRESULT GetJITCompilerFlags(
+            [Out] out CorDebugJITCompilerFlags pdwFlags);*/
             return Raw2.GetJITCompilerFlags(out pdwFlags);
         }
 
@@ -674,7 +697,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetJITCompilerFlags(CorDebugJITCompilerFlags dwFlags)
         {
-            /*HRESULT SetJITCompilerFlags([In] CorDebugJITCompilerFlags dwFlags);*/
+            /*HRESULT SetJITCompilerFlags(
+            [In] CorDebugJITCompilerFlags dwFlags);*/
             return Raw2.SetJITCompilerFlags(dwFlags);
         }
 
@@ -714,7 +738,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetJMCStatus(bool bIsJustMyCode, int cTokens, mdToken[] pTokens)
         {
-            /*HRESULT SetJMCStatus([In] bool bIsJustMyCode, [In] int cTokens, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] mdToken[] pTokens);*/
+            /*HRESULT SetJMCStatus(
+            [In] bool bIsJustMyCode,
+            [In] int cTokens,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] mdToken[] pTokens);*/
             return Raw2.SetJMCStatus(bIsJustMyCode, cTokens, pTokens);
         }
 
@@ -774,7 +801,11 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryApplyChanges(int cbMetadata, IntPtr pbMetadata, int cbIL, IntPtr pbIL)
         {
-            /*HRESULT ApplyChanges([In] int cbMetadata, [In] IntPtr pbMetadata, [In] int cbIL, [In] IntPtr pbIL);*/
+            /*HRESULT ApplyChanges(
+            [In] int cbMetadata,
+            [In] IntPtr pbMetadata,
+            [In] int cbIL,
+            [In] IntPtr pbIL);*/
             return Raw2.ApplyChanges(cbMetadata, pbMetadata, cbIL, pbIL);
         }
 
@@ -809,7 +840,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryResolveAssembly(mdToken tkAssemblyRef, out CorDebugAssembly ppAssemblyResult)
         {
-            /*HRESULT ResolveAssembly([In] mdToken tkAssemblyRef,
+            /*HRESULT ResolveAssembly(
+            [In] mdToken tkAssemblyRef,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAssembly ppAssembly);*/
             ICorDebugAssembly ppAssembly;
             HRESULT hr = Raw2.ResolveAssembly(tkAssemblyRef, out ppAssembly);
@@ -840,8 +872,8 @@ namespace ClrDebug
         /// This method can also be used to create a symbol reader object for in-memory (non-dynamic) modules, but only after
         /// the symbols are first available (indicated by the <see cref="ICorDebugManagedCallback.UpdateModuleSymbols"/> callback).
         /// This method returns a new reader instance every time it is called (like CComPtrBase). Therefore, the debugger should
-        /// cache the result and request a new instance only when the underlying data may have changed (that is, when a <see 
-        ///cref="ICorDebugManagedCallback.LoadClass"/> callback is received). Dynamic modules do not have any symbols available
+        /// cache the result and request a new instance only when the underlying data may have changed (that is, when a <see
+        /// cref="ICorDebugManagedCallback.LoadClass"/> callback is received). Dynamic modules do not have any symbols available
         /// until the first type has been loaded (as indicated by the <see cref="ICorDebugManagedCallback.LoadClass"/> callback).
         /// </remarks>
         public object CreateReaderForInMemorySymbols(Guid riid)
@@ -867,8 +899,8 @@ namespace ClrDebug
         /// This method can also be used to create a symbol reader object for in-memory (non-dynamic) modules, but only after
         /// the symbols are first available (indicated by the <see cref="ICorDebugManagedCallback.UpdateModuleSymbols"/> callback).
         /// This method returns a new reader instance every time it is called (like CComPtrBase). Therefore, the debugger should
-        /// cache the result and request a new instance only when the underlying data may have changed (that is, when a <see 
-        ///cref="ICorDebugManagedCallback.LoadClass"/> callback is received). Dynamic modules do not have any symbols available
+        /// cache the result and request a new instance only when the underlying data may have changed (that is, when a <see
+        /// cref="ICorDebugManagedCallback.LoadClass"/> callback is received). Dynamic modules do not have any symbols available
         /// until the first type has been loaded (as indicated by the <see cref="ICorDebugManagedCallback.LoadClass"/> callback).
         /// </remarks>
         public HRESULT TryCreateReaderForInMemorySymbols(Guid riid, out object ppObj)
@@ -901,7 +933,8 @@ namespace ClrDebug
 
         public HRESULT TryIsMappedLayout(out bool pIsMapped)
         {
-            /*HRESULT IsMappedLayout(out bool pIsMapped);*/
+            /*HRESULT IsMappedLayout(
+            out bool pIsMapped);*/
             return Raw4.IsMappedLayout(out pIsMapped);
         }
 

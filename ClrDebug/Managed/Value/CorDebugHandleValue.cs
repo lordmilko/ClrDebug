@@ -43,7 +43,8 @@
         /// <param name="pType">[out] A pointer to a value of the <see cref="CorDebugHandleType"/> enumeration that indicates the type of this handle.</param>
         public HRESULT TryGetHandleType(out CorDebugHandleType pType)
         {
-            /*HRESULT GetHandleType([Out] out CorDebugHandleType pType);*/
+            /*HRESULT GetHandleType(
+            [Out] out CorDebugHandleType pType);*/
             return Raw.GetHandleType(out pType);
         }
 

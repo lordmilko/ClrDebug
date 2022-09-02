@@ -17,7 +17,8 @@ namespace ClrDebug
         /// <param name="pmdSig">[out] A pointer to the <see cref="mdSignature"/> token for the local variable signature for this function, or mdSignatureNil if there is no signature (that is, if the function doesn't have any local variables).</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetLocalVarSigToken([Out] out mdSignature pmdSig);
+        HRESULT GetLocalVarSigToken(
+            [Out] out mdSignature pmdSig);
 
         /// <summary>
         /// [Supported in the .NET Framework 4.5.2 and later versions] Returns a map from profiler-instrumented intermediate language (IL) offsets to original method IL offsets for this instance.
@@ -36,6 +37,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetInstrumentedILMap([In] int cMap, [Out] out int pcMap, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] COR_IL_MAP[] map);
+        HRESULT GetInstrumentedILMap(
+            [In] int cMap,
+            [Out] out int pcMap,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] COR_IL_MAP[] map);
     }
 }

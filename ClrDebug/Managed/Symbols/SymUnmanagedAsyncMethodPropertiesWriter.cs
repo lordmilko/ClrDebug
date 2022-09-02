@@ -30,7 +30,8 @@
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         public HRESULT TryDefineKickoffMethod(int kickoffMethod)
         {
-            /*HRESULT DefineKickoffMethod([In] int kickoffMethod);*/
+            /*HRESULT DefineKickoffMethod(
+            [In] int kickoffMethod);*/
             return Raw.DefineKickoffMethod(kickoffMethod);
         }
 
@@ -53,7 +54,8 @@
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         public HRESULT TryDefineCatchHandlerILOffset(int catchHandlerOffset)
         {
-            /*HRESULT DefineCatchHandlerILOffset([In] int catchHandlerOffset);*/
+            /*HRESULT DefineCatchHandlerILOffset(
+            [In] int catchHandlerOffset);*/
             return Raw.DefineCatchHandlerILOffset(catchHandlerOffset);
         }
 

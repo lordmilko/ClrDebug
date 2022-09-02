@@ -55,7 +55,8 @@ namespace ClrDebug
         /// <param name="ppChainResult">[out] A pointer to the address of an <see cref="ICorDebugChain"/> object that represents the chain containing this frame.</param>
         public HRESULT TryGetChain(out CorDebugChain ppChainResult)
         {
-            /*HRESULT GetChain([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);*/
+            /*HRESULT GetChain(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);*/
             ICorDebugChain ppChain;
             HRESULT hr = Raw.GetChain(out ppChain);
 
@@ -90,7 +91,8 @@ namespace ClrDebug
         /// <param name="ppCodeResult">[out] A pointer to the address of an <see cref="ICorDebugCode"/> object that represents the code associated with this frame.</param>
         public HRESULT TryGetCode(out CorDebugCode ppCodeResult)
         {
-            /*HRESULT GetCode([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);*/
+            /*HRESULT GetCode(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);*/
             ICorDebugCode ppCode;
             HRESULT hr = Raw.GetCode(out ppCode);
 
@@ -128,7 +130,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetFunction(out CorDebugFunction ppFunctionResult)
         {
-            /*HRESULT GetFunction([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
+            /*HRESULT GetFunction(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
             ICorDebugFunction ppFunction;
             HRESULT hr = Raw.GetFunction(out ppFunction);
 
@@ -163,7 +166,8 @@ namespace ClrDebug
         /// <param name="pToken">[out] A pointer to an <see cref="mdMethodDef"/> token that references the metadata for the function.</param>
         public HRESULT TryGetFunctionToken(out mdMethodDef pToken)
         {
-            /*HRESULT GetFunctionToken([Out] out mdMethodDef pToken);*/
+            /*HRESULT GetFunctionToken(
+            [Out] out mdMethodDef pToken);*/
             return Raw.GetFunctionToken(out pToken);
         }
 
@@ -195,7 +199,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetStackRange(out GetStackRangeResult result)
         {
-            /*HRESULT GetStackRange([Out] out CORDB_ADDRESS pStart, [Out] out CORDB_ADDRESS pEnd);*/
+            /*HRESULT GetStackRange(
+            [Out] out CORDB_ADDRESS pStart,
+            [Out] out CORDB_ADDRESS pEnd);*/
             CORDB_ADDRESS pStart;
             CORDB_ADDRESS pEnd;
             HRESULT hr = Raw.GetStackRange(out pStart, out pEnd);
@@ -231,7 +237,8 @@ namespace ClrDebug
         /// <param name="ppFrameResult">[out] A pointer to the address of an <see cref="ICorDebugFrame"/> object that represents the calling frame. This value is null if the called frame is the outermost frame in the current chain.</param>
         public HRESULT TryGetCaller(out CorDebugFrame ppFrameResult)
         {
-            /*HRESULT GetCaller([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);*/
+            /*HRESULT GetCaller(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);*/
             ICorDebugFrame ppFrame;
             HRESULT hr = Raw.GetCaller(out ppFrame);
 
@@ -266,7 +273,8 @@ namespace ClrDebug
         /// <param name="ppFrameResult">[out] A pointer to the address of an <see cref="ICorDebugFrame"/> object that represents the called frame. This value is null if the calling frame is the innermost frame in the current chain.</param>
         public HRESULT TryGetCallee(out CorDebugFrame ppFrameResult)
         {
-            /*HRESULT GetCallee([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);*/
+            /*HRESULT GetCallee(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);*/
             ICorDebugFrame ppFrame;
             HRESULT hr = Raw.GetCallee(out ppFrame);
 
@@ -305,7 +313,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryCreateStepper(out CorDebugStepper ppStepperResult)
         {
-            /*HRESULT CreateStepper([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugStepper ppStepper);*/
+            /*HRESULT CreateStepper(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugStepper ppStepper);*/
             ICorDebugStepper ppStepper;
             HRESULT hr = Raw.CreateStepper(out ppStepper);
 

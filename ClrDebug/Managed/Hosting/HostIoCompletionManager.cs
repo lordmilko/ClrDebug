@@ -63,7 +63,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetMaxThreads(out int pdwMaxIOCompletionThreads)
         {
-            /*HRESULT GetMaxThreads([Out] out int pdwMaxIOCompletionThreads);*/
+            /*HRESULT GetMaxThreads(
+            [Out] out int pdwMaxIOCompletionThreads);*/
             return Raw.GetMaxThreads(out pdwMaxIOCompletionThreads);
         }
 
@@ -90,7 +91,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetMaxThreads(int dwMaxIOCompletionThreads)
         {
-            /*HRESULT SetMaxThreads([In] int dwMaxIOCompletionThreads);*/
+            /*HRESULT SetMaxThreads(
+            [In] int dwMaxIOCompletionThreads);*/
             return Raw.SetMaxThreads(dwMaxIOCompletionThreads);
         }
 
@@ -133,7 +135,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetAvailableThreads(out int pdwAvailableIOCompletionThreads)
         {
-            /*HRESULT GetAvailableThreads([Out] out int pdwAvailableIOCompletionThreads);*/
+            /*HRESULT GetAvailableThreads(
+            [Out] out int pdwAvailableIOCompletionThreads);*/
             return Raw.GetAvailableThreads(out pdwAvailableIOCompletionThreads);
         }
 
@@ -178,7 +181,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetHostOverlappedSize(out int pcbSize)
         {
-            /*HRESULT GetHostOverlappedSize([Out] out int pcbSize);*/
+            /*HRESULT GetHostOverlappedSize(
+            [Out] out int pcbSize);*/
             return Raw.GetHostOverlappedSize(out pcbSize);
         }
 
@@ -299,7 +303,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryCreateIoCompletionPort(out IntPtr phPort)
         {
-            /*HRESULT CreateIoCompletionPort([Out] out IntPtr phPort);*/
+            /*HRESULT CreateIoCompletionPort(
+            [Out] out IntPtr phPort);*/
             return Raw.CreateIoCompletionPort(out phPort);
         }
 
@@ -338,7 +343,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryCloseIoCompletionPort(IntPtr hPort)
         {
-            /*HRESULT CloseIoCompletionPort([In] IntPtr hPort);*/
+            /*HRESULT CloseIoCompletionPort(
+            [In] IntPtr hPort);*/
             return Raw.CloseIoCompletionPort(hPort);
         }
 

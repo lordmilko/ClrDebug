@@ -57,7 +57,8 @@ namespace ClrDebug
         /// <param name="pbActive">[out] true if this breakpoint is active; otherwise, false.</param>
         public HRESULT TryIsActive(out bool pbActive)
         {
-            /*HRESULT IsActive([Out] out bool pbActive);*/
+            /*HRESULT IsActive(
+            [Out] out bool pbActive);*/
             return Raw.IsActive(out pbActive);
         }
 
@@ -79,7 +80,8 @@ namespace ClrDebug
         /// <param name="bActive">[in] Set this value to true to specify the state as active; otherwise, set this value to false.</param>
         public HRESULT TryActivate(bool bActive)
         {
-            /*HRESULT Activate([In] bool bActive);*/
+            /*HRESULT Activate(
+            [In] bool bActive);*/
             return Raw.Activate(bActive);
         }
 

@@ -22,7 +22,8 @@ namespace ClrDebug
         /// <param name="ppChain">[out] A pointer to the address of an <see cref="ICorDebugChain"/> object that represents the chain containing this frame.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetChain([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);
+        new HRESULT GetChain(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);
 
         /// <summary>
         /// Gets a pointer to the code associated with this stack frame.
@@ -30,7 +31,8 @@ namespace ClrDebug
         /// <param name="ppCode">[out] A pointer to the address of an <see cref="ICorDebugCode"/> object that represents the code associated with this frame.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetCode([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
+        new HRESULT GetCode(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
 
         /// <summary>
         /// Gets the function that contains the code associated with this stack frame.
@@ -41,7 +43,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetFunction([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
+        new HRESULT GetFunction(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
 
         /// <summary>
         /// Gets the metadata token for the function that contains the code associated with this stack frame.
@@ -49,7 +52,8 @@ namespace ClrDebug
         /// <param name="pToken">[out] A pointer to an <see cref="mdMethodDef"/> token that references the metadata for the function.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetFunctionToken([Out] out mdMethodDef pToken);
+        new HRESULT GetFunctionToken(
+            [Out] out mdMethodDef pToken);
 
         /// <summary>
         /// Gets the absolute address range of this stack frame.
@@ -63,7 +67,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetStackRange([Out] out CORDB_ADDRESS pStart, [Out] out CORDB_ADDRESS pEnd);
+        new HRESULT GetStackRange(
+            [Out] out CORDB_ADDRESS pStart,
+            [Out] out CORDB_ADDRESS pEnd);
 
         /// <summary>
         /// Gets a pointer to the <see cref="ICorDebugFrame"/> object in the current chain that called this frame.
@@ -71,7 +77,8 @@ namespace ClrDebug
         /// <param name="ppFrame">[out] A pointer to the address of an <see cref="ICorDebugFrame"/> object that represents the calling frame. This value is null if the called frame is the outermost frame in the current chain.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetCaller([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);
+        new HRESULT GetCaller(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);
 
         /// <summary>
         /// Gets a pointer to the <see cref="ICorDebugFrame"/> object in the current chain that this frame called.
@@ -79,7 +86,8 @@ namespace ClrDebug
         /// <param name="ppFrame">[out] A pointer to the address of an <see cref="ICorDebugFrame"/> object that represents the called frame. This value is null if the calling frame is the innermost frame in the current chain.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetCallee([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);
+        new HRESULT GetCallee(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);
 
         /// <summary>
         /// Gets a stepper that allows the debugger to perform stepping operations relative to this <see cref="ICorDebugFrame"/>.
@@ -90,7 +98,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT CreateStepper([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugStepper ppStepper);
+        new HRESULT CreateStepper(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugStepper ppStepper);
 
         /// <summary>
         /// Gets the value of the instruction pointer and a bitwise combination value that describes how the value of the instruction pointer was obtained.
@@ -106,7 +115,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetIP([Out] out int pnOffset, [Out] out CorDebugMappingResult pMappingResult);
+        HRESULT GetIP(
+            [Out] out int pnOffset,
+            [Out] out CorDebugMappingResult pMappingResult);
 
         /// <summary>
         /// Sets the instruction pointer to the specified offset location in the Microsoft intermediate language (MSIL) code.
@@ -122,7 +133,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetIP([In] int nOffset);
+        HRESULT SetIP(
+            [In] int nOffset);
 
         /// <summary>
         /// Gets an enumerator for the local variables in this frame.
@@ -135,7 +147,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateLocalVariables([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueEnum ppValueEnum);
+        HRESULT EnumerateLocalVariables(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueEnum ppValueEnum);
 
         /// <summary>
         /// Gets the value of the specified local variable in this Microsoft intermediate language (MSIL) stack frame.
@@ -147,7 +160,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetLocalVariable([In] int dwIndex, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
+        HRESULT GetLocalVariable(
+            [In] int dwIndex,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         /// <summary>
         /// Gets an enumerator for the arguments in this frame.
@@ -160,7 +175,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateArguments([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueEnum ppValueEnum);
+        HRESULT EnumerateArguments(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueEnum ppValueEnum);
 
         /// <summary>
         /// Gets the value of the specified argument in this Microsoft intermediate language (MSIL) stack frame.
@@ -172,21 +188,26 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetArgument([In] int dwIndex, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
+        HRESULT GetArgument(
+            [In] int dwIndex,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         /// <summary>
         /// This method has not been implemented.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetStackDepth([Out] out int pDepth);
+        HRESULT GetStackDepth(
+            [Out] out int pDepth);
 
         /// <summary>
         /// This method has not been implemented.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetStackValue([In] int dwIndex, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
+        HRESULT GetStackValue(
+            [In] int dwIndex,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         /// <summary>
         /// Gets an <see cref="HRESULT"/> that indicates whether it is safe to set the instruction pointer to the specified offset location in Microsoft Intermediate Language (MSIL) code.
@@ -199,6 +220,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CanSetIP([In] int nOffset);
+        HRESULT CanSetIP(
+            [In] int nOffset);
     }
 }

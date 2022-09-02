@@ -39,7 +39,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetSourceServerData(out GetSourceServerDataResult result)
         {
-            /*HRESULT GetSourceServerData([Out] out int pDataByteCount, [Out] out IntPtr ppData);*/
+            /*HRESULT GetSourceServerData(
+            [Out] out int pDataByteCount,
+            [Out] out IntPtr ppData);*/
             int pDataByteCount;
             IntPtr ppData;
             HRESULT hr = Raw.GetSourceServerData(out pDataByteCount, out ppData);

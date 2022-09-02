@@ -40,7 +40,8 @@ namespace ClrDebug
         [Obsolete]
         public HRESULT TryGetModule(out CorDebugModule ppModuleResult)
         {
-            /*HRESULT GetModule([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);*/
+            /*HRESULT GetModule(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);*/
             ICorDebugModule ppModule;
             HRESULT hr = Raw.GetModule(out ppModule);
 
@@ -76,7 +77,8 @@ namespace ClrDebug
         [Obsolete]
         public HRESULT TryGetToken(out int pToken)
         {
-            /*HRESULT GetToken([Out] out int pToken);*/
+            /*HRESULT GetToken(
+            [Out] out int pToken);*/
             return Raw.GetToken(out pToken);
         }
 
@@ -104,7 +106,8 @@ namespace ClrDebug
         [Obsolete]
         public HRESULT TryGetErrorCode(out int pHr)
         {
-            /*HRESULT GetErrorCode([Out, MarshalAs(UnmanagedType.Error)] out int pHr);*/
+            /*HRESULT GetErrorCode(
+            [Out, MarshalAs(UnmanagedType.Error)] out int pHr);*/
             return Raw.GetErrorCode(out pHr);
         }
 
@@ -132,7 +135,10 @@ namespace ClrDebug
         [Obsolete]
         public HRESULT TryGetString(out string szStringResult)
         {
-            /*HRESULT GetString([In] int cchString, [Out] out int pcchString, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szString);*/
+            /*HRESULT GetString(
+            [In] int cchString,
+            [Out] out int pcchString,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szString);*/
             int cchString = 0;
             int pcchString;
             StringBuilder szString;

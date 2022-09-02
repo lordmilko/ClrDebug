@@ -40,7 +40,7 @@ namespace ClrDebug
         /// <remarks>
         /// When this method succeeds, it has the side effect of combining additional flags with the current default startup
         /// flags of the returned runtime interface, if and only if one or more of the following elements exist in the configuration
-        /// stream within the &lt;configuration&gt; &lt;runtime&gt; section: The resulting default STARTUP_FLAGS value is the
+        /// stream within the &lt;configuration&gt;&lt;runtime&gt; section: The resulting default STARTUP_FLAGS value is the
         /// bitwise OR combination of the values that are set from the preceding list with the default startup flags.
         /// </remarks>
         public GetRequestedRuntimeResult GetRequestedRuntime(METAHOST_POLICY_FLAGS dwPolicyFlags, string pwzBinary, IStream pCfgStream, Guid riid)
@@ -76,7 +76,7 @@ namespace ClrDebug
         /// <remarks>
         /// When this method succeeds, it has the side effect of combining additional flags with the current default startup
         /// flags of the returned runtime interface, if and only if one or more of the following elements exist in the configuration
-        /// stream within the &lt;configuration&gt; &lt;runtime&gt; section: The resulting default STARTUP_FLAGS value is the
+        /// stream within the &lt;configuration&gt;&lt;runtime&gt; section: The resulting default STARTUP_FLAGS value is the
         /// bitwise OR combination of the values that are set from the preceding list with the default startup flags.
         /// </remarks>
         public HRESULT TryGetRequestedRuntime(METAHOST_POLICY_FLAGS dwPolicyFlags, string pwzBinary, IStream pCfgStream, Guid riid, out GetRequestedRuntimeResult result)

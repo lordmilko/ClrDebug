@@ -75,6 +75,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CanUnloadNow([In] IntPtr hModule);
+        HRESULT CanUnloadNow(
+            [In] IntPtr hModule);
     }
 }

@@ -4,10 +4,28 @@ using System.Text;
 
 namespace ClrDebug
 {
-    public delegate void MODULEMAPTRAVERSE(int index, CLRDATA_ADDRESS methodTable, IntPtr token);
-    public delegate void DUMPEHINFO(int clauseIndex, int totalClauses, ref DACEHInfo pEHInfo, IntPtr token);
-    public delegate void VISITHEAP(CLRDATA_ADDRESS blockData, long blockSize, bool blockIsCurrentBlock);
-    public delegate void VISITRCWFORCLEANUP(CLRDATA_ADDRESS RCW, CLRDATA_ADDRESS Context, CLRDATA_ADDRESS Thread, bool bIsFreeThreaded, IntPtr token);
+    public delegate void MODULEMAPTRAVERSE(
+        int index,
+        CLRDATA_ADDRESS methodTable,
+        IntPtr token);
+
+    public delegate void DUMPEHINFO(
+        int clauseIndex,
+        int totalClauses,
+        ref DACEHInfo pEHInfo,
+        IntPtr token);
+
+    public delegate void VISITHEAP(
+        CLRDATA_ADDRESS blockData,
+        long blockSize,
+        bool blockIsCurrentBlock);
+
+    public delegate void VISITRCWFORCLEANUP(
+        CLRDATA_ADDRESS RCW,
+        CLRDATA_ADDRESS Context,
+        CLRDATA_ADDRESS Thread,
+        bool bIsFreeThreaded,
+        IntPtr token);
 
     /// <summary>
     /// Provides helper methods to access data from SOS.

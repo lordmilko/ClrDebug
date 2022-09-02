@@ -19,7 +19,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetToken([Out] out mdMethodDef pToken);
+        HRESULT GetToken(
+            [Out] out mdMethodDef pToken);
 
         /// <summary>
         /// Gets the count of sequence points within this method.
@@ -28,7 +29,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSequencePointCount([Out] out int pRetVal);
+        HRESULT GetSequencePointCount(
+            [Out] out int pRetVal);
 
         /// <summary>
         /// Gets the root lexical scope within this method. This scope encloses the entire method.
@@ -37,7 +39,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRootScope([Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedScope pRetVal);
+        HRESULT GetRootScope(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedScope pRetVal);
 
         /// <summary>
         /// Gets the most enclosing lexical scope within this method that encloses the given offset. This can be used to start local variable searches.
@@ -47,7 +50,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetScopeFromOffset([In] int offset, [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedScope pRetVal);
+        HRESULT GetScopeFromOffset(
+            [In] int offset,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedScope pRetVal);
 
         /// <summary>
         /// Returns the offset within this method that corresponds to a given position within a document.
@@ -79,8 +84,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRanges(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocument document,
+            [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument document,
             [In] int line,
             [In] int column,
             [In] int cRanges,
@@ -96,7 +100,10 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetParameters([In] int cParams, [Out] out int pcParams, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] ISymUnmanagedVariable[] @params);
+        HRESULT GetParameters(
+            [In] int cParams,
+            [Out] out int pcParams,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] ISymUnmanagedVariable[] @params);
 
         /// <summary>
         /// Gets the namespace within which this method is defined.
@@ -105,7 +112,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetNamespace([Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedNamespace pRetVal);
+        HRESULT GetNamespace(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedNamespace pRetVal);
 
         /// <summary>
         /// Gets the start and end document positions for the source of this method. The first array position is the start, and the second array position is the end.

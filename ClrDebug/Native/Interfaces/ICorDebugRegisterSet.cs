@@ -27,7 +27,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRegistersAvailable([Out] out CorDebugRegister pAvailable);
+        HRESULT GetRegistersAvailable(
+            [Out] out CorDebugRegister pAvailable);
 
         /// <summary>
         /// Gets the value of each register (on the computer that is currently executing code) that is specified by the bit mask.
@@ -44,15 +45,20 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRegisters([In] CorDebugRegister mask, [In] int regCount, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out]
-            CORDB_REGISTER[] regBuffer);
+        HRESULT GetRegisters(
+            [In] CorDebugRegister mask,
+            [In] int regCount,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] CORDB_REGISTER[] regBuffer);
 
         /// <summary>
         /// SetRegisters is not implemented in the .NET Framework version 2.0. Do not call this method.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetRegisters([In] CorDebugRegister mask, [In] int regCount, [In] IntPtr regBuffer);
+        HRESULT SetRegisters(
+            [In] CorDebugRegister mask,
+            [In] int regCount,
+            [In] IntPtr regBuffer);
 
         /// <summary>
         /// Gets the context of the current thread.
@@ -66,13 +72,17 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetThreadContext([In] int contextSize, [Out] IntPtr context);
+        HRESULT GetThreadContext(
+            [In] int contextSize,
+            [Out] IntPtr context);
 
         /// <summary>
         /// SetThreadContext is not implemented in the .NET Framework version 2.0. Do not call this method.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetThreadContext([In] int contextSize, [In] IntPtr context);
+        HRESULT SetThreadContext(
+            [In] int contextSize,
+            [In] IntPtr context);
     }
 }

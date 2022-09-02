@@ -25,7 +25,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetEventKind([Out] out CorDebugDebugEventKind pDebugEventKind);
+        new HRESULT GetEventKind(
+            [Out] out CorDebugDebugEventKind pDebugEventKind);
 
         /// <summary>
         /// Gets the thread on which the event occurred.
@@ -33,7 +34,8 @@ namespace ClrDebug
         /// <param name="ppThread">[out] A pointer to the address of an <see cref="ICorDebugThread"/> object that represents the thread on which the event occurred.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetThread([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
+        new HRESULT GetThread(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
 
         /// <summary>
         /// Gets the merged module that was just loaded or unloaded.
@@ -45,6 +47,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetModule([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
+        HRESULT GetModule(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
     }
 }

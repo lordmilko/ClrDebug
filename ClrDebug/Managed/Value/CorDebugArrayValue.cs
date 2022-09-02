@@ -42,7 +42,8 @@
         /// <param name="pType">[out] A pointer to a value of the <see cref="CorElementType"/> enumeration that indicates the type.</param>
         public HRESULT TryGetElementType(out CorElementType pType)
         {
-            /*HRESULT GetElementType([Out] out CorElementType pType);*/
+            /*HRESULT GetElementType(
+            [Out] out CorElementType pType);*/
             return Raw.GetElementType(out pType);
         }
 
@@ -69,7 +70,8 @@
         /// <param name="pnRank">[out] A pointer to the number of dimensions in this <see cref="ICorDebugArrayValue"/> object.</param>
         public HRESULT TryGetRank(out int pnRank)
         {
-            /*HRESULT GetRank([Out] out int pnRank);*/
+            /*HRESULT GetRank(
+            [Out] out int pnRank);*/
             return Raw.GetRank(out pnRank);
         }
 
@@ -96,7 +98,8 @@
         /// <param name="pnCount">[out] A pointer to the total number of elements in the array.</param>
         public HRESULT TryGetCount(out int pnCount)
         {
-            /*HRESULT GetCount([Out] out int pnCount);*/
+            /*HRESULT GetCount(
+            [Out] out int pnCount);*/
             return Raw.GetCount(out pnCount);
         }
 
@@ -123,7 +126,9 @@
         /// <param name="dims">[out] An array of integers, each of which specifies the number of elements in a dimension in this <see cref="ICorDebugArrayValue"/> object.</param>
         public HRESULT TryGetDimensions(int cdim, out int[] dims)
         {
-            /*HRESULT GetDimensions([In] int cdim, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] int[] dims);*/
+            /*HRESULT GetDimensions(
+            [In] int cdim,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] int[] dims);*/
             dims = new int[cdim];
             HRESULT hr = Raw.GetDimensions(cdim, dims);
 
@@ -151,7 +156,8 @@
         /// <param name="pbHasBaseIndicies">[out] A pointer to a Boolean value that is true if one or more dimensions of this <see cref="ICorDebugArrayValue"/> object have a base index of non-zero; otherwise, the Boolean value is false.</param>
         public HRESULT TryHasBaseIndicies(out bool pbHasBaseIndicies)
         {
-            /*HRESULT HasBaseIndicies([Out] out bool pbHasBaseIndicies);*/
+            /*HRESULT HasBaseIndicies(
+            [Out] out bool pbHasBaseIndicies);*/
             return Raw.HasBaseIndicies(out pbHasBaseIndicies);
         }
 
@@ -178,7 +184,9 @@
         /// <param name="indicies">[out] An array of integers, each of which is the base index (that is, the starting index) of a dimension of this <see cref="ICorDebugArrayValue"/> object.</param>
         public HRESULT TryGetBaseIndicies(int cdim, out int[] indicies)
         {
-            /*HRESULT GetBaseIndicies([In] int cdim, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] int[] indicies);*/
+            /*HRESULT GetBaseIndicies(
+            [In] int cdim,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] int[] indicies);*/
             indicies = new int[cdim];
             HRESULT hr = Raw.GetBaseIndicies(cdim, indicies);
 
@@ -256,7 +264,9 @@
         /// </remarks>
         public HRESULT TryGetElementAtPosition(int nPosition, out CorDebugValue ppValueResult)
         {
-            /*HRESULT GetElementAtPosition([In] int nPosition, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            /*HRESULT GetElementAtPosition(
+            [In] int nPosition,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetElementAtPosition(nPosition, out ppValue);
 

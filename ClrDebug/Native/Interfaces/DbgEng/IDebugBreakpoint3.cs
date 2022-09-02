@@ -358,8 +358,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetCommandWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int CommandSize);
 
@@ -397,8 +396,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetOffsetExpressionWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int ExpressionSize);
 
@@ -423,7 +421,8 @@ namespace ClrDebug.DbgEng
         /// <param name="Guid">[out] A unique ID returned for the breakpoint.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         [PreserveSig]
-        HRESULT GetGuid([Out] out Guid Guid);
+        HRESULT GetGuid(
+            [Out] out Guid Guid);
 
         #endregion
     }

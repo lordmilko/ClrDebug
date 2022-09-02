@@ -3,13 +3,32 @@ using System.Runtime.InteropServices;
 
 namespace ClrDebug
 {
-    public delegate long CDSTranslateAddrCB(IXCLRDisassemblySupport a, CLRDATA_ADDRESS b, string c, long d);
+    public delegate long CDSTranslateAddrCB(
+        IXCLRDisassemblySupport a,
+        CLRDATA_ADDRESS b,
+        string c,
+        long d);
 
-    public delegate long CDSTranslateFixupCB(IXCLRDisassemblySupport a, CLRDATA_ADDRESS b, long c, string d, long e, long f);
+    public delegate long CDSTranslateFixupCB(
+        IXCLRDisassemblySupport a,
+        CLRDATA_ADDRESS b,
+        long c,
+        string d,
+        long e,
+        long f);
 
-    public delegate long CDSTranslateConstCB(IXCLRDisassemblySupport a, int b, string c, long d);
+    public delegate long CDSTranslateConstCB(
+        IXCLRDisassemblySupport a,
+        int b,
+        string c,
+        long d);
 
-    public delegate long CDSTranslateRegrelCB(IXCLRDisassemblySupport a, int b, CLRDATA_ADDRESS c, string d, long e);
+    public delegate long CDSTranslateRegrelCB(
+        IXCLRDisassemblySupport a,
+        int b,
+        CLRDATA_ADDRESS c,
+        string d,
+        long e);
 
     [Guid("1F0F7134-D3F3-47DE-8E9B-C2FD358A2936")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

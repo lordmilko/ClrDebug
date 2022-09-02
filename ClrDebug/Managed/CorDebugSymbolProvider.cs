@@ -92,7 +92,8 @@ namespace ClrDebug
         /// <param name="ppMemoryBufferResult">[out] A pointer to the address of an <see cref="ICorDebugMemoryBuffer"/> object that contains information about the size and address of the merged assembly's metadata.</param>
         public HRESULT TryGetAssemblyImageMetadata(out CorDebugMemoryBuffer ppMemoryBufferResult)
         {
-            /*HRESULT GetAssemblyImageMetadata([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryBuffer ppMemoryBuffer);*/
+            /*HRESULT GetAssemblyImageMetadata(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryBuffer ppMemoryBuffer);*/
             ICorDebugMemoryBuffer ppMemoryBuffer;
             HRESULT hr = Raw.GetAssemblyImageMetadata(out ppMemoryBuffer);
 
@@ -461,7 +462,10 @@ namespace ClrDebug
         /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetCodeRange(int codeRva, out GetCodeRangeResult result)
         {
-            /*HRESULT GetCodeRange([In] int codeRva, [Out] out int pCodeStartAddress, [Out] out int pCodeSize);*/
+            /*HRESULT GetCodeRange(
+            [In] int codeRva,
+            [Out] out int pCodeStartAddress,
+            [Out] out int pCodeSize);*/
             int pCodeStartAddress;
             int pCodeSize;
             HRESULT hr = Raw.GetCodeRange(codeRva, out pCodeStartAddress, out pCodeSize);
@@ -499,7 +503,9 @@ namespace ClrDebug
         /// <param name="ppMemoryBufferResult">A pointer to the address of an <see cref="ICorDebugMemoryBuffer"/> object that contains information about the memory buffer with merged assembly metadata.</param>
         public HRESULT TryGetAssemblyImageBytes(long rva, int length, out CorDebugMemoryBuffer ppMemoryBufferResult)
         {
-            /*HRESULT GetAssemblyImageBytes([In] long rva, [In] int length,
+            /*HRESULT GetAssemblyImageBytes(
+            [In] long rva,
+            [In] int length,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryBuffer ppMemoryBuffer);*/
             ICorDebugMemoryBuffer ppMemoryBuffer;
             HRESULT hr = Raw.GetAssemblyImageBytes(rva, length, out ppMemoryBuffer);
@@ -537,7 +543,10 @@ namespace ClrDebug
         /// <param name="pObjectSize">[out] A pointer to the size of the object.</param>
         public HRESULT TryGetObjectSize(int cbSignature, IntPtr typeSig, out int pObjectSize)
         {
-            /*HRESULT GetObjectSize([In] int cbSignature, [In] IntPtr typeSig, [Out] out int pObjectSize);*/
+            /*HRESULT GetObjectSize(
+            [In] int cbSignature,
+            [In] IntPtr typeSig,
+            [Out] out int pObjectSize);*/
             return Raw.GetObjectSize(cbSignature, typeSig, out pObjectSize);
         }
 
@@ -574,7 +583,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetGenericDictionaryInfo(out CorDebugMemoryBuffer ppMemoryBufferResult)
         {
-            /*HRESULT GetGenericDictionaryInfo([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryBuffer ppMemoryBuffer);*/
+            /*HRESULT GetGenericDictionaryInfo(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryBuffer ppMemoryBuffer);*/
             ICorDebugMemoryBuffer ppMemoryBuffer;
             HRESULT hr = Raw2.GetGenericDictionaryInfo(out ppMemoryBuffer);
 
@@ -609,7 +619,10 @@ namespace ClrDebug
         /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetFrameProps(int codeRva, out GetFramePropsResult result)
         {
-            /*HRESULT GetFrameProps([In] int codeRva, [Out] out int pCodeStartRva, [Out] out int pParentFrameStartRva);*/
+            /*HRESULT GetFrameProps(
+            [In] int codeRva,
+            [Out] out int pCodeStartRva,
+            [Out] out int pParentFrameStartRva);*/
             int pCodeStartRva;
             int pParentFrameStartRva;
             HRESULT hr = Raw2.GetFrameProps(codeRva, out pCodeStartRva, out pParentFrameStartRva);

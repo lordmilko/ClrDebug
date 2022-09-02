@@ -39,7 +39,10 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
+            /*HRESULT GetName(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName;
@@ -89,7 +92,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetAttributes(out CorSymVarFlag pRetVal)
         {
-            /*HRESULT GetAttributes([Out] out CorSymVarFlag pRetVal);*/
+            /*HRESULT GetAttributes(
+            [Out] out CorSymVarFlag pRetVal);*/
             return Raw.GetAttributes(out pRetVal);
         }
 
@@ -117,7 +121,10 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetSignature(out byte[] sig)
         {
-            /*HRESULT GetSignature([In] int cSig, [Out] out int pcSig, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] sig);*/
+            /*HRESULT GetSignature(
+            [In] int cSig,
+            [Out] out int pcSig,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] sig);*/
             int cSig = 0;
             int pcSig;
             sig = null;
@@ -157,7 +164,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetAddressKind(out CorSymAddrKind pRetVal)
         {
-            /*HRESULT GetAddressKind([Out] out CorSymAddrKind pRetVal);*/
+            /*HRESULT GetAddressKind(
+            [Out] out CorSymAddrKind pRetVal);*/
             return Raw.GetAddressKind(out pRetVal);
         }
 
@@ -185,7 +193,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetAddressField1(out int pRetVal)
         {
-            /*HRESULT GetAddressField1([Out] out int pRetVal);*/
+            /*HRESULT GetAddressField1(
+            [Out] out int pRetVal);*/
             return Raw.GetAddressField1(out pRetVal);
         }
 
@@ -213,7 +222,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetAddressField2(out int pRetVal)
         {
-            /*HRESULT GetAddressField2([Out] out int pRetVal);*/
+            /*HRESULT GetAddressField2(
+            [Out] out int pRetVal);*/
             return Raw.GetAddressField2(out pRetVal);
         }
 
@@ -241,7 +251,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetAddressField3(out int pRetVal)
         {
-            /*HRESULT GetAddressField3([Out] out int pRetVal);*/
+            /*HRESULT GetAddressField3(
+            [Out] out int pRetVal);*/
             return Raw.GetAddressField3(out pRetVal);
         }
 
@@ -269,7 +280,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetStartOffset(out int pRetVal)
         {
-            /*HRESULT GetStartOffset([Out] out int pRetVal);*/
+            /*HRESULT GetStartOffset(
+            [Out] out int pRetVal);*/
             return Raw.GetStartOffset(out pRetVal);
         }
 
@@ -297,7 +309,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetEndOffset(out int pRetVal)
         {
-            /*HRESULT GetEndOffset([Out] out int pRetVal);*/
+            /*HRESULT GetEndOffset(
+            [Out] out int pRetVal);*/
             return Raw.GetEndOffset(out pRetVal);
         }
 

@@ -61,7 +61,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryImpersonateLoggedOnUser(IntPtr hToken)
         {
-            /*HRESULT ImpersonateLoggedOnUser([In] IntPtr hToken);*/
+            /*HRESULT ImpersonateLoggedOnUser(
+            [In] IntPtr hToken);*/
             return Raw.ImpersonateLoggedOnUser(hToken);
         }
 

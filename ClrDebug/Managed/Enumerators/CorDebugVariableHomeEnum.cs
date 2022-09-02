@@ -49,6 +49,7 @@ namespace ClrDebug
         #region IEnumerable
 
         public IEnumerator<CorDebugVariableHome> GetEnumerator() => this;
+
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion

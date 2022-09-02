@@ -44,8 +44,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetEHClauses(out CorDebugEHClause[] clauses)
         {
-            /*HRESULT GetEHClauses([In] int cClauses, [Out] out int pcClauses, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out]
-            CorDebugEHClause[] clauses);*/
+            /*HRESULT GetEHClauses(
+            [In] int cClauses,
+            [Out] out int pcClauses,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] CorDebugEHClause[] clauses);*/
             int cClauses = 0;
             int pcClauses;
             clauses = null;
@@ -90,7 +92,8 @@ namespace ClrDebug
         /// <param name="pmdSig">[out] A pointer to the <see cref="mdSignature"/> token for the local variable signature for this function, or mdSignatureNil if there is no signature (that is, if the function doesn't have any local variables).</param>
         public HRESULT TryGetLocalVarSigToken(out mdSignature pmdSig)
         {
-            /*HRESULT GetLocalVarSigToken([Out] out mdSignature pmdSig);*/
+            /*HRESULT GetLocalVarSigToken(
+            [Out] out mdSignature pmdSig);*/
             return Raw2.GetLocalVarSigToken(out pmdSig);
         }
 
@@ -126,7 +129,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetInstrumentedILMap(out COR_IL_MAP[] map)
         {
-            /*HRESULT GetInstrumentedILMap([In] int cMap, [Out] out int pcMap, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] COR_IL_MAP[] map);*/
+            /*HRESULT GetInstrumentedILMap(
+            [In] int cMap,
+            [Out] out int pcMap,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] COR_IL_MAP[] map);*/
             int cMap = 0;
             int pcMap;
             map = null;

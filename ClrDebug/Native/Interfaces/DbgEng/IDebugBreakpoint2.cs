@@ -355,8 +355,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetCommandWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int CommandSize);
 
@@ -394,8 +393,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetOffsetExpressionWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int ExpressionSize);
 

@@ -42,7 +42,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
+            /*HRESULT GetName(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName;
@@ -94,7 +97,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetDescription(out string szNameResult)
         {
-            /*HRESULT GetDescription([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
+            /*HRESULT GetDescription(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName;
@@ -146,7 +152,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetXML(out string szNameResult)
         {
-            /*HRESULT GetXML([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
+            /*HRESULT GetXML(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName;
@@ -199,7 +208,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetOSThreadId(out int pOsTid)
         {
-            /*HRESULT GetOSThreadId([Out] out int pOsTid);*/
+            /*HRESULT GetOSThreadId(
+            [Out] out int pOsTid);*/
             return Raw.GetOSThreadId(out pOsTid);
         }
 
@@ -221,7 +231,8 @@ namespace ClrDebug
         /// <param name="pFlags">[in] A bitwise combination of the <see cref="CorDebugMDAFlags"/> enumeration values that specify the settings of the flags for this MDA.</param>
         public HRESULT TryGetFlags(CorDebugMDAFlags pFlags)
         {
-            /*HRESULT GetFlags([In] ref CorDebugMDAFlags pFlags);*/
+            /*HRESULT GetFlags(
+            [In] ref CorDebugMDAFlags pFlags);*/
             return Raw.GetFlags(ref pFlags);
         }
 

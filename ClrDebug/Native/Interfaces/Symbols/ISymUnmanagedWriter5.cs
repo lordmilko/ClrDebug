@@ -37,7 +37,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT SetUserEntryPoint([In] int entryMethod);
+        new HRESULT SetUserEntryPoint(
+            [In] int entryMethod);
 
         /// <summary>
         /// Opens a method into which symbol information is emitted. The given method becomes the current method for calls to define sequence points, parameters, and lexical scopes.<para/>
@@ -48,7 +49,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT OpenMethod([In] int method);
+        new HRESULT OpenMethod(
+            [In] int method);
 
         /// <summary>
         /// Closes the current method. Once a method is closed, no more symbols can be defined within it.
@@ -72,7 +74,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT OpenScope([In] int startOffset, [Out] out int pRetVal);
+        new HRESULT OpenScope(
+            [In] int startOffset,
+            [Out] out int pRetVal);
 
         /// <summary>
         /// Closes the current lexical scope.
@@ -87,7 +91,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT CloseScope([In] int endOffset);
+        new HRESULT CloseScope(
+            [In] int endOffset);
 
         /// <summary>
         /// Defines the offset range for the specified lexical scope. The scope becomes the new current scope and is pushed onto a stack of scopes.<para/>
@@ -104,7 +109,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT SetScopeRange([In] int scopeID, [In] int startOffset, [In] int endOffset);
+        new HRESULT SetScopeRange(
+            [In] int scopeID,
+            [In] int startOffset,
+            [In] int endOffset);
 
         /// <summary>
         /// Defines a single variable in the current lexical scope. This method can be called multiple times for a variable of the same name that has multiple homes throughout a scope.<para/>
@@ -233,7 +241,11 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT SetSymAttribute([In] int parent, [In, MarshalAs(UnmanagedType.LPWStr)] string name, [In] int cData, [In] IntPtr data);
+        new HRESULT SetSymAttribute(
+            [In] int parent,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [In] int cData,
+            [In] IntPtr data);
 
         /// <summary>
         /// Opens a new namespace. Call this method before defining methods or variables that occupy a namespace. Namespaces can be nested.
@@ -242,7 +254,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT OpenNamespace([In, MarshalAs(UnmanagedType.LPWStr)] string name);
+        new HRESULT OpenNamespace(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name);
 
         /// <summary>
         /// Closes the most recently opened namespace.
@@ -260,7 +273,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT UsingNamespace([In, MarshalAs(UnmanagedType.LPWStr)] string fullName);
+        new HRESULT UsingNamespace(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string fullName);
 
         /// <summary>
         /// Specifies the true start and end of a method within a source file. Use this method to specify the extent of a method independently of the sequence points that exist within the method.
@@ -275,12 +289,10 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT SetMethodSourceRange(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocumentWriter startDoc,
+            [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocumentWriter startDoc,
             [In] int startLine,
             [In] int startColumn,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocumentWriter endDoc,
+            [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocumentWriter endDoc,
             [In] int endLine,
             [In] int endColumn);
 
@@ -297,9 +309,11 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT Initialize([MarshalAs(UnmanagedType.IUnknown), In]
-            object emitter, [In, MarshalAs(UnmanagedType.LPWStr)] string filename, [MarshalAs(UnmanagedType.Interface), In]
-            IStream pIStream, [In] bool fFullBuild);
+        new HRESULT Initialize(
+            [MarshalAs(UnmanagedType.IUnknown), In] object emitter,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string filename,
+            [MarshalAs(UnmanagedType.Interface), In] IStream pIStream,
+            [In] bool fFullBuild);
 
         /// <summary>
         /// Returns the information necessary for a compiler to write the debug directory entry in the portable executable (PE) file header.<para/>
@@ -314,7 +328,10 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetDebugInfo(
-            [In, Out] ref IntPtr pIDD, [In] int cData, [Out] out int pcData, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] byte[] data);
+            [In, Out] ref IntPtr pIDD,
+            [In] int cData,
+            [Out] out int pcData,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] byte[] data);
 
         /// <summary>
         /// Defines a group of sequence points within the current method. Each starting line and starting column define the start of a statement within a method.<para/>
@@ -348,7 +365,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT RemapToken([In] mdToken oldToken, [In] mdToken newToken);
+        new HRESULT RemapToken(
+            [In] mdToken oldToken,
+            [In] mdToken newToken);
 
         /// <summary>
         /// Sets the metadata emitter interface with which this writer will be associated, and sets the output file name to which the debugging symbols will be written.<para/>
@@ -364,11 +383,9 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Initialize2(
-            [MarshalAs(UnmanagedType.IUnknown), In]
-            object emitter,
+            [MarshalAs(UnmanagedType.IUnknown), In] object emitter,
             [In, MarshalAs(UnmanagedType.LPWStr)] string tempfilename,
-            [MarshalAs(UnmanagedType.Interface), In]
-            IStream pIStream,
+            [MarshalAs(UnmanagedType.Interface), In] IStream pIStream,
             [In] bool fFullBuild,
             [In, MarshalAs(UnmanagedType.LPWStr)] string finalfilename);
 
@@ -382,8 +399,11 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT DefineConstant([In, MarshalAs(UnmanagedType.LPWStr)] string name, [MarshalAs(UnmanagedType.Struct), In] object value,
-            [In] int cSig, [In] IntPtr signature);
+        new HRESULT DefineConstant(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [MarshalAs(UnmanagedType.Struct), In] object value,
+            [In] int cSig,
+            [In] IntPtr signature);
 
         /// <summary>
         /// Closes the symbol writer without committing the symbols to the symbol store. After this call, the symbol writer becomes invalid for further updates.<para/>
@@ -454,7 +474,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT DefineConstant2([In, MarshalAs(UnmanagedType.LPWStr)] string name, [MarshalAs(UnmanagedType.Struct), In] object value,
+        new HRESULT DefineConstant2(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [MarshalAs(UnmanagedType.Struct), In] object value,
             [In] mdSignature sigToken);
 
         /// <summary>
@@ -466,7 +488,10 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT OpenMethod2([In] int method, [In] int isect, [In] int offset);
+        new HRESULT OpenMethod2(
+            [In] int method,
+            [In] int isect,
+            [In] int offset);
 
         /// <summary>
         /// Commits the changes written so far to the stream.
@@ -513,8 +538,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT MapTokenToSourceSpan(
             [In] mdToken token,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocumentWriter document,
+            [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocumentWriter document,
             [In] int line,
             [In] int column,
             [In] int endLine,

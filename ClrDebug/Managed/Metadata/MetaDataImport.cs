@@ -102,7 +102,8 @@ namespace ClrDebug
         /// <param name="pmd">[out] A pointer to the token representing the module referenced in the current metadata scope.</param>
         public HRESULT TryGetModuleFromScope(out mdModule pmd)
         {
-            /*HRESULT GetModuleFromScope([Out] out mdModule pmd);*/
+            /*HRESULT GetModuleFromScope(
+            [Out] out mdModule pmd);*/
             return Raw.GetModuleFromScope(out pmd);
         }
 
@@ -118,7 +119,8 @@ namespace ClrDebug
         /// </remarks>
         public void CloseEnum(IntPtr hEnum)
         {
-            /*void CloseEnum([In] IntPtr hEnum);*/
+            /*void CloseEnum(
+            [In] IntPtr hEnum);*/
             Raw.CloseEnum(hEnum);
         }
 
@@ -151,7 +153,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryCountEnum(IntPtr hEnum, out int pulCount)
         {
-            /*HRESULT CountEnum([In] IntPtr hEnum, [Out] out int pulCount);*/
+            /*HRESULT CountEnum(
+            [In] IntPtr hEnum,
+            [Out] out int pulCount);*/
             return Raw.CountEnum(hEnum, out pulCount);
         }
 
@@ -175,7 +179,9 @@ namespace ClrDebug
         /// <param name="ulPos">[in] The new position at which to place the enumerator.</param>
         public HRESULT TryResetEnum(IntPtr hEnum, int ulPos)
         {
-            /*HRESULT ResetEnum([In] IntPtr hEnum, [In] int ulPos);*/
+            /*HRESULT ResetEnum(
+            [In] IntPtr hEnum,
+            [In] int ulPos);*/
             return Raw.ResetEnum(hEnum, ulPos);
         }
 
@@ -1356,7 +1362,8 @@ namespace ClrDebug
             /*HRESULT FindMemberRef(
             [In] mdToken td,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
-            [In] IntPtr pvSigBlob, [In] int cbSigBlob,
+            [In] IntPtr pvSigBlob,
+            [In] int cbSigBlob,
             [Out] out mdMemberRef pmr);*/
             return Raw.FindMemberRef(td, szName, pvSigBlob, cbSigBlob, out pmr);
         }
@@ -3000,7 +3007,8 @@ namespace ClrDebug
         /// <param name="tk">[in] The token to check the reference validity for.</param>
         public bool IsValidToken(mdToken tk)
         {
-            /*bool IsValidToken([In] mdToken tk);*/
+            /*bool IsValidToken(
+            [In] mdToken tk);*/
             return Raw.IsValidToken(tk);
         }
 

@@ -39,7 +39,10 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
+            /*HRESULT GetName(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName;
@@ -89,7 +92,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetValue(out object pValue)
         {
-            /*HRESULT GetValue([Out, MarshalAs(UnmanagedType.Struct)] out object pValue);*/
+            /*HRESULT GetValue(
+            [Out, MarshalAs(UnmanagedType.Struct)] out object pValue);*/
             return Raw.GetValue(out pValue);
         }
 
@@ -117,7 +121,10 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetSignature(out byte[] sig)
         {
-            /*HRESULT GetSignature([In] int cSig, [Out] out int pcSig, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] sig);*/
+            /*HRESULT GetSignature(
+            [In] int cSig,
+            [Out] out int pcSig,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] sig);*/
             int cSig = 0;
             int pcSig;
             sig = null;

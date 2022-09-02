@@ -30,6 +30,7 @@ namespace ClrDebug
         #region ICLRDataEnumMemoryRegionsCallback2 Methods
 
         HRESULT ICLRDataEnumMemoryRegionsCallback2.EnumMemoryRegion(CLRDATA_ADDRESS address, int size) => HandleEvent(OnEnumMemoryRegion, new EnumMemoryRegionCLRDataEnumMemoryRegionsCallbackEventArgs(address, size));
+
         HRESULT ICLRDataEnumMemoryRegionsCallback2.UpdateMemoryRegion(CLRDATA_ADDRESS address, int bufferSize, IntPtr buffer) => HandleEvent(OnUpdateMemoryRegion, new UpdateMemoryRegionCLRDataEnumMemoryRegionsCallbackEventArgs(address, bufferSize, buffer));
 
         #endregion

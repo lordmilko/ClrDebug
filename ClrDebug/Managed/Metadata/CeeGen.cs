@@ -232,7 +232,8 @@ namespace ClrDebug
         [Obsolete]
         public HRESULT TryGetIlSection(IntPtr section)
         {
-            /*HRESULT GetIlSection([In] IntPtr section);*/
+            /*HRESULT GetIlSection(
+            [In] IntPtr section);*/
             return Raw.GetIlSection(section);
         }
 
@@ -256,7 +257,8 @@ namespace ClrDebug
         [Obsolete]
         public HRESULT TryGetStringSection(ref IntPtr section)
         {
-            /*HRESULT GetStringSection([In, Out] ref IntPtr section);*/
+            /*HRESULT GetStringSection(
+            [In, Out] ref IntPtr section);*/
             return Raw.GetStringSection(ref section);
         }
 

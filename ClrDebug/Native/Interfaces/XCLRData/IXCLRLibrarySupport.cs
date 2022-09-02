@@ -21,6 +21,5 @@ namespace ClrDebug
             [In] IntPtr hash,
             [In] int hashLength,
             [Out] out long loadedBase);
-
     }
 }

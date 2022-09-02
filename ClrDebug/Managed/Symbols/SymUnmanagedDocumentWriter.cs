@@ -36,7 +36,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TrySetSource(int sourceSize, IntPtr source)
         {
-            /*HRESULT SetSource([In] int sourceSize, [In] IntPtr source);*/
+            /*HRESULT SetSource(
+            [In] int sourceSize,
+            [In] IntPtr source);*/
             return Raw.SetSource(sourceSize, source);
         }
 
@@ -63,7 +65,10 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TrySetCheckSum(Guid algorithmId, int checkSumSize, IntPtr checkSum)
         {
-            /*HRESULT SetCheckSum([In] ref Guid algorithmId, [In] int checkSumSize, [In] IntPtr checkSum);*/
+            /*HRESULT SetCheckSum(
+            [In] ref Guid algorithmId,
+            [In] int checkSumSize,
+            [In] IntPtr checkSum);*/
             return Raw.SetCheckSum(ref algorithmId, checkSumSize, checkSum);
         }
 

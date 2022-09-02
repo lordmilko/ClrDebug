@@ -4,8 +4,8 @@
     /// Provides methods that allow the host to request explicitly that the common language runtime (CLR) create a new task, get the currently executing task, and set the geographic language and culture for the task.
     /// </summary>
     /// <remarks>
-    /// Each task that is running in a hosted environment has representations both on the host side (an instance of <see 
-    ///cref="IHostTask"/>) and on the CLR side (an instance of <see cref="ICLRTask"/>). Either the host or the CLR can
+    /// Each task that is running in a hosted environment has representations both on the host side (an instance of <see
+    /// cref="IHostTask"/>) and on the CLR side (an instance of <see cref="ICLRTask"/>). Either the host or the CLR can
     /// initiate the creation of a task, but the host-side representation must be associated with a corresponding CLR-side
     /// representation to ensure successful communication between the host and the CLR regarding the task. The two objects
     /// must be created and instantiated before managed code can execute on an operating system thread.
@@ -58,7 +58,8 @@
         /// </remarks>
         public HRESULT TryGetCurrentTask(out CLRTask pTaskResult)
         {
-            /*HRESULT GetCurrentTask([Out] out ICLRTask pTask);*/
+            /*HRESULT GetCurrentTask(
+            [Out] out ICLRTask pTask);*/
             ICLRTask pTask;
             HRESULT hr = Raw.GetCurrentTask(out pTask);
 
@@ -93,7 +94,8 @@
         /// <param name="pTaskType">[out] A pointer to a value of the <see cref="ETaskType"/> enumeration that indicates the type of task that is currently executing.</param>
         public HRESULT TryGetCurrentTaskType(out ETaskType pTaskType)
         {
-            /*HRESULT GetCurrentTaskType([Out] out ETaskType pTaskType);*/
+            /*HRESULT GetCurrentTaskType(
+            [Out] out ETaskType pTaskType);*/
             return Raw.GetCurrentTaskType(out pTaskType);
         }
 
@@ -141,7 +143,8 @@
         /// </remarks>
         public HRESULT TryCreateTask(out CLRTask pTaskResult)
         {
-            /*HRESULT CreateTask([Out] out ICLRTask pTask);*/
+            /*HRESULT CreateTask(
+            [Out] out ICLRTask pTask);*/
             ICLRTask pTask;
             HRESULT hr = Raw.CreateTask(out pTask);
 
@@ -189,7 +192,8 @@
         /// </remarks>
         public HRESULT TrySetUILocale(int lcid)
         {
-            /*HRESULT SetUILocale([In] int lcid);*/
+            /*HRESULT SetUILocale(
+            [In] int lcid);*/
             return Raw.SetUILocale(lcid);
         }
 
@@ -227,7 +231,8 @@
         /// </remarks>
         public HRESULT TrySetLocale(int lcid)
         {
-            /*HRESULT SetLocale([In] int lcid);*/
+            /*HRESULT SetLocale(
+            [In] int lcid);*/
             return Raw.SetLocale(lcid);
         }
 

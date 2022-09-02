@@ -20,6 +20,8 @@ namespace ClrDebug
         /// and the new token is scoped in the emitted (target) metadata scope.
         /// </remarks>
         [PreserveSig]
-        HRESULT Map([In] mdToken tkImp, [In] mdToken tkEmit);
+        HRESULT Map(
+            [In] mdToken tkImp,
+            [In] mdToken tkEmit);
     }
 }

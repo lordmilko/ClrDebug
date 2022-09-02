@@ -459,8 +459,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetVirtualTranslationPhysicalOffsets(
             [In] long Virtual,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)]
-            long[] Offsets,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] long[] Offsets,
             [In] int OffsetsSize,
             [Out] out int Levels);
 
@@ -591,8 +590,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT ReadTagged(
-            [In, MarshalAs(UnmanagedType.LPStruct)]
-            Guid Tag,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid Tag,
             [In] int Offset,
             [Out] IntPtr Buffer,
             [In] int BufferSize,

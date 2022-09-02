@@ -139,7 +139,10 @@ namespace ClrDebug
         /// <param name="pCodeSize">A pointer to the method code size (the number of bytes of the method's code).</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCodeRange([In] int codeRva, [Out] out int pCodeStartAddress, [Out] out int pCodeSize);
+        HRESULT GetCodeRange(
+            [In] int codeRva,
+            [Out] out int pCodeStartAddress,
+            [Out] out int pCodeSize);
 
         /// <summary>
         /// Reads data from a merged assembly given a relative virtual address (RVA) in the merged assembly.
@@ -149,7 +152,9 @@ namespace ClrDebug
         /// <param name="ppMemoryBuffer">A pointer to the address of an <see cref="ICorDebugMemoryBuffer"/> object that contains information about the memory buffer with merged assembly metadata.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAssemblyImageBytes([In] long rva, [In] int length,
+        HRESULT GetAssemblyImageBytes(
+            [In] long rva,
+            [In] int length,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryBuffer ppMemoryBuffer);
 
         /// <summary>
@@ -160,7 +165,10 @@ namespace ClrDebug
         /// <param name="pObjectSize">[out] A pointer to the size of the object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetObjectSize([In] int cbSignature, [In] IntPtr typeSig, [Out] out int pObjectSize);
+        HRESULT GetObjectSize(
+            [In] int cbSignature,
+            [In] IntPtr typeSig,
+            [Out] out int pObjectSize);
 
         /// <summary>
         /// Returns the metadata from a merged assembly.
@@ -168,6 +176,7 @@ namespace ClrDebug
         /// <param name="ppMemoryBuffer">[out] A pointer to the address of an <see cref="ICorDebugMemoryBuffer"/> object that contains information about the size and address of the merged assembly's metadata.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAssemblyImageMetadata([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryBuffer ppMemoryBuffer);
+        HRESULT GetAssemblyImageMetadata(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryBuffer ppMemoryBuffer);
     }
 }

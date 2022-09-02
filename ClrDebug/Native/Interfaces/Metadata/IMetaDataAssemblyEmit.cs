@@ -220,5 +220,5 @@ namespace ClrDebug
             [In] mdToken tkImplementation,
             [In] int dwOffset,
             [In] int dwResourceFlags);
-    };
+    }
 }

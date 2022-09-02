@@ -59,7 +59,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetPriority(out int pPriority)
         {
-            /*HRESULT GetPriority([Out] out int pPriority);*/
+            /*HRESULT GetPriority(
+            [Out] out int pPriority);*/
             return Raw.GetPriority(out pPriority);
         }
 
@@ -87,7 +88,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetPriority(int newPriority)
         {
-            /*HRESULT SetPriority([In] int newPriority);*/
+            /*HRESULT SetPriority(
+            [In] int newPriority);*/
             return Raw.SetPriority(newPriority);
         }
 
@@ -195,7 +197,9 @@ namespace ClrDebug
         /// </returns>
         public HRESULT TryJoin(int dwMilliseconds, int option)
         {
-            /*HRESULT Join([In] int dwMilliseconds, [In] int option);*/
+            /*HRESULT Join(
+            [In] int dwMilliseconds,
+            [In] int option);*/
             return Raw.Join(dwMilliseconds, option);
         }
 
@@ -235,7 +239,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetCLRTask(ICLRTask pCLRTask)
         {
-            /*HRESULT SetCLRTask([In, MarshalAs(UnmanagedType.Interface)] ICLRTask pCLRTask);*/
+            /*HRESULT SetCLRTask(
+            [In, MarshalAs(UnmanagedType.Interface)] ICLRTask pCLRTask);*/
             return Raw.SetCLRTask(pCLRTask);
         }
 

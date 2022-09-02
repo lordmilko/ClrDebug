@@ -45,6 +45,7 @@ namespace ClrDebug
         #region IEnumerable
 
         public IEnumerator<CorPublishAppDomain> GetEnumerator() => this;
+
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion

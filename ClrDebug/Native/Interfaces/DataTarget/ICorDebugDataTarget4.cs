@@ -11,6 +11,9 @@ namespace ClrDebug
     {
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT VirtualUnwind([In] int threadID, [In] int contextSize, [In, Out] IntPtr context);
+        HRESULT VirtualUnwind(
+            [In] int threadID,
+            [In] int contextSize,
+            [In, Out] IntPtr context);
     }
 }

@@ -64,7 +64,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetPlatform(out CorDebugPlatform pTargetPlatform)
         {
-            /*HRESULT GetPlatform([Out] out CorDebugPlatform pTargetPlatform);*/
+            /*HRESULT GetPlatform(
+            [Out] out CorDebugPlatform pTargetPlatform);*/
             return Raw.GetPlatform(out pTargetPlatform);
         }
 
@@ -103,7 +104,11 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryReadVirtual(CORDB_ADDRESS address, IntPtr pBuffer, int bytesRequested, out int pBytesRead)
         {
-            /*HRESULT ReadVirtual([In] CORDB_ADDRESS address, [Out] IntPtr pBuffer, [In] int bytesRequested, [Out] out int pBytesRead);*/
+            /*HRESULT ReadVirtual(
+            [In] CORDB_ADDRESS address,
+            [Out] IntPtr pBuffer,
+            [In] int bytesRequested,
+            [Out] out int pBytesRead);*/
             return Raw.ReadVirtual(address, pBuffer, bytesRequested, out pBytesRead);
         }
 
@@ -141,7 +146,11 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetThreadContext(int dwThreadId, ContextFlags contextFlags, int contextSize, IntPtr pContext)
         {
-            /*HRESULT GetThreadContext([In] int dwThreadId, [In] ContextFlags contextFlags, [In] int contextSize, [Out] IntPtr pContext);*/
+            /*HRESULT GetThreadContext(
+            [In] int dwThreadId,
+            [In] ContextFlags contextFlags,
+            [In] int contextSize,
+            [Out] IntPtr pContext);*/
             return Raw.GetThreadContext(dwThreadId, contextFlags, contextSize, pContext);
         }
 
@@ -174,7 +183,10 @@ namespace ClrDebug
         /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetImageFromPointer(CORDB_ADDRESS addr, out GetImageFromPointerResult result)
         {
-            /*HRESULT GetImageFromPointer([In] CORDB_ADDRESS addr, [Out] out CORDB_ADDRESS pImageBase, [Out] out int pSize);*/
+            /*HRESULT GetImageFromPointer(
+            [In] CORDB_ADDRESS addr,
+            [Out] out CORDB_ADDRESS pImageBase,
+            [Out] out int pSize);*/
             CORDB_ADDRESS pImageBase;
             int pSize;
             HRESULT hr = Raw2.GetImageFromPointer(addr, out pImageBase, out pSize);
@@ -298,7 +310,10 @@ namespace ClrDebug
         /// <param name="pThreadIds">An array of thread identifiers.</param>
         public HRESULT TryEnumerateThreadIDs(out int[] pThreadIds)
         {
-            /*HRESULT EnumerateThreadIDs([In] int cThreadIds, [Out] out int pcThreadIds, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pThreadIds);*/
+            /*HRESULT EnumerateThreadIDs(
+            [In] int cThreadIds,
+            [Out] out int pcThreadIds,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pThreadIds);*/
             int cThreadIds = 0;
             int pcThreadIds;
             pThreadIds = null;
@@ -435,7 +450,10 @@ namespace ClrDebug
 
         public HRESULT TryVirtualUnwind(int threadID, int contextSize, IntPtr context)
         {
-            /*HRESULT VirtualUnwind([In] int threadID, [In] int contextSize, [In, Out] IntPtr context);*/
+            /*HRESULT VirtualUnwind(
+            [In] int threadID,
+            [In] int contextSize,
+            [In, Out] IntPtr context);*/
             return Raw4.VirtualUnwind(threadID, contextSize, context);
         }
 

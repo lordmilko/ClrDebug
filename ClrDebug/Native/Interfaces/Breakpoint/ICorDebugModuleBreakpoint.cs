@@ -17,7 +17,8 @@ namespace ClrDebug
         /// <param name="bActive">[in] Set this value to true to specify the state as active; otherwise, set this value to false.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT Activate([In] bool bActive);
+        new HRESULT Activate(
+            [In] bool bActive);
 
         /// <summary>
         /// Gets a value that indicates whether this <see cref="ICorDebugBreakpoint"/> is active.
@@ -25,7 +26,8 @@ namespace ClrDebug
         /// <param name="pbActive">[out] true if this breakpoint is active; otherwise, false.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT IsActive([Out] out bool pbActive);
+        new HRESULT IsActive(
+            [Out] out bool pbActive);
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugModule"/> that references the module in which this breakpoint is set.
@@ -33,6 +35,7 @@ namespace ClrDebug
         /// <param name="ppModule">[out] A pointer to the address of an <see cref="ICorDebugModule"/> interface that references the module in which the breakpoint is set.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetModule([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
+        HRESULT GetModule(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
     }
 }

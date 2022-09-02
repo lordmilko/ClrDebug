@@ -19,7 +19,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetMethod([Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);
+        new HRESULT GetMethod(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);
 
         /// <summary>
         /// Gets the parent scope of this scope.
@@ -28,7 +29,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetParent([Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedScope pRetVal);
+        new HRESULT GetParent(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedScope pRetVal);
 
         /// <summary>
         /// Gets the children of this scope.
@@ -51,7 +53,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetStartOffset([Out] out int pRetVal);
+        new HRESULT GetStartOffset(
+            [Out] out int pRetVal);
 
         /// <summary>
         /// Gets the end offset for this scope.
@@ -60,7 +63,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetEndOffset([Out] out int pRetVal);
+        new HRESULT GetEndOffset(
+            [Out] out int pRetVal);
 
         /// <summary>
         /// Gets a count of the local variables defined within this scope.
@@ -69,7 +73,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetLocalCount([Out] out int pRetVal);
+        new HRESULT GetLocalCount(
+            [Out] out int pRetVal);
 
         /// <summary>
         /// Gets the local variables defined within this scope.
@@ -106,7 +111,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetConstantCount([Out] out int pRetVal);
+        HRESULT GetConstantCount(
+            [Out] out int pRetVal);
 
         /// <summary>
         /// Gets the local constants defined within this scope.
@@ -117,6 +123,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetConstants([In] int cConstants, [Out] out int pcConstants, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] ISymUnmanagedConstant[] constants);
+        HRESULT GetConstants(
+            [In] int cConstants,
+            [Out] out int pcConstants,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] ISymUnmanagedConstant[] constants);
     }
 }

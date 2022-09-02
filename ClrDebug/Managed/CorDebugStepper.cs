@@ -46,12 +46,13 @@ namespace ClrDebug
         /// <param name="pbActive">[out] Returns true if the stepper is currently executing a step; otherwise, returns false.</param>
         /// <remarks>
         /// Any step action remains active until the debugger receives a <see cref="ICorDebugManagedCallback.StepComplete"/>
-        /// call, which automatically deactivates the stepper. A stepper may also be deactivated prematurely by calling <see 
-        ///cref="Deactivate"/> before the callback condition is reached.
+        /// call, which automatically deactivates the stepper. A stepper may also be deactivated prematurely by calling <see
+        /// cref="Deactivate"/> before the callback condition is reached.
         /// </remarks>
         public HRESULT TryIsActive(out bool pbActive)
         {
-            /*HRESULT IsActive([Out] out bool pbActive);*/
+            /*HRESULT IsActive(
+            [Out] out bool pbActive);*/
             return Raw.IsActive(out pbActive);
         }
 
@@ -117,7 +118,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetInterceptMask(CorDebugIntercept mask)
         {
-            /*HRESULT SetInterceptMask([In] CorDebugIntercept mask);*/
+            /*HRESULT SetInterceptMask(
+            [In] CorDebugIntercept mask);*/
             return Raw.SetInterceptMask(mask);
         }
 
@@ -153,7 +155,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetUnmappedStopMask(CorDebugUnmappedStop mask)
         {
-            /*HRESULT SetUnmappedStopMask([In] CorDebugUnmappedStop mask);*/
+            /*HRESULT SetUnmappedStopMask(
+            [In] CorDebugUnmappedStop mask);*/
             return Raw.SetUnmappedStopMask(mask);
         }
 
@@ -185,7 +188,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryStep(bool bStepIn)
         {
-            /*HRESULT Step([In] bool bStepIn);*/
+            /*HRESULT Step(
+            [In] bool bStepIn);*/
             return Raw.Step(bStepIn);
         }
 
@@ -286,7 +290,8 @@ namespace ClrDebug
         /// The default value is true.</param>
         public HRESULT TrySetRangeIL(bool bIL)
         {
-            /*HRESULT SetRangeIL([In] bool bIL);*/
+            /*HRESULT SetRangeIL(
+            [In] bool bIL);*/
             return Raw.SetRangeIL(bIL);
         }
 
@@ -316,7 +321,8 @@ namespace ClrDebug
         /// <param name="fIsJMCStepper">[in] Set to true to step only through code that is authored by an application's developer; otherwise, set to false.</param>
         public HRESULT TrySetJMC(bool fIsJMCStepper)
         {
-            /*HRESULT SetJMC([In] bool fIsJMCStepper);*/
+            /*HRESULT SetJMC(
+            [In] bool fIsJMCStepper);*/
             return Raw2.SetJMC(fIsJMCStepper);
         }
 

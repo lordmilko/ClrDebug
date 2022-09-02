@@ -61,7 +61,8 @@
         /// </remarks>
         public HRESULT TryCapture(out HostSecurityContext ppClonedContextResult)
         {
-            /*HRESULT Capture([Out, MarshalAs(UnmanagedType.Interface)] out IHostSecurityContext ppClonedContext);*/
+            /*HRESULT Capture(
+            [Out, MarshalAs(UnmanagedType.Interface)] out IHostSecurityContext ppClonedContext);*/
             IHostSecurityContext ppClonedContext;
             HRESULT hr = Raw.Capture(out ppClonedContext);
 

@@ -29,6 +29,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSize64([Out] out long pSize);
+        HRESULT GetSize64(
+            [Out] out long pSize);
     }
 }

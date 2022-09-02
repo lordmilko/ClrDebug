@@ -42,7 +42,8 @@ namespace ClrDebug
         /// <param name="pAddress">[out] A pointer to the base address of the loaded module.</param>
         public HRESULT TryGetBaseAddress(out CORDB_ADDRESS pAddress)
         {
-            /*HRESULT GetBaseAddress([Out] out CORDB_ADDRESS pAddress);*/
+            /*HRESULT GetBaseAddress(
+            [Out] out CORDB_ADDRESS pAddress);*/
             return Raw.GetBaseAddress(out pAddress);
         }
 
@@ -69,7 +70,10 @@ namespace ClrDebug
         /// <param name="szNameResult">[out] An array of characters that contain the name of the loaded module.</param>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
+            /*HRESULT GetName(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName;
@@ -118,7 +122,8 @@ namespace ClrDebug
         /// <param name="pcBytes">[out] A pointer to the number of bytes in the loaded module.</param>
         public HRESULT TryGetSize(out int pcBytes)
         {
-            /*HRESULT GetSize([Out] out int pcBytes);*/
+            /*HRESULT GetSize(
+            [Out] out int pcBytes);*/
             return Raw.GetSize(out pcBytes);
         }
 

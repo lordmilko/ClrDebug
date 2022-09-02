@@ -55,7 +55,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetIP(out GetIPResult result)
         {
-            /*HRESULT GetIP([Out] out int pnOffset, [Out] out CorDebugMappingResult pMappingResult);*/
+            /*HRESULT GetIP(
+            [Out] out int pnOffset,
+            [Out] out CorDebugMappingResult pMappingResult);*/
             int pnOffset;
             CorDebugMappingResult pMappingResult;
             HRESULT hr = Raw.GetIP(out pnOffset, out pMappingResult);
@@ -90,7 +92,8 @@ namespace ClrDebug
         /// </summary>
         public HRESULT TryGetStackDepth(out int pDepth)
         {
-            /*HRESULT GetStackDepth([Out] out int pDepth);*/
+            /*HRESULT GetStackDepth(
+            [Out] out int pDepth);*/
             return Raw.GetStackDepth(out pDepth);
         }
 
@@ -128,7 +131,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetIP(int nOffset)
         {
-            /*HRESULT SetIP([In] int nOffset);*/
+            /*HRESULT SetIP(
+            [In] int nOffset);*/
             return Raw.SetIP(nOffset);
         }
 
@@ -168,7 +172,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryEnumerateLocalVariables(out CorDebugValueEnum ppValueEnumResult)
         {
-            /*HRESULT EnumerateLocalVariables([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueEnum ppValueEnum);*/
+            /*HRESULT EnumerateLocalVariables(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueEnum ppValueEnum);*/
             ICorDebugValueEnum ppValueEnum;
             HRESULT hr = Raw.EnumerateLocalVariables(out ppValueEnum);
 
@@ -209,7 +214,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetLocalVariable(int dwIndex, out CorDebugValue ppValueResult)
         {
-            /*HRESULT GetLocalVariable([In] int dwIndex, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            /*HRESULT GetLocalVariable(
+            [In] int dwIndex,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetLocalVariable(dwIndex, out ppValue);
 
@@ -257,7 +264,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryEnumerateArguments(out CorDebugValueEnum ppValueEnumResult)
         {
-            /*HRESULT EnumerateArguments([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueEnum ppValueEnum);*/
+            /*HRESULT EnumerateArguments(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueEnum ppValueEnum);*/
             ICorDebugValueEnum ppValueEnum;
             HRESULT hr = Raw.EnumerateArguments(out ppValueEnum);
 
@@ -298,7 +306,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetArgument(int dwIndex, out CorDebugValue ppValueResult)
         {
-            /*HRESULT GetArgument([In] int dwIndex, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            /*HRESULT GetArgument(
+            [In] int dwIndex,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetArgument(dwIndex, out ppValue);
 
@@ -329,7 +339,9 @@ namespace ClrDebug
         /// </summary>
         public HRESULT TryGetStackValue(int dwIndex, out CorDebugValue ppValueResult)
         {
-            /*HRESULT GetStackValue([In] int dwIndex, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            /*HRESULT GetStackValue(
+            [In] int dwIndex,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetStackValue(dwIndex, out ppValue);
 
@@ -369,7 +381,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryCanSetIP(int nOffset)
         {
-            /*HRESULT CanSetIP([In] int nOffset);*/
+            /*HRESULT CanSetIP(
+            [In] int nOffset);*/
             return Raw.CanSetIP(nOffset);
         }
 
@@ -409,7 +422,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryRemapFunction(int newILOffset)
         {
-            /*HRESULT RemapFunction([In] int newILOffset);*/
+            /*HRESULT RemapFunction(
+            [In] int newILOffset);*/
             return Raw2.RemapFunction(newILOffset);
         }
 
@@ -447,7 +461,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryEnumerateTypeParameters(out CorDebugTypeEnum ppTyParEnumResult)
         {
-            /*HRESULT EnumerateTypeParameters([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppTyParEnum);*/
+            /*HRESULT EnumerateTypeParameters(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppTyParEnum);*/
             ICorDebugTypeEnum ppTyParEnum;
             HRESULT hr = Raw2.EnumerateTypeParameters(out ppTyParEnum);
 
@@ -524,7 +539,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetReturnValueForILOffset(int ilOffset, out CorDebugValue ppReturnValueResult)
         {
-            /*HRESULT GetReturnValueForILOffset([In] int ilOffset,
+            /*HRESULT GetReturnValueForILOffset(
+            [In] int ilOffset,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppReturnValue);*/
             ICorDebugValue ppReturnValue;
             HRESULT hr = Raw3.GetReturnValueForILOffset(ilOffset, out ppReturnValue);
@@ -582,7 +598,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryEnumerateLocalVariablesEx(ILCodeKind flags, out CorDebugValueEnum ppValueEnumResult)
         {
-            /*HRESULT EnumerateLocalVariablesEx([In] ILCodeKind flags,
+            /*HRESULT EnumerateLocalVariablesEx(
+            [In] ILCodeKind flags,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueEnum ppValueEnum);*/
             ICorDebugValueEnum ppValueEnum;
             HRESULT hr = Raw4.EnumerateLocalVariablesEx(flags, out ppValueEnum);

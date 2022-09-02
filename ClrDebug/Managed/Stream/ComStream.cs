@@ -26,7 +26,10 @@
 
         public HRESULT TryRemoteSeek(LARGE_INTEGER dlibMove, int dwOrigin, out ULARGE_INTEGER plibNewPosition)
         {
-            /*HRESULT RemoteSeek([In] LARGE_INTEGER dlibMove, [In] int dwOrigin, [Out] out ULARGE_INTEGER plibNewPosition);*/
+            /*HRESULT RemoteSeek(
+            [In] LARGE_INTEGER dlibMove,
+            [In] int dwOrigin,
+            [Out] out ULARGE_INTEGER plibNewPosition);*/
             return Raw.RemoteSeek(dlibMove, dwOrigin, out plibNewPosition);
         }
 
@@ -40,7 +43,8 @@
 
         public HRESULT TrySetSize(ULARGE_INTEGER libNewSize)
         {
-            /*HRESULT SetSize([In] ULARGE_INTEGER libNewSize);*/
+            /*HRESULT SetSize(
+            [In] ULARGE_INTEGER libNewSize);*/
             return Raw.SetSize(libNewSize);
         }
 
@@ -58,8 +62,7 @@
         public HRESULT TryRemoteCopyTo(IStream pstm, ULARGE_INTEGER cb, out RemoteCopyToResult result)
         {
             /*HRESULT RemoteCopyTo(
-            [MarshalAs(UnmanagedType.Interface), In]
-            IStream pstm,
+            [MarshalAs(UnmanagedType.Interface), In] IStream pstm,
             [In] ULARGE_INTEGER cb,
             [Out] out ULARGE_INTEGER pcbRead,
             [Out] out ULARGE_INTEGER pcbWritten);*/
@@ -85,7 +88,8 @@
 
         public HRESULT TryCommit(int grfCommitFlags)
         {
-            /*HRESULT Commit([In] int grfCommitFlags);*/
+            /*HRESULT Commit(
+            [In] int grfCommitFlags);*/
             return Raw.Commit(grfCommitFlags);
         }
 
@@ -113,7 +117,10 @@
 
         public HRESULT TryLockRegion(ULARGE_INTEGER libOffset, ULARGE_INTEGER cb, int dwLockType)
         {
-            /*HRESULT LockRegion([In] ULARGE_INTEGER libOffset, [In] ULARGE_INTEGER cb, [In] int dwLockType);*/
+            /*HRESULT LockRegion(
+            [In] ULARGE_INTEGER libOffset,
+            [In] ULARGE_INTEGER cb,
+            [In] int dwLockType);*/
             return Raw.LockRegion(libOffset, cb, dwLockType);
         }
 
@@ -127,7 +134,10 @@
 
         public HRESULT TryUnlockRegion(ULARGE_INTEGER libOffset, ULARGE_INTEGER cb, int dwLockType)
         {
-            /*HRESULT UnlockRegion([In] ULARGE_INTEGER libOffset, [In] ULARGE_INTEGER cb, [In] int dwLockType);*/
+            /*HRESULT UnlockRegion(
+            [In] ULARGE_INTEGER libOffset,
+            [In] ULARGE_INTEGER cb,
+            [In] int dwLockType);*/
             return Raw.UnlockRegion(libOffset, cb, dwLockType);
         }
 
@@ -144,7 +154,9 @@
 
         public HRESULT TryStat(out tagSTATSTG pstatstg, int grfStatFlag)
         {
-            /*HRESULT Stat([Out] out tagSTATSTG pstatstg, [In] int grfStatFlag);*/
+            /*HRESULT Stat(
+            [Out] out tagSTATSTG pstatstg,
+            [In] int grfStatFlag);*/
             return Raw.Stat(out pstatstg, grfStatFlag);
         }
 
@@ -161,7 +173,8 @@
 
         public HRESULT TryClone(out ComStream ppstmResult)
         {
-            /*HRESULT Clone([Out, MarshalAs(UnmanagedType.Interface)] out IStream ppstm);*/
+            /*HRESULT Clone(
+            [Out, MarshalAs(UnmanagedType.Interface)] out IStream ppstm);*/
             IStream ppstm;
             HRESULT hr = Raw.Clone(out ppstm);
 

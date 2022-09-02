@@ -36,7 +36,9 @@
         /// <param name="psztNewMaxVirtualMemMB">[in, out] A pointer to the actual size of memory allocated.</param>
         public HRESULT TryRequestVirtualMemLimit(int sztMaxVirtualMemMB, out int psztNewMaxVirtualMemMB)
         {
-            /*HRESULT RequestVirtualMemLimit([In] int sztMaxVirtualMemMB, [Out] out int psztNewMaxVirtualMemMB);*/
+            /*HRESULT RequestVirtualMemLimit(
+            [In] int sztMaxVirtualMemMB,
+            [Out] out int psztNewMaxVirtualMemMB);*/
             return Raw.RequestVirtualMemLimit(sztMaxVirtualMemMB, out psztNewMaxVirtualMemMB);
         }
 

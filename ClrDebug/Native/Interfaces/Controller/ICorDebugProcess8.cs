@@ -20,6 +20,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnableExceptionCallbacksOutsideOfMyCode([In] int enableExceptionsOutsideOfJMC);
+        HRESULT EnableExceptionCallbacksOutsideOfMyCode(
+            [In] int enableExceptionsOutsideOfJMC);
     }
 }

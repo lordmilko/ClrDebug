@@ -43,7 +43,8 @@ namespace ClrDebug
         /// <param name="machineType">[out] A pointer to a value that indicates the instruction set that the target process is using. The returned machineType is one of the IMAGE_FILE_MACHINE constants, which are defined in the WinNT.h header file.</param>
         public HRESULT TryGetMachineType(out IMAGE_FILE_MACHINE machineType)
         {
-            /*HRESULT GetMachineType([Out] out IMAGE_FILE_MACHINE machineType);*/
+            /*HRESULT GetMachineType(
+            [Out] out IMAGE_FILE_MACHINE machineType);*/
             return Raw.GetMachineType(out machineType);
         }
 
@@ -73,7 +74,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetPointerSize(out int pointerSize)
         {
-            /*HRESULT GetPointerSize([Out] out int pointerSize);*/
+            /*HRESULT GetPointerSize(
+            [Out] out int pointerSize);*/
             return Raw.GetPointerSize(out pointerSize);
         }
 
@@ -103,7 +105,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetCurrentThreadID(out int threadID)
         {
-            /*HRESULT GetCurrentThreadID([Out] out int threadID);*/
+            /*HRESULT GetCurrentThreadID(
+            [Out] out int threadID);*/
             return Raw.GetCurrentThreadID(out threadID);
         }
 
@@ -138,7 +141,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetImageBase(string imagePath, out CLRDATA_ADDRESS baseAddress)
         {
-            /*HRESULT GetImageBase([MarshalAs(UnmanagedType.LPWStr), In] string imagePath, [Out] out CLRDATA_ADDRESS baseAddress);*/
+            /*HRESULT GetImageBase(
+            [MarshalAs(UnmanagedType.LPWStr), In] string imagePath,
+            [Out] out CLRDATA_ADDRESS baseAddress);*/
             return Raw.GetImageBase(imagePath, out baseAddress);
         }
 
@@ -169,7 +174,11 @@ namespace ClrDebug
         /// <param name="bytesRead">[out] A pointer to the number of bytes returned.</param>
         public HRESULT TryReadVirtual(CLRDATA_ADDRESS address, IntPtr buffer, int bytesRequested, out int bytesRead)
         {
-            /*HRESULT ReadVirtual([In] CLRDATA_ADDRESS address, [Out] IntPtr buffer, [In] int bytesRequested, [Out] out int bytesRead);*/
+            /*HRESULT ReadVirtual(
+            [In] CLRDATA_ADDRESS address,
+            [Out] IntPtr buffer,
+            [In] int bytesRequested,
+            [Out] out int bytesRead);*/
             return Raw.ReadVirtual(address, buffer, bytesRequested, out bytesRead);
         }
 
@@ -200,7 +209,11 @@ namespace ClrDebug
         /// <param name="bytesWritten">[out] A pointer to the actual number of bytes that were written.</param>
         public HRESULT TryWriteVirtual(CLRDATA_ADDRESS address, IntPtr buffer, int bytesRequested, out int bytesWritten)
         {
-            /*HRESULT WriteVirtual([In] CLRDATA_ADDRESS address, [In] IntPtr buffer, [In] int bytesRequested, [Out] out int bytesWritten);*/
+            /*HRESULT WriteVirtual(
+            [In] CLRDATA_ADDRESS address,
+            [In] IntPtr buffer,
+            [In] int bytesRequested,
+            [Out] out int bytesWritten);*/
             return Raw.WriteVirtual(address, buffer, bytesRequested, out bytesWritten);
         }
 
@@ -235,7 +248,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetTLSValue(int threadID, int index, out CLRDATA_ADDRESS value)
         {
-            /*HRESULT GetTLSValue([In] int threadID, [In] int index, [Out] out CLRDATA_ADDRESS value);*/
+            /*HRESULT GetTLSValue(
+            [In] int threadID,
+            [In] int index,
+            [Out] out CLRDATA_ADDRESS value);*/
             return Raw.GetTLSValue(threadID, index, out value);
         }
 
@@ -267,7 +283,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetTLSValue(int threadID, int index, CLRDATA_ADDRESS value)
         {
-            /*HRESULT SetTLSValue([In] int threadID, [In] int index, [In] CLRDATA_ADDRESS value);*/
+            /*HRESULT SetTLSValue(
+            [In] int threadID,
+            [In] int index,
+            [In] CLRDATA_ADDRESS value);*/
             return Raw.SetTLSValue(threadID, index, value);
         }
 
@@ -305,7 +324,11 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetThreadContext(int threadID, ContextFlags contextFlags, int contextSize, IntPtr context)
         {
-            /*HRESULT GetThreadContext([In] int threadID, [In] ContextFlags contextFlags, [In] int contextSize, [Out] IntPtr context);*/
+            /*HRESULT GetThreadContext(
+            [In] int threadID,
+            [In] ContextFlags contextFlags,
+            [In] int contextSize,
+            [Out] IntPtr context);*/
             return Raw.GetThreadContext(threadID, contextFlags, contextSize, context);
         }
 
@@ -341,7 +364,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetThreadContext(int threadID, int contextSize, IntPtr context)
         {
-            /*HRESULT SetThreadContext([In] int threadID, [In] int contextSize, [In] IntPtr context);*/
+            /*HRESULT SetThreadContext(
+            [In] int threadID,
+            [In] int contextSize,
+            [In] IntPtr context);*/
             return Raw.SetThreadContext(threadID, contextSize, context);
         }
 
@@ -433,7 +459,12 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryAllocVirtual(CLRDATA_ADDRESS addr, int size, int typeFlags, int protectFlags, out CLRDATA_ADDRESS virt)
         {
-            /*HRESULT AllocVirtual([In] CLRDATA_ADDRESS addr, [In] int size, [In] int typeFlags, [In] int protectFlags, [Out] out CLRDATA_ADDRESS virt);*/
+            /*HRESULT AllocVirtual(
+            [In] CLRDATA_ADDRESS addr,
+            [In] int size,
+            [In] int typeFlags,
+            [In] int protectFlags,
+            [Out] out CLRDATA_ADDRESS virt);*/
             return Raw2.AllocVirtual(addr, size, typeFlags, protectFlags, out virt);
         }
 
@@ -467,7 +498,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryFreeVirtual(CLRDATA_ADDRESS addr, int size, int typeFlags)
         {
-            /*HRESULT FreeVirtual([In] CLRDATA_ADDRESS addr, [In] int size, [In] int typeFlags);*/
+            /*HRESULT FreeVirtual(
+            [In] CLRDATA_ADDRESS addr,
+            [In] int size,
+            [In] int typeFlags);*/
             return Raw2.FreeVirtual(addr, size, typeFlags);
         }
 
@@ -511,7 +545,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetExceptionThreadID(out int threadID)
         {
-            /*HRESULT GetExceptionThreadID([Out] out int threadID);*/
+            /*HRESULT GetExceptionThreadID(
+            [Out] out int threadID);*/
             return Raw3.GetExceptionThreadID(out threadID);
         }
 
@@ -559,7 +594,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetExceptionRecord(int bufferSize, out int bufferUsed, IntPtr buffer)
         {
-            /*HRESULT GetExceptionRecord([In] int bufferSize, [Out] out int bufferUsed, [Out] IntPtr buffer);*/
+            /*HRESULT GetExceptionRecord(
+            [In] int bufferSize,
+            [Out] out int bufferUsed,
+            [Out] IntPtr buffer);*/
             return Raw3.GetExceptionRecord(bufferSize, out bufferUsed, buffer);
         }
 
@@ -607,7 +645,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetExceptionContextRecord(int bufferSize, out int bufferUsed, IntPtr buffer)
         {
-            /*HRESULT GetExceptionContextRecord([In] int bufferSize, [Out] out int bufferUsed, [Out] IntPtr buffer);*/
+            /*HRESULT GetExceptionContextRecord(
+            [In] int bufferSize,
+            [Out] out int bufferUsed,
+            [Out] IntPtr buffer);*/
             return Raw3.GetExceptionContextRecord(bufferSize, out bufferUsed, buffer);
         }
 

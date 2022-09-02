@@ -39,7 +39,8 @@
         /// <param name="ppValueResult">[out] A pointer to the address of an <see cref="ICorDebugValue"/> object.</param>
         public HRESULT TryGetValue(out CorDebugValue ppValueResult)
         {
-            /*HRESULT GetValue([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            /*HRESULT GetValue(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetValue(out ppValue);
 

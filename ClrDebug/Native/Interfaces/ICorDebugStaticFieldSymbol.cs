@@ -23,7 +23,10 @@ namespace ClrDebug
         /// <param name="szName">[out] A character array that stores the returned name.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
+        HRESULT GetName(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
 
         /// <summary>
         /// Gets the size in bytes of the static field.
@@ -31,7 +34,8 @@ namespace ClrDebug
         /// <param name="pcbSize">[out] A pointer to length of the field.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSize([Out] out int pcbSize);
+        HRESULT GetSize(
+            [Out] out int pcbSize);
 
         /// <summary>
         /// Gets the address of a static field.
@@ -39,6 +43,7 @@ namespace ClrDebug
         /// <param name="pRVA">[out] A pointer to the relative virtual address (RVA) of the static field.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAddress([Out] out long pRVA);
+        HRESULT GetAddress(
+            [Out] out long pRVA);
     }
 }

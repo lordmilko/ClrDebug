@@ -23,7 +23,8 @@ namespace ClrDebug
         /// <param name="ppModule">[out] A pointer to the address of an <see cref="ICorDebugModule"/> object that represents the module in which this function is defined.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetModule([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
+        HRESULT GetModule(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
 
         /// <summary>
         /// Gets an <see cref="ICorDebugClass"/> object that represents the class this function is a member of.
@@ -31,7 +32,8 @@ namespace ClrDebug
         /// <param name="ppClass">[out] A pointer to the address of the <see cref="ICorDebugClass"/> object that represents the class, or null, if this function is not a member of a class.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetClass([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);
+        HRESULT GetClass(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);
 
         /// <summary>
         /// Gets the metadata token for this function.
@@ -39,7 +41,8 @@ namespace ClrDebug
         /// <param name="pMethodDef">[out] A pointer to an <see cref="mdMethodDef"/> token that references the metadata for this function.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetToken([Out] out mdMethodDef pMethodDef);
+        HRESULT GetToken(
+            [Out] out mdMethodDef pMethodDef);
 
         /// <summary>
         /// Gets the <see cref="ICorDebugCode"/> instance that represents the Microsoft intermediate language (MSIL) code associated with this <see cref="ICorDebugFunction"/> object.
@@ -51,7 +54,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetILCode([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
+        HRESULT GetILCode(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
 
         /// <summary>
         /// Gets the native code for the function that is represented by this <see cref="ICorDebugFunction"/> instance.
@@ -63,7 +67,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetNativeCode([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
+        HRESULT GetNativeCode(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
 
         /// <summary>
         /// Creates a breakpoint at the beginning of this function.
@@ -71,7 +76,8 @@ namespace ClrDebug
         /// <param name="ppBreakpoint">[out] A pointer to the address of an <see cref="ICorDebugFunctionBreakpoint"/> object that represents the new breakpoint for the function.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CreateBreakpoint([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunctionBreakpoint ppBreakpoint);
+        HRESULT CreateBreakpoint(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunctionBreakpoint ppBreakpoint);
 
         /// <summary>
         /// Gets the metadata token for the local variable signature of the function that is represented by this <see cref="ICorDebugFunction"/> instance.
@@ -79,7 +85,8 @@ namespace ClrDebug
         /// <param name="pmdSig">[out] A pointer to the <see cref="mdSignature"/> token for the local variable signature of this function, or mdSignatureNil, if this function has no local variables.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetLocalVarSigToken([Out] out mdSignature pmdSig);
+        HRESULT GetLocalVarSigToken(
+            [Out] out mdSignature pmdSig);
 
         /// <summary>
         /// Gets the version number of the latest edit made to the function represented by this <see cref="ICorDebugFunction"/> object.
@@ -92,6 +99,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCurrentVersionNumber([Out] out int pnCurrentVersion);
+        HRESULT GetCurrentVersionNumber(
+            [Out] out int pnCurrentVersion);
     }
 }

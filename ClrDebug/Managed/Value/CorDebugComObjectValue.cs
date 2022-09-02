@@ -40,7 +40,8 @@
         /// <param name="ppInterfacesEnumResult">[out] A pointer to the address of an <see cref="ICorDebugTypeEnum"/> enumerator that provides access to <see cref="ICorDebugType"/> objects that represent cached interface types filtered according to bIInspectableOnly.</param>
         public HRESULT TryGetCachedInterfaceTypes(bool bIInspectableOnly, out CorDebugTypeEnum ppInterfacesEnumResult)
         {
-            /*HRESULT GetCachedInterfaceTypes([In] bool bIInspectableOnly,
+            /*HRESULT GetCachedInterfaceTypes(
+            [In] bool bIInspectableOnly,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppInterfacesEnum);*/
             ICorDebugTypeEnum ppInterfacesEnum;
             HRESULT hr = Raw.GetCachedInterfaceTypes(bIInspectableOnly, out ppInterfacesEnum);

@@ -42,6 +42,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
-        HRESULT StartBlockingForDebugger([In] int dwUnused);
+        HRESULT StartBlockingForDebugger(
+            [In] int dwUnused);
     }
 }

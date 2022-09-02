@@ -40,7 +40,8 @@ namespace ClrDebug
         /// <param name="pcbStrings">[out] A pointer to the size, in bytes, of the string heap.</param>
         public HRESULT TryGetStringHeapSize(out int pcbStrings)
         {
-            /*HRESULT GetStringHeapSize([Out] out int pcbStrings);*/
+            /*HRESULT GetStringHeapSize(
+            [Out] out int pcbStrings);*/
             return Raw.GetStringHeapSize(out pcbStrings);
         }
 
@@ -67,7 +68,8 @@ namespace ClrDebug
         /// <param name="pcbBlobs">[out] A pointer to the size, in bytes, of the BLOB heap.</param>
         public HRESULT TryGetBlobHeapSize(out int pcbBlobs)
         {
-            /*HRESULT GetBlobHeapSize([Out] out int pcbBlobs);*/
+            /*HRESULT GetBlobHeapSize(
+            [Out] out int pcbBlobs);*/
             return Raw.GetBlobHeapSize(out pcbBlobs);
         }
 
@@ -94,7 +96,8 @@ namespace ClrDebug
         /// <param name="pcbGuids">[out] A pointer to the size, in bytes, of the GUID heap.</param>
         public HRESULT TryGetGuidHeapSize(out int pcbGuids)
         {
-            /*HRESULT GetGuidHeapSize([Out] out int pcbGuids);*/
+            /*HRESULT GetGuidHeapSize(
+            [Out] out int pcbGuids);*/
             return Raw.GetGuidHeapSize(out pcbGuids);
         }
 
@@ -121,7 +124,8 @@ namespace ClrDebug
         /// <param name="pcbBlobs">[out] A pointer to the size, in bytes, of the user string heap.</param>
         public HRESULT TryGetUserStringHeapSize(out int pcbBlobs)
         {
-            /*HRESULT GetUserStringHeapSize([Out] out int pcbBlobs);*/
+            /*HRESULT GetUserStringHeapSize(
+            [Out] out int pcbBlobs);*/
             return Raw.GetUserStringHeapSize(out pcbBlobs);
         }
 
@@ -148,7 +152,8 @@ namespace ClrDebug
         /// <param name="pcTables">[out] A pointer to the number of tables in the current instance scope.</param>
         public HRESULT TryGetNumTables(out int pcTables)
         {
-            /*HRESULT GetNumTables([Out] out int pcTables);*/
+            /*HRESULT GetNumTables(
+            [Out] out int pcTables);*/
             return Raw.GetNumTables(out pcTables);
         }
 
@@ -187,7 +192,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetTableIndex(int token, out int pixTbl)
         {
-            /*HRESULT GetTableIndex([In] int token, [Out] out int pixTbl);*/
+            /*HRESULT GetTableIndex(
+            [In] int token,
+            [Out] out int pixTbl);*/
             return Raw.GetTableIndex(token, out pixTbl);
         }
 
@@ -214,7 +221,13 @@ namespace ClrDebug
         /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetTableInfo(int ixTbl, out GetTableInfoResult result)
         {
-            /*HRESULT GetTableInfo([In] int ixTbl, [Out] out int pcbRow, [Out] out int pcRows, [Out] out int pcCols, [Out] out int piKey, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppName);*/
+            /*HRESULT GetTableInfo(
+            [In] int ixTbl,
+            [Out] out int pcbRow,
+            [Out] out int pcRows,
+            [Out] out int pcCols,
+            [Out] out int piKey,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppName);*/
             int pcbRow;
             int pcRows;
             int pcCols;
@@ -263,7 +276,13 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetColumnInfo(int ixTbl, int ixCol, out GetColumnInfoResult result)
         {
-            /*HRESULT GetColumnInfo([In] int ixTbl, [In] int ixCol, [Out] out int poCol, [Out] out int pcbCol, [Out] out int pType, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppName);*/
+            /*HRESULT GetColumnInfo(
+            [In] int ixTbl,
+            [In] int ixCol,
+            [Out] out int poCol,
+            [Out] out int pcbCol,
+            [Out] out int pType,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppName);*/
             int poCol;
             int pcbCol;
             int pType;
@@ -301,7 +320,11 @@ namespace ClrDebug
         /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetCodedTokenInfo(int ixCdTkn, out GetCodedTokenInfoResult result)
         {
-            /*HRESULT GetCodedTokenInfo([In] int ixCdTkn, [Out] out int pcTokens, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] out int[] ppTokens, [Out, MarshalAs(UnmanagedType.LPWStr)] out StringBuilder ppName);*/
+            /*HRESULT GetCodedTokenInfo(
+            [In] int ixCdTkn,
+            [Out] out int pcTokens,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] out int[] ppTokens,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] out StringBuilder ppName);*/
             int pcTokens;
             int[] ppTokens = new int[ixCdTkn];
             StringBuilder ppName = null;
@@ -352,7 +375,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetRow(int ixTbl, int rid, out IntPtr ppRow)
         {
-            /*HRESULT GetRow([In] int ixTbl, [In] int rid, [Out] out IntPtr ppRow);*/
+            /*HRESULT GetRow(
+            [In] int ixTbl,
+            [In] int rid,
+            [Out] out IntPtr ppRow);*/
             return Raw.GetRow(ixTbl, rid, out ppRow);
         }
 
@@ -391,7 +417,11 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetColumn(int ixTbl, int ixCol, int rid, out int pVal)
         {
-            /*HRESULT GetColumn([In] int ixTbl, [In] int ixCol, [In] int rid, [Out] out int pVal);*/
+            /*HRESULT GetColumn(
+            [In] int ixTbl,
+            [In] int ixCol,
+            [In] int rid,
+            [Out] out int pVal);*/
             return Raw.GetColumn(ixTbl, ixCol, rid, out pVal);
         }
 
@@ -418,7 +448,9 @@ namespace ClrDebug
         /// <param name="ppStringResult">[out] A pointer to a pointer to the returned string value.</param>
         public HRESULT TryGetString(int ixString, out string ppStringResult)
         {
-            /*HRESULT GetString([In] int ixString, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppString);*/
+            /*HRESULT GetString(
+            [In] int ixString,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppString);*/
             StringBuilder ppString = null;
             HRESULT hr = Raw.GetString(ixString, ppString);
 
@@ -453,7 +485,10 @@ namespace ClrDebug
         /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetBlob(int ixBlob, out GetBlobResult result)
         {
-            /*HRESULT GetBlob([In] int ixBlob, [Out] out int pcbData, [Out] out IntPtr ppData);*/
+            /*HRESULT GetBlob(
+            [In] int ixBlob,
+            [Out] out int pcbData,
+            [Out] out IntPtr ppData);*/
             int pcbData;
             IntPtr ppData;
             HRESULT hr = Raw.GetBlob(ixBlob, out pcbData, out ppData);
@@ -501,7 +536,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetGuid(int ixGuid, out Guid ppGUID)
         {
-            /*HRESULT GetGuid([In] int ixGuid, [Out] out Guid ppGUID);*/
+            /*HRESULT GetGuid(
+            [In] int ixGuid,
+            [Out] out Guid ppGUID);*/
             return Raw.GetGuid(ixGuid, out ppGUID);
         }
 
@@ -528,7 +565,10 @@ namespace ClrDebug
         /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetUserString(int ixUserString, out GetUserStringResult result)
         {
-            /*HRESULT GetUserString([In] int ixUserString, [Out] out int pcbData, [Out] out IntPtr ppData);*/
+            /*HRESULT GetUserString(
+            [In] int ixUserString,
+            [Out] out int pcbData,
+            [Out] out IntPtr ppData);*/
             int pcbData;
             IntPtr ppData;
             HRESULT hr = Raw.GetUserString(ixUserString, out pcbData, out ppData);
@@ -564,7 +604,9 @@ namespace ClrDebug
         /// <param name="pNext">[out] A pointer to the index of the next string in the column.</param>
         public HRESULT TryGetNextString(int ixString, out int pNext)
         {
-            /*HRESULT GetNextString([In] int ixString, [Out] out int pNext);*/
+            /*HRESULT GetNextString(
+            [In] int ixString,
+            [Out] out int pNext);*/
             return Raw.GetNextString(ixString, out pNext);
         }
 
@@ -591,7 +633,9 @@ namespace ClrDebug
         /// <param name="pNext">[out] A pointer to the index of the next BLOB.</param>
         public HRESULT TryGetNextBlob(int ixBlob, out int pNext)
         {
-            /*HRESULT GetNextBlob([In] int ixBlob, [Out] out int pNext);*/
+            /*HRESULT GetNextBlob(
+            [In] int ixBlob,
+            [Out] out int pNext);*/
             return Raw.GetNextBlob(ixBlob, out pNext);
         }
 
@@ -630,7 +674,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetNextGuid(int ixGuid, out int pNext)
         {
-            /*HRESULT GetNextGuid([In] int ixGuid, [Out] out int pNext);*/
+            /*HRESULT GetNextGuid(
+            [In] int ixGuid,
+            [Out] out int pNext);*/
             return Raw.GetNextGuid(ixGuid, out pNext);
         }
 
@@ -669,7 +715,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetNextUserString(int ixUserString, out int pNext)
         {
-            /*HRESULT GetNextUserString([In] int ixUserString, [Out] out int pNext);*/
+            /*HRESULT GetNextUserString(
+            [In] int ixUserString,
+            [Out] out int pNext);*/
             return Raw.GetNextUserString(ixUserString, out pNext);
         }
 
@@ -702,7 +750,9 @@ namespace ClrDebug
         /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetMetaDataStorage(out GetMetaDataStorageResult result)
         {
-            /*HRESULT GetMetaDataStorage([Out] out IntPtr ppvMd, [Out] out int pcbMd);*/
+            /*HRESULT GetMetaDataStorage(
+            [Out] out IntPtr ppvMd,
+            [Out] out int pcbMd);*/
             IntPtr ppvMd;
             int pcbMd;
             HRESULT hr = Raw2.GetMetaDataStorage(out ppvMd, out pcbMd);
@@ -738,7 +788,11 @@ namespace ClrDebug
         /// <param name="result">The values that were emitted from the COM method.</param>
         public HRESULT TryGetMetaDataStreamInfo(int ix, out GetMetaDataStreamInfoResult result)
         {
-            /*HRESULT GetMetaDataStreamInfo([In] int ix, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppchName, [Out] out IntPtr ppv, [Out] out int pcb);*/
+            /*HRESULT GetMetaDataStreamInfo(
+            [In] int ix,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppchName,
+            [Out] out IntPtr ppv,
+            [Out] out int pcb);*/
             StringBuilder ppchName = null;
             IntPtr ppv;
             int pcb;

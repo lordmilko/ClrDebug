@@ -22,7 +22,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetThreadForTaskID([In] long taskid, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread2 ppThread);
+        HRESULT GetThreadForTaskID(
+            [In] long taskid,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread2 ppThread);
 
         /// <summary>
         /// Gets the version number of the common language runtime (CLR) that is running in this process.
@@ -33,7 +35,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetVersion([Out] out COR_VERSION version);
+        HRESULT GetVersion(
+            [Out] out COR_VERSION version);
 
         /// <summary>
         /// Sets an unmanaged breakpoint at the specified native image offset.
@@ -66,7 +69,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ClearUnmanagedBreakpoint([In] CORDB_ADDRESS address);
+        HRESULT ClearUnmanagedBreakpoint(
+            [In] CORDB_ADDRESS address);
 
         /// <summary>
         /// Sets the flags that must be embedded in a precompiled image in order for the runtime to load that image into the current process.
@@ -86,7 +90,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetDesiredNGENCompilerFlags([In] CorDebugJITCompilerFlags pdwFlags);
+        HRESULT SetDesiredNGENCompilerFlags(
+            [In] CorDebugJITCompilerFlags pdwFlags);
 
         /// <summary>
         /// Gets the current compiler flag settings that the common language runtime (CLR) uses to select the correct precompiled (that is, native) image to be loaded into this process.
@@ -98,7 +103,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetDesiredNGENCompilerFlags([Out] out CorDebugJITCompilerFlags pdwFlags);
+        HRESULT GetDesiredNGENCompilerFlags(
+            [Out] out CorDebugJITCompilerFlags pdwFlags);
 
         /// <summary>
         /// Gets a reference pointer to the specified managed object that has a garbage collection handle.
@@ -112,6 +118,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetReferenceValueFromGCHandle([In] IntPtr handle, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugReferenceValue pOutValue);
+        HRESULT GetReferenceValueFromGCHandle(
+            [In] IntPtr handle,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugReferenceValue pOutValue);
     }
 }

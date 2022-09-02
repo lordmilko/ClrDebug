@@ -487,8 +487,8 @@ namespace ClrDebug.DbgEng
         /// <param name="outputControl">[in] Specifies which clients should be sent the output of the formatted registers. See DEBUG_OUTCTL_XXX for possible values.</param>
         /// <param name="flags">[in] Specifies which set of registers to print. This can either be DEBUG_REGISTERS_DEFAULT to print commonly used registers, DEBUG_REGISTERS_ALL to print all the sets of registers, or a combination of the values listed in the following table.</param>
         /// <remarks>
-        /// The registers are formatted in a way that is specific to the target architecture's register set. The method <see 
-        ///cref="OutputRegisters2"/> performs the same task as this method but also allows the register source
+        /// The registers are formatted in a way that is specific to the target architecture's register set. The method <see
+        /// cref="OutputRegisters2"/> performs the same task as this method but also allows the register source
         /// to be specified. For an overview of the <see cref="IDebugRegisters"/> interface and other register-related methods,
         /// see Registers. For details on sending output to the clients, see Input and Output.
         /// </remarks>
@@ -504,8 +504,8 @@ namespace ClrDebug.DbgEng
         /// <param name="flags">[in] Specifies which set of registers to print. This can either be DEBUG_REGISTERS_DEFAULT to print commonly used registers, DEBUG_REGISTERS_ALL to print all the sets of registers, or a combination of the values listed in the following table.</param>
         /// <returns>This list does not contain all the errors that might occur. For a list of possible errors, see HRESULT Values.</returns>
         /// <remarks>
-        /// The registers are formatted in a way that is specific to the target architecture's register set. The method <see 
-        ///cref="OutputRegisters2"/> performs the same task as this method but also allows the register source
+        /// The registers are formatted in a way that is specific to the target architecture's register set. The method <see
+        /// cref="OutputRegisters2"/> performs the same task as this method but also allows the register source
         /// to be specified. For an overview of the <see cref="IDebugRegisters"/> interface and other register-related methods,
         /// see Registers. For details on sending output to the clients, see Input and Output.
         /// </remarks>
@@ -590,8 +590,7 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getDescriptionWide, Vtbl2->GetDescriptionWide);
             /*HRESULT GetDescriptionWide(
             [In] int Register,
-            [Out, MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder NameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out DEBUG_REGISTER_DESCRIPTION Desc);*/
@@ -927,11 +926,9 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetPseudoValues(
             [In] DEBUG_REGSRC Source,
             [In] int Count,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            int[] Indices,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices,
             [In] int Start,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            DEBUG_VALUE[] Values);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);*/
             values = new DEBUG_VALUE[count];
             HRESULT hr = getPseudoValues(Raw, source, count, indices, start, values);
 
@@ -980,11 +977,9 @@ namespace ClrDebug.DbgEng
             /*HRESULT SetPseudoValues(
             [In] DEBUG_REGSRC Source,
             [In] int Count,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            int[] Indices,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices,
             [In] int Start,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            DEBUG_VALUE[] Values);*/
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);*/
             return setPseudoValues(Raw, source, count, indices, start, values);
         }
 
@@ -1004,8 +999,8 @@ namespace ClrDebug.DbgEng
         /// If the return value is not S_OK, some of the registers still might have been read. If the target was not accessible,
         /// the return type is E_UNEXPECTED and Values is unchanged. Otherwise, Values will contain partial results and the
         /// registers that could not be read will have type DEBUG_VALUE_INVALID. Ambiguity in the case of the return value
-        /// E_UNEXPECTED can be avoided by setting the memory of Values to zero before calling this method. The method <see 
-        ///cref="GetValues"/> performs the same task as this method but always uses the target as the register source. For
+        /// E_UNEXPECTED can be avoided by setting the memory of Values to zero before calling this method. The method <see
+        /// cref="GetValues"/> performs the same task as this method but always uses the target as the register source. For
         /// an overview of the <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
         public DEBUG_VALUE[] GetValues2(DEBUG_REGSRC source, int count, int[] indices, int start)
@@ -1030,8 +1025,8 @@ namespace ClrDebug.DbgEng
         /// If the return value is not S_OK, some of the registers still might have been read. If the target was not accessible,
         /// the return type is E_UNEXPECTED and Values is unchanged. Otherwise, Values will contain partial results and the
         /// registers that could not be read will have type DEBUG_VALUE_INVALID. Ambiguity in the case of the return value
-        /// E_UNEXPECTED can be avoided by setting the memory of Values to zero before calling this method. The method <see 
-        ///cref="GetValues"/> performs the same task as this method but always uses the target as the register source. For
+        /// E_UNEXPECTED can be avoided by setting the memory of Values to zero before calling this method. The method <see
+        /// cref="GetValues"/> performs the same task as this method but always uses the target as the register source. For
         /// an overview of the <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
         public HRESULT TryGetValues2(DEBUG_REGSRC source, int count, int[] indices, int start, out DEBUG_VALUE[] values)
@@ -1040,11 +1035,9 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetValues2(
             [In] DEBUG_REGSRC Source,
             [In] int Count,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            int[] Indices,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices,
             [In] int Start,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            DEBUG_VALUE[] Values);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);*/
             values = new DEBUG_VALUE[count];
             HRESULT hr = getValues2(Raw, source, count, indices, start, values);
 
@@ -1105,11 +1098,9 @@ namespace ClrDebug.DbgEng
             /*HRESULT SetValues2(
             [In] DEBUG_REGSRC Source,
             [In] int Count,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            int[] Indices,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices,
             [In] int Start,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            DEBUG_VALUE[] Values);*/
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);*/
             return setValues2(Raw, source, count, indices, start, values);
         }
 
@@ -1123,8 +1114,8 @@ namespace ClrDebug.DbgEng
         /// <param name="source">[in] Specifies the register source to query. The possible values are listed in the following table.</param>
         /// <param name="flags">[in] Specifies which register sets to print. This can either be DEBUG_REGISTERS_DEFAULT to print commonly used registers, DEBUG_REGISTERS_ALL to print all of the register sets, or a combination of the values listed in the following table.</param>
         /// <remarks>
-        /// The registers are formatted in a way that is specific to the target architecture's register set. The method <see 
-        ///cref="OutputRegisters"/> performs the same task as this method but always uses the target as the register source.
+        /// The registers are formatted in a way that is specific to the target architecture's register set. The method <see
+        /// cref="OutputRegisters"/> performs the same task as this method but always uses the target as the register source.
         /// For an overview of the <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
         public void OutputRegisters2(DEBUG_OUTCTL outputControl, DEBUG_REGSRC source, DEBUG_REGISTERS flags)
@@ -1140,8 +1131,8 @@ namespace ClrDebug.DbgEng
         /// <param name="flags">[in] Specifies which register sets to print. This can either be DEBUG_REGISTERS_DEFAULT to print commonly used registers, DEBUG_REGISTERS_ALL to print all of the register sets, or a combination of the values listed in the following table.</param>
         /// <returns>This list does not contain all the errors that might occur. For a list of possible errors, see HRESULT Values.</returns>
         /// <remarks>
-        /// The registers are formatted in a way that is specific to the target architecture's register set. The method <see 
-        ///cref="OutputRegisters"/> performs the same task as this method but always uses the target as the register source.
+        /// The registers are formatted in a way that is specific to the target architecture's register set. The method <see
+        /// cref="OutputRegisters"/> performs the same task as this method but always uses the target as the register source.
         /// For an overview of the <see cref="IDebugRegisters"/> interface and other register-related methods, see Registers.
         /// </remarks>
         public HRESULT TryOutputRegisters2(DEBUG_OUTCTL outputControl, DEBUG_REGSRC source, DEBUG_REGISTERS flags)

@@ -40,9 +40,10 @@ namespace ClrDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CallFunction([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFunction pFunction, [In] int nArgs, [MarshalAs(UnmanagedType.Interface), In]
-            ref ICorDebugValue ppArgs);
+        HRESULT CallFunction(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pFunction,
+            [In] int nArgs,
+            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugValue ppArgs);
 
         /// <summary>
         /// Allocates a new object instance and calls the specified constructor method. This method is obsolete in the .NET Framework version 2.0.<para/>
@@ -54,9 +55,10 @@ namespace ClrDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT NewObject([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFunction pConstructor, [In] int nArgs, [MarshalAs(UnmanagedType.Interface), In]
-            ref ICorDebugValue ppArgs);
+        HRESULT NewObject(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pConstructor,
+            [In] int nArgs,
+            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugValue ppArgs);
 
         /// <summary>
         /// Allocates a new object instance of the specified type, without attempting to call a constructor method. This method is obsolete in the .NET Framework version 2.0.<para/>
@@ -66,8 +68,8 @@ namespace ClrDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT NewObjectNoConstructor([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugClass pClass);
+        HRESULT NewObjectNoConstructor(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugClass pClass);
 
         /// <summary>
         /// Allocates a new string instance with the specified contents.
@@ -78,7 +80,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT NewString([MarshalAs(UnmanagedType.LPWStr), In] string @string);
+        HRESULT NewString(
+            [MarshalAs(UnmanagedType.LPWStr), In] string @string);
 
         /// <summary>
         /// Allocates a new array of the specified element type and dimensions. This method is obsolete in the .NET Framework version 2.0.<para/>
@@ -108,7 +111,8 @@ namespace ClrDebug
         /// <param name="pbActive">[out] Pointer to a value that indicates whether this evaluation is active.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsActive([Out] out bool pbActive);
+        HRESULT IsActive(
+            [Out] out bool pbActive);
 
         /// <summary>
         /// Aborts the computation this <see cref="ICorDebugEval"/> object is currently performing.
@@ -131,7 +135,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetResult([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppResult);
+        HRESULT GetResult(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppResult);
 
         /// <summary>
         /// Gets the thread in which this evaluation is executing or will execute.
@@ -139,7 +144,8 @@ namespace ClrDebug
         /// <param name="ppThread">[out] A pointer to the address of an <see cref="ICorDebugThread"/> object that represents the thread.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetThread([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
+        HRESULT GetThread(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
 
         /// <summary>
         /// Creates a value of the specified type, with an initial value of zero or null. This method is obsolete in the .NET Framework version 2.0.<para/>
@@ -159,7 +165,9 @@ namespace ClrDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CreateValue([In] int elementType, [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugClass pElementClass, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
+        HRESULT CreateValue(
+            [In] int elementType,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugClass pElementClass,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
     }
 }

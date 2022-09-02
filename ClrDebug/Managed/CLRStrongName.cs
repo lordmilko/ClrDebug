@@ -318,7 +318,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         public HRESULT TryStrongNameFreeBuffer(IntPtr pbMemory)
         {
-            /*HRESULT StrongNameFreeBuffer([In] IntPtr pbMemory);*/
+            /*HRESULT StrongNameFreeBuffer(
+            [In] IntPtr pbMemory);*/
             return Raw.StrongNameFreeBuffer(pbMemory);
         }
 
@@ -345,7 +346,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         public HRESULT TryStrongNameGetBlob(string pwzFilePath, IntPtr pbBlob, ref int pcbBlob)
         {
-            /*HRESULT StrongNameGetBlob([MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath, [In, Out] IntPtr pbBlob,
+            /*HRESULT StrongNameGetBlob(
+            [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
+            [In, Out] IntPtr pbBlob,
             [In, Out] ref int pcbBlob);*/
             return Raw.StrongNameGetBlob(pwzFilePath, pbBlob, ref pcbBlob);
         }
@@ -467,7 +470,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         public HRESULT TryStrongNameHashSize(int ulHashAlg, out int pcbSize)
         {
-            /*HRESULT StrongNameHashSize([In] int ulHashAlg, [Out] out int pcbSize);*/
+            /*HRESULT StrongNameHashSize(
+            [In] int ulHashAlg,
+            [Out] out int pcbSize);*/
             return Raw.StrongNameHashSize(ulHashAlg, out pcbSize);
         }
 
@@ -496,7 +501,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryStrongNameKeyDelete(string pwzKeyContainer)
         {
-            /*HRESULT StrongNameKeyDelete([MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer);*/
+            /*HRESULT StrongNameKeyDelete(
+            [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer);*/
             return Raw.StrongNameKeyDelete(pwzKeyContainer);
         }
 
@@ -636,8 +642,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryStrongNameKeyInstall(string pwzKeyContainer, IntPtr pbKeyBlob, int cbKeyBlob)
         {
-            /*HRESULT StrongNameKeyInstall([MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
-            [In] IntPtr pbKeyBlob, [In] int cbKeyBlob);*/
+            /*HRESULT StrongNameKeyInstall(
+            [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
+            [In] IntPtr pbKeyBlob,
+            [In] int cbKeyBlob);*/
             return Raw.StrongNameKeyInstall(pwzKeyContainer, pbKeyBlob, cbKeyBlob);
         }
 
@@ -797,7 +805,10 @@ namespace ClrDebug
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         public HRESULT TryStrongNameSignatureSize(IntPtr pbPublicKeyBlob, PublicKeyBlob cbPublicKeyBlob, int pcbSize)
         {
-            /*HRESULT StrongNameSignatureSize([In] IntPtr pbPublicKeyBlob, [In] PublicKeyBlob cbPublicKeyBlob, [In] ref int pcbSize);*/
+            /*HRESULT StrongNameSignatureSize(
+            [In] IntPtr pbPublicKeyBlob,
+            [In] PublicKeyBlob cbPublicKeyBlob,
+            [In] ref int pcbSize);*/
             return Raw.StrongNameSignatureSize(pbPublicKeyBlob, cbPublicKeyBlob, ref pcbSize);
         }
 

@@ -18,7 +18,8 @@ namespace ClrDebug
         /// <param name="address">[out] A pointer to the starting address of the memory buffer.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetStartAddress([Out] out IntPtr address);
+        HRESULT GetStartAddress(
+            [Out] out IntPtr address);
 
         /// <summary>
         /// Gets the size of the memory buffer in bytes.
@@ -26,6 +27,7 @@ namespace ClrDebug
         /// <param name="pcbBufferLength">[out] A pointer to the size of the memory buffer.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSize([Out] out int pcbBufferLength);
+        HRESULT GetSize(
+            [Out] out int pcbBufferLength);
     }
 }

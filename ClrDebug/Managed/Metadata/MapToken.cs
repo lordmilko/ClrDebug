@@ -41,7 +41,9 @@
         /// </remarks>
         public HRESULT TryMap(mdToken tkImp, mdToken tkEmit)
         {
-            /*HRESULT Map([In] mdToken tkImp, [In] mdToken tkEmit);*/
+            /*HRESULT Map(
+            [In] mdToken tkImp,
+            [In] mdToken tkEmit);*/
             return Raw.Map(tkImp, tkEmit);
         }
 

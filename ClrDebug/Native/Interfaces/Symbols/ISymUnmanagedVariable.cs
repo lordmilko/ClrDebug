@@ -21,7 +21,10 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
+        HRESULT GetName(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
 
         /// <summary>
         /// Gets the attribute flags for this variable.
@@ -30,7 +33,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAttributes([Out] out CorSymVarFlag pRetVal);
+        HRESULT GetAttributes(
+            [Out] out CorSymVarFlag pRetVal);
 
         /// <summary>
         /// Gets the signature of this variable.
@@ -41,7 +45,10 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSignature([In] int cSig, [Out] out int pcSig, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] sig);
+        HRESULT GetSignature(
+            [In] int cSig,
+            [Out] out int pcSig,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] sig);
 
         /// <summary>
         /// Gets the kind of address of this variable.
@@ -50,7 +57,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAddressKind([Out] out CorSymAddrKind pRetVal);
+        HRESULT GetAddressKind(
+            [Out] out CorSymAddrKind pRetVal);
 
         /// <summary>
         /// Gets the first address field for this variable. Its meaning depends on the kind of address.
@@ -59,7 +67,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAddressField1([Out] out int pRetVal);
+        HRESULT GetAddressField1(
+            [Out] out int pRetVal);
 
         /// <summary>
         /// Gets the second address field for this variable. Its meaning depends on the kind of address.
@@ -68,7 +77,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAddressField2([Out] out int pRetVal);
+        HRESULT GetAddressField2(
+            [Out] out int pRetVal);
 
         /// <summary>
         /// Gets the third address field for this variable. Its meaning depends on the kind of address.
@@ -77,7 +87,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAddressField3([Out] out int pRetVal);
+        HRESULT GetAddressField3(
+            [Out] out int pRetVal);
 
         /// <summary>
         /// Gets the start offset of this variable within its parent. If this is a local variable within a scope, the start offset will fall within the offsets defined for the scope.
@@ -86,7 +97,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetStartOffset([Out] out int pRetVal);
+        HRESULT GetStartOffset(
+            [Out] out int pRetVal);
 
         /// <summary>
         /// Gets the end offset of this variable within its parent. If this is a local variable within a scope, the end offset will fall within the offsets defined for the scope.
@@ -95,6 +107,7 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetEndOffset([Out] out int pRetVal);
+        HRESULT GetEndOffset(
+            [Out] out int pRetVal);
     }
 }

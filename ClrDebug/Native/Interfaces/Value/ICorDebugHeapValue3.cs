@@ -33,7 +33,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetThreadOwningMonitorLock([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread,
+        HRESULT GetThreadOwningMonitorLock(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread,
             [Out] out int pAcquisitionCount);
 
         /// <summary>
@@ -59,6 +60,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetMonitorEventWaitList([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThreadEnum ppThreadEnum);
+        HRESULT GetMonitorEventWaitList(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThreadEnum ppThreadEnum);
     }
 }

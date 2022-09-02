@@ -21,6 +21,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSourceServerData([Out] out int pDataByteCount, [Out] out IntPtr ppData);
+        HRESULT GetSourceServerData(
+            [Out] out int pDataByteCount,
+            [Out] out IntPtr ppData);
     }
 }

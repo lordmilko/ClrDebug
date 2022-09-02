@@ -128,7 +128,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryCanUnloadNow(IntPtr hModule)
         {
-            /*HRESULT CanUnloadNow([In] IntPtr hModule);*/
+            /*HRESULT CanUnloadNow(
+            [In] IntPtr hModule);*/
             return Raw.CanUnloadNow(hModule);
         }
 

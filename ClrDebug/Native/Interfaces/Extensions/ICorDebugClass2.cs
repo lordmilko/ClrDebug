@@ -32,8 +32,7 @@ namespace ClrDebug
         HRESULT GetParameterizedType(
             [In] CorElementType elementType,
             [In] int nTypeArgs,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ref ICorDebugType ppTypeArgs,
+            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugType ppTypeArgs,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);
 
         /// <summary>
@@ -47,6 +46,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetJMCStatus([In] bool bIsJustMyCode);
+        HRESULT SetJMCStatus(
+            [In] bool bIsJustMyCode);
     }
 }

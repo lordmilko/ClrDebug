@@ -55,7 +55,8 @@ namespace ClrDebug
         /// <param name="pbRunning">[out] A pointer to a value that is true if the threads in the process are running freely; otherwise, false.</param>
         public HRESULT TryIsRunning(out bool pbRunning)
         {
-            /*HRESULT IsRunning([Out] out bool pbRunning);*/
+            /*HRESULT IsRunning(
+            [Out] out bool pbRunning);*/
             return Raw.IsRunning(out pbRunning);
         }
 
@@ -95,7 +96,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryStop(int dwTimeoutIgnored)
         {
-            /*HRESULT Stop([In] int dwTimeoutIgnored);*/
+            /*HRESULT Stop(
+            [In] int dwTimeoutIgnored);*/
             return Raw.Stop(dwTimeoutIgnored);
         }
 
@@ -137,7 +139,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryContinue(bool fIsOutOfBand)
         {
-            /*HRESULT Continue([In] bool fIsOutOfBand);*/
+            /*HRESULT Continue(
+            [In] bool fIsOutOfBand);*/
             return Raw.Continue(fIsOutOfBand);
         }
 
@@ -182,8 +185,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryHasQueuedCallbacks(ICorDebugThread pThread, out bool pbQueued)
         {
-            /*HRESULT HasQueuedCallbacks([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugThread pThread, [Out] out bool pbQueued);*/
+            /*HRESULT HasQueuedCallbacks(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
+            [Out] out bool pbQueued);*/
             return Raw.HasQueuedCallbacks(pThread, out pbQueued);
         }
 
@@ -225,7 +229,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryEnumerateThreads(out CorDebugThreadEnum ppThreadsResult)
         {
-            /*HRESULT EnumerateThreads([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThreadEnum ppThreads);*/
+            /*HRESULT EnumerateThreads(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThreadEnum ppThreads);*/
             ICorDebugThreadEnum ppThreads;
             HRESULT hr = Raw.EnumerateThreads(out ppThreads);
 
@@ -269,8 +274,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetAllThreadsDebugState(CorDebugThreadState state, ICorDebugThread pExceptThisThread)
         {
-            /*HRESULT SetAllThreadsDebugState([In] CorDebugThreadState state, [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugThread pExceptThisThread);*/
+            /*HRESULT SetAllThreadsDebugState(
+            [In] CorDebugThreadState state,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pExceptThisThread);*/
             return Raw.SetAllThreadsDebugState(state, pExceptThisThread);
         }
 
@@ -332,7 +338,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryTerminate(int exitCode)
         {
-            /*HRESULT Terminate([In] int exitCode);*/
+            /*HRESULT Terminate(
+            [In] int exitCode);*/
             return Raw.Terminate(exitCode);
         }
 
@@ -359,8 +366,7 @@ namespace ClrDebug
         {
             /*HRESULT CanCommitChanges(
             [In] int cSnapshots,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ref ICorDebugEditAndContinueSnapshot pSnapshots,
+            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugEditAndContinueSnapshot pSnapshots,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugErrorInfoEnum pError);*/
             ICorDebugErrorInfoEnum pError;
             HRESULT hr = Raw.CanCommitChanges(cSnapshots, ref pSnapshots, out pError);
@@ -396,8 +402,7 @@ namespace ClrDebug
         {
             /*HRESULT CommitChanges(
             [In] int cSnapshots,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ref ICorDebugEditAndContinueSnapshot pSnapshots,
+            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugEditAndContinueSnapshot pSnapshots,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugErrorInfoEnum pError);*/
             ICorDebugErrorInfoEnum pError;
             HRESULT hr = Raw.CommitChanges(cSnapshots, ref pSnapshots, out pError);

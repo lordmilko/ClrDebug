@@ -56,7 +56,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetEventKind(out CorDebugDebugEventKind pDebugEventKind)
         {
-            /*HRESULT GetEventKind([Out] out CorDebugDebugEventKind pDebugEventKind);*/
+            /*HRESULT GetEventKind(
+            [Out] out CorDebugDebugEventKind pDebugEventKind);*/
             return Raw.GetEventKind(out pDebugEventKind);
         }
 
@@ -83,7 +84,8 @@ namespace ClrDebug
         /// <param name="ppThreadResult">[out] A pointer to the address of an <see cref="ICorDebugThread"/> object that represents the thread on which the event occurred.</param>
         public HRESULT TryGetThread(out CorDebugThread ppThreadResult)
         {
-            /*HRESULT GetThread([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);*/
+            /*HRESULT GetThread(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);*/
             ICorDebugThread ppThread;
             HRESULT hr = Raw.GetThread(out ppThread);
 

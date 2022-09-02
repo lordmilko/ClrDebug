@@ -22,7 +22,8 @@ namespace ClrDebug
         /// <param name="ppInterfacesEnum">[out] A pointer to the address of an <see cref="ICorDebugTypeEnum"/> enumerator that provides access to <see cref="ICorDebugType"/> objects that represent cached interface types filtered according to bIInspectableOnly.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCachedInterfaceTypes([In] bool bIInspectableOnly,
+        HRESULT GetCachedInterfaceTypes(
+            [In] bool bIInspectableOnly,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppInterfacesEnum);
 
         /// <summary>

@@ -192,7 +192,8 @@ namespace ClrDebug
         /// and <see cref="EnterRuntime"/> allows the host to identify the nested layers.
         /// </remarks>
         [PreserveSig]
-        HRESULT LeaveRuntime([In] int target);
+        HRESULT LeaveRuntime(
+            [In] int target);
 
         /// <summary>
         /// Notifies the host that a call to an unmanaged method, such as a platform invoke method, is returning execution control to the common language runtime (CLR).
@@ -351,14 +352,16 @@ namespace ClrDebug
         /// Reserved for internal use only.
         /// </summary>
         [PreserveSig]
-        HRESULT SetStackGuarantee([In] int guarantee);
+        HRESULT SetStackGuarantee(
+            [In] int guarantee);
 
         /// <summary>
         /// Gets the amount of stack space that is guaranteed to be available after a stack operation completes, but before the closing of a process.
         /// </summary>
         /// <param name="pGuarantee">[out] A pointer to the number of bytes that are available.</param>
         [PreserveSig]
-        HRESULT GetStackGuarantee([Out] out int pGuarantee);
+        HRESULT GetStackGuarantee(
+            [Out] out int pGuarantee);
 
         /// <summary>
         /// Provides the host with an interface pointer to an <see cref="ICLRTaskManager"/> instance implemented by the common language runtime (CLR).
@@ -378,6 +381,7 @@ namespace ClrDebug
         /// The runtime calls SetCLRTaskManager to provide the host with an interface pointer to an <see cref="ICLRTaskManager"/> instance.
         /// </remarks>
         [PreserveSig]
-        HRESULT SetCLRTaskManager([Out] out ICLRTaskManager ppManager);
+        HRESULT SetCLRTaskManager(
+            [Out] out ICLRTaskManager ppManager);
     }
 }

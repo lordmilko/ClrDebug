@@ -42,7 +42,8 @@ namespace ClrDebug
         /// <param name="ppThreadResult">[out] A pointer to an <see cref="ICorDebugThread"/> object that represents the physical thread this call chain is part of.</param>
         public HRESULT TryGetThread(out CorDebugThread ppThreadResult)
         {
-            /*HRESULT GetThread([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);*/
+            /*HRESULT GetThread(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);*/
             ICorDebugThread ppThread;
             HRESULT hr = Raw.GetThread(out ppThread);
 
@@ -81,7 +82,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetStackRange(out GetStackRangeResult result)
         {
-            /*HRESULT GetStackRange([Out] out CORDB_ADDRESS pStart, [Out] out CORDB_ADDRESS pEnd);*/
+            /*HRESULT GetStackRange(
+            [Out] out CORDB_ADDRESS pStart,
+            [Out] out CORDB_ADDRESS pEnd);*/
             CORDB_ADDRESS pStart;
             CORDB_ADDRESS pEnd;
             HRESULT hr = Raw.GetStackRange(out pStart, out pEnd);
@@ -116,7 +119,8 @@ namespace ClrDebug
         /// </summary>
         public HRESULT TryGetContext(out CorDebugContext ppContextResult)
         {
-            /*HRESULT GetContext([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugContext ppContext);*/
+            /*HRESULT GetContext(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugContext ppContext);*/
             ICorDebugContext ppContext;
             HRESULT hr = Raw.GetContext(out ppContext);
 
@@ -154,7 +158,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetCaller(out CorDebugChain ppChainResult)
         {
-            /*HRESULT GetCaller([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);*/
+            /*HRESULT GetCaller(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);*/
             ICorDebugChain ppChain;
             HRESULT hr = Raw.GetCaller(out ppChain);
 
@@ -193,7 +198,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetCallee(out CorDebugChain ppChainResult)
         {
-            /*HRESULT GetCallee([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);*/
+            /*HRESULT GetCallee(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);*/
             ICorDebugChain ppChain;
             HRESULT hr = Raw.GetCallee(out ppChain);
 
@@ -229,7 +235,8 @@ namespace ClrDebug
         /// If this chain is the first chain, ppChain is null.</param>
         public HRESULT TryGetPrevious(out CorDebugChain ppChainResult)
         {
-            /*HRESULT GetPrevious([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);*/
+            /*HRESULT GetPrevious(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);*/
             ICorDebugChain ppChain;
             HRESULT hr = Raw.GetPrevious(out ppChain);
 
@@ -265,7 +272,8 @@ namespace ClrDebug
         /// If this chain is the last chain, ppChain is null.</param>
         public HRESULT TryGetNext(out CorDebugChain ppChainResult)
         {
-            /*HRESULT GetNext([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);*/
+            /*HRESULT GetNext(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);*/
             ICorDebugChain ppChain;
             HRESULT hr = Raw.GetNext(out ppChain);
 
@@ -300,7 +308,8 @@ namespace ClrDebug
         /// <param name="pManagedResult">[out] true if this chain is running managed code; otherwise, false.</param>
         public HRESULT TryIsManaged(out bool pManagedResult)
         {
-            /*HRESULT IsManaged([Out] out int pManaged);*/
+            /*HRESULT IsManaged(
+            [Out] out int pManaged);*/
             int pManaged;
             HRESULT hr = Raw.IsManaged(out pManaged);
 
@@ -340,7 +349,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetActiveFrame(out CorDebugFrame ppFrameResult)
         {
-            /*HRESULT GetActiveFrame([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);*/
+            /*HRESULT GetActiveFrame(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);*/
             ICorDebugFrame ppFrame;
             HRESULT hr = Raw.GetActiveFrame(out ppFrame);
 
@@ -375,7 +385,8 @@ namespace ClrDebug
         /// <param name="ppRegistersResult">[out] A pointer to the address of an <see cref="ICorDebugRegisterSet"/> object that represents the register set for the active part of this chain.</param>
         public HRESULT TryGetRegisterSet(out CorDebugRegisterSet ppRegistersResult)
         {
-            /*HRESULT GetRegisterSet([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugRegisterSet ppRegisters);*/
+            /*HRESULT GetRegisterSet(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugRegisterSet ppRegisters);*/
             ICorDebugRegisterSet ppRegisters;
             HRESULT hr = Raw.GetRegisterSet(out ppRegisters);
 
@@ -410,7 +421,8 @@ namespace ClrDebug
         /// <param name="pReason">[out] A pointer to a value (a bitwise combination) of the <see cref="CorDebugChainReason"/> enumeration that indicates the reason for the genesis of this calling chain.</param>
         public HRESULT TryGetReason(out CorDebugChainReason pReason)
         {
-            /*HRESULT GetReason([Out] out CorDebugChainReason pReason);*/
+            /*HRESULT GetReason(
+            [Out] out CorDebugChainReason pReason);*/
             return Raw.GetReason(out pReason);
         }
 
@@ -450,7 +462,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryEnumerateFrames(out CorDebugFrameEnum ppFramesResult)
         {
-            /*HRESULT EnumerateFrames([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrameEnum ppFrames);*/
+            /*HRESULT EnumerateFrames(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrameEnum ppFrames);*/
             ICorDebugFrameEnum ppFrames;
             HRESULT hr = Raw.EnumerateFrames(out ppFrames);
 

@@ -2,7 +2,7 @@
 
 namespace ClrDebug
 {
-    [ Guid("A16026EC-96F4-40BA-87FB-5575986FB7AF")]
+    [Guid("A16026EC-96F4-40BA-87FB-5575986FB7AF")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [ComImport]
     public interface ISOSDacInterface2

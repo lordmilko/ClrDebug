@@ -21,7 +21,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
-        HRESULT SetGCThreadControl([In, MarshalAs(UnmanagedType.Interface)] IGCThreadControl pGCThreadControl);
+        HRESULT SetGCThreadControl(
+            [In, MarshalAs(UnmanagedType.Interface)] IGCThreadControl pGCThreadControl);
 
         /// <summary>
         /// Sets the callback interface to be used by the garbage collector to request the host to change the limits of virtual memory.
@@ -29,7 +30,8 @@ namespace ClrDebug
         /// <param name="pGCHostControl">[in] A pointer to an <see cref="IGCHostControl"/> object that allows the garbage collector to request the host to change the limits of virtual memory.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
-        HRESULT SetGCHostControl([In, MarshalAs(UnmanagedType.Interface)] IGCHostControl pGCHostControl);
+        HRESULT SetGCHostControl(
+            [In, MarshalAs(UnmanagedType.Interface)] IGCHostControl pGCHostControl);
 
         /// <summary>
         /// Sets the callback interface that the debugging services will call as common language runtime (CLR) threads are blocked and unblocked for debugging.
@@ -37,7 +39,8 @@ namespace ClrDebug
         /// <param name="pDebuggerThreadControl">[in] A pointer to an <see cref="IDebuggerThreadControl"/> object that notifies the host about the blocking and unblocking of threads by the debugging services.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
-        HRESULT SetDebuggerThreadControl([In, MarshalAs(UnmanagedType.Interface)] IDebuggerThreadControl pDebuggerThreadControl);
+        HRESULT SetDebuggerThreadControl(
+            [In, MarshalAs(UnmanagedType.Interface)] IDebuggerThreadControl pDebuggerThreadControl);
 
         /// <summary>
         /// Indicates to the debugging services that a particular thread should be allowed to continue executing while the debugger has an application stopped during managed or unmanaged debugging scenarios.
@@ -49,6 +52,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
-        HRESULT AddDebuggerSpecialThread([In] int dwSpecialThreadId);
+        HRESULT AddDebuggerSpecialThread(
+            [In] int dwSpecialThreadId);
     }
 }

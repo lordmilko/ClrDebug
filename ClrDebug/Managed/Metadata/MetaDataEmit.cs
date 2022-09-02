@@ -674,7 +674,8 @@ namespace ClrDebug
         /// <param name="td">[in] An <see cref="mdTypeDef"/> metadata token that represents the type for which the class layout will be deleted.</param>
         public HRESULT TryDeleteClassLayout(mdTypeDef td)
         {
-            /*HRESULT DeleteClassLayout([In] mdTypeDef td);*/
+            /*HRESULT DeleteClassLayout(
+            [In] mdTypeDef td);*/
             return Raw.DeleteClassLayout(td);
         }
 
@@ -725,7 +726,8 @@ namespace ClrDebug
         /// <param name="tk">[in] An <see cref="mdFieldDef"/> or <see cref="mdParamDef"/> token that represents the field or parameter for which to delete the marshalling metadata signature.</param>
         public HRESULT TryDeleteFieldMarshal(mdToken tk)
         {
-            /*HRESULT DeleteFieldMarshal([In] mdToken tk);*/
+            /*HRESULT DeleteFieldMarshal(
+            [In] mdToken tk);*/
             return Raw.DeleteFieldMarshal(tk);
         }
 
@@ -988,7 +990,8 @@ namespace ClrDebug
         /// <param name="tkObj">[in] The token to be deleted.</param>
         public HRESULT TryDeleteToken(mdToken tkObj)
         {
-            /*HRESULT DeleteToken([In] mdToken tkObj);*/
+            /*HRESULT DeleteToken(
+            [In] mdToken tkObj);*/
             return Raw.DeleteToken(tkObj);
         }
 
@@ -1219,7 +1222,8 @@ namespace ClrDebug
         /// <param name="tk">[in] An <see cref="mdFieldDef"/> or <see cref="mdMethodDef"/> token that represents the object for which to delete the PInvoke mapping metadata.</param>
         public HRESULT TryDeletePinvokeMap(mdToken tk)
         {
-            /*HRESULT DeletePinvokeMap([In] mdToken tk);*/
+            /*HRESULT DeletePinvokeMap(
+            [In] mdToken tk);*/
             return Raw.DeletePinvokeMap(tk);
         }
 
@@ -1622,7 +1626,8 @@ namespace ClrDebug
         /// <param name="pImport">[in] Pointer to an IUnknown object that represents the delta metadata from the portable executable (PE) file. The delta metadata is the block of metadata that includes the changes that were made to the copy of the module's actual metadata.</param>
         public HRESULT TryApplyEditAndContinue(IMetaDataImport pImport)
         {
-            /*HRESULT ApplyEditAndContinue([In, MarshalAs(UnmanagedType.Interface)] IMetaDataImport pImport);*/
+            /*HRESULT ApplyEditAndContinue(
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataImport pImport);*/
             return Raw.ApplyEditAndContinue(pImport);
         }
 
@@ -1861,7 +1866,9 @@ namespace ClrDebug
         /// <param name="pdwSaveSize">[out] The change in the size of the metadata.</param>
         public HRESULT TryGetDeltaSaveSize(CorSaveSize fSave, out int pdwSaveSize)
         {
-            /*HRESULT GetDeltaSaveSize([In] CorSaveSize fSave, [Out] out int pdwSaveSize);*/
+            /*HRESULT GetDeltaSaveSize(
+            [In] CorSaveSize fSave,
+            [Out] out int pdwSaveSize);*/
             return Raw2.GetDeltaSaveSize(fSave, out pdwSaveSize);
         }
 
@@ -1885,7 +1892,9 @@ namespace ClrDebug
         /// <param name="dwSaveFlags">[in] Reserved. Must be zero.</param>
         public HRESULT TrySaveDelta(string szFile, int dwSaveFlags)
         {
-            /*HRESULT SaveDelta([In, MarshalAs(UnmanagedType.LPWStr)] string szFile, [In] int dwSaveFlags);*/
+            /*HRESULT SaveDelta(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szFile,
+            [In] int dwSaveFlags);*/
             return Raw2.SaveDelta(szFile, dwSaveFlags);
         }
 
@@ -1909,7 +1918,9 @@ namespace ClrDebug
         /// <param name="dwSaveFlags">[in] Reserved. This value must be zero.</param>
         public HRESULT TrySaveDeltaToStream(object pIStream, int dwSaveFlags)
         {
-            /*HRESULT SaveDeltaToStream([In, MarshalAs(UnmanagedType.Interface)] object pIStream, [In] int dwSaveFlags);*/
+            /*HRESULT SaveDeltaToStream(
+            [In, MarshalAs(UnmanagedType.Interface)] object pIStream,
+            [In] int dwSaveFlags);*/
             return Raw2.SaveDeltaToStream(pIStream, dwSaveFlags);
         }
 
@@ -1933,7 +1944,9 @@ namespace ClrDebug
         /// <param name="cbData">[in] The size of the changes. Use <see cref="GetDeltaSaveSize"/> to determine the size.</param>
         public HRESULT TrySaveDeltaToMemory(IntPtr pbData, int cbData)
         {
-            /*HRESULT SaveDeltaToMemory([In] IntPtr pbData, [In] int cbData);*/
+            /*HRESULT SaveDeltaToMemory(
+            [In] IntPtr pbData,
+            [In] int cbData);*/
             return Raw2.SaveDeltaToMemory(pbData, cbData);
         }
 

@@ -49,6 +49,7 @@ namespace ClrDebug
         #region IEnumerable
 
         public IEnumerator<COR_HEAPOBJECT> GetEnumerator() => this;
+
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion

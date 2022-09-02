@@ -316,7 +316,8 @@ namespace ClrDebug
             [Out] out IXCLRDataMethodDefinition method);
 
         [PreserveSig]
-        HRESULT EndEnumMethodDefinitionsByAddress([In] IntPtr handle);
+        HRESULT EndEnumMethodDefinitionsByAddress(
+            [In] IntPtr handle);
 
         [PreserveSig]
         HRESULT FollowStub(
@@ -338,7 +339,8 @@ namespace ClrDebug
             [Out] out int outFlags);
 
         [PreserveSig]
-        HRESULT DumpNativeImage([In] CLRDATA_ADDRESS loadedBase,
+        HRESULT DumpNativeImage(
+            [In] CLRDATA_ADDRESS loadedBase,
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] IXCLRDataDisplay display,
             [In] IXCLRLibrarySupport libSupport,

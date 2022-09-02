@@ -39,7 +39,8 @@ namespace ClrDebug
         /// marshalling. Thus, this token is for use only within the process, between the CLR and the host.
         /// </remarks>
         [PreserveSig]
-        HRESULT ImpersonateLoggedOnUser([In] IntPtr hToken);
+        HRESULT ImpersonateLoggedOnUser(
+            [In] IntPtr hToken);
 
         /// <summary>
         /// Terminates impersonation of the current user identity and returns the original thread token.

@@ -18,7 +18,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSymbolSearchInfoCount([Out] out int pcSearchInfo);
+        HRESULT GetSymbolSearchInfoCount(
+            [Out] out int pcSearchInfo);
 
         /// <summary>
         /// Gets symbol search information.

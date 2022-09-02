@@ -29,7 +29,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetType([Out] out CorElementType pType);
+        new HRESULT GetType(
+            [Out] out CorElementType pType);
 
         /// <summary>
         /// Gets the size, in bytes, of this "ICorDebugValue" object.
@@ -42,7 +43,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetSize([Out] out int pSize);
+        new HRESULT GetSize(
+            [Out] out int pSize);
 
         /// <summary>
         /// Gets the address of this "ICorDebugValue" object, which is in the process of being debugged.
@@ -54,14 +56,16 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetAddress([Out] out CORDB_ADDRESS pAddress);
+        new HRESULT GetAddress(
+            [Out] out CORDB_ADDRESS pAddress);
 
         /// <summary>
         /// The CreateBreakpoint method is currently not implemented.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT CreateBreakpoint([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
+        new HRESULT CreateBreakpoint(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
 
         /// <summary>
         /// Copies the value of this generic into the specified buffer.
@@ -69,7 +73,8 @@ namespace ClrDebug
         /// <param name="pTo">[out] A pointer to the value that is represented by this <see cref="ICorDebugGenericValue"/> object. The value may be a simple type or a reference type (that is, a pointer).</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetValue([Out] out IntPtr pTo);
+        HRESULT GetValue(
+            [Out] out IntPtr pTo);
 
         /// <summary>
         /// Copies a new value from the specified buffer.
@@ -80,6 +85,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetValue([In] IntPtr pFrom);
+        HRESULT SetValue(
+            [In] IntPtr pFrom);
     }
 }

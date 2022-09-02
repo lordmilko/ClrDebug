@@ -41,7 +41,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetID(out int puId)
         {
-            /*HRESULT GetID([Out] out int puId);*/
+            /*HRESULT GetID(
+            [Out] out int puId);*/
             return Raw.GetID(out puId);
         }
 
@@ -74,7 +75,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
+            /*HRESULT GetName(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName;

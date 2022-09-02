@@ -23,7 +23,8 @@ namespace ClrDebug
         /// <param name="machineType">[out] A pointer to a value that indicates the instruction set that the target process is using. The returned machineType is one of the IMAGE_FILE_MACHINE constants, which are defined in the WinNT.h header file.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetMachineType([Out] out IMAGE_FILE_MACHINE machineType);
+        new HRESULT GetMachineType(
+            [Out] out IMAGE_FILE_MACHINE machineType);
 
         /// <summary>
         /// Gets the size, in bytes, of the pointer type that the target process uses. This method is called by the common language runtime data access services.
@@ -34,7 +35,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetPointerSize([Out] out int pointerSize);
+        new HRESULT GetPointerSize(
+            [Out] out int pointerSize);
 
         /// <summary>
         /// Gets the base memory address of the specified image.
@@ -47,7 +49,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetImageBase([MarshalAs(UnmanagedType.LPWStr), In] string imagePath, [Out] out CLRDATA_ADDRESS baseAddress);
+        new HRESULT GetImageBase(
+            [MarshalAs(UnmanagedType.LPWStr), In] string imagePath,
+            [Out] out CLRDATA_ADDRESS baseAddress);
 
         /// <summary>
         /// Reads data from the specified virtual memory address into the specified buffer.
@@ -58,7 +62,11 @@ namespace ClrDebug
         /// <param name="bytesRead">[out] A pointer to the number of bytes returned.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT ReadVirtual([In] CLRDATA_ADDRESS address, [Out] IntPtr buffer, [In] int bytesRequested, [Out] out int bytesRead);
+        new HRESULT ReadVirtual(
+            [In] CLRDATA_ADDRESS address,
+            [Out] IntPtr buffer,
+            [In] int bytesRequested,
+            [Out] out int bytesRead);
 
         /// <summary>
         /// Writes data from the specified buffer to the specified virtual memory address.
@@ -86,7 +94,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetTLSValue([In] int threadID, [In] int index, [Out] out CLRDATA_ADDRESS value);
+        new HRESULT GetTLSValue(
+            [In] int threadID,
+            [In] int index,
+            [Out] out CLRDATA_ADDRESS value);
 
         /// <summary>
         /// Sets a value in the thread local storage (TLS) of the specified thread in the target process. This method is called by the common language runtime (CLR) data access services.
@@ -99,7 +110,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT SetTLSValue([In] int threadID, [In] int index, [In] CLRDATA_ADDRESS value);
+        new HRESULT SetTLSValue(
+            [In] int threadID,
+            [In] int index,
+            [In] CLRDATA_ADDRESS value);
 
         /// <summary>
         /// Gets the operating system identifier for the current thread.
@@ -110,7 +124,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetCurrentThreadID([Out] out int threadID);
+        new HRESULT GetCurrentThreadID(
+            [Out] out int threadID);
 
         /// <summary>
         /// Gets the current execution context for the given thread in the target process. This method is called by the common language runtime data access services.
@@ -145,7 +160,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT SetThreadContext([In] int threadID, [In] int contextSize, [In] IntPtr context);
+        new HRESULT SetThreadContext(
+            [In] int threadID,
+            [In] int contextSize,
+            [In] IntPtr context);
 
         /// <summary>
         /// Called by the common language runtime (CLR) data access services to request an operation, as defined by the implementation.
@@ -202,7 +220,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT FreeVirtual([In] CLRDATA_ADDRESS addr, [In] int size, [In] int typeFlags);
+        new HRESULT FreeVirtual(
+            [In] CLRDATA_ADDRESS addr,
+            [In] int size,
+            [In] int typeFlags);
 
         /// <summary>
         /// Called by the common language runtime (CLR) data access services to retrieve the exception record associated with the target process.<para/>
@@ -226,7 +247,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetExceptionRecord([In] int bufferSize, [Out] out int bufferUsed, [Out] IntPtr buffer);
+        HRESULT GetExceptionRecord(
+            [In] int bufferSize,
+            [Out] out int bufferUsed,
+            [Out] IntPtr buffer);
 
         /// <summary>
         /// Called by the common language runtime (CLR) data access services to retrieve the context record associated with the target process.<para/>
@@ -250,7 +274,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetExceptionContextRecord([In] int bufferSize, [Out] out int bufferUsed, [Out] IntPtr buffer);
+        HRESULT GetExceptionContextRecord(
+            [In] int bufferSize,
+            [Out] out int bufferUsed,
+            [Out] IntPtr buffer);
 
         /// <summary>
         /// Called by the common language runtime (CLR) data access services to get the ID of the thread that threw the exception.
@@ -269,6 +296,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetExceptionThreadID([Out] out int threadID);
+        HRESULT GetExceptionThreadID(
+            [Out] out int threadID);
     }
 }

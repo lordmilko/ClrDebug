@@ -19,6 +19,7 @@ namespace ClrDebug
         /// metadata engine via the <see cref="IMetaDataEmit.SetHandler"/> method.
         /// </remarks>
         [PreserveSig]
-        HRESULT MarkToken([In] mdToken tk);
+        HRESULT MarkToken(
+            [In] mdToken tk);
     }
 }

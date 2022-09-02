@@ -39,7 +39,8 @@ namespace ClrDebug
         [Obsolete]
         public HRESULT TryGetMvid(out Guid pMvid)
         {
-            /*HRESULT GetMvid([Out] out Guid pMvid);*/
+            /*HRESULT GetMvid(
+            [Out] out Guid pMvid);*/
             return Raw.GetMvid(out pMvid);
         }
 
@@ -67,7 +68,8 @@ namespace ClrDebug
         [Obsolete]
         public HRESULT TryGetRoDataRVA(out int pRoDataRVA)
         {
-            /*HRESULT GetRoDataRVA([Out] out int pRoDataRVA);*/
+            /*HRESULT GetRoDataRVA(
+            [Out] out int pRoDataRVA);*/
             return Raw.GetRoDataRVA(out pRoDataRVA);
         }
 
@@ -95,7 +97,8 @@ namespace ClrDebug
         [Obsolete]
         public HRESULT TryGetRwDataRVA(out int pRwDataRVA)
         {
-            /*HRESULT GetRwDataRVA([Out] out int pRwDataRVA);*/
+            /*HRESULT GetRwDataRVA(
+            [Out] out int pRwDataRVA);*/
             return Raw.GetRwDataRVA(out pRwDataRVA);
         }
 
@@ -120,8 +123,9 @@ namespace ClrDebug
         [Obsolete]
         public HRESULT TryCopyMetaData(IStream pIStream, out Guid pMvid)
         {
-            /*HRESULT CopyMetaData([MarshalAs(UnmanagedType.Interface), In]
-            IStream pIStream, [Out] out Guid pMvid);*/
+            /*HRESULT CopyMetaData(
+            [MarshalAs(UnmanagedType.Interface), In] IStream pIStream,
+            [Out] out Guid pMvid);*/
             return Raw.CopyMetaData(pIStream, out pMvid);
         }
 
@@ -143,8 +147,8 @@ namespace ClrDebug
         [Obsolete]
         public HRESULT TrySetPEBytes(IStream pIStream)
         {
-            /*HRESULT SetPEBytes([MarshalAs(UnmanagedType.Interface), In]
-            IStream pIStream);*/
+            /*HRESULT SetPEBytes(
+            [MarshalAs(UnmanagedType.Interface), In] IStream pIStream);*/
             return Raw.SetPEBytes(pIStream);
         }
 
@@ -166,7 +170,10 @@ namespace ClrDebug
         [Obsolete]
         public HRESULT TrySetILMap(mdToken mdFunction, int cMapSize, COR_IL_MAP map)
         {
-            /*HRESULT SetILMap([In] mdToken mdFunction, [In] int cMapSize, [In] ref COR_IL_MAP map);*/
+            /*HRESULT SetILMap(
+            [In] mdToken mdFunction,
+            [In] int cMapSize,
+            [In] ref COR_IL_MAP map);*/
             return Raw.SetILMap(mdFunction, cMapSize, ref map);
         }
 
@@ -188,8 +195,8 @@ namespace ClrDebug
         [Obsolete]
         public HRESULT TrySetPESymbolBytes(IStream pIStream)
         {
-            /*HRESULT SetPESymbolBytes([MarshalAs(UnmanagedType.Interface), In]
-            IStream pIStream);*/
+            /*HRESULT SetPESymbolBytes(
+            [MarshalAs(UnmanagedType.Interface), In] IStream pIStream);*/
             return Raw.SetPESymbolBytes(pIStream);
         }
 

@@ -26,7 +26,8 @@ namespace ClrDebug
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetKickoffMethod([Out] out mdToken kickoffMethod);
+        HRESULT GetKickoffMethod(
+            [Out] out mdToken kickoffMethod);
 
         /// <summary>
         /// See <see cref="ISymUnmanagedAsyncMethodPropertiesWriter.DefineCatchHandlerILOffset"/>.
@@ -42,7 +43,8 @@ namespace ClrDebug
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCatchHandlerILOffset([Out] out int pRetVal);
+        HRESULT GetCatchHandlerILOffset(
+            [Out] out int pRetVal);
 
         /// <summary>
         /// See <see cref="ISymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.
@@ -50,7 +52,8 @@ namespace ClrDebug
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAsyncStepInfoCount([Out] out int pRetVal);
+        HRESULT GetAsyncStepInfoCount(
+            [Out] out int pRetVal);
 
         /// <summary>
         /// See <see cref="ISymUnmanagedAsyncMethodPropertiesWriter.DefineAsyncStepInfo"/>.

@@ -42,7 +42,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryIsManaged(out bool pbManaged)
         {
-            /*HRESULT IsManaged([Out] out bool pbManaged);*/
+            /*HRESULT IsManaged(
+            [Out] out bool pbManaged);*/
             return Raw.IsManaged(out pbManaged);
         }
 
@@ -69,7 +70,8 @@ namespace ClrDebug
         /// <param name="pid">[out] A pointer to the identifier of the process represented by this <see cref="ICorPublishProcess"/> object.</param>
         public HRESULT TryGetProcessID(out int pid)
         {
-            /*HRESULT GetProcessID([Out] out int pid);*/
+            /*HRESULT GetProcessID(
+            [Out] out int pid);*/
             return Raw.GetProcessID(out pid);
         }
 
@@ -96,7 +98,10 @@ namespace ClrDebug
         /// <param name="szNameResult">[out] An array to store the name, including the full path, of the executable. The name is null-terminated.</param>
         public HRESULT TryGetDisplayName(out string szNameResult)
         {
-            /*HRESULT GetDisplayName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
+            /*HRESULT GetDisplayName(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName;
@@ -155,7 +160,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryEnumAppDomains(out CorPublishAppDomainEnum ppEnumResult)
         {
-            /*HRESULT EnumAppDomains([Out, MarshalAs(UnmanagedType.Interface)] out ICorPublishAppDomainEnum ppEnum);*/
+            /*HRESULT EnumAppDomains(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorPublishAppDomainEnum ppEnum);*/
             ICorPublishAppDomainEnum ppEnum;
             HRESULT hr = Raw.EnumAppDomains(out ppEnum);
 

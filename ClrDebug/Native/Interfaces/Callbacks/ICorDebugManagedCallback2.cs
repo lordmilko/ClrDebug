@@ -36,14 +36,10 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT FunctionRemapOpportunity(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugAppDomain pAppDomain,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugThread pThread,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFunction pOldFunction,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFunction pNewFunction,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pOldFunction,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pNewFunction,
             [In] int oldILOffset);
 
         /// <summary>
@@ -57,8 +53,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CreateConnection([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugProcess pProcess, [In] int dwConnectionId, [MarshalAs(UnmanagedType.LPWStr), In] string pConnName);
+        HRESULT CreateConnection(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugProcess pProcess,
+            [In] int dwConnectionId,
+            [MarshalAs(UnmanagedType.LPWStr), In] string pConnName);
 
         /// <summary>
         /// Notifies the debugger that the set of tasks associated with the specified connection has changed.
@@ -71,8 +69,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ChangeConnection([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugProcess pProcess, [In] int dwConnectionId);
+        HRESULT ChangeConnection(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugProcess pProcess,
+            [In] int dwConnectionId);
 
         /// <summary>
         /// Notifies the debugger that the specified connection has been terminated.
@@ -85,8 +84,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT DestroyConnection([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugProcess pProcess, [In] int dwConnectionId);
+        HRESULT DestroyConnection(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugProcess pProcess,
+            [In] int dwConnectionId);
 
         /// <summary>
         /// Notifies the debugger that a search for an exception handler has started.
@@ -107,12 +107,9 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Exception(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugAppDomain pAppDomain,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugThread pThread,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFrame pFrame,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugFrame pFrame,
             [In] int nOffset,
             [In] CorDebugExceptionCallbackType dwEventType,
             [In] int dwFlags);
@@ -133,10 +130,8 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ExceptionUnwind(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugAppDomain pAppDomain,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugThread pThread,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
             [In] CorDebugExceptionUnwindCallbackType dwEventType,
             [In] int dwFlags);
 
@@ -152,12 +147,9 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT FunctionRemapComplete(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugAppDomain pAppDomain,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugThread pThread,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFunction pFunction);
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pFunction);
 
         /// <summary>
         /// Provides notification that code execution has encountered a managed debugging assistant (MDA) in the application that is being debugged.
@@ -181,11 +173,8 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT MDANotification(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugController pController,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugThread pThread,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugMDA pMDA);
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugController pController,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugMDA pMDA);
     }
 }

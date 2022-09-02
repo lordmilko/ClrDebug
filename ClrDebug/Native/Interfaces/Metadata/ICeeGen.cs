@@ -81,7 +81,8 @@ namespace ClrDebug
         /// <param name="section">[in] The handle to the section to get.</param>
         [Obsolete]
         [PreserveSig]
-        HRESULT GetIlSection([In] IntPtr section);
+        HRESULT GetIlSection(
+            [In] IntPtr section);
 
         /// <summary>
         /// Gets a string representation of the code section referenced by the specified handle. This method is obsolete and should not be used.
@@ -89,7 +90,8 @@ namespace ClrDebug
         /// <param name="section">[in, out] The handle to the code section.</param>
         [Obsolete]
         [PreserveSig]
-        HRESULT GetStringSection([In, Out] ref IntPtr section);
+        HRESULT GetStringSection(
+            [In, Out] ref IntPtr section);
 
         /// <summary>
         /// Adds a .reloc instruction to the code base. This method is obsolete and should not be used.

@@ -162,7 +162,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT StrongNameFreeBuffer([In] IntPtr pbMemory);
+        HRESULT StrongNameFreeBuffer(
+            [In] IntPtr pbMemory);
 
         /// <summary>
         /// Fills the specified buffer with the binary representation of the executable file at the specified address.
@@ -173,7 +174,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT StrongNameGetBlob([MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath, [In, Out] IntPtr pbBlob,
+        HRESULT StrongNameGetBlob(
+            [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
+            [In, Out] IntPtr pbBlob,
             [In, Out] ref int pcbBlob);
 
         /// <summary>
@@ -226,7 +229,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT StrongNameHashSize([In] int ulHashAlg, [Out] out int pcbSize);
+        HRESULT StrongNameHashSize(
+            [In] int ulHashAlg,
+            [Out] out int pcbSize);
 
         /// <summary>
         /// Deletes the specified key container.
@@ -238,7 +243,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT StrongNameKeyDelete([MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer);
+        HRESULT StrongNameKeyDelete(
+            [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer);
 
         /// <summary>
         /// Creates a new public/private key pair for strong name use.
@@ -295,8 +301,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT StrongNameKeyInstall([MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
-            [In] IntPtr pbKeyBlob, [In] int cbKeyBlob);
+        HRESULT StrongNameKeyInstall(
+            [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
+            [In] IntPtr pbKeyBlob,
+            [In] int cbKeyBlob);
 
         /// <summary>
         /// Generates a strong name signature for the specified assembly.
@@ -367,7 +375,10 @@ namespace ClrDebug
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT StrongNameSignatureSize([In] IntPtr pbPublicKeyBlob, [In] PublicKeyBlob cbPublicKeyBlob, [In] ref int pcbSize);
+        HRESULT StrongNameSignatureSize(
+            [In] IntPtr pbPublicKeyBlob,
+            [In] PublicKeyBlob cbPublicKeyBlob,
+            [In] ref int pcbSize);
 
         /// <summary>
         /// Gets a value that indicates whether the assembly manifest at the supplied path contains a strong name signature, which is verified according to the specified flags.

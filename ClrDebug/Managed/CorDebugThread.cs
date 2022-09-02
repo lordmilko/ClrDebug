@@ -40,7 +40,8 @@ namespace ClrDebug
         /// <param name="ppProcessResult">[out] A pointer to the address of an <see cref="ICorDebugProcess"/> interface object that represents the process.</param>
         public HRESULT TryGetProcess(out CorDebugProcess ppProcessResult)
         {
-            /*HRESULT GetProcess([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
+            /*HRESULT GetProcess(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
             ICorDebugProcess ppProcess;
             HRESULT hr = Raw.GetProcess(out ppProcess);
 
@@ -79,7 +80,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetID(out int pdwThreadId)
         {
-            /*HRESULT GetID([Out] out int pdwThreadId);*/
+            /*HRESULT GetID(
+            [Out] out int pdwThreadId);*/
             return Raw.GetID(out pdwThreadId);
         }
 
@@ -110,7 +112,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetHandle(out IntPtr phThreadHandle)
         {
-            /*HRESULT GetHandle([Out] out IntPtr phThreadHandle);*/
+            /*HRESULT GetHandle(
+            [Out] out IntPtr phThreadHandle);*/
             return Raw.GetHandle(out phThreadHandle);
         }
 
@@ -137,7 +140,8 @@ namespace ClrDebug
         /// <param name="ppAppDomainResult">[out] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain in which this thread is currently executing.</param>
         public HRESULT TryGetAppDomain(out CorDebugAppDomain ppAppDomainResult)
         {
-            /*HRESULT GetAppDomain([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAppDomain ppAppDomain);*/
+            /*HRESULT GetAppDomain(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAppDomain ppAppDomain);*/
             ICorDebugAppDomain ppAppDomain;
             HRESULT hr = Raw.GetAppDomain(out ppAppDomain);
 
@@ -180,7 +184,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetDebugState(out CorDebugThreadState pState)
         {
-            /*HRESULT GetDebugState([Out] out CorDebugThreadState pState);*/
+            /*HRESULT GetDebugState(
+            [Out] out CorDebugThreadState pState);*/
             return Raw.GetDebugState(out pState);
         }
 
@@ -202,7 +207,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetDebugState(CorDebugThreadState state)
         {
-            /*HRESULT SetDebugState([In] CorDebugThreadState state);*/
+            /*HRESULT SetDebugState(
+            [In] CorDebugThreadState state);*/
             return Raw.SetDebugState(state);
         }
 
@@ -233,7 +239,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetUserState(out CorDebugUserState pState)
         {
-            /*HRESULT GetUserState([Out] out CorDebugUserState pState);*/
+            /*HRESULT GetUserState(
+            [Out] out CorDebugUserState pState);*/
             return Raw.GetUserState(out pState);
         }
 
@@ -269,7 +276,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetCurrentException(out CorDebugValue ppExceptionObjectResult)
         {
-            /*HRESULT GetCurrentException([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppExceptionObject);*/
+            /*HRESULT GetCurrentException(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppExceptionObject);*/
             ICorDebugValue ppExceptionObject;
             HRESULT hr = Raw.GetCurrentException(out ppExceptionObject);
 
@@ -307,7 +315,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetActiveChain(out CorDebugChain ppChainResult)
         {
-            /*HRESULT GetActiveChain([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);*/
+            /*HRESULT GetActiveChain(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);*/
             ICorDebugChain ppChain;
             HRESULT hr = Raw.GetActiveChain(out ppChain);
 
@@ -345,7 +354,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetActiveFrame(out CorDebugFrame ppFrameResult)
         {
-            /*HRESULT GetActiveFrame([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);*/
+            /*HRESULT GetActiveFrame(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);*/
             ICorDebugFrame ppFrame;
             HRESULT hr = Raw.GetActiveFrame(out ppFrame);
 
@@ -380,7 +390,8 @@ namespace ClrDebug
         /// <param name="ppRegistersResult">[out] A pointer to the address of an <see cref="ICorDebugRegisterSet"/> interface object that represents the register set for the active part of this thread.</param>
         public HRESULT TryGetRegisterSet(out CorDebugRegisterSet ppRegistersResult)
         {
-            /*HRESULT GetRegisterSet([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugRegisterSet ppRegisters);*/
+            /*HRESULT GetRegisterSet(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugRegisterSet ppRegisters);*/
             ICorDebugRegisterSet ppRegisters;
             HRESULT hr = Raw.GetRegisterSet(out ppRegisters);
 
@@ -415,7 +426,8 @@ namespace ClrDebug
         /// <param name="ppObjectResult">[out] A pointer to the address of an <see cref="ICorDebugValue"/> interface object that represents the CLR thread.</param>
         public HRESULT TryGetObject(out CorDebugValue ppObjectResult)
         {
-            /*HRESULT GetObject([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppObject);*/
+            /*HRESULT GetObject(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppObject);*/
             ICorDebugValue ppObject;
             HRESULT hr = Raw.GetObject(out ppObject);
 
@@ -474,7 +486,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryCreateStepper(out CorDebugStepper ppStepperResult)
         {
-            /*HRESULT CreateStepper([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugStepper ppStepper);*/
+            /*HRESULT CreateStepper(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugStepper ppStepper);*/
             ICorDebugStepper ppStepper;
             HRESULT hr = Raw.CreateStepper(out ppStepper);
 
@@ -526,7 +539,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryEnumerateChains(out CorDebugChainEnum ppChainsResult)
         {
-            /*HRESULT EnumerateChains([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChainEnum ppChains);*/
+            /*HRESULT EnumerateChains(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChainEnum ppChains);*/
             ICorDebugChainEnum ppChains;
             HRESULT hr = Raw.EnumerateChains(out ppChains);
 
@@ -567,7 +581,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryCreateEval(out CorDebugEval ppEvalResult)
         {
-            /*HRESULT CreateEval([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugEval ppEval);*/
+            /*HRESULT CreateEval(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugEval ppEval);*/
             ICorDebugEval ppEval;
             HRESULT hr = Raw.CreateEval(out ppEval);
 
@@ -615,7 +630,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetActiveFunctions(out COR_ACTIVE_FUNCTION[] pFunctions)
         {
-            /*HRESULT GetActiveFunctions([In] int cFunctions, [Out] out int pcFunctions,
+            /*HRESULT GetActiveFunctions(
+            [In] int cFunctions,
+            [Out] out int pcFunctions,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), In, Out] COR_ACTIVE_FUNCTION[] pFunctions);*/
             int cFunctions = 0;
             int pcFunctions;
@@ -660,7 +677,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetConnectionID(out int pdwConnectionId)
         {
-            /*HRESULT GetConnectionID([Out] out int pdwConnectionId);*/
+            /*HRESULT GetConnectionID(
+            [Out] out int pdwConnectionId);*/
             return Raw2.GetConnectionID(out pdwConnectionId);
         }
 
@@ -691,7 +709,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetTaskID(out long pTaskId)
         {
-            /*HRESULT GetTaskID([Out] out long pTaskId);*/
+            /*HRESULT GetTaskID(
+            [Out] out long pTaskId);*/
             return Raw2.GetTaskID(out pTaskId);
         }
 
@@ -718,7 +737,8 @@ namespace ClrDebug
         /// <param name="pdwTid">[out] The operating system thread identifier for this thread.</param>
         public HRESULT TryGetVolatileOSThreadID(out int pdwTid)
         {
-            /*HRESULT GetVolatileOSThreadID([Out] out int pdwTid);*/
+            /*HRESULT GetVolatileOSThreadID(
+            [Out] out int pdwTid);*/
             return Raw2.GetVolatileOSThreadID(out pdwTid);
         }
 
@@ -748,8 +768,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryInterceptCurrentException(ICorDebugFrame pFrame)
         {
-            /*HRESULT InterceptCurrentException([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFrame pFrame);*/
+            /*HRESULT InterceptCurrentException(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugFrame pFrame);*/
             return Raw2.InterceptCurrentException(pFrame);
         }
 
@@ -865,7 +885,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryCreateStackWalk(out CorDebugStackWalk ppStackWalkResult)
         {
-            /*HRESULT CreateStackWalk([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugStackWalk ppStackWalk);*/
+            /*HRESULT CreateStackWalk(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugStackWalk ppStackWalk);*/
             ICorDebugStackWalk ppStackWalk;
             HRESULT hr = Raw3.CreateStackWalk(out ppStackWalk);
 

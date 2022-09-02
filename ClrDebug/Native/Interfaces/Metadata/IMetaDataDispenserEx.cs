@@ -92,7 +92,9 @@ namespace ClrDebug
         /// values for the pValue parameter.
         /// </remarks>
         [PreserveSig]
-        HRESULT SetOption([In] ref Guid optionId, [In, MarshalAs(UnmanagedType.Struct)] object pValue);
+        HRESULT SetOption(
+            [In] ref Guid optionId,
+            [In, MarshalAs(UnmanagedType.Struct)] object pValue);
 
         /// <summary>
         /// Gets the value of the specified option for the current metadata scope. The option controls how calls to the current metadata scope are handled.
@@ -104,7 +106,9 @@ namespace ClrDebug
         /// method. If optionId is not in this list, this method returns <see cref="HRESULT"/> E_INVALIDARG, indicating an incorrect parameter.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetOption([In] ref Guid optionId, [Out] object pValue);
+        HRESULT GetOption(
+            [In] ref Guid optionId,
+            [Out] object pValue);
 
         /// <summary>
         /// This method is not implemented. If called, it returns E_NOTIMPL.

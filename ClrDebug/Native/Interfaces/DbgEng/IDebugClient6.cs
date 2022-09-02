@@ -489,8 +489,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetInputCallbacks(
-            [Out, MarshalAs(UnmanagedType.Interface)]
-            out IDebugInputCallbacks Callbacks);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugInputCallbacks Callbacks);
 
         /// <summary>
         /// The SetInputCallbacks method registers an input callbacks object with the client.
@@ -505,8 +504,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT SetInputCallbacks(
-            [In, MarshalAs(UnmanagedType.Interface)]
-            IDebugInputCallbacks Callbacks);
+            [In, MarshalAs(UnmanagedType.Interface)] IDebugInputCallbacks Callbacks);
 
         /// <summary>
         /// The GetOutputCallbacks method returns the output callbacks object registered with the client.
@@ -888,12 +886,10 @@ namespace ClrDebug.DbgEng
             [In] long Server,
             [In] int SystemId,
             [In] DEBUG_PROC_DESC Flags,
-            [Out, MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder ExeName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ExeName,
             [In] int ExeNameSize,
             [Out] out int ActualExeNameSize,
-            [Out, MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder Description,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Description,
             [In] int DescriptionSize,
             [Out] out int ActualDescriptionSize);
 
@@ -1057,8 +1053,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetDumpFileWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int NameSize,
             [Out] out long Handle,
@@ -1096,8 +1091,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetKernelConnectionOptionsWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int OptionsSize);
 
@@ -1224,8 +1218,7 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         [PreserveSig]
         new HRESULT GetOutputLinePrefixWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int PrefixSize);
 
@@ -1251,8 +1244,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetIdentityWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int IdentitySize);
 

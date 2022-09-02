@@ -1451,8 +1451,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetExceptionFilterParameters(
             [In] int Count,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]
-            int[] Codes,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Codes,
             [In] int Start,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);
 

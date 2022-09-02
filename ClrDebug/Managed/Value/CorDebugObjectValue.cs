@@ -57,7 +57,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetClass(out CorDebugClass ppClassResult)
         {
-            /*HRESULT GetClass([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);*/
+            /*HRESULT GetClass(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);*/
             ICorDebugClass ppClass;
             HRESULT hr = Raw.GetClass(out ppClass);
 
@@ -91,7 +92,8 @@ namespace ClrDebug
         /// </summary>
         public HRESULT TryGetContext(out CorDebugContext ppContextResult)
         {
-            /*HRESULT GetContext([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugContext ppContext);*/
+            /*HRESULT GetContext(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugContext ppContext);*/
             ICorDebugContext ppContext;
             HRESULT hr = Raw.GetContext(out ppContext);
 
@@ -126,7 +128,8 @@ namespace ClrDebug
         /// <param name="pbIsValueClass">[out] A pointer to a Boolean value that is true if the object value, represented by this "ICorDebugObjectValue", is a value type rather than a reference type; otherwise, pbIsValueClass is false.</param>
         public HRESULT TryIsValueClass(out bool pbIsValueClass)
         {
-            /*HRESULT IsValueClass([Out] out bool pbIsValueClass);*/
+            /*HRESULT IsValueClass(
+            [Out] out bool pbIsValueClass);*/
             return Raw.IsValueClass(out pbIsValueClass);
         }
 
@@ -154,7 +157,8 @@ namespace ClrDebug
         [Obsolete]
         public HRESULT TryGetManagedCopy(out object ppObject)
         {
-            /*HRESULT GetManagedCopy([Out, MarshalAs(UnmanagedType.IUnknown)] out object ppObject);*/
+            /*HRESULT GetManagedCopy(
+            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppObject);*/
             return Raw.GetManagedCopy(out ppObject);
         }
 
@@ -197,8 +201,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetFieldValue(ICorDebugClass pClass, mdFieldDef fieldDef, out CorDebugValue ppValueResult)
         {
-            /*HRESULT GetFieldValue([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugClass pClass, [In] mdFieldDef fieldDef, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            /*HRESULT GetFieldValue(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugClass pClass,
+            [In] mdFieldDef fieldDef,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetFieldValue(pClass, fieldDef, out ppValue);
 
@@ -229,7 +235,8 @@ namespace ClrDebug
         /// </summary>
         public HRESULT TryGetVirtualMethod(int memberRef, out CorDebugFunction ppFunctionResult)
         {
-            /*HRESULT GetVirtualMethod([In] int memberRef,
+            /*HRESULT GetVirtualMethod(
+            [In] int memberRef,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
             ICorDebugFunction ppFunction;
             HRESULT hr = Raw.GetVirtualMethod(memberRef, out ppFunction);
@@ -260,8 +267,8 @@ namespace ClrDebug
         [Obsolete]
         public HRESULT TrySetFromManagedCopy(object pObject)
         {
-            /*HRESULT SetFromManagedCopy([MarshalAs(UnmanagedType.IUnknown), In]
-            object pObject);*/
+            /*HRESULT SetFromManagedCopy(
+            [MarshalAs(UnmanagedType.IUnknown), In] object pObject);*/
             return Raw.SetFromManagedCopy(pObject);
         }
 

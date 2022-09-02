@@ -830,8 +830,7 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getCommandWide, Vtbl2->GetCommandWide);
             /*HRESULT GetCommandWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int CommandSize);*/
             StringBuilder buffer;
@@ -919,8 +918,7 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getOffsetExpressionWide, Vtbl2->GetOffsetExpressionWide);
             /*HRESULT GetOffsetExpressionWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int ExpressionSize);*/
             StringBuilder buffer;
@@ -993,7 +991,8 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getGuid, Vtbl3->GetGuid);
 
-            /*HRESULT GetGuid([Out] out Guid Guid);*/
+            /*HRESULT GetGuid(
+            [Out] out Guid Guid);*/
             return getGuid(Raw, out guid);
         }
 

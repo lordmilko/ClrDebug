@@ -52,7 +52,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetHostName(out string szHostNameResult)
         {
-            /*HRESULT GetHostName([In] int cchHostName, [Out] out int pcchHostName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szHostName);*/
+            /*HRESULT GetHostName(
+            [In] int cchHostName,
+            [Out] out int pcchHostName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szHostName);*/
             int cchHostName = 0;
             int pcchHostName;
             StringBuilder szHostName;

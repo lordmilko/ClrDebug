@@ -11,11 +11,13 @@ namespace ClrDebug
     {
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT BeforeGarbageCollection([MarshalAs(UnmanagedType.Interface), In] ICorDebugProcess pProcess);
+        HRESULT BeforeGarbageCollection(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugProcess pProcess);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT AfterGarbageCollection([MarshalAs(UnmanagedType.Interface), In] ICorDebugProcess pProcess);
+        HRESULT AfterGarbageCollection(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugProcess pProcess);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

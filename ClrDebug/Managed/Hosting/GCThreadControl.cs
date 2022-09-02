@@ -89,7 +89,8 @@
         /// </remarks>
         public HRESULT TrySuspensionEnding(int generation)
         {
-            /*HRESULT SuspensionEnding([In] int Generation);*/
+            /*HRESULT SuspensionEnding(
+            [In] int Generation);*/
             return Raw.SuspensionEnding(generation);
         }
 

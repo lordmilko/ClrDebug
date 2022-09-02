@@ -39,7 +39,8 @@ namespace ClrDebug
         /// that the CLR create a new task. For example, the host can invoke this method to preinitialize data structures.
         /// </remarks>
         [PreserveSig]
-        HRESULT CreateTask([Out] out ICLRTask pTask);
+        HRESULT CreateTask(
+            [Out] out ICLRTask pTask);
 
         /// <summary>
         /// Gets the <see cref="ICLRTask"/> instance that is currently running on the operating system thread from which the method call originated.
@@ -61,7 +62,8 @@ namespace ClrDebug
         /// for the host.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetCurrentTask([Out] out ICLRTask pTask);
+        HRESULT GetCurrentTask(
+            [Out] out ICLRTask pTask);
 
         /// <summary>
         /// Notifies the common language runtime (CLR) that the host has modified the user interface (UI) locale, or culture, on the currently executing task.
@@ -82,7 +84,8 @@ namespace ClrDebug
         /// of locales.
         /// </remarks>
         [PreserveSig]
-        HRESULT SetUILocale([In] int lcid);
+        HRESULT SetUILocale(
+            [In] int lcid);
 
         /// <summary>
         /// Notifies the common language runtime (CLR) that the host has modified the value of the locale identifier (which maps to the geographical culture and language) on the currently executing task.
@@ -102,13 +105,15 @@ namespace ClrDebug
         /// SetLocale gives the host an opportunity to execute any mechanisms it might have for the synchronization of locales.
         /// </remarks>
         [PreserveSig]
-        HRESULT SetLocale([In] int lcid);
+        HRESULT SetLocale(
+            [In] int lcid);
 
         /// <summary>
         /// Gets the type of the task that is currently executing.
         /// </summary>
         /// <param name="pTaskType">[out] A pointer to a value of the <see cref="ETaskType"/> enumeration that indicates the type of task that is currently executing.</param>
         [PreserveSig]
-        HRESULT GetCurrentTaskType([Out] out ETaskType pTaskType);
+        HRESULT GetCurrentTaskType(
+            [Out] out ETaskType pTaskType);
     }
 }

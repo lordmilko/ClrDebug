@@ -127,8 +127,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetRunningProcessSystemIds(
             [In] long Server,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)]
-            int[] Ids,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] int[] Ids,
             [In] int Count,
             [Out] out int ActualCount);
 
@@ -490,8 +489,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetInputCallbacks(
-            [Out, MarshalAs(UnmanagedType.Interface)]
-            out IDebugInputCallbacks Callbacks);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IDebugInputCallbacks Callbacks);
 
         /// <summary>
         /// The SetInputCallbacks method registers an input callbacks object with the client.
@@ -506,8 +504,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT SetInputCallbacks(
-            [In, MarshalAs(UnmanagedType.Interface)]
-            IDebugInputCallbacks Callbacks);
+            [In, MarshalAs(UnmanagedType.Interface)] IDebugInputCallbacks Callbacks);
 
         /// <summary>
         /// The GetOutputCallbacks method returns the output callbacks object registered with the client.

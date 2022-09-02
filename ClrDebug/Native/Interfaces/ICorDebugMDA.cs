@@ -24,7 +24,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
+        HRESULT GetName(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
 
         /// <summary>
         /// Gets a string containing the description of the managed debugging assistant (MDA) represented by <see cref="ICorDebugMDA"/>.
@@ -37,7 +40,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetDescription([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
+        HRESULT GetDescription(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
 
         /// <summary>
         /// Gets the full XML stream associated with the managed debugging assistant (MDA) represented by <see cref="ICorDebugMDA"/>.
@@ -50,7 +56,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetXML([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
+        HRESULT GetXML(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
 
         /// <summary>
         /// Gets the flags associated with the managed debugging assistant (MDA) represented by <see cref="ICorDebugMDA"/>.
@@ -58,7 +67,8 @@ namespace ClrDebug
         /// <param name="pFlags">[in] A bitwise combination of the <see cref="CorDebugMDAFlags"/> enumeration values that specify the settings of the flags for this MDA.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetFlags([In] ref CorDebugMDAFlags pFlags);
+        HRESULT GetFlags(
+            [In] ref CorDebugMDAFlags pFlags);
 
         /// <summary>
         /// Gets the operating system (OS) thread identifier upon which the managed debugging assistant (MDA) represented by <see cref="ICorDebugMDA"/> is executing.
@@ -70,6 +80,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetOSThreadId([Out] out int pOsTid);
+        HRESULT GetOSThreadId(
+            [Out] out int pOsTid);
     }
 }

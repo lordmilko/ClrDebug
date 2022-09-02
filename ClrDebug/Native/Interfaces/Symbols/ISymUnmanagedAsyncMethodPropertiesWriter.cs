@@ -17,7 +17,8 @@ namespace ClrDebug
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT DefineKickoffMethod([In] int kickoffMethod);
+        HRESULT DefineKickoffMethod(
+            [In] int kickoffMethod);
 
         /// <summary>
         /// Sets the IL offset for the compiler-generated catch handler that wraps an async method. The IL offset of the generated catch is used by the debugger to handle the catch as if it were non-user code even though it might occur in a user code method.<para/>
@@ -26,7 +27,8 @@ namespace ClrDebug
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT DefineCatchHandlerILOffset([In] int catchHandlerOffset);
+        HRESULT DefineCatchHandlerILOffset(
+            [In] int catchHandlerOffset);
 
         /// <summary>
         /// Define a group of async await operations in the current method. Each yield offset matches an await's return instruction, identifying a potential yield.<para/>

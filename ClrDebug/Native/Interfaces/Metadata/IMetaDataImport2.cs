@@ -21,7 +21,8 @@ namespace ClrDebug
         /// The handle specified by hEnum is obtained from a previous EnumName call (for example, <see cref="EnumTypeDefs"/>).
         /// </remarks>
         [PreserveSig]
-        new void CloseEnum([In] IntPtr hEnum);
+        new void CloseEnum(
+            [In] IntPtr hEnum);
 
         /// <summary>
         /// Gets the number of elements in the enumeration that was retrieved by the specified enumerator.
@@ -32,7 +33,9 @@ namespace ClrDebug
         /// The handle specified by hEnum is obtained from a previous EnumName call (for example, <see cref="EnumTypeDefs"/>).
         /// </remarks>
         [PreserveSig]
-        new HRESULT CountEnum([In] IntPtr hEnum, [Out] out int pulCount);
+        new HRESULT CountEnum(
+            [In] IntPtr hEnum,
+            [Out] out int pulCount);
 
         /// <summary>
         /// Resets the specified enumerator to the specified position.
@@ -40,7 +43,9 @@ namespace ClrDebug
         /// <param name="hEnum">[in] The enumerator to reset.</param>
         /// <param name="ulPos">[in] The new position at which to place the enumerator.</param>
         [PreserveSig]
-        new HRESULT ResetEnum([In] IntPtr hEnum, [In] int ulPos);
+        new HRESULT ResetEnum(
+            [In] IntPtr hEnum,
+            [In] int ulPos);
 
         /// <summary>
         /// Enumerates TypeDef tokens representing all types within the current scope.
@@ -150,7 +155,8 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pmd">[out] A pointer to the token representing the module referenced in the current metadata scope.</param>
         [PreserveSig]
-        new HRESULT GetModuleFromScope([Out] out mdModule pmd);
+        new HRESULT GetModuleFromScope(
+            [Out] out mdModule pmd);
 
         /// <summary>
         /// Returns metadata information for the <see cref="Type"/> represented by the specified TypeDef token.
@@ -570,7 +576,8 @@ namespace ClrDebug
         new HRESULT FindMemberRef(
             [In] mdToken td,
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
-            [In] IntPtr pvSigBlob, [In] int cbSigBlob,
+            [In] IntPtr pvSigBlob,
+            [In] int cbSigBlob,
             [Out] out mdMemberRef pmr);
 
         /// <summary>
@@ -1222,7 +1229,8 @@ namespace ClrDebug
         /// </summary>
         /// <param name="tk">[in] The token to check the reference validity for.</param>
         /// <returns>true if tk is a valid metadata token within the current scope. Otherwise, false.</returns>
-        new bool IsValidToken([In] mdToken tk);
+        new bool IsValidToken(
+            [In] mdToken tk);
 
         /// <summary>
         /// Gets the TypeDef token for the parent <see cref="Type"/> of the specified nested type.

@@ -33,7 +33,10 @@ namespace ClrDebug
 
         public HRESULT TryRemoteRead(IntPtr pv, int cb, out int pcbRead)
         {
-            /*HRESULT RemoteRead([Out] IntPtr pv, [In] int cb, [Out] out int pcbRead);*/
+            /*HRESULT RemoteRead(
+            [Out] IntPtr pv,
+            [In] int cb,
+            [Out] out int pcbRead);*/
             return Raw.RemoteRead(pv, cb, out pcbRead);
         }
 
@@ -50,7 +53,10 @@ namespace ClrDebug
 
         public HRESULT TryRemoteWrite(IntPtr pv, int cb, out int pcbWritten)
         {
-            /*HRESULT RemoteWrite([In] IntPtr pv, [In] int cb, [Out] out int pcbWritten);*/
+            /*HRESULT RemoteWrite(
+            [In] IntPtr pv,
+            [In] int cb,
+            [Out] out int pcbWritten);*/
             return Raw.RemoteWrite(pv, cb, out pcbWritten);
         }
 

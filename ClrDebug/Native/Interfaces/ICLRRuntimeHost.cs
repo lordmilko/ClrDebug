@@ -5,7 +5,8 @@ using System.Runtime.InteropServices;
 
 namespace ClrDebug
 {
-    public delegate HRESULT FExecuteInAppDomainCallback(IntPtr cookie);
+    public delegate HRESULT FExecuteInAppDomainCallback(
+        IntPtr cookie);
 
     /// <summary>
     /// Provides functionality similar to that of the <see cref="ICorRuntimeHost"/> interface provided in the .NET Framework version 1, with the following changes:
@@ -83,7 +84,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
-        HRESULT SetHostControl([MarshalAs(UnmanagedType.Interface), In] IHostControl pHostControl);
+        HRESULT SetHostControl(
+            [MarshalAs(UnmanagedType.Interface), In] IHostControl pHostControl);
 
         /// <summary>
         /// Gets an interface pointer of type <see cref="ICLRControl"/> that hosts can use to customize aspects of the common language runtime (CLR).
@@ -106,7 +108,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
-        HRESULT GetCLRControl([Out, MarshalAs(UnmanagedType.Interface)] out ICLRControl pCLRControl);
+        HRESULT GetCLRControl(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICLRControl pCLRControl);
 
         /// <summary>
         /// Unloads the managed <see cref="AppDomain"/> that corresponds to the specified numeric identifier.
@@ -130,7 +133,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
-        HRESULT UnloadAppDomain([In] int dwAppDomainID, [In] bool fWaitUntilDone);
+        HRESULT UnloadAppDomain(
+            [In] int dwAppDomainID,
+            [In] bool fWaitUntilDone);
 
         /// <summary>
         /// Specifies the <see cref="AppDomain"/> in which to execute the specified managed code.
@@ -181,7 +186,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
-        HRESULT GetCurrentAppDomainId([Out] out int pdwAppDomainId);
+        HRESULT GetCurrentAppDomainId(
+            [Out] out int pdwAppDomainId);
 
         /// <summary>
         /// Used in manifest-based ClickOnce deployment scenarios to specify the application to be activated in a new domain.<para/>
@@ -247,7 +253,7 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzAssemblyPath,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzTypeName,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzMethodName,
-            [MarshalAs(UnmanagedType.LPWStr), In] string pwzArgument, [Out] out int pReturnValue);
-
+            [MarshalAs(UnmanagedType.LPWStr), In] string pwzArgument,
+            [Out] out int pReturnValue);
     }
 }

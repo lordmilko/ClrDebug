@@ -47,6 +47,7 @@ namespace ClrDebug
         #region IEnumerable
 
         public IEnumerator<CorDebugExceptionObjectStackFrame> GetEnumerator() => this;
+
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion

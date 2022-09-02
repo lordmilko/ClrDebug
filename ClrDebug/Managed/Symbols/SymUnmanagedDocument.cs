@@ -210,7 +210,10 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
         public HRESULT TryGetCheckSum(out byte[] data)
         {
-            /*HRESULT GetCheckSum([In] int cData, [Out] out int pcData, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] data);*/
+            /*HRESULT GetCheckSum(
+            [In] int cData,
+            [Out] out int pcData,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] data);*/
             int cData = 0;
             int pcData;
             data = null;
@@ -250,7 +253,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds.</returns>
         public HRESULT TryGetSourceLength(out int pRetVal)
         {
-            /*HRESULT GetSourceLength([Out] out int pRetVal);*/
+            /*HRESULT GetSourceLength(
+            [Out] out int pRetVal);*/
             return Raw.GetSourceLength(out pRetVal);
         }
 
@@ -278,7 +282,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
         public HRESULT TryFindClosestLine(int line, out int pRetVal)
         {
-            /*HRESULT FindClosestLine([In] int line, [Out] out int pRetVal);*/
+            /*HRESULT FindClosestLine(
+            [In] int line,
+            [Out] out int pRetVal);*/
             return Raw.FindClosestLine(line, out pRetVal);
         }
 
@@ -304,7 +310,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds.</returns>
         public HRESULT TryHasEmbeddedSource(out int pRetVal)
         {
-            /*HRESULT HasEmbeddedSource([Out] out int pRetVal);*/
+            /*HRESULT HasEmbeddedSource(
+            [Out] out int pRetVal);*/
             return Raw.HasEmbeddedSource(out pRetVal);
         }
 

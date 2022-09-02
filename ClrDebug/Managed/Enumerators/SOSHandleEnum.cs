@@ -28,6 +28,7 @@ namespace ClrDebug
         #region IEnumerable
 
         public IEnumerator<SOSHandleData> GetEnumerator() => this;
+
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion

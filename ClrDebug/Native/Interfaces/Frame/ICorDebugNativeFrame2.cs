@@ -33,7 +33,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsChild([Out] out int pIsChild);
+        HRESULT IsChild(
+            [Out] out int pIsChild);
 
         /// <summary>
         /// Determines whether the specified frame is the parent of the current frame.
@@ -56,8 +57,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsMatchingParentFrame([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugNativeFrame2 pPotentialParentFrame, [Out] out int pIsParent);
+        HRESULT IsMatchingParentFrame(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugNativeFrame2 pPotentialParentFrame,
+            [Out] out int pIsParent);
 
         /// <summary>
         /// Returns the cumulative size of the parameters on the stack on x86 operating systems.
@@ -80,6 +82,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetStackParameterSize([Out] out int pSize);
+        HRESULT GetStackParameterSize(
+            [Out] out int pSize);
     }
 }

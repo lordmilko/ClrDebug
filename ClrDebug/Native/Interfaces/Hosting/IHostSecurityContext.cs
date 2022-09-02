@@ -37,6 +37,7 @@ namespace ClrDebug
         /// made. The original pointer can therefore be released.
         /// </remarks>
         [PreserveSig]
-        HRESULT Capture([Out, MarshalAs(UnmanagedType.Interface)] out IHostSecurityContext ppClonedContext);
+        HRESULT Capture(
+            [Out, MarshalAs(UnmanagedType.Interface)] out IHostSecurityContext ppClonedContext);
     }
 }

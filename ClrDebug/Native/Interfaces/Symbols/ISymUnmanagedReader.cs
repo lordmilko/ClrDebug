@@ -52,7 +52,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetUserEntryPoint([Out] out mdMethodDef pToken);
+        HRESULT GetUserEntryPoint(
+            [Out] out mdMethodDef pToken);
 
         /// <summary>
         /// Gets a symbol reader method, given a method token.
@@ -62,7 +63,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetMethod([In] mdMethodDef token, [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);
+        HRESULT GetMethod(
+            [In] mdMethodDef token,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);
 
         /// <summary>
         /// Gets a symbol reader method, given a method token and an edit-and-copy version number. Version numbers start at 1 and are incremented each time the method is changed as a result of an edit-and-copy operation.
@@ -119,8 +122,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetMethodFromDocumentPosition(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocument document,
+            [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument document,
             [In] int line,
             [In] int column,
             [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);
@@ -185,8 +187,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT UpdateSymbolStore([In, MarshalAs(UnmanagedType.LPWStr)] string filename, [MarshalAs(UnmanagedType.Interface), In]
-            IStream pIStream);
+        HRESULT UpdateSymbolStore(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string filename,
+            [MarshalAs(UnmanagedType.Interface), In] IStream pIStream);
 
         /// <summary>
         /// Replaces the existing symbol store with a delta symbol store. This method is similar to the <see cref="UpdateSymbolStore"/> method, except that the given delta acts as a complete replacement rather than an update.
@@ -196,8 +199,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ReplaceSymbolStore([In, MarshalAs(UnmanagedType.LPWStr)] string filename, [MarshalAs(UnmanagedType.Interface), In]
-            IStream pIStream);
+        HRESULT ReplaceSymbolStore(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string filename,
+            [MarshalAs(UnmanagedType.Interface), In] IStream pIStream);
 
         /// <summary>
         /// Provides the on-disk file name of the symbol store.
@@ -243,8 +247,10 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetDocumentVersion([MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocument pDoc, [Out] out int version, [Out] out bool pbCurrent);
+        HRESULT GetDocumentVersion(
+            [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument pDoc,
+            [Out] out int version,
+            [Out] out bool pbCurrent);
 
         /// <summary>
         /// Gets the method version. The method version starts at 1 and is incremented each time the method is recompiled. Recompilation can happen without changes to the method.
@@ -254,7 +260,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetMethodVersion([MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedMethod pMethod, [Out] out int version);
+        HRESULT GetMethodVersion(
+            [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedMethod pMethod,
+            [Out] out int version);
     }
 }

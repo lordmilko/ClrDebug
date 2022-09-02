@@ -92,8 +92,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetSymbolParameters(
             [In] int Start,
             [In] int Count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            DEBUG_SYMBOL_PARAMETERS[] Params);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SYMBOL_PARAMETERS[] Params);
 
         /// <summary>
         /// The ExpandSymbol method adds or removes the children of a symbol from a symbol group.

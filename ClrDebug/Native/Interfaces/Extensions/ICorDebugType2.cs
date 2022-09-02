@@ -35,6 +35,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetTypeID([Out] out COR_TYPEID id);
+        HRESULT GetTypeID(
+            [Out] out COR_TYPEID id);
     }
 }

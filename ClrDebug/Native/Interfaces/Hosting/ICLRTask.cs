@@ -4,7 +4,8 @@ using System.Threading;
 
 namespace ClrDebug
 {
-    public delegate int LPTHREAD_START_ROUTINE(IntPtr lpThreadParameter);
+    public delegate int LPTHREAD_START_ROUTINE(
+        IntPtr lpThreadParameter);
 
     /// <summary>
     /// Provides methods that allow the host to make requests of the common language runtime (CLR), or to provide notification to the CLR about the associated task.
@@ -49,7 +50,8 @@ namespace ClrDebug
         /// cref="IHostSecurityManager.RevertToSelf"/> before switching in the task.
         /// </remarks>
         [PreserveSig]
-        HRESULT SwitchIn([In] IntPtr threadHandle);
+        HRESULT SwitchIn(
+            [In] IntPtr threadHandle);
 
         /// <summary>
         /// Notifies the common language runtime (CLR) that the task represented by the current <see cref="ICLRTask"/> instance is no longer in an operable state.
@@ -86,7 +88,8 @@ namespace ClrDebug
         /// | E_FAIL                 | An unknown catastrophic failure occurred. When a method returns E_FAIL, the CLR is no longer usable within the process. Subsequent calls to hosting methods return HOST_E_CLRNOTAVAILABLE. |
         /// </returns>
         [PreserveSig]
-        HRESULT GetMemStats([Out] out COR_GC_THREAD_STATS memUsage);
+        HRESULT GetMemStats(
+            [Out] out COR_GC_THREAD_STATS memUsage);
 
         /// <summary>
         /// Informs the common language runtime (CLR) that the host has completed a task, and enables the CLR to reuse the current <see cref="ICLRTask"/> instance to represent another task.
@@ -115,7 +118,8 @@ namespace ClrDebug
         /// ExitTask.
         /// </remarks>
         [PreserveSig]
-        HRESULT Reset([In] bool fFull);
+        HRESULT Reset(
+            [In] bool fFull);
 
         /// <summary>
         /// Notifies the common language runtime (CLR) that the task represented by the current <see cref="ICLRTask"/> instance is ending, and attempts to shut the task down gracefully.
@@ -199,7 +203,8 @@ namespace ClrDebug
         /// memory resources.
         /// </remarks>
         [PreserveSig]
-        HRESULT NeedsPriorityScheduling([Out] out bool pbNeedsPriorityScheduling);
+        HRESULT NeedsPriorityScheduling(
+            [Out] out bool pbNeedsPriorityScheduling);
 
         /// <summary>
         /// Requests that the common language runtime (CLR) put aside the task that the current <see cref="ICLRTask"/> instance represents, and make the processor time available to other tasks.
@@ -237,7 +242,8 @@ namespace ClrDebug
         /// | E_FAIL                 | An unknown catastrophic failure occurred. When a method returns E_FAIL, the CLR is no longer usable within the process. Subsequent calls to hosting methods return HOST_E_CLRNOTAVAILABLE. |
         /// </returns>
         [PreserveSig]
-        HRESULT LocksHeld([Out] out int pLockCount);
+        HRESULT LocksHeld(
+            [Out] out int pLockCount);
 
         /// <summary>
         /// Instructs the common language runtime (CLR) to associate the specified identifier value with the task represented by the current <see cref="ICLRTask"/> instance.
@@ -260,6 +266,7 @@ namespace ClrDebug
         /// to be unified when viewed in the debugger's user interface.
         /// </remarks>
         [PreserveSig]
-        HRESULT SetTaskIdentifier([In] long asked);
+        HRESULT SetTaskIdentifier(
+            [In] long asked);
     }
 }

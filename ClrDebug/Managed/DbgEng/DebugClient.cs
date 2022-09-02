@@ -2143,12 +2143,10 @@ namespace ClrDebug.DbgEng
             [In] long Server,
             [In] int SystemId,
             [In] DEBUG_PROC_DESC Flags,
-            [Out, MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder ExeName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ExeName,
             [In] int ExeNameSize,
             [Out] out int ActualExeNameSize,
-            [Out, MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder Description,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Description,
             [In] int DescriptionSize,
             [Out] out int ActualDescriptionSize);*/
             StringBuilder exeName;

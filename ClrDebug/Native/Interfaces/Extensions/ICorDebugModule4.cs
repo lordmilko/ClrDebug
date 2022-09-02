@@ -10,6 +10,7 @@ namespace ClrDebug
     {
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsMappedLayout(out bool pIsMapped);
+        HRESULT IsMappedLayout(
+            out bool pIsMapped);
     }
 }

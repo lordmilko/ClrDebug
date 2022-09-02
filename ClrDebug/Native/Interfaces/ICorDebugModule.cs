@@ -19,7 +19,8 @@ namespace ClrDebug
         /// <param name="ppProcess">[out] A pointer to the address of an <see cref="ICorDebugProcess"/> object that represents the process containing this module.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetProcess([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
+        HRESULT GetProcess(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
         /// <summary>
         /// Gets the base address of the module.
@@ -31,7 +32,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetBaseAddress([Out] out CORDB_ADDRESS pAddress);
+        HRESULT GetBaseAddress(
+            [Out] out CORDB_ADDRESS pAddress);
 
         /// <summary>
         /// Gets the containing assembly for this module.
@@ -39,7 +41,8 @@ namespace ClrDebug
         /// <param name="ppAssembly">[out] A pointer to an <see cref="ICorDebugAssembly"/> object that represents the assembly containing this module.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAssembly([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAssembly ppAssembly);
+        HRESULT GetAssembly(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAssembly ppAssembly);
 
         /// <summary>
         /// Gets the file name of the module.
@@ -53,7 +56,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetName([In] int cchName, [Out] out int pcchName, [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);
+        HRESULT GetName(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);
 
         /// <summary>
         /// Controls whether the just-in-time (JIT) compiler preserves debugging information for methods within this module.
@@ -66,7 +72,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnableJITDebugging([In] bool bTrackJITInfo, [In] bool bAllowJitOpts);
+        HRESULT EnableJITDebugging(
+            [In] bool bTrackJITInfo,
+            [In] bool bAllowJitOpts);
 
         /// <summary>
         /// Controls whether the <see cref="ICorDebugManagedCallback.LoadClass"/> and <see cref="ICorDebugManagedCallback.UnloadClass"/> callbacks are called for this module.
@@ -79,7 +87,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnableClassLoadCallbacks([In] bool bClassLoadCallbacks);
+        HRESULT EnableClassLoadCallbacks(
+            [In] bool bClassLoadCallbacks);
 
         /// <summary>
         /// Gets the function that is specified by the metadata token.
@@ -92,7 +101,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetFunctionFromToken([In] mdMethodDef methodDef,
+        HRESULT GetFunctionFromToken(
+            [In] mdMethodDef methodDef,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
 
         /// <summary>
@@ -100,7 +110,9 @@ namespace ClrDebug
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetFunctionFromRVA([In] long rva, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
+        HRESULT GetFunctionFromRVA(
+            [In] long rva,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
 
         /// <summary>
         /// Gets the class specified by the metadata token.
@@ -109,14 +121,17 @@ namespace ClrDebug
         /// <param name="ppClass">[out] A pointer to the address of an <see cref="ICorDebugClass"/> object that represents the class.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetClassFromToken([In] mdTypeDef typeDef, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);
+        HRESULT GetClassFromToken(
+            [In] mdTypeDef typeDef,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);
 
         /// <summary>
         /// This method has not been implemented in the current version of the .NET Framework.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CreateBreakpoint([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModuleBreakpoint ppBreakpoint);
+        HRESULT CreateBreakpoint(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModuleBreakpoint ppBreakpoint);
 
         /// <summary>
         /// Deprecated.
@@ -139,7 +154,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetMetaDataInterface([In] ref Guid riid, [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppObj);
+        HRESULT GetMetaDataInterface(
+            [In] ref Guid riid,
+            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppObj);
 
         /// <summary>
         /// Gets the token for the table entry for this module.
@@ -151,7 +168,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetToken([Out] out mdModule pToken);
+        HRESULT GetToken(
+            [Out] out mdModule pToken);
 
         /// <summary>
         /// Gets a value that indicates whether this module is dynamic.
@@ -164,7 +182,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsDynamic([Out] out int pDynamic);
+        HRESULT IsDynamic(
+            [Out] out int pDynamic);
 
         /// <summary>
         /// Gets the value of the specified global variable.
@@ -173,7 +192,8 @@ namespace ClrDebug
         /// <param name="ppValue">[out] A pointer to the address of an <see cref="ICorDebugValue"/> object that represents the value of the specified global variable.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetGlobalVariableValue([In] mdFieldDef fieldDef,
+        HRESULT GetGlobalVariableValue(
+            [In] mdFieldDef fieldDef,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         /// <summary>
@@ -182,7 +202,8 @@ namespace ClrDebug
         /// <param name="pcBytes">[out] The size of the module in bytes. If the module was produced from the native image generator (NGen.exe), the size of the module will be zero.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSize([Out] out int pcBytes);
+        HRESULT GetSize(
+            [Out] out int pcBytes);
 
         /// <summary>
         /// Gets a value that indicates whether this module exists only in memory.
@@ -194,6 +215,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsInMemory([Out] out int pInMemory);
+        HRESULT IsInMemory(
+            [Out] out int pInMemory);
     }
 }

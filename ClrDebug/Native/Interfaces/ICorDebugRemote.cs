@@ -43,8 +43,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateProcessEx(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugRemoteTarget pRemoteTarget,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugRemoteTarget pRemoteTarget,
             [MarshalAs(UnmanagedType.LPWStr), In] string lpApplicationName,
             [MarshalAs(UnmanagedType.LPWStr), In] string lpCommandLine,
             [In] ref SECURITY_ATTRIBUTES lpProcessAttributes,
@@ -75,8 +74,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT DebugActiveProcessEx(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugRemoteTarget pRemoteTarget,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugRemoteTarget pRemoteTarget,
             [In] int dwProcessId,
             [In] bool fWin32Attach,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);

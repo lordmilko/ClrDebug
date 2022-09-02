@@ -21,7 +21,10 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
+        HRESULT GetName(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
 
         /// <summary>
         /// Gets the value of the constant.
@@ -30,7 +33,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetValue([Out, MarshalAs(UnmanagedType.Struct)] out object pValue);
+        HRESULT GetValue(
+            [Out, MarshalAs(UnmanagedType.Struct)] out object pValue);
 
         /// <summary>
         /// Gets the signature of the constant.
@@ -41,6 +45,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSignature([In] int cSig, [Out] out int pcSig, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] sig);
+        HRESULT GetSignature(
+            [In] int cSig,
+            [Out] out int pcSig,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] sig);
     }
 }

@@ -44,7 +44,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetConfiguration(out CorConfiguration pConfigurationResult)
         {
-            /*HRESULT GetConfiguration([Out, MarshalAs(UnmanagedType.Interface)] out ICorConfiguration pConfiguration);*/
+            /*HRESULT GetConfiguration(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorConfiguration pConfiguration);*/
             ICorConfiguration pConfiguration;
             HRESULT hr = Raw.GetConfiguration(out pConfiguration);
 
@@ -88,7 +89,8 @@ namespace ClrDebug
         /// </returns>
         public HRESULT TryGetDefaultDomain(out object pAppDomain)
         {
-            /*HRESULT GetDefaultDomain([Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);*/
+            /*HRESULT GetDefaultDomain(
+            [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);*/
             return Raw.GetDefaultDomain(out pAppDomain);
         }
 
@@ -150,7 +152,8 @@ namespace ClrDebug
         /// <param name="pFiberCookie">[in] Cookie that indicates the fiber to use.</param>
         public HRESULT TrySwitchInLogicalThreadState(int pFiberCookie)
         {
-            /*HRESULT SwitchInLogicalThreadState([In] ref int pFiberCookie);*/
+            /*HRESULT SwitchInLogicalThreadState(
+            [In] ref int pFiberCookie);*/
             return Raw.SwitchInLogicalThreadState(ref pFiberCookie);
         }
 
@@ -175,7 +178,8 @@ namespace ClrDebug
         /// <param name="fiberCookie">[out] Cookie that indicates the fiber being switched out.</param>
         public HRESULT TrySwitchOutLogicalThreadState(out int fiberCookie)
         {
-            /*HRESULT SwitchOutLogicalThreadState([Out] out int FiberCookie);*/
+            /*HRESULT SwitchOutLogicalThreadState(
+            [Out] out int FiberCookie);*/
             return Raw.SwitchOutLogicalThreadState(out fiberCookie);
         }
 
@@ -200,7 +204,8 @@ namespace ClrDebug
         /// <param name="pCount">[out] A pointer to the number of locks that the current thread holds.</param>
         public HRESULT TryLocksHeldByLogicalThread(out int pCount)
         {
-            /*HRESULT LocksHeldByLogicalThread([Out] out int pCount);*/
+            /*HRESULT LocksHeldByLogicalThread(
+            [Out] out int pCount);*/
             return Raw.LocksHeldByLogicalThread(out pCount);
         }
 
@@ -229,7 +234,9 @@ namespace ClrDebug
         [Obsolete]
         public HRESULT TryMapFile(IntPtr hFile, out IntPtr hMapAddress)
         {
-            /*HRESULT MapFile([In] IntPtr hFile, [Out] out IntPtr hMapAddress);*/
+            /*HRESULT MapFile(
+            [In] IntPtr hFile,
+            [Out] out IntPtr hMapAddress);*/
             return Raw.MapFile(hFile, out hMapAddress);
         }
 
@@ -374,7 +381,8 @@ namespace ClrDebug
         /// </returns>
         public HRESULT TryEnumDomains(out IntPtr hEnum)
         {
-            /*HRESULT EnumDomains([Out] out IntPtr hEnum);*/
+            /*HRESULT EnumDomains(
+            [Out] out IntPtr hEnum);*/
             return Raw.EnumDomains(out hEnum);
         }
 
@@ -409,7 +417,9 @@ namespace ClrDebug
         /// </returns>
         public HRESULT TryNextDomain(IntPtr hEnum, out object pAppDomain)
         {
-            /*HRESULT NextDomain([In] IntPtr hEnum, [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);*/
+            /*HRESULT NextDomain(
+            [In] IntPtr hEnum,
+            [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);*/
             return Raw.NextDomain(hEnum, out pAppDomain);
         }
 
@@ -439,7 +449,8 @@ namespace ClrDebug
         /// </returns>
         public HRESULT TryCloseEnum(IntPtr hEnum)
         {
-            /*HRESULT CloseEnum([In] IntPtr hEnum);*/
+            /*HRESULT CloseEnum(
+            [In] IntPtr hEnum);*/
             return Raw.CloseEnum(hEnum);
         }
 
@@ -533,7 +544,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryCreateDomainSetup(out object pAppDomainSetup)
         {
-            /*HRESULT CreateDomainSetup([Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomainSetup);*/
+            /*HRESULT CreateDomainSetup(
+            [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomainSetup);*/
             return Raw.CreateDomainSetup(out pAppDomainSetup);
         }
 
@@ -574,7 +586,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryCreateEvidence(out object pEvidence)
         {
-            /*HRESULT CreateEvidence([Out, MarshalAs(UnmanagedType.IUnknown)] out object pEvidence);*/
+            /*HRESULT CreateEvidence(
+            [Out, MarshalAs(UnmanagedType.IUnknown)] out object pEvidence);*/
             return Raw.CreateEvidence(out pEvidence);
         }
 
@@ -604,7 +617,8 @@ namespace ClrDebug
         /// </returns>
         public HRESULT TryUnloadDomain(object pAppDomain)
         {
-            /*HRESULT UnloadDomain([In, MarshalAs(UnmanagedType.IUnknown)] object pAppDomain);*/
+            /*HRESULT UnloadDomain(
+            [In, MarshalAs(UnmanagedType.IUnknown)] object pAppDomain);*/
             return Raw.UnloadDomain(pAppDomain);
         }
 
@@ -637,7 +651,8 @@ namespace ClrDebug
         /// </returns>
         public HRESULT TryCurrentDomain(out object pAppDomain)
         {
-            /*HRESULT CurrentDomain([Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);*/
+            /*HRESULT CurrentDomain(
+            [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);*/
             return Raw.CurrentDomain(out pAppDomain);
         }
 

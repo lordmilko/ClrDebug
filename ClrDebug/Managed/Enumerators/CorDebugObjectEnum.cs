@@ -42,6 +42,7 @@ namespace ClrDebug
         #region IEnumerable
 
         public IEnumerator<CORDB_ADDRESS> GetEnumerator() => this;
+
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion

@@ -27,7 +27,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetType([Out] out CorElementType pType);
+        new HRESULT GetType(
+            [Out] out CorElementType pType);
 
         /// <summary>
         /// Gets the size, in bytes, of this "ICorDebugValue" object.
@@ -40,7 +41,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetSize([Out] out int pSize);
+        new HRESULT GetSize(
+            [Out] out int pSize);
 
         /// <summary>
         /// Gets the address of this "ICorDebugValue" object, which is in the process of being debugged.
@@ -52,14 +54,16 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetAddress([Out] out CORDB_ADDRESS pAddress);
+        new HRESULT GetAddress(
+            [Out] out CORDB_ADDRESS pAddress);
 
         /// <summary>
         /// The CreateBreakpoint method is currently not implemented.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT CreateBreakpoint([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
+        new HRESULT CreateBreakpoint(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
 
         /// <summary>
         /// Gets the class of this object value.
@@ -71,7 +75,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetClass([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);
+        HRESULT GetClass(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);
 
         /// <summary>
         /// Gets the value of the specified field of the specified class for this object value.
@@ -88,15 +93,18 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetFieldValue([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugClass pClass, [In] mdFieldDef fieldDef, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
+        HRESULT GetFieldValue(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugClass pClass,
+            [In] mdFieldDef fieldDef,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         /// <summary>
         /// GetVirtualMethod is not implemented in this version of the .NET Framework.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetVirtualMethod([In] int memberRef,
+        HRESULT GetVirtualMethod(
+            [In] int memberRef,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
 
         /// <summary>
@@ -104,7 +112,8 @@ namespace ClrDebug
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetContext([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugContext ppContext);
+        HRESULT GetContext(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugContext ppContext);
 
         /// <summary>
         /// Gets a value that indicates whether this object value is a value type.
@@ -112,7 +121,8 @@ namespace ClrDebug
         /// <param name="pbIsValueClass">[out] A pointer to a Boolean value that is true if the object value, represented by this "ICorDebugObjectValue", is a value type rather than a reference type; otherwise, pbIsValueClass is false.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsValueClass([Out] out bool pbIsValueClass);
+        HRESULT IsValueClass(
+            [Out] out bool pbIsValueClass);
 
         /// <summary>
         /// GetManagedCopy is obsolete. Do not call this method.
@@ -120,7 +130,8 @@ namespace ClrDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetManagedCopy([Out, MarshalAs(UnmanagedType.IUnknown)] out object ppObject);
+        HRESULT GetManagedCopy(
+            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppObject);
 
         /// <summary>
         /// SetFromManagedCopy is obsolete. Do not call this method.
@@ -128,7 +139,7 @@ namespace ClrDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetFromManagedCopy([MarshalAs(UnmanagedType.IUnknown), In]
-            object pObject);
+        HRESULT SetFromManagedCopy(
+            [MarshalAs(UnmanagedType.IUnknown), In] object pObject);
     }
 }

@@ -77,7 +77,10 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCheckSum([In] int cData, [Out] out int pcData, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] data);
+        HRESULT GetCheckSum(
+            [In] int cData,
+            [Out] out int pcData,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] data);
 
         /// <summary>
         /// Returns the closest line that is a sequence point, given a line in this document that may or may not be a sequence point.
@@ -87,7 +90,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT FindClosestLine([In] int line, [Out] out int pRetVal);
+        HRESULT FindClosestLine(
+            [In] int line,
+            [Out] out int pRetVal);
 
         /// <summary>
         /// Returns true if the document has source embedded in the debugging symbols; otherwise, returns false.
@@ -96,7 +101,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT HasEmbeddedSource([Out] out int pRetVal);
+        HRESULT HasEmbeddedSource(
+            [Out] out int pRetVal);
 
         /// <summary>
         /// Gets the length, in bytes, of the embedded source.
@@ -105,7 +111,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSourceLength([Out] out int pRetVal);
+        HRESULT GetSourceLength(
+            [Out] out int pRetVal);
 
         /// <summary>
         /// Returns the specified range of the embedded source into the given buffer. The buffer must be large enough to hold the source.

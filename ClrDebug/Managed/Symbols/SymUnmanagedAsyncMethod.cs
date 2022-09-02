@@ -65,7 +65,8 @@
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         public HRESULT TryGetKickoffMethod(out mdToken kickoffMethod)
         {
-            /*HRESULT GetKickoffMethod([Out] out mdToken kickoffMethod);*/
+            /*HRESULT GetKickoffMethod(
+            [Out] out mdToken kickoffMethod);*/
             return Raw.GetKickoffMethod(out kickoffMethod);
         }
 
@@ -92,7 +93,8 @@
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         public HRESULT TryGetCatchHandlerILOffset(out int pRetVal)
         {
-            /*HRESULT GetCatchHandlerILOffset([Out] out int pRetVal);*/
+            /*HRESULT GetCatchHandlerILOffset(
+            [Out] out int pRetVal);*/
             return Raw.GetCatchHandlerILOffset(out pRetVal);
         }
 
@@ -119,7 +121,8 @@
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         public HRESULT TryGetAsyncStepInfoCount(out int pRetVal)
         {
-            /*HRESULT GetAsyncStepInfoCount([Out] out int pRetVal);*/
+            /*HRESULT GetAsyncStepInfoCount(
+            [Out] out int pRetVal);*/
             return Raw.GetAsyncStepInfoCount(out pRetVal);
         }
 

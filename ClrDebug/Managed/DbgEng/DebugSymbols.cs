@@ -1032,11 +1032,9 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getModuleParameters, Vtbl->GetModuleParameters);
             /*HRESULT GetModuleParameters(
             [In] int Count,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]
-            long[] Bases,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Bases,
             [In] int Start,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]
-            DEBUG_MODULE_PARAMETERS[] Params);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_MODULE_PARAMETERS[] Params);*/
             @params = new DEBUG_MODULE_PARAMETERS[count];
             HRESULT hr = getModuleParameters(Raw, count, bases, start, @params);
 
@@ -2456,8 +2454,8 @@ namespace ClrDebug.DbgEng
         /// <param name="options">[out] Receives the type formatting options. Options is a bit-set; for a description of the bit flags, see DEBUG_TYPEOPTS_XXX.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
-        /// After the type options have been changed, for each client the engine sends out notification to that client's <see 
-        ///cref="IDebugEventCallbacks"/> by passing the DEBUG_CES_TYPE_OPTIONS flag to the <see cref="IDebugEventCallbacks.ChangeSymbolState"/>
+        /// After the type options have been changed, for each client the engine sends out notification to that client's <see
+        /// cref="IDebugEventCallbacks"/> by passing the DEBUG_CES_TYPE_OPTIONS flag to the <see cref="IDebugEventCallbacks.ChangeSymbolState"/>
         /// method. For more information about types, see Types.
         /// </remarks>
         public HRESULT TryGetTypeOptions(out DEBUG_TYPEOPTS options)
@@ -2476,8 +2474,8 @@ namespace ClrDebug.DbgEng
         /// For a description of the bit flags, see DEBUG_TYPEOPTS_XXX.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
-        /// After the type options have been changed, for each client the engine sends out notification to that client's <see 
-        ///cref="IDebugEventCallbacks"/> by passing the DEBUG_CES_TYPE_OPTIONS flag to the <see cref="IDebugEventCallbacks.ChangeSymbolState"/>
+        /// After the type options have been changed, for each client the engine sends out notification to that client's <see
+        /// cref="IDebugEventCallbacks"/> by passing the DEBUG_CES_TYPE_OPTIONS flag to the <see cref="IDebugEventCallbacks.ChangeSymbolState"/>
         /// method. For more information about types, see Types.
         /// </remarks>
         public HRESULT TrySetTypeOptions(DEBUG_TYPEOPTS options)
@@ -2759,8 +2757,8 @@ namespace ClrDebug.DbgEng
         /// <param name="options">[in] Specifies type formatting options to turn on. Options is a bit-set that will be ORed with the existing type formatting options.<para/>
         /// For a description of the bit flags, see DEBUG_TYPEOPTS_XXX.</param>
         /// <remarks>
-        /// After the type options have been changed, for each client the engine sends out notification to that client's <see 
-        ///cref="IDebugEventCallbacks"/> by passing the DEBUG_CES_TYPE_OPTIONS flag to the <see cref="IDebugEventCallbacks.ChangeSymbolState"/>
+        /// After the type options have been changed, for each client the engine sends out notification to that client's <see
+        /// cref="IDebugEventCallbacks"/> by passing the DEBUG_CES_TYPE_OPTIONS flag to the <see cref="IDebugEventCallbacks.ChangeSymbolState"/>
         /// method. For more information about types, see Types.
         /// </remarks>
         public void AddTypeOptions(DEBUG_TYPEOPTS options)
@@ -2775,8 +2773,8 @@ namespace ClrDebug.DbgEng
         /// For a description of the bit flags, see DEBUG_TYPEOPTS_XXX.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
-        /// After the type options have been changed, for each client the engine sends out notification to that client's <see 
-        ///cref="IDebugEventCallbacks"/> by passing the DEBUG_CES_TYPE_OPTIONS flag to the <see cref="IDebugEventCallbacks.ChangeSymbolState"/>
+        /// After the type options have been changed, for each client the engine sends out notification to that client's <see
+        /// cref="IDebugEventCallbacks"/> by passing the DEBUG_CES_TYPE_OPTIONS flag to the <see cref="IDebugEventCallbacks.ChangeSymbolState"/>
         /// method. For more information about types, see Types.
         /// </remarks>
         public HRESULT TryAddTypeOptions(DEBUG_TYPEOPTS options)
@@ -2797,8 +2795,8 @@ namespace ClrDebug.DbgEng
         /// <param name="options">[in] Specifies the type formatting options to turn off. Options is a bit-set; the new value of the options will equal the old value AND NOT the value of Options.<para/>
         /// For a description of the bit flags, see DEBUG_TYPEOPTS_XXX.</param>
         /// <remarks>
-        /// After the type options have been changed, for each client the engine sends out notification to that client's <see 
-        ///cref="IDebugEventCallbacks"/> by passing the DEBUG_CES_TYPE_OPTIONS flag to the <see cref="IDebugEventCallbacks.ChangeSymbolState"/>
+        /// After the type options have been changed, for each client the engine sends out notification to that client's <see
+        /// cref="IDebugEventCallbacks"/> by passing the DEBUG_CES_TYPE_OPTIONS flag to the <see cref="IDebugEventCallbacks.ChangeSymbolState"/>
         /// method. For more information about types, see Types.
         /// </remarks>
         public void RemoveTypeOptions(DEBUG_TYPEOPTS options)
@@ -2813,8 +2811,8 @@ namespace ClrDebug.DbgEng
         /// For a description of the bit flags, see DEBUG_TYPEOPTS_XXX.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
-        /// After the type options have been changed, for each client the engine sends out notification to that client's <see 
-        ///cref="IDebugEventCallbacks"/> by passing the DEBUG_CES_TYPE_OPTIONS flag to the <see cref="IDebugEventCallbacks.ChangeSymbolState"/>
+        /// After the type options have been changed, for each client the engine sends out notification to that client's <see
+        /// cref="IDebugEventCallbacks"/> by passing the DEBUG_CES_TYPE_OPTIONS flag to the <see cref="IDebugEventCallbacks.ChangeSymbolState"/>
         /// method. For more information about types, see Types.
         /// </remarks>
         public HRESULT TryRemoveTypeOptions(DEBUG_TYPEOPTS options)

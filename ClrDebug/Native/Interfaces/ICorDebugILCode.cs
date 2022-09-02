@@ -25,7 +25,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetEHClauses([In] int cClauses, [Out] out int pcClauses, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out]
-            CorDebugEHClause[] clauses);
+        HRESULT GetEHClauses(
+            [In] int cClauses,
+            [Out] out int pcClauses,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] CorDebugEHClause[] clauses);
     }
 }

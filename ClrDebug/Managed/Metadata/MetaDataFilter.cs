@@ -51,7 +51,8 @@
         /// <param name="tk">[in] The token to mark as processed.</param>
         public HRESULT TryMarkToken(mdToken tk)
         {
-            /*HRESULT MarkToken([In] mdToken tk);*/
+            /*HRESULT MarkToken(
+            [In] mdToken tk);*/
             return Raw.MarkToken(tk);
         }
 
@@ -78,7 +79,9 @@
         /// <param name="pIsMarked">[out] A value that is true if tk has been processed; otherwise false.</param>
         public HRESULT TryIsTokenMarked(mdToken tk, out int pIsMarked)
         {
-            /*HRESULT IsTokenMarked([In] mdToken tk, [Out] out int pIsMarked);*/
+            /*HRESULT IsTokenMarked(
+            [In] mdToken tk,
+            [Out] out int pIsMarked);*/
             return Raw.IsTokenMarked(tk, out pIsMarked);
         }
 

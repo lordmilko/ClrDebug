@@ -27,8 +27,7 @@ namespace ClrDebug
         HRESULT GetArrayOrPointerType(
             [In] CorElementType elementType,
             [In] int nRank,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugType pTypeArg,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugType pTypeArg,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);
 
         /// <summary>
@@ -42,8 +41,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetFunctionPointerType(
             [In] int nTypeArgs,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ref ICorDebugType ppTypeArgs,
+            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugType ppTypeArgs,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);
     }
 }

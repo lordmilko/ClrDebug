@@ -39,7 +39,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetSearchPathLength(out int pcchPath)
         {
-            /*HRESULT GetSearchPathLength([Out] out int pcchPath);*/
+            /*HRESULT GetSearchPathLength(
+            [Out] out int pcchPath);*/
             return Raw.GetSearchPathLength(out pcchPath);
         }
 
@@ -120,7 +121,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetHRESULT(out HRESULT phr)
         {
-            /*HRESULT GetHRESULT([Out, MarshalAs(UnmanagedType.Error)] out HRESULT phr);*/
+            /*HRESULT GetHRESULT(
+            [Out, MarshalAs(UnmanagedType.Error)] out HRESULT phr);*/
             return Raw.GetHRESULT(out phr);
         }
 

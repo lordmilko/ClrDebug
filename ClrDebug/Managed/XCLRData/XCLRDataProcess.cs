@@ -1105,7 +1105,8 @@ namespace ClrDebug
 
         public HRESULT TryEndEnumMethodDefinitionsByAddress(IntPtr handle)
         {
-            /*HRESULT EndEnumMethodDefinitionsByAddress([In] IntPtr handle);*/
+            /*HRESULT EndEnumMethodDefinitionsByAddress(
+            [In] IntPtr handle);*/
             return Raw.EndEnumMethodDefinitionsByAddress(handle);
         }
 
@@ -1186,7 +1187,8 @@ namespace ClrDebug
 
         public HRESULT TryDumpNativeImage(CLRDATA_ADDRESS loadedBase, string name, IXCLRDataDisplay display, IXCLRLibrarySupport libSupport, IXCLRDisassemblySupport dis)
         {
-            /*HRESULT DumpNativeImage([In] CLRDATA_ADDRESS loadedBase,
+            /*HRESULT DumpNativeImage(
+            [In] CLRDATA_ADDRESS loadedBase,
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] IXCLRDataDisplay display,
             [In] IXCLRLibrarySupport libSupport,

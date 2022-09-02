@@ -18,8 +18,9 @@ namespace ClrDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CopyMetaData([MarshalAs(UnmanagedType.Interface), In]
-            IStream pIStream, [Out] out Guid pMvid);
+        HRESULT CopyMetaData(
+            [MarshalAs(UnmanagedType.Interface), In] IStream pIStream,
+            [Out] out Guid pMvid);
 
         /// <summary>
         /// GetMvid is obsolete. Do not call this method.
@@ -27,7 +28,8 @@ namespace ClrDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetMvid([Out] out Guid pMvid);
+        HRESULT GetMvid(
+            [Out] out Guid pMvid);
 
         /// <summary>
         /// GetRoDataRVA is obsolete. Do not call this method.
@@ -35,7 +37,8 @@ namespace ClrDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRoDataRVA([Out] out int pRoDataRVA);
+        HRESULT GetRoDataRVA(
+            [Out] out int pRoDataRVA);
 
         /// <summary>
         /// GetRwDataRVA is obsolete. Do not call this method.
@@ -43,7 +46,8 @@ namespace ClrDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRwDataRVA([Out] out int pRwDataRVA);
+        HRESULT GetRwDataRVA(
+            [Out] out int pRwDataRVA);
 
         /// <summary>
         /// SetPEBytes is obsolete. Do not call this method.
@@ -51,8 +55,8 @@ namespace ClrDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetPEBytes([MarshalAs(UnmanagedType.Interface), In]
-            IStream pIStream);
+        HRESULT SetPEBytes(
+            [MarshalAs(UnmanagedType.Interface), In] IStream pIStream);
 
         /// <summary>
         /// SetILMap is obsolete. Do not call this method.
@@ -60,7 +64,10 @@ namespace ClrDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetILMap([In] mdToken mdFunction, [In] int cMapSize, [In] ref COR_IL_MAP map);
+        HRESULT SetILMap(
+            [In] mdToken mdFunction,
+            [In] int cMapSize,
+            [In] ref COR_IL_MAP map);
 
         /// <summary>
         /// SetPESymbolBytes is obsolete. Do not call this method.
@@ -68,7 +75,7 @@ namespace ClrDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetPESymbolBytes([MarshalAs(UnmanagedType.Interface), In]
-            IStream pIStream);
+        HRESULT SetPESymbolBytes(
+            [MarshalAs(UnmanagedType.Interface), In] IStream pIStream);
     }
 }

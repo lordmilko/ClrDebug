@@ -44,7 +44,8 @@ namespace ClrDebug
         /// <param name="pdwProcessId">[out] The unique ID of the process.</param>
         public HRESULT TryGetID(out int pdwProcessId)
         {
-            /*HRESULT GetID([Out] out int pdwProcessId);*/
+            /*HRESULT GetID(
+            [Out] out int pdwProcessId);*/
             return Raw.GetID(out pdwProcessId);
         }
 
@@ -75,7 +76,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetHandle(out IntPtr phProcessHandle)
         {
-            /*HRESULT GetHandle([Out] out IntPtr phProcessHandle);*/
+            /*HRESULT GetHandle(
+            [Out] out IntPtr phProcessHandle);*/
             return Raw.GetHandle(out phProcessHandle);
         }
 
@@ -101,7 +103,8 @@ namespace ClrDebug
         /// </summary>
         public HRESULT TryGetObject(out CorDebugValue ppObjectResult)
         {
-            /*HRESULT GetObject([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppObject);*/
+            /*HRESULT GetObject(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppObject);*/
             ICorDebugValue ppObject;
             HRESULT hr = Raw.GetObject(out ppObject);
 
@@ -146,7 +149,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetHelperThreadID(out int pThreadID)
         {
-            /*HRESULT GetHelperThreadID([Out] out int pThreadID);*/
+            /*HRESULT GetHelperThreadID(
+            [Out] out int pThreadID);*/
             return Raw.GetHelperThreadID(out pThreadID);
         }
 
@@ -173,7 +177,9 @@ namespace ClrDebug
         /// <param name="ppThreadResult">[out] A pointer to the address of an <see cref="ICorDebugThread"/> object that represents the thread.</param>
         public HRESULT TryGetThread(int dwThreadId, out CorDebugThread ppThreadResult)
         {
-            /*HRESULT GetThread([In] int dwThreadId, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);*/
+            /*HRESULT GetThread(
+            [In] int dwThreadId,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);*/
             ICorDebugThread ppThread;
             HRESULT hr = Raw.GetThread(dwThreadId, out ppThread);
 
@@ -209,7 +215,8 @@ namespace ClrDebug
         /// </summary>
         public HRESULT TryEnumerateObjects(out CorDebugObjectEnum ppObjectsResult)
         {
-            /*HRESULT EnumerateObjects([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectEnum ppObjects);*/
+            /*HRESULT EnumerateObjects(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectEnum ppObjects);*/
             ICorDebugObjectEnum ppObjects;
             HRESULT hr = Raw.EnumerateObjects(out ppObjects);
 
@@ -254,7 +261,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryIsTransitionStub(CORDB_ADDRESS address, out bool pbTransitionStub)
         {
-            /*HRESULT IsTransitionStub([In] CORDB_ADDRESS address, [Out] out bool pbTransitionStub);*/
+            /*HRESULT IsTransitionStub(
+            [In] CORDB_ADDRESS address,
+            [Out] out bool pbTransitionStub);*/
             return Raw.IsTransitionStub(address, out pbTransitionStub);
         }
 
@@ -295,7 +304,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryIsOSSuspended(int threadID, out bool pbSuspended)
         {
-            /*HRESULT IsOSSuspended([In] int threadID, [Out] out bool pbSuspended);*/
+            /*HRESULT IsOSSuspended(
+            [In] int threadID,
+            [Out] out bool pbSuspended);*/
             return Raw.IsOSSuspended(threadID, out pbSuspended);
         }
 
@@ -335,7 +346,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetThreadContext(int threadID, int contextSize, IntPtr context)
         {
-            /*HRESULT GetThreadContext([In] int threadID, [In] int contextSize, [Out] IntPtr context);*/
+            /*HRESULT GetThreadContext(
+            [In] int threadID,
+            [In] int contextSize,
+            [Out] IntPtr context);*/
             return Raw.GetThreadContext(threadID, contextSize, context);
         }
 
@@ -375,7 +389,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetThreadContext(int threadID, int contextSize, IntPtr context)
         {
-            /*HRESULT SetThreadContext([In] int threadID, [In] int contextSize, [In] IntPtr context);*/
+            /*HRESULT SetThreadContext(
+            [In] int threadID,
+            [In] int contextSize,
+            [In] IntPtr context);*/
             return Raw.SetThreadContext(threadID, contextSize, context);
         }
 
@@ -420,7 +437,11 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryReadMemory(CORDB_ADDRESS address, int size, IntPtr buffer, out int read)
         {
-            /*HRESULT ReadMemory([In] CORDB_ADDRESS address, [In] int size, [Out] IntPtr buffer, [Out] out int read);*/
+            /*HRESULT ReadMemory(
+            [In] CORDB_ADDRESS address,
+            [In] int size,
+            [Out] IntPtr buffer,
+            [Out] out int read);*/
             return Raw.ReadMemory(address, size, buffer, out read);
         }
 
@@ -465,7 +486,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryWriteMemory(CORDB_ADDRESS address, int size, IntPtr buffer, out int written)
         {
-            /*HRESULT WriteMemory([In] CORDB_ADDRESS address, [In] int size, [In] IntPtr buffer,
+            /*HRESULT WriteMemory(
+            [In] CORDB_ADDRESS address,
+            [In] int size,
+            [In] IntPtr buffer,
             [Out] out int written);*/
             return Raw.WriteMemory(address, size, buffer, out written);
         }
@@ -500,7 +524,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryClearCurrentException(int threadID)
         {
-            /*HRESULT ClearCurrentException([In] int threadID);*/
+            /*HRESULT ClearCurrentException(
+            [In] int threadID);*/
             return Raw.ClearCurrentException(threadID);
         }
 
@@ -528,7 +553,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryEnableLogMessages(bool fOnOff)
         {
-            /*HRESULT EnableLogMessages([In] bool fOnOff);*/
+            /*HRESULT EnableLogMessages(
+            [In] bool fOnOff);*/
             return Raw.EnableLogMessages(fOnOff);
         }
 
@@ -558,7 +584,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryModifyLogSwitch(string pLogSwitchName, int lLevel)
         {
-            /*HRESULT ModifyLogSwitch([In, MarshalAs(UnmanagedType.LPWStr)] string pLogSwitchName, [In] int lLevel);*/
+            /*HRESULT ModifyLogSwitch(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string pLogSwitchName,
+            [In] int lLevel);*/
             return Raw.ModifyLogSwitch(pLogSwitchName, lLevel);
         }
 
@@ -594,7 +622,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryEnumerateAppDomains(out CorDebugAppDomainEnum ppAppDomainsResult)
         {
-            /*HRESULT EnumerateAppDomains([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAppDomainEnum ppAppDomains);*/
+            /*HRESULT EnumerateAppDomains(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAppDomainEnum ppAppDomains);*/
             ICorDebugAppDomainEnum ppAppDomains;
             HRESULT hr = Raw.EnumerateAppDomains(out ppAppDomains);
 
@@ -625,7 +654,8 @@ namespace ClrDebug
         /// </summary>
         public HRESULT TryThreadForFiberCookie(int fiberCookie, out CorDebugThread ppThreadResult)
         {
-            /*HRESULT ThreadForFiberCookie([In] int fiberCookie,
+            /*HRESULT ThreadForFiberCookie(
+            [In] int fiberCookie,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);*/
             ICorDebugThread ppThread;
             HRESULT hr = Raw.ThreadForFiberCookie(fiberCookie, out ppThread);
@@ -670,7 +700,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetVersion(out COR_VERSION version)
         {
-            /*HRESULT GetVersion([Out] out COR_VERSION version);*/
+            /*HRESULT GetVersion(
+            [Out] out COR_VERSION version);*/
             return Raw2.GetVersion(out version);
         }
 
@@ -705,7 +736,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetDesiredNGENCompilerFlags(out CorDebugJITCompilerFlags pdwFlags)
         {
-            /*HRESULT GetDesiredNGENCompilerFlags([Out] out CorDebugJITCompilerFlags pdwFlags);*/
+            /*HRESULT GetDesiredNGENCompilerFlags(
+            [Out] out CorDebugJITCompilerFlags pdwFlags);*/
             return Raw2.GetDesiredNGENCompilerFlags(out pdwFlags);
         }
 
@@ -727,7 +759,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetDesiredNGENCompilerFlags(CorDebugJITCompilerFlags pdwFlags)
         {
-            /*HRESULT SetDesiredNGENCompilerFlags([In] CorDebugJITCompilerFlags pdwFlags);*/
+            /*HRESULT SetDesiredNGENCompilerFlags(
+            [In] CorDebugJITCompilerFlags pdwFlags);*/
             return Raw2.SetDesiredNGENCompilerFlags(pdwFlags);
         }
 
@@ -760,7 +793,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetThreadForTaskID(long taskid, out CorDebugThread ppThreadResult)
         {
-            /*HRESULT GetThreadForTaskID([In] long taskid, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread2 ppThread);*/
+            /*HRESULT GetThreadForTaskID(
+            [In] long taskid,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread2 ppThread);*/
             ICorDebugThread2 ppThread;
             HRESULT hr = Raw2.GetThreadForTaskID(taskid, out ppThread);
 
@@ -853,7 +888,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryClearUnmanagedBreakpoint(CORDB_ADDRESS address)
         {
-            /*HRESULT ClearUnmanagedBreakpoint([In] CORDB_ADDRESS address);*/
+            /*HRESULT ClearUnmanagedBreakpoint(
+            [In] CORDB_ADDRESS address);*/
             return Raw2.ClearUnmanagedBreakpoint(address);
         }
 
@@ -890,7 +926,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetReferenceValueFromGCHandle(IntPtr handle, out CorDebugReferenceValue pOutValueResult)
         {
-            /*HRESULT GetReferenceValueFromGCHandle([In] IntPtr handle, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugReferenceValue pOutValue);*/
+            /*HRESULT GetReferenceValueFromGCHandle(
+            [In] IntPtr handle,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugReferenceValue pOutValue);*/
             ICorDebugReferenceValue pOutValue;
             HRESULT hr = Raw2.GetReferenceValueFromGCHandle(handle, out pOutValue);
 
@@ -944,7 +982,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetEnableCustomNotification(ICorDebugClass pClass, bool fEnable)
         {
-            /*HRESULT SetEnableCustomNotification([In, MarshalAs(UnmanagedType.Interface)] ICorDebugClass pClass, [In] bool fEnable);*/
+            /*HRESULT SetEnableCustomNotification(
+            [In, MarshalAs(UnmanagedType.Interface)] ICorDebugClass pClass,
+            [In] bool fEnable);*/
             return Raw3.SetEnableCustomNotification(pClass, fEnable);
         }
 
@@ -1012,7 +1052,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryProcessStateChanged(CorDebugStateChange change)
         {
-            /*HRESULT ProcessStateChanged([In] CorDebugStateChange change);*/
+            /*HRESULT ProcessStateChanged(
+            [In] CorDebugStateChange change);*/
             return Raw4.ProcessStateChanged(change);
         }
 
@@ -1051,7 +1092,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetGCHeapInformation(out COR_HEAPINFO pHeapInfo)
         {
-            /*HRESULT GetGCHeapInformation([Out] out COR_HEAPINFO pHeapInfo);*/
+            /*HRESULT GetGCHeapInformation(
+            [Out] out COR_HEAPINFO pHeapInfo);*/
             return Raw5.GetGCHeapInformation(out pHeapInfo);
         }
 
@@ -1103,7 +1145,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryEnumerateHeap(out CorDebugHeapEnum ppObjectsResult)
         {
-            /*HRESULT EnumerateHeap([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugHeapEnum ppObjects);*/
+            /*HRESULT EnumerateHeap(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugHeapEnum ppObjects);*/
             ICorDebugHeapEnum ppObjects;
             HRESULT hr = Raw5.EnumerateHeap(out ppObjects);
 
@@ -1165,7 +1208,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryEnumerateHeapRegions(out CorDebugHeapSegmentEnum ppRegionsResult)
         {
-            /*HRESULT EnumerateHeapRegions([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugHeapSegmentEnum ppRegions);*/
+            /*HRESULT EnumerateHeapRegions(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugHeapSegmentEnum ppRegions);*/
             ICorDebugHeapSegmentEnum ppRegions;
             HRESULT hr = Raw5.EnumerateHeapRegions(out ppRegions);
 
@@ -1206,7 +1250,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetObject(CORDB_ADDRESS addr, out CorDebugObjectValue pObjectResult)
         {
-            /*HRESULT GetObject([In] CORDB_ADDRESS addr, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectValue pObject);*/
+            /*HRESULT GetObject(
+            [In] CORDB_ADDRESS addr,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectValue pObject);*/
             ICorDebugObjectValue pObject;
             HRESULT hr = Raw5.GetObject(addr, out pObject);
 
@@ -1251,7 +1297,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryEnumerateGCReferences(int enumerateWeakReferences, out CorDebugGCReferenceEnum ppEnumResult)
         {
-            /*HRESULT EnumerateGCReferences([In] int enumerateWeakReferences,
+            /*HRESULT EnumerateGCReferences(
+            [In] int enumerateWeakReferences,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugGCReferenceEnum ppEnum);*/
             ICorDebugGCReferenceEnum ppEnum;
             HRESULT hr = Raw5.EnumerateGCReferences(enumerateWeakReferences, out ppEnum);
@@ -1301,7 +1348,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryEnumerateHandles(CorGCReferenceType types, out CorDebugGCReferenceEnum ppEnumResult)
         {
-            /*HRESULT EnumerateHandles([In] CorGCReferenceType types,
+            /*HRESULT EnumerateHandles(
+            [In] CorGCReferenceType types,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugGCReferenceEnum ppEnum);*/
             ICorDebugGCReferenceEnum ppEnum;
             HRESULT hr = Raw5.EnumerateHandles(types, out ppEnum);
@@ -1337,7 +1385,9 @@ namespace ClrDebug
         /// <param name="pId">A pointer to the <see cref="COR_TYPEID"/> value that identifies the object.</param>
         public HRESULT TryGetTypeID(CORDB_ADDRESS obj, out COR_TYPEID pId)
         {
-            /*HRESULT GetTypeID([In] CORDB_ADDRESS obj, [Out] out COR_TYPEID pId);*/
+            /*HRESULT GetTypeID(
+            [In] CORDB_ADDRESS obj,
+            [Out] out COR_TYPEID pId);*/
             return Raw5.GetTypeID(obj, out pId);
         }
 
@@ -1372,7 +1422,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetTypeForTypeID(COR_TYPEID id, out CorDebugType ppTypeResult)
         {
-            /*HRESULT GetTypeForTypeID([In] COR_TYPEID id, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);*/
+            /*HRESULT GetTypeForTypeID(
+            [In] COR_TYPEID id,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);*/
             ICorDebugType ppType;
             HRESULT hr = Raw5.GetTypeForTypeID(id, out ppType);
 
@@ -1407,7 +1459,9 @@ namespace ClrDebug
         /// <param name="pLayout">[out] A pointer to a <see cref="COR_ARRAY_LAYOUT"/> structure that contains information about the layout of the array in memory.</param>
         public HRESULT TryGetArrayLayout(COR_TYPEID id, out COR_ARRAY_LAYOUT pLayout)
         {
-            /*HRESULT GetArrayLayout([In] COR_TYPEID id, [Out] out COR_ARRAY_LAYOUT pLayout);*/
+            /*HRESULT GetArrayLayout(
+            [In] COR_TYPEID id,
+            [Out] out COR_ARRAY_LAYOUT pLayout);*/
             return Raw5.GetArrayLayout(id, out pLayout);
         }
 
@@ -1444,7 +1498,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetTypeLayout(COR_TYPEID id, out COR_TYPE_LAYOUT pLayout)
         {
-            /*HRESULT GetTypeLayout([In] COR_TYPEID id, [Out] out COR_TYPE_LAYOUT pLayout);*/
+            /*HRESULT GetTypeLayout(
+            [In] COR_TYPEID id,
+            [Out] out COR_TYPE_LAYOUT pLayout);*/
             return Raw5.GetTypeLayout(id, out pLayout);
         }
 
@@ -1479,7 +1535,11 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetTypeFields(COR_TYPEID id, out COR_FIELD[] fields)
         {
-            /*HRESULT GetTypeFields([In] COR_TYPEID id, [In] int celt, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] COR_FIELD[] fields, [Out] out int pceltNeeded);*/
+            /*HRESULT GetTypeFields(
+            [In] COR_TYPEID id,
+            [In] int celt,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] COR_FIELD[] fields,
+            [Out] out int pceltNeeded);*/
             int celt = 0;
             fields = null;
             int pceltNeeded;
@@ -1527,7 +1587,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryEnableNGENPolicy(CorDebugNGenPolicy ePolicy)
         {
-            /*HRESULT EnableNGENPolicy([In] CorDebugNGenPolicy ePolicy);*/
+            /*HRESULT EnableNGENPolicy(
+            [In] CorDebugNGenPolicy ePolicy);*/
             return Raw5.EnableNGENPolicy(ePolicy);
         }
 
@@ -1611,7 +1672,9 @@ namespace ClrDebug
         /// <param name="ppCodeResult">[out] A pointer to the address of an "ICorDebugCode" object that represents a segment of managed code.</param>
         public HRESULT TryGetCode(CORDB_ADDRESS codeAddress, out CorDebugCode ppCodeResult)
         {
-            /*HRESULT GetCode([In] CORDB_ADDRESS codeAddress, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);*/
+            /*HRESULT GetCode(
+            [In] CORDB_ADDRESS codeAddress,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);*/
             ICorDebugCode ppCode;
             HRESULT hr = Raw6.GetCode(codeAddress, out ppCode);
 
@@ -1663,7 +1726,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryEnableVirtualModuleSplitting(int enableSplitting)
         {
-            /*HRESULT EnableVirtualModuleSplitting([In] int enableSplitting);*/
+            /*HRESULT EnableVirtualModuleSplitting(
+            [In] int enableSplitting);*/
             return Raw6.EnableVirtualModuleSplitting(enableSplitting);
         }
 
@@ -1694,7 +1758,8 @@ namespace ClrDebug
         /// </returns>
         public HRESULT TryMarkDebuggerAttached(bool fIsAttached)
         {
-            /*HRESULT MarkDebuggerAttached([In] bool fIsAttached);*/
+            /*HRESULT MarkDebuggerAttached(
+            [In] bool fIsAttached);*/
             return Raw6.MarkDebuggerAttached(fIsAttached);
         }
 
@@ -1776,7 +1841,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetWriteableMetadataUpdateMode(WriteableMetadataUpdateMode flags)
         {
-            /*HRESULT SetWriteableMetadataUpdateMode([In] WriteableMetadataUpdateMode flags);*/
+            /*HRESULT SetWriteableMetadataUpdateMode(
+            [In] WriteableMetadataUpdateMode flags);*/
             return Raw7.SetWriteableMetadataUpdateMode(flags);
         }
 
@@ -1810,7 +1876,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryEnableExceptionCallbacksOutsideOfMyCode(int enableExceptionsOutsideOfJMC)
         {
-            /*HRESULT EnableExceptionCallbacksOutsideOfMyCode([In] int enableExceptionsOutsideOfJMC);*/
+            /*HRESULT EnableExceptionCallbacksOutsideOfMyCode(
+            [In] int enableExceptionsOutsideOfJMC);*/
             return Raw8.EnableExceptionCallbacksOutsideOfMyCode(enableExceptionsOutsideOfJMC);
         }
 
@@ -1830,7 +1897,8 @@ namespace ClrDebug
 
         public HRESULT TryEnableGCNotificationEvents(bool fEnable)
         {
-            /*HRESULT EnableGCNotificationEvents(bool fEnable);*/
+            /*HRESULT EnableGCNotificationEvents(
+            bool fEnable);*/
             return Raw10.EnableGCNotificationEvents(fEnable);
         }
 
@@ -1855,7 +1923,8 @@ namespace ClrDebug
 
         public HRESULT TryEnumerateLoaderHeapMemoryRegions(out CorDebugMemoryRangeEnum ppRangesResult)
         {
-            /*HRESULT EnumerateLoaderHeapMemoryRegions([MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryRangeEnum ppRanges);*/
+            /*HRESULT EnumerateLoaderHeapMemoryRegions(
+            [MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryRangeEnum ppRanges);*/
             ICorDebugMemoryRangeEnum ppRanges;
             HRESULT hr = Raw11.EnumerateLoaderHeapMemoryRegions(out ppRanges);
 

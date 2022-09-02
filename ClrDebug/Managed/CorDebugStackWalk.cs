@@ -54,7 +54,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetFrame(out CorDebugFrame pFrameResult)
         {
-            /*HRESULT GetFrame([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame pFrame);*/
+            /*HRESULT GetFrame(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame pFrame);*/
             ICorDebugFrame pFrame;
             HRESULT hr = Raw.GetFrame(out pFrame);
 
@@ -161,7 +162,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetContext(CorDebugSetContextFlag flag, int contextSize, IntPtr context)
         {
-            /*HRESULT SetContext([In] CorDebugSetContextFlag flag, [In] int contextSize, [In] IntPtr context);*/
+            /*HRESULT SetContext(
+            [In] CorDebugSetContextFlag flag,
+            [In] int contextSize,
+            [In] IntPtr context);*/
             return Raw.SetContext(flag, contextSize, context);
         }
 

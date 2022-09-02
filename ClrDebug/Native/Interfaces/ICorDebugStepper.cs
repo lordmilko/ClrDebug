@@ -30,7 +30,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsActive([Out] out bool pbActive);
+        HRESULT IsActive(
+            [Out] out bool pbActive);
 
         /// <summary>
         /// Causes this <see cref="ICorDebugStepper"/> to cancel the last step command that it received.
@@ -57,7 +58,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetInterceptMask([In] CorDebugIntercept mask);
+        HRESULT SetInterceptMask(
+            [In] CorDebugIntercept mask);
 
         /// <summary>
         /// Sets a value that specifies the type of unmapped code in which execution will halt.
@@ -72,7 +74,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetUnmappedStopMask([In] CorDebugUnmappedStop mask);
+        HRESULT SetUnmappedStopMask(
+            [In] CorDebugUnmappedStop mask);
 
         /// <summary>
         /// Causes this <see cref="ICorDebugStepper"/> to single-step through its containing thread, and optionally, to continue single-stepping through functions that are called within the thread.
@@ -85,7 +88,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Step([In] bool bStepIn);
+        HRESULT Step(
+            [In] bool bStepIn);
 
         /// <summary>
         /// Causes this <see cref="ICorDebugStepper"/> to single-step through its containing thread, and to return when it reaches code beyond the last of the specified ranges.
@@ -128,6 +132,7 @@ namespace ClrDebug
         /// The default value is true.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetRangeIL([In] bool bIL);
+        HRESULT SetRangeIL(
+            [In] bool bIL);
     }
 }

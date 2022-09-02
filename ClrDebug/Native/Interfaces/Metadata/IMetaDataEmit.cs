@@ -296,7 +296,8 @@ namespace ClrDebug
         /// </summary>
         /// <param name="td">[in] An <see cref="mdTypeDef"/> metadata token that represents the type for which the class layout will be deleted.</param>
         [PreserveSig]
-        HRESULT DeleteClassLayout([In] mdTypeDef td);
+        HRESULT DeleteClassLayout(
+            [In] mdTypeDef td);
 
         /// <summary>
         /// Sets the PInvoke marshalling information for the field, method return, or method parameter referenced by the specified token.
@@ -315,7 +316,8 @@ namespace ClrDebug
         /// </summary>
         /// <param name="tk">[in] An <see cref="mdFieldDef"/> or <see cref="mdParamDef"/> token that represents the field or parameter for which to delete the marshalling metadata signature.</param>
         [PreserveSig]
-        HRESULT DeleteFieldMarshal([In] mdToken tk);
+        HRESULT DeleteFieldMarshal(
+            [In] mdToken tk);
 
         /// <summary>
         /// Creates a definition for a permission set with the specified metadata signature, and gets a token to that permission set definition.
@@ -414,7 +416,8 @@ namespace ClrDebug
         /// </summary>
         /// <param name="tkObj">[in] The token to be deleted.</param>
         [PreserveSig]
-        HRESULT DeleteToken([In] mdToken tkObj);
+        HRESULT DeleteToken(
+            [In] mdToken tkObj);
 
         /// <summary>
         /// Sets or updates the feature, stored at the specified relative virtual address, of a method defined by a prior call to <see cref="DefineMethod"/>.
@@ -514,7 +517,8 @@ namespace ClrDebug
         /// </summary>
         /// <param name="tk">[in] An <see cref="mdFieldDef"/> or <see cref="mdMethodDef"/> token that represents the object for which to delete the PInvoke mapping metadata.</param>
         [PreserveSig]
-        HRESULT DeletePinvokeMap([In] mdToken tk);
+        HRESULT DeletePinvokeMap(
+            [In] mdToken tk);
 
         /// <summary>
         /// Creates a definition for a custom attribute with the specified metadata signature, to be attached to the specified object, and gets a token to that custom attribute definition.
@@ -698,7 +702,8 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pImport">[in] Pointer to an IUnknown object that represents the delta metadata from the portable executable (PE) file. The delta metadata is the block of metadata that includes the changes that were made to the copy of the module's actual metadata.</param>
         [PreserveSig]
-        HRESULT ApplyEditAndContinue([In, MarshalAs(UnmanagedType.Interface)] IMetaDataImport pImport);
+        HRESULT ApplyEditAndContinue(
+            [In, MarshalAs(UnmanagedType.Interface)] IMetaDataImport pImport);
 
         /// <summary>
         /// Imports an assembly into the current scope and gets a new metadata signature for the merged scope.

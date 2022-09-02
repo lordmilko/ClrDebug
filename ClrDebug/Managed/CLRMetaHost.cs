@@ -73,7 +73,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetRuntime(string pwzVersion, Guid riid, out object ppRuntime)
         {
-            /*HRESULT GetRuntime([MarshalAs(UnmanagedType.LPWStr), In] string pwzVersion, [In] ref Guid riid, [Out, MarshalAs(UnmanagedType.Interface)] out object ppRuntime);*/
+            /*HRESULT GetRuntime(
+            [MarshalAs(UnmanagedType.LPWStr), In] string pwzVersion,
+            [In] ref Guid riid,
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppRuntime);*/
             return Raw.GetRuntime(pwzVersion, ref riid, out ppRuntime);
         }
 
@@ -113,9 +116,10 @@ namespace ClrDebug
         /// </returns>
         public HRESULT TryGetVersionFromFile(string pwzFilePath, out string pwzBufferResult)
         {
-            /*HRESULT GetVersionFromFile([MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
-            [MarshalAs(UnmanagedType.LPWStr), Out]
-            StringBuilder pwzBuffer, [In, Out] ref int pcchBuffer);*/
+            /*HRESULT GetVersionFromFile(
+            [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
+            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder pwzBuffer,
+            [In, Out] ref int pcchBuffer);*/
             StringBuilder pwzBuffer;
             int pcchBuffer = default(int);
             HRESULT hr = Raw.GetVersionFromFile(pwzFilePath, null, ref pcchBuffer);
@@ -173,7 +177,8 @@ namespace ClrDebug
         /// </returns>
         public HRESULT TryEnumerateInstalledRuntimes(out EnumUnknown ppEnumeratorResult)
         {
-            /*HRESULT EnumerateInstalledRuntimes([Out, MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppEnumerator);*/
+            /*HRESULT EnumerateInstalledRuntimes(
+            [Out, MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppEnumerator);*/
             IEnumUnknown ppEnumerator;
             HRESULT hr = Raw.EnumerateInstalledRuntimes(out ppEnumerator);
 
@@ -224,7 +229,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryEnumerateLoadedRuntimes(IntPtr hndProcess, out EnumUnknown ppEnumeratorResult)
         {
-            /*HRESULT EnumerateLoadedRuntimes([In] IntPtr hndProcess, [Out, MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppEnumerator);*/
+            /*HRESULT EnumerateLoadedRuntimes(
+            [In] IntPtr hndProcess,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppEnumerator);*/
             IEnumUnknown ppEnumerator;
             HRESULT hr = Raw.EnumerateLoadedRuntimes(hndProcess, out ppEnumerator);
 
@@ -276,8 +283,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryRequestRuntimeLoadedNotification(RuntimeLoadedCallback pCallbackFunction)
         {
-            /*HRESULT RequestRuntimeLoadedNotification([MarshalAs(UnmanagedType.FunctionPtr), In]
-            RuntimeLoadedCallback pCallbackFunction);*/
+            /*HRESULT RequestRuntimeLoadedNotification(
+            [MarshalAs(UnmanagedType.FunctionPtr), In] RuntimeLoadedCallback pCallbackFunction);*/
             return Raw.RequestRuntimeLoadedNotification(pCallbackFunction);
         }
 
@@ -338,7 +345,8 @@ namespace ClrDebug
         /// <returns>This method never returns, so its return value is undefined.</returns>
         public HRESULT TryExitProcess(int iExitCode)
         {
-            /*HRESULT ExitProcess([In] int iExitCode);*/
+            /*HRESULT ExitProcess(
+            [In] int iExitCode);*/
             return Raw.ExitProcess(iExitCode);
         }
 

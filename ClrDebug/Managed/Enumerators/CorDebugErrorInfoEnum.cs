@@ -43,6 +43,7 @@ namespace ClrDebug
         #region IEnumerable
 
         public IEnumerator<CorDebugEditAndContinueErrorInfo> GetEnumerator() => this;
+
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion

@@ -64,7 +64,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetContext([In] CorDebugSetContextFlag flag, [In] int contextSize, [In] IntPtr context);
+        HRESULT SetContext(
+            [In] CorDebugSetContextFlag flag,
+            [In] int contextSize,
+            [In] IntPtr context);
 
         /// <summary>
         /// Moves the <see cref="ICorDebugStackWalk"/> object to the next frame.
@@ -109,6 +112,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetFrame([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame pFrame);
+        HRESULT GetFrame(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame pFrame);
     }
 }

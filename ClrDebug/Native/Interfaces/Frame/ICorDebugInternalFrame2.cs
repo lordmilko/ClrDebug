@@ -34,7 +34,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAddress([Out] out CORDB_ADDRESS pAddress);
+        HRESULT GetAddress(
+            [Out] out CORDB_ADDRESS pAddress);
 
         /// <summary>
         /// Checks whether the this internal frame is closer to the leaf than the specified <see cref="ICorDebugFrame"/> object.
@@ -55,7 +56,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsCloserToLeaf([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFrame pFrameToCompare, [Out] out int pIsCloser);
+        HRESULT IsCloserToLeaf(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugFrame pFrameToCompare,
+            [Out] out int pIsCloser);
     }
 }

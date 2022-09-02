@@ -26,7 +26,8 @@
 
         public HRESULT TryGetTarget(out CorDebugReferenceValue ppObjectResult)
         {
-            /*HRESULT GetTarget([MarshalAs(UnmanagedType.Interface)] out ICorDebugReferenceValue ppObject);*/
+            /*HRESULT GetTarget(
+            [MarshalAs(UnmanagedType.Interface)] out ICorDebugReferenceValue ppObject);*/
             ICorDebugReferenceValue ppObject;
             HRESULT hr = Raw.GetTarget(out ppObject);
 
@@ -54,7 +55,8 @@
 
         public HRESULT TryGetFunction(out CorDebugFunction ppFunctionResult)
         {
-            /*HRESULT GetFunction([MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
+            /*HRESULT GetFunction(
+            [MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
             ICorDebugFunction ppFunction;
             HRESULT hr = Raw.GetFunction(out ppFunction);
 

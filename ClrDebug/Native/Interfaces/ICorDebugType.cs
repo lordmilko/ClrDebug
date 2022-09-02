@@ -29,7 +29,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetType([Out] out CorElementType ty);
+        HRESULT GetType(
+            [Out] out CorElementType ty);
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugClass"/> that represents the uninstantiated generic type.
@@ -42,7 +43,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetClass([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);
+        HRESULT GetClass(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugTypeEnum"/> that contains the <see cref="Type"/> parameters of the class referenced by this <see cref="ICorDebugType"/>.
@@ -55,7 +57,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateTypeParameters([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppTyParEnum);
+        HRESULT EnumerateTypeParameters(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppTyParEnum);
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugType"/> that represents the first <see cref="Type"/> parameter of the type represented by this <see cref="ICorDebugType"/>.
@@ -68,7 +71,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetFirstTypeParameter([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType value);
+        HRESULT GetFirstTypeParameter(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType value);
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugType"/> that represents the base type, if one exists, of the type represented by this <see cref="ICorDebugType"/>.
@@ -80,7 +84,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetBase([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType pBase);
+        HRESULT GetBase(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType pBase);
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugValue"/> object that contains the value of the static field referenced by the specified field token in the specified stack frame.
@@ -99,8 +104,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetStaticFieldValue([In] mdFieldDef fieldDef, [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFrame pFrame, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
+        HRESULT GetStaticFieldValue(
+            [In] mdFieldDef fieldDef,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugFrame pFrame,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         /// <summary>
         /// Gets the number of dimensions in an array type.
@@ -108,6 +115,7 @@ namespace ClrDebug
         /// <param name="pnRank">[out] A pointer to the number of dimensions.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRank([Out] out int pnRank);
+        HRESULT GetRank(
+            [Out] out int pnRank);
     }
 }

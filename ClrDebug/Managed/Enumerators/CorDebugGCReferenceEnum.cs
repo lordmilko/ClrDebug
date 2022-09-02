@@ -48,6 +48,7 @@ namespace ClrDebug
         #region IEnumerable
 
         public IEnumerator<COR_GC_REFERENCE> GetEnumerator() => this;
+
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion

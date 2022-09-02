@@ -26,7 +26,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetJMCStatus([In] bool bIsJustMyCode);
+        HRESULT SetJMCStatus(
+            [In] bool bIsJustMyCode);
 
         /// <summary>
         /// Gets a value that indicates whether the function that is represented by this <see cref="ICorDebugFunction2"/> object is marked as user code.
@@ -37,14 +38,16 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetJMCStatus([Out] out bool pbIsJustMyCode);
+        HRESULT GetJMCStatus(
+            [Out] out bool pbIsJustMyCode);
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugCodeEnum"/> object that contains the native code statements in the function referenced by this <see cref="ICorDebugFunction2"/> object.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateNativeCode([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCodeEnum ppCodeEnum);
+        HRESULT EnumerateNativeCode(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCodeEnum ppCodeEnum);
 
         /// <summary>
         /// Gets the Edit and Continue version of this function.
@@ -64,6 +67,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetVersionNumber([Out] out int pnVersion);
+        HRESULT GetVersionNumber(
+            [Out] out int pnVersion);
     }
 }

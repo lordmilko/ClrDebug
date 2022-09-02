@@ -54,7 +54,8 @@ namespace ClrDebug
         /// </returns>
         public HRESULT TryGetDacl(out IntPtr pacl)
         {
-            /*HRESULT GetDacl([Out] out IntPtr pacl);*/
+            /*HRESULT GetDacl(
+            [Out] out IntPtr pacl);*/
             return Raw.GetDacl(out pacl);
         }
 
@@ -69,7 +70,8 @@ namespace ClrDebug
         /// </returns>
         public HRESULT TrySetDacl(IntPtr pacl)
         {
-            /*HRESULT SetDacl([In] IntPtr pacl);*/
+            /*HRESULT SetDacl(
+            [In] IntPtr pacl);*/
             return Raw.SetDacl(pacl);
         }
 
@@ -109,7 +111,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryIsDebuggerAttached(out bool pbAttached)
         {
-            /*HRESULT IsDebuggerAttached([Out] out bool pbAttached);*/
+            /*HRESULT IsDebuggerAttached(
+            [Out] out bool pbAttached);*/
             return Raw.IsDebuggerAttached(out pbAttached);
         }
 
@@ -122,8 +125,8 @@ namespace ClrDebug
         /// <param name="dwConnectionId">[in] An identifier to associate with the list of common language runtime (CLR) tasks.</param>
         /// <param name="szConnectionName">[in] A friendly name to associate with the list of CLR tasks.</param>
         /// <remarks>
-        /// <see cref="ICLRDebugManager"/> provides three methods, BeginConnection, <see cref="SetConnectionTasks"/>, and <see 
-        ///cref="EndConnection"/>, for associating task lists with identifiers and friendly names.
+        /// <see cref="ICLRDebugManager"/> provides three methods, BeginConnection, <see cref="SetConnectionTasks"/>, and <see
+        /// cref="EndConnection"/>, for associating task lists with identifiers and friendly names.
         /// </remarks>
         public void BeginConnection(int dwConnectionId, string szConnectionName)
         {
@@ -148,8 +151,8 @@ namespace ClrDebug
         /// | E_OUTOFMEMORY          | Not enough memory could be allocated to hold the list of tasks associated with this connection.                                                                                             |
         /// </returns>
         /// <remarks>
-        /// <see cref="ICLRDebugManager"/> provides three methods, BeginConnection, <see cref="SetConnectionTasks"/>, and <see 
-        ///cref="EndConnection"/>, for associating task lists with identifiers and friendly names.
+        /// <see cref="ICLRDebugManager"/> provides three methods, BeginConnection, <see cref="SetConnectionTasks"/>, and <see
+        /// cref="EndConnection"/>, for associating task lists with identifiers and friendly names.
         /// </remarks>
         public HRESULT TryBeginConnection(int dwConnectionId, string szConnectionName)
         {
@@ -244,7 +247,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryEndConnection(int dwConnectionId)
         {
-            /*HRESULT EndConnection([In] int dwConnectionId);*/
+            /*HRESULT EndConnection(
+            [In] int dwConnectionId);*/
             return Raw.EndConnection(dwConnectionId);
         }
 
@@ -273,7 +277,8 @@ namespace ClrDebug
         /// </returns>
         public HRESULT TrySetSymbolReadingPolicy(ESymbolReadingPolicy policy)
         {
-            /*HRESULT SetSymbolReadingPolicy([In] ESymbolReadingPolicy policy);*/
+            /*HRESULT SetSymbolReadingPolicy(
+            [In] ESymbolReadingPolicy policy);*/
             return Raw.SetSymbolReadingPolicy(policy);
         }
 

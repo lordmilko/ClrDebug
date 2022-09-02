@@ -22,7 +22,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsManaged([Out] out bool pbManaged);
+        HRESULT IsManaged(
+            [Out] out bool pbManaged);
 
         /// <summary>
         /// Gets an enumerator for the application domains in the process that is referenced by this <see cref="ICorPublishProcess"/>.
@@ -36,7 +37,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumAppDomains([Out, MarshalAs(UnmanagedType.Interface)] out ICorPublishAppDomainEnum ppEnum);
+        HRESULT EnumAppDomains(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorPublishAppDomainEnum ppEnum);
 
         /// <summary>
         /// Gets the operating system identifier for this process.
@@ -44,7 +46,8 @@ namespace ClrDebug
         /// <param name="pid">[out] A pointer to the identifier of the process represented by this <see cref="ICorPublishProcess"/> object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetProcessID([Out] out int pid);
+        HRESULT GetProcessID(
+            [Out] out int pid);
 
         /// <summary>
         /// Gets the full path of the executable for the process referenced by this <see cref="ICorPublishProcess"/>.
@@ -54,6 +57,9 @@ namespace ClrDebug
         /// <param name="szName">[out] An array to store the name, including the full path, of the executable. The name is null-terminated.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetDisplayName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
+        HRESULT GetDisplayName(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
     }
 }

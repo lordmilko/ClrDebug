@@ -52,7 +52,9 @@
         /// </remarks>
         public HRESULT TryEnumProcesses(COR_PUB_ENUMPROCESS type, out CorPublishProcessEnum ppIEnumResult)
         {
-            /*HRESULT EnumProcesses([In] COR_PUB_ENUMPROCESS Type, [Out, MarshalAs(UnmanagedType.Interface)] out ICorPublishProcessEnum ppIEnum);*/
+            /*HRESULT EnumProcesses(
+            [In] COR_PUB_ENUMPROCESS Type,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorPublishProcessEnum ppIEnum);*/
             ICorPublishProcessEnum ppIEnum;
             HRESULT hr = Raw.EnumProcesses(type, out ppIEnum);
 
@@ -93,7 +95,9 @@
         /// </remarks>
         public HRESULT TryGetProcess(int pid, out CorPublishProcess ppProcessResult)
         {
-            /*HRESULT GetProcess([In] int pid, [Out, MarshalAs(UnmanagedType.Interface)] out ICorPublishProcess ppProcess);*/
+            /*HRESULT GetProcess(
+            [In] int pid,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorPublishProcess ppProcess);*/
             ICorPublishProcess ppProcess;
             HRESULT hr = Raw.GetProcess(pid, out ppProcess);
 

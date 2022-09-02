@@ -19,7 +19,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSearchPathLength([Out] out int pcchPath);
+        HRESULT GetSearchPathLength(
+            [Out] out int pcchPath);
 
         /// <summary>
         /// Gets the search path.
@@ -42,6 +43,7 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetHRESULT([Out, MarshalAs(UnmanagedType.Error)] out HRESULT phr);
+        HRESULT GetHRESULT(
+            [Out, MarshalAs(UnmanagedType.Error)] out HRESULT phr);
     }
 }

@@ -77,8 +77,7 @@ namespace ClrDebug
         public HRESULT TryCreateProcessEx(ICorDebugRemoteTarget pRemoteTarget, string lpApplicationName, string lpCommandLine, SECURITY_ATTRIBUTES lpProcessAttributes, SECURITY_ATTRIBUTES lpThreadAttributes, bool bInheritHandles, int dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, STARTUPINFO lpStartupInfo, PROCESS_INFORMATION lpProcessInformation, CorDebugCreateProcessFlags debuggingFlags, out CorDebugProcess ppProcessResult)
         {
             /*HRESULT CreateProcessEx(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugRemoteTarget pRemoteTarget,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugRemoteTarget pRemoteTarget,
             [MarshalAs(UnmanagedType.LPWStr), In] string lpApplicationName,
             [MarshalAs(UnmanagedType.LPWStr), In] string lpCommandLine,
             [In] ref SECURITY_ATTRIBUTES lpProcessAttributes,
@@ -140,8 +139,7 @@ namespace ClrDebug
         public HRESULT TryDebugActiveProcessEx(ICorDebugRemoteTarget pRemoteTarget, int dwProcessId, bool fWin32Attach, out CorDebugProcess ppProcessResult)
         {
             /*HRESULT DebugActiveProcessEx(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugRemoteTarget pRemoteTarget,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugRemoteTarget pRemoteTarget,
             [In] int dwProcessId,
             [In] bool fWin32Attach,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/

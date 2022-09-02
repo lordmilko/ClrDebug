@@ -39,6 +39,7 @@ namespace ClrDebug
         #region IEnumerable
 
         public IEnumerator<COR_MEMORY_RANGE> GetEnumerator() => this;
+
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion

@@ -40,7 +40,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetMethod(out SymUnmanagedMethod pRetValResult)
         {
-            /*HRESULT GetMethod([Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);*/
+            /*HRESULT GetMethod(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);*/
             ISymUnmanagedMethod pRetVal;
             HRESULT hr = Raw.GetMethod(out pRetVal);
 
@@ -76,7 +77,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetParent(out SymUnmanagedScope pRetValResult)
         {
-            /*HRESULT GetParent([Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedScope pRetVal);*/
+            /*HRESULT GetParent(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedScope pRetVal);*/
             ISymUnmanagedScope pRetVal;
             HRESULT hr = Raw.GetParent(out pRetVal);
 
@@ -165,7 +167,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetStartOffset(out int pRetVal)
         {
-            /*HRESULT GetStartOffset([Out] out int pRetVal);*/
+            /*HRESULT GetStartOffset(
+            [Out] out int pRetVal);*/
             return Raw.GetStartOffset(out pRetVal);
         }
 
@@ -193,7 +196,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetEndOffset(out int pRetVal)
         {
-            /*HRESULT GetEndOffset([Out] out int pRetVal);*/
+            /*HRESULT GetEndOffset(
+            [Out] out int pRetVal);*/
             return Raw.GetEndOffset(out pRetVal);
         }
 
@@ -221,7 +225,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetLocalCount(out int pRetVal)
         {
-            /*HRESULT GetLocalCount([Out] out int pRetVal);*/
+            /*HRESULT GetLocalCount(
+            [Out] out int pRetVal);*/
             return Raw.GetLocalCount(out pRetVal);
         }
 
@@ -361,7 +366,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetConstantCount(out int pRetVal)
         {
-            /*HRESULT GetConstantCount([Out] out int pRetVal);*/
+            /*HRESULT GetConstantCount(
+            [Out] out int pRetVal);*/
             return Raw2.GetConstantCount(out pRetVal);
         }
 
@@ -389,7 +395,10 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetConstants(out SymUnmanagedConstant[] constantsResult)
         {
-            /*HRESULT GetConstants([In] int cConstants, [Out] out int pcConstants, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] ISymUnmanagedConstant[] constants);*/
+            /*HRESULT GetConstants(
+            [In] int cConstants,
+            [Out] out int pcConstants,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] ISymUnmanagedConstant[] constants);*/
             int cConstants = 0;
             int pcConstants;
             ISymUnmanagedConstant[] constants;

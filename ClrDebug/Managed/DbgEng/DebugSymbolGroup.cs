@@ -260,8 +260,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetSymbolParameters(
             [In] int Start,
             [In] int Count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            DEBUG_SYMBOL_PARAMETERS[] Params);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SYMBOL_PARAMETERS[] Params);*/
             @params = new DEBUG_SYMBOL_PARAMETERS[count];
             HRESULT hr = getSymbolParameters(Raw, start, count, @params);
 

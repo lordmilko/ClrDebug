@@ -59,7 +59,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryWriteVirtual(CORDB_ADDRESS address, IntPtr pBuffer, int bytesRequested)
         {
-            /*HRESULT WriteVirtual([In] CORDB_ADDRESS address, [In] IntPtr pBuffer, [In] int bytesRequested);*/
+            /*HRESULT WriteVirtual(
+            [In] CORDB_ADDRESS address,
+            [In] IntPtr pBuffer,
+            [In] int bytesRequested);*/
             return Raw.WriteVirtual(address, pBuffer, bytesRequested);
         }
 
@@ -95,7 +98,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetThreadContext(int dwThreadId, int contextSize, IntPtr pContext)
         {
-            /*HRESULT SetThreadContext([In] int dwThreadId, [In] int contextSize, [In] IntPtr pContext);*/
+            /*HRESULT SetThreadContext(
+            [In] int dwThreadId,
+            [In] int contextSize,
+            [In] IntPtr pContext);*/
             return Raw.SetThreadContext(dwThreadId, contextSize, pContext);
         }
 
@@ -133,7 +139,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryContinueStatusChanged(int dwThreadId, int continueStatus)
         {
-            /*HRESULT ContinueStatusChanged([In] int dwThreadId, [In] int continueStatus);*/
+            /*HRESULT ContinueStatusChanged(
+            [In] int dwThreadId,
+            [In] int continueStatus);*/
             return Raw.ContinueStatusChanged(dwThreadId, continueStatus);
         }
 

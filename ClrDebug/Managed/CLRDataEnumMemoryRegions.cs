@@ -46,8 +46,7 @@
         public HRESULT TryEnumMemoryRegions(ICLRDataEnumMemoryRegionsCallback callback, int miniDumpFlags, CLRDataEnumMemoryFlags clrFlags)
         {
             /*HRESULT EnumMemoryRegions(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICLRDataEnumMemoryRegionsCallback callback,
+            [MarshalAs(UnmanagedType.Interface), In] ICLRDataEnumMemoryRegionsCallback callback,
             [In] int miniDumpFlags,
             [In] CLRDataEnumMemoryFlags clrFlags);*/
             return Raw.EnumMemoryRegions(callback, miniDumpFlags, clrFlags);

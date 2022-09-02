@@ -63,7 +63,8 @@ namespace ClrDebug
         /// </returns>
         public HRESULT TryGetMemStats(out COR_GC_THREAD_STATS memUsage)
         {
-            /*HRESULT GetMemStats([Out] out COR_GC_THREAD_STATS memUsage);*/
+            /*HRESULT GetMemStats(
+            [Out] out COR_GC_THREAD_STATS memUsage);*/
             return Raw.GetMemStats(out memUsage);
         }
 
@@ -76,8 +77,8 @@ namespace ClrDebug
         /// <param name="threadHandle">[in] A handle to the physical thread on which the task represented by the current <see cref="ICLRTask"/> instance is executing.</param>
         /// <remarks>
         /// The threadHandle parameter represents a handle to the operating system thread on which the task represented by
-        /// the current <see cref="ICLRTask"/> instance has been scheduled. If impersonation has occurred on this thread, you must call <see 
-        ///cref="HostSecurityManager.RevertToSelf"/> before switching in the task.
+        /// the current <see cref="ICLRTask"/> instance has been scheduled. If impersonation has occurred on this thread, you must call <see
+        /// cref="HostSecurityManager.RevertToSelf"/> before switching in the task.
         /// </remarks>
         public void SwitchIn(IntPtr threadHandle)
         {
@@ -101,12 +102,13 @@ namespace ClrDebug
         /// </returns>
         /// <remarks>
         /// The threadHandle parameter represents a handle to the operating system thread on which the task represented by
-        /// the current <see cref="ICLRTask"/> instance has been scheduled. If impersonation has occurred on this thread, you must call <see 
-        ///cref="HostSecurityManager.RevertToSelf"/> before switching in the task.
+        /// the current <see cref="ICLRTask"/> instance has been scheduled. If impersonation has occurred on this thread, you must call <see
+        /// cref="HostSecurityManager.RevertToSelf"/> before switching in the task.
         /// </remarks>
         public HRESULT TrySwitchIn(IntPtr threadHandle)
         {
-            /*HRESULT SwitchIn([In] IntPtr threadHandle);*/
+            /*HRESULT SwitchIn(
+            [In] IntPtr threadHandle);*/
             return Raw.SwitchIn(threadHandle);
         }
 
@@ -200,7 +202,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryReset(bool fFull)
         {
-            /*HRESULT Reset([In] bool fFull);*/
+            /*HRESULT Reset(
+            [In] bool fFull);*/
             return Raw.Reset(fFull);
         }
 
@@ -363,7 +366,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryNeedsPriorityScheduling(out bool pbNeedsPriorityScheduling)
         {
-            /*HRESULT NeedsPriorityScheduling([Out] out bool pbNeedsPriorityScheduling);*/
+            /*HRESULT NeedsPriorityScheduling(
+            [Out] out bool pbNeedsPriorityScheduling);*/
             return Raw.NeedsPriorityScheduling(out pbNeedsPriorityScheduling);
         }
 
@@ -438,7 +442,8 @@ namespace ClrDebug
         /// </returns>
         public HRESULT TryLocksHeld(out int pLockCount)
         {
-            /*HRESULT LocksHeld([Out] out int pLockCount);*/
+            /*HRESULT LocksHeld(
+            [Out] out int pLockCount);*/
             return Raw.LocksHeld(out pLockCount);
         }
 
@@ -482,7 +487,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetTaskIdentifier(long asked)
         {
-            /*HRESULT SetTaskIdentifier([In] long asked);*/
+            /*HRESULT SetTaskIdentifier(
+            [In] long asked);*/
             return Raw.SetTaskIdentifier(asked);
         }
 

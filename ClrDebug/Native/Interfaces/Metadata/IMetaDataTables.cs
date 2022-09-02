@@ -17,35 +17,40 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pcbStrings">[out] A pointer to the size, in bytes, of the string heap.</param>
         [PreserveSig]
-        HRESULT GetStringHeapSize([Out] out int pcbStrings);
+        HRESULT GetStringHeapSize(
+            [Out] out int pcbStrings);
 
         /// <summary>
         /// Gets the size, in bytes, of the binary large object (BLOB) heap.
         /// </summary>
         /// <param name="pcbBlobs">[out] A pointer to the size, in bytes, of the BLOB heap.</param>
         [PreserveSig]
-        HRESULT GetBlobHeapSize([Out] out int pcbBlobs);
+        HRESULT GetBlobHeapSize(
+            [Out] out int pcbBlobs);
 
         /// <summary>
         /// Gets the size, in bytes, of the GUID heap.
         /// </summary>
         /// <param name="pcbGuids">[out] A pointer to the size, in bytes, of the GUID heap.</param>
         [PreserveSig]
-        HRESULT GetGuidHeapSize([Out] out int pcbGuids);
+        HRESULT GetGuidHeapSize(
+            [Out] out int pcbGuids);
 
         /// <summary>
         /// Gets the size, in bytes, of the user string heap.
         /// </summary>
         /// <param name="pcbBlobs">[out] A pointer to the size, in bytes, of the user string heap.</param>
         [PreserveSig]
-        HRESULT GetUserStringHeapSize([Out] out int pcbBlobs);
+        HRESULT GetUserStringHeapSize(
+            [Out] out int pcbBlobs);
 
         /// <summary>
         /// Gets the number of tables in the scope of the current <see cref="IMetaDataTables"/> instance.
         /// </summary>
         /// <param name="pcTables">[out] A pointer to the number of tables in the current instance scope.</param>
         [PreserveSig]
-        HRESULT GetNumTables([Out] out int pcTables);
+        HRESULT GetNumTables(
+            [Out] out int pcTables);
 
         /// <summary>
         /// Gets the index for the table referenced by the specified token.
@@ -59,7 +64,9 @@ namespace ClrDebug
         /// Standards and Standard ECMA-335 - Common Language Infrastructure (CLI).
         /// </remarks>
         [PreserveSig]
-        HRESULT GetTableIndex([In] int token, [Out] out int pixTbl);
+        HRESULT GetTableIndex(
+            [In] int token,
+            [Out] out int pixTbl);
 
         /// <summary>
         /// Gets the name, row size, number of rows, number of columns, and key column index of the specified table.
@@ -71,7 +78,13 @@ namespace ClrDebug
         /// <param name="piKey">[out] A pointer to the index of the key column, or -1 if the table has no key column.</param>
         /// <param name="ppName">[out] A pointer to a pointer to the table name.</param>
         [PreserveSig]
-        HRESULT GetTableInfo([In] int ixTbl, [Out] out int pcbRow, [Out] out int pcRows, [Out] out int pcCols, [Out] out int piKey, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppName);
+        HRESULT GetTableInfo(
+            [In] int ixTbl,
+            [Out] out int pcbRow,
+            [Out] out int pcRows,
+            [Out] out int pcCols,
+            [Out] out int piKey,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppName);
 
         /// <summary>
         /// Gets data about the specified column in the specified table.
@@ -87,7 +100,13 @@ namespace ClrDebug
         /// == true) can be read using:
         /// </remarks>
         [PreserveSig]
-        HRESULT GetColumnInfo([In] int ixTbl, [In] int ixCol, [Out] out int poCol, [Out] out int pcbCol, [Out] out int pType, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppName);
+        HRESULT GetColumnInfo(
+            [In] int ixTbl,
+            [In] int ixCol,
+            [Out] out int poCol,
+            [Out] out int pcbCol,
+            [Out] out int pType,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppName);
 
         /// <summary>
         /// Gets a pointer to an array of tokens associated with the specified row index.
@@ -97,7 +116,11 @@ namespace ClrDebug
         /// <param name="ppTokens">[out] A pointer to a pointer to an array that contains the list of returned tokens.</param>
         /// <param name="ppName">[out] A pointer to a pointer to the name of the token at ixCdTkn.</param>
         [PreserveSig]
-        HRESULT GetCodedTokenInfo([In] int ixCdTkn, [Out] out int pcTokens, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] out int[] ppTokens, [Out, MarshalAs(UnmanagedType.LPWStr)] out StringBuilder ppName);
+        HRESULT GetCodedTokenInfo(
+            [In] int ixCdTkn,
+            [Out] out int pcTokens,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] out int[] ppTokens,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] out StringBuilder ppName);
 
         /// <summary>
         /// Gets the row at the specified row index, in the table at the specified table index.
@@ -112,7 +135,10 @@ namespace ClrDebug
         /// Standards and Standard ECMA-335 - Common Language Infrastructure (CLI).
         /// </remarks>
         [PreserveSig]
-        HRESULT GetRow([In] int ixTbl, [In] int rid, [Out] out IntPtr ppRow);
+        HRESULT GetRow(
+            [In] int ixTbl,
+            [In] int rid,
+            [Out] out IntPtr ppRow);
 
         /// <summary>
         /// Gets a pointer to the value contained in the cell of the specified column and row in the given table.
@@ -126,7 +152,11 @@ namespace ClrDebug
         /// by calling <see cref="GetColumnInfo"/>.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetColumn([In] int ixTbl, [In] int ixCol, [In] int rid, [Out] out int pVal);
+        HRESULT GetColumn(
+            [In] int ixTbl,
+            [In] int ixCol,
+            [In] int rid,
+            [Out] out int pVal);
 
         /// <summary>
         /// Gets the string at the specified index from the table column in the current reference scope.
@@ -134,7 +164,9 @@ namespace ClrDebug
         /// <param name="ixString">[in] The index at which to start to search for the next value.</param>
         /// <param name="ppString">[out] A pointer to a pointer to the returned string value.</param>
         [PreserveSig]
-        HRESULT GetString([In] int ixString, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppString);
+        HRESULT GetString(
+            [In] int ixString,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppString);
 
         /// <summary>
         /// Gets a pointer to the binary large object (BLOB) at the specified column index.
@@ -143,7 +175,10 @@ namespace ClrDebug
         /// <param name="pcbData">[out] A pointer to the size, in bytes, of ppData.</param>
         /// <param name="ppData">[out] A pointer to a pointer to the binary data retrieved.</param>
         [PreserveSig]
-        HRESULT GetBlob([In] int ixBlob, [Out] out int pcbData, [Out] out IntPtr ppData);
+        HRESULT GetBlob(
+            [In] int ixBlob,
+            [Out] out int pcbData,
+            [Out] out IntPtr ppData);
 
         /// <summary>
         /// Gets a GUID from the row at the specified index.
@@ -157,7 +192,9 @@ namespace ClrDebug
         /// Standards and Standard ECMA-335 - Common Language Infrastructure (CLI).
         /// </remarks>
         [PreserveSig]
-        HRESULT GetGuid([In] int ixGuid, [Out] out Guid ppGUID);
+        HRESULT GetGuid(
+            [In] int ixGuid,
+            [Out] out Guid ppGUID);
 
         /// <summary>
         /// Gets the hard-coded string at the specified index in the string column in the current scope.
@@ -166,7 +203,10 @@ namespace ClrDebug
         /// <param name="pcbData">[out] A pointer to the size of ppData.</param>
         /// <param name="ppData">[out] A pointer to a pointer to the returned string.</param>
         [PreserveSig]
-        HRESULT GetUserString([In] int ixUserString, [Out] out int pcbData, [Out] out IntPtr ppData);
+        HRESULT GetUserString(
+            [In] int ixUserString,
+            [Out] out int pcbData,
+            [Out] out IntPtr ppData);
 
         /// <summary>
         /// Gets the index of the next string in the current table column.
@@ -174,7 +214,9 @@ namespace ClrDebug
         /// <param name="ixString">[in] The index value from a string table column.</param>
         /// <param name="pNext">[out] A pointer to the index of the next string in the column.</param>
         [PreserveSig]
-        HRESULT GetNextString([In] int ixString, [Out] out int pNext);
+        HRESULT GetNextString(
+            [In] int ixString,
+            [Out] out int pNext);
 
         /// <summary>
         /// Gets the index of the next binary large object (BLOB) in the table.
@@ -182,7 +224,9 @@ namespace ClrDebug
         /// <param name="ixBlob">[in] The index, as returned from a column of BLOBs.</param>
         /// <param name="pNext">[out] A pointer to the index of the next BLOB.</param>
         [PreserveSig]
-        HRESULT GetNextBlob([In] int ixBlob, [Out] out int pNext);
+        HRESULT GetNextBlob(
+            [In] int ixBlob,
+            [Out] out int pNext);
 
         /// <summary>
         /// Gets the index of the next GUID value in the current table column.
@@ -196,7 +240,9 @@ namespace ClrDebug
         /// Standards and Standard ECMA-335 - Common Language Infrastructure (CLI).
         /// </remarks>
         [PreserveSig]
-        HRESULT GetNextGuid([In] int ixGuid, [Out] out int pNext);
+        HRESULT GetNextGuid(
+            [In] int ixGuid,
+            [Out] out int pNext);
 
         /// <summary>
         /// Gets the index of the row that contains the next hard-coded string in the current table column.
@@ -210,6 +256,8 @@ namespace ClrDebug
         /// Standards and Standard ECMA-335 - Common Language Infrastructure (CLI).
         /// </remarks>
         [PreserveSig]
-        HRESULT GetNextUserString([In] int ixUserString, [Out] out int pNext);
+        HRESULT GetNextUserString(
+            [In] int ixUserString,
+            [Out] out int pNext);
     }
 }

@@ -37,8 +37,8 @@ namespace ClrDebug
         /// <remarks>
         /// DefineScope creates a set of in-memory metadata tables, generates a unique GUID (module version identifier, or
         /// MVID) for the metadata, and creates an entry in the module table for the compilation unit being emitted. You can
-        /// attach attributes to the metadata scope as a whole by using the <see cref="MetaDataEmit.SetModuleProps"/> or <see 
-        ///cref="MetaDataEmit.DefineCustomAttribute"/> method, as appropriate.
+        /// attach attributes to the metadata scope as a whole by using the <see cref="MetaDataEmit.SetModuleProps"/> or <see
+        /// cref="MetaDataEmit.DefineCustomAttribute"/> method, as appropriate.
         /// </remarks>
         public object DefineScope(Guid rclsid, int dwCreateFlags, Guid riid)
         {
@@ -59,8 +59,8 @@ namespace ClrDebug
         /// <remarks>
         /// DefineScope creates a set of in-memory metadata tables, generates a unique GUID (module version identifier, or
         /// MVID) for the metadata, and creates an entry in the module table for the compilation unit being emitted. You can
-        /// attach attributes to the metadata scope as a whole by using the <see cref="MetaDataEmit.SetModuleProps"/> or <see 
-        ///cref="MetaDataEmit.DefineCustomAttribute"/> method, as appropriate.
+        /// attach attributes to the metadata scope as a whole by using the <see cref="MetaDataEmit.SetModuleProps"/> or <see
+        /// cref="MetaDataEmit.DefineCustomAttribute"/> method, as appropriate.
         /// </remarks>
         public HRESULT TryDefineScope(Guid rclsid, int dwCreateFlags, Guid riid, out object ppIUnk)
         {

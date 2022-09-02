@@ -108,8 +108,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetManagedHandler(ICorDebugManagedCallback pCallback)
         {
-            /*HRESULT SetManagedHandler([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugManagedCallback pCallback);*/
+            /*HRESULT SetManagedHandler(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugManagedCallback pCallback);*/
             return Raw.SetManagedHandler(pCallback);
         }
 
@@ -145,8 +145,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetUnmanagedHandler(ICorDebugUnmanagedCallback pCallback)
         {
-            /*HRESULT SetUnmanagedHandler([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugUnmanagedCallback pCallback);*/
+            /*HRESULT SetUnmanagedHandler(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugUnmanagedCallback pCallback);*/
             return Raw.SetUnmanagedHandler(pCallback);
         }
 
@@ -274,7 +274,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryDebugActiveProcess(int id, bool win32Attach, out CorDebugProcess ppProcessResult)
         {
-            /*HRESULT DebugActiveProcess([In] int id, [In] bool win32Attach,
+            /*HRESULT DebugActiveProcess(
+            [In] int id,
+            [In] bool win32Attach,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
             ICorDebugProcess ppProcess;
             HRESULT hr = Raw.DebugActiveProcess(id, win32Attach, out ppProcess);
@@ -313,7 +315,8 @@ namespace ClrDebug
         /// <param name="ppProcessResult">A pointer to the address of an <see cref="ICorDebugProcessEnum"/> object that is the enumerator for the processes being debugged.</param>
         public HRESULT TryEnumerateProcesses(out CorDebugProcessEnum ppProcessResult)
         {
-            /*HRESULT EnumerateProcesses([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcessEnum ppProcess);*/
+            /*HRESULT EnumerateProcesses(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcessEnum ppProcess);*/
             ICorDebugProcessEnum ppProcess;
             HRESULT hr = Raw.EnumerateProcesses(out ppProcess);
 
@@ -348,7 +351,9 @@ namespace ClrDebug
         /// <param name="ppProcessResult">[out] A pointer to the address of a <see cref="ICorDebugProcess"/> instance for the specified process.</param>
         public HRESULT TryGetProcess(int dwProcessId, out CorDebugProcess ppProcessResult)
         {
-            /*HRESULT GetProcess([In] int dwProcessId, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
+            /*HRESULT GetProcess(
+            [In] int dwProcessId,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
             ICorDebugProcess ppProcess;
             HRESULT hr = Raw.GetProcess(dwProcessId, out ppProcess);
 
@@ -400,7 +405,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryCanLaunchOrAttach(int dwProcessId, int win32DebuggingEnabled)
         {
-            /*HRESULT CanLaunchOrAttach([In] int dwProcessId, [In] int win32DebuggingEnabled);*/
+            /*HRESULT CanLaunchOrAttach(
+            [In] int dwProcessId,
+            [In] int win32DebuggingEnabled);*/
             return Raw.CanLaunchOrAttach(dwProcessId, win32DebuggingEnabled);
         }
 

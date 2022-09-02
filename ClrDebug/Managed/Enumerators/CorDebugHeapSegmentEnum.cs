@@ -50,6 +50,7 @@ namespace ClrDebug
         #region IEnumerable
 
         public IEnumerator<COR_SEGMENT> GetEnumerator() => this;
+
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion

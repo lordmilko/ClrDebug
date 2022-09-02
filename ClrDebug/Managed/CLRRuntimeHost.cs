@@ -61,7 +61,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetCLRControl(out CLRControl pCLRControlResult)
         {
-            /*HRESULT GetCLRControl([Out, MarshalAs(UnmanagedType.Interface)] out ICLRControl pCLRControl);*/
+            /*HRESULT GetCLRControl(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICLRControl pCLRControl);*/
             ICLRControl pCLRControl;
             HRESULT hr = Raw.GetCLRControl(out pCLRControl);
 
@@ -110,7 +111,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetCurrentAppDomainId(out int pdwAppDomainId)
         {
-            /*HRESULT GetCurrentAppDomainId([Out] out int pdwAppDomainId);*/
+            /*HRESULT GetCurrentAppDomainId(
+            [Out] out int pdwAppDomainId);*/
             return Raw.GetCurrentAppDomainId(out pdwAppDomainId);
         }
 
@@ -223,7 +225,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetHostControl(IHostControl pHostControl)
         {
-            /*HRESULT SetHostControl([MarshalAs(UnmanagedType.Interface), In] IHostControl pHostControl);*/
+            /*HRESULT SetHostControl(
+            [MarshalAs(UnmanagedType.Interface), In] IHostControl pHostControl);*/
             return Raw.SetHostControl(pHostControl);
         }
 
@@ -267,7 +270,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryUnloadAppDomain(int dwAppDomainID, bool fWaitUntilDone)
         {
-            /*HRESULT UnloadAppDomain([In] int dwAppDomainID, [In] bool fWaitUntilDone);*/
+            /*HRESULT UnloadAppDomain(
+            [In] int dwAppDomainID,
+            [In] bool fWaitUntilDone);*/
             return Raw.UnloadAppDomain(dwAppDomainID, fWaitUntilDone);
         }
 
@@ -438,7 +443,8 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzAssemblyPath,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzTypeName,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzMethodName,
-            [MarshalAs(UnmanagedType.LPWStr), In] string pwzArgument, [Out] out int pReturnValue);*/
+            [MarshalAs(UnmanagedType.LPWStr), In] string pwzArgument,
+            [Out] out int pReturnValue);*/
             return Raw.ExecuteInDefaultAppDomain(pwzAssemblyPath, pwzTypeName, pwzMethodName, pwzArgument, out pReturnValue);
         }
 

@@ -37,6 +37,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT DebugEvent([In] ref DEBUG_EVENT pDebugEvent, [In] bool fOutOfBand);
+        HRESULT DebugEvent(
+            [In] ref DEBUG_EVENT pDebugEvent,
+            [In] bool fOutOfBand);
     }
 }

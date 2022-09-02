@@ -20,7 +20,8 @@ namespace ClrDebug
         /// <param name="celt">[in] The number of items by which to move the cursor forward.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Skip([In] int celt);
+        HRESULT Skip(
+            [In] int celt);
 
         /// <summary>
         /// Moves the cursor to the beginning of the enumeration.
@@ -35,7 +36,8 @@ namespace ClrDebug
         /// <param name="ppEnum">[out] A pointer to the address of an <see cref="ICorDebugEnum"/> object that is a copy of this <see cref="ICorDebugEnum"/> object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Clone([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);
+        HRESULT Clone(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);
 
         /// <summary>
         /// Gets the number of items in the enumeration.
@@ -43,6 +45,7 @@ namespace ClrDebug
         /// <param name="pcelt">[out] A pointer to the number of items in the enumeration.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCount([Out] out int pcelt);
+        HRESULT GetCount(
+            [Out] out int pcelt);
     }
 }

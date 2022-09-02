@@ -43,12 +43,13 @@ namespace ClrDebug
         /// <param name="pAvailable">[out] A bit mask that indicates which registers are currently available.</param>
         /// <remarks>
         /// A register may be unavailable if its value cannot be determined for the given situation. The returned mask contains
-        /// a bit for each register (1 &lt; &lt; the register index). The bit value is 1 if the register is available, or 0
+        /// a bit for each register (1 &lt;&lt; the register index). The bit value is 1 if the register is available, or 0
         /// if it is not available.
         /// </remarks>
         public HRESULT TryGetRegistersAvailable(out CorDebugRegister pAvailable)
         {
-            /*HRESULT GetRegistersAvailable([Out] out CorDebugRegister pAvailable);*/
+            /*HRESULT GetRegistersAvailable(
+            [Out] out CorDebugRegister pAvailable);*/
             return Raw.GetRegistersAvailable(out pAvailable);
         }
 
@@ -91,8 +92,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetRegisters(CorDebugRegister mask, int regCount, out CORDB_REGISTER[] regBuffer)
         {
-            /*HRESULT GetRegisters([In] CorDebugRegister mask, [In] int regCount, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out]
-            CORDB_REGISTER[] regBuffer);*/
+            /*HRESULT GetRegisters(
+            [In] CorDebugRegister mask,
+            [In] int regCount,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] CORDB_REGISTER[] regBuffer);*/
             regBuffer = new CORDB_REGISTER[regCount];
             HRESULT hr = Raw.GetRegisters(mask, regCount, regBuffer);
 
@@ -115,7 +118,10 @@ namespace ClrDebug
         /// </summary>
         public HRESULT TrySetRegisters(CorDebugRegister mask, int regCount, IntPtr regBuffer)
         {
-            /*HRESULT SetRegisters([In] CorDebugRegister mask, [In] int regCount, [In] IntPtr regBuffer);*/
+            /*HRESULT SetRegisters(
+            [In] CorDebugRegister mask,
+            [In] int regCount,
+            [In] IntPtr regBuffer);*/
             return Raw.SetRegisters(mask, regCount, regBuffer);
         }
 
@@ -149,7 +155,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetThreadContext(int contextSize, IntPtr context)
         {
-            /*HRESULT GetThreadContext([In] int contextSize, [Out] IntPtr context);*/
+            /*HRESULT GetThreadContext(
+            [In] int contextSize,
+            [Out] IntPtr context);*/
             return Raw.GetThreadContext(contextSize, context);
         }
 
@@ -169,7 +177,9 @@ namespace ClrDebug
         /// </summary>
         public HRESULT TrySetThreadContext(int contextSize, IntPtr context)
         {
-            /*HRESULT SetThreadContext([In] int contextSize, [In] IntPtr context);*/
+            /*HRESULT SetThreadContext(
+            [In] int contextSize,
+            [In] IntPtr context);*/
             return Raw.SetThreadContext(contextSize, context);
         }
 
@@ -211,7 +221,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetRegistersAvailable(int numChunks, IntPtr availableRegChunks)
         {
-            /*HRESULT GetRegistersAvailable([In] int numChunks, [Out] IntPtr availableRegChunks);*/
+            /*HRESULT GetRegistersAvailable(
+            [In] int numChunks,
+            [Out] IntPtr availableRegChunks);*/
             return Raw2.GetRegistersAvailable(numChunks, availableRegChunks);
         }
 
@@ -266,7 +278,11 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetRegisters(int maskCount, byte[] mask, int regCount, out CORDB_REGISTER[] regBuffer)
         {
-            /*HRESULT GetRegisters([In] int maskCount, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] mask, [In] int regCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CORDB_REGISTER[] regBuffer);*/
+            /*HRESULT GetRegisters(
+            [In] int maskCount,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] mask,
+            [In] int regCount,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CORDB_REGISTER[] regBuffer);*/
             regBuffer = new CORDB_REGISTER[regCount];
             HRESULT hr = Raw2.GetRegisters(maskCount, mask, regCount, regBuffer);
 
@@ -289,7 +305,11 @@ namespace ClrDebug
         /// </summary>
         public HRESULT TrySetRegisters(int maskCount, byte[] mask, int regCount, CORDB_REGISTER[] regBuffer)
         {
-            /*HRESULT SetRegisters([In] int maskCount, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] mask, [In] int regCount, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CORDB_REGISTER[] regBuffer);*/
+            /*HRESULT SetRegisters(
+            [In] int maskCount,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] mask,
+            [In] int regCount,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] CORDB_REGISTER[] regBuffer);*/
             return Raw2.SetRegisters(maskCount, mask, regCount, regBuffer);
         }
 

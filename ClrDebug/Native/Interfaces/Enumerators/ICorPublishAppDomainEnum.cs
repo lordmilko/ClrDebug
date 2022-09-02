@@ -20,7 +20,8 @@ namespace ClrDebug
         /// <param name="celt">[in] The number of items by which to move the cursor forward.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT Skip([In] int celt);
+        new HRESULT Skip(
+            [In] int celt);
 
         /// <summary>
         /// Moves the cursor of to the beginning of the enumeration.
@@ -35,7 +36,8 @@ namespace ClrDebug
         /// <param name="ppEnum">[out] A pointer to the address of an ICorPublishEnum object that is a copy of this ICorPublishEnum object.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT Clone([Out, MarshalAs(UnmanagedType.Interface)] out ICorPublishEnum ppEnum);
+        new HRESULT Clone(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorPublishEnum ppEnum);
 
         /// <summary>
         /// Gets the number of items in the enumeration.
@@ -43,7 +45,8 @@ namespace ClrDebug
         /// <param name="pcelt">[out] A pointer to the number of items in the enumeration.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetCount([Out] out int pcelt);
+        new HRESULT GetCount(
+            [Out] out int pcelt);
 
         /// <summary>
         /// Gets the specified number of application domains that currently exist in the process, starting at the current position.
@@ -53,6 +56,9 @@ namespace ClrDebug
         /// <param name="pceltFetched">[out] Pointer to the number of application domains actually returned. This value may be null if celt is one.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT Next([In] int celt, [Out, MarshalAs(UnmanagedType.Interface)] out ICorPublishAppDomain objects, [Out] out int pceltFetched);
+        HRESULT Next(
+            [In] int celt,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorPublishAppDomain objects,
+            [Out] out int pceltFetched);
     }
 }

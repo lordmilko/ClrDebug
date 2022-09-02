@@ -40,6 +40,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
-        HRESULT SuspensionEnding([In] int Generation);
+        HRESULT SuspensionEnding(
+            [In] int Generation);
     }
 }

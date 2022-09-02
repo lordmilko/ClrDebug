@@ -305,11 +305,9 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetModuleParameters(
             [In] int Count,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]
-            long[] Bases,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] long[] Bases,
             [In] int Start,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]
-            DEBUG_MODULE_PARAMETERS[] Params);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_MODULE_PARAMETERS[] Params);
 
         /// <summary>
         /// The GetSymbolModule method returns the base address of module which contains the specified symbol.

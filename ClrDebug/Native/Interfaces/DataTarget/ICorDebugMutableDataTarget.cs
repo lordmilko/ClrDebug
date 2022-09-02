@@ -37,7 +37,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT GetPlatform([Out] out CorDebugPlatform pTargetPlatform);
+        new HRESULT GetPlatform(
+            [Out] out CorDebugPlatform pTargetPlatform);
 
         /// <summary>
         /// Gets a block of contiguous memory starting at the specified address, and returns it in the supplied buffer.
@@ -91,7 +92,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT WriteVirtual([In] CORDB_ADDRESS address, [In] IntPtr pBuffer, [In] int bytesRequested);
+        HRESULT WriteVirtual(
+            [In] CORDB_ADDRESS address,
+            [In] IntPtr pBuffer,
+            [In] int bytesRequested);
 
         /// <summary>
         /// Sets the context (register values) for a thread.
@@ -106,7 +110,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetThreadContext([In] int dwThreadId, [In] int contextSize, [In] IntPtr pContext);
+        HRESULT SetThreadContext(
+            [In] int dwThreadId,
+            [In] int contextSize,
+            [In] IntPtr pContext);
 
         /// <summary>
         /// Changes the continuation status for the outstanding debug event on the specified thread.
@@ -122,6 +129,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ContinueStatusChanged([In] int dwThreadId, [In] int continueStatus);
+        HRESULT ContinueStatusChanged(
+            [In] int dwThreadId,
+            [In] int continueStatus);
     }
 }

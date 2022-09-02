@@ -21,10 +21,15 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT EnumMemoryRegion([In] CLRDATA_ADDRESS address, [In] int size);
+        new HRESULT EnumMemoryRegion(
+            [In] CLRDATA_ADDRESS address,
+            [In] int size);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT UpdateMemoryRegion([In] CLRDATA_ADDRESS address, [In] int bufferSize, [In] IntPtr buffer);
+        HRESULT UpdateMemoryRegion(
+            [In] CLRDATA_ADDRESS address,
+            [In] int bufferSize,
+            [In] IntPtr buffer);
     }
 }

@@ -27,7 +27,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetJMCStatus([In] bool bIsJustMyCode, [In] int cTokens, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] mdToken[] pTokens);
+        HRESULT SetJMCStatus(
+            [In] bool bIsJustMyCode,
+            [In] int cTokens,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] mdToken[] pTokens);
 
         /// <summary>
         /// Applies the changes in the metadata and the changes in the Microsoft intermediate language (MSIL) code to the running process.
@@ -54,7 +57,11 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ApplyChanges([In] int cbMetadata, [In] IntPtr pbMetadata, [In] int cbIL, [In] IntPtr pbIL);
+        HRESULT ApplyChanges(
+            [In] int cbMetadata,
+            [In] IntPtr pbMetadata,
+            [In] int cbIL,
+            [In] IntPtr pbIL);
 
         /// <summary>
         /// Sets the flags that control the just-in-time (JIT) compilation of this <see cref="ICorDebugModule2"/>.
@@ -70,7 +77,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetJITCompilerFlags([In] CorDebugJITCompilerFlags dwFlags);
+        HRESULT SetJITCompilerFlags(
+            [In] CorDebugJITCompilerFlags dwFlags);
 
         /// <summary>
         /// Gets the flags that control the just-in-time (JIT) compilation of this <see cref="ICorDebugModule2"/>.
@@ -78,7 +86,8 @@ namespace ClrDebug
         /// <param name="pdwFlags">[out] A pointer to a value of the <see cref="CorDebugJITCompilerFlags"/> enumeration that controls the JIT compilation.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetJITCompilerFlags([Out] out CorDebugJITCompilerFlags pdwFlags);
+        HRESULT GetJITCompilerFlags(
+            [Out] out CorDebugJITCompilerFlags pdwFlags);
 
         /// <summary>
         /// Resolves the assembly referenced by the specified metadata token.
@@ -91,7 +100,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ResolveAssembly([In] mdToken tkAssemblyRef,
+        HRESULT ResolveAssembly(
+            [In] mdToken tkAssemblyRef,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAssembly ppAssembly);
     }
 }

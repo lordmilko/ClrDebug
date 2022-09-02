@@ -633,8 +633,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetPossibleExecutingProcessorTypes(
             [In] int Start,
             [In] int Count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            IMAGE_FILE_MACHINE[] Types);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] IMAGE_FILE_MACHINE[] Types);
 
         /// <summary>
         /// The GetNumberProcessors method returns the number of processors on the computer running the current target.
@@ -745,8 +744,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetSupportedProcessorTypes(
             [In] int Start,
             [In] int Count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            IMAGE_FILE_MACHINE[] Types);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] IMAGE_FILE_MACHINE[] Types);
 
         /// <summary>
         /// The GetProcessorTypeNames method returns the full name and abbreviated name of the specified processor type.

@@ -36,7 +36,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetReturnValueForILOffset([In] int ilOffset,
+        HRESULT GetReturnValueForILOffset(
+            [In] int ilOffset,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppReturnValue);
     }
 }

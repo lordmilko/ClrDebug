@@ -24,7 +24,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CreateHandle([In] CorDebugHandleType type,
+        HRESULT CreateHandle(
+            [In] CorDebugHandleType type,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugHandleValue ppHandle);
     }
 }

@@ -102,7 +102,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetOption(Guid optionId, object pValue)
         {
-            /*HRESULT SetOption([In] ref Guid optionId, [In, MarshalAs(UnmanagedType.Struct)] object pValue);*/
+            /*HRESULT SetOption(
+            [In] ref Guid optionId,
+            [In, MarshalAs(UnmanagedType.Struct)] object pValue);*/
             return Raw.SetOption(ref optionId, pValue);
         }
 
@@ -137,7 +139,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetOption(Guid optionId, ref object pValue)
         {
-            /*HRESULT GetOption([In] ref Guid optionId, [Out] object pValue);*/
+            /*HRESULT GetOption(
+            [In] ref Guid optionId,
+            [Out] object pValue);*/
             return Raw.GetOption(ref optionId, pValue);
         }
 

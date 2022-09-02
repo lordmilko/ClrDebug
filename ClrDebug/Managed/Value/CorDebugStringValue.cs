@@ -41,7 +41,8 @@ namespace ClrDebug
         /// <param name="pcchString">[out] A pointer to a value that specifies the length of the string referenced by this <see cref="ICorDebugStringValue"/> object.</param>
         public HRESULT TryGetLength(out int pcchString)
         {
-            /*HRESULT GetLength([Out] out int pcchString);*/
+            /*HRESULT GetLength(
+            [Out] out int pcchString);*/
             return Raw.GetLength(out pcchString);
         }
 
@@ -68,7 +69,10 @@ namespace ClrDebug
         /// <param name="szStringResult">[out] An array that stores the retrieved string.</param>
         public HRESULT TryGetString(out string szStringResult)
         {
-            /*HRESULT GetString([In] int cchString, [Out] out int pcchString, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szString);*/
+            /*HRESULT GetString(
+            [In] int cchString,
+            [Out] out int pcchString,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szString);*/
             int cchString = 0;
             int pcchString;
             StringBuilder szString;

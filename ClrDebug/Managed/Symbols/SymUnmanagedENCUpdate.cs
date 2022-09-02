@@ -40,8 +40,10 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryUpdateSymbolStore2(IStream pIStream, SYMLINEDELTA pDeltaLines, int cDeltaLines)
         {
-            /*HRESULT UpdateSymbolStore2([MarshalAs(UnmanagedType.Interface), In]
-            IStream pIStream, [In] ref SYMLINEDELTA pDeltaLines, [In] int cDeltaLines);*/
+            /*HRESULT UpdateSymbolStore2(
+            [MarshalAs(UnmanagedType.Interface), In] IStream pIStream,
+            [In] ref SYMLINEDELTA pDeltaLines,
+            [In] int cDeltaLines);*/
             return Raw.UpdateSymbolStore2(pIStream, ref pDeltaLines, cDeltaLines);
         }
 
@@ -69,7 +71,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetLocalVariableCount(mdMethodDef mdMethodToken, out int pcLocals)
         {
-            /*HRESULT GetLocalVariableCount([In] mdMethodDef mdMethodToken, [Out] out int pcLocals);*/
+            /*HRESULT GetLocalVariableCount(
+            [In] mdMethodDef mdMethodToken,
+            [Out] out int pcLocals);*/
             return Raw.GetLocalVariableCount(mdMethodToken, out pcLocals);
         }
 

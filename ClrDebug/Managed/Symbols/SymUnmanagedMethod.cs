@@ -39,7 +39,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetToken(out mdMethodDef pToken)
         {
-            /*HRESULT GetToken([Out] out mdMethodDef pToken);*/
+            /*HRESULT GetToken(
+            [Out] out mdMethodDef pToken);*/
             return Raw.GetToken(out pToken);
         }
 
@@ -67,7 +68,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetSequencePointCount(out int pRetVal)
         {
-            /*HRESULT GetSequencePointCount([Out] out int pRetVal);*/
+            /*HRESULT GetSequencePointCount(
+            [Out] out int pRetVal);*/
             return Raw.GetSequencePointCount(out pRetVal);
         }
 
@@ -95,7 +97,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetRootScope(out SymUnmanagedScope pRetValResult)
         {
-            /*HRESULT GetRootScope([Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedScope pRetVal);*/
+            /*HRESULT GetRootScope(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedScope pRetVal);*/
             ISymUnmanagedScope pRetVal;
             HRESULT hr = Raw.GetRootScope(out pRetVal);
 
@@ -131,7 +134,10 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetParameters(out SymUnmanagedVariable[] paramsResult)
         {
-            /*HRESULT GetParameters([In] int cParams, [Out] out int pcParams, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] ISymUnmanagedVariable[] @params);*/
+            /*HRESULT GetParameters(
+            [In] int cParams,
+            [Out] out int pcParams,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] ISymUnmanagedVariable[] @params);*/
             int cParams = 0;
             int pcParams;
             ISymUnmanagedVariable[] @params;
@@ -181,7 +187,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetNamespace(out SymUnmanagedNamespace pRetValResult)
         {
-            /*HRESULT GetNamespace([Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedNamespace pRetVal);*/
+            /*HRESULT GetNamespace(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedNamespace pRetVal);*/
             ISymUnmanagedNamespace pRetVal;
             HRESULT hr = Raw.GetNamespace(out pRetVal);
 
@@ -285,7 +292,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetScopeFromOffset(int offset, out SymUnmanagedScope pRetValResult)
         {
-            /*HRESULT GetScopeFromOffset([In] int offset, [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedScope pRetVal);*/
+            /*HRESULT GetScopeFromOffset(
+            [In] int offset,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedScope pRetVal);*/
             ISymUnmanagedScope pRetVal;
             HRESULT hr = Raw.GetScopeFromOffset(offset, out pRetVal);
 
@@ -364,8 +373,7 @@ namespace ClrDebug
         public HRESULT TryGetRanges(ISymUnmanagedDocument document, int line, int column, out int[] ranges)
         {
             /*HRESULT GetRanges(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocument document,
+            [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument document,
             [In] int line,
             [In] int column,
             [In] int cRanges,

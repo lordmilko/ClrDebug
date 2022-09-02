@@ -25,6 +25,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetActiveReJitRequestILCode([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugILCode ppReJitedILCode);
+        HRESULT GetActiveReJitRequestILCode(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugILCode ppReJitedILCode);
     }
 }

@@ -37,7 +37,8 @@
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetSymbolSearchInfoCount(out int pcSearchInfo)
         {
-            /*HRESULT GetSymbolSearchInfoCount([Out] out int pcSearchInfo);*/
+            /*HRESULT GetSymbolSearchInfoCount(
+            [Out] out int pcSearchInfo);*/
             return Raw.GetSymbolSearchInfoCount(out pcSearchInfo);
         }
 

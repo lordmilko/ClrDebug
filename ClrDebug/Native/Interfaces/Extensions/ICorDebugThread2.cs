@@ -26,7 +26,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetActiveFunctions([In] int cFunctions, [Out] out int pcFunctions,
+        HRESULT GetActiveFunctions(
+            [In] int cFunctions,
+            [Out] out int pcFunctions,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), In, Out] COR_ACTIVE_FUNCTION[] pFunctions);
 
         /// <summary>
@@ -40,7 +42,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetConnectionID([Out] out int pdwConnectionId);
+        HRESULT GetConnectionID(
+            [Out] out int pdwConnectionId);
 
         /// <summary>
         /// Gets the identifier of the task running on this thread.
@@ -52,7 +55,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetTaskID([Out] out long pTaskId);
+        HRESULT GetTaskID(
+            [Out] out long pTaskId);
 
         /// <summary>
         /// Gets the operating system thread identifier for this <see cref="ICorDebugThread2"/>.
@@ -60,7 +64,8 @@ namespace ClrDebug
         /// <param name="pdwTid">[out] The operating system thread identifier for this thread.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetVolatileOSThreadID([Out] out int pdwTid);
+        HRESULT GetVolatileOSThreadID(
+            [Out] out int pdwTid);
 
         /// <summary>
         /// Allows a debugger to intercept the current exception on this thread.
@@ -72,7 +77,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT InterceptCurrentException([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFrame pFrame);
+        HRESULT InterceptCurrentException(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugFrame pFrame);
     }
 }

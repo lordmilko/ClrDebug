@@ -24,7 +24,10 @@ namespace ClrDebug
 
         public HRESULT TryAddSymbol(string pSymbol, ushort iSection, long rva)
         {
-            /*HRESULT AddSymbol([MarshalAs(UnmanagedType.BStr), In] string pSymbol, [In] ushort iSection, [In] long rva);*/
+            /*HRESULT AddSymbol(
+            [MarshalAs(UnmanagedType.BStr), In] string pSymbol,
+            [In] ushort iSection,
+            [In] long rva);*/
             return Raw.AddSymbol(pSymbol, iSection, rva);
         }
 
@@ -38,7 +41,11 @@ namespace ClrDebug
 
         public HRESULT TryAddSection(ushort iSection, ushort flags, int offset, int cb)
         {
-            /*HRESULT AddSection([In] ushort iSection, [In] ushort flags, [In] int offset, [In] int cb);*/
+            /*HRESULT AddSection(
+            [In] ushort iSection,
+            [In] ushort flags,
+            [In] int offset,
+            [In] int cb);*/
             return Raw.AddSection(iSection, flags, offset, cb);
         }
 
@@ -61,7 +68,10 @@ namespace ClrDebug
 
         public HRESULT TryOpenModW(string wszModule, string wszObjFile, out IntPtr ppmod)
         {
-            /*HRESULT OpenModW([In, MarshalAs(UnmanagedType.LPWStr)] string wszModule, [In, MarshalAs(UnmanagedType.LPWStr)] string wszObjFile, [Out] out IntPtr ppmod);*/
+            /*HRESULT OpenModW(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string wszModule,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string wszObjFile,
+            [Out] out IntPtr ppmod);*/
             return Raw2.OpenModW(wszModule, wszObjFile, out ppmod);
         }
 
@@ -75,7 +85,8 @@ namespace ClrDebug
 
         public HRESULT TryCloseMod(IntPtr pmod)
         {
-            /*HRESULT CloseMod([In] IntPtr pmod);*/
+            /*HRESULT CloseMod(
+            [In] IntPtr pmod);*/
             return Raw2.CloseMod(pmod);
         }
 
@@ -89,7 +100,10 @@ namespace ClrDebug
 
         public HRESULT TryModAddSymbols(IntPtr pmod, IntPtr pbSym, int cb)
         {
-            /*HRESULT ModAddSymbols([In] IntPtr pmod, [In] IntPtr pbSym, [In] int cb);*/
+            /*HRESULT ModAddSymbols(
+            [In] IntPtr pmod,
+            [In] IntPtr pbSym,
+            [In] int cb);*/
             return Raw2.ModAddSymbols(pmod, pbSym, cb);
         }
 
@@ -127,7 +141,9 @@ namespace ClrDebug
 
         public HRESULT TryQueryPDBNameExW(long cchMax, out string wszPDBResult)
         {
-            /*HRESULT QueryPDBNameExW([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder wszPDB, [In] long cchMax);*/
+            /*HRESULT QueryPDBNameExW(
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder wszPDB,
+            [In] long cchMax);*/
             StringBuilder wszPDB = null;
             HRESULT hr = Raw2.QueryPDBNameExW(wszPDB, cchMax);
 

@@ -39,7 +39,10 @@ namespace ClrDebug
         /// <param name="szNameResult">A pointer to a character array that contains the variable name.</param>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
+            /*HRESULT GetName(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName;
@@ -88,7 +91,8 @@ namespace ClrDebug
         /// <param name="pcbValue">A pointer to a 32-bit unsigned integer containing the size of the variable.</param>
         public HRESULT TryGetSize(out int pcbValue)
         {
-            /*HRESULT GetSize([Out] out int pcbValue);*/
+            /*HRESULT GetSize(
+            [Out] out int pcbValue);*/
             return Raw.GetSize(out pcbValue);
         }
 
@@ -119,7 +123,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetSlotIndex(out int pSlotIndex)
         {
-            /*HRESULT GetSlotIndex([Out] out int pSlotIndex);*/
+            /*HRESULT GetSlotIndex(
+            [Out] out int pSlotIndex);*/
             return Raw.GetSlotIndex(out pSlotIndex);
         }
 

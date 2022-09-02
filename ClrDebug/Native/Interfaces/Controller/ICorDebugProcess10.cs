@@ -10,6 +10,7 @@ namespace ClrDebug
     {
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnableGCNotificationEvents(bool fEnable);
+        HRESULT EnableGCNotificationEvents(
+            bool fEnable);
     }
 }

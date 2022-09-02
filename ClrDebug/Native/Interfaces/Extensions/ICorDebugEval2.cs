@@ -31,14 +31,11 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CallParameterizedFunction(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFunction pFunction,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pFunction,
             [In] int nTypeArgs,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ref ICorDebugType ppTypeArgs,
+            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugType ppTypeArgs,
             [In] int nArgs,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ref ICorDebugValue ppArgs);
+            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugValue ppArgs);
 
         /// <summary>
         /// Gets a pointer to a new <see cref="ICorDebugValue"/> of the specified type, with an initial value of zero or null.
@@ -53,8 +50,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CreateValueForType([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugType pType, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
+        HRESULT CreateValueForType(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugType pType,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         /// <summary>
         /// Instantiates a new parameterized type object and calls the object's constructor method.
@@ -70,14 +68,11 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT NewParameterizedObject(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFunction pConstructor,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pConstructor,
             [In] int nTypeArgs,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ref ICorDebugType ppTypeArgs,
+            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugType ppTypeArgs,
             [In] int nArgs,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ref ICorDebugValue ppArgs);
+            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugValue ppArgs);
 
         /// <summary>
         /// Instantiates a new parameterized type object of the specified class without attempting to call a constructor method.
@@ -92,11 +87,9 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT NewParameterizedObjectNoConstructor(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugClass pClass,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugClass pClass,
             [In] int nTypeArgs,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ref ICorDebugType ppTypeArgs);
+            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugType ppTypeArgs);
 
         /// <summary>
         /// Allocates a new array of the specified element type and dimensions.
@@ -129,7 +122,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT NewStringWithLength([MarshalAs(UnmanagedType.LPWStr), In] string @string, [In] int uiLength);
+        HRESULT NewStringWithLength(
+            [MarshalAs(UnmanagedType.LPWStr), In] string @string,
+            [In] int uiLength);
 
         /// <summary>
         /// Aborts the computation that this <see cref="ICorDebugEval2"/> is currently performing.

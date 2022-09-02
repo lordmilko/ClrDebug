@@ -39,7 +39,8 @@
         /// </remarks>
         public HRESULT TryMarkToken(mdToken tk)
         {
-            /*HRESULT MarkToken([In] mdToken tk);*/
+            /*HRESULT MarkToken(
+            [In] mdToken tk);*/
             return Raw.MarkToken(tk);
         }
 

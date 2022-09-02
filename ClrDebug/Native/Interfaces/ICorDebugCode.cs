@@ -22,7 +22,8 @@ namespace ClrDebug
         /// <param name="pbIL">[out] true if this <see cref="ICorDebugCode"/> represents code that was compiled in MSIL; otherwise, false.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT IsIL([Out] out bool pbIL);
+        HRESULT IsIL(
+            [Out] out bool pbIL);
 
         /// <summary>
         /// Gets the "ICorDebugFunction" associated with this "ICorDebugCode".
@@ -33,7 +34,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetFunction([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
+        HRESULT GetFunction(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
 
         /// <summary>
         /// Gets the relative virtual address (RVA) of the code segment that this "ICorDebugCode" interface represents.
@@ -41,7 +43,8 @@ namespace ClrDebug
         /// <param name="pStart">[out] A pointer to the RVA of the code segment.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAddress([Out] out CORDB_ADDRESS pStart);
+        HRESULT GetAddress(
+            [Out] out CORDB_ADDRESS pStart);
 
         /// <summary>
         /// Gets the size, in bytes, of the binary code represented by this "ICorDebugCode".
@@ -49,7 +52,8 @@ namespace ClrDebug
         /// <param name="pcBytes">[out] A pointer to the size, in bytes, of the binary code that this <see cref="ICorDebugCode"/> object represents.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSize([Out] out int pcBytes);
+        HRESULT GetSize(
+            [Out] out int pcBytes);
 
         /// <summary>
         /// Creates a breakpoint in this code segment at the specified offset.
@@ -63,7 +67,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CreateBreakpoint([In] int offset,
+        HRESULT CreateBreakpoint(
+            [In] int offset,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunctionBreakpoint ppBreakpoint);
 
         /// <summary>
@@ -97,7 +102,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetVersionNumber([Out] out int nVersion);
+        HRESULT GetVersionNumber(
+            [Out] out int nVersion);
 
         /// <summary>
         /// Gets an array of "COR_DEBUG_IL_TO_NATIVE_MAP" instances that represent mappings from Microsoft intermediate language (MSIL) offsets to native offsets.
@@ -112,8 +118,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetILToNativeMapping([In] int cMap, [Out] out int pcMap, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out]
-            COR_DEBUG_IL_TO_NATIVE_MAP[] map);
+        HRESULT GetILToNativeMapping(
+            [In] int cMap,
+            [Out] out int pcMap,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] COR_DEBUG_IL_TO_NATIVE_MAP[] map);
 
         /// <summary>
         /// This method is not implemented in the current version of the .NET Framework.

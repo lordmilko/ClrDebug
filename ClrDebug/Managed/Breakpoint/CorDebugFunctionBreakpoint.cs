@@ -39,7 +39,8 @@
         /// <param name="ppFunctionResult">[out] A pointer to the address of the function in which the breakpoint is set.</param>
         public HRESULT TryGetFunction(out CorDebugFunction ppFunctionResult)
         {
-            /*HRESULT GetFunction([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
+            /*HRESULT GetFunction(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);*/
             ICorDebugFunction ppFunction;
             HRESULT hr = Raw.GetFunction(out ppFunction);
 
@@ -74,7 +75,8 @@
         /// <param name="pnOffset">[out] A pointer to the offset of the breakpoint.</param>
         public HRESULT TryGetOffset(out int pnOffset)
         {
-            /*HRESULT GetOffset([Out] out int pnOffset);*/
+            /*HRESULT GetOffset(
+            [Out] out int pnOffset);*/
             return Raw.GetOffset(out pnOffset);
         }
 

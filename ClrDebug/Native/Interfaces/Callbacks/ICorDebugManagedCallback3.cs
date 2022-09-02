@@ -38,8 +38,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CustomNotification([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugThread pThread, [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugAppDomain pAppDomain);
+        HRESULT CustomNotification(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain);
     }
 }

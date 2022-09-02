@@ -21,7 +21,10 @@ namespace ClrDebug
         /// <param name="pSize">A pointer to the module size.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetImageFromPointer([In] CORDB_ADDRESS addr, [Out] out CORDB_ADDRESS pImageBase, [Out] out int pSize);
+        HRESULT GetImageFromPointer(
+            [In] CORDB_ADDRESS addr,
+            [Out] out CORDB_ADDRESS pImageBase,
+            [Out] out int pSize);
 
         /// <summary>
         /// Returns the path of a module from the module's base address.
@@ -57,7 +60,10 @@ namespace ClrDebug
         /// <param name="pThreadIds">An array of thread identifiers.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateThreadIDs([In] int cThreadIds, [Out] out int pcThreadIds, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pThreadIds);
+        HRESULT EnumerateThreadIDs(
+            [In] int cThreadIds,
+            [Out] out int pcThreadIds,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] pThreadIds);
 
         /// <summary>
         /// Creates a new stack unwinder that starts unwinding from an initial context (which isn't necessarily the leaf of a thread).

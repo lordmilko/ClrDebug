@@ -21,7 +21,10 @@ namespace ClrDebug
         /// <param name="szName">A pointer to a character array that contains the variable name.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
+        HRESULT GetName(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
 
         /// <summary>
         /// Gets the size of a variable in bytes.
@@ -29,7 +32,8 @@ namespace ClrDebug
         /// <param name="pcbValue">A pointer to a 32-bit unsigned integer containing the size of the variable.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSize([Out] out int pcbValue);
+        HRESULT GetSize(
+            [Out] out int pcbValue);
 
         /// <summary>
         /// Gets the value of a variable as a byte array.
@@ -79,6 +83,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSlotIndex([Out] out int pSlotIndex);
+        HRESULT GetSlotIndex(
+            [Out] out int pSlotIndex);
     }
 }

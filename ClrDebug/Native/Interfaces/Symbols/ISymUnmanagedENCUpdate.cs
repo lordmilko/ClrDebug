@@ -22,8 +22,10 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT UpdateSymbolStore2([MarshalAs(UnmanagedType.Interface), In]
-            IStream pIStream, [In] ref SYMLINEDELTA pDeltaLines, [In] int cDeltaLines);
+        HRESULT UpdateSymbolStore2(
+            [MarshalAs(UnmanagedType.Interface), In] IStream pIStream,
+            [In] ref SYMLINEDELTA pDeltaLines,
+            [In] int cDeltaLines);
 
         /// <summary>
         /// Gets the number of local variables.
@@ -33,7 +35,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetLocalVariableCount([In] mdMethodDef mdMethodToken, [Out] out int pcLocals);
+        HRESULT GetLocalVariableCount(
+            [In] mdMethodDef mdMethodToken,
+            [Out] out int pcLocals);
 
         /// <summary>
         /// Gets the local variables.

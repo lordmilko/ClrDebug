@@ -45,7 +45,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetSimpleName(out string szNameResult)
         {
-            /*HRESULT GetSimpleName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
+            /*HRESULT GetSimpleName(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName;
@@ -97,7 +100,11 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetVersion(out GetVersionResult result)
         {
-            /*HRESULT GetVersion([Out] out ushort pMajor, [Out] out ushort pMinor, [Out] out ushort pBuild, [Out] out ushort pRevision);*/
+            /*HRESULT GetVersion(
+            [Out] out ushort pMajor,
+            [Out] out ushort pMinor,
+            [Out] out ushort pBuild,
+            [Out] out ushort pRevision);*/
             ushort pMajor;
             ushort pMinor;
             ushort pBuild;
@@ -139,7 +146,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetCulture(out string szCultureResult)
         {
-            /*HRESULT GetCulture([In] int cchCulture, [Out] out int pcchCulture, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szCulture);*/
+            /*HRESULT GetCulture(
+            [In] int cchCulture,
+            [Out] out int pcchCulture,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szCulture);*/
             int cchCulture = 0;
             int pcchCulture;
             StringBuilder szCulture;
@@ -191,8 +201,7 @@ namespace ClrDebug
             /*HRESULT GetPublicKey(
             [In] int cbPublicKey,
             [Out] out int pcbPublicKey,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out]
-            byte[] pbPublicKey);*/
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] pbPublicKey);*/
             int cbPublicKey = 0;
             int pcbPublicKey;
             pbPublicKey = null;
@@ -279,7 +288,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetIndex(out int pIndex)
         {
-            /*HRESULT GetIndex([Out] out int pIndex);*/
+            /*HRESULT GetIndex(
+            [Out] out int pIndex);*/
             return Raw.GetIndex(out pIndex);
         }
 

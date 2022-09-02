@@ -51,7 +51,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetType(out CorElementType ty)
         {
-            /*HRESULT GetType([Out] out CorElementType ty);*/
+            /*HRESULT GetType(
+            [Out] out CorElementType ty);*/
             return Raw.GetType(out ty);
         }
 
@@ -83,7 +84,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetClass(out CorDebugClass ppClassResult)
         {
-            /*HRESULT GetClass([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);*/
+            /*HRESULT GetClass(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);*/
             ICorDebugClass ppClass;
             HRESULT hr = Raw.GetClass(out ppClass);
 
@@ -123,7 +125,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetFirstTypeParameter(out CorDebugType valueResult)
         {
-            /*HRESULT GetFirstTypeParameter([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType value);*/
+            /*HRESULT GetFirstTypeParameter(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType value);*/
             ICorDebugType value;
             HRESULT hr = Raw.GetFirstTypeParameter(out value);
 
@@ -162,7 +165,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetBase(out CorDebugType pBaseResult)
         {
-            /*HRESULT GetBase([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType pBase);*/
+            /*HRESULT GetBase(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType pBase);*/
             ICorDebugType pBase;
             HRESULT hr = Raw.GetBase(out pBase);
 
@@ -197,7 +201,8 @@ namespace ClrDebug
         /// <param name="pnRank">[out] A pointer to the number of dimensions.</param>
         public HRESULT TryGetRank(out int pnRank)
         {
-            /*HRESULT GetRank([Out] out int pnRank);*/
+            /*HRESULT GetRank(
+            [Out] out int pnRank);*/
             return Raw.GetRank(out pnRank);
         }
 
@@ -237,7 +242,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryEnumerateTypeParameters(out CorDebugTypeEnum ppTyParEnumResult)
         {
-            /*HRESULT EnumerateTypeParameters([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppTyParEnum);*/
+            /*HRESULT EnumerateTypeParameters(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppTyParEnum);*/
             ICorDebugTypeEnum ppTyParEnum;
             HRESULT hr = Raw.EnumerateTypeParameters(out ppTyParEnum);
 
@@ -292,8 +298,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetStaticFieldValue(mdFieldDef fieldDef, ICorDebugFrame pFrame, out CorDebugValue ppValueResult)
         {
-            /*HRESULT GetStaticFieldValue([In] mdFieldDef fieldDef, [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFrame pFrame, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            /*HRESULT GetStaticFieldValue(
+            [In] mdFieldDef fieldDef,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugFrame pFrame,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetStaticFieldValue(fieldDef, pFrame, out ppValue);
 
@@ -349,7 +357,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetTypeID(out COR_TYPEID id)
         {
-            /*HRESULT GetTypeID([Out] out COR_TYPEID id);*/
+            /*HRESULT GetTypeID(
+            [Out] out COR_TYPEID id);*/
             return Raw2.GetTypeID(out id);
         }
 

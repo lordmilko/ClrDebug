@@ -62,7 +62,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryIsValid(out bool pbValid)
         {
-            /*HRESULT IsValid([Out] out bool pbValid);*/
+            /*HRESULT IsValid(
+            [Out] out bool pbValid);*/
             return Raw.IsValid(out pbValid);
         }
 
@@ -85,7 +86,8 @@ namespace ClrDebug
         /// </summary>
         public HRESULT TryCreateRelocBreakpoint(out CorDebugValueBreakpoint ppBreakpointResult)
         {
-            /*HRESULT CreateRelocBreakpoint([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);*/
+            /*HRESULT CreateRelocBreakpoint(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);*/
             ICorDebugValueBreakpoint ppBreakpoint;
             HRESULT hr = Raw.CreateRelocBreakpoint(out ppBreakpoint);
 
@@ -138,7 +140,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryCreateHandle(CorDebugHandleType type, out CorDebugHandleValue ppHandleResult)
         {
-            /*HRESULT CreateHandle([In] CorDebugHandleType type,
+            /*HRESULT CreateHandle(
+            [In] CorDebugHandleType type,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugHandleValue ppHandle);*/
             ICorDebugHandleValue ppHandle;
             HRESULT hr = Raw2.CreateHandle(type, out ppHandle);
@@ -194,7 +197,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetThreadOwningMonitorLock(out GetThreadOwningMonitorLockResult result)
         {
-            /*HRESULT GetThreadOwningMonitorLock([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread,
+            /*HRESULT GetThreadOwningMonitorLock(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread,
             [Out] out int pAcquisitionCount);*/
             ICorDebugThread ppThread;
             int pAcquisitionCount;
@@ -248,7 +252,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetMonitorEventWaitList(out CorDebugThreadEnum ppThreadEnumResult)
         {
-            /*HRESULT GetMonitorEventWaitList([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThreadEnum ppThreadEnum);*/
+            /*HRESULT GetMonitorEventWaitList(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThreadEnum ppThreadEnum);*/
             ICorDebugThreadEnum ppThreadEnum;
             HRESULT hr = Raw3.GetMonitorEventWaitList(out ppThreadEnum);
 

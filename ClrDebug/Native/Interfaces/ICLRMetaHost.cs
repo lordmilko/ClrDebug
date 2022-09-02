@@ -8,11 +8,9 @@ namespace ClrDebug
     public delegate void RuntimeLoadedCallback(
         [MarshalAs(UnmanagedType.Interface)] ICLRRuntimeInfo pRuntimeInfo,
         [MarshalAs(UnmanagedType.FunctionPtr)] CallbackThreadSet pfnCallbackThreadSet,
-        [MarshalAs(UnmanagedType.FunctionPtr)] CallbackThreadUnset pfnCallbackThreadUnset
-    );
+        [MarshalAs(UnmanagedType.FunctionPtr)] CallbackThreadUnset pfnCallbackThreadUnset);
 
     public delegate void CallbackThreadSet();
-
     public delegate void CallbackThreadUnset();
 
     /// <summary>
@@ -53,7 +51,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRuntime([MarshalAs(UnmanagedType.LPWStr), In] string pwzVersion, [In] ref Guid riid, [Out, MarshalAs(UnmanagedType.Interface)] out object ppRuntime);
+        HRESULT GetRuntime(
+            [MarshalAs(UnmanagedType.LPWStr), In] string pwzVersion,
+            [In] ref Guid riid,
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppRuntime);
 
         /// <summary>
         /// Gets an assembly's original .NET Framework compilation version (stored in the metadata), given its file path. This method supersedes the GetFileVersion function.
@@ -74,9 +75,10 @@ namespace ClrDebug
         /// </returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetVersionFromFile([MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
-            [MarshalAs(UnmanagedType.LPWStr), Out]
-            StringBuilder pwzBuffer, [In, Out] ref int pcchBuffer);
+        HRESULT GetVersionFromFile(
+            [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
+            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder pwzBuffer,
+            [In, Out] ref int pcchBuffer);
 
         /// <summary>
         /// Returns an enumeration that contains a valid <see cref="ICLRRuntimeInfo"/> interface for each version of the common language runtime (CLR) that is installed on a computer.
@@ -92,7 +94,8 @@ namespace ClrDebug
         /// </returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateInstalledRuntimes([Out, MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppEnumerator);
+        HRESULT EnumerateInstalledRuntimes(
+            [Out, MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppEnumerator);
 
         /// <summary>
         /// Returns an enumeration that includes a valid <see cref="ICLRRuntimeInfo"/> interface pointer for each version of the common language runtime (CLR) that is loaded in a given process.<para/>
@@ -113,7 +116,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateLoadedRuntimes([In] IntPtr hndProcess, [Out, MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppEnumerator);
+        HRESULT EnumerateLoadedRuntimes(
+            [In] IntPtr hndProcess,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppEnumerator);
 
         /// <summary>
         /// Provides a callback function that is guaranteed to be called when a common language runtime (CLR) version is first loaded, but not yet started.<para/>
@@ -136,8 +141,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT RequestRuntimeLoadedNotification([MarshalAs(UnmanagedType.FunctionPtr), In]
-            RuntimeLoadedCallback pCallbackFunction);
+        HRESULT RequestRuntimeLoadedNotification(
+            [MarshalAs(UnmanagedType.FunctionPtr), In] RuntimeLoadedCallback pCallbackFunction);
 
         /// <summary>
         /// Returns an interface that represents a runtime to which legacy activation policy has been bound, for example, by using the useLegacyV2RuntimeActivationPolicy attribute on the &lt;startup&gt; element configuration file entry, by direct use of the legacy activation APIs, or by calling the <see cref="ICLRRuntimeInfo.BindAsLegacyV2Runtime"/> method.
@@ -166,6 +171,7 @@ namespace ClrDebug
         /// <returns>This method never returns, so its return value is undefined.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ExitProcess([In] int iExitCode);
+        HRESULT ExitProcess(
+            [In] int iExitCode);
     }
 }

@@ -54,7 +54,8 @@ namespace ClrDebug
         /// <param name="pbActive">[out] Pointer to a value that indicates whether this evaluation is active.</param>
         public HRESULT TryIsActive(out bool pbActive)
         {
-            /*HRESULT IsActive([Out] out bool pbActive);*/
+            /*HRESULT IsActive(
+            [Out] out bool pbActive);*/
             return Raw.IsActive(out pbActive);
         }
 
@@ -86,7 +87,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetResult(out CorDebugValue ppResultResult)
         {
-            /*HRESULT GetResult([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppResult);*/
+            /*HRESULT GetResult(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppResult);*/
             ICorDebugValue ppResult;
             HRESULT hr = Raw.GetResult(out ppResult);
 
@@ -121,7 +123,8 @@ namespace ClrDebug
         /// <param name="ppThreadResult">[out] A pointer to the address of an <see cref="ICorDebugThread"/> object that represents the thread.</param>
         public HRESULT TryGetThread(out CorDebugThread ppThreadResult)
         {
-            /*HRESULT GetThread([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);*/
+            /*HRESULT GetThread(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);*/
             ICorDebugThread ppThread;
             HRESULT hr = Raw.GetThread(out ppThread);
 
@@ -165,9 +168,10 @@ namespace ClrDebug
         [Obsolete]
         public HRESULT TryCallFunction(ICorDebugFunction pFunction, int nArgs, ICorDebugValue ppArgs)
         {
-            /*HRESULT CallFunction([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFunction pFunction, [In] int nArgs, [MarshalAs(UnmanagedType.Interface), In]
-            ref ICorDebugValue ppArgs);*/
+            /*HRESULT CallFunction(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pFunction,
+            [In] int nArgs,
+            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugValue ppArgs);*/
             return Raw.CallFunction(pFunction, nArgs, ref ppArgs);
         }
 
@@ -197,9 +201,10 @@ namespace ClrDebug
         [Obsolete]
         public HRESULT TryNewObject(ICorDebugFunction pConstructor, int nArgs, ICorDebugValue ppArgs)
         {
-            /*HRESULT NewObject([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFunction pConstructor, [In] int nArgs, [MarshalAs(UnmanagedType.Interface), In]
-            ref ICorDebugValue ppArgs);*/
+            /*HRESULT NewObject(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pConstructor,
+            [In] int nArgs,
+            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugValue ppArgs);*/
             return Raw.NewObject(pConstructor, nArgs, ref ppArgs);
         }
 
@@ -225,8 +230,8 @@ namespace ClrDebug
         [Obsolete]
         public HRESULT TryNewObjectNoConstructor(ICorDebugClass pClass)
         {
-            /*HRESULT NewObjectNoConstructor([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugClass pClass);*/
+            /*HRESULT NewObjectNoConstructor(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugClass pClass);*/
             return Raw.NewObjectNoConstructor(pClass);
         }
 
@@ -254,7 +259,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryNewString(string @string)
         {
-            /*HRESULT NewString([MarshalAs(UnmanagedType.LPWStr), In] string @string);*/
+            /*HRESULT NewString(
+            [MarshalAs(UnmanagedType.LPWStr), In] string @string);*/
             return Raw.NewString(@string);
         }
 
@@ -374,8 +380,10 @@ namespace ClrDebug
         [Obsolete]
         public HRESULT TryCreateValue(int elementType, ICorDebugClass pElementClass, out CorDebugValue ppValueResult)
         {
-            /*HRESULT CreateValue([In] int elementType, [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugClass pElementClass, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            /*HRESULT CreateValue(
+            [In] int elementType,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugClass pElementClass,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.CreateValue(elementType, pElementClass, out ppValue);
 
@@ -436,14 +444,11 @@ namespace ClrDebug
         public HRESULT TryCallParameterizedFunction(ICorDebugFunction pFunction, int nTypeArgs, ICorDebugType ppTypeArgs, int nArgs, ICorDebugValue ppArgs)
         {
             /*HRESULT CallParameterizedFunction(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFunction pFunction,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pFunction,
             [In] int nTypeArgs,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ref ICorDebugType ppTypeArgs,
+            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugType ppTypeArgs,
             [In] int nArgs,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ref ICorDebugValue ppArgs);*/
+            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugValue ppArgs);*/
             return Raw2.CallParameterizedFunction(pFunction, nTypeArgs, ref ppTypeArgs, nArgs, ref ppArgs);
         }
 
@@ -482,8 +487,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryCreateValueForType(ICorDebugType pType, out CorDebugValue ppValueResult)
         {
-            /*HRESULT CreateValueForType([MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugType pType, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
+            /*HRESULT CreateValueForType(
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugType pType,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw2.CreateValueForType(pType, out ppValue);
 
@@ -528,14 +534,11 @@ namespace ClrDebug
         public HRESULT TryNewParameterizedObject(ICorDebugFunction pConstructor, int nTypeArgs, ICorDebugType ppTypeArgs, int nArgs, ICorDebugValue ppArgs)
         {
             /*HRESULT NewParameterizedObject(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugFunction pConstructor,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pConstructor,
             [In] int nTypeArgs,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ref ICorDebugType ppTypeArgs,
+            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugType ppTypeArgs,
             [In] int nArgs,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ref ICorDebugValue ppArgs);*/
+            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugValue ppArgs);*/
             return Raw2.NewParameterizedObject(pConstructor, nTypeArgs, ref ppTypeArgs, nArgs, ref ppArgs);
         }
 
@@ -570,11 +573,9 @@ namespace ClrDebug
         public HRESULT TryNewParameterizedObjectNoConstructor(ICorDebugClass pClass, int nTypeArgs, ICorDebugType ppTypeArgs)
         {
             /*HRESULT NewParameterizedObjectNoConstructor(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ICorDebugClass pClass,
+            [MarshalAs(UnmanagedType.Interface), In] ICorDebugClass pClass,
             [In] int nTypeArgs,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ref ICorDebugType ppTypeArgs);*/
+            [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugType ppTypeArgs);*/
             return Raw2.NewParameterizedObjectNoConstructor(pClass, nTypeArgs, ref ppTypeArgs);
         }
 
@@ -648,7 +649,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryNewStringWithLength(string @string, int uiLength)
         {
-            /*HRESULT NewStringWithLength([MarshalAs(UnmanagedType.LPWStr), In] string @string, [In] int uiLength);*/
+            /*HRESULT NewStringWithLength(
+            [MarshalAs(UnmanagedType.LPWStr), In] string @string,
+            [In] int uiLength);*/
             return Raw2.NewStringWithLength(@string, uiLength);
         }
 

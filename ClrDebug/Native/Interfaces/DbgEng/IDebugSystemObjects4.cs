@@ -134,10 +134,8 @@ namespace ClrDebug.DbgEng
         new HRESULT GetThreadIdsByIndex(
             [In] int Start,
             [In] int Count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            int[] Ids,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            int[] SysIds);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Ids,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] SysIds);
 
         /// <summary>
         /// The GetThreadIdByProcessor method returns the engine thread ID for the kernel-mode virtual thread corresponding to the specified processor.
@@ -299,10 +297,8 @@ namespace ClrDebug.DbgEng
         new HRESULT GetProcessIdsByIndex(
             [In] int Start,
             [In] int Count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            int[] Ids,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            int[] SysIds);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Ids,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] SysIds);
 
         /// <summary>
         /// The GetCurrentProcessDataOffset method returns the location of the system data structure describing the current process.
@@ -512,7 +508,8 @@ namespace ClrDebug.DbgEng
         /// <param name="Id">[out] Receives the engine target ID.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
-        new HRESULT GetEventSystem([Out] out int Id);
+        new HRESULT GetEventSystem(
+            [Out] out int Id);
 
         /// <summary>
         /// The GetCurrentSystemId method returns the engine target ID for the current process.
@@ -520,7 +517,8 @@ namespace ClrDebug.DbgEng
         /// <param name="Id">[out] Receives the engine target ID.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
-        new HRESULT GetCurrentSystemId([Out] out int Id);
+        new HRESULT GetCurrentSystemId(
+            [Out] out int Id);
 
         /// <summary>
         /// The SetCurrentSystemId method makes the specified target the current target.
@@ -533,7 +531,8 @@ namespace ClrDebug.DbgEng
         /// bit set.
         /// </remarks>
         [PreserveSig]
-        new HRESULT SetCurrentSystemId([In] int Id);
+        new HRESULT SetCurrentSystemId(
+            [In] int Id);
 
         /// <summary>
         /// The GetNumberSystems method returns the number of targets to which the engine is currently connected.
@@ -541,7 +540,8 @@ namespace ClrDebug.DbgEng
         /// <param name="Count">[out] Receives the number of targets.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
-        new HRESULT GetNumberSystems([Out] out int Count);
+        new HRESULT GetNumberSystems(
+            [Out] out int Count);
 
         /// <summary>
         /// The GetSystemIdsByIndex method returns the engine target IDs for the specified targets.
@@ -586,14 +586,17 @@ namespace ClrDebug.DbgEng
         /// <param name="server">[out] A pointer to the returned server value.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
-        new HRESULT GetCurrentSystemServer([Out] out long server);
+        new HRESULT GetCurrentSystemServer(
+            [Out] out long server);
 
         /// <summary>
         /// Gets the system for a server.
         /// </summary>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
-        new HRESULT GetSystemByServer([In] long Server, [Out] out int Id);
+        new HRESULT GetSystemByServer(
+            [In] long Server,
+            [Out] out int Id);
 
         /// <summary>
         /// Gets the server name for the current process.
@@ -603,7 +606,10 @@ namespace ClrDebug.DbgEng
         /// <param name="Needed">[out, optional] A pointer to the name size. This size includes the space for the '\0' terminating character.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
-        new HRESULT GetCurrentSystemServerName([Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int Size, [Out] out int Needed);
+        new HRESULT GetCurrentSystemServerName(
+            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [In] int Size,
+            [Out] out int Needed);
 
         #endregion
         #region IDebugSystemObjects4

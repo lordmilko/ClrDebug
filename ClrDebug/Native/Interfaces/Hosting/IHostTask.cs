@@ -68,7 +68,9 @@ namespace ClrDebug
         /// | E_FAIL                 | An unknown catastrophic failure occurred. When a method returns E_FAIL, the CLR is no longer usable within the process. Subsequent calls to hosting methods return HOST_E_CLRNOTAVAILABLE. |
         /// </returns>
         [PreserveSig]
-        HRESULT Join([In] int dwMilliseconds, [In] int option);
+        HRESULT Join(
+            [In] int dwMilliseconds,
+            [In] int option);
 
         /// <summary>
         /// Requests that the host adjust the thread priority level for the task represented by the current <see cref="IHostTask"/> instance.
@@ -93,7 +95,8 @@ namespace ClrDebug
         /// priority, see the Windows Platform documentation.
         /// </remarks>
         [PreserveSig]
-        HRESULT SetPriority([In] int newPriority);
+        HRESULT SetPriority(
+            [In] int newPriority);
 
         /// <summary>
         /// Gets the thread priority level of the task represented by the current <see cref="IHostTask"/> instance.
@@ -113,7 +116,8 @@ namespace ClrDebug
         /// Thread priority level values are defined by the Win32 SetThreadPriority function.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetPriority([Out] out int pPriority);
+        HRESULT GetPriority(
+            [Out] out int pPriority);
 
         /// <summary>
         /// Associates an <see cref="ICLRTask"/> instance with the current <see cref="IHostTask"/> instance.
@@ -134,6 +138,7 @@ namespace ClrDebug
         /// by a call to <see cref="IHostTaskManager.CreateTask"/>.
         /// </remarks>
         [PreserveSig]
-        HRESULT SetCLRTask([In, MarshalAs(UnmanagedType.Interface)] ICLRTask pCLRTask);
+        HRESULT SetCLRTask(
+            [In, MarshalAs(UnmanagedType.Interface)] ICLRTask pCLRTask);
     }
 }

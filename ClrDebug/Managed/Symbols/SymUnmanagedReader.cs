@@ -95,7 +95,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetUserEntryPoint(out mdMethodDef pToken)
         {
-            /*HRESULT GetUserEntryPoint([Out] out mdMethodDef pToken);*/
+            /*HRESULT GetUserEntryPoint(
+            [Out] out mdMethodDef pToken);*/
             return Raw.GetUserEntryPoint(out pToken);
         }
 
@@ -329,7 +330,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetMethod(mdMethodDef token, out SymUnmanagedMethod pRetValResult)
         {
-            /*HRESULT GetMethod([In] mdMethodDef token, [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);*/
+            /*HRESULT GetMethod(
+            [In] mdMethodDef token,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);*/
             ISymUnmanagedMethod pRetVal;
             HRESULT hr = Raw.GetMethod(token, out pRetVal);
 
@@ -465,8 +468,7 @@ namespace ClrDebug
         public HRESULT TryGetMethodFromDocumentPosition(ISymUnmanagedDocument document, int line, int column, out SymUnmanagedMethod pRetValResult)
         {
             /*HRESULT GetMethodFromDocumentPosition(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocument document,
+            [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument document,
             [In] int line,
             [In] int column,
             [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);*/
@@ -582,8 +584,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryUpdateSymbolStore(string filename, IStream pIStream)
         {
-            /*HRESULT UpdateSymbolStore([In, MarshalAs(UnmanagedType.LPWStr)] string filename, [MarshalAs(UnmanagedType.Interface), In]
-            IStream pIStream);*/
+            /*HRESULT UpdateSymbolStore(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string filename,
+            [MarshalAs(UnmanagedType.Interface), In] IStream pIStream);*/
             return Raw.UpdateSymbolStore(filename, pIStream);
         }
 
@@ -608,8 +611,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryReplaceSymbolStore(string filename, IStream pIStream)
         {
-            /*HRESULT ReplaceSymbolStore([In, MarshalAs(UnmanagedType.LPWStr)] string filename, [MarshalAs(UnmanagedType.Interface), In]
-            IStream pIStream);*/
+            /*HRESULT ReplaceSymbolStore(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string filename,
+            [MarshalAs(UnmanagedType.Interface), In] IStream pIStream);*/
             return Raw.ReplaceSymbolStore(filename, pIStream);
         }
 
@@ -699,8 +703,10 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetDocumentVersion(ISymUnmanagedDocument pDoc, out GetDocumentVersionResult result)
         {
-            /*HRESULT GetDocumentVersion([MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocument pDoc, [Out] out int version, [Out] out bool pbCurrent);*/
+            /*HRESULT GetDocumentVersion(
+            [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument pDoc,
+            [Out] out int version,
+            [Out] out bool pbCurrent);*/
             int version;
             bool pbCurrent;
             HRESULT hr = Raw.GetDocumentVersion(pDoc, out version, out pbCurrent);
@@ -737,8 +743,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryGetMethodVersion(ISymUnmanagedMethod pMethod, out int version)
         {
-            /*HRESULT GetMethodVersion([MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedMethod pMethod, [Out] out int version);*/
+            /*HRESULT GetMethodVersion(
+            [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedMethod pMethod,
+            [Out] out int version);*/
             return Raw.GetMethodVersion(pMethod, out version);
         }
 
@@ -853,8 +860,7 @@ namespace ClrDebug
         public HRESULT TryGetMethodsInDocument(ISymUnmanagedDocument document, out SymUnmanagedMethod[] pRetValResult)
         {
             /*HRESULT GetMethodsInDocument(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocument document,
+            [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument document,
             [In] int cMethod,
             [Out] out int pcMethod,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] ISymUnmanagedMethod[] pRetVal);*/

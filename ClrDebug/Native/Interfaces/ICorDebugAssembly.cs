@@ -18,7 +18,8 @@ namespace ClrDebug
         /// <param name="ppProcess">[out] A pointer to an <see cref="ICorDebugProcess"/> interface that represents the process.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetProcess([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
+        HRESULT GetProcess(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
         /// <summary>
         /// Gets an interface pointer to the application domain that contains this <see cref="ICorDebugAssembly"/> instance.
@@ -29,7 +30,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAppDomain([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAppDomain ppAppDomain);
+        HRESULT GetAppDomain(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAppDomain ppAppDomain);
 
         /// <summary>
         /// Gets an enumerator for the modules contained in the <see cref="ICorDebugAssembly"/>.
@@ -37,14 +39,18 @@ namespace ClrDebug
         /// <param name="ppModules">[out] A pointer to the address of the <see cref="ICorDebugModuleEnum"/> interface that is the enumerator.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateModules([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModuleEnum ppModules);
+        HRESULT EnumerateModules(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModuleEnum ppModules);
 
         /// <summary>
         /// This method is not implemented in the current version of the .NET Framework.
         /// </summary>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCodeBase([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
+        HRESULT GetCodeBase(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
 
         /// <summary>
         /// Gets the name of the assembly that this <see cref="ICorDebugAssembly"/> instance represents.
@@ -57,6 +63,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
+        HRESULT GetName(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
     }
 }

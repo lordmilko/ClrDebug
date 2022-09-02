@@ -24,7 +24,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT RemapFunction([In] int newILOffset);
+        HRESULT RemapFunction(
+            [In] int newILOffset);
 
         /// <summary>
         /// Gets an <see cref="ICorDebugTypeEnum"/> object that contains the <see cref="Type"/> parameters in this frame.
@@ -36,6 +37,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateTypeParameters([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppTyParEnum);
+        HRESULT EnumerateTypeParameters(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppTyParEnum);
     }
 }

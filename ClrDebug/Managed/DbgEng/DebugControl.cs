@@ -1064,8 +1064,8 @@ namespace ClrDebug.DbgEng
         /// <param name="radix">[in] Specifies the new default radix. The following table contains the possible values for the radix.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
-        /// When the radix is changed, the engine notifies the event callbacks by passing the DEBUG_CES_RADIX flag to the <see 
-        ///cref="IDebugEventCallbacks.ChangeEngineState"/> callback method. For more information about the default radix,
+        /// When the radix is changed, the engine notifies the event callbacks by passing the DEBUG_CES_RADIX flag to the <see
+        /// cref="IDebugEventCallbacks.ChangeEngineState"/> callback method. For more information about the default radix,
         /// see Using Input and Output.
         /// </remarks>
         public HRESULT TrySetRadix(int radix)
@@ -2209,8 +2209,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetPossibleExecutingProcessorTypes(
             [In] int Start,
             [In] int Count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            IMAGE_FILE_MACHINE[] Types);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] IMAGE_FILE_MACHINE[] Types);*/
             types = new IMAGE_FILE_MACHINE[count];
             HRESULT hr = getPossibleExecutingProcessorTypes(Raw, start, count, types);
 
@@ -2307,8 +2306,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetSupportedProcessorTypes(
             [In] int Start,
             [In] int Count,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
-            IMAGE_FILE_MACHINE[] Types);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] IMAGE_FILE_MACHINE[] Types);*/
             types = new IMAGE_FILE_MACHINE[count];
             HRESULT hr = getSupportedProcessorTypes(Raw, start, count, types);
 
@@ -4971,8 +4969,7 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getPromptTextWide, Vtbl4->GetPromptTextWide);
             /*HRESULT GetPromptTextWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int TextSize);*/
             StringBuilder buffer;
@@ -5088,8 +5085,7 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getLogFile2Wide, Vtbl4->GetLogFile2Wide);
             /*HRESULT GetLogFile2Wide(
-            [Out, MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int FileSize,
             [Out] out DEBUG_LOG Flags);*/
@@ -6452,8 +6448,7 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getEventFilterTextWide, Vtbl4->GetEventFilterTextWide);
             /*HRESULT GetEventFilterTextWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int TextSize);*/
             StringBuilder buffer;
@@ -7973,7 +7968,8 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getExecutionStatusEx, Vtbl6->GetExecutionStatusEx);
 
-            /*HRESULT GetExecutionStatusEx([Out] out DEBUG_STATUS Status);*/
+            /*HRESULT GetExecutionStatusEx(
+            [Out] out DEBUG_STATUS Status);*/
             return getExecutionStatusEx(Raw, out status);
         }
 

@@ -93,7 +93,8 @@
         /// </remarks>
         public HRESULT TryStartBlockingForDebugger(int dwUnused)
         {
-            /*HRESULT StartBlockingForDebugger([In] int dwUnused);*/
+            /*HRESULT StartBlockingForDebugger(
+            [In] int dwUnused);*/
             return Raw.StartBlockingForDebugger(dwUnused);
         }
 

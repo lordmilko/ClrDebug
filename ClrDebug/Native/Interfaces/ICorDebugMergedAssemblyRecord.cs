@@ -27,7 +27,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetSimpleName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
+        HRESULT GetSimpleName(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
 
         /// <summary>
         /// Gets the assembly's version information.
@@ -41,7 +44,11 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetVersion([Out] out ushort pMajor, [Out] out ushort pMinor, [Out] out ushort pBuild, [Out] out ushort pRevision);
+        HRESULT GetVersion(
+            [Out] out ushort pMajor,
+            [Out] out ushort pMinor,
+            [Out] out ushort pBuild,
+            [Out] out ushort pRevision);
 
         /// <summary>
         /// Gets the culture name string of the assembly.
@@ -55,7 +62,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCulture([In] int cchCulture, [Out] out int pcchCulture, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szCulture);
+        HRESULT GetCulture(
+            [In] int cchCulture,
+            [Out] out int pcchCulture,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szCulture);
 
         /// <summary>
         /// Gets the assembly's public key.
@@ -68,8 +78,7 @@ namespace ClrDebug
         HRESULT GetPublicKey(
             [In] int cbPublicKey,
             [Out] out int pcbPublicKey,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out]
-            byte[] pbPublicKey);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] byte[] pbPublicKey);
 
         /// <summary>
         /// Gets the assembly's public key token.
@@ -96,6 +105,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetIndex([Out] out int pIndex);
+        HRESULT GetIndex(
+            [Out] out int pIndex);
     }
 }

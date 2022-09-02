@@ -19,7 +19,8 @@ namespace ClrDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetModule([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
+        HRESULT GetModule(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
 
         /// <summary>
         /// GetToken is obsolete. Do not call this method.
@@ -27,7 +28,8 @@ namespace ClrDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetToken([Out] out int pToken);
+        HRESULT GetToken(
+            [Out] out int pToken);
 
         /// <summary>
         /// GetErrorCode is obsolete. Do not call this method.
@@ -35,7 +37,8 @@ namespace ClrDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetErrorCode([Out, MarshalAs(UnmanagedType.Error)] out int pHr);
+        HRESULT GetErrorCode(
+            [Out, MarshalAs(UnmanagedType.Error)] out int pHr);
 
         /// <summary>
         /// GetString is obsolete. Do not call this method.
@@ -43,6 +46,9 @@ namespace ClrDebug
         [Obsolete]
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetString([In] int cchString, [Out] out int pcchString, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szString);
+        HRESULT GetString(
+            [In] int cchString,
+            [Out] out int pcchString,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szString);
     }
 }

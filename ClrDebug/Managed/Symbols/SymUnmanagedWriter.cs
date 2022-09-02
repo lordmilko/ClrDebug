@@ -82,7 +82,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TrySetUserEntryPoint(int entryMethod)
         {
-            /*HRESULT SetUserEntryPoint([In] int entryMethod);*/
+            /*HRESULT SetUserEntryPoint(
+            [In] int entryMethod);*/
             return Raw.SetUserEntryPoint(entryMethod);
         }
 
@@ -109,7 +110,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryOpenMethod(int method)
         {
-            /*HRESULT OpenMethod([In] int method);*/
+            /*HRESULT OpenMethod(
+            [In] int method);*/
             return Raw.OpenMethod(method);
         }
 
@@ -170,7 +172,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryOpenScope(int startOffset, out int pRetVal)
         {
-            /*HRESULT OpenScope([In] int startOffset, [Out] out int pRetVal);*/
+            /*HRESULT OpenScope(
+            [In] int startOffset,
+            [Out] out int pRetVal);*/
             return Raw.OpenScope(startOffset, out pRetVal);
         }
 
@@ -205,7 +209,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryCloseScope(int endOffset)
         {
-            /*HRESULT CloseScope([In] int endOffset);*/
+            /*HRESULT CloseScope(
+            [In] int endOffset);*/
             return Raw.CloseScope(endOffset);
         }
 
@@ -244,7 +249,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetScopeRange(int scopeID, int startOffset, int endOffset)
         {
-            /*HRESULT SetScopeRange([In] int scopeID, [In] int startOffset, [In] int endOffset);*/
+            /*HRESULT SetScopeRange(
+            [In] int scopeID,
+            [In] int startOffset,
+            [In] int endOffset);*/
             return Raw.SetScopeRange(scopeID, startOffset, endOffset);
         }
 
@@ -498,7 +506,11 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TrySetSymAttribute(int parent, string name, int cData, IntPtr data)
         {
-            /*HRESULT SetSymAttribute([In] int parent, [In, MarshalAs(UnmanagedType.LPWStr)] string name, [In] int cData, [In] IntPtr data);*/
+            /*HRESULT SetSymAttribute(
+            [In] int parent,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [In] int cData,
+            [In] IntPtr data);*/
             return Raw.SetSymAttribute(parent, name, cData, data);
         }
 
@@ -521,7 +533,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryOpenNamespace(string name)
         {
-            /*HRESULT OpenNamespace([In, MarshalAs(UnmanagedType.LPWStr)] string name);*/
+            /*HRESULT OpenNamespace(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name);*/
             return Raw.OpenNamespace(name);
         }
 
@@ -567,7 +580,8 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryUsingNamespace(string fullName)
         {
-            /*HRESULT UsingNamespace([In, MarshalAs(UnmanagedType.LPWStr)] string fullName);*/
+            /*HRESULT UsingNamespace(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string fullName);*/
             return Raw.UsingNamespace(fullName);
         }
 
@@ -601,12 +615,10 @@ namespace ClrDebug
         public HRESULT TrySetMethodSourceRange(ISymUnmanagedDocumentWriter startDoc, int startLine, int startColumn, ISymUnmanagedDocumentWriter endDoc, int endLine, int endColumn)
         {
             /*HRESULT SetMethodSourceRange(
-            [MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocumentWriter startDoc,
+            [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocumentWriter startDoc,
             [In] int startLine,
             [In] int startColumn,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocumentWriter endDoc,
+            [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocumentWriter endDoc,
             [In] int endLine,
             [In] int endColumn);*/
             return Raw.SetMethodSourceRange(startDoc, startLine, startColumn, endDoc, endLine, endColumn);
@@ -643,9 +655,11 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryInitialize(object emitter, string filename, IStream pIStream, bool fFullBuild)
         {
-            /*HRESULT Initialize([MarshalAs(UnmanagedType.IUnknown), In]
-            object emitter, [In, MarshalAs(UnmanagedType.LPWStr)] string filename, [MarshalAs(UnmanagedType.Interface), In]
-            IStream pIStream, [In] bool fFullBuild);*/
+            /*HRESULT Initialize(
+            [MarshalAs(UnmanagedType.IUnknown), In] object emitter,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string filename,
+            [MarshalAs(UnmanagedType.Interface), In] IStream pIStream,
+            [In] bool fFullBuild);*/
             return Raw.Initialize(emitter, filename, pIStream, fFullBuild);
         }
 
@@ -764,7 +778,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryRemapToken(mdToken oldToken, mdToken newToken)
         {
-            /*HRESULT RemapToken([In] mdToken oldToken, [In] mdToken newToken);*/
+            /*HRESULT RemapToken(
+            [In] mdToken oldToken,
+            [In] mdToken newToken);*/
             return Raw.RemapToken(oldToken, newToken);
         }
 
@@ -800,11 +816,9 @@ namespace ClrDebug
         public HRESULT TryInitialize2(object emitter, string tempfilename, IStream pIStream, bool fFullBuild, string finalfilename)
         {
             /*HRESULT Initialize2(
-            [MarshalAs(UnmanagedType.IUnknown), In]
-            object emitter,
+            [MarshalAs(UnmanagedType.IUnknown), In] object emitter,
             [In, MarshalAs(UnmanagedType.LPWStr)] string tempfilename,
-            [MarshalAs(UnmanagedType.Interface), In]
-            IStream pIStream,
+            [MarshalAs(UnmanagedType.Interface), In] IStream pIStream,
             [In] bool fFullBuild,
             [In, MarshalAs(UnmanagedType.LPWStr)] string finalfilename);*/
             return Raw.Initialize2(emitter, tempfilename, pIStream, fFullBuild, finalfilename);
@@ -835,7 +849,10 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryDefineConstant(string name, object value, int cSig, IntPtr signature)
         {
-            /*HRESULT DefineConstant([In, MarshalAs(UnmanagedType.LPWStr)] string name, [MarshalAs(UnmanagedType.Struct), In] object value, [In] int cSig,
+            /*HRESULT DefineConstant(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [MarshalAs(UnmanagedType.Struct), In] object value,
+            [In] int cSig,
             [In] IntPtr signature);*/
             return Raw.DefineConstant(name, value, cSig, signature);
         }
@@ -988,7 +1005,9 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryDefineConstant2(string name, object value, mdSignature sigToken)
         {
-            /*HRESULT DefineConstant2([In, MarshalAs(UnmanagedType.LPWStr)] string name, [MarshalAs(UnmanagedType.Struct), In] object value,
+            /*HRESULT DefineConstant2(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string name,
+            [MarshalAs(UnmanagedType.Struct), In] object value,
             [In] mdSignature sigToken);*/
             return Raw2.DefineConstant2(name, value, sigToken);
         }
@@ -1022,7 +1041,10 @@ namespace ClrDebug
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         public HRESULT TryOpenMethod2(int method, int isect, int offset)
         {
-            /*HRESULT OpenMethod2([In] int method, [In] int isect, [In] int offset);*/
+            /*HRESULT OpenMethod2(
+            [In] int method,
+            [In] int isect,
+            [In] int offset);*/
             return Raw3.OpenMethod2(method, isect, offset);
         }
 
@@ -1162,8 +1184,7 @@ namespace ClrDebug
         {
             /*HRESULT MapTokenToSourceSpan(
             [In] mdToken token,
-            [MarshalAs(UnmanagedType.Interface), In]
-            ISymUnmanagedDocumentWriter document,
+            [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocumentWriter document,
             [In] int line,
             [In] int column,
             [In] int endLine,

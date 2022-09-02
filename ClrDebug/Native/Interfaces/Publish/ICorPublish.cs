@@ -26,7 +26,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumProcesses([In] COR_PUB_ENUMPROCESS Type, [Out, MarshalAs(UnmanagedType.Interface)] out ICorPublishProcessEnum ppIEnum);
+        HRESULT EnumProcesses(
+            [In] COR_PUB_ENUMPROCESS Type,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorPublishProcessEnum ppIEnum);
 
         /// <summary>
         /// Gets an <see cref="ICorPublishProcess"/> instance that represents the process with the specified identifier.
@@ -38,6 +40,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetProcess([In] int pid, [Out, MarshalAs(UnmanagedType.Interface)] out ICorPublishProcess ppProcess);
+        HRESULT GetProcess(
+            [In] int pid,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorPublishProcess ppProcess);
     }
 }

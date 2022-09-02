@@ -18,7 +18,8 @@ namespace ClrDebug
         /// <param name="ppProcess">[out] A pointer to the address of an <see cref="ICorDebugProcess"/> interface object that represents the process.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetProcess([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
+        HRESULT GetProcess(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
         /// <summary>
         /// Gets the current operating system identifier of the active part of this <see cref="ICorDebugThread"/>.
@@ -30,7 +31,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetID([Out] out int pdwThreadId);
+        HRESULT GetID(
+            [Out] out int pdwThreadId);
 
         /// <summary>
         /// Gets the current handle for the active part of this <see cref="ICorDebugThread"/>.
@@ -42,7 +44,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetHandle([Out] out IntPtr phThreadHandle);
+        HRESULT GetHandle(
+            [Out] out IntPtr phThreadHandle);
 
         /// <summary>
         /// Gets an interface pointer to the application domain in which this <see cref="ICorDebugThread"/> is currently executing.
@@ -50,7 +53,8 @@ namespace ClrDebug
         /// <param name="ppAppDomain">[out] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain in which this thread is currently executing.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetAppDomain([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAppDomain ppAppDomain);
+        HRESULT GetAppDomain(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAppDomain ppAppDomain);
 
         /// <summary>
         /// Sets flags that describe the debugging state of this <see cref="ICorDebugThread"/>.
@@ -70,7 +74,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetDebugState([In] CorDebugThreadState state);
+        HRESULT SetDebugState(
+            [In] CorDebugThreadState state);
 
         /// <summary>
         /// Gets the current debug state of this <see cref="ICorDebugThread"/> object.
@@ -82,7 +87,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetDebugState([Out] out CorDebugThreadState pState);
+        HRESULT GetDebugState(
+            [Out] out CorDebugThreadState pState);
 
         /// <summary>
         /// Gets the current user state of this <see cref="ICorDebugThread"/>.
@@ -94,7 +100,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetUserState([Out] out CorDebugUserState pState);
+        HRESULT GetUserState(
+            [Out] out CorDebugUserState pState);
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugValue"/> object that represents an exception that is currently being thrown by managed code.
@@ -111,7 +118,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCurrentException([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppExceptionObject);
+        HRESULT GetCurrentException(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppExceptionObject);
 
         /// <summary>
         /// This method is not implemented. Do not use it.
@@ -129,7 +137,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CreateStepper([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugStepper ppStepper);
+        HRESULT CreateStepper(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugStepper ppStepper);
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugChainEnum"/> enumerator that contains all the stack chains in this <see cref="ICorDebugThread"/> object.
@@ -144,7 +153,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnumerateChains([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChainEnum ppChains);
+        HRESULT EnumerateChains(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChainEnum ppChains);
 
         /// <summary>
         /// Gets an interface pointer to the active (most recent) stack chain on this <see cref="ICorDebugThread"/> object.
@@ -155,7 +165,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetActiveChain([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);
+        HRESULT GetActiveChain(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);
 
         /// <summary>
         /// Gets an interface pointer to the active (most recent) frame on this <see cref="ICorDebugThread"/> object.
@@ -166,7 +177,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetActiveFrame([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);
+        HRESULT GetActiveFrame(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);
 
         /// <summary>
         /// Gets an interface pointer to the register set that is associated with the active part of this <see cref="ICorDebugThread"/> object.
@@ -174,7 +186,8 @@ namespace ClrDebug
         /// <param name="ppRegisters">[out] A pointer to the address of an <see cref="ICorDebugRegisterSet"/> interface object that represents the register set for the active part of this thread.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetRegisterSet([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugRegisterSet ppRegisters);
+        HRESULT GetRegisterSet(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugRegisterSet ppRegisters);
 
         /// <summary>
         /// Creates an <see cref="ICorDebugEval"/> object that collects and exposes the functionality of this <see cref="ICorDebugThread"/>.
@@ -186,7 +199,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT CreateEval([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugEval ppEval);
+        HRESULT CreateEval(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugEval ppEval);
 
         /// <summary>
         /// Gets an interface pointer to the common language runtime (CLR) thread.
@@ -194,6 +208,7 @@ namespace ClrDebug
         /// <param name="ppObject">[out] A pointer to the address of an <see cref="ICorDebugValue"/> interface object that represents the CLR thread.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetObject([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppObject);
+        HRESULT GetObject(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppObject);
     }
 }

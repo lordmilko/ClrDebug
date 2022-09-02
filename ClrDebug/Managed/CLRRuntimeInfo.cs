@@ -52,8 +52,9 @@ namespace ClrDebug
         /// </returns>
         public HRESULT TryGetVersionString(out string pwzBufferResult)
         {
-            /*HRESULT GetVersionString([MarshalAs(UnmanagedType.LPWStr), Out]
-            StringBuilder pwzBuffer, [In, Out] ref int pcchBuffer);*/
+            /*HRESULT GetVersionString(
+            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder pwzBuffer,
+            [In, Out] ref int pcchBuffer);*/
             StringBuilder pwzBuffer;
             int pcchBuffer = default(int);
             HRESULT hr = Raw.GetVersionString(null, ref pcchBuffer);
@@ -108,8 +109,9 @@ namespace ClrDebug
         /// </returns>
         public HRESULT TryGetRuntimeDirectory(out string pwzBufferResult)
         {
-            /*HRESULT GetRuntimeDirectory([MarshalAs(UnmanagedType.LPWStr), Out]
-            StringBuilder pwzBuffer, [In, Out] ref int pcchBuffer);*/
+            /*HRESULT GetRuntimeDirectory(
+            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder pwzBuffer,
+            [In, Out] ref int pcchBuffer);*/
             StringBuilder pwzBuffer;
             int pcchBuffer = default(int);
             HRESULT hr = Raw.GetRuntimeDirectory(null, ref pcchBuffer);
@@ -213,8 +215,7 @@ namespace ClrDebug
         {
             /*HRESULT GetDefaultStartupFlags(
             [Out] out int pdwStartupFlags,
-            [MarshalAs(UnmanagedType.LPWStr), Out]
-            StringBuilder pwzHostConfigFile,
+            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder pwzHostConfigFile,
             [In, Out] ref int pcchHostConfigFile);*/
             int pdwStartupFlags;
             StringBuilder pwzHostConfigFile;
@@ -274,7 +275,9 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryIsStarted(out IsStartedResult result)
         {
-            /*HRESULT IsStarted([Out] out bool pbStarted, [Out] out int pdwStartupFlags);*/
+            /*HRESULT IsStarted(
+            [Out] out bool pbStarted,
+            [Out] out int pdwStartupFlags);*/
             bool pbStarted;
             int pdwStartupFlags;
             HRESULT hr = Raw.IsStarted(out pbStarted, out pdwStartupFlags);
@@ -583,7 +586,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TrySetDefaultStartupFlags(int dwStartupFlags, string pwzHostConfigFile)
         {
-            /*HRESULT SetDefaultStartupFlags([In] int dwStartupFlags,
+            /*HRESULT SetDefaultStartupFlags(
+            [In] int dwStartupFlags,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzHostConfigFile);*/
             return Raw.SetDefaultStartupFlags(dwStartupFlags, pwzHostConfigFile);
         }

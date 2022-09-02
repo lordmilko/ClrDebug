@@ -41,7 +41,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT ProcessStateChanged([In] CorDebugStateChange change);
+        HRESULT ProcessStateChanged(
+            [In] CorDebugStateChange change);
 
         /// <summary>
         /// Gets information about the managed code at a particular code address.
@@ -50,7 +51,9 @@ namespace ClrDebug
         /// <param name="ppCode">[out] A pointer to the address of an "ICorDebugCode" object that represents a segment of managed code.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetCode([In] CORDB_ADDRESS codeAddress, [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
+        HRESULT GetCode(
+            [In] CORDB_ADDRESS codeAddress,
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
 
         /// <summary>
         /// Enables or disables virtual module splitting.
@@ -69,7 +72,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT EnableVirtualModuleSplitting([In] int enableSplitting);
+        HRESULT EnableVirtualModuleSplitting(
+            [In] int enableSplitting);
 
         /// <summary>
         /// Changes the internal state of the debugee so that the <see cref="Debugger.IsAttached"/> method in the .NET Framework Class Library returns true.
@@ -86,7 +90,8 @@ namespace ClrDebug
         /// </returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT MarkDebuggerAttached([In] bool fIsAttached);
+        HRESULT MarkDebuggerAttached(
+            [In] bool fIsAttached);
 
         /// <summary>
         /// Provides information on runtime exported functions to help step through managed code.

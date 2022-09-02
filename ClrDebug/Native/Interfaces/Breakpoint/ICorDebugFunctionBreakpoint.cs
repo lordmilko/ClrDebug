@@ -17,7 +17,8 @@ namespace ClrDebug
         /// <param name="bActive">[in] Set this value to true to specify the state as active; otherwise, set this value to false.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT Activate([In] bool bActive);
+        new HRESULT Activate(
+            [In] bool bActive);
 
         /// <summary>
         /// Gets a value that indicates whether this <see cref="ICorDebugBreakpoint"/> is active.
@@ -25,7 +26,8 @@ namespace ClrDebug
         /// <param name="pbActive">[out] true if this breakpoint is active; otherwise, false.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT IsActive([Out] out bool pbActive);
+        new HRESULT IsActive(
+            [Out] out bool pbActive);
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugFunction"/> that references the function in which the breakpoint is set.
@@ -33,7 +35,8 @@ namespace ClrDebug
         /// <param name="ppFunction">[out] A pointer to the address of the function in which the breakpoint is set.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetFunction([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
+        HRESULT GetFunction(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
 
         /// <summary>
         /// Gets the offset of the breakpoint within the function.
@@ -41,6 +44,7 @@ namespace ClrDebug
         /// <param name="pnOffset">[out] A pointer to the offset of the breakpoint.</param>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT GetOffset([Out] out int pnOffset);
+        HRESULT GetOffset(
+            [Out] out int pnOffset);
     }
 }

@@ -40,7 +40,8 @@ namespace ClrDebug
         /// <param name="ppProcessResult">[out] A pointer to an <see cref="ICorDebugProcess"/> interface that represents the process.</param>
         public HRESULT TryGetProcess(out CorDebugProcess ppProcessResult)
         {
-            /*HRESULT GetProcess([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
+            /*HRESULT GetProcess(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);*/
             ICorDebugProcess ppProcess;
             HRESULT hr = Raw.GetProcess(out ppProcess);
 
@@ -78,7 +79,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetAppDomain(out CorDebugAppDomain ppAppDomainResult)
         {
-            /*HRESULT GetAppDomain([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAppDomain ppAppDomain);*/
+            /*HRESULT GetAppDomain(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAppDomain ppAppDomain);*/
             ICorDebugAppDomain ppAppDomain;
             HRESULT hr = Raw.GetAppDomain(out ppAppDomain);
 
@@ -112,7 +114,10 @@ namespace ClrDebug
         /// </summary>
         public HRESULT TryGetCodeBase(out string szNameResult)
         {
-            /*HRESULT GetCodeBase([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
+            /*HRESULT GetCodeBase(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName;
@@ -164,7 +169,10 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetName(out string szNameResult)
         {
-            /*HRESULT GetName([In] int cchName, [Out] out int pcchName, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
+            /*HRESULT GetName(
+            [In] int cchName,
+            [Out] out int pcchName,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName;
@@ -216,7 +224,8 @@ namespace ClrDebug
         /// <param name="ppModulesResult">[out] A pointer to the address of the <see cref="ICorDebugModuleEnum"/> interface that is the enumerator.</param>
         public HRESULT TryEnumerateModules(out CorDebugModuleEnum ppModulesResult)
         {
-            /*HRESULT EnumerateModules([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModuleEnum ppModules);*/
+            /*HRESULT EnumerateModules(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModuleEnum ppModules);*/
             ICorDebugModuleEnum ppModules;
             HRESULT hr = Raw.EnumerateModules(out ppModules);
 
@@ -261,7 +270,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryIsFullyTrusted(out bool pbFullyTrusted)
         {
-            /*HRESULT IsFullyTrusted([Out] out bool pbFullyTrusted);*/
+            /*HRESULT IsFullyTrusted(
+            [Out] out bool pbFullyTrusted);*/
             return Raw2.IsFullyTrusted(out pbFullyTrusted);
         }
 
@@ -300,7 +310,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryGetContainerAssembly(out CorDebugAssembly ppAssemblyResult)
         {
-            /*HRESULT GetContainerAssembly([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAssembly ppAssembly);*/
+            /*HRESULT GetContainerAssembly(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAssembly ppAssembly);*/
             ICorDebugAssembly ppAssembly;
             HRESULT hr = Raw3.GetContainerAssembly(out ppAssembly);
 
@@ -347,7 +358,8 @@ namespace ClrDebug
         /// </remarks>
         public HRESULT TryEnumerateContainedAssemblies(out CorDebugAssemblyEnum ppAssembliesResult)
         {
-            /*HRESULT EnumerateContainedAssemblies([Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAssemblyEnum ppAssemblies);*/
+            /*HRESULT EnumerateContainedAssemblies(
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAssemblyEnum ppAssemblies);*/
             ICorDebugAssemblyEnum ppAssemblies;
             HRESULT hr = Raw3.EnumerateContainedAssemblies(out ppAssemblies);
 

@@ -20,6 +20,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT SetWriteableMetadataUpdateMode([In] WriteableMetadataUpdateMode flags);
+        HRESULT SetWriteableMetadataUpdateMode(
+            [In] WriteableMetadataUpdateMode flags);
     }
 }

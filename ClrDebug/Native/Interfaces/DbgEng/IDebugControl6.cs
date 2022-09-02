@@ -1451,8 +1451,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetExceptionFilterParameters(
             [In] int Count,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]
-            int[] Codes,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Codes,
             [In] int Start,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);
 
@@ -2132,8 +2131,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetPromptTextWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int TextSize);
 
@@ -2456,8 +2454,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetEventFilterTextWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int TextSize);
 
@@ -2742,8 +2739,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetLogFile2Wide(
-            [Out, MarshalAs(UnmanagedType.LPWStr)]
-            StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int FileSize,
             [Out] out DEBUG_LOG Flags);
@@ -3080,7 +3076,8 @@ namespace ClrDebug.DbgEng
         /// For more information, see Target Information.
         /// </remarks>
         [PreserveSig]
-        HRESULT GetExecutionStatusEx([Out] out DEBUG_STATUS Status);
+        HRESULT GetExecutionStatusEx(
+            [Out] out DEBUG_STATUS Status);
 
         /// <summary>
         /// The GetSynchronizationStatus method returns information about the synchronization status of the debugger engine.
