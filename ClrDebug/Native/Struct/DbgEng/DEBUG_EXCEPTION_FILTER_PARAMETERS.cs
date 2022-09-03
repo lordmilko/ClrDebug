@@ -1,10 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
     /// <summary>
     /// The DEBUG_EXCEPTION_FILTER_PARAMETERS structure contains the parameters for an exception filter.
     /// </summary>
+    [DebuggerDisplay("ExecutionOption = {ExecutionOption.ToString(),nq}, ContinueOption = {ContinueOption.ToString(),nq}, TextSize = {TextSize}, CommandSize = {CommandSize}, SecondCommandSize = {SecondCommandSize}, ExceptionCode = {ExceptionCode}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct DEBUG_EXCEPTION_FILTER_PARAMETERS
     {

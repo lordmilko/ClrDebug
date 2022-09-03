@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using static ClrDebug.DbgEng.DbgEngExtensions;
 
@@ -7,6 +8,7 @@ namespace ClrDebug.DbgEng
     //4096 bytes
 
     //The entire dump is filled with the word PAGE (EPAG backwards). Fields that don't have values will instead have PAGE
+    [DebuggerDisplay("Signature = {Signature}, ValidDump = {ValidDump}, MajorVersion = {MajorVersion}, MinorVersion = {MinorVersion}, DirectoryTableBase = {DirectoryTableBase}, PfnDataBase = {PfnDataBase}, PsLoadedModuleList = {PsLoadedModuleList}, PsActiveProcessHead = {PsActiveProcessHead}, MachineImageType = {MachineImageType.ToString(),nq}, NumberProcessors = {NumberProcessors}, BugCheckCode = {BugCheckCode}, BugCheckParameter1 = {BugCheckParameter1}, BugCheckParameter2 = {BugCheckParameter2}, BugCheckParameter3 = {BugCheckParameter3}, BugCheckParameter4 = {BugCheckParameter4}, VersionUser = {VersionUser}, PaeEnabled = {PaeEnabled}, Spare3 = {Spare3}, KdDebuggerDataBlock = {KdDebuggerDataBlock}, PhysicalMemoryBlock = {PhysicalMemoryBlock.ToString(),nq}, PhysicalMemoryBlockBuffer = {PhysicalMemoryBlockBuffer}, ContextRecord = {ContextRecord}, Exception = {Exception.ToString(),nq}, Comment = {Comment}, _reserved0 = {_reserved0}, DumpType = {DumpType.ToString(),nq}, MiniDumpFields = {MiniDumpFields}, SecondaryDataState = {SecondaryDataState}, ProductType = {ProductType.ToString(),nq}, SuiteMask = {SuiteMask.ToString(),nq}, _reserved1 = {_reserved1}, RequiredDumpSpace = {RequiredDumpSpace.ToString(),nq}, _reserved2 = {_reserved2}, SystemUpTime = {SystemUpTime.ToString(),nq}, SystemUpTimeSpan = {SystemUpTimeSpan.ToString(),nq}, SystemTime = {SystemTime.ToString(),nq}, SystemDateTime = {SystemDateTime.ToString(),nq}, _reserved3 = {_reserved3}")]
     [StructLayout(LayoutKind.Explicit)]
     public unsafe struct DUMP_HEADER32
     {

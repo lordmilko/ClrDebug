@@ -1,10 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
     /// <summary>
     /// The DEBUG_CREATE_PROCESS_OPTIONS structure specifies the process creation options to use when creating a new process.
     /// </summary>
+    [DebuggerDisplay("CreateFlags = {CreateFlags.ToString(),nq}, EngCreateFlags = {EngCreateFlags.ToString(),nq}, VerifierFlags = {VerifierFlags}, Reserved = {Reserved}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct DEBUG_CREATE_PROCESS_OPTIONS
     {

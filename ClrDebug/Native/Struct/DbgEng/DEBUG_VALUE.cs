@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
@@ -10,6 +11,7 @@ namespace ClrDebug.DbgEng
     /// the structure is valid. The possible values of the Type field, and the corresponding field specified as valid in
     /// the structure, include the following.
     /// </remarks>
+    [DebuggerDisplay("I8 = {I8}, I16 = {I16}, I32 = {I32}, I64 = {I64}, Nat = {Nat}, F32 = {F32}, F64 = {F64}, F80Bytes = {F80Bytes}, F82Bytes = {F82Bytes}, F128Bytes = {F128Bytes}, VI8 = {VI8}, VI16 = {VI16}, VI32 = {VI32}, VI64 = {VI64}, VF32 = {VF32}, VF64 = {VF64}, I64Parts32 = {I64Parts32.ToString(),nq}, F128Parts64 = {F128Parts64.ToString(),nq}, RawBytes = {RawBytes}, TailOfRawBytes = {TailOfRawBytes}, Type = {Type.ToString(),nq}")]
     [StructLayout(LayoutKind.Explicit)]
     public unsafe struct DEBUG_VALUE
     {

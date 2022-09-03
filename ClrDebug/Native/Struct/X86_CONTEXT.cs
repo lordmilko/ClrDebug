@@ -1,7 +1,9 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug
 {
+    [DebuggerDisplay("ContextFlags = {ContextFlags.ToString(),nq}, Dr0 = {Dr0}, Dr1 = {Dr1}, Dr2 = {Dr2}, Dr3 = {Dr3}, Dr6 = {Dr6}, Dr7 = {Dr7}, FloatSave = {FloatSave.ToString(),nq}, SegGs = {SegGs}, SegFs = {SegFs}, SegEs = {SegEs}, SegDs = {SegDs}, Edi = {Edi}, Esi = {Esi}, Ebx = {Ebx}, Edx = {Edx}, Ecx = {Ecx}, Eax = {Eax}, Ebp = {Ebp}, Eip = {Eip}, SegCs = {SegCs}, EFlags = {EFlags}, Esp = {Esp}, SegSs = {SegSs}, ExtendedRegisters = {ExtendedRegisters}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct X86_CONTEXT
     {

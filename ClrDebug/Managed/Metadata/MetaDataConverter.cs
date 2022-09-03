@@ -1,9 +1,10 @@
-﻿using System.Runtime.InteropServices.ComTypes;
+﻿using ClrDebug.TypeLib;
 
 namespace ClrDebug
 {
     /// <summary>
     /// Provides methods to map type libraries to their metadata signatures, and to convert from one to the other.
+    /// <para/>This interface is retrieved from a QueryInterface to <see cref="ICorRuntimeHost"/>.
     /// </summary>
     public class MetaDataConverter : ComObject<IMetaDataConverter>
     {
@@ -98,12 +99,12 @@ namespace ClrDebug
         /// <param name="strModule">[in] The name of the type library's module.</param>
         /// <param name="strTlbName">[in] The name of the type library.</param>
         /// <returns>[out] A pointer to a location that receives the address of the ITypeLib instance that represents the type library.</returns>
-        public ITypeLib GetTypeLibFromMetaData(string strModule, string strTlbName)
+        public ComTypeLib GetTypeLibFromMetaData(string strModule, string strTlbName)
         {
-            ITypeLib ppITL;
-            TryGetTypeLibFromMetaData(strModule, strTlbName, out ppITL).ThrowOnNotOK();
+            ComTypeLib ppITLResult;
+            TryGetTypeLibFromMetaData(strModule, strTlbName, out ppITLResult).ThrowOnNotOK();
 
-            return ppITL;
+            return ppITLResult;
         }
 
         /// <summary>
@@ -111,14 +112,22 @@ namespace ClrDebug
         /// </summary>
         /// <param name="strModule">[in] The name of the type library's module.</param>
         /// <param name="strTlbName">[in] The name of the type library.</param>
-        /// <param name="ppITL">[out] A pointer to a location that receives the address of the ITypeLib instance that represents the type library.</param>
-        public HRESULT TryGetTypeLibFromMetaData(string strModule, string strTlbName, out ITypeLib ppITL)
+        /// <param name="ppITLResult">[out] A pointer to a location that receives the address of the ITypeLib instance that represents the type library.</param>
+        public HRESULT TryGetTypeLibFromMetaData(string strModule, string strTlbName, out ComTypeLib ppITLResult)
         {
             /*HRESULT GetTypeLibFromMetaData(
             [In, MarshalAs(UnmanagedType.BStr)] string strModule,
             [In, MarshalAs(UnmanagedType.BStr)] string strTlbName,
             [Out, MarshalAs(UnmanagedType.Interface)] out ITypeLib ppITL);*/
-            return Raw.GetTypeLibFromMetaData(strModule, strTlbName, out ppITL);
+            ITypeLib ppITL;
+            HRESULT hr = Raw.GetTypeLibFromMetaData(strModule, strTlbName, out ppITL);
+
+            if (hr == HRESULT.S_OK)
+                ppITLResult = new ComTypeLib(ppITL);
+            else
+                ppITLResult = default(ComTypeLib);
+
+            return hr;
         }
 
         #endregion

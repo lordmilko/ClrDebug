@@ -1,10 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
     /// <summary>
     /// The DEBUG_THREAD_BASIC_INFORMATION structure describes an operating system thread.
     /// </summary>
+    [DebuggerDisplay("Valid = {Valid.ToString(),nq}, ExitStatus = {ExitStatus}, PriorityClass = {PriorityClass}, Priority = {Priority}, CreateTime = {CreateTime}, ExitTime = {ExitTime}, KernelTime = {KernelTime}, UserTime = {UserTime}, StartOffset = {StartOffset}, Affinity = {Affinity}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct DEBUG_THREAD_BASIC_INFORMATION
     {

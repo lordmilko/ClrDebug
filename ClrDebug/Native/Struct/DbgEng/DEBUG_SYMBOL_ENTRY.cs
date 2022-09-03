@@ -1,10 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
     /// <summary>
     /// The DEBUG_SYMBOL_ENTRY structure describes a symbol in a symbol group.
     /// </summary>
+    [DebuggerDisplay("ModuleBase = {ModuleBase}, Offset = {Offset}, Id = {Id}, Arg64 = {Arg64}, Size = {Size}, Flags = {Flags}, TypeId = {TypeId}, NameSize = {NameSize}, Token = {Token}, Tag = {Tag.ToString(),nq}, Arg32 = {Arg32}, Reserved = {Reserved}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct DEBUG_SYMBOL_ENTRY
     {

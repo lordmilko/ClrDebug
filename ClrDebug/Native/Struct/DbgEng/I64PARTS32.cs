@@ -1,7 +1,9 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
+    [DebuggerDisplay("LowPart = {LowPart}, HighPart = {HighPart}")]
     [StructLayout(LayoutKind.Explicit)]
     public struct I64PARTS32
     {

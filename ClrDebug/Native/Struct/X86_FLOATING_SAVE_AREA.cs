@@ -1,7 +1,9 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug
 {
+    [DebuggerDisplay("ControlWord = {ControlWord}, StatusWord = {StatusWord}, TagWord = {TagWord}, ErrorOffset = {ErrorOffset}, ErrorSelector = {ErrorSelector}, DataOffset = {DataOffset}, DataSelector = {DataSelector}, RegisterArea = {RegisterArea}, Cr0NpxState = {Cr0NpxState}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct X86_FLOATING_SAVE_AREA
     {

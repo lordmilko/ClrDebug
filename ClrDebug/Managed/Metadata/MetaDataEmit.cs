@@ -74,7 +74,7 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pIStream">[in] The writable stream to save to.</param>
         /// <param name="dwSaveFlags">[in] Reserved. Must be zero.</param>
-        public void SaveToStream(object pIStream, int dwSaveFlags)
+        public void SaveToStream(IStream pIStream, int dwSaveFlags)
         {
             TrySaveToStream(pIStream, dwSaveFlags).ThrowOnNotOK();
         }
@@ -84,10 +84,10 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pIStream">[in] The writable stream to save to.</param>
         /// <param name="dwSaveFlags">[in] Reserved. Must be zero.</param>
-        public HRESULT TrySaveToStream(object pIStream, int dwSaveFlags)
+        public HRESULT TrySaveToStream(IStream pIStream, int dwSaveFlags)
         {
             /*HRESULT SaveToStream(
-            [In, MarshalAs(UnmanagedType.Interface)] object pIStream,
+            [In, MarshalAs(UnmanagedType.Interface)] IStream pIStream,
             [In] int dwSaveFlags);*/
             return Raw.SaveToStream(pIStream, dwSaveFlags);
         }
@@ -1906,7 +1906,7 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pIStream">[in] An interface pointer to the writable stream to which to save changes.</param>
         /// <param name="dwSaveFlags">[in] Reserved. This value must be zero.</param>
-        public void SaveDeltaToStream(object pIStream, int dwSaveFlags)
+        public void SaveDeltaToStream(IStream pIStream, int dwSaveFlags)
         {
             TrySaveDeltaToStream(pIStream, dwSaveFlags).ThrowOnNotOK();
         }
@@ -1916,10 +1916,10 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pIStream">[in] An interface pointer to the writable stream to which to save changes.</param>
         /// <param name="dwSaveFlags">[in] Reserved. This value must be zero.</param>
-        public HRESULT TrySaveDeltaToStream(object pIStream, int dwSaveFlags)
+        public HRESULT TrySaveDeltaToStream(IStream pIStream, int dwSaveFlags)
         {
             /*HRESULT SaveDeltaToStream(
-            [In, MarshalAs(UnmanagedType.Interface)] object pIStream,
+            [In, MarshalAs(UnmanagedType.Interface)] IStream pIStream,
             [In] int dwSaveFlags);*/
             return Raw2.SaveDeltaToStream(pIStream, dwSaveFlags);
         }

@@ -1,10 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
     /// <summary>
     /// The DEBUG_HANDLE_DATA_BASIC structure contains handle-related information about a system object.
     /// </summary>
+    [DebuggerDisplay("TypeNameSize = {TypeNameSize}, ObjectNameSize = {ObjectNameSize}, Attributes = {Attributes}, GrantedAccess = {GrantedAccess}, HandleCount = {HandleCount}, PointerCount = {PointerCount}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct DEBUG_HANDLE_DATA_BASIC
     {

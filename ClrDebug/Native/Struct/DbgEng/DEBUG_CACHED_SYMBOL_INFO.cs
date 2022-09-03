@@ -1,10 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
     /// <summary>
     /// Defines information about cached symbols.
     /// </summary>
+    [DebuggerDisplay("ModBase = {ModBase}, Arg1 = {Arg1}, Arg2 = {Arg2}, Id = {Id}, Arg3 = {Arg3}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct DEBUG_CACHED_SYMBOL_INFO
     {

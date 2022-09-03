@@ -1,10 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
     /// <summary>
     /// The DEBUG_SYMBOL_PARAMETERS structure describes a symbol in a symbol group.
     /// </summary>
+    [DebuggerDisplay("Module = {Module}, TypeId = {TypeId}, ParentSymbol = {ParentSymbol}, SubElements = {SubElements}, Flags = {Flags.ToString(),nq}, Reserved = {Reserved}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct DEBUG_SYMBOL_PARAMETERS
     {

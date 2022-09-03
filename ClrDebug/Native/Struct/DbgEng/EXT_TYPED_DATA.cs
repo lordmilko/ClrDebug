@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
@@ -15,6 +16,7 @@ namespace ClrDebug.DbgEng
     /// operation, the additional data is included in the InBuffer and OutBuffer (as appropriate) and should be included
     /// in the size of these two buffers.
     /// </remarks>
+    [DebuggerDisplay("Operation = {Operation.ToString(),nq}, Flags = {Flags.ToString(),nq}, InData = {InData.ToString(),nq}, OutData = {OutData.ToString(),nq}, InStrIndex = {InStrIndex}, In32 = {In32}, Out32 = {Out32}, In64 = {In64}, Out64 = {Out64}, StrBufferIndex = {StrBufferIndex}, StrBufferChars = {StrBufferChars}, StrCharsNeeded = {StrCharsNeeded}, DataBufferIndex = {DataBufferIndex}, DataBufferBytes = {DataBufferBytes}, DataBytesNeeded = {DataBytesNeeded}, Status = {Status.ToString(),nq}, Reserved = {Reserved}")]
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct EXT_TYPED_DATA
     {

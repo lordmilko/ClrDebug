@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
@@ -8,6 +9,7 @@ namespace ClrDebug.DbgEng
     /// <remarks>
     /// For an overview of how to use breakpoints, and a description of all breakpoint-related methods, see Breakpoints.
     /// </remarks>
+    [DebuggerDisplay("Offset = {Offset}, Id = {Id}, BreakType = {BreakType.ToString(),nq}, ProcType = {ProcType}, Flags = {Flags.ToString(),nq}, DataSize = {DataSize}, DataAccessType = {DataAccessType.ToString(),nq}, PassCount = {PassCount}, CurrentPassCount = {CurrentPassCount}, MatchThread = {MatchThread}, CommandSize = {CommandSize}, OffsetExpressionSize = {OffsetExpressionSize}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct DEBUG_BREAKPOINT_PARAMETERS
     {

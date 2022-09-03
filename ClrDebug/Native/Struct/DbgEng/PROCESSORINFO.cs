@@ -1,7 +1,9 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
+    [DebuggerDisplay("Processor = {Processor}, NumberProcessors = {NumberProcessors}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct PROCESSORINFO
     {

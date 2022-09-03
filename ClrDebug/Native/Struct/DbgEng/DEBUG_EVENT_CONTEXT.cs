@@ -1,10 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
     /// <summary>
     /// Defines context information about an event.
     /// </summary>
+    [DebuggerDisplay("Size = {Size}, ProcessEngineId = {ProcessEngineId}, ThreadEngineId = {ThreadEngineId}, FrameEngineId = {FrameEngineId}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct DEBUG_EVENT_CONTEXT
     {

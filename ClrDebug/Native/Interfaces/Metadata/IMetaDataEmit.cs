@@ -37,7 +37,7 @@ namespace ClrDebug
         /// <param name="dwSaveFlags">[in] Reserved. Must be zero.</param>
         [PreserveSig]
         HRESULT SaveToStream(
-            [In, MarshalAs(UnmanagedType.Interface)] object pIStream,
+            [In, MarshalAs(UnmanagedType.Interface)] IStream pIStream,
             [In] int dwSaveFlags);
 
         /// <summary>

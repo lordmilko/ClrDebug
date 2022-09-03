@@ -3,9 +3,9 @@
 namespace ClrDebug.DbgEng
 {
     /// <summary>
-    /// Encapsulates the results of the <see cref="DebugControl.GetLastEventInformationWide"/> method.
+    /// Encapsulates the results of the <see cref="DebugControl.LastEventInformationWide"/> property.
     /// </summary>
-    [DebuggerDisplay("Type = {Type.ToString(),nq}, ProcessId = {ProcessId}, ThreadId = {ThreadId}, ExtraInformationUsed = {ExtraInformationUsed}, Description = {Description}")]
+    [DebuggerDisplay("Type = {Type.ToString(),nq}, ProcessId = {ProcessId}, ThreadId = {ThreadId}, ExtraInformation = {ExtraInformation.ToString(),nq}, Description = {Description}")]
     public struct GetLastEventInformationWideResult
     {
         /// <summary>
@@ -24,21 +24,24 @@ namespace ClrDebug.DbgEng
         public int ThreadId { get; }
 
         /// <summary>
-        /// Receives the size, in bytes, of extra information. If ExtraInformationUsed is NULL, this information is not returned.
+        /// Receives extra information about the event. The contents of this extra information depends on the type of the event as indicated by the returned Type parameter.<para/>
+        /// For example, if Type is breakpoint, ExtraInformation contains a DEBUG_LAST_EVENT_INFO_BREAKPOINT; if Type is Exception, ExtraInformation contains a DEBUG_LAST_EVENT_INFO_EXCEPTION.<para/>
+        /// Refer to DEBUG_EVENT_XXX for the complete list of event types and the dbgeng.h header file for the structure definitions for each event type.<para/>
+        /// If ExtraInformation is NULL, this information is not returned.
         /// </summary>
-        public int ExtraInformationUsed { get; }
+        public DEBUG_LAST_EVENT_INFO ExtraInformation { get; }
 
         /// <summary>
         /// Receives the description of the event. If Description is NULL, this information is not returned.
         /// </summary>
         public string Description { get; }
 
-        public GetLastEventInformationWideResult(DEBUG_EVENT_TYPE type, int processId, int threadId, int extraInformationUsed, string description)
+        public GetLastEventInformationWideResult(DEBUG_EVENT_TYPE type, int processId, int threadId, DEBUG_LAST_EVENT_INFO extraInformation, string description)
         {
             Type = type;
             ProcessId = processId;
             ThreadId = threadId;
-            ExtraInformationUsed = extraInformationUsed;
+            ExtraInformation = extraInformation;
             Description = description;
         }
     }

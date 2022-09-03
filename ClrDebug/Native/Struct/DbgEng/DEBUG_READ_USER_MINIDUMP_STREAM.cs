@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
@@ -12,6 +13,7 @@ namespace ClrDebug.DbgEng
     /// <see cref="IDebugAdvanced2.Request"/> operation. The target must be a user-mode minidump file. Each minidump file
     /// contains a number of streams. These streams are blocks of data written to the minidump file.
     /// </remarks>
+    [DebuggerDisplay("StreamType = {StreamType}, Flags = {Flags}, Offset = {Offset}, Buffer = {Buffer.ToString(),nq}, BufferSize = {BufferSize}, BufferUsed = {BufferUsed}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct DEBUG_READ_USER_MINIDUMP_STREAM
     {

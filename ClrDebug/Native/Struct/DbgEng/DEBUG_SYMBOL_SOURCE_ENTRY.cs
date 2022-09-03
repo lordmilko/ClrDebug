@@ -1,10 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
     /// <summary>
     /// The DEBUG_SYMBOL_SOURCE_ENTRY structure describes a section of the source code and a corresponding region of the target's memory.
     /// </summary>
+    [DebuggerDisplay("ModuleBase = {ModuleBase}, Offset = {Offset}, FileNameId = {FileNameId}, EngineInternal = {EngineInternal}, Size = {Size}, Flags = {Flags}, FileNameSize = {FileNameSize}, StartLine = {StartLine}, EndLine = {EndLine}, StartColumn = {StartColumn}, EndColumn = {EndColumn}, Reserved = {Reserved}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct DEBUG_SYMBOL_SOURCE_ENTRY
     {

@@ -1,10 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
     /// <summary>
     /// The DEBUG_STACK_FRAME_EX structure describes a stack frame and the address of the current instruction for the stack frame.
     /// </summary>
+    [DebuggerDisplay("InstructionOffset = {InstructionOffset}, ReturnOffset = {ReturnOffset}, FrameOffset = {FrameOffset}, StackOffset = {StackOffset}, FuncTableEntry = {FuncTableEntry}, Params = {Params}, Reserved = {Reserved}, Virtual = {Virtual}, FrameNumber = {FrameNumber}, InlineFrameContext = {InlineFrameContext}, Reserved1 = {Reserved1}")]
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct DEBUG_STACK_FRAME_EX
     {

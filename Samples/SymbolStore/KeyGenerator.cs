@@ -111,7 +111,10 @@ namespace SymStore
             return new SymbolStoreKey(key.ToString(), path, clrSpecialFile);
         }
 
-        /// <summary> /// Convert an array of bytes to a lower case hex string.  /// </summary> /// <param name="bytes">array of bytes</param>
+        /// <summary>
+        /// Convert an array of bytes to a lower case hex string.
+        /// </summary>
+        /// <param name="bytes">array of bytes</param>
         /// <returns>hex string</returns>
         public static string ToHexString(byte[] bytes)
         {

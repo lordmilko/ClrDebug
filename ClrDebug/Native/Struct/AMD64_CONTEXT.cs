@@ -1,10 +1,11 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug
 {
     //This is 100% right, theres some items which should be arrays,
     //and some minor items missing (e.g. FltSave, Header and Legacy, etc in the Floating Point State section)
-
+    [DebuggerDisplay("P1Home = {P1Home}, P2Home = {P2Home}, P3Home = {P3Home}, P4Home = {P4Home}, P5Home = {P5Home}, P6Home = {P6Home}, ContextFlags = {ContextFlags.ToString(),nq}, MxCsr = {MxCsr}, SegCs = {SegCs}, SegDs = {SegDs}, SegEs = {SegEs}, SegFs = {SegFs}, SegGs = {SegGs}, SegSs = {SegSs}, EFlags = {EFlags}, Dr0 = {Dr0}, Dr1 = {Dr1}, Dr2 = {Dr2}, Dr3 = {Dr3}, Dr6 = {Dr6}, Dr7 = {Dr7}, Rax = {Rax}, Rcx = {Rcx}, Rdx = {Rdx}, Rbx = {Rbx}, Rsp = {Rsp}, Rbp = {Rbp}, Rsi = {Rsi}, Rdi = {Rdi}, R8 = {R8}, R9 = {R9}, R10 = {R10}, R11 = {R11}, R12 = {R12}, R13 = {R13}, R14 = {R14}, R15 = {R15}, Rip = {Rip}, FltSave = {FltSave}, Legacy = {Legacy}, Xmm0 = {Xmm0}, Xmm1 = {Xmm1}, Xmm2 = {Xmm2}, Xmm3 = {Xmm3}, Xmm4 = {Xmm4}, Xmm5 = {Xmm5}, Xmm6 = {Xmm6}, Xmm7 = {Xmm7}, Xmm8 = {Xmm8}, Xmm9 = {Xmm9}, Xmm10 = {Xmm10}, Xmm11 = {Xmm11}, Xmm12 = {Xmm12}, Xmm13 = {Xmm13}, Xmm14 = {Xmm14}, Xmm15 = {Xmm15}, VectorRegister = {VectorRegister}, VectorControl = {VectorControl}, DebugControl = {DebugControl}, LastBranchToRip = {LastBranchToRip}, LastBranchFromRip = {LastBranchFromRip}, LastExceptionToRip = {LastExceptionToRip}, LastExceptionFromRip = {LastExceptionFromRip}")]
     [StructLayout(LayoutKind.Explicit, Size = 1232)]
     public struct AMD64_CONTEXT
     {

@@ -1555,7 +1555,7 @@ namespace ClrDebug.DbgEng
             [Out] out DEBUG_EVENT_TYPE Type,
             [Out] out int ProcessId,
             [Out] out int ThreadId,
-            [In] IntPtr ExtraInformation,
+            [Out, ComAliasName("IntPtr")] out DEBUG_LAST_EVENT_INFO ExtraInformation,
             [In] int ExtraInformationSize,
             [Out] out int ExtraInformationUsed,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Description,

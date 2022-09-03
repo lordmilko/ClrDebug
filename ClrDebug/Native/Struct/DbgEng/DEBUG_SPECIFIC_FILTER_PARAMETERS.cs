@@ -1,10 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
     /// <summary>
     /// The DEBUG_SPECIFIC_FILTER_PARAMETERS structure contains the parameters for a specific event filter.
     /// </summary>
+    [DebuggerDisplay("ExecutionOption = {ExecutionOption.ToString(),nq}, ContinueOption = {ContinueOption.ToString(),nq}, TextSize = {TextSize}, CommandSize = {CommandSize}, ArgumentSize = {ArgumentSize}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct DEBUG_SPECIFIC_FILTER_PARAMETERS
     {

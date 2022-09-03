@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
@@ -12,6 +13,7 @@ namespace ClrDebug.DbgEng
     /// EXT_TDOP_SET_PTR_FROM_TYPE_ID_AND_U64 suboperations take a DEBUG_TYPED_DATA instance that is not manipulated using
     /// the Request method. These suboperations take a manually created instance with some members manually filled in.
     /// </remarks>
+    [DebuggerDisplay("ModBase = {ModBase}, Offset = {Offset}, EngineHandle = {EngineHandle}, Data = {Data}, Size = {Size}, Flags = {Flags.ToString(),nq}, TypeId = {TypeId}, BaseTypeId = {BaseTypeId}, Tag = {Tag.ToString(),nq}, Register = {Register}, Internal = {Internal}")]
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct DEBUG_TYPED_DATA
     {

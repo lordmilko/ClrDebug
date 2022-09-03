@@ -1154,6 +1154,76 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
+        #region LastEventInformation
+
+        /// <summary>
+        /// The GetLastEventInformation method returns information about the last event that occurred in a target.
+        /// </summary>
+        public GetLastEventInformationResult LastEventInformation
+        {
+            get
+            {
+                GetLastEventInformationResult result;
+                TryGetLastEventInformation(out result).ThrowDbgEngNotOK();
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// The GetLastEventInformation method returns information about the last event that occurred in a target.
+        /// </summary>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        /// <remarks>
+        /// For thread and process creation events, the thread index and process ID returned to ThreadId and ProcessId are
+        /// for the newly created thread or process. For more information about the last event, see the topic Event Information.
+        /// </remarks>
+        public HRESULT TryGetLastEventInformation(out GetLastEventInformationResult result)
+        {
+            InitDelegate(ref getLastEventInformation, Vtbl->GetLastEventInformation);
+            /*HRESULT GetLastEventInformation(
+            [Out] out DEBUG_EVENT_TYPE Type,
+            [Out] out int ProcessId,
+            [Out] out int ThreadId,
+            [Out, ComAliasName("IntPtr")] out DEBUG_LAST_EVENT_INFO ExtraInformation,
+            [In] int ExtraInformationSize,
+            [Out] out int ExtraInformationUsed,
+            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Description,
+            [In] int DescriptionSize,
+            [Out] out int DescriptionUsed);*/
+            DEBUG_EVENT_TYPE type;
+            int processId;
+            int threadId;
+            DEBUG_LAST_EVENT_INFO extraInformation;
+            int extraInformationSize = Marshal.SizeOf<DEBUG_LAST_EVENT_INFO>();
+            int extraInformationUsed;
+            StringBuilder description;
+            int descriptionSize = 0;
+            int descriptionUsed;
+            HRESULT hr = getLastEventInformation(Raw, out type, out processId, out threadId, out extraInformation, extraInformationSize, out extraInformationUsed, null, descriptionSize, out descriptionUsed);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            descriptionSize = descriptionUsed;
+            description = new StringBuilder(descriptionSize);
+            hr = getLastEventInformation(Raw, out type, out processId, out threadId, out extraInformation, extraInformationSize, out extraInformationUsed, description, descriptionSize, out descriptionUsed);
+
+            if (hr == HRESULT.S_OK)
+            {
+                result = new GetLastEventInformationResult(type, processId, threadId, extraInformation, description.ToString());
+
+                return hr;
+            }
+
+            fail:
+            result = default(GetLastEventInformationResult);
+
+            return hr;
+        }
+
+        #endregion
         #region GetInterrupt
 
         /// <summary>
@@ -3934,82 +4004,6 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
-        #region GetLastEventInformation
-
-        /// <summary>
-        /// The GetLastEventInformation method returns information about the last event that occurred in a target.
-        /// </summary>
-        /// <param name="extraInformation">[out, optional] Receives extra information about the event. The contents of this extra information depends on the type of the event.<para/>
-        /// If ExtraInformation is NULL, this information is not returned.</param>
-        /// <param name="extraInformationSize">[in] Specifies the size, in bytes, of the buffer that ExtraInformation specifies.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        /// <remarks>
-        /// For thread and process creation events, the thread index and process ID returned to ThreadId and ProcessId are
-        /// for the newly created thread or process. For more information about the last event, see the topic Event Information.
-        /// </remarks>
-        public GetLastEventInformationResult GetLastEventInformation(IntPtr extraInformation, int extraInformationSize)
-        {
-            GetLastEventInformationResult result;
-            TryGetLastEventInformation(extraInformation, extraInformationSize, out result).ThrowDbgEngNotOK();
-
-            return result;
-        }
-
-        /// <summary>
-        /// The GetLastEventInformation method returns information about the last event that occurred in a target.
-        /// </summary>
-        /// <param name="extraInformation">[out, optional] Receives extra information about the event. The contents of this extra information depends on the type of the event.<para/>
-        /// If ExtraInformation is NULL, this information is not returned.</param>
-        /// <param name="extraInformationSize">[in] Specifies the size, in bytes, of the buffer that ExtraInformation specifies.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        /// <returns>This method may also return error values. See Return Values for more details.</returns>
-        /// <remarks>
-        /// For thread and process creation events, the thread index and process ID returned to ThreadId and ProcessId are
-        /// for the newly created thread or process. For more information about the last event, see the topic Event Information.
-        /// </remarks>
-        public HRESULT TryGetLastEventInformation(IntPtr extraInformation, int extraInformationSize, out GetLastEventInformationResult result)
-        {
-            InitDelegate(ref getLastEventInformation, Vtbl->GetLastEventInformation);
-            /*HRESULT GetLastEventInformation(
-            [Out] out DEBUG_EVENT_TYPE Type,
-            [Out] out int ProcessId,
-            [Out] out int ThreadId,
-            [In] IntPtr ExtraInformation,
-            [In] int ExtraInformationSize,
-            [Out] out int ExtraInformationUsed,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Description,
-            [In] int DescriptionSize,
-            [Out] out int DescriptionUsed);*/
-            DEBUG_EVENT_TYPE type;
-            int processId;
-            int threadId;
-            int extraInformationUsed;
-            StringBuilder description;
-            int descriptionSize = 0;
-            int descriptionUsed;
-            HRESULT hr = getLastEventInformation(Raw, out type, out processId, out threadId, extraInformation, extraInformationSize, out extraInformationUsed, null, descriptionSize, out descriptionUsed);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            descriptionSize = descriptionUsed;
-            description = new StringBuilder(descriptionSize);
-            hr = getLastEventInformation(Raw, out type, out processId, out threadId, extraInformation, extraInformationSize, out extraInformationUsed, description, descriptionSize, out descriptionUsed);
-
-            if (hr == HRESULT.S_OK)
-            {
-                result = new GetLastEventInformationResult(type, processId, threadId, extraInformationUsed, description.ToString());
-
-                return hr;
-            }
-
-            fail:
-            result = default(GetLastEventInformationResult);
-
-            return hr;
-        }
-
-        #endregion
         #endregion
         #region IDebugControl2
         #region CurrentTimeDate
@@ -4993,6 +4987,76 @@ namespace ClrDebug.DbgEng
 
             fail:
             bufferResult = default(string);
+
+            return hr;
+        }
+
+        #endregion
+        #region LastEventInformationWide
+
+        /// <summary>
+        /// The GetLastEventInformationWide method returns information about the last event that occurred in a target.
+        /// </summary>
+        public GetLastEventInformationWideResult LastEventInformationWide
+        {
+            get
+            {
+                GetLastEventInformationWideResult result;
+                TryGetLastEventInformationWide(out result).ThrowDbgEngNotOK();
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// The GetLastEventInformationWide method returns information about the last event that occurred in a target.
+        /// </summary>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        /// <returns>This method may also return error values. See Return Values for more details.</returns>
+        /// <remarks>
+        /// For thread and process creation events, the thread ID and process ID returned to ThreadId and ProcessId are for
+        /// the newly created thread or process. For more information about the last event, see the topic Event Information.
+        /// </remarks>
+        public HRESULT TryGetLastEventInformationWide(out GetLastEventInformationWideResult result)
+        {
+            InitDelegate(ref getLastEventInformationWide, Vtbl4->GetLastEventInformationWide);
+            /*HRESULT GetLastEventInformationWide(
+            [Out] out DEBUG_EVENT_TYPE Type,
+            [Out] out int ProcessId,
+            [Out] out int ThreadId,
+            [Out, ComAliasName("IntPtr")] out DEBUG_LAST_EVENT_INFO ExtraInformation,
+            [In] int ExtraInformationSize,
+            [Out] out int ExtraInformationUsed,
+            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Description,
+            [In] int DescriptionSize,
+            [Out] out int DescriptionUsed);*/
+            DEBUG_EVENT_TYPE type;
+            int processId;
+            int threadId;
+            DEBUG_LAST_EVENT_INFO extraInformation;
+            int extraInformationSize = Marshal.SizeOf<DEBUG_LAST_EVENT_INFO>();
+            int extraInformationUsed;
+            StringBuilder description;
+            int descriptionSize = 0;
+            int descriptionUsed;
+            HRESULT hr = getLastEventInformationWide(Raw, out type, out processId, out threadId, out extraInformation, extraInformationSize, out extraInformationUsed, null, descriptionSize, out descriptionUsed);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            descriptionSize = descriptionUsed;
+            description = new StringBuilder(descriptionSize);
+            hr = getLastEventInformationWide(Raw, out type, out processId, out threadId, out extraInformation, extraInformationSize, out extraInformationUsed, description, descriptionSize, out descriptionUsed);
+
+            if (hr == HRESULT.S_OK)
+            {
+                result = new GetLastEventInformationWideResult(type, processId, threadId, extraInformation, description.ToString());
+
+                return hr;
+            }
+
+            fail:
+            result = default(GetLastEventInformationWideResult);
 
             return hr;
         }
@@ -6741,86 +6805,6 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
-        #region GetLastEventInformationWide
-
-        /// <summary>
-        /// The GetLastEventInformationWide method returns information about the last event that occurred in a target.
-        /// </summary>
-        /// <param name="extraInformation">[out, optional] Receives extra information about the event. The contents of this extra information depends on the type of the event as indicated by the returned Type parameter.<para/>
-        /// For example, if Type is breakpoint, ExtraInformation contains a DEBUG_LAST_EVENT_INFO_BREAKPOINT; if Type is Exception, ExtraInformation contains a DEBUG_LAST_EVENT_INFO_EXCEPTION.<para/>
-        /// Refer to DEBUG_EVENT_XXX for the complete list of event types and the dbgeng.h header file for the structure definitions for each event type.<para/>
-        /// If ExtraInformation is NULL, this information is not returned.</param>
-        /// <param name="extraInformationSize">[in] Specifies the size, in bytes, of the buffer that ExtraInformation specifies.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        /// <remarks>
-        /// For thread and process creation events, the thread ID and process ID returned to ThreadId and ProcessId are for
-        /// the newly created thread or process. For more information about the last event, see the topic Event Information.
-        /// </remarks>
-        public GetLastEventInformationWideResult GetLastEventInformationWide(IntPtr extraInformation, int extraInformationSize)
-        {
-            GetLastEventInformationWideResult result;
-            TryGetLastEventInformationWide(extraInformation, extraInformationSize, out result).ThrowDbgEngNotOK();
-
-            return result;
-        }
-
-        /// <summary>
-        /// The GetLastEventInformationWide method returns information about the last event that occurred in a target.
-        /// </summary>
-        /// <param name="extraInformation">[out, optional] Receives extra information about the event. The contents of this extra information depends on the type of the event as indicated by the returned Type parameter.<para/>
-        /// For example, if Type is breakpoint, ExtraInformation contains a DEBUG_LAST_EVENT_INFO_BREAKPOINT; if Type is Exception, ExtraInformation contains a DEBUG_LAST_EVENT_INFO_EXCEPTION.<para/>
-        /// Refer to DEBUG_EVENT_XXX for the complete list of event types and the dbgeng.h header file for the structure definitions for each event type.<para/>
-        /// If ExtraInformation is NULL, this information is not returned.</param>
-        /// <param name="extraInformationSize">[in] Specifies the size, in bytes, of the buffer that ExtraInformation specifies.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        /// <returns>This method may also return error values. See Return Values for more details.</returns>
-        /// <remarks>
-        /// For thread and process creation events, the thread ID and process ID returned to ThreadId and ProcessId are for
-        /// the newly created thread or process. For more information about the last event, see the topic Event Information.
-        /// </remarks>
-        public HRESULT TryGetLastEventInformationWide(IntPtr extraInformation, int extraInformationSize, out GetLastEventInformationWideResult result)
-        {
-            InitDelegate(ref getLastEventInformationWide, Vtbl4->GetLastEventInformationWide);
-            /*HRESULT GetLastEventInformationWide(
-            [Out] out DEBUG_EVENT_TYPE Type,
-            [Out] out int ProcessId,
-            [Out] out int ThreadId,
-            [In] IntPtr ExtraInformation,
-            [In] int ExtraInformationSize,
-            [Out] out int ExtraInformationUsed,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Description,
-            [In] int DescriptionSize,
-            [Out] out int DescriptionUsed);*/
-            DEBUG_EVENT_TYPE type;
-            int processId;
-            int threadId;
-            int extraInformationUsed;
-            StringBuilder description;
-            int descriptionSize = 0;
-            int descriptionUsed;
-            HRESULT hr = getLastEventInformationWide(Raw, out type, out processId, out threadId, extraInformation, extraInformationSize, out extraInformationUsed, null, descriptionSize, out descriptionUsed);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            descriptionSize = descriptionUsed;
-            description = new StringBuilder(descriptionSize);
-            hr = getLastEventInformationWide(Raw, out type, out processId, out threadId, extraInformation, extraInformationSize, out extraInformationUsed, description, descriptionSize, out descriptionUsed);
-
-            if (hr == HRESULT.S_OK)
-            {
-                result = new GetLastEventInformationWideResult(type, processId, threadId, extraInformationUsed, description.ToString());
-
-                return hr;
-            }
-
-            fail:
-            result = default(GetLastEventInformationWideResult);
-
-            return hr;
-        }
-
-        #endregion
         #region GetTextReplacementWide
 
         /// <summary>
@@ -8088,6 +8072,8 @@ namespace ClrDebug.DbgEng
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private GetNumberEventFiltersDelegate getNumberEventFilters;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private GetLastEventInformationDelegate getLastEventInformation;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private GetInterruptDelegate getInterrupt;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private SetInterruptDelegate setInterrupt;
@@ -8205,8 +8191,6 @@ namespace ClrDebug.DbgEng
         private SetExceptionFilterSecondCommandDelegate setExceptionFilterSecondCommand;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private WaitForEventDelegate waitForEvent;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetLastEventInformationDelegate getLastEventInformation;
 
         #endregion
         #region IDebugControl2
@@ -8265,6 +8249,8 @@ namespace ClrDebug.DbgEng
         private GetLogFileWideDelegate getLogFileWide;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private GetPromptTextWideDelegate getPromptTextWide;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private GetLastEventInformationWideDelegate getLastEventInformationWide;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private GetLogFile2Delegate getLogFile2;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -8335,8 +8321,6 @@ namespace ClrDebug.DbgEng
         private GetExceptionFilterSecondCommandWideDelegate getExceptionFilterSecondCommandWide;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private SetExceptionFilterSecondCommandWideDelegate setExceptionFilterSecondCommandWide;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetLastEventInformationWideDelegate getLastEventInformationWide;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private GetTextReplacementWideDelegate getTextReplacementWide;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -8427,6 +8411,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT SetRadixDelegate(IntPtr self, [In] int Radix);
         private delegate HRESULT GetNumberBreakpointsDelegate(IntPtr self, [Out] out int Number);
         private delegate HRESULT GetNumberEventFiltersDelegate(IntPtr self, [Out] out int SpecificEvents, [Out] out int SpecificExceptions, [Out] out int ArbitraryExceptions);
+        private delegate HRESULT GetLastEventInformationDelegate(IntPtr self, [Out] out DEBUG_EVENT_TYPE Type, [Out] out int ProcessId, [Out] out int ThreadId, [Out, ComAliasName("IntPtr")] out DEBUG_LAST_EVENT_INFO ExtraInformation, [In] int ExtraInformationSize, [Out] out int ExtraInformationUsed, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Description, [In] int DescriptionSize, [Out] out int DescriptionUsed);
         private delegate HRESULT GetInterruptDelegate(IntPtr self);
         private delegate HRESULT SetInterruptDelegate(IntPtr self, [In] DEBUG_INTERRUPT Flags);
         private delegate HRESULT OpenLogFileDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string File, [In, MarshalAs(UnmanagedType.Bool)] bool Append);
@@ -8491,7 +8476,6 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetExceptionFilterSecondCommandDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int CommandSize);
         private delegate HRESULT SetExceptionFilterSecondCommandDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPStr)] string Command);
         private delegate HRESULT WaitForEventDelegate(IntPtr self, [In] DEBUG_WAIT Flags, [In] int Timeout);
-        private delegate HRESULT GetLastEventInformationDelegate(IntPtr self, [Out] out DEBUG_EVENT_TYPE Type, [Out] out int ProcessId, [Out] out int ThreadId, [In] IntPtr ExtraInformation, [In] int ExtraInformationSize, [Out] out int ExtraInformationUsed, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Description, [In] int DescriptionSize, [Out] out int DescriptionUsed);
 
         #endregion
         #region IDebugControl2
@@ -8527,6 +8511,7 @@ namespace ClrDebug.DbgEng
 
         private delegate HRESULT GetLogFileWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int FileSize, [Out, MarshalAs(UnmanagedType.Bool)] out bool Append);
         private delegate HRESULT GetPromptTextWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int TextSize);
+        private delegate HRESULT GetLastEventInformationWideDelegate(IntPtr self, [Out] out DEBUG_EVENT_TYPE Type, [Out] out int ProcessId, [Out] out int ThreadId, [Out, ComAliasName("IntPtr")] out DEBUG_LAST_EVENT_INFO ExtraInformation, [In] int ExtraInformationSize, [Out] out int ExtraInformationUsed, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Description, [In] int DescriptionSize, [Out] out int DescriptionUsed);
         private delegate HRESULT GetLogFile2Delegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int FileSize, [Out] out DEBUG_LOG Flags);
         private delegate HRESULT GetLogFile2WideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int FileSize, [Out] out DEBUG_LOG Flags);
         private delegate HRESULT GetSystemVersionValuesDelegate(IntPtr self, [Out] out int PlatformId, [Out] out int Win32Major, [Out] out int Win32Minor, [Out] out int KdMajor, [Out] out int KdMinor);
@@ -8567,7 +8552,6 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT SetSpecificEventFilterArgumentWideDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPWStr)] string Argument);
         private delegate HRESULT GetExceptionFilterSecondCommandWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int CommandSize);
         private delegate HRESULT SetExceptionFilterSecondCommandWideDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPWStr)] string Command);
-        private delegate HRESULT GetLastEventInformationWideDelegate(IntPtr self, [Out] out DEBUG_EVENT_TYPE Type, [Out] out int ProcessId, [Out] out int ThreadId, [In] IntPtr ExtraInformation, [In] int ExtraInformationSize, [Out] out int ExtraInformationUsed, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Description, [In] int DescriptionSize, [Out] out int DescriptionUsed);
         private delegate HRESULT GetTextReplacementWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string SrcText, [In] int Index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder SrcBuffer, [In] int SrcBufferSize, [Out] out int SrcSize, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder DstBuffer, [In] int DstBufferSize, [Out] out int DstSize);
         private delegate HRESULT SetTextReplacementWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string SrcText, [In, MarshalAs(UnmanagedType.LPWStr)] string DstText);
         private delegate HRESULT SetExpressionSyntaxByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string AbbrevName);

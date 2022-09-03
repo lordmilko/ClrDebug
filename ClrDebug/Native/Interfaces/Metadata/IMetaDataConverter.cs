@@ -1,10 +1,11 @@
 ﻿using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.ComTypes;
+using ClrDebug.TypeLib;
 
 namespace ClrDebug
 {
     /// <summary>
     /// Provides methods to map type libraries to their metadata signatures, and to convert from one to the other.
+    /// <para/>This interface is retrieved from a QueryInterface to <see cref="ICorRuntimeHost"/>.
     /// </summary>
     [Guid("D9DEBD79-2992-11d3-8BC1-0000F8083A57")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
@@ -10,6 +11,7 @@ namespace ClrDebug.DbgEng
     /// the module, use <see cref="IDebugSymbols2.GetModuleNameString"/>. For more information about modules, see Modules.
     /// For details about the different names for the module, see <see cref="IDebugSymbols2.GetModuleNameString"/>.
     /// </remarks>
+    [DebuggerDisplay("Base = {Base}, Size = {Size}, TimeDateStamp = {TimeDateStamp}, Checksum = {Checksum}, Flags = {Flags.ToString(),nq}, SymbolType = {SymbolType.ToString(),nq}, ImageNameSize = {ImageNameSize}, ModuleNameSize = {ModuleNameSize}, LoadedImageNameSize = {LoadedImageNameSize}, SymbolFileNameSize = {SymbolFileNameSize}, MappedImageNameSize = {MappedImageNameSize}, Reserved = {Reserved}")]
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct DEBUG_MODULE_PARAMETERS
     {

@@ -3,9 +3,9 @@
 namespace ClrDebug.DbgEng
 {
     /// <summary>
-    /// Encapsulates the results of the <see cref="DebugControl.GetLastEventInformation"/> method.
+    /// Encapsulates the results of the <see cref="DebugControl.LastEventInformation"/> property.
     /// </summary>
-    [DebuggerDisplay("Type = {Type.ToString(),nq}, ProcessId = {ProcessId}, ThreadId = {ThreadId}, ExtraInformationUsed = {ExtraInformationUsed}, Description = {Description}")]
+    [DebuggerDisplay("Type = {Type.ToString(),nq}, ProcessId = {ProcessId}, ThreadId = {ThreadId}, ExtraInformation = {ExtraInformation.ToString(),nq}, Description = {Description}")]
     public struct GetLastEventInformationResult
     {
         /// <summary>
@@ -24,21 +24,22 @@ namespace ClrDebug.DbgEng
         public int ThreadId { get; }
 
         /// <summary>
-        /// Receives the size, in bytes, of extra information. If ExtraInformationUsed is NULL, this information is not returned.
+        /// Receives extra information about the event. The contents of this extra information depends on the type of the event.<para/>
+        /// If ExtraInformation is NULL, this information is not returned.
         /// </summary>
-        public int ExtraInformationUsed { get; }
+        public DEBUG_LAST_EVENT_INFO ExtraInformation { get; }
 
         /// <summary>
         /// Receives the description of the event. If Description is NULL, this information is not returned.
         /// </summary>
         public string Description { get; }
 
-        public GetLastEventInformationResult(DEBUG_EVENT_TYPE type, int processId, int threadId, int extraInformationUsed, string description)
+        public GetLastEventInformationResult(DEBUG_EVENT_TYPE type, int processId, int threadId, DEBUG_LAST_EVENT_INFO extraInformation, string description)
         {
             Type = type;
             ProcessId = processId;
             ThreadId = threadId;
-            ExtraInformationUsed = extraInformationUsed;
+            ExtraInformation = extraInformation;
             Description = description;
         }
     }

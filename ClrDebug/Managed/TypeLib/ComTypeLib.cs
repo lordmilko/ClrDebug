@@ -1,0 +1,475 @@
+﻿using System;
+using System.Diagnostics;
+
+namespace ClrDebug.TypeLib
+{
+    /// <summary>
+    /// Provides the managed definition of the <see cref="ITypeLib"/> interface.
+    /// </summary>
+    public class ComTypeLib : ComObject<ITypeLib>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ComTypeLib"/> class.
+        /// </summary>
+        /// <param name="raw">The raw COM interface that should be contained in this object.</param>
+        public ComTypeLib(ITypeLib raw) : base(raw)
+        {
+        }
+
+        #region ITypeLib
+        #region TypeInfoCount
+
+        /// <summary>
+        /// Returns the number of type descriptions in the type library.
+        /// </summary>
+        public int TypeInfoCount
+        {
+            get
+            {
+                /*int GetTypeInfoCount();*/
+                return Raw.GetTypeInfoCount();
+            }
+        }
+
+        #endregion
+        #region TypeInfoOfGuid
+
+        /// <summary>
+        /// Retrieves the type description that corresponds to the specified GUID.
+        /// </summary>
+        public GetTypeInfoOfGuidResult TypeInfoOfGuid
+        {
+            get
+            {
+                GetTypeInfoOfGuidResult result;
+                TryGetTypeInfoOfGuid(out result).ThrowOnNotOK();
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Retrieves the type description that corresponds to the specified GUID.
+        /// </summary>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        public HRESULT TryGetTypeInfoOfGuid(out GetTypeInfoOfGuidResult result)
+        {
+            /*HRESULT GetTypeInfoOfGuid(
+            ref Guid guid,
+            out ITypeInfo ppTInfo);*/
+            Guid guid = default(Guid);
+            ITypeInfo ppTInfo;
+            HRESULT hr = Raw.GetTypeInfoOfGuid(ref guid, out ppTInfo);
+
+            if (hr == HRESULT.S_OK)
+                result = new GetTypeInfoOfGuidResult(guid, new TypeInfo(ppTInfo));
+            else
+                result = default(GetTypeInfoOfGuidResult);
+
+            return hr;
+        }
+
+        #endregion
+        #region LibAttr
+
+        /// <summary>
+        /// Retrieves the structure that contains the library's attributes.
+        /// </summary>
+        public unsafe TLIBATTR* LibAttr
+        {
+            get
+            {
+                TLIBATTR* ppTLibAttr;
+                TryGetLibAttr(out ppTLibAttr).ThrowOnNotOK();
+
+                return ppTLibAttr;
+            }
+        }
+
+        /// <summary>
+        /// Retrieves the structure that contains the library's attributes.
+        /// </summary>
+        /// <param name="ppTLibAttr">When this method returns, contains a structure that contains the library's attributes. This parameter is passed uninitialized.</param>
+        public unsafe HRESULT TryGetLibAttr(out TLIBATTR* ppTLibAttr)
+        {
+            /*HRESULT GetLibAttr(
+            out TLIBATTR* ppTLibAttr);*/
+            return Raw.GetLibAttr(out ppTLibAttr);
+        }
+
+        #endregion
+        #region TypeComp
+
+        /// <summary>
+        /// Enables a client compiler to bind to a library's types, variables, constants, and global functions.
+        /// </summary>
+        public TypeComp TypeComp
+        {
+            get
+            {
+                TypeComp ppTCompResult;
+                TryGetTypeComp(out ppTCompResult).ThrowOnNotOK();
+
+                return ppTCompResult;
+            }
+        }
+
+        /// <summary>
+        /// Enables a client compiler to bind to a library's types, variables, constants, and global functions.
+        /// </summary>
+        /// <param name="ppTCompResult">When this method returns, contains an instance of a <see cref="ITypeComp"/> instance for this <see cref="ITypeLib"/>. This parameter is passed uninitialized.</param>
+        public HRESULT TryGetTypeComp(out TypeComp ppTCompResult)
+        {
+            /*HRESULT GetTypeComp(
+            out ITypeComp ppTComp);*/
+            ITypeComp ppTComp;
+            HRESULT hr = Raw.GetTypeComp(out ppTComp);
+
+            if (hr == HRESULT.S_OK)
+                ppTCompResult = new TypeComp(ppTComp);
+            else
+                ppTCompResult = default(TypeComp);
+
+            return hr;
+        }
+
+        #endregion
+        #region GetTypeInfo
+
+        /// <summary>
+        /// Retrieves the specified type description in the library.
+        /// </summary>
+        /// <param name="index">The index of the <see cref="ITypeInfo"/> interface to return.</param>
+        /// <returns>When this method returns, contains an <see cref="ITypeInfo"/> describing the type referenced by <paramref name="index"/>. This parameter is passed uninitialized.</returns>
+        public TypeInfo GetTypeInfo(int index)
+        {
+            TypeInfo ppTIResult;
+            TryGetTypeInfo(index, out ppTIResult).ThrowOnNotOK();
+
+            return ppTIResult;
+        }
+
+        /// <summary>
+        /// Retrieves the specified type description in the library.
+        /// </summary>
+        /// <param name="index">The index of the <see cref="ITypeInfo"/> interface to return.</param>
+        /// <param name="ppTIResult">When this method returns, contains an <see cref="ITypeInfo"/> describing the type referenced by <paramref name="index"/>. This parameter is passed uninitialized.</param>
+        public HRESULT TryGetTypeInfo(int index, out TypeInfo ppTIResult)
+        {
+            /*HRESULT GetTypeInfo(
+            int index,
+            out ITypeInfo ppTI);*/
+            ITypeInfo ppTI;
+            HRESULT hr = Raw.GetTypeInfo(index, out ppTI);
+
+            if (hr == HRESULT.S_OK)
+                ppTIResult = new TypeInfo(ppTI);
+            else
+                ppTIResult = default(TypeInfo);
+
+            return hr;
+        }
+
+        #endregion
+        #region GetTypeInfoType
+
+        /// <summary>
+        /// Retrieves the type of a type description.
+        /// </summary>
+        /// <param name="index">The index of the type description within the type library.</param>
+        /// <returns>When this method returns, contains a reference to the <see cref="TYPEKIND"/> enumeration for the type description. This parameter is passed uninitialized.</returns>
+        public TYPEKIND GetTypeInfoType(int index)
+        {
+            TYPEKIND pTKind;
+            TryGetTypeInfoType(index, out pTKind).ThrowOnNotOK();
+
+            return pTKind;
+        }
+
+        /// <summary>
+        /// Retrieves the type of a type description.
+        /// </summary>
+        /// <param name="index">The index of the type description within the type library.</param>
+        /// <param name="pTKind">When this method returns, contains a reference to the <see cref="TYPEKIND"/> enumeration for the type description. This parameter is passed uninitialized.</param>
+        public HRESULT TryGetTypeInfoType(int index, out TYPEKIND pTKind)
+        {
+            /*HRESULT GetTypeInfoType(
+            int index,
+            out TYPEKIND pTKind);*/
+            return Raw.GetTypeInfoType(index, out pTKind);
+        }
+
+        #endregion
+        #region GetDocumentation
+
+        /// <summary>
+        /// Retrieves the library's documentation string, the complete Help file name and path, and the context identifier for the library Help topic in the Help file.
+        /// </summary>
+        /// <param name="index">The index of the type description whose documentation is to be returned.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        public GetDocumentationResult GetDocumentation(int index)
+        {
+            GetDocumentationResult result;
+            TryGetDocumentation(index, out result).ThrowOnNotOK();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Retrieves the library's documentation string, the complete Help file name and path, and the context identifier for the library Help topic in the Help file.
+        /// </summary>
+        /// <param name="index">The index of the type description whose documentation is to be returned.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        public HRESULT TryGetDocumentation(int index, out GetDocumentationResult result)
+        {
+            /*HRESULT GetDocumentation(
+            int index,
+            out string strName,
+            out string strDocString,
+            out int dwHelpContext,
+            out string strHelpFile);*/
+            string strName;
+            string strDocString;
+            int dwHelpContext;
+            string strHelpFile;
+            HRESULT hr = Raw.GetDocumentation(index, out strName, out strDocString, out dwHelpContext, out strHelpFile);
+
+            if (hr == HRESULT.S_OK)
+                result = new GetDocumentationResult(strName, strDocString, dwHelpContext, strHelpFile);
+            else
+                result = default(GetDocumentationResult);
+
+            return hr;
+        }
+
+        #endregion
+        #region IsName
+
+        /// <summary>
+        /// Indicates whether a passed-in string contains the name of a type or member described in the library.
+        /// </summary>
+        /// <param name="szNameBuf">The string to test. This is an in/out parameter.</param>
+        /// <param name="lHashVal">The hash value of <paramref name="szNameBuf"/>.</param>
+        /// <returns><see langword="true"/> if <paramref name="szNameBuf"/> was found in the type library; otherwise, <see langword="false"/>.</returns>
+        public bool IsName(string szNameBuf, int lHashVal)
+        {
+            bool pfName;
+            TryIsName(szNameBuf, lHashVal, out pfName).ThrowOnNotOK();
+
+            return pfName;
+        }
+
+        /// <summary>
+        /// Indicates whether a passed-in string contains the name of a type or member described in the library.
+        /// </summary>
+        /// <param name="szNameBuf">The string to test. This is an in/out parameter.</param>
+        /// <param name="lHashVal">The hash value of <paramref name="szNameBuf"/>.</param>
+        /// <param name="pfName"><see langword="true"/> if <paramref name="szNameBuf"/> was found in the type library; otherwise, <see langword="false"/>.</param>
+        public HRESULT TryIsName(string szNameBuf, int lHashVal, out bool pfName)
+        {
+            /*HRESULT IsName(
+            [MarshalAs(UnmanagedType.LPWStr)] string szNameBuf,
+            int lHashVal,
+            out bool pfName);*/
+            return Raw.IsName(szNameBuf, lHashVal, out pfName);
+        }
+
+        #endregion
+        #region FindName
+
+        /// <summary>
+        /// Finds occurrences of a type description in a type library.
+        /// </summary>
+        /// <param name="szNameBuf">The name to search for. This is an in/out parameter.</param>
+        /// <param name="lHashVal">A hash value to speed up the search, computed by the <see langword="LHashValOfNameSys"/> function. If lHashVal is 0, a value is computed.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        public FindNameResult FindName(string szNameBuf, int lHashVal)
+        {
+            FindNameResult result;
+            TryFindName(szNameBuf, lHashVal, out result).ThrowOnNotOK();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Finds occurrences of a type description in a type library.
+        /// </summary>
+        /// <param name="szNameBuf">The name to search for. This is an in/out parameter.</param>
+        /// <param name="lHashVal">A hash value to speed up the search, computed by the <see langword="LHashValOfNameSys"/> function. If lHashVal is 0, a value is computed.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        public HRESULT TryFindName(string szNameBuf, int lHashVal, out FindNameResult result)
+        {
+            /*HRESULT FindName(
+            [MarshalAs(UnmanagedType.LPWStr)] string szNameBuf,
+            int lHashVal,
+            [MarshalAs(UnmanagedType.LPArray), Out] ITypeInfo[] ppTInfo,
+            [MarshalAs(UnmanagedType.LPArray), Out] int[] rgMemId,
+            ref short pcFound);*/
+            ITypeInfo[] ppTInfo = null;
+            int[] rgMemId = null;
+            short pcFound = default(short);
+            HRESULT hr = Raw.FindName(szNameBuf, lHashVal, ppTInfo, rgMemId, ref pcFound);
+
+            if (hr == HRESULT.S_OK)
+                result = new FindNameResult(ppTInfo, rgMemId, pcFound);
+            else
+                result = default(FindNameResult);
+
+            return hr;
+        }
+
+        #endregion
+        #region ReleaseTLibAttr
+
+        /// <summary>
+        /// Releases the <see cref="TLIBATTR"/> structure originally obtained from the <see cref="LibAttr"/> property.
+        /// </summary>
+        /// <param name="pTLibAttr">The <see cref="TLIBATTR"/> structure to release.</param>
+        public unsafe void ReleaseTLibAttr(TLIBATTR* pTLibAttr)
+        {
+            /*void ReleaseTLibAttr(
+            TLIBATTR* pTLibAttr);*/
+            Raw.ReleaseTLibAttr(pTLibAttr);
+        }
+
+        #endregion
+        #endregion
+        #region ITypeLib2
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public ITypeLib2 Raw2 => (ITypeLib2) Raw;
+
+        #region CustData
+
+        /// <summary>
+        /// Gets the custom data.
+        /// </summary>
+        public GetCustDataResult CustData
+        {
+            get
+            {
+                GetCustDataResult result;
+                TryGetCustData(out result).ThrowOnNotOK();
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Gets the custom data.
+        /// </summary>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        public HRESULT TryGetCustData(out GetCustDataResult result)
+        {
+            /*HRESULT GetCustData(
+            ref Guid guid,
+            out object pVarVal);*/
+            Guid guid = default(Guid);
+            object pVarVal;
+            HRESULT hr = Raw2.GetCustData(ref guid, out pVarVal);
+
+            if (hr == HRESULT.S_OK)
+                result = new GetCustDataResult(guid, pVarVal);
+            else
+                result = default(GetCustDataResult);
+
+            return hr;
+        }
+
+        #endregion
+        #region GetDocumentation2
+
+        /// <summary>
+        /// Retrieves the library's documentation string, the complete Help file name and path, the localization context to use, and the context ID for the library Help topic in the Help file.
+        /// </summary>
+        /// <param name="index">An index of the type description whose documentation is to be returned; if index is -1, the documentation for the library is returned.</param>
+        /// <returns>The values that were emitted from the COM method.</returns>
+        public GetDocumentation2Result GetDocumentation2(int index)
+        {
+            GetDocumentation2Result result;
+            TryGetDocumentation2(index, out result).ThrowOnNotOK();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Retrieves the library's documentation string, the complete Help file name and path, the localization context to use, and the context ID for the library Help topic in the Help file.
+        /// </summary>
+        /// <param name="index">An index of the type description whose documentation is to be returned; if index is -1, the documentation for the library is returned.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        public HRESULT TryGetDocumentation2(int index, out GetDocumentation2Result result)
+        {
+            /*HRESULT GetDocumentation2(
+            int index,
+            out string pbstrHelpString,
+            out int pdwHelpStringContext,
+            out string pbstrHelpStringDll);*/
+            string pbstrHelpString;
+            int pdwHelpStringContext;
+            string pbstrHelpStringDll;
+            HRESULT hr = Raw2.GetDocumentation2(index, out pbstrHelpString, out pdwHelpStringContext, out pbstrHelpStringDll);
+
+            if (hr == HRESULT.S_OK)
+                result = new GetDocumentation2Result(pbstrHelpString, pdwHelpStringContext, pbstrHelpStringDll);
+            else
+                result = default(GetDocumentation2Result);
+
+            return hr;
+        }
+
+        #endregion
+        #region GetLibStatistics
+
+        /// <summary>
+        /// Returns statistics about a type library that are required for efficient sizing of hash tables.
+        /// </summary>
+        /// <param name="pcUniqueNames">A pointer to a count of unique names. If the caller does not need this information, set to <see langword="null"/>.</param>
+        /// <returns>When this method returns, contains a pointer to a change in the count of unique names. This parameter is passed uninitialized.</returns>
+        public int GetLibStatistics(IntPtr pcUniqueNames)
+        {
+            int pcchUniqueNames;
+            TryGetLibStatistics(pcUniqueNames, out pcchUniqueNames).ThrowOnNotOK();
+
+            return pcchUniqueNames;
+        }
+
+        /// <summary>
+        /// Returns statistics about a type library that are required for efficient sizing of hash tables.
+        /// </summary>
+        /// <param name="pcUniqueNames">A pointer to a count of unique names. If the caller does not need this information, set to <see langword="null"/>.</param>
+        /// <param name="pcchUniqueNames">When this method returns, contains a pointer to a change in the count of unique names. This parameter is passed uninitialized.</param>
+        public HRESULT TryGetLibStatistics(IntPtr pcUniqueNames, out int pcchUniqueNames)
+        {
+            /*HRESULT GetLibStatistics(
+            IntPtr pcUniqueNames,
+            out int pcchUniqueNames);*/
+            return Raw2.GetLibStatistics(pcUniqueNames, out pcchUniqueNames);
+        }
+
+        #endregion
+        #region GetAllCustData
+
+        /// <summary>
+        /// Gets all custom data items for the library.
+        /// </summary>
+        /// <param name="pCustData">A pointer to <see cref="CUSTDATA"/>, which holds all custom data items.</param>
+        public void GetAllCustData(IntPtr pCustData)
+        {
+            TryGetAllCustData(pCustData).ThrowOnNotOK();
+        }
+
+        /// <summary>
+        /// Gets all custom data items for the library.
+        /// </summary>
+        /// <param name="pCustData">A pointer to <see cref="CUSTDATA"/>, which holds all custom data items.</param>
+        public HRESULT TryGetAllCustData(IntPtr pCustData)
+        {
+            /*HRESULT GetAllCustData(
+            IntPtr pCustData);*/
+            return Raw2.GetAllCustData(pCustData);
+        }
+
+        #endregion
+        #endregion
+    }
+}

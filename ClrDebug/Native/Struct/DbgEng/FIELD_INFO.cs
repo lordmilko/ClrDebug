@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
+    [DebuggerDisplay("fName = {fName.ToString(),nq}, printName = {printName.ToString(),nq}, size = {size}, fOptions = {fOptions.ToString(),nq}, address = {address}, fieldCallbackOrBuffer = {fieldCallbackOrBuffer.ToString(),nq}, TypeId = {TypeId}, FieldOffset = {FieldOffset}, BufferSize = {BufferSize}, BitField = {BitField}, Flags = {Flags.ToString(),nq}, IsPointer = {IsPointer}, IsPointer64 = {IsPointer64}, IsArray = {IsArray}, IsStruct = {IsStruct}, IsConstant = {IsConstant}, IsStatic = {IsStatic}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct FIELD_INFO
     {

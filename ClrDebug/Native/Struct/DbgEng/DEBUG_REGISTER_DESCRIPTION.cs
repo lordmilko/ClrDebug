@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
@@ -11,6 +12,7 @@ namespace ClrDebug.DbgEng
     /// operator. The size of the sub-register (SubregLength) is the number of bits set in SubregMask. For general information
     /// about registers, see Registers.
     /// </remarks>
+    [DebuggerDisplay("Type = {Type.ToString(),nq}, Flags = {Flags.ToString(),nq}, SubregMaster = {SubregMaster}, SubregLength = {SubregLength}, SubregMask = {SubregMask}, SubregShift = {SubregShift}, Reserved0 = {Reserved0}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct DEBUG_REGISTER_DESCRIPTION
     {

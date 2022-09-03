@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
@@ -7,8 +8,9 @@ namespace ClrDebug.DbgEng
     //This callback stops when a non-zero value is returned. 
     public delegate int PSYM_DUMP_FIELD_CALLBACK(IntPtr pField, IntPtr UserContext);
 
+    [DebuggerDisplay("size = {size}, sName = {sName.ToString(),nq}, Options = {Options.ToString(),nq}, addr = {addr}, listLink = {listLink.ToString(),nq}, BufferOrContext = {BufferOrContext.ToString(),nq}, CallbackRoutine = {CallbackRoutine.ToString(),nq}, nFields = {nFields}, Fields = {Fields.ToString(),nq}, ModBase = {ModBase}, TypeId = {TypeId}, TypeSize = {TypeSize}, BufferSize = {BufferSize}, Flags = {Flags.ToString(),nq}")]
     [StructLayout(LayoutKind.Sequential)]
-    internal unsafe struct SYM_DUMP_PARAM
+    internal struct SYM_DUMP_PARAM
     {
         //In
 

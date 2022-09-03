@@ -1,10 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug.DbgEng
 {
     /// <summary>
     /// Defines information about text completions to get.
     /// </summary>
+    [DebuggerDisplay("Flags = {Flags.ToString(),nq}, ReplaceIndex = {ReplaceIndex}, MatchCount = {MatchCount}, Reserved1 = {Reserved1}, Reserved2 = {Reserved2}, Reserved3 = {Reserved3}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct DEBUG_GET_TEXT_COMPLETIONS_OUT
     {
