@@ -8,8 +8,8 @@ namespace ClrDebug
     #region Delegates
 
     public delegate HRESULT CLRCreateInstanceDelegate(
-        [In] ref Guid clsid,
-        [In] ref Guid riid,
+        [In, MarshalAs(UnmanagedType.LPStruct)] Guid clsid,
+        [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
         [MarshalAs(UnmanagedType.IUnknown), Out] out object ppInterface);
 
     /// <summary>
@@ -253,7 +253,7 @@ namespace ClrDebug
         {
             var @delegate = GetDelegate<CLRCreateInstanceDelegate>(nameof(CLRCreateInstance));
 
-            return @delegate(ref clsid, ref riid, out ppInterface);
+            return @delegate(clsid, riid, out ppInterface);
         }
 
         /// <summary>

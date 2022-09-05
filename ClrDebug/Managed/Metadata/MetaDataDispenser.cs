@@ -65,11 +65,11 @@ namespace ClrDebug
         public HRESULT TryDefineScope(Guid rclsid, int dwCreateFlags, Guid riid, out object ppIUnk)
         {
             /*HRESULT DefineScope(
-            [In] ref Guid rclsid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid rclsid,
             [In] int dwCreateFlags,
-            [In] ref Guid riid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);*/
-            return Raw.DefineScope(ref rclsid, dwCreateFlags, ref riid, out ppIUnk);
+            return Raw.DefineScope(rclsid, dwCreateFlags, riid, out ppIUnk);
         }
 
         #endregion
@@ -124,9 +124,9 @@ namespace ClrDebug
             /*HRESULT OpenScope(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szScope,
             [In] CorOpenFlags dwOpenFlags,
-            [In] ref Guid riid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);*/
-            return Raw.OpenScope(szScope, dwOpenFlags, ref riid, out ppIUnk);
+            return Raw.OpenScope(szScope, dwOpenFlags, riid, out ppIUnk);
         }
 
         #endregion
@@ -176,9 +176,9 @@ namespace ClrDebug
             [In] IntPtr pData,
             [In] int cbData,
             [In] CorOpenFlags dwOpenFlags,
-            [In] ref Guid riid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppIUnk);*/
-            return Raw.OpenScopeOnMemory(pData, cbData, dwOpenFlags, ref riid, out ppIUnk);
+            return Raw.OpenScopeOnMemory(pData, cbData, dwOpenFlags, riid, out ppIUnk);
         }
 
         #endregion

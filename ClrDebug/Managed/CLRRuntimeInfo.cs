@@ -545,10 +545,10 @@ namespace ClrDebug
         public HRESULT TryGetInterface(Guid rclsid, Guid riid, out object ppUnk)
         {
             /*HRESULT GetInterface(
-            [In] ref Guid rclsid,
-            [In] ref Guid riid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid rclsid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppUnk);*/
-            return Raw.GetInterface(ref rclsid, ref riid, out ppUnk);
+            return Raw.GetInterface(rclsid, riid, out ppUnk);
         }
 
         #endregion

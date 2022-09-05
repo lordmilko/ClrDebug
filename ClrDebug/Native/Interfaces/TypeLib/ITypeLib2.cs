@@ -45,8 +45,8 @@ namespace ClrDebug.TypeLib
         /// <param name="ppTInfo">When this method returns, contains the requested <see cref="ITypeInfo"/> interface. This parameter is passed uninitialized.</param>
         [PreserveSig]
         new HRESULT GetTypeInfoOfGuid(
-            ref Guid guid,
-            out ITypeInfo ppTInfo);
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
+            [Out] out ITypeInfo ppTInfo);
 
         /// <summary>
         /// Retrieves the structure that contains the library's attributes.
@@ -124,8 +124,8 @@ namespace ClrDebug.TypeLib
         /// <param name="pVarVal">When this method returns, contains an object that specifies where to put the retrieved data. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT GetCustData(
-            ref Guid guid,
-            out object pVarVal);
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
+            [Out] out object pVarVal);
 
         /// <summary>
         /// Retrieves the library's documentation string, the complete Help file name and path, the localization context to use, and the context ID for the library Help topic in the Help file.

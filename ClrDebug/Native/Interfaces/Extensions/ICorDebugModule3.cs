@@ -37,7 +37,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateReaderForInMemorySymbols(
-            [In] ref Guid riid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             [MarshalAs(UnmanagedType.Interface), Out] out object ppObj);
     }
 }

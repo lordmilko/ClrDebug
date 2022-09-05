@@ -180,8 +180,8 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetInterface(
-            [In] ref Guid rclsid,
-            [In] ref Guid riid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid rclsid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppUnk);
 
         /// <summary>

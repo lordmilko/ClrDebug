@@ -584,10 +584,10 @@ namespace ClrDebug
         {
             /*HRESULT GetCachedWinRTTypesForIIDs(
             [In] int cReqTypes,
-            [In] ref Guid iidsToResolve,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid iidsToResolve,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppTypesEnum);*/
             ICorDebugTypeEnum ppTypesEnum;
-            HRESULT hr = Raw3.GetCachedWinRTTypesForIIDs(cReqTypes, ref iidsToResolve, out ppTypesEnum);
+            HRESULT hr = Raw3.GetCachedWinRTTypesForIIDs(cReqTypes, iidsToResolve, out ppTypesEnum);
 
             if (hr == HRESULT.S_OK)
                 ppTypesEnumResult = new CorDebugTypeEnum(ppTypesEnum);

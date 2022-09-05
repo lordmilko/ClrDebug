@@ -291,12 +291,12 @@ namespace ClrDebug
         {
             /*HRESULT GetDocument(
             [In, MarshalAs(UnmanagedType.LPWStr)] string url,
-            [In] ref Guid language,
-            [In] ref Guid languageVendor,
-            [In] ref Guid documentType,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid language,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid languageVendor,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid documentType,
             [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedDocument pRetVal);*/
             ISymUnmanagedDocument pRetVal;
-            HRESULT hr = Raw.GetDocument(url, ref language, ref languageVendor, ref documentType, out pRetVal);
+            HRESULT hr = Raw.GetDocument(url, language, languageVendor, documentType, out pRetVal);
 
             if (hr == HRESULT.S_OK)
                 pRetValResult = new SymUnmanagedDocument(pRetVal);

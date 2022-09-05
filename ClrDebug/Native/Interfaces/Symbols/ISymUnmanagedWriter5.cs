@@ -25,9 +25,9 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineDocument(
             [In, MarshalAs(UnmanagedType.LPWStr)] string url,
-            [In] ref Guid language,
-            [In] ref Guid languageVendor,
-            [In] ref Guid documentType,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid language,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid languageVendor,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid documentType,
             [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedDocumentWriter pRetVal);
 
         /// <summary>

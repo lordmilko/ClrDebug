@@ -209,7 +209,7 @@ namespace ClrDebug
         /// <param name="pmr">[out] The <see cref="mdMemberRef"/> token assigned.</param>
         [PreserveSig]
         HRESULT DefineMemberRef(
-            [In] mdModuleRef tkImport,
+            [In] mdToken tkImport,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] IntPtr pvSigBlob,
             [In] int cbSigBlob,
@@ -532,7 +532,7 @@ namespace ClrDebug
         HRESULT DefineCustomAttribute(
             [In] mdToken tkObj,
             [In] mdToken tkType,
-            [In] IntPtr pCustomAttribute,
+            [In, MarshalAs(UnmanagedType.LPArray)] byte[] pCustomAttribute,
             [In] int cbCustomAttribute,
             [Out] out mdCustomAttribute pcv);
 
@@ -545,7 +545,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT SetCustomAttributeValue(
             [In] int pcv,
-            [In] IntPtr pCustomAttribute,
+            [In, MarshalAs(UnmanagedType.LPArray)] byte[] pCustomAttribute,
             [In] int cbCustomAttribute);
 
         /// <summary>

@@ -35,7 +35,7 @@ namespace ClrDebug
             {
                 var riid = typeof(T).GUID;
                 object ppInterface;
-                var hr = CLRCreateInstance(ref clsid, ref riid, out ppInterface);
+                var hr = CLRCreateInstance(clsid, riid, out ppInterface);
                 hr.ThrowOnNotOK();
 
                 return (T)ppInterface;

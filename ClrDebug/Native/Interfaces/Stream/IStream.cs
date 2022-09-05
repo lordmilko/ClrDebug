@@ -11,21 +11,21 @@ namespace ClrDebug
     {
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT RemoteRead(
+        new HRESULT Read(
             [Out] IntPtr pv,
             [In] int cb,
             [Out] out int pcbRead);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        new HRESULT RemoteWrite(
+        new HRESULT Write(
             [In] IntPtr pv,
             [In] int cb,
             [Out] out int pcbWritten);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT RemoteSeek(
+        HRESULT Seek(
             [In] LARGE_INTEGER dlibMove,
             [In] int dwOrigin,
             [Out] out ULARGE_INTEGER plibNewPosition);
@@ -37,7 +37,7 @@ namespace ClrDebug
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT RemoteCopyTo(
+        HRESULT CopyTo(
             [MarshalAs(UnmanagedType.Interface), In] IStream pstm,
             [In] ULARGE_INTEGER cb,
             [Out] out ULARGE_INTEGER pcbRead,

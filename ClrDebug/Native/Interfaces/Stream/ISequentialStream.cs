@@ -11,14 +11,14 @@ namespace ClrDebug
     {
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT RemoteRead(
+        HRESULT Read(
             [Out] IntPtr pv,
             [In] int cb,
             [Out] out int pcbRead);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HRESULT RemoteWrite(
+        HRESULT Write(
             [In] IntPtr pv,
             [In] int cb,
             [Out] out int pcbWritten);

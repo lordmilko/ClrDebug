@@ -617,7 +617,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT SetScope(
             [In] long InstructionOffset,
-            [In] DEBUG_STACK_FRAME ScopeFrame,
+            [In] ref DEBUG_STACK_FRAME ScopeFrame,
             [In] IntPtr ScopeContext,
             [In] int ScopeContextSize);
 

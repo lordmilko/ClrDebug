@@ -37,7 +37,7 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string imagePath,
             [In] int imageTimestamp,
             [In] int imageSize,
-            [In] ref Guid mvid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid mvid,
             [In] int mdRva,
             [In] int flags,
             [In] int bufferSize,

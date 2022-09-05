@@ -30,7 +30,7 @@ namespace ClrDebug
         /// </returns>
         [PreserveSig]
         HRESULT GetCLRManager(
-            [In] ref Guid riid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface, IidParameterIndex = 0)] out object ppObject);
 
         /// <summary>

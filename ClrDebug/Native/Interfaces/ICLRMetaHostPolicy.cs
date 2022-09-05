@@ -67,7 +67,7 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder pwzImageVersion,
             [In, Out] ref int pcchImageVersion,
             [Out] out METAHOST_CONFIG_FLAGS pdwConfigFlags,
-            [In] ref Guid riid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppRuntime);
     }
 }

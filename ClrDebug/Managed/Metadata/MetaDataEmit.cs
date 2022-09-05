@@ -468,7 +468,7 @@ namespace ClrDebug
         /// <param name="pvSigBlob">[in] The signature of the target member.</param>
         /// <param name="cbSigBlob">[in] The count of bytes in pvSigBlob.</param>
         /// <returns>[out] The <see cref="mdMemberRef"/> token assigned.</returns>
-        public mdMemberRef DefineMemberRef(mdModuleRef tkImport, string szName, IntPtr pvSigBlob, int cbSigBlob)
+        public mdMemberRef DefineMemberRef(mdToken tkImport, string szName, IntPtr pvSigBlob, int cbSigBlob)
         {
             mdMemberRef pmr;
             TryDefineMemberRef(tkImport, szName, pvSigBlob, cbSigBlob, out pmr).ThrowOnNotOK();
@@ -484,10 +484,10 @@ namespace ClrDebug
         /// <param name="pvSigBlob">[in] The signature of the target member.</param>
         /// <param name="cbSigBlob">[in] The count of bytes in pvSigBlob.</param>
         /// <param name="pmr">[out] The <see cref="mdMemberRef"/> token assigned.</param>
-        public HRESULT TryDefineMemberRef(mdModuleRef tkImport, string szName, IntPtr pvSigBlob, int cbSigBlob, out mdMemberRef pmr)
+        public HRESULT TryDefineMemberRef(mdToken tkImport, string szName, IntPtr pvSigBlob, int cbSigBlob, out mdMemberRef pmr)
         {
             /*HRESULT DefineMemberRef(
-            [In] mdModuleRef tkImport,
+            [In] mdToken tkImport,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] IntPtr pvSigBlob,
             [In] int cbSigBlob,
@@ -1238,7 +1238,7 @@ namespace ClrDebug
         /// <param name="pCustomAttribute">[in] A pointer to the custom attribute.</param>
         /// <param name="cbCustomAttribute">[in] The count of bytes in pCustomAttribute.</param>
         /// <returns>[out] The <see cref="mdCustomAttribute"/> token assigned.</returns>
-        public mdCustomAttribute DefineCustomAttribute(mdToken tkObj, mdToken tkType, IntPtr pCustomAttribute, int cbCustomAttribute)
+        public mdCustomAttribute DefineCustomAttribute(mdToken tkObj, mdToken tkType, byte[] pCustomAttribute, int cbCustomAttribute)
         {
             mdCustomAttribute pcv;
             TryDefineCustomAttribute(tkObj, tkType, pCustomAttribute, cbCustomAttribute, out pcv).ThrowOnNotOK();
@@ -1254,12 +1254,12 @@ namespace ClrDebug
         /// <param name="pCustomAttribute">[in] A pointer to the custom attribute.</param>
         /// <param name="cbCustomAttribute">[in] The count of bytes in pCustomAttribute.</param>
         /// <param name="pcv">[out] The <see cref="mdCustomAttribute"/> token assigned.</param>
-        public HRESULT TryDefineCustomAttribute(mdToken tkObj, mdToken tkType, IntPtr pCustomAttribute, int cbCustomAttribute, out mdCustomAttribute pcv)
+        public HRESULT TryDefineCustomAttribute(mdToken tkObj, mdToken tkType, byte[] pCustomAttribute, int cbCustomAttribute, out mdCustomAttribute pcv)
         {
             /*HRESULT DefineCustomAttribute(
             [In] mdToken tkObj,
             [In] mdToken tkType,
-            [In] IntPtr pCustomAttribute,
+            [In, MarshalAs(UnmanagedType.LPArray)] byte[] pCustomAttribute,
             [In] int cbCustomAttribute,
             [Out] out mdCustomAttribute pcv);*/
             return Raw.DefineCustomAttribute(tkObj, tkType, pCustomAttribute, cbCustomAttribute, out pcv);
@@ -1274,7 +1274,7 @@ namespace ClrDebug
         /// <param name="pcv">[in] The token of the target custom attribute.</param>
         /// <param name="pCustomAttribute">[in] A pointer to the array that contains the custom attribute.</param>
         /// <param name="cbCustomAttribute">[in] The size, in bytes, of the custom attribute.</param>
-        public void SetCustomAttributeValue(int pcv, IntPtr pCustomAttribute, int cbCustomAttribute)
+        public void SetCustomAttributeValue(int pcv, byte[] pCustomAttribute, int cbCustomAttribute)
         {
             TrySetCustomAttributeValue(pcv, pCustomAttribute, cbCustomAttribute).ThrowOnNotOK();
         }
@@ -1285,11 +1285,11 @@ namespace ClrDebug
         /// <param name="pcv">[in] The token of the target custom attribute.</param>
         /// <param name="pCustomAttribute">[in] A pointer to the array that contains the custom attribute.</param>
         /// <param name="cbCustomAttribute">[in] The size, in bytes, of the custom attribute.</param>
-        public HRESULT TrySetCustomAttributeValue(int pcv, IntPtr pCustomAttribute, int cbCustomAttribute)
+        public HRESULT TrySetCustomAttributeValue(int pcv, byte[] pCustomAttribute, int cbCustomAttribute)
         {
             /*HRESULT SetCustomAttributeValue(
             [In] int pcv,
-            [In] IntPtr pCustomAttribute,
+            [In, MarshalAs(UnmanagedType.LPArray)] byte[] pCustomAttribute,
             [In] int cbCustomAttribute);*/
             return Raw.SetCustomAttributeValue(pcv, pCustomAttribute, cbCustomAttribute);
         }

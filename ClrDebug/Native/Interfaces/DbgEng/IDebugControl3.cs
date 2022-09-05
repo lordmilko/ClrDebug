@@ -1041,7 +1041,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT CoerceValue(
-            [In] DEBUG_VALUE In,
+            [In] ref DEBUG_VALUE In,
             [In] DEBUG_VALUE_TYPE OutType,
             [Out] out DEBUG_VALUE Out);
 

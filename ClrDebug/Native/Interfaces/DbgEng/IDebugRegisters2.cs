@@ -89,7 +89,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT SetValue(
             [In] int Register,
-            [In] DEBUG_VALUE Value);
+            [In] ref DEBUG_VALUE Value);
 
         /// <summary>
         /// The GetValues method gets the value of several of the target's registers.

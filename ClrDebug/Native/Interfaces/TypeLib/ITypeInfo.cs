@@ -12,7 +12,8 @@ namespace ClrDebug.TypeLib
     public unsafe interface ITypeInfo
     {
         /// <summary>
-        /// Retrieves a <see cref="TYPEATTR"/> structure that contains the attributes of the type description.
+        /// Retrieves a <see cref="TYPEATTR"/> structure that contains the attributes of the type description.<para/>
+        /// This value must be released by calling <see cref="ReleaseTypeAttr"/>.
         /// </summary>
         /// <param name="ppTypeAttr">When this method returns, contains a reference to the structure that contains the attributes of this type description. This parameter is passed uninitialized.</param>
         [PreserveSig]
@@ -28,7 +29,8 @@ namespace ClrDebug.TypeLib
             out ITypeComp ppTComp);
 
         /// <summary>
-        /// Retrieves the <see cref="FUNCDESC"/> structure that contains information about a specified function.
+        /// Retrieves the <see cref="FUNCDESC"/> structure that contains information about a specified function.<para/>
+        /// This value must be released by calling <see cref="ReleaseFuncDesc"/>.
         /// </summary>
         /// <param name="index">The index of the function description to return.</param>
         /// <param name="ppFuncDesc">When this method returns, contains a reference to a FUNCDESC structure that describes the specified function. This parameter is passed uninitialized.</param>
@@ -39,6 +41,7 @@ namespace ClrDebug.TypeLib
 
         /// <summary>
         /// Retrieves a <see cref="VARDESC"/> structure that describes the specified variable.
+        /// This value must be released by calling <see cref="ReleaseVarDesc"/>.
         /// </summary>
         /// <param name="index">The index of the variable description to return.</param>
         /// <param name="ppVarDesc">When this method returns, contains a reference to the VARDESC structure that describes the specified variable. This parameter is passed uninitialized.</param>
@@ -175,9 +178,9 @@ namespace ClrDebug.TypeLib
         /// <param name="ppvObj">When this method returns, contains a reference to the created object. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT CreateInstance(
-            object pUnkOuter,
-            ref Guid riid,
-            out object ppvObj);
+            [In] object pUnkOuter,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
+            [Out] out object ppvObj);
 
         /// <summary>
         /// Retrieves marshaling information.

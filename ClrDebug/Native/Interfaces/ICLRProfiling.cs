@@ -48,7 +48,7 @@ namespace ClrDebug
         HRESULT AttachProfiler(
             [In] int dwProfileeProcessID,
             [In] int dwMillisecondsMax,
-            [In] ref Guid pClsidProfiler,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid pClsidProfiler,
             [MarshalAs(UnmanagedType.LPWStr), In] string wszProfilerPath,
             [In] IntPtr pvClientData,
             [In] int cbClientData);

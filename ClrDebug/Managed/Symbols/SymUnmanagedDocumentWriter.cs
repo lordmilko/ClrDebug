@@ -66,10 +66,10 @@ namespace ClrDebug
         public HRESULT TrySetCheckSum(Guid algorithmId, int checkSumSize, IntPtr checkSum)
         {
             /*HRESULT SetCheckSum(
-            [In] ref Guid algorithmId,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid algorithmId,
             [In] int checkSumSize,
             [In] IntPtr checkSum);*/
-            return Raw.SetCheckSum(ref algorithmId, checkSumSize, checkSum);
+            return Raw.SetCheckSum(algorithmId, checkSumSize, checkSum);
         }
 
         #endregion

@@ -353,8 +353,8 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT SetValue(
             [In] int Register,
-            [In] DEBUG_VALUE Value);*/
-            return setValue(Raw, register, value);
+            [In] ref DEBUG_VALUE Value);*/
+            return setValue(Raw, register, ref value);
         }
 
         #endregion
@@ -1338,7 +1338,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetDescriptionDelegate(IntPtr self, [In] int Register, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out DEBUG_REGISTER_DESCRIPTION Desc);
         private delegate HRESULT GetIndexByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [Out] out int Index);
         private delegate HRESULT GetValueDelegate(IntPtr self, [In] int Register, [Out] out DEBUG_VALUE Value);
-        private delegate HRESULT SetValueDelegate(IntPtr self, [In] int Register, [In] DEBUG_VALUE Value);
+        private delegate HRESULT SetValueDelegate(IntPtr self, [In] int Register, [In] ref DEBUG_VALUE Value);
         private delegate HRESULT GetValuesDelegate(IntPtr self, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Indices, [In] int Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);
         private delegate HRESULT SetValuesDelegate(IntPtr self, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Indices, [In] int Start, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Values);
         private delegate HRESULT OutputRegistersDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_REGISTERS Flags);

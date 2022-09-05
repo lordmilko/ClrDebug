@@ -77,13 +77,13 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugDataTarget pDataTarget,
             [MarshalAs(UnmanagedType.Interface), In] ICLRDebuggingLibraryProvider pLibraryProvider,
             [In] ref CLR_DEBUGGING_VERSION pMaxDebuggerSupportedVersion,
-            [In] ref Guid riidProcess,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riidProcess,
             [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppProcess,
             [In, Out] ref CLR_DEBUGGING_VERSION pVersion,
             [Out] out CLR_DEBUGGING_PROCESS_FLAGS pdwFlags);*/
             object ppProcess;
             CLR_DEBUGGING_PROCESS_FLAGS pdwFlags;
-            HRESULT hr = Raw.OpenVirtualProcess(moduleBaseAddress, pDataTarget, pLibraryProvider, ref pMaxDebuggerSupportedVersion, ref riidProcess, out ppProcess, ref pVersion, out pdwFlags);
+            HRESULT hr = Raw.OpenVirtualProcess(moduleBaseAddress, pDataTarget, pLibraryProvider, ref pMaxDebuggerSupportedVersion, riidProcess, out ppProcess, ref pVersion, out pdwFlags);
 
             if (hr == HRESULT.S_OK)
                 result = new OpenVirtualProcessResult(ppProcess, pdwFlags);

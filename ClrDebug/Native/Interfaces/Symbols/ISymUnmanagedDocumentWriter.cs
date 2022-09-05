@@ -34,7 +34,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetCheckSum(
-            [In] ref Guid algorithmId,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid algorithmId,
             [In] int checkSumSize,
             [In] IntPtr checkSum);
     }

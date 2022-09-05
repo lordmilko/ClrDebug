@@ -80,7 +80,7 @@ namespace ClrDebug
         /// <summary>
         /// Sets the specified option to a given value for the current metadata scope. The option controls how calls to the current metadata scope are handled.
         /// </summary>
-        /// <param name="optionId">[in] A pointer to a GUID that specifies the option to be set.</param>
+        /// <param name="optionId">[in] A pointer to a GUID that specifies the option to be set. For possible values see <see cref="MetaDataDispenserOption"/>.</param>
         /// <param name="pValue">[in] The value to use to set the option. The type of this value must be a variant of the specified option's type.</param>
         /// <remarks>
         /// The following table lists the available GUIDs that the optionId parameter can point to and the corresponding valid
@@ -94,7 +94,7 @@ namespace ClrDebug
         /// <summary>
         /// Sets the specified option to a given value for the current metadata scope. The option controls how calls to the current metadata scope are handled.
         /// </summary>
-        /// <param name="optionId">[in] A pointer to a GUID that specifies the option to be set.</param>
+        /// <param name="optionId">[in] A pointer to a GUID that specifies the option to be set. For possible values see <see cref="MetaDataDispenserOption"/>.</param>
         /// <param name="pValue">[in] The value to use to set the option. The type of this value must be a variant of the specified option's type.</param>
         /// <remarks>
         /// The following table lists the available GUIDs that the optionId parameter can point to and the corresponding valid
@@ -103,9 +103,9 @@ namespace ClrDebug
         public HRESULT TrySetOption(Guid optionId, object pValue)
         {
             /*HRESULT SetOption(
-            [In] ref Guid optionId,
-            [In, MarshalAs(UnmanagedType.Struct)] object pValue);*/
-            return Raw.SetOption(ref optionId, pValue);
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid optionId,
+            [In, MarshalAs(UnmanagedType.Struct)] ref object pValue);*/
+            return Raw.SetOption(optionId, ref pValue);
         }
 
         #endregion
@@ -114,7 +114,7 @@ namespace ClrDebug
         /// <summary>
         /// Gets the value of the specified option for the current metadata scope. The option controls how calls to the current metadata scope are handled.
         /// </summary>
-        /// <param name="optionId">[in] A pointer to a GUID that specifies the option to be retrieved. See the Remarks section for a list of supported GUIDs.</param>
+        /// <param name="optionId">[in] A pointer to a GUID that specifies the option to be retrieved. For possible values see <see cref="MetaDataDispenserOption"/>.</param>
         /// <returns>[out] The value of the returned option. The type of this value will be a variant of the specified option's type.</returns>
         /// <remarks>
         /// The following list shows the GUIDs that are supported for this method. For descriptions, see the <see cref="SetOption"/>
@@ -122,8 +122,8 @@ namespace ClrDebug
         /// </remarks>
         public object GetOption(Guid optionId)
         {
-            object pValue = default(object);
-            TryGetOption(optionId, ref pValue).ThrowOnNotOK();
+            object pValue;
+            TryGetOption(optionId, out pValue).ThrowOnNotOK();
 
             return pValue;
         }
@@ -131,18 +131,18 @@ namespace ClrDebug
         /// <summary>
         /// Gets the value of the specified option for the current metadata scope. The option controls how calls to the current metadata scope are handled.
         /// </summary>
-        /// <param name="optionId">[in] A pointer to a GUID that specifies the option to be retrieved. See the Remarks section for a list of supported GUIDs.</param>
+        /// <param name="optionId">[in] A pointer to a GUID that specifies the option to be retrieved. For possible values see <see cref="MetaDataDispenserOption"/>.</param>
         /// <param name="pValue">[out] The value of the returned option. The type of this value will be a variant of the specified option's type.</param>
         /// <remarks>
         /// The following list shows the GUIDs that are supported for this method. For descriptions, see the <see cref="SetOption"/>
         /// method. If optionId is not in this list, this method returns <see cref="HRESULT"/> E_INVALIDARG, indicating an incorrect parameter.
         /// </remarks>
-        public HRESULT TryGetOption(Guid optionId, ref object pValue)
+        public HRESULT TryGetOption(Guid optionId, out object pValue)
         {
             /*HRESULT GetOption(
-            [In] ref Guid optionId,
-            [Out] object pValue);*/
-            return Raw.GetOption(ref optionId, pValue);
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid optionId,
+            [Out] out object pValue);*/
+            return Raw.GetOption(optionId, out pValue);
         }
 
         #endregion
@@ -175,9 +175,9 @@ namespace ClrDebug
             /*HRESULT OpenScopeOnITypeInfo(
             [In, MarshalAs(UnmanagedType.Interface)] ITypeInfo pITI,
             [In] int dwOpenFlags,
-            [In] ref Guid riid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface, IidParameterIndex = 2)] out object ppIUnk);*/
-            return Raw.OpenScopeOnITypeInfo(pITI, dwOpenFlags, ref riid, out ppIUnk);
+            return Raw.OpenScopeOnITypeInfo(pITI, dwOpenFlags, riid, out ppIUnk);
         }
 
         #endregion

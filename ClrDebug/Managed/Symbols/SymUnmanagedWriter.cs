@@ -48,12 +48,12 @@ namespace ClrDebug
         {
             /*HRESULT DefineDocument(
             [In, MarshalAs(UnmanagedType.LPWStr)] string url,
-            [In] ref Guid language,
-            [In] ref Guid languageVendor,
-            [In] ref Guid documentType,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid language,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid languageVendor,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid documentType,
             [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedDocumentWriter pRetVal);*/
             ISymUnmanagedDocumentWriter pRetVal;
-            HRESULT hr = Raw.DefineDocument(url, ref language, ref languageVendor, ref documentType, out pRetVal);
+            HRESULT hr = Raw.DefineDocument(url, language, languageVendor, documentType, out pRetVal);
 
             if (hr == HRESULT.S_OK)
                 pRetValResult = new SymUnmanagedDocumentWriter(pRetVal);

@@ -1794,10 +1794,10 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT SetScope(
             [In] long InstructionOffset,
-            [In] DEBUG_STACK_FRAME ScopeFrame,
+            [In] ref DEBUG_STACK_FRAME ScopeFrame,
             [In] IntPtr ScopeContext,
             [In] int ScopeContextSize);*/
-            return setScope(Raw, instructionOffset, scopeFrame, scopeContext, scopeContextSize);
+            return setScope(Raw, instructionOffset, ref scopeFrame, scopeContext, scopeContextSize);
         }
 
         #endregion
@@ -5341,8 +5341,8 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref removeSyntheticSymbol, Vtbl3->RemoveSyntheticSymbol);
 
             /*HRESULT RemoveSyntheticSymbol(
-            [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id);*/
-            return removeSyntheticSymbol(Raw, id);
+            [In] ref DEBUG_MODULE_AND_ID Id);*/
+            return removeSyntheticSymbol(Raw, ref id);
         }
 
         #endregion
@@ -5633,7 +5633,7 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getSymbolEntryString, Vtbl3->GetSymbolEntryString);
             /*HRESULT GetSymbolEntryString(
-            [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id,
+            [In] ref DEBUG_MODULE_AND_ID Id,
             [In] int Which,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
@@ -5641,14 +5641,14 @@ namespace ClrDebug.DbgEng
             StringBuilder buffer;
             int bufferSize = 0;
             int stringSize;
-            HRESULT hr = getSymbolEntryString(Raw, id, which, null, bufferSize, out stringSize);
+            HRESULT hr = getSymbolEntryString(Raw, ref id, which, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringSize;
             buffer = new StringBuilder(bufferSize);
-            hr = getSymbolEntryString(Raw, id, which, buffer, bufferSize, out stringSize);
+            hr = getSymbolEntryString(Raw, ref id, which, buffer, bufferSize, out stringSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -5699,7 +5699,7 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getSymbolEntryStringWide, Vtbl3->GetSymbolEntryStringWide);
             /*HRESULT GetSymbolEntryStringWide(
-            [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id,
+            [In] ref DEBUG_MODULE_AND_ID Id,
             [In] int Which,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
@@ -5707,14 +5707,14 @@ namespace ClrDebug.DbgEng
             StringBuilder buffer;
             int bufferSize = 0;
             int stringSize;
-            HRESULT hr = getSymbolEntryStringWide(Raw, id, which, null, bufferSize, out stringSize);
+            HRESULT hr = getSymbolEntryStringWide(Raw, ref id, which, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringSize;
             buffer = new StringBuilder(bufferSize);
-            hr = getSymbolEntryStringWide(Raw, id, which, buffer, bufferSize, out stringSize);
+            hr = getSymbolEntryStringWide(Raw, ref id, which, buffer, bufferSize, out stringSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -5759,7 +5759,7 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getSymbolEntryOffsetRegions, Vtbl3->GetSymbolEntryOffsetRegions);
             /*HRESULT GetSymbolEntryOffsetRegions(
-            [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id,
+            [In] ref DEBUG_MODULE_AND_ID Id,
             [In] int Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions,
             [In] int RegionsCount,
@@ -5767,14 +5767,14 @@ namespace ClrDebug.DbgEng
             regions = null;
             int regionsCount = 0;
             int regionsAvail;
-            HRESULT hr = getSymbolEntryOffsetRegions(Raw, id, flags, null, regionsCount, out regionsAvail);
+            HRESULT hr = getSymbolEntryOffsetRegions(Raw, ref id, flags, null, regionsCount, out regionsAvail);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             regionsCount = regionsAvail;
             regions = new DEBUG_OFFSET_REGION[regionsCount];
-            hr = getSymbolEntryOffsetRegions(Raw, id, flags, regions, regionsCount, out regionsAvail);
+            hr = getSymbolEntryOffsetRegions(Raw, ref id, flags, regions, regionsCount, out regionsAvail);
             fail:
             return hr;
         }
@@ -5808,10 +5808,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getSymbolEntryBySymbolEntry, Vtbl3->GetSymbolEntryBySymbolEntry);
 
             /*HRESULT GetSymbolEntryBySymbolEntry(
-            [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID FromId,
+            [In] ref DEBUG_MODULE_AND_ID FromId,
             [In] int Flags,
             [Out] out DEBUG_MODULE_AND_ID ToId);*/
-            return getSymbolEntryBySymbolEntry(Raw, fromId, flags, out toId);
+            return getSymbolEntryBySymbolEntry(Raw, ref fromId, flags, out toId);
         }
 
         #endregion
@@ -6025,7 +6025,7 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getSourceEntryString, Vtbl3->GetSourceEntryString);
             /*HRESULT GetSourceEntryString(
-            [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry,
+            [In] ref DEBUG_SYMBOL_SOURCE_ENTRY Entry,
             [In] int Which,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
@@ -6033,14 +6033,14 @@ namespace ClrDebug.DbgEng
             StringBuilder buffer;
             int bufferSize = 0;
             int stringSize;
-            HRESULT hr = getSourceEntryString(Raw, entry, which, null, bufferSize, out stringSize);
+            HRESULT hr = getSourceEntryString(Raw, ref entry, which, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringSize;
             buffer = new StringBuilder(bufferSize);
-            hr = getSourceEntryString(Raw, entry, which, buffer, bufferSize, out stringSize);
+            hr = getSourceEntryString(Raw, ref entry, which, buffer, bufferSize, out stringSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -6084,7 +6084,7 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getSourceEntryStringWide, Vtbl3->GetSourceEntryStringWide);
             /*HRESULT GetSourceEntryStringWide(
-            [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry,
+            [In] ref DEBUG_SYMBOL_SOURCE_ENTRY Entry,
             [In] int Which,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
@@ -6092,14 +6092,14 @@ namespace ClrDebug.DbgEng
             StringBuilder buffer;
             int bufferSize = 0;
             int stringSize;
-            HRESULT hr = getSourceEntryStringWide(Raw, entry, which, null, bufferSize, out stringSize);
+            HRESULT hr = getSourceEntryStringWide(Raw, ref entry, which, null, bufferSize, out stringSize);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufferSize = stringSize;
             buffer = new StringBuilder(bufferSize);
-            hr = getSourceEntryStringWide(Raw, entry, which, buffer, bufferSize, out stringSize);
+            hr = getSourceEntryStringWide(Raw, ref entry, which, buffer, bufferSize, out stringSize);
 
             if (hr == HRESULT.S_OK)
             {
@@ -6143,7 +6143,7 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getSourceEntryOffsetRegions, Vtbl3->GetSourceEntryOffsetRegions);
             /*HRESULT GetSourceEntryOffsetRegions(
-            [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry,
+            [In] ref DEBUG_SYMBOL_SOURCE_ENTRY Entry,
             [In] int Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions,
             [In] int RegionsCount,
@@ -6151,14 +6151,14 @@ namespace ClrDebug.DbgEng
             regions = null;
             int regionsCount = 0;
             int regionsAvail;
-            HRESULT hr = getSourceEntryOffsetRegions(Raw, entry, flags, null, regionsCount, out regionsAvail);
+            HRESULT hr = getSourceEntryOffsetRegions(Raw, ref entry, flags, null, regionsCount, out regionsAvail);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             regionsCount = regionsAvail;
             regions = new DEBUG_OFFSET_REGION[regionsCount];
-            hr = getSourceEntryOffsetRegions(Raw, entry, flags, regions, regionsCount, out regionsAvail);
+            hr = getSourceEntryOffsetRegions(Raw, ref entry, flags, regions, regionsCount, out regionsAvail);
             fail:
             return hr;
         }
@@ -6192,10 +6192,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getSourceEntryBySourceEntry, Vtbl3->GetSourceEntryBySourceEntry);
 
             /*HRESULT GetSourceEntryBySourceEntry(
-            [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY FromEntry,
+            [In] ref DEBUG_SYMBOL_SOURCE_ENTRY FromEntry,
             [In] int Flags,
             [Out] out DEBUG_SYMBOL_SOURCE_ENTRY ToEntry);*/
-            return getSourceEntryBySourceEntry(Raw, fromEntry, flags, out toEntry);
+            return getSourceEntryBySourceEntry(Raw, ref fromEntry, flags, out toEntry);
         }
 
         #endregion
@@ -6273,10 +6273,10 @@ namespace ClrDebug.DbgEng
 
             /*HRESULT SetScopeEx(
             [In] long InstructionOffset,
-            [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_STACK_FRAME_EX ScopeFrame,
+            [In] ref DEBUG_STACK_FRAME_EX ScopeFrame,
             [In] IntPtr ScopeContext,
             [In] int ScopeContextSize);*/
-            return setScopeEx(Raw, instructionOffset, scopeFrame, scopeContext, scopeContextSize);
+            return setScopeEx(Raw, instructionOffset, ref scopeFrame, scopeContext, scopeContextSize);
         }
 
         #endregion
@@ -6947,7 +6947,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT WriteTypedDataPhysicalDelegate(IntPtr self, [In] long Offset, [In] long Module, [In] int TypeId, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
         private delegate HRESULT OutputTypedDataPhysicalDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] long Offset, [In] long Module, [In] int TypeId, [In] DEBUG_OUTTYPE Flags);
         private delegate HRESULT GetScopeDelegate(IntPtr self, [Out] out long InstructionOffset, [Out] out DEBUG_STACK_FRAME ScopeFrame, [In] IntPtr ScopeContext, [In] int ScopeContextSize);
-        private delegate HRESULT SetScopeDelegate(IntPtr self, [In] long InstructionOffset, [In] DEBUG_STACK_FRAME ScopeFrame, [In] IntPtr ScopeContext, [In] int ScopeContextSize);
+        private delegate HRESULT SetScopeDelegate(IntPtr self, [In] long InstructionOffset, [In] ref DEBUG_STACK_FRAME ScopeFrame, [In] IntPtr ScopeContext, [In] int ScopeContextSize);
         private delegate HRESULT ResetScopeDelegate(IntPtr self);
         private delegate HRESULT GetScopeSymbolGroupDelegate(IntPtr self, [In] DEBUG_SCOPE_GROUP Flags, [In, ComAliasName("IDebugSymbolGroup")] IntPtr Update, [Out, ComAliasName("IDebugSymbolGroup")] out IntPtr Symbols);
         private delegate HRESULT CreateSymbolGroupDelegate(IntPtr self, [Out, ComAliasName("IDebugSymbolGroup")] out IntPtr Group);
@@ -7026,29 +7026,29 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetFieldTypeAndOffsetWideDelegate(IntPtr self, [In] long Module, [In] int ContainerTypeId, [In, MarshalAs(UnmanagedType.LPWStr)] string Field, [Out] out int FieldTypeId, [Out] out int Offset);
         private delegate HRESULT AddSyntheticSymbolDelegate(IntPtr self, [In] long Offset, [In] int Size, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [In] DEBUG_ADDSYNTHSYM Flags, [Out] out DEBUG_MODULE_AND_ID Id);
         private delegate HRESULT AddSyntheticSymbolWideDelegate(IntPtr self, [In] long Offset, [In] int Size, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [In] DEBUG_ADDSYNTHSYM Flags, [Out] out DEBUG_MODULE_AND_ID Id);
-        private delegate HRESULT RemoveSyntheticSymbolDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id);
+        private delegate HRESULT RemoveSyntheticSymbolDelegate(IntPtr self, [In] ref DEBUG_MODULE_AND_ID Id);
         private delegate HRESULT GetSymbolEntriesByOffsetDelegate(IntPtr self, [In] long Offset, [In] int Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_MODULE_AND_ID[] Ids, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] long[] Displacements, [In] int IdsCount, [Out] out int Entries);
         private delegate HRESULT GetSymbolEntriesByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Symbol, [In] int Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_MODULE_AND_ID[] Ids, [In] int IdsCount, [Out] out int Entries);
         private delegate HRESULT GetSymbolEntriesByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Symbol, [In] int Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_MODULE_AND_ID[] Ids, [In] int IdsCount, [Out] out int Entries);
         private delegate HRESULT GetSymbolEntryByTokenDelegate(IntPtr self, [In] long ModuleBase, [In] int Token, [Out] out DEBUG_MODULE_AND_ID Id);
         private delegate HRESULT GetSymbolEntryInformationDelegate(IntPtr self, [In] ref DEBUG_MODULE_AND_ID Id, [Out] out DEBUG_SYMBOL_ENTRY Info);
-        private delegate HRESULT GetSymbolEntryStringDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id, [In] int Which, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringSize);
-        private delegate HRESULT GetSymbolEntryStringWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id, [In] int Which, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringSize);
-        private delegate HRESULT GetSymbolEntryOffsetRegionsDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id, [In] int Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions, [In] int RegionsCount, [Out] out int RegionsAvail);
-        private delegate HRESULT GetSymbolEntryBySymbolEntryDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID FromId, [In] int Flags, [Out] out DEBUG_MODULE_AND_ID ToId);
+        private delegate HRESULT GetSymbolEntryStringDelegate(IntPtr self, [In] ref DEBUG_MODULE_AND_ID Id, [In] int Which, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringSize);
+        private delegate HRESULT GetSymbolEntryStringWideDelegate(IntPtr self, [In] ref DEBUG_MODULE_AND_ID Id, [In] int Which, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringSize);
+        private delegate HRESULT GetSymbolEntryOffsetRegionsDelegate(IntPtr self, [In] ref DEBUG_MODULE_AND_ID Id, [In] int Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions, [In] int RegionsCount, [Out] out int RegionsAvail);
+        private delegate HRESULT GetSymbolEntryBySymbolEntryDelegate(IntPtr self, [In] ref DEBUG_MODULE_AND_ID FromId, [In] int Flags, [Out] out DEBUG_MODULE_AND_ID ToId);
         private delegate HRESULT GetSourceEntriesByOffsetDelegate(IntPtr self, [In] long Offset, [In] int Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries, [In] int EntriesCount, [Out] out int EntriesAvail);
         private delegate HRESULT GetSourceEntriesByLineDelegate(IntPtr self, [In] int Line, [In, MarshalAs(UnmanagedType.LPStr)] string File, [In] DEBUG_GSEL Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries, [In] int EntriesCount, [Out] out int EntriesAvail);
         private delegate HRESULT GetSourceEntriesByLineWideDelegate(IntPtr self, [In] int Line, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [In] DEBUG_GSEL Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_SYMBOL_SOURCE_ENTRY[] Entries, [In] int EntriesCount, [Out] out int EntriesAvail);
-        private delegate HRESULT GetSourceEntryStringDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry, [In] int Which, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringSize);
-        private delegate HRESULT GetSourceEntryStringWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry, [In] int Which, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringSize);
-        private delegate HRESULT GetSourceEntryOffsetRegionsDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry, [In] int Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions, [In] int RegionsCount, [Out] out int RegionsAvail);
-        private delegate HRESULT GetSourceEntryBySourceEntryDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY FromEntry, [In] int Flags, [Out] out DEBUG_SYMBOL_SOURCE_ENTRY ToEntry);
+        private delegate HRESULT GetSourceEntryStringDelegate(IntPtr self, [In] ref DEBUG_SYMBOL_SOURCE_ENTRY Entry, [In] int Which, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringSize);
+        private delegate HRESULT GetSourceEntryStringWideDelegate(IntPtr self, [In] ref DEBUG_SYMBOL_SOURCE_ENTRY Entry, [In] int Which, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringSize);
+        private delegate HRESULT GetSourceEntryOffsetRegionsDelegate(IntPtr self, [In] ref DEBUG_SYMBOL_SOURCE_ENTRY Entry, [In] int Flags, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions, [In] int RegionsCount, [Out] out int RegionsAvail);
+        private delegate HRESULT GetSourceEntryBySourceEntryDelegate(IntPtr self, [In] ref DEBUG_SYMBOL_SOURCE_ENTRY FromEntry, [In] int Flags, [Out] out DEBUG_SYMBOL_SOURCE_ENTRY ToEntry);
 
         #endregion
         #region IDebugSymbols4
 
         private delegate HRESULT GetScopeExDelegate(IntPtr self, [Out] out long InstructionOffset, [Out] out DEBUG_STACK_FRAME_EX ScopeFrame, [In] IntPtr ScopeContext, [In] int ScopeContextSize);
-        private delegate HRESULT SetScopeExDelegate(IntPtr self, [In] long InstructionOffset, [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_STACK_FRAME_EX ScopeFrame, [In] IntPtr ScopeContext, [In] int ScopeContextSize);
+        private delegate HRESULT SetScopeExDelegate(IntPtr self, [In] long InstructionOffset, [In] ref DEBUG_STACK_FRAME_EX ScopeFrame, [In] IntPtr ScopeContext, [In] int ScopeContextSize);
         private delegate HRESULT GetNameByInlineContextDelegate(IntPtr self, [In] long Offset, [In] int InlineContext, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out long Displacement);
         private delegate HRESULT GetNameByInlineContextWideDelegate(IntPtr self, [In] long Offset, [In] int InlineContext, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out long Displacement);
         private delegate HRESULT GetLineByInlineContextDelegate(IntPtr self, [In] long Offset, [In] int InlineContext, [Out] out int Line, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder FileBuffer, [In] int FileBufferSize, [Out] out int FileSize, [Out] out long Displacement);

@@ -35,7 +35,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCachedWinRTTypesForIIDs(
             [In] int cReqTypes,
-            [In] ref Guid iidsToResolve,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid iidsToResolve,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppTypesEnum);
 
         /// <summary>

@@ -229,7 +229,7 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT GetExceptionStateByExceptionRecord(
-            [In] EXCEPTION_RECORD64 record,
+            [In] ref EXCEPTION_RECORD64 record,
             [Out] out IXCLRDataExceptionState exState);
 
         [PreserveSig]

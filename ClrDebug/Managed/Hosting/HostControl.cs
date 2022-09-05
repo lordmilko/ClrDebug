@@ -61,9 +61,9 @@ namespace ClrDebug
         public HRESULT TryGetHostManager(Guid riid, out object ppObject)
         {
             /*HRESULT GetHostManager(
-            [In] ref Guid riid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface, IidParameterIndex = 0)] out object ppObject);*/
-            return Raw.GetHostManager(ref riid, out ppObject);
+            return Raw.GetHostManager(riid, out ppObject);
         }
 
         #endregion

@@ -20,7 +20,8 @@ namespace ClrDebug.TypeLib
         #region TypeAttr
 
         /// <summary>
-        /// Retrieves a <see cref="TYPEATTR"/> structure that contains the attributes of the type description.
+        /// Retrieves a <see cref="TYPEATTR"/> structure that contains the attributes of the type description.<para/>
+        /// This value must be released by calling <see cref="ReleaseTypeAttr"/>.
         /// </summary>
         public unsafe TYPEATTR* TypeAttr
         {
@@ -34,7 +35,8 @@ namespace ClrDebug.TypeLib
         }
 
         /// <summary>
-        /// Retrieves a <see cref="TYPEATTR"/> structure that contains the attributes of the type description.
+        /// Retrieves a <see cref="TYPEATTR"/> structure that contains the attributes of the type description.<para/>
+        /// This value must be released by calling <see cref="ReleaseTypeAttr"/>.
         /// </summary>
         /// <param name="ppTypeAttr">When this method returns, contains a reference to the structure that contains the attributes of this type description. This parameter is passed uninitialized.</param>
         public unsafe HRESULT TryGetTypeAttr(out TYPEATTR* ppTypeAttr)
@@ -122,7 +124,8 @@ namespace ClrDebug.TypeLib
         #region GetFuncDesc
 
         /// <summary>
-        /// Retrieves the <see cref="FUNCDESC"/> structure that contains information about a specified function.
+        /// Retrieves the <see cref="FUNCDESC"/> structure that contains information about a specified function.<para/>
+        /// This value must be released by calling <see cref="ReleaseFuncDesc"/>.
         /// </summary>
         /// <param name="index">The index of the function description to return.</param>
         /// <returns>When this method returns, contains a reference to a FUNCDESC structure that describes the specified function. This parameter is passed uninitialized.</returns>
@@ -135,7 +138,8 @@ namespace ClrDebug.TypeLib
         }
 
         /// <summary>
-        /// Retrieves the <see cref="FUNCDESC"/> structure that contains information about a specified function.
+        /// Retrieves the <see cref="FUNCDESC"/> structure that contains information about a specified function.<para/>
+        /// This value must be released by calling <see cref="ReleaseFuncDesc"/>.
         /// </summary>
         /// <param name="index">The index of the function description to return.</param>
         /// <param name="ppFuncDesc">When this method returns, contains a reference to a FUNCDESC structure that describes the specified function. This parameter is passed uninitialized.</param>
@@ -152,6 +156,7 @@ namespace ClrDebug.TypeLib
 
         /// <summary>
         /// Retrieves a <see cref="VARDESC"/> structure that describes the specified variable.
+        /// This value must be released by calling <see cref="ReleaseVarDesc"/>.
         /// </summary>
         /// <param name="index">The index of the variable description to return.</param>
         /// <returns>When this method returns, contains a reference to the VARDESC structure that describes the specified variable. This parameter is passed uninitialized.</returns>
@@ -165,6 +170,7 @@ namespace ClrDebug.TypeLib
 
         /// <summary>
         /// Retrieves a <see cref="VARDESC"/> structure that describes the specified variable.
+        /// This value must be released by calling <see cref="ReleaseVarDesc"/>.
         /// </summary>
         /// <param name="index">The index of the variable description to return.</param>
         /// <param name="ppVarDesc">When this method returns, contains a reference to the VARDESC structure that describes the specified variable. This parameter is passed uninitialized.</param>
@@ -508,36 +514,29 @@ namespace ClrDebug.TypeLib
         /// Creates a new instance of a type that describes a component class (coclass).
         /// </summary>
         /// <param name="pUnkOuter">The object that acts as the controlling IUnknown.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public CreateInstanceResult CreateInstance(object pUnkOuter)
+        /// <param name="riid">The IID of the interface that the caller uses to communicate with the resulting object.</param>
+        /// <returns>When this method returns, contains a reference to the created object. This parameter is passed uninitialized.</returns>
+        public object CreateInstance(object pUnkOuter, Guid riid)
         {
-            CreateInstanceResult result;
-            TryCreateInstance(pUnkOuter, out result).ThrowOnNotOK();
+            object ppvObj;
+            TryCreateInstance(pUnkOuter, riid, out ppvObj).ThrowOnNotOK();
 
-            return result;
+            return ppvObj;
         }
 
         /// <summary>
         /// Creates a new instance of a type that describes a component class (coclass).
         /// </summary>
         /// <param name="pUnkOuter">The object that acts as the controlling IUnknown.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryCreateInstance(object pUnkOuter, out CreateInstanceResult result)
+        /// <param name="riid">The IID of the interface that the caller uses to communicate with the resulting object.</param>
+        /// <param name="ppvObj">When this method returns, contains a reference to the created object. This parameter is passed uninitialized.</param>
+        public HRESULT TryCreateInstance(object pUnkOuter, Guid riid, out object ppvObj)
         {
             /*HRESULT CreateInstance(
-            object pUnkOuter,
-            ref Guid riid,
-            out object ppvObj);*/
-            Guid riid = default(Guid);
-            object ppvObj;
-            HRESULT hr = Raw.CreateInstance(pUnkOuter, ref riid, out ppvObj);
-
-            if (hr == HRESULT.S_OK)
-                result = new CreateInstanceResult(riid, ppvObj);
-            else
-                result = default(CreateInstanceResult);
-
-            return hr;
+            [In] object pUnkOuter,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
+            [Out] out object ppvObj);*/
+            return Raw.CreateInstance(pUnkOuter, riid, out ppvObj);
         }
 
         #endregion
@@ -786,9 +785,9 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetCustData(Guid guid, out object pVarVal)
         {
             /*HRESULT GetCustData(
-            [In] ref Guid guid,
-            out object pVarVal);*/
-            return Raw2.GetCustData(ref guid, out pVarVal);
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
+            [Out] out object pVarVal);*/
+            return Raw2.GetCustData(guid, out pVarVal);
         }
 
         #endregion
@@ -798,36 +797,29 @@ namespace ClrDebug.TypeLib
         /// Gets the custom data from the specified function.
         /// </summary>
         /// <param name="index">The index of the function to get the custom data for.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetFuncCustDataResult GetFuncCustData(int index)
+        /// <param name="guid">The GUID used to identify the data.</param>
+        /// <returns>When this method returns, contains an <see langword="object"/> that specified where to put the data. This parameter is passed uninitialized.</returns>
+        public object GetFuncCustData(int index, Guid guid)
         {
-            GetFuncCustDataResult result;
-            TryGetFuncCustData(index, out result).ThrowOnNotOK();
+            object pVarVal;
+            TryGetFuncCustData(index, guid, out pVarVal).ThrowOnNotOK();
 
-            return result;
+            return pVarVal;
         }
 
         /// <summary>
         /// Gets the custom data from the specified function.
         /// </summary>
         /// <param name="index">The index of the function to get the custom data for.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetFuncCustData(int index, out GetFuncCustDataResult result)
+        /// <param name="guid">The GUID used to identify the data.</param>
+        /// <param name="pVarVal">When this method returns, contains an <see langword="object"/> that specified where to put the data. This parameter is passed uninitialized.</param>
+        public HRESULT TryGetFuncCustData(int index, Guid guid, out object pVarVal)
         {
             /*HRESULT GetFuncCustData(
-            int index,
-            ref Guid guid,
-            out object pVarVal);*/
-            Guid guid = default(Guid);
-            object pVarVal;
-            HRESULT hr = Raw2.GetFuncCustData(index, ref guid, out pVarVal);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetFuncCustDataResult(guid, pVarVal);
-            else
-                result = default(GetFuncCustDataResult);
-
-            return hr;
+            [In] int index,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
+            [Out] out object pVarVal);*/
+            return Raw2.GetFuncCustData(index, guid, out pVarVal);
         }
 
         #endregion
@@ -838,13 +830,14 @@ namespace ClrDebug.TypeLib
         /// </summary>
         /// <param name="indexFunc">The index of the function to get the custom data for.</param>
         /// <param name="indexParam">The index of the parameter of this function to get the custom data for.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetParamCustDataResult GetParamCustData(int indexFunc, int indexParam)
+        /// <param name="guid">The GUID used to identify the data.</param>
+        /// <returns>When this method returns, contains an <see langword="object"/> that specifies where to put the retrieved data. This parameter is passed uninitialized.</returns>
+        public object GetParamCustData(int indexFunc, int indexParam, Guid guid)
         {
-            GetParamCustDataResult result;
-            TryGetParamCustData(indexFunc, indexParam, out result).ThrowOnNotOK();
+            object pVarVal;
+            TryGetParamCustData(indexFunc, indexParam, guid, out pVarVal).ThrowOnNotOK();
 
-            return result;
+            return pVarVal;
         }
 
         /// <summary>
@@ -852,24 +845,16 @@ namespace ClrDebug.TypeLib
         /// </summary>
         /// <param name="indexFunc">The index of the function to get the custom data for.</param>
         /// <param name="indexParam">The index of the parameter of this function to get the custom data for.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetParamCustData(int indexFunc, int indexParam, out GetParamCustDataResult result)
+        /// <param name="guid">The GUID used to identify the data.</param>
+        /// <param name="pVarVal">When this method returns, contains an <see langword="object"/> that specifies where to put the retrieved data. This parameter is passed uninitialized.</param>
+        public HRESULT TryGetParamCustData(int indexFunc, int indexParam, Guid guid, out object pVarVal)
         {
             /*HRESULT GetParamCustData(
-            int indexFunc,
-            int indexParam,
-            ref Guid guid,
-            out object pVarVal);*/
-            Guid guid = default(Guid);
-            object pVarVal;
-            HRESULT hr = Raw2.GetParamCustData(indexFunc, indexParam, ref guid, out pVarVal);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetParamCustDataResult(guid, pVarVal);
-            else
-                result = default(GetParamCustDataResult);
-
-            return hr;
+            [In] int indexFunc,
+            [In] int indexParam,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
+            [Out] out object pVarVal);*/
+            return Raw2.GetParamCustData(indexFunc, indexParam, guid, out pVarVal);
         }
 
         #endregion
@@ -879,36 +864,29 @@ namespace ClrDebug.TypeLib
         /// Gets the variable for the custom data.
         /// </summary>
         /// <param name="index">The index of the variable to get the custom data for.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetVarCustDataResult GetVarCustData(int index)
+        /// <param name="guid">The GUID used to identify the data.</param>
+        /// <returns>When this method returns, contains an <see langword="object"/> that specifies where to put the retrieved data. This parameter is passed uninitialized.</returns>
+        public object GetVarCustData(int index, Guid guid)
         {
-            GetVarCustDataResult result;
-            TryGetVarCustData(index, out result).ThrowOnNotOK();
+            object pVarVal;
+            TryGetVarCustData(index, guid, out pVarVal).ThrowOnNotOK();
 
-            return result;
+            return pVarVal;
         }
 
         /// <summary>
         /// Gets the variable for the custom data.
         /// </summary>
         /// <param name="index">The index of the variable to get the custom data for.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetVarCustData(int index, out GetVarCustDataResult result)
+        /// <param name="guid">The GUID used to identify the data.</param>
+        /// <param name="pVarVal">When this method returns, contains an <see langword="object"/> that specifies where to put the retrieved data. This parameter is passed uninitialized.</param>
+        public HRESULT TryGetVarCustData(int index, Guid guid, out object pVarVal)
         {
             /*HRESULT GetVarCustData(
-            int index,
-            ref Guid guid,
-            out object pVarVal);*/
-            Guid guid = default(Guid);
-            object pVarVal;
-            HRESULT hr = Raw2.GetVarCustData(index, ref guid, out pVarVal);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetVarCustDataResult(guid, pVarVal);
-            else
-                result = default(GetVarCustDataResult);
-
-            return hr;
+            [In] int index,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
+            [Out] out object pVarVal);*/
+            return Raw2.GetVarCustData(index, guid, out pVarVal);
         }
 
         #endregion
@@ -918,36 +896,29 @@ namespace ClrDebug.TypeLib
         /// Gets the implementation type of the custom data.
         /// </summary>
         /// <param name="index">The index of the implementation type for the custom data.</param>
-        /// <returns>The values that were emitted from the COM method.</returns>
-        public GetImplTypeCustDataResult GetImplTypeCustData(int index)
+        /// <param name="guid">The GUID used to identify the data.</param>
+        /// <returns>When this method returns, contains an <see langword="object"/> that specifies where to put the retrieved data. This parameter is passed uninitialized.</returns>
+        public object GetImplTypeCustData(int index, Guid guid)
         {
-            GetImplTypeCustDataResult result;
-            TryGetImplTypeCustData(index, out result).ThrowOnNotOK();
+            object pVarVal;
+            TryGetImplTypeCustData(index, guid, out pVarVal).ThrowOnNotOK();
 
-            return result;
+            return pVarVal;
         }
 
         /// <summary>
         /// Gets the implementation type of the custom data.
         /// </summary>
         /// <param name="index">The index of the implementation type for the custom data.</param>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetImplTypeCustData(int index, out GetImplTypeCustDataResult result)
+        /// <param name="guid">The GUID used to identify the data.</param>
+        /// <param name="pVarVal">When this method returns, contains an <see langword="object"/> that specifies where to put the retrieved data. This parameter is passed uninitialized.</param>
+        public HRESULT TryGetImplTypeCustData(int index, Guid guid, out object pVarVal)
         {
             /*HRESULT GetImplTypeCustData(
-            int index,
-            ref Guid guid,
-            out object pVarVal);*/
-            Guid guid = default(Guid);
-            object pVarVal;
-            HRESULT hr = Raw2.GetImplTypeCustData(index, ref guid, out pVarVal);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetImplTypeCustDataResult(guid, pVarVal);
-            else
-                result = default(GetImplTypeCustDataResult);
-
-            return hr;
+            [In] int index,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
+            [Out] out object pVarVal);*/
+            return Raw2.GetImplTypeCustData(index, guid, out pVarVal);
         }
 
         #endregion

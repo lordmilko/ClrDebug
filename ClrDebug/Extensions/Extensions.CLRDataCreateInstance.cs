@@ -26,7 +26,7 @@ namespace ClrDebug
             {
                 var iid = typeof(T).GUID;
                 object iface;
-                var hr = clrDataCreateInstance(ref iid, target, out iface);
+                var hr = clrDataCreateInstance(iid, target, out iface);
                 hr.ThrowOnNotOK();
 
                 return (T)iface;

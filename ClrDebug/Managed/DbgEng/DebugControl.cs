@@ -2770,10 +2770,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref coerceValue, Vtbl->CoerceValue);
 
             /*HRESULT CoerceValue(
-            [In] DEBUG_VALUE In,
+            [In] ref DEBUG_VALUE In,
             [In] DEBUG_VALUE_TYPE OutType,
             [Out] out DEBUG_VALUE Out);*/
-            return coerceValue(Raw, @in, outType, out @out);
+            return coerceValue(Raw, ref @in, outType, out @out);
         }
 
         #endregion
@@ -8448,7 +8448,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetTextMacroDelegate(IntPtr self, [In] int Slot, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int MacroSize);
         private delegate HRESULT SetTextMacroDelegate(IntPtr self, [In] int Slot, [In, MarshalAs(UnmanagedType.LPStr)] string Macro);
         private delegate HRESULT EvaluateDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Expression, [In] DEBUG_VALUE_TYPE DesiredType, [Out] out DEBUG_VALUE Value, [Out] out int RemainderIndex);
-        private delegate HRESULT CoerceValueDelegate(IntPtr self, [In] DEBUG_VALUE In, [In] DEBUG_VALUE_TYPE OutType, [Out] out DEBUG_VALUE Out);
+        private delegate HRESULT CoerceValueDelegate(IntPtr self, [In] ref DEBUG_VALUE In, [In] DEBUG_VALUE_TYPE OutType, [Out] out DEBUG_VALUE Out);
         private delegate HRESULT CoerceValuesDelegate(IntPtr self, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] In, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE_TYPE[] OutType, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_VALUE[] Out);
         private delegate HRESULT ExecuteDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPStr)] string Command, [In] DEBUG_EXECUTE Flags);
         private delegate HRESULT ExecuteCommandFileDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPStr)] string CommandFile, [In] DEBUG_EXECUTE Flags);

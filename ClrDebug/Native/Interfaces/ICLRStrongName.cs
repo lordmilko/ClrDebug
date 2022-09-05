@@ -377,7 +377,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameSignatureSize(
             [In] IntPtr pbPublicKeyBlob,
-            [In] PublicKeyBlob cbPublicKeyBlob,
+            [In] int cbPublicKeyBlob,
             [In] ref int pcbSize);
 
         /// <summary>
@@ -490,7 +490,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameTokenFromPublicKey(
             [In] IntPtr pbPublicKeyBlob,
-            [In] PublicKeyBlob cbPublicKeyBlob,
+            [In] int cbPublicKeyBlob,
             [Out] out IntPtr ppbStrongNameToken,
             [Out] out int pcbStrongNameToken);
     }

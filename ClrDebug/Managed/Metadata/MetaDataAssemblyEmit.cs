@@ -31,7 +31,7 @@ namespace ClrDebug
         /// <remarks>
         /// Only one Assembly metadata structure can be defined within a manifest.
         /// </remarks>
-        public mdAssembly DefineAssembly(IntPtr pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, IntPtr pMetaData, CorAssemblyFlags dwAssemblyFlags)
+        public mdAssembly DefineAssembly(IntPtr pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, ASSEMBLYMETADATA pMetaData, CorAssemblyFlags dwAssemblyFlags)
         {
             mdAssembly pma;
             TryDefineAssembly(pbPublicKey, cbPublicKey, ulHashAlgId, szName, pMetaData, dwAssemblyFlags, out pma).ThrowOnNotOK();
@@ -52,17 +52,17 @@ namespace ClrDebug
         /// <remarks>
         /// Only one Assembly metadata structure can be defined within a manifest.
         /// </remarks>
-        public HRESULT TryDefineAssembly(IntPtr pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, IntPtr pMetaData, CorAssemblyFlags dwAssemblyFlags, out mdAssembly pma)
+        public HRESULT TryDefineAssembly(IntPtr pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, ASSEMBLYMETADATA pMetaData, CorAssemblyFlags dwAssemblyFlags, out mdAssembly pma)
         {
             /*HRESULT DefineAssembly(
             [In] IntPtr pbPublicKey,
             [In] int cbPublicKey,
             [In] int ulHashAlgId,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
-            [In] IntPtr pMetaData,
+            [In] ref ASSEMBLYMETADATA pMetaData,
             [In] CorAssemblyFlags dwAssemblyFlags,
             [Out] out mdAssembly pma);*/
-            return Raw.DefineAssembly(pbPublicKey, cbPublicKey, ulHashAlgId, szName, pMetaData, dwAssemblyFlags, out pma);
+            return Raw.DefineAssembly(pbPublicKey, cbPublicKey, ulHashAlgId, szName, ref pMetaData, dwAssemblyFlags, out pma);
         }
 
         #endregion
@@ -114,12 +114,12 @@ namespace ClrDebug
             [In] IntPtr pbPublicKeyOrToken,
             [In] int cbPublicKeyOrToken,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
-            [In] ASSEMBLYMETADATA pMetaData,
+            [In] ref ASSEMBLYMETADATA pMetaData,
             [In] IntPtr pbHashValue,
             [In] int cbHashValue,
             [In] CorAssemblyFlags dwAssemblyRefFlags,
             [Out] out mdAssemblyRef assemblyRefToken);*/
-            return Raw.DefineAssemblyRef(pbPublicKeyOrToken, cbPublicKeyOrToken, szName, pMetaData, pbHashValue, cbHashValue, dwAssemblyRefFlags, out assemblyRefToken);
+            return Raw.DefineAssemblyRef(pbPublicKeyOrToken, cbPublicKeyOrToken, szName, ref pMetaData, pbHashValue, cbHashValue, dwAssemblyRefFlags, out assemblyRefToken);
         }
 
         #endregion
@@ -278,7 +278,7 @@ namespace ClrDebug
         /// <remarks>
         /// To create an Assembly metadata structure, use the <see cref="DefineAssembly"/> method.
         /// </remarks>
-        public void SetAssemblyProps(mdAssembly pma, IntPtr pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, IntPtr pMetaData, int dwAssemblyFlags)
+        public void SetAssemblyProps(mdAssembly pma, IntPtr pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, ASSEMBLYMETADATA pMetaData, int dwAssemblyFlags)
         {
             TrySetAssemblyProps(pma, pbPublicKey, cbPublicKey, ulHashAlgId, szName, pMetaData, dwAssemblyFlags).ThrowOnNotOK();
         }
@@ -296,7 +296,7 @@ namespace ClrDebug
         /// <remarks>
         /// To create an Assembly metadata structure, use the <see cref="DefineAssembly"/> method.
         /// </remarks>
-        public HRESULT TrySetAssemblyProps(mdAssembly pma, IntPtr pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, IntPtr pMetaData, int dwAssemblyFlags)
+        public HRESULT TrySetAssemblyProps(mdAssembly pma, IntPtr pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, ASSEMBLYMETADATA pMetaData, int dwAssemblyFlags)
         {
             /*HRESULT SetAssemblyProps(
             [In] mdAssembly pma,
@@ -304,9 +304,9 @@ namespace ClrDebug
             [In] int cbPublicKey,
             [In] int ulHashAlgId,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
-            [In] IntPtr pMetaData,
+            [In] ref ASSEMBLYMETADATA pMetaData,
             [In] int dwAssemblyFlags);*/
-            return Raw.SetAssemblyProps(pma, pbPublicKey, cbPublicKey, ulHashAlgId, szName, pMetaData, dwAssemblyFlags);
+            return Raw.SetAssemblyProps(pma, pbPublicKey, cbPublicKey, ulHashAlgId, szName, ref pMetaData, dwAssemblyFlags);
         }
 
         #endregion
@@ -326,7 +326,7 @@ namespace ClrDebug
         /// <remarks>
         /// To create an AssemblyRef metadata structure, use the <see cref="DefineAssemblyRef"/> method.
         /// </remarks>
-        public void SetAssemblyRefProps(mdAssemblyRef ar, IntPtr pbPublicKeyOrToken, int cbPublicKeyOrToken, string szName, IntPtr pMetaData, IntPtr pbHashValue, int cbHashValue, AssemblyRefFlags dwAssemblyRefFlags)
+        public void SetAssemblyRefProps(mdAssemblyRef ar, IntPtr pbPublicKeyOrToken, int cbPublicKeyOrToken, string szName, ASSEMBLYMETADATA pMetaData, IntPtr pbHashValue, int cbHashValue, AssemblyRefFlags dwAssemblyRefFlags)
         {
             TrySetAssemblyRefProps(ar, pbPublicKeyOrToken, cbPublicKeyOrToken, szName, pMetaData, pbHashValue, cbHashValue, dwAssemblyRefFlags).ThrowOnNotOK();
         }
@@ -345,18 +345,18 @@ namespace ClrDebug
         /// <remarks>
         /// To create an AssemblyRef metadata structure, use the <see cref="DefineAssemblyRef"/> method.
         /// </remarks>
-        public HRESULT TrySetAssemblyRefProps(mdAssemblyRef ar, IntPtr pbPublicKeyOrToken, int cbPublicKeyOrToken, string szName, IntPtr pMetaData, IntPtr pbHashValue, int cbHashValue, AssemblyRefFlags dwAssemblyRefFlags)
+        public HRESULT TrySetAssemblyRefProps(mdAssemblyRef ar, IntPtr pbPublicKeyOrToken, int cbPublicKeyOrToken, string szName, ASSEMBLYMETADATA pMetaData, IntPtr pbHashValue, int cbHashValue, AssemblyRefFlags dwAssemblyRefFlags)
         {
             /*HRESULT SetAssemblyRefProps(
             [In] mdAssemblyRef ar,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] IntPtr pbPublicKeyOrToken,
             [In] int cbPublicKeyOrToken,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
-            [In] IntPtr pMetaData,
+            [In] ref ASSEMBLYMETADATA pMetaData,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] IntPtr pbHashValue,
             [In] int cbHashValue,
             [In] AssemblyRefFlags dwAssemblyRefFlags);*/
-            return Raw.SetAssemblyRefProps(ar, pbPublicKeyOrToken, cbPublicKeyOrToken, szName, pMetaData, pbHashValue, cbHashValue, dwAssemblyRefFlags);
+            return Raw.SetAssemblyRefProps(ar, pbPublicKeyOrToken, cbPublicKeyOrToken, szName, ref pMetaData, pbHashValue, cbHashValue, dwAssemblyRefFlags);
         }
 
         #endregion

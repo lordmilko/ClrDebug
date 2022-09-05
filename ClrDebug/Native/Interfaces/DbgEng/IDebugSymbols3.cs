@@ -620,7 +620,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT SetScope(
             [In] long InstructionOffset,
-            [In] DEBUG_STACK_FRAME ScopeFrame,
+            [In] ref DEBUG_STACK_FRAME ScopeFrame,
             [In] IntPtr ScopeContext,
             [In] int ScopeContextSize);
 
@@ -2073,7 +2073,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT RemoveSyntheticSymbol(
-            [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id);
+            [In] ref DEBUG_MODULE_AND_ID Id);
 
         /// <summary>
         /// The GetSymbolEntriesByOffset method returns the symbols which are located at a specified address.
@@ -2183,7 +2183,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetSymbolEntryString(
-            [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id,
+            [In] ref DEBUG_MODULE_AND_ID Id,
             [In] int Which,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
@@ -2205,7 +2205,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetSymbolEntryStringWide(
-            [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id,
+            [In] ref DEBUG_MODULE_AND_ID Id,
             [In] int Which,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
@@ -2224,7 +2224,7 @@ namespace ClrDebug.DbgEng
         /// The quality of information returned is highlydependent on the symbolic information available.</returns>
         [PreserveSig]
         HRESULT GetSymbolEntryOffsetRegions(
-            [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID Id,
+            [In] ref DEBUG_MODULE_AND_ID Id,
             [In] int Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions,
             [In] int RegionsCount,
@@ -2239,7 +2239,7 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         [PreserveSig]
         HRESULT GetSymbolEntryBySymbolEntry(
-            [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_MODULE_AND_ID FromId,
+            [In] ref DEBUG_MODULE_AND_ID FromId,
             [In] int Flags,
             [Out] out DEBUG_MODULE_AND_ID ToId);
 
@@ -2326,7 +2326,7 @@ namespace ClrDebug.DbgEng
         /// This allows for all possible results to be returned.</returns>
         [PreserveSig]
         HRESULT GetSourceEntryString(
-            [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry,
+            [In] ref DEBUG_SYMBOL_SOURCE_ENTRY Entry,
             [In] int Which,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
             [In] int BufferSize,
@@ -2344,7 +2344,7 @@ namespace ClrDebug.DbgEng
         /// This allows for all possible results to be returned.</returns>
         [PreserveSig]
         HRESULT GetSourceEntryStringWide(
-            [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry,
+            [In] ref DEBUG_SYMBOL_SOURCE_ENTRY Entry,
             [In] int Which,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
             [In] int BufferSize,
@@ -2362,7 +2362,7 @@ namespace ClrDebug.DbgEng
         /// Simple symbols have a single region that starts from their base. More complicated regions, such as functions that have multiple code areas, can have an arbitrarilylarge number of regions.</returns>
         [PreserveSig]
         HRESULT GetSourceEntryOffsetRegions(
-            [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY Entry,
+            [In] ref DEBUG_SYMBOL_SOURCE_ENTRY Entry,
             [In] int Flags,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_OFFSET_REGION[] Regions,
             [In] int RegionsCount,
@@ -2377,7 +2377,7 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         [PreserveSig]
         HRESULT GetSourceEntryBySourceEntry(
-            [In, MarshalAs(UnmanagedType.LPStruct)] DEBUG_SYMBOL_SOURCE_ENTRY FromEntry,
+            [In] ref DEBUG_SYMBOL_SOURCE_ENTRY FromEntry,
             [In] int Flags,
             [Out] out DEBUG_SYMBOL_SOURCE_ENTRY ToEntry);
 

@@ -75,9 +75,9 @@ namespace ClrDebug
         {
             /*HRESULT GetRuntime(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzVersion,
-            [In] ref Guid riid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppRuntime);*/
-            return Raw.GetRuntime(pwzVersion, ref riid, out ppRuntime);
+            return Raw.GetRuntime(pwzVersion, riid, out ppRuntime);
         }
 
         #endregion
@@ -321,9 +321,9 @@ namespace ClrDebug
         public HRESULT TryQueryLegacyV2RuntimeBinding(Guid riid, out object ppUnk)
         {
             /*HRESULT QueryLegacyV2RuntimeBinding(
-            [In] ref Guid riid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppUnk);*/
-            return Raw.QueryLegacyV2RuntimeBinding(ref riid, out ppUnk);
+            return Raw.QueryLegacyV2RuntimeBinding(riid, out ppUnk);
         }
 
         #endregion

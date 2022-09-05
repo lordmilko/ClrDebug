@@ -29,9 +29,9 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         new HRESULT DefineScope(
-            [In] ref Guid rclsid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid rclsid,
             [In] int dwCreateFlags,
-            [In] ref Guid riid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace ClrDebug
         new HRESULT OpenScope(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szScope,
             [In] CorOpenFlags dwOpenFlags,
-            [In] ref Guid riid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);
 
         /// <summary>
@@ -79,13 +79,13 @@ namespace ClrDebug
             [In] IntPtr pData,
             [In] int cbData,
             [In] CorOpenFlags dwOpenFlags,
-            [In] ref Guid riid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppIUnk);
 
         /// <summary>
         /// Sets the specified option to a given value for the current metadata scope. The option controls how calls to the current metadata scope are handled.
         /// </summary>
-        /// <param name="optionId">[in] A pointer to a GUID that specifies the option to be set.</param>
+        /// <param name="optionId">[in] A pointer to a GUID that specifies the option to be set. For possible values see <see cref="MetaDataDispenserOption"/>.</param>
         /// <param name="pValue">[in] The value to use to set the option. The type of this value must be a variant of the specified option's type.</param>
         /// <remarks>
         /// The following table lists the available GUIDs that the optionId parameter can point to and the corresponding valid
@@ -93,13 +93,13 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         HRESULT SetOption(
-            [In] ref Guid optionId,
-            [In, MarshalAs(UnmanagedType.Struct)] object pValue);
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid optionId,
+            [In, MarshalAs(UnmanagedType.Struct)] ref object pValue);
 
         /// <summary>
         /// Gets the value of the specified option for the current metadata scope. The option controls how calls to the current metadata scope are handled.
         /// </summary>
-        /// <param name="optionId">[in] A pointer to a GUID that specifies the option to be retrieved. See the Remarks section for a list of supported GUIDs.</param>
+        /// <param name="optionId">[in] A pointer to a GUID that specifies the option to be retrieved. For possible values see <see cref="MetaDataDispenserOption"/>.</param>
         /// <param name="pValue">[out] The value of the returned option. The type of this value will be a variant of the specified option's type.</param>
         /// <remarks>
         /// The following list shows the GUIDs that are supported for this method. For descriptions, see the <see cref="SetOption"/>
@@ -107,8 +107,8 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         HRESULT GetOption(
-            [In] ref Guid optionId,
-            [Out] object pValue);
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid optionId,
+            [Out] out object pValue);
 
         /// <summary>
         /// This method is not implemented. If called, it returns E_NOTIMPL.
@@ -121,7 +121,7 @@ namespace ClrDebug
         HRESULT OpenScopeOnITypeInfo(
             [In, MarshalAs(UnmanagedType.Interface)] ITypeInfo pITI,
             [In] int dwOpenFlags,
-            [In] ref Guid riid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface, IidParameterIndex = 2)] out object ppIUnk);
 
         /// <summary>

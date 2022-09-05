@@ -21,43 +21,43 @@ namespace ClrDebug
         }
 
         #region ISequentialStream
-        #region RemoteRead
+        #region Read
 
-        public int RemoteRead(IntPtr pv, int cb)
+        public int Read(IntPtr pv, int cb)
         {
             int pcbRead;
-            TryRemoteRead(pv, cb, out pcbRead).ThrowOnNotOK();
+            TryRead(pv, cb, out pcbRead).ThrowOnNotOK();
 
             return pcbRead;
         }
 
-        public HRESULT TryRemoteRead(IntPtr pv, int cb, out int pcbRead)
+        public HRESULT TryRead(IntPtr pv, int cb, out int pcbRead)
         {
-            /*HRESULT RemoteRead(
+            /*HRESULT Read(
             [Out] IntPtr pv,
             [In] int cb,
             [Out] out int pcbRead);*/
-            return Raw.RemoteRead(pv, cb, out pcbRead);
+            return Raw.Read(pv, cb, out pcbRead);
         }
 
         #endregion
-        #region RemoteWrite
+        #region Write
 
-        public int RemoteWrite(IntPtr pv, int cb)
+        public int Write(IntPtr pv, int cb)
         {
             int pcbWritten;
-            TryRemoteWrite(pv, cb, out pcbWritten).ThrowOnNotOK();
+            TryWrite(pv, cb, out pcbWritten).ThrowOnNotOK();
 
             return pcbWritten;
         }
 
-        public HRESULT TryRemoteWrite(IntPtr pv, int cb, out int pcbWritten)
+        public HRESULT TryWrite(IntPtr pv, int cb, out int pcbWritten)
         {
-            /*HRESULT RemoteWrite(
+            /*HRESULT Write(
             [In] IntPtr pv,
             [In] int cb,
             [Out] out int pcbWritten);*/
-            return Raw.RemoteWrite(pv, cb, out pcbWritten);
+            return Raw.Write(pv, cb, out pcbWritten);
         }
 
         #endregion

@@ -175,9 +175,9 @@ namespace ClrDebug.TypeLib
         /// <param name="ppvObj">When this method returns, contains a reference to the created object. This parameter is passed uninitialized.</param>
         [PreserveSig]
         new HRESULT CreateInstance(
-            object pUnkOuter,
-            ref Guid riid,
-            out object ppvObj);
+            [In] object pUnkOuter,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
+            [Out] out object ppvObj);
 
         /// <summary>
         /// Retrieves marshaling information.
@@ -268,8 +268,8 @@ namespace ClrDebug.TypeLib
         /// <param name="pVarVal">When this method returns, contains an <see langword="object"/> that specifies where to put the retrieved data. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT GetCustData(
-            [In] ref Guid guid,
-            out object pVarVal);
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
+            [Out] out object pVarVal);
 
         /// <summary>
         /// Gets the custom data from the specified function.
@@ -279,9 +279,9 @@ namespace ClrDebug.TypeLib
         /// <param name="pVarVal">When this method returns, contains an <see langword="object"/> that specified where to put the data. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT GetFuncCustData(
-            int index,
-            ref Guid guid,
-            out object pVarVal);
+            [In] int index,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
+            [Out] out object pVarVal);
 
         /// <summary>
         /// Gets the specified custom data parameter.
@@ -292,10 +292,10 @@ namespace ClrDebug.TypeLib
         /// <param name="pVarVal">When this method returns, contains an <see langword="object"/> that specifies where to put the retrieved data. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT GetParamCustData(
-            int indexFunc,
-            int indexParam,
-            ref Guid guid,
-            out object pVarVal);
+            [In] int indexFunc,
+            [In] int indexParam,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
+            [Out] out object pVarVal);
 
         /// <summary>
         /// Gets the variable for the custom data.
@@ -305,9 +305,9 @@ namespace ClrDebug.TypeLib
         /// <param name="pVarVal">When this method returns, contains an <see langword="object"/> that specifies where to put the retrieved data. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT GetVarCustData(
-            int index,
-            ref Guid guid,
-            out object pVarVal);
+            [In] int index,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
+            [Out] out object pVarVal);
 
         /// <summary>
         /// Gets the implementation type of the custom data.
@@ -317,9 +317,9 @@ namespace ClrDebug.TypeLib
         /// <param name="pVarVal">When this method returns, contains an <see langword="object"/> that specifies where to put the retrieved data. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT GetImplTypeCustData(
-            int index,
-            ref Guid guid,
-            out object pVarVal);
+            [In] int index,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
+            [Out] out object pVarVal);
 
         /// <summary>
         /// Retrieves the documentation string, the complete Help file name and path, the localization context to use, and the context ID for the library Help topic in the Help file.

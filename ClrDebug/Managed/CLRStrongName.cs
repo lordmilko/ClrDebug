@@ -791,7 +791,7 @@ namespace ClrDebug
         /// <param name="pbPublicKeyBlob">[in] A structure of type <see cref="PublicKeyBlob"/> that contains the public portion of the key pair used to generate the strong name signature.</param>
         /// <param name="cbPublicKeyBlob">[in] The size, in bytes, of pbPublicKeyBlob.</param>
         /// <param name="pcbSize">[in] The number of bytes required to store the strong name signature.</param>
-        public void StrongNameSignatureSize(IntPtr pbPublicKeyBlob, PublicKeyBlob cbPublicKeyBlob, int pcbSize)
+        public void StrongNameSignatureSize(IntPtr pbPublicKeyBlob, int cbPublicKeyBlob, int pcbSize)
         {
             TryStrongNameSignatureSize(pbPublicKeyBlob, cbPublicKeyBlob, pcbSize).ThrowOnNotOK();
         }
@@ -803,11 +803,11 @@ namespace ClrDebug
         /// <param name="cbPublicKeyBlob">[in] The size, in bytes, of pbPublicKeyBlob.</param>
         /// <param name="pcbSize">[in] The number of bytes required to store the strong name signature.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
-        public HRESULT TryStrongNameSignatureSize(IntPtr pbPublicKeyBlob, PublicKeyBlob cbPublicKeyBlob, int pcbSize)
+        public HRESULT TryStrongNameSignatureSize(IntPtr pbPublicKeyBlob, int cbPublicKeyBlob, int pcbSize)
         {
             /*HRESULT StrongNameSignatureSize(
             [In] IntPtr pbPublicKeyBlob,
-            [In] PublicKeyBlob cbPublicKeyBlob,
+            [In] int cbPublicKeyBlob,
             [In] ref int pcbSize);*/
             return Raw.StrongNameSignatureSize(pbPublicKeyBlob, cbPublicKeyBlob, ref pcbSize);
         }
@@ -1046,7 +1046,7 @@ namespace ClrDebug
         /// A strong name token is the shortened form of a public key that is used to save space when storing key information
         /// in metadata. Specifically, strong name tokens are used in assembly references to refer to the dependent assembly.
         /// </remarks>
-        public StrongNameTokenFromPublicKeyResult StrongNameTokenFromPublicKey(IntPtr pbPublicKeyBlob, PublicKeyBlob cbPublicKeyBlob)
+        public StrongNameTokenFromPublicKeyResult StrongNameTokenFromPublicKey(IntPtr pbPublicKeyBlob, int cbPublicKeyBlob)
         {
             StrongNameTokenFromPublicKeyResult result;
             TryStrongNameTokenFromPublicKey(pbPublicKeyBlob, cbPublicKeyBlob, out result).ThrowOnNotOK();
@@ -1065,11 +1065,11 @@ namespace ClrDebug
         /// A strong name token is the shortened form of a public key that is used to save space when storing key information
         /// in metadata. Specifically, strong name tokens are used in assembly references to refer to the dependent assembly.
         /// </remarks>
-        public HRESULT TryStrongNameTokenFromPublicKey(IntPtr pbPublicKeyBlob, PublicKeyBlob cbPublicKeyBlob, out StrongNameTokenFromPublicKeyResult result)
+        public HRESULT TryStrongNameTokenFromPublicKey(IntPtr pbPublicKeyBlob, int cbPublicKeyBlob, out StrongNameTokenFromPublicKeyResult result)
         {
             /*HRESULT StrongNameTokenFromPublicKey(
             [In] IntPtr pbPublicKeyBlob,
-            [In] PublicKeyBlob cbPublicKeyBlob,
+            [In] int cbPublicKeyBlob,
             [Out] out IntPtr ppbStrongNameToken,
             [Out] out int pcbStrongNameToken);*/
             IntPtr ppbStrongNameToken;

@@ -30,7 +30,7 @@ namespace ClrDebug
             [In] int cbPublicKey,
             [In] int ulHashAlgId,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
-            [In] IntPtr pMetaData,
+            [In] ref ASSEMBLYMETADATA pMetaData,
             [In] CorAssemblyFlags dwAssemblyFlags,
             [Out] out mdAssembly pma);
 
@@ -55,7 +55,7 @@ namespace ClrDebug
             [In] IntPtr pbPublicKeyOrToken,
             [In] int cbPublicKeyOrToken,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
-            [In] ASSEMBLYMETADATA pMetaData,
+            [In] ref ASSEMBLYMETADATA pMetaData,
             [In] IntPtr pbHashValue,
             [In] int cbHashValue,
             [In] CorAssemblyFlags dwAssemblyRefFlags,
@@ -142,7 +142,7 @@ namespace ClrDebug
             [In] int cbPublicKey,
             [In] int ulHashAlgId,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
-            [In] IntPtr pMetaData,
+            [In] ref ASSEMBLYMETADATA pMetaData,
             [In] int dwAssemblyFlags);
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] IntPtr pbPublicKeyOrToken,
             [In] int cbPublicKeyOrToken,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
-            [In] IntPtr pMetaData,
+            [In] ref ASSEMBLYMETADATA pMetaData,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] IntPtr pbHashValue,
             [In] int cbHashValue,
             [In] AssemblyRefFlags dwAssemblyRefFlags);

@@ -849,10 +849,10 @@ namespace ClrDebug
         public HRESULT TryGetExceptionStateByExceptionRecord(EXCEPTION_RECORD64 record, out XCLRDataExceptionState exStateResult)
         {
             /*HRESULT GetExceptionStateByExceptionRecord(
-            [In] EXCEPTION_RECORD64 record,
+            [In] ref EXCEPTION_RECORD64 record,
             [Out] out IXCLRDataExceptionState exState);*/
             IXCLRDataExceptionState exState;
-            HRESULT hr = Raw.GetExceptionStateByExceptionRecord(record, out exState);
+            HRESULT hr = Raw.GetExceptionStateByExceptionRecord(ref record, out exState);
 
             if (hr == HRESULT.S_OK)
                 exStateResult = new XCLRDataExceptionState(exState);

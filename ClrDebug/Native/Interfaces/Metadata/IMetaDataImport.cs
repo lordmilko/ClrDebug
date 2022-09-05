@@ -234,7 +234,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT ResolveTypeRef(
             [In] mdTypeRef tr,
-            [In] ref Guid riid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             [MarshalAs(UnmanagedType.IUnknown), Out] out object ppIScope,
             [Out] out mdTypeDef ptd);
 

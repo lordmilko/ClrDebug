@@ -603,9 +603,9 @@ namespace ClrDebug
         public HRESULT TryGetMetaDataInterface(Guid riid, out object ppObj)
         {
             /*HRESULT GetMetaDataInterface(
-            [In] ref Guid riid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppObj);*/
-            return Raw.GetMetaDataInterface(ref riid, out ppObj);
+            return Raw.GetMetaDataInterface(riid, out ppObj);
         }
 
         #endregion
@@ -906,9 +906,9 @@ namespace ClrDebug
         public HRESULT TryCreateReaderForInMemorySymbols(Guid riid, out object ppObj)
         {
             /*HRESULT CreateReaderForInMemorySymbols(
-            [In] ref Guid riid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             [MarshalAs(UnmanagedType.Interface), Out] out object ppObj);*/
-            return Raw3.CreateReaderForInMemorySymbols(ref riid, out ppObj);
+            return Raw3.CreateReaderForInMemorySymbols(riid, out ppObj);
         }
 
         #endregion

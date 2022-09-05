@@ -14,23 +14,23 @@
 
         public new IStream Raw => (IStream) base.Raw;
 
-        #region RemoteSeek
+        #region Seek
 
-        public ULARGE_INTEGER RemoteSeek(LARGE_INTEGER dlibMove, int dwOrigin)
+        public ULARGE_INTEGER Seek(LARGE_INTEGER dlibMove, int dwOrigin)
         {
             ULARGE_INTEGER plibNewPosition;
-            TryRemoteSeek(dlibMove, dwOrigin, out plibNewPosition).ThrowOnNotOK();
+            TrySeek(dlibMove, dwOrigin, out plibNewPosition).ThrowOnNotOK();
 
             return plibNewPosition;
         }
 
-        public HRESULT TryRemoteSeek(LARGE_INTEGER dlibMove, int dwOrigin, out ULARGE_INTEGER plibNewPosition)
+        public HRESULT TrySeek(LARGE_INTEGER dlibMove, int dwOrigin, out ULARGE_INTEGER plibNewPosition)
         {
-            /*HRESULT RemoteSeek(
+            /*HRESULT Seek(
             [In] LARGE_INTEGER dlibMove,
             [In] int dwOrigin,
             [Out] out ULARGE_INTEGER plibNewPosition);*/
-            return Raw.RemoteSeek(dlibMove, dwOrigin, out plibNewPosition);
+            return Raw.Seek(dlibMove, dwOrigin, out plibNewPosition);
         }
 
         #endregion
@@ -49,31 +49,31 @@
         }
 
         #endregion
-        #region RemoteCopyTo
+        #region CopyTo
 
-        public RemoteCopyToResult RemoteCopyTo(IStream pstm, ULARGE_INTEGER cb)
+        public CopyToResult CopyTo(IStream pstm, ULARGE_INTEGER cb)
         {
-            RemoteCopyToResult result;
-            TryRemoteCopyTo(pstm, cb, out result).ThrowOnNotOK();
+            CopyToResult result;
+            TryCopyTo(pstm, cb, out result).ThrowOnNotOK();
 
             return result;
         }
 
-        public HRESULT TryRemoteCopyTo(IStream pstm, ULARGE_INTEGER cb, out RemoteCopyToResult result)
+        public HRESULT TryCopyTo(IStream pstm, ULARGE_INTEGER cb, out CopyToResult result)
         {
-            /*HRESULT RemoteCopyTo(
+            /*HRESULT CopyTo(
             [MarshalAs(UnmanagedType.Interface), In] IStream pstm,
             [In] ULARGE_INTEGER cb,
             [Out] out ULARGE_INTEGER pcbRead,
             [Out] out ULARGE_INTEGER pcbWritten);*/
             ULARGE_INTEGER pcbRead;
             ULARGE_INTEGER pcbWritten;
-            HRESULT hr = Raw.RemoteCopyTo(pstm, cb, out pcbRead, out pcbWritten);
+            HRESULT hr = Raw.CopyTo(pstm, cb, out pcbRead, out pcbWritten);
 
             if (hr == HRESULT.S_OK)
-                result = new RemoteCopyToResult(pcbRead, pcbWritten);
+                result = new CopyToResult(pcbRead, pcbWritten);
             else
-                result = default(RemoteCopyToResult);
+                result = default(CopyToResult);
 
             return hr;
         }

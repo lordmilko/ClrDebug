@@ -45,8 +45,8 @@ namespace ClrDebug.TypeLib
         /// <param name="ppTInfo">When this method returns, contains the requested <see cref="ITypeInfo"/> interface. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT GetTypeInfoOfGuid(
-            ref Guid guid,
-            out ITypeInfo ppTInfo);
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
+            [Out] out ITypeInfo ppTInfo);
 
         /// <summary>
         /// Retrieves the structure that contains the library's attributes.

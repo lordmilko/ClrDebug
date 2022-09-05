@@ -17,7 +17,7 @@ namespace ClrDebug
     /// the type of target item being represented. The target item may be a process, memory dump, remote machine, and so on.
     /// </remarks>
     public delegate HRESULT CLRDataCreateInstanceDelegate(
-        [In] ref Guid iid,
+        [In, MarshalAs(UnmanagedType.LPStruct)] Guid iid,
         [In, MarshalAs(UnmanagedType.Interface)] ICLRDataTarget target,
         [MarshalAs(UnmanagedType.IUnknown), Out] out object iface);
 
@@ -36,6 +36,7 @@ namespace ClrDebug
         /// </summary>
         private static IntPtr dacLib;
 
+        public static readonly Guid CLSID_CLR_v2_MetaData = new Guid("EFEA471A-44FD-4862-9292-0C58D46E1F3A");
         public static readonly Guid CLSID_CLRMetaHost = new Guid("9280188D-0E8E-4867-B30C-7FA83884E8DE");
         public static readonly Guid CLSID_CLRMetaHostPolicy = new Guid("2EBCD49A-1B47-4A61-B13A-4A03701E594B");
         public static readonly Guid CLSID_CLRRuntimeHost = new Guid("90F1A06E-7712-4762-86B5-7A5EBA6BDB02");
@@ -43,6 +44,7 @@ namespace ClrDebug
         public static readonly Guid CLSID_CLRDebuggingLegacy = new Guid("DF8395B5-A4BA-450b-A77C-A9A47762C520");
         public static readonly Guid CLSID_CLRStrongName = new Guid("B79B0ACD-F5CD-409B-B5A5-A16244610B92");
         public static readonly Guid CLSID_CorMetaDataDispenser = new Guid("E5CB7A31-7512-11d2-89CE-0080C792E5D8");
+        public static readonly Guid CLSID_CorMetaDataRuntime = CLSID_CLR_v2_MetaData;
         public static readonly Guid CLSID_CorRuntimeHost = new Guid("CB2F6723-AB3A-11d2-9C40-00C04FA30A3E");
         public static readonly Guid CLSID_TypeNameFactory = new Guid("B81FF171-20F3-11d2-8DCC-00A0C9B00525");
 
@@ -58,16 +60,16 @@ namespace ClrDebug
         [PreserveSig]
         [DllImport(mscoree)]
         public static extern HRESULT CLRCreateInstance(
-            [In] ref Guid clsid,
-            [In] ref Guid riid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid clsid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             [MarshalAs(UnmanagedType.Interface), Out] out object ppInterface);
 
         /// <summary>
-        /// Provides facilities for retrieving interfaces that are commonly retrieved from <see cref="CLRCreateInstance(ref Guid, ref Guid, out object)"/>.<para/>
+        /// Provides facilities for retrieving interfaces that are commonly retrieved from <see cref="CLRCreateInstance(Guid, Guid, out object)"/>.<para/>
         /// If this method is called from an STA thread, an <see cref="InvalidOperationException"/> will be thrown, as the ICorDebug API does not support being used from STA threads.<para/>
-        /// If you wish to bypass this check, please use the <see cref="CLRCreateInstance(ref Guid, ref Guid, out object)"/> method instead.
+        /// If you wish to bypass this check, please use the <see cref="CLRCreateInstance(Guid, Guid, out object)"/> method instead.
         /// </summary>
-        /// <returns>The common interfaces that can be retrieved from <see cref="CLRCreateInstance(ref Guid, ref Guid, out object)"/>.</returns>
+        /// <returns>The common interfaces that can be retrieved from <see cref="CLRCreateInstance(Guid, Guid, out object)"/>.</returns>
         /// <exception cref="InvalidOperationException">The current thread is a STA thread.</exception>
         public static CLRCreateInstanceInterfaces CLRCreateInstance()
         {

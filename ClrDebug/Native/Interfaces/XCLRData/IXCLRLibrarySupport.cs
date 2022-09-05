@@ -11,7 +11,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT LoadHardboundDependency(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [In] ref Guid mvid,
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid mvid,
             [Out] out long loadedBase);
 
         [PreserveSig]

@@ -32,44 +32,6 @@ namespace ClrDebug.TypeLib
         }
 
         #endregion
-        #region TypeInfoOfGuid
-
-        /// <summary>
-        /// Retrieves the type description that corresponds to the specified GUID.
-        /// </summary>
-        public GetTypeInfoOfGuidResult TypeInfoOfGuid
-        {
-            get
-            {
-                GetTypeInfoOfGuidResult result;
-                TryGetTypeInfoOfGuid(out result).ThrowOnNotOK();
-
-                return result;
-            }
-        }
-
-        /// <summary>
-        /// Retrieves the type description that corresponds to the specified GUID.
-        /// </summary>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetTypeInfoOfGuid(out GetTypeInfoOfGuidResult result)
-        {
-            /*HRESULT GetTypeInfoOfGuid(
-            ref Guid guid,
-            out ITypeInfo ppTInfo);*/
-            Guid guid = default(Guid);
-            ITypeInfo ppTInfo;
-            HRESULT hr = Raw.GetTypeInfoOfGuid(ref guid, out ppTInfo);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetTypeInfoOfGuidResult(guid, new TypeInfo(ppTInfo));
-            else
-                result = default(GetTypeInfoOfGuidResult);
-
-            return hr;
-        }
-
-        #endregion
         #region LibAttr
 
         /// <summary>
@@ -197,6 +159,43 @@ namespace ClrDebug.TypeLib
             int index,
             out TYPEKIND pTKind);*/
             return Raw.GetTypeInfoType(index, out pTKind);
+        }
+
+        #endregion
+        #region GetTypeInfoOfGuid
+
+        /// <summary>
+        /// Retrieves the type description that corresponds to the specified GUID.
+        /// </summary>
+        /// <param name="guid">The IID of the interface or CLSID of the class whose type info is requested.</param>
+        /// <returns>When this method returns, contains the requested <see cref="ITypeInfo"/> interface. This parameter is passed uninitialized.</returns>
+        public TypeInfo GetTypeInfoOfGuid(Guid guid)
+        {
+            TypeInfo ppTInfoResult;
+            TryGetTypeInfoOfGuid(guid, out ppTInfoResult).ThrowOnNotOK();
+
+            return ppTInfoResult;
+        }
+
+        /// <summary>
+        /// Retrieves the type description that corresponds to the specified GUID.
+        /// </summary>
+        /// <param name="guid">The IID of the interface or CLSID of the class whose type info is requested.</param>
+        /// <param name="ppTInfoResult">When this method returns, contains the requested <see cref="ITypeInfo"/> interface. This parameter is passed uninitialized.</param>
+        public HRESULT TryGetTypeInfoOfGuid(Guid guid, out TypeInfo ppTInfoResult)
+        {
+            /*HRESULT GetTypeInfoOfGuid(
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
+            [Out] out ITypeInfo ppTInfo);*/
+            ITypeInfo ppTInfo;
+            HRESULT hr = Raw.GetTypeInfoOfGuid(guid, out ppTInfo);
+
+            if (hr == HRESULT.S_OK)
+                ppTInfoResult = new TypeInfo(ppTInfo);
+            else
+                ppTInfoResult = default(TypeInfo);
+
+            return hr;
         }
 
         #endregion
@@ -339,41 +338,32 @@ namespace ClrDebug.TypeLib
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ITypeLib2 Raw2 => (ITypeLib2) Raw;
 
-        #region CustData
+        #region GetCustData
 
         /// <summary>
         /// Gets the custom data.
         /// </summary>
-        public GetCustDataResult CustData
+        /// <param name="guid">A <see cref="Guid"/>, passed by reference, that is used to identify the data.</param>
+        /// <returns>When this method returns, contains an object that specifies where to put the retrieved data. This parameter is passed uninitialized.</returns>
+        public object GetCustData(Guid guid)
         {
-            get
-            {
-                GetCustDataResult result;
-                TryGetCustData(out result).ThrowOnNotOK();
+            object pVarVal;
+            TryGetCustData(guid, out pVarVal).ThrowOnNotOK();
 
-                return result;
-            }
+            return pVarVal;
         }
 
         /// <summary>
         /// Gets the custom data.
         /// </summary>
-        /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetCustData(out GetCustDataResult result)
+        /// <param name="guid">A <see cref="Guid"/>, passed by reference, that is used to identify the data.</param>
+        /// <param name="pVarVal">When this method returns, contains an object that specifies where to put the retrieved data. This parameter is passed uninitialized.</param>
+        public HRESULT TryGetCustData(Guid guid, out object pVarVal)
         {
             /*HRESULT GetCustData(
-            ref Guid guid,
-            out object pVarVal);*/
-            Guid guid = default(Guid);
-            object pVarVal;
-            HRESULT hr = Raw2.GetCustData(ref guid, out pVarVal);
-
-            if (hr == HRESULT.S_OK)
-                result = new GetCustDataResult(guid, pVarVal);
-            else
-                result = default(GetCustDataResult);
-
-            return hr;
+            [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
+            [Out] out object pVarVal);*/
+            return Raw2.GetCustData(guid, out pVarVal);
         }
 
         #endregion
