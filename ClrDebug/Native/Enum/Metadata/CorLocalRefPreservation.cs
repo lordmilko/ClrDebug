@@ -3,7 +3,8 @@
 namespace ClrDebug
 {
     /// <summary>
-    /// Contains flag values for the treatment of local references.
+    /// Contains flag values for the treatment of local references.<para/>
+    /// Used with <see cref="MetaDataDispenserOption.MetaDataPreserveLocalRefs"/>.
     /// </summary>
     [Flags]
     public enum CorLocalRefPreservation

@@ -2,6 +2,8 @@
 
 namespace ClrDebug
 {
+    //MetaDataMergeOptions
+
     [Flags]
     public enum MergeFlags
     {

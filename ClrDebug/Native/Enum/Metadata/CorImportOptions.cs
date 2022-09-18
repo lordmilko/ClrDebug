@@ -3,7 +3,8 @@
 namespace ClrDebug
 {
     /// <summary>
-    /// Contains flag values that control the behavior during importation of an assembly outside the current scope.
+    /// Contains flag values that control the behavior during importation of an assembly outside the current scope.<para/>
+    /// Used with <see cref="MetaDataDispenserOption.MetaDataImportOption"/>.
     /// </summary>
     [Flags]
     public enum CorImportOptions : uint

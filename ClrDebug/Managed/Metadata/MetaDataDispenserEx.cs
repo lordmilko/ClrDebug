@@ -7,7 +7,7 @@ namespace ClrDebug
     /// <summary>
     /// Extends the <see cref="IMetaDataDispenser"/> interface to provide the capability to control how the metadata APIs operate on the current metadata scope.
     /// </summary>
-    public class MetaDataDispenserEx : MetaDataDispenser
+    public partial class MetaDataDispenserEx : MetaDataDispenser
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MetaDataDispenserEx"/> class.

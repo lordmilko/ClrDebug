@@ -1,7 +1,8 @@
 ﻿namespace ClrDebug
 {
     /// <summary>
-    /// Specifies flags to select options for thread safety.
+    /// Specifies flags to select options for thread safety.<para/>
+    /// Used with <see cref="MetaDataDispenserOption.MetaDataThreadSafetyOptions"/>.
     /// </summary>
     public enum CorThreadSafetyOptions
     {

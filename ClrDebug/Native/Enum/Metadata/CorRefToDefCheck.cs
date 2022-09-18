@@ -3,7 +3,8 @@
 namespace ClrDebug
 {
     /// <summary>
-    /// Specifies flags to control which referenced items are converted to their definitions in order to optimize the code.
+    /// Specifies flags to control which referenced items are converted to their definitions in order to optimize the code.<para/>
+    /// Used with <see cref="MetaDataDispenserOption.MetaDataRefToDefCheck"/>.
     /// </summary>
     [Flags]
     public enum CorRefToDefCheck : uint

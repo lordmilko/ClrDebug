@@ -3,7 +3,8 @@
 namespace ClrDebug
 {
     /// <summary>
-    /// Specifies the metadata tokens that will be checked for duplicates.
+    /// Specifies the metadata tokens that will be checked for duplicates.<para/>
+    /// Used with <see cref="MetaDataDispenserOption.MetaDataCheckDuplicatesFor"/>.
     /// </summary>
     [Flags]
     public enum CorCheckDuplicatesFor : uint

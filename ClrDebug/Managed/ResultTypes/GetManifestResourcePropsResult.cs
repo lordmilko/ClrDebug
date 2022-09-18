@@ -5,7 +5,7 @@ namespace ClrDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="MetaDataAssemblyImport.GetManifestResourceProps"/> method.
     /// </summary>
-    [DebuggerDisplay("szName = {szName}, ptkImplementation = {ptkImplementation}, pdwOffset = {pdwOffset}, pdwResourceFlags = {pdwResourceFlags.ToString(),nq}")]
+    [DebuggerDisplay("szName = {szName}, ptkImplementation = {ptkImplementation.ToString(),nq}, pdwOffset = {pdwOffset}, pdwResourceFlags = {pdwResourceFlags.ToString(),nq}")]
     public struct GetManifestResourcePropsResult
     {
         /// <summary>
@@ -16,7 +16,7 @@ namespace ClrDebug
         /// <summary>
         /// A pointer to an <see cref="mdFile"/> token or an <see cref="mdAssemblyRef"/> token that represents the file or assembly, respectively, that contains the resource.
         /// </summary>
-        public int ptkImplementation { get; }
+        public mdToken ptkImplementation { get; }
 
         /// <summary>
         /// A pointer to a value that specifies the offset to the beginning of the resource within the file.
@@ -28,7 +28,7 @@ namespace ClrDebug
         /// </summary>
         public CorManifestResourceFlags pdwResourceFlags { get; }
 
-        public GetManifestResourcePropsResult(string szName, int ptkImplementation, int pdwOffset, CorManifestResourceFlags pdwResourceFlags)
+        public GetManifestResourcePropsResult(string szName, mdToken ptkImplementation, int pdwOffset, CorManifestResourceFlags pdwResourceFlags)
         {
             this.szName = szName;
             this.ptkImplementation = ptkImplementation;

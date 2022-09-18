@@ -77,7 +77,7 @@ public static readonly <#= type #> Nil = new <#= type #>((uint) CorTokenType.<#=
                 Write("        ");
             }
         #>
-public uint Rid => Value & 0x00FFFFFF;
+public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 

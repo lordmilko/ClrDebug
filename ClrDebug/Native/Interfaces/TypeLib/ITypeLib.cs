@@ -105,9 +105,9 @@ namespace ClrDebug.TypeLib
         HRESULT FindName(
             [MarshalAs(UnmanagedType.LPWStr)] string szNameBuf,
             int lHashVal,
-            [MarshalAs(UnmanagedType.LPArray), Out] ITypeInfo[] ppTInfo,
-            [MarshalAs(UnmanagedType.LPArray), Out] int[] rgMemId,
-            ref short pcFound);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4), Out] ITypeInfo[] ppTInfo,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4), Out] int[] rgMemId,
+            [In, Out] ref short pcFound);
 
         /// <summary>
         /// Releases the <see cref="TLIBATTR"/> structure originally obtained from the <see cref="GetLibAttr"/> method.

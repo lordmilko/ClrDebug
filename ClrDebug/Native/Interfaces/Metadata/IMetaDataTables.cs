@@ -65,7 +65,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         HRESULT GetTableIndex(
-            [In] int token,
+            [In] mdToken token,
             [Out] out int pixTbl);
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace ClrDebug
             [Out] out int pcRows,
             [Out] out int pcCols,
             [Out] out int piKey,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppName);
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ManualAnsiStringMarshaler))] out string ppName);
 
         /// <summary>
         /// Gets data about the specified column in the specified table.
@@ -106,7 +106,7 @@ namespace ClrDebug
             [Out] out int poCol,
             [Out] out int pcbCol,
             [Out] out int pType,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppName);
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ManualAnsiStringMarshaler))] out string ppName);
 
         /// <summary>
         /// Gets a pointer to an array of tokens associated with the specified row index.
@@ -119,8 +119,8 @@ namespace ClrDebug
         HRESULT GetCodedTokenInfo(
             [In] int ixCdTkn,
             [Out] out int pcTokens,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] out int[] ppTokens,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] out StringBuilder ppName);
+            [Out, MarshalAs(UnmanagedType.SysInt, SizeParamIndex = 1), ComAliasName("mdToken")] out IntPtr ppTokens,
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ManualAnsiStringMarshaler))] out string ppName);
 
         /// <summary>
         /// Gets the row at the specified row index, in the table at the specified table index.
@@ -166,7 +166,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetString(
             [In] int ixString,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppString);
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ManualAnsiStringMarshaler))] out string ppString);
 
         /// <summary>
         /// Gets a pointer to the binary large object (BLOB) at the specified column index.

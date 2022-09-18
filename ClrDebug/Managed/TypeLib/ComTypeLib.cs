@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 
 namespace ClrDebug.TypeLib
 {
@@ -281,11 +282,13 @@ namespace ClrDebug.TypeLib
         /// </summary>
         /// <param name="szNameBuf">The name to search for. This is an in/out parameter.</param>
         /// <param name="lHashVal">A hash value to speed up the search, computed by the <see langword="LHashValOfNameSys"/> function. If lHashVal is 0, a value is computed.</param>
+        /// <param name="pcFound">On entry, indicates how many instances to look for. For example, pcFound = 1 can be called to find the first occurrence. The search stops when one instance is found.
+        /// On exit, indicates the number of instances that were found. If the <see langword="in"/> and <see langword="out"/> values of pcFound are identical, there might be more type descriptions that contain the name.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public FindNameResult FindName(string szNameBuf, int lHashVal)
+        public FindNameResult FindName(string szNameBuf, int lHashVal, short pcFound)
         {
             FindNameResult result;
-            TryFindName(szNameBuf, lHashVal, out result).ThrowOnNotOK();
+            TryFindName(szNameBuf, lHashVal, pcFound, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -295,22 +298,31 @@ namespace ClrDebug.TypeLib
         /// </summary>
         /// <param name="szNameBuf">The name to search for. This is an in/out parameter.</param>
         /// <param name="lHashVal">A hash value to speed up the search, computed by the <see langword="LHashValOfNameSys"/> function. If lHashVal is 0, a value is computed.</param>
+        /// <param name="pcFound">On entry, indicates how many instances to look for. For example, pcFound = 1 can be called to find the first occurrence. The search stops when one instance is found.
+        /// On exit, indicates the number of instances that were found. If the <see langword="in"/> and <see langword="out"/> values of pcFound are identical, there might be more type descriptions that contain the name.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryFindName(string szNameBuf, int lHashVal, out FindNameResult result)
+        public HRESULT TryFindName(string szNameBuf, int lHashVal, short pcFound, out FindNameResult result)
         {
             /*HRESULT FindName(
             [MarshalAs(UnmanagedType.LPWStr)] string szNameBuf,
             int lHashVal,
-            [MarshalAs(UnmanagedType.LPArray), Out] ITypeInfo[] ppTInfo,
-            [MarshalAs(UnmanagedType.LPArray), Out] int[] rgMemId,
-            ref short pcFound);*/
-            ITypeInfo[] ppTInfo = null;
-            int[] rgMemId = null;
-            short pcFound = default(short);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4), Out] ITypeInfo[] ppTInfo,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4), Out] int[] rgMemId,
+            [In, Out] ref short pcFound);*/
+            ITypeInfo[] ppTInfo = new ITypeInfo[(int) pcFound];
+            int[] rgMemId = new int[(int) pcFound];
             HRESULT hr = Raw.FindName(szNameBuf, lHashVal, ppTInfo, rgMemId, ref pcFound);
 
             if (hr == HRESULT.S_OK)
-                result = new FindNameResult(ppTInfo, rgMemId, pcFound);
+            {
+                if (ppTInfo.Length != pcFound)
+                    Array.Resize(ref ppTInfo, pcFound);
+
+                if (rgMemId.Length != pcFound)
+                    Array.Resize(ref rgMemId, pcFound);
+
+                result = new FindNameResult(ppTInfo.Select(v => new TypeInfo(v)).ToArray(), rgMemId);
+            }
             else
                 result = default(FindNameResult);
 

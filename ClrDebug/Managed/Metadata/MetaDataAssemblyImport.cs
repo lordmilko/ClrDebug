@@ -261,13 +261,13 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
             [In] int cchName,
             [Out] out int pchName,
-            [Out] out int ptkImplementation,
+            [Out] out mdToken ptkImplementation,
             [Out] out mdTypeDef ptkTypeDef,
             [Out] out CorTypeAttr pdwExportedTypeFlags);*/
             StringBuilder szName;
             int cchName = 0;
             int pchName;
-            int ptkImplementation;
+            mdToken ptkImplementation;
             mdTypeDef ptkTypeDef;
             CorTypeAttr pdwExportedTypeFlags;
             HRESULT hr = Raw.GetExportedTypeProps(mdct, null, cchName, out pchName, out ptkImplementation, out ptkTypeDef, out pdwExportedTypeFlags);
@@ -320,13 +320,13 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
             [In] int cchName,
             [Out] out int pchName,
-            [Out] out int ptkImplementation,
+            [Out] out mdToken ptkImplementation,
             [Out] out int pdwOffset,
             [Out] out CorManifestResourceFlags pdwResourceFlags);*/
             StringBuilder szName;
             int cchName = 0;
             int pchName;
-            int ptkImplementation;
+            mdToken ptkImplementation;
             int pdwOffset;
             CorManifestResourceFlags pdwResourceFlags;
             HRESULT hr = Raw.GetManifestResourceProps(mdmr, null, cchName, out pchName, out ptkImplementation, out pdwOffset, out pdwResourceFlags);
@@ -358,13 +358,14 @@ namespace ClrDebug
         /// Enumerates the <see cref="mdAssemblyRef"/> instances that are defined in the assembly manifest.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be a null value when the EnumAssemblyRefs method is called for the first time.</param>
-        /// <returns>[out] The enumeration of <see cref="mdAssemblyRef"/> metadata tokens.</returns>
-        public mdAssemblyRef[] EnumAssemblyRefs(IntPtr phEnum)
+        /// <param name="rAssemblyRefs">[out] The enumeration of <see cref="mdAssemblyRef"/> metadata tokens.</param>
+        /// <returns>[out] The number of tokens actually placed in rAssemblyRefs.</returns>
+        public int EnumAssemblyRefs(ref IntPtr phEnum, mdAssemblyRef[] rAssemblyRefs)
         {
-            mdAssemblyRef[] rAssemblyRefs;
-            TryEnumAssemblyRefs(phEnum, out rAssemblyRefs).ThrowOnNotOK();
+            int pcTokens;
+            TryEnumAssemblyRefs(ref phEnum, rAssemblyRefs, out pcTokens).ThrowOnNotOK();
 
-            return rAssemblyRefs;
+            return pcTokens;
         }
 
         /// <summary>
@@ -372,31 +373,27 @@ namespace ClrDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be a null value when the EnumAssemblyRefs method is called for the first time.</param>
         /// <param name="rAssemblyRefs">[out] The enumeration of <see cref="mdAssemblyRef"/> metadata tokens.</param>
+        /// <param name="pcTokens">[out] The number of tokens actually placed in rAssemblyRefs.</param>
         /// <returns>
         /// | HRESULT | Description                                                              |
         /// | ------- | ------------------------------------------------------------------------ |
         /// | S_OK    | EnumAssemblyRefs returned successfully.                                  |
         /// | S_FALSE | There are no tokens to enumerate. In this case, pcTokens is set to zero. |
         /// </returns>
-        public HRESULT TryEnumAssemblyRefs(IntPtr phEnum, out mdAssemblyRef[] rAssemblyRefs)
+        public HRESULT TryEnumAssemblyRefs(ref IntPtr phEnum, mdAssemblyRef[] rAssemblyRefs, out int pcTokens)
         {
             /*HRESULT EnumAssemblyRefs(
-            [In] ref IntPtr phEnum,
+            [In, Out] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdAssemblyRef[] rAssemblyRefs,
             [In] int cMax,
             [Out] out int pcTokens);*/
-            rAssemblyRefs = null;
-            int cMax = 0;
-            int pcTokens;
-            HRESULT hr = Raw.EnumAssemblyRefs(ref phEnum, null, cMax, out pcTokens);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
+            if (rAssemblyRefs == null)
+                hr = Raw.EnumAssemblyRefs(ref phEnum, null, 0, out pcTokens);
+            else
+                hr = Raw.EnumAssemblyRefs(ref phEnum, rAssemblyRefs, rAssemblyRefs.Length, out pcTokens);
 
-            cMax = pcTokens;
-            rAssemblyRefs = new mdAssemblyRef[cMax];
-            hr = Raw.EnumAssemblyRefs(ref phEnum, rAssemblyRefs, cMax, out pcTokens);
-            fail:
             return hr;
         }
 
@@ -407,13 +404,14 @@ namespace ClrDebug
         /// Enumerates the files referenced in the current assembly manifest.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be a null value for the first call of this method.</param>
-        /// <returns>[out] The array used to store the <see cref="mdFile"/> metadata tokens.</returns>
-        public mdFile[] EnumFiles(IntPtr phEnum)
+        /// <param name="rFiles">[out] The array used to store the <see cref="mdFile"/> metadata tokens.</param>
+        /// <returns>[out] The number of <see cref="mdFile"/> tokens actually placed in rFiles.</returns>
+        public int EnumFiles(ref IntPtr phEnum, mdFile[] rFiles)
         {
-            mdFile[] rFiles;
-            TryEnumFiles(phEnum, out rFiles).ThrowOnNotOK();
+            int pcTokens;
+            TryEnumFiles(ref phEnum, rFiles, out pcTokens).ThrowOnNotOK();
 
-            return rFiles;
+            return pcTokens;
         }
 
         /// <summary>
@@ -421,31 +419,27 @@ namespace ClrDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be a null value for the first call of this method.</param>
         /// <param name="rFiles">[out] The array used to store the <see cref="mdFile"/> metadata tokens.</param>
+        /// <param name="pcTokens">[out] The number of <see cref="mdFile"/> tokens actually placed in rFiles.</param>
         /// <returns>
         /// | HRESULT | Description                                                              |
         /// | ------- | ------------------------------------------------------------------------ |
         /// | S_OK    | EnumFiles returned successfully.                                         |
         /// | S_FALSE | There are no tokens to enumerate. In this case, pcTokens is set to zero. |
         /// </returns>
-        public HRESULT TryEnumFiles(IntPtr phEnum, out mdFile[] rFiles)
+        public HRESULT TryEnumFiles(ref IntPtr phEnum, mdFile[] rFiles, out int pcTokens)
         {
             /*HRESULT EnumFiles(
-            [In] ref IntPtr phEnum,
+            [In, Out] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdFile[] rFiles,
             [In] int cMax,
             [Out] out int pcTokens);*/
-            rFiles = null;
-            int cMax = 0;
-            int pcTokens;
-            HRESULT hr = Raw.EnumFiles(ref phEnum, null, cMax, out pcTokens);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
+            if (rFiles == null)
+                hr = Raw.EnumFiles(ref phEnum, null, 0, out pcTokens);
+            else
+                hr = Raw.EnumFiles(ref phEnum, rFiles, rFiles.Length, out pcTokens);
 
-            cMax = pcTokens;
-            rFiles = new mdFile[cMax];
-            hr = Raw.EnumFiles(ref phEnum, rFiles, cMax, out pcTokens);
-            fail:
             return hr;
         }
 
@@ -456,13 +450,14 @@ namespace ClrDebug
         /// Enumerates the exported types referenced in the assembly manifest in the current metadata scope.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be a null value when the EnumExportedTypes method is called for the first time.</param>
-        /// <returns>[out] The enumeration of <see cref="mdExportedType"/> metadata tokens.</returns>
-        public mdExportedType[] EnumExportedTypes(IntPtr phEnum)
+        /// <param name="rExportedTypes">[out] The enumeration of <see cref="mdExportedType"/> metadata tokens.</param>
+        /// <returns>[out] The number of <see cref="mdExportedType"/> tokens actually placed in rExportedTypes.</returns>
+        public int EnumExportedTypes(ref IntPtr phEnum, mdExportedType[] rExportedTypes)
         {
-            mdExportedType[] rExportedTypes;
-            TryEnumExportedTypes(phEnum, out rExportedTypes).ThrowOnNotOK();
+            int pcTokens;
+            TryEnumExportedTypes(ref phEnum, rExportedTypes, out pcTokens).ThrowOnNotOK();
 
-            return rExportedTypes;
+            return pcTokens;
         }
 
         /// <summary>
@@ -470,31 +465,27 @@ namespace ClrDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be a null value when the EnumExportedTypes method is called for the first time.</param>
         /// <param name="rExportedTypes">[out] The enumeration of <see cref="mdExportedType"/> metadata tokens.</param>
+        /// <param name="pcTokens">[out] The number of <see cref="mdExportedType"/> tokens actually placed in rExportedTypes.</param>
         /// <returns>
         /// | HRESULT | Description                                                              |
         /// | ------- | ------------------------------------------------------------------------ |
         /// | S_OK    | EnumExportedTypes returned successfully.                                 |
         /// | S_FALSE | There are no tokens to enumerate. In this case, pcTokens is set to zero. |
         /// </returns>
-        public HRESULT TryEnumExportedTypes(IntPtr phEnum, out mdExportedType[] rExportedTypes)
+        public HRESULT TryEnumExportedTypes(ref IntPtr phEnum, mdExportedType[] rExportedTypes, out int pcTokens)
         {
             /*HRESULT EnumExportedTypes(
-            [In] ref IntPtr phEnum,
+            [In, Out] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdExportedType[] rExportedTypes,
             [In] int cMax,
             [Out] out int pcTokens);*/
-            rExportedTypes = null;
-            int cMax = 0;
-            int pcTokens;
-            HRESULT hr = Raw.EnumExportedTypes(ref phEnum, null, cMax, out pcTokens);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
+            if (rExportedTypes == null)
+                hr = Raw.EnumExportedTypes(ref phEnum, null, 0, out pcTokens);
+            else
+                hr = Raw.EnumExportedTypes(ref phEnum, rExportedTypes, rExportedTypes.Length, out pcTokens);
 
-            cMax = pcTokens;
-            rExportedTypes = new mdExportedType[cMax];
-            hr = Raw.EnumExportedTypes(ref phEnum, rExportedTypes, cMax, out pcTokens);
-            fail:
             return hr;
         }
 
@@ -505,13 +496,14 @@ namespace ClrDebug
         /// Gets a pointer to an enumerator for the resources referenced in the current assembly manifest.
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be a null value when the EnumManifestResources method is called for the first time.</param>
-        /// <returns>[out] The array used to store the <see cref="mdManifestResource"/> metadata tokens.</returns>
-        public mdManifestResource[] EnumManifestResources(IntPtr phEnum)
+        /// <param name="rManifestResources">[out] The array used to store the <see cref="mdManifestResource"/> metadata tokens.</param>
+        /// <returns>[out] The number of <see cref="mdManifestResource"/> tokens actually placed in rManifestResources.</returns>
+        public int EnumManifestResources(ref IntPtr phEnum, mdManifestResource[] rManifestResources)
         {
-            mdManifestResource[] rManifestResources;
-            TryEnumManifestResources(phEnum, out rManifestResources).ThrowOnNotOK();
+            int pcTokens;
+            TryEnumManifestResources(ref phEnum, rManifestResources, out pcTokens).ThrowOnNotOK();
 
-            return rManifestResources;
+            return pcTokens;
         }
 
         /// <summary>
@@ -519,31 +511,27 @@ namespace ClrDebug
         /// </summary>
         /// <param name="phEnum">[in, out] A pointer to the enumerator. This must be a null value when the EnumManifestResources method is called for the first time.</param>
         /// <param name="rManifestResources">[out] The array used to store the <see cref="mdManifestResource"/> metadata tokens.</param>
+        /// <param name="pcTokens">[out] The number of <see cref="mdManifestResource"/> tokens actually placed in rManifestResources.</param>
         /// <returns>
         /// | HRESULT | Description                                                              |
         /// | ------- | ------------------------------------------------------------------------ |
         /// | S_OK    | EnumManifestResources returned successfully.                             |
         /// | S_FALSE | There are no tokens to enumerate. In this case, pcTokens is set to zero. |
         /// </returns>
-        public HRESULT TryEnumManifestResources(IntPtr phEnum, out mdManifestResource[] rManifestResources)
+        public HRESULT TryEnumManifestResources(ref IntPtr phEnum, mdManifestResource[] rManifestResources, out int pcTokens)
         {
             /*HRESULT EnumManifestResources(
-            [In] ref IntPtr phEnum,
+            [In, Out] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdManifestResource[] rManifestResources,
             [In] int cMax,
             [Out] out int pcTokens);*/
-            rManifestResources = null;
-            int cMax = 0;
-            int pcTokens;
-            HRESULT hr = Raw.EnumManifestResources(ref phEnum, null, cMax, out pcTokens);
+            HRESULT hr;
 
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
+            if (rManifestResources == null)
+                hr = Raw.EnumManifestResources(ref phEnum, null, 0, out pcTokens);
+            else
+                hr = Raw.EnumManifestResources(ref phEnum, rManifestResources, rManifestResources.Length, out pcTokens);
 
-            cMax = pcTokens;
-            rManifestResources = new mdManifestResource[cMax];
-            hr = Raw.EnumManifestResources(ref phEnum, rManifestResources, cMax, out pcTokens);
-            fail:
             return hr;
         }
 
@@ -633,18 +621,9 @@ namespace ClrDebug
         /// <param name="hEnum">[in] The enumeration instance to be closed.</param>
         public void CloseEnum(IntPtr hEnum)
         {
-            TryCloseEnum(hEnum).ThrowOnNotOK();
-        }
-
-        /// <summary>
-        /// Releases a reference to the specified enumeration instance.
-        /// </summary>
-        /// <param name="hEnum">[in] The enumeration instance to be closed.</param>
-        public HRESULT TryCloseEnum(IntPtr hEnum)
-        {
-            /*HRESULT CloseEnum(
+            /*void CloseEnum(
             [In] IntPtr hEnum);*/
-            return Raw.CloseEnum(hEnum);
+            Raw.CloseEnum(hEnum);
         }
 
         #endregion

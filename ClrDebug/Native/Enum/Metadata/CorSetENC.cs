@@ -3,7 +3,8 @@
 namespace ClrDebug
 {
     /// <summary>
-    /// Contains values used to influence behavior during the generation of metadata.
+    /// Contains values used to influence behavior during the generation of metadata.<para/>
+    /// Used with <see cref="MetaDataDispenserOption.MetaDataSetENC"/>.
     /// </summary>
     [Flags]
     public enum CorSetENC

@@ -100,7 +100,7 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
             [In] int cchName,
             [Out] out int pchName,
-            [Out] out int ptkImplementation,
+            [Out] out mdToken ptkImplementation,
             [Out] out mdTypeDef ptkTypeDef,
             [Out] out CorTypeAttr pdwExportedTypeFlags);
 
@@ -120,7 +120,7 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
             [In] int cchName,
             [Out] out int pchName,
-            [Out] out int ptkImplementation,
+            [Out] out mdToken ptkImplementation,
             [Out] out int pdwOffset,
             [Out] out CorManifestResourceFlags pdwResourceFlags);
 
@@ -139,7 +139,7 @@ namespace ClrDebug
         /// </returns>
         [PreserveSig]
         HRESULT EnumAssemblyRefs(
-            [In] ref IntPtr phEnum,
+            [In, Out] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdAssemblyRef[] rAssemblyRefs,
             [In] int cMax,
             [Out] out int pcTokens);
@@ -159,7 +159,7 @@ namespace ClrDebug
         /// </returns>
         [PreserveSig]
         HRESULT EnumFiles(
-            [In] ref IntPtr phEnum,
+            [In, Out] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdFile[] rFiles,
             [In] int cMax,
             [Out] out int pcTokens);
@@ -179,7 +179,7 @@ namespace ClrDebug
         /// </returns>
         [PreserveSig]
         HRESULT EnumExportedTypes(
-            [In] ref IntPtr phEnum,
+            [In, Out] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdExportedType[] rExportedTypes,
             [In] int cMax,
             [Out] out int pcTokens);
@@ -199,7 +199,7 @@ namespace ClrDebug
         /// </returns>
         [PreserveSig]
         HRESULT EnumManifestResources(
-            [In] ref IntPtr phEnum,
+            [In, Out] ref IntPtr phEnum,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] mdManifestResource[] rManifestResources,
             [In] int cMax,
             [Out] out int pcTokens);
@@ -246,8 +246,7 @@ namespace ClrDebug
         /// Releases a reference to the specified enumeration instance.
         /// </summary>
         /// <param name="hEnum">[in] The enumeration instance to be closed.</param>
-        [PreserveSig]
-        HRESULT CloseEnum(
+        void CloseEnum(
             [In] IntPtr hEnum);
 
         /// <summary>

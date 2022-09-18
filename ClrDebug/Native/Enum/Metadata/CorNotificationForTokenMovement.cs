@@ -3,7 +3,8 @@
 namespace ClrDebug
 {
     /// <summary>
-    /// Specifies the notifications that will be sent to the metadata API client when a token remap occurs.
+    /// Specifies the notifications that will be sent to the metadata API client when a token remap occurs.<para/>
+    /// Used with <see cref="MetaDataDispenserOption.MetaDataNotificationForTokenMovement"/>.
     /// </summary>
     /// <remarks>
     /// A token may be re-mapped (that is, moved) during a metadata merge.

@@ -184,7 +184,7 @@ namespace ClrDebug
         /// <param name="ptkIface">[out] The metadata token representing the interface that defines the implemented method.</param>
         /// <remarks>
         /// You obtain the value for iImpl by calling the <see cref="EnumInterfaceImpls"/> method. For example, suppose that
-        /// a class has an <see cref="mdTypeDef"/> token value of 0x02000007 and that it implements threeinterfaces whose types have tokens:
+        /// a class has an <see cref="mdTypeDef"/> token value of 0x02000007 and that it implements three interfaces whose types have tokens:
         /// Conceptually, this information is stored into an interface implementation table as: Recall, the token is a 4-byte
         /// value: GetInterfaceImplProps returns the information held in the row whose token you provide in the iImpl argument.
         /// </remarks>

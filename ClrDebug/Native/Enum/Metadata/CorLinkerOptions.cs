@@ -3,7 +3,8 @@
 namespace ClrDebug
 {
     /// <summary>
-    /// Specifies flags to select options for the metadata linker.
+    /// Specifies flags to select options for the metadata linker.<para/>
+    /// Used with <see cref="MetaDataDispenserOption.MetaDataLinkerOptions"/>.
     /// </summary>
     [Flags]
     public enum CorLinkerOptions

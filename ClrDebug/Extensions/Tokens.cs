@@ -12,7 +12,7 @@ namespace ClrDebug
     {
         public static readonly mdToken Nil = new mdToken();
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -245,7 +245,7 @@ namespace ClrDebug
     {
         public static readonly mdModule Nil = new mdModule((uint) CorTokenType.mdtModule);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -288,7 +288,7 @@ namespace ClrDebug
     {
         public static readonly mdTypeRef Nil = new mdTypeRef((uint) CorTokenType.mdtTypeRef);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -331,7 +331,7 @@ namespace ClrDebug
     {
         public static readonly mdTypeDef Nil = new mdTypeDef((uint) CorTokenType.mdtTypeDef);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -374,7 +374,7 @@ namespace ClrDebug
     {
         public static readonly mdFieldDef Nil = new mdFieldDef((uint) CorTokenType.mdtFieldDef);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -417,7 +417,7 @@ namespace ClrDebug
     {
         public static readonly mdMethodDef Nil = new mdMethodDef((uint) CorTokenType.mdtMethodDef);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -460,7 +460,7 @@ namespace ClrDebug
     {
         public static readonly mdParamDef Nil = new mdParamDef((uint) CorTokenType.mdtParamDef);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -503,7 +503,7 @@ namespace ClrDebug
     {
         public static readonly mdInterfaceImpl Nil = new mdInterfaceImpl((uint) CorTokenType.mdtInterfaceImpl);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -546,7 +546,7 @@ namespace ClrDebug
     {
         public static readonly mdMemberRef Nil = new mdMemberRef((uint) CorTokenType.mdtMemberRef);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -589,7 +589,7 @@ namespace ClrDebug
     {
         public static readonly mdCustomAttribute Nil = new mdCustomAttribute((uint) CorTokenType.mdtCustomAttribute);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -632,7 +632,7 @@ namespace ClrDebug
     {
         public static readonly mdPermission Nil = new mdPermission((uint) CorTokenType.mdtPermission);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -675,7 +675,7 @@ namespace ClrDebug
     {
         public static readonly mdSignature Nil = new mdSignature((uint) CorTokenType.mdtSignature);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -718,7 +718,7 @@ namespace ClrDebug
     {
         public static readonly mdEvent Nil = new mdEvent((uint) CorTokenType.mdtEvent);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -761,7 +761,7 @@ namespace ClrDebug
     {
         public static readonly mdProperty Nil = new mdProperty((uint) CorTokenType.mdtProperty);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -804,7 +804,7 @@ namespace ClrDebug
     {
         public static readonly mdModuleRef Nil = new mdModuleRef((uint) CorTokenType.mdtModuleRef);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -847,7 +847,7 @@ namespace ClrDebug
     {
         public static readonly mdAssembly Nil = new mdAssembly((uint) CorTokenType.mdtAssembly);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -890,7 +890,7 @@ namespace ClrDebug
     {
         public static readonly mdAssemblyRef Nil = new mdAssemblyRef((uint) CorTokenType.mdtAssemblyRef);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -933,7 +933,7 @@ namespace ClrDebug
     {
         public static readonly mdFile Nil = new mdFile((uint) CorTokenType.mdtFile);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -976,7 +976,7 @@ namespace ClrDebug
     {
         public static readonly mdExportedType Nil = new mdExportedType((uint) CorTokenType.mdtExportedType);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -1019,7 +1019,7 @@ namespace ClrDebug
     {
         public static readonly mdManifestResource Nil = new mdManifestResource((uint) CorTokenType.mdtManifestResource);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -1062,7 +1062,7 @@ namespace ClrDebug
     {
         public static readonly mdTypeSpec Nil = new mdTypeSpec((uint) CorTokenType.mdtTypeSpec);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -1105,7 +1105,7 @@ namespace ClrDebug
     {
         public static readonly mdGenericParam Nil = new mdGenericParam((uint) CorTokenType.mdtGenericParam);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -1148,7 +1148,7 @@ namespace ClrDebug
     {
         public static readonly mdMethodSpec Nil = new mdMethodSpec((uint) CorTokenType.mdtMethodSpec);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -1191,7 +1191,7 @@ namespace ClrDebug
     {
         public static readonly mdGenericParamConstraint Nil = new mdGenericParamConstraint((uint) CorTokenType.mdtGenericParamConstraint);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -1234,7 +1234,7 @@ namespace ClrDebug
     {
         public static readonly mdString Nil = new mdString((uint) CorTokenType.mdtString);
         
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 
@@ -1275,7 +1275,7 @@ namespace ClrDebug
     [DebuggerDisplay("{ToString(),nq} [mdCPToken]")]
     public struct mdCPToken : IComparable, IEquatable<mdCPToken>
     {
-        public uint Rid => Value & 0x00FFFFFF;
+        public int Rid => (int) Value & 0x00FFFFFF;
 
         public CorTokenType Type => (CorTokenType) (Value & 0xFF000000);
 

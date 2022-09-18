@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Text;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug
 {
@@ -171,7 +171,7 @@ namespace ClrDebug
         /// Definition and Semantics". The documentation is available online; see ECMA C# and Common Language Infrastructure
         /// Standards and Standard ECMA-335 - Common Language Infrastructure (CLI).
         /// </remarks>
-        public int GetTableIndex(int token)
+        public int GetTableIndex(mdToken token)
         {
             int pixTbl;
             TryGetTableIndex(token, out pixTbl).ThrowOnNotOK();
@@ -190,10 +190,10 @@ namespace ClrDebug
         /// Definition and Semantics". The documentation is available online; see ECMA C# and Common Language Infrastructure
         /// Standards and Standard ECMA-335 - Common Language Infrastructure (CLI).
         /// </remarks>
-        public HRESULT TryGetTableIndex(int token, out int pixTbl)
+        public HRESULT TryGetTableIndex(mdToken token, out int pixTbl)
         {
             /*HRESULT GetTableIndex(
-            [In] int token,
+            [In] mdToken token,
             [Out] out int pixTbl);*/
             return Raw.GetTableIndex(token, out pixTbl);
         }
@@ -227,16 +227,16 @@ namespace ClrDebug
             [Out] out int pcRows,
             [Out] out int pcCols,
             [Out] out int piKey,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppName);*/
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ManualAnsiStringMarshaler))] out string ppName);*/
             int pcbRow;
             int pcRows;
             int pcCols;
             int piKey;
-            StringBuilder ppName = null;
-            HRESULT hr = Raw.GetTableInfo(ixTbl, out pcbRow, out pcRows, out pcCols, out piKey, ppName);
+            string ppName;
+            HRESULT hr = Raw.GetTableInfo(ixTbl, out pcbRow, out pcRows, out pcCols, out piKey, out ppName);
 
             if (hr == HRESULT.S_OK)
-                result = new GetTableInfoResult(pcbRow, pcRows, pcCols, piKey, ppName.ToString());
+                result = new GetTableInfoResult(pcbRow, pcRows, pcCols, piKey, ppName);
             else
                 result = default(GetTableInfoResult);
 
@@ -282,15 +282,15 @@ namespace ClrDebug
             [Out] out int poCol,
             [Out] out int pcbCol,
             [Out] out int pType,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppName);*/
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ManualAnsiStringMarshaler))] out string ppName);*/
             int poCol;
             int pcbCol;
             int pType;
-            StringBuilder ppName = null;
-            HRESULT hr = Raw.GetColumnInfo(ixTbl, ixCol, out poCol, out pcbCol, out pType, ppName);
+            string ppName;
+            HRESULT hr = Raw.GetColumnInfo(ixTbl, ixCol, out poCol, out pcbCol, out pType, out ppName);
 
             if (hr == HRESULT.S_OK)
-                result = new GetColumnInfoResult(poCol, pcbCol, pType, ppName.ToString());
+                result = new GetColumnInfoResult(poCol, pcbCol, pType, ppName);
             else
                 result = default(GetColumnInfoResult);
 
@@ -323,15 +323,23 @@ namespace ClrDebug
             /*HRESULT GetCodedTokenInfo(
             [In] int ixCdTkn,
             [Out] out int pcTokens,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] out int[] ppTokens,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] out StringBuilder ppName);*/
-            int pcTokens;
-            int[] ppTokens = new int[ixCdTkn];
-            StringBuilder ppName = null;
+            [Out, MarshalAs(UnmanagedType.SysInt, SizeParamIndex = 1), ComAliasName("mdToken")] out IntPtr ppTokens,
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ManualAnsiStringMarshaler))] out string ppName);*/
+            int pcTokens = 0;
+            IntPtr ppTokens = default(IntPtr);
+            string ppName;
             HRESULT hr = Raw.GetCodedTokenInfo(ixCdTkn, out pcTokens, out ppTokens, out ppName);
 
             if (hr == HRESULT.S_OK)
-                result = new GetCodedTokenInfoResult(pcTokens, ppTokens, ppName.ToString());
+            {
+                var mdTokenSize = Marshal.SizeOf<mdToken>();
+                var ppTokensResult = new mdToken[pcTokens];
+
+                for (var i = 0; i < pcTokens; i++)
+                    ppTokensResult[i] = Marshal.PtrToStructure<mdToken>(ppTokens + i * mdTokenSize);
+
+                result = new GetCodedTokenInfoResult(ppTokensResult, ppName);
+            }
             else
                 result = default(GetCodedTokenInfoResult);
 
@@ -435,31 +443,23 @@ namespace ClrDebug
         /// <returns>[out] A pointer to a pointer to the returned string value.</returns>
         public string GetString(int ixString)
         {
-            string ppStringResult;
-            TryGetString(ixString, out ppStringResult).ThrowOnNotOK();
+            string ppString;
+            TryGetString(ixString, out ppString).ThrowOnNotOK();
 
-            return ppStringResult;
+            return ppString;
         }
 
         /// <summary>
         /// Gets the string at the specified index from the table column in the current reference scope.
         /// </summary>
         /// <param name="ixString">[in] The index at which to start to search for the next value.</param>
-        /// <param name="ppStringResult">[out] A pointer to a pointer to the returned string value.</param>
-        public HRESULT TryGetString(int ixString, out string ppStringResult)
+        /// <param name="ppString">[out] A pointer to a pointer to the returned string value.</param>
+        public HRESULT TryGetString(int ixString, out string ppString)
         {
             /*HRESULT GetString(
             [In] int ixString,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppString);*/
-            StringBuilder ppString = null;
-            HRESULT hr = Raw.GetString(ixString, ppString);
-
-            if (hr == HRESULT.S_OK)
-                ppStringResult = ppString.ToString();
-            else
-                ppStringResult = default(string);
-
-            return hr;
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ManualAnsiStringMarshaler))] out string ppString);*/
+            return Raw.GetString(ixString, out ppString);
         }
 
         #endregion
@@ -790,16 +790,16 @@ namespace ClrDebug
         {
             /*HRESULT GetMetaDataStreamInfo(
             [In] int ix,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ppchName,
+            [Out, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ManualAnsiStringMarshaler))] out string ppchName,
             [Out] out IntPtr ppv,
             [Out] out int pcb);*/
-            StringBuilder ppchName = null;
+            string ppchName;
             IntPtr ppv;
             int pcb;
-            HRESULT hr = Raw2.GetMetaDataStreamInfo(ix, ppchName, out ppv, out pcb);
+            HRESULT hr = Raw2.GetMetaDataStreamInfo(ix, out ppchName, out ppv, out pcb);
 
             if (hr == HRESULT.S_OK)
-                result = new GetMetaDataStreamInfoResult(ppchName.ToString(), ppv, pcb);
+                result = new GetMetaDataStreamInfoResult(ppchName, ppv, pcb);
             else
                 result = default(GetMetaDataStreamInfoResult);
 

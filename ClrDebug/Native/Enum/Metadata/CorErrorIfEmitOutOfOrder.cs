@@ -3,7 +3,8 @@
 namespace ClrDebug
 {
     /// <summary>
-    /// Contains flag values that indicate the conditions under which an error message should be generated when metadata is emitted out of order.
+    /// Contains flag values that indicate the conditions under which an error message should be generated when metadata is emitted out of order.<para/>
+    /// Used with <see cref="MetaDataDispenserOption.MetaDataErrorIfEmitOutOfOrder"/>.
     /// </summary>
     [Flags]
     public enum CorErrorIfEmitOutOfOrder : uint
