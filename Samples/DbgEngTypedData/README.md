@@ -72,13 +72,13 @@ can exist in a program (items like `BOOLEAN`, `USHORT`, `ULONG`, etc). When you 
 
 ### Enumerating Fields
 
-A major limitation of EngExtCpp's `ExtTypedData` is that it does provide a mechanism for enumerating all types that may exist on a given type. Clearly it is possible for WinDbg to know this information, as you can see all the members of a struct displayed when you use the `dt` command.
+A major limitation of EngExtCpp's `ExtTypedData` is that it does provide a mechanism for enumerating all fields that may exist on a given type. Clearly it is possible for WinDbg to know this information, as you can see all the members of a struct displayed when you use the `dt` command.
 
 `dt` calls `SymbolTypeDumpEx` which in turn calls `SymbolTypeDumpNew` which calls the pivotal `TypeInfoFound` and then calls `DumpType`-> `DumpTypeAndReturnInfo` to dump the type. `DebugClient::GetFieldOffset` similarly calls straight into `DumpType` to get its data.
 
 The secret to enumerating type fields is to somehow hook into `DumpTypeAndReturnInfo`. But how do we do that? The secret lies in the `Ioctl` function `WINDBG_EXTENSION_APIS`. By specifying request type `IG_DUMP_SYMBOL_INFO` we're able to call into `SymbolTypeDump` which calls into `SymbolTypeDumpNew` and caches its results. `IG_DUMP_SYMBOL_INFO` is one of the more complex Ioctls you can perform using DbgEng, although it pales in comparison to `DEBUG_REQUEST_EXT_TYPED_DATA_ANSI`.
 
-Normally, to invoke the `IG_DUMP_SYMBOL_INFO request in managed code, you would need to
+Normally, to invoke the `IG_DUMP_SYMBOL_INFO` request in managed code, you would need to
 
 1. Declare a `WINDBG_EXTENSION_APIS` variable
 2. Set the `WINDBG_EXTENSION_APIS` variable's size
@@ -91,7 +91,7 @@ Normally, to invoke the `IG_DUMP_SYMBOL_INFO request in managed code, you would 
 
 each time you want to dump some symbol info. Don't make any mistakes!
 
-To simplify this process, `WINDBG_EXTENSION_APIS` is treated is given the same special treatment that DbgEng's interfaces are given
+To simplify this process, `WINDBG_EXTENSION_APIS` is given the same special treatment that DbgEng's interfaces are given
 
 * There is an extension method `DebugControl.GetWindbgExtensionApis()` that creates a `WinDbgExtensionAPI` type around a `WINDBG_EXTENSION_APIS` via `GetWindbgExtensionApis32` if you're in a 32-bit process or `GetWindbgExtensionApis64` if you're in a 64-bit process. I don't know when/when not to use the 32/64-bit `GetWindbgExtensionApis*` functions, but this seems reasonable to me
 * `WinDbgExtensionAPI` provides thin wrapper functions around the function pointers of the `WINDBG_EXTENSION_APIS` type that automatically create and cache the required delegates for you

@@ -99,7 +99,7 @@ namespace DbgEngTypedData.Custom
             if (baseId != null)
                 baseType = New(moduleBase, baseId.Value, state);
 
-            //All struct fields (items of type Data) will havea base entry which is the original type. We don't need to store the fact it's a field
+            //All struct fields (items of type Data) will have a base entry which is the original type. We don't need to store the fact it's a field
             //(if it is a field this type will be contained in a DbgField)
             if (tag == SymTag.Data && baseType != null)
                 return baseType;

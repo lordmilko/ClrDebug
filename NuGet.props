@@ -21,6 +21,8 @@ ClrDebug aims to be a complete wrapper around all of the essential APIs you may 
 
 * IXCLR*/ISOS*/DAC
 
+* DbgEng (IDebug*)
+
 * and more</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/lordmilko/ClrDebug</PackageProjectUrl>

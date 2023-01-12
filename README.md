@@ -1,6 +1,7 @@
 # ClrDebug
 
 [![Appveyor status](https://ci.appveyor.com/api/projects/status/exeyd1rc7147vbki?svg=true)](https://ci.appveyor.com/project/lordmilko/clrdebug)
+[![NuGet](https://img.shields.io/nuget/v/ClrDebug.svg)](https://www.nuget.org/packages/ClrDebug/)
 
 ClrDebug provides a collection of easy to use, managed wrappers around the .NET Unmanaged API.
 
@@ -13,6 +14,7 @@ ClrDebug aims to be a complete wrapper around all of the essential APIs you may 
 * Metadata (`IMetaData*`)
 * Diagnostics Symbol Store (`ISym*`)
 * `IXCLR*`/`ISOS*`/DAC
+* DbgEng (`IDebug*`)
 * and more
 
 ## Getting Started
