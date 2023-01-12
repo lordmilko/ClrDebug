@@ -13,27 +13,27 @@ namespace ClrDebug
 var types = new[]
 {
     "mdToken",
-    "mdModule",
-    "mdTypeRef",
-    "mdTypeDef",
-    "mdFieldDef",
-    "mdMethodDef",
-    "mdParamDef",
-    "mdInterfaceImpl",
-    "mdMemberRef",
-    "mdCustomAttribute",
+    "mdModule", //Represents a module, which is generally a metadata scope
+    "mdTypeRef", //Represents a reference to a type in either the current or another metadata scope
+    "mdTypeDef", //Represents a type defined in the current metadata scope
+    "mdFieldDef", //Represents a field defined in the current metadata scope
+    "mdMethodDef", //Represents a method defined in the current metadata scope
+    "mdParamDef", //Represents a method parameter
+    "mdInterfaceImpl", //Represents an interface implementation, which can be used to find the interface and struct/class that are partaking in the implementation
+    "mdMemberRef", //Represents a type member typed in the current or another metadata scope
+    "mdCustomAttribute", //Represents an attribute defined on a type, member or parameter
     "mdPermission",
     "mdSignature",
     "mdEvent",
-    "mdProperty",
+    "mdProperty", //Represents a property token
     "mdModuleRef",
-    "mdAssembly",
-    "mdAssemblyRef",
+    "mdAssembly", //Represents the current assembly
+    "mdAssemblyRef", //Represents an external assembly reference
     "mdFile",
-    "mdExportedType",
+    "mdExportedType", //Represents a forwarded type
     "mdManifestResource",
     "mdTypeSpec",
-    "mdGenericParam",
+    "mdGenericParam", //Represents a generic parameter of a type or method.
     "mdMethodSpec",
     "mdGenericParamConstraint",
     "mdString",

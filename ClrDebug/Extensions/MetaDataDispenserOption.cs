@@ -20,7 +20,7 @@ namespace ClrDebug
 
         /// <summary>
         /// Controls which token remaps occurring during a metadata merge generate callbacks. Value: a bitwise combination of <see cref="CorNotificationForTokenMovement"/> values.<para/>
-        /// Use the <see cref="IMetaDataEmit.SetHandler"/> method to establish your <see cref="IMapToken"/> interface.	
+        /// Use the <see cref="IMetaDataEmit.SetHandler"/> method to establish your <see cref="IMapToken"/> interface.    
         /// </summary>
         public static readonly Guid MetaDataNotificationForTokenMovement = new Guid("E5D71A4C-D7DA-11D2-9F80-00C04F79A0A3");
 
@@ -32,7 +32,7 @@ namespace ClrDebug
         /// <summary>
         /// Controls which emitted-out-of-order errors generate callbacks. Value: a bitwise combination of <see cref="CorErrorIfEmitOutOfOrder"/> values as a variant of type UI4.
         /// Emitting metadata out of order is not fatal; however, if you emit metadata in an order that is favored by the metadata engine, the metadata is more compact and therefore can be more efficiently searched.
-        /// Use the <see cref="IMetaDataEmit.SetHandler"/> method to establish your <see cref="IMetaDataError"/> interface.	
+        /// Use the <see cref="IMetaDataEmit.SetHandler"/> method to establish your <see cref="IMetaDataError"/> interface.    
         /// </summary>
         public static readonly Guid MetaDataErrorIfEmitOutOfOrder = new Guid("1547872D-DC03-11d2-9420-0000F8083460");
 
@@ -44,7 +44,7 @@ namespace ClrDebug
         /// <summary>
         /// Controls whether the metadata engine obtains reader/writer locks, thereby ensuring thread safety. Value: a <see cref="CorThreadSafetyOptions"/> value as a variant of type UI4.<para/>
         /// By default, the engine assumes that access is single-threaded by the caller, so no locks are obtained.<para/>
-        /// Clients are responsible for maintaining proper thread synchronization when using the metadata API.	
+        /// Clients are responsible for maintaining proper thread synchronization when using the metadata API.    
         /// </summary>
         public static readonly Guid MetaDataThreadSafetyOptions = new Guid("F7559806-F266-42ea-8C63-0ADB45E8B234");
 

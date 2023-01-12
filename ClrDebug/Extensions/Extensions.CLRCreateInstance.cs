@@ -10,7 +10,7 @@ namespace ClrDebug
     public static partial class Extensions
     {
         /// <summary>
-        /// Provides facilities for retrieving interfaces that are commonly retrieved from <see cref="CLRCreateInstance(ref Guid, ref Guid, out object)"/>.
+        /// Provides facilities for retrieving interfaces that are commonly retrieved from <see cref="CLRCreateInstance(Guid, Guid, out object)"/>.
         /// </summary>
         public class CLRCreateInstanceInterfaces
         {

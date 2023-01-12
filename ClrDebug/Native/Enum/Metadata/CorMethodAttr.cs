@@ -29,7 +29,7 @@ namespace ClrDebug
         mdFamANDAssem               =   0x0002,     // Accessible by sub-types only in this Assembly.
 
         /// <summary>
-        /// Specifies that the member is accessibly by anyone in the assembly.
+        /// Specifies that the member is accessible by anyone in the assembly.
         /// </summary>
         mdAssem                     =   0x0003,     // Accessibly by anyone in the Assembly.
 
