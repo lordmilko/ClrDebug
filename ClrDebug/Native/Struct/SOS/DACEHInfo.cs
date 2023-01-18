@@ -12,9 +12,9 @@ namespace ClrDebug
         public CLRDATA_ADDRESS tryEndOffset;
         public CLRDATA_ADDRESS handlerStartOffset;
         public CLRDATA_ADDRESS handlerEndOffset;
-        public int isDuplicateClause;
+        public bool isDuplicateClause;
         public CLRDATA_ADDRESS filterOffset;
-        public int isCatchAllHandler;
+        public bool isCatchAllHandler;
         public CLRDATA_ADDRESS moduleAddr;
         public CLRDATA_ADDRESS mtCatch;
         public mdToken tokCatch;

@@ -293,7 +293,7 @@ namespace ClrDebug
             }
             finally
             {
-                Marshal.AllocHGlobal(buffer);
+                Marshal.FreeHGlobal(buffer);
             }
         }
 

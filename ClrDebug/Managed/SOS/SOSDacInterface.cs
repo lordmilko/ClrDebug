@@ -2434,19 +2434,19 @@ namespace ClrDebug
         #endregion
         #region IsRCWDCOMProxy
 
-        public int IsRCWDCOMProxy(CLRDATA_ADDRESS rcwAddr)
+        public bool IsRCWDCOMProxy(CLRDATA_ADDRESS rcwAddr)
         {
-            int isDCOMProxy;
+            bool isDCOMProxy;
             TryIsRCWDCOMProxy(rcwAddr, out isDCOMProxy).ThrowOnNotOK();
 
             return isDCOMProxy;
         }
 
-        public HRESULT TryIsRCWDCOMProxy(CLRDATA_ADDRESS rcwAddr, out int isDCOMProxy)
+        public HRESULT TryIsRCWDCOMProxy(CLRDATA_ADDRESS rcwAddr, out bool isDCOMProxy)
         {
             /*HRESULT IsRCWDCOMProxy(
             [In] CLRDATA_ADDRESS rcwAddr,
-            [Out] out int isDCOMProxy);*/
+            [Out] out bool isDCOMProxy);*/
             return Raw2.IsRCWDCOMProxy(rcwAddr, out isDCOMProxy);
         }
 
@@ -2977,19 +2977,19 @@ namespace ClrDebug
         #endregion
         #region IsComWrappersCCW
 
-        public int IsComWrappersCCW(CLRDATA_ADDRESS ccw)
+        public bool IsComWrappersCCW(CLRDATA_ADDRESS ccw)
         {
-            int isComWrappersCCW;
+            bool isComWrappersCCW;
             TryIsComWrappersCCW(ccw, out isComWrappersCCW).ThrowOnNotOK();
 
             return isComWrappersCCW;
         }
 
-        public HRESULT TryIsComWrappersCCW(CLRDATA_ADDRESS ccw, out int isComWrappersCCW)
+        public HRESULT TryIsComWrappersCCW(CLRDATA_ADDRESS ccw, out bool isComWrappersCCW)
         {
             /*HRESULT IsComWrappersCCW(
             [In] CLRDATA_ADDRESS ccw,
-            [Out] out int isComWrappersCCW);*/
+            [Out] out bool isComWrappersCCW);*/
             return Raw10.IsComWrappersCCW(ccw, out isComWrappersCCW);
         }
 
@@ -3025,19 +3025,19 @@ namespace ClrDebug
         #endregion
         #region IsComWrappersRCW
 
-        public int IsComWrappersRCW(CLRDATA_ADDRESS rcw)
+        public bool IsComWrappersRCW(CLRDATA_ADDRESS rcw)
         {
-            int isComWrappersRCW;
+            bool isComWrappersRCW;
             TryIsComWrappersRCW(rcw, out isComWrappersRCW).ThrowOnNotOK();
 
             return isComWrappersRCW;
         }
 
-        public HRESULT TryIsComWrappersRCW(CLRDATA_ADDRESS rcw, out int isComWrappersRCW)
+        public HRESULT TryIsComWrappersRCW(CLRDATA_ADDRESS rcw, out bool isComWrappersRCW)
         {
             /*HRESULT IsComWrappersRCW(
             [In] CLRDATA_ADDRESS rcw,
-            [Out] out int isComWrappersRCW);*/
+            [Out] out bool isComWrappersRCW);*/
             return Raw10.IsComWrappersRCW(rcw, out isComWrappersRCW);
         }
 
@@ -3081,10 +3081,10 @@ namespace ClrDebug
         {
             /*HRESULT IsTrackedType(
             [In] CLRDATA_ADDRESS objAddr,
-            [Out] out int isTrackedType,
-            [Out] out int hasTaggedMemory);*/
-            int isTrackedType;
-            int hasTaggedMemory;
+            [Out] out bool isTrackedType,
+            [Out] out bool hasTaggedMemory);*/
+            bool isTrackedType;
+            bool hasTaggedMemory;
             HRESULT hr = Raw11.IsTrackedType(objAddr, out isTrackedType, out hasTaggedMemory);
 
             if (hr == HRESULT.S_OK)

@@ -7,7 +7,7 @@ namespace ClrDebug
     [StructLayout(LayoutKind.Sequential)]
     public struct SOSStackRefData
     {
-        public int HasRegisterInformation;
+        public bool HasRegisterInformation;
         public int Register;
         public int Offset;
         public CLRDATA_ADDRESS Address;

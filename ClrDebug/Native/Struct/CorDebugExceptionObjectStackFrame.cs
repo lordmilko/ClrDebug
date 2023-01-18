@@ -27,11 +27,11 @@ namespace ClrDebug
         /// <summary>
         /// The method token for the current frame.
         /// </summary>
-        public int methodDef;
+        public mdMethodDef methodDef;
 
         /// <summary>
         /// A value that indicates whether the frame is the last frame in a foreign exception.
         /// </summary>
-        public int isLastForeignExceptionFrame;
+        public bool isLastForeignExceptionFrame;
     }
 }

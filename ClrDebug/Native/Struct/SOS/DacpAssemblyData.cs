@@ -12,10 +12,10 @@ namespace ClrDebug
         public CLRDATA_ADDRESS ParentDomain;
         public CLRDATA_ADDRESS BaseDomainPtr;
         public CLRDATA_ADDRESS AssemblySecDesc;
-        public int isDynamic;
+        public bool isDynamic;
         public int ModuleCount;
         public int LoadContext;
-        public int isDomainNeutral;
+        public bool isDomainNeutral;
         public int dwLocationFlags;
 
         public HRESULT Request(ISOSDacInterface sos, CLRDATA_ADDRESS addr, CLRDATA_ADDRESS baseDomainPtr)

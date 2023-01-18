@@ -16,12 +16,12 @@ namespace ClrDebug
         public CLRDATA_ADDRESS ctxCookie;
         public int refCount;
         public int interfaceCount;
-        public int isJupiterObject;
+        public bool isJupiterObject;
         public int supportsIInspectable;
-        public int isAggregated;
-        public int isContained;
-        public int isFreeThreaded;
-        public int isDisconnected;
+        public bool isAggregated;
+        public bool isContained;
+        public bool isFreeThreaded;
+        public bool isDisconnected;
 
         public HRESULT Request(ISOSDacInterface sos, CLRDATA_ADDRESS rcw)
         {
@@ -39,10 +39,7 @@ namespace ClrDebug
                 return HRESULT.E_NOINTERFACE;
             }
 
-            int result;
-            var hr = pSOS2.IsRCWDCOMProxy(rcw, out result);
-            isDCOMProxy = result == 1;
-
+            var hr = pSOS2.IsRCWDCOMProxy(rcw, out isDCOMProxy);
             return hr;
         }
     }

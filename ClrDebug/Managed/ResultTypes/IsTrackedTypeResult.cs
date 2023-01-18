@@ -8,11 +8,11 @@ namespace ClrDebug
     [DebuggerDisplay("isTrackedType = {isTrackedType}, hasTaggedMemory = {hasTaggedMemory}")]
     public struct IsTrackedTypeResult
     {
-        public int isTrackedType { get; }
+        public bool isTrackedType { get; }
 
-        public int hasTaggedMemory { get; }
+        public bool hasTaggedMemory { get; }
 
-        public IsTrackedTypeResult(int isTrackedType, int hasTaggedMemory)
+        public IsTrackedTypeResult(bool isTrackedType, bool hasTaggedMemory)
         {
             this.isTrackedType = isTrackedType;
             this.hasTaggedMemory = hasTaggedMemory;

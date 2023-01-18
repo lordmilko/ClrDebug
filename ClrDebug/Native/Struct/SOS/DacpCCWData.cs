@@ -13,13 +13,13 @@ namespace ClrDebug
         public CLRDATA_ADDRESS ccwAddress;
         public int refCount;
         public int interfaceCount;
-        public int isNeutered;
+        public bool isNeutered;
         public int jupiterRefCount;
-        public int isPegged;
-        public int isGlobalPegged;
-        public int hasStrongRef;
-        public int isExtendsCOMObject;
-        public int isAggregated;
+        public bool isPegged;
+        public bool isGlobalPegged;
+        public bool hasStrongRef;
+        public bool isExtendsCOMObject;
+        public bool isAggregated;
 
         public HRESULT Request(ISOSDacInterface sos, CLRDATA_ADDRESS ccw)
         {

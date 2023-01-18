@@ -14,6 +14,6 @@ namespace ClrDebug
         public int StrongReference;
         public int RefCount;
         public int JupiterRefCount;
-        public int IsPegged;
+        public bool IsPegged;
     }
 }

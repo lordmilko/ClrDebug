@@ -118,6 +118,13 @@ namespace ClrDebug
             @delegate = Marshal.GetDelegateForFunctionPointer<T>(vtablePtr);
         }
 
+        /// <summary>
+        /// Marshals a real RCW of a specified interface type from the underlying object pointer.<para/>
+        /// If the COM object does not respond to QueryInterface against IUnknown, this method will
+        /// throw an exception.
+        /// </summary>
+        /// <typeparam name="T">The type of interface to marshal.</typeparam>
+        /// <returns>A real RCW of type <typeparamref name="T"/>.</returns>
         public T AsInterface<T>()
         {
             var unk = Marshal.GetObjectForIUnknown(Raw);

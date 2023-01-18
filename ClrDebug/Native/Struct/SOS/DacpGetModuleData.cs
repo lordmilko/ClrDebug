@@ -8,9 +8,9 @@ namespace ClrDebug
     [StructLayout(LayoutKind.Sequential)]
     public struct DacpGetModuleData
     {
-        public int IsDynamic;
-        public int IsInMemory;
-        public int IsFileLayout;
+        public bool IsDynamic;
+        public bool IsInMemory;
+        public bool IsFileLayout;
         public CLRDATA_ADDRESS PEAssembly;
         public CLRDATA_ADDRESS LoadedPEAddress;
         public long LoadedPESize;
