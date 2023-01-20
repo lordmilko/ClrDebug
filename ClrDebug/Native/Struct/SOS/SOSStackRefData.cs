@@ -12,7 +12,7 @@ namespace ClrDebug
         public int Offset;
         public CLRDATA_ADDRESS Address;
         public CLRDATA_ADDRESS Object;
-        public int Flags;
+        public SOSRefFlags Flags;
         public SOSStackSourceType SourceType;
         public CLRDATA_ADDRESS Source;
         public CLRDATA_ADDRESS StackPointer;

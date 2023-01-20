@@ -9,8 +9,8 @@ namespace ClrDebug
     {
         public int corThreadId;
         public int osThreadId;
-        public int state;
-        public int preemptiveGCDisabled;
+        public ThreadState state;
+        public bool preemptiveGCDisabled;
         public CLRDATA_ADDRESS allocContextPtr;
         public CLRDATA_ADDRESS allocContextLimit;
         public CLRDATA_ADDRESS context;

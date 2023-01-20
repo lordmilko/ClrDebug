@@ -10,7 +10,7 @@ namespace ClrDebug
         public CLRDATA_ADDRESS heapAddr;
         public CLRDATA_ADDRESS internal_root_array;
         public long internal_root_array_index;
-        public int heap_analyze_success;
+        public bool heap_analyze_success;
 
         public HRESULT Request(ISOSDacInterface sos)
         {

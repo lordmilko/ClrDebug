@@ -31,7 +31,7 @@ namespace ClrDebug
         public bool bIsPEFile;
         public long dwBaseClassIndex;
         public long dwModuleID;
-        public int dwTransientFlags;
+        public DacpModuleDataTransientFlags dwTransientFlags;
         public CLRDATA_ADDRESS TypeDefToMethodTableMap;
         public CLRDATA_ADDRESS TypeRefToMethodTableMap;
         public CLRDATA_ADDRESS MethodDefToDescMap;

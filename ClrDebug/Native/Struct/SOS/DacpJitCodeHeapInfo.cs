@@ -8,7 +8,7 @@ namespace ClrDebug
     public struct DacpJitCodeHeapInfo
     {
         [FieldOffset(0)]
-        public int codeHeapType;
+        public CodeHeapType codeHeapType;
 
         //if CODEHEAP_LOADER
 

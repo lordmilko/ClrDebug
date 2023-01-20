@@ -16,7 +16,7 @@ namespace ClrDebug
         public CLRDATA_ADDRESS next;
         public CLRDATA_ADDRESS gc_heap;
         public CLRDATA_ADDRESS highAllocMark;
-        public long flags;
+        public heap_segment_flags flags;
         public CLRDATA_ADDRESS background_allocated;
 
         public HRESULT Request(ISOSDacInterface sos, CLRDATA_ADDRESS addr, DacpGcHeapDetails heap)

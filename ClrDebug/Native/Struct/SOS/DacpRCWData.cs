@@ -17,7 +17,7 @@ namespace ClrDebug
         public int refCount;
         public int interfaceCount;
         public bool isJupiterObject;
-        public int supportsIInspectable;
+        public bool supportsIInspectable;
         public bool isAggregated;
         public bool isContained;
         public bool isFreeThreaded;

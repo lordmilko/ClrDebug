@@ -8,7 +8,7 @@ namespace ClrDebug
     public struct DacpJitManagerInfo
     {
         public CLRDATA_ADDRESS managerAddr;
-        public int codeType;
+        public CodeHeapType codeType;
         public CLRDATA_ADDRESS ptrHeapList;
     }
 }

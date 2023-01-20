@@ -7,7 +7,7 @@ namespace ClrDebug
     [StructLayout(LayoutKind.Sequential)]
     public struct DacpOomData
     {
-        public int Reason;
+        public oom_reason Reason;
         public long alloc_size;
         public long available_pagefile_mb;
         public long gc_index;

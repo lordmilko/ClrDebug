@@ -10,8 +10,8 @@ namespace ClrDebug
         public CLRDATA_ADDRESS AppDomain;
         public CLRDATA_ADDRESS Handle;
         public CLRDATA_ADDRESS Secondary;
-        public int Type;
-        public int StrongReference;
+        public HandleType Type;
+        public bool StrongReference;
         public int RefCount;
         public int JupiterRefCount;
         public bool IsPegged;

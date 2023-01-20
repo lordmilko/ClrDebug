@@ -15,7 +15,7 @@ namespace ClrDebug
         public CLRDATA_ADDRESS firstThread;
         public CLRDATA_ADDRESS finalizerThread;
         public CLRDATA_ADDRESS gcThread;
-        public bool fHostConfig;
+        public SOSHostingFlags fHostConfig;
 
         public HRESULT Request(ISOSDacInterface sos)
         {
