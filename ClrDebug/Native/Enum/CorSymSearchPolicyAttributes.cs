@@ -30,6 +30,6 @@ namespace ClrDebug
         /// <summary>
         /// Searches for the PDB in the place where the .exe file is.
         /// </summary>
-        AllowReferencePathAccess = 0x8      
+        AllowReferencePathAccess = 0x8
     }
 }

@@ -47,6 +47,5 @@
         /// Not used.
         /// </summary>
         IMAGE_CEE_CS_CALLCONV_FASTCALL = IMAGE_CEE_UNMANAGED_CALLCONV_FASTCALL,
-
     }
 }

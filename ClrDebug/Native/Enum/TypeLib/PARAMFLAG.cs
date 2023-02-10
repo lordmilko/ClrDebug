@@ -23,6 +23,7 @@ namespace ClrDebug.TypeLib
         /// </summary>
         /// 
         PARAMFLAG_FIN = 1,
+
         /// <summary>
         /// The parameter is the local identifier of a client application.
         /// </summary>
