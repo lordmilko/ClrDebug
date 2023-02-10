@@ -22,6 +22,7 @@ for(int i = 0; i < types.Length; i++)
     var type = types[i].Item1;
     var baseType = types[i].Item2;
 #>
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq}")]
     public struct <#= type #> : IComparable, IEquatable<<#= type #>>
     {

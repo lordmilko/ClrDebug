@@ -7,6 +7,7 @@ using System.Diagnostics;
 
 namespace ClrDebug
 {
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq}")]
     public struct CORDB_ADDRESS : IComparable, IEquatable<CORDB_ADDRESS>
     {
@@ -48,6 +49,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq}")]
     public struct CORDB_REGISTER : IComparable, IEquatable<CORDB_REGISTER>
     {
@@ -83,6 +85,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq}")]
     public struct CLRDATA_ADDRESS : IComparable, IEquatable<CLRDATA_ADDRESS>
     {

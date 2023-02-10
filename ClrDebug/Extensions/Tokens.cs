@@ -7,6 +7,7 @@ using System.Diagnostics;
 
 namespace ClrDebug
 {
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [{Type}]")]
     public struct mdToken : IComparable, IEquatable<mdToken>
     {
@@ -240,6 +241,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdModule]")]
     public struct mdModule : IComparable, IEquatable<mdModule>
     {
@@ -283,6 +285,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdTypeRef]")]
     public struct mdTypeRef : IComparable, IEquatable<mdTypeRef>
     {
@@ -326,6 +329,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdTypeDef]")]
     public struct mdTypeDef : IComparable, IEquatable<mdTypeDef>
     {
@@ -369,6 +373,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdFieldDef]")]
     public struct mdFieldDef : IComparable, IEquatable<mdFieldDef>
     {
@@ -412,6 +417,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdMethodDef]")]
     public struct mdMethodDef : IComparable, IEquatable<mdMethodDef>
     {
@@ -455,6 +461,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdParamDef]")]
     public struct mdParamDef : IComparable, IEquatable<mdParamDef>
     {
@@ -498,6 +505,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdInterfaceImpl]")]
     public struct mdInterfaceImpl : IComparable, IEquatable<mdInterfaceImpl>
     {
@@ -541,6 +549,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdMemberRef]")]
     public struct mdMemberRef : IComparable, IEquatable<mdMemberRef>
     {
@@ -584,6 +593,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdCustomAttribute]")]
     public struct mdCustomAttribute : IComparable, IEquatable<mdCustomAttribute>
     {
@@ -627,6 +637,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdPermission]")]
     public struct mdPermission : IComparable, IEquatable<mdPermission>
     {
@@ -670,6 +681,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdSignature]")]
     public struct mdSignature : IComparable, IEquatable<mdSignature>
     {
@@ -713,6 +725,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdEvent]")]
     public struct mdEvent : IComparable, IEquatable<mdEvent>
     {
@@ -756,6 +769,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdProperty]")]
     public struct mdProperty : IComparable, IEquatable<mdProperty>
     {
@@ -799,6 +813,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdModuleRef]")]
     public struct mdModuleRef : IComparable, IEquatable<mdModuleRef>
     {
@@ -842,6 +857,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdAssembly]")]
     public struct mdAssembly : IComparable, IEquatable<mdAssembly>
     {
@@ -885,6 +901,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdAssemblyRef]")]
     public struct mdAssemblyRef : IComparable, IEquatable<mdAssemblyRef>
     {
@@ -928,6 +945,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdFile]")]
     public struct mdFile : IComparable, IEquatable<mdFile>
     {
@@ -971,6 +989,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdExportedType]")]
     public struct mdExportedType : IComparable, IEquatable<mdExportedType>
     {
@@ -1014,6 +1033,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdManifestResource]")]
     public struct mdManifestResource : IComparable, IEquatable<mdManifestResource>
     {
@@ -1057,6 +1077,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdTypeSpec]")]
     public struct mdTypeSpec : IComparable, IEquatable<mdTypeSpec>
     {
@@ -1100,6 +1121,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdGenericParam]")]
     public struct mdGenericParam : IComparable, IEquatable<mdGenericParam>
     {
@@ -1143,6 +1165,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdMethodSpec]")]
     public struct mdMethodSpec : IComparable, IEquatable<mdMethodSpec>
     {
@@ -1186,6 +1209,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdGenericParamConstraint]")]
     public struct mdGenericParamConstraint : IComparable, IEquatable<mdGenericParamConstraint>
     {
@@ -1229,6 +1253,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdString]")]
     public struct mdString : IComparable, IEquatable<mdString>
     {
@@ -1272,6 +1297,7 @@ namespace ClrDebug
         public override string ToString() => "0x" + Value.ToString("X");
     }
 
+    [Serializable]
     [DebuggerDisplay("{ToString(),nq} [mdCPToken]")]
     public struct mdCPToken : IComparable, IEquatable<mdCPToken>
     {
