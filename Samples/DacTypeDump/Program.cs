@@ -32,7 +32,7 @@ namespace DacTypeDump
             //Create an ICLRDataTarget that will facilitate communicating between this program and our debug target (PowerShell)
             var dataTarget = new DataTarget(process);
 
-            /* Get a delegate for mscordacwks!CLRDataCreateInstance. One of the Extensions.CLRDataCreateInstance() overloads encapsulates this logic for Windows systens,
+            /* Get a delegate for mscordacwks!CLRDataCreateInstance. One of the Extensions.CLRDataCreateInstance() overloads encapsulates this logic for Windows systems,
              * however you can additionally create this delegate from the relevant DAC assembly for your platform yourself */
             var clrDataCreateInstance = GetCLRDataCreateInstance();
 
@@ -112,6 +112,7 @@ namespace DacTypeDump
         {
             /* We need to create a ClrDataAccess object (IXCLRDataProcess/ISOSDacInterface) from mscordacwks.dll.
              * This can be done by calling the mscordacwks!CLRDataCreateInstance method. We can't simply P/Invoke
+             * this method however, as P/Invoke will search the global PATH for any and all mscordacwks.dll assemblies,
              * this method however, as P/Invoke will search the global PATH for any and all mscordacwks.dll methods,
              * which is wrong. We need to load the specific mscordacwks.dll from the exact runtime version/bitness
              * we're executing under. */

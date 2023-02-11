@@ -13,16 +13,23 @@ namespace DacTypeDump
     class DataTarget : ICLRDataTarget
     {
         private Process process;
+        private bool isWow64;
 
         public DataTarget(Process process)
         {
             this.process = process;
+
+            if (!NativeMethods.IsWow64Process(process.Handle, out isWow64))
+                throw new InvalidOperationException($"Failed to query {nameof(NativeMethods.IsWow64Process)}: {(HRESULT)Marshal.GetHRForLastWin32Error()}");
+
+            if (isWow64 && IntPtr.Size == 8)
+                throw new InvalidOperationException("Cannot attach to a 32-bit target from a 64-bit process.");
         }
 
         public HRESULT GetMachineType(out IMAGE_FILE_MACHINE machineType)
         {
             //This sample assumes Windows
-            machineType = IntPtr.Size == 4 ? IMAGE_FILE_MACHINE.I386 : IMAGE_FILE_MACHINE.AMD64;
+            machineType = isWow64 ? IMAGE_FILE_MACHINE.I386 : IMAGE_FILE_MACHINE.AMD64;
             return HRESULT.S_OK;
         }
 
