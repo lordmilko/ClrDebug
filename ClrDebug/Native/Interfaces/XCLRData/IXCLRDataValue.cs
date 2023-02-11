@@ -25,13 +25,13 @@ namespace ClrDebug
         HRESULT GetBytes(
             [In] int bufLen,
             [Out] out int dataSize,
-            [Out] out IntPtr buffer);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] buffer);
 
         [PreserveSig]
         HRESULT SetBytes(
             [In] int bufLen,
             [Out] out int dataSize,
-            [In] IntPtr buffer);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] buffer);
 
         [PreserveSig]
         HRESULT GetType(

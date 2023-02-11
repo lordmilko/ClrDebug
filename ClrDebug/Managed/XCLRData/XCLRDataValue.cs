@@ -266,10 +266,10 @@ namespace ClrDebug
             /*HRESULT GetBytes(
             [In] int bufLen,
             [Out] out int dataSize,
-            [Out] out IntPtr buffer);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] buffer);*/
             int dataSize;
-            IntPtr buffer;
-            HRESULT hr = Raw.GetBytes(bufLen, out dataSize, out buffer);
+            byte[] buffer = new byte[bufLen];
+            HRESULT hr = Raw.GetBytes(bufLen, out dataSize, buffer);
 
             if (hr == HRESULT.S_OK)
                 result = new GetBytesResult(dataSize, buffer);
@@ -282,7 +282,7 @@ namespace ClrDebug
         #endregion
         #region SetBytes
 
-        public int SetBytes(int bufLen, IntPtr buffer)
+        public int SetBytes(int bufLen, byte[] buffer)
         {
             int dataSize;
             TrySetBytes(bufLen, out dataSize, buffer).ThrowOnNotOK();
@@ -290,12 +290,12 @@ namespace ClrDebug
             return dataSize;
         }
 
-        public HRESULT TrySetBytes(int bufLen, out int dataSize, IntPtr buffer)
+        public HRESULT TrySetBytes(int bufLen, out int dataSize, byte[] buffer)
         {
             /*HRESULT SetBytes(
             [In] int bufLen,
             [Out] out int dataSize,
-            [In] IntPtr buffer);*/
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] buffer);*/
             return Raw.SetBytes(bufLen, out dataSize, buffer);
         }
 

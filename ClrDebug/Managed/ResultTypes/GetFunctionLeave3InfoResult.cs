@@ -15,7 +15,7 @@ namespace ClrDebug
 
         /// <summary>
         /// A pointer to a <see cref="COR_PRF_FUNCTION_ARGUMENT_RANGE"/> structure that contains the value that is returned from the function.<para/>
-        /// To access return value information, the COR_PRF_ENABLE_FUNCTION_RETVAL flag must be set. The profiler can use the EventMask to set the event flags.
+        /// To access return value information, the COR_PRF_ENABLE_FUNCTION_RETVAL flag must be set. The profiler can use the <see cref="CorProfilerInfo.EventMask"/> to set the event flags.
         /// </summary>
         public COR_PRF_FUNCTION_ARGUMENT_RANGE pRetvalRange { get; }
 

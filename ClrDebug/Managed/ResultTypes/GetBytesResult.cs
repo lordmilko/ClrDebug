@@ -1,19 +1,18 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace ClrDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="XCLRDataValue.GetBytes"/> method.
     /// </summary>
-    [DebuggerDisplay("dataSize = {dataSize}, buffer = {buffer.ToString(),nq}")]
+    [DebuggerDisplay("dataSize = {dataSize}, buffer = {buffer}")]
     public struct GetBytesResult
     {
         public int dataSize { get; }
 
-        public IntPtr buffer { get; }
+        public byte[] buffer { get; }
 
-        public GetBytesResult(int dataSize, IntPtr buffer)
+        public GetBytesResult(int dataSize, byte[] buffer)
         {
             this.dataSize = dataSize;
             this.buffer = buffer;
