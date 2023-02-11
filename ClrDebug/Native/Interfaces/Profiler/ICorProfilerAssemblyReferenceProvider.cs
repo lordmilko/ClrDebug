@@ -32,6 +32,6 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT AddAssemblyReference(
-            [In, Out] ref COR_PRF_ASSEMBLY_REFERENCE_INFO pAssemblyRefInfo);
+            [In] ref COR_PRF_ASSEMBLY_REFERENCE_INFO pAssemblyRefInfo);
     }
 }

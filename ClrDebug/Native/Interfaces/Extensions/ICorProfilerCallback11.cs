@@ -708,7 +708,7 @@ namespace ClrDebug
             [In] int cMovedObjectIDRanges,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ObjectID[] oldObjectIDRangeStart,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ObjectID[] newObjectIDRangeStart,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int cObjectIDRangeLength);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] cObjectIDRangeLength);
 
         /// <summary>
         /// Notifies the profiler that memory within the heap has been allocated for an object.
@@ -1492,7 +1492,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid pRelatedActivityId,
             [In] ThreadID eventThread,
             [In] int numStackFrames,
-            [MarshalAs(UnmanagedType.LPArray), In] IntPtr stackFrames);
+            [MarshalAs(UnmanagedType.LPArray), In] IntPtr[] stackFrames);
 
         /// <summary>
         /// Notifies the profiler whenever an EventPipe provider is created.

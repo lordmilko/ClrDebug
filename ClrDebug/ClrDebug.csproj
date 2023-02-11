@@ -22,6 +22,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Numbers.cs</LastGenOutput>
     </None>
+    <None Update="Extensions\Profiler.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Profiler.cs</LastGenOutput>
+    </None>
     <None Update="Extensions\Tokens.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Tokens.cs</LastGenOutput>
@@ -33,6 +37,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Numbers.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions\Profiler.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Profiler.tt</DependentUpon>
     </Compile>
     <Compile Update="Extensions\Tokens.cs">
       <DesignTime>True</DesignTime>

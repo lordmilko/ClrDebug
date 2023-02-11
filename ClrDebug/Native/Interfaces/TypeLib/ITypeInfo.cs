@@ -112,8 +112,8 @@ namespace ClrDebug.TypeLib
             [In] int memid,
             [In] short wFlags,
             [In, Out] ref DISPPARAMS pDispParams,
-            [In] IntPtr pVarResult,
-            [In] IntPtr pExcepInfo,
+            [Out] out IntPtr pVarResult,
+            [Out] out IntPtr pExcepInfo,
             [Out] out int puArgErr);
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace ClrDebug.TypeLib
         HRESULT AddressOfMember(
             [In] int memid,
             [In] INVOKEKIND invKind,
-            [Out] IntPtr ppv);
+            [Out] out IntPtr ppv);
 
         /// <summary>
         /// Creates a new instance of a type that describes a component class (coclass).

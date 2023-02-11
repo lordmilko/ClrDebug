@@ -1312,7 +1312,7 @@ namespace ClrDebug
             [In] ModuleID moduleId,
             [In] int cAppDomainIds,
             [Out] out int pcAppDomainIds,
-            [MarshalAs(UnmanagedType.LPArray), Out] AppDomainID appDomainIds);
+            [MarshalAs(UnmanagedType.LPArray), Out] AppDomainID[] appDomainIds);
 
         /// <summary>
         /// Given a module ID, returns the file name of the module, the ID of the module's parent assembly, and a bitmask that describes the properties of the module.
@@ -1346,7 +1346,7 @@ namespace ClrDebug
             [Out] out int pcchName,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
             [Out] out AssemblyID pAssemblyId,
-            [Out] out int pdwModuleFlags);
+            [Out] out COR_PRF_MODULE_FLAGS pdwModuleFlags);
 
         /// <summary>
         /// Returns an enumerator that provides methods to sequentially iterate through the collection of all managed threads in the profiled process.
@@ -1502,7 +1502,7 @@ namespace ClrDebug
             [In] FunctionID functionId,
             [In] int cReJitIds,
             [Out] out int pcReJitIds,
-            [MarshalAs(UnmanagedType.LPArray), Out] ReJITID reJitIds);
+            [MarshalAs(UnmanagedType.LPArray), Out] ReJITID[] reJitIds);
 
         /// <summary>
         /// Gets a map from Microsoft intermediate language (MSIL) offsets to native offsets for the code contained in the JIT-recompiled version of the specified function.
@@ -1532,7 +1532,7 @@ namespace ClrDebug
             [In] ReJITID reJitId,
             [In] int cMap,
             [Out] out int pcMap,
-            [MarshalAs(UnmanagedType.LPArray), Out] COR_DEBUG_IL_TO_NATIVE_MAP map);
+            [MarshalAs(UnmanagedType.LPArray), Out] COR_DEBUG_IL_TO_NATIVE_MAP[] map);
 
         /// <summary>
         /// Returns an enumerator for all functions that were previously JIT-compiled and JIT-recompiled. This method replaces the <see cref="ICorProfilerInfo3.EnumJITedFunctions"/> method, which does not enumerate JIT-recompiled IDs.

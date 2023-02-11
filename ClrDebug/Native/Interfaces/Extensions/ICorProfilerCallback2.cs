@@ -724,7 +724,7 @@ namespace ClrDebug
             [In] int cMovedObjectIDRanges,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ObjectID[] oldObjectIDRangeStart,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ObjectID[] newObjectIDRangeStart,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int cObjectIDRangeLength);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] cObjectIDRangeLength);
 
         /// <summary>
         /// Notifies the profiler that memory within the heap has been allocated for an object.

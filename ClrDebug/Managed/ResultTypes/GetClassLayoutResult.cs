@@ -3,29 +3,23 @@
 namespace ClrDebug
 {
     /// <summary>
-    /// Encapsulates the results of the <see cref="MetaDataImport.GetClassLayout"/> method.
+    /// Encapsulates the results of the <see cref="CorProfilerInfo.GetClassLayout"/> method.
     /// </summary>
-    [DebuggerDisplay("pdwPackSize = {pdwPackSize}, rFieldOffset = {rFieldOffset}, pulClassSize = {pulClassSize}")]
+    [DebuggerDisplay("rFieldOffset = {rFieldOffset}, pulClassSize = {pulClassSize}")]
     public struct GetClassLayoutResult
     {
         /// <summary>
-        /// One of the values 1, 2, 4, 8, or 16, representing the pack size of the class.
-        /// </summary>
-        public int pdwPackSize { get; }
-
-        /// <summary>
-        /// An array of <see cref="COR_FIELD_OFFSET"/> values.
+        /// An array of COR_FIELD_OFFSET structures, each of which contains the tokens and offsets of the class's fields.
         /// </summary>
         public COR_FIELD_OFFSET[] rFieldOffset { get; }
 
         /// <summary>
-        /// The size in bytes of the class represented by td.
+        /// A pointer to a location that contains the size, in bytes, of the class.
         /// </summary>
         public int pulClassSize { get; }
 
-        public GetClassLayoutResult(int pdwPackSize, COR_FIELD_OFFSET[] rFieldOffset, int pulClassSize)
+        public GetClassLayoutResult(COR_FIELD_OFFSET[] rFieldOffset, int pulClassSize)
         {
-            this.pdwPackSize = pdwPackSize;
             this.rFieldOffset = rFieldOffset;
             this.pulClassSize = pulClassSize;
         }

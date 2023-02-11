@@ -1344,7 +1344,7 @@ namespace ClrDebug
             [In] ModuleID moduleId,
             [In] int cAppDomainIds,
             [Out] out int pcAppDomainIds,
-            [MarshalAs(UnmanagedType.LPArray), Out] AppDomainID appDomainIds);
+            [MarshalAs(UnmanagedType.LPArray), Out] AppDomainID[] appDomainIds);
 
         /// <summary>
         /// Given a module ID, returns the file name of the module, the ID of the module's parent assembly, and a bitmask that describes the properties of the module.
@@ -1378,6 +1378,6 @@ namespace ClrDebug
             [Out] out int pcchName,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
             [Out] out AssemblyID pAssemblyId,
-            [Out] out int pdwModuleFlags);
+            [Out] out COR_PRF_MODULE_FLAGS pdwModuleFlags);
     }
 }
