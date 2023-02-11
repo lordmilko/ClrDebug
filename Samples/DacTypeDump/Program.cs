@@ -41,16 +41,6 @@ namespace DacTypeDump
              * In this sample, we don't actually need to use IXCLRDataProcess, however this demonstrates how if you do have one, it's easy to get an ISOSDacInterface from it */
             var dataProcess = CLRDataCreateInstance(clrDataCreateInstance, dataTarget).XCLRDataProcess;
 
-            //todo: document the type of event/output callback object we get when we set ansi and get wide,
-            //and vice versa
-
-            //todo: theres a number of lpstruct references in our dbgeng code. isnt that only valid for guids?
-
-
-            //todo: "Z:\windows-driver-docs-ddi\wdk-ddi-src\content\dbgeng\nf-dbgeng-idebugclient-getoutputwidth.md"
-            //"for commands" is incorrectly getting merged into 1 word
-
-
             //Rather than creating a new mscordacwks!ClrDataAccess object, we'll simply QueryInterface ISOSDacInterface out of our IXCLRDataProcess
             sosDacInterface = new SOSDacInterface((ISOSDacInterface) dataProcess.Raw);
 
@@ -113,7 +103,6 @@ namespace DacTypeDump
             /* We need to create a ClrDataAccess object (IXCLRDataProcess/ISOSDacInterface) from mscordacwks.dll.
              * This can be done by calling the mscordacwks!CLRDataCreateInstance method. We can't simply P/Invoke
              * this method however, as P/Invoke will search the global PATH for any and all mscordacwks.dll assemblies,
-             * this method however, as P/Invoke will search the global PATH for any and all mscordacwks.dll methods,
              * which is wrong. We need to load the specific mscordacwks.dll from the exact runtime version/bitness
              * we're executing under. */
             var mscordacwksPath = Path.Combine(RuntimeEnvironment.GetRuntimeDirectory(), "mscordacwks.dll");

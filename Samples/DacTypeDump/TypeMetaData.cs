@@ -16,23 +16,23 @@ namespace DacTypeDump
             Name = name;
         }
 
-        public void AddMethod(MetaDataImport_GetMethodPropsResult methodProps)
+        public void AddMethod(string name)
         {
             Members.Add(
                 new Member
                 {
-                    Name = methodProps.szMethod,
+                    Name = name,
                     Type = "Method"
                 }
             );
         }
 
-        public void AddField(GetFieldPropsResult fieldProps)
+        public void AddField(string name)
         {
             Members.Add(
                 new Member
                 {
-                    Name = fieldProps.szField,
+                    Name = name,
                     Type = "Field"
                 }
             );
