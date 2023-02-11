@@ -5,7 +5,7 @@ namespace ClrDebug
 {
     [DebuggerDisplay("ControlWord = {ControlWord}, StatusWord = {StatusWord}, TagWord = {TagWord}, ErrorOffset = {ErrorOffset}, ErrorSelector = {ErrorSelector}, DataOffset = {DataOffset}, DataSelector = {DataSelector}, RegisterArea = {RegisterArea}, Cr0NpxState = {Cr0NpxState}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct X86_FLOATING_SAVE_AREA
+    public unsafe struct X86_FLOATING_SAVE_AREA
     {
         public int ControlWord;
         public int StatusWord;
@@ -14,8 +14,7 @@ namespace ClrDebug
         public int ErrorSelector;
         public int DataOffset;
         public int DataSelector;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 80)]
-        public byte[] RegisterArea;
+        public fixed byte RegisterArea[80];
         public int Cr0NpxState;
     }
 }

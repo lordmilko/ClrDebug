@@ -129,7 +129,19 @@ namespace ClrDebug
 
             //Most context structs (X86, ARM, ARM64) specify their ContextFlags member at offset 0.
             //AMD64 however has a bunch of home members in front
-            if (typeof(T) == typeof(AMD64_CONTEXT))
+            if (typeof(T) == typeof(CROSS_PLATFORM_CONTEXT) && contextFlags >= ContextFlags.AMD64Context && contextFlags <= ContextFlags.AMD64ContextAll)
+            {
+                var ctx = new CROSS_PLATFORM_CONTEXT
+                {
+                    Amd64Context = new AMD64_CONTEXT
+                    {
+                        ContextFlags = contextFlags
+                    }
+                };
+
+                Marshal.StructureToPtr(ctx, buffer, false);
+            }
+            else if (typeof(T) == typeof(AMD64_CONTEXT))
             {
                 var ctx = new AMD64_CONTEXT
                 {
