@@ -17,7 +17,7 @@ namespace ClrDebug
         /// <remarks>
         /// The Initialize call is the only opportunity to enable (or disable) callbacks that are immutable. Once a callback
         /// is enabled by the Initialize call, it cannot be disabled later using <see cref="ICorProfilerInfo.SetEventMask"/>.
-        /// The COR_PRF_MONITOR_IMMUTABLE value of the COR_PRF_MONITOR enumeration indicates which events are immutable.
+        /// The COR_PRF_MONITOR_IMMUTABLE value of the <see cref="COR_PRF_MONITOR"/> enumeration indicates which events are immutable.
         /// </remarks>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -423,7 +423,7 @@ namespace ClrDebug
         /// <remarks>
         /// The profiler can set pfShouldInline to false to prevent the calleeId function from being inserted into the callerId
         /// function. Also, the profiler can globally disable inline insertion by using the COR_PRF_DISABLE_INLINING value
-        /// of the COR_PRF_MONITOR enumeration. Functions inserted inline do not raise events for entering or leaving. Therefore,
+        /// of the <see cref="COR_PRF_MONITOR"/> enumeration. Functions inserted inline do not raise events for entering or leaving. Therefore,
         /// the profiler must set pfShouldInline to false in order to produce an accurate callgraph. Setting pfShouldInline
         /// to false will affect performance, because inline insertion typically increases speed and reduces the number of
         /// separate JIT compilation events for the inserted method.
