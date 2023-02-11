@@ -41,7 +41,7 @@
         public HRESULT TryBind(string szName, int lHashVal, short wFlags, out BindResult result)
         {
             /*HRESULT Bind(
-            [In] string szName,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] int lHashVal,
             [In] short wFlags,
             [Out] out ITypeInfo ppTInfo,
@@ -86,7 +86,7 @@
         public HRESULT TryBindType(string szName, int lHashVal, out BindTypeResult result)
         {
             /*HRESULT BindType(
-            [In] string szName,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] int lHashVal,
             [Out] out ITypeInfo ppTInfo,
             [Out] out ITypeComp ppTComp);*/

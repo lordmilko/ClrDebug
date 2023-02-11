@@ -16,7 +16,10 @@ namespace ClrDebug.DbgEng
         /// <param name="ConnectOptions">[in, optional] Specifies the connection settings for communicating with the computer running the kernel target.<para/>
         /// The interpretation of ConnectOptions depends on the value of Flags. ConnectOptions will be interpreted the same way as the options that follow the -k switch on the WinDbg and KD command lines.<para/>
         /// Environment variables affect ConnectOptions in the same way they affect the -k switch. eXDI drivers are not described in this documentation.<para/>
-        /// If you have an eXDI interface to your hardware probe or hardware simulator, please contact Microsoft for debugging information.</param>
+        /// If you have an eXDI interface to your hardware probe or hardware simulator, please contact Microsoft for debugging information.<para/>
+        /// eXDI drivers are not described in this documentation. If you have an eXDI interface to your hardware probe or hardware simulator, please contact Microsoft for debugging information.<para/>
+        /// ConnectOptions will be interpreted the same way as the options that follow the -k switch on the WinDbg and KD command lines.<para/>
+        /// Environment variables affect ConnectOptions in the same way they affect the -k switch.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
         HRESULT AttachKernel(

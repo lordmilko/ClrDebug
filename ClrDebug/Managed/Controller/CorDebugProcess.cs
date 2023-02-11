@@ -997,7 +997,7 @@ namespace ClrDebug
 
         #region Filter
 
-        public CorDebugDebugEvent Filter(byte[] pRecord, int countBytes, CorDebugRecordFormat format, int dwFlags, int dwThreadId, ref int pContinueStatus)
+        public CorDebugDebugEvent Filter(byte[] pRecord, int countBytes, CorDebugRecordFormat format, CorDebugDecodeEventFlagsWindows dwFlags, int dwThreadId, ref NTSTATUS pContinueStatus)
         {
             CorDebugDebugEvent ppEventResult;
             TryFilter(pRecord, countBytes, format, dwFlags, dwThreadId, ref pContinueStatus, out ppEventResult).ThrowOnNotOK();
@@ -1005,16 +1005,16 @@ namespace ClrDebug
             return ppEventResult;
         }
 
-        public HRESULT TryFilter(byte[] pRecord, int countBytes, CorDebugRecordFormat format, int dwFlags, int dwThreadId, ref int pContinueStatus, out CorDebugDebugEvent ppEventResult)
+        public HRESULT TryFilter(byte[] pRecord, int countBytes, CorDebugRecordFormat format, CorDebugDecodeEventFlagsWindows dwFlags, int dwThreadId, ref NTSTATUS pContinueStatus, out CorDebugDebugEvent ppEventResult)
         {
             /*HRESULT Filter(
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] pRecord,
             [In] int countBytes,
             [In] CorDebugRecordFormat format,
-            [In] int dwFlags,
+            [In] CorDebugDecodeEventFlagsWindows dwFlags,
             [In] int dwThreadId,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugDebugEvent ppEvent,
-            [In, Out] ref int pContinueStatus);*/
+            [In, Out] ref NTSTATUS pContinueStatus);*/
             ICorDebugDebugEvent ppEvent;
             HRESULT hr = Raw4.Filter(pRecord, countBytes, format, dwFlags, dwThreadId, out ppEvent, ref pContinueStatus);
 
@@ -1898,7 +1898,7 @@ namespace ClrDebug
         public HRESULT TryEnableGCNotificationEvents(bool fEnable)
         {
             /*HRESULT EnableGCNotificationEvents(
-            bool fEnable);*/
+            [In] bool fEnable);*/
             return Raw10.EnableGCNotificationEvents(fEnable);
         }
 
@@ -1911,8 +1911,16 @@ namespace ClrDebug
 
         #region EnumerateLoaderHeapMemoryRegions
 
+        /// <summary>
+        /// [Supported in .NET 5 and later versions.] Enumerates ranges of native memory that are used by the .NET runtime to store internal data structures that describe .NET types and methods.<para/>
+        /// The information returned is the same information that would be shown by using the SOS eeheap-loader command.
+        /// </summary>
         public COR_MEMORY_RANGE[] LoaderHeapMemoryRegions => EnumerateLoaderHeapMemoryRegions().ToArray();
 
+        /// <summary>
+        /// [Supported in .NET 5 and later versions.] Enumerates ranges of native memory that are used by the .NET runtime to store internal data structures that describe .NET types and methods.<para/>
+        /// The information returned is the same information that would be shown by using the SOS eeheap-loader command.
+        /// </summary>
         public CorDebugMemoryRangeEnum EnumerateLoaderHeapMemoryRegions()
         {
             CorDebugMemoryRangeEnum ppRangesResult;
@@ -1921,10 +1929,14 @@ namespace ClrDebug
             return ppRangesResult;
         }
 
+        /// <summary>
+        /// [Supported in .NET 5 and later versions.] Enumerates ranges of native memory that are used by the .NET runtime to store internal data structures that describe .NET types and methods.<para/>
+        /// The information returned is the same information that would be shown by using the SOS eeheap-loader command.
+        /// </summary>
         public HRESULT TryEnumerateLoaderHeapMemoryRegions(out CorDebugMemoryRangeEnum ppRangesResult)
         {
             /*HRESULT EnumerateLoaderHeapMemoryRegions(
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryRangeEnum ppRanges);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryRangeEnum ppRanges);*/
             ICorDebugMemoryRangeEnum ppRanges;
             HRESULT hr = Raw11.EnumerateLoaderHeapMemoryRegions(out ppRanges);
 

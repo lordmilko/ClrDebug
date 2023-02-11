@@ -520,7 +520,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetOutputCallbacks(
-            [Out] out IDebugOutputCallbacks Callbacks);
+            [Out] out IDebugOutputCallbacks Callbacks); //Due to conversions to and from wide types, we can't assume the IDebugOutputCallbacks we get back is the one we put in
 
         /// <summary>
         /// The SetOutputCallbacks method registers an output callbacks object with this client.
@@ -536,7 +536,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT SetOutputCallbacks(
-            [In] IDebugOutputCallbacks Callbacks);
+            [In] IDebugOutputCallbacks Callbacks); //Due to conversions to and from wide types, we can't assume the IDebugOutputCallbacks we put in is the one we'll get back
 
         /// <summary>
         /// The GetOutputMask method returns the output mask currently set for the client.

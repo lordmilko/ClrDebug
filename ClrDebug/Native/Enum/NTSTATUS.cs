@@ -4,6 +4,9 @@
     {
         STATUS_SUCCESS = 0,
 
+        DBG_EXCEPTION_HANDLED = 0x00010001,
+        DBG_CONTINUE = 0x00010002,
+
         STATUS_INFO_LENGTH_MISMATCH = 0xC0000004,
 
         /// <summary>

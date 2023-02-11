@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ClrDebug
@@ -12,6 +13,7 @@ namespace ClrDebug
     /// is called from the <see cref="ICorProfilerCallback2.GarbageCollectionStarted"/> or the <see cref="ICorProfilerCallback2.GarbageCollectionFinished"/>
     /// method.
     /// </remarks>
+    [DebuggerDisplay("generation = {generation.ToString(),nq}, rangeStart = {rangeStart.ToString(),nq}, rangeLength = {rangeLength.ToString(),nq}, rangeLengthReserved = {rangeLengthReserved.ToString(),nq}")]
     [StructLayout(LayoutKind.Sequential, Pack = 8)]
     public struct COR_PRF_GC_GENERATION_RANGE
     {

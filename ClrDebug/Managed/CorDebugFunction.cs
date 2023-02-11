@@ -505,7 +505,7 @@ namespace ClrDebug
         public HRESULT TryCreateNativeBreakpoint(out CorDebugFunctionBreakpoint ppBreakpointResult)
         {
             /*HRESULT CreateNativeBreakpoint(
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugFunctionBreakpoint ppBreakpoint);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunctionBreakpoint ppBreakpoint);*/
             ICorDebugFunctionBreakpoint ppBreakpoint;
             HRESULT hr = Raw4.CreateNativeBreakpoint(out ppBreakpoint);
 

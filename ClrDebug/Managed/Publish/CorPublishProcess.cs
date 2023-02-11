@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 
 namespace ClrDebug
 {
@@ -129,6 +130,11 @@ namespace ClrDebug
 
         #endregion
         #region EnumAppDomains
+
+        /// <summary>
+        /// Gets an enumerator for the application domains in the process that is referenced by this <see cref="ICorPublishProcess"/>.
+        /// </summary>
+        public CorPublishAppDomain[] AppDomains => EnumAppDomains().ToArray();
 
         /// <summary>
         /// Gets an enumerator for the application domains in the process that is referenced by this <see cref="ICorPublishProcess"/>.

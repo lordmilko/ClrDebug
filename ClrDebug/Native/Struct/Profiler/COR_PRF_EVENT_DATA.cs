@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug
 {
@@ -9,6 +10,7 @@ namespace ClrDebug
     /// The COR_PRF_EVENT_DATA structure is used by the <see cref="ICorProfilerInfo12.EventPipeWriteEvent"/> method to
     /// provide the data payload for the event being written.
     /// </remarks>
+    [DebuggerDisplay("ptr = {ptr}, size = {size}, reserved = {reserved}")]
     [StructLayout(LayoutKind.Sequential, Pack = 8)]
     public struct COR_PRF_EVENT_DATA
     {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ClrDebug
@@ -6,6 +7,7 @@ namespace ClrDebug
     /// <summary>
     /// Represents a block of function arguments stored contiguously in left-to-right order in memory.
     /// </summary>
+    [DebuggerDisplay("startAddress = {startAddress.ToString(),nq}, length = {length}")]
     [StructLayout(LayoutKind.Sequential, Pack = 8)]
     public struct COR_PRF_FUNCTION_ARGUMENT_RANGE
     {

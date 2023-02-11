@@ -19,6 +19,6 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateLoaderHeapMemoryRegions(
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryRangeEnum ppRanges);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryRangeEnum ppRanges);
     }
 }

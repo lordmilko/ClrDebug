@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ClrDebug
@@ -10,6 +11,7 @@ namespace ClrDebug
     /// The COR_PRF_EVENTPIPE_PARAM_DESC structure is used by the <see cref="ICorProfilerInfo12.EventPipeDefineEvent"/>
     /// method to define the parameter types of the event being defined.
     /// </remarks>
+    [DebuggerDisplay("type = {type.ToString(),nq}, elementType = {elementType.ToString(),nq}, name = {name}")]
     [ComConversionLoss]
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct COR_PRF_EVENTPIPE_PARAM_DESC

@@ -21,7 +21,7 @@ namespace ClrDebug.TypeLib
         /// <param name="pBindPtr">When this method returns, contains a reference to the bound-to VARDESC, FUNCDESC, or ITypeComp interface. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT Bind(
-            [In] string szName,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] int lHashVal,
             [In] short wFlags,
             [Out] out ITypeInfo ppTInfo,
@@ -37,7 +37,7 @@ namespace ClrDebug.TypeLib
         /// <param name="ppTComp">When this method returns, contains a reference to an ITypeComp variable. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT BindType(
-            [In] string szName,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] int lHashVal,
             [Out] out ITypeInfo ppTInfo,
             [Out] out ITypeComp ppTComp);

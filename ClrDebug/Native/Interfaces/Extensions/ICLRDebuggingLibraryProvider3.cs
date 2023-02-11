@@ -72,8 +72,8 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ProvideUnixLibrary(
-            [In] ref ushort pwszFileName,
-            [In] ref ushort pwszRuntimeModule,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string pwszFileName,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string pwszRuntimeModule,
             [In] LIBRARY_PROVIDER_INDEX_TYPE indexType,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] pbBuildId,
             [In] int iBuildIdSize,

@@ -56,7 +56,7 @@ namespace ClrDebug.TypeLib
         public unsafe HRESULT TryGetLibAttr(out TLIBATTR* ppTLibAttr)
         {
             /*HRESULT GetLibAttr(
-            out TLIBATTR* ppTLibAttr);*/
+            [Out] out TLIBATTR* ppTLibAttr);*/
             return Raw.GetLibAttr(out ppTLibAttr);
         }
 
@@ -84,7 +84,7 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetTypeComp(out TypeComp ppTCompResult)
         {
             /*HRESULT GetTypeComp(
-            out ITypeComp ppTComp);*/
+            [Out] out ITypeComp ppTComp);*/
             ITypeComp ppTComp;
             HRESULT hr = Raw.GetTypeComp(out ppTComp);
 
@@ -120,8 +120,8 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetTypeInfo(int index, out TypeInfo ppTIResult)
         {
             /*HRESULT GetTypeInfo(
-            int index,
-            out ITypeInfo ppTI);*/
+            [In] int index,
+            [Out] out ITypeInfo ppTI);*/
             ITypeInfo ppTI;
             HRESULT hr = Raw.GetTypeInfo(index, out ppTI);
 
@@ -157,8 +157,8 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetTypeInfoType(int index, out TYPEKIND pTKind)
         {
             /*HRESULT GetTypeInfoType(
-            int index,
-            out TYPEKIND pTKind);*/
+            [In] int index,
+            [Out] out TYPEKIND pTKind);*/
             return Raw.GetTypeInfoType(index, out pTKind);
         }
 
@@ -223,11 +223,11 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetDocumentation(int index, out GetDocumentationResult result)
         {
             /*HRESULT GetDocumentation(
-            int index,
-            out string strName,
-            out string strDocString,
-            out int dwHelpContext,
-            out string strHelpFile);*/
+            [In] int index,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string strName,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string strDocString,
+            [Out] out int dwHelpContext,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string strHelpFile);*/
             string strName;
             string strDocString;
             int dwHelpContext;
@@ -268,9 +268,9 @@ namespace ClrDebug.TypeLib
         public HRESULT TryIsName(string szNameBuf, int lHashVal, out bool pfName)
         {
             /*HRESULT IsName(
-            [MarshalAs(UnmanagedType.LPWStr)] string szNameBuf,
-            int lHashVal,
-            out bool pfName);*/
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szNameBuf,
+            [In] int lHashVal,
+            [Out] out bool pfName);*/
             return Raw.IsName(szNameBuf, lHashVal, out pfName);
         }
 
@@ -304,8 +304,8 @@ namespace ClrDebug.TypeLib
         public HRESULT TryFindName(string szNameBuf, int lHashVal, short pcFound, out FindNameResult result)
         {
             /*HRESULT FindName(
-            [MarshalAs(UnmanagedType.LPWStr)] string szNameBuf,
-            int lHashVal,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szNameBuf,
+            [In] int lHashVal,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4), Out] ITypeInfo[] ppTInfo,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4), Out] int[] rgMemId,
             [In, Out] ref short pcFound);*/
@@ -316,10 +316,10 @@ namespace ClrDebug.TypeLib
             if (hr == HRESULT.S_OK)
             {
                 if (ppTInfo.Length != pcFound)
-                    Array.Resize(ref ppTInfo, pcFound);
+                    Array.Resize(ref ppTInfo, (int) pcFound);
 
                 if (rgMemId.Length != pcFound)
-                    Array.Resize(ref rgMemId, pcFound);
+                    Array.Resize(ref rgMemId, (int) pcFound);
 
                 result = new FindNameResult(ppTInfo.Select(v => new TypeInfo(v)).ToArray(), rgMemId);
             }
@@ -339,7 +339,7 @@ namespace ClrDebug.TypeLib
         public unsafe void ReleaseTLibAttr(TLIBATTR* pTLibAttr)
         {
             /*void ReleaseTLibAttr(
-            TLIBATTR* pTLibAttr);*/
+            [In] TLIBATTR* pTLibAttr);*/
             Raw.ReleaseTLibAttr(pTLibAttr);
         }
 
@@ -402,10 +402,10 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetDocumentation2(int index, out GetDocumentation2Result result)
         {
             /*HRESULT GetDocumentation2(
-            int index,
-            out string pbstrHelpString,
-            out int pdwHelpStringContext,
-            out string pbstrHelpStringDll);*/
+            [In] int index,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string pbstrHelpString,
+            [Out] out int pdwHelpStringContext,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string pbstrHelpStringDll);*/
             string pbstrHelpString;
             int pdwHelpStringContext;
             string pbstrHelpStringDll;
@@ -443,8 +443,8 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetLibStatistics(IntPtr pcUniqueNames, out int pcchUniqueNames)
         {
             /*HRESULT GetLibStatistics(
-            IntPtr pcUniqueNames,
-            out int pcchUniqueNames);*/
+            [In] IntPtr pcUniqueNames,
+            [Out] out int pcchUniqueNames);*/
             return Raw2.GetLibStatistics(pcUniqueNames, out pcchUniqueNames);
         }
 
@@ -467,7 +467,7 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetAllCustData(IntPtr pCustData)
         {
             /*HRESULT GetAllCustData(
-            IntPtr pCustData);*/
+            [In] IntPtr pCustData);*/
             return Raw2.GetAllCustData(pCustData);
         }
 

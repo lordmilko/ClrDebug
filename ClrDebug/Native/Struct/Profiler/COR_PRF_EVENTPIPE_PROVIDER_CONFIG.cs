@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug
 {
@@ -9,6 +10,7 @@ namespace ClrDebug
     /// The COR_PRF_EVENTPIPE_PROVIDER_CONFIG structure is used by the <see cref="ICorProfilerInfo12.EventPipeAddProviderToSession"/>
     /// method to indicate the configuration for the provider being added to the session.
     /// </remarks>
+    [DebuggerDisplay("providerName = {providerName}, keywords = {keywords.ToString(),nq}, loggingLevel = {loggingLevel.ToString(),nq}, filterData = {filterData}")]
     [ComConversionLoss]
     [StructLayout(LayoutKind.Sequential, Pack = 8)]
     public struct COR_PRF_EVENTPIPE_PROVIDER_CONFIG

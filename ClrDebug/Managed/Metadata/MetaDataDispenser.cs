@@ -60,7 +60,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid rclsid,
             [In] int dwCreateFlags,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);*/
+            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppIUnk);*/
             return Raw.DefineScope(rclsid, dwCreateFlags, riid, out ppIUnk);
         }
 
@@ -117,7 +117,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string szScope,
             [In] CorOpenFlags dwOpenFlags,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);*/
+            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppIUnk);*/
             return Raw.OpenScope(szScope, dwOpenFlags, riid, out ppIUnk);
         }
 

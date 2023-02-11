@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ClrDebug
@@ -12,6 +13,7 @@ namespace ClrDebug
     /// about to be run or has just been run. Execution of an exception clause involves these callbacks from the common
     /// language runtime (CLR):
     /// </remarks>
+    [DebuggerDisplay("clauseType = {clauseType.ToString(),nq}, programCounter = {programCounter.ToString(),nq}, framePointer = {framePointer.ToString(),nq}, shadowStackPointer = {shadowStackPointer.ToString(),nq}")]
     [StructLayout(LayoutKind.Sequential, Pack = 8)]
     public struct COR_PRF_EX_CLAUSE_INFO
     {

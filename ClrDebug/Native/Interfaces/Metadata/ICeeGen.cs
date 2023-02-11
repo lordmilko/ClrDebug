@@ -65,7 +65,7 @@ namespace ClrDebug
         [Obsolete]
         [PreserveSig]
         HRESULT GetIMapTokenIface(
-            [Out, MarshalAs(UnmanagedType.Interface)] out object pIMapToken);
+            [Out, MarshalAs(UnmanagedType.IUnknown)] out object pIMapToken);
 
         /// <summary>
         /// Generates a code-base file that contains the code base currently loaded into this <see cref="ICeeGen"/> interface.<para/>

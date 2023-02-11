@@ -220,7 +220,7 @@ namespace ClrDebug
         /// as mscordbi.dll and mscordacwks.dll. The debugger may use any available means to locate or procure the debugging
         /// module.
         /// </remarks>
-        public IntPtr ProvideUnixLibrary(ushort pwszFileName, ushort pwszRuntimeModule, LIBRARY_PROVIDER_INDEX_TYPE indexType, byte[] pbBuildId, int iBuildIdSize)
+        public IntPtr ProvideUnixLibrary(string pwszFileName, string pwszRuntimeModule, LIBRARY_PROVIDER_INDEX_TYPE indexType, byte[] pbBuildId, int iBuildIdSize)
         {
             IntPtr ppResolvedModulePath;
             TryProvideUnixLibrary(pwszFileName, pwszRuntimeModule, indexType, pbBuildId, iBuildIdSize, out ppResolvedModulePath).ThrowOnNotOK();
@@ -251,16 +251,16 @@ namespace ClrDebug
         /// as mscordbi.dll and mscordacwks.dll. The debugger may use any available means to locate or procure the debugging
         /// module.
         /// </remarks>
-        public HRESULT TryProvideUnixLibrary(ushort pwszFileName, ushort pwszRuntimeModule, LIBRARY_PROVIDER_INDEX_TYPE indexType, byte[] pbBuildId, int iBuildIdSize, out IntPtr ppResolvedModulePath)
+        public HRESULT TryProvideUnixLibrary(string pwszFileName, string pwszRuntimeModule, LIBRARY_PROVIDER_INDEX_TYPE indexType, byte[] pbBuildId, int iBuildIdSize, out IntPtr ppResolvedModulePath)
         {
             /*HRESULT ProvideUnixLibrary(
-            [In] ref ushort pwszFileName,
-            [In] ref ushort pwszRuntimeModule,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string pwszFileName,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string pwszRuntimeModule,
             [In] LIBRARY_PROVIDER_INDEX_TYPE indexType,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] byte[] pbBuildId,
             [In] int iBuildIdSize,
             [Out] out IntPtr ppResolvedModulePath);*/
-            return Raw3.ProvideUnixLibrary(ref pwszFileName, ref pwszRuntimeModule, indexType, pbBuildId, iBuildIdSize, out ppResolvedModulePath);
+            return Raw3.ProvideUnixLibrary(pwszFileName, pwszRuntimeModule, indexType, pbBuildId, iBuildIdSize, out ppResolvedModulePath);
         }
 
         #endregion

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ClrDebug
@@ -15,6 +16,7 @@ namespace ClrDebug
     /// method with a COR_PRF_ASSEMBLY_REFERENCE_INFO object for each target assembly it plans to reference from the assembly
     /// specified in the <see cref="ICorProfilerCallback6.GetAssemblyReferences"/> callback.
     /// </remarks>
+    [DebuggerDisplay("pbPublicKeyOrToken = {pbPublicKeyOrToken.ToString(),nq}, cbPublicKeyOrToken = {cbPublicKeyOrToken}, szName = {szName}, pMetaData = {pMetaData}, pbHashValue = {pbHashValue.ToString(),nq}, cbHashValue = {cbHashValue}, dwAssemblyRefFlags = {dwAssemblyRefFlags}")]
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public unsafe struct COR_PRF_ASSEMBLY_REFERENCE_INFO
     {

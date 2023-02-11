@@ -174,12 +174,7 @@ namespace ClrDebug.DbgEng
         /// <param name="StringBuffer">[out, optional] Receives the requested string. The interpretation of this string depends on the value of Which.<para/>
         /// If StringBuffer is NULL, this information is not returned.</param>
         /// <param name="StringBufferSize">[in] Specifies the size, in characters, of the string buffer StringBuffer.</param>
-        /// <param name="StringSize">[out, optional] Receives the size, in characters, of the string returned to StringBuffer. If StringSize is NULL, this information is not returned.<para/>
-        /// The engine breakpoint ID of the desired breakpoint. The PDB classification of the symbol. Arg32 must be one of the values in the SymTagEnum enumeration defined in Dbghelp.h.<para/>
-        /// For more information, see PDB documentation. The PDB classification of the symbol. Arg32 must be one of the values in the SymTagEnum enumeration defined in Dbghelp.h.<para/>
-        /// For more information, see PDB documentation. Set to zero. Ignored. Specifies the module whose symbols are requested.<para/>
-        /// Arg64 is a location within the memory allocation of the module. Specifies the address in the target's memory of the symbol whose name is being requested.<para/>
-        /// The base address of the module whose description is being requested.</param>
+        /// <param name="StringSize">[out, optional] Receives the size, in characters, of the string returned to StringBuffer. If StringSize is NULL, this information is not returned.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
         new HRESULT GetSymbolInformation(
@@ -202,8 +197,7 @@ namespace ClrDebug.DbgEng
         /// <param name="Buffer">[out, optional] Receives the requested information. The type of data returned in Buffer depends on the value of Which.<para/>
         /// <see cref="DEBUG_THREAD_BASIC_INFORMATION"/></param>
         /// <param name="BufferSize">[in] Specifies the size, in bytes, of the buffer Buffer.</param>
-        /// <param name="InfoSize">[out, optional] Receives the size of the information that is returned. The engine thread ID of the desired thread.<para/>
-        /// Not used.</param>
+        /// <param name="InfoSize">[out, optional] Receives the size of the information that is returned.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
         new HRESULT GetSystemObjectInformation(

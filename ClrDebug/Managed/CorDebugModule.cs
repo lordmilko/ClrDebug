@@ -920,6 +920,9 @@ namespace ClrDebug
 
         #region IsMappedLayout
 
+        /// <summary>
+        /// Determines whether a module is loaded into memory in mapped/hydrated format.
+        /// </summary>
         public bool IsMappedLayout
         {
             get
@@ -931,10 +934,22 @@ namespace ClrDebug
             }
         }
 
+        /// <summary>
+        /// Determines whether a module is loaded into memory in mapped/hydrated format.
+        /// </summary>
+        /// <param name="pIsMapped">[out] Pointer to a BOOL to store mapping information. TRUE represents mapped format while FALSE represents flat format.</param>
+        /// <returns>
+        /// * S_OK - Successfully created the reader.
+        /// * S_FALSE - The layout couldn't be determined.
+        /// </returns>
+        /// <remarks>
+        /// The pIsMapped value should only be interpreted as valid when this function returns S_OK. All other return values
+        /// (includingS_FALSE) indicate that the layout couldn't be determined and pIsMapped should be ignored.
+        /// </remarks>
         public HRESULT TryIsMappedLayout(out bool pIsMapped)
         {
             /*HRESULT IsMappedLayout(
-            out bool pIsMapped);*/
+            [Out] out bool pIsMapped);*/
             return Raw4.IsMappedLayout(out pIsMapped);
         }
 

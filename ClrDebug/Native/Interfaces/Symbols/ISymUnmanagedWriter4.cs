@@ -68,7 +68,7 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the scope identifier.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         /// <remarks>
-        /// <see cref="ISymUnmanagedWriter.OpenScope"/> returns an opaque scope identifier that can be used with <see cref="SetScopeRange"/>
+        /// <see cref="OpenScope"/> returns an opaque scope identifier that can be used with <see cref="SetScopeRange"/>
         /// to define a scope's starting and ending offset at a later time. In this case, the offsets passed to ISymUnmanagedWriter::OpenScope
         /// and <see cref="CloseScope"/> are ignored. Scope identifiers are valid only in the current method.
         /// </remarks>
@@ -86,7 +86,7 @@ namespace ClrDebug
         /// <remarks>
         /// Once a scope is closed, no more variables can be defined within it. <see cref="OpenScope"/> returns an opaque scope
         /// identifier that can be used with <see cref="SetScopeRange"/> to later define a scope's starting and ending offset.
-        /// In this case, the offsets passed to <see cref="ISymUnmanagedWriter.OpenScope"/> and <see cref="ISymUnmanagedWriter.CloseScope"/> are ignored.
+        /// In this case, the offsets passed to <see cref="OpenScope"/> and <see cref="CloseScope"/> are ignored.
         /// Scope identifiers are valid only in the current method.
         /// </remarks>
         [PreserveSig]

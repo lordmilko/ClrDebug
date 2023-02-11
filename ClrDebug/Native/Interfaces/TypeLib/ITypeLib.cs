@@ -25,8 +25,8 @@ namespace ClrDebug.TypeLib
         /// <param name="ppTI">When this method returns, contains an <see cref="ITypeInfo"/> describing the type referenced by <paramref name="index"/>. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT GetTypeInfo(
-            int index,
-            out ITypeInfo ppTI);
+            [In] int index,
+            [Out] out ITypeInfo ppTI);
 
         /// <summary>
         /// Retrieves the type of a type description.
@@ -35,8 +35,8 @@ namespace ClrDebug.TypeLib
         /// <param name="pTKind">When this method returns, contains a reference to the <see cref="TYPEKIND"/> enumeration for the type description. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT GetTypeInfoType(
-            int index,
-            out TYPEKIND pTKind);
+            [In] int index,
+            [Out] out TYPEKIND pTKind);
 
         /// <summary>
         /// Retrieves the type description that corresponds to the specified GUID.
@@ -54,7 +54,7 @@ namespace ClrDebug.TypeLib
         /// <param name="ppTLibAttr">When this method returns, contains a structure that contains the library's attributes. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT GetLibAttr(
-            out TLIBATTR* ppTLibAttr);
+            [Out] out TLIBATTR* ppTLibAttr);
 
         /// <summary>
         /// Enables a client compiler to bind to a library's types, variables, constants, and global functions.
@@ -62,7 +62,7 @@ namespace ClrDebug.TypeLib
         /// <param name="ppTComp">When this method returns, contains an instance of a <see cref="ITypeComp"/> instance for this <see cref="ITypeLib"/>. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT GetTypeComp(
-            out ITypeComp ppTComp);
+            [Out] out ITypeComp ppTComp);
 
         /// <summary>
         /// Retrieves the library's documentation string, the complete Help file name and path, and the context identifier for the library Help topic in the Help file.
@@ -74,11 +74,11 @@ namespace ClrDebug.TypeLib
         /// <param name="strHelpFile">When this method returns, contains a string that represents the fully qualified name of the Help file. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT GetDocumentation(
-            int index,
-            out string strName,
-            out string strDocString,
-            out int dwHelpContext,
-            out string strHelpFile);
+            [In] int index,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string strName,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string strDocString,
+            [Out] out int dwHelpContext,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string strHelpFile);
 
         /// <summary>
         /// Indicates whether a passed-in string contains the name of a type or member described in the library.
@@ -88,9 +88,9 @@ namespace ClrDebug.TypeLib
         /// <param name="pfName"><see langword="true"/> if <paramref name="szNameBuf"/> was found in the type library; otherwise, <see langword="false"/>.</param>
         [PreserveSig]
         HRESULT IsName(
-            [MarshalAs(UnmanagedType.LPWStr)] string szNameBuf,
-            int lHashVal,
-            out bool pfName);
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szNameBuf,
+            [In] int lHashVal,
+            [Out] out bool pfName);
 
         /// <summary>
         /// Finds occurrences of a type description in a type library.
@@ -103,8 +103,8 @@ namespace ClrDebug.TypeLib
         /// On exit, indicates the number of instances that were found. If the <see langword="in"/> and <see langword="out"/> values of pcFound are identical, there might be more type descriptions that contain the name.</param>
         [PreserveSig]
         HRESULT FindName(
-            [MarshalAs(UnmanagedType.LPWStr)] string szNameBuf,
-            int lHashVal,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string szNameBuf,
+            [In] int lHashVal,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4), Out] ITypeInfo[] ppTInfo,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4), Out] int[] rgMemId,
             [In, Out] ref short pcFound);
@@ -115,6 +115,6 @@ namespace ClrDebug.TypeLib
         /// <param name="pTLibAttr">The <see cref="TLIBATTR"/> structure to release.</param>
         [PreserveSig]
         void ReleaseTLibAttr(
-            TLIBATTR* pTLibAttr);
+            [In] TLIBATTR* pTLibAttr);
     }
 }

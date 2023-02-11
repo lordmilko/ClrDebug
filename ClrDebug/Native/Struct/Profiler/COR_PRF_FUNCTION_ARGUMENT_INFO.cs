@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug
 {
@@ -14,6 +15,7 @@ namespace ClrDebug
     /// structure, which references multiple COR_PRF_FUNCTION_ARGUMENT_RANGE structures, each of which points to one or
     /// more function arguments. Arguments that are stored in registers are spilled into memory to build the structures.
     /// </remarks>
+    [DebuggerDisplay("numRanges = {numRanges}, totalArgumentSize = {totalArgumentSize}, ranges = {ranges}")]
     [StructLayout(LayoutKind.Sequential, Pack = 8)]
     public unsafe struct COR_PRF_FUNCTION_ARGUMENT_INFO
     {

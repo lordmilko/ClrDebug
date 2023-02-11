@@ -70,7 +70,7 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetTypeComp(out TypeComp ppTCompResult)
         {
             /*HRESULT GetTypeComp(
-            out ITypeComp ppTComp);*/
+            [Out] out ITypeComp ppTComp);*/
             ITypeComp ppTComp;
             HRESULT hr = Raw.GetTypeComp(out ppTComp);
 
@@ -106,8 +106,8 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetContainingTypeLib(out GetContainingTypeLibResult result)
         {
             /*HRESULT GetContainingTypeLib(
-            out ITypeLib ppTLB,
-            out int pIndex);*/
+            [Out] out ITypeLib ppTLB,
+            [Out] out int pIndex);*/
             ITypeLib ppTLB;
             int pIndex;
             HRESULT hr = Raw.GetContainingTypeLib(out ppTLB, out pIndex);
@@ -146,8 +146,8 @@ namespace ClrDebug.TypeLib
         public unsafe HRESULT TryGetFuncDesc(int index, out FUNCDESC* ppFuncDesc)
         {
             /*HRESULT GetFuncDesc(
-            int index,
-            out FUNCDESC* ppFuncDesc);*/
+            [In] int index,
+            [Out] out FUNCDESC* ppFuncDesc);*/
             return Raw.GetFuncDesc(index, out ppFuncDesc);
         }
 
@@ -177,8 +177,8 @@ namespace ClrDebug.TypeLib
         public unsafe HRESULT TryGetVarDesc(int index, out VARDESC* ppVarDesc)
         {
             /*HRESULT GetVarDesc(
-            int index,
-            out VARDESC* ppVarDesc);*/
+            [In] int index,
+            [Out] out VARDESC* ppVarDesc);*/
             return Raw.GetVarDesc(index, out ppVarDesc);
         }
 
@@ -209,7 +209,7 @@ namespace ClrDebug.TypeLib
         {
             /*HRESULT GetNames(
             [In] int memid,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.BStr)] string[] rgBstrNames,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.BStr, SizeParamIndex = 2)] string[] rgBstrNames,
             [In] int cMaxNames,
             [Out] out int pcNames);*/
             rgBstrNames = new string[cMaxNames];
@@ -246,8 +246,8 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetRefTypeOfImplType(int index, out int href)
         {
             /*HRESULT GetRefTypeOfImplType(
-            int index,
-            out int href);*/
+            [In] int index,
+            [Out] out int href);*/
             return Raw.GetRefTypeOfImplType(index, out href);
         }
 
@@ -275,8 +275,8 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetImplTypeFlags(int index, out IMPLTYPEFLAGS pImplTypeFlags)
         {
             /*HRESULT GetImplTypeFlags(
-            int index,
-            out IMPLTYPEFLAGS pImplTypeFlags);*/
+            [In] int index,
+            [Out] out IMPLTYPEFLAGS pImplTypeFlags);*/
             return Raw.GetImplTypeFlags(index, out pImplTypeFlags);
         }
 
@@ -286,27 +286,37 @@ namespace ClrDebug.TypeLib
         /// <summary>
         /// Maps between member names and member IDs, and parameter names and parameter IDs.
         /// </summary>
-        /// <param name="rgszNames">An array of names to map.</param>
         /// <param name="cNames">The count of names to map.</param>
-        /// <param name="pMemId">When this method returns, contains a reference to an array in which name mappings are placed. This parameter is passed uninitialized.</param>
-        public void GetIDsOfNames(string[] rgszNames, int cNames, int[] pMemId)
+        /// <returns>The values that were emitted from the COM method.</returns>
+        public GetIDsOfNamesResult GetIDsOfNames(int cNames)
         {
-            TryGetIDsOfNames(rgszNames, cNames, pMemId).ThrowOnNotOK();
+            GetIDsOfNamesResult result;
+            TryGetIDsOfNames(cNames, out result).ThrowOnNotOK();
+
+            return result;
         }
 
         /// <summary>
         /// Maps between member names and member IDs, and parameter names and parameter IDs.
         /// </summary>
-        /// <param name="rgszNames">An array of names to map.</param>
         /// <param name="cNames">The count of names to map.</param>
-        /// <param name="pMemId">When this method returns, contains a reference to an array in which name mappings are placed. This parameter is passed uninitialized.</param>
-        public HRESULT TryGetIDsOfNames(string[] rgszNames, int cNames, int[] pMemId)
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        public HRESULT TryGetIDsOfNames(int cNames, out GetIDsOfNamesResult result)
         {
             /*HRESULT GetIDsOfNames(
-            string[] rgszNames,
-            int cNames,
-            int[] pMemId);*/
-            return Raw.GetIDsOfNames(rgszNames, cNames, pMemId);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] string[] rgszNames,
+            [In] int cNames,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] pMemId);*/
+            string[] rgszNames = new string[cNames];
+            int[] pMemId = new int[cNames];
+            HRESULT hr = Raw.GetIDsOfNames(rgszNames, cNames, pMemId);
+
+            if (hr == HRESULT.S_OK)
+                result = new GetIDsOfNamesResult(rgszNames, pMemId);
+            else
+                result = default(GetIDsOfNamesResult);
+
+            return hr;
         }
 
         #endregion
@@ -318,13 +328,12 @@ namespace ClrDebug.TypeLib
         /// <param name="pvInstance">A reference to the interface described by this type description.</param>
         /// <param name="memid">A value that identifies the interface member.</param>
         /// <param name="wFlags">Flags that describe the context of the invoke call.</param>
-        /// <param name="pVarResult">A reference to the location at which the result is to be stored. If wFlags specifies DISPATCH_PROPERTYPUT or DISPATCH_PROPERTYPUTREF, pVarResult is ignored. Set to null if no result is desired.</param>
-        /// <param name="pExcepInfo">A pointer to an exception information structure, which is filled in only if DISP_E_EXCEPTION is returned.</param>
+        /// <param name="pDispParams">A reference to a structure that contains an array of arguments, an array of DISPIDs for named arguments, and counts of the number of elements in each array.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public InvokeResult Invoke(object pvInstance, int memid, short wFlags, IntPtr pVarResult, IntPtr pExcepInfo)
+        public InvokeResult Invoke(object pvInstance, int memid, short wFlags, ref DISPPARAMS pDispParams)
         {
             InvokeResult result;
-            TryInvoke(pvInstance, memid, wFlags, pVarResult, pExcepInfo, out result).ThrowOnNotOK();
+            TryInvoke(pvInstance, memid, wFlags, ref pDispParams, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -335,25 +344,25 @@ namespace ClrDebug.TypeLib
         /// <param name="pvInstance">A reference to the interface described by this type description.</param>
         /// <param name="memid">A value that identifies the interface member.</param>
         /// <param name="wFlags">Flags that describe the context of the invoke call.</param>
-        /// <param name="pVarResult">A reference to the location at which the result is to be stored. If wFlags specifies DISPATCH_PROPERTYPUT or DISPATCH_PROPERTYPUTREF, pVarResult is ignored. Set to null if no result is desired.</param>
-        /// <param name="pExcepInfo">A pointer to an exception information structure, which is filled in only if DISP_E_EXCEPTION is returned.</param>
+        /// <param name="pDispParams">A reference to a structure that contains an array of arguments, an array of DISPIDs for named arguments, and counts of the number of elements in each array.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryInvoke(object pvInstance, int memid, short wFlags, IntPtr pVarResult, IntPtr pExcepInfo, out InvokeResult result)
+        public HRESULT TryInvoke(object pvInstance, int memid, short wFlags, ref DISPPARAMS pDispParams, out InvokeResult result)
         {
             /*HRESULT Invoke(
-            [MarshalAs(UnmanagedType.IUnknown)] object pvInstance,
-            int memid,
-            short wFlags,
-            ref DISPPARAMS pDispParams,
-            IntPtr pVarResult,
-            IntPtr pExcepInfo,
-            out int puArgErr);*/
-            DISPPARAMS pDispParams = default(DISPPARAMS);
+            [In, MarshalAs(UnmanagedType.IUnknown)] object pvInstance,
+            [In] int memid,
+            [In] short wFlags,
+            [In, Out] ref DISPPARAMS pDispParams,
+            [Out] out IntPtr pVarResult,
+            [Out] out IntPtr pExcepInfo,
+            [Out] out int puArgErr);*/
+            IntPtr pVarResult;
+            IntPtr pExcepInfo;
             int puArgErr;
-            HRESULT hr = Raw.Invoke(pvInstance, memid, wFlags, ref pDispParams, pVarResult, pExcepInfo, out puArgErr);
+            HRESULT hr = Raw.Invoke(pvInstance, memid, wFlags, ref pDispParams, out pVarResult, out pExcepInfo, out puArgErr);
 
             if (hr == HRESULT.S_OK)
-                result = new InvokeResult(pDispParams, puArgErr);
+                result = new InvokeResult(pVarResult, pExcepInfo, puArgErr);
             else
                 result = default(InvokeResult);
 
@@ -384,11 +393,11 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetDocumentation(int index, out GetDocumentationResult result)
         {
             /*HRESULT GetDocumentation(
-            int index,
-            out string strName,
-            out string strDocString,
-            out int dwHelpContext,
-            out string strHelpFile);*/
+            [In] int index,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string strName,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string strDocString,
+            [Out] out int dwHelpContext,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string strHelpFile);*/
             string strName;
             string strDocString;
             int dwHelpContext;
@@ -411,12 +420,13 @@ namespace ClrDebug.TypeLib
         /// </summary>
         /// <param name="memid">The ID of the member function whose DLL entry description is to be returned.</param>
         /// <param name="invKind">One of the <see cref="INVOKEKIND"/> values that specifies the kind of member identified by memid.</param>
-        /// <param name="pBstrDllName">If not null, the function sets pBstrDllName to a BSTR that contains the name of the DLL.</param>
-        /// <param name="pBstrName">If not null, the function sets lpbstrName to a BSTR that contains the name of the entry point.</param>
-        /// <param name="pwOrdinal">If not null, and the function is defined by an ordinal, then lpwOrdinal is set to point to the ordinal.</param>
-        public void GetDllEntry(int memid, INVOKEKIND invKind, IntPtr pBstrDllName, IntPtr pBstrName, IntPtr pwOrdinal)
+        /// <returns>The values that were emitted from the COM method.</returns>
+        public GetDllEntryResult GetDllEntry(int memid, INVOKEKIND invKind)
         {
-            TryGetDllEntry(memid, invKind, pBstrDllName, pBstrName, pwOrdinal).ThrowOnNotOK();
+            GetDllEntryResult result;
+            TryGetDllEntry(memid, invKind, out result).ThrowOnNotOK();
+
+            return result;
         }
 
         /// <summary>
@@ -424,18 +434,26 @@ namespace ClrDebug.TypeLib
         /// </summary>
         /// <param name="memid">The ID of the member function whose DLL entry description is to be returned.</param>
         /// <param name="invKind">One of the <see cref="INVOKEKIND"/> values that specifies the kind of member identified by memid.</param>
-        /// <param name="pBstrDllName">If not null, the function sets pBstrDllName to a BSTR that contains the name of the DLL.</param>
-        /// <param name="pBstrName">If not null, the function sets lpbstrName to a BSTR that contains the name of the entry point.</param>
-        /// <param name="pwOrdinal">If not null, and the function is defined by an ordinal, then lpwOrdinal is set to point to the ordinal.</param>
-        public HRESULT TryGetDllEntry(int memid, INVOKEKIND invKind, IntPtr pBstrDllName, IntPtr pBstrName, IntPtr pwOrdinal)
+        /// <param name="result">The values that were emitted from the COM method.</param>
+        public HRESULT TryGetDllEntry(int memid, INVOKEKIND invKind, out GetDllEntryResult result)
         {
             /*HRESULT GetDllEntry(
-            int memid,
-            INVOKEKIND invKind,
-            IntPtr pBstrDllName,
-            IntPtr pBstrName,
-            IntPtr pwOrdinal);*/
-            return Raw.GetDllEntry(memid, invKind, pBstrDllName, pBstrName, pwOrdinal);
+            [In] int memid,
+            [In] INVOKEKIND invKind,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string pBstrDllName,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string pBstrName,
+            [Out] out short pwOrdinal);*/
+            string pBstrDllName;
+            string pBstrName;
+            short pwOrdinal;
+            HRESULT hr = Raw.GetDllEntry(memid, invKind, out pBstrDllName, out pBstrName, out pwOrdinal);
+
+            if (hr == HRESULT.S_OK)
+                result = new GetDllEntryResult(pBstrDllName, pBstrName, pwOrdinal);
+            else
+                result = default(GetDllEntryResult);
+
+            return hr;
         }
 
         #endregion
@@ -462,8 +480,8 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetRefTypeInfo(int hRef, out TypeInfo ppTIResult)
         {
             /*HRESULT GetRefTypeInfo(
-            int hRef,
-            out ITypeInfo ppTI);*/
+            [In] int hRef,
+            [Out] out ITypeInfo ppTI);*/
             ITypeInfo ppTI;
             HRESULT hr = Raw.GetRefTypeInfo(hRef, out ppTI);
 
@@ -501,9 +519,9 @@ namespace ClrDebug.TypeLib
         public HRESULT TryAddressOfMember(int memid, INVOKEKIND invKind, out IntPtr ppv)
         {
             /*HRESULT AddressOfMember(
-            int memid,
-            INVOKEKIND invKind,
-            out IntPtr ppv);*/
+            [In] int memid,
+            [In] INVOKEKIND invKind,
+            [Out] out IntPtr ppv);*/
             return Raw.AddressOfMember(memid, invKind, out ppv);
         }
 
@@ -563,8 +581,8 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetMops(int memid, out string pBstrMops)
         {
             /*HRESULT GetMops(
-            int memid,
-            out string pBstrMops);*/
+            [In] int memid,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string pBstrMops);*/
             return Raw.GetMops(memid, out pBstrMops);
         }
 
@@ -578,7 +596,7 @@ namespace ClrDebug.TypeLib
         public unsafe void ReleaseTypeAttr(TYPEATTR* pTypeAttr)
         {
             /*void ReleaseTypeAttr(
-            TYPEATTR* pTypeAttr);*/
+            [In] TYPEATTR* pTypeAttr);*/
             Raw.ReleaseTypeAttr(pTypeAttr);
         }
 
@@ -592,7 +610,7 @@ namespace ClrDebug.TypeLib
         public unsafe void ReleaseFuncDesc(FUNCDESC* pFuncDesc)
         {
             /*void ReleaseFuncDesc(
-            FUNCDESC* pFuncDesc);*/
+            [In] FUNCDESC* pFuncDesc);*/
             Raw.ReleaseFuncDesc(pFuncDesc);
         }
 
@@ -606,7 +624,7 @@ namespace ClrDebug.TypeLib
         public unsafe void ReleaseVarDesc(VARDESC* pVarDesc)
         {
             /*void ReleaseVarDesc(
-            VARDESC* pVarDesc);*/
+            [In] VARDESC* pVarDesc);*/
             Raw.ReleaseVarDesc(pVarDesc);
         }
 
@@ -640,7 +658,7 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetTypeKind(out TYPEKIND pTypeKind)
         {
             /*HRESULT GetTypeKind(
-            out TYPEKIND pTypeKind);*/
+            [Out] out TYPEKIND pTypeKind);*/
             return Raw2.GetTypeKind(out pTypeKind);
         }
 
@@ -668,7 +686,7 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetTypeFlags(out TYPEFLAGS pTypeFlags)
         {
             /*HRESULT GetTypeFlags(
-            out TYPEFLAGS pTypeFlags);*/
+            [Out] out TYPEFLAGS pTypeFlags);*/
             return Raw2.GetTypeFlags(out pTypeFlags);
         }
 
@@ -726,9 +744,9 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetFuncIndexOfMemId(int memid, INVOKEKIND invKind, out int pFuncIndex)
         {
             /*HRESULT GetFuncIndexOfMemId(
-            int memid,
-            INVOKEKIND invKind,
-            out int pFuncIndex);*/
+            [In] int memid,
+            [In] INVOKEKIND invKind,
+            [Out] out int pFuncIndex);*/
             return Raw2.GetFuncIndexOfMemId(memid, invKind, out pFuncIndex);
         }
 
@@ -756,8 +774,8 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetVarIndexOfMemId(int memid, out int pVarIndex)
         {
             /*HRESULT GetVarIndexOfMemId(
-            int memid,
-            out int pVarIndex);*/
+            [In] int memid,
+            [Out] out int pVarIndex);*/
             return Raw2.GetVarIndexOfMemId(memid, out pVarIndex);
         }
 
@@ -945,10 +963,10 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetDocumentation2(int memid, out GetDocumentation2Result result)
         {
             /*HRESULT GetDocumentation2(
-            int memid,
-            out string pbstrHelpString,
-            out int pdwHelpStringContext,
-            out string pbstrHelpStringDll);*/
+            [In] int memid,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string pbstrHelpString,
+            [Out] out int pdwHelpStringContext,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string pbstrHelpStringDll);*/
             string pbstrHelpString;
             int pdwHelpStringContext;
             string pbstrHelpStringDll;
@@ -1017,8 +1035,8 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetAllParamCustData(int indexFunc, int indexParam, out CUSTDATA pCustData)
         {
             /*HRESULT GetAllParamCustData(
-            int indexFunc,
-            int indexParam,
+            [In] int indexFunc,
+            [In] int indexParam,
             [Out] out CUSTDATA pCustData);*/
             return Raw2.GetAllParamCustData(indexFunc, indexParam, out pCustData);
         }
@@ -1047,7 +1065,7 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetAllVarCustData(int index, out CUSTDATA pCustData)
         {
             /*HRESULT GetAllVarCustData(
-            int index,
+            [In] int index,
             [Out] out CUSTDATA pCustData);*/
             return Raw2.GetAllVarCustData(index, out pCustData);
         }
@@ -1076,7 +1094,7 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetAllImplTypeCustData(int index, out CUSTDATA pCustData)
         {
             /*HRESULT GetAllImplTypeCustData(
-            int index,
+            [In] int index,
             [Out] out CUSTDATA pCustData);*/
             return Raw2.GetAllImplTypeCustData(index, out pCustData);
         }

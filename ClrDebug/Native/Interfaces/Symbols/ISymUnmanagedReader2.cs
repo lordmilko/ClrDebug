@@ -81,6 +81,14 @@ namespace ClrDebug
             [In] int version,
             [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);
 
+        /// <summary>
+        /// Returns a non-local variable, given its parent and name.
+        /// </summary>
+        /// <param name="parent">[in] The parent of the variable.</param>
+        /// <param name="cVars">[in] The size of the pVars array.</param>
+        /// <param name="pcVars">[out] A pointer to the variable that receives the number of variables returned in pVars.</param>
+        /// <param name="pVars">[out] A pointer to the variable that receives the variables.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetVariables(
@@ -89,6 +97,13 @@ namespace ClrDebug
             [Out] out int pcVars,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ISymUnmanagedVariable[] pVars);
 
+        /// <summary>
+        /// Returns all global variables.
+        /// </summary>
+        /// <param name="cVars">[in] The length of the buffer pointed to by pcVars.</param>
+        /// <param name="pcVars">[out] A pointer to a ULONG32 that receives the size of the buffer required to contain the variables.</param>
+        /// <param name="pVars">[out] A buffer that contains the variables.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetGlobalVariables(
@@ -112,6 +127,15 @@ namespace ClrDebug
             [In] int column,
             [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);
 
+        /// <summary>
+        /// Gets a custom attribute based upon its name. Unlike metadata custom attributes, these custom attributes are held in the symbol store.
+        /// </summary>
+        /// <param name="parent">[in] The metadata token for the object for which the attribute is requested.</param>
+        /// <param name="name">[in] A pointer to the variable that indicates the attribute to retrieve.</param>
+        /// <param name="cBuffer">[in] The size of the buffer array.</param>
+        /// <param name="pcBuffer">[out] A pointer to the variable that receives the length of the attribute data.</param>
+        /// <param name="buffer">[out] A pointer to the variable that receives the attribute data.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetSymAttribute(
@@ -121,6 +145,13 @@ namespace ClrDebug
             [Out] out int pcBuffer,
             [Out] IntPtr buffer);
 
+        /// <summary>
+        /// Gets the namespaces defined at global scope within this symbol store.
+        /// </summary>
+        /// <param name="cNameSpaces">[in] The size of the namespaces array.</param>
+        /// <param name="pcNameSpaces">[out] A pointer to a variable that receives the length of the namespace list.</param>
+        /// <param name="namespaces">[out] A pointer to a variable that receives the namespace list.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetNamespaces(
@@ -172,6 +203,13 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string filename,
             [MarshalAs(UnmanagedType.Interface), In] IStream pIStream);
 
+        /// <summary>
+        /// Provides the on-disk file name of the symbol store.
+        /// </summary>
+        /// <param name="cchName">[in] The size of the szName buffer.</param>
+        /// <param name="pcchName">[out] A pointer to the variable that receives the length of the name returned in szName, including the null termination.</param>
+        /// <param name="szName">[out] A pointer to the variable that receives the file name of the symbol store.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetSymbolStoreFileName(
@@ -179,6 +217,16 @@ namespace ClrDebug
             [Out] out int pcchName,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);
 
+        /// <summary>
+        /// Returns an array of methods, each of which contains the breakpoint at the given position in a document.
+        /// </summary>
+        /// <param name="document">[in] The specified document.</param>
+        /// <param name="line">[in] The line of the specified document.</param>
+        /// <param name="column">[in] The column of the specified document.</param>
+        /// <param name="cMethod">[in] The size of the pRetVal array.</param>
+        /// <param name="pcMethod">[out] A pointer to a variable that receives the number of elements returned in the pRetVal array.</param>
+        /// <param name="pRetVal">[out] An array of pointers, each of which points to an <see cref="ISymUnmanagedMethod"/> object that represents a method containing the breakpoint.</param>
+        /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetMethodsFromDocumentPosition(

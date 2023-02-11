@@ -11,11 +11,11 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetTarget(
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugReferenceValue ppObject);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugReferenceValue ppObject);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetFunction(
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
     }
 }

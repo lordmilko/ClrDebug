@@ -1474,7 +1474,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);
 
         /// <summary>
-        /// The GetExceptionFilterSecondCommandWide method returns the command that will be executed by the debugger engine upon the second chance of a specified exception.
+        /// The GetExceptionFilterSecondCommand method returns the command that will be executed by the debugger engine upon the second chance of a specified exception.
         /// </summary>
         /// <param name="Index">[in] Specifies the index of the exception filter whose second-chance command will be returned. Index can also refer to the default exception filter to return the second-chance command for those exceptions that do not have a specific or arbitrary exception filter.</param>
         /// <param name="Buffer">[out, optional] Receives the second-chance command for the exception filter.</param>

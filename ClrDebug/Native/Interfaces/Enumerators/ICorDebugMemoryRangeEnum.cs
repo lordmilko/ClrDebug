@@ -27,18 +27,18 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Clone(
-            [MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetCount(
-            out int pcelt);
+            [Out] out int pcelt);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Next(
             [In] int celt,
             [Out] out COR_MEMORY_RANGE objects,
-            out int pceltFetched);
+            [Out] out int pceltFetched);
     }
 }

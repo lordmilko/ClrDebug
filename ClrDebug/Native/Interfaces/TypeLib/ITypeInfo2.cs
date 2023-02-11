@@ -12,7 +12,8 @@ namespace ClrDebug.TypeLib
     public unsafe interface ITypeInfo2 : ITypeInfo
     {
         /// <summary>
-        /// Retrieves a <see cref="TYPEATTR"/> structure that contains the attributes of the type description.
+        /// Retrieves a <see cref="TYPEATTR"/> structure that contains the attributes of the type description.<para/>
+        /// This value must be released by calling <see cref="ReleaseTypeAttr"/>.
         /// </summary>
         /// <param name="ppTypeAttr">When this method returns, contains a reference to the structure that contains the attributes of this type description. This parameter is passed uninitialized.</param>
         [PreserveSig]
@@ -25,27 +26,29 @@ namespace ClrDebug.TypeLib
         /// <param name="ppTComp">When this method returns, contains a reference to the ITypeComp interface of the containing type library. This parameter is passed uninitialized.</param>
         [PreserveSig]
         new HRESULT GetTypeComp(
-            out ITypeComp ppTComp);
+            [Out] out ITypeComp ppTComp);
 
         /// <summary>
-        /// Retrieves the <see cref="FUNCDESC"/> structure that contains information about a specified function.
+        /// Retrieves the <see cref="FUNCDESC"/> structure that contains information about a specified function.<para/>
+        /// This value must be released by calling <see cref="ReleaseFuncDesc"/>.
         /// </summary>
         /// <param name="index">The index of the function description to return.</param>
         /// <param name="ppFuncDesc">When this method returns, contains a reference to a FUNCDESC structure that describes the specified function. This parameter is passed uninitialized.</param>
         [PreserveSig]
         new HRESULT GetFuncDesc(
-            int index,
-            out FUNCDESC* ppFuncDesc);
+            [In] int index,
+            [Out] out FUNCDESC* ppFuncDesc);
 
         /// <summary>
         /// Retrieves a <see cref="VARDESC"/> structure that describes the specified variable.
+        /// This value must be released by calling <see cref="ReleaseVarDesc"/>.
         /// </summary>
         /// <param name="index">The index of the variable description to return.</param>
         /// <param name="ppVarDesc">When this method returns, contains a reference to the VARDESC structure that describes the specified variable. This parameter is passed uninitialized.</param>
         [PreserveSig]
         new HRESULT GetVarDesc(
-            int index,
-            out VARDESC* ppVarDesc);
+            [In] int index,
+            [Out] out VARDESC* ppVarDesc);
 
         /// <summary>
         /// Retrieves the variable with the specified member ID (or the name of the property or method and its parameters) that corresponds to the specified function ID.
@@ -57,7 +60,7 @@ namespace ClrDebug.TypeLib
         [PreserveSig]
         new HRESULT GetNames(
             [In] int memid,
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.BStr)] string[] rgBstrNames,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.BStr, SizeParamIndex = 2)] string[] rgBstrNames,
             [In] int cMaxNames,
             [Out] out int pcNames);
 
@@ -68,8 +71,8 @@ namespace ClrDebug.TypeLib
         /// <param name="href">When this method returns, contains a reference to a handle for the implemented interface. This parameter is passed uninitialized.</param>
         [PreserveSig]
         new HRESULT GetRefTypeOfImplType(
-            int index,
-            out int href);
+            [In] int index,
+            [Out] out int href);
 
         /// <summary>
         /// Retrieves the <see cref="IMPLTYPEFLAGS"/> value for one implemented interface or base interface in a type description.
@@ -78,8 +81,8 @@ namespace ClrDebug.TypeLib
         /// <param name="pImplTypeFlags">When this method returns, contains a reference to the IMPLTYPEFLAGS enumeration. This parameter is passed uninitialized.</param>
         [PreserveSig]
         new HRESULT GetImplTypeFlags(
-            int index,
-            out IMPLTYPEFLAGS pImplTypeFlags);
+            [In] int index,
+            [Out] out IMPLTYPEFLAGS pImplTypeFlags);
 
         /// <summary>
         /// Maps between member names and member IDs, and parameter names and parameter IDs.
@@ -89,9 +92,9 @@ namespace ClrDebug.TypeLib
         /// <param name="pMemId">When this method returns, contains a reference to an array in which name mappings are placed. This parameter is passed uninitialized.</param>
         [PreserveSig]
         new HRESULT GetIDsOfNames(
-            string[] rgszNames,
-            int cNames,
-            int[] pMemId);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] string[] rgszNames,
+            [In] int cNames,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] pMemId);
 
         /// <summary>
         /// Invokes a method, or accesses a property of an object, that implements the interface described by the type description.
@@ -105,13 +108,13 @@ namespace ClrDebug.TypeLib
         /// <param name="puArgErr">If Invoke returns DISP_E_TYPEMISMATCH, puArgErr indicates the index within rgvarg of the argument with the incorrect type. If more than one argument returns an error, puArgErr indicates only the first argument with an error. This parameter is passed uninitialized.</param>
         [PreserveSig]
         new HRESULT Invoke(
-            [MarshalAs(UnmanagedType.IUnknown)] object pvInstance,
-            int memid,
-            short wFlags,
-            ref DISPPARAMS pDispParams,
-            IntPtr pVarResult,
-            IntPtr pExcepInfo,
-            out int puArgErr);
+            [In, MarshalAs(UnmanagedType.IUnknown)] object pvInstance,
+            [In] int memid,
+            [In] short wFlags,
+            [In, Out] ref DISPPARAMS pDispParams,
+            [In] IntPtr pVarResult,
+            [In] IntPtr pExcepInfo,
+            [Out] out int puArgErr);
 
         /// <summary>
         /// Retrieves the documentation string, the complete Help file name and path, and the context ID for the Help topic for a specified type description.
@@ -123,11 +126,11 @@ namespace ClrDebug.TypeLib
         /// <param name="strHelpFile">When this method returns, contains the fully qualified name of the Help file. This parameter is passed uninitialized.</param>
         [PreserveSig]
         new HRESULT GetDocumentation(
-            int index,
-            out string strName,
-            out string strDocString,
-            out int dwHelpContext,
-            out string strHelpFile);
+            [In] int index,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string strName,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string strDocString,
+            [Out] out int dwHelpContext,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string strHelpFile);
 
         /// <summary>
         /// Retrieves a description or specification of an entry point for a function in a DLL.
@@ -139,11 +142,11 @@ namespace ClrDebug.TypeLib
         /// <param name="pwOrdinal">If not null, and the function is defined by an ordinal, then lpwOrdinal is set to point to the ordinal.</param>
         [PreserveSig]
         new HRESULT GetDllEntry(
-            int memid,
-            INVOKEKIND invKind,
-            IntPtr pBstrDllName,
-            IntPtr pBstrName,
-            IntPtr pwOrdinal);
+            [In] int memid,
+            [In] INVOKEKIND invKind,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string pBstrDllName,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string pBstrName,
+            [Out] out short pwOrdinal);
 
         /// <summary>
         /// Retrieves the referenced type descriptions if a type description references other type descriptions.
@@ -152,8 +155,8 @@ namespace ClrDebug.TypeLib
         /// <param name="ppTI">When this method returns, contains the referenced type description. This parameter is passed uninitialized.</param>
         [PreserveSig]
         new HRESULT GetRefTypeInfo(
-            int hRef,
-            out ITypeInfo ppTI);
+            [In] int hRef,
+            [Out] out ITypeInfo ppTI);
 
         /// <summary>
         /// Retrieves the addresses of static functions or variables, such as those defined in a DLL.
@@ -163,9 +166,9 @@ namespace ClrDebug.TypeLib
         /// <param name="ppv">When this method returns, contains a reference to the static member. This parameter is passed uninitialized.</param>
         [PreserveSig]
         new HRESULT AddressOfMember(
-            int memid,
-            INVOKEKIND invKind,
-            out IntPtr ppv);
+            [In] int memid,
+            [In] INVOKEKIND invKind,
+            [Out] IntPtr ppv);
 
         /// <summary>
         /// Creates a new instance of a type that describes a component class (coclass).
@@ -186,8 +189,8 @@ namespace ClrDebug.TypeLib
         /// <param name="pBstrMops">When this method returns, contains a reference to the opcode string used in marshaling the fields of the structure described by the referenced type description, or returns null if there is no information to return. This parameter is passed uninitialized.</param>
         [PreserveSig]
         new HRESULT GetMops(
-            int memid,
-            out string pBstrMops);
+            [In] int memid,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string pBstrMops);
 
         /// <summary>
         /// Retrieves the type library that contains this type description and its index within that type library.
@@ -196,8 +199,8 @@ namespace ClrDebug.TypeLib
         /// <param name="pIndex">When this method returns, contains a reference to the index of the type description within the containing type library. This parameter is passed uninitialized.</param>
         [PreserveSig]
         new HRESULT GetContainingTypeLib(
-            out ITypeLib ppTLB,
-            out int pIndex);
+            [Out] out ITypeLib ppTLB,
+            [Out] out int pIndex);
 
         /// <summary>
         /// Releases a <see cref="TYPEATTR"/> structure previously returned by the <see cref="GetTypeAttr"/> method.
@@ -205,7 +208,7 @@ namespace ClrDebug.TypeLib
         /// <param name="pTypeAttr">A reference to the TYPEATTR structure to release.</param>
         [PreserveSig]
         new void ReleaseTypeAttr(
-            TYPEATTR* pTypeAttr);
+            [In] TYPEATTR* pTypeAttr);
 
         /// <summary>
         /// Releases a <see cref="FUNCDESC"/> structure previously returned by the <see cref="GetFuncDesc"/> method.
@@ -213,15 +216,15 @@ namespace ClrDebug.TypeLib
         /// <param name="pFuncDesc">A reference to the FUNCDESC structure to release.</param>
         [PreserveSig]
         new void ReleaseFuncDesc(
-            FUNCDESC* pFuncDesc);
+            [In] FUNCDESC* pFuncDesc);
 
         /// <summary>
-        /// Releases a VARDESC structure previously returned by the <see cref="GetVarDesc"/> method.
+        /// Releases a <see cref="VARDESC"/> structure previously returned by the <see cref="GetVarDesc"/> method.
         /// </summary>
         /// <param name="pVarDesc">A reference to the VARDESC structure to release.</param>
         [PreserveSig]
         new void ReleaseVarDesc(
-            VARDESC* pVarDesc);
+            [In] VARDESC* pVarDesc);
 
         /// <summary>
         /// Returns the <see cref="TYPEKIND"/> enumeration quickly, without doing any allocations.
@@ -229,7 +232,7 @@ namespace ClrDebug.TypeLib
         /// <param name="pTypeKind">When this method returns, contains a reference to a <see cref="TYPEKIND"/> enumeration. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT GetTypeKind(
-            out TYPEKIND pTypeKind);
+            [Out] out TYPEKIND pTypeKind);
 
         /// <summary>
         /// Returns the type flags without any allocations. This method returns a type flag, which expands the type flags without growing the <see langword="TYPEATTR"/> (type attribute).
@@ -237,7 +240,7 @@ namespace ClrDebug.TypeLib
         /// <param name="pTypeFlags">When this method returns, contains a reference to a <see cref="TYPEFLAGS"/> value. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT GetTypeFlags(
-            out TYPEFLAGS pTypeFlags);
+            [Out] out TYPEFLAGS pTypeFlags);
 
         /// <summary>
         /// Binds to a specific member based on a known DISPID, where the member name is not known (for example, when binding to a default member).
@@ -247,9 +250,9 @@ namespace ClrDebug.TypeLib
         /// <param name="pFuncIndex">When this method returns, contains an index into the function. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT GetFuncIndexOfMemId(
-            int memid,
-            INVOKEKIND invKind,
-            out int pFuncIndex);
+            [In] int memid,
+            [In] INVOKEKIND invKind,
+            [Out] out int pFuncIndex);
 
         /// <summary>
         /// Binds to a specific member based on a known <see langword="DISPID"/>, where the member name is not known (for example, when binding to a default member).
@@ -258,8 +261,8 @@ namespace ClrDebug.TypeLib
         /// <param name="pVarIndex">When this method returns, contains an index of memid. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT GetVarIndexOfMemId(
-            int memid,
-            out int pVarIndex);
+            [In] int memid,
+            [Out] out int pVarIndex);
 
         /// <summary>
         /// Gets the custom data.
@@ -331,10 +334,10 @@ namespace ClrDebug.TypeLib
         [PreserveSig]
         [LCIDConversion(1)]
         HRESULT GetDocumentation2(
-            int memid,
-            out string pbstrHelpString,
-            out int pdwHelpStringContext,
-            out string pbstrHelpStringDll);
+            [In] int memid,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string pbstrHelpString,
+            [Out] out int pdwHelpStringContext,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string pbstrHelpStringDll);
 
         /// <summary>
         /// Gets all custom data items for the library.
@@ -362,8 +365,8 @@ namespace ClrDebug.TypeLib
         /// <param name="pCustData">A pointer to <see cref="CUSTDATA"/>, which holds all custom data items.</param>
         [PreserveSig]
         HRESULT GetAllParamCustData(
-            int indexFunc,
-            int indexParam,
+            [In] int indexFunc,
+            [In] int indexParam,
             [Out] out CUSTDATA pCustData);
 
         /// <summary>
@@ -373,7 +376,7 @@ namespace ClrDebug.TypeLib
         /// <param name="pCustData">A pointer to <see cref="CUSTDATA"/>, which holds all custom data items.</param>
         [PreserveSig]
         HRESULT GetAllVarCustData(
-            int index,
+            [In] int index,
             [Out] out CUSTDATA pCustData);
 
         /// <summary>
@@ -383,7 +386,7 @@ namespace ClrDebug.TypeLib
         /// <param name="pCustData">A pointer to <see cref="CUSTDATA"/> which holds all custom data items.</param>
         [PreserveSig]
         HRESULT GetAllImplTypeCustData(
-            int index,
+            [In] int index,
             [Out] out CUSTDATA pCustData);
     }
 }

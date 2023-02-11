@@ -1259,7 +1259,7 @@ namespace ClrDebug
             /*HRESULT DefineCustomAttribute(
             [In] mdToken tkObj,
             [In] mdToken tkType,
-            [In, MarshalAs(UnmanagedType.LPArray)] byte[] pCustomAttribute,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] byte[] pCustomAttribute,
             [In] int cbCustomAttribute,
             [Out] out mdCustomAttribute pcv);*/
             return Raw.DefineCustomAttribute(tkObj, tkType, pCustomAttribute, cbCustomAttribute, out pcv);

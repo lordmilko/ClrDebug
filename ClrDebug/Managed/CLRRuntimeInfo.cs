@@ -547,7 +547,7 @@ namespace ClrDebug
             /*HRESULT GetInterface(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid rclsid,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [Out, MarshalAs(UnmanagedType.Interface)] out object ppUnk);*/
+            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppUnk);*/
             return Raw.GetInterface(rclsid, riid, out ppUnk);
         }
 

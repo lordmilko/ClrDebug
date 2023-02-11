@@ -1776,9 +1776,9 @@ namespace ClrDebug
         /// </summary>
         /// <param name="td">[in] The TypeDef token for the class with the layout to return.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
-        public GetClassLayoutResult GetClassLayout(mdTypeDef td)
+        public MetaDataImport_GetClassLayoutResult GetClassLayout(mdTypeDef td)
         {
-            GetClassLayoutResult result;
+            MetaDataImport_GetClassLayoutResult result;
             TryGetClassLayout(td, out result).ThrowOnNotOK();
 
             return result;
@@ -1789,7 +1789,7 @@ namespace ClrDebug
         /// </summary>
         /// <param name="td">[in] The TypeDef token for the class with the layout to return.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
-        public HRESULT TryGetClassLayout(mdTypeDef td, out GetClassLayoutResult result)
+        public HRESULT TryGetClassLayout(mdTypeDef td, out MetaDataImport_GetClassLayoutResult result)
         {
             /*HRESULT GetClassLayout(
             [In] mdTypeDef td,
@@ -1814,13 +1814,13 @@ namespace ClrDebug
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetClassLayoutResult(pdwPackSize, rFieldOffset, pulClassSize);
+                result = new MetaDataImport_GetClassLayoutResult(pdwPackSize, rFieldOffset, pulClassSize);
 
                 return hr;
             }
 
             fail:
-            result = default(GetClassLayoutResult);
+            result = default(MetaDataImport_GetClassLayoutResult);
 
             return hr;
         }

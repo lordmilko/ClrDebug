@@ -1,10 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ClrDebug
 {
     /// <summary>
     /// Provides a unique representation of a function by combining its ID with the ID of its recompiled version.
     /// </summary>
+    [DebuggerDisplay("functionId = {functionId.ToString(),nq}, reJitId = {reJitId.ToString(),nq}")]
     [StructLayout(LayoutKind.Sequential, Pack = 8)]
     public struct COR_PRF_FUNCTION
     {

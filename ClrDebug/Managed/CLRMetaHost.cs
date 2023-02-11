@@ -76,7 +76,7 @@ namespace ClrDebug
             /*HRESULT GetRuntime(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzVersion,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [Out, MarshalAs(UnmanagedType.Interface)] out object ppRuntime);*/
+            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppRuntime);*/
             return Raw.GetRuntime(pwzVersion, riid, out ppRuntime);
         }
 
@@ -322,7 +322,7 @@ namespace ClrDebug
         {
             /*HRESULT QueryLegacyV2RuntimeBinding(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [Out, MarshalAs(UnmanagedType.Interface)] out object ppUnk);*/
+            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppUnk);*/
             return Raw.QueryLegacyV2RuntimeBinding(riid, out ppUnk);
         }
 

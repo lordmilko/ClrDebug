@@ -54,7 +54,7 @@ namespace ClrDebug
         HRESULT GetRuntime(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzVersion,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [Out, MarshalAs(UnmanagedType.Interface)] out object ppRuntime);
+            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppRuntime);
 
         /// <summary>
         /// Gets an assembly's original .NET Framework compilation version (stored in the metadata), given its file path. This method supersedes the GetFileVersion function.
@@ -162,7 +162,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT QueryLegacyV2RuntimeBinding(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [Out, MarshalAs(UnmanagedType.Interface)] out object ppUnk);
+            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppUnk);
 
         /// <summary>
         /// Attempts to shut down all loaded runtimes gracefully and then terminates the process. Supersedes the CorExitProcess function.
