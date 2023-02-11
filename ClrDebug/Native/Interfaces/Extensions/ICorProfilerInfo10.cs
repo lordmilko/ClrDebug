@@ -1862,7 +1862,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT RequestReJITWithInliners(
-            [In] int dwRejitFlags,
+            [In] COR_PRF_REJIT_FLAGS dwRejitFlags,
             [In] int cFunctions,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ModuleID[] moduleIds,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] mdMethodDef[] methodIds);

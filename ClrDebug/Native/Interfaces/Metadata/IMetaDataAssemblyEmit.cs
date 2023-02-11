@@ -119,7 +119,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] mdToken tkImplementation,
             [In] int dwOffset,
-            [In] int dwResourceFlags,
+            [In] CorManifestResourceFlags dwResourceFlags,
             [Out] out mdManifestResource pmdmr);
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace ClrDebug
             [In] int ulHashAlgId,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] ref ASSEMBLYMETADATA pMetaData,
-            [In] int dwAssemblyFlags);
+            [In] AssemblyFlags dwAssemblyFlags);
 
         /// <summary>
         /// Modifies the specified AssemblyRef metadata structure.
@@ -202,7 +202,7 @@ namespace ClrDebug
             [In] mdExportedType ct,
             [In] mdToken tkImplementation,
             [In] mdTypeDef tkTypeDef,
-            [In] int dwExportedTypeFlags);
+            [In] CorTypeAttr dwExportedTypeFlags);
 
         /// <summary>
         /// Modifies the specified ManifestResource metadata structure.
@@ -219,6 +219,6 @@ namespace ClrDebug
             [In] mdManifestResource mr,
             [In] mdToken tkImplementation,
             [In] int dwOffset,
-            [In] int dwResourceFlags);
+            [In] CorManifestResourceFlags dwResourceFlags);
     }
 }

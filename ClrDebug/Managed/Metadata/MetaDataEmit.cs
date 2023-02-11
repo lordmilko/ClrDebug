@@ -573,7 +573,7 @@ namespace ClrDebug
         /// <param name="mdFire">[in] The method used (by a derived class) to raise the event.</param>
         /// <param name="rmdOtherMethods">[in] An array of tokens for other methods associated with the event. The array is terminated with a mdMethodDefNil token.</param>
         /// <returns>[out] The metadata token assigned to the event.</returns>
-        public mdToken DefineEvent(mdTypeDef td, string szEvent, int dwEventFlags, mdToken tkEventType, mdMethodDef mdAddOn, mdMethodDef mdRemoveOn, mdMethodDef mdFire, mdMethodDef[] rmdOtherMethods)
+        public mdToken DefineEvent(mdTypeDef td, string szEvent, CorEventAttr dwEventFlags, mdToken tkEventType, mdMethodDef mdAddOn, mdMethodDef mdRemoveOn, mdMethodDef mdFire, mdMethodDef[] rmdOtherMethods)
         {
             mdToken pmdEvent;
             TryDefineEvent(td, szEvent, dwEventFlags, tkEventType, mdAddOn, mdRemoveOn, mdFire, rmdOtherMethods, out pmdEvent).ThrowOnNotOK();
@@ -593,12 +593,12 @@ namespace ClrDebug
         /// <param name="mdFire">[in] The method used (by a derived class) to raise the event.</param>
         /// <param name="rmdOtherMethods">[in] An array of tokens for other methods associated with the event. The array is terminated with a mdMethodDefNil token.</param>
         /// <param name="pmdEvent">[out] The metadata token assigned to the event.</param>
-        public HRESULT TryDefineEvent(mdTypeDef td, string szEvent, int dwEventFlags, mdToken tkEventType, mdMethodDef mdAddOn, mdMethodDef mdRemoveOn, mdMethodDef mdFire, mdMethodDef[] rmdOtherMethods, out mdToken pmdEvent)
+        public HRESULT TryDefineEvent(mdTypeDef td, string szEvent, CorEventAttr dwEventFlags, mdToken tkEventType, mdMethodDef mdAddOn, mdMethodDef mdRemoveOn, mdMethodDef mdFire, mdMethodDef[] rmdOtherMethods, out mdToken pmdEvent)
         {
             /*HRESULT DefineEvent(
             [In] mdTypeDef td,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szEvent,
-            [In] int dwEventFlags,
+            [In] CorEventAttr dwEventFlags,
             [In] mdToken tkEventType,
             [In] mdMethodDef mdAddOn,
             [In] mdMethodDef mdRemoveOn,
@@ -1005,7 +1005,7 @@ namespace ClrDebug
         /// <param name="dwMethodFlags">[in] The member attributes.</param>
         /// <param name="ulCodeRVA">[in] The address of the code.</param>
         /// <param name="dwImplFlags">[in] The implementation flags for the method.</param>
-        public void SetMethodProps(mdMethodDef md, int dwMethodFlags, int ulCodeRVA, int dwImplFlags)
+        public void SetMethodProps(mdMethodDef md, CorMethodAttr dwMethodFlags, int ulCodeRVA, CorMethodImpl dwImplFlags)
         {
             TrySetMethodProps(md, dwMethodFlags, ulCodeRVA, dwImplFlags).ThrowOnNotOK();
         }
@@ -1017,13 +1017,13 @@ namespace ClrDebug
         /// <param name="dwMethodFlags">[in] The member attributes.</param>
         /// <param name="ulCodeRVA">[in] The address of the code.</param>
         /// <param name="dwImplFlags">[in] The implementation flags for the method.</param>
-        public HRESULT TrySetMethodProps(mdMethodDef md, int dwMethodFlags, int ulCodeRVA, int dwImplFlags)
+        public HRESULT TrySetMethodProps(mdMethodDef md, CorMethodAttr dwMethodFlags, int ulCodeRVA, CorMethodImpl dwImplFlags)
         {
             /*HRESULT SetMethodProps(
             [In] mdMethodDef md,
-            [In] int dwMethodFlags,
+            [In] CorMethodAttr dwMethodFlags,
             [In] int ulCodeRVA,
-            [In] int dwImplFlags);*/
+            [In] CorMethodImpl dwImplFlags);*/
             return Raw.SetMethodProps(md, dwMethodFlags, ulCodeRVA, dwImplFlags);
         }
 
@@ -1150,7 +1150,7 @@ namespace ClrDebug
         /// <param name="dwMappingFlags">[in] Flags used by PInvoke to do the mapping.</param>
         /// <param name="szImportName">[in] The name of the target export method in an unmanaged DLL.</param>
         /// <param name="mrImportDLL">[in] The token for the target native DLL.</param>
-        public void DefinePinvokeMap(mdToken tk, int dwMappingFlags, string szImportName, mdModuleRef mrImportDLL)
+        public void DefinePinvokeMap(mdToken tk, CorPinvokeMap dwMappingFlags, string szImportName, mdModuleRef mrImportDLL)
         {
             TryDefinePinvokeMap(tk, dwMappingFlags, szImportName, mrImportDLL).ThrowOnNotOK();
         }
@@ -1162,11 +1162,11 @@ namespace ClrDebug
         /// <param name="dwMappingFlags">[in] Flags used by PInvoke to do the mapping.</param>
         /// <param name="szImportName">[in] The name of the target export method in an unmanaged DLL.</param>
         /// <param name="mrImportDLL">[in] The token for the target native DLL.</param>
-        public HRESULT TryDefinePinvokeMap(mdToken tk, int dwMappingFlags, string szImportName, mdModuleRef mrImportDLL)
+        public HRESULT TryDefinePinvokeMap(mdToken tk, CorPinvokeMap dwMappingFlags, string szImportName, mdModuleRef mrImportDLL)
         {
             /*HRESULT DefinePinvokeMap(
             [In] mdToken tk,
-            [In] int dwMappingFlags,
+            [In] CorPinvokeMap dwMappingFlags,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szImportName,
             [In] mdModuleRef mrImportDLL);*/
             return Raw.DefinePinvokeMap(tk, dwMappingFlags, szImportName, mrImportDLL);
@@ -1362,7 +1362,7 @@ namespace ClrDebug
         /// <param name="mdGetter">[in] The method that gets the property value.</param>
         /// <param name="rmdOtherMethods">[in] An array of other methods associated with the property. Terminate the array with an mdTokenNil.</param>
         /// <returns>[out] The <see cref="mdProperty"/> token assigned.</returns>
-        public mdProperty DefineProperty(mdTypeDef td, string szProperty, CorPropertyAttr dwPropFlags, IntPtr pvSig, int cbSig, int dwCPlusTypeFlag, IntPtr cvalue, int cchValue, mdMethodDef mdSetter, mdMethodDef mdGetter, mdToken[] rmdOtherMethods)
+        public mdProperty DefineProperty(mdTypeDef td, string szProperty, CorPropertyAttr dwPropFlags, IntPtr pvSig, int cbSig, CorElementType dwCPlusTypeFlag, IntPtr cvalue, int cchValue, mdMethodDef mdSetter, mdMethodDef mdGetter, mdToken[] rmdOtherMethods)
         {
             mdProperty pmdProp;
             TryDefineProperty(td, szProperty, dwPropFlags, pvSig, cbSig, dwCPlusTypeFlag, cvalue, cchValue, mdSetter, mdGetter, rmdOtherMethods, out pmdProp).ThrowOnNotOK();
@@ -1385,7 +1385,7 @@ namespace ClrDebug
         /// <param name="mdGetter">[in] The method that gets the property value.</param>
         /// <param name="rmdOtherMethods">[in] An array of other methods associated with the property. Terminate the array with an mdTokenNil.</param>
         /// <param name="pmdProp">[out] The <see cref="mdProperty"/> token assigned.</param>
-        public HRESULT TryDefineProperty(mdTypeDef td, string szProperty, CorPropertyAttr dwPropFlags, IntPtr pvSig, int cbSig, int dwCPlusTypeFlag, IntPtr cvalue, int cchValue, mdMethodDef mdSetter, mdMethodDef mdGetter, mdToken[] rmdOtherMethods, out mdProperty pmdProp)
+        public HRESULT TryDefineProperty(mdTypeDef td, string szProperty, CorPropertyAttr dwPropFlags, IntPtr pvSig, int cbSig, CorElementType dwCPlusTypeFlag, IntPtr cvalue, int cchValue, mdMethodDef mdSetter, mdMethodDef mdGetter, mdToken[] rmdOtherMethods, out mdProperty pmdProp)
         {
             /*HRESULT DefineProperty(
             [In] mdTypeDef td,
@@ -1393,7 +1393,7 @@ namespace ClrDebug
             [In] CorPropertyAttr dwPropFlags,
             [In] IntPtr pvSig,
             [In] int cbSig,
-            [In] int dwCPlusTypeFlag,
+            [In] CorElementType dwCPlusTypeFlag,
             [In] IntPtr cvalue,
             [In] int cchValue,
             [In] mdMethodDef mdSetter,
@@ -1505,7 +1505,7 @@ namespace ClrDebug
         /// <param name="mdSetter">[in] The method that sets the property value.</param>
         /// <param name="mdGetter">[in] The method that gets the property value.</param>
         /// <param name="rmdOtherMethods">[in] An array of other methods associated with the property. Terminate this array with an mdTokenNil token.</param>
-        public void SetPropertyProps(mdProperty pr, CorPropertyAttr dwPropFlags, int dwCPlusTypeFlag, IntPtr pValue, int cchValue, mdMethodDef mdSetter, mdMethodDef mdGetter, mdToken[] rmdOtherMethods)
+        public void SetPropertyProps(mdProperty pr, CorPropertyAttr dwPropFlags, CorElementType dwCPlusTypeFlag, IntPtr pValue, int cchValue, mdMethodDef mdSetter, mdMethodDef mdGetter, mdToken[] rmdOtherMethods)
         {
             TrySetPropertyProps(pr, dwPropFlags, dwCPlusTypeFlag, pValue, cchValue, mdSetter, mdGetter, rmdOtherMethods).ThrowOnNotOK();
         }
@@ -1521,12 +1521,12 @@ namespace ClrDebug
         /// <param name="mdSetter">[in] The method that sets the property value.</param>
         /// <param name="mdGetter">[in] The method that gets the property value.</param>
         /// <param name="rmdOtherMethods">[in] An array of other methods associated with the property. Terminate this array with an mdTokenNil token.</param>
-        public HRESULT TrySetPropertyProps(mdProperty pr, CorPropertyAttr dwPropFlags, int dwCPlusTypeFlag, IntPtr pValue, int cchValue, mdMethodDef mdSetter, mdMethodDef mdGetter, mdToken[] rmdOtherMethods)
+        public HRESULT TrySetPropertyProps(mdProperty pr, CorPropertyAttr dwPropFlags, CorElementType dwCPlusTypeFlag, IntPtr pValue, int cchValue, mdMethodDef mdSetter, mdMethodDef mdGetter, mdToken[] rmdOtherMethods)
         {
             /*HRESULT SetPropertyProps(
             [In] mdProperty pr,
             [In] CorPropertyAttr dwPropFlags,
-            [In] int dwCPlusTypeFlag,
+            [In] CorElementType dwCPlusTypeFlag,
             [In] IntPtr pValue,
             [In] int cchValue,
             [In] mdMethodDef mdSetter,
@@ -1547,7 +1547,7 @@ namespace ClrDebug
         /// <param name="dwCPlusTypeFlag">[in] The ELEMENT_TYPE_* for the constant value.</param>
         /// <param name="pValue">[in] The constant value for the parameter.</param>
         /// <param name="cchValue">[in] The size in (Unicode) characters of pValue.</param>
-        public void SetParamProps(mdParamDef pd, string szName, int dwParamFlags, int dwCPlusTypeFlag, IntPtr pValue, int cchValue)
+        public void SetParamProps(mdParamDef pd, string szName, CorParamAttr dwParamFlags, CorElementType dwCPlusTypeFlag, IntPtr pValue, int cchValue)
         {
             TrySetParamProps(pd, szName, dwParamFlags, dwCPlusTypeFlag, pValue, cchValue).ThrowOnNotOK();
         }
@@ -1561,13 +1561,13 @@ namespace ClrDebug
         /// <param name="dwCPlusTypeFlag">[in] The ELEMENT_TYPE_* for the constant value.</param>
         /// <param name="pValue">[in] The constant value for the parameter.</param>
         /// <param name="cchValue">[in] The size in (Unicode) characters of pValue.</param>
-        public HRESULT TrySetParamProps(mdParamDef pd, string szName, int dwParamFlags, int dwCPlusTypeFlag, IntPtr pValue, int cchValue)
+        public HRESULT TrySetParamProps(mdParamDef pd, string szName, CorParamAttr dwParamFlags, CorElementType dwCPlusTypeFlag, IntPtr pValue, int cchValue)
         {
             /*HRESULT SetParamProps(
             [In] mdParamDef pd,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
-            [In] int dwParamFlags,
-            [In] int dwCPlusTypeFlag,
+            [In] CorParamAttr dwParamFlags,
+            [In] CorElementType dwCPlusTypeFlag,
             [In] IntPtr pValue,
             [In] int cchValue);*/
             return Raw.SetParamProps(pd, szName, dwParamFlags, dwCPlusTypeFlag, pValue, cchValue);
@@ -1695,7 +1695,7 @@ namespace ClrDebug
         /// </summary>
         /// <param name="md">[in] The token for the method to be changed.</param>
         /// <param name="dwImplFlags">[in] A combination of the values of the <see cref="CorMethodImpl"/> enumeration that specifies the method implementation features.</param>
-        public void SetMethodImplFlags(mdMethodDef md, int dwImplFlags)
+        public void SetMethodImplFlags(mdMethodDef md, CorMethodImpl dwImplFlags)
         {
             TrySetMethodImplFlags(md, dwImplFlags).ThrowOnNotOK();
         }
@@ -1705,11 +1705,11 @@ namespace ClrDebug
         /// </summary>
         /// <param name="md">[in] The token for the method to be changed.</param>
         /// <param name="dwImplFlags">[in] A combination of the values of the <see cref="CorMethodImpl"/> enumeration that specifies the method implementation features.</param>
-        public HRESULT TrySetMethodImplFlags(mdMethodDef md, int dwImplFlags)
+        public HRESULT TrySetMethodImplFlags(mdMethodDef md, CorMethodImpl dwImplFlags)
         {
             /*HRESULT SetMethodImplFlags(
             [In] mdMethodDef md,
-            [In] int dwImplFlags);*/
+            [In] CorMethodImpl dwImplFlags);*/
             return Raw.SetMethodImplFlags(md, dwImplFlags);
         }
 
@@ -1963,7 +1963,7 @@ namespace ClrDebug
         /// <param name="reserved">[in] This parameter is reserved for future extensibility.</param>
         /// <param name="rtkConstraints">[in] A zero-terminated array of type constraints. Array members must be an <see cref="mdTypeDef"/>, <see cref="mdTypeRef"/>, or <see cref="mdTypeSpec"/> metadata token.</param>
         /// <returns>[out] A token that represents the generic parameter.</returns>
-        public mdGenericParam DefineGenericParam(mdToken tk, int ulParamSeq, int dwParamFlags, string szName, int reserved, mdToken[] rtkConstraints)
+        public mdGenericParam DefineGenericParam(mdToken tk, int ulParamSeq, CorGenericParamAttr dwParamFlags, string szName, int reserved, mdToken[] rtkConstraints)
         {
             mdGenericParam pgp;
             TryDefineGenericParam(tk, ulParamSeq, dwParamFlags, szName, reserved, rtkConstraints, out pgp).ThrowOnNotOK();
@@ -1981,12 +1981,12 @@ namespace ClrDebug
         /// <param name="reserved">[in] This parameter is reserved for future extensibility.</param>
         /// <param name="rtkConstraints">[in] A zero-terminated array of type constraints. Array members must be an <see cref="mdTypeDef"/>, <see cref="mdTypeRef"/>, or <see cref="mdTypeSpec"/> metadata token.</param>
         /// <param name="pgp">[out] A token that represents the generic parameter.</param>
-        public HRESULT TryDefineGenericParam(mdToken tk, int ulParamSeq, int dwParamFlags, string szName, int reserved, mdToken[] rtkConstraints, out mdGenericParam pgp)
+        public HRESULT TryDefineGenericParam(mdToken tk, int ulParamSeq, CorGenericParamAttr dwParamFlags, string szName, int reserved, mdToken[] rtkConstraints, out mdGenericParam pgp)
         {
             /*HRESULT DefineGenericParam(
             [In] mdToken tk,
             [In] int ulParamSeq,
-            [In] int dwParamFlags,
+            [In] CorGenericParamAttr dwParamFlags,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] int reserved,
             [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkConstraints,
@@ -2005,7 +2005,7 @@ namespace ClrDebug
         /// <param name="szName">[in] Optional. The name of the parameter for which to set values.</param>
         /// <param name="reserved">[in] Reserved for future extensibility.</param>
         /// <param name="rtkConstraints">[in] Optional. A zero-terminated array of type constraints. Array members must be an <see cref="mdTypeDef"/>, <see cref="mdTypeRef"/>, or <see cref="mdTypeSpec"/> metadata token.</param>
-        public void SetGenericParamProps(mdGenericParam gp, int dwParamFlags, string szName, int reserved, mdToken[] rtkConstraints)
+        public void SetGenericParamProps(mdGenericParam gp, CorGenericParamAttr dwParamFlags, string szName, int reserved, mdToken[] rtkConstraints)
         {
             TrySetGenericParamProps(gp, dwParamFlags, szName, reserved, rtkConstraints).ThrowOnNotOK();
         }
@@ -2018,11 +2018,11 @@ namespace ClrDebug
         /// <param name="szName">[in] Optional. The name of the parameter for which to set values.</param>
         /// <param name="reserved">[in] Reserved for future extensibility.</param>
         /// <param name="rtkConstraints">[in] Optional. A zero-terminated array of type constraints. Array members must be an <see cref="mdTypeDef"/>, <see cref="mdTypeRef"/>, or <see cref="mdTypeSpec"/> metadata token.</param>
-        public HRESULT TrySetGenericParamProps(mdGenericParam gp, int dwParamFlags, string szName, int reserved, mdToken[] rtkConstraints)
+        public HRESULT TrySetGenericParamProps(mdGenericParam gp, CorGenericParamAttr dwParamFlags, string szName, int reserved, mdToken[] rtkConstraints)
         {
             /*HRESULT SetGenericParamProps(
             [In] mdGenericParam gp,
-            [In] int dwParamFlags,
+            [In] CorGenericParamAttr dwParamFlags,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] int reserved,
             [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkConstraints);*/

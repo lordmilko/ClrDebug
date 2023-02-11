@@ -295,7 +295,7 @@ namespace ClrDebug
             [In] IXCLRDataModule singleMod,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] mdMethodDef[] tokens,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDataMethodCodeNotification flags,
-            [In] int singleFlags);
+            [In] CLRDataMethodCodeNotification singleFlags);
 
         [PreserveSig]
         HRESULT GetOtherNotificationFlags(
@@ -321,22 +321,22 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT FollowStub(
-            [In] int inFlags,
+            [In] CLRDataFollowStubInFlag inFlags,
             [In] CLRDATA_ADDRESS inAddr,
             [In] ref CLRDATA_FOLLOW_STUB_BUFFER inBuffer,
             [Out] out CLRDATA_ADDRESS outAddr,
             [Out] out CLRDATA_FOLLOW_STUB_BUFFER outBuffer,
-            [Out] out int outFlags);
+            [Out] out CLRDataFollowStubOutFlag outFlags);
 
         [PreserveSig]
         HRESULT FollowStub2(
             [In] IXCLRDataTask task,
-            [In] int inFlags,
+            [In] CLRDataFollowStubInFlag inFlags,
             [In] CLRDATA_ADDRESS inAddr,
             [In] ref CLRDATA_FOLLOW_STUB_BUFFER inBuffer,
             [Out] out CLRDATA_ADDRESS outAddr,
             [Out] out CLRDATA_FOLLOW_STUB_BUFFER outBuffer,
-            [Out] out int outFlags);
+            [Out] out CLRDataFollowStubOutFlag outFlags);
 
         [PreserveSig]
         HRESULT DumpNativeImage(

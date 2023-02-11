@@ -4495,7 +4495,7 @@ namespace ClrDebug
         /// an inlined method was ReJITted. This poses a problem with ReJIT on attach, since the profiler is not present to
         /// monitor inlining. This method can be called to guarantee that the full set of inliners will be ReJITted as well.
         /// </remarks>
-        public void RequestReJITWithInliners(int dwRejitFlags, int cFunctions, ModuleID[] moduleIds, mdMethodDef[] methodIds)
+        public void RequestReJITWithInliners(COR_PRF_REJIT_FLAGS dwRejitFlags, int cFunctions, ModuleID[] moduleIds, mdMethodDef[] methodIds)
         {
             TryRequestReJITWithInliners(dwRejitFlags, cFunctions, moduleIds, methodIds).ThrowOnNotOK();
         }
@@ -4513,10 +4513,10 @@ namespace ClrDebug
         /// an inlined method was ReJITted. This poses a problem with ReJIT on attach, since the profiler is not present to
         /// monitor inlining. This method can be called to guarantee that the full set of inliners will be ReJITted as well.
         /// </remarks>
-        public HRESULT TryRequestReJITWithInliners(int dwRejitFlags, int cFunctions, ModuleID[] moduleIds, mdMethodDef[] methodIds)
+        public HRESULT TryRequestReJITWithInliners(COR_PRF_REJIT_FLAGS dwRejitFlags, int cFunctions, ModuleID[] moduleIds, mdMethodDef[] methodIds)
         {
             /*HRESULT RequestReJITWithInliners(
-            [In] int dwRejitFlags,
+            [In] COR_PRF_REJIT_FLAGS dwRejitFlags,
             [In] int cFunctions,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ModuleID[] moduleIds,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] mdMethodDef[] methodIds);*/

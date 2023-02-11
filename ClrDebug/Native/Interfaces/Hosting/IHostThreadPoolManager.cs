@@ -40,7 +40,7 @@ namespace ClrDebug
         HRESULT QueueUserWorkItem(
             [In, MarshalAs(UnmanagedType.FunctionPtr)] LPTHREAD_START_ROUTINE Function,
             [In] IntPtr Context,
-            [In] int Flags);
+            [In] WT Flags);
 
         /// <summary>
         /// Sets the maximum number of threads that the host can maintain in the thread pool.

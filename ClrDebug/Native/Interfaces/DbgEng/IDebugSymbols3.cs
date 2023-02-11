@@ -2212,14 +2212,14 @@ namespace ClrDebug.DbgEng
             [Out] out int StringSize);
 
         /// <summary>
-        /// Returns all the memory regions known to be associatedwith a symbol.
+        /// Returns all the memory regions known to be associated with a symbol.
         /// </summary>
         /// <param name="Id">[in] The ID of a module as a pointer to a <see cref="DEBUG_MODULE_AND_ID"/> structure.</param>
         /// <param name="Flags">[in] A bit-set that contains options that affect the behavior of this method.</param>
         /// <param name="Regions">[out] The memory regions associated with the symbol.</param>
         /// <param name="RegionsCount">[in] The number of regions associated with the symbol.</param>
         /// <param name="RegionsAvail">[out, optional] A pointer to the number of regions available to the symbol.</param>
-        /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code. This function returns all known memory regions that associatedwith a specified symbol.<para/>
+        /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code. This function returns all known memory regions that associated with a specified symbol.<para/>
         /// Simple symbols have a single region that starts from their base. More complicated regions, such as functions that have multiple code areas, can have an arbitrarilylarge number of regions.<para/>
         /// The quality of information returned is highlydependent on the symbolic information available.</returns>
         [PreserveSig]
@@ -2351,14 +2351,14 @@ namespace ClrDebug.DbgEng
             [Out] out int StringSize);
 
         /// <summary>
-        /// Returns all memory regions known to be associatedwith a source entry.
+        /// Returns all memory regions known to be associated with a source entry.
         /// </summary>
         /// <param name="Entry">[in] An entry as a <see cref="DEBUG_SYMBOL_SOURCE_ENTRY"/> structure.</param>
         /// <param name="Flags">[in] A bit-set that contains options that affect the behavior of this method.</param>
         /// <param name="Regions">[out] The memory regions associated with the source entry.</param>
         /// <param name="RegionsCount">[in] The number of regions associated with the entry.</param>
         /// <param name="RegionsAvail">[out, optional] A pointer to the number of regions available to the entry.</param>
-        /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code. This function returns all known memory regions that associatedwith a specified source entry.<para/>
+        /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code. This function returns all known memory regions that associated with a specified source entry.<para/>
         /// Simple symbols have a single region that starts from their base. More complicated regions, such as functions that have multiple code areas, can have an arbitrarilylarge number of regions.</returns>
         [PreserveSig]
         HRESULT GetSourceEntryOffsetRegions(
@@ -2369,7 +2369,7 @@ namespace ClrDebug.DbgEng
             [Out] out int RegionsAvail);
 
         /// <summary>
-        /// Allows navigation within thesource entries.
+        /// Allows navigation within the source entries.
         /// </summary>
         /// <param name="FromEntry">[in] A pointer to a <see cref="DEBUG_SYMBOL_SOURCE_ENTRY"/> as the input entry.</param>
         /// <param name="Flags">[in] A bit-set that contains options that affect the behavior of this method.</param>

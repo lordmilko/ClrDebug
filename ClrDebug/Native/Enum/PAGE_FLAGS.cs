@@ -1,0 +1,26 @@
+﻿using System;
+
+namespace ClrDebug
+{
+    [Flags]
+    public enum PAGE_FLAGS : uint
+    {
+        PAGE_NOACCESS = 0x01,
+        PAGE_READONLY = 0x02,
+        PAGE_READWRITE = 0x04,
+        PAGE_WRITECOPY = 0x08,
+        PAGE_EXECUTE = 0x10,
+        PAGE_EXECUTE_READ = 0x20,
+        PAGE_EXECUTE_READWRITE = 0x40,
+        PAGE_EXECUTE_WRITECOPY = 0x80,
+        PAGE_GUARD = 0x100,
+        PAGE_NOCACHE = 0x200,
+        PAGE_WRITECOMBINE = 0x400,
+        PAGE_ENCLAVE_THREAD_CONTROL = 0x80000000,
+        PAGE_REVERT_TO_FILE_MAP = 0x80000000,
+        PAGE_TARGETS_NO_UPDATE = 0x40000000,
+        PAGE_TARGETS_INVALID = 0x40000000,
+        PAGE_ENCLAVE_UNVALIDATED = 0x20000000,
+        PAGE_ENCLAVE_DECOMMIT = 0x10000000,
+    }
+}

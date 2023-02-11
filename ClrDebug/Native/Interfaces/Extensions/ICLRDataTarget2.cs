@@ -204,8 +204,8 @@ namespace ClrDebug
         HRESULT AllocVirtual(
             [In] CLRDATA_ADDRESS addr,
             [In] int size,
-            [In] int typeFlags,
-            [In] int protectFlags,
+            [In] MEM_FLAGS typeFlags,
+            [In] PAGE_FLAGS protectFlags,
             [Out] out CLRDATA_ADDRESS virt);
 
         /// <summary>
@@ -223,6 +223,6 @@ namespace ClrDebug
         HRESULT FreeVirtual(
             [In] CLRDATA_ADDRESS addr,
             [In] int size,
-            [In] int typeFlags);
+            [In] MEM_FLAGS typeFlags);
     }
 }

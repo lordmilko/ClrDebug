@@ -28,7 +28,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] pRecord,
             [In] int countBytes,
             [In] CorDebugRecordFormat format,
-            [In] int dwFlags,
+            [In] CorDebugDecodeEventFlagsWindows dwFlags,
             [In] int dwThreadId,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugDebugEvent ppEvent);
 

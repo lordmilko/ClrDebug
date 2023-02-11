@@ -112,7 +112,7 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugFrame pFrame,
             [In] int nOffset,
             [In] CorDebugExceptionCallbackType dwEventType,
-            [In] int dwFlags);
+            [In] CorDebugExceptionFlags dwFlags);
 
         /// <summary>
         /// Provides a status notification during the exception unwinding process.
@@ -133,7 +133,7 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
             [In] CorDebugExceptionUnwindCallbackType dwEventType,
-            [In] int dwFlags);
+            [In] CorDebugExceptionFlags dwFlags);
 
         /// <summary>
         /// Notifies the debugger that code execution has switched to a new version of an edited function.

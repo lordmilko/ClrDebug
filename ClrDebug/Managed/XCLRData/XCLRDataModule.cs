@@ -906,15 +906,15 @@ namespace ClrDebug
 
         #region SetJITCompilerFlags
 
-        public void SetJITCompilerFlags(int dwFlags)
+        public void SetJITCompilerFlags(CorDebugJITCompilerFlags dwFlags)
         {
             TrySetJITCompilerFlags(dwFlags).ThrowOnNotOK();
         }
 
-        public HRESULT TrySetJITCompilerFlags(int dwFlags)
+        public HRESULT TrySetJITCompilerFlags(CorDebugJITCompilerFlags dwFlags)
         {
             /*HRESULT SetJITCompilerFlags(
-            [In] int dwFlags);*/
+            [In] CorDebugJITCompilerFlags dwFlags);*/
             return Raw2.SetJITCompilerFlags(dwFlags);
         }
 

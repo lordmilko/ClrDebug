@@ -214,10 +214,10 @@ namespace ClrDebug
         public HRESULT TryGetDefaultStartupFlags(out GetDefaultStartupFlagsResult result)
         {
             /*HRESULT GetDefaultStartupFlags(
-            [Out] out int pdwStartupFlags,
+            [Out] out STARTUP_FLAGS pdwStartupFlags,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder pwzHostConfigFile,
             [In, Out] ref int pcchHostConfigFile);*/
-            int pdwStartupFlags;
+            STARTUP_FLAGS pdwStartupFlags;
             StringBuilder pwzHostConfigFile;
             int pcchHostConfigFile = default(int);
             HRESULT hr = Raw.GetDefaultStartupFlags(out pdwStartupFlags, null, ref pcchHostConfigFile);
@@ -277,9 +277,9 @@ namespace ClrDebug
         {
             /*HRESULT IsStarted(
             [Out] out bool pbStarted,
-            [Out] out int pdwStartupFlags);*/
+            [Out] out STARTUP_FLAGS pdwStartupFlags);*/
             bool pbStarted;
-            int pdwStartupFlags;
+            STARTUP_FLAGS pdwStartupFlags;
             HRESULT hr = Raw.IsStarted(out pbStarted, out pdwStartupFlags);
 
             if (hr == HRESULT.S_OK)
@@ -563,7 +563,7 @@ namespace ClrDebug
         /// A multithreaded host should synchronize calls to this method. Otherwise, thread A might call the SetStartupFlags
         /// method after thread B completes a call to SetStartupFlags and before thread B starts the runtime.
         /// </remarks>
-        public void SetDefaultStartupFlags(int dwStartupFlags, string pwzHostConfigFile)
+        public void SetDefaultStartupFlags(STARTUP_FLAGS dwStartupFlags, string pwzHostConfigFile)
         {
             TrySetDefaultStartupFlags(dwStartupFlags, pwzHostConfigFile).ThrowOnNotOK();
         }
@@ -584,10 +584,10 @@ namespace ClrDebug
         /// A multithreaded host should synchronize calls to this method. Otherwise, thread A might call the SetStartupFlags
         /// method after thread B completes a call to SetStartupFlags and before thread B starts the runtime.
         /// </remarks>
-        public HRESULT TrySetDefaultStartupFlags(int dwStartupFlags, string pwzHostConfigFile)
+        public HRESULT TrySetDefaultStartupFlags(STARTUP_FLAGS dwStartupFlags, string pwzHostConfigFile)
         {
             /*HRESULT SetDefaultStartupFlags(
-            [In] int dwStartupFlags,
+            [In] STARTUP_FLAGS dwStartupFlags,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzHostConfigFile);*/
             return Raw.SetDefaultStartupFlags(dwStartupFlags, pwzHostConfigFile);
         }

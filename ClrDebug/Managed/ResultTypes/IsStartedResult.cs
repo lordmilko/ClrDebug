@@ -5,7 +5,7 @@ namespace ClrDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="CLRRuntimeInfo.IsStarted"/> property.
     /// </summary>
-    [DebuggerDisplay("pbStarted = {pbStarted}, pdwStartupFlags = {pdwStartupFlags}")]
+    [DebuggerDisplay("pbStarted = {pbStarted}, pdwStartupFlags = {pdwStartupFlags.ToString(),nq}")]
     public struct IsStartedResult
     {
         /// <summary>
@@ -16,9 +16,9 @@ namespace ClrDebug
         /// <summary>
         /// Returns the flags that were used to start the runtime.
         /// </summary>
-        public int pdwStartupFlags { get; }
+        public STARTUP_FLAGS pdwStartupFlags { get; }
 
-        public IsStartedResult(bool pbStarted, int pdwStartupFlags)
+        public IsStartedResult(bool pbStarted, STARTUP_FLAGS pdwStartupFlags)
         {
             this.pbStarted = pbStarted;
             this.pdwStartupFlags = pdwStartupFlags;

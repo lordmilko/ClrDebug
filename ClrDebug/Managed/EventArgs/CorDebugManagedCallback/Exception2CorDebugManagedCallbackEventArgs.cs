@@ -49,7 +49,7 @@ namespace ClrDebug
         /// <summary>
         /// A value of the <see cref="CorDebugExceptionFlags"/> enumeration that specifies additional information about the exception
         /// </summary>
-        public int Flags { get; }
+        public CorDebugExceptionFlags Flags { get; }
 
         /// <summary>
         /// Notifies the debugger that a search for an exception handler has started.
@@ -61,7 +61,7 @@ namespace ClrDebug
         /// <param name="nOffset">An integer that specifies an offset, as determined by the dwEventType parameter. For more information, see the table in the Remarks section.</param>
         /// <param name="dwEventType">A value of the <see cref="CorDebugExceptionCallbackType"/> enumeration that specifies the type of this exception callback.</param>
         /// <param name="dwFlags">A value of the <see cref="CorDebugExceptionFlags"/> enumeration that specifies additional information about the exception</param>
-        public Exception2CorDebugManagedCallbackEventArgs(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugFrame pFrame, int nOffset, CorDebugExceptionCallbackType dwEventType, int dwFlags) : base(pAppDomain, pThread)
+        public Exception2CorDebugManagedCallbackEventArgs(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugFrame pFrame, int nOffset, CorDebugExceptionCallbackType dwEventType, CorDebugExceptionFlags dwFlags) : base(pAppDomain, pThread)
         {
             rawFrame = pFrame;
             Offset = nOffset;

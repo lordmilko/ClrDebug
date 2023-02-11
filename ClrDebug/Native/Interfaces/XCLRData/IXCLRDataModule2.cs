@@ -9,6 +9,6 @@ namespace ClrDebug
     {
         [PreserveSig]
         HRESULT SetJITCompilerFlags(
-            [In] int dwFlags);
+            [In] CorDebugJITCompilerFlags dwFlags);
     }
 }

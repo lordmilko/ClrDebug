@@ -261,7 +261,7 @@ namespace ClrDebug
         HRESULT DefineEvent(
             [In] mdTypeDef td,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szEvent,
-            [In] int dwEventFlags,
+            [In] CorEventAttr dwEventFlags,
             [In] mdToken tkEventType,
             [In] mdMethodDef mdAddOn,
             [In] mdMethodDef mdRemoveOn,
@@ -429,9 +429,9 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT SetMethodProps(
             [In] mdMethodDef md,
-            [In] int dwMethodFlags,
+            [In] CorMethodAttr dwMethodFlags,
             [In] int ulCodeRVA,
-            [In] int dwImplFlags);
+            [In] CorMethodImpl dwImplFlags);
 
         /// <summary>
         /// Sets features of a type defined by a prior call to <see cref="DefineTypeDef"/>.
@@ -494,7 +494,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT DefinePinvokeMap(
             [In] mdToken tk,
-            [In] int dwMappingFlags,
+            [In] CorPinvokeMap dwMappingFlags,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szImportName,
             [In] mdModuleRef mrImportDLL);
 
@@ -594,7 +594,7 @@ namespace ClrDebug
             [In] CorPropertyAttr dwPropFlags,
             [In] IntPtr pvSig,
             [In] int cbSig,
-            [In] int dwCPlusTypeFlag,
+            [In] CorElementType dwCPlusTypeFlag,
             [In] IntPtr cvalue,
             [In] int cchValue,
             [In] mdMethodDef mdSetter,
@@ -658,7 +658,7 @@ namespace ClrDebug
         HRESULT SetPropertyProps(
             [In] mdProperty pr,
             [In] CorPropertyAttr dwPropFlags,
-            [In] int dwCPlusTypeFlag,
+            [In] CorElementType dwCPlusTypeFlag,
             [In] IntPtr pValue,
             [In] int cchValue,
             [In] mdMethodDef mdSetter,
@@ -678,8 +678,8 @@ namespace ClrDebug
         HRESULT SetParamProps(
             [In] mdParamDef pd,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
-            [In] int dwParamFlags,
-            [In] int dwCPlusTypeFlag,
+            [In] CorParamAttr dwParamFlags,
+            [In] CorElementType dwCPlusTypeFlag,
             [In] IntPtr pValue,
             [In] int cchValue);
 
@@ -741,7 +741,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT SetMethodImplFlags(
             [In] mdMethodDef md,
-            [In] int dwImplFlags);
+            [In] CorMethodImpl dwImplFlags);
 
         /// <summary>
         /// Sets a global variable value for the relative virtual address of the field referenced by the specified token.

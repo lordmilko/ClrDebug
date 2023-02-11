@@ -204,8 +204,8 @@ namespace ClrDebug
         new HRESULT AllocVirtual(
             [In] CLRDATA_ADDRESS addr,
             [In] int size,
-            [In] int typeFlags,
-            [In] int protectFlags,
+            [In] MEM_FLAGS typeFlags,
+            [In] PAGE_FLAGS protectFlags,
             [Out] out CLRDATA_ADDRESS virt);
 
         /// <summary>
@@ -223,7 +223,7 @@ namespace ClrDebug
         new HRESULT FreeVirtual(
             [In] CLRDATA_ADDRESS addr,
             [In] int size,
-            [In] int typeFlags);
+            [In] MEM_FLAGS typeFlags);
 
         /// <summary>
         /// Called by the common language runtime (CLR) data access services to retrieve the exception record associated with the target process.<para/>

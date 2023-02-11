@@ -1611,7 +1611,7 @@ namespace ClrDebug
         /// For Windows systems, it can be a member of the <see cref="CorDebugDecodeEventFlagsWindows"/> enumeration.</param>
         /// <param name="dwThreadId">[in] The operating system identifier of the thread on which the exception was thrown.</param>
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugDebugEvent"/> object that represents a decoded managed debug event.</returns>
-        public CorDebugDebugEvent DecodeEvent(byte[] pRecord, int countBytes, CorDebugRecordFormat format, int dwFlags, int dwThreadId)
+        public CorDebugDebugEvent DecodeEvent(byte[] pRecord, int countBytes, CorDebugRecordFormat format, CorDebugDecodeEventFlagsWindows dwFlags, int dwThreadId)
         {
             CorDebugDebugEvent ppEventResult;
             TryDecodeEvent(pRecord, countBytes, format, dwFlags, dwThreadId, out ppEventResult).ThrowOnNotOK();
@@ -1629,13 +1629,13 @@ namespace ClrDebug
         /// For Windows systems, it can be a member of the <see cref="CorDebugDecodeEventFlagsWindows"/> enumeration.</param>
         /// <param name="dwThreadId">[in] The operating system identifier of the thread on which the exception was thrown.</param>
         /// <param name="ppEventResult">[out] A pointer to the address of an <see cref="ICorDebugDebugEvent"/> object that represents a decoded managed debug event.</param>
-        public HRESULT TryDecodeEvent(byte[] pRecord, int countBytes, CorDebugRecordFormat format, int dwFlags, int dwThreadId, out CorDebugDebugEvent ppEventResult)
+        public HRESULT TryDecodeEvent(byte[] pRecord, int countBytes, CorDebugRecordFormat format, CorDebugDecodeEventFlagsWindows dwFlags, int dwThreadId, out CorDebugDebugEvent ppEventResult)
         {
             /*HRESULT DecodeEvent(
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] pRecord,
             [In] int countBytes,
             [In] CorDebugRecordFormat format,
-            [In] int dwFlags,
+            [In] CorDebugDecodeEventFlagsWindows dwFlags,
             [In] int dwThreadId,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugDebugEvent ppEvent);*/
             ICorDebugDebugEvent ppEvent;

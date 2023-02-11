@@ -79,7 +79,7 @@ namespace ClrDebug
         HRESULT DefineGenericParam(
             [In] mdToken tk,
             [In] int ulParamSeq,
-            [In] int dwParamFlags,
+            [In] CorGenericParamAttr dwParamFlags,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] int reserved,
             [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkConstraints,
@@ -96,7 +96,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT SetGenericParamProps(
             [In] mdGenericParam gp,
-            [In] int dwParamFlags,
+            [In] CorGenericParamAttr dwParamFlags,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] int reserved,
             [In, MarshalAs(UnmanagedType.LPArray)] mdToken[] rtkConstraints);

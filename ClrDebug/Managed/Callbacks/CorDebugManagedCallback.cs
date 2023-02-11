@@ -275,9 +275,9 @@ namespace ClrDebug
 
         HRESULT ICorDebugManagedCallback2.DestroyConnection(ICorDebugProcess pProcess, int dwConnectionId) => HandleEvent(OnDestroyConnection, new DestroyConnectionCorDebugManagedCallbackEventArgs(pProcess, dwConnectionId));
 
-        HRESULT ICorDebugManagedCallback2.Exception(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugFrame pFrame, int nOffset, CorDebugExceptionCallbackType dwEventType, int dwFlags) => HandleEvent(OnException2, new Exception2CorDebugManagedCallbackEventArgs(pAppDomain, pThread, pFrame, nOffset, dwEventType, dwFlags));
+        HRESULT ICorDebugManagedCallback2.Exception(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugFrame pFrame, int nOffset, CorDebugExceptionCallbackType dwEventType, CorDebugExceptionFlags dwFlags) => HandleEvent(OnException2, new Exception2CorDebugManagedCallbackEventArgs(pAppDomain, pThread, pFrame, nOffset, dwEventType, dwFlags));
 
-        HRESULT ICorDebugManagedCallback2.ExceptionUnwind(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, CorDebugExceptionUnwindCallbackType dwEventType, int dwFlags) => HandleEvent(OnExceptionUnwind, new ExceptionUnwindCorDebugManagedCallbackEventArgs(pAppDomain, pThread, dwEventType, dwFlags));
+        HRESULT ICorDebugManagedCallback2.ExceptionUnwind(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, CorDebugExceptionUnwindCallbackType dwEventType, CorDebugExceptionFlags dwFlags) => HandleEvent(OnExceptionUnwind, new ExceptionUnwindCorDebugManagedCallbackEventArgs(pAppDomain, pThread, dwEventType, dwFlags));
 
         HRESULT ICorDebugManagedCallback2.FunctionRemapComplete(ICorDebugAppDomain pAppDomain, ICorDebugThread pThread, ICorDebugFunction pFunction) => HandleEvent(OnFunctionRemapComplete, new FunctionRemapCompleteCorDebugManagedCallbackEventArgs(pAppDomain, pThread, pFunction));
 

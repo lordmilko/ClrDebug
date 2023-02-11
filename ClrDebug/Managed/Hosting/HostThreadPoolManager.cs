@@ -224,7 +224,7 @@ namespace ClrDebug
         /// identical to those of the corresponding Win32 function, which has the same name. For more information, see the
         /// Windows Platform documentation.
         /// </remarks>
-        public void QueueUserWorkItem(LPTHREAD_START_ROUTINE function, IntPtr context, int flags)
+        public void QueueUserWorkItem(LPTHREAD_START_ROUTINE function, IntPtr context, WT flags)
         {
             TryQueueUserWorkItem(function, context, flags).ThrowOnNotOK();
         }
@@ -250,12 +250,12 @@ namespace ClrDebug
         /// identical to those of the corresponding Win32 function, which has the same name. For more information, see the
         /// Windows Platform documentation.
         /// </remarks>
-        public HRESULT TryQueueUserWorkItem(LPTHREAD_START_ROUTINE function, IntPtr context, int flags)
+        public HRESULT TryQueueUserWorkItem(LPTHREAD_START_ROUTINE function, IntPtr context, WT flags)
         {
             /*HRESULT QueueUserWorkItem(
             [In, MarshalAs(UnmanagedType.FunctionPtr)] LPTHREAD_START_ROUTINE Function,
             [In] IntPtr Context,
-            [In] int Flags);*/
+            [In] WT Flags);*/
             return Raw.QueueUserWorkItem(function, context, flags);
         }
 

@@ -1032,12 +1032,12 @@ namespace ClrDebug
         #endregion
         #region SetCodeNotifications
 
-        public void SetCodeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdMethodDef[] tokens, CLRDataMethodCodeNotification flags, int singleFlags)
+        public void SetCodeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdMethodDef[] tokens, CLRDataMethodCodeNotification flags, CLRDataMethodCodeNotification singleFlags)
         {
             TrySetCodeNotifications(numTokens, mods, singleMod, tokens, flags, singleFlags).ThrowOnNotOK();
         }
 
-        public HRESULT TrySetCodeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdMethodDef[] tokens, CLRDataMethodCodeNotification flags, int singleFlags)
+        public HRESULT TrySetCodeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdMethodDef[] tokens, CLRDataMethodCodeNotification flags, CLRDataMethodCodeNotification singleFlags)
         {
             /*HRESULT SetCodeNotifications(
             [In] int numTokens,
@@ -1045,7 +1045,7 @@ namespace ClrDebug
             [In] IXCLRDataModule singleMod,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] mdMethodDef[] tokens,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDataMethodCodeNotification flags,
-            [In] int singleFlags);*/
+            [In] CLRDataMethodCodeNotification singleFlags);*/
             return Raw.SetCodeNotifications(numTokens, mods, singleMod, tokens, flags, singleFlags);
         }
 
@@ -1113,7 +1113,7 @@ namespace ClrDebug
         #endregion
         #region FollowStub
 
-        public FollowStubResult FollowStub(int inFlags, CLRDATA_ADDRESS inAddr, CLRDATA_FOLLOW_STUB_BUFFER inBuffer)
+        public FollowStubResult FollowStub(CLRDataFollowStubInFlag inFlags, CLRDATA_ADDRESS inAddr, CLRDATA_FOLLOW_STUB_BUFFER inBuffer)
         {
             FollowStubResult result;
             TryFollowStub(inFlags, inAddr, inBuffer, out result).ThrowOnNotOK();
@@ -1121,18 +1121,18 @@ namespace ClrDebug
             return result;
         }
 
-        public HRESULT TryFollowStub(int inFlags, CLRDATA_ADDRESS inAddr, CLRDATA_FOLLOW_STUB_BUFFER inBuffer, out FollowStubResult result)
+        public HRESULT TryFollowStub(CLRDataFollowStubInFlag inFlags, CLRDATA_ADDRESS inAddr, CLRDATA_FOLLOW_STUB_BUFFER inBuffer, out FollowStubResult result)
         {
             /*HRESULT FollowStub(
-            [In] int inFlags,
+            [In] CLRDataFollowStubInFlag inFlags,
             [In] CLRDATA_ADDRESS inAddr,
             [In] ref CLRDATA_FOLLOW_STUB_BUFFER inBuffer,
             [Out] out CLRDATA_ADDRESS outAddr,
             [Out] out CLRDATA_FOLLOW_STUB_BUFFER outBuffer,
-            [Out] out int outFlags);*/
+            [Out] out CLRDataFollowStubOutFlag outFlags);*/
             CLRDATA_ADDRESS outAddr;
             CLRDATA_FOLLOW_STUB_BUFFER outBuffer;
-            int outFlags;
+            CLRDataFollowStubOutFlag outFlags;
             HRESULT hr = Raw.FollowStub(inFlags, inAddr, ref inBuffer, out outAddr, out outBuffer, out outFlags);
 
             if (hr == HRESULT.S_OK)
@@ -1146,7 +1146,7 @@ namespace ClrDebug
         #endregion
         #region FollowStub2
 
-        public FollowStub2Result FollowStub2(IXCLRDataTask task, int inFlags, CLRDATA_ADDRESS inAddr, CLRDATA_FOLLOW_STUB_BUFFER inBuffer)
+        public FollowStub2Result FollowStub2(IXCLRDataTask task, CLRDataFollowStubInFlag inFlags, CLRDATA_ADDRESS inAddr, CLRDATA_FOLLOW_STUB_BUFFER inBuffer)
         {
             FollowStub2Result result;
             TryFollowStub2(task, inFlags, inAddr, inBuffer, out result).ThrowOnNotOK();
@@ -1154,19 +1154,19 @@ namespace ClrDebug
             return result;
         }
 
-        public HRESULT TryFollowStub2(IXCLRDataTask task, int inFlags, CLRDATA_ADDRESS inAddr, CLRDATA_FOLLOW_STUB_BUFFER inBuffer, out FollowStub2Result result)
+        public HRESULT TryFollowStub2(IXCLRDataTask task, CLRDataFollowStubInFlag inFlags, CLRDATA_ADDRESS inAddr, CLRDATA_FOLLOW_STUB_BUFFER inBuffer, out FollowStub2Result result)
         {
             /*HRESULT FollowStub2(
             [In] IXCLRDataTask task,
-            [In] int inFlags,
+            [In] CLRDataFollowStubInFlag inFlags,
             [In] CLRDATA_ADDRESS inAddr,
             [In] ref CLRDATA_FOLLOW_STUB_BUFFER inBuffer,
             [Out] out CLRDATA_ADDRESS outAddr,
             [Out] out CLRDATA_FOLLOW_STUB_BUFFER outBuffer,
-            [Out] out int outFlags);*/
+            [Out] out CLRDataFollowStubOutFlag outFlags);*/
             CLRDATA_ADDRESS outAddr;
             CLRDATA_FOLLOW_STUB_BUFFER outBuffer;
-            int outFlags;
+            CLRDataFollowStubOutFlag outFlags;
             HRESULT hr = Raw.FollowStub2(task, inFlags, inAddr, ref inBuffer, out outAddr, out outBuffer, out outFlags);
 
             if (hr == HRESULT.S_OK)

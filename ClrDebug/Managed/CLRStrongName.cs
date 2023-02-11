@@ -519,7 +519,7 @@ namespace ClrDebug
         /// The <see cref="StrongNameKeyGen"/> method creates a 1024-bit key. After the key is retrieved, you should call the
         /// <see cref="StrongNameFreeBuffer"/> method to release the allocated memory.
         /// </remarks>
-        public StrongNameKeyGenResult StrongNameKeyGen(string pwzKeyContainer, int dwFlags)
+        public StrongNameKeyGenResult StrongNameKeyGen(string pwzKeyContainer, SN_LEAVE dwFlags)
         {
             StrongNameKeyGenResult result;
             TryStrongNameKeyGen(pwzKeyContainer, dwFlags, out result).ThrowOnNotOK();
@@ -538,11 +538,11 @@ namespace ClrDebug
         /// The <see cref="StrongNameKeyGen"/> method creates a 1024-bit key. After the key is retrieved, you should call the
         /// <see cref="StrongNameFreeBuffer"/> method to release the allocated memory.
         /// </remarks>
-        public HRESULT TryStrongNameKeyGen(string pwzKeyContainer, int dwFlags, out StrongNameKeyGenResult result)
+        public HRESULT TryStrongNameKeyGen(string pwzKeyContainer, SN_LEAVE dwFlags, out StrongNameKeyGenResult result)
         {
             /*HRESULT StrongNameKeyGen(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
-            [In] int dwFlags,
+            [In] SN_LEAVE dwFlags,
             [Out] out IntPtr ppbKeyBlob,
             [Out] out int pcbKeyBlob);*/
             IntPtr ppbKeyBlob;
@@ -572,7 +572,7 @@ namespace ClrDebug
         /// version 2.0 adds supports for 2048-bit keys. After the key is retrieved, you should call the <see cref="StrongNameFreeBuffer"/>
         /// method to release the allocated memory.
         /// </remarks>
-        public StrongNameKeyGenExResult StrongNameKeyGenEx(string pwzKeyContainer, int dwFlags, int dwKeySize)
+        public StrongNameKeyGenExResult StrongNameKeyGenEx(string pwzKeyContainer, SN_LEAVE dwFlags, int dwKeySize)
         {
             StrongNameKeyGenExResult result;
             TryStrongNameKeyGenEx(pwzKeyContainer, dwFlags, dwKeySize, out result).ThrowOnNotOK();
@@ -593,11 +593,11 @@ namespace ClrDebug
         /// version 2.0 adds supports for 2048-bit keys. After the key is retrieved, you should call the <see cref="StrongNameFreeBuffer"/>
         /// method to release the allocated memory.
         /// </remarks>
-        public HRESULT TryStrongNameKeyGenEx(string pwzKeyContainer, int dwFlags, int dwKeySize, out StrongNameKeyGenExResult result)
+        public HRESULT TryStrongNameKeyGenEx(string pwzKeyContainer, SN_LEAVE dwFlags, int dwKeySize, out StrongNameKeyGenExResult result)
         {
             /*HRESULT StrongNameKeyGenEx(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
-            [In] int dwFlags,
+            [In] SN_LEAVE dwFlags,
             [In] int dwKeySize,
             [Out] out IntPtr ppbKeyBlob,
             [Out] out int pcbKeyBlob);*/
@@ -733,7 +733,7 @@ namespace ClrDebug
         /// assembly is not re-signed. If SN_TEST_SIGN is specified, the common language runtime header is not modified to
         /// indicate that the assembly is signed with a strong name.
         /// </remarks>
-        public StrongNameSignatureGenerationExResult StrongNameSignatureGenerationEx(string wszFilePath, string wszKeyContainer, IntPtr pbKeyBlob, int cbKeyBlob, int dwFlags)
+        public StrongNameSignatureGenerationExResult StrongNameSignatureGenerationEx(string wszFilePath, string wszKeyContainer, IntPtr pbKeyBlob, int cbKeyBlob, SN_SIGN dwFlags)
         {
             StrongNameSignatureGenerationExResult result;
             TryStrongNameSignatureGenerationEx(wszFilePath, wszKeyContainer, pbKeyBlob, cbKeyBlob, dwFlags, out result).ThrowOnNotOK();
@@ -760,7 +760,7 @@ namespace ClrDebug
         /// assembly is not re-signed. If SN_TEST_SIGN is specified, the common language runtime header is not modified to
         /// indicate that the assembly is signed with a strong name.
         /// </remarks>
-        public HRESULT TryStrongNameSignatureGenerationEx(string wszFilePath, string wszKeyContainer, IntPtr pbKeyBlob, int cbKeyBlob, int dwFlags, out StrongNameSignatureGenerationExResult result)
+        public HRESULT TryStrongNameSignatureGenerationEx(string wszFilePath, string wszKeyContainer, IntPtr pbKeyBlob, int cbKeyBlob, SN_SIGN dwFlags, out StrongNameSignatureGenerationExResult result)
         {
             /*HRESULT StrongNameSignatureGenerationEx(
             [MarshalAs(UnmanagedType.LPWStr), In] string wszFilePath,
@@ -769,7 +769,7 @@ namespace ClrDebug
             [In] int cbKeyBlob,
             [Out] out IntPtr ppbSignatureBlob,
             [Out] out int pcbSignatureBlob,
-            [In] int dwFlags);*/
+            [In] SN_SIGN dwFlags);*/
             IntPtr ppbSignatureBlob;
             int pcbSignatureBlob;
             HRESULT hr = Raw.StrongNameSignatureGenerationEx(wszFilePath, wszKeyContainer, pbKeyBlob, cbKeyBlob, out ppbSignatureBlob, out pcbSignatureBlob, dwFlags);
@@ -821,9 +821,9 @@ namespace ClrDebug
         /// <param name="wszFilePath">[in] The path to the portable executable (.dll or .exe) file for the assembly to verify.</param>
         /// <param name="dwInFlags">[in] Flags to modify the verification behavior. The following values are supported:</param>
         /// <returns>[out] Flags indicating whether the strong name signature was verified. The following value is supported:</returns>
-        public int StrongNameSignatureVerification(string wszFilePath, int dwInFlags)
+        public SN_OUTFLAG StrongNameSignatureVerification(string wszFilePath, SN_INFLAG dwInFlags)
         {
-            int pdwOutFlags;
+            SN_OUTFLAG pdwOutFlags;
             TryStrongNameSignatureVerification(wszFilePath, dwInFlags, out pdwOutFlags).ThrowOnNotOK();
 
             return pdwOutFlags;
@@ -836,12 +836,12 @@ namespace ClrDebug
         /// <param name="dwInFlags">[in] Flags to modify the verification behavior. The following values are supported:</param>
         /// <param name="pdwOutFlags">[out] Flags indicating whether the strong name signature was verified. The following value is supported:</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
-        public HRESULT TryStrongNameSignatureVerification(string wszFilePath, int dwInFlags, out int pdwOutFlags)
+        public HRESULT TryStrongNameSignatureVerification(string wszFilePath, SN_INFLAG dwInFlags, out SN_OUTFLAG pdwOutFlags)
         {
             /*HRESULT StrongNameSignatureVerification(
             [MarshalAs(UnmanagedType.LPWStr), In] string wszFilePath,
-            [In] int dwInFlags,
-            [Out] out int pdwOutFlags);*/
+            [In] SN_INFLAG dwInFlags,
+            [Out] out SN_OUTFLAG pdwOutFlags);*/
             return Raw.StrongNameSignatureVerification(wszFilePath, dwInFlags, out pdwOutFlags);
         }
 
@@ -898,9 +898,9 @@ namespace ClrDebug
         /// <param name="dwLength">[in] The size, in bytes, of the mapped image.</param>
         /// <param name="dwInFlags">[in] Flags that influence verification behavior. The following values are supported:</param>
         /// <returns>[out] A flag for additional output information. The following value is supported:</returns>
-        public int StrongNameSignatureVerificationFromImage(IntPtr pbBase, int dwLength, int dwInFlags)
+        public SN_OUTFLAG StrongNameSignatureVerificationFromImage(IntPtr pbBase, int dwLength, SN_INFLAG dwInFlags)
         {
-            int pdwOutFlags;
+            SN_OUTFLAG pdwOutFlags;
             TryStrongNameSignatureVerificationFromImage(pbBase, dwLength, dwInFlags, out pdwOutFlags).ThrowOnNotOK();
 
             return pdwOutFlags;
@@ -914,13 +914,13 @@ namespace ClrDebug
         /// <param name="dwInFlags">[in] Flags that influence verification behavior. The following values are supported:</param>
         /// <param name="pdwOutFlags">[out] A flag for additional output information. The following value is supported:</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
-        public HRESULT TryStrongNameSignatureVerificationFromImage(IntPtr pbBase, int dwLength, int dwInFlags, out int pdwOutFlags)
+        public HRESULT TryStrongNameSignatureVerificationFromImage(IntPtr pbBase, int dwLength, SN_INFLAG dwInFlags, out SN_OUTFLAG pdwOutFlags)
         {
             /*HRESULT StrongNameSignatureVerificationFromImage(
             [In] IntPtr pbBase,
             [In] int dwLength,
-            [In] int dwInFlags,
-            [Out] out int pdwOutFlags);*/
+            [In] SN_INFLAG dwInFlags,
+            [Out] out SN_OUTFLAG pdwOutFlags);*/
             return Raw.StrongNameSignatureVerificationFromImage(pbBase, dwLength, dwInFlags, out pdwOutFlags);
         }
 

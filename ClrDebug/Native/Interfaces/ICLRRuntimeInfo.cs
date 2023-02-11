@@ -227,7 +227,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetDefaultStartupFlags(
-            [In] int dwStartupFlags,
+            [In] STARTUP_FLAGS dwStartupFlags,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzHostConfigFile);
 
         /// <summary>
@@ -251,7 +251,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetDefaultStartupFlags(
-            [Out] out int pdwStartupFlags,
+            [Out] out STARTUP_FLAGS pdwStartupFlags,
             [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder pwzHostConfigFile,
             [In, Out] ref int pcchHostConfigFile);
 
@@ -296,6 +296,6 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsStarted(
             [Out] out bool pbStarted,
-            [Out] out int pdwStartupFlags);
+            [Out] out STARTUP_FLAGS pdwStartupFlags);
     }
 }

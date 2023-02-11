@@ -81,15 +81,15 @@
         #endregion
         #region Commit
 
-        public void Commit(int grfCommitFlags)
+        public void Commit(STGC grfCommitFlags)
         {
             TryCommit(grfCommitFlags).ThrowOnNotOK();
         }
 
-        public HRESULT TryCommit(int grfCommitFlags)
+        public HRESULT TryCommit(STGC grfCommitFlags)
         {
             /*HRESULT Commit(
-            [In] int grfCommitFlags);*/
+            [In] STGC grfCommitFlags);*/
             return Raw.Commit(grfCommitFlags);
         }
 
@@ -144,7 +144,7 @@
         #endregion
         #region Stat
 
-        public tagSTATSTG Stat(int grfStatFlag)
+        public tagSTATSTG Stat(STATFLAG grfStatFlag)
         {
             tagSTATSTG pstatstg;
             TryStat(out pstatstg, grfStatFlag).ThrowOnNotOK();
@@ -152,11 +152,11 @@
             return pstatstg;
         }
 
-        public HRESULT TryStat(out tagSTATSTG pstatstg, int grfStatFlag)
+        public HRESULT TryStat(out tagSTATSTG pstatstg, STATFLAG grfStatFlag)
         {
             /*HRESULT Stat(
             [Out] out tagSTATSTG pstatstg,
-            [In] int grfStatFlag);*/
+            [In] STATFLAG grfStatFlag);*/
             return Raw.Stat(out pstatstg, grfStatFlag);
         }
 

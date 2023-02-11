@@ -230,7 +230,7 @@ namespace ClrDebug
         /// One ManifestResource metadata structure must be defined for each resource that is implemented in each of the assembly's
         /// files.
         /// </remarks>
-        public mdManifestResource DefineManifestResource(string szName, mdToken tkImplementation, int dwOffset, int dwResourceFlags)
+        public mdManifestResource DefineManifestResource(string szName, mdToken tkImplementation, int dwOffset, CorManifestResourceFlags dwResourceFlags)
         {
             mdManifestResource pmdmr;
             TryDefineManifestResource(szName, tkImplementation, dwOffset, dwResourceFlags, out pmdmr).ThrowOnNotOK();
@@ -251,13 +251,13 @@ namespace ClrDebug
         /// One ManifestResource metadata structure must be defined for each resource that is implemented in each of the assembly's
         /// files.
         /// </remarks>
-        public HRESULT TryDefineManifestResource(string szName, mdToken tkImplementation, int dwOffset, int dwResourceFlags, out mdManifestResource pmdmr)
+        public HRESULT TryDefineManifestResource(string szName, mdToken tkImplementation, int dwOffset, CorManifestResourceFlags dwResourceFlags, out mdManifestResource pmdmr)
         {
             /*HRESULT DefineManifestResource(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] mdToken tkImplementation,
             [In] int dwOffset,
-            [In] int dwResourceFlags,
+            [In] CorManifestResourceFlags dwResourceFlags,
             [Out] out mdManifestResource pmdmr);*/
             return Raw.DefineManifestResource(szName, tkImplementation, dwOffset, dwResourceFlags, out pmdmr);
         }
@@ -278,7 +278,7 @@ namespace ClrDebug
         /// <remarks>
         /// To create an Assembly metadata structure, use the <see cref="DefineAssembly"/> method.
         /// </remarks>
-        public void SetAssemblyProps(mdAssembly pma, IntPtr pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, ASSEMBLYMETADATA pMetaData, int dwAssemblyFlags)
+        public void SetAssemblyProps(mdAssembly pma, IntPtr pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, ASSEMBLYMETADATA pMetaData, AssemblyFlags dwAssemblyFlags)
         {
             TrySetAssemblyProps(pma, pbPublicKey, cbPublicKey, ulHashAlgId, szName, pMetaData, dwAssemblyFlags).ThrowOnNotOK();
         }
@@ -296,7 +296,7 @@ namespace ClrDebug
         /// <remarks>
         /// To create an Assembly metadata structure, use the <see cref="DefineAssembly"/> method.
         /// </remarks>
-        public HRESULT TrySetAssemblyProps(mdAssembly pma, IntPtr pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, ASSEMBLYMETADATA pMetaData, int dwAssemblyFlags)
+        public HRESULT TrySetAssemblyProps(mdAssembly pma, IntPtr pbPublicKey, int cbPublicKey, int ulHashAlgId, string szName, ASSEMBLYMETADATA pMetaData, AssemblyFlags dwAssemblyFlags)
         {
             /*HRESULT SetAssemblyProps(
             [In] mdAssembly pma,
@@ -305,7 +305,7 @@ namespace ClrDebug
             [In] int ulHashAlgId,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] ref ASSEMBLYMETADATA pMetaData,
-            [In] int dwAssemblyFlags);*/
+            [In] AssemblyFlags dwAssemblyFlags);*/
             return Raw.SetAssemblyProps(pma, pbPublicKey, cbPublicKey, ulHashAlgId, szName, ref pMetaData, dwAssemblyFlags);
         }
 
@@ -410,7 +410,7 @@ namespace ClrDebug
         /// <remarks>
         /// To create an ExportedType metadata structure, use the <see cref="DefineExportedType"/> method.
         /// </remarks>
-        public void SetExportedTypeProps(mdExportedType ct, mdToken tkImplementation, mdTypeDef tkTypeDef, int dwExportedTypeFlags)
+        public void SetExportedTypeProps(mdExportedType ct, mdToken tkImplementation, mdTypeDef tkTypeDef, CorTypeAttr dwExportedTypeFlags)
         {
             TrySetExportedTypeProps(ct, tkImplementation, tkTypeDef, dwExportedTypeFlags).ThrowOnNotOK();
         }
@@ -425,13 +425,13 @@ namespace ClrDebug
         /// <remarks>
         /// To create an ExportedType metadata structure, use the <see cref="DefineExportedType"/> method.
         /// </remarks>
-        public HRESULT TrySetExportedTypeProps(mdExportedType ct, mdToken tkImplementation, mdTypeDef tkTypeDef, int dwExportedTypeFlags)
+        public HRESULT TrySetExportedTypeProps(mdExportedType ct, mdToken tkImplementation, mdTypeDef tkTypeDef, CorTypeAttr dwExportedTypeFlags)
         {
             /*HRESULT SetExportedTypeProps(
             [In] mdExportedType ct,
             [In] mdToken tkImplementation,
             [In] mdTypeDef tkTypeDef,
-            [In] int dwExportedTypeFlags);*/
+            [In] CorTypeAttr dwExportedTypeFlags);*/
             return Raw.SetExportedTypeProps(ct, tkImplementation, tkTypeDef, dwExportedTypeFlags);
         }
 
@@ -448,7 +448,7 @@ namespace ClrDebug
         /// <remarks>
         /// To create a ManifestResource metadata structure, use the <see cref="DefineManifestResource"/> method.
         /// </remarks>
-        public void SetManifestResourceProps(mdManifestResource mr, mdToken tkImplementation, int dwOffset, int dwResourceFlags)
+        public void SetManifestResourceProps(mdManifestResource mr, mdToken tkImplementation, int dwOffset, CorManifestResourceFlags dwResourceFlags)
         {
             TrySetManifestResourceProps(mr, tkImplementation, dwOffset, dwResourceFlags).ThrowOnNotOK();
         }
@@ -463,13 +463,13 @@ namespace ClrDebug
         /// <remarks>
         /// To create a ManifestResource metadata structure, use the <see cref="DefineManifestResource"/> method.
         /// </remarks>
-        public HRESULT TrySetManifestResourceProps(mdManifestResource mr, mdToken tkImplementation, int dwOffset, int dwResourceFlags)
+        public HRESULT TrySetManifestResourceProps(mdManifestResource mr, mdToken tkImplementation, int dwOffset, CorManifestResourceFlags dwResourceFlags)
         {
             /*HRESULT SetManifestResourceProps(
             [In] mdManifestResource mr,
             [In] mdToken tkImplementation,
             [In] int dwOffset,
-            [In] int dwResourceFlags);*/
+            [In] CorManifestResourceFlags dwResourceFlags);*/
             return Raw.SetManifestResourceProps(mr, tkImplementation, dwOffset, dwResourceFlags);
         }
 

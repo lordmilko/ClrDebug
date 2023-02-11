@@ -262,7 +262,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameKeyGen(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
-            [In] int dwFlags,
+            [In] SN_LEAVE dwFlags,
             [Out] out IntPtr ppbKeyBlob,
             [Out] out int pcbKeyBlob);
 
@@ -284,7 +284,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameKeyGenEx(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
-            [In] int dwFlags,
+            [In] SN_LEAVE dwFlags,
             [In] int dwKeySize,
             [Out] out IntPtr ppbKeyBlob,
             [Out] out int pcbKeyBlob);
@@ -364,7 +364,7 @@ namespace ClrDebug
             [In] int cbKeyBlob,
             [Out] out IntPtr ppbSignatureBlob,
             [Out] out int pcbSignatureBlob,
-            [In] int dwFlags);
+            [In] SN_SIGN dwFlags);
 
         /// <summary>
         /// Returns the size of the strong name signature. This method is typically used by compilers to determine how much space to reserve in the file when creating a delay-signed assembly.
@@ -391,8 +391,8 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameSignatureVerification(
             [MarshalAs(UnmanagedType.LPWStr), In] string wszFilePath,
-            [In] int dwInFlags,
-            [Out] out int pdwOutFlags);
+            [In] SN_INFLAG dwInFlags,
+            [Out] out SN_OUTFLAG pdwOutFlags);
 
         /// <summary>
         /// Gets a value that indicates whether the assembly manifest at the supplied path contains a strong name signature.
@@ -426,8 +426,8 @@ namespace ClrDebug
         HRESULT StrongNameSignatureVerificationFromImage(
             [In] IntPtr pbBase,
             [In] int dwLength,
-            [In] int dwInFlags,
-            [Out] out int pdwOutFlags);
+            [In] SN_INFLAG dwInFlags,
+            [Out] out SN_OUTFLAG pdwOutFlags);
 
         /// <summary>
         /// Creates a strong name token from the specified assembly file.

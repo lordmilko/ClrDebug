@@ -49,7 +49,7 @@ namespace ClrDebug
             [In] ref SECURITY_ATTRIBUTES lpProcessAttributes,
             [In] ref SECURITY_ATTRIBUTES lpThreadAttributes,
             [In] bool bInheritHandles,
-            [In] int dwCreationFlags,
+            [In] CreateProcessFlags dwCreationFlags,
             [In] IntPtr lpEnvironment,
             [MarshalAs(UnmanagedType.LPWStr), In] string lpCurrentDirectory,
             [In] ref STARTUPINFO lpStartupInfo,
