@@ -35,6 +35,7 @@ namespace ClrDebug
 
         public override string ToString()
         {
+            //If clientID is set, functionId gets set too. Therefore it is valid to simply return functionId.ToString()
             return functionId.ToString();
         }
     }

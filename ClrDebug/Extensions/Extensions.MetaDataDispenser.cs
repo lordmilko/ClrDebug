@@ -20,7 +20,7 @@ namespace ClrDebug
         /// <summary>
         /// Creates a new area in memory in which you can create new metadata.
         /// </summary>
-        /// <typeparam name="T">The desired metadata interface to be returned; the caller will use the interface to create the new metadata.</typeparam>
+        /// <typeparam name="T">The desired metadata interface to be returned. This can be either a raw interface or wrapper type.</typeparam>
         /// <param name="metaDataDispenser">The <see cref="MetaDataDispenser"/> in which the scope should be defined.</param>
         /// <returns>The pointer to the returned interface.</returns>
         public static T DefineScope<T>(this MetaDataDispenser metaDataDispenser)
@@ -33,7 +33,7 @@ namespace ClrDebug
         /// <summary>
         /// Creates a new area in memory in which you can create new metadata.
         /// </summary>
-        /// <typeparam name="T">The desired wrapper type or raw metadata interface to be returned; the caller will use the interface to create the new metadata.</typeparam>
+        /// <typeparam name="T">The desired wrapper type or raw metadata interface to be returned. This can be either a raw interface or wrapper type.</typeparam>
         /// <param name="metaDataDispenser">The <see cref="MetaDataDispenser"/> in which the scope should be defined.</param>
         /// <param name="rclsid">The CLSID of the version of metadata structures to be created. This value must be CLSID_CorMetaDataRuntime for the .NET Framework version 2.0.</param>
         /// <param name="dwCreateFlags">Flags that specify options. This value must be zero for the .NET Framework 2.0.</param>
@@ -48,7 +48,7 @@ namespace ClrDebug
         /// <summary>
         /// Tries to create a new area in memory in which you can create new metadata.
         /// </summary>
-        /// <typeparam name="T">The desired wrapper type or raw metadata interface to be returned; the caller will use the interface to create the new metadata.</typeparam>
+        /// <typeparam name="T">The desired wrapper type or raw metadata interface to be returned. This can be either a raw interface or wrapper type.</typeparam>
         /// <param name="metaDataDispenser">The <see cref="MetaDataDispenser"/> in which the scope should be defined.</param>
         /// <param name="ppIUnk">The pointer to the returned interface.</param>
         /// <returns>A HRESULT that indicates success or failure.</returns>
@@ -58,7 +58,7 @@ namespace ClrDebug
         /// <summary>
         /// Tries to create a new area in memory in which you can create new metadata.
         /// </summary>
-        /// <typeparam name="T">The desired wrapper type or raw metadata interface to be returned; the caller will use the interface to create the new metadata.</typeparam>
+        /// <typeparam name="T">The desired wrapper type or raw metadata interface to be returned. This can be either a raw interface or wrapper type.</typeparam>
         /// <param name="metaDataDispenser">The <see cref="MetaDataDispenser"/> in which the scope should be defined.</param>
         /// <param name="rclsid">The CLSID of the version of metadata structures to be created. This value must be CLSID_CorMetaDataRuntime for the .NET Framework version 2.0.</param>
         /// <param name="dwCreateFlags">Flags that specify options. This value must be zero for the .NET Framework 2.0.</param>
