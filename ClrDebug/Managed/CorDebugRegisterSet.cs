@@ -196,16 +196,19 @@ namespace ClrDebug
         /// Gets an array of bytes that provides a bitmap of the available registers.
         /// </summary>
         /// <param name="numChunks">[in] The size of the availableRegChunks array.</param>
-        /// <param name="availableRegChunks">[out] An array of bytes, each bit of which corresponds to a register. If a register is available, the register's corresponding bit is set.</param>
+        /// <returns>[out] An array of bytes, each bit of which corresponds to a register. If a register is available, the register's corresponding bit is set.</returns>
         /// <remarks>
         /// The values of the <see cref="CorDebugRegister"/> enumeration specify the registers of different microprocessors. The upper five
         /// bits of each value are the index into the availableRegChunks array of bytes. The lower three bits of each value
         /// identify the bit position within the indexed byte. Given a <see cref="CorDebugRegister"/> value that specifies a particular register,
         /// the register's position in the mask is determined as follows:
         /// </remarks>
-        public void GetRegistersAvailable(int numChunks, IntPtr availableRegChunks)
+        public byte[] GetRegistersAvailable(int numChunks)
         {
-            TryGetRegistersAvailable(numChunks, availableRegChunks).ThrowOnNotOK();
+            byte[] availableRegChunks;
+            TryGetRegistersAvailable(numChunks, out availableRegChunks).ThrowOnNotOK();
+
+            return availableRegChunks;
         }
 
         /// <summary>
@@ -219,12 +222,15 @@ namespace ClrDebug
         /// identify the bit position within the indexed byte. Given a <see cref="CorDebugRegister"/> value that specifies a particular register,
         /// the register's position in the mask is determined as follows:
         /// </remarks>
-        public HRESULT TryGetRegistersAvailable(int numChunks, IntPtr availableRegChunks)
+        public HRESULT TryGetRegistersAvailable(int numChunks, out byte[] availableRegChunks)
         {
             /*HRESULT GetRegistersAvailable(
             [In] int numChunks,
-            [Out] IntPtr availableRegChunks);*/
-            return Raw2.GetRegistersAvailable(numChunks, availableRegChunks);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] availableRegChunks);*/
+            availableRegChunks = new byte[numChunks];
+            HRESULT hr = Raw2.GetRegistersAvailable(numChunks, availableRegChunks);
+
+            return hr;
         }
 
         #endregion

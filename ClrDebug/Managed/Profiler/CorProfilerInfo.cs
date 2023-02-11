@@ -252,41 +252,48 @@ namespace ClrDebug
         /// Gets the extent of native code associated with the specified function ID. This method is obsolete. Use the <see cref="GetCodeInfo2"/> method instead.
         /// </summary>
         /// <param name="functionId">[in] The ID of the function with which the native code is associated.</param>
-        /// <param name="pStart">[out] A pointer to an array of bytes that compose the native code of the function.</param>
-        /// <returns>[out] A pointer to an integer that specifies the size, in bytes, of the native code.</returns>
+        /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// To optimize performance, the runtime in the .NET Framework version 2.0 splits the precompiled, native code of a
         /// function into multiple regions. Consequently, the GetCodeInfo method is obsolete in the .NET Framework 2.0 because
         /// it is unable to handle the extent of a function's native code. Profilers should switch to using the more general
         /// ICorProfilerInfo2::GetCodeInfo2 method instead. This function uses caller-allocated buffers.
         /// </remarks>
-        public int GetCodeInfo(FunctionID functionId, IntPtr pStart)
+        public GetCodeInfoResult GetCodeInfo(FunctionID functionId)
         {
-            int pcSize;
-            TryGetCodeInfo(functionId, pStart, out pcSize).ThrowOnNotOK();
+            GetCodeInfoResult result;
+            TryGetCodeInfo(functionId, out result).ThrowOnNotOK();
 
-            return pcSize;
+            return result;
         }
 
         /// <summary>
         /// Gets the extent of native code associated with the specified function ID. This method is obsolete. Use the <see cref="GetCodeInfo2"/> method instead.
         /// </summary>
         /// <param name="functionId">[in] The ID of the function with which the native code is associated.</param>
-        /// <param name="pStart">[out] A pointer to an array of bytes that compose the native code of the function.</param>
-        /// <param name="pcSize">[out] A pointer to an integer that specifies the size, in bytes, of the native code.</param>
+        /// <param name="result">The values that were emitted from the COM method.</param>
         /// <remarks>
         /// To optimize performance, the runtime in the .NET Framework version 2.0 splits the precompiled, native code of a
         /// function into multiple regions. Consequently, the GetCodeInfo method is obsolete in the .NET Framework 2.0 because
         /// it is unable to handle the extent of a function's native code. Profilers should switch to using the more general
         /// ICorProfilerInfo2::GetCodeInfo2 method instead. This function uses caller-allocated buffers.
         /// </remarks>
-        public HRESULT TryGetCodeInfo(FunctionID functionId, IntPtr pStart, out int pcSize)
+        public HRESULT TryGetCodeInfo(FunctionID functionId, out GetCodeInfoResult result)
         {
             /*HRESULT GetCodeInfo(
             [In] FunctionID functionId,
-            [Out] IntPtr pStart,
+            [Out] out IntPtr pStart,
             [Out] out int pcSize);*/
-            return Raw.GetCodeInfo(functionId, pStart, out pcSize);
+            IntPtr pStart;
+            int pcSize;
+            HRESULT hr = Raw.GetCodeInfo(functionId, out pStart, out pcSize);
+
+            if (hr == HRESULT.S_OK)
+                result = new GetCodeInfoResult(pStart, pcSize);
+            else
+                result = default(GetCodeInfoResult);
+
+            return hr;
         }
 
         #endregion
@@ -737,8 +744,6 @@ namespace ClrDebug
         /// Given a module ID, returns the file name of the module and the ID of the module's parent assembly.
         /// </summary>
         /// <param name="moduleId">[in] The ID of the module for which information will be retrieved.</param>
-        /// <param name="ppBaseLoadAddress">[out] The base address at which the module is loaded.</param>
-        /// <param name="cchName">[in] The length, in characters, of the szName return buffer.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// For dynamic modules, the szName parameter is an empty string, and the base address is 0 (zero). Although the GetModuleInfo
@@ -751,10 +756,10 @@ namespace ClrDebug
         /// to obtain the correct buffer size. You can then set the buffer size to the value returned in pcchName and call
         /// GetModuleInfo again.
         /// </remarks>
-        public GetModuleInfoResult GetModuleInfo(ModuleID moduleId, IntPtr ppBaseLoadAddress, int cchName)
+        public GetModuleInfoResult GetModuleInfo(ModuleID moduleId)
         {
             GetModuleInfoResult result;
-            TryGetModuleInfo(moduleId, ppBaseLoadAddress, cchName, out result).ThrowOnNotOK();
+            TryGetModuleInfo(moduleId, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -763,8 +768,6 @@ namespace ClrDebug
         /// Given a module ID, returns the file name of the module and the ID of the module's parent assembly.
         /// </summary>
         /// <param name="moduleId">[in] The ID of the module for which information will be retrieved.</param>
-        /// <param name="ppBaseLoadAddress">[out] The base address at which the module is loaded.</param>
-        /// <param name="cchName">[in] The length, in characters, of the szName return buffer.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <remarks>
         /// For dynamic modules, the szName parameter is an empty string, and the base address is 0 (zero). Although the GetModuleInfo
@@ -777,24 +780,38 @@ namespace ClrDebug
         /// to obtain the correct buffer size. You can then set the buffer size to the value returned in pcchName and call
         /// GetModuleInfo again.
         /// </remarks>
-        public HRESULT TryGetModuleInfo(ModuleID moduleId, IntPtr ppBaseLoadAddress, int cchName, out GetModuleInfoResult result)
+        public HRESULT TryGetModuleInfo(ModuleID moduleId, out GetModuleInfoResult result)
         {
             /*HRESULT GetModuleInfo(
             [In] ModuleID moduleId,
-            [Out] IntPtr ppBaseLoadAddress,
+            [Out] out IntPtr ppBaseLoadAddress,
             [In] int cchName,
             [Out] out int pcchName,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
             [Out] out AssemblyID pAssemblyId);*/
+            IntPtr ppBaseLoadAddress;
+            int cchName = 0;
             int pcchName;
-            StringBuilder szName = null;
+            StringBuilder szName;
             AssemblyID pAssemblyId;
-            HRESULT hr = Raw.GetModuleInfo(moduleId, ppBaseLoadAddress, cchName, out pcchName, szName, out pAssemblyId);
+            HRESULT hr = Raw.GetModuleInfo(moduleId, out ppBaseLoadAddress, cchName, out pcchName, null, out pAssemblyId);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cchName = pcchName;
+            szName = new StringBuilder(cchName);
+            hr = Raw.GetModuleInfo(moduleId, out ppBaseLoadAddress, cchName, out pcchName, szName, out pAssemblyId);
 
             if (hr == HRESULT.S_OK)
-                result = new GetModuleInfoResult(pcchName, szName.ToString(), pAssemblyId);
-            else
-                result = default(GetModuleInfoResult);
+            {
+                result = new GetModuleInfoResult(ppBaseLoadAddress, szName.ToString(), pAssemblyId);
+
+                return hr;
+            }
+
+            fail:
+            result = default(GetModuleInfoResult);
 
             return hr;
         }
@@ -2268,15 +2285,18 @@ namespace ClrDebug
         /// </summary>
         /// <param name="classId">[in] The ID of the class that contains the requested RVA-static field.</param>
         /// <param name="fieldToken">[in] Metadata token for the requested RVA-static field.</param>
-        /// <param name="ppAddress">[out] A pointer to the address of the RVA-static field.</param>
+        /// <returns>[out] A pointer to the address of the RVA-static field.</returns>
         /// <remarks>
         /// The GetRVAStaticAddress method may return one of the following: Before a class’s class constructor is completed,
         /// GetRVAStaticAddress will return CORPROF_E_DATAINCOMPLETE for all its static fields, although some of the static
         /// fields may already be initialized and may be rooting garbage collection objects.
         /// </remarks>
-        public void GetRVAStaticAddress(ClassID classId, mdFieldDef fieldToken, IntPtr ppAddress)
+        public IntPtr GetRVAStaticAddress(ClassID classId, mdFieldDef fieldToken)
         {
-            TryGetRVAStaticAddress(classId, fieldToken, ppAddress).ThrowOnNotOK();
+            IntPtr ppAddress;
+            TryGetRVAStaticAddress(classId, fieldToken, out ppAddress).ThrowOnNotOK();
+
+            return ppAddress;
         }
 
         /// <summary>
@@ -2290,13 +2310,13 @@ namespace ClrDebug
         /// GetRVAStaticAddress will return CORPROF_E_DATAINCOMPLETE for all its static fields, although some of the static
         /// fields may already be initialized and may be rooting garbage collection objects.
         /// </remarks>
-        public HRESULT TryGetRVAStaticAddress(ClassID classId, mdFieldDef fieldToken, IntPtr ppAddress)
+        public HRESULT TryGetRVAStaticAddress(ClassID classId, mdFieldDef fieldToken, out IntPtr ppAddress)
         {
             /*HRESULT GetRVAStaticAddress(
             [In] ClassID classId,
             [In] mdFieldDef fieldToken,
-            [Out] IntPtr ppAddress);*/
-            return Raw2.GetRVAStaticAddress(classId, fieldToken, ppAddress);
+            [Out] out IntPtr ppAddress);*/
+            return Raw2.GetRVAStaticAddress(classId, fieldToken, out ppAddress);
         }
 
         #endregion
@@ -2308,15 +2328,18 @@ namespace ClrDebug
         /// <param name="classId">[in] The class ID of the class that contains the requested application domain-static field.</param>
         /// <param name="fieldToken">[in] The metadata token for the requested application domain-static field.</param>
         /// <param name="appDomainId">[in] The ID of the application domain that is the scope for the requested static field.</param>
-        /// <param name="ppAddress">[out] A pointer to the address of the static field that is within the specified application domain.</param>
+        /// <returns>[out] A pointer to the address of the static field that is within the specified application domain.</returns>
         /// <remarks>
         /// The GetAppDomainStaticAddress method may return one of the following: Before a class’s class constructor is completed,
         /// GetAppDomainStaticAddress will return CORPROF_E_DATAINCOMPLETE for all its static fields, although some of the
         /// static fields may already be initialized and rooting garbage collection objects.
         /// </remarks>
-        public void GetAppDomainStaticAddress(ClassID classId, mdFieldDef fieldToken, ThreadID appDomainId, IntPtr ppAddress)
+        public IntPtr GetAppDomainStaticAddress(ClassID classId, mdFieldDef fieldToken, ThreadID appDomainId)
         {
-            TryGetAppDomainStaticAddress(classId, fieldToken, appDomainId, ppAddress).ThrowOnNotOK();
+            IntPtr ppAddress;
+            TryGetAppDomainStaticAddress(classId, fieldToken, appDomainId, out ppAddress).ThrowOnNotOK();
+
+            return ppAddress;
         }
 
         /// <summary>
@@ -2331,14 +2354,14 @@ namespace ClrDebug
         /// GetAppDomainStaticAddress will return CORPROF_E_DATAINCOMPLETE for all its static fields, although some of the
         /// static fields may already be initialized and rooting garbage collection objects.
         /// </remarks>
-        public HRESULT TryGetAppDomainStaticAddress(ClassID classId, mdFieldDef fieldToken, ThreadID appDomainId, IntPtr ppAddress)
+        public HRESULT TryGetAppDomainStaticAddress(ClassID classId, mdFieldDef fieldToken, ThreadID appDomainId, out IntPtr ppAddress)
         {
             /*HRESULT GetAppDomainStaticAddress(
             [In] ClassID classId,
             [In] mdFieldDef fieldToken,
             [In] ThreadID appDomainId,
-            [Out] IntPtr ppAddress);*/
-            return Raw2.GetAppDomainStaticAddress(classId, fieldToken, appDomainId, ppAddress);
+            [Out] out IntPtr ppAddress);*/
+            return Raw2.GetAppDomainStaticAddress(classId, fieldToken, appDomainId, out ppAddress);
         }
 
         #endregion
@@ -2350,15 +2373,18 @@ namespace ClrDebug
         /// <param name="classId">[in] The ID of the class that contains the requested thread-static field.</param>
         /// <param name="fieldToken">[in] The metadata token for the requested thread-static field.</param>
         /// <param name="threadId">[in] The ID of the thread that is the scope for the requested static field.</param>
-        /// <param name="ppAddress">[out] A pointer to the address of the static field that is within the specified thread.</param>
+        /// <returns>[out] A pointer to the address of the static field that is within the specified thread.</returns>
         /// <remarks>
         /// The GetThreadStaticAddress method may return one of the following: Before a class’s class constructor is completed,
         /// GetThreadStaticAddress will return CORPROF_E_DATAINCOMPLETE for all its static fields, although some of the static
         /// fields may already be initialized and rooting garbage collection objects.
         /// </remarks>
-        public void GetThreadStaticAddress(ClassID classId, mdFieldDef fieldToken, ContextID threadId, IntPtr ppAddress)
+        public IntPtr GetThreadStaticAddress(ClassID classId, mdFieldDef fieldToken, ContextID threadId)
         {
-            TryGetThreadStaticAddress(classId, fieldToken, threadId, ppAddress).ThrowOnNotOK();
+            IntPtr ppAddress;
+            TryGetThreadStaticAddress(classId, fieldToken, threadId, out ppAddress).ThrowOnNotOK();
+
+            return ppAddress;
         }
 
         /// <summary>
@@ -2373,14 +2399,14 @@ namespace ClrDebug
         /// GetThreadStaticAddress will return CORPROF_E_DATAINCOMPLETE for all its static fields, although some of the static
         /// fields may already be initialized and rooting garbage collection objects.
         /// </remarks>
-        public HRESULT TryGetThreadStaticAddress(ClassID classId, mdFieldDef fieldToken, ContextID threadId, IntPtr ppAddress)
+        public HRESULT TryGetThreadStaticAddress(ClassID classId, mdFieldDef fieldToken, ContextID threadId, out IntPtr ppAddress)
         {
             /*HRESULT GetThreadStaticAddress(
             [In] ClassID classId,
             [In] mdFieldDef fieldToken,
             [In] ContextID threadId,
-            [Out] IntPtr ppAddress);*/
-            return Raw2.GetThreadStaticAddress(classId, fieldToken, threadId, ppAddress);
+            [Out] out IntPtr ppAddress);*/
+            return Raw2.GetThreadStaticAddress(classId, fieldToken, threadId, out ppAddress);
         }
 
         #endregion
@@ -2392,15 +2418,18 @@ namespace ClrDebug
         /// <param name="classId">[in] The ID of the class that contains the requested context-static field.</param>
         /// <param name="fieldToken">[in] The metadata token for the requested context-static field.</param>
         /// <param name="contextId">[in] The ID of the context that is the scope for the requested context-static field.</param>
-        /// <param name="ppAddress">[out] A pointer to the address of the static field that is within the specified context.</param>
+        /// <returns>[out] A pointer to the address of the static field that is within the specified context.</returns>
         /// <remarks>
         /// The GetContextStaticAddress method may return one of the following: Before a class’s class constructor is completed,
         /// GetContextStaticAddress will return CORPROF_E_DATAINCOMPLETE for all its static fields, although some of the static
         /// fields may already be initialized and rooting garbage collection objects.
         /// </remarks>
-        public void GetContextStaticAddress(ClassID classId, mdFieldDef fieldToken, ContextID contextId, IntPtr ppAddress)
+        public IntPtr GetContextStaticAddress(ClassID classId, mdFieldDef fieldToken, ContextID contextId)
         {
-            TryGetContextStaticAddress(classId, fieldToken, contextId, ppAddress).ThrowOnNotOK();
+            IntPtr ppAddress;
+            TryGetContextStaticAddress(classId, fieldToken, contextId, out ppAddress).ThrowOnNotOK();
+
+            return ppAddress;
         }
 
         /// <summary>
@@ -2415,14 +2444,14 @@ namespace ClrDebug
         /// GetContextStaticAddress will return CORPROF_E_DATAINCOMPLETE for all its static fields, although some of the static
         /// fields may already be initialized and rooting garbage collection objects.
         /// </remarks>
-        public HRESULT TryGetContextStaticAddress(ClassID classId, mdFieldDef fieldToken, ContextID contextId, IntPtr ppAddress)
+        public HRESULT TryGetContextStaticAddress(ClassID classId, mdFieldDef fieldToken, ContextID contextId, out IntPtr ppAddress)
         {
             /*HRESULT GetContextStaticAddress(
             [In] ClassID classId,
             [In] mdFieldDef fieldToken,
             [In] ContextID contextId,
-            [Out] IntPtr ppAddress);*/
-            return Raw2.GetContextStaticAddress(classId, fieldToken, contextId, ppAddress);
+            [Out] out IntPtr ppAddress);*/
+            return Raw2.GetContextStaticAddress(classId, fieldToken, contextId, out ppAddress);
         }
 
         #endregion
@@ -3064,16 +3093,19 @@ namespace ClrDebug
         /// <param name="fieldToken">[in] The metadata token for the requested thread-static field.</param>
         /// <param name="appDomainId">[in] The ID of the application domain.</param>
         /// <param name="threadId">[in] The ID of the thread that is the scope for the requested static field.</param>
-        /// <param name="ppAddress">[out] A pointer to the address of the static field that is within the specified thread.</param>
+        /// <returns>[out] A pointer to the address of the static field that is within the specified thread.</returns>
         /// <remarks>
         /// The GetThreadStaticAddress2 method may return one of the following: Before a class’s class constructor is completed,
         /// GetThreadStaticAddress2 will return CORPROF_E_DATAINCOMPLETE for all its static fields, although some of the static
         /// fields may already be initialized and rooting garbage collection objects. The <see cref="GetThreadStaticAddress"/>
         /// method is similar to the GetThreadStaticAddress2 method, but does not accept an application domain argument.
         /// </remarks>
-        public void GetThreadStaticAddress2(ClassID classId, mdFieldDef fieldToken, AppDomainID appDomainId, ThreadID threadId, IntPtr ppAddress)
+        public IntPtr GetThreadStaticAddress2(ClassID classId, mdFieldDef fieldToken, AppDomainID appDomainId, ThreadID threadId)
         {
-            TryGetThreadStaticAddress2(classId, fieldToken, appDomainId, threadId, ppAddress).ThrowOnNotOK();
+            IntPtr ppAddress;
+            TryGetThreadStaticAddress2(classId, fieldToken, appDomainId, threadId, out ppAddress).ThrowOnNotOK();
+
+            return ppAddress;
         }
 
         /// <summary>
@@ -3090,15 +3122,15 @@ namespace ClrDebug
         /// fields may already be initialized and rooting garbage collection objects. The <see cref="GetThreadStaticAddress"/>
         /// method is similar to the GetThreadStaticAddress2 method, but does not accept an application domain argument.
         /// </remarks>
-        public HRESULT TryGetThreadStaticAddress2(ClassID classId, mdFieldDef fieldToken, AppDomainID appDomainId, ThreadID threadId, IntPtr ppAddress)
+        public HRESULT TryGetThreadStaticAddress2(ClassID classId, mdFieldDef fieldToken, AppDomainID appDomainId, ThreadID threadId, out IntPtr ppAddress)
         {
             /*HRESULT GetThreadStaticAddress2(
             [In] ClassID classId,
             [In] mdFieldDef fieldToken,
             [In] AppDomainID appDomainId,
             [In] ThreadID threadId,
-            [Out] IntPtr ppAddress);*/
-            return Raw3.GetThreadStaticAddress2(classId, fieldToken, appDomainId, threadId, ppAddress);
+            [Out] out IntPtr ppAddress);*/
+            return Raw3.GetThreadStaticAddress2(classId, fieldToken, appDomainId, threadId, out ppAddress);
         }
 
         #endregion
@@ -3157,8 +3189,6 @@ namespace ClrDebug
         /// Given a module ID, returns the file name of the module, the ID of the module's parent assembly, and a bitmask that describes the properties of the module.
         /// </summary>
         /// <param name="moduleId">[in] The ID of the module for which information will be retrieved.</param>
-        /// <param name="ppBaseLoadAddress">[out] The base address at which the module is loaded.</param>
-        /// <param name="cchName">[in] The length, in characters, of the szName return buffer.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// For dynamic modules, the szName parameter is the metadata name of the module, and the base address is 0 (zero).
@@ -3173,10 +3203,10 @@ namespace ClrDebug
         /// szName buffer to obtain the correct buffer size. You can then set the buffer size to the value returned in pcchName
         /// and call GetModuleInfo2 again.
         /// </remarks>
-        public GetModuleInfo2Result GetModuleInfo2(ModuleID moduleId, IntPtr ppBaseLoadAddress, int cchName)
+        public GetModuleInfo2Result GetModuleInfo2(ModuleID moduleId)
         {
             GetModuleInfo2Result result;
-            TryGetModuleInfo2(moduleId, ppBaseLoadAddress, cchName, out result).ThrowOnNotOK();
+            TryGetModuleInfo2(moduleId, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -3185,8 +3215,6 @@ namespace ClrDebug
         /// Given a module ID, returns the file name of the module, the ID of the module's parent assembly, and a bitmask that describes the properties of the module.
         /// </summary>
         /// <param name="moduleId">[in] The ID of the module for which information will be retrieved.</param>
-        /// <param name="ppBaseLoadAddress">[out] The base address at which the module is loaded.</param>
-        /// <param name="cchName">[in] The length, in characters, of the szName return buffer.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <remarks>
         /// For dynamic modules, the szName parameter is the metadata name of the module, and the base address is 0 (zero).
@@ -3201,26 +3229,40 @@ namespace ClrDebug
         /// szName buffer to obtain the correct buffer size. You can then set the buffer size to the value returned in pcchName
         /// and call GetModuleInfo2 again.
         /// </remarks>
-        public HRESULT TryGetModuleInfo2(ModuleID moduleId, IntPtr ppBaseLoadAddress, int cchName, out GetModuleInfo2Result result)
+        public HRESULT TryGetModuleInfo2(ModuleID moduleId, out GetModuleInfo2Result result)
         {
             /*HRESULT GetModuleInfo2(
             [In] ModuleID moduleId,
-            [Out] IntPtr ppBaseLoadAddress,
+            [Out] out IntPtr ppBaseLoadAddress,
             [In] int cchName,
             [Out] out int pcchName,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
             [Out] out AssemblyID pAssemblyId,
             [Out] out COR_PRF_MODULE_FLAGS pdwModuleFlags);*/
+            IntPtr ppBaseLoadAddress;
+            int cchName = 0;
             int pcchName;
-            StringBuilder szName = null;
+            StringBuilder szName;
             AssemblyID pAssemblyId;
             COR_PRF_MODULE_FLAGS pdwModuleFlags;
-            HRESULT hr = Raw3.GetModuleInfo2(moduleId, ppBaseLoadAddress, cchName, out pcchName, szName, out pAssemblyId, out pdwModuleFlags);
+            HRESULT hr = Raw3.GetModuleInfo2(moduleId, out ppBaseLoadAddress, cchName, out pcchName, null, out pAssemblyId, out pdwModuleFlags);
+
+            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
+                goto fail;
+
+            cchName = pcchName;
+            szName = new StringBuilder(cchName);
+            hr = Raw3.GetModuleInfo2(moduleId, out ppBaseLoadAddress, cchName, out pcchName, szName, out pAssemblyId, out pdwModuleFlags);
 
             if (hr == HRESULT.S_OK)
-                result = new GetModuleInfo2Result(pcchName, szName.ToString(), pAssemblyId, pdwModuleFlags);
-            else
-                result = default(GetModuleInfo2Result);
+            {
+                result = new GetModuleInfo2Result(ppBaseLoadAddress, szName.ToString(), pAssemblyId, pdwModuleFlags);
+
+                return hr;
+            }
+
+            fail:
+            result = default(GetModuleInfo2Result);
 
             return hr;
         }
@@ -4137,7 +4179,6 @@ namespace ClrDebug
         /// Retrieves information about dynamic methods.
         /// </summary>
         /// <param name="functionId">[in] The ID of the function for which to retrieve information.</param>
-        /// <param name="ppvSig">[out] A pointer to the signature for the function.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// Certain methods like IL Stubs or LCG do not have associated metadata that can be retrieved using the IMetaDataImport
@@ -4145,10 +4186,10 @@ namespace ClrDebug
         /// to <see cref="ICorProfilerCallback8.DynamicMethodJITCompilationStarted"/>. This API can be used to retrieve information
         /// about dynamic methods, including a friendly name, if available.
         /// </remarks>
-        public GetDynamicFunctionInfoResult GetDynamicFunctionInfo(FunctionID functionId, IntPtr ppvSig)
+        public GetDynamicFunctionInfoResult GetDynamicFunctionInfo(FunctionID functionId)
         {
             GetDynamicFunctionInfoResult result;
-            TryGetDynamicFunctionInfo(functionId, ppvSig, out result).ThrowOnNotOK();
+            TryGetDynamicFunctionInfo(functionId, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -4157,7 +4198,6 @@ namespace ClrDebug
         /// Retrieves information about dynamic methods.
         /// </summary>
         /// <param name="functionId">[in] The ID of the function for which to retrieve information.</param>
-        /// <param name="ppvSig">[out] A pointer to the signature for the function.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <remarks>
         /// Certain methods like IL Stubs or LCG do not have associated metadata that can be retrieved using the IMetaDataImport
@@ -4165,33 +4205,34 @@ namespace ClrDebug
         /// to <see cref="ICorProfilerCallback8.DynamicMethodJITCompilationStarted"/>. This API can be used to retrieve information
         /// about dynamic methods, including a friendly name, if available.
         /// </remarks>
-        public HRESULT TryGetDynamicFunctionInfo(FunctionID functionId, IntPtr ppvSig, out GetDynamicFunctionInfoResult result)
+        public HRESULT TryGetDynamicFunctionInfo(FunctionID functionId, out GetDynamicFunctionInfoResult result)
         {
             /*HRESULT GetDynamicFunctionInfo(
             [In] FunctionID functionId,
             [Out] out ModuleID moduleId,
-            [Out] IntPtr ppvSig,
+            [Out] out IntPtr ppvSig,
             [Out] out int pbSig,
             [In] int cchName,
             [Out] out int pcchName,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder wszName);*/
             ModuleID moduleId;
+            IntPtr ppvSig;
             int pbSig;
             int cchName = 0;
             int pcchName;
             StringBuilder wszName;
-            HRESULT hr = Raw8.GetDynamicFunctionInfo(functionId, out moduleId, ppvSig, out pbSig, cchName, out pcchName, null);
+            HRESULT hr = Raw8.GetDynamicFunctionInfo(functionId, out moduleId, out ppvSig, out pbSig, cchName, out pcchName, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchName = pcchName;
             wszName = new StringBuilder(cchName);
-            hr = Raw8.GetDynamicFunctionInfo(functionId, out moduleId, ppvSig, out pbSig, cchName, out pcchName, wszName);
+            hr = Raw8.GetDynamicFunctionInfo(functionId, out moduleId, out ppvSig, out pbSig, cchName, out pcchName, wszName);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetDynamicFunctionInfoResult(moduleId, pbSig, wszName.ToString());
+                result = new GetDynamicFunctionInfoResult(moduleId, ppvSig, pbSig, wszName.ToString());
 
                 return hr;
             }

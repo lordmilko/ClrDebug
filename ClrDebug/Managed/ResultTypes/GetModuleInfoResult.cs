@@ -1,17 +1,18 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
 namespace ClrDebug
 {
     /// <summary>
     /// Encapsulates the results of the <see cref="CorProfilerInfo.GetModuleInfo"/> method.
     /// </summary>
-    [DebuggerDisplay("pcchName = {pcchName}, szName = {szName}, pAssemblyId = {pAssemblyId.ToString(),nq}")]
+    [DebuggerDisplay("ppBaseLoadAddress = {ppBaseLoadAddress.ToString(),nq}, szName = {szName}, pAssemblyId = {pAssemblyId.ToString(),nq}")]
     public struct GetModuleInfoResult
     {
         /// <summary>
-        /// A pointer to the total character length of the module's file name that is returned.
+        /// The base address at which the module is loaded.
         /// </summary>
-        public int pcchName { get; }
+        public IntPtr ppBaseLoadAddress { get; }
 
         /// <summary>
         /// A caller-provided wide character buffer. When the method returns, this buffer contains the file name of the module.
@@ -23,9 +24,9 @@ namespace ClrDebug
         /// </summary>
         public AssemblyID pAssemblyId { get; }
 
-        public GetModuleInfoResult(int pcchName, string szName, AssemblyID pAssemblyId)
+        public GetModuleInfoResult(IntPtr ppBaseLoadAddress, string szName, AssemblyID pAssemblyId)
         {
-            this.pcchName = pcchName;
+            this.ppBaseLoadAddress = ppBaseLoadAddress;
             this.szName = szName;
             this.pAssemblyId = pAssemblyId;
         }

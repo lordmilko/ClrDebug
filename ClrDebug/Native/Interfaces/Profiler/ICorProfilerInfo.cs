@@ -94,7 +94,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCodeInfo(
             [In] FunctionID functionId,
-            [Out] IntPtr pStart,
+            [Out] out IntPtr pStart,
             [Out] out int pcSize);
 
         /// <summary>
@@ -330,7 +330,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetModuleInfo(
             [In] ModuleID moduleId,
-            [Out] IntPtr ppBaseLoadAddress,
+            [Out] out IntPtr ppBaseLoadAddress,
             [In] int cchName,
             [Out] out int pcchName,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,

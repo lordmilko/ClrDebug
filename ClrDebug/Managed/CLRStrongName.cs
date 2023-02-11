@@ -983,7 +983,6 @@ namespace ClrDebug
         /// Creates a strong name token from the specified assembly file, and returns the public key that the token represents.
         /// </summary>
         /// <param name="pwzFilePath">[in] The path to the portable executable (PE) file for the assembly.</param>
-        /// <param name="ppbStrongNameToken">[out] The returned strong name token.</param>
         /// <returns>The values that were emitted from the COM method.</returns>
         /// <remarks>
         /// A strong name token is the shortened form of a public key. The token is a 64-bit hash that is created from the
@@ -991,10 +990,10 @@ namespace ClrDebug
         /// from the assembly metadata. After the key is retrieved and the token is created, you should call the <see cref="StrongNameFreeBuffer"/>
         /// method to release the allocated memory.
         /// </remarks>
-        public StrongNameTokenFromAssemblyExResult StrongNameTokenFromAssemblyEx(string pwzFilePath, IntPtr ppbStrongNameToken)
+        public StrongNameTokenFromAssemblyExResult StrongNameTokenFromAssemblyEx(string pwzFilePath)
         {
             StrongNameTokenFromAssemblyExResult result;
-            TryStrongNameTokenFromAssemblyEx(pwzFilePath, ppbStrongNameToken, out result).ThrowOnNotOK();
+            TryStrongNameTokenFromAssemblyEx(pwzFilePath, out result).ThrowOnNotOK();
 
             return result;
         }
@@ -1003,7 +1002,6 @@ namespace ClrDebug
         /// Creates a strong name token from the specified assembly file, and returns the public key that the token represents.
         /// </summary>
         /// <param name="pwzFilePath">[in] The path to the portable executable (PE) file for the assembly.</param>
-        /// <param name="ppbStrongNameToken">[out] The returned strong name token.</param>
         /// <param name="result">The values that were emitted from the COM method.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         /// <remarks>
@@ -1012,21 +1010,22 @@ namespace ClrDebug
         /// from the assembly metadata. After the key is retrieved and the token is created, you should call the <see cref="StrongNameFreeBuffer"/>
         /// method to release the allocated memory.
         /// </remarks>
-        public HRESULT TryStrongNameTokenFromAssemblyEx(string pwzFilePath, IntPtr ppbStrongNameToken, out StrongNameTokenFromAssemblyExResult result)
+        public HRESULT TryStrongNameTokenFromAssemblyEx(string pwzFilePath, out StrongNameTokenFromAssemblyExResult result)
         {
             /*HRESULT StrongNameTokenFromAssemblyEx(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
-            [Out] IntPtr ppbStrongNameToken,
+            [Out] out IntPtr ppbStrongNameToken,
             [Out] out int pcbStrongNameToken,
             [Out] out IntPtr ppbPublicKeyBlob,
             [Out] out int pcbPublicKeyBlob);*/
+            IntPtr ppbStrongNameToken;
             int pcbStrongNameToken;
             IntPtr ppbPublicKeyBlob;
             int pcbPublicKeyBlob;
-            HRESULT hr = Raw.StrongNameTokenFromAssemblyEx(pwzFilePath, ppbStrongNameToken, out pcbStrongNameToken, out ppbPublicKeyBlob, out pcbPublicKeyBlob);
+            HRESULT hr = Raw.StrongNameTokenFromAssemblyEx(pwzFilePath, out ppbStrongNameToken, out pcbStrongNameToken, out ppbPublicKeyBlob, out pcbPublicKeyBlob);
 
             if (hr == HRESULT.S_OK)
-                result = new StrongNameTokenFromAssemblyExResult(pcbStrongNameToken, ppbPublicKeyBlob, pcbPublicKeyBlob);
+                result = new StrongNameTokenFromAssemblyExResult(ppbStrongNameToken, pcbStrongNameToken, ppbPublicKeyBlob, pcbPublicKeyBlob);
             else
                 result = default(StrongNameTokenFromAssemblyExResult);
 

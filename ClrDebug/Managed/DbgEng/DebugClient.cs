@@ -1579,22 +1579,25 @@ namespace ClrDebug.DbgEng
         /// <summary>
         /// The CreateClient method creates a new client object for the current thread.
         /// </summary>
-        /// <param name="client">[out] Receives an interface pointer for the new client.</param>
+        /// <returns>[out] Receives an interface pointer for the new client.</returns>
         /// <remarks>
         /// This method creates a client that may be used in the current thread. Clients are specific to the thread that created
         /// them. Calls from other threads fail immediately. The CreateClient method is a notable exception; it allows creation
         /// of a new client for a new thread. All callbacks for a client are made in the thread with which the client was created.
         /// For more information about client objects and how they are used in the debugger engine, see Client Objects.
         /// </remarks>
-        public void CreateClient(IntPtr client)
+        public DebugClient CreateClient()
         {
-            TryCreateClient(client).ThrowDbgEngNotOK();
+            DebugClient clientResult;
+            TryCreateClient(out clientResult).ThrowDbgEngNotOK();
+
+            return clientResult;
         }
 
         /// <summary>
         /// The CreateClient method creates a new client object for the current thread.
         /// </summary>
-        /// <param name="client">[out] Receives an interface pointer for the new client.</param>
+        /// <param name="clientResult">[out] Receives an interface pointer for the new client.</param>
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         /// <remarks>
         /// This method creates a client that may be used in the current thread. Clients are specific to the thread that created
@@ -1602,13 +1605,20 @@ namespace ClrDebug.DbgEng
         /// of a new client for a new thread. All callbacks for a client are made in the thread with which the client was created.
         /// For more information about client objects and how they are used in the debugger engine, see Client Objects.
         /// </remarks>
-        public HRESULT TryCreateClient(IntPtr client)
+        public HRESULT TryCreateClient(out DebugClient clientResult)
         {
             InitDelegate(ref createClient, Vtbl->CreateClient);
-
             /*HRESULT CreateClient(
-            [Out] IntPtr Client);*/
-            return createClient(Raw, client);
+            [Out, ComAliasName("IDebugClient")] out IntPtr Client);*/
+            IntPtr client;
+            HRESULT hr = createClient(Raw, out client);
+
+            if (hr == HRESULT.S_OK)
+                clientResult = new DebugClient(client);
+            else
+                clientResult = default(DebugClient);
+
+            return hr;
         }
 
         #endregion
@@ -4039,7 +4049,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT EndSessionDelegate(IntPtr self, [In] DEBUG_END Flags);
         private delegate HRESULT DispatchCallbacksDelegate(IntPtr self, [In] int Timeout);
         private delegate HRESULT ExitDispatchDelegate(IntPtr self, [In] IntPtr Client);
-        private delegate HRESULT CreateClientDelegate(IntPtr self, [Out] IntPtr Client);
+        private delegate HRESULT CreateClientDelegate(IntPtr self, [Out, ComAliasName("IDebugClient")] out IntPtr Client);
         private delegate HRESULT GetOtherOutputMaskDelegate(IntPtr self, [In] IntPtr Client, [Out] out DEBUG_OUTPUT Mask);
         private delegate HRESULT SetOtherOutputMaskDelegate(IntPtr self, [In] IntPtr Client, [In] DEBUG_OUTPUT Mask);
         private delegate HRESULT OutputIdentityDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] int Flags, [In, MarshalAs(UnmanagedType.LPStr)] string Format);

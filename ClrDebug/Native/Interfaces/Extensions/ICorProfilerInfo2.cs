@@ -78,7 +78,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetCodeInfo(
             [In] FunctionID functionId,
-            [Out] IntPtr pStart,
+            [Out] out IntPtr pStart,
             [Out] out int pcSize);
 
         /// <summary>
@@ -314,7 +314,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetModuleInfo(
             [In] ModuleID moduleId,
-            [Out] IntPtr ppBaseLoadAddress,
+            [Out] out IntPtr ppBaseLoadAddress,
             [In] int cchName,
             [Out] out int pcchName,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
@@ -920,7 +920,7 @@ namespace ClrDebug
         HRESULT GetRVAStaticAddress(
             [In] ClassID classId,
             [In] mdFieldDef fieldToken,
-            [Out] IntPtr ppAddress);
+            [Out] out IntPtr ppAddress);
 
         /// <summary>
         /// Gets the address of the specified application domain-static field that is in the scope of the specified application domain.
@@ -940,7 +940,7 @@ namespace ClrDebug
             [In] ClassID classId,
             [In] mdFieldDef fieldToken,
             [In] ThreadID appDomainId,
-            [Out] IntPtr ppAddress);
+            [Out] out IntPtr ppAddress);
 
         /// <summary>
         /// Gets the address of the specified thread-static field that is in the scope of the specified thread.
@@ -960,7 +960,7 @@ namespace ClrDebug
             [In] ClassID classId,
             [In] mdFieldDef fieldToken,
             [In] ContextID threadId,
-            [Out] IntPtr ppAddress);
+            [Out] out IntPtr ppAddress);
 
         /// <summary>
         /// Gets the address for the specified context-static field that is in the scope of the specified context.
@@ -980,7 +980,7 @@ namespace ClrDebug
             [In] ClassID classId,
             [In] mdFieldDef fieldToken,
             [In] ContextID contextId,
-            [Out] IntPtr ppAddress);
+            [Out] out IntPtr ppAddress);
 
         /// <summary>
         /// Gets a value that indicates the kind of static that applies to the specified field.

@@ -303,7 +303,7 @@ namespace ClrDebug.DbgEng
             [In] long ModAddr,
             [In, MarshalAs(UnmanagedType.LPStr)] string File,
             [In] DEBUG_FIND_SOURCE Flags,
-            [Out] IntPtr FileToken,
+            [In] IntPtr FileToken,
             [In] int FileTokenSize,
             [Out] out int FoundElement,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
@@ -601,7 +601,7 @@ namespace ClrDebug.DbgEng
             [In] long ModAddr,
             [In, MarshalAs(UnmanagedType.LPWStr)] string File,
             [In] DEBUG_FIND_SOURCE Flags,
-            [Out] IntPtr FileToken,
+            [In] IntPtr FileToken,
             [In] int FileTokenSize,
             [Out] out int FoundElement,
             [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
@@ -761,7 +761,7 @@ namespace ClrDebug.DbgEng
 
         private delegate HRESULT RequestDelegate(IntPtr self, [In] DEBUG_REQUEST Request, [In] IntPtr InBuffer, [In] int InBufferSize, [Out] IntPtr OutBuffer, [In] int OutBufferSize, [Out] out int OutSize);
         private delegate HRESULT GetSourceFileInformationDelegate(IntPtr self, [In] DEBUG_SRCFILE Which, [In, MarshalAs(UnmanagedType.LPStr)] string SourceFile, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize);
-        private delegate HRESULT FindSourceFileAndTokenDelegate(IntPtr self, [In] int StartElement, [In] long ModAddr, [In, MarshalAs(UnmanagedType.LPStr)] string File, [In] DEBUG_FIND_SOURCE Flags, [Out] IntPtr FileToken, [In] int FileTokenSize, [Out] out int FoundElement, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int FoundSize);
+        private delegate HRESULT FindSourceFileAndTokenDelegate(IntPtr self, [In] int StartElement, [In] long ModAddr, [In, MarshalAs(UnmanagedType.LPStr)] string File, [In] DEBUG_FIND_SOURCE Flags, [In] IntPtr FileToken, [In] int FileTokenSize, [Out] out int FoundElement, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int FoundSize);
         private delegate HRESULT GetSymbolInformationDelegate(IntPtr self, [In] DEBUG_SYMINFO Which, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder StringBuffer, [In] int StringBufferSize, [Out] out int StringSize);
         private delegate HRESULT GetSystemObjectInformationDelegate(IntPtr self, [In] DEBUG_SYSOBJINFO Which, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize);
 
@@ -769,7 +769,7 @@ namespace ClrDebug.DbgEng
         #region IDebugAdvanced3
 
         private delegate HRESULT GetSourceFileInformationWideDelegate(IntPtr self, [In] DEBUG_SRCFILE Which, [In, MarshalAs(UnmanagedType.LPWStr)] string SourceFile, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize);
-        private delegate HRESULT FindSourceFileAndTokenWideDelegate(IntPtr self, [In] int StartElement, [In] long ModAddr, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [In] DEBUG_FIND_SOURCE Flags, [Out] IntPtr FileToken, [In] int FileTokenSize, [Out] out int FoundElement, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int FoundSize);
+        private delegate HRESULT FindSourceFileAndTokenWideDelegate(IntPtr self, [In] int StartElement, [In] long ModAddr, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [In] DEBUG_FIND_SOURCE Flags, [In] IntPtr FileToken, [In] int FileTokenSize, [Out] out int FoundElement, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int FoundSize);
         private delegate HRESULT GetSymbolInformationWideDelegate(IntPtr self, [In] DEBUG_SYMINFO Which, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder StringBuffer, [In] int StringBufferSize, [Out] out int StringSize);
 
         #endregion

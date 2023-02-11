@@ -143,7 +143,7 @@ namespace ClrDebug.DbgEng
             [In] long ModAddr,
             [In, MarshalAs(UnmanagedType.LPStr)] string File,
             [In] DEBUG_FIND_SOURCE Flags,
-            [Out] IntPtr FileToken,
+            [In] IntPtr FileToken,
             [In] int FileTokenSize,
             [Out] out int FoundElement,
             [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,

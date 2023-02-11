@@ -6,9 +6,14 @@ namespace ClrDebug
     /// <summary>
     /// Encapsulates the results of the <see cref="CLRStrongName.StrongNameTokenFromAssemblyEx"/> method.
     /// </summary>
-    [DebuggerDisplay("pcbStrongNameToken = {pcbStrongNameToken}, ppbPublicKeyBlob = {ppbPublicKeyBlob.ToString(),nq}, pcbPublicKeyBlob = {pcbPublicKeyBlob}")]
+    [DebuggerDisplay("ppbStrongNameToken = {ppbStrongNameToken.ToString(),nq}, pcbStrongNameToken = {pcbStrongNameToken}, ppbPublicKeyBlob = {ppbPublicKeyBlob.ToString(),nq}, pcbPublicKeyBlob = {pcbPublicKeyBlob}")]
     public struct StrongNameTokenFromAssemblyExResult
     {
+        /// <summary>
+        /// The returned strong name token.
+        /// </summary>
+        public IntPtr ppbStrongNameToken { get; }
+
         /// <summary>
         /// The size, in bytes, of the strong name token.
         /// </summary>
@@ -24,8 +29,9 @@ namespace ClrDebug
         /// </summary>
         public int pcbPublicKeyBlob { get; }
 
-        public StrongNameTokenFromAssemblyExResult(int pcbStrongNameToken, IntPtr ppbPublicKeyBlob, int pcbPublicKeyBlob)
+        public StrongNameTokenFromAssemblyExResult(IntPtr ppbStrongNameToken, int pcbStrongNameToken, IntPtr ppbPublicKeyBlob, int pcbPublicKeyBlob)
         {
+            this.ppbStrongNameToken = ppbStrongNameToken;
             this.pcbStrongNameToken = pcbStrongNameToken;
             this.ppbPublicKeyBlob = ppbPublicKeyBlob;
             this.pcbPublicKeyBlob = pcbPublicKeyBlob;

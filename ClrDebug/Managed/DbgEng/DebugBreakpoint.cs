@@ -113,6 +113,49 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
+        #region Adder
+
+        /// <summary>
+        /// The GetAdder method returns the client that owns the breakpoint.
+        /// </summary>
+        public DebugClient Adder
+        {
+            get
+            {
+                DebugClient adderResult;
+                TryGetAdder(out adderResult).ThrowDbgEngNotOK();
+
+                return adderResult;
+            }
+        }
+
+        /// <summary>
+        /// The GetAdder method returns the client that owns the breakpoint.
+        /// </summary>
+        /// <param name="adderResult">[out] An <see cref="IDebugClient"/> interface pointer to the client object that added the breakpoint.</param>
+        /// <returns>This method can also return error values. For more information, see Return Values.</returns>
+        /// <remarks>
+        /// The client that owns the breakpoint is the client that created the breakpoint by using the <see cref="DebugControl.AddBreakpoint"/>
+        /// method. A breakpoint might not have an owner. If a breakpoint does not have an owner, Adder is set to NULL. For
+        /// more information about how to use breakpoints, see Using Breakpoints.
+        /// </remarks>
+        public HRESULT TryGetAdder(out DebugClient adderResult)
+        {
+            InitDelegate(ref getAdder, Vtbl->GetAdder);
+            /*HRESULT GetAdder(
+            [Out, ComAliasName("IDebugClient")] out IntPtr Adder);*/
+            IntPtr adder;
+            HRESULT hr = getAdder(Raw, out adder);
+
+            if (hr == HRESULT.S_OK)
+                adderResult = new DebugClient(adder);
+            else
+                adderResult = default(DebugClient);
+
+            return hr;
+        }
+
+        #endregion
         #region Flags
 
         /// <summary>
@@ -650,42 +693,6 @@ namespace ClrDebug.DbgEng
         }
 
         #endregion
-        #region GetAdder
-
-        /// <summary>
-        /// The GetAdder method returns the client that owns the breakpoint.
-        /// </summary>
-        /// <param name="adder">[out] An <see cref="IDebugClient"/> interface pointer to the client object that added the breakpoint.</param>
-        /// <remarks>
-        /// The client that owns the breakpoint is the client that created the breakpoint by using the <see cref="DebugControl.AddBreakpoint"/>
-        /// method. A breakpoint might not have an owner. If a breakpoint does not have an owner, Adder is set to NULL. For
-        /// more information about how to use breakpoints, see Using Breakpoints.
-        /// </remarks>
-        public void GetAdder(IntPtr adder)
-        {
-            TryGetAdder(adder).ThrowDbgEngNotOK();
-        }
-
-        /// <summary>
-        /// The GetAdder method returns the client that owns the breakpoint.
-        /// </summary>
-        /// <param name="adder">[out] An <see cref="IDebugClient"/> interface pointer to the client object that added the breakpoint.</param>
-        /// <returns>This method can also return error values. For more information, see Return Values.</returns>
-        /// <remarks>
-        /// The client that owns the breakpoint is the client that created the breakpoint by using the <see cref="DebugControl.AddBreakpoint"/>
-        /// method. A breakpoint might not have an owner. If a breakpoint does not have an owner, Adder is set to NULL. For
-        /// more information about how to use breakpoints, see Using Breakpoints.
-        /// </remarks>
-        public HRESULT TryGetAdder(IntPtr adder)
-        {
-            InitDelegate(ref getAdder, Vtbl->GetAdder);
-
-            /*HRESULT GetAdder(
-            [Out] IntPtr Adder);*/
-            return getAdder(Raw, adder);
-        }
-
-        #endregion
         #region AddFlags
 
         /// <summary>
@@ -1006,6 +1013,8 @@ namespace ClrDebug.DbgEng
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private GetTypeDelegate getType;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private GetAdderDelegate getAdder;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private GetFlagsDelegate getFlags;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private SetFlagsDelegate setFlags;
@@ -1035,8 +1044,6 @@ namespace ClrDebug.DbgEng
         private SetOffsetExpressionDelegate setOffsetExpression;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private GetParametersDelegate getParameters;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private GetAdderDelegate getAdder;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private AddFlagsDelegate addFlags;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -1069,6 +1076,7 @@ namespace ClrDebug.DbgEng
 
         private delegate HRESULT GetIdDelegate(IntPtr self, [Out] out int Id);
         private delegate HRESULT GetTypeDelegate(IntPtr self, [Out] out DEBUG_BREAKPOINT_TYPE BreakType, [Out] out int ProcType);
+        private delegate HRESULT GetAdderDelegate(IntPtr self, [Out, ComAliasName("IDebugClient")] out IntPtr Adder);
         private delegate HRESULT GetFlagsDelegate(IntPtr self, [Out] out DEBUG_BREAKPOINT_FLAG Flags);
         private delegate HRESULT SetFlagsDelegate(IntPtr self, [In] DEBUG_BREAKPOINT_FLAG Flags);
         private delegate HRESULT GetOffsetDelegate(IntPtr self, [Out] out long Offset);
@@ -1084,7 +1092,6 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetOffsetExpressionDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int ExpressionSize);
         private delegate HRESULT SetOffsetExpressionDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Expression);
         private delegate HRESULT GetParametersDelegate(IntPtr self, [Out] out DEBUG_BREAKPOINT_PARAMETERS Params);
-        private delegate HRESULT GetAdderDelegate(IntPtr self, [Out] IntPtr Adder);
         private delegate HRESULT AddFlagsDelegate(IntPtr self, [In] DEBUG_BREAKPOINT_FLAG Flags);
         private delegate HRESULT RemoveFlagsDelegate(IntPtr self, [In] DEBUG_BREAKPOINT_FLAG Flags);
         private delegate HRESULT SetDataParametersDelegate(IntPtr self, [In] int Size, [In] DEBUG_BREAKPOINT_ACCESS_TYPE AccessType);

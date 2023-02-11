@@ -27,7 +27,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRegistersAvailable(
             [In] int numChunks,
-            [Out] IntPtr availableRegChunks);
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] availableRegChunks);
 
         /// <summary>
         /// Gets the value of each register (for the platform on which code is currently executing) that is specified by the given bit mask.

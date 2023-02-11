@@ -468,7 +468,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameTokenFromAssemblyEx(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
-            [Out] IntPtr ppbStrongNameToken,
+            [Out] out IntPtr ppbStrongNameToken,
             [Out] out int pcbStrongNameToken,
             [Out] out IntPtr ppbPublicKeyBlob,
             [Out] out int pcbPublicKeyBlob);

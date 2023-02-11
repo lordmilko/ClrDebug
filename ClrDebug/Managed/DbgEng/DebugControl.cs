@@ -3079,7 +3079,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// If DesiredId is not DEBUG_ANY_ID and another breakpoint already uses the ID DesiredId, these methods will fail.
         /// Breakpoints are created empty and disabled. See Using Breakpoints for details on configuring and enabling the breakpoint.
-        /// The client is saved as the adder of the new breakpoint. See <see cref="DebugBreakpoint.GetAdder"/>.
+        /// The client is saved as the adder of the new breakpoint. See <see cref="DebugBreakpoint.Adder"/>.
         /// </remarks>
         public DebugBreakpoint AddBreakpoint(DEBUG_BREAKPOINT_TYPE type, int desiredId)
         {
@@ -3099,7 +3099,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// If DesiredId is not DEBUG_ANY_ID and another breakpoint already uses the ID DesiredId, these methods will fail.
         /// Breakpoints are created empty and disabled. See Using Breakpoints for details on configuring and enabling the breakpoint.
-        /// The client is saved as the adder of the new breakpoint. See <see cref="DebugBreakpoint.GetAdder"/>.
+        /// The client is saved as the adder of the new breakpoint. See <see cref="DebugBreakpoint.Adder"/>.
         /// </remarks>
         public HRESULT TryAddBreakpoint(DEBUG_BREAKPOINT_TYPE type, int desiredId, out DebugBreakpoint bpResult)
         {
@@ -6225,7 +6225,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// If DesiredId is not DEBUG_ANY_ID and another breakpoint already uses the ID DesiredId, these methods will fail.
         /// Breakpoints are created empty and disabled. See Using Breakpoints for details on configuring and enabling the breakpoint.
-        /// The client is saved as the adder of the new breakpoint. See <see cref="DebugBreakpoint.GetAdder"/>.
+        /// The client is saved as the adder of the new breakpoint. See <see cref="DebugBreakpoint.Adder"/>.
         /// </remarks>
         public DebugBreakpoint AddBreakpoint2(DEBUG_BREAKPOINT_TYPE type, int desiredId)
         {
@@ -6245,7 +6245,7 @@ namespace ClrDebug.DbgEng
         /// <remarks>
         /// If DesiredId is not DEBUG_ANY_ID and another breakpoint already uses the ID DesiredId, these methods will fail.
         /// Breakpoints are created empty and disabled. See Using Breakpoints for details on configuring and enabling the breakpoint.
-        /// The client is saved as the adder of the new breakpoint. See <see cref="DebugBreakpoint.GetAdder"/>.
+        /// The client is saved as the adder of the new breakpoint. See <see cref="DebugBreakpoint.Adder"/>.
         /// </remarks>
         public HRESULT TryAddBreakpoint2(DEBUG_BREAKPOINT_TYPE type, int desiredId, out DebugBreakpoint bpResult)
         {
