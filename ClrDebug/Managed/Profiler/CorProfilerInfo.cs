@@ -3777,9 +3777,9 @@ namespace ClrDebug
         /// Different objects of the same types often have the same size. However, some types, such as arrays or strings, may
         /// have a different size for each object.
         /// </remarks>
-        public long GetObjectSize2(ObjectID objectId)
+        public IntPtr GetObjectSize2(ObjectID objectId)
         {
-            long pcSize;
+            IntPtr pcSize;
             TryGetObjectSize2(objectId, out pcSize).ThrowOnNotOK();
 
             return pcSize;
@@ -3794,11 +3794,11 @@ namespace ClrDebug
         /// Different objects of the same types often have the same size. However, some types, such as arrays or strings, may
         /// have a different size for each object.
         /// </remarks>
-        public HRESULT TryGetObjectSize2(ObjectID objectId, out long pcSize)
+        public HRESULT TryGetObjectSize2(ObjectID objectId, out IntPtr pcSize)
         {
             /*HRESULT GetObjectSize2(
             [In] ObjectID objectId,
-            [Out, MarshalAs(UnmanagedType.SysInt)] out long pcSize);*/
+            [Out] out IntPtr pcSize);*/
             return Raw4.GetObjectSize2(objectId, out pcSize);
         }
 

@@ -19,7 +19,6 @@ namespace ClrDebug
         /// <summary>
         /// The size of the block.
         /// </summary>
-        [MarshalAs(UnmanagedType.SysInt)]
-        public long size;
+        public IntPtr size;
     }
 }

@@ -1564,7 +1564,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetObjectSize2(
             [In] ObjectID objectId,
-            [Out, MarshalAs(UnmanagedType.SysInt)] out long pcSize);
+            [Out] out IntPtr pcSize);
 
         /// <summary>
         /// [Supported in the .NET Framework 4.5.2 and later versions] Gets the current event categories for which the profiler wants to receive notifications from the common language runtime (CLR).<para/>

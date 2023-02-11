@@ -152,7 +152,7 @@ namespace ClrDebug
     /// This occurs due to coreclr!CtxEntry::Init attempting to call GetCurrentObjCtx() which in turn calls CoGetObjectContext(). This is expected to always succeed, however in this particular
     /// case it in fact fails; this may be due to the fact that the thread that is running the callback hasn't been setup for COM properly</remarks>
     public delegate void PSTARTUP_CALLBACK(
-        [In, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ManualMarshaler))] ICorDebug pCordb,
+        [In, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ManualInterfaceMarshaler))] ICorDebug pCordb,
         [In] IntPtr parameter,
         [In] HRESULT hr);
 

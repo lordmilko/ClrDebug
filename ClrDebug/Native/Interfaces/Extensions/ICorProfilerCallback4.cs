@@ -1307,7 +1307,7 @@ namespace ClrDebug
             [In] int cMovedObjectIDRanges,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ObjectID[] oldObjectIDRangeStart,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ObjectID[] newObjectIDRangeStart,
-            [In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.SysInt, SizeParamIndex = 0)] long[] cObjectIDRangeLength);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] IntPtr[] cObjectIDRangeLength);
 
         /// <summary>
         /// Reports the layout of objects in the heap as a result of a non-compacting garbage collection. This method is called if the profiler has implemented the <see cref="ICorProfilerCallback4"/> interface.<para/>
@@ -1342,6 +1342,6 @@ namespace ClrDebug
         HRESULT SurvivingReferences2(
             [In] int cSurvivingObjectIDRanges,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ObjectID[] objectIDRangeStart,
-            [In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.SysInt, SizeParamIndex = 0)] long[] cObjectIDRangeLength);
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] IntPtr[] cObjectIDRangeLength);
     }
 }

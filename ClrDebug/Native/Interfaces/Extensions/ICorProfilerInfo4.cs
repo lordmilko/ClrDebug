@@ -1565,6 +1565,6 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetObjectSize2(
             [In] ObjectID objectId,
-            [Out, MarshalAs(UnmanagedType.SysInt)] out long pcSize);
+            [Out] out IntPtr pcSize);
     }
 }
