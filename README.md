@@ -12,6 +12,7 @@ no underlying functionality is being hidden from you from using these wrappers.
 ClrDebug aims to be a complete wrapper around all of the essential APIs you may need when developing diagnostic applications, including:
 * CorDebug (`ICorDebug*`)
 * Metadata (`IMetaData*`)
+* Profiling (`ICorProfiler*`)
 * Diagnostics Symbol Store (`ISym*`)
 * `IXCLR*`/`ISOS*`/DAC
 * DbgEng (`IDebug*`)

@@ -17,6 +17,8 @@ ClrDebug aims to be a complete wrapper around all of the essential APIs you may 
 
 * Metadata (IMetaData*)
 
+* Profiling (ICorProfiler*)
+
 * Diagnostics Symbol Store (ISym*)
 
 * IXCLR*/ISOS*/DAC
