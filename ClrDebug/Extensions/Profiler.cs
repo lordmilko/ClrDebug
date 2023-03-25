@@ -9,7 +9,7 @@ namespace ClrDebug
 {
     [Serializable]
     [DebuggerDisplay("{ToString(),nq}")]
-    public struct ProcessID : IComparable, IEquatable<ProcessID>
+    public unsafe struct ProcessID : IComparable, IEquatable<ProcessID>
     {
         public IntPtr Value { get; }
 
@@ -22,11 +22,21 @@ namespace ClrDebug
 
         public static implicit operator ProcessID(IntPtr value) => new ProcessID(value);
 
+        public static implicit operator ProcessID(long value) => new ProcessID(new IntPtr((void*)value));
+
+        public static implicit operator ProcessID(ulong value) => new ProcessID(new IntPtr((void*)value));
+
+        public static implicit operator ProcessID(int value) => new ProcessID((IntPtr) value);
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<ProcessID>((ulong) Value, value);
 
         public bool Equals(ProcessID other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(ProcessID left, ProcessID right) => left.Value == right.Value;
+
+        public static bool operator !=(ProcessID left, ProcessID right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -35,7 +45,7 @@ namespace ClrDebug
 
     [Serializable]
     [DebuggerDisplay("{ToString(),nq}")]
-    public struct AssemblyID : IComparable, IEquatable<AssemblyID>
+    public unsafe struct AssemblyID : IComparable, IEquatable<AssemblyID>
     {
         public IntPtr Value { get; }
 
@@ -48,11 +58,21 @@ namespace ClrDebug
 
         public static implicit operator AssemblyID(IntPtr value) => new AssemblyID(value);
 
+        public static implicit operator AssemblyID(long value) => new AssemblyID(new IntPtr((void*)value));
+
+        public static implicit operator AssemblyID(ulong value) => new AssemblyID(new IntPtr((void*)value));
+
+        public static implicit operator AssemblyID(int value) => new AssemblyID((IntPtr) value);
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<AssemblyID>((ulong) Value, value);
 
         public bool Equals(AssemblyID other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(AssemblyID left, AssemblyID right) => left.Value == right.Value;
+
+        public static bool operator !=(AssemblyID left, AssemblyID right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -61,7 +81,7 @@ namespace ClrDebug
 
     [Serializable]
     [DebuggerDisplay("{ToString(),nq}")]
-    public struct AppDomainID : IComparable, IEquatable<AppDomainID>
+    public unsafe struct AppDomainID : IComparable, IEquatable<AppDomainID>
     {
         public IntPtr Value { get; }
 
@@ -74,11 +94,21 @@ namespace ClrDebug
 
         public static implicit operator AppDomainID(IntPtr value) => new AppDomainID(value);
 
+        public static implicit operator AppDomainID(long value) => new AppDomainID(new IntPtr((void*)value));
+
+        public static implicit operator AppDomainID(ulong value) => new AppDomainID(new IntPtr((void*)value));
+
+        public static implicit operator AppDomainID(int value) => new AppDomainID((IntPtr) value);
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<AppDomainID>((ulong) Value, value);
 
         public bool Equals(AppDomainID other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(AppDomainID left, AppDomainID right) => left.Value == right.Value;
+
+        public static bool operator !=(AppDomainID left, AppDomainID right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -87,7 +117,7 @@ namespace ClrDebug
 
     [Serializable]
     [DebuggerDisplay("{ToString(),nq}")]
-    public struct ModuleID : IComparable, IEquatable<ModuleID>
+    public unsafe struct ModuleID : IComparable, IEquatable<ModuleID>
     {
         public IntPtr Value { get; }
 
@@ -100,11 +130,21 @@ namespace ClrDebug
 
         public static implicit operator ModuleID(IntPtr value) => new ModuleID(value);
 
+        public static implicit operator ModuleID(long value) => new ModuleID(new IntPtr((void*)value));
+
+        public static implicit operator ModuleID(ulong value) => new ModuleID(new IntPtr((void*)value));
+
+        public static implicit operator ModuleID(int value) => new ModuleID((IntPtr) value);
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<ModuleID>((ulong) Value, value);
 
         public bool Equals(ModuleID other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(ModuleID left, ModuleID right) => left.Value == right.Value;
+
+        public static bool operator !=(ModuleID left, ModuleID right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -113,7 +153,7 @@ namespace ClrDebug
 
     [Serializable]
     [DebuggerDisplay("{ToString(),nq}")]
-    public struct ClassID : IComparable, IEquatable<ClassID>
+    public unsafe struct ClassID : IComparable, IEquatable<ClassID>
     {
         public IntPtr Value { get; }
 
@@ -126,11 +166,21 @@ namespace ClrDebug
 
         public static implicit operator ClassID(IntPtr value) => new ClassID(value);
 
+        public static implicit operator ClassID(long value) => new ClassID(new IntPtr((void*)value));
+
+        public static implicit operator ClassID(ulong value) => new ClassID(new IntPtr((void*)value));
+
+        public static implicit operator ClassID(int value) => new ClassID((IntPtr) value);
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<ClassID>((ulong) Value, value);
 
         public bool Equals(ClassID other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(ClassID left, ClassID right) => left.Value == right.Value;
+
+        public static bool operator !=(ClassID left, ClassID right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -139,7 +189,7 @@ namespace ClrDebug
 
     [Serializable]
     [DebuggerDisplay("{ToString(),nq}")]
-    public struct ThreadID : IComparable, IEquatable<ThreadID>
+    public unsafe struct ThreadID : IComparable, IEquatable<ThreadID>
     {
         public IntPtr Value { get; }
 
@@ -152,11 +202,21 @@ namespace ClrDebug
 
         public static implicit operator ThreadID(IntPtr value) => new ThreadID(value);
 
+        public static implicit operator ThreadID(long value) => new ThreadID(new IntPtr((void*)value));
+
+        public static implicit operator ThreadID(ulong value) => new ThreadID(new IntPtr((void*)value));
+
+        public static implicit operator ThreadID(int value) => new ThreadID((IntPtr) value);
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<ThreadID>((ulong) Value, value);
 
         public bool Equals(ThreadID other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(ThreadID left, ThreadID right) => left.Value == right.Value;
+
+        public static bool operator !=(ThreadID left, ThreadID right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -165,7 +225,7 @@ namespace ClrDebug
 
     [Serializable]
     [DebuggerDisplay("{ToString(),nq}")]
-    public struct ContextID : IComparable, IEquatable<ContextID>
+    public unsafe struct ContextID : IComparable, IEquatable<ContextID>
     {
         public IntPtr Value { get; }
 
@@ -178,11 +238,21 @@ namespace ClrDebug
 
         public static implicit operator ContextID(IntPtr value) => new ContextID(value);
 
+        public static implicit operator ContextID(long value) => new ContextID(new IntPtr((void*)value));
+
+        public static implicit operator ContextID(ulong value) => new ContextID(new IntPtr((void*)value));
+
+        public static implicit operator ContextID(int value) => new ContextID((IntPtr) value);
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<ContextID>((ulong) Value, value);
 
         public bool Equals(ContextID other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(ContextID left, ContextID right) => left.Value == right.Value;
+
+        public static bool operator !=(ContextID left, ContextID right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -191,7 +261,7 @@ namespace ClrDebug
 
     [Serializable]
     [DebuggerDisplay("{ToString(),nq}")]
-    public struct FunctionID : IComparable, IEquatable<FunctionID>
+    public unsafe struct FunctionID : IComparable, IEquatable<FunctionID>
     {
         public IntPtr Value { get; }
 
@@ -204,11 +274,21 @@ namespace ClrDebug
 
         public static implicit operator FunctionID(IntPtr value) => new FunctionID(value);
 
+        public static implicit operator FunctionID(long value) => new FunctionID(new IntPtr((void*)value));
+
+        public static implicit operator FunctionID(ulong value) => new FunctionID(new IntPtr((void*)value));
+
+        public static implicit operator FunctionID(int value) => new FunctionID((IntPtr) value);
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<FunctionID>((ulong) Value, value);
 
         public bool Equals(FunctionID other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(FunctionID left, FunctionID right) => left.Value == right.Value;
+
+        public static bool operator !=(FunctionID left, FunctionID right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -217,7 +297,7 @@ namespace ClrDebug
 
     [Serializable]
     [DebuggerDisplay("{ToString(),nq}")]
-    public struct ObjectID : IComparable, IEquatable<ObjectID>
+    public unsafe struct ObjectID : IComparable, IEquatable<ObjectID>
     {
         public IntPtr Value { get; }
 
@@ -230,11 +310,21 @@ namespace ClrDebug
 
         public static implicit operator ObjectID(IntPtr value) => new ObjectID(value);
 
+        public static implicit operator ObjectID(long value) => new ObjectID(new IntPtr((void*)value));
+
+        public static implicit operator ObjectID(ulong value) => new ObjectID(new IntPtr((void*)value));
+
+        public static implicit operator ObjectID(int value) => new ObjectID((IntPtr) value);
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<ObjectID>((ulong) Value, value);
 
         public bool Equals(ObjectID other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(ObjectID left, ObjectID right) => left.Value == right.Value;
+
+        public static bool operator !=(ObjectID left, ObjectID right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -243,7 +333,7 @@ namespace ClrDebug
 
     [Serializable]
     [DebuggerDisplay("{ToString(),nq}")]
-    public struct GCHandleID : IComparable, IEquatable<GCHandleID>
+    public unsafe struct GCHandleID : IComparable, IEquatable<GCHandleID>
     {
         public IntPtr Value { get; }
 
@@ -256,11 +346,21 @@ namespace ClrDebug
 
         public static implicit operator GCHandleID(IntPtr value) => new GCHandleID(value);
 
+        public static implicit operator GCHandleID(long value) => new GCHandleID(new IntPtr((void*)value));
+
+        public static implicit operator GCHandleID(ulong value) => new GCHandleID(new IntPtr((void*)value));
+
+        public static implicit operator GCHandleID(int value) => new GCHandleID((IntPtr) value);
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<GCHandleID>((ulong) Value, value);
 
         public bool Equals(GCHandleID other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(GCHandleID left, GCHandleID right) => left.Value == right.Value;
+
+        public static bool operator !=(GCHandleID left, GCHandleID right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -269,7 +369,7 @@ namespace ClrDebug
 
     [Serializable]
     [DebuggerDisplay("{ToString(),nq}")]
-    public struct COR_PRF_ELT_INFO : IComparable, IEquatable<COR_PRF_ELT_INFO>
+    public unsafe struct COR_PRF_ELT_INFO : IComparable, IEquatable<COR_PRF_ELT_INFO>
     {
         public IntPtr Value { get; }
 
@@ -282,11 +382,21 @@ namespace ClrDebug
 
         public static implicit operator COR_PRF_ELT_INFO(IntPtr value) => new COR_PRF_ELT_INFO(value);
 
+        public static implicit operator COR_PRF_ELT_INFO(long value) => new COR_PRF_ELT_INFO(new IntPtr((void*)value));
+
+        public static implicit operator COR_PRF_ELT_INFO(ulong value) => new COR_PRF_ELT_INFO(new IntPtr((void*)value));
+
+        public static implicit operator COR_PRF_ELT_INFO(int value) => new COR_PRF_ELT_INFO((IntPtr) value);
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<COR_PRF_ELT_INFO>((ulong) Value, value);
 
         public bool Equals(COR_PRF_ELT_INFO other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(COR_PRF_ELT_INFO left, COR_PRF_ELT_INFO right) => left.Value == right.Value;
+
+        public static bool operator !=(COR_PRF_ELT_INFO left, COR_PRF_ELT_INFO right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -295,7 +405,7 @@ namespace ClrDebug
 
     [Serializable]
     [DebuggerDisplay("{ToString(),nq}")]
-    public struct COR_PRF_FRAME_INFO : IComparable, IEquatable<COR_PRF_FRAME_INFO>
+    public unsafe struct COR_PRF_FRAME_INFO : IComparable, IEquatable<COR_PRF_FRAME_INFO>
     {
         public IntPtr Value { get; }
 
@@ -308,11 +418,21 @@ namespace ClrDebug
 
         public static implicit operator COR_PRF_FRAME_INFO(IntPtr value) => new COR_PRF_FRAME_INFO(value);
 
+        public static implicit operator COR_PRF_FRAME_INFO(long value) => new COR_PRF_FRAME_INFO(new IntPtr((void*)value));
+
+        public static implicit operator COR_PRF_FRAME_INFO(ulong value) => new COR_PRF_FRAME_INFO(new IntPtr((void*)value));
+
+        public static implicit operator COR_PRF_FRAME_INFO(int value) => new COR_PRF_FRAME_INFO((IntPtr) value);
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<COR_PRF_FRAME_INFO>((ulong) Value, value);
 
         public bool Equals(COR_PRF_FRAME_INFO other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(COR_PRF_FRAME_INFO left, COR_PRF_FRAME_INFO right) => left.Value == right.Value;
+
+        public static bool operator !=(COR_PRF_FRAME_INFO left, COR_PRF_FRAME_INFO right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -321,7 +441,7 @@ namespace ClrDebug
 
     [Serializable]
     [DebuggerDisplay("{ToString(),nq}")]
-    public struct ReJITID : IComparable, IEquatable<ReJITID>
+    public unsafe struct ReJITID : IComparable, IEquatable<ReJITID>
     {
         public IntPtr Value { get; }
 
@@ -334,11 +454,21 @@ namespace ClrDebug
 
         public static implicit operator ReJITID(IntPtr value) => new ReJITID(value);
 
+        public static implicit operator ReJITID(long value) => new ReJITID(new IntPtr((void*)value));
+
+        public static implicit operator ReJITID(ulong value) => new ReJITID(new IntPtr((void*)value));
+
+        public static implicit operator ReJITID(int value) => new ReJITID((IntPtr) value);
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<ReJITID>((ulong) Value, value);
 
         public bool Equals(ReJITID other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(ReJITID left, ReJITID right) => left.Value == right.Value;
+
+        public static bool operator !=(ReJITID left, ReJITID right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -347,7 +477,7 @@ namespace ClrDebug
 
     [Serializable]
     [DebuggerDisplay("{ToString(),nq}")]
-    public struct EVENTPIPE_PROVIDER : IComparable, IEquatable<EVENTPIPE_PROVIDER>
+    public unsafe struct EVENTPIPE_PROVIDER : IComparable, IEquatable<EVENTPIPE_PROVIDER>
     {
         public IntPtr Value { get; }
 
@@ -360,11 +490,21 @@ namespace ClrDebug
 
         public static implicit operator EVENTPIPE_PROVIDER(IntPtr value) => new EVENTPIPE_PROVIDER(value);
 
+        public static implicit operator EVENTPIPE_PROVIDER(long value) => new EVENTPIPE_PROVIDER(new IntPtr((void*)value));
+
+        public static implicit operator EVENTPIPE_PROVIDER(ulong value) => new EVENTPIPE_PROVIDER(new IntPtr((void*)value));
+
+        public static implicit operator EVENTPIPE_PROVIDER(int value) => new EVENTPIPE_PROVIDER((IntPtr) value);
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<EVENTPIPE_PROVIDER>((ulong) Value, value);
 
         public bool Equals(EVENTPIPE_PROVIDER other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(EVENTPIPE_PROVIDER left, EVENTPIPE_PROVIDER right) => left.Value == right.Value;
+
+        public static bool operator !=(EVENTPIPE_PROVIDER left, EVENTPIPE_PROVIDER right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -373,7 +513,7 @@ namespace ClrDebug
 
     [Serializable]
     [DebuggerDisplay("{ToString(),nq}")]
-    public struct EVENTPIPE_EVENT : IComparable, IEquatable<EVENTPIPE_EVENT>
+    public unsafe struct EVENTPIPE_EVENT : IComparable, IEquatable<EVENTPIPE_EVENT>
     {
         public IntPtr Value { get; }
 
@@ -386,11 +526,21 @@ namespace ClrDebug
 
         public static implicit operator EVENTPIPE_EVENT(IntPtr value) => new EVENTPIPE_EVENT(value);
 
+        public static implicit operator EVENTPIPE_EVENT(long value) => new EVENTPIPE_EVENT(new IntPtr((void*)value));
+
+        public static implicit operator EVENTPIPE_EVENT(ulong value) => new EVENTPIPE_EVENT(new IntPtr((void*)value));
+
+        public static implicit operator EVENTPIPE_EVENT(int value) => new EVENTPIPE_EVENT((IntPtr) value);
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<EVENTPIPE_EVENT>((ulong) Value, value);
 
         public bool Equals(EVENTPIPE_EVENT other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(EVENTPIPE_EVENT left, EVENTPIPE_EVENT right) => left.Value == right.Value;
+
+        public static bool operator !=(EVENTPIPE_EVENT left, EVENTPIPE_EVENT right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -399,7 +549,7 @@ namespace ClrDebug
 
     [Serializable]
     [DebuggerDisplay("{ToString(),nq}")]
-    public struct EVENTPIPE_SESSION : IComparable, IEquatable<EVENTPIPE_SESSION>
+    public unsafe struct EVENTPIPE_SESSION : IComparable, IEquatable<EVENTPIPE_SESSION>
     {
         public long Value { get; }
 
@@ -412,11 +562,18 @@ namespace ClrDebug
 
         public static implicit operator EVENTPIPE_SESSION(long value) => new EVENTPIPE_SESSION(value);
 
+
+        public static implicit operator EVENTPIPE_SESSION(int value) => new EVENTPIPE_SESSION((long) value);
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<EVENTPIPE_SESSION>((ulong) Value, value);
 
         public bool Equals(EVENTPIPE_SESSION other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(EVENTPIPE_SESSION left, EVENTPIPE_SESSION right) => left.Value == right.Value;
+
+        public static bool operator !=(EVENTPIPE_SESSION left, EVENTPIPE_SESSION right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 

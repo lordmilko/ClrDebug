@@ -17,6 +17,16 @@ var types = new[]
     Tuple.Create("CLRDATA_ADDRESS", "long") //https://github.com/dotnet/runtime/blob/main/src/coreclr/debug/daccess/dacimpl.h
 };
 
+var mathOps = new[]
+{
+    "+", "-", "&", "|", "*", "/", "%"
+};
+
+var boolOps = new[]
+{
+    ">", "<", "==", "!=", ">=", "<="
+};
+
 for(int i = 0; i < types.Length; i++)
 {
     var type = types[i].Item1;
@@ -24,11 +34,11 @@ for(int i = 0; i < types.Length; i++)
 #>
     [Serializable]
     [DebuggerDisplay("{ToString(),nq}")]
-    public struct <#= type #> : IComparable, IEquatable<<#= type #>>
+    public unsafe struct <#= type #> : IComparable, IEquatable<<#= type #>>
     {
         public u<#= baseType #> Value { get; }
 
-        public <#= type == "CLRDATA_ADDRESS" ? "unsafe " : "" #><#= type #>(u<#= baseType #> value)
+        public <#= type #>(u<#= baseType #> value)
         {
 <#
 if (type == "CLRDATA_ADDRESS")
@@ -58,6 +68,14 @@ else
 
         public static implicit operator <#= type #>(u<#= baseType #> value) => new <#= type #>(value);
 
+        //Don't use ToInt64 as IntPtr will first cast the pointer to int, causing the value to become 0xffffffffxxxxxxxx
+        public static implicit operator <#= type #>(IntPtr value) => new <#= type #>((ulong)(void*)value);
+
+        //IntPtr does a checked conversion when the int/long ctor is used, meaning that when the high bit of a 32-bit address is set (which)
+        //would be perfectly valid since the address is a ulong) IntPtr will throw an OverflowException. By using the void* ctor,
+        //we bypass this check
+        public static implicit operator IntPtr(<#= type #> value) => new IntPtr((void*)value.Value);
+
 <#
 //Numeric literals are implicitly integers; as such, without an implicit conversion from int -> wrapper type,
 //we can't assign a numeric literal to a parameter expecting a wrapper type
@@ -65,15 +83,13 @@ if (baseType != "int")
 {
 #>
         public static implicit operator <#= type #>(int value) => new <#= type #>(value);
+
+        public static implicit operator <#= type #>(uint value) => new <#= type #>(value);
 <#
 }
 if (type == "CORDB_ADDRESS")
 {
 #>
-
-        public static implicit operator <#= type #>(IntPtr value) => new <#= type #>(value.ToInt64());
-
-        public static implicit operator IntPtr(CORDB_ADDRESS value) => new IntPtr(value);
 
         public static implicit operator CLRDATA_ADDRESS(CORDB_ADDRESS value) => new CLRDATA_ADDRESS(value);
 <#
@@ -82,11 +98,26 @@ if (type == "CLRDATA_ADDRESS")
 {
 #>
 
-        public static implicit operator <#= type #>(IntPtr value) => new <#= type #>(value.ToInt64());
-
-        public static implicit operator IntPtr(CLRDATA_ADDRESS value) => new IntPtr(value);
-
         public static implicit operator CORDB_ADDRESS(CLRDATA_ADDRESS value) => new CORDB_ADDRESS(value);
+<#
+}
+#>
+
+<#
+for(int j = 0; j < mathOps.Length; j++)
+{
+    var op = mathOps[j];
+#>
+        public static <#= type #> operator<#= op #> (<#= type #> left, <#= type #> right) => (ulong) (void*) left.Value <#= op #> (ulong) (void*) right.Value;
+        public static <#= type #> operator<#= op #> (<#= type #> left, int right) => (ulong) (void*) left.Value <#= op #> (uint) right;
+<#
+}
+for(int j = 0; j < boolOps.Length; j++)
+{
+    var op = boolOps[j];
+#>
+        public static bool operator<#= op #> (<#= type #> left, <#= type #> right) => (ulong) (void*) left.Value <#= op #> (ulong) (void*) right.Value;
+        public static bool operator<#= op #> (<#= type #> left, int right) => (ulong) (void*) left.Value <#= op #> (uint) right;
 <#
 }
 #>

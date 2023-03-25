@@ -37,7 +37,7 @@ for(int i = 0; i < types.Length; i++)
 #>
     [Serializable]
     [DebuggerDisplay("{ToString(),nq}")]
-    public struct <#= type #> : IComparable, IEquatable<<#= type #>>
+    public unsafe struct <#= type #> : IComparable, IEquatable<<#= type #>>
     {
         public <#= baseType #> Value { get; }
 
@@ -50,11 +50,35 @@ for(int i = 0; i < types.Length; i++)
 
         public static implicit operator <#= type #>(<#= baseType #> value) => new <#= type #>(value);
 
+<#
+if (baseType == "IntPtr")
+{
+#>
+        public static implicit operator <#= type #>(long value) => new <#= type #>(new IntPtr((void*)value));
+
+        public static implicit operator <#= type #>(ulong value) => new <#= type #>(new IntPtr((void*)value));
+<#
+}
+//Numeric literals are implicitly integers; as such, without an implicit conversion from int -> wrapper type,
+//we can't assign a numeric literal to a parameter expecting a wrapper type
+if (baseType != "int")
+{
+#>
+
+        public static implicit operator <#= type #>(int value) => new <#= type #>((<#= baseType #>) value);
+<#
+}
+#>
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<<#= type #>>((ulong) Value, value);
 
         public bool Equals(<#= type #> other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(<#= type #> left, <#= type #> right) => left.Value == right.Value;
+
+        public static bool operator !=(<#= type #> left, <#= type #> right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 

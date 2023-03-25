@@ -236,6 +236,10 @@ namespace ClrDebug
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
 
+        public static bool operator ==(mdToken left, mdToken right) => left.Value == right.Value;
+
+        public static bool operator !=(mdToken left, mdToken right) => left.Value != right.Value;
+
         public override int GetHashCode() => Value.GetHashCode();
 
         public override string ToString() => "0x" + Value.ToString("X");
@@ -279,6 +283,10 @@ namespace ClrDebug
         public bool Equals(mdModule other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(mdModule left, mdModule right) => left.Value == right.Value;
+
+        public static bool operator !=(mdModule left, mdModule right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -324,6 +332,10 @@ namespace ClrDebug
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
 
+        public static bool operator ==(mdTypeRef left, mdTypeRef right) => left.Value == right.Value;
+
+        public static bool operator !=(mdTypeRef left, mdTypeRef right) => left.Value != right.Value;
+
         public override int GetHashCode() => Value.GetHashCode();
 
         public override string ToString() => "0x" + Value.ToString("X");
@@ -367,6 +379,10 @@ namespace ClrDebug
         public bool Equals(mdTypeDef other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(mdTypeDef left, mdTypeDef right) => left.Value == right.Value;
+
+        public static bool operator !=(mdTypeDef left, mdTypeDef right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -412,6 +428,10 @@ namespace ClrDebug
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
 
+        public static bool operator ==(mdFieldDef left, mdFieldDef right) => left.Value == right.Value;
+
+        public static bool operator !=(mdFieldDef left, mdFieldDef right) => left.Value != right.Value;
+
         public override int GetHashCode() => Value.GetHashCode();
 
         public override string ToString() => "0x" + Value.ToString("X");
@@ -455,6 +475,10 @@ namespace ClrDebug
         public bool Equals(mdMethodDef other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(mdMethodDef left, mdMethodDef right) => left.Value == right.Value;
+
+        public static bool operator !=(mdMethodDef left, mdMethodDef right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -500,6 +524,10 @@ namespace ClrDebug
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
 
+        public static bool operator ==(mdParamDef left, mdParamDef right) => left.Value == right.Value;
+
+        public static bool operator !=(mdParamDef left, mdParamDef right) => left.Value != right.Value;
+
         public override int GetHashCode() => Value.GetHashCode();
 
         public override string ToString() => "0x" + Value.ToString("X");
@@ -543,6 +571,10 @@ namespace ClrDebug
         public bool Equals(mdInterfaceImpl other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(mdInterfaceImpl left, mdInterfaceImpl right) => left.Value == right.Value;
+
+        public static bool operator !=(mdInterfaceImpl left, mdInterfaceImpl right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -588,6 +620,10 @@ namespace ClrDebug
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
 
+        public static bool operator ==(mdMemberRef left, mdMemberRef right) => left.Value == right.Value;
+
+        public static bool operator !=(mdMemberRef left, mdMemberRef right) => left.Value != right.Value;
+
         public override int GetHashCode() => Value.GetHashCode();
 
         public override string ToString() => "0x" + Value.ToString("X");
@@ -631,6 +667,10 @@ namespace ClrDebug
         public bool Equals(mdCustomAttribute other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(mdCustomAttribute left, mdCustomAttribute right) => left.Value == right.Value;
+
+        public static bool operator !=(mdCustomAttribute left, mdCustomAttribute right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -676,6 +716,10 @@ namespace ClrDebug
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
 
+        public static bool operator ==(mdPermission left, mdPermission right) => left.Value == right.Value;
+
+        public static bool operator !=(mdPermission left, mdPermission right) => left.Value != right.Value;
+
         public override int GetHashCode() => Value.GetHashCode();
 
         public override string ToString() => "0x" + Value.ToString("X");
@@ -719,6 +763,10 @@ namespace ClrDebug
         public bool Equals(mdSignature other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(mdSignature left, mdSignature right) => left.Value == right.Value;
+
+        public static bool operator !=(mdSignature left, mdSignature right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -764,6 +812,10 @@ namespace ClrDebug
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
 
+        public static bool operator ==(mdEvent left, mdEvent right) => left.Value == right.Value;
+
+        public static bool operator !=(mdEvent left, mdEvent right) => left.Value != right.Value;
+
         public override int GetHashCode() => Value.GetHashCode();
 
         public override string ToString() => "0x" + Value.ToString("X");
@@ -807,6 +859,10 @@ namespace ClrDebug
         public bool Equals(mdProperty other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(mdProperty left, mdProperty right) => left.Value == right.Value;
+
+        public static bool operator !=(mdProperty left, mdProperty right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -852,6 +908,10 @@ namespace ClrDebug
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
 
+        public static bool operator ==(mdModuleRef left, mdModuleRef right) => left.Value == right.Value;
+
+        public static bool operator !=(mdModuleRef left, mdModuleRef right) => left.Value != right.Value;
+
         public override int GetHashCode() => Value.GetHashCode();
 
         public override string ToString() => "0x" + Value.ToString("X");
@@ -895,6 +955,10 @@ namespace ClrDebug
         public bool Equals(mdAssembly other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(mdAssembly left, mdAssembly right) => left.Value == right.Value;
+
+        public static bool operator !=(mdAssembly left, mdAssembly right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -940,6 +1004,10 @@ namespace ClrDebug
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
 
+        public static bool operator ==(mdAssemblyRef left, mdAssemblyRef right) => left.Value == right.Value;
+
+        public static bool operator !=(mdAssemblyRef left, mdAssemblyRef right) => left.Value != right.Value;
+
         public override int GetHashCode() => Value.GetHashCode();
 
         public override string ToString() => "0x" + Value.ToString("X");
@@ -983,6 +1051,10 @@ namespace ClrDebug
         public bool Equals(mdFile other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(mdFile left, mdFile right) => left.Value == right.Value;
+
+        public static bool operator !=(mdFile left, mdFile right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -1028,6 +1100,10 @@ namespace ClrDebug
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
 
+        public static bool operator ==(mdExportedType left, mdExportedType right) => left.Value == right.Value;
+
+        public static bool operator !=(mdExportedType left, mdExportedType right) => left.Value != right.Value;
+
         public override int GetHashCode() => Value.GetHashCode();
 
         public override string ToString() => "0x" + Value.ToString("X");
@@ -1071,6 +1147,10 @@ namespace ClrDebug
         public bool Equals(mdManifestResource other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(mdManifestResource left, mdManifestResource right) => left.Value == right.Value;
+
+        public static bool operator !=(mdManifestResource left, mdManifestResource right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -1116,6 +1196,10 @@ namespace ClrDebug
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
 
+        public static bool operator ==(mdTypeSpec left, mdTypeSpec right) => left.Value == right.Value;
+
+        public static bool operator !=(mdTypeSpec left, mdTypeSpec right) => left.Value != right.Value;
+
         public override int GetHashCode() => Value.GetHashCode();
 
         public override string ToString() => "0x" + Value.ToString("X");
@@ -1159,6 +1243,10 @@ namespace ClrDebug
         public bool Equals(mdGenericParam other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(mdGenericParam left, mdGenericParam right) => left.Value == right.Value;
+
+        public static bool operator !=(mdGenericParam left, mdGenericParam right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -1204,6 +1292,10 @@ namespace ClrDebug
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
 
+        public static bool operator ==(mdMethodSpec left, mdMethodSpec right) => left.Value == right.Value;
+
+        public static bool operator !=(mdMethodSpec left, mdMethodSpec right) => left.Value != right.Value;
+
         public override int GetHashCode() => Value.GetHashCode();
 
         public override string ToString() => "0x" + Value.ToString("X");
@@ -1247,6 +1339,10 @@ namespace ClrDebug
         public bool Equals(mdGenericParamConstraint other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(mdGenericParamConstraint left, mdGenericParamConstraint right) => left.Value == right.Value;
+
+        public static bool operator !=(mdGenericParamConstraint left, mdGenericParamConstraint right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -1292,6 +1388,10 @@ namespace ClrDebug
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
 
+        public static bool operator ==(mdString left, mdString right) => left.Value == right.Value;
+
+        public static bool operator !=(mdString left, mdString right) => left.Value != right.Value;
+
         public override int GetHashCode() => Value.GetHashCode();
 
         public override string ToString() => "0x" + Value.ToString("X");
@@ -1333,6 +1433,10 @@ namespace ClrDebug
         public bool Equals(mdCPToken other) => other.Value.Equals(Value);
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
+
+        public static bool operator ==(mdCPToken left, mdCPToken right) => left.Value == right.Value;
+
+        public static bool operator !=(mdCPToken left, mdCPToken right) => left.Value != right.Value;
 
         public override int GetHashCode() => Value.GetHashCode();
 

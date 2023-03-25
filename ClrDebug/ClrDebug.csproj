@@ -18,9 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Extensions\Numbers.tt">
+    <None Update="Extensions\Pointers.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Numbers.cs</LastGenOutput>
+      <LastGenOutput>Pointers.cs</LastGenOutput>
     </None>
     <None Update="Extensions\Profiler.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -33,10 +33,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Extensions\Numbers.cs">
+    <Compile Update="Extensions\Pointers.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Numbers.tt</DependentUpon>
+      <DependentUpon>Pointers.tt</DependentUpon>
     </Compile>
     <Compile Update="Extensions\Profiler.cs">
       <DesignTime>True</DesignTime>

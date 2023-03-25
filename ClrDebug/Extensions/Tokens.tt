@@ -138,6 +138,10 @@ public int Rid => (int) Value & 0x00FFFFFF;
 
         public override bool Equals(object obj) => UnsignedValueHelpers.Equals(this, obj);
 
+        public static bool operator ==(<#= type #> left, <#= type #> right) => left.Value == right.Value;
+
+        public static bool operator !=(<#= type #> left, <#= type #> right) => left.Value != right.Value;
+
         public override int GetHashCode() => Value.GetHashCode();
 
         public override string ToString() => "0x" + Value.ToString("X");

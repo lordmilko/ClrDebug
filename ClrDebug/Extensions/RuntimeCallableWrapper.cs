@@ -62,8 +62,10 @@ namespace ClrDebug
 
         private bool disposed;
 
+        //Though we're only locking resources owned by a single RuntimeCallableWrapper, there's no point wasting memory
+        //on each object just to store this lock
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private object lockObj = new object();
+        private static object lockObj = new object();
 
         public RuntimeCallableWrapper(object value) : this(GetIUnknownPointer(value), value.GetType().GUID)
         {

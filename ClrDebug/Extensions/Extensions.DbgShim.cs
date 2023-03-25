@@ -812,7 +812,7 @@ namespace ClrDebug
             var proc = NativeMethods.GetProcAddress(hModule, procName);
 
             if (proc == IntPtr.Zero)
-                throw new InvalidOperationException($"Failed to get address of procedure '{proc}': {(HRESULT)Marshal.GetHRForLastWin32Error()}");
+                throw new InvalidOperationException($"Failed to get address of procedure '{procName}': {(HRESULT)Marshal.GetHRForLastWin32Error()}");
 
             return Marshal.GetDelegateForFunctionPointer<T>(proc);
         }
