@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace ClrDebug
 {
-    [DebuggerDisplay("Type = {Type.ToString(),nq}, sigType = {sigType.ToString(),nq}, MTOfType = {MTOfType.ToString(),nq}, ModuleOfType = {ModuleOfType.ToString(),nq}, TypeToken = {TypeToken.ToString(),nq}, mb = {mb.ToString(),nq}, MTOfEnclosingClass = {MTOfEnclosingClass.ToString(),nq}, dwOffset = {dwOffset}, bIsThreadLocal = {bIsThreadLocal}, bIsContextLocal = {bIsContextLocal}, bIsStatic = {bIsStatic}, NextField = {NextField.ToString(),nq}")]
+    [DebuggerDisplay("Type = {Type.ToString(),nq}, sigType = {sigType.ToString(),nq}, MTOfType = {MTOfType.ToString(),nq}, ModuleOfType = {ModuleOfType.ToString(),nq}, TokenOfType = {TokenOfType.ToString(),nq}, mb = {mb.ToString(),nq}, MTOfEnclosingClass = {MTOfEnclosingClass.ToString(),nq}, dwOffset = {dwOffset}, bIsThreadLocal = {bIsThreadLocal}, bIsContextLocal = {bIsContextLocal}, bIsStatic = {bIsStatic}, NextField = {NextField.ToString(),nq}")]
     [StructLayout(LayoutKind.Sequential)]
     public struct DacpFieldDescData
     {
@@ -11,7 +11,7 @@ namespace ClrDebug
         public CorElementType sigType;
         public CLRDATA_ADDRESS MTOfType;
         public CLRDATA_ADDRESS ModuleOfType;
-        public mdTypeDef TypeToken;
+        public mdTypeDef TokenOfType;
         public mdFieldDef mb;
         public CLRDATA_ADDRESS MTOfEnclosingClass;
         public int dwOffset;

@@ -174,7 +174,11 @@ namespace ClrDebug
         /// Used internally.
         /// </summary>
         Internal = 0x21,
-        Module = 0x3F,
+
+        /// <summary>
+        /// An invalid type.
+        /// </summary>
+        Max = 0x22,
 
         /// <summary>
         /// A type modifier that is a sentinel for a list of a variable number of parameters.

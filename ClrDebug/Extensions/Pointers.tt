@@ -44,7 +44,7 @@ for(int i = 0; i < types.Length; i++)
 if (type == "CLRDATA_ADDRESS")
 {
 #>
-            Value = new UIntPtr((void*)value).ToUInt64();
+            Value = (ulong) (void*) value;
 <#
 }
 else
@@ -108,16 +108,16 @@ for(int j = 0; j < mathOps.Length; j++)
 {
     var op = mathOps[j];
 #>
-        public static <#= type #> operator<#= op #> (<#= type #> left, <#= type #> right) => (ulong) (void*) left.Value <#= op #> (ulong) (void*) right.Value;
-        public static <#= type #> operator<#= op #> (<#= type #> left, int right) => (ulong) (void*) left.Value <#= op #> (uint) right;
+        public static <#= type #> operator<#= op #> (<#= type #> left, <#= type #> right) => left.Value <#= op #> right.Value;
+        public static <#= type #> operator<#= op #> (<#= type #> left, int right) => left.Value <#= op #> (ulong) (uint) right;
 <#
 }
 for(int j = 0; j < boolOps.Length; j++)
 {
     var op = boolOps[j];
 #>
-        public static bool operator<#= op #> (<#= type #> left, <#= type #> right) => (ulong) (void*) left.Value <#= op #> (ulong) (void*) right.Value;
-        public static bool operator<#= op #> (<#= type #> left, int right) => (ulong) (void*) left.Value <#= op #> (uint) right;
+        public static bool operator<#= op #> (<#= type #> left, <#= type #> right) => left.Value <#= op #> right.Value;
+        public static bool operator<#= op #> (<#= type #> left, int right) => left.Value <#= op #> (ulong) right;
 <#
 }
 #>

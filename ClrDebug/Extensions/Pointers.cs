@@ -44,32 +44,32 @@ namespace ClrDebug
 
         public static implicit operator CLRDATA_ADDRESS(CORDB_ADDRESS value) => new CLRDATA_ADDRESS(value);
 
-        public static CORDB_ADDRESS operator+ (CORDB_ADDRESS left, CORDB_ADDRESS right) => (ulong) (void*) left.Value + (ulong) (void*) right.Value;
-        public static CORDB_ADDRESS operator+ (CORDB_ADDRESS left, int right) => (ulong) (void*) left.Value + (uint) right;
-        public static CORDB_ADDRESS operator- (CORDB_ADDRESS left, CORDB_ADDRESS right) => (ulong) (void*) left.Value - (ulong) (void*) right.Value;
-        public static CORDB_ADDRESS operator- (CORDB_ADDRESS left, int right) => (ulong) (void*) left.Value - (uint) right;
-        public static CORDB_ADDRESS operator& (CORDB_ADDRESS left, CORDB_ADDRESS right) => (ulong) (void*) left.Value & (ulong) (void*) right.Value;
-        public static CORDB_ADDRESS operator& (CORDB_ADDRESS left, int right) => (ulong) (void*) left.Value & (uint) right;
-        public static CORDB_ADDRESS operator| (CORDB_ADDRESS left, CORDB_ADDRESS right) => (ulong) (void*) left.Value | (ulong) (void*) right.Value;
-        public static CORDB_ADDRESS operator| (CORDB_ADDRESS left, int right) => (ulong) (void*) left.Value | (uint) right;
-        public static CORDB_ADDRESS operator* (CORDB_ADDRESS left, CORDB_ADDRESS right) => (ulong) (void*) left.Value * (ulong) (void*) right.Value;
-        public static CORDB_ADDRESS operator* (CORDB_ADDRESS left, int right) => (ulong) (void*) left.Value * (uint) right;
-        public static CORDB_ADDRESS operator/ (CORDB_ADDRESS left, CORDB_ADDRESS right) => (ulong) (void*) left.Value / (ulong) (void*) right.Value;
-        public static CORDB_ADDRESS operator/ (CORDB_ADDRESS left, int right) => (ulong) (void*) left.Value / (uint) right;
-        public static CORDB_ADDRESS operator% (CORDB_ADDRESS left, CORDB_ADDRESS right) => (ulong) (void*) left.Value % (ulong) (void*) right.Value;
-        public static CORDB_ADDRESS operator% (CORDB_ADDRESS left, int right) => (ulong) (void*) left.Value % (uint) right;
-        public static bool operator> (CORDB_ADDRESS left, CORDB_ADDRESS right) => (ulong) (void*) left.Value > (ulong) (void*) right.Value;
-        public static bool operator> (CORDB_ADDRESS left, int right) => (ulong) (void*) left.Value > (uint) right;
-        public static bool operator< (CORDB_ADDRESS left, CORDB_ADDRESS right) => (ulong) (void*) left.Value < (ulong) (void*) right.Value;
-        public static bool operator< (CORDB_ADDRESS left, int right) => (ulong) (void*) left.Value < (uint) right;
-        public static bool operator== (CORDB_ADDRESS left, CORDB_ADDRESS right) => (ulong) (void*) left.Value == (ulong) (void*) right.Value;
-        public static bool operator== (CORDB_ADDRESS left, int right) => (ulong) (void*) left.Value == (uint) right;
-        public static bool operator!= (CORDB_ADDRESS left, CORDB_ADDRESS right) => (ulong) (void*) left.Value != (ulong) (void*) right.Value;
-        public static bool operator!= (CORDB_ADDRESS left, int right) => (ulong) (void*) left.Value != (uint) right;
-        public static bool operator>= (CORDB_ADDRESS left, CORDB_ADDRESS right) => (ulong) (void*) left.Value >= (ulong) (void*) right.Value;
-        public static bool operator>= (CORDB_ADDRESS left, int right) => (ulong) (void*) left.Value >= (uint) right;
-        public static bool operator<= (CORDB_ADDRESS left, CORDB_ADDRESS right) => (ulong) (void*) left.Value <= (ulong) (void*) right.Value;
-        public static bool operator<= (CORDB_ADDRESS left, int right) => (ulong) (void*) left.Value <= (uint) right;
+        public static CORDB_ADDRESS operator+ (CORDB_ADDRESS left, CORDB_ADDRESS right) => left.Value + right.Value;
+        public static CORDB_ADDRESS operator+ (CORDB_ADDRESS left, int right) => left.Value + (ulong) (uint) right;
+        public static CORDB_ADDRESS operator- (CORDB_ADDRESS left, CORDB_ADDRESS right) => left.Value - right.Value;
+        public static CORDB_ADDRESS operator- (CORDB_ADDRESS left, int right) => left.Value - (ulong) (uint) right;
+        public static CORDB_ADDRESS operator& (CORDB_ADDRESS left, CORDB_ADDRESS right) => left.Value & right.Value;
+        public static CORDB_ADDRESS operator& (CORDB_ADDRESS left, int right) => left.Value & (ulong) (uint) right;
+        public static CORDB_ADDRESS operator| (CORDB_ADDRESS left, CORDB_ADDRESS right) => left.Value | right.Value;
+        public static CORDB_ADDRESS operator| (CORDB_ADDRESS left, int right) => left.Value | (ulong) (uint) right;
+        public static CORDB_ADDRESS operator* (CORDB_ADDRESS left, CORDB_ADDRESS right) => left.Value * right.Value;
+        public static CORDB_ADDRESS operator* (CORDB_ADDRESS left, int right) => left.Value * (ulong) (uint) right;
+        public static CORDB_ADDRESS operator/ (CORDB_ADDRESS left, CORDB_ADDRESS right) => left.Value / right.Value;
+        public static CORDB_ADDRESS operator/ (CORDB_ADDRESS left, int right) => left.Value / (ulong) (uint) right;
+        public static CORDB_ADDRESS operator% (CORDB_ADDRESS left, CORDB_ADDRESS right) => left.Value % right.Value;
+        public static CORDB_ADDRESS operator% (CORDB_ADDRESS left, int right) => left.Value % (ulong) (uint) right;
+        public static bool operator> (CORDB_ADDRESS left, CORDB_ADDRESS right) => left.Value > right.Value;
+        public static bool operator> (CORDB_ADDRESS left, int right) => left.Value > (ulong) right;
+        public static bool operator< (CORDB_ADDRESS left, CORDB_ADDRESS right) => left.Value < right.Value;
+        public static bool operator< (CORDB_ADDRESS left, int right) => left.Value < (ulong) right;
+        public static bool operator== (CORDB_ADDRESS left, CORDB_ADDRESS right) => left.Value == right.Value;
+        public static bool operator== (CORDB_ADDRESS left, int right) => left.Value == (ulong) right;
+        public static bool operator!= (CORDB_ADDRESS left, CORDB_ADDRESS right) => left.Value != right.Value;
+        public static bool operator!= (CORDB_ADDRESS left, int right) => left.Value != (ulong) right;
+        public static bool operator>= (CORDB_ADDRESS left, CORDB_ADDRESS right) => left.Value >= right.Value;
+        public static bool operator>= (CORDB_ADDRESS left, int right) => left.Value >= (ulong) right;
+        public static bool operator<= (CORDB_ADDRESS left, CORDB_ADDRESS right) => left.Value <= right.Value;
+        public static bool operator<= (CORDB_ADDRESS left, int right) => left.Value <= (ulong) right;
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<CORDB_ADDRESS>(Value, value);
 
@@ -117,32 +117,32 @@ namespace ClrDebug
 
         public static implicit operator CORDB_REGISTER(uint value) => new CORDB_REGISTER(value);
 
-        public static CORDB_REGISTER operator+ (CORDB_REGISTER left, CORDB_REGISTER right) => (ulong) (void*) left.Value + (ulong) (void*) right.Value;
-        public static CORDB_REGISTER operator+ (CORDB_REGISTER left, int right) => (ulong) (void*) left.Value + (uint) right;
-        public static CORDB_REGISTER operator- (CORDB_REGISTER left, CORDB_REGISTER right) => (ulong) (void*) left.Value - (ulong) (void*) right.Value;
-        public static CORDB_REGISTER operator- (CORDB_REGISTER left, int right) => (ulong) (void*) left.Value - (uint) right;
-        public static CORDB_REGISTER operator& (CORDB_REGISTER left, CORDB_REGISTER right) => (ulong) (void*) left.Value & (ulong) (void*) right.Value;
-        public static CORDB_REGISTER operator& (CORDB_REGISTER left, int right) => (ulong) (void*) left.Value & (uint) right;
-        public static CORDB_REGISTER operator| (CORDB_REGISTER left, CORDB_REGISTER right) => (ulong) (void*) left.Value | (ulong) (void*) right.Value;
-        public static CORDB_REGISTER operator| (CORDB_REGISTER left, int right) => (ulong) (void*) left.Value | (uint) right;
-        public static CORDB_REGISTER operator* (CORDB_REGISTER left, CORDB_REGISTER right) => (ulong) (void*) left.Value * (ulong) (void*) right.Value;
-        public static CORDB_REGISTER operator* (CORDB_REGISTER left, int right) => (ulong) (void*) left.Value * (uint) right;
-        public static CORDB_REGISTER operator/ (CORDB_REGISTER left, CORDB_REGISTER right) => (ulong) (void*) left.Value / (ulong) (void*) right.Value;
-        public static CORDB_REGISTER operator/ (CORDB_REGISTER left, int right) => (ulong) (void*) left.Value / (uint) right;
-        public static CORDB_REGISTER operator% (CORDB_REGISTER left, CORDB_REGISTER right) => (ulong) (void*) left.Value % (ulong) (void*) right.Value;
-        public static CORDB_REGISTER operator% (CORDB_REGISTER left, int right) => (ulong) (void*) left.Value % (uint) right;
-        public static bool operator> (CORDB_REGISTER left, CORDB_REGISTER right) => (ulong) (void*) left.Value > (ulong) (void*) right.Value;
-        public static bool operator> (CORDB_REGISTER left, int right) => (ulong) (void*) left.Value > (uint) right;
-        public static bool operator< (CORDB_REGISTER left, CORDB_REGISTER right) => (ulong) (void*) left.Value < (ulong) (void*) right.Value;
-        public static bool operator< (CORDB_REGISTER left, int right) => (ulong) (void*) left.Value < (uint) right;
-        public static bool operator== (CORDB_REGISTER left, CORDB_REGISTER right) => (ulong) (void*) left.Value == (ulong) (void*) right.Value;
-        public static bool operator== (CORDB_REGISTER left, int right) => (ulong) (void*) left.Value == (uint) right;
-        public static bool operator!= (CORDB_REGISTER left, CORDB_REGISTER right) => (ulong) (void*) left.Value != (ulong) (void*) right.Value;
-        public static bool operator!= (CORDB_REGISTER left, int right) => (ulong) (void*) left.Value != (uint) right;
-        public static bool operator>= (CORDB_REGISTER left, CORDB_REGISTER right) => (ulong) (void*) left.Value >= (ulong) (void*) right.Value;
-        public static bool operator>= (CORDB_REGISTER left, int right) => (ulong) (void*) left.Value >= (uint) right;
-        public static bool operator<= (CORDB_REGISTER left, CORDB_REGISTER right) => (ulong) (void*) left.Value <= (ulong) (void*) right.Value;
-        public static bool operator<= (CORDB_REGISTER left, int right) => (ulong) (void*) left.Value <= (uint) right;
+        public static CORDB_REGISTER operator+ (CORDB_REGISTER left, CORDB_REGISTER right) => left.Value + right.Value;
+        public static CORDB_REGISTER operator+ (CORDB_REGISTER left, int right) => left.Value + (ulong) (uint) right;
+        public static CORDB_REGISTER operator- (CORDB_REGISTER left, CORDB_REGISTER right) => left.Value - right.Value;
+        public static CORDB_REGISTER operator- (CORDB_REGISTER left, int right) => left.Value - (ulong) (uint) right;
+        public static CORDB_REGISTER operator& (CORDB_REGISTER left, CORDB_REGISTER right) => left.Value & right.Value;
+        public static CORDB_REGISTER operator& (CORDB_REGISTER left, int right) => left.Value & (ulong) (uint) right;
+        public static CORDB_REGISTER operator| (CORDB_REGISTER left, CORDB_REGISTER right) => left.Value | right.Value;
+        public static CORDB_REGISTER operator| (CORDB_REGISTER left, int right) => left.Value | (ulong) (uint) right;
+        public static CORDB_REGISTER operator* (CORDB_REGISTER left, CORDB_REGISTER right) => left.Value * right.Value;
+        public static CORDB_REGISTER operator* (CORDB_REGISTER left, int right) => left.Value * (ulong) (uint) right;
+        public static CORDB_REGISTER operator/ (CORDB_REGISTER left, CORDB_REGISTER right) => left.Value / right.Value;
+        public static CORDB_REGISTER operator/ (CORDB_REGISTER left, int right) => left.Value / (ulong) (uint) right;
+        public static CORDB_REGISTER operator% (CORDB_REGISTER left, CORDB_REGISTER right) => left.Value % right.Value;
+        public static CORDB_REGISTER operator% (CORDB_REGISTER left, int right) => left.Value % (ulong) (uint) right;
+        public static bool operator> (CORDB_REGISTER left, CORDB_REGISTER right) => left.Value > right.Value;
+        public static bool operator> (CORDB_REGISTER left, int right) => left.Value > (ulong) right;
+        public static bool operator< (CORDB_REGISTER left, CORDB_REGISTER right) => left.Value < right.Value;
+        public static bool operator< (CORDB_REGISTER left, int right) => left.Value < (ulong) right;
+        public static bool operator== (CORDB_REGISTER left, CORDB_REGISTER right) => left.Value == right.Value;
+        public static bool operator== (CORDB_REGISTER left, int right) => left.Value == (ulong) right;
+        public static bool operator!= (CORDB_REGISTER left, CORDB_REGISTER right) => left.Value != right.Value;
+        public static bool operator!= (CORDB_REGISTER left, int right) => left.Value != (ulong) right;
+        public static bool operator>= (CORDB_REGISTER left, CORDB_REGISTER right) => left.Value >= right.Value;
+        public static bool operator>= (CORDB_REGISTER left, int right) => left.Value >= (ulong) right;
+        public static bool operator<= (CORDB_REGISTER left, CORDB_REGISTER right) => left.Value <= right.Value;
+        public static bool operator<= (CORDB_REGISTER left, int right) => left.Value <= (ulong) right;
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<CORDB_REGISTER>(Value, value);
 
@@ -163,7 +163,7 @@ namespace ClrDebug
 
         public CLRDATA_ADDRESS(ulong value)
         {
-            Value = new UIntPtr((void*)value).ToUInt64();
+            Value = (ulong) (void*) value;
         }
 
         public CLRDATA_ADDRESS(long value) : this((ulong) value)
@@ -192,32 +192,32 @@ namespace ClrDebug
 
         public static implicit operator CORDB_ADDRESS(CLRDATA_ADDRESS value) => new CORDB_ADDRESS(value);
 
-        public static CLRDATA_ADDRESS operator+ (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => (ulong) (void*) left.Value + (ulong) (void*) right.Value;
-        public static CLRDATA_ADDRESS operator+ (CLRDATA_ADDRESS left, int right) => (ulong) (void*) left.Value + (uint) right;
-        public static CLRDATA_ADDRESS operator- (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => (ulong) (void*) left.Value - (ulong) (void*) right.Value;
-        public static CLRDATA_ADDRESS operator- (CLRDATA_ADDRESS left, int right) => (ulong) (void*) left.Value - (uint) right;
-        public static CLRDATA_ADDRESS operator& (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => (ulong) (void*) left.Value & (ulong) (void*) right.Value;
-        public static CLRDATA_ADDRESS operator& (CLRDATA_ADDRESS left, int right) => (ulong) (void*) left.Value & (uint) right;
-        public static CLRDATA_ADDRESS operator| (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => (ulong) (void*) left.Value | (ulong) (void*) right.Value;
-        public static CLRDATA_ADDRESS operator| (CLRDATA_ADDRESS left, int right) => (ulong) (void*) left.Value | (uint) right;
-        public static CLRDATA_ADDRESS operator* (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => (ulong) (void*) left.Value * (ulong) (void*) right.Value;
-        public static CLRDATA_ADDRESS operator* (CLRDATA_ADDRESS left, int right) => (ulong) (void*) left.Value * (uint) right;
-        public static CLRDATA_ADDRESS operator/ (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => (ulong) (void*) left.Value / (ulong) (void*) right.Value;
-        public static CLRDATA_ADDRESS operator/ (CLRDATA_ADDRESS left, int right) => (ulong) (void*) left.Value / (uint) right;
-        public static CLRDATA_ADDRESS operator% (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => (ulong) (void*) left.Value % (ulong) (void*) right.Value;
-        public static CLRDATA_ADDRESS operator% (CLRDATA_ADDRESS left, int right) => (ulong) (void*) left.Value % (uint) right;
-        public static bool operator> (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => (ulong) (void*) left.Value > (ulong) (void*) right.Value;
-        public static bool operator> (CLRDATA_ADDRESS left, int right) => (ulong) (void*) left.Value > (uint) right;
-        public static bool operator< (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => (ulong) (void*) left.Value < (ulong) (void*) right.Value;
-        public static bool operator< (CLRDATA_ADDRESS left, int right) => (ulong) (void*) left.Value < (uint) right;
-        public static bool operator== (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => (ulong) (void*) left.Value == (ulong) (void*) right.Value;
-        public static bool operator== (CLRDATA_ADDRESS left, int right) => (ulong) (void*) left.Value == (uint) right;
-        public static bool operator!= (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => (ulong) (void*) left.Value != (ulong) (void*) right.Value;
-        public static bool operator!= (CLRDATA_ADDRESS left, int right) => (ulong) (void*) left.Value != (uint) right;
-        public static bool operator>= (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => (ulong) (void*) left.Value >= (ulong) (void*) right.Value;
-        public static bool operator>= (CLRDATA_ADDRESS left, int right) => (ulong) (void*) left.Value >= (uint) right;
-        public static bool operator<= (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => (ulong) (void*) left.Value <= (ulong) (void*) right.Value;
-        public static bool operator<= (CLRDATA_ADDRESS left, int right) => (ulong) (void*) left.Value <= (uint) right;
+        public static CLRDATA_ADDRESS operator+ (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => left.Value + right.Value;
+        public static CLRDATA_ADDRESS operator+ (CLRDATA_ADDRESS left, int right) => left.Value + (ulong) (uint) right;
+        public static CLRDATA_ADDRESS operator- (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => left.Value - right.Value;
+        public static CLRDATA_ADDRESS operator- (CLRDATA_ADDRESS left, int right) => left.Value - (ulong) (uint) right;
+        public static CLRDATA_ADDRESS operator& (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => left.Value & right.Value;
+        public static CLRDATA_ADDRESS operator& (CLRDATA_ADDRESS left, int right) => left.Value & (ulong) (uint) right;
+        public static CLRDATA_ADDRESS operator| (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => left.Value | right.Value;
+        public static CLRDATA_ADDRESS operator| (CLRDATA_ADDRESS left, int right) => left.Value | (ulong) (uint) right;
+        public static CLRDATA_ADDRESS operator* (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => left.Value * right.Value;
+        public static CLRDATA_ADDRESS operator* (CLRDATA_ADDRESS left, int right) => left.Value * (ulong) (uint) right;
+        public static CLRDATA_ADDRESS operator/ (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => left.Value / right.Value;
+        public static CLRDATA_ADDRESS operator/ (CLRDATA_ADDRESS left, int right) => left.Value / (ulong) (uint) right;
+        public static CLRDATA_ADDRESS operator% (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => left.Value % right.Value;
+        public static CLRDATA_ADDRESS operator% (CLRDATA_ADDRESS left, int right) => left.Value % (ulong) (uint) right;
+        public static bool operator> (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => left.Value > right.Value;
+        public static bool operator> (CLRDATA_ADDRESS left, int right) => left.Value > (ulong) right;
+        public static bool operator< (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => left.Value < right.Value;
+        public static bool operator< (CLRDATA_ADDRESS left, int right) => left.Value < (ulong) right;
+        public static bool operator== (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => left.Value == right.Value;
+        public static bool operator== (CLRDATA_ADDRESS left, int right) => left.Value == (ulong) right;
+        public static bool operator!= (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => left.Value != right.Value;
+        public static bool operator!= (CLRDATA_ADDRESS left, int right) => left.Value != (ulong) right;
+        public static bool operator>= (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => left.Value >= right.Value;
+        public static bool operator>= (CLRDATA_ADDRESS left, int right) => left.Value >= (ulong) right;
+        public static bool operator<= (CLRDATA_ADDRESS left, CLRDATA_ADDRESS right) => left.Value <= right.Value;
+        public static bool operator<= (CLRDATA_ADDRESS left, int right) => left.Value <= (ulong) right;
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<CLRDATA_ADDRESS>(Value, value);
 
