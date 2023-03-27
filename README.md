@@ -85,7 +85,7 @@ ClrDebug provides a variety of features to make developing diagnostic applicatio
 * Wrapper types that implement methods for all primary/secondary interfaces for a given type (`ICorDebugProcess`, `ICorDebugProcess2`)
 * Proper inheritance hierarchies; `CorDebugProcess` inherits from `CorDebugController`, which is where all of the `ICorDebugController` wrappers are implemented
 * All interfaces contained in the CorDebug IDL files - not just the ones emitted to TLBs by default
-* Type safe numeric values, such as `mdToken` varients, `CORDB_ADDRESS` and `CLRDATA_ADDRESS` used in all structures/method declarations where appropriate
+* Type safe numeric values, such as `mdToken` variants, `CORDB_ADDRESS` and `CLRDATA_ADDRESS` used in all structures/method declarations where appropriate
     * Automatic implicit conversions between different token types, and correct conversions between `CORDB_ADDRESS` and `CLRDATA_ADDRESS`
 * Event handler enabled callback wrappers
 * Automatically generated event args, containing with XmlDoc documentation and lazily evaluated wrapper properties
