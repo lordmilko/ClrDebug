@@ -64,8 +64,8 @@ namespace ClrDebug.Tests
 
             var custom = new (Type type, ExpressionType op, string normalExpected, string complementExpected)[]
             {
-                (typeof(CLRDATA_ADDRESS), ExpressionType.Or, "0x81A1D003", "0xFFFFFFFD"),
-                (typeof(CLRDATA_ADDRESS), ExpressionType.Multiply, "0x343A002", "0x7B1A8FFD"),
+                (typeof(CLRDATA_ADDRESS), ExpressionType.Or,       "0x81A1D003",                                    IntPtr.Size == 4 ? "0xFFFFFFFD" : "0xFFFFFFFFFFFFFFFD"),
+                (typeof(CLRDATA_ADDRESS), ExpressionType.Multiply, IntPtr.Size == 4 ? "0x343A002" : "0x10343A002",  IntPtr.Size == 4 ? "0x7B1A8FFD" : "0xFFFFFFFE7B1A8FFD"),
             };
 
             foreach (var type in AddressTypes)

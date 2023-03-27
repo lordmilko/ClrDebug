@@ -68,6 +68,17 @@ if (baseType != "int")
         public static implicit operator <#= type #>(int value) => new <#= type #>((<#= baseType #>) value);
 <#
 }
+//Numeric literals are implicitly integers; as such, without an implicit conversion from int -> wrapper type,
+//we can't assign a numeric literal to a parameter expecting a wrapper type
+if (baseType == "IntPtr")
+{
+#>
+
+        public static implicit operator long(<#= type #> value) => (long) (void*) value.Value;
+
+        public static implicit operator ulong(<#= type #> value) => (ulong) (void*) value.Value;
+<#
+}
 #>
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<<#= type #>>((ulong) Value, value);

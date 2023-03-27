@@ -28,6 +28,10 @@ namespace ClrDebug
 
         public static implicit operator ProcessID(int value) => new ProcessID((IntPtr) value);
 
+        public static implicit operator long(ProcessID value) => (long) (void*) value.Value;
+
+        public static implicit operator ulong(ProcessID value) => (ulong) (void*) value.Value;
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<ProcessID>((ulong) Value, value);
 
         public bool Equals(ProcessID other) => other.Value.Equals(Value);
@@ -63,6 +67,10 @@ namespace ClrDebug
         public static implicit operator AssemblyID(ulong value) => new AssemblyID(new IntPtr((void*)value));
 
         public static implicit operator AssemblyID(int value) => new AssemblyID((IntPtr) value);
+
+        public static implicit operator long(AssemblyID value) => (long) (void*) value.Value;
+
+        public static implicit operator ulong(AssemblyID value) => (ulong) (void*) value.Value;
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<AssemblyID>((ulong) Value, value);
 
@@ -100,6 +108,10 @@ namespace ClrDebug
 
         public static implicit operator AppDomainID(int value) => new AppDomainID((IntPtr) value);
 
+        public static implicit operator long(AppDomainID value) => (long) (void*) value.Value;
+
+        public static implicit operator ulong(AppDomainID value) => (ulong) (void*) value.Value;
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<AppDomainID>((ulong) Value, value);
 
         public bool Equals(AppDomainID other) => other.Value.Equals(Value);
@@ -135,6 +147,10 @@ namespace ClrDebug
         public static implicit operator ModuleID(ulong value) => new ModuleID(new IntPtr((void*)value));
 
         public static implicit operator ModuleID(int value) => new ModuleID((IntPtr) value);
+
+        public static implicit operator long(ModuleID value) => (long) (void*) value.Value;
+
+        public static implicit operator ulong(ModuleID value) => (ulong) (void*) value.Value;
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<ModuleID>((ulong) Value, value);
 
@@ -172,6 +188,10 @@ namespace ClrDebug
 
         public static implicit operator ClassID(int value) => new ClassID((IntPtr) value);
 
+        public static implicit operator long(ClassID value) => (long) (void*) value.Value;
+
+        public static implicit operator ulong(ClassID value) => (ulong) (void*) value.Value;
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<ClassID>((ulong) Value, value);
 
         public bool Equals(ClassID other) => other.Value.Equals(Value);
@@ -207,6 +227,10 @@ namespace ClrDebug
         public static implicit operator ThreadID(ulong value) => new ThreadID(new IntPtr((void*)value));
 
         public static implicit operator ThreadID(int value) => new ThreadID((IntPtr) value);
+
+        public static implicit operator long(ThreadID value) => (long) (void*) value.Value;
+
+        public static implicit operator ulong(ThreadID value) => (ulong) (void*) value.Value;
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<ThreadID>((ulong) Value, value);
 
@@ -244,6 +268,10 @@ namespace ClrDebug
 
         public static implicit operator ContextID(int value) => new ContextID((IntPtr) value);
 
+        public static implicit operator long(ContextID value) => (long) (void*) value.Value;
+
+        public static implicit operator ulong(ContextID value) => (ulong) (void*) value.Value;
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<ContextID>((ulong) Value, value);
 
         public bool Equals(ContextID other) => other.Value.Equals(Value);
@@ -279,6 +307,10 @@ namespace ClrDebug
         public static implicit operator FunctionID(ulong value) => new FunctionID(new IntPtr((void*)value));
 
         public static implicit operator FunctionID(int value) => new FunctionID((IntPtr) value);
+
+        public static implicit operator long(FunctionID value) => (long) (void*) value.Value;
+
+        public static implicit operator ulong(FunctionID value) => (ulong) (void*) value.Value;
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<FunctionID>((ulong) Value, value);
 
@@ -316,6 +348,10 @@ namespace ClrDebug
 
         public static implicit operator ObjectID(int value) => new ObjectID((IntPtr) value);
 
+        public static implicit operator long(ObjectID value) => (long) (void*) value.Value;
+
+        public static implicit operator ulong(ObjectID value) => (ulong) (void*) value.Value;
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<ObjectID>((ulong) Value, value);
 
         public bool Equals(ObjectID other) => other.Value.Equals(Value);
@@ -351,6 +387,10 @@ namespace ClrDebug
         public static implicit operator GCHandleID(ulong value) => new GCHandleID(new IntPtr((void*)value));
 
         public static implicit operator GCHandleID(int value) => new GCHandleID((IntPtr) value);
+
+        public static implicit operator long(GCHandleID value) => (long) (void*) value.Value;
+
+        public static implicit operator ulong(GCHandleID value) => (ulong) (void*) value.Value;
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<GCHandleID>((ulong) Value, value);
 
@@ -388,6 +428,10 @@ namespace ClrDebug
 
         public static implicit operator COR_PRF_ELT_INFO(int value) => new COR_PRF_ELT_INFO((IntPtr) value);
 
+        public static implicit operator long(COR_PRF_ELT_INFO value) => (long) (void*) value.Value;
+
+        public static implicit operator ulong(COR_PRF_ELT_INFO value) => (ulong) (void*) value.Value;
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<COR_PRF_ELT_INFO>((ulong) Value, value);
 
         public bool Equals(COR_PRF_ELT_INFO other) => other.Value.Equals(Value);
@@ -423,6 +467,10 @@ namespace ClrDebug
         public static implicit operator COR_PRF_FRAME_INFO(ulong value) => new COR_PRF_FRAME_INFO(new IntPtr((void*)value));
 
         public static implicit operator COR_PRF_FRAME_INFO(int value) => new COR_PRF_FRAME_INFO((IntPtr) value);
+
+        public static implicit operator long(COR_PRF_FRAME_INFO value) => (long) (void*) value.Value;
+
+        public static implicit operator ulong(COR_PRF_FRAME_INFO value) => (ulong) (void*) value.Value;
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<COR_PRF_FRAME_INFO>((ulong) Value, value);
 
@@ -460,6 +508,10 @@ namespace ClrDebug
 
         public static implicit operator ReJITID(int value) => new ReJITID((IntPtr) value);
 
+        public static implicit operator long(ReJITID value) => (long) (void*) value.Value;
+
+        public static implicit operator ulong(ReJITID value) => (ulong) (void*) value.Value;
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<ReJITID>((ulong) Value, value);
 
         public bool Equals(ReJITID other) => other.Value.Equals(Value);
@@ -496,6 +548,10 @@ namespace ClrDebug
 
         public static implicit operator EVENTPIPE_PROVIDER(int value) => new EVENTPIPE_PROVIDER((IntPtr) value);
 
+        public static implicit operator long(EVENTPIPE_PROVIDER value) => (long) (void*) value.Value;
+
+        public static implicit operator ulong(EVENTPIPE_PROVIDER value) => (ulong) (void*) value.Value;
+
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<EVENTPIPE_PROVIDER>((ulong) Value, value);
 
         public bool Equals(EVENTPIPE_PROVIDER other) => other.Value.Equals(Value);
@@ -531,6 +587,10 @@ namespace ClrDebug
         public static implicit operator EVENTPIPE_EVENT(ulong value) => new EVENTPIPE_EVENT(new IntPtr((void*)value));
 
         public static implicit operator EVENTPIPE_EVENT(int value) => new EVENTPIPE_EVENT((IntPtr) value);
+
+        public static implicit operator long(EVENTPIPE_EVENT value) => (long) (void*) value.Value;
+
+        public static implicit operator ulong(EVENTPIPE_EVENT value) => (ulong) (void*) value.Value;
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<EVENTPIPE_EVENT>((ulong) Value, value);
 
