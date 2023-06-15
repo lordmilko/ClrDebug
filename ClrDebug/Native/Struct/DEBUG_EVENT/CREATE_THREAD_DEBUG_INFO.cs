@@ -6,10 +6,10 @@ namespace ClrDebug
 {
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct CREATE_THREAD_DEBUG_INFO
+    public unsafe struct CREATE_THREAD_DEBUG_INFO
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        internal string DebuggerDisplay => $"hThread = {hThread}, lpThreadLocalBase = {lpThreadLocalBase}, lpStartAddress = {lpStartAddress}";
+        internal string DebuggerDisplay => $"hThread = {hThread}, lpThreadLocalBase = 0x{((ulong)(void*)lpThreadLocalBase):X}, lpStartAddress = 0x{((ulong)(void*)lpStartAddress):X}";
 
         public IntPtr hThread;
         public IntPtr lpThreadLocalBase;

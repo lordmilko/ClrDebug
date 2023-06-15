@@ -47,6 +47,8 @@ namespace ClrDebug
         /// If this parameter is null, the new process will have the same current drive and directory as the calling process.</param>
         /// <param name="lpStartupInfo">[in] Pointer to a Win32 STARTUPINFOW structure that specifies the window station, desktop, standard handles, and appearance of the main window for the launched process.</param>
         /// <param name="debuggingFlags">[in] A value of the <see cref="CorDebugCreateProcessFlags"/> enumeration that specifies the debugging options.</param>
+        /// <param name="closeHandle">A method capable of freeing the <see cref="PROCESS_INFORMATION.hProcess"/> and <see cref="PROCESS_INFORMATION.hThread"/> handles created for the process.<para/>
+        /// On non-Windows platforms, this value must be provided. On Windows, if no value is provided, the Win32 function CloseHandle() will automatically be used.</param>
         /// <returns>[out] A pointer to the address of a <see cref="ICorDebugProcess"/> object that represents the process.</returns>
         public static CorDebugProcess CreateProcess(
             this CorDebug corDebug,
@@ -58,7 +60,8 @@ namespace ClrDebug
             IntPtr? lpEnvironment = null,
             string lpCurrentDirectory = null,
             STARTUPINFO? lpStartupInfo = null,
-            CorDebugCreateProcessFlags debuggingFlags = CorDebugCreateProcessFlags.DEBUG_NO_SPECIAL_OPTIONS)
+            CorDebugCreateProcessFlags debuggingFlags = CorDebugCreateProcessFlags.DEBUG_NO_SPECIAL_OPTIONS,
+            Action<IntPtr> closeHandle = null)
         {
             var processAttribs = lpProcessAttributes ?? new SECURITY_ATTRIBUTES();
             var threadAttribs = lpThreadAttributes ?? new SECURITY_ATTRIBUTES();
@@ -103,11 +106,23 @@ namespace ClrDebug
             }
             else
             {
+#if NETSTANDARD
+                closeHandle = closeHandle ?? (h => NativeMethods.CloseHandle(h));
+#else
+                if (closeHandle == null)
+                {
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                        closeHandle = h => NativeMethods.CloseHandle(h);
+                    else
+                        throw new ArgumentException($"On non-Windows platforms, parameter '{nameof(closeHandle)}' must be specified.", nameof(closeHandle));
+                }
+#endif
+
                 if (pi.hProcess != IntPtr.Zero)
-                    NativeMethods.CloseHandle(pi.hProcess);
+                    closeHandle(pi.hProcess);
 
                 if (pi.hThread != IntPtr.Zero)
-                    NativeMethods.CloseHandle(pi.hThread);
+                    closeHandle(pi.hThread);
             }
 
             return process;

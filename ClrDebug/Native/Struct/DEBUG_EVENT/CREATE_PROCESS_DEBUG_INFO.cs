@@ -6,10 +6,10 @@ namespace ClrDebug
 {
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct CREATE_PROCESS_DEBUG_INFO
+    public unsafe struct CREATE_PROCESS_DEBUG_INFO
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        internal string DebuggerDisplay => $"hFile = {hFile}, hProcess = {hProcess}, hThread = {hThread}, lpBaseOfImage = {lpBaseOfImage}, dwDebugInfoFileOffset = {dwDebugInfoFileOffset}, nDebugInfoSize = {nDebugInfoSize}, lpThreadLocalBase = {lpThreadLocalBase}, lpStartAddress = {lpStartAddress}, lpImageName = {lpImageName}, fUnicode = {fUnicode}";
+        internal string DebuggerDisplay => $"hFile = {hFile}, hProcess = {hProcess}, hThread = {hThread}, lpBaseOfImage = 0x{((ulong)(void*)lpBaseOfImage):X}, dwDebugInfoFileOffset = {dwDebugInfoFileOffset}, nDebugInfoSize = {nDebugInfoSize}, lpThreadLocalBase = 0x{((ulong)(void*)lpThreadLocalBase):X}, lpStartAddress = 0x{((ulong)(void*)lpStartAddress):X}, lpImageName = 0x{((ulong)(void*)lpImageName):X}, fUnicode = {fUnicode}";
 
         public IntPtr hFile;
         public IntPtr hProcess;

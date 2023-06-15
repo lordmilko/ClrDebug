@@ -2149,14 +2149,15 @@ namespace ClrDebug.DbgEng
         /// <param name="stackOffset">[in] Specifies the location of the current stack. If StackOffset is set to zero, the current stack pointer is used instead.</param>
         /// <param name="instructionOffset">[in] Specifies the location of the instruction of interest for the function that is represented by the stack frame at the top of the stack.<para/>
         /// If InstructionOffset is set to zero, the current instruction is used instead.</param>
+        /// <param name="frameSize">[out, optional] Receives the number of frames that were placed in the array Frames. If FramesFilled is NULL, this information is not returned.</param>
         /// <returns>[out] Receives the stack frames. The number of elements this array holds is FrameSize.</returns>
         /// <remarks>
         /// The stack trace returned to Frames can be printed using <see cref="OutputStackTrace"/>.
         /// </remarks>
-        public DEBUG_STACK_FRAME[] GetStackTrace(long frameOffset, long stackOffset, long instructionOffset)
+        public DEBUG_STACK_FRAME[] GetStackTrace(long frameOffset, long stackOffset, long instructionOffset, int frameSize)
         {
             DEBUG_STACK_FRAME[] frames;
-            TryGetStackTrace(frameOffset, stackOffset, instructionOffset, out frames).ThrowDbgEngNotOK();
+            TryGetStackTrace(frameOffset, stackOffset, instructionOffset, frameSize, out frames).ThrowDbgEngNotOK();
 
             return frames;
         }
@@ -2169,11 +2170,12 @@ namespace ClrDebug.DbgEng
         /// <param name="instructionOffset">[in] Specifies the location of the instruction of interest for the function that is represented by the stack frame at the top of the stack.<para/>
         /// If InstructionOffset is set to zero, the current instruction is used instead.</param>
         /// <param name="frames">[out] Receives the stack frames. The number of elements this array holds is FrameSize.</param>
+        /// <param name="frameSize">[out, optional] Receives the number of frames that were placed in the array Frames. If FramesFilled is NULL, this information is not returned.</param>
         /// <returns>This method may also return other error values. See Return Values for more details.</returns>
         /// <remarks>
         /// The stack trace returned to Frames can be printed using <see cref="OutputStackTrace"/>.
         /// </remarks>
-        public HRESULT TryGetStackTrace(long frameOffset, long stackOffset, long instructionOffset, out DEBUG_STACK_FRAME[] frames)
+        public HRESULT TryGetStackTrace(long frameOffset, long stackOffset, long instructionOffset, int frameSize, out DEBUG_STACK_FRAME[] frames)
         {
             InitDelegate(ref getStackTrace, Vtbl->GetStackTrace);
             /*HRESULT GetStackTrace(
@@ -2183,18 +2185,13 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_STACK_FRAME[] Frames,
             [In] int FrameSize,
             [Out] out int FramesFilled);*/
-            frames = null;
-            int frameSize = 0;
-            int framesFilled;
-            HRESULT hr = getStackTrace(Raw, frameOffset, stackOffset, instructionOffset, null, frameSize, out framesFilled);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            frameSize = framesFilled;
             frames = new DEBUG_STACK_FRAME[frameSize];
-            hr = getStackTrace(Raw, frameOffset, stackOffset, instructionOffset, frames, frameSize, out framesFilled);
-            fail:
+            int framesFilled;
+            HRESULT hr = getStackTrace(Raw, frameOffset, stackOffset, instructionOffset, frames, frameSize, out framesFilled);
+
+            if (frameSize != framesFilled)
+                Array.Resize(ref frames, framesFilled);
+
             return hr;
         }
 
@@ -7671,11 +7668,12 @@ namespace ClrDebug.DbgEng
         /// <param name="stackOffset">[in] Specifies the location of the current stack. If StackOffset is set to zero, the current stack pointer is used instead.</param>
         /// <param name="instructionOffset">[in] Specifies the location of the instruction of interest for the function that is represented by the stack frame at the top of the stack.<para/>
         /// If InstructionOffset is set to zero, the current instruction is used instead.</param>
+        /// <param name="framesSize">[out, optional] Receives the number of frames that were placed in the array Frames. If FramesFilled is NULL, this information is not returned.</param>
         /// <returns>[out] Receives the stack frames. The number of elements this array holds is FrameSize.</returns>
-        public DEBUG_STACK_FRAME_EX[] GetStackTraceEx(long frameOffset, long stackOffset, long instructionOffset)
+        public DEBUG_STACK_FRAME_EX[] GetStackTraceEx(long frameOffset, long stackOffset, long instructionOffset, int framesSize)
         {
             DEBUG_STACK_FRAME_EX[] frames;
-            TryGetStackTraceEx(frameOffset, stackOffset, instructionOffset, out frames).ThrowDbgEngNotOK();
+            TryGetStackTraceEx(frameOffset, stackOffset, instructionOffset, framesSize, out frames).ThrowDbgEngNotOK();
 
             return frames;
         }
@@ -7689,8 +7687,9 @@ namespace ClrDebug.DbgEng
         /// <param name="instructionOffset">[in] Specifies the location of the instruction of interest for the function that is represented by the stack frame at the top of the stack.<para/>
         /// If InstructionOffset is set to zero, the current instruction is used instead.</param>
         /// <param name="frames">[out] Receives the stack frames. The number of elements this array holds is FrameSize.</param>
+        /// <param name="framesSize">[out, optional] Receives the number of frames that were placed in the array Frames. If FramesFilled is NULL, this information is not returned.</param>
         /// <returns>This method may also return other error values. See Return Values for more details.</returns>
-        public HRESULT TryGetStackTraceEx(long frameOffset, long stackOffset, long instructionOffset, out DEBUG_STACK_FRAME_EX[] frames)
+        public HRESULT TryGetStackTraceEx(long frameOffset, long stackOffset, long instructionOffset, int framesSize, out DEBUG_STACK_FRAME_EX[] frames)
         {
             InitDelegate(ref getStackTraceEx, Vtbl5->GetStackTraceEx);
             /*HRESULT GetStackTraceEx(
@@ -7700,18 +7699,13 @@ namespace ClrDebug.DbgEng
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DEBUG_STACK_FRAME_EX[] Frames,
             [In] int FramesSize,
             [Out] out int FramesFilled);*/
-            frames = null;
-            int framesSize = 0;
-            int framesFilled;
-            HRESULT hr = getStackTraceEx(Raw, frameOffset, stackOffset, instructionOffset, null, framesSize, out framesFilled);
-
-            if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
-                goto fail;
-
-            framesSize = framesFilled;
             frames = new DEBUG_STACK_FRAME_EX[framesSize];
-            hr = getStackTraceEx(Raw, frameOffset, stackOffset, instructionOffset, frames, framesSize, out framesFilled);
-            fail:
+            int framesFilled;
+            HRESULT hr = getStackTraceEx(Raw, frameOffset, stackOffset, instructionOffset, frames, framesSize, out framesFilled);
+
+            if (framesSize != framesFilled)
+                Array.Resize(ref frames, framesFilled);
+
             return hr;
         }
 

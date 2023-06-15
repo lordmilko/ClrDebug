@@ -6,10 +6,10 @@ namespace ClrDebug
 {
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct UNLOAD_DLL_DEBUG_INFO
+    public unsafe struct UNLOAD_DLL_DEBUG_INFO
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        internal string DebuggerDisplay => $"lpBaseOfDll = {lpBaseOfDll}";
+        internal string DebuggerDisplay => $"lpBaseOfDll = 0x{((ulong)(void*)lpBaseOfDll):X}";
 
         public IntPtr lpBaseOfDll;
     }
