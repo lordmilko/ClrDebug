@@ -54,8 +54,10 @@ namespace ClrDebug
                     if (hr != HRESULT.S_OK)
                         return null;
 
+#pragma warning disable CA1416 //This call site is reachable on all platforms
                     var o = Marshal.GetObjectForIUnknown(Raw);
                     return Marshal.ReleaseComObject(o);
+#pragma warning restore CA1416 //This call site is reachable on all platforms
                 }
             }
         }
@@ -108,7 +110,9 @@ namespace ClrDebug
             if (!value.GetType().IsCOMObject)
                 throw new ArgumentException("Value is not a COM object.", nameof(value));
 
+#pragma warning disable CA1416 //This call site is reachable on all platforms
             return Marshal.GetIUnknownForObject(value);
+#pragma warning restore CA1416 //This call site is reachable on all platforms
         }
 
         protected void InitDelegate<T>(ref T @delegate, IntPtr vtablePtr)
@@ -129,7 +133,9 @@ namespace ClrDebug
         /// <returns>A real RCW of type <typeparamref name="T"/>.</returns>
         public T AsInterface<T>()
         {
+#pragma warning disable CA1416 //This call site is reachable on all platforms
             var unk = Marshal.GetObjectForIUnknown(Raw);
+#pragma warning restore CA1416 //This call site is reachable on all platforms
 
             return (T)unk;
         }

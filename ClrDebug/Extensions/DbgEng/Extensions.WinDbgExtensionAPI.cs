@@ -328,7 +328,9 @@ namespace ClrDebug.DbgEng
 
                     if (api.Ioctl(IG.GET_CLR_DATA_INTERFACE, new IntPtr(buffer), size) == 1)
                     {
+#pragma warning disable CA1416 //This call site is reachable on all platforms
                         var iface = Marshal.GetObjectForIUnknown(buffer->Iface);
+#pragma warning restore CA1416 //This call site is reachable on all platforms
                         process = new XCLRDataProcess((IXCLRDataProcess)iface);
                         return true;
                     }

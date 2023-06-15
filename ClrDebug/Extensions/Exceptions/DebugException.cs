@@ -26,6 +26,7 @@ namespace ClrDebug
         /// <param name="info">The <see cref="SerializationInfo" /> object that holds the serialized object data.</param>
         /// <param name="context">The <see cref="StreamingContext" /> object that supplies the contextual information about the source or destination.</param>
         /// <exception cref="System.ArgumentNullException"><paramref name="info" /> is <see langword="null" />.</exception>
+        [Obsolete]
         protected DebugException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }

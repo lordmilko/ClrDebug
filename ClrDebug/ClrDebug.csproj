@@ -3,7 +3,8 @@
   <Import Project="..\NuGet.props" />
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks Condition="'$(MultiBuild)' == 'true'">netstandard2.0;net8.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(MultiBuild)' == ''">netstandard2.0</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\ClrDebug.xml</DocumentationFile>
     <NoWarn>1701;1702;CS1591</NoWarn>
