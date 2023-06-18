@@ -59,7 +59,7 @@ namespace ClrDebug
         HRESULT GetName(
             [In] int cchName,
             [Out] out int pcchName,
-            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);
+            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0), Out] StringBuilder szName);
 
         /// <summary>
         /// Controls whether the just-in-time (JIT) compiler preserves debugging information for methods within this module.

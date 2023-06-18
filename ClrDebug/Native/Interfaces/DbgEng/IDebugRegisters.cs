@@ -36,7 +36,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetDescription(
             [In] int Register,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder NameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out DEBUG_REGISTER_DESCRIPTION Desc);

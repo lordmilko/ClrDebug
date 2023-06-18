@@ -787,7 +787,7 @@ namespace ClrDebug
             [Out] out IntPtr ppBaseLoadAddress,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder szName,
             [Out] out AssemblyID pAssemblyId);*/
             IntPtr ppBaseLoadAddress;
             int cchName = 0;
@@ -1050,7 +1050,7 @@ namespace ClrDebug
             [In] AppDomainID appDomainId,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder szName,
             [Out] out ProcessID pProcessId);*/
             int cchName = 0;
             int pcchName;
@@ -1121,7 +1121,7 @@ namespace ClrDebug
             [In] AssemblyID assemblyId,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder szName,
             [Out] out AppDomainID pAppDomainId,
             [Out] out ModuleID pModuleId);*/
             int cchName = 0;
@@ -2619,7 +2619,7 @@ namespace ClrDebug
             [Out] out ushort pQFEVersion,
             [In] int cchVersionString,
             [Out] out int pcchVersionString,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szVersionString);*/
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 6)] StringBuilder szVersionString);*/
             ushort pClrInstanceId;
             COR_PRF_RUNTIME_TYPE pRuntimeType;
             ushort pMajorVersion;
@@ -3236,7 +3236,7 @@ namespace ClrDebug
             [Out] out IntPtr ppBaseLoadAddress,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder szName,
             [Out] out AssemblyID pAssemblyId,
             [Out] out COR_PRF_MODULE_FLAGS pdwModuleFlags);*/
             IntPtr ppBaseLoadAddress;
@@ -4214,7 +4214,7 @@ namespace ClrDebug
             [Out] out int pbSig,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder wszName);*/
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4)] StringBuilder wszName);*/
             ModuleID moduleId;
             IntPtr ppvSig;
             int pbSig;
@@ -4639,7 +4639,7 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
             [In] int cchValue,
             [Out] out int pcchValue,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szValue);*/
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder szValue);*/
             int cchValue = 0;
             int pcchValue;
             StringBuilder szValue;
@@ -4839,7 +4839,7 @@ namespace ClrDebug
             [In] EVENTPIPE_PROVIDER provider,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder providerName);*/
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder providerName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder providerName;

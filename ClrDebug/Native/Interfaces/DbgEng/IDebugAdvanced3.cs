@@ -150,7 +150,7 @@ namespace ClrDebug.DbgEng
             [In] IntPtr FileToken,
             [In] int FileTokenSize,
             [Out] out int FoundElement,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 8)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int FoundSize);
 
@@ -184,7 +184,7 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder StringBuffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 7)] StringBuilder StringBuffer,
             [In] int StringBufferSize,
             [Out] out int StringSize);
 
@@ -286,7 +286,7 @@ namespace ClrDebug.DbgEng
             [In] IntPtr FileToken,
             [In] int FileTokenSize,
             [Out] out int FoundElement,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 8)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int FoundSize);
 
@@ -320,7 +320,7 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder StringBuffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 7)] StringBuilder StringBuffer,
             [In] int StringBufferSize,
             [Out] out int StringSize);
 

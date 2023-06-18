@@ -203,7 +203,7 @@ namespace ClrDebug
             /*HRESULT GetString(
             [In] int bufLen,
             [Out] out int strLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder str);*/
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder str);*/
             int bufLen = 0;
             int strLen;
             StringBuilder str;
@@ -317,7 +317,7 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder nameBuf,
             [Out] out mdFieldDef token);*/
             IXCLRDataValue field;
             int bufLen = 0;
@@ -423,7 +423,7 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int nameBufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder nameBuf,
             [Out] out mdFieldDef token);*/
             IXCLRDataValue field;
             int nameBufLen = 0;
@@ -551,7 +551,7 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf);*/
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder nameBuf);*/
             IXCLRDataValue field;
             int bufLen = 0;
             int nameLen;
@@ -658,7 +658,7 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int nameBufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder nameBuf,
             [Out] out IXCLRDataModule tokenScope,
             [Out] out mdFieldDef token);*/
             IXCLRDataValue field;
@@ -739,7 +739,7 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf);*/
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder nameBuf);*/
             IXCLRDataValue field;
             int bufLen = 0;
             int nameLen;

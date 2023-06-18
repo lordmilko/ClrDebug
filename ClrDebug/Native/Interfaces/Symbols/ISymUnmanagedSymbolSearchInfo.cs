@@ -34,7 +34,7 @@ namespace ClrDebug
         HRESULT GetSearchPath(
             [In] int cchPath,
             [Out] out int pcchPath,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szPath);
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder szPath);
 
         /// <summary>
         /// Gets the <see cref="HRESULT"/>.

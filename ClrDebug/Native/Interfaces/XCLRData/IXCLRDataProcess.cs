@@ -87,7 +87,7 @@ namespace ClrDebug
             [In] int flags, //Unused, must be 0
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder nameBuf,
             [Out] out CLRDATA_ADDRESS displacement);
 
         [PreserveSig]
@@ -223,7 +223,7 @@ namespace ClrDebug
             [In] IXCLRDataTask tlsTask,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4)] StringBuilder nameBuf,
             [Out] out IXCLRDataValue value,
             [Out] out CLRDATA_ADDRESS displacement);
 

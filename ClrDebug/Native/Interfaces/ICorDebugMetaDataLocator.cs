@@ -43,6 +43,6 @@ namespace ClrDebug
             [In] int dwImageSize,
             [In] int cchPathBuffer,
             [Out] out int pcchPathBuffer,
-            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder wszPathBuffer);
+            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3), Out] StringBuilder wszPathBuffer);
     }
 }

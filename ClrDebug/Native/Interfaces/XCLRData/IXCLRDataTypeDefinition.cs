@@ -65,7 +65,7 @@ namespace ClrDebug
             [In] int flags, //Unused, always 0
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf);
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder nameBuf);
 
         [PreserveSig]
         HRESULT GetTokenAndScope(
@@ -115,7 +115,7 @@ namespace ClrDebug
             [In, Out] ref IntPtr handle,
             [In] int nameBufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder nameBuf,
             [Out] out IXCLRDataTypeDefinition type,
             [Out] out CLRDataFieldFlag flags,
             [Out] out mdFieldDef token);
@@ -147,7 +147,7 @@ namespace ClrDebug
             [In] mdFieldDef token,
             [In] int nameBufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder nameBuf,
             [Out] out IXCLRDataTypeDefinition type,
             [Out] out CLRDataValueFlag flags);
 
@@ -164,7 +164,7 @@ namespace ClrDebug
             [In, Out] ref IntPtr handle,
             [In] int nameBufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder nameBuf,
             [Out] out IXCLRDataTypeDefinition type,
             [Out] out CLRDataFieldFlag flags,
             [Out] out IXCLRDataModule tokenScope,
@@ -184,7 +184,7 @@ namespace ClrDebug
             [In] mdFieldDef token,
             [In] int nameBufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder nameBuf,
             [Out] out IXCLRDataTypeDefinition type,
             [Out] out CLRDataValueFlag flags);
     }

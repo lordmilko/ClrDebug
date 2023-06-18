@@ -233,7 +233,7 @@ namespace ClrDebug
             /*HRESULT GetSymbolStoreFileName(
             [In] int cchName,
             [Out] out int pcchName,
-            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);*/
+            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0), Out] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName;

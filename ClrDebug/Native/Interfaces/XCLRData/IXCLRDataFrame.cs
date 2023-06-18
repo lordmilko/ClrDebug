@@ -35,7 +35,7 @@ namespace ClrDebug
             [Out] out IXCLRDataValue arg,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name);
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder name);
 
         [PreserveSig]
         HRESULT GetNumLocalVariables(
@@ -47,14 +47,14 @@ namespace ClrDebug
             [Out] out IXCLRDataValue localVariable,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name);
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder name);
 
         [PreserveSig]
         HRESULT GetCodeName(
             [In] int flags, //Unused, must be 0
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf);
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder nameBuf);
 
         [PreserveSig]
         HRESULT GetMethodInstance(

@@ -1756,7 +1756,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT ReadMultiByteStringVirtual(
             [In] long Offset,
             [In] int MaxBytes,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);*/
             StringBuilder buffer;
@@ -1833,7 +1833,7 @@ namespace ClrDebug.DbgEng
             [In] long Offset,
             [In] int MaxBytes,
             [In] CODE_PAGE CodePage,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);*/
             StringBuilder buffer;
@@ -1904,7 +1904,7 @@ namespace ClrDebug.DbgEng
             [In] long Offset,
             [In] int MaxBytes,
             [In] CODE_PAGE CodePage,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 4)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);*/
             StringBuilder buffer;
@@ -1970,7 +1970,7 @@ namespace ClrDebug.DbgEng
             /*HRESULT ReadUnicodeStringVirtualWide(
             [In] long Offset,
             [In] int MaxBytes,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);*/
             StringBuilder buffer;
@@ -2256,10 +2256,10 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetNextDifferentlyValidOffsetVirtualDelegate(IntPtr self, [In] long Offset, [Out] out long NextOffset);
         private delegate HRESULT GetValidRegionVirtualDelegate(IntPtr self, [In] long Base, [In] int Size, [Out] out long ValidBase, [Out] out int ValidSize);
         private delegate HRESULT SearchVirtual2Delegate(IntPtr self, [In] long Offset, [In] long Length, [In] DEBUG_VSEARCH Flags, [In] IntPtr Buffer, [In] int PatternSize, [In] int PatternGranularity, [Out] out long MatchOffset);
-        private delegate HRESULT ReadMultiByteStringVirtualDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringBytes);
-        private delegate HRESULT ReadMultiByteStringVirtualWideDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [In] CODE_PAGE CodePage, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringBytes);
-        private delegate HRESULT ReadUnicodeStringVirtualDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [In] CODE_PAGE CodePage, [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringBytes);
-        private delegate HRESULT ReadUnicodeStringVirtualWideDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringBytes);
+        private delegate HRESULT ReadMultiByteStringVirtualDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringBytes);
+        private delegate HRESULT ReadMultiByteStringVirtualWideDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [In] CODE_PAGE CodePage, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringBytes);
+        private delegate HRESULT ReadUnicodeStringVirtualDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [In] CODE_PAGE CodePage, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 4)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringBytes);
+        private delegate HRESULT ReadUnicodeStringVirtualWideDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringBytes);
         private delegate HRESULT ReadPhysical2Delegate(IntPtr self, [In] long Offset, [In] DEBUG_PHYSICAL Flags, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesRead);
         private delegate HRESULT WritePhysical2Delegate(IntPtr self, [In] long Offset, [In] DEBUG_PHYSICAL Flags, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
 

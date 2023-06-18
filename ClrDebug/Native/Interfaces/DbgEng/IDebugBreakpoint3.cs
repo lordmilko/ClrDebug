@@ -271,7 +271,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetCommand(
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int CommandSize);
 
@@ -309,7 +309,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetOffsetExpression(
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int ExpressionSize);
 
@@ -358,7 +358,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetCommandWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int CommandSize);
 
@@ -396,7 +396,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetOffsetExpressionWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int ExpressionSize);
 

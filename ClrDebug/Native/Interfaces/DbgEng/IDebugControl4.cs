@@ -83,7 +83,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetLogFile(
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int FileSize,
             [Out, MarshalAs(UnmanagedType.Bool)] out bool Append);
@@ -150,7 +150,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT Input(
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int InputSize);
 
@@ -315,7 +315,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetPromptText(
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int TextSize);
 
@@ -419,7 +419,7 @@ namespace ClrDebug.DbgEng
         new HRESULT Disassemble(
             [In] long Offset,
             [In] DEBUG_DISASM Flags,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int DisassemblySize,
             [Out] out long EndOffset);
@@ -674,11 +674,11 @@ namespace ClrDebug.DbgEng
             [Out] out int PlatformId,
             [Out] out int Major,
             [Out] out int Minor,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder ServicePackString,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 4)] StringBuilder ServicePackString,
             [In] int ServicePackStringSize,
             [Out] out int ServicePackStringUsed,
             [Out] out int ServicePackNumber,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder BuildString,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 8)] StringBuilder BuildString,
             [In] int BuildStringSize,
             [Out] out int BuildStringUsed);
 
@@ -767,10 +767,10 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetProcessorTypeNames(
             [In] IMAGE_FILE_MACHINE Type,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder FullNameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder FullNameBuffer,
             [In] int FullNameBufferSize,
             [Out] out int FullNameSize,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder AbbrevNameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 5)] StringBuilder AbbrevNameBuffer,
             [In] int AbbrevNameBufferSize,
             [Out] out int AbbrevNameSize);
 
@@ -960,7 +960,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetTextMacro(
             [In] int Slot,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int MacroSize);
 
@@ -1351,7 +1351,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetEventFilterText(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int TextSize);
 
@@ -1371,7 +1371,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetEventFilterCommand(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int CommandSize);
 
@@ -1426,7 +1426,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetSpecificEventFilterArgument(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int ArgumentSize);
 
@@ -1490,7 +1490,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetExceptionFilterSecondCommand(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int CommandSize);
 
@@ -1558,7 +1558,7 @@ namespace ClrDebug.DbgEng
             [Out, ComAliasName("IntPtr")] out DEBUG_LAST_EVENT_INFO ExtraInformation,
             [In] int ExtraInformationSize,
             [Out] out int ExtraInformationUsed,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Description,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 7)] StringBuilder Description,
             [In] int DescriptionSize,
             [Out] out int DescriptionUsed);
 
@@ -1642,10 +1642,10 @@ namespace ClrDebug.DbgEng
         new HRESULT GetTextReplacement(
             [In, MarshalAs(UnmanagedType.LPStr)] string SrcText,
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder SrcBuffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder SrcBuffer,
             [In] int SrcBufferSize,
             [Out] out int SrcSize,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder DstBuffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 6)] StringBuilder DstBuffer,
             [In] int DstBufferSize,
             [Out] out int DstSize);
 
@@ -1834,10 +1834,10 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetExpressionSyntaxNames(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder FullNameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder FullNameBuffer,
             [In] int FullNameBufferSize,
             [Out] out int FullNameSize,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder AbbrevNameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 5)] StringBuilder AbbrevNameBuffer,
             [In] int AbbrevNameBufferSize,
             [Out] out int AbbrevNameSize);
 
@@ -1874,7 +1874,7 @@ namespace ClrDebug.DbgEng
         new HRESULT GetEventIndexDescription(
             [In] int Index,
             [In] DEBUG_EINDEX Which,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int DescSize);
 
@@ -1929,7 +1929,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetLogFileWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int FileSize,
             [Out, MarshalAs(UnmanagedType.Bool)] out bool Append);
@@ -1965,7 +1965,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT InputWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int InputSize);
 
@@ -2131,7 +2131,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetPromptTextWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int TextSize);
 
@@ -2175,7 +2175,7 @@ namespace ClrDebug.DbgEng
         HRESULT DisassembleWide(
             [In] long Offset,
             [In] DEBUG_DISASM Flags,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int DisassemblySize,
             [Out] out long EndOffset);
@@ -2199,10 +2199,10 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetProcessorTypeNamesWide(
             [In] IMAGE_FILE_MACHINE Type,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder FullNameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder FullNameBuffer,
             [In] int FullNameBufferSize,
             [Out] out int FullNameSize,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder AbbrevNameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 5)] StringBuilder AbbrevNameBuffer,
             [In] int AbbrevNameBufferSize,
             [Out] out int AbbrevNameSize);
 
@@ -2223,7 +2223,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetTextMacroWide(
             [In] int Slot,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int MacroSize);
 
@@ -2454,7 +2454,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetEventFilterTextWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int TextSize);
 
@@ -2474,7 +2474,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetEventFilterCommandWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int CommandSize);
 
@@ -2496,7 +2496,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSpecificEventFilterArgumentWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int ArgumentSize);
 
@@ -2522,7 +2522,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetExceptionFilterSecondCommandWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int CommandSize);
 
@@ -2570,7 +2570,7 @@ namespace ClrDebug.DbgEng
             [Out, ComAliasName("IntPtr")] out DEBUG_LAST_EVENT_INFO ExtraInformation,
             [In] int ExtraInformationSize,
             [Out] out int ExtraInformationUsed,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Description,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 7)] StringBuilder Description,
             [In] int DescriptionSize,
             [Out] out int DescriptionUsed);
 
@@ -2598,10 +2598,10 @@ namespace ClrDebug.DbgEng
         HRESULT GetTextReplacementWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string SrcText,
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder SrcBuffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder SrcBuffer,
             [In] int SrcBufferSize,
             [Out] out int SrcSize,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder DstBuffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 6)] StringBuilder DstBuffer,
             [In] int DstBufferSize,
             [Out] out int DstSize);
 
@@ -2664,10 +2664,10 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetExpressionSyntaxNamesWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder FullNameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder FullNameBuffer,
             [In] int FullNameBufferSize,
             [Out] out int FullNameSize,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder AbbrevNameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 5)] StringBuilder AbbrevNameBuffer,
             [In] int AbbrevNameBufferSize,
             [Out] out int AbbrevNameSize);
 
@@ -2687,7 +2687,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetEventIndexDescriptionWide(
             [In] int Index,
             [In] DEBUG_EINDEX Which,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int DescSize);
 
@@ -2704,7 +2704,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetLogFile2(
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int FileSize,
             [Out] out DEBUG_LOG Flags);
@@ -2739,7 +2739,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         HRESULT GetLogFile2Wide(
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int FileSize,
             [Out] out DEBUG_LOG Flags);
@@ -2798,7 +2798,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSystemVersionString(
             [In] DEBUG_SYSVERSTR Which,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int StringSize);
 
@@ -2817,7 +2817,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSystemVersionStringWide(
             [In] DEBUG_SYSVERSTR Which,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int StringSize);
 
@@ -2923,7 +2923,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetManagedStatus(
             [Out] out DEBUG_MANAGED Flags,
             [In] DEBUG_MANSTR WhichString,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder String,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder String,
             [In] int StringSize,
             [Out] out int StringNeeded);
 
@@ -2940,7 +2940,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetManagedStatusWide(
             [Out] out DEBUG_MANAGED Flags,
             [In] DEBUG_MANSTR WhichString,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder String,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder String,
             [In] int StringSize,
             [Out] out int StringNeeded);
 

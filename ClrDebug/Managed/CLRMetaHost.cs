@@ -118,7 +118,7 @@ namespace ClrDebug
         {
             /*HRESULT GetVersionFromFile(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
-            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder pwzBuffer,
+            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2), Out] StringBuilder pwzBuffer,
             [In, Out] ref int pcchBuffer);*/
             StringBuilder pwzBuffer;
             int pcchBuffer = default(int);

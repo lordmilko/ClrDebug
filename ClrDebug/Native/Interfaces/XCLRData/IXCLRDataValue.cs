@@ -47,7 +47,7 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder nameBuf,
             [Out] out mdFieldDef token);
 
         [PreserveSig]
@@ -76,7 +76,7 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int nameBufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder nameBuf,
             [Out] out mdFieldDef token);
 
         [PreserveSig]
@@ -107,7 +107,7 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf);
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder nameBuf);
 
         [PreserveSig]
         HRESULT GetAssociatedValue(
@@ -121,7 +121,7 @@ namespace ClrDebug
         HRESULT GetString(
             [In] int bufLen,
             [Out] out int strLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder str);
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder str);
 
         [PreserveSig]
         HRESULT GetArrayProperties(
@@ -144,7 +144,7 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int nameBufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder nameBuf,
             [Out] out IXCLRDataModule tokenScope,
             [Out] out mdFieldDef token);
 
@@ -162,7 +162,7 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder nameBuf);
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder nameBuf);
 
         [PreserveSig]
         HRESULT GetNumLocations(

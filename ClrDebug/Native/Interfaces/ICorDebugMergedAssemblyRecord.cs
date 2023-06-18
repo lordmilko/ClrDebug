@@ -30,7 +30,7 @@ namespace ClrDebug
         HRESULT GetSimpleName(
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder szName);
 
         /// <summary>
         /// Gets the assembly's version information.
@@ -65,7 +65,7 @@ namespace ClrDebug
         HRESULT GetCulture(
             [In] int cchCulture,
             [Out] out int pcchCulture,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szCulture);
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder szCulture);
 
         /// <summary>
         /// Gets the assembly's public key.

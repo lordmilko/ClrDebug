@@ -73,7 +73,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolName(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 

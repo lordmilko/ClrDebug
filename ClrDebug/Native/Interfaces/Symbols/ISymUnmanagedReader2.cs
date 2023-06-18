@@ -215,7 +215,7 @@ namespace ClrDebug
         new HRESULT GetSymbolStoreFileName(
             [In] int cchName,
             [Out] out int pcchName,
-            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder szName);
+            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0), Out] StringBuilder szName);
 
         /// <summary>
         /// Returns an array of methods, each of which contains the breakpoint at the given position in a document.

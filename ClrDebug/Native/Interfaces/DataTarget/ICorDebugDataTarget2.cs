@@ -39,7 +39,7 @@ namespace ClrDebug
             [In] CORDB_ADDRESS baseAddress,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder szName);
 
         /// <summary>
         /// Returns the symbol-provider for a module from the base address of that module.

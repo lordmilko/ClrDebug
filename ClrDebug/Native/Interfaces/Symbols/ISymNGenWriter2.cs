@@ -59,7 +59,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT QueryPDBNameExW(
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder wszPDB,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder wszPDB,
             [In] long cchMax);
     }
 }

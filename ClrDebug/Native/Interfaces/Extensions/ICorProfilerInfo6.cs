@@ -299,7 +299,7 @@ namespace ClrDebug
             [Out] out IntPtr ppBaseLoadAddress,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder szName,
             [Out] out AssemblyID pAssemblyId);
 
         /// <summary>
@@ -402,7 +402,7 @@ namespace ClrDebug
             [In] AppDomainID appDomainId,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder szName,
             [Out] out ProcessID pProcessId);
 
         /// <summary>
@@ -428,7 +428,7 @@ namespace ClrDebug
             [In] AssemblyID assemblyId,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder szName,
             [Out] out AppDomainID pAppDomainId,
             [Out] out ModuleID pModuleId);
 
@@ -1266,7 +1266,7 @@ namespace ClrDebug
             [Out] out ushort pQFEVersion,
             [In] int cchVersionString,
             [Out] out int pcchVersionString,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szVersionString);
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 6)] StringBuilder szVersionString);
 
         /// <summary>
         /// Gets the address of the specified thread-static field that is in the scope of the specified thread and application domain.
@@ -1339,7 +1339,7 @@ namespace ClrDebug
             [Out] out IntPtr ppBaseLoadAddress,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder szName,
             [Out] out AssemblyID pAssemblyId,
             [Out] out COR_PRF_MODULE_FLAGS pdwModuleFlags);
 

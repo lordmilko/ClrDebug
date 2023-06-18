@@ -31,7 +31,7 @@ namespace ClrDebug
             [Out] out IntPtr ppbPublicKey,
             [Out] out int pcbPublicKey,
             [Out] out int pulHashAlgId,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 5)] StringBuilder szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out ASSEMBLYMETADATA pMetaData,
@@ -56,7 +56,7 @@ namespace ClrDebug
             [In] mdAssemblyRef mdar,
             [Out] out IntPtr ppbPublicKeyOrToken,
             [Out] out int pcbPublicKeyOrToken,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4)] StringBuilder szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out ASSEMBLYMETADATA pMetaData,
@@ -77,7 +77,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetFileProps(
             [In] mdFile mdf,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out IntPtr ppbHashValue,
@@ -97,7 +97,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetExportedTypeProps(
             [In] mdExportedType mdct,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out mdToken ptkImplementation,
@@ -117,7 +117,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetManifestResourceProps(
             [In] mdManifestResource mdmr,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out mdToken ptkImplementation,

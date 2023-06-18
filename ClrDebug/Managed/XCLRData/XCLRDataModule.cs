@@ -41,7 +41,7 @@ namespace ClrDebug
             /*HRESULT GetName(
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name);*/
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder name);*/
             int bufLen = 0;
             int nameLen;
             StringBuilder name;
@@ -86,7 +86,7 @@ namespace ClrDebug
             /*HRESULT GetFileName(
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name);*/
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder name);*/
             int bufLen = 260;
             int nameLen;
             StringBuilder name = new StringBuilder(bufLen);

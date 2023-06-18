@@ -50,7 +50,7 @@ namespace ClrDebug
         HRESULT GetCodeBase(
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder szName);
 
         /// <summary>
         /// Gets the name of the assembly that this <see cref="ICorDebugAssembly"/> instance represents.
@@ -66,6 +66,6 @@ namespace ClrDebug
         HRESULT GetName(
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder szName);
     }
 }

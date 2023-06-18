@@ -425,7 +425,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetCurrentProcessExecutableName(
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int ExeSize);
 
@@ -607,7 +607,7 @@ namespace ClrDebug.DbgEng
         /// <returns>This method may also return error values. See Return Values for more details.</returns>
         [PreserveSig]
         HRESULT GetCurrentSystemServerName(
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
             [In] int Size,
             [Out] out int Needed);
 

@@ -43,7 +43,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetKernelConnectionOptions(
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int OptionsSize);
 
@@ -175,10 +175,10 @@ namespace ClrDebug.DbgEng
             [In] long Server,
             [In] int SystemId,
             [In] DEBUG_PROC_DESC Flags,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder ExeName,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 4)] StringBuilder ExeName,
             [In] int ExeNameSize,
             [Out] out int ActualExeNameSize,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Description,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 7)] StringBuilder Description,
             [In] int DescriptionSize,
             [Out] out int ActualDescriptionSize);
 
@@ -622,7 +622,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetOutputLinePrefix(
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int PrefixSize);
 
@@ -650,7 +650,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetIdentity(
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int IdentitySize);
 
@@ -886,10 +886,10 @@ namespace ClrDebug.DbgEng
             [In] long Server,
             [In] int SystemId,
             [In] DEBUG_PROC_DESC Flags,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder ExeName,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4)] StringBuilder ExeName,
             [In] int ExeNameSize,
             [Out] out int ActualExeNameSize,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Description,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 7)] StringBuilder Description,
             [In] int DescriptionSize,
             [Out] out int ActualDescriptionSize);
 
@@ -1030,7 +1030,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetDumpFile(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int NameSize,
             [Out] out long Handle,
@@ -1053,7 +1053,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetDumpFileWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int NameSize,
             [Out] out long Handle,
@@ -1091,7 +1091,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetKernelConnectionOptionsWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int OptionsSize);
 
@@ -1218,7 +1218,7 @@ namespace ClrDebug.DbgEng
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         [PreserveSig]
         new HRESULT GetOutputLinePrefixWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int PrefixSize);
 
@@ -1244,7 +1244,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetIdentityWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int IdentitySize);
 
@@ -1495,7 +1495,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetQuitLockString(
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int StringSize);
 
@@ -1520,7 +1520,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetQuitLockStringWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int StringSize);
 

@@ -299,7 +299,7 @@ namespace ClrDebug
             [Out] out IntPtr ppBaseLoadAddress,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder szName,
             [Out] out AssemblyID pAssemblyId);
 
         /// <summary>
@@ -402,7 +402,7 @@ namespace ClrDebug
             [In] AppDomainID appDomainId,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder szName,
             [Out] out ProcessID pProcessId);
 
         /// <summary>
@@ -428,7 +428,7 @@ namespace ClrDebug
             [In] AssemblyID assemblyId,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder szName,
             [Out] out AppDomainID pAppDomainId,
             [Out] out ModuleID pModuleId);
 
@@ -1266,7 +1266,7 @@ namespace ClrDebug
             [Out] out ushort pQFEVersion,
             [In] int cchVersionString,
             [Out] out int pcchVersionString,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szVersionString);
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 6)] StringBuilder szVersionString);
 
         /// <summary>
         /// Gets the address of the specified thread-static field that is in the scope of the specified thread and application domain.
@@ -1339,7 +1339,7 @@ namespace ClrDebug
             [Out] out IntPtr ppBaseLoadAddress,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder szName,
             [Out] out AssemblyID pAssemblyId,
             [Out] out COR_PRF_MODULE_FLAGS pdwModuleFlags);
 
@@ -1732,7 +1732,7 @@ namespace ClrDebug
             [Out] out int pbSig,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder wszName);
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4)] StringBuilder wszName);
 
         /// <summary>
         /// Given a functionId and rejitId, enumerates the native code start address of all jitted versions of this code that currently exist.
@@ -1890,7 +1890,7 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
             [In] int cchValue,
             [Out] out int pcchValue,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szValue);
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder szValue);
 
         /// <summary>
         /// Sets an environment variable in the process. On non-Windows platforms the runtime keeps an internal cache of environment variables to ensure thread safety.<para/>

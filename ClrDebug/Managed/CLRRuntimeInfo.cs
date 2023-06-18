@@ -53,7 +53,7 @@ namespace ClrDebug
         public HRESULT TryGetVersionString(out string pwzBufferResult)
         {
             /*HRESULT GetVersionString(
-            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder pwzBuffer,
+            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1), Out] StringBuilder pwzBuffer,
             [In, Out] ref int pcchBuffer);*/
             StringBuilder pwzBuffer;
             int pcchBuffer = default(int);
@@ -110,7 +110,7 @@ namespace ClrDebug
         public HRESULT TryGetRuntimeDirectory(out string pwzBufferResult)
         {
             /*HRESULT GetRuntimeDirectory(
-            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder pwzBuffer,
+            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1), Out] StringBuilder pwzBuffer,
             [In, Out] ref int pcchBuffer);*/
             StringBuilder pwzBuffer;
             int pcchBuffer = default(int);
@@ -215,7 +215,7 @@ namespace ClrDebug
         {
             /*HRESULT GetDefaultStartupFlags(
             [Out] out STARTUP_FLAGS pdwStartupFlags,
-            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder pwzHostConfigFile,
+            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2), Out] StringBuilder pwzHostConfigFile,
             [In, Out] ref int pcchHostConfigFile);*/
             STARTUP_FLAGS pdwStartupFlags;
             StringBuilder pwzHostConfigFile;
@@ -379,7 +379,7 @@ namespace ClrDebug
         {
             /*HRESULT LoadErrorString(
             [In] HRESULT iResourceID,
-            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder pwzBuffer,
+            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2), Out] StringBuilder pwzBuffer,
             [In, Out] ref int pcchBuffer,
             [In] int iLocaleID);*/
             StringBuilder pwzBuffer;

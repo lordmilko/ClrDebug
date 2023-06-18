@@ -102,7 +102,7 @@ namespace ClrDebug
             /*HRESULT GetDisplayName(
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName;

@@ -26,7 +26,7 @@ namespace ClrDebug
         HRESULT GetURL(
             [In] int cchUrl,
             [Out] out int pcchUrl,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szUrl);
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder szUrl);
 
         /// <summary>
         /// Gets the document type of this document.

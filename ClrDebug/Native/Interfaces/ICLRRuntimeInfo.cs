@@ -33,7 +33,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetVersionString(
-            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder pwzBuffer,
+            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1), Out] StringBuilder pwzBuffer,
             [In, Out] ref int pcchBuffer);
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRuntimeDirectory(
-            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder pwzBuffer,
+            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1), Out] StringBuilder pwzBuffer,
             [In, Out] ref int pcchBuffer);
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT LoadErrorString(
             [In] HRESULT iResourceID,
-            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder pwzBuffer,
+            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2), Out] StringBuilder pwzBuffer,
             [In, Out] ref int pcchBuffer,
             [In] int iLocaleID);
 
@@ -252,7 +252,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetDefaultStartupFlags(
             [Out] out STARTUP_FLAGS pdwStartupFlags,
-            [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder pwzHostConfigFile,
+            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2), Out] StringBuilder pwzHostConfigFile,
             [In, Out] ref int pcchHostConfigFile);
 
         /// <summary>

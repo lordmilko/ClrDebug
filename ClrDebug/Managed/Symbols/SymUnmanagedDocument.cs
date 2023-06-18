@@ -44,7 +44,7 @@ namespace ClrDebug
             /*HRESULT GetURL(
             [In] int cchUrl,
             [Out] out int pcchUrl,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szUrl);*/
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder szUrl);*/
             int cchUrl = 0;
             int pcchUrl;
             StringBuilder szUrl;

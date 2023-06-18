@@ -70,7 +70,7 @@ namespace ClrDebug
         HRESULT GetAppDomainName(
             [In] CLRDATA_ADDRESS addr,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder name,
             [Out] out int pNeeded);
 
         [PreserveSig]
@@ -95,7 +95,7 @@ namespace ClrDebug
         HRESULT GetAssemblyName(
             [In] CLRDATA_ADDRESS assembly,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder name,
             [Out] out int pNeeded);
 
         [PreserveSig]
@@ -194,7 +194,7 @@ namespace ClrDebug
         HRESULT GetMethodDescName(
             [In] CLRDATA_ADDRESS methodDesc,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder name,
             [Out] out int pNeeded);
 
         [PreserveSig]
@@ -228,7 +228,7 @@ namespace ClrDebug
         HRESULT GetJitHelperFunctionName(
             [In] CLRDATA_ADDRESS ip,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder name,
             [Out] out int pNeeded);
 
         [PreserveSig]
@@ -260,21 +260,21 @@ namespace ClrDebug
         HRESULT GetObjectStringData(
             [In] CLRDATA_ADDRESS obj,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder stringData,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder stringData,
             [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetObjectClassName(
             [In] CLRDATA_ADDRESS obj,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder className,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder className,
             [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetMethodTableName(
             [In] CLRDATA_ADDRESS mt,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder mtName,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder mtName,
             [Out] out int pNeeded);
 
         [PreserveSig]
@@ -312,7 +312,7 @@ namespace ClrDebug
         HRESULT GetFrameName(
             [In] CLRDATA_ADDRESS vtable,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder frameName,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder frameName,
             [Out] out int pNeeded);
 
         [PreserveSig]
@@ -324,7 +324,7 @@ namespace ClrDebug
         HRESULT GetPEFileName(
             [In] CLRDATA_ADDRESS addr,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder fileName,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder fileName,
             [Out] out int pNeeded);
 
         [PreserveSig]
@@ -506,7 +506,7 @@ namespace ClrDebug
         HRESULT GetRegisterName(
             [In] int regName,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder buffer,
             [Out] out int pNeeded);
 
         [PreserveSig]
@@ -531,28 +531,28 @@ namespace ClrDebug
         HRESULT GetPrivateBinPaths(
             [In] CLRDATA_ADDRESS appDomain,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder paths,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder paths,
             [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetAssemblyLocation(
             [In] CLRDATA_ADDRESS assembly,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder location,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder location,
             [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetAppDomainConfigFile(
             [In] CLRDATA_ADDRESS appDomain,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder configFile,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder configFile,
             [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetApplicationBase(
             [In] CLRDATA_ADDRESS appDomain,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder _base,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder _base,
             [Out] out int pNeeded);
 
         [PreserveSig]
@@ -565,14 +565,14 @@ namespace ClrDebug
         HRESULT GetFailedAssemblyLocation(
             [In] CLRDATA_ADDRESS assesmbly,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder location,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder location,
             [Out] out int pNeeded);
 
         [PreserveSig]
         HRESULT GetFailedAssemblyDisplayName(
             [In] CLRDATA_ADDRESS assembly,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder name,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder name,
             [Out] out int pNeeded);
     }
 }

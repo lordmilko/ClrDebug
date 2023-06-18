@@ -138,7 +138,7 @@ namespace ClrDebug
             /*HRESULT GetString(
             [In] int cchString,
             [Out] out int pcchString,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szString);*/
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder szString);*/
             int cchString = 0;
             int pcchString;
             StringBuilder szString;

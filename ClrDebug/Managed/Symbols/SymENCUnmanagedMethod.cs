@@ -126,7 +126,7 @@ namespace ClrDebug
             [In] int dwOffset,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);*/
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder szName);*/
             int cchName = 0;
             int pcchName;
             StringBuilder szName;

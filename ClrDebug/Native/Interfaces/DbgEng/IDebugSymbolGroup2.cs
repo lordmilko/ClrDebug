@@ -75,7 +75,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetSymbolName(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 
@@ -218,7 +218,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolNameWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 
@@ -273,7 +273,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolTypeName(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 
@@ -292,7 +292,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolTypeNameWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 
@@ -357,7 +357,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolValueText(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 
@@ -378,7 +378,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolValueTextWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 

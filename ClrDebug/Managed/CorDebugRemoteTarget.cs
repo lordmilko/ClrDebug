@@ -55,7 +55,7 @@ namespace ClrDebug
             /*HRESULT GetHostName(
             [In] int cchHostName,
             [Out] out int pcchHostName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szHostName);*/
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder szHostName);*/
             int cchHostName = 0;
             int pcchHostName;
             StringBuilder szHostName;
