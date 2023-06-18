@@ -203,7 +203,7 @@ namespace ClrDebug
         public HRESULT TryReset(bool fFull)
         {
             /*HRESULT Reset(
-            [In] bool fFull);*/
+            [In, MarshalAs(UnmanagedType.Bool)] bool fFull);*/
             return Raw.Reset(fFull);
         }
 
@@ -367,7 +367,7 @@ namespace ClrDebug
         public HRESULT TryNeedsPriorityScheduling(out bool pbNeedsPriorityScheduling)
         {
             /*HRESULT NeedsPriorityScheduling(
-            [Out] out bool pbNeedsPriorityScheduling);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbNeedsPriorityScheduling);*/
             return Raw.NeedsPriorityScheduling(out pbNeedsPriorityScheduling);
         }
 

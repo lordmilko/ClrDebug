@@ -112,7 +112,7 @@ namespace ClrDebug
         public HRESULT TryIsDebuggerAttached(out bool pbAttached)
         {
             /*HRESULT IsDebuggerAttached(
-            [Out] out bool pbAttached);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbAttached);*/
             return Raw.IsDebuggerAttached(out pbAttached);
         }
 

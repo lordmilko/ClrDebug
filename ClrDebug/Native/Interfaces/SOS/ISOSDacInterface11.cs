@@ -10,8 +10,8 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT IsTrackedType(
             [In] CLRDATA_ADDRESS objAddr,
-            [Out] out bool isTrackedType,
-            [Out] out bool hasTaggedMemory);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool isTrackedType,
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool hasTaggedMemory);
 
         [PreserveSig]
         HRESULT GetTaggedMemory(

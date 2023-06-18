@@ -23,7 +23,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsManaged(
-            [Out] out bool pbManaged);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbManaged);
 
         /// <summary>
         /// Gets an enumerator for the application domains in the process that is referenced by this <see cref="ICorPublishProcess"/>.

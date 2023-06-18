@@ -122,7 +122,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsValueClass(
-            [Out] out bool pbIsValueClass);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbIsValueClass);
 
         /// <summary>
         /// GetManagedCopy is obsolete. Do not call this method.

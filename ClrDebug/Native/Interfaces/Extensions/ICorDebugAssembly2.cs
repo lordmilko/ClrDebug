@@ -22,6 +22,6 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsFullyTrusted(
-            [Out] out bool pbFullyTrusted);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbFullyTrusted);
     }
 }

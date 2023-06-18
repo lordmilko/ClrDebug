@@ -2446,7 +2446,7 @@ namespace ClrDebug
         {
             /*HRESULT IsRCWDCOMProxy(
             [In] CLRDATA_ADDRESS rcwAddr,
-            [Out] out bool isDCOMProxy);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool isDCOMProxy);*/
             return Raw2.IsRCWDCOMProxy(rcwAddr, out isDCOMProxy);
         }
 
@@ -2989,7 +2989,7 @@ namespace ClrDebug
         {
             /*HRESULT IsComWrappersCCW(
             [In] CLRDATA_ADDRESS ccw,
-            [Out] out bool isComWrappersCCW);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool isComWrappersCCW);*/
             return Raw10.IsComWrappersCCW(ccw, out isComWrappersCCW);
         }
 
@@ -3037,7 +3037,7 @@ namespace ClrDebug
         {
             /*HRESULT IsComWrappersRCW(
             [In] CLRDATA_ADDRESS rcw,
-            [Out] out bool isComWrappersRCW);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool isComWrappersRCW);*/
             return Raw10.IsComWrappersRCW(rcw, out isComWrappersRCW);
         }
 
@@ -3081,8 +3081,8 @@ namespace ClrDebug
         {
             /*HRESULT IsTrackedType(
             [In] CLRDATA_ADDRESS objAddr,
-            [Out] out bool isTrackedType,
-            [Out] out bool hasTaggedMemory);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool isTrackedType,
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool hasTaggedMemory);*/
             bool isTrackedType;
             bool hasTaggedMemory;
             HRESULT hr = Raw11.IsTrackedType(objAddr, out isTrackedType, out hasTaggedMemory);

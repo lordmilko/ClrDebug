@@ -233,7 +233,7 @@ namespace ClrDebug
         public HRESULT TrySetJMCStatus(bool bIsJustMyCode)
         {
             /*HRESULT SetJMCStatus(
-            [In] bool bIsJustMyCode);*/
+            [In, MarshalAs(UnmanagedType.Bool)] bool bIsJustMyCode);*/
             return Raw2.SetJMCStatus(bIsJustMyCode);
         }
 

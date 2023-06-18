@@ -475,7 +475,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT SetILInstrumentedCodeMap(
             [In] FunctionID functionId,
-            [In] bool fStartJit,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fStartJit,
             [In] int cILMapEntries,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] COR_IL_MAP[] rgILMapEntries);
 
@@ -534,7 +534,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT BeginInprocDebugging(
-            [In] bool fThisThreadOnly,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fThisThreadOnly,
             [Out] out int pdwProfilerContext);
 
         /// <summary>
@@ -1632,7 +1632,7 @@ namespace ClrDebug
             [In] ModuleID inlinersModuleId,
             [In] ModuleID inlineeModuleId,
             [In] mdMethodDef inlineeMethodId,
-            [Out] out bool incompleteData,
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool incompleteData,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorProfilerMethodEnum ppEnum);
 
         /// <summary>
@@ -1688,7 +1688,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT IsFunctionDynamic(
             [In] FunctionID functionId,
-            [Out] out bool isDynamic);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool isDynamic);
 
         /// <summary>
         /// Maps a managed code instruction pointer to a FunctionID. This method works for both dynamic and non-dynamic methods.
@@ -1825,7 +1825,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT IsFrozenObject(
             [In] ObjectID objectId,
-            [Out] out bool pbFrozen);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbFrozen);
 
         /// <summary>
         /// Gets the value of the configured large object heap (LOH) threshold.
@@ -1916,7 +1916,7 @@ namespace ClrDebug
         HRESULT EventPipeStartSession(
             [In] int cProviderConfigs,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] COR_PRF_EVENTPIPE_PROVIDER_CONFIG[] pProviderConfigs,
-            [In] bool requestRundown,
+            [In, MarshalAs(UnmanagedType.Bool)] bool requestRundown,
             [Out] out EVENTPIPE_SESSION pSession);
 
         /// <summary>
@@ -1989,7 +1989,7 @@ namespace ClrDebug
             [In] int eventVersion,
             [In] int level,
             [In] byte opcode,
-            [In] bool needStack,
+            [In, MarshalAs(UnmanagedType.Bool)] bool needStack,
             [In] int cParamDescs,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 8)] COR_PRF_EVENTPIPE_PARAM_DESC[] pParamDescs,
             [Out] out EVENTPIPE_EVENT pEvent);

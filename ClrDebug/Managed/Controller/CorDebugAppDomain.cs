@@ -84,7 +84,7 @@ namespace ClrDebug
         public HRESULT TryIsAttached(out bool pbAttached)
         {
             /*HRESULT IsAttached(
-            [Out] out bool pbAttached);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbAttached);*/
             return Raw.IsAttached(out pbAttached);
         }
 

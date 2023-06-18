@@ -314,7 +314,7 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.IUnknown), In] object emitter,
             [In, MarshalAs(UnmanagedType.LPWStr)] string filename,
             [MarshalAs(UnmanagedType.Interface), In] IStream pIStream,
-            [In] bool fFullBuild);
+            [In, MarshalAs(UnmanagedType.Bool)] bool fFullBuild);
 
         /// <summary>
         /// Returns the information necessary for a compiler to write the debug directory entry in the portable executable (PE) file header.<para/>
@@ -387,7 +387,7 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.IUnknown), In] object emitter,
             [In, MarshalAs(UnmanagedType.LPWStr)] string tempfilename,
             [MarshalAs(UnmanagedType.Interface), In] IStream pIStream,
-            [In] bool fFullBuild,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fFullBuild,
             [In, MarshalAs(UnmanagedType.LPWStr)] string finalfilename);
 
         /// <summary>

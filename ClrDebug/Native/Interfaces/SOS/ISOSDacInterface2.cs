@@ -15,6 +15,6 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT IsRCWDCOMProxy(
             [In] CLRDATA_ADDRESS rcwAddr,
-            [Out] out bool isDCOMProxy);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool isDCOMProxy);
     }
 }

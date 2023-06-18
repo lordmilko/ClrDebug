@@ -263,7 +263,7 @@ namespace ClrDebug
         {
             /*HRESULT IsTransitionStub(
             [In] CORDB_ADDRESS address,
-            [Out] out bool pbTransitionStub);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbTransitionStub);*/
             return Raw.IsTransitionStub(address, out pbTransitionStub);
         }
 
@@ -306,7 +306,7 @@ namespace ClrDebug
         {
             /*HRESULT IsOSSuspended(
             [In] int threadID,
-            [Out] out bool pbSuspended);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbSuspended);*/
             return Raw.IsOSSuspended(threadID, out pbSuspended);
         }
 
@@ -554,7 +554,7 @@ namespace ClrDebug
         public HRESULT TryEnableLogMessages(bool fOnOff)
         {
             /*HRESULT EnableLogMessages(
-            [In] bool fOnOff);*/
+            [In, MarshalAs(UnmanagedType.Bool)] bool fOnOff);*/
             return Raw.EnableLogMessages(fOnOff);
         }
 
@@ -984,7 +984,7 @@ namespace ClrDebug
         {
             /*HRESULT SetEnableCustomNotification(
             [In, MarshalAs(UnmanagedType.Interface)] ICorDebugClass pClass,
-            [In] bool fEnable);*/
+            [In, MarshalAs(UnmanagedType.Bool)] bool fEnable);*/
             return Raw3.SetEnableCustomNotification(pClass, fEnable);
         }
 
@@ -1759,7 +1759,7 @@ namespace ClrDebug
         public HRESULT TryMarkDebuggerAttached(bool fIsAttached)
         {
             /*HRESULT MarkDebuggerAttached(
-            [In] bool fIsAttached);*/
+            [In, MarshalAs(UnmanagedType.Bool)] bool fIsAttached);*/
             return Raw6.MarkDebuggerAttached(fIsAttached);
         }
 
@@ -1898,7 +1898,7 @@ namespace ClrDebug
         public HRESULT TryEnableGCNotificationEvents(bool fEnable)
         {
             /*HRESULT EnableGCNotificationEvents(
-            [In] bool fEnable);*/
+            [In, MarshalAs(UnmanagedType.Bool)] bool fEnable);*/
             return Raw10.EnableGCNotificationEvents(fEnable);
         }
 

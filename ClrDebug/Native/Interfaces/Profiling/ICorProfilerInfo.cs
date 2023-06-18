@@ -509,7 +509,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetILInstrumentedCodeMap(
             [In] FunctionID functionId,
-            [In] bool fStartJit,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fStartJit,
             [In] int cILMapEntries,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] COR_IL_MAP[] rgILMapEntries);
 
@@ -568,7 +568,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT BeginInprocDebugging(
-            [In] bool fThisThreadOnly,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fThisThreadOnly,
             [Out] out int pdwProfilerContext);
 
         /// <summary>

@@ -56,7 +56,7 @@ namespace ClrDebug
         public HRESULT TryIsRunning(out bool pbRunning)
         {
             /*HRESULT IsRunning(
-            [Out] out bool pbRunning);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbRunning);*/
             return Raw.IsRunning(out pbRunning);
         }
 
@@ -140,7 +140,7 @@ namespace ClrDebug
         public HRESULT TryContinue(bool fIsOutOfBand)
         {
             /*HRESULT Continue(
-            [In] bool fIsOutOfBand);*/
+            [In, MarshalAs(UnmanagedType.Bool)] bool fIsOutOfBand);*/
             return Raw.Continue(fIsOutOfBand);
         }
 
@@ -187,7 +187,7 @@ namespace ClrDebug
         {
             /*HRESULT HasQueuedCallbacks(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
-            [Out] out bool pbQueued);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbQueued);*/
             return Raw.HasQueuedCallbacks(pThread, out pbQueued);
         }
 

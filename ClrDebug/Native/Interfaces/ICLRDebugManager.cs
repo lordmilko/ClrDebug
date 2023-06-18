@@ -146,7 +146,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsDebuggerAttached(
-            [Out] out bool pbAttached);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbAttached);
 
         /// <summary>
         /// Sets the policy for reading program database (PDB) files. The policy determines whether information about line numbers and files is included in call stacks.

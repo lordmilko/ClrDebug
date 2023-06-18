@@ -136,7 +136,7 @@ namespace ClrDebug.CoClass
             [In, MarshalAs(UnmanagedType.LPWStr)] string filename,
             [MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream,
-            [In] bool fFullBuild);
+            [In, MarshalAs(UnmanagedType.Bool)] bool fFullBuild);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -169,7 +169,7 @@ namespace ClrDebug.CoClass
             [In, MarshalAs(UnmanagedType.LPWStr)] string tempfilename,
             [MarshalAs(UnmanagedType.Interface), In]
             IStream pIStream,
-            [In] bool fFullBuild,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fFullBuild,
             [In, MarshalAs(UnmanagedType.LPWStr)] string finalfilename);
 
         [PreserveSig]

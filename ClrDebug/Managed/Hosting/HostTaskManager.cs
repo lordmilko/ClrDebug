@@ -355,7 +355,7 @@ namespace ClrDebug
         {
             /*HRESULT CallNeedsHostHook(
             [In] int target,
-            [Out] out bool pbCallNeedsHostHook);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbCallNeedsHostHook);*/
             return Raw.CallNeedsHostHook(target, out pbCallNeedsHostHook);
         }
 

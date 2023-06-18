@@ -41,7 +41,7 @@
         public HRESULT TryGetCachedInterfaceTypes(bool bIInspectableOnly, out CorDebugTypeEnum ppInterfacesEnumResult)
         {
             /*HRESULT GetCachedInterfaceTypes(
-            [In] bool bIInspectableOnly,
+            [In, MarshalAs(UnmanagedType.Bool)] bool bIInspectableOnly,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppInterfacesEnum);*/
             ICorDebugTypeEnum ppInterfacesEnum;
             HRESULT hr = Raw.GetCachedInterfaceTypes(bIInspectableOnly, out ppInterfacesEnum);
@@ -78,7 +78,7 @@
         public HRESULT TryGetCachedInterfacePointers(bool bIInspectableOnly, out CORDB_ADDRESS[] ptrs)
         {
             /*HRESULT GetCachedInterfacePointers(
-            [In] bool bIInspectableOnly,
+            [In, MarshalAs(UnmanagedType.Bool)] bool bIInspectableOnly,
             [In] int celt,
             [Out] out int pceltFetched,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CORDB_ADDRESS[] ptrs);*/

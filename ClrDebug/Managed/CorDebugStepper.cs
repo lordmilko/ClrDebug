@@ -52,7 +52,7 @@ namespace ClrDebug
         public HRESULT TryIsActive(out bool pbActive)
         {
             /*HRESULT IsActive(
-            [Out] out bool pbActive);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbActive);*/
             return Raw.IsActive(out pbActive);
         }
 
@@ -189,7 +189,7 @@ namespace ClrDebug
         public HRESULT TryStep(bool bStepIn)
         {
             /*HRESULT Step(
-            [In] bool bStepIn);*/
+            [In, MarshalAs(UnmanagedType.Bool)] bool bStepIn);*/
             return Raw.Step(bStepIn);
         }
 
@@ -230,7 +230,7 @@ namespace ClrDebug
         public HRESULT TryStepRange(bool bStepIn, COR_DEBUG_STEP_RANGE[] ranges, int cRangeCount)
         {
             /*HRESULT StepRange(
-            [In] bool bStepIn,
+            [In, MarshalAs(UnmanagedType.Bool)] bool bStepIn,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] COR_DEBUG_STEP_RANGE[] ranges,
             [In] int cRangeCount);*/
             return Raw.StepRange(bStepIn, ranges, cRangeCount);
@@ -291,7 +291,7 @@ namespace ClrDebug
         public HRESULT TrySetRangeIL(bool bIL)
         {
             /*HRESULT SetRangeIL(
-            [In] bool bIL);*/
+            [In, MarshalAs(UnmanagedType.Bool)] bool bIL);*/
             return Raw.SetRangeIL(bIL);
         }
 
@@ -322,7 +322,7 @@ namespace ClrDebug
         public HRESULT TrySetJMC(bool fIsJMCStepper)
         {
             /*HRESULT SetJMC(
-            [In] bool fIsJMCStepper);*/
+            [In, MarshalAs(UnmanagedType.Bool)] bool fIsJMCStepper);*/
             return Raw2.SetJMC(fIsJMCStepper);
         }
 

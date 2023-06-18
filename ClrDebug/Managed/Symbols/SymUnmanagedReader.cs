@@ -706,7 +706,7 @@ namespace ClrDebug
             /*HRESULT GetDocumentVersion(
             [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument pDoc,
             [Out] out int version,
-            [Out] out bool pbCurrent);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbCurrent);*/
             int version;
             bool pbCurrent;
             HRESULT hr = Raw.GetDocumentVersion(pDoc, out version, out pbCurrent);

@@ -47,7 +47,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Continue(
-            [In] bool fIsOutOfBand);
+            [In, MarshalAs(UnmanagedType.Bool)] bool fIsOutOfBand);
 
         /// <summary>
         /// Gets a value that indicates whether the threads in the process are currently running freely.
@@ -56,7 +56,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT IsRunning(
-            [Out] out bool pbRunning);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbRunning);
 
         /// <summary>
         /// Gets a value that indicates whether any managed callbacks are currently queued for the specified thread.
@@ -76,7 +76,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT HasQueuedCallbacks(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
-            [Out] out bool pbQueued);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbQueued);
 
         /// <summary>
         /// Gets an enumerator for the active managed threads in the process.
@@ -213,7 +213,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsTransitionStub(
             [In] CORDB_ADDRESS address,
-            [Out] out bool pbTransitionStub);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbTransitionStub);
 
         /// <summary>
         /// Gets a value that indicates whether the specified thread has been suspended as a result of the debugger stopping this process.
@@ -231,7 +231,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsOSSuspended(
             [In] int threadID,
-            [Out] out bool pbSuspended);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbSuspended);
 
         /// <summary>
         /// Gets the context for the given thread in this process.
@@ -342,7 +342,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnableLogMessages(
-            [In] bool fOnOff);
+            [In, MarshalAs(UnmanagedType.Bool)] bool fOnOff);
 
         /// <summary>
         /// Sets the severity level of the specified log switch.

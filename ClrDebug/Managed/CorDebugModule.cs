@@ -382,8 +382,8 @@ namespace ClrDebug
         public HRESULT TryEnableJITDebugging(bool bTrackJITInfo, bool bAllowJitOpts)
         {
             /*HRESULT EnableJITDebugging(
-            [In] bool bTrackJITInfo,
-            [In] bool bAllowJitOpts);*/
+            [In, MarshalAs(UnmanagedType.Bool)] bool bTrackJITInfo,
+            [In, MarshalAs(UnmanagedType.Bool)] bool bAllowJitOpts);*/
             return Raw.EnableJITDebugging(bTrackJITInfo, bAllowJitOpts);
         }
 
@@ -416,7 +416,7 @@ namespace ClrDebug
         public HRESULT TryEnableClassLoadCallbacks(bool bClassLoadCallbacks)
         {
             /*HRESULT EnableClassLoadCallbacks(
-            [In] bool bClassLoadCallbacks);*/
+            [In, MarshalAs(UnmanagedType.Bool)] bool bClassLoadCallbacks);*/
             return Raw.EnableClassLoadCallbacks(bClassLoadCallbacks);
         }
 
@@ -739,7 +739,7 @@ namespace ClrDebug
         public HRESULT TrySetJMCStatus(bool bIsJustMyCode, int cTokens, mdToken[] pTokens)
         {
             /*HRESULT SetJMCStatus(
-            [In] bool bIsJustMyCode,
+            [In, MarshalAs(UnmanagedType.Bool)] bool bIsJustMyCode,
             [In] int cTokens,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] mdToken[] pTokens);*/
             return Raw2.SetJMCStatus(bIsJustMyCode, cTokens, pTokens);
@@ -949,7 +949,7 @@ namespace ClrDebug
         public HRESULT TryIsMappedLayout(out bool pIsMapped)
         {
             /*HRESULT IsMappedLayout(
-            [Out] out bool pIsMapped);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pIsMapped);*/
             return Raw4.IsMappedLayout(out pIsMapped);
         }
 

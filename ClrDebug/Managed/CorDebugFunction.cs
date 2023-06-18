@@ -334,7 +334,7 @@ namespace ClrDebug
         public HRESULT TryGetJMCStatus(out bool pbIsJustMyCode)
         {
             /*HRESULT GetJMCStatus(
-            [Out] out bool pbIsJustMyCode);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbIsJustMyCode);*/
             return Raw2.GetJMCStatus(out pbIsJustMyCode);
         }
 
@@ -354,7 +354,7 @@ namespace ClrDebug
         public HRESULT TrySetJMCStatus(bool bIsJustMyCode)
         {
             /*HRESULT SetJMCStatus(
-            [In] bool bIsJustMyCode);*/
+            [In, MarshalAs(UnmanagedType.Bool)] bool bIsJustMyCode);*/
             return Raw2.SetJMCStatus(bIsJustMyCode);
         }
 

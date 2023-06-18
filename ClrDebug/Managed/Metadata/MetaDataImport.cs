@@ -3098,7 +3098,7 @@ namespace ClrDebug
         {
             /*HRESULT IsGlobal(
             [In] mdToken pd,
-            [Out] out bool pbGlobal);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbGlobal);*/
             return Raw.IsGlobal(pd, out pbGlobal);
         }
 

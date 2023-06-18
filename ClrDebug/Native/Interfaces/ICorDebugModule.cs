@@ -73,8 +73,8 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnableJITDebugging(
-            [In] bool bTrackJITInfo,
-            [In] bool bAllowJitOpts);
+            [In, MarshalAs(UnmanagedType.Bool)] bool bTrackJITInfo,
+            [In, MarshalAs(UnmanagedType.Bool)] bool bAllowJitOpts);
 
         /// <summary>
         /// Controls whether the <see cref="ICorDebugManagedCallback.LoadClass"/> and <see cref="ICorDebugManagedCallback.UnloadClass"/> callbacks are called for this module.
@@ -88,7 +88,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnableClassLoadCallbacks(
-            [In] bool bClassLoadCallbacks);
+            [In, MarshalAs(UnmanagedType.Bool)] bool bClassLoadCallbacks);
 
         /// <summary>
         /// Gets the function that is specified by the metadata token.

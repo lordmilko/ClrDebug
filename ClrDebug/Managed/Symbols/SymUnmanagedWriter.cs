@@ -659,7 +659,7 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.IUnknown), In] object emitter,
             [In, MarshalAs(UnmanagedType.LPWStr)] string filename,
             [MarshalAs(UnmanagedType.Interface), In] IStream pIStream,
-            [In] bool fFullBuild);*/
+            [In, MarshalAs(UnmanagedType.Bool)] bool fFullBuild);*/
             return Raw.Initialize(emitter, filename, pIStream, fFullBuild);
         }
 
@@ -819,7 +819,7 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.IUnknown), In] object emitter,
             [In, MarshalAs(UnmanagedType.LPWStr)] string tempfilename,
             [MarshalAs(UnmanagedType.Interface), In] IStream pIStream,
-            [In] bool fFullBuild,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fFullBuild,
             [In, MarshalAs(UnmanagedType.LPWStr)] string finalfilename);*/
             return Raw.Initialize2(emitter, tempfilename, pIStream, fFullBuild, finalfilename);
         }

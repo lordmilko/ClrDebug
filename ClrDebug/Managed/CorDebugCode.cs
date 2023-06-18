@@ -46,7 +46,7 @@ namespace ClrDebug
         public HRESULT TryIsIL(out bool pbIL)
         {
             /*HRESULT IsIL(
-            [Out] out bool pbIL);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbIL);*/
             return Raw.IsIL(out pbIL);
         }
 

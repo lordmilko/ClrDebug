@@ -883,8 +883,8 @@ namespace ClrDebug
         {
             /*HRESULT StrongNameSignatureVerificationEx(
             [MarshalAs(UnmanagedType.LPWStr), In] string wszFilePath,
-            [In] bool fForceVerification,
-            [Out] bool pfWasVerified);*/
+            [In, MarshalAs(UnmanagedType.Bool)] bool fForceVerification,
+            [Out, MarshalAs(UnmanagedType.Bool)] bool pfWasVerified);*/
             return Raw.StrongNameSignatureVerificationEx(wszFilePath, fForceVerification, pfWasVerified);
         }
 

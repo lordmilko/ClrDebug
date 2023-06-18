@@ -1234,6 +1234,7 @@ namespace ClrDebug
         /// </summary>
         /// <param name="tk">[in] The token to check the reference validity for.</param>
         /// <returns>true if tk is a valid metadata token within the current scope. Otherwise, false.</returns>
+        [return: MarshalAs(UnmanagedType.Bool)]
         bool IsValidToken(
             [In] mdToken tk);
 
@@ -1267,6 +1268,6 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT IsGlobal(
             [In] mdToken pd,
-            [Out] out bool pbGlobal);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbGlobal);
     }
 }

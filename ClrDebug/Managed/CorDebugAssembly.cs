@@ -271,7 +271,7 @@ namespace ClrDebug
         public HRESULT TryIsFullyTrusted(out bool pbFullyTrusted)
         {
             /*HRESULT IsFullyTrusted(
-            [Out] out bool pbFullyTrusted);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbFullyTrusted);*/
             return Raw2.IsFullyTrusted(out pbFullyTrusted);
         }
 

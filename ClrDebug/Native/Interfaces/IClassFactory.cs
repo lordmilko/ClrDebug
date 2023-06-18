@@ -16,6 +16,6 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT LockServer(
-            [In] bool fLock);
+            [In, MarshalAs(UnmanagedType.Bool)] bool fLock);
     }
 }

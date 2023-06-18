@@ -338,7 +338,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT JITCompilationStarted(
             [In] FunctionID functionId,
-            [In] bool fIsSafeToBlock);
+            [In, MarshalAs(UnmanagedType.Bool)] bool fIsSafeToBlock);
 
         /// <summary>
         /// Notifies the profiler that the just-in-time (JIT) compiler has finished compiling a function.
@@ -352,7 +352,7 @@ namespace ClrDebug
         new HRESULT JITCompilationFinished(
             [In] FunctionID functionId,
             [In] HRESULT hrStatus,
-            [In] bool fIsSafeToBlock);
+            [In, MarshalAs(UnmanagedType.Bool)] bool fIsSafeToBlock);
 
         /// <summary>
         /// Notifies the profiler that a search has started for a function that was compiled previously using the Native Image Generator (NGen.exe).
@@ -381,7 +381,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT JITCachedFunctionSearchStarted(
             [In] FunctionID functionId,
-            [Out] out bool pbUseCachedFunction);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbUseCachedFunction);
 
         /// <summary>
         /// Notifies the profiler that a search has finished for a function that was compiled previously using the Native Image Generator (NGen.exe).
@@ -435,7 +435,7 @@ namespace ClrDebug
         new HRESULT JITInlining(
             [In] FunctionID callerId,
             [In] FunctionID calleeId,
-            [Out] out bool pfShouldInline);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pfShouldInline);
 
         /// <summary>
         /// Notifies the profiler that a thread has been created.
@@ -496,7 +496,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RemotingClientSendingMessage(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid pCookie,
-            [In] bool fIsAsync);
+            [In, MarshalAs(UnmanagedType.Bool)] bool fIsAsync);
 
         /// <summary>
         /// Notifies the profiler that the server-side portion of a remoting call has completed and the client is now receiving and about to process the reply.
@@ -507,7 +507,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RemotingClientReceivingReply(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid pCookie,
-            [In] bool fIsAsync);
+            [In, MarshalAs(UnmanagedType.Bool)] bool fIsAsync);
 
         /// <summary>
         /// Notifies the profiler that a remoting call has run to completion on the client.
@@ -535,7 +535,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RemotingServerReceivingMessage(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid pCookie,
-            [In] bool fIsAsync);
+            [In, MarshalAs(UnmanagedType.Bool)] bool fIsAsync);
 
         /// <summary>
         /// Notifies the profiler that the process is invoking a method in response to a remote method invocation request.
@@ -560,7 +560,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RemotingServerSendingReply(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid pCookie,
-            [In] bool fIsAsync);
+            [In, MarshalAs(UnmanagedType.Bool)] bool fIsAsync);
 
         /// <summary>
         /// Notifies the profiler that a transition from unmanaged code to managed code has occurred.
@@ -1221,7 +1221,7 @@ namespace ClrDebug
         new HRESULT ReJITCompilationStarted(
             [In] FunctionID functionId,
             [In] ReJITID reJitId,
-            [In] bool fIsSafeToBlock);
+            [In, MarshalAs(UnmanagedType.Bool)] bool fIsSafeToBlock);
 
         /// <summary>
         /// Allows the code profiler to set alternate code generation flags for a new recompiled method body.
@@ -1255,7 +1255,7 @@ namespace ClrDebug
             [In] FunctionID functionId,
             [In] ReJITID reJitId,
             [In] HRESULT hrStatus,
-            [In] bool fIsSafeToBlock);
+            [In, MarshalAs(UnmanagedType.Bool)] bool fIsSafeToBlock);
 
         /// <summary>
         /// Notifies the profiler that the just-in-time (JIT) compiler encountered an error in the recompilation process.

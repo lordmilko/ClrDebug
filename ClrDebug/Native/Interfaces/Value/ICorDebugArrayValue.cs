@@ -76,7 +76,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT IsValid(
-            [Out] out bool pbValid);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbValid);
 
         /// <summary>
         /// This method is not implemented in the current version of the .NET Framework.
@@ -131,7 +131,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT HasBaseIndicies(
-            [Out] out bool pbHasBaseIndicies);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbHasBaseIndicies);
 
         /// <summary>
         /// Gets the base index of each dimension in the array.

@@ -1252,7 +1252,7 @@ namespace ClrDebug
         {
             /*HRESULT SetILInstrumentedCodeMap(
             [In] FunctionID functionId,
-            [In] bool fStartJit,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fStartJit,
             [In] int cILMapEntries,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] COR_IL_MAP[] rgILMapEntries);*/
             return Raw.SetILInstrumentedCodeMap(functionId, fStartJit, cILMapEntries, rgILMapEntries);
@@ -1323,7 +1323,7 @@ namespace ClrDebug
         public HRESULT TryBeginInprocDebugging(bool fThisThreadOnly, out int pdwProfilerContext)
         {
             /*HRESULT BeginInprocDebugging(
-            [In] bool fThisThreadOnly,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fThisThreadOnly,
             [Out] out int pdwProfilerContext);*/
             return Raw.BeginInprocDebugging(fThisThreadOnly, out pdwProfilerContext);
         }
@@ -3967,7 +3967,7 @@ namespace ClrDebug
             [In] ModuleID inlinersModuleId,
             [In] ModuleID inlineeModuleId,
             [In] mdMethodDef inlineeMethodId,
-            [Out] out bool incompleteData,
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool incompleteData,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorProfilerMethodEnum ppEnum);*/
             bool incompleteData;
             ICorProfilerMethodEnum ppEnum;
@@ -4121,7 +4121,7 @@ namespace ClrDebug
         {
             /*HRESULT IsFunctionDynamic(
             [In] FunctionID functionId,
-            [Out] out bool isDynamic);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool isDynamic);*/
             return Raw8.IsFunctionDynamic(functionId, out isDynamic);
         }
 
@@ -4516,7 +4516,7 @@ namespace ClrDebug
         {
             /*HRESULT IsFrozenObject(
             [In] ObjectID objectId,
-            [Out] out bool pbFrozen);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbFrozen);*/
             return Raw10.IsFrozenObject(objectId, out pbFrozen);
         }
 
@@ -4729,7 +4729,7 @@ namespace ClrDebug
             /*HRESULT EventPipeStartSession(
             [In] int cProviderConfigs,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] COR_PRF_EVENTPIPE_PROVIDER_CONFIG[] pProviderConfigs,
-            [In] bool requestRundown,
+            [In, MarshalAs(UnmanagedType.Bool)] bool requestRundown,
             [Out] out EVENTPIPE_SESSION pSession);*/
             return Raw12.EventPipeStartSession(cProviderConfigs, pProviderConfigs, requestRundown, out pSession);
         }
@@ -4914,7 +4914,7 @@ namespace ClrDebug
             [In] int eventVersion,
             [In] int level,
             [In] byte opcode,
-            [In] bool needStack,
+            [In, MarshalAs(UnmanagedType.Bool)] bool needStack,
             [In] int cParamDescs,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 8)] COR_PRF_EVENTPIPE_PARAM_DESC[] pParamDescs,
             [Out] out EVENTPIPE_EVENT pEvent);*/

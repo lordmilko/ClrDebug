@@ -120,6 +120,6 @@ namespace ClrDebug
 
         [PreserveSig]
         HRESULT HasClassOrMethodInstantiation(
-            [Out] out bool bGeneric);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool bGeneric);
     }
 }

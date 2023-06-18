@@ -135,7 +135,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT UnloadAppDomain(
             [In] int dwAppDomainID,
-            [In] bool fWaitUntilDone);
+            [In, MarshalAs(UnmanagedType.Bool)] bool fWaitUntilDone);
 
         /// <summary>
         /// Specifies the <see cref="AppDomain"/> in which to execute the specified managed code.

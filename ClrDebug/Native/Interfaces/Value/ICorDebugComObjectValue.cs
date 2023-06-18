@@ -23,7 +23,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCachedInterfaceTypes(
-            [In] bool bIInspectableOnly,
+            [In, MarshalAs(UnmanagedType.Bool)] bool bIInspectableOnly,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppInterfacesEnum);
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCachedInterfacePointers(
-            [In] bool bIInspectableOnly,
+            [In, MarshalAs(UnmanagedType.Bool)] bool bIInspectableOnly,
             [In] int celt,
             [Out] out int pceltFetched,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] CORDB_ADDRESS[] ptrs);

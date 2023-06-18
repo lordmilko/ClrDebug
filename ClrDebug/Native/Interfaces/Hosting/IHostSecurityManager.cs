@@ -90,7 +90,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT OpenThreadToken(
             [In] int dwDesiredAccess,
-            [In] bool bOpenAsSelf,
+            [In, MarshalAs(UnmanagedType.Bool)] bool bOpenAsSelf,
             [Out] out IntPtr phThreadToken);
 
         /// <summary>

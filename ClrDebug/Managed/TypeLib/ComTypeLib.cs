@@ -270,7 +270,7 @@ namespace ClrDebug.TypeLib
             /*HRESULT IsName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szNameBuf,
             [In] int lHashVal,
-            [Out] out bool pfName);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pfName);*/
             return Raw.IsName(szNameBuf, lHashVal, out pfName);
         }
 

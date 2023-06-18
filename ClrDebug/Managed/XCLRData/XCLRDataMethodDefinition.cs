@@ -435,7 +435,7 @@ namespace ClrDebug
         public HRESULT TryHasClassOrMethodInstantiation(out bool bGeneric)
         {
             /*HRESULT HasClassOrMethodInstantiation(
-            [Out] out bool bGeneric);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool bGeneric);*/
             return Raw.HasClassOrMethodInstantiation(out bGeneric);
         }
 

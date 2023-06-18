@@ -157,7 +157,7 @@
         public HRESULT TryHasBaseIndicies(out bool pbHasBaseIndicies)
         {
             /*HRESULT HasBaseIndicies(
-            [Out] out bool pbHasBaseIndicies);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbHasBaseIndicies);*/
             return Raw.HasBaseIndicies(out pbHasBaseIndicies);
         }
 

@@ -90,7 +90,7 @@ namespace ClrDebug.TypeLib
         HRESULT IsName(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szNameBuf,
             [In] int lHashVal,
-            [Out] out bool pfName);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pfName);
 
         /// <summary>
         /// Finds occurrences of a type description in a type library.

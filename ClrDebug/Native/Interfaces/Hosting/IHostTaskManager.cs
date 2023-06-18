@@ -169,7 +169,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT CallNeedsHostHook(
             [In] int target,
-            [Out] out bool pbCallNeedsHostHook);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbCallNeedsHostHook);
 
         /// <summary>
         /// Notifies the host that the currently executing task is about to leave the common language runtime (CLR) and enter unmanaged code.

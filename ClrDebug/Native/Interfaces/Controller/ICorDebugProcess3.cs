@@ -32,6 +32,6 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetEnableCustomNotification(
             [In, MarshalAs(UnmanagedType.Interface)] ICorDebugClass pClass,
-            [In] bool fEnable);
+            [In, MarshalAs(UnmanagedType.Bool)] bool fEnable);
     }
 }

@@ -63,7 +63,7 @@ namespace ClrDebug
         public HRESULT TryIsValid(out bool pbValid)
         {
             /*HRESULT IsValid(
-            [Out] out bool pbValid);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbValid);*/
             return Raw.IsValid(out pbValid);
         }
 

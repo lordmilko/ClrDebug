@@ -58,7 +58,7 @@ namespace ClrDebug
         public HRESULT TryIsActive(out bool pbActive)
         {
             /*HRESULT IsActive(
-            [Out] out bool pbActive);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbActive);*/
             return Raw.IsActive(out pbActive);
         }
 
@@ -81,7 +81,7 @@ namespace ClrDebug
         public HRESULT TryActivate(bool bActive)
         {
             /*HRESULT Activate(
-            [In] bool bActive);*/
+            [In, MarshalAs(UnmanagedType.Bool)] bool bActive);*/
             return Raw.Activate(bActive);
         }
 

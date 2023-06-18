@@ -91,7 +91,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT MarkDebuggerAttached(
-            [In] bool fIsAttached);
+            [In, MarshalAs(UnmanagedType.Bool)] bool fIsAttached);
 
         /// <summary>
         /// Provides information on runtime exported functions to help step through managed code.

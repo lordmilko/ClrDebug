@@ -385,7 +385,7 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pFunction,
-            [In] bool fAccurate);
+            [In, MarshalAs(UnmanagedType.Bool)] bool fAccurate);
 
         /// <summary>
         /// Notifies the debugger that the common language runtime was unable to accurately bind a breakpoint that was set before a function was just-in-time (JIT) compiled.

@@ -112,7 +112,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsActive(
-            [Out] out bool pbActive);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbActive);
 
         /// <summary>
         /// Aborts the computation this <see cref="ICorDebugEval"/> object is currently performing.

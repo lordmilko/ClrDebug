@@ -107,7 +107,7 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string lpCommandLine,
             [In] ref SECURITY_ATTRIBUTES lpProcessAttributes,
             [In] ref SECURITY_ATTRIBUTES lpThreadAttributes,
-            [In] bool bInheritHandles,
+            [In, MarshalAs(UnmanagedType.Bool)] bool bInheritHandles,
             [In] CreateProcessFlags dwCreationFlags,
             [In] IntPtr lpEnvironment,
             [MarshalAs(UnmanagedType.LPWStr), In] string lpCurrentDirectory,
@@ -129,7 +129,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT DebugActiveProcess(
             [In] int id,
-            [In] bool win32Attach,
+            [In, MarshalAs(UnmanagedType.Bool)] bool win32Attach,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
         /// <summary>

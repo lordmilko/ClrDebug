@@ -23,7 +23,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsIL(
-            [Out] out bool pbIL);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbIL);
 
         /// <summary>
         /// Gets the "ICorDebugFunction" associated with this "ICorDebugCode".

@@ -44,7 +44,7 @@ namespace ClrDebug
         public HRESULT TryIsManaged(out bool pbManaged)
         {
             /*HRESULT IsManaged(
-            [Out] out bool pbManaged);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbManaged);*/
             return Raw.IsManaged(out pbManaged);
         }
 

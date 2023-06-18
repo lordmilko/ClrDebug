@@ -48,7 +48,7 @@
         public HRESULT TryIsNull(out bool pbNull)
         {
             /*HRESULT IsNull(
-            [Out] out bool pbNull);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbNull);*/
             return Raw.IsNull(out pbNull);
         }
 

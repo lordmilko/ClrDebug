@@ -19,6 +19,6 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetJMC(
-            [In] bool fIsJMCStepper);
+            [In, MarshalAs(UnmanagedType.Bool)] bool fIsJMCStepper);
     }
 }

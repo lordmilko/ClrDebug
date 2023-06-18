@@ -129,7 +129,7 @@ namespace ClrDebug
         public HRESULT TryIsValueClass(out bool pbIsValueClass)
         {
             /*HRESULT IsValueClass(
-            [Out] out bool pbIsValueClass);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbIsValueClass);*/
             return Raw.IsValueClass(out pbIsValueClass);
         }
 

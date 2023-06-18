@@ -476,7 +476,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT SetILInstrumentedCodeMap(
             [In] FunctionID functionId,
-            [In] bool fStartJit,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fStartJit,
             [In] int cILMapEntries,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] COR_IL_MAP[] rgILMapEntries);
 
@@ -535,7 +535,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT BeginInprocDebugging(
-            [In] bool fThisThreadOnly,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fThisThreadOnly,
             [Out] out int pdwProfilerContext);
 
         /// <summary>
@@ -1633,7 +1633,7 @@ namespace ClrDebug
             [In] ModuleID inlinersModuleId,
             [In] ModuleID inlineeModuleId,
             [In] mdMethodDef inlineeMethodId,
-            [Out] out bool incompleteData,
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool incompleteData,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorProfilerMethodEnum ppEnum);
 
         /// <summary>
@@ -1689,7 +1689,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsFunctionDynamic(
             [In] FunctionID functionId,
-            [Out] out bool isDynamic);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool isDynamic);
 
         /// <summary>
         /// Maps a managed code instruction pointer to a FunctionID. This method works for both dynamic and non-dynamic methods.

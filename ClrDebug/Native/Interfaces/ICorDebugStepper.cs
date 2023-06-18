@@ -31,7 +31,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsActive(
-            [Out] out bool pbActive);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbActive);
 
         /// <summary>
         /// Causes this <see cref="ICorDebugStepper"/> to cancel the last step command that it received.
@@ -89,7 +89,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Step(
-            [In] bool bStepIn);
+            [In, MarshalAs(UnmanagedType.Bool)] bool bStepIn);
 
         /// <summary>
         /// Causes this <see cref="ICorDebugStepper"/> to single-step through its containing thread, and to return when it reaches code beyond the last of the specified ranges.
@@ -107,7 +107,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StepRange(
-            [In] bool bStepIn,
+            [In, MarshalAs(UnmanagedType.Bool)] bool bStepIn,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] COR_DEBUG_STEP_RANGE[] ranges,
             [In] int cRangeCount);
 
@@ -133,6 +133,6 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetRangeIL(
-            [In] bool bIL);
+            [In, MarshalAs(UnmanagedType.Bool)] bool bIL);
     }
 }

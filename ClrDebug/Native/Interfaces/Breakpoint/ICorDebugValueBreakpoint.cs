@@ -18,7 +18,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Activate(
-            [In] bool bActive);
+            [In, MarshalAs(UnmanagedType.Bool)] bool bActive);
 
         /// <summary>
         /// Gets a value that indicates whether this <see cref="ICorDebugBreakpoint"/> is active.
@@ -27,7 +27,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT IsActive(
-            [Out] out bool pbActive);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbActive);
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugValue"/> object that represents the value of the object on which the breakpoint is set.

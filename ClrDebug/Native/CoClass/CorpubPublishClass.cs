@@ -27,7 +27,7 @@ namespace ClrDebug.CoClass
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern HRESULT IsManaged([Out] out bool pbManaged);
+        public virtual extern HRESULT IsManaged([Out, MarshalAs(UnmanagedType.Bool)] out bool pbManaged);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

@@ -272,7 +272,7 @@ namespace ClrDebug
         {
             /*HRESULT UnloadAppDomain(
             [In] int dwAppDomainID,
-            [In] bool fWaitUntilDone);*/
+            [In, MarshalAs(UnmanagedType.Bool)] bool fWaitUntilDone);*/
             return Raw.UnloadAppDomain(dwAppDomainID, fWaitUntilDone);
         }
 

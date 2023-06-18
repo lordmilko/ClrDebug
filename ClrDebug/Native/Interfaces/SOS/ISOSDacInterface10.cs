@@ -18,7 +18,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT IsComWrappersCCW(
             [In] CLRDATA_ADDRESS ccw,
-            [Out] out bool isComWrappersCCW);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool isComWrappersCCW);
 
         [PreserveSig]
         HRESULT GetComWrappersCCWData(
@@ -29,7 +29,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT IsComWrappersRCW(
             [In] CLRDATA_ADDRESS rcw,
-            [Out] out bool isComWrappersRCW);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool isComWrappersRCW);
 
         [PreserveSig]
         HRESULT GetComWrappersRCWData(

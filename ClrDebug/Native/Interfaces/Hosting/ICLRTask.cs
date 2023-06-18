@@ -119,7 +119,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         HRESULT Reset(
-            [In] bool fFull);
+            [In, MarshalAs(UnmanagedType.Bool)] bool fFull);
 
         /// <summary>
         /// Notifies the common language runtime (CLR) that the task represented by the current <see cref="ICLRTask"/> instance is ending, and attempts to shut the task down gracefully.
@@ -204,7 +204,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         HRESULT NeedsPriorityScheduling(
-            [Out] out bool pbNeedsPriorityScheduling);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbNeedsPriorityScheduling);
 
         /// <summary>
         /// Requests that the common language runtime (CLR) put aside the task that the current <see cref="ICLRTask"/> instance represents, and make the processor time available to other tasks.

@@ -72,7 +72,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT IsNull(
-            [Out] out bool pbNull);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbNull);
 
         /// <summary>
         /// Gets the current memory address of the referenced object.

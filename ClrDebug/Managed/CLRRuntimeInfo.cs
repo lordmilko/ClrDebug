@@ -174,7 +174,7 @@ namespace ClrDebug
         public HRESULT TryIsLoadable(out bool pbLoadable)
         {
             /*HRESULT IsLoadable(
-            [Out] out bool pbLoadable);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbLoadable);*/
             return Raw.IsLoadable(out pbLoadable);
         }
 
@@ -276,7 +276,7 @@ namespace ClrDebug
         public HRESULT TryIsStarted(out IsStartedResult result)
         {
             /*HRESULT IsStarted(
-            [Out] out bool pbStarted,
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbStarted,
             [Out] out STARTUP_FLAGS pdwStartupFlags);*/
             bool pbStarted;
             STARTUP_FLAGS pdwStartupFlags;
@@ -339,7 +339,7 @@ namespace ClrDebug
         {
             /*HRESULT IsLoaded(
             [In] IntPtr hndProcess,
-            [Out] out bool pbLoaded);*/
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbLoaded);*/
             return Raw.IsLoaded(hndProcess, out pbLoaded);
         }
 

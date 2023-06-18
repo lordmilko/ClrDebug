@@ -122,7 +122,7 @@ namespace ClrDebug.CoClass
             [MarshalAs(UnmanagedType.Interface), In]
             ISymUnmanagedDocument pDoc,
             [Out] out int version,
-            [Out] out bool pbCurrent);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbCurrent);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

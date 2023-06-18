@@ -410,8 +410,8 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameSignatureVerificationEx(
             [MarshalAs(UnmanagedType.LPWStr), In] string wszFilePath,
-            [In] bool fForceVerification,
-            [Out] bool pfWasVerified);
+            [In, MarshalAs(UnmanagedType.Bool)] bool fForceVerification,
+            [Out, MarshalAs(UnmanagedType.Bool)] bool pfWasVerified);
 
         /// <summary>
         /// Verifies that an assembly that has already been mapped to memory is valid for the associated public key.

@@ -80,7 +80,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsLoaded(
             [In] IntPtr hndProcess,
-            [Out] out bool pbLoaded);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbLoaded);
 
         /// <summary>
         /// Translates an <see cref="HRESULT"/> value into an appropriate error message for the specified culture. This method supersedes the following functions:
@@ -206,7 +206,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsLoadable(
-            [Out] out bool pbLoadable);
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbLoadable);
 
         /// <summary>
         /// Sets the startup flags and the host configuration file that will be used to start the runtime. This method supersedes the use of the startupFlags parameter in the CorBindToRuntimeEx and CorBindToRuntimeHost functions.
@@ -295,7 +295,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsStarted(
-            [Out] out bool pbStarted,
+            [Out, MarshalAs(UnmanagedType.Bool)] out bool pbStarted,
             [Out] out STARTUP_FLAGS pdwStartupFlags);
     }
 }

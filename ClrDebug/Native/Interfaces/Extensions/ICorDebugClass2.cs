@@ -47,6 +47,6 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetJMCStatus(
-            [In] bool bIsJustMyCode);
+            [In, MarshalAs(UnmanagedType.Bool)] bool bIsJustMyCode);
     }
 }
