@@ -131,26 +131,31 @@ namespace ClrDebug
         #endregion
         #region QueryPDBNameExW
 
-        public string QueryPDBNameExW(long cchMax)
+        public string QueryPDBNameExW()
         {
             string wszPDBResult;
-            TryQueryPDBNameExW(cchMax, out wszPDBResult).ThrowOnNotOK();
+            TryQueryPDBNameExW(out wszPDBResult).ThrowOnNotOK();
 
             return wszPDBResult;
         }
 
-        public HRESULT TryQueryPDBNameExW(long cchMax, out string wszPDBResult)
+        public HRESULT TryQueryPDBNameExW(out string wszPDBResult)
         {
             /*HRESULT QueryPDBNameExW(
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder wszPDB,
+            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder wszPDB,
             [In] long cchMax);*/
-            StringBuilder wszPDB = null;
+            long cchMax = 1024;
+            StringBuilder wszPDB = new StringBuilder((int) cchMax);
             HRESULT hr = Raw2.QueryPDBNameExW(wszPDB, cchMax);
 
             if (hr == HRESULT.S_OK)
+            {
                 wszPDBResult = wszPDB.ToString();
-            else
-                wszPDBResult = default(string);
+
+                return hr;
+            }
+
+            wszPDBResult = default(string);
 
             return hr;
         }
