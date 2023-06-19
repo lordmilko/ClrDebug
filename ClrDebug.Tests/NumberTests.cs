@@ -47,7 +47,7 @@ namespace ClrDebug.Tests
         }
 
         [TestMethod]
-        public void Number_MathOps()
+        public void Number_MathOps_x86()
         {
             var ops = new (ExpressionType op, string normalExpected, string complementExpected)[]
             {
@@ -56,23 +56,64 @@ namespace ClrDebug.Tests
                 (ExpressionType.And, "0x0", "0x81A1D001"),
                 (ExpressionType.Or, "0x81A1D003", "0xFFFFFFFFFFFFFFFD"),
                 (ExpressionType.Multiply, "0x10343A002", "0xFFFFFFFE7B1A8FFD"),
-                (ExpressionType.Divide, "0x40D0E800", "0x0"),
-                (ExpressionType.Modulo, "0x1", "0x81A1D001")
+                (ExpressionType.Divide, "0x40D0E800", "0xFFFFFFFFD4CA1000"),
+                (ExpressionType.Modulo, "0x1", "0x1")
             };
 
             ulong value = 0x81A1D001;
 
+            //Custom comparisons just for CLRDATA_ADDRESS
             var custom = new (Type type, ExpressionType op, string normalExpected, string complementExpected)[]
             {
                 (typeof(CLRDATA_ADDRESS), ExpressionType.Or,       "0x81A1D003",                                    IntPtr.Size == 4 ? "0xFFFFFFFD" : "0xFFFFFFFFFFFFFFFD"),
                 (typeof(CLRDATA_ADDRESS), ExpressionType.Multiply, IntPtr.Size == 4 ? "0x343A002" : "0x10343A002",  IntPtr.Size == 4 ? "0x7B1A8FFD" : "0xFFFFFFFE7B1A8FFD"),
+                (typeof(CLRDATA_ADDRESS), ExpressionType.Divide,   "0x40D0E800",                                    IntPtr.Size == 4 ? "0xD4CA1000" : "0xFFFFFFFFD4CA1000")
             };
 
+            TestMath(value, ops, custom);
+        }
+
+        [TestMethod]
+        public void Number_MathOps_x64()
+        {
+            var ops = new (ExpressionType op, string normalExpected, string complementExpected)[]
+            {
+                (ExpressionType.Add, "0x7FFAD43DE632", "0x7FFAD43DE62D"),
+                (ExpressionType.Subtract, "0x7FFAD43DE62E", "0x7FFAD43DE633"),
+                (ExpressionType.And, "0x0", "0x7FFAD43DE630"),
+                (ExpressionType.Or, "0x7FFAD43DE632", "0xFFFFFFFFFFFFFFFD"),
+                (ExpressionType.Multiply, "0xFFF5A87BCC60", "0xFFFE800F83464D70"),
+                (ExpressionType.Divide, "0x3FFD6A1EF318", "0xFFFFD5570E96089B"),
+                (ExpressionType.Modulo, "0x0", "0x1")
+            };
+
+            ulong value = 0x7FFAD43DE630;
+
+            //Custom comparisons just for CLRDATA_ADDRESS
+            var custom = new (Type type, ExpressionType op, string normalExpected, string complementExpected)[]
+            {
+                (typeof(CLRDATA_ADDRESS), ExpressionType.Add,      IntPtr.Size == 4 ? "0xD43DE632" : "0x7FFAD43DE632", IntPtr.Size == 4 ? "0xD43DE62D" : "0x7FFAD43DE62D"),
+                (typeof(CLRDATA_ADDRESS), ExpressionType.Subtract, IntPtr.Size == 4 ? "0xD43DE62E" : "0x7FFAD43DE62E", IntPtr.Size == 4 ? "0xD43DE633" : "0x7FFAD43DE633"),
+                (typeof(CLRDATA_ADDRESS), ExpressionType.And,      "0x0",                                              IntPtr.Size == 4 ? "0xD43DE630" : "0x7FFAD43DE630"),
+                (typeof(CLRDATA_ADDRESS), ExpressionType.Or,       IntPtr.Size == 4 ? "0xD43DE632" : "0x7FFAD43DE632", IntPtr.Size == 4 ? "0xFFFFFFFD" : "0xFFFFFFFFFFFFFFFD"),
+                (typeof(CLRDATA_ADDRESS), ExpressionType.Multiply, IntPtr.Size == 4 ? "0xA87BCC60" : "0xFFF5A87BCC60", IntPtr.Size == 4 ? "0x83464D70" : "0xFFFE800F83464D70"),
+                (typeof(CLRDATA_ADDRESS), ExpressionType.Divide,   IntPtr.Size == 4 ? "0x6A1EF318" : "0x3FFD6A1EF318", IntPtr.Size == 4 ? "0xB940B346" : "0xFFFFD5570E96089B"),
+                (typeof(CLRDATA_ADDRESS), ExpressionType.Modulo,   "0x0",                                              IntPtr.Size == 4 ? "0x2" : "0x1")
+            };
+
+            TestMath(value, ops, custom);
+        }
+
+        private void TestMath(
+            ulong value,
+            (ExpressionType op, string normalExpected, string complementExpected)[] ops,
+            (Type type, ExpressionType op, string normalExpected, string complementExpected)[] custom)
+        {
             foreach (var type in AddressTypes)
             {
                 foreach (var item in ops)
                 {
-                    foreach (var complement in new[] {false, true})
+                    foreach (var complement in new[] { false, true })
                     {
                         var result = TestOp(value, type, item.op, complement);
 
@@ -83,7 +124,7 @@ namespace ClrDebug.Tests
                         if (customExpected != default)
                             expected = complement ? customExpected.complementExpected : customExpected.normalExpected;
 
-                        Assert.AreEqual(expected, result, $"Result of {item} on type {type} was not correct (Complement: {complement})");
+                        Assert.AreEqual(expected, result, $"{Environment.NewLine}{Environment.NewLine}Result of {item} on type {type} was not correct (Complement: {complement})");
                     }
                 }
             }
@@ -144,7 +185,7 @@ namespace ClrDebug.Tests
                 rhsValue = Expression.OnesComplement(rhsValue);
 
             var lhs = Expression.Convert(parameter, type);
-            var rhs = Expression.Convert(rhsValue, type);
+            var rhs = rhsValue;
 
             var binary = Expression.MakeBinary(op, lhs, rhs);
 

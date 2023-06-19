@@ -109,7 +109,7 @@ for(int j = 0; j < mathOps.Length; j++)
     var op = mathOps[j];
 #>
         public static <#= type #> operator<#= op #> (<#= type #> left, <#= type #> right) => left.Value <#= op #> right.Value;
-        public static <#= type #> operator<#= op #> (<#= type #> left, int right) => left.Value <#= op #> (ulong) (uint) right;
+        public static <#= type #> operator<#= op #> (<#= type #> left, int right) => (long) left.Value <#= op #> (long) right;
 <#
 }
 for(int j = 0; j < boolOps.Length; j++)
@@ -121,6 +121,8 @@ for(int j = 0; j < boolOps.Length; j++)
 <#
 }
 #>
+
+        public static <#= type #> operator~(<#= type #> value) => ~value.Value;
 
         public int CompareTo(object value) => UnsignedValueHelpers.CompareTo<<#= type #>>(Value, value);
 

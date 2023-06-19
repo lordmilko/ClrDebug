@@ -89,7 +89,11 @@ if (baseType == "IntPtr")
 
         public static bool operator ==(<#= type #> left, <#= type #> right) => left.Value == right.Value;
 
+        public static bool operator ==(<#= type #> left, int right) => left.Value == (<#= baseType #>) right;
+
         public static bool operator !=(<#= type #> left, <#= type #> right) => left.Value != right.Value;
+
+        public static bool operator !=(<#= type #> left, int right) => left.Value != (<#= baseType #>) right;
 
         public override int GetHashCode() => Value.GetHashCode();
 

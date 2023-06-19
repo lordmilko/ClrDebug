@@ -40,7 +40,11 @@ namespace ClrDebug
 
         public static bool operator ==(ProcessID left, ProcessID right) => left.Value == right.Value;
 
+        public static bool operator ==(ProcessID left, int right) => left.Value == (IntPtr) right;
+
         public static bool operator !=(ProcessID left, ProcessID right) => left.Value != right.Value;
+
+        public static bool operator !=(ProcessID left, int right) => left.Value != (IntPtr) right;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -80,7 +84,11 @@ namespace ClrDebug
 
         public static bool operator ==(AssemblyID left, AssemblyID right) => left.Value == right.Value;
 
+        public static bool operator ==(AssemblyID left, int right) => left.Value == (IntPtr) right;
+
         public static bool operator !=(AssemblyID left, AssemblyID right) => left.Value != right.Value;
+
+        public static bool operator !=(AssemblyID left, int right) => left.Value != (IntPtr) right;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -120,7 +128,11 @@ namespace ClrDebug
 
         public static bool operator ==(AppDomainID left, AppDomainID right) => left.Value == right.Value;
 
+        public static bool operator ==(AppDomainID left, int right) => left.Value == (IntPtr) right;
+
         public static bool operator !=(AppDomainID left, AppDomainID right) => left.Value != right.Value;
+
+        public static bool operator !=(AppDomainID left, int right) => left.Value != (IntPtr) right;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -160,7 +172,11 @@ namespace ClrDebug
 
         public static bool operator ==(ModuleID left, ModuleID right) => left.Value == right.Value;
 
+        public static bool operator ==(ModuleID left, int right) => left.Value == (IntPtr) right;
+
         public static bool operator !=(ModuleID left, ModuleID right) => left.Value != right.Value;
+
+        public static bool operator !=(ModuleID left, int right) => left.Value != (IntPtr) right;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -200,7 +216,11 @@ namespace ClrDebug
 
         public static bool operator ==(ClassID left, ClassID right) => left.Value == right.Value;
 
+        public static bool operator ==(ClassID left, int right) => left.Value == (IntPtr) right;
+
         public static bool operator !=(ClassID left, ClassID right) => left.Value != right.Value;
+
+        public static bool operator !=(ClassID left, int right) => left.Value != (IntPtr) right;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -240,7 +260,11 @@ namespace ClrDebug
 
         public static bool operator ==(ThreadID left, ThreadID right) => left.Value == right.Value;
 
+        public static bool operator ==(ThreadID left, int right) => left.Value == (IntPtr) right;
+
         public static bool operator !=(ThreadID left, ThreadID right) => left.Value != right.Value;
+
+        public static bool operator !=(ThreadID left, int right) => left.Value != (IntPtr) right;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -280,7 +304,11 @@ namespace ClrDebug
 
         public static bool operator ==(ContextID left, ContextID right) => left.Value == right.Value;
 
+        public static bool operator ==(ContextID left, int right) => left.Value == (IntPtr) right;
+
         public static bool operator !=(ContextID left, ContextID right) => left.Value != right.Value;
+
+        public static bool operator !=(ContextID left, int right) => left.Value != (IntPtr) right;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -320,7 +348,11 @@ namespace ClrDebug
 
         public static bool operator ==(FunctionID left, FunctionID right) => left.Value == right.Value;
 
+        public static bool operator ==(FunctionID left, int right) => left.Value == (IntPtr) right;
+
         public static bool operator !=(FunctionID left, FunctionID right) => left.Value != right.Value;
+
+        public static bool operator !=(FunctionID left, int right) => left.Value != (IntPtr) right;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -360,7 +392,11 @@ namespace ClrDebug
 
         public static bool operator ==(ObjectID left, ObjectID right) => left.Value == right.Value;
 
+        public static bool operator ==(ObjectID left, int right) => left.Value == (IntPtr) right;
+
         public static bool operator !=(ObjectID left, ObjectID right) => left.Value != right.Value;
+
+        public static bool operator !=(ObjectID left, int right) => left.Value != (IntPtr) right;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -400,7 +436,11 @@ namespace ClrDebug
 
         public static bool operator ==(GCHandleID left, GCHandleID right) => left.Value == right.Value;
 
+        public static bool operator ==(GCHandleID left, int right) => left.Value == (IntPtr) right;
+
         public static bool operator !=(GCHandleID left, GCHandleID right) => left.Value != right.Value;
+
+        public static bool operator !=(GCHandleID left, int right) => left.Value != (IntPtr) right;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -440,7 +480,11 @@ namespace ClrDebug
 
         public static bool operator ==(COR_PRF_ELT_INFO left, COR_PRF_ELT_INFO right) => left.Value == right.Value;
 
+        public static bool operator ==(COR_PRF_ELT_INFO left, int right) => left.Value == (IntPtr) right;
+
         public static bool operator !=(COR_PRF_ELT_INFO left, COR_PRF_ELT_INFO right) => left.Value != right.Value;
+
+        public static bool operator !=(COR_PRF_ELT_INFO left, int right) => left.Value != (IntPtr) right;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -480,7 +524,11 @@ namespace ClrDebug
 
         public static bool operator ==(COR_PRF_FRAME_INFO left, COR_PRF_FRAME_INFO right) => left.Value == right.Value;
 
+        public static bool operator ==(COR_PRF_FRAME_INFO left, int right) => left.Value == (IntPtr) right;
+
         public static bool operator !=(COR_PRF_FRAME_INFO left, COR_PRF_FRAME_INFO right) => left.Value != right.Value;
+
+        public static bool operator !=(COR_PRF_FRAME_INFO left, int right) => left.Value != (IntPtr) right;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -520,7 +568,11 @@ namespace ClrDebug
 
         public static bool operator ==(ReJITID left, ReJITID right) => left.Value == right.Value;
 
+        public static bool operator ==(ReJITID left, int right) => left.Value == (IntPtr) right;
+
         public static bool operator !=(ReJITID left, ReJITID right) => left.Value != right.Value;
+
+        public static bool operator !=(ReJITID left, int right) => left.Value != (IntPtr) right;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -560,7 +612,11 @@ namespace ClrDebug
 
         public static bool operator ==(EVENTPIPE_PROVIDER left, EVENTPIPE_PROVIDER right) => left.Value == right.Value;
 
+        public static bool operator ==(EVENTPIPE_PROVIDER left, int right) => left.Value == (IntPtr) right;
+
         public static bool operator !=(EVENTPIPE_PROVIDER left, EVENTPIPE_PROVIDER right) => left.Value != right.Value;
+
+        public static bool operator !=(EVENTPIPE_PROVIDER left, int right) => left.Value != (IntPtr) right;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -600,7 +656,11 @@ namespace ClrDebug
 
         public static bool operator ==(EVENTPIPE_EVENT left, EVENTPIPE_EVENT right) => left.Value == right.Value;
 
+        public static bool operator ==(EVENTPIPE_EVENT left, int right) => left.Value == (IntPtr) right;
+
         public static bool operator !=(EVENTPIPE_EVENT left, EVENTPIPE_EVENT right) => left.Value != right.Value;
+
+        public static bool operator !=(EVENTPIPE_EVENT left, int right) => left.Value != (IntPtr) right;
 
         public override int GetHashCode() => Value.GetHashCode();
 
@@ -633,7 +693,11 @@ namespace ClrDebug
 
         public static bool operator ==(EVENTPIPE_SESSION left, EVENTPIPE_SESSION right) => left.Value == right.Value;
 
+        public static bool operator ==(EVENTPIPE_SESSION left, int right) => left.Value == (long) right;
+
         public static bool operator !=(EVENTPIPE_SESSION left, EVENTPIPE_SESSION right) => left.Value != right.Value;
+
+        public static bool operator !=(EVENTPIPE_SESSION left, int right) => left.Value != (long) right;
 
         public override int GetHashCode() => Value.GetHashCode();
 
