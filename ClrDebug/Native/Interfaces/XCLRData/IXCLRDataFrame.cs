@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug
 {
@@ -35,7 +34,7 @@ namespace ClrDebug
             [Out] out IXCLRDataValue arg,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder name);
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] name);
 
         [PreserveSig]
         HRESULT GetNumLocalVariables(
@@ -47,14 +46,14 @@ namespace ClrDebug
             [Out] out IXCLRDataValue localVariable,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder name);
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] name);
 
         [PreserveSig]
         HRESULT GetCodeName(
             [In] int flags, //Unused, must be 0
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder nameBuf);
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf);
 
         [PreserveSig]
         HRESULT GetMethodInstance(

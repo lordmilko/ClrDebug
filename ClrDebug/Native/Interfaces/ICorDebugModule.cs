@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug
 {
@@ -59,7 +58,7 @@ namespace ClrDebug
         HRESULT GetName(
             [In] int cchName,
             [Out] out int pcchName,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0), Out] StringBuilder szName);
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0), Out] char[] szName);
 
         /// <summary>
         /// Controls whether the just-in-time (JIT) compiler preserves debugging information for methods within this module.

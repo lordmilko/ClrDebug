@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Text;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
@@ -85,16 +85,16 @@ namespace ClrDebug
             [In] METAHOST_POLICY_FLAGS dwPolicyFlags,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzBinary,
             [MarshalAs(UnmanagedType.Interface), In] IStream pCfgStream,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4), Out] StringBuilder pwzVersion,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4), Out] char[] pwzVersion,
             [In, Out] ref int pcchVersion,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 6), Out] StringBuilder pwzImageVersion,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 6), Out] char[] pwzImageVersion,
             [In, Out] ref int pcchImageVersion,
             [Out] out METAHOST_CONFIG_FLAGS pdwConfigFlags,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppRuntime);*/
-            StringBuilder pwzVersion;
+            char[] pwzVersion;
             int pcchVersion = default(int);
-            StringBuilder pwzImageVersion;
+            char[] pwzImageVersion;
             int pcchImageVersion = default(int);
             METAHOST_CONFIG_FLAGS pdwConfigFlags;
             object ppRuntime;
@@ -103,13 +103,13 @@ namespace ClrDebug
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            pwzVersion = new StringBuilder(pcchVersion);
-            pwzImageVersion = new StringBuilder(pcchImageVersion);
+            pwzVersion = new char[pcchVersion];
+            pwzImageVersion = new char[pcchImageVersion];
             hr = Raw.GetRequestedRuntime(dwPolicyFlags, pwzBinary, pCfgStream, pwzVersion, ref pcchVersion, pwzImageVersion, ref pcchImageVersion, out pdwConfigFlags, riid, out ppRuntime);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetRequestedRuntimeResult(pwzVersion.ToString(), pwzImageVersion.ToString(), pdwConfigFlags, ppRuntime);
+                result = new GetRequestedRuntimeResult(CreateString(pwzVersion, pcchVersion), CreateString(pwzImageVersion, pcchImageVersion), pdwConfigFlags, ppRuntime);
 
                 return hr;
             }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug
 {
@@ -317,7 +316,7 @@ namespace ClrDebug
             [Out] out IntPtr ppBaseLoadAddress,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
             [Out] out AssemblyID pAssemblyId);
 
         /// <summary>
@@ -420,7 +419,7 @@ namespace ClrDebug
             [In] AppDomainID appDomainId,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szName,
             [Out] out ProcessID pProcessId);
 
         /// <summary>
@@ -446,7 +445,7 @@ namespace ClrDebug
             [In] AssemblyID assemblyId,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szName,
             [Out] out AppDomainID pAppDomainId,
             [Out] out ModuleID pModuleId);
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug.DbgEng
 {
@@ -43,7 +42,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetKernelConnectionOptions(
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int OptionsSize);
 
@@ -175,10 +174,10 @@ namespace ClrDebug.DbgEng
             [In] long Server,
             [In] int SystemId,
             [In] DEBUG_PROC_DESC Flags,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 4)] StringBuilder ExeName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] ExeName,
             [In] int ExeNameSize,
             [Out] out int ActualExeNameSize,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 7)] StringBuilder Description,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] char[] Description,
             [In] int DescriptionSize,
             [Out] out int ActualDescriptionSize);
 
@@ -622,7 +621,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetOutputLinePrefix(
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int PrefixSize);
 
@@ -650,7 +649,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetIdentity(
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int IdentitySize);
 
@@ -886,10 +885,10 @@ namespace ClrDebug.DbgEng
             [In] long Server,
             [In] int SystemId,
             [In] DEBUG_PROC_DESC Flags,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4)] StringBuilder ExeName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] ExeName,
             [In] int ExeNameSize,
             [Out] out int ActualExeNameSize,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 7)] StringBuilder Description,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 7)] char[] Description,
             [In] int DescriptionSize,
             [Out] out int ActualDescriptionSize);
 

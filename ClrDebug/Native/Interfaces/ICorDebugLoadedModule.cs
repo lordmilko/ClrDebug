@@ -1,6 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug
 {
@@ -36,7 +35,7 @@ namespace ClrDebug
         HRESULT GetName(
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder szName);
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szName);
 
         /// <summary>
         /// Gets the size in bytes of the loaded module.

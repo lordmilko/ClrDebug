@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug
 {
@@ -32,7 +31,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetString(
             [In] long RVA,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder lpString);
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2)] char[] lpString);
 
         /// <summary>
         /// Creates a buffer of the specified size for a method, and gets the relative virtual address of the method. This method is obsolete and should not be used.

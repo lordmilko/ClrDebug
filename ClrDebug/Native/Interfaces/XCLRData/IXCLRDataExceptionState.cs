@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug
 {
@@ -33,7 +32,7 @@ namespace ClrDebug
         HRESULT GetString(
             [In] int bufLen,
             [Out] out int strLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder str);
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] str);
 
         [PreserveSig]
         HRESULT Request(

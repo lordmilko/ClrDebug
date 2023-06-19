@@ -1,4 +1,4 @@
-﻿using System.Text;
+﻿using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
@@ -71,22 +71,22 @@ namespace ClrDebug
             /*HRESULT GetSearchPath(
             [In] int cchPath,
             [Out] out int pcchPath,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder szPath);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szPath);*/
             int cchPath = 0;
             int pcchPath;
-            StringBuilder szPath;
+            char[] szPath;
             HRESULT hr = Raw.GetSearchPath(cchPath, out pcchPath, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchPath = pcchPath;
-            szPath = new StringBuilder(cchPath);
+            szPath = new char[cchPath];
             hr = Raw.GetSearchPath(cchPath, out pcchPath, szPath);
 
             if (hr == HRESULT.S_OK)
             {
-                szPathResult = szPath.ToString();
+                szPathResult = CreateString(szPath, pcchPath);
 
                 return hr;
             }

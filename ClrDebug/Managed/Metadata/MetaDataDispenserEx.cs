@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Text;
 using ClrDebug.TypeLib;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
@@ -46,10 +46,10 @@ namespace ClrDebug
         public HRESULT TryGetCORSystemDirectory(out string szBufferResult)
         {
             /*HRESULT GetCORSystemDirectory(
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder szBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szBuffer,
             [In] int cchBuffer,
             [Out] out int pchBuffer);*/
-            StringBuilder szBuffer;
+            char[] szBuffer;
             int cchBuffer = 0;
             int pchBuffer;
             HRESULT hr = Raw.GetCORSystemDirectory(null, cchBuffer, out pchBuffer);
@@ -58,12 +58,12 @@ namespace ClrDebug
                 goto fail;
 
             cchBuffer = pchBuffer;
-            szBuffer = new StringBuilder(cchBuffer);
+            szBuffer = new char[cchBuffer];
             hr = Raw.GetCORSystemDirectory(szBuffer, cchBuffer, out pchBuffer);
 
             if (hr == HRESULT.S_OK)
             {
-                szBufferResult = szBuffer.ToString();
+                szBufferResult = CreateString(szBuffer, pchBuffer);
 
                 return hr;
             }
@@ -214,10 +214,10 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string szPrivateBin,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szGlobalBin,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAssemblyName,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 5)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 5)] char[] szName,
             [In] int cchName,
             [Out] out int pcName);*/
-            StringBuilder szName;
+            char[] szName;
             int cchName = 0;
             int pcName;
             HRESULT hr = Raw.FindAssembly(szAppBase, szPrivateBin, szGlobalBin, szAssemblyName, null, cchName, out pcName);
@@ -226,12 +226,12 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pcName;
-            szName = new StringBuilder(cchName);
+            szName = new char[cchName];
             hr = Raw.FindAssembly(szAppBase, szPrivateBin, szGlobalBin, szAssemblyName, szName, cchName, out pcName);
 
             if (hr == HRESULT.S_OK)
             {
-                szNameResult = szName.ToString();
+                szNameResult = CreateString(szName, pcName);
 
                 return hr;
             }
@@ -279,10 +279,10 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string szGlobalBin,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAssemblyName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szModuleName,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 6)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 6)] char[] szName,
             [In] int cchName,
             [Out] out int pcName);*/
-            StringBuilder szName;
+            char[] szName;
             int cchName = 0;
             int pcName;
             HRESULT hr = Raw.FindAssemblyModule(szAppBase, szPrivateBin, szGlobalBin, szAssemblyName, szModuleName, null, cchName, out pcName);
@@ -291,12 +291,12 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pcName;
-            szName = new StringBuilder(cchName);
+            szName = new char[cchName];
             hr = Raw.FindAssemblyModule(szAppBase, szPrivateBin, szGlobalBin, szAssemblyName, szModuleName, szName, cchName, out pcName);
 
             if (hr == HRESULT.S_OK)
             {
-                szNameResult = szName.ToString();
+                szNameResult = CreateString(szName, pcName);
 
                 return hr;
             }

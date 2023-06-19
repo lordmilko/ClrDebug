@@ -157,5 +157,52 @@ namespace ClrDebug
 
             return buffer;
         }
+
+        /// <summary>
+        /// Creates a <see langword="string"/> from a null-terminated sequence of characters of unknown length.
+        /// </summary>
+        /// <param name="charArray">The null-terminated sequence of characters.</param>
+        /// <returns>A <see langword="string"/> containing the characters in <paramref name="charArray"/> prior to the null-terminator (\0), or <see cref="string.Empty"/> if <paramref name="charArray"/> is empty,
+        /// or <see langword="null"/> if <paramref name="charArray"/> is <see langword="null"/></returns>
+        public static string CreateString(char[] charArray)
+        {
+            if (charArray == null)
+                return null;
+
+            var length = 0;
+
+            for (; length < charArray.Length; length++)
+            {
+                if (charArray[length] == '\0')
+                    break;
+            }
+
+            return new string(charArray, 0, length);
+        }
+
+        /// <summary>
+        /// Creates a <see langword="string"/> from a null-terminated sequence of characters of known length.
+        /// </summary>
+        /// <param name="charArray">The null-terminated sequence of characters.</param>
+        /// <param name="length">The number of characters that were filled in in <paramref name="charArray"/> including a null-terminator (\0).</param>
+        /// <returns>A <see langword="string"/> containing the characters in <paramref name="charArray"/> prior to the null-terminator (\0), or <see cref="string.Empty"/> if <paramref name="charArray"/> is empty,
+        /// or <see langword="null"/> if <paramref name="charArray"/> is <see langword="null"/></returns>
+        public static string CreateString(char[] charArray, int length)
+        {
+            if (charArray == null)
+                return null;
+
+            //The length will include a null terminator. So if there's no characters, or just a null terminator, it's an empty string
+            if (length <= 1 || charArray.Length == 0)
+                return string.Empty;
+
+            //ISOSDacInterface::GetMethodDescName() can respond "System.Action`2.Invoke(!0, !0)" the first time you query the method for the length, and "System.Action`2.Invoke(!56001, !0)"
+            //the second time you query it for the exact same method. As such, if we're given a bogus length, fallback to the slow path and consume as much of the charArray as possible (excluding
+            //any null-terminator)
+            if (length > charArray.Length)
+                return CreateString(charArray);
+
+            return new string(charArray, 0, length - 1);
+        }
     }
 }

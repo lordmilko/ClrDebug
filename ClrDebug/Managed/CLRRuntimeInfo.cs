@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Text;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
@@ -53,21 +53,21 @@ namespace ClrDebug
         public HRESULT TryGetVersionString(out string pwzBufferResult)
         {
             /*HRESULT GetVersionString(
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1), Out] StringBuilder pwzBuffer,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1), Out] char[] pwzBuffer,
             [In, Out] ref int pcchBuffer);*/
-            StringBuilder pwzBuffer;
+            char[] pwzBuffer;
             int pcchBuffer = default(int);
             HRESULT hr = Raw.GetVersionString(null, ref pcchBuffer);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            pwzBuffer = new StringBuilder(pcchBuffer);
+            pwzBuffer = new char[pcchBuffer];
             hr = Raw.GetVersionString(pwzBuffer, ref pcchBuffer);
 
             if (hr == HRESULT.S_OK)
             {
-                pwzBufferResult = pwzBuffer.ToString();
+                pwzBufferResult = CreateString(pwzBuffer, pcchBuffer);
 
                 return hr;
             }
@@ -110,21 +110,21 @@ namespace ClrDebug
         public HRESULT TryGetRuntimeDirectory(out string pwzBufferResult)
         {
             /*HRESULT GetRuntimeDirectory(
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1), Out] StringBuilder pwzBuffer,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1), Out] char[] pwzBuffer,
             [In, Out] ref int pcchBuffer);*/
-            StringBuilder pwzBuffer;
+            char[] pwzBuffer;
             int pcchBuffer = default(int);
             HRESULT hr = Raw.GetRuntimeDirectory(null, ref pcchBuffer);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            pwzBuffer = new StringBuilder(pcchBuffer);
+            pwzBuffer = new char[pcchBuffer];
             hr = Raw.GetRuntimeDirectory(pwzBuffer, ref pcchBuffer);
 
             if (hr == HRESULT.S_OK)
             {
-                pwzBufferResult = pwzBuffer.ToString();
+                pwzBufferResult = CreateString(pwzBuffer, pcchBuffer);
 
                 return hr;
             }
@@ -215,22 +215,22 @@ namespace ClrDebug
         {
             /*HRESULT GetDefaultStartupFlags(
             [Out] out STARTUP_FLAGS pdwStartupFlags,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2), Out] StringBuilder pwzHostConfigFile,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), Out] char[] pwzHostConfigFile,
             [In, Out] ref int pcchHostConfigFile);*/
             STARTUP_FLAGS pdwStartupFlags;
-            StringBuilder pwzHostConfigFile;
+            char[] pwzHostConfigFile;
             int pcchHostConfigFile = default(int);
             HRESULT hr = Raw.GetDefaultStartupFlags(out pdwStartupFlags, null, ref pcchHostConfigFile);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            pwzHostConfigFile = new StringBuilder(pcchHostConfigFile);
+            pwzHostConfigFile = new char[pcchHostConfigFile];
             hr = Raw.GetDefaultStartupFlags(out pdwStartupFlags, pwzHostConfigFile, ref pcchHostConfigFile);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetDefaultStartupFlagsResult(pdwStartupFlags, pwzHostConfigFile.ToString());
+                result = new GetDefaultStartupFlagsResult(pdwStartupFlags, CreateString(pwzHostConfigFile, pcchHostConfigFile));
 
                 return hr;
             }
@@ -379,22 +379,22 @@ namespace ClrDebug
         {
             /*HRESULT LoadErrorString(
             [In] HRESULT iResourceID,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2), Out] StringBuilder pwzBuffer,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), Out] char[] pwzBuffer,
             [In, Out] ref int pcchBuffer,
             [In] int iLocaleID);*/
-            StringBuilder pwzBuffer;
+            char[] pwzBuffer;
             int pcchBuffer = default(int);
             HRESULT hr = Raw.LoadErrorString(iResourceID, null, ref pcchBuffer, iLocaleID);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            pwzBuffer = new StringBuilder(pcchBuffer);
+            pwzBuffer = new char[pcchBuffer];
             hr = Raw.LoadErrorString(iResourceID, pwzBuffer, ref pcchBuffer, iLocaleID);
 
             if (hr == HRESULT.S_OK)
             {
-                pwzBufferResult = pwzBuffer.ToString();
+                pwzBufferResult = CreateString(pwzBuffer, pcchBuffer);
 
                 return hr;
             }

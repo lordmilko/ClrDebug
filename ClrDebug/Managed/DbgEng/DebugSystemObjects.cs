@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Text;
 using ClrDebug.DbgEng.Vtbl;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug.DbgEng
 {
@@ -649,10 +649,10 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getCurrentProcessExecutableName, Vtbl->GetCurrentProcessExecutableName);
             /*HRESULT GetCurrentProcessExecutableName(
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int ExeSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int exeSize;
             HRESULT hr = getCurrentProcessExecutableName(Raw, null, bufferSize, out exeSize);
@@ -661,12 +661,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = exeSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getCurrentProcessExecutableName(Raw, buffer, bufferSize, out exeSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, exeSize);
 
                 return hr;
             }
@@ -1514,10 +1514,10 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getCurrentSystemServerName, Vtbl3->GetCurrentSystemServerName);
             /*HRESULT GetCurrentSystemServerName(
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
             [In] int Size,
             [Out] out int Needed);*/
-            StringBuilder buffer;
+            char[] buffer;
             int size = 0;
             int needed;
             HRESULT hr = getCurrentSystemServerName(Raw, null, size, out needed);
@@ -1526,12 +1526,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             size = needed;
-            buffer = new StringBuilder(size);
+            buffer = new char[size];
             hr = getCurrentSystemServerName(Raw, buffer, size, out needed);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, needed);
 
                 return hr;
             }
@@ -1647,10 +1647,10 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getCurrentProcessExecutableNameWide, Vtbl4->GetCurrentProcessExecutableNameWide);
             /*HRESULT GetCurrentProcessExecutableNameWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int ExeSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int exeSize;
             HRESULT hr = getCurrentProcessExecutableNameWide(Raw, null, bufferSize, out exeSize);
@@ -1659,12 +1659,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = exeSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getCurrentProcessExecutableNameWide(Raw, buffer, bufferSize, out exeSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, exeSize);
 
                 return hr;
             }
@@ -1701,10 +1701,10 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getCurrentSystemServerNameWide, Vtbl4->GetCurrentSystemServerNameWide);
             /*HRESULT GetCurrentSystemServerNameWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int nameSize;
             HRESULT hr = getCurrentSystemServerNameWide(Raw, null, bufferSize, out nameSize);
@@ -1713,12 +1713,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = nameSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getCurrentSystemServerNameWide(Raw, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, nameSize);
 
                 return hr;
             }
@@ -1859,7 +1859,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetCurrentProcessPebDelegate(IntPtr self, [Out] out long Offset);
         private delegate HRESULT GetCurrentProcessSystemIdDelegate(IntPtr self, [Out] out int SysId);
         private delegate HRESULT GetCurrentProcessHandleDelegate(IntPtr self, [Out] out long Handle);
-        private delegate HRESULT GetCurrentProcessExecutableNameDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer, [In] int BufferSize, [Out] out int ExeSize);
+        private delegate HRESULT GetCurrentProcessExecutableNameDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int ExeSize);
         private delegate HRESULT GetThreadIdsByIndexDelegate(IntPtr self, [In] int Start, [In] int Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Ids, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] SysIds);
         private delegate HRESULT GetThreadIdByProcessorDelegate(IntPtr self, [In] int Processor, [Out] out int Id);
         private delegate HRESULT GetThreadIdByDataOffsetDelegate(IntPtr self, [In] long Offset, [Out] out int Id);
@@ -1890,15 +1890,15 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetNumberSystemsDelegate(IntPtr self, [Out] out int Count);
         private delegate HRESULT GetTotalNumberThreadsAndProcessesDelegate(IntPtr self, [Out] out int TotalThreads, [Out] out int TotalProcesses, [Out] out int LargestProcessThreads, [Out] out int LargestSystemThreads, [Out] out int LargestSystemProcesses);
         private delegate HRESULT GetCurrentSystemServerDelegate(IntPtr self, [Out] out long server);
-        private delegate HRESULT GetCurrentSystemServerNameDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer, [In] int Size, [Out] out int Needed);
+        private delegate HRESULT GetCurrentSystemServerNameDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int Size, [Out] out int Needed);
         private delegate HRESULT GetSystemIdsByIndexDelegate(IntPtr self, [In] int Start, [In] int Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Ids);
         private delegate HRESULT GetSystemByServerDelegate(IntPtr self, [In] long Server, [Out] out int Id);
 
         #endregion
         #region IDebugSystemObjects4
 
-        private delegate HRESULT GetCurrentProcessExecutableNameWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer, [In] int BufferSize, [Out] out int ExeSize);
-        private delegate HRESULT GetCurrentSystemServerNameWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer, [In] int BufferSize, [Out] out int NameSize);
+        private delegate HRESULT GetCurrentProcessExecutableNameWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int ExeSize);
+        private delegate HRESULT GetCurrentSystemServerNameWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int NameSize);
 
         #endregion
         #endregion

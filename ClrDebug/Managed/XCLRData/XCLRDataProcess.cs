@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Text;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
@@ -339,11 +339,11 @@ namespace ClrDebug
             [In] int flags, //Unused, must be 0
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
             [Out] out CLRDATA_ADDRESS displacement);*/
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf;
+            char[] nameBuf;
             CLRDATA_ADDRESS displacement;
             HRESULT hr = Raw.GetRuntimeNameByAddress(address, flags, bufLen, out nameLen, null, out displacement);
 
@@ -351,12 +351,12 @@ namespace ClrDebug
                 goto fail;
 
             bufLen = nameLen;
-            nameBuf = new StringBuilder(bufLen);
+            nameBuf = new char[bufLen];
             hr = Raw.GetRuntimeNameByAddress(address, flags, bufLen, out nameLen, nameBuf, out displacement);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetRuntimeNameByAddressResult(nameBuf.ToString(), displacement);
+                result = new GetRuntimeNameByAddressResult(CreateString(nameBuf, nameLen), displacement);
 
                 return hr;
             }
@@ -805,12 +805,12 @@ namespace ClrDebug
             [In] IXCLRDataTask tlsTask,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] nameBuf,
             [Out] out IXCLRDataValue value,
             [Out] out CLRDATA_ADDRESS displacement);*/
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf;
+            char[] nameBuf;
             IXCLRDataValue value;
             CLRDATA_ADDRESS displacement;
             HRESULT hr = Raw.GetDataByAddress(address, flags, appDomain, tlsTask, bufLen, out nameLen, null, out value, out displacement);
@@ -819,12 +819,12 @@ namespace ClrDebug
                 goto fail;
 
             bufLen = nameLen;
-            nameBuf = new StringBuilder(bufLen);
+            nameBuf = new char[bufLen];
             hr = Raw.GetDataByAddress(address, flags, appDomain, tlsTask, bufLen, out nameLen, nameBuf, out value, out displacement);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetDataByAddressResult(nameBuf.ToString(), new XCLRDataValue(value), displacement);
+                result = new GetDataByAddressResult(CreateString(nameBuf, nameLen), new XCLRDataValue(value), displacement);
 
                 return hr;
             }

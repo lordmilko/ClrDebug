@@ -1,5 +1,4 @@
 ﻿using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug.DbgEng
 {
@@ -75,7 +74,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetSymbolName(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 
@@ -218,7 +217,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolNameWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 
@@ -273,7 +272,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolTypeName(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 
@@ -292,7 +291,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolTypeNameWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 
@@ -357,7 +356,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolValueText(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 
@@ -378,7 +377,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetSymbolValueTextWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 

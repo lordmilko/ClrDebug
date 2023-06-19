@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug.CoClass
 {
@@ -103,7 +102,7 @@ namespace ClrDebug.CoClass
         public virtual extern HRESULT GetSymbolStoreFileName(
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder szName);
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2)] char[] szName);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

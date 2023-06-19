@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug
 {
@@ -47,7 +46,7 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
             [Out] out mdFieldDef token);
 
         [PreserveSig]
@@ -76,7 +75,7 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int nameBufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
             [Out] out mdFieldDef token);
 
         [PreserveSig]
@@ -107,7 +106,7 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder nameBuf);
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf);
 
         [PreserveSig]
         HRESULT GetAssociatedValue(
@@ -121,7 +120,7 @@ namespace ClrDebug
         HRESULT GetString(
             [In] int bufLen,
             [Out] out int strLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder str);
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] str);
 
         [PreserveSig]
         HRESULT GetArrayProperties(
@@ -144,7 +143,7 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int nameBufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
             [Out] out IXCLRDataModule tokenScope,
             [Out] out mdFieldDef token);
 
@@ -162,7 +161,7 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder nameBuf);
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] nameBuf);
 
         [PreserveSig]
         HRESULT GetNumLocations(

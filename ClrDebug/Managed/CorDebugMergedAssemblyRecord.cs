@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using System.Text;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
@@ -48,22 +48,22 @@ namespace ClrDebug
             /*HRESULT GetSimpleName(
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder szName);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szName);*/
             int cchName = 0;
             int pcchName;
-            StringBuilder szName;
+            char[] szName;
             HRESULT hr = Raw.GetSimpleName(cchName, out pcchName, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder(cchName);
+            szName = new char[cchName];
             hr = Raw.GetSimpleName(cchName, out pcchName, szName);
 
             if (hr == HRESULT.S_OK)
             {
-                szNameResult = szName.ToString();
+                szNameResult = CreateString(szName, pcchName);
 
                 return hr;
             }
@@ -149,22 +149,22 @@ namespace ClrDebug
             /*HRESULT GetCulture(
             [In] int cchCulture,
             [Out] out int pcchCulture,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder szCulture);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szCulture);*/
             int cchCulture = 0;
             int pcchCulture;
-            StringBuilder szCulture;
+            char[] szCulture;
             HRESULT hr = Raw.GetCulture(cchCulture, out pcchCulture, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchCulture = pcchCulture;
-            szCulture = new StringBuilder(cchCulture);
+            szCulture = new char[cchCulture];
             hr = Raw.GetCulture(cchCulture, out pcchCulture, szCulture);
 
             if (hr == HRESULT.S_OK)
             {
-                szCultureResult = szCulture.ToString();
+                szCultureResult = CreateString(szCulture, pcchCulture);
 
                 return hr;
             }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug
 {
@@ -26,7 +25,7 @@ namespace ClrDebug
         HRESULT GetURL(
             [In] int cchUrl,
             [Out] out int pcchUrl,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder szUrl);
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szUrl);
 
         /// <summary>
         /// Gets the document type of this document.

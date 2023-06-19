@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using System.Text;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
@@ -73,7 +73,7 @@ namespace ClrDebug
             [Out] out IntPtr ppbPublicKey,
             [Out] out int pcbPublicKey,
             [Out] out int pulHashAlgId,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 5)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 5)] char[] szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out ASSEMBLYMETADATA pMetaData,
@@ -81,7 +81,7 @@ namespace ClrDebug
             IntPtr ppbPublicKey;
             int pcbPublicKey;
             int pulHashAlgId;
-            StringBuilder szName;
+            char[] szName;
             int cchName = 0;
             int pchName;
             ASSEMBLYMETADATA pMetaData;
@@ -92,12 +92,12 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pchName;
-            szName = new StringBuilder(cchName);
+            szName = new char[cchName];
             hr = Raw.GetAssemblyProps(mda, out ppbPublicKey, out pcbPublicKey, out pulHashAlgId, szName, cchName, out pchName, out pMetaData, out pdwAssemblyFlags);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetAssemblyPropsResult(ppbPublicKey, pcbPublicKey, pulHashAlgId, szName.ToString(), pMetaData, pdwAssemblyFlags);
+                result = new GetAssemblyPropsResult(ppbPublicKey, pcbPublicKey, pulHashAlgId, CreateString(szName, pchName), pMetaData, pdwAssemblyFlags);
 
                 return hr;
             }
@@ -136,7 +136,7 @@ namespace ClrDebug
             [In] mdAssemblyRef mdar,
             [Out] out IntPtr ppbPublicKeyOrToken,
             [Out] out int pcbPublicKeyOrToken,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out ASSEMBLYMETADATA pMetaData,
@@ -145,7 +145,7 @@ namespace ClrDebug
             [Out] out CorAssemblyFlags pdwAssemblyFlags);*/
             IntPtr ppbPublicKeyOrToken;
             int pcbPublicKeyOrToken;
-            StringBuilder szName;
+            char[] szName;
             int cchName = 0;
             int pchName;
             ASSEMBLYMETADATA pMetaData;
@@ -158,12 +158,12 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pchName;
-            szName = new StringBuilder(cchName);
+            szName = new char[cchName];
             hr = Raw.GetAssemblyRefProps(mdar, out ppbPublicKeyOrToken, out pcbPublicKeyOrToken, szName, cchName, out pchName, out pMetaData, out ppbHashValue, out pcbHashValue, out pdwAssemblyFlags);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetAssemblyRefPropsResult(ppbPublicKeyOrToken, pcbPublicKeyOrToken, szName.ToString(), pMetaData, ppbHashValue, pcbHashValue, pdwAssemblyFlags);
+                result = new GetAssemblyRefPropsResult(ppbPublicKeyOrToken, pcbPublicKeyOrToken, CreateString(szName, pchName), pMetaData, ppbHashValue, pcbHashValue, pdwAssemblyFlags);
 
                 return hr;
             }
@@ -199,13 +199,13 @@ namespace ClrDebug
         {
             /*HRESULT GetFileProps(
             [In] mdFile mdf,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out IntPtr ppbHashValue,
             [Out] out int pcbHashValue,
             [Out] out CorFileFlags pdwFileFlags);*/
-            StringBuilder szName;
+            char[] szName;
             int cchName = 0;
             int pchName;
             IntPtr ppbHashValue;
@@ -217,12 +217,12 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pchName;
-            szName = new StringBuilder(cchName);
+            szName = new char[cchName];
             hr = Raw.GetFileProps(mdf, szName, cchName, out pchName, out ppbHashValue, out pcbHashValue, out pdwFileFlags);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetFilePropsResult(szName.ToString(), ppbHashValue, pcbHashValue, pdwFileFlags);
+                result = new GetFilePropsResult(CreateString(szName, pchName), ppbHashValue, pcbHashValue, pdwFileFlags);
 
                 return hr;
             }
@@ -258,13 +258,13 @@ namespace ClrDebug
         {
             /*HRESULT GetExportedTypeProps(
             [In] mdExportedType mdct,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out mdToken ptkImplementation,
             [Out] out mdTypeDef ptkTypeDef,
             [Out] out CorTypeAttr pdwExportedTypeFlags);*/
-            StringBuilder szName;
+            char[] szName;
             int cchName = 0;
             int pchName;
             mdToken ptkImplementation;
@@ -276,12 +276,12 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pchName;
-            szName = new StringBuilder(cchName);
+            szName = new char[cchName];
             hr = Raw.GetExportedTypeProps(mdct, szName, cchName, out pchName, out ptkImplementation, out ptkTypeDef, out pdwExportedTypeFlags);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetExportedTypePropsResult(szName.ToString(), ptkImplementation, ptkTypeDef, pdwExportedTypeFlags);
+                result = new GetExportedTypePropsResult(CreateString(szName, pchName), ptkImplementation, ptkTypeDef, pdwExportedTypeFlags);
 
                 return hr;
             }
@@ -317,13 +317,13 @@ namespace ClrDebug
         {
             /*HRESULT GetManifestResourceProps(
             [In] mdManifestResource mdmr,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out mdToken ptkImplementation,
             [Out] out int pdwOffset,
             [Out] out CorManifestResourceFlags pdwResourceFlags);*/
-            StringBuilder szName;
+            char[] szName;
             int cchName = 0;
             int pchName;
             mdToken ptkImplementation;
@@ -335,12 +335,12 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pchName;
-            szName = new StringBuilder(cchName);
+            szName = new char[cchName];
             hr = Raw.GetManifestResourceProps(mdmr, szName, cchName, out pchName, out ptkImplementation, out pdwOffset, out pdwResourceFlags);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetManifestResourcePropsResult(szName.ToString(), ptkImplementation, pdwOffset, pdwResourceFlags);
+                result = new GetManifestResourcePropsResult(CreateString(szName, pchName), ptkImplementation, pdwOffset, pdwResourceFlags);
 
                 return hr;
             }

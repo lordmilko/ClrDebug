@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug
 {
@@ -62,9 +61,9 @@ namespace ClrDebug
             [In] METAHOST_POLICY_FLAGS dwPolicyFlags,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzBinary,
             [MarshalAs(UnmanagedType.Interface), In] IStream pCfgStream,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4), Out] StringBuilder pwzVersion,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4), Out] char[] pwzVersion,
             [In, Out] ref int pcchVersion,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 6), Out] StringBuilder pwzImageVersion,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 6), Out] char[] pwzImageVersion,
             [In, Out] ref int pcchImageVersion,
             [Out] out METAHOST_CONFIG_FLAGS pdwConfigFlags,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,

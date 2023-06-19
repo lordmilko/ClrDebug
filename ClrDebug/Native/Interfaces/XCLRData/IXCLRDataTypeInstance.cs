@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug
 {
@@ -48,7 +47,7 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] nameBuf,
             [Out] out mdFieldDef token);
 
         [PreserveSig]
@@ -81,7 +80,7 @@ namespace ClrDebug
             [In] int flags, //Unused; must be 0
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder nameBuf);
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf);
 
         [PreserveSig]
         HRESULT GetModule(
@@ -151,7 +150,7 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder nameBuf);
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] nameBuf);
 
         [PreserveSig]
         HRESULT GetBase(
@@ -163,7 +162,7 @@ namespace ClrDebug
             [Out] out IXCLRDataValue value,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
             [Out] out IXCLRDataModule tokenScope,
             [Out] out mdFieldDef token);
 
@@ -182,6 +181,6 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4)] StringBuilder nameBuf);
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] nameBuf);
     }
 }

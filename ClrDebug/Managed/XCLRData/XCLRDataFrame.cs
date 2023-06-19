@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Text;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
@@ -205,23 +205,23 @@ namespace ClrDebug
             [Out] out IXCLRDataValue arg,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder name);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] name);*/
             IXCLRDataValue arg;
             int bufLen = 0;
             int nameLen;
-            StringBuilder name;
+            char[] name;
             HRESULT hr = Raw.GetArgumentByIndex(index, out arg, bufLen, out nameLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufLen = nameLen;
-            name = new StringBuilder(bufLen);
+            name = new char[bufLen];
             hr = Raw.GetArgumentByIndex(index, out arg, bufLen, out nameLen, name);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetArgumentByIndexResult(new XCLRDataValue(arg), name.ToString());
+                result = new GetArgumentByIndexResult(new XCLRDataValue(arg), CreateString(name, nameLen));
 
                 return hr;
             }
@@ -250,23 +250,23 @@ namespace ClrDebug
             [Out] out IXCLRDataValue localVariable,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder name);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] name);*/
             IXCLRDataValue localVariable;
             int bufLen = 0;
             int nameLen;
-            StringBuilder name;
+            char[] name;
             HRESULT hr = Raw.GetLocalVariableByIndex(index, out localVariable, bufLen, out nameLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufLen = nameLen;
-            name = new StringBuilder(bufLen);
+            name = new char[bufLen];
             hr = Raw.GetLocalVariableByIndex(index, out localVariable, bufLen, out nameLen, name);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetLocalVariableByIndexResult(new XCLRDataValue(localVariable), name.ToString());
+                result = new GetLocalVariableByIndexResult(new XCLRDataValue(localVariable), CreateString(name, nameLen));
 
                 return hr;
             }
@@ -294,22 +294,22 @@ namespace ClrDebug
             [In] int flags, //Unused, must be 0
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder nameBuf);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf);*/
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf;
+            char[] nameBuf;
             HRESULT hr = Raw.GetCodeName(flags, bufLen, out nameLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufLen = nameLen;
-            nameBuf = new StringBuilder(bufLen);
+            nameBuf = new char[bufLen];
             hr = Raw.GetCodeName(flags, bufLen, out nameLen, nameBuf);
 
             if (hr == HRESULT.S_OK)
             {
-                nameBufResult = nameBuf.ToString();
+                nameBufResult = CreateString(nameBuf, nameLen);
 
                 return hr;
             }

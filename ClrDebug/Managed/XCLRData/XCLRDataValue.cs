@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Text;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
@@ -203,22 +203,22 @@ namespace ClrDebug
             /*HRESULT GetString(
             [In] int bufLen,
             [Out] out int strLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder str);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] str);*/
             int bufLen = 0;
             int strLen;
-            StringBuilder str;
+            char[] str;
             HRESULT hr = Raw.GetString(bufLen, out strLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufLen = strLen;
-            str = new StringBuilder(bufLen);
+            str = new char[bufLen];
             hr = Raw.GetString(bufLen, out strLen, str);
 
             if (hr == HRESULT.S_OK)
             {
-                strResult = str.ToString();
+                strResult = CreateString(str, strLen);
 
                 return hr;
             }
@@ -317,12 +317,12 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
             [Out] out mdFieldDef token);*/
             IXCLRDataValue field;
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf;
+            char[] nameBuf;
             mdFieldDef token;
             HRESULT hr = Raw.GetFieldByIndex(index, out field, bufLen, out nameLen, null, out token);
 
@@ -330,12 +330,12 @@ namespace ClrDebug
                 goto fail;
 
             bufLen = nameLen;
-            nameBuf = new StringBuilder(bufLen);
+            nameBuf = new char[bufLen];
             hr = Raw.GetFieldByIndex(index, out field, bufLen, out nameLen, nameBuf, out token);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetFieldByIndexResult(new XCLRDataValue(field), nameBuf.ToString(), token);
+                result = new GetFieldByIndexResult(new XCLRDataValue(field), CreateString(nameBuf, nameLen), token);
 
                 return hr;
             }
@@ -423,12 +423,12 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int nameBufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
             [Out] out mdFieldDef token);*/
             IXCLRDataValue field;
             int nameBufLen = 0;
             int nameLen;
-            StringBuilder nameBuf;
+            char[] nameBuf;
             mdFieldDef token;
             HRESULT hr = Raw.EnumField(ref handle, out field, nameBufLen, out nameLen, null, out token);
 
@@ -436,12 +436,12 @@ namespace ClrDebug
                 goto fail;
 
             nameBufLen = nameLen;
-            nameBuf = new StringBuilder(nameBufLen);
+            nameBuf = new char[nameBufLen];
             hr = Raw.EnumField(ref handle, out field, nameBufLen, out nameLen, nameBuf, out token);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new XCLRDataValue_EnumFieldResult(new XCLRDataValue(field), nameBuf.ToString(), token);
+                result = new XCLRDataValue_EnumFieldResult(new XCLRDataValue(field), CreateString(nameBuf, nameLen), token);
 
                 return hr;
             }
@@ -551,23 +551,23 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder nameBuf);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf);*/
             IXCLRDataValue field;
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf;
+            char[] nameBuf;
             HRESULT hr = Raw.GetFieldByToken(token, out field, bufLen, out nameLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufLen = nameLen;
-            nameBuf = new StringBuilder(bufLen);
+            nameBuf = new char[bufLen];
             hr = Raw.GetFieldByToken(token, out field, bufLen, out nameLen, nameBuf);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new XCLRDataValue_GetFieldByTokenResult(new XCLRDataValue(field), nameBuf.ToString());
+                result = new XCLRDataValue_GetFieldByTokenResult(new XCLRDataValue(field), CreateString(nameBuf, nameLen));
 
                 return hr;
             }
@@ -658,13 +658,13 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int nameBufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
             [Out] out IXCLRDataModule tokenScope,
             [Out] out mdFieldDef token);*/
             IXCLRDataValue field;
             int nameBufLen = 0;
             int nameLen;
-            StringBuilder nameBuf;
+            char[] nameBuf;
             IXCLRDataModule tokenScope;
             mdFieldDef token;
             HRESULT hr = Raw.EnumField2(ref handle, out field, nameBufLen, out nameLen, null, out tokenScope, out token);
@@ -673,12 +673,12 @@ namespace ClrDebug
                 goto fail;
 
             nameBufLen = nameLen;
-            nameBuf = new StringBuilder(nameBufLen);
+            nameBuf = new char[nameBufLen];
             hr = Raw.EnumField2(ref handle, out field, nameBufLen, out nameLen, nameBuf, out tokenScope, out token);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new XCLRDataValue_EnumField2Result(new XCLRDataValue(field), nameBuf.ToString(), new XCLRDataModule(tokenScope), token);
+                result = new XCLRDataValue_EnumField2Result(new XCLRDataValue(field), CreateString(nameBuf, nameLen), new XCLRDataModule(tokenScope), token);
 
                 return hr;
             }
@@ -739,23 +739,23 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder nameBuf);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] nameBuf);*/
             IXCLRDataValue field;
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf;
+            char[] nameBuf;
             HRESULT hr = Raw.GetFieldByToken2(tokenScope, token, out field, bufLen, out nameLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufLen = nameLen;
-            nameBuf = new StringBuilder(bufLen);
+            nameBuf = new char[bufLen];
             hr = Raw.GetFieldByToken2(tokenScope, token, out field, bufLen, out nameLen, nameBuf);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new XCLRDataValue_GetFieldByToken2Result(new XCLRDataValue(field), nameBuf.ToString());
+                result = new XCLRDataValue_GetFieldByToken2Result(new XCLRDataValue(field), CreateString(nameBuf, nameLen));
 
                 return hr;
             }

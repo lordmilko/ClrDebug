@@ -21,6 +21,8 @@ $normalArgs = @{
     ComPrefix = "IStream","ITypeLib"
     MirrorNamespace = $true
     BaseCallbackTypes = "ICorProfilerCallback*"
+
+    CharArrayHandler = "ClrDebug.Extensions.CreateString"
 }
 
 New-ComWrapper @normalArgs
@@ -43,6 +45,8 @@ $dbgEngArgs = @{
     CDecl = "IDebugControl*.Output","IDebugControl*.OutputWide","IDebugControl*.ControlledOutput*","IDebugControl*.OutputPrompt*"
     FailedOnlyFancyExceptionHandler = "ThrowDbgEngFailed"
     ManualArray = "idebugcontrol.getstacktrace","idebugcontrol5.getstacktraceex"
+
+    CharArrayHandler = "ClrDebug.Extensions.CreateString"
 }
 
 New-ComWrapper @dbgEngArgs

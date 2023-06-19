@@ -1,6 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug
 {
@@ -43,6 +42,6 @@ namespace ClrDebug
             [In] int dwImageSize,
             [In] int cchPathBuffer,
             [Out] out int pcchPathBuffer,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3), Out] StringBuilder wszPathBuffer);
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] wszPathBuffer);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug.DbgEng
 {
@@ -38,7 +37,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetDescription(
             [In] int Register,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder NameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out DEBUG_REGISTER_DESCRIPTION Desc);
@@ -222,7 +221,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetDescriptionWide(
             [In] int Register,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder NameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out DEBUG_REGISTER_DESCRIPTION Desc);
@@ -277,7 +276,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetPseudoDescription(
             [In] int Register,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder NameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out long TypeModule,
@@ -305,7 +304,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         HRESULT GetPseudoDescriptionWide(
             [In] int Register,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder NameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out long TypeModule,

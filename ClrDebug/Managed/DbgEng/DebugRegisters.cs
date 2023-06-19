@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Text;
 using ClrDebug.DbgEng.Vtbl;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug.DbgEng
 {
@@ -204,11 +204,11 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getDescription, Vtbl->GetDescription);
             /*HRESULT GetDescription(
             [In] int Register,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder NameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out DEBUG_REGISTER_DESCRIPTION Desc);*/
-            StringBuilder nameBuffer;
+            char[] nameBuffer;
             int nameBufferSize = 0;
             int nameSize;
             DEBUG_REGISTER_DESCRIPTION desc;
@@ -218,12 +218,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             nameBufferSize = nameSize;
-            nameBuffer = new StringBuilder(nameBufferSize);
+            nameBuffer = new char[nameBufferSize];
             hr = getDescription(Raw, register, nameBuffer, nameBufferSize, out nameSize, out desc);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetDescriptionResult(nameBuffer.ToString(), desc);
+                result = new GetDescriptionResult(CreateString(nameBuffer, nameSize), desc);
 
                 return hr;
             }
@@ -590,11 +590,11 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getDescriptionWide, Vtbl2->GetDescriptionWide);
             /*HRESULT GetDescriptionWide(
             [In] int Register,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder NameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out DEBUG_REGISTER_DESCRIPTION Desc);*/
-            StringBuilder nameBuffer;
+            char[] nameBuffer;
             int nameBufferSize = 0;
             int nameSize;
             DEBUG_REGISTER_DESCRIPTION desc;
@@ -604,12 +604,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             nameBufferSize = nameSize;
-            nameBuffer = new StringBuilder(nameBufferSize);
+            nameBuffer = new char[nameBufferSize];
             hr = getDescriptionWide(Raw, register, nameBuffer, nameBufferSize, out nameSize, out desc);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetDescriptionWideResult(nameBuffer.ToString(), desc);
+                result = new GetDescriptionWideResult(CreateString(nameBuffer, nameSize), desc);
 
                 return hr;
             }
@@ -697,12 +697,12 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getPseudoDescription, Vtbl2->GetPseudoDescription);
             /*HRESULT GetPseudoDescription(
             [In] int Register,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder NameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out long TypeModule,
             [Out] out int TypeId);*/
-            StringBuilder nameBuffer;
+            char[] nameBuffer;
             int nameBufferSize = 0;
             int nameSize;
             long typeModule;
@@ -713,12 +713,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             nameBufferSize = nameSize;
-            nameBuffer = new StringBuilder(nameBufferSize);
+            nameBuffer = new char[nameBufferSize];
             hr = getPseudoDescription(Raw, register, nameBuffer, nameBufferSize, out nameSize, out typeModule, out typeId);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetPseudoDescriptionResult(nameBuffer.ToString(), typeModule, typeId);
+                result = new GetPseudoDescriptionResult(CreateString(nameBuffer, nameSize), typeModule, typeId);
 
                 return hr;
             }
@@ -768,12 +768,12 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getPseudoDescriptionWide, Vtbl2->GetPseudoDescriptionWide);
             /*HRESULT GetPseudoDescriptionWide(
             [In] int Register,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder NameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out long TypeModule,
             [Out] out int TypeId);*/
-            StringBuilder nameBuffer;
+            char[] nameBuffer;
             int nameBufferSize = 0;
             int nameSize;
             long typeModule;
@@ -784,12 +784,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             nameBufferSize = nameSize;
-            nameBuffer = new StringBuilder(nameBufferSize);
+            nameBuffer = new char[nameBufferSize];
             hr = getPseudoDescriptionWide(Raw, register, nameBuffer, nameBufferSize, out nameSize, out typeModule, out typeId);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetPseudoDescriptionWideResult(nameBuffer.ToString(), typeModule, typeId);
+                result = new GetPseudoDescriptionWideResult(CreateString(nameBuffer, nameSize), typeModule, typeId);
 
                 return hr;
             }
@@ -1335,7 +1335,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetInstructionOffsetDelegate(IntPtr self, [Out] out long Offset);
         private delegate HRESULT GetStackOffsetDelegate(IntPtr self, [Out] out long Offset);
         private delegate HRESULT GetFrameOffsetDelegate(IntPtr self, [Out] out long Offset);
-        private delegate HRESULT GetDescriptionDelegate(IntPtr self, [In] int Register, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out DEBUG_REGISTER_DESCRIPTION Desc);
+        private delegate HRESULT GetDescriptionDelegate(IntPtr self, [In] int Register, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out DEBUG_REGISTER_DESCRIPTION Desc);
         private delegate HRESULT GetIndexByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [Out] out int Index);
         private delegate HRESULT GetValueDelegate(IntPtr self, [In] int Register, [Out] out DEBUG_VALUE Value);
         private delegate HRESULT SetValueDelegate(IntPtr self, [In] int Register, [In] ref DEBUG_VALUE Value);
@@ -1347,10 +1347,10 @@ namespace ClrDebug.DbgEng
         #region IDebugRegisters2
 
         private delegate HRESULT GetNumberPseudoRegistersDelegate(IntPtr self, [Out] out int Number);
-        private delegate HRESULT GetDescriptionWideDelegate(IntPtr self, [In] int Register, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out DEBUG_REGISTER_DESCRIPTION Desc);
+        private delegate HRESULT GetDescriptionWideDelegate(IntPtr self, [In] int Register, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out DEBUG_REGISTER_DESCRIPTION Desc);
         private delegate HRESULT GetIndexByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [Out] out int Index);
-        private delegate HRESULT GetPseudoDescriptionDelegate(IntPtr self, [In] int Register, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out long TypeModule, [Out] out int TypeId);
-        private delegate HRESULT GetPseudoDescriptionWideDelegate(IntPtr self, [In] int Register, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out long TypeModule, [Out] out int TypeId);
+        private delegate HRESULT GetPseudoDescriptionDelegate(IntPtr self, [In] int Register, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out long TypeModule, [Out] out int TypeId);
+        private delegate HRESULT GetPseudoDescriptionWideDelegate(IntPtr self, [In] int Register, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] NameBuffer, [In] int NameBufferSize, [Out] out int NameSize, [Out] out long TypeModule, [Out] out int TypeId);
         private delegate HRESULT GetPseudoIndexByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [Out] out int Index);
         private delegate HRESULT GetPseudoIndexByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [Out] out int Index);
         private delegate HRESULT GetPseudoValuesDelegate(IntPtr self, [In] DEBUG_REGSRC Source, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] Indices, [In] int Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_VALUE[] Values);

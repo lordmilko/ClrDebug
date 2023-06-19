@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Text;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
@@ -268,22 +268,22 @@ namespace ClrDebug
             [In] int flags, //Unused, must be 0
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder nameBuf);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf);*/
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf;
+            char[] nameBuf;
             HRESULT hr = Raw.GetName(flags, bufLen, out nameLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufLen = nameLen;
-            nameBuf = new StringBuilder(bufLen);
+            nameBuf = new char[bufLen];
             hr = Raw.GetName(flags, bufLen, out nameLen, nameBuf);
 
             if (hr == HRESULT.S_OK)
             {
-                nameBufResult = nameBuf.ToString();
+                nameBufResult = CreateString(nameBuf, nameLen);
 
                 return hr;
             }

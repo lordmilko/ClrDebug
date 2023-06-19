@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug
 {
@@ -31,7 +30,7 @@ namespace ClrDebug
             [Out] out IntPtr ppbPublicKey,
             [Out] out int pcbPublicKey,
             [Out] out int pulHashAlgId,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 5)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 5)] char[] szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out ASSEMBLYMETADATA pMetaData,
@@ -56,7 +55,7 @@ namespace ClrDebug
             [In] mdAssemblyRef mdar,
             [Out] out IntPtr ppbPublicKeyOrToken,
             [Out] out int pcbPublicKeyOrToken,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out ASSEMBLYMETADATA pMetaData,
@@ -77,7 +76,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetFileProps(
             [In] mdFile mdf,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out IntPtr ppbHashValue,
@@ -97,7 +96,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetExportedTypeProps(
             [In] mdExportedType mdct,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out mdToken ptkImplementation,
@@ -117,7 +116,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetManifestResourceProps(
             [In] mdManifestResource mdmr,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out mdToken ptkImplementation,

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Text;
 using ClrDebug.DbgEng.Vtbl;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug.DbgEng
 {
@@ -132,11 +132,11 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getLogFile, Vtbl->GetLogFile);
             /*HRESULT GetLogFile(
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int FileSize,
             [Out, MarshalAs(UnmanagedType.Bool)] out bool Append);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int fileSize;
             bool append;
@@ -146,12 +146,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = fileSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getLogFile(Raw, buffer, bufferSize, out fileSize, out append);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetLogFileResult(buffer.ToString(), append);
+                result = new GetLogFileResult(CreateString(buffer, fileSize), append);
 
                 return hr;
             }
@@ -243,10 +243,10 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getPromptText, Vtbl->GetPromptText);
             /*HRESULT GetPromptText(
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int TextSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int textSize;
             HRESULT hr = getPromptText(Raw, null, bufferSize, out textSize);
@@ -255,12 +255,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = textSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getPromptText(Raw, buffer, bufferSize, out textSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, textSize);
 
                 return hr;
             }
@@ -610,21 +610,21 @@ namespace ClrDebug.DbgEng
             [Out] out int PlatformId,
             [Out] out int Major,
             [Out] out int Minor,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 4)] StringBuilder ServicePackString,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] ServicePackString,
             [In] int ServicePackStringSize,
             [Out] out int ServicePackStringUsed,
             [Out] out int ServicePackNumber,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 8)] StringBuilder BuildString,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 8)] char[] BuildString,
             [In] int BuildStringSize,
             [Out] out int BuildStringUsed);*/
             int platformId;
             int major;
             int minor;
-            StringBuilder servicePackString;
+            char[] servicePackString;
             int servicePackStringSize = 0;
             int servicePackStringUsed;
             int servicePackNumber;
-            StringBuilder buildString;
+            char[] buildString;
             int buildStringSize = 0;
             int buildStringUsed;
             HRESULT hr = getSystemVersion(Raw, out platformId, out major, out minor, null, servicePackStringSize, out servicePackStringUsed, out servicePackNumber, null, buildStringSize, out buildStringUsed);
@@ -633,14 +633,14 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             servicePackStringSize = servicePackStringUsed;
-            servicePackString = new StringBuilder(servicePackStringSize);
+            servicePackString = new char[servicePackStringSize];
             buildStringSize = buildStringUsed;
-            buildString = new StringBuilder(buildStringSize);
+            buildString = new char[buildStringSize];
             hr = getSystemVersion(Raw, out platformId, out major, out minor, servicePackString, servicePackStringSize, out servicePackStringUsed, out servicePackNumber, buildString, buildStringSize, out buildStringUsed);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetSystemVersionResult(platformId, major, minor, servicePackString.ToString(), servicePackNumber, buildString.ToString());
+                result = new GetSystemVersionResult(platformId, major, minor, CreateString(servicePackString, servicePackStringUsed), servicePackNumber, CreateString(buildString, buildStringUsed));
 
                 return hr;
             }
@@ -1189,7 +1189,7 @@ namespace ClrDebug.DbgEng
             [Out, ComAliasName("IntPtr")] out DEBUG_LAST_EVENT_INFO ExtraInformation,
             [In] int ExtraInformationSize,
             [Out] out int ExtraInformationUsed,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 7)] StringBuilder Description,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] char[] Description,
             [In] int DescriptionSize,
             [Out] out int DescriptionUsed);*/
             DEBUG_EVENT_TYPE type;
@@ -1198,7 +1198,7 @@ namespace ClrDebug.DbgEng
             DEBUG_LAST_EVENT_INFO extraInformation;
             int extraInformationSize = Marshal.SizeOf<DEBUG_LAST_EVENT_INFO>();
             int extraInformationUsed;
-            StringBuilder description;
+            char[] description;
             int descriptionSize = 0;
             int descriptionUsed;
             HRESULT hr = getLastEventInformation(Raw, out type, out processId, out threadId, out extraInformation, extraInformationSize, out extraInformationUsed, null, descriptionSize, out descriptionUsed);
@@ -1207,12 +1207,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             descriptionSize = descriptionUsed;
-            description = new StringBuilder(descriptionSize);
+            description = new char[descriptionSize];
             hr = getLastEventInformation(Raw, out type, out processId, out threadId, out extraInformation, extraInformationSize, out extraInformationUsed, description, descriptionSize, out descriptionUsed);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetLastEventInformationResult(type, processId, threadId, extraInformation, description.ToString());
+                result = new GetLastEventInformationResult(type, processId, threadId, extraInformation, CreateString(description, descriptionUsed));
 
                 return hr;
             }
@@ -1396,10 +1396,10 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref input, Vtbl->Input);
             /*HRESULT Input(
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int InputSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int inputSize;
             HRESULT hr = input(Raw, null, bufferSize, out inputSize);
@@ -1408,12 +1408,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = inputSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = input(Raw, buffer, bufferSize, out inputSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, inputSize);
 
                 return hr;
             }
@@ -1935,11 +1935,11 @@ namespace ClrDebug.DbgEng
             /*HRESULT Disassemble(
             [In] long Offset,
             [In] DEBUG_DISASM Flags,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int DisassemblySize,
             [Out] out long EndOffset);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int disassemblySize;
             long endOffset;
@@ -1949,12 +1949,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = disassemblySize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = disassemble(Raw, offset, flags, buffer, bufferSize, out disassemblySize, out endOffset);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new DisassembleResult(buffer.ToString(), endOffset);
+                result = new DisassembleResult(CreateString(buffer, disassemblySize), endOffset);
 
                 return hr;
             }
@@ -2413,16 +2413,16 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getProcessorTypeNames, Vtbl->GetProcessorTypeNames);
             /*HRESULT GetProcessorTypeNames(
             [In] IMAGE_FILE_MACHINE Type,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder FullNameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] FullNameBuffer,
             [In] int FullNameBufferSize,
             [Out] out int FullNameSize,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 5)] StringBuilder AbbrevNameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 5)] char[] AbbrevNameBuffer,
             [In] int AbbrevNameBufferSize,
             [Out] out int AbbrevNameSize);*/
-            StringBuilder fullNameBuffer;
+            char[] fullNameBuffer;
             int fullNameBufferSize = 0;
             int fullNameSize;
-            StringBuilder abbrevNameBuffer;
+            char[] abbrevNameBuffer;
             int abbrevNameBufferSize = 0;
             int abbrevNameSize;
             HRESULT hr = getProcessorTypeNames(Raw, type, null, fullNameBufferSize, out fullNameSize, null, abbrevNameBufferSize, out abbrevNameSize);
@@ -2431,14 +2431,14 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             fullNameBufferSize = fullNameSize;
-            fullNameBuffer = new StringBuilder(fullNameBufferSize);
+            fullNameBuffer = new char[fullNameBufferSize];
             abbrevNameBufferSize = abbrevNameSize;
-            abbrevNameBuffer = new StringBuilder(abbrevNameBufferSize);
+            abbrevNameBuffer = new char[abbrevNameBufferSize];
             hr = getProcessorTypeNames(Raw, type, fullNameBuffer, fullNameBufferSize, out fullNameSize, abbrevNameBuffer, abbrevNameBufferSize, out abbrevNameSize);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetProcessorTypeNamesResult(fullNameBuffer.ToString(), abbrevNameBuffer.ToString());
+                result = new GetProcessorTypeNamesResult(CreateString(fullNameBuffer, fullNameSize), CreateString(abbrevNameBuffer, abbrevNameSize));
 
                 return hr;
             }
@@ -2605,10 +2605,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getTextMacro, Vtbl->GetTextMacro);
             /*HRESULT GetTextMacro(
             [In] int Slot,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int MacroSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int macroSize;
             HRESULT hr = getTextMacro(Raw, slot, null, bufferSize, out macroSize);
@@ -2617,12 +2617,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = macroSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getTextMacro(Raw, slot, buffer, bufferSize, out macroSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, macroSize);
 
                 return hr;
             }
@@ -3481,10 +3481,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getEventFilterText, Vtbl->GetEventFilterText);
             /*HRESULT GetEventFilterText(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int TextSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int textSize;
             HRESULT hr = getEventFilterText(Raw, index, null, bufferSize, out textSize);
@@ -3493,12 +3493,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = textSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getEventFilterText(Raw, index, buffer, bufferSize, out textSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, textSize);
 
                 return hr;
             }
@@ -3544,10 +3544,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getEventFilterCommand, Vtbl->GetEventFilterCommand);
             /*HRESULT GetEventFilterCommand(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int CommandSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int commandSize;
             HRESULT hr = getEventFilterCommand(Raw, index, null, bufferSize, out commandSize);
@@ -3556,12 +3556,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = commandSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getEventFilterCommand(Raw, index, buffer, bufferSize, out commandSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, commandSize);
 
                 return hr;
             }
@@ -3708,10 +3708,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getSpecificEventFilterArgument, Vtbl->GetSpecificEventFilterArgument);
             /*HRESULT GetSpecificEventFilterArgument(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int ArgumentSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int argumentSize;
             HRESULT hr = getSpecificEventFilterArgument(Raw, index, null, bufferSize, out argumentSize);
@@ -3720,12 +3720,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = argumentSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getSpecificEventFilterArgument(Raw, index, buffer, bufferSize, out argumentSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, argumentSize);
 
                 return hr;
             }
@@ -3884,10 +3884,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getExceptionFilterSecondCommand, Vtbl->GetExceptionFilterSecondCommand);
             /*HRESULT GetExceptionFilterSecondCommand(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int CommandSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int commandSize;
             HRESULT hr = getExceptionFilterSecondCommand(Raw, index, null, bufferSize, out commandSize);
@@ -3896,12 +3896,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = commandSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getExceptionFilterSecondCommand(Raw, index, buffer, bufferSize, out commandSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, commandSize);
 
                 return hr;
             }
@@ -4189,16 +4189,16 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetTextReplacement(
             [In, MarshalAs(UnmanagedType.LPStr)] string SrcText,
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder SrcBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] SrcBuffer,
             [In] int SrcBufferSize,
             [Out] out int SrcSize,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 6)] StringBuilder DstBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 6)] char[] DstBuffer,
             [In] int DstBufferSize,
             [Out] out int DstSize);*/
-            StringBuilder srcBuffer;
+            char[] srcBuffer;
             int srcBufferSize = 0;
             int srcSize;
-            StringBuilder dstBuffer;
+            char[] dstBuffer;
             int dstBufferSize = 0;
             int dstSize;
             HRESULT hr = getTextReplacement(Raw, srcText, index, null, srcBufferSize, out srcSize, null, dstBufferSize, out dstSize);
@@ -4207,14 +4207,14 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             srcBufferSize = srcSize;
-            srcBuffer = new StringBuilder(srcBufferSize);
+            srcBuffer = new char[srcBufferSize];
             dstBufferSize = dstSize;
-            dstBuffer = new StringBuilder(dstBufferSize);
+            dstBuffer = new char[dstBufferSize];
             hr = getTextReplacement(Raw, srcText, index, srcBuffer, srcBufferSize, out srcSize, dstBuffer, dstBufferSize, out dstSize);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetTextReplacementResult(srcBuffer.ToString(), dstBuffer.ToString());
+                result = new GetTextReplacementResult(CreateString(srcBuffer, srcSize), CreateString(dstBuffer, dstSize));
 
                 return hr;
             }
@@ -4719,16 +4719,16 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getExpressionSyntaxNames, Vtbl3->GetExpressionSyntaxNames);
             /*HRESULT GetExpressionSyntaxNames(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder FullNameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] FullNameBuffer,
             [In] int FullNameBufferSize,
             [Out] out int FullNameSize,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 5)] StringBuilder AbbrevNameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 5)] char[] AbbrevNameBuffer,
             [In] int AbbrevNameBufferSize,
             [Out] out int AbbrevNameSize);*/
-            StringBuilder fullNameBuffer;
+            char[] fullNameBuffer;
             int fullNameBufferSize = 0;
             int fullNameSize;
-            StringBuilder abbrevNameBuffer;
+            char[] abbrevNameBuffer;
             int abbrevNameBufferSize = 0;
             int abbrevNameSize;
             HRESULT hr = getExpressionSyntaxNames(Raw, index, null, fullNameBufferSize, out fullNameSize, null, abbrevNameBufferSize, out abbrevNameSize);
@@ -4737,14 +4737,14 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             fullNameBufferSize = fullNameSize;
-            fullNameBuffer = new StringBuilder(fullNameBufferSize);
+            fullNameBuffer = new char[fullNameBufferSize];
             abbrevNameBufferSize = abbrevNameSize;
-            abbrevNameBuffer = new StringBuilder(abbrevNameBufferSize);
+            abbrevNameBuffer = new char[abbrevNameBufferSize];
             hr = getExpressionSyntaxNames(Raw, index, fullNameBuffer, fullNameBufferSize, out fullNameSize, abbrevNameBuffer, abbrevNameBufferSize, out abbrevNameSize);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetExpressionSyntaxNamesResult(fullNameBuffer.ToString(), abbrevNameBuffer.ToString());
+                result = new GetExpressionSyntaxNamesResult(CreateString(fullNameBuffer, fullNameSize), CreateString(abbrevNameBuffer, abbrevNameSize));
 
                 return hr;
             }
@@ -4791,10 +4791,10 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetEventIndexDescription(
             [In] int Index,
             [In] DEBUG_EINDEX Which,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int DescSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int descSize;
             HRESULT hr = getEventIndexDescription(Raw, index, which, null, bufferSize, out descSize);
@@ -4803,12 +4803,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = descSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getEventIndexDescription(Raw, index, which, buffer, bufferSize, out descSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, descSize);
 
                 return hr;
             }
@@ -4901,11 +4901,11 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getLogFileWide, Vtbl4->GetLogFileWide);
             /*HRESULT GetLogFileWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int FileSize,
             [Out, MarshalAs(UnmanagedType.Bool)] out bool Append);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int fileSize;
             bool append;
@@ -4915,12 +4915,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = fileSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getLogFileWide(Raw, buffer, bufferSize, out fileSize, out append);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetLogFileWideResult(buffer.ToString(), append);
+                result = new GetLogFileWideResult(CreateString(buffer, fileSize), append);
 
                 return hr;
             }
@@ -4960,10 +4960,10 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getPromptTextWide, Vtbl4->GetPromptTextWide);
             /*HRESULT GetPromptTextWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int TextSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int textSize;
             HRESULT hr = getPromptTextWide(Raw, null, bufferSize, out textSize);
@@ -4972,12 +4972,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = textSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getPromptTextWide(Raw, buffer, bufferSize, out textSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, textSize);
 
                 return hr;
             }
@@ -5024,7 +5024,7 @@ namespace ClrDebug.DbgEng
             [Out, ComAliasName("IntPtr")] out DEBUG_LAST_EVENT_INFO ExtraInformation,
             [In] int ExtraInformationSize,
             [Out] out int ExtraInformationUsed,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 7)] StringBuilder Description,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 7)] char[] Description,
             [In] int DescriptionSize,
             [Out] out int DescriptionUsed);*/
             DEBUG_EVENT_TYPE type;
@@ -5033,7 +5033,7 @@ namespace ClrDebug.DbgEng
             DEBUG_LAST_EVENT_INFO extraInformation;
             int extraInformationSize = Marshal.SizeOf<DEBUG_LAST_EVENT_INFO>();
             int extraInformationUsed;
-            StringBuilder description;
+            char[] description;
             int descriptionSize = 0;
             int descriptionUsed;
             HRESULT hr = getLastEventInformationWide(Raw, out type, out processId, out threadId, out extraInformation, extraInformationSize, out extraInformationUsed, null, descriptionSize, out descriptionUsed);
@@ -5042,12 +5042,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             descriptionSize = descriptionUsed;
-            description = new StringBuilder(descriptionSize);
+            description = new char[descriptionSize];
             hr = getLastEventInformationWide(Raw, out type, out processId, out threadId, out extraInformation, extraInformationSize, out extraInformationUsed, description, descriptionSize, out descriptionUsed);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetLastEventInformationWideResult(type, processId, threadId, extraInformation, description.ToString());
+                result = new GetLastEventInformationWideResult(type, processId, threadId, extraInformation, CreateString(description, descriptionUsed));
 
                 return hr;
             }
@@ -5087,11 +5087,11 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getLogFile2, Vtbl4->GetLogFile2);
             /*HRESULT GetLogFile2(
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int FileSize,
             [Out] out DEBUG_LOG Flags);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int fileSize;
             DEBUG_LOG flags;
@@ -5101,12 +5101,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = fileSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getLogFile2(Raw, buffer, bufferSize, out fileSize, out flags);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetLogFile2Result(buffer.ToString(), flags);
+                result = new GetLogFile2Result(CreateString(buffer, fileSize), flags);
 
                 return hr;
             }
@@ -5146,11 +5146,11 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getLogFile2Wide, Vtbl4->GetLogFile2Wide);
             /*HRESULT GetLogFile2Wide(
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int FileSize,
             [Out] out DEBUG_LOG Flags);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int fileSize;
             DEBUG_LOG flags;
@@ -5160,12 +5160,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = fileSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getLogFile2Wide(Raw, buffer, bufferSize, out fileSize, out flags);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetLogFile2WideResult(buffer.ToString(), flags);
+                result = new GetLogFile2WideResult(CreateString(buffer, fileSize), flags);
 
                 return hr;
             }
@@ -5298,10 +5298,10 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref inputWide, Vtbl4->InputWide);
             /*HRESULT InputWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int InputSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int inputSize;
             HRESULT hr = inputWide(Raw, null, bufferSize, out inputSize);
@@ -5310,12 +5310,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = inputSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = inputWide(Raw, buffer, bufferSize, out inputSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, inputSize);
 
                 return hr;
             }
@@ -5762,11 +5762,11 @@ namespace ClrDebug.DbgEng
             /*HRESULT DisassembleWide(
             [In] long Offset,
             [In] DEBUG_DISASM Flags,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int DisassemblySize,
             [Out] out long EndOffset);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int disassemblySize;
             long endOffset;
@@ -5776,12 +5776,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = disassemblySize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = disassembleWide(Raw, offset, flags, buffer, bufferSize, out disassemblySize, out endOffset);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new DisassembleWideResult(buffer.ToString(), endOffset);
+                result = new DisassembleWideResult(CreateString(buffer, disassemblySize), endOffset);
 
                 return hr;
             }
@@ -5825,16 +5825,16 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getProcessorTypeNamesWide, Vtbl4->GetProcessorTypeNamesWide);
             /*HRESULT GetProcessorTypeNamesWide(
             [In] IMAGE_FILE_MACHINE Type,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder FullNameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] FullNameBuffer,
             [In] int FullNameBufferSize,
             [Out] out int FullNameSize,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 5)] StringBuilder AbbrevNameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 5)] char[] AbbrevNameBuffer,
             [In] int AbbrevNameBufferSize,
             [Out] out int AbbrevNameSize);*/
-            StringBuilder fullNameBuffer;
+            char[] fullNameBuffer;
             int fullNameBufferSize = 0;
             int fullNameSize;
-            StringBuilder abbrevNameBuffer;
+            char[] abbrevNameBuffer;
             int abbrevNameBufferSize = 0;
             int abbrevNameSize;
             HRESULT hr = getProcessorTypeNamesWide(Raw, type, null, fullNameBufferSize, out fullNameSize, null, abbrevNameBufferSize, out abbrevNameSize);
@@ -5843,14 +5843,14 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             fullNameBufferSize = fullNameSize;
-            fullNameBuffer = new StringBuilder(fullNameBufferSize);
+            fullNameBuffer = new char[fullNameBufferSize];
             abbrevNameBufferSize = abbrevNameSize;
-            abbrevNameBuffer = new StringBuilder(abbrevNameBufferSize);
+            abbrevNameBuffer = new char[abbrevNameBufferSize];
             hr = getProcessorTypeNamesWide(Raw, type, fullNameBuffer, fullNameBufferSize, out fullNameSize, abbrevNameBuffer, abbrevNameBufferSize, out abbrevNameSize);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetProcessorTypeNamesWideResult(fullNameBuffer.ToString(), abbrevNameBuffer.ToString());
+                result = new GetProcessorTypeNamesWideResult(CreateString(fullNameBuffer, fullNameSize), CreateString(abbrevNameBuffer, abbrevNameSize));
 
                 return hr;
             }
@@ -5900,10 +5900,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getTextMacroWide, Vtbl4->GetTextMacroWide);
             /*HRESULT GetTextMacroWide(
             [In] int Slot,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int MacroSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int macroSize;
             HRESULT hr = getTextMacroWide(Raw, slot, null, bufferSize, out macroSize);
@@ -5912,12 +5912,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = macroSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getTextMacroWide(Raw, slot, buffer, bufferSize, out macroSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, macroSize);
 
                 return hr;
             }
@@ -6509,10 +6509,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getEventFilterTextWide, Vtbl4->GetEventFilterTextWide);
             /*HRESULT GetEventFilterTextWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int TextSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int textSize;
             HRESULT hr = getEventFilterTextWide(Raw, index, null, bufferSize, out textSize);
@@ -6521,12 +6521,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = textSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getEventFilterTextWide(Raw, index, buffer, bufferSize, out textSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, textSize);
 
                 return hr;
             }
@@ -6572,10 +6572,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getEventFilterCommandWide, Vtbl4->GetEventFilterCommandWide);
             /*HRESULT GetEventFilterCommandWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int CommandSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int commandSize;
             HRESULT hr = getEventFilterCommandWide(Raw, index, null, bufferSize, out commandSize);
@@ -6584,12 +6584,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = commandSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getEventFilterCommandWide(Raw, index, buffer, bufferSize, out commandSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, commandSize);
 
                 return hr;
             }
@@ -6653,10 +6653,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getSpecificEventFilterArgumentWide, Vtbl4->GetSpecificEventFilterArgumentWide);
             /*HRESULT GetSpecificEventFilterArgumentWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int ArgumentSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int argumentSize;
             HRESULT hr = getSpecificEventFilterArgumentWide(Raw, index, null, bufferSize, out argumentSize);
@@ -6665,12 +6665,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = argumentSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getSpecificEventFilterArgumentWide(Raw, index, buffer, bufferSize, out argumentSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, argumentSize);
 
                 return hr;
             }
@@ -6736,10 +6736,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getExceptionFilterSecondCommandWide, Vtbl4->GetExceptionFilterSecondCommandWide);
             /*HRESULT GetExceptionFilterSecondCommandWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int CommandSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int commandSize;
             HRESULT hr = getExceptionFilterSecondCommandWide(Raw, index, null, bufferSize, out commandSize);
@@ -6748,12 +6748,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = commandSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getExceptionFilterSecondCommandWide(Raw, index, buffer, bufferSize, out commandSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, commandSize);
 
                 return hr;
             }
@@ -6847,16 +6847,16 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetTextReplacementWide(
             [In, MarshalAs(UnmanagedType.LPWStr)] string SrcText,
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder SrcBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] SrcBuffer,
             [In] int SrcBufferSize,
             [Out] out int SrcSize,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 6)] StringBuilder DstBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 6)] char[] DstBuffer,
             [In] int DstBufferSize,
             [Out] out int DstSize);*/
-            StringBuilder srcBuffer;
+            char[] srcBuffer;
             int srcBufferSize = 0;
             int srcSize;
-            StringBuilder dstBuffer;
+            char[] dstBuffer;
             int dstBufferSize = 0;
             int dstSize;
             HRESULT hr = getTextReplacementWide(Raw, srcText, index, null, srcBufferSize, out srcSize, null, dstBufferSize, out dstSize);
@@ -6865,14 +6865,14 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             srcBufferSize = srcSize;
-            srcBuffer = new StringBuilder(srcBufferSize);
+            srcBuffer = new char[srcBufferSize];
             dstBufferSize = dstSize;
-            dstBuffer = new StringBuilder(dstBufferSize);
+            dstBuffer = new char[dstBufferSize];
             hr = getTextReplacementWide(Raw, srcText, index, srcBuffer, srcBufferSize, out srcSize, dstBuffer, dstBufferSize, out dstSize);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetTextReplacementWideResult(srcBuffer.ToString(), dstBuffer.ToString());
+                result = new GetTextReplacementWideResult(CreateString(srcBuffer, srcSize), CreateString(dstBuffer, dstSize));
 
                 return hr;
             }
@@ -7011,16 +7011,16 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getExpressionSyntaxNamesWide, Vtbl4->GetExpressionSyntaxNamesWide);
             /*HRESULT GetExpressionSyntaxNamesWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder FullNameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] FullNameBuffer,
             [In] int FullNameBufferSize,
             [Out] out int FullNameSize,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 5)] StringBuilder AbbrevNameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 5)] char[] AbbrevNameBuffer,
             [In] int AbbrevNameBufferSize,
             [Out] out int AbbrevNameSize);*/
-            StringBuilder fullNameBuffer;
+            char[] fullNameBuffer;
             int fullNameBufferSize = 0;
             int fullNameSize;
-            StringBuilder abbrevNameBuffer;
+            char[] abbrevNameBuffer;
             int abbrevNameBufferSize = 0;
             int abbrevNameSize;
             HRESULT hr = getExpressionSyntaxNamesWide(Raw, index, null, fullNameBufferSize, out fullNameSize, null, abbrevNameBufferSize, out abbrevNameSize);
@@ -7029,14 +7029,14 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             fullNameBufferSize = fullNameSize;
-            fullNameBuffer = new StringBuilder(fullNameBufferSize);
+            fullNameBuffer = new char[fullNameBufferSize];
             abbrevNameBufferSize = abbrevNameSize;
-            abbrevNameBuffer = new StringBuilder(abbrevNameBufferSize);
+            abbrevNameBuffer = new char[abbrevNameBufferSize];
             hr = getExpressionSyntaxNamesWide(Raw, index, fullNameBuffer, fullNameBufferSize, out fullNameSize, abbrevNameBuffer, abbrevNameBufferSize, out abbrevNameSize);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetExpressionSyntaxNamesWideResult(fullNameBuffer.ToString(), abbrevNameBuffer.ToString());
+                result = new GetExpressionSyntaxNamesWideResult(CreateString(fullNameBuffer, fullNameSize), CreateString(abbrevNameBuffer, abbrevNameSize));
 
                 return hr;
             }
@@ -7083,10 +7083,10 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetEventIndexDescriptionWide(
             [In] int Index,
             [In] DEBUG_EINDEX Which,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int DescSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int descSize;
             HRESULT hr = getEventIndexDescriptionWide(Raw, index, which, null, bufferSize, out descSize);
@@ -7095,12 +7095,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = descSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getEventIndexDescriptionWide(Raw, index, which, buffer, bufferSize, out descSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, descSize);
 
                 return hr;
             }
@@ -7232,10 +7232,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getSystemVersionString, Vtbl4->GetSystemVersionString);
             /*HRESULT GetSystemVersionString(
             [In] DEBUG_SYSVERSTR Which,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int stringSize;
             HRESULT hr = getSystemVersionString(Raw, which, null, bufferSize, out stringSize);
@@ -7244,12 +7244,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = stringSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getSystemVersionString(Raw, which, buffer, bufferSize, out stringSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, stringSize);
 
                 return hr;
             }
@@ -7293,10 +7293,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getSystemVersionStringWide, Vtbl4->GetSystemVersionStringWide);
             /*HRESULT GetSystemVersionStringWide(
             [In] DEBUG_SYSVERSTR Which,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int stringSize;
             HRESULT hr = getSystemVersionStringWide(Raw, which, null, bufferSize, out stringSize);
@@ -7305,12 +7305,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = stringSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getSystemVersionStringWide(Raw, which, buffer, bufferSize, out stringSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, stringSize);
 
                 return hr;
             }
@@ -7543,11 +7543,11 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetManagedStatus(
             [Out] out DEBUG_MANAGED Flags,
             [In] DEBUG_MANSTR WhichString,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder String,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] String,
             [In] int StringSize,
             [Out] out int StringNeeded);*/
             DEBUG_MANAGED flags;
-            StringBuilder @string;
+            char[] @string;
             int stringSize = 0;
             int stringNeeded;
             HRESULT hr = getManagedStatus(Raw, out flags, whichString, null, stringSize, out stringNeeded);
@@ -7556,12 +7556,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             stringSize = stringNeeded;
-            @string = new StringBuilder(stringSize);
+            @string = new char[stringSize];
             hr = getManagedStatus(Raw, out flags, whichString, @string, stringSize, out stringNeeded);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetManagedStatusResult(flags, @string.ToString());
+                result = new GetManagedStatusResult(flags, CreateString(@string, stringNeeded));
 
                 return hr;
             }
@@ -7600,11 +7600,11 @@ namespace ClrDebug.DbgEng
             /*HRESULT GetManagedStatusWide(
             [Out] out DEBUG_MANAGED Flags,
             [In] DEBUG_MANSTR WhichString,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder String,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] String,
             [In] int StringSize,
             [Out] out int StringNeeded);*/
             DEBUG_MANAGED flags;
-            StringBuilder @string;
+            char[] @string;
             int stringSize = 0;
             int stringNeeded;
             HRESULT hr = getManagedStatusWide(Raw, out flags, whichString, null, stringSize, out stringNeeded);
@@ -7613,12 +7613,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             stringSize = stringNeeded;
-            @string = new StringBuilder(stringSize);
+            @string = new char[stringSize];
             hr = getManagedStatusWide(Raw, out flags, whichString, @string, stringSize, out stringNeeded);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetManagedStatusWideResult(flags, @string.ToString());
+                result = new GetManagedStatusWideResult(flags, CreateString(@string, stringNeeded));
 
                 return hr;
             }
@@ -8375,10 +8375,10 @@ namespace ClrDebug.DbgEng
 
         private delegate HRESULT GetInterruptTimeoutDelegate(IntPtr self, [Out] out int Seconds);
         private delegate HRESULT SetInterruptTimeoutDelegate(IntPtr self, [In] int Seconds);
-        private delegate HRESULT GetLogFileDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer, [In] int BufferSize, [Out] out int FileSize, [Out, MarshalAs(UnmanagedType.Bool)] out bool Append);
+        private delegate HRESULT GetLogFileDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int FileSize, [Out, MarshalAs(UnmanagedType.Bool)] out bool Append);
         private delegate HRESULT GetLogMaskDelegate(IntPtr self, [Out] out DEBUG_OUTPUT Mask);
         private delegate HRESULT SetLogMaskDelegate(IntPtr self, [In] DEBUG_OUTPUT Mask);
-        private delegate HRESULT GetPromptTextDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer, [In] int BufferSize, [Out] out int TextSize);
+        private delegate HRESULT GetPromptTextDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int TextSize);
         private delegate HRESULT GetNotifyEventHandleDelegate(IntPtr self, [Out] out long Handle);
         private delegate HRESULT SetNotifyEventHandleDelegate(IntPtr self, [In] long Handle);
         private delegate HRESULT GetDisassembleEffectiveOffsetDelegate(IntPtr self, [Out] out long Offset);
@@ -8388,7 +8388,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetExecutingProcessorTypeDelegate(IntPtr self, [Out] out IMAGE_FILE_MACHINE Type);
         private delegate HRESULT GetNumberPossibleExecutingProcessorTypesDelegate(IntPtr self, [Out] out int Number);
         private delegate HRESULT GetNumberProcessorsDelegate(IntPtr self, [Out] out int Number);
-        private delegate HRESULT GetSystemVersionDelegate(IntPtr self, [Out] out int PlatformId, [Out] out int Major, [Out] out int Minor, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 4)] StringBuilder ServicePackString, [In] int ServicePackStringSize, [Out] out int ServicePackStringUsed, [Out] out int ServicePackNumber, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 8)] StringBuilder BuildString, [In] int BuildStringSize, [Out] out int BuildStringUsed);
+        private delegate HRESULT GetSystemVersionDelegate(IntPtr self, [Out] out int PlatformId, [Out] out int Major, [Out] out int Minor, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] ServicePackString, [In] int ServicePackStringSize, [Out] out int ServicePackStringUsed, [Out] out int ServicePackNumber, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 8)] char[] BuildString, [In] int BuildStringSize, [Out] out int BuildStringUsed);
         private delegate HRESULT GetPageSizeDelegate(IntPtr self, [Out] out int Size);
         private delegate HRESULT IsPointer64BitDelegate(IntPtr self);
         private delegate HRESULT GetNumberSupportedProcessorTypesDelegate(IntPtr self, [Out] out int Number);
@@ -8405,12 +8405,12 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT SetRadixDelegate(IntPtr self, [In] int Radix);
         private delegate HRESULT GetNumberBreakpointsDelegate(IntPtr self, [Out] out int Number);
         private delegate HRESULT GetNumberEventFiltersDelegate(IntPtr self, [Out] out int SpecificEvents, [Out] out int SpecificExceptions, [Out] out int ArbitraryExceptions);
-        private delegate HRESULT GetLastEventInformationDelegate(IntPtr self, [Out] out DEBUG_EVENT_TYPE Type, [Out] out int ProcessId, [Out] out int ThreadId, [Out, ComAliasName("IntPtr")] out DEBUG_LAST_EVENT_INFO ExtraInformation, [In] int ExtraInformationSize, [Out] out int ExtraInformationUsed, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 7)] StringBuilder Description, [In] int DescriptionSize, [Out] out int DescriptionUsed);
+        private delegate HRESULT GetLastEventInformationDelegate(IntPtr self, [Out] out DEBUG_EVENT_TYPE Type, [Out] out int ProcessId, [Out] out int ThreadId, [Out, ComAliasName("IntPtr")] out DEBUG_LAST_EVENT_INFO ExtraInformation, [In] int ExtraInformationSize, [Out] out int ExtraInformationUsed, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] char[] Description, [In] int DescriptionSize, [Out] out int DescriptionUsed);
         private delegate HRESULT GetInterruptDelegate(IntPtr self);
         private delegate HRESULT SetInterruptDelegate(IntPtr self, [In] DEBUG_INTERRUPT Flags);
         private delegate HRESULT OpenLogFileDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string File, [In, MarshalAs(UnmanagedType.Bool)] bool Append);
         private delegate HRESULT CloseLogFileDelegate(IntPtr self);
-        private delegate HRESULT InputDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer, [In] int BufferSize, [Out] out int InputSize);
+        private delegate HRESULT InputDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int InputSize);
         private delegate HRESULT ReturnInputDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Buffer);
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate HRESULT OutputDelegate(IntPtr self, [In] DEBUG_OUTPUT Mask, [In, MarshalAs(UnmanagedType.LPStr)] string Format);
@@ -8426,7 +8426,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT OutputCurrentStateDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_CURRENT Flags);
         private delegate HRESULT OutputVersionInformationDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl);
         private delegate HRESULT AssembleDelegate(IntPtr self, [In] long Offset, [In, MarshalAs(UnmanagedType.LPStr)] string Instr, [Out] out long EndOffset);
-        private delegate HRESULT DisassembleDelegate(IntPtr self, [In] long Offset, [In] DEBUG_DISASM Flags, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder Buffer, [In] int BufferSize, [Out] out int DisassemblySize, [Out] out long EndOffset);
+        private delegate HRESULT DisassembleDelegate(IntPtr self, [In] long Offset, [In] DEBUG_DISASM Flags, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] Buffer, [In] int BufferSize, [Out] out int DisassemblySize, [Out] out long EndOffset);
         private delegate HRESULT OutputDisassemblyDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] long Offset, [In] DEBUG_DISASM Flags, [Out] out long EndOffset);
         private delegate HRESULT OutputDisassemblyLinesDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] int PreviousLines, [In] int TotalLines, [In] long Offset, [In] DEBUG_DISASM Flags, [Out] out int OffsetLine, [Out] out long StartOffset, [Out] out long EndOffset, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] long[] LineOffsets);
         private delegate HRESULT GetNearInstructionDelegate(IntPtr self, [In] long Offset, [In] int Delta, [Out] out long NearOffset);
@@ -8435,11 +8435,11 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetPossibleExecutingProcessorTypesDelegate(IntPtr self, [In] int Start, [In] int Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] IMAGE_FILE_MACHINE[] Types);
         private delegate HRESULT ReadBugCheckDataDelegate(IntPtr self, [Out] out int Code, [Out] out long Arg1, [Out] out long Arg2, [Out] out long Arg3, [Out] out long Arg4);
         private delegate HRESULT GetSupportedProcessorTypesDelegate(IntPtr self, [In] int Start, [In] int Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] IMAGE_FILE_MACHINE[] Types);
-        private delegate HRESULT GetProcessorTypeNamesDelegate(IntPtr self, [In] IMAGE_FILE_MACHINE Type, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder FullNameBuffer, [In] int FullNameBufferSize, [Out] out int FullNameSize, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 5)] StringBuilder AbbrevNameBuffer, [In] int AbbrevNameBufferSize, [Out] out int AbbrevNameSize);
+        private delegate HRESULT GetProcessorTypeNamesDelegate(IntPtr self, [In] IMAGE_FILE_MACHINE Type, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] FullNameBuffer, [In] int FullNameBufferSize, [Out] out int FullNameSize, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 5)] char[] AbbrevNameBuffer, [In] int AbbrevNameBufferSize, [Out] out int AbbrevNameSize);
         private delegate HRESULT AddEngineOptionsDelegate(IntPtr self, [In] DEBUG_ENGOPT Options);
         private delegate HRESULT RemoveEngineOptionsDelegate(IntPtr self, [In] DEBUG_ENGOPT Options);
         private delegate HRESULT SetSystemErrorControlDelegate(IntPtr self, [In] ERROR_LEVEL OutputLevel, [In] ERROR_LEVEL BreakLevel);
-        private delegate HRESULT GetTextMacroDelegate(IntPtr self, [In] int Slot, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer, [In] int BufferSize, [Out] out int MacroSize);
+        private delegate HRESULT GetTextMacroDelegate(IntPtr self, [In] int Slot, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int MacroSize);
         private delegate HRESULT SetTextMacroDelegate(IntPtr self, [In] int Slot, [In, MarshalAs(UnmanagedType.LPStr)] string Macro);
         private delegate HRESULT EvaluateDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Expression, [In] DEBUG_VALUE_TYPE DesiredType, [Out] out DEBUG_VALUE Value, [Out] out int RemainderIndex);
         private delegate HRESULT CoerceValueDelegate(IntPtr self, [In] ref DEBUG_VALUE In, [In] DEBUG_VALUE_TYPE OutType, [Out] out DEBUG_VALUE Out);
@@ -8458,16 +8458,16 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetExtensionFunctionDelegate(IntPtr self, [In] long Handle, [In, MarshalAs(UnmanagedType.LPStr)] string FuncName, [Out] out IntPtr Function);
         private delegate HRESULT GetWindbgExtensionApis32Delegate(IntPtr self, [In, Out] ref WINDBG_EXTENSION_APIS Api);
         private delegate HRESULT GetWindbgExtensionApis64Delegate(IntPtr self, [In, Out] ref WINDBG_EXTENSION_APIS Api);
-        private delegate HRESULT GetEventFilterTextDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer, [In] int BufferSize, [Out] out int TextSize);
-        private delegate HRESULT GetEventFilterCommandDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer, [In] int BufferSize, [Out] out int CommandSize);
+        private delegate HRESULT GetEventFilterTextDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int TextSize);
+        private delegate HRESULT GetEventFilterCommandDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int CommandSize);
         private delegate HRESULT SetEventFilterCommandDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPStr)] string Command);
         private delegate HRESULT GetSpecificFilterParametersDelegate(IntPtr self, [In] int Start, [In] int Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);
         private delegate HRESULT SetSpecificFilterParametersDelegate(IntPtr self, [In] int Start, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SPECIFIC_FILTER_PARAMETERS[] Params);
-        private delegate HRESULT GetSpecificEventFilterArgumentDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer, [In] int BufferSize, [Out] out int ArgumentSize);
+        private delegate HRESULT GetSpecificEventFilterArgumentDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int ArgumentSize);
         private delegate HRESULT SetSpecificEventFilterArgumentDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPStr)] string Argument);
         private delegate HRESULT GetExceptionFilterParametersDelegate(IntPtr self, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] Codes, [In] int Start, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);
         private delegate HRESULT SetExceptionFilterParametersDelegate(IntPtr self, [In] int Count, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] DEBUG_EXCEPTION_FILTER_PARAMETERS[] Params);
-        private delegate HRESULT GetExceptionFilterSecondCommandDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer, [In] int BufferSize, [Out] out int CommandSize);
+        private delegate HRESULT GetExceptionFilterSecondCommandDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int CommandSize);
         private delegate HRESULT SetExceptionFilterSecondCommandDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPStr)] string Command);
         private delegate HRESULT WaitForEventDelegate(IntPtr self, [In] DEBUG_WAIT Flags, [In] int Timeout);
 
@@ -8478,7 +8478,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetCurrentSystemUpTimeDelegate(IntPtr self, [Out] out int UpTime);
         private delegate HRESULT GetDumpFormatFlagsDelegate(IntPtr self, [Out] out DEBUG_FORMAT FormatFlags);
         private delegate HRESULT GetNumberTextReplacementsDelegate(IntPtr self, [Out] out int NumRepl);
-        private delegate HRESULT GetTextReplacementDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string SrcText, [In] int Index, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder SrcBuffer, [In] int SrcBufferSize, [Out] out int SrcSize, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 6)] StringBuilder DstBuffer, [In] int DstBufferSize, [Out] out int DstSize);
+        private delegate HRESULT GetTextReplacementDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string SrcText, [In] int Index, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] SrcBuffer, [In] int SrcBufferSize, [Out] out int SrcSize, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 6)] char[] DstBuffer, [In] int DstBufferSize, [Out] out int DstSize);
         private delegate HRESULT SetTextReplacementDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string SrcText, [In, MarshalAs(UnmanagedType.LPStr)] string DstText);
         private delegate HRESULT RemoveTextReplacementsDelegate(IntPtr self);
         private delegate HRESULT OutputTextReplacementsDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_OUT_TEXT_REPL Flags);
@@ -8496,21 +8496,21 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT AddAssemblyOptionsDelegate(IntPtr self, [In] DEBUG_ASMOPT Options);
         private delegate HRESULT RemoveAssemblyOptionsDelegate(IntPtr self, [In] DEBUG_ASMOPT Options);
         private delegate HRESULT SetExpressionSyntaxByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string AbbrevName);
-        private delegate HRESULT GetExpressionSyntaxNamesDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder FullNameBuffer, [In] int FullNameBufferSize, [Out] out int FullNameSize, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 5)] StringBuilder AbbrevNameBuffer, [In] int AbbrevNameBufferSize, [Out] out int AbbrevNameSize);
-        private delegate HRESULT GetEventIndexDescriptionDelegate(IntPtr self, [In] int Index, [In] DEBUG_EINDEX Which, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder Buffer, [In] int BufferSize, [Out] out int DescSize);
+        private delegate HRESULT GetExpressionSyntaxNamesDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] FullNameBuffer, [In] int FullNameBufferSize, [Out] out int FullNameSize, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 5)] char[] AbbrevNameBuffer, [In] int AbbrevNameBufferSize, [Out] out int AbbrevNameSize);
+        private delegate HRESULT GetEventIndexDescriptionDelegate(IntPtr self, [In] int Index, [In] DEBUG_EINDEX Which, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] Buffer, [In] int BufferSize, [Out] out int DescSize);
         private delegate HRESULT SetNextEventIndexDelegate(IntPtr self, [In] DEBUG_EINDEX Relation, [In] int Value, [Out] out int NextIndex);
 
         #endregion
         #region IDebugControl4
 
-        private delegate HRESULT GetLogFileWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer, [In] int BufferSize, [Out] out int FileSize, [Out, MarshalAs(UnmanagedType.Bool)] out bool Append);
-        private delegate HRESULT GetPromptTextWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer, [In] int BufferSize, [Out] out int TextSize);
-        private delegate HRESULT GetLastEventInformationWideDelegate(IntPtr self, [Out] out DEBUG_EVENT_TYPE Type, [Out] out int ProcessId, [Out] out int ThreadId, [Out, ComAliasName("IntPtr")] out DEBUG_LAST_EVENT_INFO ExtraInformation, [In] int ExtraInformationSize, [Out] out int ExtraInformationUsed, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 7)] StringBuilder Description, [In] int DescriptionSize, [Out] out int DescriptionUsed);
-        private delegate HRESULT GetLogFile2Delegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer, [In] int BufferSize, [Out] out int FileSize, [Out] out DEBUG_LOG Flags);
-        private delegate HRESULT GetLogFile2WideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer, [In] int BufferSize, [Out] out int FileSize, [Out] out DEBUG_LOG Flags);
+        private delegate HRESULT GetLogFileWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int FileSize, [Out, MarshalAs(UnmanagedType.Bool)] out bool Append);
+        private delegate HRESULT GetPromptTextWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int TextSize);
+        private delegate HRESULT GetLastEventInformationWideDelegate(IntPtr self, [Out] out DEBUG_EVENT_TYPE Type, [Out] out int ProcessId, [Out] out int ThreadId, [Out, ComAliasName("IntPtr")] out DEBUG_LAST_EVENT_INFO ExtraInformation, [In] int ExtraInformationSize, [Out] out int ExtraInformationUsed, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 7)] char[] Description, [In] int DescriptionSize, [Out] out int DescriptionUsed);
+        private delegate HRESULT GetLogFile2Delegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int FileSize, [Out] out DEBUG_LOG Flags);
+        private delegate HRESULT GetLogFile2WideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int FileSize, [Out] out DEBUG_LOG Flags);
         private delegate HRESULT GetSystemVersionValuesDelegate(IntPtr self, [Out] out int PlatformId, [Out] out int Win32Major, [Out] out int Win32Minor, [Out] out int KdMajor, [Out] out int KdMinor);
         private delegate HRESULT OpenLogFileWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [In, MarshalAs(UnmanagedType.Bool)] bool Append);
-        private delegate HRESULT InputWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer, [In] int BufferSize, [Out] out int InputSize);
+        private delegate HRESULT InputWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int InputSize);
         private delegate HRESULT ReturnInputWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Buffer);
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate HRESULT OutputWideDelegate(IntPtr self, [In] DEBUG_OUTPUT Mask, [In, MarshalAs(UnmanagedType.LPWStr)] string Format);
@@ -8524,9 +8524,9 @@ namespace ClrDebug.DbgEng
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate HRESULT OutputPromptVaListWideDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPWStr)] string Format, [In] IntPtr va_list_Args);
         private delegate HRESULT AssembleWideDelegate(IntPtr self, [In] long Offset, [In, MarshalAs(UnmanagedType.LPWStr)] string Instr, [Out] out long EndOffset);
-        private delegate HRESULT DisassembleWideDelegate(IntPtr self, [In] long Offset, [In] DEBUG_DISASM Flags, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder Buffer, [In] int BufferSize, [Out] out int DisassemblySize, [Out] out long EndOffset);
-        private delegate HRESULT GetProcessorTypeNamesWideDelegate(IntPtr self, [In] IMAGE_FILE_MACHINE Type, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder FullNameBuffer, [In] int FullNameBufferSize, [Out] out int FullNameSize, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 5)] StringBuilder AbbrevNameBuffer, [In] int AbbrevNameBufferSize, [Out] out int AbbrevNameSize);
-        private delegate HRESULT GetTextMacroWideDelegate(IntPtr self, [In] int Slot, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer, [In] int BufferSize, [Out] out int MacroSize);
+        private delegate HRESULT DisassembleWideDelegate(IntPtr self, [In] long Offset, [In] DEBUG_DISASM Flags, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] Buffer, [In] int BufferSize, [Out] out int DisassemblySize, [Out] out long EndOffset);
+        private delegate HRESULT GetProcessorTypeNamesWideDelegate(IntPtr self, [In] IMAGE_FILE_MACHINE Type, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] FullNameBuffer, [In] int FullNameBufferSize, [Out] out int FullNameSize, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 5)] char[] AbbrevNameBuffer, [In] int AbbrevNameBufferSize, [Out] out int AbbrevNameSize);
+        private delegate HRESULT GetTextMacroWideDelegate(IntPtr self, [In] int Slot, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int MacroSize);
         private delegate HRESULT SetTextMacroWideDelegate(IntPtr self, [In] int Slot, [In, MarshalAs(UnmanagedType.LPWStr)] string Macro);
         private delegate HRESULT EvaluateWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Expression, [In] DEBUG_VALUE_TYPE DesiredType, [Out] out DEBUG_VALUE Value, [Out] out int RemainderIndex);
         private delegate HRESULT ExecuteWideDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPWStr)] string Command, [In] DEBUG_EXECUTE Flags);
@@ -8539,27 +8539,27 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetExtensionByPathWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Path, [Out] out long Handle);
         private delegate HRESULT CallExtensionWideDelegate(IntPtr self, [In] long Handle, [In, MarshalAs(UnmanagedType.LPWStr)] string Function, [In, MarshalAs(UnmanagedType.LPWStr)] string Arguments);
         private delegate HRESULT GetExtensionFunctionWideDelegate(IntPtr self, [In] long Handle, [In, MarshalAs(UnmanagedType.LPWStr)] string FuncName, [Out] out IntPtr Function);
-        private delegate HRESULT GetEventFilterTextWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer, [In] int BufferSize, [Out] out int TextSize);
-        private delegate HRESULT GetEventFilterCommandWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer, [In] int BufferSize, [Out] out int CommandSize);
+        private delegate HRESULT GetEventFilterTextWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int TextSize);
+        private delegate HRESULT GetEventFilterCommandWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int CommandSize);
         private delegate HRESULT SetEventFilterCommandWideDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPWStr)] string Command);
-        private delegate HRESULT GetSpecificEventFilterArgumentWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer, [In] int BufferSize, [Out] out int ArgumentSize);
+        private delegate HRESULT GetSpecificEventFilterArgumentWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int ArgumentSize);
         private delegate HRESULT SetSpecificEventFilterArgumentWideDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPWStr)] string Argument);
-        private delegate HRESULT GetExceptionFilterSecondCommandWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer, [In] int BufferSize, [Out] out int CommandSize);
+        private delegate HRESULT GetExceptionFilterSecondCommandWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int CommandSize);
         private delegate HRESULT SetExceptionFilterSecondCommandWideDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPWStr)] string Command);
-        private delegate HRESULT GetTextReplacementWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string SrcText, [In] int Index, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder SrcBuffer, [In] int SrcBufferSize, [Out] out int SrcSize, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 6)] StringBuilder DstBuffer, [In] int DstBufferSize, [Out] out int DstSize);
+        private delegate HRESULT GetTextReplacementWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string SrcText, [In] int Index, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] SrcBuffer, [In] int SrcBufferSize, [Out] out int SrcSize, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 6)] char[] DstBuffer, [In] int DstBufferSize, [Out] out int DstSize);
         private delegate HRESULT SetTextReplacementWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string SrcText, [In, MarshalAs(UnmanagedType.LPWStr)] string DstText);
         private delegate HRESULT SetExpressionSyntaxByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string AbbrevName);
-        private delegate HRESULT GetExpressionSyntaxNamesWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder FullNameBuffer, [In] int FullNameBufferSize, [Out] out int FullNameSize, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 5)] StringBuilder AbbrevNameBuffer, [In] int AbbrevNameBufferSize, [Out] out int AbbrevNameSize);
-        private delegate HRESULT GetEventIndexDescriptionWideDelegate(IntPtr self, [In] int Index, [In] DEBUG_EINDEX Which, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder Buffer, [In] int BufferSize, [Out] out int DescSize);
+        private delegate HRESULT GetExpressionSyntaxNamesWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] FullNameBuffer, [In] int FullNameBufferSize, [Out] out int FullNameSize, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 5)] char[] AbbrevNameBuffer, [In] int AbbrevNameBufferSize, [Out] out int AbbrevNameSize);
+        private delegate HRESULT GetEventIndexDescriptionWideDelegate(IntPtr self, [In] int Index, [In] DEBUG_EINDEX Which, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] Buffer, [In] int BufferSize, [Out] out int DescSize);
         private delegate HRESULT OpenLogFile2Delegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string File, [Out] out DEBUG_LOG Flags);
         private delegate HRESULT OpenLogFile2WideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [Out] out DEBUG_LOG Flags);
-        private delegate HRESULT GetSystemVersionStringDelegate(IntPtr self, [In] DEBUG_SYSVERSTR Which, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringSize);
-        private delegate HRESULT GetSystemVersionStringWideDelegate(IntPtr self, [In] DEBUG_SYSVERSTR Which, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringSize);
+        private delegate HRESULT GetSystemVersionStringDelegate(IntPtr self, [In] DEBUG_SYSVERSTR Which, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int StringSize);
+        private delegate HRESULT GetSystemVersionStringWideDelegate(IntPtr self, [In] DEBUG_SYSVERSTR Which, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int StringSize);
         private delegate HRESULT GetContextStackTraceDelegate(IntPtr self, [In] IntPtr StartContext, [In] int StartContextSize, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DEBUG_STACK_FRAME[] Frames, [In] int FrameSize, [In] IntPtr FrameContexts, [In] int FrameContextsSize, [In] int FrameContextsEntrySize, [Out] out int FramesFilled);
         private delegate HRESULT OutputContextStackTraceDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] DEBUG_STACK_FRAME[] Frames, [In] int FramesSize, [In] IntPtr FrameContexts, [In] int FrameContextsSize, [In] int FrameContextsEntrySize, [In] DEBUG_STACK Flags);
         private delegate HRESULT GetStoredEventInformationDelegate(IntPtr self, [Out] out DEBUG_EVENT_TYPE Type, [Out] out int ProcessId, [Out] out int ThreadId, [In] IntPtr Context, [In] int ContextSize, [Out] out int ContextUsed, [In] IntPtr ExtraInformation, [In] int ExtraInformationSize, [Out] out int ExtraInformationUsed);
-        private delegate HRESULT GetManagedStatusDelegate(IntPtr self, [Out] out DEBUG_MANAGED Flags, [In] DEBUG_MANSTR WhichString, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder String, [In] int StringSize, [Out] out int StringNeeded);
-        private delegate HRESULT GetManagedStatusWideDelegate(IntPtr self, [Out] out DEBUG_MANAGED Flags, [In] DEBUG_MANSTR WhichString, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder String, [In] int StringSize, [Out] out int StringNeeded);
+        private delegate HRESULT GetManagedStatusDelegate(IntPtr self, [Out] out DEBUG_MANAGED Flags, [In] DEBUG_MANSTR WhichString, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] String, [In] int StringSize, [Out] out int StringNeeded);
+        private delegate HRESULT GetManagedStatusWideDelegate(IntPtr self, [Out] out DEBUG_MANAGED Flags, [In] DEBUG_MANSTR WhichString, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] String, [In] int StringSize, [Out] out int StringNeeded);
         private delegate HRESULT ResetManagedStatusDelegate(IntPtr self, [In] DEBUG_MANRESET Flags);
 
         #endregion

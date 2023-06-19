@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Text;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
@@ -424,22 +424,22 @@ namespace ClrDebug
             [In] int flags, //Unused, always 0
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder nameBuf);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf);*/
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf;
+            char[] nameBuf;
             HRESULT hr = Raw.GetName(flags, bufLen, out nameLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufLen = nameLen;
-            nameBuf = new StringBuilder(bufLen);
+            nameBuf = new char[bufLen];
             hr = Raw.GetName(flags, bufLen, out nameLen, nameBuf);
 
             if (hr == HRESULT.S_OK)
             {
-                nameBufResult = nameBuf.ToString();
+                nameBufResult = CreateString(nameBuf, nameLen);
 
                 return hr;
             }
@@ -542,13 +542,13 @@ namespace ClrDebug
             [In, Out] ref IntPtr handle,
             [In] int nameBufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf,
             [Out] out IXCLRDataTypeDefinition type,
             [Out] out CLRDataFieldFlag flags,
             [Out] out mdFieldDef token);*/
             int nameBufLen = 0;
             int nameLen;
-            StringBuilder nameBuf;
+            char[] nameBuf;
             IXCLRDataTypeDefinition type;
             CLRDataFieldFlag flags;
             mdFieldDef token;
@@ -558,12 +558,12 @@ namespace ClrDebug
                 goto fail;
 
             nameBufLen = nameLen;
-            nameBuf = new StringBuilder(nameBufLen);
+            nameBuf = new char[nameBufLen];
             hr = Raw.EnumField(ref handle, nameBufLen, out nameLen, nameBuf, out type, out flags, out token);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new EnumFieldResult(nameBuf.ToString(), new XCLRDataTypeDefinition(type), flags, token);
+                result = new EnumFieldResult(CreateString(nameBuf, nameLen), new XCLRDataTypeDefinition(type), flags, token);
 
                 return hr;
             }
@@ -673,12 +673,12 @@ namespace ClrDebug
             [In] mdFieldDef token,
             [In] int nameBufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf,
             [Out] out IXCLRDataTypeDefinition type,
             [Out] out CLRDataValueFlag flags);*/
             int nameBufLen = 0;
             int nameLen;
-            StringBuilder nameBuf;
+            char[] nameBuf;
             IXCLRDataTypeDefinition type;
             CLRDataValueFlag flags;
             HRESULT hr = Raw.GetFieldByToken(token, nameBufLen, out nameLen, null, out type, out flags);
@@ -687,12 +687,12 @@ namespace ClrDebug
                 goto fail;
 
             nameBufLen = nameLen;
-            nameBuf = new StringBuilder(nameBufLen);
+            nameBuf = new char[nameBufLen];
             hr = Raw.GetFieldByToken(token, nameBufLen, out nameLen, nameBuf, out type, out flags);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetFieldByTokenResult(nameBuf.ToString(), new XCLRDataTypeDefinition(type), flags);
+                result = new GetFieldByTokenResult(CreateString(nameBuf, nameLen), new XCLRDataTypeDefinition(type), flags);
 
                 return hr;
             }
@@ -720,14 +720,14 @@ namespace ClrDebug
             [In, Out] ref IntPtr handle,
             [In] int nameBufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf,
             [Out] out IXCLRDataTypeDefinition type,
             [Out] out CLRDataFieldFlag flags,
             [Out] out IXCLRDataModule tokenScope,
             [Out] out mdFieldDef token);*/
             int nameBufLen = 0;
             int nameLen;
-            StringBuilder nameBuf;
+            char[] nameBuf;
             IXCLRDataTypeDefinition type;
             CLRDataFieldFlag flags;
             IXCLRDataModule tokenScope;
@@ -738,12 +738,12 @@ namespace ClrDebug
                 goto fail;
 
             nameBufLen = nameLen;
-            nameBuf = new StringBuilder(nameBufLen);
+            nameBuf = new char[nameBufLen];
             hr = Raw.EnumField2(ref handle, nameBufLen, out nameLen, nameBuf, out type, out flags, out tokenScope, out token);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new EnumField2Result(nameBuf.ToString(), new XCLRDataTypeDefinition(type), flags, new XCLRDataModule(tokenScope), token);
+                result = new EnumField2Result(CreateString(nameBuf, nameLen), new XCLRDataTypeDefinition(type), flags, new XCLRDataModule(tokenScope), token);
 
                 return hr;
             }
@@ -805,12 +805,12 @@ namespace ClrDebug
             [In] mdFieldDef token,
             [In] int nameBufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
             [Out] out IXCLRDataTypeDefinition type,
             [Out] out CLRDataValueFlag flags);*/
             int nameBufLen = 0;
             int nameLen;
-            StringBuilder nameBuf;
+            char[] nameBuf;
             IXCLRDataTypeDefinition type;
             CLRDataValueFlag flags;
             HRESULT hr = Raw.GetFieldByToken2(tokenScope, token, nameBufLen, out nameLen, null, out type, out flags);
@@ -819,12 +819,12 @@ namespace ClrDebug
                 goto fail;
 
             nameBufLen = nameLen;
-            nameBuf = new StringBuilder(nameBufLen);
+            nameBuf = new char[nameBufLen];
             hr = Raw.GetFieldByToken2(tokenScope, token, nameBufLen, out nameLen, nameBuf, out type, out flags);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetFieldByToken2Result(nameBuf.ToString(), new XCLRDataTypeDefinition(type), flags);
+                result = new GetFieldByToken2Result(CreateString(nameBuf, nameLen), new XCLRDataTypeDefinition(type), flags);
 
                 return hr;
             }

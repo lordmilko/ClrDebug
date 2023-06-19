@@ -1,4 +1,4 @@
-﻿using System.Text;
+﻿using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
@@ -68,22 +68,22 @@ namespace ClrDebug
             [In] int dwImageSize,
             [In] int cchPathBuffer,
             [Out] out int pcchPathBuffer,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3), Out] StringBuilder wszPathBuffer);*/
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] wszPathBuffer);*/
             int cchPathBuffer = 0;
             int pcchPathBuffer;
-            StringBuilder wszPathBuffer;
+            char[] wszPathBuffer;
             HRESULT hr = Raw.GetMetaData(wszImagePath, dwImageTimeStamp, dwImageSize, cchPathBuffer, out pcchPathBuffer, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchPathBuffer = pcchPathBuffer;
-            wszPathBuffer = new StringBuilder(cchPathBuffer);
+            wszPathBuffer = new char[cchPathBuffer];
             hr = Raw.GetMetaData(wszImagePath, dwImageTimeStamp, dwImageSize, cchPathBuffer, out pcchPathBuffer, wszPathBuffer);
 
             if (hr == HRESULT.S_OK)
             {
-                wszPathBufferResult = wszPathBuffer.ToString();
+                wszPathBufferResult = CreateString(wszPathBuffer, pcchPathBuffer);
 
                 return hr;
             }

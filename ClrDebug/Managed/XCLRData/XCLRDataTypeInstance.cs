@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Text;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
@@ -304,12 +304,12 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] nameBuf,
             [Out] out mdFieldDef token);*/
             IXCLRDataValue field;
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf;
+            char[] nameBuf;
             mdFieldDef token;
             HRESULT hr = Raw.GetStaticFieldByIndex(index, tlsTask, out field, bufLen, out nameLen, null, out token);
 
@@ -317,12 +317,12 @@ namespace ClrDebug
                 goto fail;
 
             bufLen = nameLen;
-            nameBuf = new StringBuilder(bufLen);
+            nameBuf = new char[bufLen];
             hr = Raw.GetStaticFieldByIndex(index, tlsTask, out field, bufLen, out nameLen, nameBuf, out token);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetStaticFieldByIndexResult(new XCLRDataValue(field), nameBuf.ToString(), token);
+                result = new GetStaticFieldByIndexResult(new XCLRDataValue(field), CreateString(nameBuf, nameLen), token);
 
                 return hr;
             }
@@ -440,22 +440,22 @@ namespace ClrDebug
             [In] int flags, //Unused; must be 0
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder nameBuf);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] nameBuf);*/
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf;
+            char[] nameBuf;
             HRESULT hr = Raw.GetName(flags, bufLen, out nameLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufLen = nameLen;
-            nameBuf = new StringBuilder(bufLen);
+            nameBuf = new char[bufLen];
             hr = Raw.GetName(flags, bufLen, out nameLen, nameBuf);
 
             if (hr == HRESULT.S_OK)
             {
-                nameBufResult = nameBuf.ToString();
+                nameBufResult = CreateString(nameBuf, nameLen);
 
                 return hr;
             }
@@ -667,23 +667,23 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder nameBuf);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] nameBuf);*/
             IXCLRDataValue field;
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf;
+            char[] nameBuf;
             HRESULT hr = Raw.GetStaticFieldByToken(token, tlsTask, out field, bufLen, out nameLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufLen = nameLen;
-            nameBuf = new StringBuilder(bufLen);
+            nameBuf = new char[bufLen];
             hr = Raw.GetStaticFieldByToken(token, tlsTask, out field, bufLen, out nameLen, nameBuf);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetStaticFieldByTokenResult(new XCLRDataValue(field), nameBuf.ToString());
+                result = new GetStaticFieldByTokenResult(new XCLRDataValue(field), CreateString(nameBuf, nameLen));
 
                 return hr;
             }
@@ -712,13 +712,13 @@ namespace ClrDebug
             [Out] out IXCLRDataValue value,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder nameBuf,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] nameBuf,
             [Out] out IXCLRDataModule tokenScope,
             [Out] out mdFieldDef token);*/
             IXCLRDataValue value;
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf;
+            char[] nameBuf;
             IXCLRDataModule tokenScope;
             mdFieldDef token;
             HRESULT hr = Raw.EnumStaticField2(ref handle, out value, bufLen, out nameLen, null, out tokenScope, out token);
@@ -727,12 +727,12 @@ namespace ClrDebug
                 goto fail;
 
             bufLen = nameLen;
-            nameBuf = new StringBuilder(bufLen);
+            nameBuf = new char[bufLen];
             hr = Raw.EnumStaticField2(ref handle, out value, bufLen, out nameLen, nameBuf, out tokenScope, out token);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new EnumStaticField2Result(new XCLRDataValue(value), nameBuf.ToString(), new XCLRDataModule(tokenScope), token);
+                result = new EnumStaticField2Result(new XCLRDataValue(value), CreateString(nameBuf, nameLen), new XCLRDataModule(tokenScope), token);
 
                 return hr;
             }
@@ -794,23 +794,23 @@ namespace ClrDebug
             [Out] out IXCLRDataValue field,
             [In] int bufLen,
             [Out] out int nameLen,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4)] StringBuilder nameBuf);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] nameBuf);*/
             IXCLRDataValue field;
             int bufLen = 0;
             int nameLen;
-            StringBuilder nameBuf;
+            char[] nameBuf;
             HRESULT hr = Raw.GetStaticFieldByToken2(tokenScope, token, tlsTask, out field, bufLen, out nameLen, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             bufLen = nameLen;
-            nameBuf = new StringBuilder(bufLen);
+            nameBuf = new char[bufLen];
             hr = Raw.GetStaticFieldByToken2(tokenScope, token, tlsTask, out field, bufLen, out nameLen, nameBuf);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetStaticFieldByToken2Result(new XCLRDataValue(field), nameBuf.ToString());
+                result = new GetStaticFieldByToken2Result(new XCLRDataValue(field), CreateString(nameBuf, nameLen));
 
                 return hr;
             }

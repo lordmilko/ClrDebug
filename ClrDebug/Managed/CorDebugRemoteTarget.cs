@@ -1,4 +1,4 @@
-﻿using System.Text;
+﻿using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
@@ -55,22 +55,22 @@ namespace ClrDebug
             /*HRESULT GetHostName(
             [In] int cchHostName,
             [Out] out int pcchHostName,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder szHostName);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szHostName);*/
             int cchHostName = 0;
             int pcchHostName;
-            StringBuilder szHostName;
+            char[] szHostName;
             HRESULT hr = Raw.GetHostName(cchHostName, out pcchHostName, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchHostName = pcchHostName;
-            szHostName = new StringBuilder(cchHostName);
+            szHostName = new char[cchHostName];
             hr = Raw.GetHostName(cchHostName, out pcchHostName, szHostName);
 
             if (hr == HRESULT.S_OK)
             {
-                szHostNameResult = szHostName.ToString();
+                szHostNameResult = CreateString(szHostName, pcchHostName);
 
                 return hr;
             }

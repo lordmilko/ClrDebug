@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Text;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
@@ -44,22 +44,22 @@ namespace ClrDebug
             /*HRESULT GetURL(
             [In] int cchUrl,
             [Out] out int pcchUrl,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder szUrl);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szUrl);*/
             int cchUrl = 0;
             int pcchUrl;
-            StringBuilder szUrl;
+            char[] szUrl;
             HRESULT hr = Raw.GetURL(cchUrl, out pcchUrl, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchUrl = pcchUrl;
-            szUrl = new StringBuilder(cchUrl);
+            szUrl = new char[cchUrl];
             hr = Raw.GetURL(cchUrl, out pcchUrl, szUrl);
 
             if (hr == HRESULT.S_OK)
             {
-                szUrlResult = szUrl.ToString();
+                szUrlResult = CreateString(szUrl, pcchUrl);
 
                 return hr;
             }

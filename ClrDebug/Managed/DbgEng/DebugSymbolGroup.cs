@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Text;
 using ClrDebug.DbgEng.Vtbl;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug.DbgEng
 {
@@ -194,10 +194,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getSymbolName, Vtbl->GetSymbolName);
             /*HRESULT GetSymbolName(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int nameSize;
             HRESULT hr = getSymbolName(Raw, index, null, bufferSize, out nameSize);
@@ -206,12 +206,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = nameSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getSymbolName(Raw, index, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, nameSize);
 
                 return hr;
             }
@@ -553,10 +553,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getSymbolNameWide, Vtbl2->GetSymbolNameWide);
             /*HRESULT GetSymbolNameWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int nameSize;
             HRESULT hr = getSymbolNameWide(Raw, index, null, bufferSize, out nameSize);
@@ -565,12 +565,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = nameSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getSymbolNameWide(Raw, index, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, nameSize);
 
                 return hr;
             }
@@ -700,10 +700,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getSymbolTypeName, Vtbl2->GetSymbolTypeName);
             /*HRESULT GetSymbolTypeName(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int nameSize;
             HRESULT hr = getSymbolTypeName(Raw, index, null, bufferSize, out nameSize);
@@ -712,12 +712,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = nameSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getSymbolTypeName(Raw, index, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, nameSize);
 
                 return hr;
             }
@@ -761,10 +761,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getSymbolTypeNameWide, Vtbl2->GetSymbolTypeNameWide);
             /*HRESULT GetSymbolTypeNameWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int nameSize;
             HRESULT hr = getSymbolTypeNameWide(Raw, index, null, bufferSize, out nameSize);
@@ -773,12 +773,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = nameSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getSymbolTypeNameWide(Raw, index, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, nameSize);
 
                 return hr;
             }
@@ -944,10 +944,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getSymbolValueText, Vtbl2->GetSymbolValueText);
             /*HRESULT GetSymbolValueText(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int nameSize;
             HRESULT hr = getSymbolValueText(Raw, index, null, bufferSize, out nameSize);
@@ -956,12 +956,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = nameSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getSymbolValueText(Raw, index, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, nameSize);
 
                 return hr;
             }
@@ -1009,10 +1009,10 @@ namespace ClrDebug.DbgEng
             InitDelegate(ref getSymbolValueTextWide, Vtbl2->GetSymbolValueTextWide);
             /*HRESULT GetSymbolValueTextWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int nameSize;
             HRESULT hr = getSymbolValueTextWide(Raw, index, null, bufferSize, out nameSize);
@@ -1021,12 +1021,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = nameSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getSymbolValueTextWide(Raw, index, buffer, bufferSize, out nameSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, nameSize);
 
                 return hr;
             }
@@ -1140,7 +1140,7 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT AddSymbolDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name, [In, Out] ref int Index);
         private delegate HRESULT RemoveSymbolByNameDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Name);
         private delegate HRESULT RemoveSymbolsByIndexDelegate(IntPtr self, [In] int Index);
-        private delegate HRESULT GetSymbolNameDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer, [In] int BufferSize, [Out] out int NameSize);
+        private delegate HRESULT GetSymbolNameDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int NameSize);
         private delegate HRESULT GetSymbolParametersDelegate(IntPtr self, [In] int Start, [In] int Count, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DEBUG_SYMBOL_PARAMETERS[] Params);
         private delegate HRESULT ExpandSymbolDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.Bool)] bool Expand);
         private delegate HRESULT OutputSymbolsDelegate(IntPtr self, [In] DEBUG_OUTCTL OutputControl, [In] DEBUG_OUTPUT_SYMBOLS Flags, [In] int Start, [In] int Count);
@@ -1152,16 +1152,16 @@ namespace ClrDebug.DbgEng
 
         private delegate HRESULT AddSymbolWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Name, [In, Out] ref int Index);
         private delegate HRESULT RemoveSymbolByNameWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Name);
-        private delegate HRESULT GetSymbolNameWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer, [In] int BufferSize, [Out] out int NameSize);
+        private delegate HRESULT GetSymbolNameWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int NameSize);
         private delegate HRESULT WriteSymbolWideDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPWStr)] string Value);
         private delegate HRESULT OutputAsTypeWideDelegate(IntPtr self, [In] int Index, [In, MarshalAs(UnmanagedType.LPWStr)] string Type);
-        private delegate HRESULT GetSymbolTypeNameDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer, [In] int BufferSize, [Out] out int NameSize);
-        private delegate HRESULT GetSymbolTypeNameWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer, [In] int BufferSize, [Out] out int NameSize);
+        private delegate HRESULT GetSymbolTypeNameDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int NameSize);
+        private delegate HRESULT GetSymbolTypeNameWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int NameSize);
         private delegate HRESULT GetSymbolSizeDelegate(IntPtr self, [In] int Index, [Out] out int Size);
         private delegate HRESULT GetSymbolOffsetDelegate(IntPtr self, [In] int Index, [Out] out long Offset);
         private delegate HRESULT GetSymbolRegisterDelegate(IntPtr self, [In] int Index, [Out] out int Register);
-        private delegate HRESULT GetSymbolValueTextDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer, [In] int BufferSize, [Out] out int NameSize);
-        private delegate HRESULT GetSymbolValueTextWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer, [In] int BufferSize, [Out] out int NameSize);
+        private delegate HRESULT GetSymbolValueTextDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int NameSize);
+        private delegate HRESULT GetSymbolValueTextWideDelegate(IntPtr self, [In] int Index, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer, [In] int BufferSize, [Out] out int NameSize);
         private delegate HRESULT GetSymbolEntryInformationDelegate(IntPtr self, [In] int Index, [Out] out DEBUG_SYMBOL_ENTRY Info);
 
         #endregion

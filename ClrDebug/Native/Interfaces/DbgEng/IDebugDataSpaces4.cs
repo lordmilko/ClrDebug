@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug.DbgEng
 {
@@ -735,7 +734,7 @@ namespace ClrDebug.DbgEng
         HRESULT ReadMultiByteStringVirtual(
             [In] long Offset,
             [In] int MaxBytes,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);
 
@@ -762,7 +761,7 @@ namespace ClrDebug.DbgEng
             [In] long Offset,
             [In] int MaxBytes,
             [In] CODE_PAGE CodePage,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);
 
@@ -786,7 +785,7 @@ namespace ClrDebug.DbgEng
             [In] long Offset,
             [In] int MaxBytes,
             [In] CODE_PAGE CodePage,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 4)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);
 
@@ -807,7 +806,7 @@ namespace ClrDebug.DbgEng
         HRESULT ReadUnicodeStringVirtualWide(
             [In] long Offset,
             [In] int MaxBytes,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);
 

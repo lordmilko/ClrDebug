@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug
 {
@@ -215,7 +214,7 @@ namespace ClrDebug
         HRESULT GetSymbolStoreFileName(
             [In] int cchName,
             [Out] out int pcchName,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0), Out] StringBuilder szName);
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0), Out] char[] szName);
 
         /// <summary>
         /// Returns an array of methods, each of which contains the breakpoint at the given position in a document.

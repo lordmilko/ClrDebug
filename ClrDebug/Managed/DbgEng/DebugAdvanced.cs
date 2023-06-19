@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Text;
 using ClrDebug.DbgEng.Vtbl;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug.DbgEng
 {
@@ -306,11 +306,11 @@ namespace ClrDebug.DbgEng
             [In] IntPtr FileToken,
             [In] int FileTokenSize,
             [Out] out int FoundElement,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 8)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 8)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int FoundSize);*/
             int foundElement;
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int foundSize;
             HRESULT hr = findSourceFileAndToken(Raw, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, null, bufferSize, out foundSize);
@@ -319,12 +319,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = foundSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = findSourceFileAndToken(Raw, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, buffer, bufferSize, out foundSize);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new FindSourceFileAndTokenResult(foundElement, buffer.ToString());
+                result = new FindSourceFileAndTokenResult(foundElement, CreateString(buffer, foundSize));
 
                 return hr;
             }
@@ -387,11 +387,11 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 7)] StringBuilder StringBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] char[] StringBuffer,
             [In] int StringBufferSize,
             [Out] out int StringSize);*/
             int infoSize;
-            StringBuilder stringBuffer;
+            char[] stringBuffer;
             int stringBufferSize = 0;
             int stringSize;
             HRESULT hr = getSymbolInformation(Raw, which, arg64, arg32, buffer, bufferSize, out infoSize, null, stringBufferSize, out stringSize);
@@ -400,12 +400,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             stringBufferSize = stringSize;
-            stringBuffer = new StringBuilder(stringBufferSize);
+            stringBuffer = new char[stringBufferSize];
             hr = getSymbolInformation(Raw, which, arg64, arg32, buffer, bufferSize, out infoSize, stringBuffer, stringBufferSize, out stringSize);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetSymbolInformationResult(infoSize, stringBuffer.ToString());
+                result = new GetSymbolInformationResult(infoSize, CreateString(stringBuffer, stringSize));
 
                 return hr;
             }
@@ -604,11 +604,11 @@ namespace ClrDebug.DbgEng
             [In] IntPtr FileToken,
             [In] int FileTokenSize,
             [Out] out int FoundElement,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 8)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 8)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int FoundSize);*/
             int foundElement;
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int foundSize;
             HRESULT hr = findSourceFileAndTokenWide(Raw, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, null, bufferSize, out foundSize);
@@ -617,12 +617,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = foundSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = findSourceFileAndTokenWide(Raw, startElement, modAddr, file, flags, fileToken, fileTokenSize, out foundElement, buffer, bufferSize, out foundSize);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new FindSourceFileAndTokenWideResult(foundElement, buffer.ToString());
+                result = new FindSourceFileAndTokenWideResult(foundElement, CreateString(buffer, foundSize));
 
                 return hr;
             }
@@ -685,11 +685,11 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 7)] StringBuilder StringBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 7)] char[] StringBuffer,
             [In] int StringBufferSize,
             [Out] out int StringSize);*/
             int infoSize;
-            StringBuilder stringBuffer;
+            char[] stringBuffer;
             int stringBufferSize = 0;
             int stringSize;
             HRESULT hr = getSymbolInformationWide(Raw, which, arg64, arg32, buffer, bufferSize, out infoSize, null, stringBufferSize, out stringSize);
@@ -698,12 +698,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             stringBufferSize = stringSize;
-            stringBuffer = new StringBuilder(stringBufferSize);
+            stringBuffer = new char[stringBufferSize];
             hr = getSymbolInformationWide(Raw, which, arg64, arg32, buffer, bufferSize, out infoSize, stringBuffer, stringBufferSize, out stringSize);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetSymbolInformationWideResult(infoSize, stringBuffer.ToString());
+                result = new GetSymbolInformationWideResult(infoSize, CreateString(stringBuffer, stringSize));
 
                 return hr;
             }
@@ -761,16 +761,16 @@ namespace ClrDebug.DbgEng
 
         private delegate HRESULT RequestDelegate(IntPtr self, [In] DEBUG_REQUEST Request, [In] IntPtr InBuffer, [In] int InBufferSize, [Out] IntPtr OutBuffer, [In] int OutBufferSize, [Out] out int OutSize);
         private delegate HRESULT GetSourceFileInformationDelegate(IntPtr self, [In] DEBUG_SRCFILE Which, [In, MarshalAs(UnmanagedType.LPStr)] string SourceFile, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize);
-        private delegate HRESULT FindSourceFileAndTokenDelegate(IntPtr self, [In] int StartElement, [In] long ModAddr, [In, MarshalAs(UnmanagedType.LPStr)] string File, [In] DEBUG_FIND_SOURCE Flags, [In] IntPtr FileToken, [In] int FileTokenSize, [Out] out int FoundElement, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 8)] StringBuilder Buffer, [In] int BufferSize, [Out] out int FoundSize);
-        private delegate HRESULT GetSymbolInformationDelegate(IntPtr self, [In] DEBUG_SYMINFO Which, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 7)] StringBuilder StringBuffer, [In] int StringBufferSize, [Out] out int StringSize);
+        private delegate HRESULT FindSourceFileAndTokenDelegate(IntPtr self, [In] int StartElement, [In] long ModAddr, [In, MarshalAs(UnmanagedType.LPStr)] string File, [In] DEBUG_FIND_SOURCE Flags, [In] IntPtr FileToken, [In] int FileTokenSize, [Out] out int FoundElement, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 8)] char[] Buffer, [In] int BufferSize, [Out] out int FoundSize);
+        private delegate HRESULT GetSymbolInformationDelegate(IntPtr self, [In] DEBUG_SYMINFO Which, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] char[] StringBuffer, [In] int StringBufferSize, [Out] out int StringSize);
         private delegate HRESULT GetSystemObjectInformationDelegate(IntPtr self, [In] DEBUG_SYSOBJINFO Which, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize);
 
         #endregion
         #region IDebugAdvanced3
 
         private delegate HRESULT GetSourceFileInformationWideDelegate(IntPtr self, [In] DEBUG_SRCFILE Which, [In, MarshalAs(UnmanagedType.LPWStr)] string SourceFile, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize);
-        private delegate HRESULT FindSourceFileAndTokenWideDelegate(IntPtr self, [In] int StartElement, [In] long ModAddr, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [In] DEBUG_FIND_SOURCE Flags, [In] IntPtr FileToken, [In] int FileTokenSize, [Out] out int FoundElement, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 8)] StringBuilder Buffer, [In] int BufferSize, [Out] out int FoundSize);
-        private delegate HRESULT GetSymbolInformationWideDelegate(IntPtr self, [In] DEBUG_SYMINFO Which, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 7)] StringBuilder StringBuffer, [In] int StringBufferSize, [Out] out int StringSize);
+        private delegate HRESULT FindSourceFileAndTokenWideDelegate(IntPtr self, [In] int StartElement, [In] long ModAddr, [In, MarshalAs(UnmanagedType.LPWStr)] string File, [In] DEBUG_FIND_SOURCE Flags, [In] IntPtr FileToken, [In] int FileTokenSize, [Out] out int FoundElement, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 8)] char[] Buffer, [In] int BufferSize, [Out] out int FoundSize);
+        private delegate HRESULT GetSymbolInformationWideDelegate(IntPtr self, [In] DEBUG_SYMINFO Which, [In] long Arg64, [In] int Arg32, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int InfoSize, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 7)] char[] StringBuffer, [In] int StringBufferSize, [Out] out int StringSize);
 
         #endregion
         #endregion

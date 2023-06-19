@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Text;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
@@ -787,12 +787,12 @@ namespace ClrDebug
             [Out] out IntPtr ppBaseLoadAddress,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
             [Out] out AssemblyID pAssemblyId);*/
             IntPtr ppBaseLoadAddress;
             int cchName = 0;
             int pcchName;
-            StringBuilder szName;
+            char[] szName;
             AssemblyID pAssemblyId;
             HRESULT hr = Raw.GetModuleInfo(moduleId, out ppBaseLoadAddress, cchName, out pcchName, null, out pAssemblyId);
 
@@ -800,12 +800,12 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder(cchName);
+            szName = new char[cchName];
             hr = Raw.GetModuleInfo(moduleId, out ppBaseLoadAddress, cchName, out pcchName, szName, out pAssemblyId);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetModuleInfoResult(ppBaseLoadAddress, szName.ToString(), pAssemblyId);
+                result = new GetModuleInfoResult(ppBaseLoadAddress, CreateString(szName, pcchName), pAssemblyId);
 
                 return hr;
             }
@@ -1050,11 +1050,11 @@ namespace ClrDebug
             [In] AppDomainID appDomainId,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szName,
             [Out] out ProcessID pProcessId);*/
             int cchName = 0;
             int pcchName;
-            StringBuilder szName;
+            char[] szName;
             ProcessID pProcessId;
             HRESULT hr = Raw.GetAppDomainInfo(appDomainId, cchName, out pcchName, null, out pProcessId);
 
@@ -1062,12 +1062,12 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder(cchName);
+            szName = new char[cchName];
             hr = Raw.GetAppDomainInfo(appDomainId, cchName, out pcchName, szName, out pProcessId);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetAppDomainInfoResult(szName.ToString(), pProcessId);
+                result = new GetAppDomainInfoResult(CreateString(szName, pcchName), pProcessId);
 
                 return hr;
             }
@@ -1121,12 +1121,12 @@ namespace ClrDebug
             [In] AssemblyID assemblyId,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szName,
             [Out] out AppDomainID pAppDomainId,
             [Out] out ModuleID pModuleId);*/
             int cchName = 0;
             int pcchName;
-            StringBuilder szName;
+            char[] szName;
             AppDomainID pAppDomainId;
             ModuleID pModuleId;
             HRESULT hr = Raw.GetAssemblyInfo(assemblyId, cchName, out pcchName, null, out pAppDomainId, out pModuleId);
@@ -1135,12 +1135,12 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder(cchName);
+            szName = new char[cchName];
             hr = Raw.GetAssemblyInfo(assemblyId, cchName, out pcchName, szName, out pAppDomainId, out pModuleId);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetAssemblyInfoResult(szName.ToString(), pAppDomainId, pModuleId);
+                result = new GetAssemblyInfoResult(CreateString(szName, pcchName), pAppDomainId, pModuleId);
 
                 return hr;
             }
@@ -2619,7 +2619,7 @@ namespace ClrDebug
             [Out] out ushort pQFEVersion,
             [In] int cchVersionString,
             [Out] out int pcchVersionString,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 6)] StringBuilder szVersionString);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 6)] char[] szVersionString);*/
             ushort pClrInstanceId;
             COR_PRF_RUNTIME_TYPE pRuntimeType;
             ushort pMajorVersion;
@@ -2628,19 +2628,19 @@ namespace ClrDebug
             ushort pQFEVersion;
             int cchVersionString = 0;
             int pcchVersionString;
-            StringBuilder szVersionString;
+            char[] szVersionString;
             HRESULT hr = Raw3.GetRuntimeInformation(out pClrInstanceId, out pRuntimeType, out pMajorVersion, out pMinorVersion, out pBuildNumber, out pQFEVersion, cchVersionString, out pcchVersionString, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchVersionString = pcchVersionString;
-            szVersionString = new StringBuilder(cchVersionString);
+            szVersionString = new char[cchVersionString];
             hr = Raw3.GetRuntimeInformation(out pClrInstanceId, out pRuntimeType, out pMajorVersion, out pMinorVersion, out pBuildNumber, out pQFEVersion, cchVersionString, out pcchVersionString, szVersionString);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetRuntimeInformationResult(pClrInstanceId, pRuntimeType, pMajorVersion, pMinorVersion, pBuildNumber, pQFEVersion, szVersionString.ToString());
+                result = new GetRuntimeInformationResult(pClrInstanceId, pRuntimeType, pMajorVersion, pMinorVersion, pBuildNumber, pQFEVersion, CreateString(szVersionString, pcchVersionString));
 
                 return hr;
             }
@@ -3236,13 +3236,13 @@ namespace ClrDebug
             [Out] out IntPtr ppBaseLoadAddress,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
             [Out] out AssemblyID pAssemblyId,
             [Out] out COR_PRF_MODULE_FLAGS pdwModuleFlags);*/
             IntPtr ppBaseLoadAddress;
             int cchName = 0;
             int pcchName;
-            StringBuilder szName;
+            char[] szName;
             AssemblyID pAssemblyId;
             COR_PRF_MODULE_FLAGS pdwModuleFlags;
             HRESULT hr = Raw3.GetModuleInfo2(moduleId, out ppBaseLoadAddress, cchName, out pcchName, null, out pAssemblyId, out pdwModuleFlags);
@@ -3251,12 +3251,12 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder(cchName);
+            szName = new char[cchName];
             hr = Raw3.GetModuleInfo2(moduleId, out ppBaseLoadAddress, cchName, out pcchName, szName, out pAssemblyId, out pdwModuleFlags);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetModuleInfo2Result(ppBaseLoadAddress, szName.ToString(), pAssemblyId, pdwModuleFlags);
+                result = new GetModuleInfo2Result(ppBaseLoadAddress, CreateString(szName, pcchName), pAssemblyId, pdwModuleFlags);
 
                 return hr;
             }
@@ -4214,25 +4214,25 @@ namespace ClrDebug
             [Out] out int pbSig,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4)] StringBuilder wszName);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] wszName);*/
             ModuleID moduleId;
             IntPtr ppvSig;
             int pbSig;
             int cchName = 0;
             int pcchName;
-            StringBuilder wszName;
+            char[] wszName;
             HRESULT hr = Raw8.GetDynamicFunctionInfo(functionId, out moduleId, out ppvSig, out pbSig, cchName, out pcchName, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchName = pcchName;
-            wszName = new StringBuilder(cchName);
+            wszName = new char[cchName];
             hr = Raw8.GetDynamicFunctionInfo(functionId, out moduleId, out ppvSig, out pbSig, cchName, out pcchName, wszName);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetDynamicFunctionInfoResult(moduleId, ppvSig, pbSig, wszName.ToString());
+                result = new GetDynamicFunctionInfoResult(moduleId, ppvSig, pbSig, CreateString(wszName, pcchName));
 
                 return hr;
             }
@@ -4639,22 +4639,22 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
             [In] int cchValue,
             [Out] out int pcchValue,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder szValue);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szValue);*/
             int cchValue = 0;
             int pcchValue;
-            StringBuilder szValue;
+            char[] szValue;
             HRESULT hr = Raw11.GetEnvironmentVariable(szName, cchValue, out pcchValue, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchValue = pcchValue;
-            szValue = new StringBuilder(cchValue);
+            szValue = new char[cchValue];
             hr = Raw11.GetEnvironmentVariable(szName, cchValue, out pcchValue, szValue);
 
             if (hr == HRESULT.S_OK)
             {
-                szValueResult = szValue.ToString();
+                szValueResult = CreateString(szValue, pcchValue);
 
                 return hr;
             }
@@ -4839,22 +4839,22 @@ namespace ClrDebug
             [In] EVENTPIPE_PROVIDER provider,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder providerName);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] providerName);*/
             int cchName = 0;
             int pcchName;
-            StringBuilder providerName;
+            char[] providerName;
             HRESULT hr = Raw12.EventPipeGetProviderInfo(provider, cchName, out pcchName, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchName = pcchName;
-            providerName = new StringBuilder(cchName);
+            providerName = new char[cchName];
             hr = Raw12.EventPipeGetProviderInfo(provider, cchName, out pcchName, providerName);
 
             if (hr == HRESULT.S_OK)
             {
-                providerNameResult = providerName.ToString();
+                providerNameResult = CreateString(providerName, pcchName);
 
                 return hr;
             }

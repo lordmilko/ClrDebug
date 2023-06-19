@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Text;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug.DbgEng
 {
@@ -15,12 +15,12 @@ namespace ClrDebug.DbgEng
 
     public delegate void PWINDBG_GET_SYMBOL(
         [In] IntPtr offset,
-        [Out] StringBuilder pchBuffer,
+        [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1)] char[] pchBuffer,
         [Out] IntPtr pDisplacement);
 
     public delegate bool PWINDBG_DISASM(
         [In, Out] ref IntPtr lpOffset,
-        [Out] StringBuilder lpBuffer,
+        [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1)] char[] lpBuffer,
         [In] bool fShowEffectiveAddress);
 
     public delegate bool PWINDBG_CHECK_CONTROL_C();
@@ -91,19 +91,19 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getSymbol, apis.lpGetSymbolRoutine);
 
-            var buffer = new StringBuilder(256);
+            var buffer = new char[256];
             IntPtr displacement = IntPtr.Zero;
 
             getSymbol(offset, buffer, displacement);
 
-            return new GetSymbolResult(buffer.ToString(), displacement);
+            return new GetSymbolResult(CreateString(buffer), displacement);
         }
 
         public bool Disasm(ref IntPtr lpOffset, bool fShowEffectiveAddress)
         {
             InitDelegate(ref disasm, apis.lpDisasmRoutine);
 
-            var buffer = new StringBuilder(256);
+            var buffer = new char[256];
 
             return disasm(ref lpOffset, buffer, fShowEffectiveAddress);
         }

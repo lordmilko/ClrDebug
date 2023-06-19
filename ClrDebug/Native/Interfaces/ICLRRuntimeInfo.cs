@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug
 {
@@ -33,7 +32,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetVersionString(
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1), Out] StringBuilder pwzBuffer,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1), Out] char[] pwzBuffer,
             [In, Out] ref int pcchBuffer);
 
         /// <summary>
@@ -52,7 +51,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRuntimeDirectory(
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1), Out] StringBuilder pwzBuffer,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1), Out] char[] pwzBuffer,
             [In, Out] ref int pcchBuffer);
 
         /// <summary>
@@ -103,7 +102,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT LoadErrorString(
             [In] HRESULT iResourceID,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2), Out] StringBuilder pwzBuffer,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), Out] char[] pwzBuffer,
             [In, Out] ref int pcchBuffer,
             [In] int iLocaleID);
 
@@ -252,7 +251,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetDefaultStartupFlags(
             [Out] out STARTUP_FLAGS pdwStartupFlags,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2), Out] StringBuilder pwzHostConfigFile,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), Out] char[] pwzHostConfigFile,
             [In, Out] ref int pcchHostConfigFile);
 
         /// <summary>

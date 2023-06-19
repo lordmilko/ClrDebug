@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Text;
 using static ClrDebug.Extensions;
 
 namespace ClrDebug
@@ -44,7 +43,7 @@ namespace ClrDebug
     public delegate HRESULT CreateVersionStringFromModuleDelegate(
         [In] int pidDebuggee,
         [MarshalAs(UnmanagedType.LPWStr), In] string szModuleName,
-        [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3), Out] StringBuilder pBuffer,
+        [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] pBuffer,
         [In] int cchBuffer,
         [Out] out int pdwLength);
 
@@ -368,13 +367,13 @@ namespace ClrDebug
             if (hr != HRESULT.ERROR_INSUFFICIENT_BUFFER)
                 goto fail;
 
-            var pBuffer = new StringBuilder(pdwLength);
+            var pBuffer = new char[pdwLength];
 
-            hr = @delegate(pidDebuggee, szModuleName, pBuffer, pBuffer.Capacity, out pdwLength);
+            hr = @delegate(pidDebuggee, szModuleName, pBuffer, pdwLength, out pdwLength);
 
             if (hr == HRESULT.S_OK)
             {
-                version = pBuffer.ToString();
+                version = CreateString(pBuffer, pdwLength);
                 return hr;
             }
 

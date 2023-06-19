@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Text;
 using ClrDebug.DbgEng.Vtbl;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug.DbgEng
 {
@@ -522,10 +522,10 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getCommand, Vtbl->GetCommand);
             /*HRESULT GetCommand(
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int CommandSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int commandSize;
             HRESULT hr = getCommand(Raw, null, bufferSize, out commandSize);
@@ -534,12 +534,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = commandSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getCommand(Raw, buffer, bufferSize, out commandSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, commandSize);
 
                 return hr;
             }
@@ -610,10 +610,10 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getOffsetExpression, Vtbl->GetOffsetExpression);
             /*HRESULT GetOffsetExpression(
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int ExpressionSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int expressionSize;
             HRESULT hr = getOffsetExpression(Raw, null, bufferSize, out expressionSize);
@@ -622,12 +622,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = expressionSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getOffsetExpression(Raw, buffer, bufferSize, out expressionSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, expressionSize);
 
                 return hr;
             }
@@ -837,10 +837,10 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getCommandWide, Vtbl2->GetCommandWide);
             /*HRESULT GetCommandWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int CommandSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int commandSize;
             HRESULT hr = getCommandWide(Raw, null, bufferSize, out commandSize);
@@ -849,12 +849,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = commandSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getCommandWide(Raw, buffer, bufferSize, out commandSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, commandSize);
 
                 return hr;
             }
@@ -925,10 +925,10 @@ namespace ClrDebug.DbgEng
         {
             InitDelegate(ref getOffsetExpressionWide, Vtbl2->GetOffsetExpressionWide);
             /*HRESULT GetOffsetExpressionWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int ExpressionSize);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int expressionSize;
             HRESULT hr = getOffsetExpressionWide(Raw, null, bufferSize, out expressionSize);
@@ -937,12 +937,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = expressionSize;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = getOffsetExpressionWide(Raw, buffer, bufferSize, out expressionSize);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, expressionSize);
 
                 return hr;
             }
@@ -1087,9 +1087,9 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetCurrentPassCountDelegate(IntPtr self, [Out] out int Count);
         private delegate HRESULT GetMatchThreadIdDelegate(IntPtr self, [Out] out int Id);
         private delegate HRESULT SetMatchThreadIdDelegate(IntPtr self, [In] int Thread);
-        private delegate HRESULT GetCommandDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer, [In] int BufferSize, [Out] out int CommandSize);
+        private delegate HRESULT GetCommandDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int CommandSize);
         private delegate HRESULT SetCommandDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Command);
-        private delegate HRESULT GetOffsetExpressionDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer, [In] int BufferSize, [Out] out int ExpressionSize);
+        private delegate HRESULT GetOffsetExpressionDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int ExpressionSize);
         private delegate HRESULT SetOffsetExpressionDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPStr)] string Expression);
         private delegate HRESULT GetParametersDelegate(IntPtr self, [Out] out DEBUG_BREAKPOINT_PARAMETERS Params);
         private delegate HRESULT AddFlagsDelegate(IntPtr self, [In] DEBUG_BREAKPOINT_FLAG Flags);
@@ -1099,9 +1099,9 @@ namespace ClrDebug.DbgEng
         #endregion
         #region IDebugBreakpoint2
 
-        private delegate HRESULT GetCommandWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer, [In] int BufferSize, [Out] out int CommandSize);
+        private delegate HRESULT GetCommandWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int CommandSize);
         private delegate HRESULT SetCommandWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Command);
-        private delegate HRESULT GetOffsetExpressionWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer, [In] int BufferSize, [Out] out int ExpressionSize);
+        private delegate HRESULT GetOffsetExpressionWideDelegate(IntPtr self, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer, [In] int BufferSize, [Out] out int ExpressionSize);
         private delegate HRESULT SetOffsetExpressionWideDelegate(IntPtr self, [In, MarshalAs(UnmanagedType.LPWStr)] string Command);
 
         #endregion

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Security;
-using System.Text;
 
 namespace ClrDebug
 {
@@ -145,7 +143,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         new HRESULT GetScopeProps(
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1), Out] StringBuilder szName,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1), Out] char[] szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out Guid pmvid);
@@ -170,7 +168,7 @@ namespace ClrDebug
         [PreserveSig]
         new HRESULT GetTypeDefProps(
             [In] mdTypeDef td,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2), Out] StringBuilder szTypeDef,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), Out] char[] szTypeDef,
             [In] int cchTypeDef,
             [Out] out int pchTypeDef,
             [Out] out CorTypeAttr pdwTypeDefFlags,
@@ -206,7 +204,7 @@ namespace ClrDebug
         new HRESULT GetTypeRefProps(
             [In] mdTypeRef tr,
             [Out] out mdToken ptkResolutionScope,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] szName,
             [In] int cchName,
             [Out] out int pchName);
 
@@ -597,7 +595,7 @@ namespace ClrDebug
         new HRESULT GetMethodProps(
             [In] mdMethodDef mb,
             [Out] out mdTypeDef pClass,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3), Out] StringBuilder szMethod,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] szMethod,
             [In] int cchMethod,
             [Out] out int pchMethod,
             [Out] out CorMethodAttr pdwAttr,
@@ -620,7 +618,7 @@ namespace ClrDebug
         new HRESULT GetMemberRefProps(
             [In] mdMemberRef mr,
             [Out] out mdToken ptk,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3), Out] StringBuilder szMember,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] szMember,
             [In] int cchMember,
             [Out] out int pchMember,
             [Out] out IntPtr ppvSigBlob,
@@ -690,7 +688,7 @@ namespace ClrDebug
         new HRESULT GetEventProps(
             [In] mdEvent ev,
             [Out] out mdTypeDef pClass,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3), Out] StringBuilder szEvent,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] szEvent,
             [In] int cchEvent,
             [Out] out int pchEvent,
             [Out] out CorEventAttr pdwEventFlags,
@@ -827,7 +825,7 @@ namespace ClrDebug
         [PreserveSig]
         new HRESULT GetModuleRefProps(
             [In] mdModuleRef mur,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2), Out] StringBuilder szName,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), Out] char[] szName,
             [In] int cchName,
             [Out] out int pchName);
 
@@ -916,7 +914,7 @@ namespace ClrDebug
         [PreserveSig]
         new HRESULT GetUserString(
             [In] mdString stk,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2), Out] StringBuilder szString,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), Out] char[] szString,
             [In] int cchString,
             [Out] out int pchString);
 
@@ -933,7 +931,7 @@ namespace ClrDebug
         new HRESULT GetPinvokeMap(
             [In] mdToken tk,
             [Out] out CorPinvokeMap pdwMappingFlags,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3), Out] StringBuilder szImportName,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] szImportName,
             [In] int cchImportName,
             [Out] out int pchImportName,
             [Out] out mdModuleRef pmrImportDLL);
@@ -1097,7 +1095,7 @@ namespace ClrDebug
         new HRESULT GetMemberProps(
             [In] mdToken mb,
             [Out] out mdTypeDef pClass,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3), Out] StringBuilder szMember,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] szMember,
             [In] int cchMember,
             [Out] out int pchMember,
             [Out] out int pdwAttr,
@@ -1127,7 +1125,7 @@ namespace ClrDebug
         new HRESULT GetFieldProps(
             [In] mdFieldDef mb,
             [Out] out mdTypeDef pClass,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3), Out] StringBuilder szField,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] szField,
             [In] int cchField,
             [Out] out int pchField,
             [Out] out CorFieldAttr pdwAttr,
@@ -1161,7 +1159,7 @@ namespace ClrDebug
         new HRESULT GetPropertyProps(
             [In] mdProperty prop,
             [Out] out mdTypeDef pClass,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3), Out] StringBuilder szProperty,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] szProperty,
             [In] int cchProperty,
             [Out] out int pchProperty,
             [Out] out CorPropertyAttr pdwPropFlags,
@@ -1197,7 +1195,7 @@ namespace ClrDebug
             [In] mdParamDef tk,
             [Out] out mdMethodDef pmd,
             [Out] out int pulSequence,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4), Out] StringBuilder szName,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4), Out] char[] szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out CorParamAttr pdwAttr,
@@ -1305,7 +1303,7 @@ namespace ClrDebug
             [Out] out CorGenericParamAttr pdwParamFlags,
             [Out] out mdToken ptOwner,
             [Out] out int reserved,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 6)] StringBuilder wzname,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 6)] char[] wzname,
             [In] int cchName,
             [Out] out int pchName);
 
@@ -1382,7 +1380,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         HRESULT GetVersionString(
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder pwzBuf,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] pwzBuf,
             [In] int ccBufSize,
             [Out] out int pccBufSize);
 

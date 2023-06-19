@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using System.Text;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
@@ -126,22 +126,22 @@ namespace ClrDebug
             [In] int dwOffset,
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder szName);*/
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szName);*/
             int cchName = 0;
             int pcchName;
-            StringBuilder szName;
+            char[] szName;
             HRESULT hr = Raw.GetFileNameFromOffset(dwOffset, cchName, out pcchName, null);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
             cchName = pcchName;
-            szName = new StringBuilder(cchName);
+            szName = new char[cchName];
             hr = Raw.GetFileNameFromOffset(dwOffset, cchName, out pcchName, szName);
 
             if (hr == HRESULT.S_OK)
             {
-                szNameResult = szName.ToString();
+                szNameResult = CreateString(szName, pcchName);
 
                 return hr;
             }

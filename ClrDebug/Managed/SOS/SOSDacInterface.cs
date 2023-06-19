@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Text;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
@@ -425,10 +425,10 @@ namespace ClrDebug
             /*HRESULT GetAppDomainName(
             [In] CLRDATA_ADDRESS addr,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder name,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] name,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder name;
+            char[] name;
             int pNeeded;
             HRESULT hr = Raw.GetAppDomainName(addr, count, null, out pNeeded);
 
@@ -436,12 +436,12 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            name = new StringBuilder(count);
+            name = new char[count];
             hr = Raw.GetAppDomainName(addr, count, name, out pNeeded);
 
             if (hr == HRESULT.S_OK)
             {
-                nameResult = name.ToString();
+                nameResult = CreateString(name, pNeeded);
 
                 return hr;
             }
@@ -540,10 +540,10 @@ namespace ClrDebug
             /*HRESULT GetAssemblyName(
             [In] CLRDATA_ADDRESS assembly,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder name,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] name,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder name;
+            char[] name;
             int pNeeded;
             HRESULT hr = Raw.GetAssemblyName(assembly, count, null, out pNeeded);
 
@@ -551,12 +551,12 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            name = new StringBuilder(count);
+            name = new char[count];
             hr = Raw.GetAssemblyName(assembly, count, name, out pNeeded);
 
             if (hr == HRESULT.S_OK)
             {
-                nameResult = name.ToString();
+                nameResult = CreateString(name, pNeeded);
 
                 return hr;
             }
@@ -890,10 +890,10 @@ namespace ClrDebug
             /*HRESULT GetMethodDescName(
             [In] CLRDATA_ADDRESS methodDesc,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder name,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] name,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder name;
+            char[] name;
             int pNeeded;
             HRESULT hr = Raw.GetMethodDescName(methodDesc, count, null, out pNeeded);
 
@@ -901,12 +901,12 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            name = new StringBuilder(count);
+            name = new char[count];
             hr = Raw.GetMethodDescName(methodDesc, count, name, out pNeeded);
 
             if (hr == HRESULT.S_OK)
             {
-                nameResult = name.ToString();
+                nameResult = CreateString(name, pNeeded);
 
                 return hr;
             }
@@ -1010,10 +1010,10 @@ namespace ClrDebug
             /*HRESULT GetJitHelperFunctionName(
             [In] CLRDATA_ADDRESS ip,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder name,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] name,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder name;
+            char[] name;
             int pNeeded;
             HRESULT hr = Raw.GetJitHelperFunctionName(ip, count, null, out pNeeded);
 
@@ -1021,12 +1021,12 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            name = new StringBuilder(count);
+            name = new char[count];
             hr = Raw.GetJitHelperFunctionName(ip, count, name, out pNeeded);
 
             if (hr == HRESULT.S_OK)
             {
-                nameResult = name.ToString();
+                nameResult = CreateString(name, pNeeded);
 
                 return hr;
             }
@@ -1139,10 +1139,10 @@ namespace ClrDebug
             /*HRESULT GetObjectStringData(
             [In] CLRDATA_ADDRESS obj,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder stringData,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] stringData,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder stringData;
+            char[] stringData;
             int pNeeded;
             HRESULT hr = Raw.GetObjectStringData(obj, count, null, out pNeeded);
 
@@ -1150,12 +1150,12 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            stringData = new StringBuilder(count);
+            stringData = new char[count];
             hr = Raw.GetObjectStringData(obj, count, stringData, out pNeeded);
 
             if (hr == HRESULT.S_OK)
             {
-                stringDataResult = stringData.ToString();
+                stringDataResult = CreateString(stringData, pNeeded);
 
                 return hr;
             }
@@ -1182,10 +1182,10 @@ namespace ClrDebug
             /*HRESULT GetObjectClassName(
             [In] CLRDATA_ADDRESS obj,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder className,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] className,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder className;
+            char[] className;
             int pNeeded;
             HRESULT hr = Raw.GetObjectClassName(obj, count, null, out pNeeded);
 
@@ -1193,12 +1193,12 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            className = new StringBuilder(count);
+            className = new char[count];
             hr = Raw.GetObjectClassName(obj, count, className, out pNeeded);
 
             if (hr == HRESULT.S_OK)
             {
-                classNameResult = className.ToString();
+                classNameResult = CreateString(className, pNeeded);
 
                 return hr;
             }
@@ -1225,10 +1225,10 @@ namespace ClrDebug
             /*HRESULT GetMethodTableName(
             [In] CLRDATA_ADDRESS mt,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder mtName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] mtName,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder mtName;
+            char[] mtName;
             int pNeeded;
             HRESULT hr = Raw.GetMethodTableName(mt, count, null, out pNeeded);
 
@@ -1236,12 +1236,12 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            mtName = new StringBuilder(count);
+            mtName = new char[count];
             hr = Raw.GetMethodTableName(mt, count, mtName, out pNeeded);
 
             if (hr == HRESULT.S_OK)
             {
-                mtNameResult = mtName.ToString();
+                mtNameResult = CreateString(mtName, pNeeded);
 
                 return hr;
             }
@@ -1383,10 +1383,10 @@ namespace ClrDebug
             /*HRESULT GetFrameName(
             [In] CLRDATA_ADDRESS vtable,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder frameName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] frameName,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder frameName;
+            char[] frameName;
             int pNeeded;
             HRESULT hr = Raw.GetFrameName(vtable, count, null, out pNeeded);
 
@@ -1394,12 +1394,12 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            frameName = new StringBuilder(count);
+            frameName = new char[count];
             hr = Raw.GetFrameName(vtable, count, frameName, out pNeeded);
 
             if (hr == HRESULT.S_OK)
             {
-                frameNameResult = frameName.ToString();
+                frameNameResult = CreateString(frameName, pNeeded);
 
                 return hr;
             }
@@ -1445,10 +1445,10 @@ namespace ClrDebug
             /*HRESULT GetPEFileName(
             [In] CLRDATA_ADDRESS addr,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder fileName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] fileName,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder fileName;
+            char[] fileName;
             int pNeeded;
             HRESULT hr = Raw.GetPEFileName(addr, count, null, out pNeeded);
 
@@ -1456,12 +1456,12 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            fileName = new StringBuilder(count);
+            fileName = new char[count];
             hr = Raw.GetPEFileName(addr, count, fileName, out pNeeded);
 
             if (hr == HRESULT.S_OK)
             {
-                fileNameResult = fileName.ToString();
+                fileNameResult = CreateString(fileName, pNeeded);
 
                 return hr;
             }
@@ -2011,10 +2011,10 @@ namespace ClrDebug
             /*HRESULT GetRegisterName(
             [In] int regName,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] buffer,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder buffer;
+            char[] buffer;
             int pNeeded;
             HRESULT hr = Raw.GetRegisterName(regName, count, null, out pNeeded);
 
@@ -2022,12 +2022,12 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            buffer = new StringBuilder(count);
+            buffer = new char[count];
             hr = Raw.GetRegisterName(regName, count, buffer, out pNeeded);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, pNeeded);
 
                 return hr;
             }
@@ -2135,10 +2135,10 @@ namespace ClrDebug
             /*HRESULT GetPrivateBinPaths(
             [In] CLRDATA_ADDRESS appDomain,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder paths,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] paths,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder paths;
+            char[] paths;
             int pNeeded;
             HRESULT hr = Raw.GetPrivateBinPaths(appDomain, count, null, out pNeeded);
 
@@ -2146,12 +2146,12 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            paths = new StringBuilder(count);
+            paths = new char[count];
             hr = Raw.GetPrivateBinPaths(appDomain, count, paths, out pNeeded);
 
             if (hr == HRESULT.S_OK)
             {
-                pathsResult = paths.ToString();
+                pathsResult = CreateString(paths, pNeeded);
 
                 return hr;
             }
@@ -2178,10 +2178,10 @@ namespace ClrDebug
             /*HRESULT GetAssemblyLocation(
             [In] CLRDATA_ADDRESS assembly,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder location,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] location,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder location;
+            char[] location;
             int pNeeded;
             HRESULT hr = Raw.GetAssemblyLocation(assembly, count, null, out pNeeded);
 
@@ -2189,12 +2189,12 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            location = new StringBuilder(count);
+            location = new char[count];
             hr = Raw.GetAssemblyLocation(assembly, count, location, out pNeeded);
 
             if (hr == HRESULT.S_OK)
             {
-                locationResult = location.ToString();
+                locationResult = CreateString(location, pNeeded);
 
                 return hr;
             }
@@ -2221,10 +2221,10 @@ namespace ClrDebug
             /*HRESULT GetAppDomainConfigFile(
             [In] CLRDATA_ADDRESS appDomain,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder configFile,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] configFile,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder configFile;
+            char[] configFile;
             int pNeeded;
             HRESULT hr = Raw.GetAppDomainConfigFile(appDomain, count, null, out pNeeded);
 
@@ -2232,12 +2232,12 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            configFile = new StringBuilder(count);
+            configFile = new char[count];
             hr = Raw.GetAppDomainConfigFile(appDomain, count, configFile, out pNeeded);
 
             if (hr == HRESULT.S_OK)
             {
-                configFileResult = configFile.ToString();
+                configFileResult = CreateString(configFile, pNeeded);
 
                 return hr;
             }
@@ -2264,10 +2264,10 @@ namespace ClrDebug
             /*HRESULT GetApplicationBase(
             [In] CLRDATA_ADDRESS appDomain,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder _base,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] _base,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder _base;
+            char[] _base;
             int pNeeded;
             HRESULT hr = Raw.GetApplicationBase(appDomain, count, null, out pNeeded);
 
@@ -2275,12 +2275,12 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            _base = new StringBuilder(count);
+            _base = new char[count];
             hr = Raw.GetApplicationBase(appDomain, count, _base, out pNeeded);
 
             if (hr == HRESULT.S_OK)
             {
-                _baseResult = _base.ToString();
+                _baseResult = CreateString(_base, pNeeded);
 
                 return hr;
             }
@@ -2336,10 +2336,10 @@ namespace ClrDebug
             /*HRESULT GetFailedAssemblyLocation(
             [In] CLRDATA_ADDRESS assesmbly,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder location,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] location,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder location;
+            char[] location;
             int pNeeded;
             HRESULT hr = Raw.GetFailedAssemblyLocation(assesmbly, count, null, out pNeeded);
 
@@ -2347,12 +2347,12 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            location = new StringBuilder(count);
+            location = new char[count];
             hr = Raw.GetFailedAssemblyLocation(assesmbly, count, location, out pNeeded);
 
             if (hr == HRESULT.S_OK)
             {
-                locationResult = location.ToString();
+                locationResult = CreateString(location, pNeeded);
 
                 return hr;
             }
@@ -2379,10 +2379,10 @@ namespace ClrDebug
             /*HRESULT GetFailedAssemblyDisplayName(
             [In] CLRDATA_ADDRESS assembly,
             [In] int count,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder name,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] name,
             [Out] out int pNeeded);*/
             int count = 0;
-            StringBuilder name;
+            char[] name;
             int pNeeded;
             HRESULT hr = Raw.GetFailedAssemblyDisplayName(assembly, count, null, out pNeeded);
 
@@ -2390,12 +2390,12 @@ namespace ClrDebug
                 goto fail;
 
             count = pNeeded;
-            name = new StringBuilder(count);
+            name = new char[count];
             hr = Raw.GetFailedAssemblyDisplayName(assembly, count, name, out pNeeded);
 
             if (hr == HRESULT.S_OK)
             {
-                nameResult = name.ToString();
+                nameResult = CreateString(name, pNeeded);
 
                 return hr;
             }

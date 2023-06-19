@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Text;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
@@ -142,15 +142,15 @@ namespace ClrDebug
         public HRESULT TryQueryPDBNameExW(out string wszPDBResult)
         {
             /*HRESULT QueryPDBNameExW(
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder wszPDB,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] wszPDB,
             [In] long cchMax);*/
             long cchMax = 1024;
-            StringBuilder wszPDB = new StringBuilder((int) cchMax);
+            char[] wszPDB = new char[(int) cchMax];
             HRESULT hr = Raw2.QueryPDBNameExW(wszPDB, cchMax);
 
             if (hr == HRESULT.S_OK)
             {
-                wszPDBResult = wszPDB.ToString();
+                wszPDBResult = CreateString(wszPDB);
 
                 return hr;
             }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Text;
 using ClrDebug.DbgEng.Vtbl;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug.DbgEng
 {
@@ -1756,10 +1756,10 @@ namespace ClrDebug.DbgEng
             /*HRESULT ReadMultiByteStringVirtual(
             [In] long Offset,
             [In] int MaxBytes,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int stringBytes;
             HRESULT hr = readMultiByteStringVirtual(Raw, offset, maxBytes, null, bufferSize, out stringBytes);
@@ -1768,12 +1768,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = stringBytes;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = readMultiByteStringVirtual(Raw, offset, maxBytes, buffer, bufferSize, out stringBytes);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, stringBytes);
 
                 return hr;
             }
@@ -1833,10 +1833,10 @@ namespace ClrDebug.DbgEng
             [In] long Offset,
             [In] int MaxBytes,
             [In] CODE_PAGE CodePage,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int stringBytes;
             HRESULT hr = readMultiByteStringVirtualWide(Raw, offset, maxBytes, codePage, null, bufferSize, out stringBytes);
@@ -1845,12 +1845,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = stringBytes;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = readMultiByteStringVirtualWide(Raw, offset, maxBytes, codePage, buffer, bufferSize, out stringBytes);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, stringBytes);
 
                 return hr;
             }
@@ -1904,10 +1904,10 @@ namespace ClrDebug.DbgEng
             [In] long Offset,
             [In] int MaxBytes,
             [In] CODE_PAGE CodePage,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 4)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int stringBytes;
             HRESULT hr = readUnicodeStringVirtual(Raw, offset, maxBytes, codePage, null, bufferSize, out stringBytes);
@@ -1916,12 +1916,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = stringBytes;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = readUnicodeStringVirtual(Raw, offset, maxBytes, codePage, buffer, bufferSize, out stringBytes);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, stringBytes);
 
                 return hr;
             }
@@ -1970,10 +1970,10 @@ namespace ClrDebug.DbgEng
             /*HRESULT ReadUnicodeStringVirtualWide(
             [In] long Offset,
             [In] int MaxBytes,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringBytes);*/
-            StringBuilder buffer;
+            char[] buffer;
             int bufferSize = 0;
             int stringBytes;
             HRESULT hr = readUnicodeStringVirtualWide(Raw, offset, maxBytes, null, bufferSize, out stringBytes);
@@ -1982,12 +1982,12 @@ namespace ClrDebug.DbgEng
                 goto fail;
 
             bufferSize = stringBytes;
-            buffer = new StringBuilder(bufferSize);
+            buffer = new char[bufferSize];
             hr = readUnicodeStringVirtualWide(Raw, offset, maxBytes, buffer, bufferSize, out stringBytes);
 
             if (hr == HRESULT.S_OK)
             {
-                bufferResult = buffer.ToString();
+                bufferResult = CreateString(buffer, stringBytes);
 
                 return hr;
             }
@@ -2256,10 +2256,10 @@ namespace ClrDebug.DbgEng
         private delegate HRESULT GetNextDifferentlyValidOffsetVirtualDelegate(IntPtr self, [In] long Offset, [Out] out long NextOffset);
         private delegate HRESULT GetValidRegionVirtualDelegate(IntPtr self, [In] long Base, [In] int Size, [Out] out long ValidBase, [Out] out int ValidSize);
         private delegate HRESULT SearchVirtual2Delegate(IntPtr self, [In] long Offset, [In] long Length, [In] DEBUG_VSEARCH Flags, [In] IntPtr Buffer, [In] int PatternSize, [In] int PatternGranularity, [Out] out long MatchOffset);
-        private delegate HRESULT ReadMultiByteStringVirtualDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringBytes);
-        private delegate HRESULT ReadMultiByteStringVirtualWideDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [In] CODE_PAGE CodePage, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringBytes);
-        private delegate HRESULT ReadUnicodeStringVirtualDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [In] CODE_PAGE CodePage, [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 4)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringBytes);
-        private delegate HRESULT ReadUnicodeStringVirtualWideDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder Buffer, [In] int BufferSize, [Out] out int StringBytes);
+        private delegate HRESULT ReadMultiByteStringVirtualDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] Buffer, [In] int BufferSize, [Out] out int StringBytes);
+        private delegate HRESULT ReadMultiByteStringVirtualWideDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [In] CODE_PAGE CodePage, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] Buffer, [In] int BufferSize, [Out] out int StringBytes);
+        private delegate HRESULT ReadUnicodeStringVirtualDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [In] CODE_PAGE CodePage, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] Buffer, [In] int BufferSize, [Out] out int StringBytes);
+        private delegate HRESULT ReadUnicodeStringVirtualWideDelegate(IntPtr self, [In] long Offset, [In] int MaxBytes, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] Buffer, [In] int BufferSize, [Out] out int StringBytes);
         private delegate HRESULT ReadPhysical2Delegate(IntPtr self, [In] long Offset, [In] DEBUG_PHYSICAL Flags, [Out] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesRead);
         private delegate HRESULT WritePhysical2Delegate(IntPtr self, [In] long Offset, [In] DEBUG_PHYSICAL Flags, [In] IntPtr Buffer, [In] int BufferSize, [Out] out int BytesWritten);
 

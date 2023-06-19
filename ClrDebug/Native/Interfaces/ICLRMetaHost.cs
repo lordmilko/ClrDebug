@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug
 {
@@ -77,7 +76,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetVersionFromFile(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2), Out] StringBuilder pwzBuffer,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), Out] char[] pwzBuffer,
             [In, Out] ref int pcchBuffer);
 
         /// <summary>

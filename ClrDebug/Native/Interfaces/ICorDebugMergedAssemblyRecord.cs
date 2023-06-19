@@ -2,7 +2,6 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug
 {
@@ -30,7 +29,7 @@ namespace ClrDebug
         HRESULT GetSimpleName(
             [In] int cchName,
             [Out] out int pcchName,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder szName);
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szName);
 
         /// <summary>
         /// Gets the assembly's version information.
@@ -65,7 +64,7 @@ namespace ClrDebug
         HRESULT GetCulture(
             [In] int cchCulture,
             [Out] out int pcchCulture,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder szCulture);
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szCulture);
 
         /// <summary>
         /// Gets the assembly's public key.

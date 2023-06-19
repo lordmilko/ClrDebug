@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug.DbgEng
 {
@@ -89,7 +88,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetNameByOffset(
             [In] long Offset,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder NameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out long Displacement);
@@ -138,7 +137,7 @@ namespace ClrDebug.DbgEng
         new HRESULT GetNearNameByOffset(
             [In] long Offset,
             [In] int Delta,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder NameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out long Displacement);
@@ -161,7 +160,7 @@ namespace ClrDebug.DbgEng
         new HRESULT GetLineByOffset(
             [In] long Offset,
             [Out] out int Line,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder FileBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] FileBuffer,
             [In] int FileBufferSize,
             [Out] out int FileSize,
             [Out] out long Displacement);
@@ -283,13 +282,13 @@ namespace ClrDebug.DbgEng
         new HRESULT GetModuleNames(
             [In] int Index,
             [In] long Base,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder ImageNameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] ImageNameBuffer,
             [In] int ImageNameBufferSize,
             [Out] out int ImageNameSize,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 6)] StringBuilder ModuleNameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 6)] char[] ModuleNameBuffer,
             [In] int ModuleNameBufferSize,
             [Out] out int ModuleNameSize,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 9)] StringBuilder LoadedImageNameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 9)] char[] LoadedImageNameBuffer,
             [In] int LoadedImageNameBufferSize,
             [Out] out int LoadedImageNameSize);
 
@@ -348,7 +347,7 @@ namespace ClrDebug.DbgEng
         new HRESULT GetTypeName(
             [In] long Module,
             [In] int TypeId,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder NameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize);
 
@@ -706,7 +705,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetNextSymbolMatch(
             [In] long Handle,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int MatchSize,
             [Out] out long Offset);
@@ -753,7 +752,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetSymbolPath(
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int PathSize);
 
@@ -799,7 +798,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetImagePath(
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int PathSize);
 
@@ -843,7 +842,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetSourcePath(
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int PathSize);
 
@@ -864,7 +863,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetSourcePathElement(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int ElementSize);
 
@@ -924,7 +923,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPStr)] string File,
             [In] DEBUG_FIND_SOURCE Flags,
             [Out] out int FoundElement,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 5)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 5)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int FoundSize);
 
@@ -998,7 +997,7 @@ namespace ClrDebug.DbgEng
             [In] DEBUG_MODNAME Which,
             [In] int Index,
             [In] long Base,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 4)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 
@@ -1020,7 +1019,7 @@ namespace ClrDebug.DbgEng
             [In] long Module,
             [In] int TypeId,
             [In] long Value,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 4)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 
@@ -1043,7 +1042,7 @@ namespace ClrDebug.DbgEng
             [In] long Module,
             [In] int TypeId,
             [In] int FieldIndex,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 4)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 4)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 
@@ -1126,7 +1125,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetNameByOffsetWide(
             [In] long Offset,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder NameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out long Displacement);
@@ -1175,7 +1174,7 @@ namespace ClrDebug.DbgEng
         new HRESULT GetNearNameByOffsetWide(
             [In] long Offset,
             [In] int Delta,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder NameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out long Displacement);
@@ -1198,7 +1197,7 @@ namespace ClrDebug.DbgEng
         new HRESULT GetLineByOffsetWide(
             [In] long Offset,
             [Out] out int Line,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder FileBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] FileBuffer,
             [In] int FileBufferSize,
             [Out] out int FileSize,
             [Out] out long Displacement);
@@ -1274,7 +1273,7 @@ namespace ClrDebug.DbgEng
         new HRESULT GetTypeNameWide(
             [In] long Module,
             [In] int TypeId,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder NameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize);
 
@@ -1408,7 +1407,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetNextSymbolMatchWide(
             [In] long Handle,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int MatchSize,
             [Out] out long Offset);
@@ -1441,7 +1440,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetSymbolPathWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int PathSize);
 
@@ -1487,7 +1486,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetImagePathWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int PathSize);
 
@@ -1531,7 +1530,7 @@ namespace ClrDebug.DbgEng
         /// </remarks>
         [PreserveSig]
         new HRESULT GetSourcePathWide(
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int PathSize);
 
@@ -1552,7 +1551,7 @@ namespace ClrDebug.DbgEng
         [PreserveSig]
         new HRESULT GetSourcePathElementWide(
             [In] int Index,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int ElementSize);
 
@@ -1612,7 +1611,7 @@ namespace ClrDebug.DbgEng
             [In, MarshalAs(UnmanagedType.LPWStr)] string File,
             [In] DEBUG_FIND_SOURCE Flags,
             [Out] out int FoundElement,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 5)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 5)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int FoundSize);
 
@@ -1683,7 +1682,7 @@ namespace ClrDebug.DbgEng
             [In] DEBUG_MODNAME Which,
             [In] int Index,
             [In] long Base,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 
@@ -1705,7 +1704,7 @@ namespace ClrDebug.DbgEng
             [In] long Module,
             [In] int TypeId,
             [In] long Value,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 
@@ -1728,7 +1727,7 @@ namespace ClrDebug.DbgEng
             [In] long Module,
             [In] int TypeId,
             [In] int FieldIndex,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int NameSize);
 
@@ -2187,7 +2186,7 @@ namespace ClrDebug.DbgEng
         new HRESULT GetSymbolEntryString(
             [In] ref DEBUG_MODULE_AND_ID Id,
             [In] int Which,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringSize);
 
@@ -2209,7 +2208,7 @@ namespace ClrDebug.DbgEng
         new HRESULT GetSymbolEntryStringWide(
             [In] ref DEBUG_MODULE_AND_ID Id,
             [In] int Which,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringSize);
 
@@ -2330,7 +2329,7 @@ namespace ClrDebug.DbgEng
         new HRESULT GetSourceEntryString(
             [In] ref DEBUG_SYMBOL_SOURCE_ENTRY Entry,
             [In] int Which,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringSize);
 
@@ -2348,7 +2347,7 @@ namespace ClrDebug.DbgEng
         new HRESULT GetSourceEntryStringWide(
             [In] ref DEBUG_SYMBOL_SOURCE_ENTRY Entry,
             [In] int Which,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int StringSize);
 
@@ -2430,7 +2429,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetNameByInlineContext(
             [In] long Offset,
             [In] int InlineContext,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 3)] StringBuilder NameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 3)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out long Displacement);
@@ -2449,7 +2448,7 @@ namespace ClrDebug.DbgEng
         HRESULT GetNameByInlineContextWide(
             [In] long Offset,
             [In] int InlineContext,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder NameBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] NameBuffer,
             [In] int NameBufferSize,
             [Out] out int NameSize,
             [Out] out long Displacement);
@@ -2470,7 +2469,7 @@ namespace ClrDebug.DbgEng
             [In] long Offset,
             [In] int InlineContext,
             [Out] out int Line,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 1)] StringBuilder FileBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 1)] char[] FileBuffer,
             [In] int FileBufferSize,
             [Out] out int FileSize,
             [Out] out long Displacement);
@@ -2491,7 +2490,7 @@ namespace ClrDebug.DbgEng
             [In] long Offset,
             [In] int InlineContext,
             [Out] out int Line,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder FileBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] FileBuffer,
             [In] int FileBufferSize,
             [Out] out int FileSize,
             [Out] out long Displacement);

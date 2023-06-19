@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Text;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
@@ -49,11 +49,11 @@ namespace ClrDebug
         public HRESULT TryGetScopeProps(out GetScopePropsResult result)
         {
             /*HRESULT GetScopeProps(
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1), Out] StringBuilder szName,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1), Out] char[] szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out Guid pmvid);*/
-            StringBuilder szName;
+            char[] szName;
             int cchName = 0;
             int pchName;
             Guid pmvid;
@@ -63,12 +63,12 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pchName;
-            szName = new StringBuilder(cchName);
+            szName = new char[cchName];
             hr = Raw.GetScopeProps(szName, cchName, out pchName, out pmvid);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetScopePropsResult(szName.ToString(), pmvid);
+                result = new GetScopePropsResult(CreateString(szName, pchName), pmvid);
 
                 return hr;
             }
@@ -407,12 +407,12 @@ namespace ClrDebug
         {
             /*HRESULT GetTypeDefProps(
             [In] mdTypeDef td,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2), Out] StringBuilder szTypeDef,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), Out] char[] szTypeDef,
             [In] int cchTypeDef,
             [Out] out int pchTypeDef,
             [Out] out CorTypeAttr pdwTypeDefFlags,
             [Out] out mdToken ptkExtends);*/
-            StringBuilder szTypeDef;
+            char[] szTypeDef;
             int cchTypeDef = 0;
             int pchTypeDef;
             CorTypeAttr pdwTypeDefFlags;
@@ -423,12 +423,12 @@ namespace ClrDebug
                 goto fail;
 
             cchTypeDef = pchTypeDef;
-            szTypeDef = new StringBuilder(cchTypeDef);
+            szTypeDef = new char[cchTypeDef];
             hr = Raw.GetTypeDefProps(td, szTypeDef, cchTypeDef, out pchTypeDef, out pdwTypeDefFlags, out ptkExtends);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetTypeDefPropsResult(szTypeDef.ToString(), pdwTypeDefFlags, ptkExtends);
+                result = new GetTypeDefPropsResult(CreateString(szTypeDef, pchTypeDef), pdwTypeDefFlags, ptkExtends);
 
                 return hr;
             }
@@ -516,11 +516,11 @@ namespace ClrDebug
             /*HRESULT GetTypeRefProps(
             [In] mdTypeRef tr,
             [Out] out mdToken ptkResolutionScope,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3)] char[] szName,
             [In] int cchName,
             [Out] out int pchName);*/
             mdToken ptkResolutionScope;
-            StringBuilder szName;
+            char[] szName;
             int cchName = 0;
             int pchName;
             HRESULT hr = Raw.GetTypeRefProps(tr, out ptkResolutionScope, null, cchName, out pchName);
@@ -529,12 +529,12 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pchName;
-            szName = new StringBuilder(cchName);
+            szName = new char[cchName];
             hr = Raw.GetTypeRefProps(tr, out ptkResolutionScope, szName, cchName, out pchName);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetTypeRefPropsResult(ptkResolutionScope, szName.ToString());
+                result = new GetTypeRefPropsResult(ptkResolutionScope, CreateString(szName, pchName));
 
                 return hr;
             }
@@ -1394,7 +1394,7 @@ namespace ClrDebug
             /*HRESULT GetMethodProps(
             [In] mdMethodDef mb,
             [Out] out mdTypeDef pClass,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3), Out] StringBuilder szMethod,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] szMethod,
             [In] int cchMethod,
             [Out] out int pchMethod,
             [Out] out CorMethodAttr pdwAttr,
@@ -1403,7 +1403,7 @@ namespace ClrDebug
             [Out] out int pulCodeRVA,
             [Out] out CorMethodImpl pdwImplFlags);*/
             mdTypeDef pClass;
-            StringBuilder szMethod;
+            char[] szMethod;
             int cchMethod = 0;
             int pchMethod;
             CorMethodAttr pdwAttr;
@@ -1417,12 +1417,12 @@ namespace ClrDebug
                 goto fail;
 
             cchMethod = pchMethod;
-            szMethod = new StringBuilder(cchMethod);
+            szMethod = new char[cchMethod];
             hr = Raw.GetMethodProps(mb, out pClass, szMethod, cchMethod, out pchMethod, out pdwAttr, out ppvSigBlob, out pcbSigBlob, out pulCodeRVA, out pdwImplFlags);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new MetaDataImport_GetMethodPropsResult(pClass, szMethod.ToString(), pdwAttr, ppvSigBlob, pcbSigBlob, pulCodeRVA, pdwImplFlags);
+                result = new MetaDataImport_GetMethodPropsResult(pClass, CreateString(szMethod, pchMethod), pdwAttr, ppvSigBlob, pcbSigBlob, pulCodeRVA, pdwImplFlags);
 
                 return hr;
             }
@@ -1459,13 +1459,13 @@ namespace ClrDebug
             /*HRESULT GetMemberRefProps(
             [In] mdMemberRef mr,
             [Out] out mdToken ptk,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3), Out] StringBuilder szMember,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] szMember,
             [In] int cchMember,
             [Out] out int pchMember,
             [Out] out IntPtr ppvSigBlob,
             [Out] out int pbSig);*/
             mdToken ptk;
-            StringBuilder szMember;
+            char[] szMember;
             int cchMember = 0;
             int pchMember;
             IntPtr ppvSigBlob;
@@ -1476,12 +1476,12 @@ namespace ClrDebug
                 goto fail;
 
             cchMember = pchMember;
-            szMember = new StringBuilder(cchMember);
+            szMember = new char[cchMember];
             hr = Raw.GetMemberRefProps(mr, out ptk, szMember, cchMember, out pchMember, out ppvSigBlob, out pbSig);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetMemberRefPropsResult(ptk, szMember.ToString(), ppvSigBlob, pbSig);
+                result = new GetMemberRefPropsResult(ptk, CreateString(szMember, pchMember), ppvSigBlob, pbSig);
 
                 return hr;
             }
@@ -1616,7 +1616,7 @@ namespace ClrDebug
             /*HRESULT GetEventProps(
             [In] mdEvent ev,
             [Out] out mdTypeDef pClass,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3), Out] StringBuilder szEvent,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] szEvent,
             [In] int cchEvent,
             [Out] out int pchEvent,
             [Out] out CorEventAttr pdwEventFlags,
@@ -1628,7 +1628,7 @@ namespace ClrDebug
             [In] int cMax,
             [Out] out int pcOtherMethod);*/
             mdTypeDef pClass;
-            StringBuilder szEvent;
+            char[] szEvent;
             int cchEvent = 0;
             int pchEvent;
             CorEventAttr pdwEventFlags;
@@ -1645,14 +1645,14 @@ namespace ClrDebug
                 goto fail;
 
             cchEvent = pchEvent;
-            szEvent = new StringBuilder(cchEvent);
+            szEvent = new char[cchEvent];
             cMax = pcOtherMethod;
             rmdOtherMethod = new mdMethodDef[cMax];
             hr = Raw.GetEventProps(ev, out pClass, szEvent, cchEvent, out pchEvent, out pdwEventFlags, out ptkEventType, out pmdAddOn, out pmdRemoveOn, out pmdFire, rmdOtherMethod, cMax, out pcOtherMethod);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetEventPropsResult(pClass, szEvent.ToString(), pdwEventFlags, ptkEventType, pmdAddOn, pmdRemoveOn, pmdFire, rmdOtherMethod);
+                result = new GetEventPropsResult(pClass, CreateString(szEvent, pchEvent), pdwEventFlags, ptkEventType, pmdAddOn, pmdRemoveOn, pmdFire, rmdOtherMethod);
 
                 return hr;
             }
@@ -2008,10 +2008,10 @@ namespace ClrDebug
         {
             /*HRESULT GetModuleRefProps(
             [In] mdModuleRef mur,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2), Out] StringBuilder szName,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), Out] char[] szName,
             [In] int cchName,
             [Out] out int pchName);*/
-            StringBuilder szName;
+            char[] szName;
             int cchName = 0;
             int pchName;
             HRESULT hr = Raw.GetModuleRefProps(mur, null, cchName, out pchName);
@@ -2020,12 +2020,12 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pchName;
-            szName = new StringBuilder(cchName);
+            szName = new char[cchName];
             hr = Raw.GetModuleRefProps(mur, szName, cchName, out pchName);
 
             if (hr == HRESULT.S_OK)
             {
-                szNameResult = szName.ToString();
+                szNameResult = CreateString(szName, pchName);
 
                 return hr;
             }
@@ -2246,10 +2246,10 @@ namespace ClrDebug
         {
             /*HRESULT GetUserString(
             [In] mdString stk,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2), Out] StringBuilder szString,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), Out] char[] szString,
             [In] int cchString,
             [Out] out int pchString);*/
-            StringBuilder szString;
+            char[] szString;
             int cchString = 0;
             int pchString;
             HRESULT hr = Raw.GetUserString(stk, null, cchString, out pchString);
@@ -2258,12 +2258,12 @@ namespace ClrDebug
                 goto fail;
 
             cchString = pchString;
-            szString = new StringBuilder(cchString);
+            szString = new char[cchString];
             hr = Raw.GetUserString(stk, szString, cchString, out pchString);
 
             if (hr == HRESULT.S_OK)
             {
-                szStringResult = szString.ToString(0, pchString);
+                szStringResult = new string(szString, 0, pchString);
 
                 return hr;
             }
@@ -2300,12 +2300,12 @@ namespace ClrDebug
             /*HRESULT GetPinvokeMap(
             [In] mdToken tk,
             [Out] out CorPinvokeMap pdwMappingFlags,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3), Out] StringBuilder szImportName,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] szImportName,
             [In] int cchImportName,
             [Out] out int pchImportName,
             [Out] out mdModuleRef pmrImportDLL);*/
             CorPinvokeMap pdwMappingFlags;
-            StringBuilder szImportName;
+            char[] szImportName;
             int cchImportName = 0;
             int pchImportName;
             mdModuleRef pmrImportDLL;
@@ -2315,12 +2315,12 @@ namespace ClrDebug
                 goto fail;
 
             cchImportName = pchImportName;
-            szImportName = new StringBuilder(cchImportName);
+            szImportName = new char[cchImportName];
             hr = Raw.GetPinvokeMap(tk, out pdwMappingFlags, szImportName, cchImportName, out pchImportName, out pmrImportDLL);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetPinvokeMapResult(pdwMappingFlags, szImportName.ToString(), pmrImportDLL);
+                result = new GetPinvokeMapResult(pdwMappingFlags, CreateString(szImportName, pchImportName), pmrImportDLL);
 
                 return hr;
             }
@@ -2684,7 +2684,7 @@ namespace ClrDebug
             /*HRESULT GetMemberProps(
             [In] mdToken mb,
             [Out] out mdTypeDef pClass,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3), Out] StringBuilder szMember,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] szMember,
             [In] int cchMember,
             [Out] out int pchMember,
             [Out] out int pdwAttr,
@@ -2696,7 +2696,7 @@ namespace ClrDebug
             [Out] out IntPtr ppValue,
             [Out] out int pcchValue);*/
             mdTypeDef pClass;
-            StringBuilder szMember;
+            char[] szMember;
             int cchMember = 0;
             int pchMember;
             int pdwAttr;
@@ -2713,12 +2713,12 @@ namespace ClrDebug
                 goto fail;
 
             cchMember = pchMember;
-            szMember = new StringBuilder(cchMember);
+            szMember = new char[cchMember];
             hr = Raw.GetMemberProps(mb, out pClass, szMember, cchMember, out pchMember, out pdwAttr, out ppvSigBlob, out pcbSigBlob, out pulCodeRVA, out pdwImplFlags, out pdwCPlusTypeFlag, out ppValue, out pcchValue);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetMemberPropsResult(pClass, szMember.ToString(), pdwAttr, ppvSigBlob, pcbSigBlob, pulCodeRVA, pdwImplFlags, pdwCPlusTypeFlag, ppValue, pcchValue);
+                result = new GetMemberPropsResult(pClass, CreateString(szMember, pchMember), pdwAttr, ppvSigBlob, pcbSigBlob, pulCodeRVA, pdwImplFlags, pdwCPlusTypeFlag, ppValue, pcchValue);
 
                 return hr;
             }
@@ -2755,7 +2755,7 @@ namespace ClrDebug
             /*HRESULT GetFieldProps(
             [In] mdFieldDef mb,
             [Out] out mdTypeDef pClass,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3), Out] StringBuilder szField,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] szField,
             [In] int cchField,
             [Out] out int pchField,
             [Out] out CorFieldAttr pdwAttr,
@@ -2765,7 +2765,7 @@ namespace ClrDebug
             [Out] out IntPtr ppValue,
             [Out] out int pcchValue);*/
             mdTypeDef pClass;
-            StringBuilder szField;
+            char[] szField;
             int cchField = 0;
             int pchField;
             CorFieldAttr pdwAttr;
@@ -2780,12 +2780,12 @@ namespace ClrDebug
                 goto fail;
 
             cchField = pchField;
-            szField = new StringBuilder(cchField);
+            szField = new char[cchField];
             hr = Raw.GetFieldProps(mb, out pClass, szField, cchField, out pchField, out pdwAttr, out ppvSigBlob, out pcbSigBlob, out pdwCPlusTypeFlag, out ppValue, out pcchValue);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetFieldPropsResult(pClass, szField.ToString(), pdwAttr, ppvSigBlob, pcbSigBlob, pdwCPlusTypeFlag, ppValue, pcchValue);
+                result = new GetFieldPropsResult(pClass, CreateString(szField, pchField), pdwAttr, ppvSigBlob, pcbSigBlob, pdwCPlusTypeFlag, ppValue, pcchValue);
 
                 return hr;
             }
@@ -2822,7 +2822,7 @@ namespace ClrDebug
             /*HRESULT GetPropertyProps(
             [In] mdProperty prop,
             [Out] out mdTypeDef pClass,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 3), Out] StringBuilder szProperty,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 3), Out] char[] szProperty,
             [In] int cchProperty,
             [Out] out int pchProperty,
             [Out] out CorPropertyAttr pdwPropFlags,
@@ -2837,7 +2837,7 @@ namespace ClrDebug
             [In] int cMax,
             [Out] out int pcOtherMethod);*/
             mdTypeDef pClass;
-            StringBuilder szProperty;
+            char[] szProperty;
             int cchProperty = 0;
             int pchProperty;
             CorPropertyAttr pdwPropFlags;
@@ -2857,14 +2857,14 @@ namespace ClrDebug
                 goto fail;
 
             cchProperty = pchProperty;
-            szProperty = new StringBuilder(cchProperty);
+            szProperty = new char[cchProperty];
             cMax = pcOtherMethod;
             rmdOtherMethod = new mdMethodDef[cMax];
             hr = Raw.GetPropertyProps(prop, out pClass, szProperty, cchProperty, out pchProperty, out pdwPropFlags, out ppvSig, out pbSig, out pdwCPlusTypeFlag, out ppDefaultValue, out pcchDefaultValue, out pmdSetter, out pmdGetter, rmdOtherMethod, cMax, out pcOtherMethod);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetPropertyPropsResult(pClass, szProperty.ToString(), pdwPropFlags, ppvSig, pbSig, pdwCPlusTypeFlag, ppDefaultValue, pcchDefaultValue, pmdSetter, pmdGetter, rmdOtherMethod);
+                result = new GetPropertyPropsResult(pClass, CreateString(szProperty, pchProperty), pdwPropFlags, ppvSig, pbSig, pdwCPlusTypeFlag, ppDefaultValue, pcchDefaultValue, pmdSetter, pmdGetter, rmdOtherMethod);
 
                 return hr;
             }
@@ -2908,7 +2908,7 @@ namespace ClrDebug
             [In] mdParamDef tk,
             [Out] out mdMethodDef pmd,
             [Out] out int pulSequence,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4), Out] StringBuilder szName,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4), Out] char[] szName,
             [In] int cchName,
             [Out] out int pchName,
             [Out] out CorParamAttr pdwAttr,
@@ -2917,7 +2917,7 @@ namespace ClrDebug
             [Out] out IntPtr pcchValue);*/
             mdMethodDef pmd;
             int pulSequence;
-            StringBuilder szName;
+            char[] szName;
             int cchName = 0;
             int pchName;
             CorParamAttr pdwAttr;
@@ -2930,12 +2930,12 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pchName;
-            szName = new StringBuilder(cchName);
+            szName = new char[cchName];
             hr = Raw.GetParamProps(tk, out pmd, out pulSequence, szName, cchName, out pchName, out pdwAttr, out pdwCPlusTypeFlag, out ppValue, out pcchValue);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetParamPropsResult(pmd, pulSequence, szName.ToString(), pdwAttr, pdwCPlusTypeFlag, ppValue, pcchValue);
+                result = new GetParamPropsResult(pmd, pulSequence, CreateString(szName, pchName), pdwAttr, pdwCPlusTypeFlag, ppValue, pcchValue);
 
                 return hr;
             }
@@ -3177,10 +3177,10 @@ namespace ClrDebug
         public HRESULT TryGetVersionString(out string pwzBufResult)
         {
             /*HRESULT GetVersionString(
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder pwzBuf,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] pwzBuf,
             [In] int ccBufSize,
             [Out] out int pccBufSize);*/
-            StringBuilder pwzBuf;
+            char[] pwzBuf;
             int ccBufSize = 0;
             int pccBufSize;
             HRESULT hr = Raw2.GetVersionString(null, ccBufSize, out pccBufSize);
@@ -3189,12 +3189,12 @@ namespace ClrDebug
                 goto fail;
 
             ccBufSize = pccBufSize;
-            pwzBuf = new StringBuilder(ccBufSize);
+            pwzBuf = new char[ccBufSize];
             hr = Raw2.GetVersionString(pwzBuf, ccBufSize, out pccBufSize);
 
             if (hr == HRESULT.S_OK)
             {
-                pwzBufResult = pwzBuf.ToString();
+                pwzBufResult = CreateString(pwzBuf, pccBufSize);
 
                 return hr;
             }
@@ -3283,14 +3283,14 @@ namespace ClrDebug
             [Out] out CorGenericParamAttr pdwParamFlags,
             [Out] out mdToken ptOwner,
             [Out] out int reserved,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 6)] StringBuilder wzname,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 6)] char[] wzname,
             [In] int cchName,
             [Out] out int pchName);*/
             int pulParamSeq;
             CorGenericParamAttr pdwParamFlags;
             mdToken ptOwner;
             int reserved;
-            StringBuilder wzname;
+            char[] wzname;
             int cchName = 0;
             int pchName;
             HRESULT hr = Raw2.GetGenericParamProps(gp, out pulParamSeq, out pdwParamFlags, out ptOwner, out reserved, null, cchName, out pchName);
@@ -3299,12 +3299,12 @@ namespace ClrDebug
                 goto fail;
 
             cchName = pchName;
-            wzname = new StringBuilder(cchName);
+            wzname = new char[cchName];
             hr = Raw2.GetGenericParamProps(gp, out pulParamSeq, out pdwParamFlags, out ptOwner, out reserved, wzname, cchName, out pchName);
 
             if (hr == HRESULT.S_OK)
             {
-                result = new GetGenericParamPropsResult(pulParamSeq, pdwParamFlags, ptOwner, reserved, wzname.ToString());
+                result = new GetGenericParamPropsResult(pulParamSeq, pdwParamFlags, ptOwner, reserved, CreateString(wzname, pchName));
 
                 return hr;
             }

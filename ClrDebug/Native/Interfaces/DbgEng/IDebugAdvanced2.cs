@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug.DbgEng
 {
@@ -146,7 +145,7 @@ namespace ClrDebug.DbgEng
             [In] IntPtr FileToken,
             [In] int FileTokenSize,
             [Out] out int FoundElement,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 8)] StringBuilder Buffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 8)] char[] Buffer,
             [In] int BufferSize,
             [Out] out int FoundSize);
 
@@ -180,7 +179,7 @@ namespace ClrDebug.DbgEng
             [Out] IntPtr Buffer,
             [In] int BufferSize,
             [Out] out int InfoSize,
-            [Out, MarshalAs(UnmanagedType.LPStr, SizeParamIndex = 7)] StringBuilder StringBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 7)] char[] StringBuffer,
             [In] int StringBufferSize,
             [Out] out int StringSize);
 

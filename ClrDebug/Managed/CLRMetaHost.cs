@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using System.Text;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
@@ -118,21 +118,21 @@ namespace ClrDebug
         {
             /*HRESULT GetVersionFromFile(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
-            [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 2), Out] StringBuilder pwzBuffer,
+            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), Out] char[] pwzBuffer,
             [In, Out] ref int pcchBuffer);*/
-            StringBuilder pwzBuffer;
+            char[] pwzBuffer;
             int pcchBuffer = default(int);
             HRESULT hr = Raw.GetVersionFromFile(pwzFilePath, null, ref pcchBuffer);
 
             if (hr != HRESULT.S_FALSE && hr != HRESULT.ERROR_INSUFFICIENT_BUFFER && hr != HRESULT.S_OK)
                 goto fail;
 
-            pwzBuffer = new StringBuilder(pcchBuffer);
+            pwzBuffer = new char[pcchBuffer];
             hr = Raw.GetVersionFromFile(pwzFilePath, pwzBuffer, ref pcchBuffer);
 
             if (hr == HRESULT.S_OK)
             {
-                pwzBufferResult = pwzBuffer.ToString();
+                pwzBufferResult = CreateString(pwzBuffer, pcchBuffer);
 
                 return hr;
             }

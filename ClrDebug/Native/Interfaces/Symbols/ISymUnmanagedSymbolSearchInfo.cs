@@ -1,6 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ClrDebug
 {
@@ -34,7 +33,7 @@ namespace ClrDebug
         HRESULT GetSearchPath(
             [In] int cchPath,
             [Out] out int pcchPath,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder szPath);
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 0)] char[] szPath);
 
         /// <summary>
         /// Gets the <see cref="HRESULT"/>.

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Text;
 using ClrDebug.TypeLib;
 
 namespace ClrDebug
@@ -133,7 +132,7 @@ namespace ClrDebug
         /// <param name="pchBuffer">[out] The number of bytes actually returned in szBuffer.</param>
         [PreserveSig]
         HRESULT GetCORSystemDirectory(
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)] StringBuilder szBuffer,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1)] char[] szBuffer,
             [In] int cchBuffer,
             [Out] out int pchBuffer);
 
@@ -153,7 +152,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string szPrivateBin,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szGlobalBin,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAssemblyName,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 5)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 5)] char[] szName,
             [In] int cchName,
             [Out] out int pcName);
 
@@ -175,7 +174,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string szGlobalBin,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAssemblyName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szModuleName,
-            [Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 6)] StringBuilder szName,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 6)] char[] szName,
             [In] int cchName,
             [Out] out int pcName);
     }
