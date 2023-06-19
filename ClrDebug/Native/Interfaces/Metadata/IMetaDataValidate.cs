@@ -18,7 +18,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT ValidatorInit(
             [In] int dwModuleType,
-            [In, MarshalAs(UnmanagedType.IUnknown)] object pUnk);
+            [In, MarshalAs(UnmanagedType.Interface)] object pUnk);
 
         /// <summary>
         /// Validates the metadata signatures of the objects in the current metadata scope.

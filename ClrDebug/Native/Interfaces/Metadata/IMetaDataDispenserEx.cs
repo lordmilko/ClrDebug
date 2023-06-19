@@ -31,7 +31,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid rclsid,
             [In] int dwCreateFlags,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppIUnk);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);
 
         /// <summary>
         /// Opens an existing, on-disk file and maps its metadata into memory.
@@ -56,7 +56,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string szScope,
             [In] CorOpenFlags dwOpenFlags,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppIUnk);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);
 
         /// <summary>
         /// Opens an area of memory that contains existing metadata. That is, this method opens a specified area of memory in which the existing data is treated as metadata.
@@ -79,7 +79,7 @@ namespace ClrDebug
             [In] int cbData,
             [In] CorOpenFlags dwOpenFlags,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppIUnk);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);
 
         /// <summary>
         /// Sets the specified option to a given value for the current metadata scope. The option controls how calls to the current metadata scope are handled.

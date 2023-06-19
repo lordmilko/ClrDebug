@@ -12,7 +12,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Next(
             [In] int celt,
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object rgelt,
+            [Out, MarshalAs(UnmanagedType.Interface)] out object rgelt,
             [Out] out int pceltFetched);
 
         [PreserveSig]

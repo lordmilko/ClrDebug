@@ -604,7 +604,7 @@ namespace ClrDebug
         {
             /*HRESULT GetMetaDataInterface(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppObj);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppObj);*/
             return Raw.GetMetaDataInterface(riid, out ppObj);
         }
 

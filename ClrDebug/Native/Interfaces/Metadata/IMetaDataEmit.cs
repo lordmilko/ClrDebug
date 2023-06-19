@@ -122,7 +122,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         HRESULT SetHandler(
-            [In, MarshalAs(UnmanagedType.IUnknown)] object pUnk);
+            [In, MarshalAs(UnmanagedType.Interface)] object pUnk);
 
         /// <summary>
         /// Creates a definition for a method or global function with the specified signature, and returns a token to that method definition.
@@ -766,7 +766,7 @@ namespace ClrDebug
         HRESULT Merge(
             [In, MarshalAs(UnmanagedType.Interface)] IMetaDataImport pImport,
             [In, MarshalAs(UnmanagedType.Interface)] IMapToken pHostMapToken,
-            [In, MarshalAs(UnmanagedType.IUnknown)] object pHandler);
+            [In, MarshalAs(UnmanagedType.Interface)] object pHandler);
 
         /// <summary>
         /// Merges into the current scope all the metadata scopes specified by one or more prior calls to <see cref="Merge"/>.

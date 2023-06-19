@@ -302,7 +302,7 @@ namespace ClrDebug
         HRESULT GetTokenAndMetaDataFromFunction(
             [In] FunctionID functionId,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppImport,
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppImport,
             [Out] out mdToken pToken);
 
         /// <summary>
@@ -354,7 +354,7 @@ namespace ClrDebug
             [In] ModuleID moduleId,
             [In] CorOpenFlags dwOpenFlags,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppOut);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppOut);
 
         /// <summary>
         /// Gets a pointer to the body of a method in Microsoft intermediate language (MSIL) code, starting at its header.
@@ -525,7 +525,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetInprocInspectionInterface(
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppicd);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppicd);
 
         /// <summary>
         /// Gets an object that can be queried for the ICorDebugThread interface. This method is obsolete in .NET Framework version 2.0.
@@ -540,7 +540,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetInprocInspectionIThisThread(
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppicd);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppicd);
 
         /// <summary>
         /// Gets the context identity currently associated with the specified thread.

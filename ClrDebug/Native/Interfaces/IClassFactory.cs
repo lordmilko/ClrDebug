@@ -10,9 +10,9 @@ namespace ClrDebug
     {
         [PreserveSig]
         HRESULT CreateInstance(
-            [MarshalAs(UnmanagedType.IUnknown), In] object pUnkOuter,
+            [MarshalAs(UnmanagedType.Interface), In] object pUnkOuter,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [MarshalAs(UnmanagedType.IUnknown), Out] out object ppvObject);
+            [MarshalAs(UnmanagedType.Interface), Out] out object ppvObject);
 
         [PreserveSig]
         HRESULT LockServer(

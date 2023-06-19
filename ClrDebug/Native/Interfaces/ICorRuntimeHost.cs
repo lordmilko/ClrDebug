@@ -126,7 +126,7 @@ namespace ClrDebug
         HRESULT CreateDomain(
             [In, MarshalAs(UnmanagedType.LPWStr)] string pwzFriendlyName,
             [In, MarshalAs(UnmanagedType.LPArray)] object[] pIdentityArray,
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object pAppDomain);
 
         /// <summary>
         /// Gets an interface pointer of type System._AppDomain that represents the default domain for the current process.
@@ -143,7 +143,7 @@ namespace ClrDebug
         /// </returns>
         [PreserveSig]
         HRESULT GetDefaultDomain(
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object pAppDomain);
 
         /// <summary>
         /// Gets an enumerator for the domains in the current process.
@@ -177,7 +177,7 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT NextDomain(
             [In] IntPtr hEnum,
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object pAppDomain);
 
         /// <summary>
         /// Resets a domain enumerator back to the beginning of the domain list.
@@ -219,9 +219,9 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT CreateDomainEx(
             [In, MarshalAs(UnmanagedType.LPWStr)] string pwzFriendlyName,
-            [In, MarshalAs(UnmanagedType.IUnknown)] object pSetup,
-            [In, MarshalAs(UnmanagedType.IUnknown)] object pEvidence,
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);
+            [In, MarshalAs(UnmanagedType.Interface)] object pSetup,
+            [In, MarshalAs(UnmanagedType.Interface)] object pEvidence,
+            [Out, MarshalAs(UnmanagedType.Interface)] out object pAppDomain);
 
         /// <summary>
         /// Gets an interface pointer of type IAppDomainSetup to an System.AppDomainSetup instance. IAppDomainSetup provides methods to configure aspects of an application domain before it is created.
@@ -240,7 +240,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         HRESULT CreateDomainSetup(
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomainSetup);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object pAppDomainSetup);
 
         /// <summary>
         /// Gets an interface pointer of type <see cref="IIdentity"/>, which allows the host to create security evidence to pass to the <see cref="CreateDomain"/> or <see cref="CreateDomainEx"/> method.
@@ -260,7 +260,7 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         HRESULT CreateEvidence(
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object pEvidence);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object pEvidence);
 
         /// <summary>
         /// Unloads the specified application domain from the current process.
@@ -276,7 +276,7 @@ namespace ClrDebug
         /// </returns>
         [PreserveSig]
         HRESULT UnloadDomain(
-            [In, MarshalAs(UnmanagedType.IUnknown)] object pAppDomain);
+            [In, MarshalAs(UnmanagedType.Interface)] object pAppDomain);
 
         /// <summary>
         /// Gets an interface pointer of type <see cref="AppDomain"/> that represents the domain loaded on the current thread.
@@ -292,6 +292,6 @@ namespace ClrDebug
         /// </returns>
         [PreserveSig]
         HRESULT CurrentDomain(
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object pAppDomain);
     }
 }

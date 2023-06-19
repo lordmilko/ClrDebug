@@ -22,7 +22,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Initialize(
-            [MarshalAs(UnmanagedType.IUnknown), In] object pICorProfilerInfoUnk);
+            [MarshalAs(UnmanagedType.Interface), In] object pICorProfilerInfoUnk);
 
         /// <summary>
         /// Notifies the profiler that the application is shutting down.
@@ -1161,7 +1161,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT InitializeForAttach(
-            [MarshalAs(UnmanagedType.IUnknown), In] object pCorProfilerInfoUnk,
+            [MarshalAs(UnmanagedType.Interface), In] object pCorProfilerInfoUnk,
             [In] IntPtr pvClientData,
             [In] int cbClientData);
 

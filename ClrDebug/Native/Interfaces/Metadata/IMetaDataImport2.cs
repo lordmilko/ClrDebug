@@ -228,7 +228,7 @@ namespace ClrDebug
         new HRESULT ResolveTypeRef(
             [In] mdTypeRef tr,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [MarshalAs(UnmanagedType.IUnknown), Out] out object ppIScope,
+            [MarshalAs(UnmanagedType.Interface), Out] out object ppIScope,
             [Out] out mdTypeDef ptd);
 
         /// <summary>

@@ -310,7 +310,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Initialize(
-            [MarshalAs(UnmanagedType.IUnknown), In] object emitter,
+            [MarshalAs(UnmanagedType.Interface), In] object emitter,
             [In, MarshalAs(UnmanagedType.LPWStr)] string filename,
             [MarshalAs(UnmanagedType.Interface), In] IStream pIStream,
             [In, MarshalAs(UnmanagedType.Bool)] bool fFullBuild);
@@ -383,7 +383,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Initialize2(
-            [MarshalAs(UnmanagedType.IUnknown), In] object emitter,
+            [MarshalAs(UnmanagedType.Interface), In] object emitter,
             [In, MarshalAs(UnmanagedType.LPWStr)] string tempfilename,
             [MarshalAs(UnmanagedType.Interface), In] IStream pIStream,
             [In, MarshalAs(UnmanagedType.Bool)] bool fFullBuild,

@@ -108,7 +108,7 @@ namespace ClrDebug.TypeLib
         /// <param name="puArgErr">If Invoke returns DISP_E_TYPEMISMATCH, puArgErr indicates the index within rgvarg of the argument with the incorrect type. If more than one argument returns an error, puArgErr indicates only the first argument with an error. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT Invoke(
-            [In, MarshalAs(UnmanagedType.IUnknown)] object pvInstance,
+            [In, MarshalAs(UnmanagedType.Interface)] object pvInstance,
             [In] int memid,
             [In] short wFlags,
             [In, Out] ref DISPPARAMS pDispParams,

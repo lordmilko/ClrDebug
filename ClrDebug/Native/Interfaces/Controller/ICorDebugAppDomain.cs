@@ -184,7 +184,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetModuleFromMetaDataInterface(
-            [MarshalAs(UnmanagedType.IUnknown), In] object pIMetaData,
+            [MarshalAs(UnmanagedType.Interface), In] object pIMetaData,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
 
         /// <summary>

@@ -35,7 +35,7 @@
         {
             /*HRESULT ValidatorInit(
             [In] int dwModuleType,
-            [In, MarshalAs(UnmanagedType.IUnknown)] object pUnk);*/
+            [In, MarshalAs(UnmanagedType.Interface)] object pUnk);*/
             return Raw.ValidatorInit(dwModuleType, pUnk);
         }
 

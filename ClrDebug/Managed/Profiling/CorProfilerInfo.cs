@@ -134,7 +134,7 @@ namespace ClrDebug
         public HRESULT TryGetInprocInspectionInterface(out object ppicd)
         {
             /*HRESULT GetInprocInspectionInterface(
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppicd);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppicd);*/
             return Raw.GetInprocInspectionInterface(out ppicd);
         }
 
@@ -168,7 +168,7 @@ namespace ClrDebug
         public HRESULT TryGetInprocInspectionIThisThread(out object ppicd)
         {
             /*HRESULT GetInprocInspectionIThisThread(
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppicd);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppicd);*/
             return Raw.GetInprocInspectionIThisThread(out ppicd);
         }
 
@@ -723,7 +723,7 @@ namespace ClrDebug
             /*HRESULT GetTokenAndMetaDataFromFunction(
             [In] FunctionID functionId,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppImport,
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppImport,
             [Out] out mdToken pToken);*/
             object ppImport;
             mdToken pToken;
@@ -859,7 +859,7 @@ namespace ClrDebug
             [In] ModuleID moduleId,
             [In] CorOpenFlags dwOpenFlags,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppOut);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppOut);*/
             return Raw.GetModuleMetaData(moduleId, dwOpenFlags, riid, out ppOut);
         }
 

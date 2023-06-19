@@ -281,7 +281,7 @@ namespace ClrDebug
         public HRESULT TryGetModuleFromMetaDataInterface(object pIMetaData, out CorDebugModule ppModuleResult)
         {
             /*HRESULT GetModuleFromMetaDataInterface(
-            [MarshalAs(UnmanagedType.IUnknown), In] object pIMetaData,
+            [MarshalAs(UnmanagedType.Interface), In] object pIMetaData,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);*/
             ICorDebugModule ppModule;
             HRESULT hr = Raw.GetModuleFromMetaDataInterface(pIMetaData, out ppModule);

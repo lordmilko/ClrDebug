@@ -181,7 +181,7 @@ namespace ClrDebug
         HRESULT GetInterface(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid rclsid,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppUnk);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppUnk);
 
         /// <summary>
         /// Indicates whether the runtime associated with this interface can be loaded into the current process, taking into account other runtimes that might already be loaded into the process.

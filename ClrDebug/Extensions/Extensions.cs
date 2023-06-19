@@ -19,7 +19,7 @@ namespace ClrDebug
     public delegate HRESULT CLRDataCreateInstanceDelegate(
         [In, MarshalAs(UnmanagedType.LPStruct)] Guid iid,
         [In, MarshalAs(UnmanagedType.Interface)] ICLRDataTarget target,
-        [MarshalAs(UnmanagedType.IUnknown), Out] out object iface);
+        [MarshalAs(UnmanagedType.Interface), Out] out object iface);
 
     public static partial class Extensions
     {

@@ -349,7 +349,7 @@ namespace ClrDebug.TypeLib
         public HRESULT TryInvoke(object pvInstance, int memid, short wFlags, ref DISPPARAMS pDispParams, out InvokeResult result)
         {
             /*HRESULT Invoke(
-            [In, MarshalAs(UnmanagedType.IUnknown)] object pvInstance,
+            [In, MarshalAs(UnmanagedType.Interface)] object pvInstance,
             [In] int memid,
             [In] short wFlags,
             [In, Out] ref DISPPARAMS pDispParams,

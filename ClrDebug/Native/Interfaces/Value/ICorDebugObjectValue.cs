@@ -131,7 +131,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetManagedCopy(
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppObject);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppObject);
 
         /// <summary>
         /// SetFromManagedCopy is obsolete. Do not call this method.
@@ -140,6 +140,6 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetFromManagedCopy(
-            [MarshalAs(UnmanagedType.IUnknown), In] object pObject);
+            [MarshalAs(UnmanagedType.Interface), In] object pObject);
     }
 }

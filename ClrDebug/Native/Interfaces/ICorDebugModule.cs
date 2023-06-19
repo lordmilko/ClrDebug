@@ -155,7 +155,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetMetaDataInterface(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppObj);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppObj);
 
         /// <summary>
         /// Gets the token for the table entry for this module.

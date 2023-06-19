@@ -656,7 +656,7 @@ namespace ClrDebug
         public HRESULT TryInitialize(object emitter, string filename, IStream pIStream, bool fFullBuild)
         {
             /*HRESULT Initialize(
-            [MarshalAs(UnmanagedType.IUnknown), In] object emitter,
+            [MarshalAs(UnmanagedType.Interface), In] object emitter,
             [In, MarshalAs(UnmanagedType.LPWStr)] string filename,
             [MarshalAs(UnmanagedType.Interface), In] IStream pIStream,
             [In, MarshalAs(UnmanagedType.Bool)] bool fFullBuild);*/
@@ -816,7 +816,7 @@ namespace ClrDebug
         public HRESULT TryInitialize2(object emitter, string tempfilename, IStream pIStream, bool fFullBuild, string finalfilename)
         {
             /*HRESULT Initialize2(
-            [MarshalAs(UnmanagedType.IUnknown), In] object emitter,
+            [MarshalAs(UnmanagedType.Interface), In] object emitter,
             [In, MarshalAs(UnmanagedType.LPWStr)] string tempfilename,
             [MarshalAs(UnmanagedType.Interface), In] IStream pIStream,
             [In, MarshalAs(UnmanagedType.Bool)] bool fFullBuild,

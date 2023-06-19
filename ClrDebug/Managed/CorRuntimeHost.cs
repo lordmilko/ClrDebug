@@ -90,7 +90,7 @@ namespace ClrDebug
         public HRESULT TryGetDefaultDomain(out object pAppDomain)
         {
             /*HRESULT GetDefaultDomain(
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out object pAppDomain);*/
             return Raw.GetDefaultDomain(out pAppDomain);
         }
 
@@ -348,7 +348,7 @@ namespace ClrDebug
             /*HRESULT CreateDomain(
             [In, MarshalAs(UnmanagedType.LPWStr)] string pwzFriendlyName,
             [In, MarshalAs(UnmanagedType.LPArray)] object[] pIdentityArray,
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out object pAppDomain);*/
             return Raw.CreateDomain(pwzFriendlyName, pIdentityArray, out pAppDomain);
         }
 
@@ -419,7 +419,7 @@ namespace ClrDebug
         {
             /*HRESULT NextDomain(
             [In] IntPtr hEnum,
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out object pAppDomain);*/
             return Raw.NextDomain(hEnum, out pAppDomain);
         }
 
@@ -503,9 +503,9 @@ namespace ClrDebug
         {
             /*HRESULT CreateDomainEx(
             [In, MarshalAs(UnmanagedType.LPWStr)] string pwzFriendlyName,
-            [In, MarshalAs(UnmanagedType.IUnknown)] object pSetup,
-            [In, MarshalAs(UnmanagedType.IUnknown)] object pEvidence,
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);*/
+            [In, MarshalAs(UnmanagedType.Interface)] object pSetup,
+            [In, MarshalAs(UnmanagedType.Interface)] object pEvidence,
+            [Out, MarshalAs(UnmanagedType.Interface)] out object pAppDomain);*/
             return Raw.CreateDomainEx(pwzFriendlyName, pSetup, pEvidence, out pAppDomain);
         }
 
@@ -545,7 +545,7 @@ namespace ClrDebug
         public HRESULT TryCreateDomainSetup(out object pAppDomainSetup)
         {
             /*HRESULT CreateDomainSetup(
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomainSetup);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out object pAppDomainSetup);*/
             return Raw.CreateDomainSetup(out pAppDomainSetup);
         }
 
@@ -587,7 +587,7 @@ namespace ClrDebug
         public HRESULT TryCreateEvidence(out object pEvidence)
         {
             /*HRESULT CreateEvidence(
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object pEvidence);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out object pEvidence);*/
             return Raw.CreateEvidence(out pEvidence);
         }
 
@@ -618,7 +618,7 @@ namespace ClrDebug
         public HRESULT TryUnloadDomain(object pAppDomain)
         {
             /*HRESULT UnloadDomain(
-            [In, MarshalAs(UnmanagedType.IUnknown)] object pAppDomain);*/
+            [In, MarshalAs(UnmanagedType.Interface)] object pAppDomain);*/
             return Raw.UnloadDomain(pAppDomain);
         }
 
@@ -652,7 +652,7 @@ namespace ClrDebug
         public HRESULT TryCurrentDomain(out object pAppDomain)
         {
             /*HRESULT CurrentDomain(
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object pAppDomain);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out object pAppDomain);*/
             return Raw.CurrentDomain(out pAppDomain);
         }
 

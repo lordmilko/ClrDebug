@@ -283,7 +283,7 @@ namespace ClrDebug
         public HRESULT TrySetHandler(object pUnk)
         {
             /*HRESULT SetHandler(
-            [In, MarshalAs(UnmanagedType.IUnknown)] object pUnk);*/
+            [In, MarshalAs(UnmanagedType.Interface)] object pUnk);*/
             return Raw.SetHandler(pUnk);
         }
 
@@ -1770,7 +1770,7 @@ namespace ClrDebug
             /*HRESULT Merge(
             [In, MarshalAs(UnmanagedType.Interface)] IMetaDataImport pImport,
             [In, MarshalAs(UnmanagedType.Interface)] IMapToken pHostMapToken,
-            [In, MarshalAs(UnmanagedType.IUnknown)] object pHandler);*/
+            [In, MarshalAs(UnmanagedType.Interface)] object pHandler);*/
             return Raw.Merge(pImport, pHostMapToken, pHandler);
         }
 

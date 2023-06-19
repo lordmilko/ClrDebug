@@ -86,7 +86,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string fileName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
             [In] CorSymSearchPolicyAttributes searchPolicy,
-            [MarshalAs(UnmanagedType.IUnknown), In] object callback,
+            [MarshalAs(UnmanagedType.Interface), In] object callback,
             [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedReader pRetVal);
     }
 }

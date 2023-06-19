@@ -9,7 +9,7 @@ namespace ClrDebug
     public delegate HRESULT CLRCreateInstanceDelegate(
         [In, MarshalAs(UnmanagedType.LPStruct)] Guid clsid,
         [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-        [MarshalAs(UnmanagedType.IUnknown), Out] out object ppInterface);
+        [MarshalAs(UnmanagedType.Interface), Out] out object ppInterface);
 
     /// <summary>
     /// Closes any valid common language runtime (CLR) continue-startup events located in an array of handles returned by the EnumerateCLRs function, and frees the memory for the handle and string path arrays.

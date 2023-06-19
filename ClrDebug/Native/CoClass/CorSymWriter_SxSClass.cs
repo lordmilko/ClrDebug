@@ -131,7 +131,7 @@ namespace ClrDebug.CoClass
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT Initialize(
-            [MarshalAs(UnmanagedType.IUnknown), In]
+            [MarshalAs(UnmanagedType.Interface), In]
             object emitter,
             [In, MarshalAs(UnmanagedType.LPWStr)] string filename,
             [MarshalAs(UnmanagedType.Interface), In]
@@ -164,7 +164,7 @@ namespace ClrDebug.CoClass
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT Initialize2(
-            [MarshalAs(UnmanagedType.IUnknown), In]
+            [MarshalAs(UnmanagedType.Interface), In]
             object emitter,
             [In, MarshalAs(UnmanagedType.LPWStr)] string tempfilename,
             [MarshalAs(UnmanagedType.Interface), In]

@@ -42,7 +42,7 @@ namespace ClrDebug
         public HRESULT TryGetIMapTokenIface(out object pIMapToken)
         {
             /*HRESULT GetIMapTokenIface(
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object pIMapToken);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out object pIMapToken);*/
             return Raw.GetIMapTokenIface(out pIMapToken);
         }
 

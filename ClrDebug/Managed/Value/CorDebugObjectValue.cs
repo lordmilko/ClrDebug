@@ -158,7 +158,7 @@ namespace ClrDebug
         public HRESULT TryGetManagedCopy(out object ppObject)
         {
             /*HRESULT GetManagedCopy(
-            [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppObject);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppObject);*/
             return Raw.GetManagedCopy(out ppObject);
         }
 
@@ -268,7 +268,7 @@ namespace ClrDebug
         public HRESULT TrySetFromManagedCopy(object pObject)
         {
             /*HRESULT SetFromManagedCopy(
-            [MarshalAs(UnmanagedType.IUnknown), In] object pObject);*/
+            [MarshalAs(UnmanagedType.Interface), In] object pObject);*/
             return Raw.SetFromManagedCopy(pObject);
         }
 
