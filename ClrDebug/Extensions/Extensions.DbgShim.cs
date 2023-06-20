@@ -221,10 +221,17 @@ namespace ClrDebug
 
     #endregion
 
+#if NETSTANDARD
     /// <summary>
     /// Provides facilities for interacting with the .NET Core DbgShim library.<para/>
-    /// By default, this type only supports Windows. To support additional platforms, subclass this type and override <see cref="GetDelegate{T}(string)"/>.
+    /// The .NET Standard version of this type (that you are using) only supports Windows. To support additional platforms, subclass this type and override <see cref="GetDelegate{T}(string)"/>.
     /// </summary>
+#else
+    /// <summary>
+    /// Provides facilities for interacting with the .NET Core DbgShim library.<para/>
+    /// This type is cross-platform compatible.
+    /// </summary>
+#endif
     public class DbgShim
     {
         public IntPtr hModule { get; }
@@ -808,7 +815,11 @@ namespace ClrDebug
 
         protected virtual T GetDelegate<T>(string procName)
         {
+#if NETSTANDARD
             var proc = NativeMethods.GetProcAddress(hModule, procName);
+#else
+            var proc = NativeLibrary.GetExport(hModule, procName);
+#endif
 
             if (proc == IntPtr.Zero)
                 throw new InvalidOperationException($"Failed to get address of procedure '{procName}': {(HRESULT)Marshal.GetHRForLastWin32Error()}");

@@ -3,10 +3,11 @@ using System.Runtime.InteropServices;
 
 namespace ClrDebug
 {
-    internal static class NativeMethods
+    internal static partial class NativeMethods
     {
         private const string kernel32 = "kernel32.dll";
 
+#if NETSTANDARD
         [DllImport(kernel32, SetLastError = true)]
         public static extern IntPtr GetProcAddress(IntPtr hModule, string lpProcName);
 
@@ -18,5 +19,16 @@ namespace ClrDebug
 
         [DllImport(kernel32)]
         public static extern void RtlZeroMemory(IntPtr Destination, int Length);
+#else
+        //This is only called on Windows. On other operating systems, a delegate must
+        //be provided that contains the 
+        [LibraryImport(kernel32, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static partial bool CloseHandle(IntPtr handle);
+
+        //This is only used with WinDbg which is Windows only
+        [LibraryImport(kernel32)]
+        public static partial void RtlZeroMemory(IntPtr Destination, int Length);
+#endif
     }
 }

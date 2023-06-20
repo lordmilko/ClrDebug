@@ -48,6 +48,11 @@ namespace ClrDebug
         public static readonly Guid CLSID_CorRuntimeHost = new Guid("CB2F6723-AB3A-11d2-9C40-00C04FA30A3E");
         public static readonly Guid CLSID_TypeNameFactory = new Guid("B81FF171-20F3-11d2-8DCC-00A0C9B00525");
 
+        private const string DacLibDesktop = "mscordacwks.dll";
+        private const string DacLibWinCore = "mscordaccore.dll";
+        private const string DacLibLinuxCore = "libmscordaccore.so";
+        private const string DacLibMacCore = "libmscordaccore.dylib";
+
         #region CLRCreateInstance
 
         /// <summary>
@@ -84,8 +89,8 @@ namespace ClrDebug
 
         /// <summary>
         /// Provides facilities for retrieving interfaces that are commonly retrieved from a <see cref="CLRDataCreateInstanceDelegate"/>.<para/>
-        /// This method will automatically attempt to load mscordacwks.dll and retrieve the CLRDataCreateInstance function from it.<para/>
-        /// If mscordacwks.dll is not the name of the DAC for your target runtime, create  you must retrieve a <see cref="CLRDataCreateInstanceDelegate"/> from the DAC
+        /// This method will automatically attempt to load your runtime's DAC library and retrieve the CLRDataCreateInstance function from it.<para/>
+        /// If this method is unable to locate the DAC library for your target runtime, you must retrieve a <see cref="CLRDataCreateInstanceDelegate"/> from the DAC
         /// yourself to be passed to the <see cref="CLRDataCreateInstance(CLRDataCreateInstanceDelegate, ICLRDataTarget)"/> method.
         /// </summary>
         /// <param name="target">A pointer to a user-implemented <see cref="ICLRDataTarget"/> object that represents the target item for which to create the interface object.</param>
@@ -94,15 +99,23 @@ namespace ClrDebug
         {
             if (dacLib == IntPtr.Zero)
             {
-                var mscordacwksPath = Path.Combine(RuntimeEnvironment.GetRuntimeDirectory(), "mscordacwks.dll");
+                var dacPath = Path.Combine(RuntimeEnvironment.GetRuntimeDirectory(), GetDacDll());
 
-                dacLib = NativeMethods.LoadLibrary(mscordacwksPath);
+#if NETSTANDARD
+                dacLib = NativeMethods.LoadLibrary(dacPath);
+#else
+                dacLib = NativeLibrary.Load(dacPath);
+#endif
 
                 if (dacLib == IntPtr.Zero)
-                    throw new InvalidOperationException($"Failed to load library '{mscordacwksPath}': {(HRESULT)Marshal.GetHRForLastWin32Error()}");
+                    throw new InvalidOperationException($"Failed to load library '{dacPath}': {(HRESULT)Marshal.GetHRForLastWin32Error()}");
             }
 
+#if NETSTANDARD
             var clrDataCreateInstancePtr = NativeMethods.GetProcAddress(dacLib, "CLRDataCreateInstance");
+#else
+            var clrDataCreateInstancePtr = NativeLibrary.GetExport(dacLib, "CLRDataCreateInstance");
+#endif
 
             if (clrDataCreateInstancePtr == IntPtr.Zero)
                 throw new InvalidOperationException($"Failed to find function 'CLRDataCreateInstance': {(HRESULT)Marshal.GetHRForLastWin32Error()}");
@@ -110,6 +123,29 @@ namespace ClrDebug
             var clrDataCreateInstance = Marshal.GetDelegateForFunctionPointer<CLRDataCreateInstanceDelegate>(clrDataCreateInstancePtr);
 
             return CLRDataCreateInstance(clrDataCreateInstance, target);
+        }
+
+        private static string GetDacDll()
+        {
+            string dacDll;
+
+#if NETSTANDARD
+                if (RuntimeInformation.FrameworkDescription == null || RuntimeInformation.FrameworkDescription.StartsWith(".NET Framework"))
+                    dacDll = DacLibDesktop;
+                else
+                    dacDll = DacLibWinCore;
+#else
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                dacDll = DacLibWinCore;
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                dacDll = DacLibLinuxCore;
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                dacDll = DacLibMacCore;
+            else
+                throw new NotSupportedException($"Could not determine DAC DLL to use for operating system '{RuntimeInformation.OSDescription}'.");
+#endif
+
+            return dacDll;
         }
 
         /// <summary>

@@ -1,16 +1,18 @@
 version: 'Build #{build}'
-image: Visual Studio 2017
+image: Visual Studio 2022
 configuration: Release
 before_build:
-- dotnet restore /p:MultiBuild=true
+- dotnet restore
 build_script:
-- dotnet build /p:MultiBuild=true
+- dotnet build
 test_script:
 - vstest.console /logger:Appveyor ClrDebug.Tests\bin\%CONFIGURATION%\net461\ClrDebug.Tests.dll /platform:x86 /InIsolation /TestCaseFilter:TestCategory!=SkipCI
 - vstest.console /logger:Appveyor ClrDebug.Tests\bin\%CONFIGURATION%\net461\ClrDebug.Tests.dll /platform:x64 /InIsolation /TestCaseFilter:TestCategory!=SkipCI
+- vstest.console /logger:Appveyor ClrDebug.Tests\bin\%CONFIGURATION%\net8.0\ClrDebug.Tests.dll /platform:x86 /InIsolation /TestCaseFilter:TestCategory!=SkipCI
+- vstest.console /logger:Appveyor ClrDebug.Tests\bin\%CONFIGURATION%\net8.0\ClrDebug.Tests.dll /platform:x64 /InIsolation /TestCaseFilter:TestCategory!=SkipCI
 after_test:
-- dotnet pack ClrDebug\ClrDebug.csproj /p:MultiBuild=true
-- 7z a ClrDebug.zip .\ClrDebug\bin\%CONFIGURATION%\netstandard2.0\* -xr!*.json
+- dotnet pack ClrDebug\ClrDebug.csproj
+- 7z a ClrDebug.zip .\ClrDebug\bin\%CONFIGURATION%\* -xr!*.json
 #on_finish:
 #  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 artifacts:
