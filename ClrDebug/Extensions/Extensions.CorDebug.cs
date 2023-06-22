@@ -106,7 +106,7 @@ namespace ClrDebug
             }
             else
             {
-#if NETSTANDARD
+#if GENERATED_MARSHALLING
                 closeHandle = closeHandle ?? (h => NativeMethods.CloseHandle(h));
 #else
                 if (closeHandle == null)

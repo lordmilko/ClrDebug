@@ -7,7 +7,7 @@ namespace ClrDebug
     {
         private const string kernel32 = "kernel32.dll";
 
-#if NETSTANDARD
+#if !GENERATED_MARSHALLING
         [DllImport(kernel32, SetLastError = true)]
         public static extern IntPtr GetProcAddress(IntPtr hModule, string lpProcName);
 

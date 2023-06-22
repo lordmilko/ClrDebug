@@ -221,7 +221,7 @@ namespace ClrDebug
 
     #endregion
 
-#if NETSTANDARD
+#if !GENERATED_MARSHALLING
     /// <summary>
     /// Provides facilities for interacting with the .NET Core DbgShim library.<para/>
     /// The .NET Standard version of this type (that you are using) only supports Windows. To support additional platforms, subclass this type and override <see cref="GetDelegate{T}(string)"/>.
@@ -815,7 +815,7 @@ namespace ClrDebug
 
         protected virtual T GetDelegate<T>(string procName)
         {
-#if NETSTANDARD
+#if !GENERATED_MARSHALLING
             var proc = NativeMethods.GetProcAddress(hModule, procName);
 #else
             var proc = NativeLibrary.GetExport(hModule, procName);

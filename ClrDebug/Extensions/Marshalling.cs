@@ -1,4 +1,4 @@
-﻿#if !NETSTANDARD
+﻿#if GENERATED_MARSHALLING
 
 using System;
 using System.Runtime.CompilerServices;

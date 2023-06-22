@@ -101,7 +101,7 @@ namespace ClrDebug
             {
                 var dacPath = Path.Combine(RuntimeEnvironment.GetRuntimeDirectory(), GetDacDll());
 
-#if NETSTANDARD
+#if !GENERATED_MARSHALLING
                 dacLib = NativeMethods.LoadLibrary(dacPath);
 #else
                 dacLib = NativeLibrary.Load(dacPath);
@@ -111,7 +111,7 @@ namespace ClrDebug
                     throw new InvalidOperationException($"Failed to load library '{dacPath}': {(HRESULT)Marshal.GetHRForLastWin32Error()}");
             }
 
-#if NETSTANDARD
+#if !GENERATED_MARSHALLING
             var clrDataCreateInstancePtr = NativeMethods.GetProcAddress(dacLib, "CLRDataCreateInstance");
 #else
             var clrDataCreateInstancePtr = NativeLibrary.GetExport(dacLib, "CLRDataCreateInstance");
@@ -129,7 +129,7 @@ namespace ClrDebug
         {
             string dacDll;
 
-#if NETSTANDARD
+#if !GENERATED_MARSHALLING
                 if (RuntimeInformation.FrameworkDescription == null || RuntimeInformation.FrameworkDescription.StartsWith(".NET Framework"))
                     dacDll = DacLibDesktop;
                 else
