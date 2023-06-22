@@ -50,6 +50,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorProfilerInfo3 : ICorProfilerInfo2
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets the ClassID of an object, given its ObjectID.
         /// </summary>
@@ -1080,6 +1081,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetNotifiedExceptionClauseInfo(
             [Out] out COR_PRF_EX_CLAUSE_INFO pinfo);
+#endif
 
         /// <summary>
         /// Returns an enumerator for all functions that were previously JIT-compiled.

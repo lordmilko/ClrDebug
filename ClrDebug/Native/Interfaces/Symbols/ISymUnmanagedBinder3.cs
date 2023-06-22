@@ -11,6 +11,7 @@ namespace ClrDebug
     [ComImport]
     public interface ISymUnmanagedBinder3 : ISymUnmanagedBinder2
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Given a metadata interface and a file name, returns the correct <see cref="ISymUnmanagedReader"/> interface that will read the debugging symbols associated with the module.<para/>
         /// This method will open the program database (PDB) file only if it is next to the executable file. This change has been made for security purposes.<para/>
@@ -68,6 +69,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string searchPath,
             [In] CorSymSearchPolicyAttributes searchPolicy,
             [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedReader pRetVal);
+#endif
 
         /// <summary>
         /// Allows the user to implement or supply via callback either an IID_IDiaReadExeAtRVACallback or IID_IDiaReadExeAtOffsetCallback to obtain the debug directory information from memory.

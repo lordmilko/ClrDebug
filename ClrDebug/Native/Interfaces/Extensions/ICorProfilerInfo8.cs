@@ -14,6 +14,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorProfilerInfo8 : ICorProfilerInfo7
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets the ClassID of an object, given its ObjectID.
         /// </summary>
@@ -1673,6 +1674,7 @@ namespace ClrDebug
             [Out] IntPtr pSymbolBytes,
             [In] int countSymbolBytes,
             [Out] out int pCountSymbolBytesRead);
+#endif
 
         /// <summary>
         /// Determines if a function does not have associated metadata.

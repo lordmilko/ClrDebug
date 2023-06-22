@@ -11,6 +11,7 @@ namespace ClrDebug.TypeLib
     [ComImport]
     public unsafe interface ITypeInfo2 : ITypeInfo
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Retrieves a <see cref="TYPEATTR"/> structure that contains the attributes of the type description.<para/>
         /// This value must be released by calling <see cref="ReleaseTypeAttr"/>.
@@ -225,6 +226,7 @@ namespace ClrDebug.TypeLib
         [PreserveSig]
         new void ReleaseVarDesc(
             [In] VARDESC* pVarDesc);
+#endif
 
         /// <summary>
         /// Returns the <see cref="TYPEKIND"/> enumeration quickly, without doing any allocations.

@@ -13,6 +13,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorProfilerInfo6 : ICorProfilerInfo5
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets the ClassID of an object, given its ObjectID.
         /// </summary>
@@ -1600,6 +1601,7 @@ namespace ClrDebug
         new HRESULT SetEventMask2(
             [In] COR_PRF_MONITOR dwEventsLow,
             [In] COR_PRF_HIGH_MONITOR dwEventsHigh);
+#endif
 
         /// <summary>
         /// Returns an enumerator to all the methods that are defined in a given NGen module and inline a given method.

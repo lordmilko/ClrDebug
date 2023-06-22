@@ -10,6 +10,7 @@ namespace ClrDebug
     [ComImport]
     public interface ISymNGenWriter2 : ISymNGenWriter
     {
+#if !GENERATED_MARSHALLING
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT AddSymbol(
@@ -24,6 +25,7 @@ namespace ClrDebug
             [In] ushort flags,
             [In] int offset,
             [In] int cb);
+#endif
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

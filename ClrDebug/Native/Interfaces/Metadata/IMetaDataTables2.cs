@@ -11,6 +11,7 @@ namespace ClrDebug
     [ComImport]
     public interface IMetaDataTables2 : IMetaDataTables
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets the size, in bytes, of the string heap.
         /// </summary>
@@ -258,6 +259,7 @@ namespace ClrDebug
         new HRESULT GetNextUserString(
             [In] int ixUserString,
             [Out] out int pNext);
+#endif
 
         /// <summary>
         /// Gets the size and contents of the metadata stored in the specified section.

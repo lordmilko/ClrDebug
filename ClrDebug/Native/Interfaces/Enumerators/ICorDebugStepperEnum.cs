@@ -11,6 +11,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorDebugStepperEnum : ICorDebugEnum
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Moves the cursor forward in the enumeration by the specified number of items.
         /// </summary>
@@ -44,6 +45,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetCount(
             [Out] out int pcelt);
+#endif
 
         /// <summary>
         /// Gets the specified number of <see cref="ICorDebugStepper"/> instances from the enumeration, starting at the current position.

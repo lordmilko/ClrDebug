@@ -9,6 +9,7 @@ namespace ClrDebug
     [ComImport]
     public interface IStream : ISequentialStream
     {
+#if !GENERATED_MARSHALLING
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Read(
@@ -22,6 +23,7 @@ namespace ClrDebug
             [In] IntPtr pv,
             [In] int cb,
             [Out] out int pcbWritten);
+#endif
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

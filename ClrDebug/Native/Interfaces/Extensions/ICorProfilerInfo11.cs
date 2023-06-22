@@ -13,6 +13,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorProfilerInfo11 : ICorProfilerInfo10
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets the ClassID of an object, given its ObjectID.
         /// </summary>
@@ -1874,6 +1875,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ResumeRuntime();
+#endif
 
         /// <summary>
         /// Gets an environment variable from the process. On non-Windows platforms the runtime keeps an internal cache of environment variables to ensure thread safety.<para/>

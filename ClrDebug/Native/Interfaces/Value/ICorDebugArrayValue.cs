@@ -14,6 +14,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorDebugArrayValue : ICorDebugHeapValue
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets the primitive type of this "ICorDebugValue" object.
         /// </summary>
@@ -85,6 +86,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT CreateRelocBreakpoint(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
+#endif
 
         /// <summary>
         /// Gets a value that indicates the simple type of the elements in the array.

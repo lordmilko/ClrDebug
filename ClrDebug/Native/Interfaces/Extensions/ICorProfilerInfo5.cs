@@ -17,6 +17,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorProfilerInfo5 : ICorProfilerInfo4
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets the ClassID of an object, given its ObjectID.
         /// </summary>
@@ -1564,6 +1565,7 @@ namespace ClrDebug
         new HRESULT GetObjectSize2(
             [In] ObjectID objectId,
             [Out] out IntPtr pcSize);
+#endif
 
         /// <summary>
         /// [Supported in the .NET Framework 4.5.2 and later versions] Gets the current event categories for which the profiler wants to receive notifications from the common language runtime (CLR).<para/>

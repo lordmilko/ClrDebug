@@ -11,6 +11,7 @@ namespace ClrDebug.TypeLib
     [ComImport]
     public unsafe interface ITypeLib2 : ITypeLib
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Returns the number of type descriptions in the type library.
         /// </summary>
@@ -116,6 +117,7 @@ namespace ClrDebug.TypeLib
         [PreserveSig]
         new void ReleaseTLibAttr(
             [In] TLIBATTR* pTLibAttr);
+#endif
 
         /// <summary>
         /// Gets the custom data.

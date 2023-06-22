@@ -15,6 +15,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorDebugHandleValue : ICorDebugReferenceValue
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets the primitive type of this "ICorDebugValue" object.
         /// </summary>
@@ -111,6 +112,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DereferenceStrong(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
+#endif
 
         /// <summary>
         /// Gets a value that indicates the kind of handle referenced by this <see cref="ICorDebugHandleValue"/> object.

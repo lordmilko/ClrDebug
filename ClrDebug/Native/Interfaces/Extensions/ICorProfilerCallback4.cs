@@ -12,6 +12,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorProfilerCallback4 : ICorProfilerCallback3
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Called to initialize the code profiler whenever a new common language runtime (CLR) application is started.
         /// </summary>
@@ -1195,6 +1196,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ProfilerDetachSucceeded();
+#endif
 
         /// <summary>
         /// Notifies the profiler that the just-in-time (JIT) compiler has started to recompile a function.

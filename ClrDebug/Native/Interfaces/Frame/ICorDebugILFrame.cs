@@ -16,6 +16,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorDebugILFrame : ICorDebugFrame
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets a pointer to the chain this frame is a part of.
         /// </summary>
@@ -100,6 +101,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT CreateStepper(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugStepper ppStepper);
+#endif
 
         /// <summary>
         /// Gets the value of the instruction pointer and a bitwise combination value that describes how the value of the instruction pointer was obtained.

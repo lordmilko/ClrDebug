@@ -12,6 +12,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorDebugContext : ICorDebugObjectValue
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets the primitive type of this "ICorDebugValue" object.
         /// </summary>
@@ -138,5 +139,6 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT SetFromManagedCopy(
             [MarshalAs(UnmanagedType.Interface), In] object pObject);
+#endif
     }
 }

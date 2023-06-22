@@ -13,6 +13,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorProfilerCallback7 : ICorProfilerCallback6
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Called to initialize the code profiler whenever a new common language runtime (CLR) application is started.
         /// </summary>
@@ -1401,6 +1402,7 @@ namespace ClrDebug
         new HRESULT GetAssemblyReferences(
             [MarshalAs(UnmanagedType.LPWStr), In] string wszAssemblyPath,
             [MarshalAs(UnmanagedType.Interface), In] ICorProfilerAssemblyReferenceProvider pAsmRefProvider);
+#endif
 
         /// <summary>
         /// [Supported in the .NET Framework 4.6.1 and later versions] Notifies the profiler whenever the symbol stream associated with an in-memory module is updated.

@@ -18,6 +18,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorProfilerInfo4 : ICorProfilerInfo3
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets the ClassID of an object, given its ObjectID.
         /// </summary>
@@ -1346,6 +1347,7 @@ namespace ClrDebug
             [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2)] char[] szName,
             [Out] out AssemblyID pAssemblyId,
             [Out] out COR_PRF_MODULE_FLAGS pdwModuleFlags);
+#endif
 
         /// <summary>
         /// Returns an enumerator that provides methods to sequentially iterate through the collection of all managed threads in the profiled process.

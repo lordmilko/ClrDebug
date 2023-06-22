@@ -22,6 +22,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorDebugMutableDataTarget : ICorDebugDataTarget
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Provides information about the platform, including processor architecture and operating system, on which the target process is running.
         /// </summary>
@@ -78,6 +79,7 @@ namespace ClrDebug
             [In] ContextFlags contextFlags,
             [In] int contextSize,
             [Out] IntPtr pContext);
+#endif
 
         /// <summary>
         /// Writes memory into the target process address space.

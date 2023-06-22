@@ -31,6 +31,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorProfilerInfo2 : ICorProfilerInfo
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets the ClassID of an object, given its ObjectID.
         /// </summary>
@@ -595,6 +596,7 @@ namespace ClrDebug
             [In] int cMap,
             [Out] out int pcMap,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] COR_DEBUG_IL_TO_NATIVE_MAP[] map);
+#endif
 
         /// <summary>
         /// Walks the managed frames on the stack for the specified thread, and sends information to the profiler through a callback.

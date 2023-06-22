@@ -13,6 +13,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorProfilerCallback10 : ICorProfilerCallback9
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Called to initialize the code profiler whenever a new common language runtime (CLR) application is started.
         /// </summary>
@@ -1465,6 +1466,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DynamicMethodUnloaded(
             [In] FunctionID functionId);
+#endif
 
         /// <summary>
         /// Notifies the profiler whenever an EventPipe event has been delivered to the profiler's currently active session.

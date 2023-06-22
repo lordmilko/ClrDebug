@@ -13,6 +13,7 @@ namespace ClrDebug
     [ComImport]
     public interface ISymUnmanagedWriter2 : ISymUnmanagedWriter
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Defines a source document. GUIDs are provided for known languages, vendors, and document types.
         /// </summary>
@@ -414,6 +415,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Abort();
+#endif
 
         /// <summary>
         /// Defines a single variable in the current lexical scope. This method can be called multiple times for a variable of the same name that has multiple homes throughout a scope.<para/>

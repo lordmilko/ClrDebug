@@ -14,6 +14,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorDebugExceptionDebugEvent : ICorDebugDebugEvent
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Indicates what kind of event this <see cref="ICorDebugDebugEvent"/> object represents.
         /// </summary>
@@ -35,6 +36,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetThread(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
+#endif
 
         /// <summary>
         /// Gets the stack pointer for this exception debug event.

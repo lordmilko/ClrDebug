@@ -17,6 +17,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorDebugGenericValue : ICorDebugValue
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets the primitive type of this "ICorDebugValue" object.
         /// </summary>
@@ -66,6 +67,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT CreateBreakpoint(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
+#endif
 
         /// <summary>
         /// Copies the value of this generic into the specified buffer.

@@ -11,6 +11,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorDebugValueBreakpoint : ICorDebugBreakpoint
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Sets the active state of this <see cref="ICorDebugBreakpoint"/>.
         /// </summary>
@@ -28,6 +29,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT IsActive(
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pbActive);
+#endif
 
         /// <summary>
         /// Gets an interface pointer to an <see cref="ICorDebugValue"/> object that represents the value of the object on which the breakpoint is set.

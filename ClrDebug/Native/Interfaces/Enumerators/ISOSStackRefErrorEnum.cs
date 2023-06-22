@@ -7,6 +7,7 @@ namespace ClrDebug
     [ComImport]
     public interface ISOSStackRefErrorEnum : ISOSEnum
     {
+#if !GENERATED_MARSHALLING
         [PreserveSig]
         new HRESULT Skip(
             [In] int count);
@@ -17,6 +18,7 @@ namespace ClrDebug
         [PreserveSig]
         new HRESULT GetCount(
             [Out] out int pCount);
+#endif
 
         [PreserveSig]
         HRESULT Next(

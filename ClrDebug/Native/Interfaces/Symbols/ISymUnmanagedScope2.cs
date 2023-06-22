@@ -12,6 +12,7 @@ namespace ClrDebug
     [ComImport]
     public interface ISymUnmanagedScope2 : ISymUnmanagedScope
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets the method that contains this scope.
         /// </summary>
@@ -103,6 +104,7 @@ namespace ClrDebug
             [In] int cNameSpaces,
             [Out] out int pcNameSpaces,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ISymUnmanagedNamespace[] namespaces);
+#endif
 
         /// <summary>
         /// Gets a count of the constants defined within this scope.

@@ -19,6 +19,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorDebugReferenceValue : ICorDebugValue
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets the primitive type of this "ICorDebugValue" object.
         /// </summary>
@@ -68,6 +69,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT CreateBreakpoint(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
+#endif
 
         /// <summary>
         /// Gets a value that indicates whether this <see cref="ICorDebugReferenceValue"/> is a null value, in which case the <see cref="ICorDebugReferenceValue"/> does not point to an object.

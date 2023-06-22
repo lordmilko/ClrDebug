@@ -12,6 +12,7 @@ namespace ClrDebug
     [ComImport]
     public interface ISymUnmanagedWriter4 : ISymUnmanagedWriter3
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Defines a source document. GUIDs are provided for known languages, vendors, and document types.
         /// </summary>
@@ -500,6 +501,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Commit();
+#endif
 
         /// <summary>
         /// Functions the same as <see cref="ISymUnmanagedWriter.GetDebugInfo"/> except that the path string is padded with zeros following the terminating null character to make the string data a fixed size of MAX_PATH.<para/>

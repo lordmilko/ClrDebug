@@ -12,6 +12,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorProfilerCallback6 : ICorProfilerCallback5
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Called to initialize the code profiler whenever a new common language runtime (CLR) application is started.
         /// </summary>
@@ -1364,6 +1365,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ObjectID[] keyRefIds,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ObjectID[] valueRefIds,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] GCHandleID[] rootIds);
+#endif
 
         /// <summary>
         /// [Supported in the .NET Framework 4.5.2 and later versions] Notifies the profiler that an assembly is in a very early loading stage, when the common language runtime performs an assembly reference closure walk.

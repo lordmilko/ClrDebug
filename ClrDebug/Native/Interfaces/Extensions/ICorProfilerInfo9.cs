@@ -13,6 +13,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorProfilerInfo9 : ICorProfilerInfo8
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets the ClassID of an object, given its ObjectID.
         /// </summary>
@@ -1732,6 +1733,7 @@ namespace ClrDebug
             [In] int cchName,
             [Out] out int pcchName,
             [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 4)] char[] wszName);
+#endif
 
         /// <summary>
         /// Given a functionId and rejitId, enumerates the native code start address of all jitted versions of this code that currently exist.

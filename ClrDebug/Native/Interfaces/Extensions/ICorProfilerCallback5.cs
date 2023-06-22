@@ -13,6 +13,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorProfilerCallback5 : ICorProfilerCallback4
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Called to initialize the code profiler whenever a new common language runtime (CLR) application is started.
         /// </summary>
@@ -1342,6 +1343,7 @@ namespace ClrDebug
             [In] int cSurvivingObjectIDRanges,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ObjectID[] objectIDRangeStart,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] IntPtr[] cObjectIDRangeLength);
+#endif
 
         /// <summary>
         /// Identifies the transitive closure of objects referenced by those roots through both direct member field references and through ConditionalWeakTable dependencies.

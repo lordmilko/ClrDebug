@@ -10,6 +10,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorProfilerCallback11 : ICorProfilerCallback10
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Called to initialize the code profiler whenever a new common language runtime (CLR) application is started.
         /// </summary>
@@ -1502,6 +1503,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT EventPipeProviderCreated(
             [In] EVENTPIPE_PROVIDER provider);
+#endif
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

@@ -17,6 +17,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICLRDataTarget3 : ICLRDataTarget2
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets the identifier for the kind of instruction set that the target process is using.
         /// </summary>
@@ -224,6 +225,7 @@ namespace ClrDebug
             [In] CLRDATA_ADDRESS addr,
             [In] int size,
             [In] MEM_FLAGS typeFlags);
+#endif
 
         /// <summary>
         /// Called by the common language runtime (CLR) data access services to retrieve the exception record associated with the target process.<para/>

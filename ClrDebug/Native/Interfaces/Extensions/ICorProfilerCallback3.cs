@@ -12,6 +12,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorProfilerCallback3 : ICorProfilerCallback2
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Called to initialize the code profiler whenever a new common language runtime (CLR) application is started.
         /// </summary>
@@ -1149,6 +1150,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT HandleDestroyed(
             [In] GCHandleID handleId);
+#endif
 
         /// <summary>
         /// Called by the common language runtime (CLR) to give the profiler an opportunity to initialize its state after an attach operation.

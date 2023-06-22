@@ -11,6 +11,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorDebugModuleEnum : ICorDebugEnum
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Moves the cursor forward in the enumeration by the specified number of items.
         /// </summary>
@@ -44,6 +45,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetCount(
             [Out] out int pcelt);
+#endif
 
         /// <summary>
         /// Gets the number of "ICorDebugModule" instances specified by celt from the enumeration, starting at the current position.

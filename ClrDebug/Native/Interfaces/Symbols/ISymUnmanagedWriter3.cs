@@ -13,6 +13,7 @@ namespace ClrDebug
     [ComImport]
     public interface ISymUnmanagedWriter3 : ISymUnmanagedWriter2
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Defines a source document. GUIDs are provided for known languages, vendors, and document types.
         /// </summary>
@@ -479,6 +480,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [MarshalAs(UnmanagedType.Struct), In] object value,
             [In] mdSignature sigToken);
+#endif
 
         /// <summary>
         /// Opens a method and provides its real section offset in the image.

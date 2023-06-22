@@ -17,6 +17,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICLRDataTarget2 : ICLRDataTarget
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets the identifier for the kind of instruction set that the target process is using.
         /// </summary>
@@ -186,6 +187,7 @@ namespace ClrDebug
             [In] IntPtr inBuffer,
             [In] int outBufferSize,
             [Out] IntPtr outBuffer);
+#endif
 
         /// <summary>
         /// Called by the common language runtime (CLR) data access services to allocate memory in the address space of this target process.

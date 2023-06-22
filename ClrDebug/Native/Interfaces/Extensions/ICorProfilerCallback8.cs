@@ -13,6 +13,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorProfilerCallback8 : ICorProfilerCallback7
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Called to initialize the code profiler whenever a new common language runtime (CLR) application is started.
         /// </summary>
@@ -1418,6 +1419,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ModuleInMemorySymbolsUpdated(
             [In] ModuleID moduleId);
+#endif
 
         /// <summary>
         /// [Supported in the .NET Framework 4.7 and later versions] Notifies the profiler whenever JIT compilation of a dynamic method has started.

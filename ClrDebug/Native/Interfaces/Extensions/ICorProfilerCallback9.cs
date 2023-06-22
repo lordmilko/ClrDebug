@@ -13,6 +13,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorProfilerCallback9 : ICorProfilerCallback8
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Called to initialize the code profiler whenever a new common language runtime (CLR) application is started.
         /// </summary>
@@ -1456,6 +1457,7 @@ namespace ClrDebug
             [In] FunctionID functionId,
             [In] HRESULT hrStatus,
             [In, MarshalAs(UnmanagedType.Bool)] bool fIsSafeToBlock);
+#endif
 
         /// <summary>
         /// [Supported in the .NET Framework 4.7.2 and later versions] Notifies the profiler whenever a dynamic method is garbage collected and subsequently unloaded.

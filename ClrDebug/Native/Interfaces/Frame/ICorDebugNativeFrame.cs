@@ -12,6 +12,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorDebugNativeFrame : ICorDebugFrame
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets a pointer to the chain this frame is a part of.
         /// </summary>
@@ -96,6 +97,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT CreateStepper(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugStepper ppStepper);
+#endif
 
         /// <summary>
         /// Gets the native code offset location to which the instruction pointer is currently set.

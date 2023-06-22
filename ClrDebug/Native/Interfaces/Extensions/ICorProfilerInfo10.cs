@@ -18,6 +18,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorProfilerInfo10 : ICorProfilerInfo9
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets the ClassID of an object, given its ObjectID.
         /// </summary>
@@ -1802,6 +1803,7 @@ namespace ClrDebug
             [In] int cCodeInfos,
             [Out] out int pcCodeInfos,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] COR_PRF_CODE_INFO[] codeInfos);
+#endif
 
         /// <summary>
         /// Given an ObjectID, callback and clientData, enumerates each object reference (if any).

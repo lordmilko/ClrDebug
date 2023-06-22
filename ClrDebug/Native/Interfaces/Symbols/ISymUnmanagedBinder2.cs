@@ -11,6 +11,7 @@ namespace ClrDebug
     [ComImport]
     public interface ISymUnmanagedBinder2 : ISymUnmanagedBinder
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Given a metadata interface and a file name, returns the correct <see cref="ISymUnmanagedReader"/> interface that will read the debugging symbols associated with the module.<para/>
         /// This method will open the program database (PDB) file only if it is next to the executable file. This change has been made for security purposes.<para/>
@@ -42,6 +43,7 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.Interface), In] IMetaDataImport importer,
             [MarshalAs(UnmanagedType.Interface), In] IStream pstream,
             [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedReader pRetVal);
+#endif
 
         /// <summary>
         /// Given a metadata interface and a file name, returns the correct <see cref="ISymUnmanagedReader"/> interface that will read the debugging symbols associated with the module.<para/>

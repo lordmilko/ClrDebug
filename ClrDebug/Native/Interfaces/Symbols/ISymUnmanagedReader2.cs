@@ -12,6 +12,7 @@ namespace ClrDebug
     [ComImport]
     public interface ISymUnmanagedReader2 : ISymUnmanagedReader
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Finds a document. The document language, vendor, and type are optional.
         /// </summary>
@@ -262,6 +263,7 @@ namespace ClrDebug
         new HRESULT GetMethodVersion(
             [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedMethod pMethod,
             [Out] out int version);
+#endif
 
         /// <summary>
         /// Gets a symbol reader method, given a method token and an edit-and-continue version number. Version numbers start at 1 and are incremented each time the method is changed as a result of an edit-and-continue operation.

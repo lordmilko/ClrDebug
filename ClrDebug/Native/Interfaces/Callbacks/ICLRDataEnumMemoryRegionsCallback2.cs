@@ -9,6 +9,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICLRDataEnumMemoryRegionsCallback2 : ICLRDataEnumMemoryRegionsCallback
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Called by <see cref="ICLRDataEnumMemoryRegions.EnumMemoryRegions"/> to report to the debugger the result of an attempt to enumerate a specified region of memory.
         /// </summary>
@@ -24,6 +25,7 @@ namespace ClrDebug
         new HRESULT EnumMemoryRegion(
             [In] CLRDATA_ADDRESS address,
             [In] int size);
+#endif
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

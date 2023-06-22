@@ -12,6 +12,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorDebugProcess : ICorDebugController
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Performs a cooperative stop on all threads that are running managed code in the process.
         /// </summary>
@@ -157,6 +158,7 @@ namespace ClrDebug
             [In] int cSnapshots,
             [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugEditAndContinueSnapshot pSnapshots,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugErrorInfoEnum pError);
+#endif
 
         /// <summary>
         /// Gets the operating system (OS) ID of the process.

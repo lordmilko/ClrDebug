@@ -11,6 +11,7 @@ namespace ClrDebug
     [Guid("FCE5EFA0-8BBA-4f8e-A036-8F2022B08466")]
     public interface IMetaDataImport2 : IMetaDataImport
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Closes the enumerator that is identified by the specified handle.
         /// </summary>
@@ -1262,6 +1263,7 @@ namespace ClrDebug
         new HRESULT IsGlobal(
             [In] mdToken pd,
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pbGlobal);
+#endif
 
         /// <summary>
         /// Gets an enumerator for an array of generic parameter tokens associated with the specified TypeDef or MethodDef token.

@@ -12,6 +12,7 @@ namespace ClrDebug
     [ComImport]
     public interface IMetaDataDispenserEx : IMetaDataDispenser
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Creates a new area in memory in which you can create new metadata.
         /// </summary>
@@ -80,6 +81,7 @@ namespace ClrDebug
             [In] CorOpenFlags dwOpenFlags,
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);
+#endif
 
         /// <summary>
         /// Sets the specified option to a given value for the current metadata scope. The option controls how calls to the current metadata scope are handled.

@@ -26,6 +26,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorProfilerCallback2 : ICorProfilerCallback
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Called to initialize the code profiler whenever a new common language runtime (CLR) application is started.
         /// </summary>
@@ -1025,6 +1026,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ExceptionCLRCatcherExecute();
+#endif
 
         /// <summary>
         /// Notifies the code profiler that the name of a thread has changed.

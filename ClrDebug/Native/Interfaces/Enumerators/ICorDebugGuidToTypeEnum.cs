@@ -18,6 +18,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorDebugGuidToTypeEnum : ICorDebugEnum
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Moves the cursor forward in the enumeration by the specified number of items.
         /// </summary>
@@ -51,6 +52,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetCount(
             [Out] out int pcelt);
+#endif
 
         /// <summary>
         /// Gets the specified number of <see cref="CorDebugGuidToTypeMapping"/> instances that map GUIDs to type information.

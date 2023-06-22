@@ -12,6 +12,7 @@ namespace ClrDebug
     [ComImport]
     public interface ISymUnmanagedWriter5 : ISymUnmanagedWriter4
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Defines a source document. GUIDs are provided for known languages, vendors, and document types.
         /// </summary>
@@ -513,6 +514,7 @@ namespace ClrDebug
             [In] int cData,
             [Out] out int pcData,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1), Out] byte[] data);
+#endif
 
         /// <summary>
         /// Open a special custom data section to emit token-to-source span mapping information into. Opening this section when a method is already open, or vice versa, is an error.

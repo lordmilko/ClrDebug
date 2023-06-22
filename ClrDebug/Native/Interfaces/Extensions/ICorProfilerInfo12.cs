@@ -13,6 +13,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorProfilerInfo12 : ICorProfilerInfo11
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets the ClassID of an object, given its ObjectID.
         /// </summary>
@@ -1902,6 +1903,7 @@ namespace ClrDebug
         new HRESULT SetEnvironmentVariable(
             [MarshalAs(UnmanagedType.LPWStr), In] string szName,
             [MarshalAs(UnmanagedType.LPWStr), In] string szValue);
+#endif
 
         /// <summary>
         /// Starts an EventPipe session. The session can be used by the profiler to write events which can be listened to by any EventPipe consumer.

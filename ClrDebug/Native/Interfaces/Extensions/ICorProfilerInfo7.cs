@@ -13,6 +13,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorProfilerInfo7 : ICorProfilerInfo6
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Gets the ClassID of an object, given its ObjectID.
         /// </summary>
@@ -1633,6 +1634,7 @@ namespace ClrDebug
             [In] mdMethodDef inlineeMethodId,
             [Out, MarshalAs(UnmanagedType.Bool)] out bool incompleteData,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorProfilerMethodEnum ppEnum);
+#endif
 
         /// <summary>
         /// [Supported in the .NET Framework 4.6.1 and later versions] Applies the metadata newly defined by the IMetadataEmit::Define* methods to a specified module.

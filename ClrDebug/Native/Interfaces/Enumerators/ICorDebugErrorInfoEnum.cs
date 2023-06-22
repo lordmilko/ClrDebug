@@ -12,6 +12,7 @@ namespace ClrDebug
     [ComImport]
     public interface ICorDebugErrorInfoEnum : ICorDebugEnum
     {
+#if !GENERATED_MARSHALLING
         /// <summary>
         /// Moves the cursor forward in the enumeration by the specified number of items.
         /// </summary>
@@ -45,6 +46,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetCount(
             [Out] out int pcelt);
+#endif
 
         /// <summary>
         /// <see cref="Next"/> is obsolete. Do not call this method.
