@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.TypeLib
 {
@@ -46,7 +49,12 @@ namespace ClrDebug.TypeLib
         /// <param name="ppTInfo">When this method returns, contains the requested <see cref="ITypeInfo"/> interface. This parameter is passed uninitialized.</param>
         [PreserveSig]
         new HRESULT GetTypeInfoOfGuid(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid guid,
             [Out] out ITypeInfo ppTInfo);
 
         /// <summary>
@@ -126,7 +134,12 @@ namespace ClrDebug.TypeLib
         /// <param name="pVarVal">When this method returns, contains an object that specifies where to put the retrieved data. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT GetCustData(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid guid,
             [Out] out object pVarVal);
 
         /// <summary>

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 using System.Security;
 
 namespace ClrDebug
@@ -39,7 +42,12 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT GetHostManager(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface, IidParameterIndex = 0)] out object ppObject);
 
         /// <summary>

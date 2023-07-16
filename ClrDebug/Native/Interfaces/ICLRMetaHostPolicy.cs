@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -66,7 +69,12 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 6), Out] char[] pwzImageVersion,
             [In, Out] ref int pcchImageVersion,
             [Out] out METAHOST_CONFIG_FLAGS pdwConfigFlags,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppRuntime);
     }
 }

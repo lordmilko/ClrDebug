@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -52,7 +55,12 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRuntime(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzVersion,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppRuntime);
 
         /// <summary>
@@ -160,7 +168,12 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT QueryLegacyV2RuntimeBinding(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppUnk);
 
         /// <summary>

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -496,7 +499,12 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RemotingClientSendingMessage(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid pCookie,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid pCookie,
             [In, MarshalAs(UnmanagedType.Bool)] bool fIsAsync);
 
         /// <summary>
@@ -507,7 +515,12 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RemotingClientReceivingReply(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid pCookie,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid pCookie,
             [In, MarshalAs(UnmanagedType.Bool)] bool fIsAsync);
 
         /// <summary>
@@ -535,7 +548,12 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RemotingServerReceivingMessage(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid pCookie,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid pCookie,
             [In, MarshalAs(UnmanagedType.Bool)] bool fIsAsync);
 
         /// <summary>
@@ -560,7 +578,12 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RemotingServerSendingReply(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid pCookie,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid pCookie,
             [In, MarshalAs(UnmanagedType.Bool)] bool fIsAsync);
 
         /// <summary>
@@ -976,7 +999,12 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT COMClassicVTableCreated(
             [In] ClassID wrappedClassId,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid implementedIID,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid implementedIID,
             [In] IntPtr pVTable,
             [In] int cSlots);
 
@@ -996,7 +1024,12 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT COMClassicVTableDestroyed(
             [In] ClassID wrappedClassId,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid implementedIID,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid implementedIID,
             [In] IntPtr pVTable);
 
         /// <summary>

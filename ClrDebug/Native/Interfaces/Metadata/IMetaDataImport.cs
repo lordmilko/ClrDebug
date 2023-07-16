@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -151,7 +154,11 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1), Out] char[] szName,
             [In] int cchName,
             [Out] out int pchName,
-            [Out] out Guid pmvid);
+            [Out]
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(GuidMarshaller))]
+#endif
+            out Guid pmvid);
 
         /// <summary>
         /// Gets a metadata token for the module referenced in the current metadata scope.
@@ -232,7 +239,12 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT ResolveTypeRef(
             [In] mdTypeRef tr,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid riid,
             [MarshalAs(UnmanagedType.Interface), Out] out object ppIScope,
             [Out] out mdTypeDef ptd);
 

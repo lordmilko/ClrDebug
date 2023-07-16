@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -20,7 +23,11 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CopyMetaData(
             [MarshalAs(UnmanagedType.Interface), In] IStream pIStream,
-            [Out] out Guid pMvid);
+            [Out]
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(GuidMarshaller))]
+#endif
+            out Guid pMvid);
 
         /// <summary>
         /// GetMvid is obsolete. Do not call this method.
@@ -29,7 +36,11 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetMvid(
-            [Out] out Guid pMvid);
+            [Out]
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(GuidMarshaller))]
+#endif
+            out Guid pMvid);
 
         /// <summary>
         /// GetRoDataRVA is obsolete. Do not call this method.

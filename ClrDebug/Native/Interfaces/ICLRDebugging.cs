@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -51,7 +54,12 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugDataTarget pDataTarget,
             [MarshalAs(UnmanagedType.Interface), In] ICLRDebuggingLibraryProvider pLibraryProvider,
             [In] ref CLR_DEBUGGING_VERSION pMaxDebuggerSupportedVersion,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riidProcess,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid riidProcess,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppProcess,
             [In, Out] ref CLR_DEBUGGING_VERSION pVersion,
             [Out] out CLR_DEBUGGING_PROCESS_FLAGS pdwFlags);

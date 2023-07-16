@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -11,7 +14,12 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT CreateInstance(
             [MarshalAs(UnmanagedType.Interface), In] object pUnkOuter,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid riid,
             [MarshalAs(UnmanagedType.Interface), Out] out object ppvObject);
 
         [PreserveSig]

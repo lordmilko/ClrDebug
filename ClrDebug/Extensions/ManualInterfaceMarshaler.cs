@@ -10,7 +10,7 @@ namespace ClrDebug
 
         public void CleanUpManagedData(object ManagedObj)
         {
-#if GENERATED_MARSHALLING
+#if !GENERATED_MARSHALLING
             Marshal.ReleaseComObject(ManagedObj);
 #else
             throw new NotImplementedException("Custom Marshalling for non-Windows is not implemented.");
@@ -23,7 +23,7 @@ namespace ClrDebug
 
         public IntPtr MarshalManagedToNative(object ManagedObj)
         {
-#if GENERATED_MARSHALLING
+#if !GENERATED_MARSHALLING
             return Marshal.GetIUnknownForObject(ManagedObj);
 #else
             throw new NotImplementedException("Custom Marshalling for non-Windows is not implemented.");
@@ -32,7 +32,7 @@ namespace ClrDebug
 
         public object MarshalNativeToManaged(IntPtr pNativeData)
         {
-#if GENERATED_MARSHALLING
+#if !GENERATED_MARSHALLING
             return Marshal.GetObjectForIUnknown(pNativeData);
 #else
             throw new NotImplementedException("Custom Marshalling for non-Windows is not implemented.");

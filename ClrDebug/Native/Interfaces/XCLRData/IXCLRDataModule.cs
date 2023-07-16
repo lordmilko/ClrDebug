@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -230,6 +233,10 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         HRESULT GetVersionId(
-            [Out] out Guid vid);
+            [Out]
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(GuidMarshaller))]
+#endif
+            out Guid vid);
     }
 }

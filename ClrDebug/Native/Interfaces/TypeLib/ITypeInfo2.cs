@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.TypeLib
 {
@@ -180,7 +183,12 @@ namespace ClrDebug.TypeLib
         [PreserveSig]
         new HRESULT CreateInstance(
             [In] object pUnkOuter,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid riid,
             [Out] out object ppvObj);
 
         /// <summary>
@@ -273,7 +281,12 @@ namespace ClrDebug.TypeLib
         /// <param name="pVarVal">When this method returns, contains an <see langword="object"/> that specifies where to put the retrieved data. This parameter is passed uninitialized.</param>
         [PreserveSig]
         HRESULT GetCustData(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid guid,
             [Out] out object pVarVal);
 
         /// <summary>
@@ -285,7 +298,12 @@ namespace ClrDebug.TypeLib
         [PreserveSig]
         HRESULT GetFuncCustData(
             [In] int index,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid guid,
             [Out] out object pVarVal);
 
         /// <summary>
@@ -299,7 +317,12 @@ namespace ClrDebug.TypeLib
         HRESULT GetParamCustData(
             [In] int indexFunc,
             [In] int indexParam,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid guid,
             [Out] out object pVarVal);
 
         /// <summary>
@@ -311,7 +334,12 @@ namespace ClrDebug.TypeLib
         [PreserveSig]
         HRESULT GetVarCustData(
             [In] int index,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid guid,
             [Out] out object pVarVal);
 
         /// <summary>
@@ -323,7 +351,12 @@ namespace ClrDebug.TypeLib
         [PreserveSig]
         HRESULT GetImplTypeCustData(
             [In] int index,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid guid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid guid,
             [Out] out object pVarVal);
 
         /// <summary>

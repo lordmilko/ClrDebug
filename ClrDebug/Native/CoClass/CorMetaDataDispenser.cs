@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.CoClass
 {
@@ -12,9 +15,19 @@ namespace ClrDebug.CoClass
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT DefineScope(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid rclsid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid rclsid,
             [In] int dwCreateFlags,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);
 
         [PreserveSig]
@@ -22,7 +35,12 @@ namespace ClrDebug.CoClass
         public virtual extern HRESULT OpenScope(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szScope,
             [In] CorOpenFlags dwOpenFlags,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);
 
         [PreserveSig]
@@ -31,7 +49,12 @@ namespace ClrDebug.CoClass
             [In] IntPtr pData,
             [In] int cbData,
             [In] CorOpenFlags dwOpenFlags,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);
     }
 }

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -48,7 +51,12 @@ namespace ClrDebug
         HRESULT AttachProfiler(
             [In] int dwProfileeProcessID,
             [In] int dwMillisecondsMax,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid pClsidProfiler,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid pClsidProfiler,
             [MarshalAs(UnmanagedType.LPWStr), In] string wszProfilerPath,
             [In] IntPtr pvClientData,
             [In] int cbClientData);

@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 using ClrDebug.TypeLib;
 
 namespace ClrDebug
@@ -29,9 +32,19 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         new HRESULT DefineScope(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid rclsid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid rclsid,
             [In] int dwCreateFlags,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);
 
         /// <summary>
@@ -56,7 +69,12 @@ namespace ClrDebug
         new HRESULT OpenScope(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szScope,
             [In] CorOpenFlags dwOpenFlags,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);
 
         /// <summary>
@@ -79,7 +97,12 @@ namespace ClrDebug
             [In] IntPtr pData,
             [In] int cbData,
             [In] CorOpenFlags dwOpenFlags,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);
 #endif
 
@@ -94,7 +117,12 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         HRESULT SetOption(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid optionId,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid optionId,
             [In, MarshalAs(UnmanagedType.Struct)] ref object pValue);
 
         /// <summary>
@@ -108,7 +136,12 @@ namespace ClrDebug
         /// </remarks>
         [PreserveSig]
         HRESULT GetOption(
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid optionId,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid optionId,
             [Out] out object pValue);
 
         /// <summary>
@@ -122,7 +155,12 @@ namespace ClrDebug
         HRESULT OpenScopeOnITypeInfo(
             [In, MarshalAs(UnmanagedType.Interface)] ITypeInfo pITI,
             [In] int dwOpenFlags,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface, IidParameterIndex = 2)] out object ppIUnk);
 
         /// <summary>

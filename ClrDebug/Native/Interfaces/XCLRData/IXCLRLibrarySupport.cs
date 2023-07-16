@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -11,7 +14,12 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT LoadHardboundDependency(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid mvid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid mvid,
             [Out] out long loadedBase);
 
         [PreserveSig]

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -35,7 +38,12 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCachedWinRTTypesForIIDs(
             [In] int cReqTypes,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid iidsToResolve,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid iidsToResolve,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppTypesEnum);
 
         /// <summary>

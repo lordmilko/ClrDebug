@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -37,7 +40,12 @@ namespace ClrDebug
             [MarshalAs(UnmanagedType.LPWStr), In] string imagePath,
             [In] int imageTimestamp,
             [In] int imageSize,
-            [In, MarshalAs(UnmanagedType.LPStruct)] Guid mvid,
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.LPStruct)]
+#else
+            [MarshalUsing(typeof(GuidMarshaller))] in
+#endif
+            Guid mvid,
             [In] int mdRva,
             [In] int flags,
             [In] int bufferSize,

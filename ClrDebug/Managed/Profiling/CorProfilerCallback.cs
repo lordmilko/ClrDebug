@@ -492,7 +492,12 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pCookie">[in] A value that corresponds with the value provided in <see cref="RemotingServerReceivingMessage"/> under these conditions: This allows easy pairing of remoting calls and the creation of a logical call stack.</param>
         /// <param name="fIsAsync">[in] A value that is true if the call is asynchronous; otherwise, false.</param>
-        public virtual HRESULT RemotingClientSendingMessage(Guid pCookie, bool fIsAsync)
+        public virtual HRESULT RemotingClientSendingMessage(
+#if GENERATED_MARSHALLING
+            in
+#endif
+            Guid pCookie,
+            bool fIsAsync)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -502,7 +507,12 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pCookie">[in] A value that will correspond with the value provided in <see cref="RemotingServerSendingReply"/> under these conditions: This allows easy pairing of remoting calls.</param>
         /// <param name="fIsAsync">[in] A value that is true if the call is asynchronous; otherwise, false.</param>
-        public virtual HRESULT RemotingClientReceivingReply(Guid pCookie, bool fIsAsync)
+        public virtual HRESULT RemotingClientReceivingReply(
+#if GENERATED_MARSHALLING
+            in
+#endif
+            Guid pCookie,
+            bool fIsAsync)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -530,7 +540,12 @@ namespace ClrDebug
         /// <remarks>
         /// If the message request is asynchronous, the request can be serviced by any arbitrary thread.
         /// </remarks>
-        public virtual HRESULT RemotingServerReceivingMessage(Guid pCookie, bool fIsAsync)
+        public virtual HRESULT RemotingServerReceivingMessage(
+#if GENERATED_MARSHALLING
+            in
+#endif
+            Guid pCookie,
+            bool fIsAsync)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -556,7 +571,12 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pCookie">[in] A pointer to a GUID that will correspond with the value provided in <see cref="RemotingClientReceivingReply"/> under these conditions: This allows easy pairing of remoting calls and the creation of a logical call stack.</param>
         /// <param name="fIsAsync">[in] A value that is true if the call is asynchronous; otherwise, false.</param>
-        public virtual HRESULT RemotingServerSendingReply(Guid pCookie, bool fIsAsync)
+        public virtual HRESULT RemotingServerSendingReply(
+#if GENERATED_MARSHALLING
+            in
+#endif
+            Guid pCookie,
+            bool fIsAsync)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -966,7 +986,14 @@ namespace ClrDebug
         /// here and garbage collection is attempted, the runtime will block until this callback returns. The profiler's implementation
         /// of this method should not call into managed code or in any way cause a managed-memory allocation.
         /// </remarks>
-        public virtual HRESULT COMClassicVTableCreated(ClassID wrappedClassId, Guid implementedIID, IntPtr pVTable, int cSlots)
+        public virtual HRESULT COMClassicVTableCreated(
+            ClassID wrappedClassId,
+#if GENERATED_MARSHALLING
+            in
+#endif
+            Guid implementedIID,
+            IntPtr pVTable,
+            int cSlots)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -983,7 +1010,13 @@ namespace ClrDebug
         /// here and garbage collection is attempted, the runtime will block until this callback returns. The profiler's implementation
         /// of this method should not call into managed code or in any way cause a managed-memory allocation.
         /// </remarks>
-        public virtual HRESULT COMClassicVTableDestroyed(ClassID wrappedClassId, Guid implementedIID, IntPtr pVTable)
+        public virtual HRESULT COMClassicVTableDestroyed(
+            ClassID wrappedClassId,
+#if GENERATED_MARSHALLING
+            in
+#endif
+            Guid implementedIID,
+            IntPtr pVTable)
         {
             return HRESULT.E_NOTIMPL;
         }
@@ -1464,7 +1497,25 @@ namespace ClrDebug
         /// <param name="eventThread">[in] The ID of the thread the event occurred on.</param>
         /// <param name="numStackFrames">[in] The number of elements in the stackFrames array.</param>
         /// <param name="stackFrames">[in] An array of code addresses representing the managed callstack of the event.</param>
-        public virtual HRESULT EventPipeEventDelivered(EVENTPIPE_PROVIDER provider, int eventId, int eventVersion, int cbMetadataBlob, IntPtr metadataBlob, int cbEventData, IntPtr eventData, Guid pActivityId, Guid pRelatedActivityId, ThreadID eventThread, int numStackFrames, IntPtr[] stackFrames)
+        public virtual HRESULT EventPipeEventDelivered(
+            EVENTPIPE_PROVIDER provider,
+            int eventId,
+            int eventVersion,
+            int cbMetadataBlob,
+            IntPtr metadataBlob,
+            int cbEventData,
+            IntPtr eventData,
+#if GENERATED_MARSHALLING
+            in
+#endif
+            Guid pActivityId,
+#if GENERATED_MARSHALLING
+            in
+#endif
+            Guid pRelatedActivityId,
+            ThreadID eventThread,
+            int numStackFrames,
+            IntPtr[] stackFrames)
         {
             return HRESULT.E_NOTIMPL;
         }

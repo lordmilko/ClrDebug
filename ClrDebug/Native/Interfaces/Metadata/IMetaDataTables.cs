@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -193,7 +196,11 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT GetGuid(
             [In] int ixGuid,
-            [Out] out Guid ppGUID);
+            [Out]
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(GuidMarshaller))]
+#endif
+            out Guid ppGUID);
 
         /// <summary>
         /// Gets the hard-coded string at the specified index in the string column in the current scope.
