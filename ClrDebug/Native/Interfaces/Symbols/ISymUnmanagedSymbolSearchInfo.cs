@@ -43,6 +43,6 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHRESULT(
-            [Out, MarshalAs(UnmanagedType.Error)] out HRESULT phr);
+            [Out] out HRESULT phr);
     }
 }

@@ -238,7 +238,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT DebuggerError(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugProcess pProcess,
-            [MarshalAs(UnmanagedType.Error), In] HRESULT errorHR,
+            [In] HRESULT errorHR,
             [In] int errorCode);
 
         /// <summary>

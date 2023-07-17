@@ -161,7 +161,7 @@ namespace ClrDebug
             [MarshalUsing(typeof(GuidMarshaller))] in
 #endif
             Guid riid,
-            [Out, MarshalAs(UnmanagedType.Interface, IidParameterIndex = 2)] out object ppIUnk);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);
 
         /// <summary>
         /// Gets the directory that holds the current common language runtime (CLR). This method is supported only for use by out-of-process debuggers.<para/>

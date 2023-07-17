@@ -122,7 +122,7 @@ namespace ClrDebug
         public HRESULT TryGetHRESULT(out HRESULT phr)
         {
             /*HRESULT GetHRESULT(
-            [Out, MarshalAs(UnmanagedType.Error)] out HRESULT phr);*/
+            [Out] out HRESULT phr);*/
             return Raw.GetHRESULT(out phr);
         }
 

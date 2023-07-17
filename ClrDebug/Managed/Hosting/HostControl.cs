@@ -62,7 +62,7 @@ namespace ClrDebug
         {
             /*HRESULT GetHostManager(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid riid,
-            [Out, MarshalAs(UnmanagedType.Interface, IidParameterIndex = 0)] out object ppObject);*/
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppObject);*/
             return Raw.GetHostManager(riid, out ppObject);
         }
 

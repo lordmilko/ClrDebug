@@ -96,7 +96,7 @@ namespace ClrDebug.TypeLib
         /// <param name="pMemId">When this method returns, contains a reference to an array in which name mappings are placed. This parameter is passed uninitialized.</param>
         [PreserveSig]
         new HRESULT GetIDsOfNames(
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] string[] rgszNames,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPWStr, SizeParamIndex = 1)] string[] rgszNames,
             [In] int cNames,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] pMemId);
 
@@ -182,14 +182,14 @@ namespace ClrDebug.TypeLib
         /// <param name="ppvObj">When this method returns, contains a reference to the created object. This parameter is passed uninitialized.</param>
         [PreserveSig]
         new HRESULT CreateInstance(
-            [In] object pUnkOuter,
+            [In, MarshalAs(UnmanagedType.Interface)] object pUnkOuter,
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
 #else
             [MarshalUsing(typeof(GuidMarshaller))] in
 #endif
             Guid riid,
-            [Out] out object ppvObj);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppvObj);
 
         /// <summary>
         /// Retrieves marshaling information.
@@ -367,7 +367,6 @@ namespace ClrDebug.TypeLib
         /// <param name="pdwHelpStringContext">When this method returns, contains the Help localization context. If the caller does not need the Help context, pdwHelpStringContext can be <see langword="null"/>. This parameter is passed uninitialized.</param>
         /// <param name="pbstrHelpStringDll">When this method returns, contains a <see langword="BSTR"/> that contains the fully qualified name of the file containing the DLL used for the Help file. If the caller does not need the file name, pbstrHelpStringDll can be <see langword="null"/>. This parameter is passed uninitialized.</param>
         [PreserveSig]
-        [LCIDConversion(1)]
         HRESULT GetDocumentation2(
             [In] int memid,
             [Out, MarshalAs(UnmanagedType.BStr)] out string pbstrHelpString,

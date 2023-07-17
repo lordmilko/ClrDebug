@@ -39,7 +39,7 @@ namespace ClrDebug
             [MarshalUsing(typeof(GuidMarshaller))] in
 #endif
             Guid riid,
-            [Out, MarshalAs(UnmanagedType.Interface, IidParameterIndex = 0)] out object ppObject);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppObject);
 
         /// <summary>
         /// Sets a type derived from System.AppDomainManager as the type for application domain managers.

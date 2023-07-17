@@ -89,11 +89,11 @@ namespace ClrDebug
         /// GetErrorCode is obsolete. Do not call this method.
         /// </summary>
         [Obsolete]
-        public int ErrorCode
+        public HRESULT ErrorCode
         {
             get
             {
-                int pHr;
+                HRESULT pHr;
                 TryGetErrorCode(out pHr).ThrowOnNotOK();
 
                 return pHr;
@@ -104,10 +104,10 @@ namespace ClrDebug
         /// GetErrorCode is obsolete. Do not call this method.
         /// </summary>
         [Obsolete]
-        public HRESULT TryGetErrorCode(out int pHr)
+        public HRESULT TryGetErrorCode(out HRESULT pHr)
         {
             /*HRESULT GetErrorCode(
-            [Out, MarshalAs(UnmanagedType.Error)] out int pHr);*/
+            [Out] out int pHr);*/
             return Raw.GetErrorCode(out pHr);
         }
 

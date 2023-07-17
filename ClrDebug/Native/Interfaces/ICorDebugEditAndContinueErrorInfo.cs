@@ -37,7 +37,7 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetErrorCode(
-            [Out, MarshalAs(UnmanagedType.Error)] out int pHr);
+            [Out] out HRESULT pHr);
 
         /// <summary>
         /// GetString is obsolete. Do not call this method.

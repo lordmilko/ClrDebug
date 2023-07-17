@@ -101,7 +101,6 @@ namespace ClrDebug
         /// | E_INVALIDARG | pwzBuffer is null.                 |
         /// </returns>
         [PreserveSig]
-        [LCIDConversion(3)]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT LoadErrorString(
             [In] HRESULT iResourceID,

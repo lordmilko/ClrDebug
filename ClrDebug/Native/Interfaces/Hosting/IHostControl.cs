@@ -48,7 +48,7 @@ namespace ClrDebug
             [MarshalUsing(typeof(GuidMarshaller))] in
 #endif
             Guid riid,
-            [Out, MarshalAs(UnmanagedType.Interface, IidParameterIndex = 0)] out object ppObject);
+            [Out, MarshalAs(UnmanagedType.Interface)] out object ppObject);
 
         /// <summary>
         /// Notifies the host that an application domain has been created.

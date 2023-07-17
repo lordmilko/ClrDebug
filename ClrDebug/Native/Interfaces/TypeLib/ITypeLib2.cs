@@ -150,7 +150,6 @@ namespace ClrDebug.TypeLib
         /// <param name="pdwHelpStringContext">When this method returns, contains the Help localization context. If the caller does not need the Help context, pdwHelpStringContext can be <see langword="null"/>. This parameter is passed uninitialized.</param>
         /// <param name="pbstrHelpStringDll">When this method returns, contains a BSTR that specifies the fully qualified name of the file containing the DLL used for Help file. If the caller does not need the file name, pbstrHelpStringDll can be <see langword="null"/>. This parameter is passed uninitialized.</param>
         [PreserveSig]
-        [LCIDConversion(1)]
         HRESULT GetDocumentation2(
             [In] int index,
             [Out, MarshalAs(UnmanagedType.BStr)] out string pbstrHelpString,
