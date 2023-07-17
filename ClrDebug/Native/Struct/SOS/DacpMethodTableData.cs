@@ -5,7 +5,7 @@ namespace ClrDebug
 {
     [DebuggerDisplay("bIsFree = {bIsFree}, Module = {Module.ToString(),nq}, Class = {Class.ToString(),nq}, ParentMethodTable = {ParentMethodTable.ToString(),nq}, wNumInterfaces = {wNumInterfaces}, wNumMethods = {wNumMethods}, wNumVtableSlots = {wNumVtableSlots}, wNumVirtuals = {wNumVirtuals}, BaseSize = {BaseSize}, ComponentSize = {ComponentSize}, cl = {cl.ToString(),nq}, dwAttrClass = {dwAttrClass}, bIsShared = {bIsShared}, bIsDynamic = {bIsDynamic}, bContainsPointers = {bContainsPointers}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct DacpMethodTableData
+    public partial struct DacpMethodTableData
     {
         public bool bIsFree;
         public CLRDATA_ADDRESS Module;

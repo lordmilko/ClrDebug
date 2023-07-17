@@ -5,7 +5,7 @@ namespace ClrDebug
 {
     [DebuggerDisplay("HasRegisterInformation = {HasRegisterInformation}, Register = {Register}, Offset = {Offset}, Address = {Address.ToString(),nq}, Object = {Object.ToString(),nq}, Flags = {Flags}, SourceType = {SourceType.ToString(),nq}, Source = {Source.ToString(),nq}, StackPointer = {StackPointer.ToString(),nq}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct SOSStackRefData
+    public partial struct SOSStackRefData
     {
         public bool HasRegisterInformation;
         public int Register;

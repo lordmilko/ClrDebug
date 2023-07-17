@@ -8,7 +8,7 @@ namespace ClrDebug
     /// </summary>
     [DebuggerDisplay("AppDomain = {AppDomain}, Module = {Module}, Function = {Function}, ilOffset = {ilOffset}, flags = {flags}")]
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
-    public struct COR_ACTIVE_FUNCTION
+    public partial struct COR_ACTIVE_FUNCTION
     {
         /// <summary>
         /// Pointer to the application domain owner of the ilOffset field.

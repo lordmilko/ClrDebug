@@ -5,7 +5,7 @@ namespace ClrDebug
 {
     [DebuggerDisplay("AppDomain = {AppDomain.ToString(),nq}, Handle = {Handle.ToString(),nq}, Secondary = {Secondary.ToString(),nq}, Type = {Type}, StrongReference = {StrongReference}, RefCount = {RefCount}, JupiterRefCount = {JupiterRefCount}, IsPegged = {IsPegged}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct SOSHandleData
+    public partial struct SOSHandleData
     {
         public CLRDATA_ADDRESS AppDomain;
         public CLRDATA_ADDRESS Handle;

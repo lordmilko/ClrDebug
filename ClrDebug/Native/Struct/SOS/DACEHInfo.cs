@@ -5,7 +5,7 @@ namespace ClrDebug
 {
     [DebuggerDisplay("clauseType = {clauseType.ToString(),nq}, tryStartOffset = {tryStartOffset.ToString(),nq}, tryEndOffset = {tryEndOffset.ToString(),nq}, handlerStartOffset = {handlerStartOffset.ToString(),nq}, handlerEndOffset = {handlerEndOffset.ToString(),nq}, isDuplicateClause = {isDuplicateClause}, filterOffset = {filterOffset.ToString(),nq}, isCatchAllHandler = {isCatchAllHandler}, moduleAddr = {moduleAddr.ToString(),nq}, mtCatch = {mtCatch.ToString(),nq}, tokCatch = {tokCatch.ToString(),nq}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct DACEHInfo
+    public partial struct DACEHInfo
     {
         public EHClauseType clauseType;
         public CLRDATA_ADDRESS tryStartOffset;

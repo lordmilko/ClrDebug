@@ -6,7 +6,7 @@ namespace ClrDebug
 {
     [DebuggerDisplay("IsDynamic = {IsDynamic}, IsInMemory = {IsInMemory}, IsFileLayout = {IsFileLayout}, PEAssembly = {PEAssembly.ToString(),nq}, LoadedPEAddress = {LoadedPEAddress.ToString(),nq}, LoadedPESize = {LoadedPESize}, InMemoryPdbAddress = {InMemoryPdbAddress.ToString(),nq}, InMemoryPdbSize = {InMemoryPdbSize}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct DacpGetModuleData
+    public partial struct DacpGetModuleData
     {
         public bool IsDynamic;
         public bool IsInMemory;

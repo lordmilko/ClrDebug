@@ -11,7 +11,7 @@ namespace ClrDebug
     /// </remarks>
     [DebuggerDisplay("pModule = {pModule.ToString(),nq}, ip = {ip}, methodDef = {methodDef}, isLastForeignExceptionFrame = {isLastForeignExceptionFrame}")]
     [StructLayout(LayoutKind.Sequential, Pack = 8)]
-    public struct CorDebugExceptionObjectStackFrame
+    public partial struct CorDebugExceptionObjectStackFrame
     {
         /// <summary>
         /// A pointer to the <see cref="ICorDebugModule"/> object for the current frame.

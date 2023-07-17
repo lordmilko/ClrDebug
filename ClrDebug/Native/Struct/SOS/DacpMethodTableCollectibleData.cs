@@ -5,7 +5,7 @@ namespace ClrDebug
 {
     [DebuggerDisplay("LoaderAllocatorObjectHandle = {LoaderAllocatorObjectHandle.ToString(),nq}, bCollectible = {bCollectible}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct DacpMethodTableCollectibleData
+    public partial struct DacpMethodTableCollectibleData
     {
         public CLRDATA_ADDRESS LoaderAllocatorObjectHandle;
         public bool bCollectible;

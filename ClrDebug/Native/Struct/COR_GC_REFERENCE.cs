@@ -13,7 +13,7 @@ namespace ClrDebug
     /// </remarks>
     [DebuggerDisplay("Domain = {Domain.ToString(),nq}, Location = {Location.ToString(),nq}, type = {type.ToString(),nq}, ExtraData = {ExtraData}")]
     [StructLayout(LayoutKind.Sequential, Pack = 8)]
-    public struct COR_GC_REFERENCE
+    public partial struct COR_GC_REFERENCE
     {
         [MarshalAs(UnmanagedType.Interface)]
         public ICorDebugAppDomain Domain;

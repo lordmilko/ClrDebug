@@ -12,7 +12,7 @@ namespace ClrDebug
     /// </remarks>
     [DebuggerDisplay("bHasNativeCode = {bHasNativeCode}, bIsDynamic = {bIsDynamic}, wSlotNumber = {wSlotNumber}, NativeCodeAddr = {NativeCodeAddr.ToString(),nq}, AddressOfNativeCodeSlot = {AddressOfNativeCodeSlot.ToString(),nq}, MethodDescPtr = {MethodDescPtr.ToString(),nq}, MethodTablePtr = {MethodTablePtr.ToString(),nq}, ModulePtr = {ModulePtr.ToString(),nq}, MDToken = {MDToken.ToString(),nq}, GCInfo = {GCInfo.ToString(),nq}, GCStressCodeCopy = {GCStressCodeCopy.ToString(),nq}, managedDynamicMethodObject = {managedDynamicMethodObject.ToString(),nq}, requestedIP = {requestedIP.ToString(),nq}, rejitDataCurrent = {rejitDataCurrent.ToString(),nq}, rejitDataRequested = {rejitDataRequested.ToString(),nq}, cJittedRejitVersions = {cJittedRejitVersions}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct DacpMethodDescData
+    public partial struct DacpMethodDescData
     {
         /// <summary>
         /// Indicates if the runtime has native code available for the given instantiation of the method.

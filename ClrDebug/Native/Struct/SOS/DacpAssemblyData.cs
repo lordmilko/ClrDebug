@@ -5,7 +5,7 @@ namespace ClrDebug
 {
     [DebuggerDisplay("AssemblyPtr = {AssemblyPtr.ToString(),nq}, ClassLoader = {ClassLoader.ToString(),nq}, ParentDomain = {ParentDomain.ToString(),nq}, BaseDomainPtr = {BaseDomainPtr.ToString(),nq}, AssemblySecDesc = {AssemblySecDesc.ToString(),nq}, isDynamic = {isDynamic}, ModuleCount = {ModuleCount}, LoadContext = {LoadContext}, isDomainNeutral = {isDomainNeutral}, dwLocationFlags = {dwLocationFlags}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct DacpAssemblyData
+    public partial struct DacpAssemblyData
     {
         public CLRDATA_ADDRESS AssemblyPtr;
         public CLRDATA_ADDRESS ClassLoader;

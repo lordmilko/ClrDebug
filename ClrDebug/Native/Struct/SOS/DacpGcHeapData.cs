@@ -5,7 +5,7 @@ namespace ClrDebug
 {
     [DebuggerDisplay("bServerMode = {bServerMode}, bGcStructuresValid = {bGcStructuresValid}, HeapCount = {HeapCount}, g_max_generation = {g_max_generation}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct DacpGcHeapData
+    public partial struct DacpGcHeapData
     {
         public bool bServerMode;
         public bool bGcStructuresValid;

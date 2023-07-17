@@ -5,7 +5,7 @@ namespace ClrDebug
 {
     [DebuggerDisplay("corThreadId = {corThreadId}, osThreadId = {osThreadId}, state = {state}, preemptiveGCDisabled = {preemptiveGCDisabled}, allocContextPtr = {allocContextPtr.ToString(),nq}, allocContextLimit = {allocContextLimit.ToString(),nq}, context = {context.ToString(),nq}, domain = {domain.ToString(),nq}, pFrame = {pFrame.ToString(),nq}, lockCount = {lockCount}, firstNestedException = {firstNestedException.ToString(),nq}, teb = {teb.ToString(),nq}, fiberData = {fiberData.ToString(),nq}, lastThrownObjectHandle = {lastThrownObjectHandle.ToString(),nq}, nextThread = {nextThread.ToString(),nq}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct DacpThreadData
+    public partial struct DacpThreadData
     {
         public int corThreadId;
         public int osThreadId;

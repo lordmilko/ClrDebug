@@ -5,7 +5,7 @@ namespace ClrDebug
 {
     [DebuggerDisplay("Object = {Object.ToString(),nq}, bFree = {bFree}, SyncBlockPointer = {SyncBlockPointer.ToString(),nq}, COMFlags = {COMFlags.ToString(),nq}, MonitorHeld = {MonitorHeld}, Recursion = {Recursion}, HoldingThread = {HoldingThread.ToString(),nq}, AdditionalThreadCount = {AdditionalThreadCount}, AppDomainPtr = {AppDomainPtr.ToString(),nq}, SyncBlockCount = {SyncBlockCount}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct DacpSyncBlockData
+    public partial struct DacpSyncBlockData
     {
         public CLRDATA_ADDRESS Object;
         public bool bFree;

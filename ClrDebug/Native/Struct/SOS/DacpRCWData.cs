@@ -5,7 +5,7 @@ namespace ClrDebug
 {
     [DebuggerDisplay("identityPointer = {identityPointer.ToString(),nq}, unknownPointer = {unknownPointer.ToString(),nq}, managedObject = {managedObject.ToString(),nq}, jupiterObject = {jupiterObject.ToString(),nq}, vtablePtr = {vtablePtr.ToString(),nq}, creatorThread = {creatorThread.ToString(),nq}, ctxCookie = {ctxCookie.ToString(),nq}, refCount = {refCount}, interfaceCount = {interfaceCount}, isJupiterObject = {isJupiterObject}, supportsIInspectable = {supportsIInspectable}, isAggregated = {isAggregated}, isContained = {isContained}, isFreeThreaded = {isFreeThreaded}, isDisconnected = {isDisconnected}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct DacpRCWData
+    public partial struct DacpRCWData
     {
         public CLRDATA_ADDRESS identityPointer;
         public CLRDATA_ADDRESS unknownPointer;

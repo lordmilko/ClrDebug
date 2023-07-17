@@ -9,7 +9,7 @@ namespace ClrDebug
     /// </summary>
     [DebuggerDisplay("iid = {iid.ToString(),nq}, pType = {pType.ToString(),nq}")]
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
-    public struct CorDebugGuidToTypeMapping
+    public partial struct CorDebugGuidToTypeMapping
     {
         /// <summary>
         /// The GUID of the cached Windows Runtime type.

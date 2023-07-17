@@ -12,7 +12,7 @@ namespace ClrDebug
     /// </remarks>
     [DebuggerDisplay("Address = {Address.ToString(),nq}, PEAssembly = {PEAssembly.ToString(),nq}, ilBase = {ilBase.ToString(),nq}, metadataStart = {metadataStart.ToString(),nq}, metadataSize = {metadataSize}, Assembly = {Assembly.ToString(),nq}, bIsReflection = {bIsReflection}, bIsPEFile = {bIsPEFile}, dwBaseClassIndex = {dwBaseClassIndex}, dwModuleID = {dwModuleID}, dwTransientFlags = {dwTransientFlags}, TypeDefToMethodTableMap = {TypeDefToMethodTableMap.ToString(),nq}, TypeRefToMethodTableMap = {TypeRefToMethodTableMap.ToString(),nq}, MethodDefToDescMap = {MethodDefToDescMap.ToString(),nq}, FieldDefToDescMap = {FieldDefToDescMap.ToString(),nq}, MemberRefToDescMap = {MemberRefToDescMap.ToString(),nq}, FileReferencesMap = {FileReferencesMap.ToString(),nq}, ManifestModuleReferencesMap = {ManifestModuleReferencesMap.ToString(),nq}, pLookupTableHeap = {pLookupTableHeap.ToString(),nq}, pThunkHeap = {pThunkHeap.ToString(),nq}, dwModuleIndex = {dwModuleIndex}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct DacpModuleData
+    public partial struct DacpModuleData
     {
         /// <summary>
         /// Address of the module object.

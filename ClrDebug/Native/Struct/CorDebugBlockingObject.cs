@@ -8,7 +8,7 @@ namespace ClrDebug
     /// </summary>
     [DebuggerDisplay("pBlockingObject = {pBlockingObject}, dwTimeout = {dwTimeout}, blockingReason = {blockingReason.ToString(),nq}")]
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
-    public struct CorDebugBlockingObject
+    public partial struct CorDebugBlockingObject
     {
         /// <summary>
         /// The object on which the thread is blocking. This object is valid only for the duration of the current synchronized state.<para/>

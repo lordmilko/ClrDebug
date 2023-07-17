@@ -14,7 +14,7 @@ namespace ClrDebug
     /// </remarks>
     [DebuggerDisplay("oldOffset = {oldOffset}, newOffset = {newOffset}, fAccurate = {fAccurate}")]
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
-    public struct COR_IL_MAP
+    public partial struct COR_IL_MAP
     {
         /// <summary>
         /// The old Microsoft intermediate language (MSIL) offset relative to the beginning of the function.

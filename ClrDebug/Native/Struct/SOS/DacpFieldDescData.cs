@@ -5,7 +5,7 @@ namespace ClrDebug
 {
     [DebuggerDisplay("Type = {Type.ToString(),nq}, sigType = {sigType.ToString(),nq}, MTOfType = {MTOfType.ToString(),nq}, ModuleOfType = {ModuleOfType.ToString(),nq}, TokenOfType = {TokenOfType.ToString(),nq}, mb = {mb.ToString(),nq}, MTOfEnclosingClass = {MTOfEnclosingClass.ToString(),nq}, dwOffset = {dwOffset}, bIsThreadLocal = {bIsThreadLocal}, bIsContextLocal = {bIsContextLocal}, bIsStatic = {bIsStatic}, NextField = {NextField.ToString(),nq}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct DacpFieldDescData
+    public partial struct DacpFieldDescData
     {
         public CorElementType Type;
         public CorElementType sigType;

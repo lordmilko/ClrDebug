@@ -5,7 +5,7 @@ namespace ClrDebug
 {
     [DebuggerDisplay("bHasCriticalTransparentInfo = {bHasCriticalTransparentInfo}, bIsCritical = {bIsCritical}, bIsTreatAsSafe = {bIsTreatAsSafe}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct DacpMethodDescTransparencyData
+    public partial struct DacpMethodDescTransparencyData
     {
         public bool bHasCriticalTransparentInfo;
         public bool bIsCritical;

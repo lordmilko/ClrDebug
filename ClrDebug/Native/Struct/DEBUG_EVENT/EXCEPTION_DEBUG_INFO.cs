@@ -5,7 +5,7 @@ namespace ClrDebug
 {
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct EXCEPTION_DEBUG_INFO
+    public partial struct EXCEPTION_DEBUG_INFO
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal string DebuggerDisplay => $"{ExceptionRecord.ExceptionCode} ({(dwFirstChance ? "First Chance" : "SECOND CHANCE")})";

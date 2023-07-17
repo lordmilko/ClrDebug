@@ -5,7 +5,7 @@ namespace ClrDebug
 {
     [DebuggerDisplay("outerIUnknown = {outerIUnknown.ToString(),nq}, managedObject = {managedObject.ToString(),nq}, handle = {handle.ToString(),nq}, ccwAddress = {ccwAddress.ToString(),nq}, refCount = {refCount}, interfaceCount = {interfaceCount}, isNeutered = {isNeutered}, jupiterRefCount = {jupiterRefCount}, isPegged = {isPegged}, isGlobalPegged = {isGlobalPegged}, hasStrongRef = {hasStrongRef}, isExtendsCOMObject = {isExtendsCOMObject}, isAggregated = {isAggregated}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct DacpCCWData
+    public partial struct DacpCCWData
     {
         public CLRDATA_ADDRESS outerIUnknown;
         public CLRDATA_ADDRESS managedObject;

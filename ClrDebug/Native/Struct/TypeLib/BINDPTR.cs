@@ -8,7 +8,7 @@ namespace ClrDebug.TypeLib
     /// </summary>
     [DebuggerDisplay("lpfuncdesc = {lpfuncdesc}, lpvardesc = {lpvardesc}, lptcomp = {lptcomp}")]
     [StructLayout(LayoutKind.Explicit)]
-    public unsafe struct BINDPTR
+    public unsafe partial struct BINDPTR
     {
         /// <summary>
         /// Represents a pointer to a <see cref="FUNCDESC"/> structure.
