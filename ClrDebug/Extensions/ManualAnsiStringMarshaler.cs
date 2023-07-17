@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace ClrDebug
 {
+#if !GENERATED_MARSHALLING
     class ManualAnsiStringMarshaler : ICustomMarshaler
     {
         public static ICustomMarshaler GetInstance(string pstrCookie) => new ManualAnsiStringMarshaler();
@@ -30,4 +31,5 @@ namespace ClrDebug
         //The default marshaler will attempt to free the native string. We don't want that
         public object MarshalNativeToManaged(IntPtr pNativeData) => Marshal.PtrToStringAnsi(pNativeData);
     }
+#endif
 }
