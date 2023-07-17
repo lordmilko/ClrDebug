@@ -12,6 +12,8 @@ namespace ClrDebug.SourceGenerator
 
         public string UnmanagedType { get; }
 
+        public virtual bool IsUnsafe => false;
+
         public FieldMarshaller(string name, string managedType, string unmanagedType)
         {
             Name = name;
@@ -24,5 +26,10 @@ namespace ClrDebug.SourceGenerator
 
         public virtual ExpressionSyntax ToManaged(string inputName) =>
             MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, IdentifierName(inputName), IdentifierName(Name));
+
+        public virtual StatementSyntax Free(MemberAccessExpressionSyntax unmanagedMember)
+        {
+            return null;
+        }
     }
 }

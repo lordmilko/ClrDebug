@@ -22,11 +22,15 @@ namespace ClrDebug.SourceGenerator
 
         public StructDeclarationSyntax Syntax { get; }
 
+        public AttributeSyntax StructLayout { get; }
+
         public StructSyntaxInfo(StructDeclarationSyntax @struct)
         {
             Syntax = @struct;
             Name = @struct.Identifier.ToString();
             Fields = @struct.Members.OfType<FieldDeclarationSyntax>().Select(f => new FieldSyntaxInfo(f)).ToArray();
+
+            StructLayout = @struct.AttributeLists.SelectMany(a => a.Attributes).SingleOrDefault(a => a.Name.ToString() == "StructLayout")?.WithoutTrivia();
         }
     }
 }

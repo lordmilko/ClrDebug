@@ -122,9 +122,31 @@ namespace ClrDebug.SourceGenerator
                 )
             );
 
+            var methods = new List<MemberDeclarationSyntax>
+            {
+                GenerateConvertToUnmanaged(info),
+                GenerateConvertToManaged(info)
+            };
+
+            var free = GenerateFree(info);
+
+            if (free != null)
+                methods.Add(free);
+
+            var modifiers = new List<SyntaxToken>
+            {
+                Token(SyntaxKind.InternalKeyword)
+            };
+
+            //Attempting to touch a void* member in the native type requires that method touching it is unsafe as well
+            if (info.Fields.Any(f => f.Marshaller.IsUnsafe))
+                modifiers.Add(Token(SyntaxKind.UnsafeKeyword));
+
+            modifiers.Add(Token(SyntaxKind.StaticKeyword));
+
             var marshaller = ClassDeclaration("Marshaller")
-                .WithModifiers(TokenList(Token(SyntaxKind.InternalKeyword), Token(SyntaxKind.StaticKeyword)))
-                .AddMembers(GenerateConvertToUnmanaged(info), GenerateConvertToManaged(info))
+                .WithModifiers(TokenList(modifiers))
+                .AddMembers(methods.ToArray())
                 .AddAttributeLists(AttributeList().AddAttributes(customMarshallerAttribute));
 
             return marshaller;
@@ -202,6 +224,35 @@ namespace ClrDebug.SourceGenerator
             return method;
         }
 
+        private static MethodDeclarationSyntax GenerateFree(StructSyntaxInfo info)
+        {
+            var statements = new List<StatementSyntax>();
+
+            foreach (var field in info.Fields)
+            {
+                var unmanagedMember = MemberAccessExpression(
+                    SyntaxKind.SimpleMemberAccessExpression,
+                    IdentifierName("unmanaged"),
+                    IdentifierName(field.Name)
+                );
+
+                var statement = field.Marshaller.Free(unmanagedMember);
+
+                if (statement != null)
+                    statements.Add(statement);
+            }
+
+            if (statements.Count == 0)
+                return null;
+
+            var method = MethodDeclaration(IdentifierName("void"), "Free")
+                .AddModifiers(Token(SyntaxKind.PublicKeyword), Token(SyntaxKind.StaticKeyword))
+                .AddParameterListParameters(Parameter(Identifier("unmanaged")).WithType(IdentifierName(info.NativeName)))
+                .WithBody(Block(statements));
+
+            return method;
+        }
+
         #endregion
 
         private StructDeclarationSyntax GenerateNativeStructType(StructSyntaxInfo info)
@@ -209,19 +260,33 @@ namespace ClrDebug.SourceGenerator
             var nativeTypeModifiers = info.Syntax.Modifiers.Where(m => !m.IsKind(SyntaxKind.PublicKeyword) && !m.IsKind(SyntaxKind.PartialKeyword)).ToList();
             nativeTypeModifiers.Insert(0, Token(SyntaxKind.InternalKeyword));
 
+            if (info.Fields.Any(f => f.Marshaller.IsUnsafe) && !nativeTypeModifiers.Any(m => m.IsKind(SyntaxKind.UnsafeKeyword)))
+                nativeTypeModifiers.Insert(1, Token(SyntaxKind.UnsafeKeyword));
+
             var nativeType = StructDeclaration(info.NativeName).WithModifiers(TokenList(nativeTypeModifiers)).WithMembers(
                 List(
                     info.Fields.Select(
-                        f => (MemberDeclarationSyntax)FieldDeclaration(
-                            VariableDeclaration(
-                                IdentifierName(f.Marshaller.UnmanagedType)
-                            ).AddVariables(
-                                VariableDeclarator(f.Name)
-                            )
-                        ).WithModifiers(TokenList(Token(SyntaxKind.PublicKeyword)))
+                        f =>
+                        {
+                            var newField = FieldDeclaration(
+                                VariableDeclaration(
+                                    IdentifierName(f.Marshaller.UnmanagedType)
+                                ).AddVariables(
+                                    VariableDeclarator(f.Name)
+                                )
+                            ).WithModifiers(TokenList(Token(SyntaxKind.PublicKeyword)));
+
+                            if (f.FieldOffset != null)
+                                newField = newField.AddAttributeLists(AttributeList().AddAttributes(f.FieldOffset));
+
+                            return (MemberDeclarationSyntax) newField;
+                        }
                     )
                 )
             );
+
+            if (info.StructLayout != null)
+                nativeType = nativeType.AddAttributeLists(AttributeList().AddAttributes(info.StructLayout));
 
             return nativeType;
         }
