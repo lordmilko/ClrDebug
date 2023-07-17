@@ -13,7 +13,7 @@ namespace ClrDebug
     [DebuggerDisplay("providerName = {providerName}, keywords = {keywords.ToString(),nq}, loggingLevel = {loggingLevel.ToString(),nq}, filterData = {filterData}")]
     [ComConversionLoss]
     [StructLayout(LayoutKind.Sequential, Pack = 8)]
-    public struct COR_PRF_EVENTPIPE_PROVIDER_CONFIG
+    public partial struct COR_PRF_EVENTPIPE_PROVIDER_CONFIG
     {
         //From genanalysis.cpp
         public enum Keyword : long

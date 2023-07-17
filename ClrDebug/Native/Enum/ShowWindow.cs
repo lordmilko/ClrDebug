@@ -16,7 +16,7 @@
         ShowRestore = 9,
 
         /// <summary>
-        /// This flag is not supported when used in conjunction with <see cref="STARTUPINFO"/>.
+        /// This flag is not supported when used in conjunction with <see cref="STARTUPINFOW"/>.
         /// </summary>
         ShowDefault = 10,
         ForceMinimize = 11

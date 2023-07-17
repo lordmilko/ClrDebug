@@ -38,7 +38,7 @@ namespace ClrDebug.CoClass
             [In] CreateProcessFlags dwCreationFlags,
             [In] IntPtr lpEnvironment,
             [MarshalAs(UnmanagedType.LPWStr), In] string lpCurrentDirectory,
-            [In] ref STARTUPINFO lpStartupInfo,
+            [In] ref STARTUPINFOW lpStartupInfo,
             [In] ref PROCESS_INFORMATION lpProcessInformation,
             [In] CorDebugCreateProcessFlags debuggingFlags,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);

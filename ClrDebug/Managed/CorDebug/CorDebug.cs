@@ -181,7 +181,7 @@ namespace ClrDebug
         /// flag in the dwCreationFlags parameter. Interop debugging is not supported on Win9x and non-x86 platforms such as
         /// IA-64-based and AMD64-based platforms.
         /// </remarks>
-        public CorDebugProcess CreateProcess(string lpApplicationName, string lpCommandLine, SECURITY_ATTRIBUTES lpProcessAttributes, SECURITY_ATTRIBUTES lpThreadAttributes, bool bInheritHandles, CreateProcessFlags dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, STARTUPINFO lpStartupInfo, ref PROCESS_INFORMATION lpProcessInformation, CorDebugCreateProcessFlags debuggingFlags)
+        public CorDebugProcess CreateProcess(string lpApplicationName, string lpCommandLine, SECURITY_ATTRIBUTES lpProcessAttributes, SECURITY_ATTRIBUTES lpThreadAttributes, bool bInheritHandles, CreateProcessFlags dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, STARTUPINFOW lpStartupInfo, ref PROCESS_INFORMATION lpProcessInformation, CorDebugCreateProcessFlags debuggingFlags)
         {
             CorDebugProcess ppProcessResult;
             TryCreateProcess(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, ref lpProcessInformation, debuggingFlags, out ppProcessResult).ThrowOnNotOK();
@@ -217,7 +217,7 @@ namespace ClrDebug
         /// flag in the dwCreationFlags parameter. Interop debugging is not supported on Win9x and non-x86 platforms such as
         /// IA-64-based and AMD64-based platforms.
         /// </remarks>
-        public HRESULT TryCreateProcess(string lpApplicationName, string lpCommandLine, SECURITY_ATTRIBUTES lpProcessAttributes, SECURITY_ATTRIBUTES lpThreadAttributes, bool bInheritHandles, CreateProcessFlags dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, STARTUPINFO lpStartupInfo, ref PROCESS_INFORMATION lpProcessInformation, CorDebugCreateProcessFlags debuggingFlags, out CorDebugProcess ppProcessResult)
+        public HRESULT TryCreateProcess(string lpApplicationName, string lpCommandLine, SECURITY_ATTRIBUTES lpProcessAttributes, SECURITY_ATTRIBUTES lpThreadAttributes, bool bInheritHandles, CreateProcessFlags dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, STARTUPINFOW lpStartupInfo, ref PROCESS_INFORMATION lpProcessInformation, CorDebugCreateProcessFlags debuggingFlags, out CorDebugProcess ppProcessResult)
         {
             /*HRESULT CreateProcess(
             [MarshalAs(UnmanagedType.LPWStr), In] string lpApplicationName,

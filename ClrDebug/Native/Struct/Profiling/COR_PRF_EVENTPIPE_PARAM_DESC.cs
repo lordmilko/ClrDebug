@@ -14,7 +14,7 @@ namespace ClrDebug
     [DebuggerDisplay("type = {type.ToString(),nq}, elementType = {elementType.ToString(),nq}, name = {name}")]
     [ComConversionLoss]
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
-    public struct COR_PRF_EVENTPIPE_PARAM_DESC
+    public partial struct COR_PRF_EVENTPIPE_PARAM_DESC
     {
         /// <summary>
         /// The type of the parameter.

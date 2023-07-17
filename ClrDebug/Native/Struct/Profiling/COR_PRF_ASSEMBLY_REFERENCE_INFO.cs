@@ -18,7 +18,7 @@ namespace ClrDebug
     /// </remarks>
     [DebuggerDisplay("pbPublicKeyOrToken = {pbPublicKeyOrToken.ToString(),nq}, cbPublicKeyOrToken = {cbPublicKeyOrToken}, szName = {szName}, pMetaData = {pMetaData}, pbHashValue = {pbHashValue.ToString(),nq}, cbHashValue = {cbHashValue}, dwAssemblyRefFlags = {dwAssemblyRefFlags}")]
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
-    public unsafe struct COR_PRF_ASSEMBLY_REFERENCE_INFO
+    public unsafe partial struct COR_PRF_ASSEMBLY_REFERENCE_INFO
     {
         /// <summary>
         /// A pointer to the public key or token of the assembly.

@@ -59,7 +59,7 @@ namespace ClrDebug
             CreateProcessFlags dwCreationFlags = 0,
             IntPtr? lpEnvironment = null,
             string lpCurrentDirectory = null,
-            STARTUPINFO? lpStartupInfo = null,
+            STARTUPINFOW? lpStartupInfo = null,
             CorDebugCreateProcessFlags debuggingFlags = CorDebugCreateProcessFlags.DEBUG_NO_SPECIAL_OPTIONS,
             Action<IntPtr> closeHandle = null)
         {
@@ -68,13 +68,13 @@ namespace ClrDebug
             var env = lpEnvironment ?? IntPtr.Zero;
             var pi = new PROCESS_INFORMATION();
 
-            STARTUPINFO si;
+            STARTUPINFOW si;
 
             if (lpStartupInfo == null)
             {
-                si = new STARTUPINFO
+                si = new STARTUPINFOW
                 {
-                    cb = Marshal.SizeOf<STARTUPINFO>()
+                    cb = Marshal.SizeOf<STARTUPINFOW>()
                 };
             }
             else
