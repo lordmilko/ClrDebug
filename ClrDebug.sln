@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbgEngConsole", "Samples\Db
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbgEngTypedData", "Samples\DbgEngTypedData\DbgEngTypedData.csproj", "{A27B0B29-CDDD-4CBB-B2B7-D72331D77CCB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClrDebug.SourceGenerator", "ClrDebug.SourceGenerator\ClrDebug.SourceGenerator.csproj", "{616EEEF7-923B-4A23-A1FC-89C1DED5D4CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,10 @@ Global
 		{A27B0B29-CDDD-4CBB-B2B7-D72331D77CCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A27B0B29-CDDD-4CBB-B2B7-D72331D77CCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A27B0B29-CDDD-4CBB-B2B7-D72331D77CCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{616EEEF7-923B-4A23-A1FC-89C1DED5D4CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{616EEEF7-923B-4A23-A1FC-89C1DED5D4CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{616EEEF7-923B-4A23-A1FC-89C1DED5D4CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{616EEEF7-923B-4A23-A1FC-89C1DED5D4CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
