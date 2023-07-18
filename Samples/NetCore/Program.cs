@@ -1,8 +1,18 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Threading;
 using ClrDebug;
+
+#if NET8_0_OR_GREATER
+using System.Runtime.InteropServices.Marshalling;
+
+//You don't need to disable runtime marshalling, however this sample also supports compiling to NativeAOT, and we'd like to test that
+//things still work when runtime marshalling is disabled
+[assembly: DisableRuntimeMarshalling]
+#endif
 
 namespace NetCore
 {
@@ -20,7 +30,11 @@ namespace NetCore
             var dbgShimPath = FindDbgShim();
 
             var dbgshim = new DbgShim(
+#if NET8_0_OR_GREATER
+                NativeLibrary.Load(dbgShimPath)
+#else
                 NativeMethods.LoadLibrary(dbgShimPath)
+#endif
             );
 
             /* The disadvantage of using CreateProcessForLaunch is that you can't specify CreateProcessFlags
@@ -120,6 +134,7 @@ namespace NetCore
             IntPtr unregisterToken = IntPtr.Zero;
 
             CorDebug cordebug = null;
+            HRESULT hr = HRESULT.E_FAIL;
             var wait = new AutoResetEvent(false);
 
             try
@@ -135,10 +150,21 @@ namespace NetCore
 
                 //Do not step! the CLR may initialize while you're stepping! Either set a breakpoint in the PSTARTUP_CALLBACK or AFTER RegisterForRuntimeStartup
 
-                unregisterToken = dbgshim.RegisterForRuntimeStartup(pid, (cordb, parameter, hr) =>
+                //Our DbgShim object will cache the last delegate passed to native code to prevent it being garbage collected.
+                //As such there is no need to GC.KeepAlive() anything
+                unregisterToken = dbgshim.RegisterForRuntimeStartup(pid, (pCordb, parameter, callbackHR) =>
                 {
-                    if (hr == HRESULT.S_OK)
-                        cordebug = new CorDebug(cordb);
+                    /* DbgShim provides two overloads of RegisterForRuntimeStartup: one that takes a PSTARTUP_CALLBACK and one
+                     * that takes a RuntimeStartupCallback. As it is not possible to easily marshal the ICorDebug parameter on the PSTARTUP_CALLBACK
+                     * in all scenarios (.NET Core is buggy and NativeAOT is impossible on non-Windows platforms) we work around this by defining an
+                     * RegisterForRuntimeStartup extension method that takes a "RuntimeStartupCallback" instead. This extension method defers to the "real"
+                     * RegisterForRuntimeStartup internally and handles the marshalling/wrapping of the ICorDebug interface for us. If the HRESULT parameter
+                     * passed to the callback is not S_OK, "pCordb" will be null. If the delegate type or delegate parameter types on the callback passed to
+                     * RegisterForRuntimeStartup have not been explicitly specified, the compiler can still figure out which RegisterForRuntimeStartup
+                     * overload to use based on the type of value "pCordb" is assigned to. */
+                    cordebug = pCordb;
+
+                    hr = callbackHR;
 
                     wait.Set();
                 });
@@ -150,6 +176,10 @@ namespace NetCore
                 if (unregisterToken != IntPtr.Zero)
                     dbgshim.UnregisterForRuntimeStartup(unregisterToken);
             }
+
+            //if callbackHR was not S_OK, an error occurred while attempting to register for runtime startup
+            if (cordebug == null)
+                throw new DebugException(hr);
 
             //Initialize ICorDebug, setup our managed callback and attach to the existing process
             InitCorDebug(cordebug, pid);

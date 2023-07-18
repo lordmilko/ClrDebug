@@ -1,0 +1,68 @@
+﻿<Directives>
+  <Library>
+    <Assembly Name="ClrDebug">
+      <!-- DbgShim -->
+      <Type Name="ClrDebug.CLRDataCreateInstanceDelegate" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.CLRCreateInstanceDelegate" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.CloseCLREnumerationDelegate" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.CloseResumeHandleDelegate" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.CreateVersionStringFromModuleDelegate" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.CreateDebuggingInterfaceFromVersionDelegate" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.CreateDebuggingInterfaceFromVersionExDelegate" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.CreateDebuggingInterfaceFromVersion2Delegate" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.CreateDebuggingInterfaceFromVersion3Delegate" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.CreateProcessForLaunchDelegate" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.EnumerateCLRsDelegate" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.GetStartupNotificationEventDelegate" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.PSTARTUP_CALLBACK" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.RegisterForRuntimeStartupDelegate" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.RegisterForRuntimeStartupExDelegate" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.RegisterForRuntimeStartup3Delegate" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.ResumeProcessDelegate" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.UnregisterForRuntimeStartupDelegate" MarshalDelegate="Required All" />
+      
+      <!-- Delegates likely only need to be defined when used with Marshal.GetDelegateForFunctionPointer().
+           The following delegates found in ClrDebug are defined below for completeness -->
+        
+      <!-- ICorProfilerInfo -->
+      <!--<Type Name="ClrDebug.FunctionEnter" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.FunctionLeave" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.FunctionTailcall" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.FunctionEnter2" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.FunctionLeave2" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.FunctionTailcall2" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.FunctionEnter3" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.FunctionLeave3" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.FunctionTailcall3" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.FunctionEnter3WithInfo" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.FunctionLeave3WithInfo" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.FunctionTailcall3WithInfo" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.FunctionIDMapper" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.FunctionIDMapper2" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.StackSnapshotCallback" MarshalDelegate="Required All" />-->
+
+      <!-- ICLRTask -->
+      <!--<Type Name="ClrDebug.LPTHREAD_START_ROUTINE" MarshalDelegate="Required All" />-->
+
+      <!-- ICLRMetaHost -->
+      <!--<Type Name="ClrDebug.RuntimeLoadedCallback" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.CallbackThreadSet" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.CallbackThreadUnset" MarshalDelegate="Required All" />-->
+
+      <!-- ICLRRuntimeHost -->
+      <!--<Type Name="ClrDebug.FExecuteInAppDomainCallback" MarshalDelegate="Required All" />-->
+
+      <!-- ISOSDacInterface -->
+      <!--<Type Name="ClrDebug.MODULEMAPTRAVERSE" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.DUMPEHINFO" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.VISITHEAP" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.VISITRCWFORCLEANUP" MarshalDelegate="Required All" />-->
+
+      <!-- IXCLRDisassemblySupport -->
+      <!--<Type Name="ClrDebug.CDSTranslateAddrCB" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.CDSTranslateFixupCB" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.CDSTranslateConstCB" MarshalDelegate="Required All" />
+      <Type Name="ClrDebug.CDSTranslateRegrelCB" MarshalDelegate="Required All" />-->
+    </Assembly>
+  </Library>
+</Directives>

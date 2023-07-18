@@ -1,9 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <IsGeneratedMarshalling Condition="$(TargetFramework) == 'net8.0'">true</IsGeneratedMarshalling>
+    <IsGeneratedMarshalling Condition="'$(IsGeneratedMarshalling)' == ''">false</IsGeneratedMarshalling>
+
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFrameworks>net8.0</TargetFrameworks>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <NoWarn>NETSDK1138;NU1901;NU1902</NoWarn>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <PublishAot Condition="'$(IsGeneratedMarshalling)'">true</PublishAot>
   </PropertyGroup>
+
+  <ItemGroup>
+    <!-- SolutionDir can be undefined so we must use $(ProjectDir) and step backwards instead -->
+    <RdXmlFile Include="$(ProjectDir)..\..\ClrDebug.rd.xml" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(IsGeneratedMarshalling)'">
+    <Exec Command="dotnet publish --no-build -c $(Configuration) -f net8.0" />
+  </Target>
 
   <ItemGroup>
     <ProjectReference Include="..\..\ClrDebug\ClrDebug.csproj" />

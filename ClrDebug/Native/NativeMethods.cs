@@ -21,7 +21,7 @@ namespace ClrDebug
         public static extern void RtlZeroMemory(IntPtr Destination, int Length);
 #else
         //This is only called on Windows. On other operating systems, a delegate must
-        //be provided that contains the 
+        //be provided that contains the function to use to close the given handle
         [LibraryImport(kernel32, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static partial bool CloseHandle(IntPtr handle);

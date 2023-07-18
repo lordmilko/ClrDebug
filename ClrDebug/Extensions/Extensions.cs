@@ -242,5 +242,40 @@ namespace ClrDebug
 
             return new string(charArray, 0, length - 1);
         }
+
+        /// <summary>
+        /// Retrieves an RCW for a given COM interface pointer.<para/>
+        /// When a targeting a framework where source generated COM is being used, this method creates an RCW via a StrategyBasedComWrappers instance.
+        /// Otherwise, retrieves an RCW via the CLR's built in COM interop marshaller.
+        /// </summary>
+        /// <typeparam name="T">The type of interface to retrieve.</typeparam>
+        /// <param name="pUnk">The COM interface pointer to retrieve an RCW for.</param>
+        /// <returns>A COM interface pointer casted to interface type <typeparamref name="T"/>.</returns>
+        public static T GetObjectForIUnknown<T>(IntPtr pUnk)
+        {
+#if GENERATED_MARSHALLING
+            return (T) DefaultMarshallingInstance.GetOrCreateObjectForComInstance(pUnk, CreateObjectFlags.None);
+#else
+            return (T) Marshal.GetObjectForIUnknown(pUnk);
+#endif
+        }
+
+        /// <summary>
+        /// Retrieves a CCW for a given managed object.<para/>
+        /// When a targeting a framework where source generated COM is being used, this method creates a CCW via a StrategyBasedComWrappers instance.
+        /// Otherwise, retrieves a CCW via the CLR's built in COM interop marshaller.<para/>
+        /// Note that when source generated COM is being used, if the type of <paramref name="o"/> is a <see langword="class"/>,
+        /// the class MUST be decorated with GeneratedComClassAttribute, otherwise ComWrappers won't know what interfaces the type implements.
+        /// </summary>
+        /// <param name="o">The managed object to retrieve a CCW for.</param>
+        /// <returns>A COM interface pointer for the managed object that can be passed to unmanaged code.</returns>
+        public static IntPtr GetIUnknownForObject(object o)
+        {
+#if GENERATED_MARSHALLING
+            return DefaultMarshallingInstance.GetOrCreateComInterfaceForObject(o, CreateComInterfaceFlags.None);
+#else
+            return Marshal.GetIUnknownForObject(o);
+#endif
+        }
     }
 }

@@ -3,10 +3,18 @@ using System.Runtime.InteropServices;
 
 namespace NetCore
 {
-    static class NativeMethods
+    static partial class NativeMethods
     {
         private const string kernel32 = "kernel32.dll";
 
+#if NET8_0_OR_GREATER
+        [LibraryImport(kernel32, SetLastError = true)]
+        public static partial uint WaitForSingleObject([In] IntPtr hHandle, [In] int dwMilliseconds);
+
+        [LibraryImport(kernel32, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static partial bool SetEvent([In] IntPtr hEvent);
+#else
         [DllImport(kernel32, SetLastError = true)]
         public static extern IntPtr GetProcAddress(IntPtr hModule, string lpProcName);
 
@@ -18,5 +26,6 @@ namespace NetCore
 
         [DllImport(kernel32, SetLastError = true)]
         public static extern bool SetEvent([In] IntPtr hEvent);
+#endif
     }
 }

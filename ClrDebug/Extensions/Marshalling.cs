@@ -8,6 +8,11 @@ using System.Runtime.InteropServices;
 
 namespace ClrDebug
 {
+    public static partial class Extensions
+    {
+        internal static readonly StrategyBasedComWrappers DefaultMarshallingInstance = new StrategyBasedComWrappers();
+    }
+
     /// <summary>
     /// Represents a fake <see cref="System.Runtime.InteropServices.InAttribute"/> for compatibility
     /// with <see cref="System.Runtime.InteropServices.Marshalling.GeneratedComInterfaceAttribute"/>
@@ -53,7 +58,7 @@ namespace ClrDebug
 
         public static Guid ConvertToManaged(GuidNative unmanaged) => Convert<GuidNative, Guid>(unmanaged);
 
-        private static TOut Convert<TIn, TOut>(TIn value)
+        private static TOut Convert<TIn, TOut>(TIn value) where TOut : new()
         {
             var buffer = Marshal.AllocHGlobal(Marshal.SizeOf<TIn>());
 
@@ -61,7 +66,8 @@ namespace ClrDebug
             {
                 Marshal.StructureToPtr(value, buffer, false);
 
-                var converted = Marshal.PtrToStructure<TOut>(buffer);
+                var converted = new TOut();
+                Marshal.PtrToStructure(buffer, converted);
 
                 return converted;
             }

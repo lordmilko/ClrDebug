@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 using static ClrDebug.Extensions;
 
 namespace ClrDebug
@@ -55,7 +58,7 @@ namespace ClrDebug
     /// <returns>A HRESULT that indicates success or failure.</returns>
     public delegate HRESULT CreateDebuggingInterfaceFromVersionDelegate(
         [MarshalAs(UnmanagedType.LPWStr), In] string szDebuggeeVersion,
-        [MarshalAs(UnmanagedType.Interface), Out] out ICorDebug ppCordb);
+        [Out] out IntPtr ppCordb);
 
     /// <summary>
     /// Accepts a common language runtime (CLR) version string that is returned from the CreateVersionStringFromModule function, and returns a corresponding debugger interface (typically, <see cref="ICorDebug"/>).
@@ -67,7 +70,7 @@ namespace ClrDebug
     public delegate HRESULT CreateDebuggingInterfaceFromVersionExDelegate(
         [In] CorDebugInterfaceVersion iDebuggerVersion,
         [MarshalAs(UnmanagedType.LPWStr), In] string szDebuggeeVersion,
-        [MarshalAs(UnmanagedType.Interface), Out] out ICorDebug ppCordb);
+        [Out] out IntPtr ppCordb);
 
     /// <summary>
     /// Accepts a common language runtime (CLR) version string that is returned from the CreateVersionStringFromModule function, and returns a corresponding debugger interface (typically, <see cref="ICorDebug"/>).
@@ -81,7 +84,7 @@ namespace ClrDebug
         [In] CorDebugInterfaceVersion iDebuggerVersion,
         [MarshalAs(UnmanagedType.LPWStr), In] string szDebuggeeVersion,
         [MarshalAs(UnmanagedType.LPWStr), In] string szApplicationGroupId,
-        [MarshalAs(UnmanagedType.Interface), Out] out ICorDebug ppCordb);
+        [Out] out IntPtr ppCordb);
 
     /// <summary>
     /// Accepts a common language runtime (CLR) version string that is returned from the CreateVersionStringFromModule function, and returns a corresponding debugger interface (typically, <see cref="ICorDebug"/>).
@@ -97,7 +100,7 @@ namespace ClrDebug
         [MarshalAs(UnmanagedType.LPWStr), In] string szDebuggeeVersion,
         [MarshalAs(UnmanagedType.LPWStr), In] string szApplicationGroupId,
         [In, MarshalAs(UnmanagedType.Interface)] ICLRDebuggingLibraryProvider3 pLibraryProvider,
-        [MarshalAs(UnmanagedType.Interface), Out] out ICorDebug ppCordb);
+        [Out] out IntPtr ppCordb);
 
     /// <summary>
     /// A subset of the Windows CreateProcess that can be supported cross-platform.
@@ -147,11 +150,11 @@ namespace ClrDebug
     /// <param name="pCordb">[in] Pointer to a pointer to a COM object (IUnknown). This object will be cast to an <see cref="ICorDebug"/> object before it is returned.</param>
     /// <param name="parameter">[in] The 'parameter' value passed to RegisterForRuntimeStartup.</param>
     /// <param name="hr">[in] The result of the operation.</param>
-    /// <remarks>pCordb must be an IntPtr or have custom marshaling, otherwise the CLR will throw an exception while trying to invoke the callback, and the callback will instead be re-invoked with E_FAIL and a null pCordb.
-    /// This occurs due to coreclr!CtxEntry::Init attempting to call GetCurrentObjCtx() which in turn calls CoGetObjectContext(). This is expected to always succeed, however in this particular
-    /// case it in fact fails; this may be due to the fact that the thread that is running the callback hasn't been setup for COM properly</remarks>
     public delegate void PSTARTUP_CALLBACK(
-        [In, MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(ManualInterfaceMarshaler))] ICorDebug pCordb,
+        //This type cannot be ICorDebug. In .NET Core, the runtime freaks out when we try to marshal it. You can work around this with an ICustomMarshaler,
+        //however there is absolutely no way to marshal the parameter cross-platform in NativeAOT (NativeAOT will only try and use a globally registered ComWrappers
+        //type on Windows). As such it's easier if we just marshal the pointer ourselves
+        [In] IntPtr pCordb,
         [In] IntPtr parameter,
         [In] HRESULT hr);
 
@@ -219,7 +222,7 @@ namespace ClrDebug
     public delegate HRESULT UnregisterForRuntimeStartupDelegate(
         [In] IntPtr pUnregisterToken);
 
-    #endregion
+#endregion
 
 #if !GENERATED_MARSHALLING
     /// <summary>
@@ -234,6 +237,11 @@ namespace ClrDebug
 #endif
     public class DbgShim
     {
+        //Cache the last PSTARTUP_CALLBACK delegate used on each method to prevent it from being garbage collected
+        private PSTARTUP_CALLBACK lastRegisterForRuntimeStartupCallback;
+        private PSTARTUP_CALLBACK lastRegisterForRuntimeStartupExCallback;
+        private PSTARTUP_CALLBACK lastRegisterForRuntimeStartup3Callback;
+
         public IntPtr hModule { get; }
 
         /// <summary>
@@ -416,7 +424,7 @@ namespace ClrDebug
             var hr = @delegate(szDebuggeeVersion, out var raw);
 
             if (hr == HRESULT.S_OK)
-                ppCordb = new CorDebug(raw);
+                ppCordb = new CorDebug(GetObjectForIUnknown<ICorDebug>(raw));
             else
                 ppCordb = null;
 
@@ -455,7 +463,7 @@ namespace ClrDebug
             var hr = @delegate(iDebuggerVersion, szDebuggeeVersion, out var raw);
 
             if (hr == HRESULT.S_OK)
-                ppCordb = new CorDebug(raw);
+                ppCordb = new CorDebug(GetObjectForIUnknown<ICorDebug>(raw));
             else
                 ppCordb = null;
 
@@ -497,7 +505,7 @@ namespace ClrDebug
             var hr = @delegate(iDebuggerVersion, szDebuggeeVersion, szApplicationGroupId, out var raw);
 
             if (hr == HRESULT.S_OK)
-                ppCordb = new CorDebug(raw);
+                ppCordb = new CorDebug(GetObjectForIUnknown<ICorDebug>(raw));
             else
                 ppCordb = null;
 
@@ -546,7 +554,7 @@ namespace ClrDebug
             var hr = @delegate(iDebuggerVersion, szDebuggeeVersion, szApplicationGroupId, pLibraryProvider, out var raw);
 
             if (hr == HRESULT.S_OK)
-                ppCordb = new CorDebug(raw);
+                ppCordb = new CorDebug(GetObjectForIUnknown<ICorDebug>(raw));
             else
                 ppCordb = null;
 
@@ -670,6 +678,8 @@ namespace ClrDebug
             IntPtr parameter,
             out IntPtr ppUnregisterToken)
         {
+            lastRegisterForRuntimeStartupCallback = pfnCallback;
+
             var @delegate = GetDelegate<RegisterForRuntimeStartupDelegate>(nameof(RegisterForRuntimeStartup));
 
             return @delegate(dwProcessId, pfnCallback, parameter, out ppUnregisterToken);
@@ -712,6 +722,8 @@ namespace ClrDebug
             IntPtr parameter,
             out IntPtr ppUnregisterToken)
         {
+            lastRegisterForRuntimeStartupExCallback = pfnCallback;
+
             var @delegate = GetDelegate<RegisterForRuntimeStartupExDelegate>(nameof(RegisterForRuntimeStartupEx));
 
             return @delegate(dwProcessId, lpApplicationGroupId, pfnCallback, parameter, out ppUnregisterToken);
@@ -758,6 +770,8 @@ namespace ClrDebug
             IntPtr parameter,
             out IntPtr ppUnregisterToken)
         {
+            lastRegisterForRuntimeStartup3Callback = pfnCallback;
+
             var @delegate = GetDelegate<RegisterForRuntimeStartup3Delegate>(nameof(RegisterForRuntimeStartup3));
 
             return @delegate(dwProcessId, lpApplicationGroupId, pLibraryProvider, pfnCallback, parameter, out ppUnregisterToken);
@@ -825,6 +839,143 @@ namespace ClrDebug
                 throw new InvalidOperationException($"Failed to get address of procedure '{procName}': {(HRESULT)Marshal.GetHRForLastWin32Error()}");
 
             return Marshal.GetDelegateForFunctionPointer<T>(proc);
+        }
+    }
+
+    /// <summary>
+    /// Points to a function that is called when the .NET Core runtime has started for the RegisterForRuntimeStartup API.
+    /// </summary>
+    /// <param name="pCordb">If <paramref name="hr"/> is <see cref="HRESULT.S_OK"/>, a <see cref="CorDebug"/> object that encapsulates an underlying <see cref="ICorDebug"/> interface. Otherwise, <see langword="null"/>.</param>
+    /// <param name="parameter">The 'parameter' value passed to RegisterForRuntimeStartup.</param>
+    /// <param name="hr">The result of the operation.</param>
+    public delegate void RuntimeStartupCallback(CorDebug pCordb, IntPtr parameter, HRESULT hr);
+
+    public static partial class Extensions
+    {
+        #region RegisterForRuntimeStartup
+
+        /// <summary>
+        /// Executes the callback when the .NET Core runtime starts in the specified process.
+        /// </summary>
+        /// <param name="dbgShim">The <see cref="DbgShim"/> instance that should be used to register for runtime startup.</param>
+        /// <param name="dwProcessId">[in] The process id of the target process.</param>
+        /// <param name="pfnCallback">[in] A callback that is invoked when the runtime starts. See <see cref="PSTARTUP_CALLBACK"/> function pointer.</param>
+        /// <param name="parameter">[in] data pointer passed to pfnCallback.</param>
+        /// <returns>Pointer to return the UnregisterForRuntimeStartup token.</returns>
+        public static IntPtr RegisterForRuntimeStartup(
+            this DbgShim dbgShim,
+            int dwProcessId,
+            RuntimeStartupCallback pfnCallback,
+            IntPtr parameter = default(IntPtr)) =>
+            dbgShim.RegisterForRuntimeStartup(dwProcessId, NativeToManagedCallback(pfnCallback), parameter);
+
+        /// <summary>
+        /// Executes the callback when the .NET Core runtime starts in the specified process.
+        /// </summary>
+        /// <param name="dbgShim">The <see cref="DbgShim"/> instance that should be used to register for runtime startup.</param>
+        /// <param name="dwProcessId">[in] The process id of the target process.</param>
+        /// <param name="pfnCallback">[in] A callback that is invoked when the runtime starts. See <see cref="PSTARTUP_CALLBACK"/> function pointer.</param>
+        /// <param name="parameter">[in] data pointer passed to pfnCallback.</param>
+        /// <param name="ppUnregisterToken">[out] pointer to return the UnregisterForRuntimeStartup token.</param>
+        /// <returns>A HRESULT that indicates success or failure.</returns>
+        public static HRESULT TryRegisterForRuntimeStartup(
+            this DbgShim dbgShim,
+            int dwProcessId,
+            RuntimeStartupCallback pfnCallback,
+            IntPtr parameter,
+            out IntPtr ppUnregisterToken) =>
+            dbgShim.TryRegisterForRuntimeStartup(dwProcessId, NativeToManagedCallback(pfnCallback), parameter, out ppUnregisterToken);
+
+        #endregion
+        #region RegisterForRuntimeStartupEx
+
+        /// <summary>
+        /// Executes the callback when the .NET Core runtime starts in the specified process.
+        /// </summary>
+        /// <param name="dbgShim">The <see cref="DbgShim"/> instance that should be used to register for runtime startup.</param>
+        /// <param name="dwProcessId">[in] The process id of the target process.</param>
+        /// <param name="lpApplicationGroupId">[in] A string representing the application group ID of a sandboxed process running in Mac. Pass NULL if the process is not running in a sandbox and other platforms.</param>
+        /// <param name="pfnCallback">[in] A callback that is invoked when the runtime starts. See <see cref="PSTARTUP_CALLBACK"/> function pointer.</param>
+        /// <param name="parameter">[in] data pointer passed to pfnCallback.</param>
+        /// <returns>Pointer to return the UnregisterForRuntimeStartup token.</returns>
+        public static IntPtr RegisterForRuntimeStartupEx(
+            this DbgShim dbgShim,
+            int dwProcessId,
+            string lpApplicationGroupId,
+            RuntimeStartupCallback pfnCallback,
+            IntPtr parameter) => dbgShim.RegisterForRuntimeStartupEx(dwProcessId, lpApplicationGroupId, NativeToManagedCallback(pfnCallback), parameter);
+
+        /// <summary>
+        /// Executes the callback when the .NET Core runtime starts in the specified process.
+        /// </summary>
+        /// <param name="dbgShim">The <see cref="DbgShim"/> instance that should be used to register for runtime startup.</param>
+        /// <param name="dwProcessId">[in] The process id of the target process.</param>
+        /// <param name="lpApplicationGroupId">[in] A string representing the application group ID of a sandboxed process running in Mac. Pass NULL if the process is not running in a sandbox and other platforms.</param>
+        /// <param name="pfnCallback">[in] A callback that is invoked when the runtime starts. See <see cref="PSTARTUP_CALLBACK"/> function pointer.</param>
+        /// <param name="parameter">[in] data pointer passed to pfnCallback.</param>
+        /// <param name="ppUnregisterToken">[out] pointer to return the UnregisterForRuntimeStartup token.</param>
+        /// <returns>A HRESULT that indicates success or failure.</returns>
+        public static HRESULT TryRegisterForRuntimeStartupEx(
+            this DbgShim dbgShim,
+            int dwProcessId,
+            string lpApplicationGroupId,
+            RuntimeStartupCallback pfnCallback,
+            IntPtr parameter,
+            out IntPtr ppUnregisterToken) => dbgShim.TryRegisterForRuntimeStartupEx(dwProcessId, lpApplicationGroupId, NativeToManagedCallback(pfnCallback), parameter, out ppUnregisterToken);
+
+        #endregion
+        #region RegisterForRuntimeStartup3
+
+        /// <summary>
+        /// Executes the callback when the .NET Core runtime starts in the specified process.
+        /// </summary>
+        /// <param name="dbgShim">The <see cref="DbgShim"/> instance that should be used to register for runtime startup.</param>
+        /// <param name="dwProcessId">[in] The process id of the target process.</param>
+        /// <param name="lpApplicationGroupId">[in] A string representing the application group ID of a sandboxed process running in Mac. Pass NULL if the process is not running in a sandbox and other platforms.</param>
+        /// <param name="pLibraryProvider">[in] A callback interface instance for locating DBI and DAC. See ICLRDebuggingLibraryProvider3 interface.</param>
+        /// <param name="pfnCallback">[in] A callback that is invoked when the runtime starts. See <see cref="PSTARTUP_CALLBACK"/> function pointer.</param>
+        /// <param name="parameter">[in] data pointer passed to pfnCallback.</param>
+        /// <returns>Pointer to return the UnregisterForRuntimeStartup token.</returns>
+        public static IntPtr RegisterForRuntimeStartup3(
+            this DbgShim dbgShim,
+            int dwProcessId,
+            string lpApplicationGroupId,
+            ICLRDebuggingLibraryProvider3 pLibraryProvider,
+            RuntimeStartupCallback pfnCallback,
+            IntPtr parameter) => dbgShim.RegisterForRuntimeStartup3(dwProcessId, lpApplicationGroupId, pLibraryProvider, NativeToManagedCallback(pfnCallback), parameter);
+
+        /// <summary>
+        /// Executes the callback when the .NET Core runtime starts in the specified process.
+        /// </summary>
+        /// <param name="dbgShim">The <see cref="DbgShim"/> instance that should be used to register for runtime startup.</param>
+        /// <param name="dwProcessId">[in] The process id of the target process.</param>
+        /// <param name="lpApplicationGroupId">[in] A string representing the application group ID of a sandboxed process running in Mac. Pass NULL if the process is not running in a sandbox and other platforms.</param>
+        /// <param name="pLibraryProvider">[in] A callback interface instance for locating DBI and DAC. See ICLRDebuggingLibraryProvider3 interface.</param>
+        /// <param name="pfnCallback">[in] A callback that is invoked when the runtime starts. See <see cref="PSTARTUP_CALLBACK"/> function pointer.</param>
+        /// <param name="parameter">[in] data pointer passed to pfnCallback.</param>
+        /// <param name="ppUnregisterToken">[out] pointer to return the UnregisterForRuntimeStartup token.</param>
+        /// <returns>A HRESULT that indicates success or failure.</returns>
+        public static HRESULT TryRegisterForRuntimeStartup3(this DbgShim dbgShim,
+            int dwProcessId,
+            string lpApplicationGroupId,
+            ICLRDebuggingLibraryProvider3 pLibraryProvider,
+            RuntimeStartupCallback pfnCallback,
+            IntPtr parameter,
+            out IntPtr ppUnregisterToken) => dbgShim.TryRegisterForRuntimeStartup3(dwProcessId, lpApplicationGroupId, pLibraryProvider, NativeToManagedCallback(pfnCallback), parameter, out ppUnregisterToken);
+
+        #endregion
+
+        private static PSTARTUP_CALLBACK NativeToManagedCallback(RuntimeStartupCallback callback)
+        {
+            return (pCordb, parameter, hr) =>
+            {
+                CorDebug corDebug = null;
+
+                if (hr == HRESULT.S_OK)
+                    corDebug = new CorDebug(GetObjectForIUnknown<ICorDebug>(pCordb));
+
+                callback?.Invoke(corDebug, parameter, hr);
+            };
         }
     }
 }
