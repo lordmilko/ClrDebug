@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("9B2C54E4-119F-4D6F-B402-527603266D69")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugProcess7
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugProcess7
     {
         /// <summary>
         /// [Supported in the .NET Framework 4.5.2 and later versions] Configures how the debugger handles in-memory updates to metadata within the target process.

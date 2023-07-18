@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("5F696509-452F-4436-A3FE-4D11FE7E2347")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugCode2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugCode2
     {
         /// <summary>
         /// Gets the chunks of code that this code object is composed of.

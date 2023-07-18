@@ -8,8 +8,12 @@ namespace ClrDebug
 {
     [Guid("E5F3039D-2C0C-4230-A69E-12AF1C3E563C")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IXCLRLibrarySupport
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IXCLRLibrarySupport
     {
         [PreserveSig]
         HRESULT LoadHardboundDependency(

@@ -11,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("48B25ED8-5BAD-41BC-9CEE-CD62FABC74E9")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISymUnmanagedConstant
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISymUnmanagedConstant
     {
         /// <summary>
         /// Gets the name of the constant.

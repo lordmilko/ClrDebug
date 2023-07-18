@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -15,8 +18,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("FF71301A-B994-429D-A10B-B345A65280EF")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorProfilerFunctionEnum
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorProfilerFunctionEnum
     {
         /// <summary>
         /// Advances the enumerator's cursor from its current position so that the specified number of elements are skipped.

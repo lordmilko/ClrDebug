@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -11,8 +14,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("35389FF1-3684-4C55-A2EE-210F26C60E5E")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugNativeFrame2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugNativeFrame2
     {
         /// <summary>
         /// Determines whether the current frame is a child frame.

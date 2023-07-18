@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -14,8 +17,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("4862efbe-3ae5-44f8-8feb-346190ee8a34")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICLRTaskManager
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICLRTaskManager
     {
         /// <summary>
         /// Requests explicitly that the common language runtime (CLR) create a new task.

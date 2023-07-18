@@ -2,6 +2,9 @@
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -14,8 +17,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("3D6F5F62-7538-11D3-8D5B-00104B35E7EF")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugController
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugController
     {
         /// <summary>
         /// Performs a cooperative stop on all threads that are running managed code in the process.

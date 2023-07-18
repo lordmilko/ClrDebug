@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("2BD956D9-7B07-4BEF-8A98-12AA862417C5")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugThread2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugThread2
     {
         /// <summary>
         /// Gets information about the active function in each of this thread's frames.

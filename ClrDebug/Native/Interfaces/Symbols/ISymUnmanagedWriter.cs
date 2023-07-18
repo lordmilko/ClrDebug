@@ -12,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("ED14AA72-78E2-4884-84E2-334293AE5214")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISymUnmanagedWriter
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISymUnmanagedWriter
     {
         /// <summary>
         /// Defines a source document. GUIDs are provided for known languages, vendors, and document types.

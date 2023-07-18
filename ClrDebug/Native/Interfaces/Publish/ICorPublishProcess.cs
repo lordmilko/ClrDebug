@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("18D87AF1-5A6A-11D3-8F84-00A0C9B4D50C")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorPublishProcess
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorPublishProcess
     {
         /// <summary>
         /// Gets a value that indicates whether the process referenced by this <see cref="ICorPublishProcess"/> is known to have managed code.

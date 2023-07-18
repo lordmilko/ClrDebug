@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("3721A26F-8B91-4D98-A388-DB17B356FADB")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICLRDataEnumMemoryRegionsCallback2 : ICLRDataEnumMemoryRegionsCallback
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICLRDataEnumMemoryRegionsCallback2 : ICLRDataEnumMemoryRegionsCallback
     {
 #if !GENERATED_MARSHALLING
         /// <summary>

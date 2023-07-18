@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
     [Guid("90B8FCC3-7251-4B0A-AE3D-5C13A67EC9AA")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISOSDacInterface10
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISOSDacInterface10
     {
         [PreserveSig]
         HRESULT GetObjectComWrappersData(

@@ -16,8 +16,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("AA8FA804-BC05-4642-B2C5-C353ED22FC63")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICLRMetadataLocator
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICLRMetadataLocator
     {
         /// <summary>
         /// Called by the common language runtime (CLR) data access services to retrieve the metadata of an image.

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -12,8 +15,12 @@ namespace ClrDebug
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("AE4CA65D-59DD-42A2-83A5-57E8A08D8719")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugExceptionObjectValue
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugExceptionObjectValue
     {
         /// <summary>
         /// Gets an enumerator to the call stack embedded in an exception object.

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -9,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("3151C08D-4D09-4F9B-8838-2880BF18FE51")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICLRDebuggingLibraryProvider
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICLRDebuggingLibraryProvider
     {
         /// <summary>
         /// Gets a library provider callback interface that allows common language runtime (CLR) version-specific debugging libraries to be located and loaded on demand.

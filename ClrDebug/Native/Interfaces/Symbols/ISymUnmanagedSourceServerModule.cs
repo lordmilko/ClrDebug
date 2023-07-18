@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -10,8 +13,12 @@ namespace ClrDebug
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("997DD0CC-A76F-4C82-8D79-EA87559D27AD")]
     [ComConversionLoss]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISymUnmanagedSourceServerModule
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISymUnmanagedSourceServerModule
     {
         /// <summary>
         /// Returns the source server data for the module. The caller must free resources by using CoTaskMemFree.

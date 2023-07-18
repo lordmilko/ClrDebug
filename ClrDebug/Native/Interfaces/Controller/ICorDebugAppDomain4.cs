@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("FB99CC40-83BE-4724-AB3B-768E796EBAC2")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugAppDomain4
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugAppDomain4
     {
         /// <summary>
         /// Gets a managed object from a COM callable wrapper (CCW) pointer.

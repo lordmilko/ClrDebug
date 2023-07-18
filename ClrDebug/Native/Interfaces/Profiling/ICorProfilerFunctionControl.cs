@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -14,8 +17,12 @@ namespace ClrDebug
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("F0963021-E1EA-4732-8581-E01B0BD3C0C6")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorProfilerFunctionControl
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorProfilerFunctionControl
     {
         /// <summary>
         /// Sets one or more flags from the COR_PRF_CODEGEN_FLAGS enumeration to control code generation for a just-in-time (JIT) recompiled function.

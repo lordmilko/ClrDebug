@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 using ClrDebug.TypeLib;
 
 namespace ClrDebug
@@ -9,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("D9DEBD79-2992-11d3-8BC1-0000F8083A57")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IMetaDataConverter
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IMetaDataConverter
     {
         /// <summary>
         /// Gets a pointer to an <see cref="IMetaDataImport"/> instance that represents the metadata signature of the type library referenced by the specified ITypeInfo instance.

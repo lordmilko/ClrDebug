@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -9,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("B62B923C-B500-3158-A543-24F307A8B7E1")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISymUnmanagedMethod
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISymUnmanagedMethod
     {
         /// <summary>
         /// Returns the metadata token for this method.

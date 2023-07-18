@@ -2,6 +2,9 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -10,8 +13,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("FAA8637B-3BBE-4671-8E26-3B59875B922A")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugMergedAssemblyRecord
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugMergedAssemblyRecord
     {
         /// <summary>
         /// Gets the simple name of the assembly.

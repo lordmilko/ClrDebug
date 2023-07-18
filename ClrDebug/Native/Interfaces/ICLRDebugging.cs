@@ -15,8 +15,12 @@ namespace ClrDebug
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("D28F3C5A-9634-4206-A509-477552EEFB10")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICLRDebugging
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICLRDebugging
     {
         /// <summary>
         /// Gets the <see cref="ICorDebugProcess"/> interface that corresponds to a common language runtime (CLR) module loaded in the process.

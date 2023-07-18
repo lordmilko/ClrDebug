@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -14,8 +17,12 @@ namespace ClrDebug
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("A0EFB28B-6EE2-4D7B-B983-A75EF7BEEDB8")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IMethodMalloc
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IMethodMalloc
     {
         /// <summary>
         /// Attempts to allocate a specified amount of memory for a new Microsoft intermediate language (MSIL) function body.

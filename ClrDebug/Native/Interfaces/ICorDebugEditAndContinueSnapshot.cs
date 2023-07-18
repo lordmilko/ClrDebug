@@ -12,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("6DC3FA01-D7CB-11D2-8A95-0080C792E5D8")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugEditAndContinueSnapshot
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugEditAndContinueSnapshot
     {
         /// <summary>
         /// CopyMetaData is obsolete. Do not call this method.

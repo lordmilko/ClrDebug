@@ -13,8 +13,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("40DE4037-7C81-3E1E-B022-AE1ABFF2CA08")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISymUnmanagedDocument
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISymUnmanagedDocument
     {
         /// <summary>
         /// Returns the uniform resource locator (URL) for this document.

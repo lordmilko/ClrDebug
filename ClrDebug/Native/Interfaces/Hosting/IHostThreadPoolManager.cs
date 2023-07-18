@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -12,8 +15,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("983D50E2-CB15-466B-80FC-845DC6E8C5FD")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IHostThreadPoolManager
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IHostThreadPoolManager
     {
         /// <summary>
         /// Queues a function for execution, and specifies an object containing data to be used by that function. The function executes when a thread becomes available.

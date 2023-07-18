@@ -1,6 +1,9 @@
 ﻿using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -9,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("11588775-7205-4CEB-A41A-93753C3153E9")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugProcess6
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugProcess6
     {
         /// <summary>
         /// Decodes managed debug events that have been encapsulated in the payload of specially crafted native exception debug events.

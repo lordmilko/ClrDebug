@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("23D86786-0BB5-4774-8FB5-E3522ADD6246")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IDebuggerThreadControl
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IDebuggerThreadControl
     {
         /// <summary>
         /// Notifies the host that the thread that is sending this callback is about to block within the debugging services.

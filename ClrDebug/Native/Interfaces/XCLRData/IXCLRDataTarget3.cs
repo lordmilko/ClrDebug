@@ -8,8 +8,12 @@ namespace ClrDebug
 {
     [Guid("59d9b5e1-4a6f-4531-84c3-51d12da22fd4")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IXCLRDataTarget3
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IXCLRDataTarget3
     {
         [PreserveSig]
         HRESULT GetMetaData(

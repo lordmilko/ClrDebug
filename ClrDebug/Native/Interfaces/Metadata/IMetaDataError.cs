@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -7,8 +10,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("B81FF171-20F3-11d2-8DCC-00A0C9B09C19")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IMetaDataError
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IMetaDataError
     {
         /// <summary>
         /// Provides notification of errors that occur during the metadata merge.

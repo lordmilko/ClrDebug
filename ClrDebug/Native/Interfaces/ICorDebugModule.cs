@@ -12,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("DBA2D8C1-E5C5-4069-8C13-10A7C6ABF43D")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugModule
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugModule
     {
         /// <summary>
         /// Gets the containing process of this module.

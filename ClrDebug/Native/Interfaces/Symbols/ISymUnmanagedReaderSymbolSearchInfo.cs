@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("20D9645D-03CD-4E34-9C11-9848A5B084F1")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISymUnmanagedReaderSymbolSearchInfo
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISymUnmanagedReaderSymbolSearchInfo
     {
         /// <summary>
         /// Gets a count of symbol search information.

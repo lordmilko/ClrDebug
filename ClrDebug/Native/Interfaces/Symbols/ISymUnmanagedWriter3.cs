@@ -13,8 +13,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("12F1E02C-1E05-4B0E-9468-EBC9D1BB040F")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISymUnmanagedWriter3 : ISymUnmanagedWriter2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISymUnmanagedWriter3 : ISymUnmanagedWriter2
     {
 #if !GENERATED_MARSHALLING
         /// <summary>

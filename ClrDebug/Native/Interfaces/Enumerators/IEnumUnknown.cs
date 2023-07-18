@@ -1,12 +1,19 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("00000100-0000-0000-C000-000000000046")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IEnumUnknown
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IEnumUnknown
     {
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

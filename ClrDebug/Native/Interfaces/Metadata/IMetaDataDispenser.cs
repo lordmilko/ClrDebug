@@ -11,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("809C652E-7396-11D2-9771-00A0C9B4D50C")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IMetaDataDispenser
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IMetaDataDispenser
     {
         /// <summary>
         /// Creates a new area in memory in which you can create new metadata.

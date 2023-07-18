@@ -12,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("31BCFCE2-DAFB-11D2-9F81-00C04F79A0A3")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IMetaDataDispenserEx : IMetaDataDispenser
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IMetaDataDispenserEx : IMetaDataDispenser
     {
 #if !GENERATED_MARSHALLING
         /// <summary>

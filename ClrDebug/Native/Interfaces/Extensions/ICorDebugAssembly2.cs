@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("426D1F9E-6DD4-44C8-AEC7-26CDBAF4E398")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugAssembly2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugAssembly2
     {
         /// <summary>
         /// Gets a value that indicates whether the assembly has been granted full trust by the runtime security system.

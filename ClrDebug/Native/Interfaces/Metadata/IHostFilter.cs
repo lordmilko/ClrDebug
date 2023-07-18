@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -7,8 +10,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("D0E80DD3-12D4-11d3-B39D-00C04FF81795")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IHostFilter
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IHostFilter
     {
         /// <summary>
         /// Indicates that the specified metadata token will be processed.

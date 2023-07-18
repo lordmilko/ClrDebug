@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -9,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("85E891DA-A631-4C76-ACA2-A44A39C46B8C")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISymENCUnmanagedMethod
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISymENCUnmanagedMethod
     {
         /// <summary>
         /// Gets the file name for the line associated with an offset.

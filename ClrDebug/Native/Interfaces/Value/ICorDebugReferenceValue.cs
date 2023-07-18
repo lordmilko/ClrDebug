@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -16,8 +19,12 @@ namespace ClrDebug
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("CC7BCAF9-8A68-11D2-983C-0000F808342D")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugReferenceValue : ICorDebugValue
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugReferenceValue : ICorDebugValue
     {
 #if !GENERATED_MARSHALLING
         /// <summary>

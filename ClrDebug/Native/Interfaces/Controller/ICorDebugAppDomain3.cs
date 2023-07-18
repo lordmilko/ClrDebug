@@ -20,8 +20,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("8CB96A16-B588-42E2-B71C-DD849FC2ECCC")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugAppDomain3
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugAppDomain3
     {
         /// <summary>
         /// Gets an enumerator for cached Windows Runtime types in an application domain based on their interface identifiers.

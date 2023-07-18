@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
     [Guid("96EC93C7-1000-4e93-8991-98D8766E6666")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IXCLRDataValue
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IXCLRDataValue
     {
         [PreserveSig]
         HRESULT GetFlags(

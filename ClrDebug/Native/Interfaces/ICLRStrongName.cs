@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -13,9 +16,13 @@ namespace ClrDebug
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [ComConversionLoss]
+#if !GENERATED_MARSHALLING
     [ComImport]
+#else
+    [GeneratedComInterface]
+#endif
     [Guid("9FD93CCF-3280-4391-B3A9-96E1CDE77C8D")]
-    public interface ICLRStrongName
+    public partial interface ICLRStrongName
     {
         /// <summary>
         /// Gets a hash of the specified assembly file, using the specified hash algorithm.

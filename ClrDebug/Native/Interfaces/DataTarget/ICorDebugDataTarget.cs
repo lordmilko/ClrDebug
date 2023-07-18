@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -15,8 +18,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("FE06DC28-49FB-4636-A4A3-E80DB4AE116C")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugDataTarget
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugDataTarget
     {
         /// <summary>
         /// Provides information about the platform, including processor architecture and operating system, on which the target process is running.

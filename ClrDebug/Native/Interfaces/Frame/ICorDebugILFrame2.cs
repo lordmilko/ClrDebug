@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -9,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("5D88A994-6C30-479B-890F-BCEF88B129A5")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugILFrame2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugILFrame2
     {
         /// <summary>
         /// Remaps an edited function by specifying the new Microsoft intermediate language (MSIL) offset

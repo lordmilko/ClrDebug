@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("9F60EEBE-2D9A-3F7C-BF58-80BC991C60BB")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISymUnmanagedVariable
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISymUnmanagedVariable
     {
         /// <summary>
         /// Gets the name of this variable.

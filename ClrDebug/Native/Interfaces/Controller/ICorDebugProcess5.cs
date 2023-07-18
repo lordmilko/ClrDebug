@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -11,8 +14,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("21E9D9C0-FCB8-11DF-8CFF-0800200C9A66")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugProcess5
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugProcess5
     {
         /// <summary>
         /// Provides general information about the garbage collection heap, including whether it is currently enumerable.

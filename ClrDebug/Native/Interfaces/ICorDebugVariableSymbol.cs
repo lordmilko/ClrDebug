@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -9,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("707E8932-1163-48D9-8A93-F5B1F480FBB7")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugVariableSymbol
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugVariableSymbol
     {
         /// <summary>
         /// Gets the name of a variable.

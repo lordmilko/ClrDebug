@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -13,8 +16,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("3E11CCEE-D08B-43E5-AF01-32717A64DA03")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICLRDataTarget
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICLRDataTarget
     {
         /// <summary>
         /// Gets the identifier for the kind of instruction set that the target process is using.

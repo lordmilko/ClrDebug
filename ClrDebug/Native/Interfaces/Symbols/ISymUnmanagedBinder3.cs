@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("28AD3D43-B601-4D26-8A1B-25F9165AF9D7")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISymUnmanagedBinder3 : ISymUnmanagedBinder2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISymUnmanagedBinder3 : ISymUnmanagedBinder2
     {
 #if !GENERATED_MARSHALLING
         /// <summary>

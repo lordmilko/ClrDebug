@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -11,8 +14,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("C0815BDC-CFAB-447E-A779-C116B454EB5B")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugInternalFrame2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugInternalFrame2
     {
         /// <summary>
         /// Returns the stack address of the internal frame.

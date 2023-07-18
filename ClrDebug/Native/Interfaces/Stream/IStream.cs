@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
     [Guid("0000000C-0000-0000-C000-000000000046")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IStream : ISequentialStream
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IStream : ISequentialStream
     {
 #if !GENERATED_MARSHALLING
         [PreserveSig]

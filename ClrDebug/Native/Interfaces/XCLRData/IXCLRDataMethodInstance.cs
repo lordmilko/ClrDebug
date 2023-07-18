@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -13,8 +16,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("ECD73800-22CA-4b0d-AB55-E9BA7E6318A5")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IXCLRDataMethodInstance
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IXCLRDataMethodInstance
     {
         [PreserveSig]
         HRESULT GetTypeInstance(

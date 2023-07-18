@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -9,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("8D600D41-F4F6-4CB3-B7EC-7BD164944036")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugEditAndContinueErrorInfo
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugEditAndContinueErrorInfo
     {
         /// <summary>
         /// GetModule is obsolete. Do not call this method.

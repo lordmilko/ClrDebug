@@ -11,8 +11,12 @@ namespace ClrDebug.TypeLib
     /// </summary>
     [Guid("00020401-0000-0000-C000-000000000046")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public unsafe interface ITypeInfo
+#else
+    [GeneratedComInterface]
+#endif
+    public unsafe partial interface ITypeInfo
     {
         /// <summary>
         /// Retrieves a <see cref="TYPEATTR"/> structure that contains the attributes of the type description.<para/>

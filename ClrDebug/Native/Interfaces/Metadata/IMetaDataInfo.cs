@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("7998EA64-7F95-48B8-86FC-17CAF48BF5CB")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IMetaDataInfo
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IMetaDataInfo
     {
         /// <summary>
         /// Gets the memory region of the mapped file, and the type of mapping.

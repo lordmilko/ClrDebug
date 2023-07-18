@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("2E6F28C1-85EB-4141-80AD-0A90944B9639")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugProcess8
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugProcess8
     {
         /// <summary>
         /// [Supported in the .NET Framework 4.6 and later versions] Enables or disables certain types of <see cref="ICorDebugManagedCallback2"/> exception callbacks.

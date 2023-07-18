@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -11,8 +14,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("C0B22967-5A69-11D3-8F84-00A0C9B4D50C")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorPublishEnum
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorPublishEnum
     {
         /// <summary>
         /// Moves the cursor forward in the enumeration by the specified number of items.

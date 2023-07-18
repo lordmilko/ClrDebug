@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("09B70F28-E465-482D-99E0-81A165EB0532")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugFunction3
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugFunction3
     {
         /// <summary>
         /// [Supported in the .NET Framework 4.5.2 and later versions] Gets an interface pointer to an <see cref="ICorDebugILCode"/> that contains the IL from an active ReJIT request.

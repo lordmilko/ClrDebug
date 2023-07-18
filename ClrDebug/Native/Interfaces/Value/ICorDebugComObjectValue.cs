@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -12,8 +15,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("5F69C5E5-3E12-42DF-B371-F9D761D6EE24")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugComObjectValue
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugComObjectValue
     {
         /// <summary>
         /// Provides an enumerator for the interface types that the current object has been cast to or used as.

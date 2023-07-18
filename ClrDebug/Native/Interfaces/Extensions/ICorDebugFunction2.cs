@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("EF0C490B-94C3-4E4D-B629-DDC134C532D8")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugFunction2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugFunction2
     {
         /// <summary>
         /// Marks the function represented by this <see cref="ICorDebugFunction2"/> for Just My Code stepping.

@@ -14,8 +14,12 @@ namespace ClrDebug
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("02CA073C-7079-4860-880A-C2F7A449C991")]
     [SuppressUnmanagedCodeSecurity]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IHostControl
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IHostControl
     {
         /// <summary>
         /// Gets an interface pointer to the host's implementation of the interface with the specified IID.

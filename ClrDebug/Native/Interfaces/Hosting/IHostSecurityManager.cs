@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 using System.Threading;
 
 namespace ClrDebug
@@ -16,8 +19,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("75ad2468-a349-4d02-a764-76a68aee0c4f")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IHostSecurityManager
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IHostSecurityManager
     {
         /// <summary>
         /// Requests that code be executed using the credentials of the current user identity.

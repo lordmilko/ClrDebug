@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 using System.Threading;
 
 namespace ClrDebug
@@ -12,8 +15,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("C2275828-C4B1-4B55-82C9-92135F74DF1A")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IHostTask
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IHostTask
     {
         /// <summary>
         /// Requests that the host move the task represented by the current <see cref="IHostTask"/> instance from a suspended to a live state, in which code can be executed.

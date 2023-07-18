@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("096E81D5-ECDA-4202-83F5-C65980A9EF75")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugAppDomain2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugAppDomain2
     {
         /// <summary>
         /// Gets an array of the specified type, or a pointer or reference to the specified type.

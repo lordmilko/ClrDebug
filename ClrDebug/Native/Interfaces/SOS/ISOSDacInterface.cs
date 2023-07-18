@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -36,8 +39,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("436f00f2-b42a-4b9f-870c-e73db66ae930")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISOSDacInterface
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISOSDacInterface
     {
         [PreserveSig]
         HRESULT GetThreadStoreData(

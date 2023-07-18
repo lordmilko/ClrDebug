@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 using System.Threading;
 
 namespace ClrDebug
@@ -14,8 +17,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("997FF24C-43B7-4352-8667-0DC04FAFD354")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IHostTaskManager
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IHostTaskManager
     {
         /// <summary>
         /// Requests that the host create a new task.

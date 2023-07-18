@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -13,8 +16,12 @@ namespace ClrDebug
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("CC7BCAF4-8A68-11D2-983C-0000F808342D")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugCode
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugCode
     {
         /// <summary>
         /// Gets a value that indicates whether this "ICorDebugCode" represents code that was compiled in Microsoft intermediate language (MSIL).

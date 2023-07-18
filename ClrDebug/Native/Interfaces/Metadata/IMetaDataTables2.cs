@@ -11,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("BADB5F70-58DA-43a9-A1C6-D74819F19B15")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IMetaDataTables2 : IMetaDataTables
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IMetaDataTables2 : IMetaDataTables
     {
 #if !GENERATED_MARSHALLING
         /// <summary>

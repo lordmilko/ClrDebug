@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -7,8 +10,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("06A3EA8B-0225-11d1-BF72-00C04FC31E12")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IMapToken
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IMapToken
     {
         /// <summary>
         /// Maps a relationship between the assemblies using metadata signatures.

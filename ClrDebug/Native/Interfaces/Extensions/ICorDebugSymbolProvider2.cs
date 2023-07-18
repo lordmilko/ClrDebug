@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("F9801807-4764-4330-9E67-4F685094165E")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugSymbolProvider2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugSymbolProvider2
     {
         /// <summary>
         /// Retrieves a generic dictionary map.

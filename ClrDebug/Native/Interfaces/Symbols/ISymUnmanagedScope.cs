@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -9,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("68005D0F-B8E0-3B01-84D5-A11A94154942")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISymUnmanagedScope
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISymUnmanagedScope
     {
         /// <summary>
         /// Gets the method that contains this scope.

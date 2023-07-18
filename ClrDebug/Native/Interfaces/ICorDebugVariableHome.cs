@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("50847B8D-F43F-41B0-924C-6383A5F2278B")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugVariableHome
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugVariableHome
     {
         /// <summary>
         /// Gets the "ICorDebugCode" instance that contains this <see cref="ICorDebugVariableHome"/> object.

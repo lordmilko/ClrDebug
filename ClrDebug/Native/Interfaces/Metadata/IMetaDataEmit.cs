@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -9,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("BA3FEE4C-ECB9-4e41-83B7-183FA41CD859")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IMetaDataEmit
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IMetaDataEmit
     {
         /// <summary>
         /// Updates references to a module defined by a prior call to <see cref="DefineModuleRef"/>.

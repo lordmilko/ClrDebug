@@ -12,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("B4CE6286-2A6B-3712-A3B7-1EE1DAD467B5")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISymUnmanagedReader
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISymUnmanagedReader
     {
         /// <summary>
         /// Finds a document. The document language, vendor, and type are optional.

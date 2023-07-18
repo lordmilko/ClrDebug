@@ -8,8 +8,12 @@ namespace ClrDebug
 {
     [Guid("00000001-0000-0000-C000-000000000046")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IClassFactory
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IClassFactory
     {
         [PreserveSig]
         HRESULT CreateInstance(

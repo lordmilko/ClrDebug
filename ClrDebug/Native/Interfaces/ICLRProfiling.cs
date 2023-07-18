@@ -12,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("B349ABE3-B56F-4689-BFCD-76BF39D888EA")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICLRProfiling
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICLRProfiling
     {
         /// <summary>
         /// Attaches the specified profiler to the specified process.

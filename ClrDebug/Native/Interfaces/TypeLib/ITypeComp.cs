@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.TypeLib
 {
@@ -7,8 +10,12 @@ namespace ClrDebug.TypeLib
     /// </summary>
     [Guid("00020403-0000-0000-C000-000000000046")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ITypeComp
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ITypeComp
     {
         /// <summary>
         /// Maps a name to a member of a type, or binds global variables and functions contained in a type library.

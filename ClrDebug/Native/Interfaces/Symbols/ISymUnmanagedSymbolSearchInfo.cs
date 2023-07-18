@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("F8B3534A-A46B-4980-B520-BEC4ACEABA8F")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISymUnmanagedSymbolSearchInfo
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISymUnmanagedSymbolSearchInfo
     {
         /// <summary>
         /// Gets the search path length.

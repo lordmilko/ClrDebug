@@ -11,8 +11,12 @@ namespace ClrDebug.TypeLib
     /// </summary>
     [Guid("00020411-0000-0000-C000-000000000046")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public unsafe interface ITypeLib2 : ITypeLib
+#else
+    [GeneratedComInterface]
+#endif
+    public unsafe partial interface ITypeLib2 : ITypeLib
     {
 #if !GENERATED_MARSHALLING
         /// <summary>

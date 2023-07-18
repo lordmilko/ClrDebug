@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("FC073774-1739-4232-BD56-A027294BEC15")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISymUnmanagedAsyncMethodPropertiesWriter
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISymUnmanagedAsyncMethodPropertiesWriter
     {
         /// <summary>
         /// Sets the starting method that initiates the async operation.

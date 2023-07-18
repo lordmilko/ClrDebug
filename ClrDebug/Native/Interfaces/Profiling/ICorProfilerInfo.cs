@@ -47,8 +47,12 @@ namespace ClrDebug
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [ComConversionLoss]
     [Guid("28B5557D-3F3F-48B4-90B2-5F9EEA2F6C48")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorProfilerInfo
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorProfilerInfo
     {
         /// <summary>
         /// Gets the ClassID of an object, given its ObjectID.

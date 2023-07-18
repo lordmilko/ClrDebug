@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -9,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("A0647DE9-55DE-4816-929C-385271C64CF7")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugStackWalk
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugStackWalk
     {
         /// <summary>
         /// Returns the context for the current frame in the <see cref="ICorDebugStackWalk"/> object.

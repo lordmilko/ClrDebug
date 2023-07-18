@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("7ED1BDFF-8E36-11d2-9C56-00A0C9B7CC45")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICeeGen
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICeeGen
     {
         /// <summary>
         /// Emits the specified string into the code base. This method is obsolete and should not be used.

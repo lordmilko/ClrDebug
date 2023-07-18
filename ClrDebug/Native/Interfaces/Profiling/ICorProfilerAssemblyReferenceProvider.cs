@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -16,8 +19,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("66A78C24-2EEF-4F65-B45F-DD1D8038BF3C")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorProfilerAssemblyReferenceProvider
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorProfilerAssemblyReferenceProvider
     {
         /// <summary>
         /// [Supported in the .NET Framework 4.5.2 and later versions] Informs the common language runtime (CLR) of an assembly reference that the profiler plans to add in the <see cref="ICorProfilerCallback.ModuleLoadFinished"/> callback.

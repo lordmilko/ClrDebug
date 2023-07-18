@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("5513D564-8374-4CB9-AED9-0083F4160A1D")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IGCHostControl
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IGCHostControl
     {
         /// <summary>
         /// Requests the host to change the limits of virtual memory.

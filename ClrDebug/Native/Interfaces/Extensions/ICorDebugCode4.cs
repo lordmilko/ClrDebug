@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("18221FA4-20CB-40FA-B19D-9F91C4FA8C14")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugCode4
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugCode4
     {
         /// <summary>
         /// Gets an enumerator to the local variables and arguments in a function.

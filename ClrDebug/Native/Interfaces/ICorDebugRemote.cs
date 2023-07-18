@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -13,8 +16,12 @@ namespace ClrDebug
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("D5EBB8E2-7BBE-4C1D-98A6-A3C04CBDEF64")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugRemote
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugRemote
     {
         /// <summary>
         /// Launches a process on a remote machine under the debugger.

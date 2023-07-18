@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("211EF15B-5317-4438-B196-DEC87B887693")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IMetaDataAssemblyEmit
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IMetaDataAssemblyEmit
     {
         /// <summary>
         /// Creates an Assembly structure containing metadata for the specified assembly and returns the associated metadata token.

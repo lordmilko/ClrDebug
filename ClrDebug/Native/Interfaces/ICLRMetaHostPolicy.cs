@@ -19,8 +19,12 @@ namespace ClrDebug
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("E2190695-77B2-492E-8E14-C4B3A7FDD593")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICLRMetaHostPolicy
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICLRMetaHostPolicy
     {
         /// <summary>
         /// Provides an interface to a preferred version of the common language runtime (CLR) based on a hosting policy, managed assembly, version string, and configuration stream.<para/>

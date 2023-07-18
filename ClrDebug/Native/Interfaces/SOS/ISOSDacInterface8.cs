@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
     [Guid("c12f35a9-e55c-4520-a894-b3dc5165dfce")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISOSDacInterface8
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISOSDacInterface8
     {
         [PreserveSig]
         HRESULT GetNumberGenerations(

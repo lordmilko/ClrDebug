@@ -14,10 +14,14 @@ namespace ClrDebug
     /// importing type information (for example, development tools) or managing deployed components (for example, resolution/activation
     /// services). The methods in <see cref="IMetaDataImport"/> fall into the following task categories:
     /// </remarks>
+#if !GENERATED_MARSHALLING
     [ComImport]
+#else
+    [GeneratedComInterface]
+#endif
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("7DAC8207-D3AE-4C75-9B67-92801A497D44")]
-    public interface IMetaDataImport
+    public partial interface IMetaDataImport
     {
         /// <summary>
         /// Closes the enumerator that is identified by the specified handle.

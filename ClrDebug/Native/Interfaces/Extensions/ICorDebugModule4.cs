@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -11,8 +14,12 @@ namespace ClrDebug
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("FF8B8EAF-25CD-4316-8859-84416DE4402E")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugModule4
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugModule4
     {
         /// <summary>
         /// Determines whether a module is loaded into memory in mapped/hydrated format.

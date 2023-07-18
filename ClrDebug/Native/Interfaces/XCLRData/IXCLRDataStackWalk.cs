@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
     [Guid("E59D8D22-ADA7-49a2-89B5-A415AFCFC95F")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IXCLRDataStackWalk
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IXCLRDataStackWalk
     {
         [PreserveSig]
         HRESULT GetContext(

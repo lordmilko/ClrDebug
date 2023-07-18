@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -11,8 +14,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("A074096B-3ADC-4485-81DA-68C7A4EA52DB")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugInstanceFieldSymbol
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugInstanceFieldSymbol
     {
         /// <summary>
         /// Gets the name of the instance field.

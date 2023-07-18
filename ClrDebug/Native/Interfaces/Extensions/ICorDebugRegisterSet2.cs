@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -9,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("6DC7BA3F-89BA-4459-9EC1-9D60937B468D")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugRegisterSet2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugRegisterSet2
     {
         /// <summary>
         /// Gets an array of bytes that provides a bitmap of the available registers.

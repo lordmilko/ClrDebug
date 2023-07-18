@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -9,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("5263E909-8CB5-11D3-BD2F-0000F80849BD")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugUnmanagedCallback
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugUnmanagedCallback
     {
         /// <summary>
         /// Notifies the debugger that a native event has been fired.

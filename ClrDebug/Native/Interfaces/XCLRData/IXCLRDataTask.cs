@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
     [Guid("A5B0BEEA-EC62-4618-8012-A24FFC23934C")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IXCLRDataTask
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IXCLRDataTask
     {
         [PreserveSig]
         HRESULT GetProcess(

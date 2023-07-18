@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
     [Guid("3E269830-4A2B-4301-8EE2-D6805B29B2FA")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISOSHandleEnum : ISOSEnum
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISOSHandleEnum : ISOSEnum
     {
 #if !GENERATED_MARSHALLING
         [PreserveSig]

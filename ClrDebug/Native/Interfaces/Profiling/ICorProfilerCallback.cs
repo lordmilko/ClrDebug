@@ -25,8 +25,12 @@ namespace ClrDebug
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("176FBED1-A55C-4796-98CA-A9DA0EF883E7")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorProfilerCallback
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorProfilerCallback
     {
         /// <summary>
         /// Called to initialize the code profiler whenever a new common language runtime (CLR) application is started.

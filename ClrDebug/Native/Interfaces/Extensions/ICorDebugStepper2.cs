@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("C5B6E9C3-E7D1-4A8E-873B-7F047F0706F7")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugStepper2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugStepper2
     {
         /// <summary>
         /// Sets a value that specifies whether this <see cref="ICorDebugStepper"/> steps only through code that is authored by an application's developer.<para/>

@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -12,8 +15,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("C3ED8383-5A49-4CF5-B4B7-01864D9E582D")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugRemoteTarget
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugRemoteTarget
     {
         /// <summary>
         /// Returns the fully qualified domain name or IPv4 address of the remote debugging target machine. IPV6 is not supported at this time.

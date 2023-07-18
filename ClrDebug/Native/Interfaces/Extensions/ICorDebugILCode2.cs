@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("46586093-D3F5-4DB6-ACDB-955BCE228C15")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugILCode2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugILCode2
     {
         /// <summary>
         /// [Supported in the .NET Framework 4.5.2 and later versions] Gets the metadata token for the local variable signature for the function that is represented by this instance.

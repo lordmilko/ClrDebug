@@ -1,12 +1,19 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
     [Guid("B08C5CDC-FD8A-49C5-AB38-5FEEF35235B4")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISOSDacInterface3
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISOSDacInterface3
     {
         [PreserveSig]
         HRESULT GetGCInterestingInfoData(

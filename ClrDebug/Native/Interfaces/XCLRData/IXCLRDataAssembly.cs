@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
     [Guid("2FA17588-43C2-46ab-9B51-C8F01E39C9AC")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IXCLRDataAssembly
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IXCLRDataAssembly
     {
         [PreserveSig]
         HRESULT StartEnumModules(

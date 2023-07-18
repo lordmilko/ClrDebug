@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -11,8 +14,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("CBF9DA63-F68D-4BBB-A21C-15A45EAADF5B")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugStaticFieldSymbol
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugStaticFieldSymbol
     {
         /// <summary>
         /// Gets the name of the static field.

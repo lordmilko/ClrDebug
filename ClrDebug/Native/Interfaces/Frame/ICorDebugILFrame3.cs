@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("9A9E2ED6-04DF-4FE0-BB50-CAB64126AD24")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugILFrame3
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugILFrame3
     {
         /// <summary>
         /// Gets an "ICorDebugValue" object that encapsulates the return value of a function.

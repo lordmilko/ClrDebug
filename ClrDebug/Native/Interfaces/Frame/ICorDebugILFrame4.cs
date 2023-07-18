@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -15,8 +18,12 @@ namespace ClrDebug
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("AD914A30-C6D1-4AC5-9C5E-577F3BAA8A45")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugILFrame4
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugILFrame4
     {
         /// <summary>
         /// [Supported in the .NET Framework 4.5.2 and later versions] Gets an enumerator for the local variable in the frame, and optionally includes variables added in profiler ReJIT instrumentation.

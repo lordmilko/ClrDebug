@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -12,8 +15,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("F69126B7-C787-4F6B-AE96-A569786FC670")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugVirtualUnwinder
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugVirtualUnwinder
     {
         /// <summary>
         /// Gets the current context of this unwinder.

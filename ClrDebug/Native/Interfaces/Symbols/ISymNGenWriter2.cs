@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
     [Guid("B029E51B-4C55-4FE2-B993-9F7BC1F10DB4")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [ComConversionLoss]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISymNGenWriter2 : ISymNGenWriter
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISymNGenWriter2 : ISymNGenWriter
     {
 #if !GENERATED_MARSHALLING
         [PreserveSig]

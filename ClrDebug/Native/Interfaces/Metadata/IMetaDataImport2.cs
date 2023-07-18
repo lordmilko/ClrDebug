@@ -9,10 +9,14 @@ namespace ClrDebug
     /// <summary>
     /// Extends the <see cref="IMetaDataImport"/> interface to provide the capability of working with generic types.
     /// </summary>
+#if !GENERATED_MARSHALLING
     [ComImport]
+#else
+    [GeneratedComInterface]
+#endif
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("FCE5EFA0-8BBA-4f8e-A036-8F2022B08466")]
-    public interface IMetaDataImport2 : IMetaDataImport
+    public partial interface IMetaDataImport2 : IMetaDataImport
     {
 #if !GENERATED_MARSHALLING
         /// <summary>

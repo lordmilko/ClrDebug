@@ -1,16 +1,23 @@
 ﻿using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
     /// <summary>
     /// Provides methods to access and examine the contents of an assembly manifest.
     /// </summary>
+#if !GENERATED_MARSHALLING
     [ComImport]
+#else
+    [GeneratedComInterface]
+#endif
     [Guid("EE62470B-E94B-424e-9B7C-2F00C9249F93")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    public interface IMetaDataAssemblyImport
+    public partial interface IMetaDataAssemblyImport
     {
         /// <summary>
         /// Gets the set of properties for the assembly with the specified metadata signature.

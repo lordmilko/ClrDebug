@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -14,8 +17,12 @@ namespace ClrDebug
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("250E5EEA-DB5C-4C76-B6F3-8C46F12E3203")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugManagedCallback2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugManagedCallback2
     {
         /// <summary>
         /// Notifies the debugger that code execution has reached a sequence point in an older version of an edited function.

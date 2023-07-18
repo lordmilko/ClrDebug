@@ -11,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("D8F579AB-402D-4b8e-82D9-5D63B1065C68")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IMetaDataTables
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IMetaDataTables
     {
         /// <summary>
         /// Gets the size, in bytes, of the string heap.

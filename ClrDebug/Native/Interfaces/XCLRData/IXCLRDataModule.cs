@@ -16,8 +16,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("88E32849-0A0A-4cb0-9022-7CD2E9E139E2")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IXCLRDataModule
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IXCLRDataModule
     {
         [PreserveSig]
         HRESULT StartEnumAssemblies(

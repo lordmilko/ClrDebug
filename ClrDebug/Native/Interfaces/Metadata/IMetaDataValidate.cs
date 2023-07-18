@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -7,8 +10,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("4709C9C6-81FF-11D3-9FC7-00C04F79A0A3")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IMetaDataValidate
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IMetaDataValidate
     {
         /// <summary>
         /// Sets a flag that specifies the type of the module in the current metadata scope, and registers the specified callback method for validation errors.

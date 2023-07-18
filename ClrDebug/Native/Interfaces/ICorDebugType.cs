@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -16,8 +19,12 @@ namespace ClrDebug
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("D613F0BB-ACE1-4C19-BD72-E4C08D5DA7F5")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugType
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugType
     {
         /// <summary>
         /// Gets a <see cref="CorElementType"/> value that describes the native type of the common language runtime (CLR) <see cref="Type"/> represented by this <see cref="ICorDebugType"/>.

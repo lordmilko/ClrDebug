@@ -11,8 +11,12 @@ namespace ClrDebug.TypeLib
     /// </summary>
     [Guid("00020402-0000-0000-C000-000000000046")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public unsafe interface ITypeLib
+#else
+    [GeneratedComInterface]
+#endif
+    public unsafe partial interface ITypeLib
     {
         /// <summary>
         /// Returns the number of type descriptions in the type library.

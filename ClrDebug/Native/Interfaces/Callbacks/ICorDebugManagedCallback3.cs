@@ -1,6 +1,9 @@
 ﻿using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -13,8 +16,12 @@ namespace ClrDebug
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("264EA0FC-2591-49AA-868E-835E6515323F")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugManagedCallback3
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugManagedCallback3
     {
         /// <summary>
         /// Indicates that a custom debugger notification has been raised.

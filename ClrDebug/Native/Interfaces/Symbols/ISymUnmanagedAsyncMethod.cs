@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("B20D55B3-532E-4906-87E7-25BD5734ABD2")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISymUnmanagedAsyncMethod
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISymUnmanagedAsyncMethod
     {
         /// <summary>
         /// Checks if the method has async information or not. If this method returns FALSE then it is invalid to call any other methods in this interface.<para/>

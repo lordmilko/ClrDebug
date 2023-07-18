@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("969708D2-05E5-4861-A3B0-96E473CDF63F")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISymUnmanagedDispose
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISymUnmanagedDispose
     {
         /// <summary>
         /// Causes the underlying object to release all internal references and return failure on any subsequent method calls.

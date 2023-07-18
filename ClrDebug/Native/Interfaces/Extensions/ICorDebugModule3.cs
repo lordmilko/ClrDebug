@@ -15,8 +15,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("86F012BF-FF15-4372-BD30-B6F11CAAE1DD")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugModule3
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugModule3
     {
         /// <summary>
         /// Creates a debug symbol reader for a dynamic module.

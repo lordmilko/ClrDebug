@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -9,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("AD1B3588-0EF0-4744-A496-AA09A9F80371")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugProcess2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugProcess2
     {
         /// <summary>
         /// Gets the thread on which the task with the specified identifier is executing.

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -9,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("3948A999-FD8A-4C38-A708-8A71E9B04DBB")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugSymbolProvider
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugSymbolProvider
     {
         /// <summary>
         /// Gets the static field symbols that correspond to a typespec signature.

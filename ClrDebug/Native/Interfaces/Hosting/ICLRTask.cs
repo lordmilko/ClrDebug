@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 using System.Threading;
 
 namespace ClrDebug
@@ -26,8 +29,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("28E66A4A-9906-4225-B231-9187C3EB8611")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICLRTask
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICLRTask
     {
         /// <summary>
         /// Notifies the common language runtime (CLR) that the task that the current <see cref="ICLRTask"/> instance represents is now in an operable state.

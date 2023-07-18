@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -12,8 +15,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("F8544EC3-5E4E-46C7-8D3E-A52B8405B1F5")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugThread3
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugThread3
     {
         /// <summary>
         /// Creates an <see cref="ICorDebugStackWalk"/> object for the thread whose stack you want to unwind.

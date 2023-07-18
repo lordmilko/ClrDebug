@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
     [Guid("127d6abe-6c86-4e48-8e7b-220781c58101")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISOSDacInterface5
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISOSDacInterface5
     {
         [PreserveSig]
         HRESULT GetTieredVersions(

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -9,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("2EB364DA-605B-4E8D-B333-3394C4828D41")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugDataTarget2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugDataTarget2
     {
         /// <summary>
         /// Returns the module base address and size from an address in that module.

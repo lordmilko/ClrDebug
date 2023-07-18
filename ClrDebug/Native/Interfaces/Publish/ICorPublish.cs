@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("9613A0E7-5A68-11D3-8F84-00A0C9B4D50C")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorPublish
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorPublish
     {
         /// <summary>
         /// Gets an enumerator for the managed processes running on this computer.

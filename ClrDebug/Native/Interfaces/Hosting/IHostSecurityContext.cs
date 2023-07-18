@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -14,8 +17,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("7E573CE4-0343-4423-98D7-6318348A1D3C")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IHostSecurityContext
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IHostSecurityContext
     {
         /// <summary>
         /// Gets a clone of the <see cref="IHostSecurityContext"/> instance returned from a call to <see cref="IHostSecurityManager.GetSecurityContext"/>.

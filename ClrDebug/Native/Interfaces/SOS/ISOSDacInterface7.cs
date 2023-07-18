@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
     [Guid("c1020dde-fe98-4536-a53b-f35a74c327eb")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISOSDacInterface7
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISOSDacInterface7
     {
         [PreserveSig]
         HRESULT GetPendingReJITID(

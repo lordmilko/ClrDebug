@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -13,8 +16,12 @@ namespace ClrDebug
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("565005FC-0F8A-4F3E-9EDB-83102B156595")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugValue3
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugValue3
     {
         /// <summary>
         /// Gets the size, in bytes, of this <see cref="ICorDebugValue3"/> object.

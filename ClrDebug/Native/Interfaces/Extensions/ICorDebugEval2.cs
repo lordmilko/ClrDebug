@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -9,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("FB0D9CE7-BE66-4683-9D32-A42A04E2FD91")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugEval2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugEval2
     {
         /// <summary>
         /// Sets up a call to the specified <see cref="ICorDebugFunction"/>, which can be nested inside a class whose constructor takes <see cref="Type"/> parameters, or can itself take <see cref="Type"/> parameters.

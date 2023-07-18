@@ -12,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("B01FAFEB-C450-3A4D-BEEC-B4CEEC01E006")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISymUnmanagedDocumentWriter
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISymUnmanagedDocumentWriter
     {
         /// <summary>
         /// Sets embedded source for a document that is being written.

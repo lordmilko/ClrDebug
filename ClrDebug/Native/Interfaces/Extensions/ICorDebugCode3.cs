@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("D13D3E88-E1F2-4020-AA1D-3D162DCBE966")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugCode3
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugCode3
     {
         /// <summary>
         /// For a specified IL offset, gets the native offsets where a breakpoint should be placed so that the debugger can obtain the return value from a function.

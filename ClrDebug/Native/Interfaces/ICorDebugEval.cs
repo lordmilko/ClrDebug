@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -24,8 +27,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("CC7BCAF6-8A68-11D2-983C-0000F808342D")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugEval
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugEval
     {
         /// <summary>
         /// Sets up a call to the specified function. This method is obsolete in the .NET Framework version 2.0. Use <see cref="ICorDebugEval2.CallParameterizedFunction"/> instead.

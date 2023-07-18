@@ -13,8 +13,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("BD39D1D2-BA2F-486A-89B0-B4B0CB466891")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICLRRuntimeInfo
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICLRRuntimeInfo
     {
         /// <summary>
         /// Gets common language runtime (CLR) version information associated with a given <see cref="ICLRRuntimeInfo"/> interface.<para/>

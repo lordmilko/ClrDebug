@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("322911AE-16A5-49BA-84A3-ED69678138A3")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugManagedCallback4
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugManagedCallback4
     {
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

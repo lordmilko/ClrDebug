@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 using System.Threading;
 
 namespace ClrDebug
@@ -9,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("A69ACAD8-2374-46E9-9FF8-B1F14120D296")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugHeapValue3
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugHeapValue3
     {
         /// <summary>
         /// Returns the managed thread that owns the monitor lock on this object.

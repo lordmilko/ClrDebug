@@ -2,6 +2,9 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -20,8 +23,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("90F1A06C-7712-4762-86B5-7A5EBA6BDB02")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICLRRuntimeHost
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICLRRuntimeHost
     {
         /// <summary>
         /// Initializes the common language runtime (CLR) into a process.

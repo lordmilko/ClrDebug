@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("F31D1788-C397-4725-87A5-6AF3472C2791")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IGCThreadControl
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IGCThreadControl
     {
         /// <summary>
         /// Notifies the host that the thread that is making the call is about to block, perhaps for a garbage collection or other suspension.

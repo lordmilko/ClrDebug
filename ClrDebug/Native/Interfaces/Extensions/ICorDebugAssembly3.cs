@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("76361AB2-8C86-4FE9-96F2-F73D8843570A")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugAssembly3
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugAssembly3
     {
         /// <summary>
         /// Returns the container assembly of this <see cref="ICorDebugAssembly3"/> object.

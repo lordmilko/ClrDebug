@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -16,8 +19,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("CC7BCAEC-8A68-11D2-983C-0000F808342D")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugStepper
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugStepper
     {
         /// <summary>
         /// Gets a value that indicates whether this <see cref="ICorDebugStepper"/> is currently executing a step.

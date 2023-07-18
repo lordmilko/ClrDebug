@@ -12,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("A09E53B2-2A57-4CCA-8F63-B84F7C35D4AA")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ISymUnmanagedReader2 : ISymUnmanagedReader
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ISymUnmanagedReader2 : ISymUnmanagedReader
     {
 #if !GENERATED_MARSHALLING
         /// <summary>

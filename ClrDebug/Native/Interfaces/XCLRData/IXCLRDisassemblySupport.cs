@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -32,8 +35,12 @@ namespace ClrDebug
 
     [Guid("1F0F7134-D3F3-47DE-8E9B-C2FD358A2936")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IXCLRDisassemblySupport
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IXCLRDisassemblySupport
     {
         [PreserveSig]
         HRESULT SetTranslateAddrCallback(

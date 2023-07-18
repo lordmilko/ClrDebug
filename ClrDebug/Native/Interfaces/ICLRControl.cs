@@ -12,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("9065597E-D1A1-4FB2-B6BA-7E1FCE230F61")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICLRControl
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICLRControl
     {
         /// <summary>
         /// Gets an interface pointer to an instance of any of the manager types the host can use to configure the common language runtime (CLR).

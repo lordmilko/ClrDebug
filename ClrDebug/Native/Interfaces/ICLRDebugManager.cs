@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -16,8 +19,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("00DCAEC6-2AC0-43a9-ACF9-1E36C139B10D")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICLRDebugManager
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICLRDebugManager
     {
         /// <summary>
         /// Establishes a new connection between the host and the debugger to associate a list of tasks with an identifier and a friendly name.

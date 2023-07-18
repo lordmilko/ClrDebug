@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -13,8 +16,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("2d74ce86-b8d6-4c84-b3a7-9768933b3c12")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICLRIoCompletionManager
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICLRIoCompletionManager
     {
         /// <summary>
         /// Notifies the common language runtime (CLR) of the status of an I/O request that was made by using a call to the <see cref="IHostIoCompletionManager.Bind"/> method.

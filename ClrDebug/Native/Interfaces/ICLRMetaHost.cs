@@ -25,8 +25,12 @@ namespace ClrDebug
     /// </remarks>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("D332DB9E-B9B3-4125-8207-A14884F53216")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICLRMetaHost
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICLRMetaHost
     {
         /// <summary>
         /// Gets the <see cref="ICLRRuntimeInfo"/> interface that corresponds to a particular version of the common language runtime (CLR).<para/>

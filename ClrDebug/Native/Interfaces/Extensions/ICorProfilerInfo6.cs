@@ -13,8 +13,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("F30A070D-BFFB-46A7-B1D8-8781EF7B698A")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorProfilerInfo6 : ICorProfilerInfo5
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorProfilerInfo6 : ICorProfilerInfo5
     {
 #if !GENERATED_MARSHALLING
         /// <summary>

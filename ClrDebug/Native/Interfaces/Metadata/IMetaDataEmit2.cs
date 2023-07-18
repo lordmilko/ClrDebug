@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("F5DD9950-F693-42e6-830E-7B833E8146A9")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IMetaDataEmit2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IMetaDataEmit2
     {
         /// <summary>
         /// Creates a generic instance of a method, and gets a token to the definition.

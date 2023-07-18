@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -9,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("7FCC5FB5-49C0-41DE-9938-3B88B5B9ADD7")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugModule2
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugModule2
     {
         /// <summary>
         /// Sets the Just My Code (JMC) status of all methods of all the classes in this <see cref="ICorDebugModule2"/> to the specified value, except those in the pTokens array, which it sets to the opposite value.

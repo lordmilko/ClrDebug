@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 using System.Security.Principal;
 
 namespace ClrDebug
@@ -10,8 +13,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("CB2F6722-AB3A-11d2-9C40-00C04FA30A3E")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorRuntimeHost
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorRuntimeHost
     {
         /// <summary>
         /// This method supports the .NET Framework infrastructure and is not intended to be used directly from your code.

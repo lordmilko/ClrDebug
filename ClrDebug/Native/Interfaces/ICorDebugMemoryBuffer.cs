@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -9,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("677888B3-D160-4B8C-A73B-D79E6AAA1D13")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugMemoryBuffer
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugMemoryBuffer
     {
         /// <summary>
         /// Gets the starting address of the memory buffer.

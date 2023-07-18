@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("5C2B07A5-1E98-11D3-872F-00C04F79ED0D")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorConfiguration
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorConfiguration
     {
         /// <summary>
         /// Sets the callback interface for scheduling threads for non-runtime tasks that would otherwise be blocked for a garbage collection.

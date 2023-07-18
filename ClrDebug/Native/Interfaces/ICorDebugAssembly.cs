@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("DF59507C-D47A-459E-BCE2-6427EAC8FD06")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugAssembly
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugAssembly
     {
         /// <summary>
         /// Gets an interface pointer to the process in which this <see cref="ICorDebugAssembly"/> instance is running.

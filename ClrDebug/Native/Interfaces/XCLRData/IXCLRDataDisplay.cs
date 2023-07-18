@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
     [Guid("A3C1704A-4559-4a67-8D28-E8F4FE3B3F62")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IXCLRDataDisplay
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IXCLRDataDisplay
     {
         [PreserveSig]
         [Obsolete("Vararg functions cannot safely be called from managed code.")]

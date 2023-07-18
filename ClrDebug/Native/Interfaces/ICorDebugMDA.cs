@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("CC726F2F-1DB7-459B-B0EC-05F01D841B42")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugMDA
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugMDA
     {
         /// <summary>
         /// Gets a string containing the name of the managed debugging assistant (MDA) represented by <see cref="ICorDebugMDA"/>.

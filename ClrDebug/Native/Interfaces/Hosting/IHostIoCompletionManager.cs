@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -13,8 +16,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("8bde9d80-ec06-41d6-83e6-22580effcc20")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface IHostIoCompletionManager
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface IHostIoCompletionManager
     {
         /// <summary>
         /// Requests that the host create a new I/O completion port.

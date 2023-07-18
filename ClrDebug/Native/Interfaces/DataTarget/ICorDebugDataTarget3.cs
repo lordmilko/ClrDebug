@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -9,8 +12,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("D05E60C3-848C-4E7D-894E-623320FF6AFA")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugDataTarget3
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugDataTarget3
     {
         /// <summary>
         /// Gets a list of the modules that have been loaded so far.

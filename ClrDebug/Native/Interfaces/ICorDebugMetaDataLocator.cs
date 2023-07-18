@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [Guid("7CEF8BA9-2EF7-42BF-973F-4171474F87D9")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugMetaDataLocator
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugMetaDataLocator
     {
         /// <summary>
         /// Asks the debugger to return the full path to a module whose metadata is needed to complete an operation the debugger requested.

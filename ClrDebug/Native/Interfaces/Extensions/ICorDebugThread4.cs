@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -12,8 +15,12 @@ namespace ClrDebug
     /// </remarks>
     [Guid("1A1F204B-1C66-4637-823F-3EE6C744A69C")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICorDebugThread4
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICorDebugThread4
     {
         /// <summary>
         /// Indicates whether the thread has ever had an unhandled exception.

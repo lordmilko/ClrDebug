@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -8,8 +11,12 @@ namespace ClrDebug
     /// </summary>
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("BCDD6908-BA2D-4EC5-96CF-DF4D5CDCB4A4")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public interface ICLRDataEnumMemoryRegionsCallback
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface ICLRDataEnumMemoryRegionsCallback
     {
         /// <summary>
         /// Called by <see cref="ICLRDataEnumMemoryRegions.EnumMemoryRegions"/> to report to the debugger the result of an attempt to enumerate a specified region of memory.
