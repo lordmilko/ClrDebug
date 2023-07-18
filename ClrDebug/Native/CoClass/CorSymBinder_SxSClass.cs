@@ -1,12 +1,19 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.CoClass
 {
     [Guid("0A29FF9E-7F9C-4437-8B11-F424491E3931")]
     [ClassInterface(ClassInterfaceType.None)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public class CorSymBinder_SxSClass : ISymUnmanagedBinder, CorSymBinder_SxS
+#else
+    [GeneratedComClass]
+#endif
+    public partial class CorSymBinder_SxSClass : ISymUnmanagedBinder, CorSymBinder_SxS
     {
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

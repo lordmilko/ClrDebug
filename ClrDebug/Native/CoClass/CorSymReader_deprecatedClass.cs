@@ -9,8 +9,12 @@ namespace ClrDebug.CoClass
 {
     [Guid("108296C2-281E-11D3-BD22-0000F80849BD")]
     [ClassInterface(ClassInterfaceType.None)]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public class CorSymReader_deprecatedClass : ISymUnmanagedReader, CorSymReader_deprecated
+#else
+    [GeneratedComClass]
+#endif
+    public partial class CorSymReader_deprecatedClass : ISymUnmanagedReader, CorSymReader_deprecated
     {
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

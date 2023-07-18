@@ -1,12 +1,19 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.CoClass
 {
     [ClassInterface(ClassInterfaceType.None)]
     [Guid("047A9A40-657E-11D3-8D5B-00104B35E7EF")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public class CorpubPublishClass :
+#else
+    [GeneratedComClass]
+#endif
+    public partial class CorpubPublishClass :
         ICorPublish,
         CorpubPublish,
         ICorPublishProcess,

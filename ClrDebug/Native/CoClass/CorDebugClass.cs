@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.CoClass
 {
     [ClassInterface(ClassInterfaceType.None)]
     [Guid("6FEF44D0-39E7-4C77-BE8E-C9F8CF988630")]
+#if !GENERATED_MARSHALLING
     [ComImport]
-    public class CorDebugClass : ICorDebug, CorDebug
+#else
+    [GeneratedComClass]
+#endif
+    public partial class CorDebugClass : ICorDebug, CorDebug
     {
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

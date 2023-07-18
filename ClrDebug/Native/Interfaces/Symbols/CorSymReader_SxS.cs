@@ -1,11 +1,18 @@
 ﻿using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug.CoClass
 {
-    [CoClass(typeof(CorSymReader_SxSClass))]
     [Guid("B4CE6286-2A6B-3712-A3B7-1EE1DAD467B5")]
+#if !GENERATED_MARSHALLING
+    [CoClass(typeof(CorSymReader_SxSClass))]
     [ComImport]
-    public interface CorSymReader_SxS : ISymUnmanagedReader
+#else
+    [GeneratedComInterface]
+#endif
+    public partial interface CorSymReader_SxS : ISymUnmanagedReader
     {
     }
 }
