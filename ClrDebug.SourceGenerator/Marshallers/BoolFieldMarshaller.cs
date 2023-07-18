@@ -10,14 +10,12 @@ namespace ClrDebug.SourceGenerator
         {
         }
 
-        public override ExpressionSyntax ToUnmanaged(string inputName) =>
-            ConditionalExpression(base.ToUnmanaged(inputName), LiteralExpression(SyntaxKind.NumericLiteralExpression, Literal(1)), LiteralExpression(SyntaxKind.NumericLiteralExpression, Literal(0)));
+        public override ExpressionSyntax ToUnmanaged(MemberAccessExpressionSyntax managedField) =>
+            ConditionalExpression(managedField, LiteralExpression(SyntaxKind.NumericLiteralExpression, Literal(1)), LiteralExpression(SyntaxKind.NumericLiteralExpression, Literal(0)));
 
-        public override ExpressionSyntax ToManaged(string inputName)
+        public override ExpressionSyntax ToManaged(MemberAccessExpressionSyntax unmanagedField)
         {
-            var member = base.ToManaged(inputName);
-
-            var equals = BinaryExpression(SyntaxKind.EqualsExpression, member, LiteralExpression(SyntaxKind.NumericLiteralExpression, Literal(0)));
+            var equals = BinaryExpression(SyntaxKind.EqualsExpression, unmanagedField, LiteralExpression(SyntaxKind.NumericLiteralExpression, Literal(0)));
 
             return ConditionalExpression(equals, LiteralExpression(SyntaxKind.FalseLiteralExpression), LiteralExpression(SyntaxKind.TrueLiteralExpression));
         }

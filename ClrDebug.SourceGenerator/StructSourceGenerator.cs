@@ -161,7 +161,8 @@ namespace ClrDebug.SourceGenerator
                 outputName: "unmanaged",
                 methodName: "ConvertToUnmanaged",
                 fields: info.Fields,
-                f => f.Marshaller.ToUnmanaged("managed")
+                (m, input) => m.ToUnmanaged(input),
+                (complex, input, output) => complex.GetAdditionalToUnmanagedStatements(input, output)
             );
         }
 
@@ -174,7 +175,8 @@ namespace ClrDebug.SourceGenerator
                 outputName: "managed",
                 methodName: "ConvertToManaged",
                 fields: info.Fields,
-                f => f.Marshaller.ToManaged("unmanaged")
+                (m, input) => m.ToManaged(input),
+                (complex, input, output) => complex.GetAdditionalToManagedStatements(input, output)
             );
         }
 
@@ -185,7 +187,8 @@ namespace ClrDebug.SourceGenerator
             string outputName,
             string methodName,
             FieldSyntaxInfo[] fields,
-            Func<FieldSyntaxInfo, ExpressionSyntax> marshaller)
+            Func<FieldMarshaller, MemberAccessExpressionSyntax, ExpressionSyntax> marshaller,
+            Func<IComplexMarshaller, MemberAccessExpressionSyntax, MemberAccessExpressionSyntax, StatementSyntax[]> complexMarshaller)
         {
             var method = MethodDeclaration(IdentifierName(outputType), methodName)
                 .AddModifiers(Token(SyntaxKind.PublicKeyword), Token(SyntaxKind.StaticKeyword))
@@ -200,8 +203,12 @@ namespace ClrDebug.SourceGenerator
                 outputVariable
             };
 
+            var additionalStatements = new List<StatementSyntax>();
+
             foreach (var field in fields)
             {
+                var inputFieldToMarshal = MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, IdentifierName(inputName), IdentifierName(field.Name));
+
                 var statement = ExpressionStatement(
                     AssignmentExpression(
                         SyntaxKind.SimpleAssignmentExpression,
@@ -210,12 +217,21 @@ namespace ClrDebug.SourceGenerator
                             IdentifierName(outputName),
                             IdentifierName(field.Name)
                         ),
-                        marshaller(field)
+                        marshaller(field.Marshaller, inputFieldToMarshal)
                     )
                 );
 
                 statements.Add(statement);
+
+                if (field.Marshaller is IComplexMarshaller c)
+                {
+                    var outputFieldToMarshal = MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, IdentifierName(outputName), IdentifierName(field.Name));
+
+                    additionalStatements.AddRange(complexMarshaller(c, inputFieldToMarshal, outputFieldToMarshal));
+                }
             }
+
+            statements.AddRange(additionalStatements);
 
             statements.Add(ReturnStatement(IdentifierName(outputName)));
 
@@ -321,7 +337,7 @@ namespace ClrDebug.SourceGenerator
             var solution = FileVersionInfo.GetVersionInfo(dll).FileDescription;
             var structDir = Path.Combine(solution, "ClrDebug", "Native", "Struct");
 
-            var files = Directory.EnumerateFiles(structDir, "*.cs", SearchOption.AllDirectories).ToArray();
+            var files = Directory.EnumerateFiles(structDir, "*.cs", SearchOption.AllDirectories).Where(f => Path.GetFileName(Path.GetDirectoryName(f)) != "DbgEng").ToArray();
 
             var trees = files.Select(f => CSharpSyntaxTree.ParseText(File.ReadAllText(f), CSharpParseOptions.Default.WithPreprocessorSymbols("GENERATED_MARSHALLING"))).ToArray();
 

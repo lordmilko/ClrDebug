@@ -21,11 +21,9 @@ namespace ClrDebug.SourceGenerator
             UnmanagedType = unmanagedType;
         }
 
-        public virtual ExpressionSyntax ToUnmanaged(string inputName) =>
-            MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, IdentifierName(inputName), IdentifierName(Name));
+        public virtual ExpressionSyntax ToUnmanaged(MemberAccessExpressionSyntax managedField) => managedField;
 
-        public virtual ExpressionSyntax ToManaged(string inputName) =>
-            MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, IdentifierName(inputName), IdentifierName(Name));
+        public virtual ExpressionSyntax ToManaged(MemberAccessExpressionSyntax unmanagedField) => unmanagedField;
 
         public virtual StatementSyntax Free(MemberAccessExpressionSyntax unmanagedMember)
         {

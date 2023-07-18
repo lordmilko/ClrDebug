@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -24,30 +25,40 @@ namespace ClrDebug.SourceGenerator
             Name = field.Declaration.Variables.Single().Identifier.ToString();
             Type = field.Declaration.Type.ToString();
 
+            var marshalAsAttribute = field.AttributeLists.SelectMany(a => a.Attributes).SingleOrDefault(a => a.Name.ToString() == "MarshalAs");
+            var unmanagedType = marshalAsAttribute == null ? null : (UnmanagedType?) Enum.Parse(typeof(UnmanagedType), ((MemberAccessExpressionSyntax)marshalAsAttribute?.ArgumentList.Arguments.First().Expression).Name.ToString());
+
             if (Type == "bool")
                 Marshaller = new BoolFieldMarshaller(Name, Type, "int");
             else if (IsInterfaceLike)
                 Marshaller = new InterfaceFieldMarshaller(Name, Type, "void*");
             else if (Type == "string")
             {
-                var marshalAsAttribute = field.AttributeLists.SelectMany(a => a.Attributes).SingleOrDefault(a => a.Name.ToString() == "MarshalAs");
-
                 if (marshalAsAttribute == null)
                     throw new InvalidOperationException($"Field {((StructDeclarationSyntax)field.Parent).Identifier}.{Name} is missing a MarshalAsAttribute.");
 
-                var unmanagedType = ((MemberAccessExpressionSyntax) marshalAsAttribute.ArgumentList.Arguments.First().Expression).Name.ToString();
-
-                if (unmanagedType == "LPStr")
+                if (unmanagedType == UnmanagedType.LPStr)
                     Marshaller = new AnsiFieldMarshaller(Name, Type, "byte*");
-                else if (unmanagedType == "LPWStr")
+                else if (unmanagedType == UnmanagedType.LPWStr)
                     Marshaller = new UTF16FieldMarshaller(Name, Type, "ushort*");
-                else if (unmanagedType == "BStr")
+                else if (unmanagedType == UnmanagedType.BStr)
                     Marshaller = new BStrFieldMarshaller(Name, Type, "ushort*");
                 else
                     throw new NotImplementedException($"Don't know how to handle string with UnmanagedType.{unmanagedType}");
             }
             else
-                Marshaller = new FieldMarshaller(Name, Type, Type);
+            {
+                if (unmanagedType == UnmanagedType.ByValArray)
+                {
+                    var elementType = ((ArrayTypeSyntax)field.Declaration.Type).ElementType.ToString();
+
+                    var size = marshalAsAttribute.ArgumentList.Arguments.Single(a => a.NameEquals?.Name.ToString() == "SizeConst");
+
+                    Marshaller = new ByValArrayFieldMarshaller(Name, Type, $"{elementType}*", elementType, size.Expression);
+                }
+                else
+                    Marshaller = new FieldMarshaller(Name, Type, Type);
+            }
 
             FieldOffset = field.AttributeLists.SelectMany(a => a.Attributes).SingleOrDefault(a => a.Name.ToString() == "FieldOffset")?.WithoutTrivia();
         }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.CSharp;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+using System.Linq;
 
 namespace ClrDebug.SourceGenerator
 {
@@ -10,30 +11,28 @@ namespace ClrDebug.SourceGenerator
         {
         }
 
-        public override ExpressionSyntax ToUnmanaged(string inputName)
-        {
-            var member = base.ToUnmanaged(inputName);
+        public override ExpressionSyntax ToUnmanaged(MemberAccessExpressionSyntax managedField) =>
+            InvokeMarshalMethod("ConvertToUnmanaged", managedField);
 
-            return InvokeMarshalMethod(member, "ConvertToUnmanaged");
-        }
-
-        public override ExpressionSyntax ToManaged(string inputName)
-        {
-            var member = base.ToManaged(inputName);
-
-            return InvokeMarshalMethod(member, "ConvertToManaged");
-        }
+        public override ExpressionSyntax ToManaged(MemberAccessExpressionSyntax unmanagedField) =>
+            InvokeMarshalMethod("ConvertToManaged", unmanagedField);
 
         public override StatementSyntax Free(MemberAccessExpressionSyntax unmanagedMember) =>
-            ExpressionStatement(InvokeMarshalMethod(unmanagedMember, "Free"));
+            ExpressionStatement(InvokeMarshalMethod("Free", unmanagedMember));
 
-        private ExpressionSyntax InvokeMarshalMethod(ExpressionSyntax member, string methodName)
+        protected ExpressionSyntax InvokeMarshalMethod(string methodName, params CSharpSyntaxNode[] arguments)
         {
             var marshaller = GetMarshallerName;
 
             var method = MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, marshaller, IdentifierName(methodName));
 
-            var call = InvocationExpression(method).AddArgumentListArguments(Argument(member));
+            var call = InvocationExpression(method).AddArgumentListArguments(arguments.Select(a => 
+            {
+                if (a is ArgumentSyntax arg)
+                    return arg;
+
+                return Argument((ExpressionSyntax)a);
+            }).ToArray());
 
             return call;
         }
