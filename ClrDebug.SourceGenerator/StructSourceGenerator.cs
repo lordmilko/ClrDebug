@@ -335,7 +335,7 @@ namespace ClrDebug.SourceGenerator
         {
             var dll = typeof(StructSourceGenerator).Assembly.Location;
             var solution = FileVersionInfo.GetVersionInfo(dll).FileDescription;
-            var structDir = Path.Combine(solution, "ClrDebug", "Native", "Struct");
+            var structDir = Path.GetFullPath(Path.Combine(solution, "..", "ClrDebug", "Native", "Struct"));
 
             var files = Directory.EnumerateFiles(structDir, "*.cs", SearchOption.AllDirectories).Where(f => Path.GetFileName(Path.GetDirectoryName(f)) != "DbgEng").ToArray();
 

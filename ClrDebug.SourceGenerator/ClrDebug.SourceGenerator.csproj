@@ -2,7 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyTitle>$(SolutionDir)</AssemblyTitle>
+    <!-- We need to be able to inject our generated files into the pipeline before the runtime's COM
+         source generator runs. We can't assume we're running from our bin folder, because sometimes we get copied
+         to %temp%\VBCSCompiler\AnalyzerAssemblyLoader. As such, we embed our original path in our File Description,
+         so we can lookup all the structs we need to generate native implementations for. $(SolutionDir) can't be used,
+         as depending on how we're being compiled, it may not be defined! -->
+    <AssemblyTitle>$(MSBuildProjectDirectory)</AssemblyTitle>
 
     <EnforceExtendedAnalyzerRules>false</EnforceExtendedAnalyzerRules>
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
