@@ -29,6 +29,8 @@ namespace ClrDebug
         public const int DAC_MAX_GC_MECHANISM_BITS_COUNT = 2;
         public const int DAC_MAX_GLOBAL_GC_MECHANISMS_COUNT = 6;
 
+        public const int DAC_NUMBERGENERATIONS = 4;
+
         private const string mscoree = "mscoree.dll";
 
         /// <summary>

@@ -293,7 +293,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] IXCLRDataModule[] mods,
             [In] IXCLRDataModule singleMod,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] mdMethodDef[] tokens,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDataMethodCodeNotification flags,
+            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] CLRDataMethodCodeNotification[] flags,
             [In] CLRDataMethodCodeNotification singleFlags);
 
         [PreserveSig]

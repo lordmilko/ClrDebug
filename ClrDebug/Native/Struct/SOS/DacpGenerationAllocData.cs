@@ -1,14 +1,13 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
+using static ClrDebug.Extensions;
 
 namespace ClrDebug
 {
     [DebuggerDisplay("allocData = {allocData}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct DacpGenerationAllocData
+    public partial struct DacpGenerationAllocData
     {
-        private const int DAC_NUMBERGENERATIONS = 4;
-
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DAC_NUMBERGENERATIONS)]
         public DacpAllocData[] allocData;
     }

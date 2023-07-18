@@ -1032,12 +1032,12 @@ namespace ClrDebug
         #endregion
         #region SetCodeNotifications
 
-        public void SetCodeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdMethodDef[] tokens, CLRDataMethodCodeNotification flags, CLRDataMethodCodeNotification singleFlags)
+        public void SetCodeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdMethodDef[] tokens, CLRDataMethodCodeNotification[] flags, CLRDataMethodCodeNotification singleFlags)
         {
             TrySetCodeNotifications(numTokens, mods, singleMod, tokens, flags, singleFlags).ThrowOnNotOK();
         }
 
-        public HRESULT TrySetCodeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdMethodDef[] tokens, CLRDataMethodCodeNotification flags, CLRDataMethodCodeNotification singleFlags)
+        public HRESULT TrySetCodeNotifications(int numTokens, IXCLRDataModule[] mods, IXCLRDataModule singleMod, mdMethodDef[] tokens, CLRDataMethodCodeNotification[] flags, CLRDataMethodCodeNotification singleFlags)
         {
             /*HRESULT SetCodeNotifications(
             [In] int numTokens,
