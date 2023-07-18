@@ -8,7 +8,7 @@
     
     <TargetFrameworks Condition="'$(VisualStudioVersion)' == '15.0'">netstandard2.0</TargetFrameworks>
     <TargetFrameworks Condition="'$(TargetFrameworks)' == ''">netstandard2.0;net8.0</TargetFrameworks>
-    <DefineConstants Condition="$(TargetFramework) != 'netstandard2.0'">$(DefineConstants);GENERATED_MARSHALLING</DefineConstants>
+    <DefineConstants Condition="'$(IsGeneratedMarshalling)'">$(DefineConstants);GENERATED_MARSHALLING</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\ClrDebug.xml</DocumentationFile>
     <NoWarn>1701;1702;CS1591</NoWarn>

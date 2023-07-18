@@ -5,10 +5,11 @@
     <IsGeneratedMarshalling Condition="'$(IsGeneratedMarshalling)' == ''">false</IsGeneratedMarshalling>
 
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net8.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(VisualStudioVersion)' == '15.0'">netcoreapp2.1</TargetFrameworks>
+    <TargetFrameworks Condition="'$(TargetFrameworks)' == ''">netcoreapp2.1;net8.0</TargetFrameworks>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <NoWarn>NETSDK1138;NU1901;NU1902</NoWarn>
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <RuntimeIdentifier Condition="'$(IsGeneratedMarshalling)'">win-x64</RuntimeIdentifier>
     <PublishAot Condition="'$(IsGeneratedMarshalling)'">true</PublishAot>
   </PropertyGroup>
 

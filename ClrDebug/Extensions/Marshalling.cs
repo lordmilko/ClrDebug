@@ -54,28 +54,9 @@ namespace ClrDebug
             public byte k;
         }
 
-        public static GuidNative ConvertToUnmanaged(Guid managed) => Convert<Guid, GuidNative>(managed);
+        public static GuidNative ConvertToUnmanaged(Guid managed) => *(GuidNative*)&managed;
 
-        public static Guid ConvertToManaged(GuidNative unmanaged) => Convert<GuidNative, Guid>(unmanaged);
-
-        private static TOut Convert<TIn, TOut>(TIn value) where TOut : new()
-        {
-            var buffer = Marshal.AllocHGlobal(Marshal.SizeOf<TIn>());
-
-            try
-            {
-                Marshal.StructureToPtr(value, buffer, false);
-
-                var converted = new TOut();
-                Marshal.PtrToStructure(buffer, converted);
-
-                return converted;
-            }
-            finally
-            {
-                Marshal.FreeHGlobal(buffer);
-            }
-        }
+        public static Guid ConvertToManaged(GuidNative unmanaged) => *(Guid*)&unmanaged;
     }
 
     #endregion

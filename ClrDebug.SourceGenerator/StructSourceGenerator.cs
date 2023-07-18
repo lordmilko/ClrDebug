@@ -161,8 +161,8 @@ namespace ClrDebug.SourceGenerator
                 outputName: "unmanaged",
                 methodName: "ConvertToUnmanaged",
                 fields: info.Fields,
-                (m, input) => m.ToUnmanaged(input),
-                (complex, input, output) => complex.GetAdditionalToUnmanagedStatements(input, output)
+                marshaller: (m, input) => m.ToUnmanaged(input),
+                complexMarshaller: (complex, input, output) => complex.GetAdditionalToUnmanagedStatements(input, output)
             );
         }
 
@@ -175,8 +175,8 @@ namespace ClrDebug.SourceGenerator
                 outputName: "managed",
                 methodName: "ConvertToManaged",
                 fields: info.Fields,
-                (m, input) => m.ToManaged(input),
-                (complex, input, output) => complex.GetAdditionalToManagedStatements(input, output)
+                marshaller: (m, input) => m.ToManaged(input),
+                complexMarshaller: (complex, input, output) => complex.GetAdditionalToManagedStatements(input, output)
             );
         }
 
