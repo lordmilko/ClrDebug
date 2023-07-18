@@ -1,11 +1,17 @@
 ﻿using System;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
     /// <summary>
     /// Provides notification of native events that are not directly related to the common language runtime (CLR).
     /// </summary>
-    public class CorDebugUnmanagedCallback : ICorDebugUnmanagedCallback
+#if GENERATED_MARSHALLING
+    [GeneratedComClass]
+#endif
+    public partial class CorDebugUnmanagedCallback : ICorDebugUnmanagedCallback
     {
         #region ICorDebugUnmanagedCallback EventHandlers
 

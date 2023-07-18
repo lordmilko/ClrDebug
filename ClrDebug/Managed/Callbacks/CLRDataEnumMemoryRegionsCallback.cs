@@ -1,11 +1,17 @@
 ﻿using System;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
     /// <summary>
     /// Provides a callback method for <see cref="CLRDataEnumMemoryRegions.EnumMemoryRegions"/> to report to the debugger the result of an attempt to enumerate a specified region of memory.
     /// </summary>
-    public class CLRDataEnumMemoryRegionsCallback : ICLRDataEnumMemoryRegionsCallback, ICLRDataEnumMemoryRegionsCallback2
+#if GENERATED_MARSHALLING
+    [GeneratedComClass]
+#endif
+    public partial class CLRDataEnumMemoryRegionsCallback : ICLRDataEnumMemoryRegionsCallback, ICLRDataEnumMemoryRegionsCallback2
     {
         public EventHandler<CLRDataEnumMemoryRegionsCallbackEventArgs> OnAnyEvent;
 

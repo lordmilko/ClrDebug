@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Reflection;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -19,7 +22,10 @@ namespace ClrDebug
     /// the profiler's implementation of <see cref="Initialize"/>. The profiler is then able to receive notification from
     /// the runtime when an event is about to occur or has just occurred in an executing runtime process.
     /// </remarks>
-    public abstract class CorProfilerCallback : ICorProfilerCallback11
+#if GENERATED_MARSHALLING
+    [GeneratedComClass]
+#endif
+    public abstract partial class CorProfilerCallback : ICorProfilerCallback11
     {
         #region ICorProfilerCallback
 

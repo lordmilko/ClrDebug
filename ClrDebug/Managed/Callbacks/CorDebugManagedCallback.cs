@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Reflection.Emit;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -15,7 +18,10 @@ namespace ClrDebug
     /// if it is debugging .NET Framework version 2.0 applications. An instance of <see cref="ICorDebugManagedCallback"/> or <see cref="ICorDebugManagedCallback2"/>
     /// is passed as the callback object to <see cref="CorDebug.SetManagedHandler"/>.
     /// </remarks>
-    public class CorDebugManagedCallback : ICorDebugManagedCallback, ICorDebugManagedCallback2, ICorDebugManagedCallback3, ICorDebugManagedCallback4
+#if GENERATED_MARSHALLING
+    [GeneratedComClass]
+#endif
+    public partial class CorDebugManagedCallback : ICorDebugManagedCallback, ICorDebugManagedCallback2, ICorDebugManagedCallback3, ICorDebugManagedCallback4
     {
         public EventHandler<CorDebugManagedCallbackEventArgs> OnAnyEvent;
 
