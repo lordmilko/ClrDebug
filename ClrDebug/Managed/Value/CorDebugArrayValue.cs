@@ -203,7 +203,7 @@
         /// <param name="indices">[in] An array of index values, each of which specifies a position within a dimension of the <see cref="ICorDebugArrayValue"/> object.<para/>
         /// This value must not be null.</param>
         /// <returns>[out] A pointer to the address of an <see cref="ICorDebugValue"/> object that represents the value of the specified element.</returns>
-        public CorDebugValue GetElement(int cdim, int indices)
+        public CorDebugValue GetElement(int cdim, int[] indices)
         {
             CorDebugValue ppValueResult;
             TryGetElement(cdim, indices, out ppValueResult).ThrowOnNotOK();
@@ -218,11 +218,11 @@
         /// <param name="indices">[in] An array of index values, each of which specifies a position within a dimension of the <see cref="ICorDebugArrayValue"/> object.<para/>
         /// This value must not be null.</param>
         /// <param name="ppValueResult">[out] A pointer to the address of an <see cref="ICorDebugValue"/> object that represents the value of the specified element.</param>
-        public HRESULT TryGetElement(int cdim, int indices, out CorDebugValue ppValueResult)
+        public HRESULT TryGetElement(int cdim, int[] indices, out CorDebugValue ppValueResult)
         {
             /*HRESULT GetElement(
             [In] int cdim,
-            [MarshalAs(UnmanagedType.LPArray), In] int indices,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), In] int[] indices,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);*/
             ICorDebugValue ppValue;
             HRESULT hr = Raw.GetElement(cdim, indices, out ppValue);

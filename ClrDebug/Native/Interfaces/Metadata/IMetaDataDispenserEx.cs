@@ -123,7 +123,12 @@ namespace ClrDebug
             [MarshalUsing(typeof(GuidMarshaller))] in
 #endif
             Guid optionId,
-            [In, MarshalAs(UnmanagedType.Struct)] ref object pValue);
+#if !GENERATED_MARSHALLING
+            [In, MarshalAs(UnmanagedType.Struct)]
+#else
+            [MarshalUsing(typeof(VariantMarshaller))]
+#endif
+            ref object pValue);
 
         /// <summary>
         /// Gets the value of the specified option for the current metadata scope. The option controls how calls to the current metadata scope are handled.
@@ -142,6 +147,9 @@ namespace ClrDebug
             [MarshalUsing(typeof(GuidMarshaller))] in
 #endif
             Guid optionId,
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(VariantMarshaller))]
+#endif
             [Out] out object pValue);
 
         /// <summary>

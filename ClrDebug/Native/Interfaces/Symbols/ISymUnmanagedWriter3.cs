@@ -412,7 +412,12 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineConstant(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [MarshalAs(UnmanagedType.Struct), In] object value,
+#if !GENERATED_MARSHALLING
+            [MarshalAs(UnmanagedType.Struct), In]
+#else
+            [MarshalUsing(typeof(VariantMarshaller))]
+#endif
+            object value,
             [In] int cSig,
             [In] IntPtr signature);
 
@@ -487,7 +492,12 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineConstant2(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
-            [MarshalAs(UnmanagedType.Struct), In] object value,
+#if !GENERATED_MARSHALLING
+            [MarshalAs(UnmanagedType.Struct), In]
+#else
+            [MarshalUsing(typeof(VariantMarshaller))]
+#endif
+            object value,
             [In] mdSignature sigToken);
 #endif
 

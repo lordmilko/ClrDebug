@@ -140,6 +140,9 @@ namespace ClrDebug.TypeLib
             [MarshalUsing(typeof(GuidMarshaller))] in
 #endif
             Guid guid,
+#if GENERATED_MARSHALLING
+            [MarshalUsing(typeof(VariantMarshaller))]
+#endif
             [Out] out object pVarVal);
 
         /// <summary>

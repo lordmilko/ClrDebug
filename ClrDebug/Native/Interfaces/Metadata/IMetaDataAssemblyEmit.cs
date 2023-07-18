@@ -162,11 +162,11 @@ namespace ClrDebug
         [PreserveSig]
         HRESULT SetAssemblyRefProps(
             [In] mdAssemblyRef ar,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] IntPtr pbPublicKeyOrToken,
+            [In] IntPtr pbPublicKeyOrToken,
             [In] int cbPublicKeyOrToken,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szName,
             [In] ref ASSEMBLYMETADATA pMetaData,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] IntPtr pbHashValue,
+            [In] IntPtr pbHashValue,
             [In] int cbHashValue,
             [In] AssemblyRefFlags dwAssemblyRefFlags);
 

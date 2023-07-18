@@ -157,7 +157,7 @@ namespace ClrDebug
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetElement(
             [In] int cdim,
-            [MarshalAs(UnmanagedType.LPArray), In] int indices,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), In] int[] indices,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
         /// <summary>

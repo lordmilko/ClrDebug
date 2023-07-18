@@ -304,7 +304,7 @@ namespace ClrDebug.TypeLib
         public HRESULT TryGetIDsOfNames(int cNames, out GetIDsOfNamesResult result)
         {
             /*HRESULT GetIDsOfNames(
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] string[] rgszNames,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPWStr, SizeParamIndex = 1)] string[] rgszNames,
             [In] int cNames,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] int[] pMemId);*/
             string[] rgszNames = new string[cNames];

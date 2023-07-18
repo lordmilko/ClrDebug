@@ -1,10 +1,17 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
     [DebuggerDisplay("{dwDebugEventCode.ToString(),nq} (dwProcessId = {dwProcessId}, dwThreadId = {dwThreadId})")]
     [StructLayout(LayoutKind.Sequential)]
+#if GENERATED_MARSHALLING
+    [NativeMarshalling(typeof(Marshaller))]
+#endif
     public struct DEBUG_EVENT
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -78,5 +85,37 @@ namespace ClrDebug
             [FieldOffset(0)]
             public RIP_INFO RipInfo;
         }
+
+#if GENERATED_MARSHALLING
+        [CustomMarshaller(typeof(DEBUG_EVENT), MarshalMode.UnmanagedToManagedRef, typeof(Bidirectional))]
+        [CustomMarshaller(typeof(DEBUG_EVENT), MarshalMode.ManagedToUnmanagedRef, typeof(Bidirectional))]
+        public static class Marshaller
+        {
+            public static class Bidirectional
+            {
+                public static IntPtr ConvertToUnmanaged(DEBUG_EVENT managed)
+                {
+                    var unmanaged = Marshal.AllocCoTaskMem(Marshal.SizeOf<DEBUG_EVENT>());
+
+                    Marshal.StructureToPtr(managed, unmanaged, false);
+
+                    return unmanaged;
+                }
+
+                public static DEBUG_EVENT ConvertToManaged(IntPtr unmanaged)
+                {
+                    var managed = Marshal.PtrToStructure<DEBUG_EVENT>(unmanaged);
+
+                    return managed;
+                }
+
+                public static void Free(IntPtr unmanaged)
+                {
+                    if (unmanaged != IntPtr.Zero)
+                        Marshal.FreeCoTaskMem(unmanaged);
+                }
+            }
+        }
+#endif
     }
 }

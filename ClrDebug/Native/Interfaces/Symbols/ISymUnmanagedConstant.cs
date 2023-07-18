@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if GENERATED_MARSHALLING
+using System.Runtime.InteropServices.Marshalling;
+#endif
 
 namespace ClrDebug
 {
@@ -33,7 +36,12 @@ namespace ClrDebug
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetValue(
-            [Out, MarshalAs(UnmanagedType.Struct)] out object pValue);
+#if !GENERATED_MARSHALLING
+            [Out, MarshalAs(UnmanagedType.Struct)]
+#else
+            [MarshalUsing(typeof(VariantMarshaller))]
+#endif
+            out object pValue);
 
         /// <summary>
         /// Gets the signature of the constant.

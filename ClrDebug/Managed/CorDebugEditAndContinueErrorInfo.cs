@@ -107,7 +107,7 @@ namespace ClrDebug
         public HRESULT TryGetErrorCode(out HRESULT pHr)
         {
             /*HRESULT GetErrorCode(
-            [Out] out int pHr);*/
+            [Out] out HRESULT pHr);*/
             return Raw.GetErrorCode(out pHr);
         }
 

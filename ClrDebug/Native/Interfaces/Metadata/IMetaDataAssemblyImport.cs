@@ -280,7 +280,7 @@ namespace ClrDebug
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAppBase,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szPrivateBin,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szAssemblyName,
-            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] object[] ppIUnk,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Interface, SizeParamIndex = 4)] object[] ppIUnk,
             [In] int cMax,
             [Out] out int pcAssemblies);
     }

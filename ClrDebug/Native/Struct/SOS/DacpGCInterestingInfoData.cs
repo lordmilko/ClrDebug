@@ -6,7 +6,7 @@ namespace ClrDebug
 {
     [DebuggerDisplay("interestingDataPoints = {interestingDataPoints}, compactReasons = {compactReasons}, expandMechanisms = {expandMechanisms}, bitMechanisms = {bitMechanisms}, globalMechanisms = {globalMechanisms}")]
     [StructLayout(LayoutKind.Sequential)]
-    public struct DacpGCInterestingInfoData
+    public partial struct DacpGCInterestingInfoData
     {
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DAC_NUM_GC_DATA_POINTS)]
         public long[] interestingDataPoints;
