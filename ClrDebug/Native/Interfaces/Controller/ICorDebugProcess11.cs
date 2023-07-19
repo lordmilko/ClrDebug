@@ -24,7 +24,6 @@ namespace ClrDebug
         /// The information returned is the same information that would be shown by using the SOS eeheap-loader command.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateLoaderHeapMemoryRegions(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryRangeEnum ppRanges);
     }

@@ -27,7 +27,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppThread">[out] A pointer to an <see cref="ICorDebugThread"/> object that represents the physical thread this call chain is part of.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetThread(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
 
@@ -41,7 +40,6 @@ namespace ClrDebug
         /// what is actually stored on the stack.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetStackRange(
             [Out] out CORDB_ADDRESS pStart,
             [Out] out CORDB_ADDRESS pEnd);
@@ -50,7 +48,6 @@ namespace ClrDebug
         /// This method is not implemented in the current version of the .NET Framework.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetContext(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugContext ppContext);
 
@@ -62,7 +59,6 @@ namespace ClrDebug
         /// The calling chain may be on a different thread, if the call was marshalled across threads.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCaller(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);
 
@@ -75,7 +71,6 @@ namespace ClrDebug
         /// thread in the case of cross-thread marshalled calls.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCallee(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);
 
@@ -85,7 +80,6 @@ namespace ClrDebug
         /// <param name="ppChain">[out] A pointer to the address of an <see cref="ICorDebugChain"/> object that represents the previous chain of frames for this thread.<para/>
         /// If this chain is the first chain, ppChain is null.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetPrevious(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);
 
@@ -95,7 +89,6 @@ namespace ClrDebug
         /// <param name="ppChain">[out] A pointer to the address of an <see cref="ICorDebugChain"/> object that represents the next chain of frames for the thread.<para/>
         /// If this chain is the last chain, ppChain is null.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetNext(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);
 
@@ -104,7 +97,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pManaged">[out] true if this chain is running managed code; otherwise, false.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsManaged(
             [Out] out int pManaged);
 
@@ -118,7 +110,6 @@ namespace ClrDebug
         /// The debugger must use other means to obtain this information.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateFrames(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrameEnum ppFrames);
 
@@ -132,7 +123,6 @@ namespace ClrDebug
         /// and for some chains initiated due to CHAIN_CLASS_INIT. See the <see cref="CorDebugChainReason"/> enumeration.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetActiveFrame(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);
 
@@ -141,7 +131,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppRegisters">[out] A pointer to the address of an <see cref="ICorDebugRegisterSet"/> object that represents the register set for the active part of this chain.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRegisterSet(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugRegisterSet ppRegisters);
 
@@ -150,7 +139,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pReason">[out] A pointer to a value (a bitwise combination) of the <see cref="CorDebugChainReason"/> enumeration that indicates the reason for the genesis of this calling chain.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetReason(
             [Out] out CorDebugChainReason pReason);
     }

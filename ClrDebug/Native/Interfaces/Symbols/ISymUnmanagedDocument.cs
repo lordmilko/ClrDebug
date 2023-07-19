@@ -28,7 +28,6 @@ namespace ClrDebug
         /// <param name="szUrl">[out] The buffer containing the URL.</param>
         /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetURL(
             [In] int cchUrl,
             [Out] out int pcchUrl,
@@ -40,7 +39,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] Pointer to a variable that receives the document type.</param>
         /// <returns>S_OK if the method succeeds.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetDocumentType(
             [Out]
 #if GENERATED_MARSHALLING
@@ -54,7 +52,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to a variable that receives the language identifier.</param>
         /// <returns>S_OK if the method succeeds.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLanguage(
             [Out]
 #if GENERATED_MARSHALLING
@@ -68,7 +65,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to a variable that receives the language vendor.</param>
         /// <returns>S_OK if the method succeeds.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLanguageVendor(
             [Out]
 #if GENERATED_MARSHALLING
@@ -82,7 +78,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to a variable that receives the checksum algorithm identifier.</param>
         /// <returns>S_OK if the method succeeds.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCheckSumAlgorithmId(
             [Out]
 #if GENERATED_MARSHALLING
@@ -98,7 +93,6 @@ namespace ClrDebug
         /// <param name="data">[out] The buffer that receives the checksum.</param>
         /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCheckSum(
             [In] int cData,
             [Out] out int pcData,
@@ -111,7 +105,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to a variable that receives the line.</param>
         /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT FindClosestLine(
             [In] int line,
             [Out] out int pRetVal);
@@ -122,7 +115,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to a variable that indicates whether the document has source embedded in the debugging symbols.</param>
         /// <returns>S_OK if the method succeeds.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT HasEmbeddedSource(
             [Out] out int pRetVal);
 
@@ -132,7 +124,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to a variable that indicates the length, in bytes, of the embedded source.</param>
         /// <returns>S_OK if the method succeeds.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSourceLength(
             [Out] out int pRetVal);
 
@@ -148,7 +139,6 @@ namespace ClrDebug
         /// <param name="source">[out] The size and length of the specified range of the source document, in bytes.</param>
         /// <returns>S_OK if the method succeeds.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSourceRange(
             [In] int startLine,
             [In] int startColumn,

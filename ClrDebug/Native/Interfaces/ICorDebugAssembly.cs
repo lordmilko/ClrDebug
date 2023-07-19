@@ -23,7 +23,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppProcess">[out] A pointer to an <see cref="ICorDebugProcess"/> interface that represents the process.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetProcess(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
@@ -35,7 +34,6 @@ namespace ClrDebug
         /// If this assembly is the system assembly, GetAppDomain returns null.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetAppDomain(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAppDomain ppAppDomain);
 
@@ -44,7 +42,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppModules">[out] A pointer to the address of the <see cref="ICorDebugModuleEnum"/> interface that is the enumerator.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateModules(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModuleEnum ppModules);
 
@@ -52,7 +49,6 @@ namespace ClrDebug
         /// This method is not implemented in the current version of the .NET Framework.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCodeBase(
             [In] int cchName,
             [Out] out int pcchName,
@@ -68,7 +64,6 @@ namespace ClrDebug
         /// The GetName method returns the full path and file name of the assembly.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetName(
             [In] int cchName,
             [Out] out int pcchName,

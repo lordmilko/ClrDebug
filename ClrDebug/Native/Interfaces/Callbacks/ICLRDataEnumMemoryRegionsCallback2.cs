@@ -28,14 +28,12 @@ namespace ClrDebug
         /// reported by this callback may be duplicates or overlapping regions.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT EnumMemoryRegion(
             [In] CLRDATA_ADDRESS address,
             [In] int size);
 #endif
 
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT UpdateMemoryRegion(
             [In] CLRDATA_ADDRESS address,
             [In] int bufferSize,

@@ -26,7 +26,6 @@ namespace ClrDebug
         /// <param name="pcchName">[out] A pointer to the number of characters actually written to the szName buffer.</param>
         /// <param name="szName">A pointer to a character array that contains the variable name.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetName(
             [In] int cchName,
             [Out] out int pcchName,
@@ -37,7 +36,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pcbValue">A pointer to a 32-bit unsigned integer containing the size of the variable.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSize(
             [Out] out int pcbValue);
 
@@ -51,7 +49,6 @@ namespace ClrDebug
         /// <param name="pcbValue">[out] The number of bytes actually written to the pValue buffer.</param>
         /// <param name="pValue">[out] A byte array that contains the value of the variable.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetValue(
             [In] int offset,
             [In] int cbContext,
@@ -70,7 +67,6 @@ namespace ClrDebug
         /// <param name="cbValue">[in] The size in bytes of the pValue buffer.</param>
         /// <param name="pValue">[in] The buffer that contains the value to set.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetValue(
             [In] int offset,
             [In] int threadID,
@@ -88,7 +84,6 @@ namespace ClrDebug
         /// The managed slot index of a local variable can be used to retrieve the variable's metadata information
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSlotIndex(
             [Out] out int pSlotIndex);
     }

@@ -35,7 +35,6 @@ namespace ClrDebug
         /// The <see cref="GetReturnValueLiveOffset"/> method is available only on x86-based and AMD64 systems.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetReturnValueLiveOffset(
             [In] int ilOffset,
             [In] int bufferSize,

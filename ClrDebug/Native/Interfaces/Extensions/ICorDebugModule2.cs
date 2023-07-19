@@ -33,7 +33,6 @@ namespace ClrDebug
         /// true are not debuggable.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetJMCStatus(
             [In, MarshalAs(UnmanagedType.Bool)] bool bIsJustMyCode,
             [In] int cTokens,
@@ -63,7 +62,6 @@ namespace ClrDebug
         /// must be restarted.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ApplyChanges(
             [In] int cbMetadata,
             [In] IntPtr pbMetadata,
@@ -83,7 +81,6 @@ namespace ClrDebug
         /// all methods specific to Edit and Continue, such as <see cref="ApplyChanges"/>, will fail.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetJITCompilerFlags(
             [In] CorDebugJITCompilerFlags dwFlags);
 
@@ -92,7 +89,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pdwFlags">[out] A pointer to a value of the <see cref="CorDebugJITCompilerFlags"/> enumeration that controls the JIT compilation.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetJITCompilerFlags(
             [Out] out CorDebugJITCompilerFlags pdwFlags);
 
@@ -106,7 +102,6 @@ namespace ClrDebug
         /// is returned.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ResolveAssembly(
             [In] mdToken tkAssemblyRef,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAssembly ppAssembly);

@@ -29,7 +29,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppModule">[out] A pointer to the address of an <see cref="ICorDebugModule"/> object that represents the module in which this function is defined.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetModule(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
 
@@ -38,7 +37,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppClass">[out] A pointer to the address of the <see cref="ICorDebugClass"/> object that represents the class, or null, if this function is not a member of a class.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetClass(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);
 
@@ -47,7 +45,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pMethodDef">[out] A pointer to an <see cref="mdMethodDef"/> token that references the metadata for this function.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetToken(
             [Out] out mdMethodDef pMethodDef);
 
@@ -60,7 +57,6 @@ namespace ClrDebug
         /// to this function's edited version of the code in the common language runtime (CLR).
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetILCode(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
 
@@ -73,7 +69,6 @@ namespace ClrDebug
         /// in the case of generic types, GetNativeCode returns a random native code object.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetNativeCode(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
 
@@ -82,7 +77,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppBreakpoint">[out] A pointer to the address of an <see cref="ICorDebugFunctionBreakpoint"/> object that represents the new breakpoint for the function.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateBreakpoint(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunctionBreakpoint ppBreakpoint);
 
@@ -91,7 +85,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pmdSig">[out] A pointer to the <see cref="mdSignature"/> token for the local variable signature of this function, or mdSignatureNil, if this function has no local variables.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLocalVarSigToken(
             [Out] out mdSignature pmdSig);
 
@@ -105,7 +98,6 @@ namespace ClrDebug
         /// method to retrieve the version number of the function.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCurrentVersionNumber(
             [Out] out int pnCurrentVersion);
     }

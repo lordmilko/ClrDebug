@@ -27,7 +27,6 @@ namespace ClrDebug
         /// reschedule a thread.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT SetGCThreadControl(
             [In, MarshalAs(UnmanagedType.Interface)] IGCThreadControl pGCThreadControl);
 
@@ -36,7 +35,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pGCHostControl">[in] A pointer to an <see cref="IGCHostControl"/> object that allows the garbage collector to request the host to change the limits of virtual memory.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT SetGCHostControl(
             [In, MarshalAs(UnmanagedType.Interface)] IGCHostControl pGCHostControl);
 
@@ -45,7 +43,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pDebuggerThreadControl">[in] A pointer to an <see cref="IDebuggerThreadControl"/> object that notifies the host about the blocking and unblocking of threads by the debugging services.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT SetDebuggerThreadControl(
             [In, MarshalAs(UnmanagedType.Interface)] IDebuggerThreadControl pDebuggerThreadControl);
 
@@ -58,7 +55,6 @@ namespace ClrDebug
         /// a thread would be an in-process thread to support legacy script debuggers.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT AddDebuggerSpecialThread(
             [In] int dwSpecialThreadId);
     }

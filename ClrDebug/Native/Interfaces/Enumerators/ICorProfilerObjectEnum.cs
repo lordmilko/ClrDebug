@@ -32,7 +32,6 @@ namespace ClrDebug
         /// The new position of this enumerator's cursor is: (current position) + celt .
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Skip(
             [In] int celt);
 
@@ -40,7 +39,6 @@ namespace ClrDebug
         /// Moves this enumerator's cursor to the starting position of the sequence.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Reset();
 
         /// <summary>
@@ -49,7 +47,6 @@ namespace ClrDebug
         /// <param name="ppEnum">[out] A pointer to the interface pointer that in turn points to the copy of this ICorProfilerObjectEnum interface.<para/>
         /// The copy maintains its own enumeration state separately from this one. However, the copy's initial cursor position will be the same as this enumerator's current cursor position.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Clone(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorProfilerObjectEnum ppEnum);
 
@@ -58,7 +55,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pcelt">[out] A pointer to the number of frozen objects in the collection. This method will always return zero in the .NET Framework version 3.5 Service Pack 1 (SP1) and later versions.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCount(
             [Out] out int pcelt);
 
@@ -69,7 +65,6 @@ namespace ClrDebug
         /// <param name="objects">[out] An array of ObjectID values, each of which represents a retrieved object.</param>
         /// <param name="pceltFetched">[out] A pointer to the number of elements actually returned in the objects array.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Next(
             [In] int celt,
             [Out] out ObjectID objects,

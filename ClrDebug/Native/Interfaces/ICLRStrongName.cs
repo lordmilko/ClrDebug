@@ -34,7 +34,6 @@ namespace ClrDebug
         /// <param name="pchHash">[out] The returned size, in bytes, of pbHash.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHashFromAssemblyFile(
             [MarshalAs(UnmanagedType.LPStr), In] string pszFilePath,
             [In, Out] ref int piHashAlg,
@@ -52,7 +51,6 @@ namespace ClrDebug
         /// <param name="pchHash">[out] The returned size, in bytes, of pbHash.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHashFromAssemblyFileW(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [In, Out] ref int piHashAlg,
@@ -71,7 +69,6 @@ namespace ClrDebug
         /// <param name="pchHash">[out] The size, in bytes, of the returned pbHash.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHashFromBlob(
             [In] IntPtr pbBlob,
             [In] int cchBlob,
@@ -95,7 +92,6 @@ namespace ClrDebug
         /// ANSI instead of Unicode.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHashFromFile(
             [MarshalAs(UnmanagedType.LPStr), In] string pszFilePath,
             [In, Out] ref int piHashAlg,
@@ -118,7 +114,6 @@ namespace ClrDebug
         /// Unicode instead of ANSI.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHashFromFileW(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [In, Out] ref int piHashAlg,
@@ -136,7 +131,6 @@ namespace ClrDebug
         /// <param name="pchHash">[out] The size, in bytes, of the returned pbHash.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHashFromHandle(
             [In] IntPtr hFile,
             [In, Out] ref int piHashAlg,
@@ -156,7 +150,6 @@ namespace ClrDebug
         /// token.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameCompareAssemblies(
             [MarshalAs(UnmanagedType.LPWStr), In] string wszAssembly1,
             [MarshalAs(UnmanagedType.LPWStr), In] string wszAssembly2,
@@ -168,7 +161,6 @@ namespace ClrDebug
         /// <param name="pbMemory">[in] A pointer to the memory to free.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameFreeBuffer(
             [In] IntPtr pbMemory);
 
@@ -180,7 +172,6 @@ namespace ClrDebug
         /// <param name="pcbBlob">[in, out] The requested maximum size, in bytes, of pbBlob. Upon return, the actual size, in bytes, of pbBlob.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameGetBlob(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [In, Out] IntPtr pbBlob,
@@ -195,7 +186,6 @@ namespace ClrDebug
         /// <param name="pcbBlob">[in, out] The requested maximum size, in bytes, of pbBlob. Upon return, the actual size, in bytes, of pbBlob.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameGetBlobFromImage(
             [In] IntPtr pbBase,
             [In] int dwLength,
@@ -220,7 +210,6 @@ namespace ClrDebug
         /// The public key is contained in a <see cref="PublicKeyBlob"/> structure.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameGetPublicKey(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
             [In] IntPtr pbKeyBlob,
@@ -235,7 +224,6 @@ namespace ClrDebug
         /// <param name="pcbSize">[out] The returned buffer size, in bytes.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameHashSize(
             [In] int ulHashAlg,
             [Out] out int pcbSize);
@@ -249,7 +237,6 @@ namespace ClrDebug
         /// Use the <see cref="StrongNameKeyInstall"/> method to import a public/private key pair into a container.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameKeyDelete(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer);
 
@@ -266,7 +253,6 @@ namespace ClrDebug
         /// <see cref="StrongNameFreeBuffer"/> method to release the allocated memory.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameKeyGen(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
             [In] SN_LEAVE dwFlags,
@@ -288,7 +274,6 @@ namespace ClrDebug
         /// method to release the allocated memory.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameKeyGenEx(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
             [In] SN_LEAVE dwFlags,
@@ -307,7 +292,6 @@ namespace ClrDebug
         /// Use the <see cref="StrongNameKeyDelete"/> method to delete the key container.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameKeyInstall(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
             [In] IntPtr pbKeyBlob,
@@ -332,7 +316,6 @@ namespace ClrDebug
         /// can be stored either directly in the file, or returned to the caller.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameSignatureGeneration(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzKeyContainer,
@@ -363,7 +346,6 @@ namespace ClrDebug
         /// indicate that the assembly is signed with a strong name.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameSignatureGenerationEx(
             [MarshalAs(UnmanagedType.LPWStr), In] string wszFilePath,
             [MarshalAs(UnmanagedType.LPWStr), In] string wszKeyContainer,
@@ -381,7 +363,6 @@ namespace ClrDebug
         /// <param name="pcbSize">[in] The number of bytes required to store the strong name signature.</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameSignatureSize(
             [In] IntPtr pbPublicKeyBlob,
             [In] int cbPublicKeyBlob,
@@ -395,7 +376,6 @@ namespace ClrDebug
         /// <param name="pdwOutFlags">[out] Flags indicating whether the strong name signature was verified. The following value is supported:</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameSignatureVerification(
             [MarshalAs(UnmanagedType.LPWStr), In] string wszFilePath,
             [In] SN_INFLAG dwInFlags,
@@ -414,7 +394,6 @@ namespace ClrDebug
         /// are of type BOOLEAN instead of DWORD.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameSignatureVerificationEx(
             [MarshalAs(UnmanagedType.LPWStr), In] string wszFilePath,
             [In, MarshalAs(UnmanagedType.Bool)] bool fForceVerification,
@@ -429,7 +408,6 @@ namespace ClrDebug
         /// <param name="pdwOutFlags">[out] A flag for additional output information. The following value is supported:</param>
         /// <returns>S_OK if the method completed successfully; otherwise, an <see cref="HRESULT"/> value that indicates failure (see Common <see cref="HRESULT"/> Values for a list).</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameSignatureVerificationFromImage(
             [In] IntPtr pbBase,
             [In] int dwLength,
@@ -450,7 +428,6 @@ namespace ClrDebug
         /// method to release the allocated memory.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameTokenFromAssembly(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [Out] out IntPtr ppbStrongNameToken,
@@ -472,7 +449,6 @@ namespace ClrDebug
         /// method to release the allocated memory.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameTokenFromAssemblyEx(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [Out] out IntPtr ppbStrongNameToken,
@@ -494,7 +470,6 @@ namespace ClrDebug
         /// in metadata. Specifically, strong name tokens are used in assembly references to refer to the dependent assembly.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StrongNameTokenFromPublicKey(
             [In] IntPtr pbPublicKeyBlob,
             [In] int cbPublicKeyBlob,

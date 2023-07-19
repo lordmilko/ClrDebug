@@ -24,7 +24,6 @@ namespace ClrDebug
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsAsyncMethod();
 
         /// <summary>
@@ -32,7 +31,6 @@ namespace ClrDebug
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetKickoffMethod(
             [Out] out mdToken kickoffMethod);
 
@@ -41,7 +39,6 @@ namespace ClrDebug
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT HasCatchHandlerILOffset();
 
         /// <summary>
@@ -49,7 +46,6 @@ namespace ClrDebug
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCatchHandlerILOffset(
             [Out] out int pRetVal);
 
@@ -58,7 +54,6 @@ namespace ClrDebug
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetAsyncStepInfoCount(
             [Out] out int pRetVal);
 
@@ -67,7 +62,6 @@ namespace ClrDebug
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetAsyncStepInfo(
             [In] int cStepInfo,
             [Out] out int pcStepInfo,

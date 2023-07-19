@@ -43,7 +43,6 @@ namespace ClrDebug
         /// JIT-attach.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT HadUnhandledException();
 
         /// <summary>
@@ -59,7 +58,6 @@ namespace ClrDebug
         /// returns an <see cref="HRESULT"/> that indicates failure; otherwise, it returns S_OK.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetBlockingObjects(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugBlockingObjectEnum ppBlockingObjectEnum);
 
@@ -72,7 +70,6 @@ namespace ClrDebug
         /// callback, or if no current notification object exists.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCurrentCustomDebuggerNotification(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppNotificationObject);
     }

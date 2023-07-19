@@ -31,7 +31,6 @@ namespace ClrDebug
         /// array.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetEHClauses(
             [In] int cClauses,
             [Out] out int pcClauses,

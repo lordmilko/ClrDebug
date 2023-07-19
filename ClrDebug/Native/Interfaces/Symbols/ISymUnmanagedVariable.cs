@@ -26,7 +26,6 @@ namespace ClrDebug
         /// <param name="szName">[out] The buffer that stores the name.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetName(
             [In] int cchName,
             [Out] out int pcchName,
@@ -38,7 +37,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the attributes. The returned value will be one of the values defined in the <see cref="CorSymVarFlag"/> enumeration.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetAttributes(
             [Out] out CorSymVarFlag pRetVal);
 
@@ -50,7 +48,6 @@ namespace ClrDebug
         /// <param name="sig">[out] The buffer that stores the signature.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSignature(
             [In] int cSig,
             [Out] out int pcSig,
@@ -62,7 +59,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the value. The possible values are defined in the <see cref="CorSymAddrKind"/> enumeration.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetAddressKind(
             [Out] out CorSymAddrKind pRetVal);
 
@@ -72,7 +68,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the first address field.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetAddressField1(
             [Out] out int pRetVal);
 
@@ -82,7 +77,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the second address field.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetAddressField2(
             [Out] out int pRetVal);
 
@@ -92,7 +86,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the third address field.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetAddressField3(
             [Out] out int pRetVal);
 
@@ -102,7 +95,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the start offset.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetStartOffset(
             [Out] out int pRetVal);
 
@@ -112,7 +104,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the end offset.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetEndOffset(
             [Out] out int pRetVal);
     }

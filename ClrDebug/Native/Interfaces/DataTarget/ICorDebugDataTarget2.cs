@@ -26,7 +26,6 @@ namespace ClrDebug
         /// <param name="pImageBase">[out] A <see cref="CORDB_ADDRESS"/> value that represents the module's base address.</param>
         /// <param name="pSize">A pointer to the module size.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetImageFromPointer(
             [In] CORDB_ADDRESS addr,
             [Out] out CORDB_ADDRESS pImageBase,
@@ -40,7 +39,6 @@ namespace ClrDebug
         /// <param name="pcchName">[out] A pointer to the number of characters written to the szName buffer.</param>
         /// <param name="szName">[out] The path of the module.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetImageLocation(
             [In] CORDB_ADDRESS baseAddress,
             [In] int cchName,
@@ -53,7 +51,6 @@ namespace ClrDebug
         /// <param name="imageBaseAddress">[in] A <see cref="CORDB_ADDRESS"/> value that represents the base address of a module.</param>
         /// <param name="ppSymProvider">[out] A pointer to the address of an <see cref="ICorDebugSymbolProvider"/> object.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSymbolProviderForImage(
             [In] CORDB_ADDRESS imageBaseAddress,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugSymbolProvider ppSymProvider);
@@ -65,7 +62,6 @@ namespace ClrDebug
         /// <param name="pcThreadIds">[out] A pointer to a ULONG32 that indicates the actual number of thread IDs written to the pThreadIds array.</param>
         /// <param name="pThreadIds">An array of thread identifiers.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateThreadIDs(
             [In] int cThreadIds,
             [Out] out int pcThreadIds,
@@ -81,7 +77,6 @@ namespace ClrDebug
         /// <param name="ppUnwinder">[out] A pointer to the address of an <see cref="ICorDebugVirtualUnwinder"/> interface object.</param>
         /// <returns>S_OK if successful. Any other <see cref="HRESULT"/> indicates failure. Any failing <see cref="HRESULT"/> received by mscordbi is considered fatal and causes <see cref="ICorDebug"/> methods to return CORDBG_E_DATA_TARGET_ERROR.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateVirtualUnwinder(
             [In] int nativeThreadID,
             [In] ContextFlags contextFlags,

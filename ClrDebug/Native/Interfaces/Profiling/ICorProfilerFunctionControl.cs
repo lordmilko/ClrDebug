@@ -42,7 +42,6 @@ namespace ClrDebug
         /// but then disables inlining by using the <see cref="ICorProfilerCallback.JITInlining"/> callback, inlining is disabled.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetCodegenFlags(
             [In] COR_PRF_CODEGEN_FLAGS flags);
 
@@ -65,7 +64,6 @@ namespace ClrDebug
         /// on any heap. The profiler can free the memory used for its CIL body after SetILFunctionBody returns.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetILFunctionBody(
             [In] int cbNewILMethodHeader,
             [In] IntPtr pbNewILMethodHeader);
@@ -81,7 +79,6 @@ namespace ClrDebug
         /// lifetimes.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetILInstrumentedCodeMap(
             [In] int cILMapEntries,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] COR_IL_MAP[] rgILMapEntries);

@@ -33,7 +33,6 @@ namespace ClrDebug
         /// value. They are both superseded by the generics-aware <see cref="ICorDebugValue2.GetExactType"/> method.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetType(
             [Out] out CorElementType pType);
 
@@ -47,7 +46,6 @@ namespace ClrDebug
         /// platforms. Use the <see cref="ICorDebugValue3.GetSize64"/> method instead for objects that are larger than 4 GB.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetSize(
             [Out] out int pSize);
 
@@ -60,7 +58,6 @@ namespace ClrDebug
         /// or stored in a garbage collector handle (GCHandle).
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetAddress(
             [Out] out CORDB_ADDRESS pAddress);
 
@@ -68,7 +65,6 @@ namespace ClrDebug
         /// The CreateBreakpoint method is currently not implemented.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT CreateBreakpoint(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
 
@@ -82,7 +78,6 @@ namespace ClrDebug
         /// the values are invalidated.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT IsValid(
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pbValid);
 
@@ -90,7 +85,6 @@ namespace ClrDebug
         /// This method is not implemented in the current version of the .NET Framework.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT CreateRelocBreakpoint(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
 #endif
@@ -100,7 +94,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pType">[out] A pointer to a value of the <see cref="CorElementType"/> enumeration that indicates the type.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetElementType(
             [Out] out CorElementType pType);
 
@@ -109,7 +102,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pnRank">[out] A pointer to the number of dimensions in this <see cref="ICorDebugArrayValue"/> object.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRank(
             [Out] out int pnRank);
 
@@ -118,7 +110,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pnCount">[out] A pointer to the total number of elements in the array.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCount(
             [Out] out int pnCount);
 
@@ -128,7 +119,6 @@ namespace ClrDebug
         /// <param name="cdim">[in] The number of dimensions of this <see cref="ICorDebugArrayValue"/> object. This value is also the size of the dims array because its size is equal to the number of dimensions of the <see cref="ICorDebugArrayValue"/> object.</param>
         /// <param name="dims">[out] An array of integers, each of which specifies the number of elements in a dimension in this <see cref="ICorDebugArrayValue"/> object.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetDimensions(
             [In] int cdim,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] int[] dims);
@@ -138,7 +128,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pbHasBaseIndicies">[out] A pointer to a Boolean value that is true if one or more dimensions of this <see cref="ICorDebugArrayValue"/> object have a base index of non-zero; otherwise, the Boolean value is false.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT HasBaseIndicies(
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pbHasBaseIndicies);
 
@@ -148,7 +137,6 @@ namespace ClrDebug
         /// <param name="cdim">[in] The number of dimensions of this <see cref="ICorDebugArrayValue"/> object. This value is also the size of the indicies array because its size is equal to the number of dimensions of the <see cref="ICorDebugArrayValue"/> object.</param>
         /// <param name="indicies">[out] An array of integers, each of which is the base index (that is, the starting index) of a dimension of this <see cref="ICorDebugArrayValue"/> object.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetBaseIndicies(
             [In] int cdim,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), Out] int[] indicies);
@@ -161,7 +149,6 @@ namespace ClrDebug
         /// This value must not be null.</param>
         /// <param name="ppValue">[out] A pointer to the address of an <see cref="ICorDebugValue"/> object that represents the value of the specified element.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetElement(
             [In] int cdim,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0), In] int[] indices,
@@ -176,7 +163,6 @@ namespace ClrDebug
         /// The layout of a multi-dimension array follows the C++ style of array layout.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetElementAtPosition(
             [In] int nPosition,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);

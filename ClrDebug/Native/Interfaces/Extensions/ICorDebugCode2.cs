@@ -30,7 +30,6 @@ namespace ClrDebug
         /// version 2.0 will comprise a single code chunk.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCodeChunks(
             [In] int cbufSize,
             [Out] out int pcnumChunks,
@@ -41,7 +40,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pdwFlags">[out] A pointer to a value of the <see cref="CorDebugJITCompilerFlags"/> enumeration that specifies the behavior of the JIT compiler or the native image generator.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCompilerFlags(
             [Out] out CorDebugJITCompilerFlags pdwFlags);
     }

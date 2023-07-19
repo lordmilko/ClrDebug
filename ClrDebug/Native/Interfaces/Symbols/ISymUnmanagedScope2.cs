@@ -26,7 +26,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to the returned <see cref="ISymUnmanagedMethod"/> interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetMethod(
             [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);
 
@@ -36,7 +35,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to the returned <see cref="ISymUnmanagedScope"/> interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetParent(
             [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedScope pRetVal);
 
@@ -48,7 +46,6 @@ namespace ClrDebug
         /// <param name="children">[out] The returned array of children.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetChildren(
             [In] int cChildren,
             [Out] out int pcChildren,
@@ -60,7 +57,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that contains the starting offset.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetStartOffset(
             [Out] out int pRetVal);
 
@@ -70,7 +66,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the end offset.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetEndOffset(
             [Out] out int pRetVal);
 
@@ -80,7 +75,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the count of local variables.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetLocalCount(
             [Out] out int pRetVal);
 
@@ -92,7 +86,6 @@ namespace ClrDebug
         /// <param name="locals">[out] The array that receives the local variables.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetLocals(
             [In] int cLocals,
             [Out] out int pcLocals,
@@ -106,7 +99,6 @@ namespace ClrDebug
         /// <param name="namespaces">[out] The array that receives the namespaces.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetNamespaces(
             [In] int cNameSpaces,
             [Out] out int pcNameSpaces,
@@ -119,7 +111,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the size, in characters, of the buffer required to contain the constants.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetConstantCount(
             [Out] out int pRetVal);
 
@@ -131,7 +122,6 @@ namespace ClrDebug
         /// <param name="constants">[out] The buffer that stores the constants.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetConstants(
             [In] int cConstants,
             [Out] out int pcConstants,

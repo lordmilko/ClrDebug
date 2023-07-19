@@ -41,7 +41,6 @@ namespace ClrDebug
         /// CORDBG_E_CLASS_NOT_LOADED. If the type is not supported, it returns CORDBG_E_UNSUPPORTED.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetTypeID(
             [Out] out COR_TYPEID id);
     }

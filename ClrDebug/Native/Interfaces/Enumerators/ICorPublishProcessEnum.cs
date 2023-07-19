@@ -30,7 +30,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="celt">[in] The number of items by which to move the cursor forward.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Skip(
             [In] int celt);
 
@@ -38,7 +37,6 @@ namespace ClrDebug
         /// Moves the cursor of to the beginning of the enumeration.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Reset();
 
         /// <summary>
@@ -46,7 +44,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppEnum">[out] A pointer to the address of an ICorPublishEnum object that is a copy of this ICorPublishEnum object.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Clone(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorPublishEnum ppEnum);
 
@@ -55,7 +52,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pcelt">[out] A pointer to the number of items in the enumeration.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetCount(
             [Out] out int pcelt);
 #endif
@@ -67,7 +63,6 @@ namespace ClrDebug
         /// <param name="objects">[out] A pointer to the array of retrieved <see cref="ICorPublishProcess"/> objects, each of which represents a process.</param>
         /// <param name="pceltFetched">[out] Pointer to the number of processes actually returned. This value may be null if celt is one.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Next(
             [In] int celt,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorPublishProcess objects,

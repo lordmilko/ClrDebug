@@ -32,7 +32,6 @@ namespace ClrDebug
         /// only frames that would have had an <see cref="ICorDebugILFrame"/> object for them in the full stack trace.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetActiveFunctions(
             [In] int cFunctions,
             [Out] out int pcFunctions,
@@ -48,7 +47,6 @@ namespace ClrDebug
         /// to a server process identifier (SPID).
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetConnectionID(
             [Out] out int pdwConnectionId);
 
@@ -61,7 +59,6 @@ namespace ClrDebug
         /// in pTaskId if the thread is not associated with a connection.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetTaskID(
             [Out] out long pTaskId);
 
@@ -70,7 +67,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pdwTid">[out] The operating system thread identifier for this thread.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetVolatileOSThreadID(
             [Out] out int pdwTid);
 
@@ -83,7 +79,6 @@ namespace ClrDebug
         /// or <see cref="ICorDebugManagedCallback2.Exception"/>) and the associated call to <see cref="ICorDebugController.Continue"/>.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT InterceptCurrentException(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugFrame pFrame);
     }

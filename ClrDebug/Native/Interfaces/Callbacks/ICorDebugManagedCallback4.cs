@@ -17,17 +17,14 @@ namespace ClrDebug
     public partial interface ICorDebugManagedCallback4
     {
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT BeforeGarbageCollection(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugProcess pProcess);
 
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT AfterGarbageCollection(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugProcess pProcess);
 
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT DataBreakpoint(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugProcess pProcess,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,

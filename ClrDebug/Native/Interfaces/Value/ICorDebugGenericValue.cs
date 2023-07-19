@@ -36,7 +36,6 @@ namespace ClrDebug
         /// value. They are both superseded by the generics-aware <see cref="ICorDebugValue2.GetExactType"/> method.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetType(
             [Out] out CorElementType pType);
 
@@ -50,7 +49,6 @@ namespace ClrDebug
         /// platforms. Use the <see cref="ICorDebugValue3.GetSize64"/> method instead for objects that are larger than 4 GB.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetSize(
             [Out] out int pSize);
 
@@ -63,7 +61,6 @@ namespace ClrDebug
         /// or stored in a garbage collector handle (GCHandle).
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetAddress(
             [Out] out CORDB_ADDRESS pAddress);
 
@@ -71,7 +68,6 @@ namespace ClrDebug
         /// The CreateBreakpoint method is currently not implemented.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT CreateBreakpoint(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
 #endif
@@ -81,7 +77,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pTo">[out] A pointer to the value that is represented by this <see cref="ICorDebugGenericValue"/> object. The value may be a simple type or a reference type (that is, a pointer).</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetValue(
             [Out] out IntPtr pTo);
 
@@ -93,7 +88,6 @@ namespace ClrDebug
         /// For reference types, the value is the reference, not the content.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetValue(
             [In] IntPtr pFrom);
     }

@@ -30,7 +30,6 @@ namespace ClrDebug
         /// relatively small number of handles (about 256) that are active at a time.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateHandle(
             [In] CorDebugHandleType type,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugHandleValue ppHandle);

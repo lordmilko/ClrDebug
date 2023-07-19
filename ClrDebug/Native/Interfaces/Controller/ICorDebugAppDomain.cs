@@ -34,7 +34,6 @@ namespace ClrDebug
         /// the counter.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Stop(
             [In] int dwTimeoutIgnored);
 
@@ -53,7 +52,6 @@ namespace ClrDebug
         /// true.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Continue(
             [In, MarshalAs(UnmanagedType.Bool)] bool fIsOutOfBand);
 
@@ -62,7 +60,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pbRunning">[out] A pointer to a value that is true if the threads in the process are running freely; otherwise, false.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT IsRunning(
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pbRunning);
 
@@ -81,7 +78,6 @@ namespace ClrDebug
         /// the second debugging event for thread X will be dispatched although the thread has been suspended.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT HasQueuedCallbacks(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pbQueued);
@@ -97,7 +93,6 @@ namespace ClrDebug
         /// callback. The enumeration will naturally be empty.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT EnumerateThreads(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThreadEnum ppThreads);
 
@@ -113,7 +108,6 @@ namespace ClrDebug
         /// method.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT SetAllThreadsDebugState(
             [In] CorDebugThreadState state,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pExceptThisThread);
@@ -127,7 +121,6 @@ namespace ClrDebug
         /// debugging is enabled, this method will fail due to operating system limitations.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Detach();
 
         /// <summary>
@@ -140,7 +133,6 @@ namespace ClrDebug
         /// or <see cref="ICorDebugManagedCallback.ExitAppDomain"/> callback.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Terminate(
             [In] int exitCode);
 
@@ -149,7 +141,6 @@ namespace ClrDebug
         /// </summary>
         [Obsolete]
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT CanCommitChanges(
             [In] int cSnapshots,
             [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugEditAndContinueSnapshot pSnapshots,
@@ -160,7 +151,6 @@ namespace ClrDebug
         /// </summary>
         [Obsolete]
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT CommitChanges(
             [In] int cSnapshots,
             [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugEditAndContinueSnapshot pSnapshots,
@@ -172,7 +162,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppProcess">[out] A pointer to the address of an <see cref="ICorDebugProcess"/> object that represents the process.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetProcess(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
@@ -181,7 +170,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppAssemblies">[out] A pointer to the address of an <see cref="ICorDebugAssemblyEnum"/> object that is the enumerator for the assemblies in the application domain.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateAssemblies(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAssemblyEnum ppAssemblies);
 
@@ -191,7 +179,6 @@ namespace ClrDebug
         /// <param name="pIMetaData">[in] A pointer to an object that is one of the Metadata interfaces.</param>
         /// <param name="ppModule">[out] A pointer to the address of an <see cref="ICorDebugModule"/> object that represents the module corresponding to the given metadata interface.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetModuleFromMetaDataInterface(
             [MarshalAs(UnmanagedType.Interface), In] object pIMetaData,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
@@ -204,7 +191,6 @@ namespace ClrDebug
         /// The enumerator includes all types of breakpoints, including function breakpoints and data breakpoints.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateBreakpoints(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugBreakpointEnum ppBreakpoints);
 
@@ -213,7 +199,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppSteppers">[out] A pointer to the address of an <see cref="ICorDebugStepperEnum"/> object that is the enumerator for all active steppers in the application domain.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateSteppers(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugStepperEnum ppSteppers);
 
@@ -225,7 +210,6 @@ namespace ClrDebug
         /// The <see cref="ICorDebugController"/> methods cannot be used until the debugger attaches to the application domain.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsAttached(
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pbAttached);
 
@@ -241,7 +225,6 @@ namespace ClrDebug
         /// name, is referred to as query mode.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetName(
             [In] int cchName,
             [Out] out int pcchName,
@@ -258,7 +241,6 @@ namespace ClrDebug
         /// object.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetObject(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppObject);
 
@@ -270,7 +252,6 @@ namespace ClrDebug
         /// domain.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Attach();
 
         /// <summary>
@@ -281,7 +262,6 @@ namespace ClrDebug
         /// The identifier for the application domain is unique within the containing process.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetID(
             [Out] out int pId);
     }

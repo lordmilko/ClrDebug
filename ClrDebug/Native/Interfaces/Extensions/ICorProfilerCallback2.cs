@@ -44,7 +44,6 @@ namespace ClrDebug
         /// The COR_PRF_MONITOR_IMMUTABLE value of the <see cref="COR_PRF_MONITOR"/> enumeration indicates which events are immutable.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Initialize(
             [MarshalAs(UnmanagedType.Interface), In] object pICorProfilerInfoUnk);
 
@@ -65,7 +64,6 @@ namespace ClrDebug
         /// managed threads (background threads) without delivering orderly destruction messages for them.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Shutdown();
 
         /// <summary>
@@ -76,7 +74,6 @@ namespace ClrDebug
         /// The ID is not valid for any information request until the <see cref="AppDomainCreationFinished"/> method is called.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT AppDomainCreationStarted(
             [In] AppDomainID appDomainId);
 
@@ -92,7 +89,6 @@ namespace ClrDebug
         /// of creating the application domain has succeeded.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT AppDomainCreationFinished(
             [In] AppDomainID appDomainId,
             [In] HRESULT hrStatus);
@@ -106,7 +102,6 @@ namespace ClrDebug
         /// — this is the profiler's last chance to get information about this application domain.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT AppDomainShutdownStarted(
             [In] AppDomainID appDomainId);
 
@@ -122,7 +117,6 @@ namespace ClrDebug
         /// that the first part of unloading the application domain has succeeded.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT AppDomainShutdownFinished(
             [In] AppDomainID appDomainId,
             [In] HRESULT hrStatus);
@@ -136,7 +130,6 @@ namespace ClrDebug
         /// is called.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT AssemblyLoadStarted(
             [In] AssemblyID assemblyId);
 
@@ -152,7 +145,6 @@ namespace ClrDebug
         /// the assembly has succeeded.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT AssemblyLoadFinished(
             [In] AssemblyID assemblyId,
             [In] HRESULT hrStatus);
@@ -166,7 +158,6 @@ namespace ClrDebug
         /// — this is the profiler's last chance to get information about this assembly.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT AssemblyUnloadStarted(
             [In] AssemblyID assemblyId);
 
@@ -182,7 +173,6 @@ namespace ClrDebug
         /// of unloading the assembly has succeeded.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT AssemblyUnloadFinished(
             [In] AssemblyID assemblyId,
             [In] HRESULT hrStatus);
@@ -196,7 +186,6 @@ namespace ClrDebug
         /// is called.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ModuleLoadStarted(
             [In] ModuleID moduleId);
 
@@ -212,7 +201,6 @@ namespace ClrDebug
         /// has succeeded.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ModuleLoadFinished(
             [In] ModuleID moduleId,
             [In] HRESULT hrStatus);
@@ -226,7 +214,6 @@ namespace ClrDebug
         /// is the profiler's last chance to get information about this module.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ModuleUnloadStarted(
             [In] ModuleID moduleId);
 
@@ -242,7 +229,6 @@ namespace ClrDebug
         /// the module has succeeded.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ModuleUnloadFinished(
             [In] ModuleID moduleId,
             [In] HRESULT hrStatus);
@@ -260,7 +246,6 @@ namespace ClrDebug
         /// method is called when the module is attached to its parent assembly and its parent assembly ID can be obtained.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ModuleAttachedToAssembly(
             [In] ModuleID moduleId,
             [In] AssemblyID assemblyId);
@@ -274,7 +259,6 @@ namespace ClrDebug
         /// called.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ClassLoadStarted(
             [In] ClassID classId);
 
@@ -289,7 +273,6 @@ namespace ClrDebug
         /// a failure. However, a success HRESULT in hrStatus indicates only that the first part of loading the class has succeeded.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ClassLoadFinished(
             [In] ClassID classId,
             [In] HRESULT hrStatus);
@@ -303,7 +286,6 @@ namespace ClrDebug
         /// is the profiler's last chance to obtain information about this class.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ClassUnloadStarted(
             [In] ClassID classId);
 
@@ -318,7 +300,6 @@ namespace ClrDebug
         /// class has succeeded.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ClassUnloadFinished(
             [In] ClassID classId,
             [In] HRESULT hrStatus);
@@ -331,7 +312,6 @@ namespace ClrDebug
         /// The value of the functionId parameter is no longer valid after this method returns to the caller.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT FunctionUnloadStarted(
             [In] FunctionID functionId);
 
@@ -357,7 +337,6 @@ namespace ClrDebug
         /// been received by the profiler. However, in a case like this one, the function ID is valid.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT JITCompilationStarted(
             [In] FunctionID functionId,
             [In, MarshalAs(UnmanagedType.Bool)] bool fIsSafeToBlock);
@@ -370,7 +349,6 @@ namespace ClrDebug
         /// <param name="fIsSafeToBlock">[in] A value indicating to the profiler whether blocking will affect the operation of the runtime. The value is true if blocking may cause the runtime to wait for the calling thread to return from this callback; otherwise, false.<para/>
         /// Although a value of true will not harm the runtime, it can skew the profiling results.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT JITCompilationFinished(
             [In] FunctionID functionId,
             [In] HRESULT hrStatus,
@@ -400,7 +378,6 @@ namespace ClrDebug
         /// respond the same each time.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT JITCachedFunctionSearchStarted(
             [In] FunctionID functionId,
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pbUseCachedFunction);
@@ -418,7 +395,6 @@ namespace ClrDebug
         /// just-in-time (JIT). Otherwise, the profiler should use a lazy strategy for gathering function information.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT JITCachedFunctionSearchFinished(
             [In] FunctionID functionId,
             [In] COR_PRF_JIT_CACHE result);
@@ -434,7 +410,6 @@ namespace ClrDebug
         /// function is recompiled. When the function is recompiled, the same functionId value will be used.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT JITFunctionPitched(
             [In] FunctionID functionId);
 
@@ -453,7 +428,6 @@ namespace ClrDebug
         /// separate JIT compilation events for the inserted method.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT JITInlining(
             [In] FunctionID callerId,
             [In] FunctionID calleeId,
@@ -467,7 +441,6 @@ namespace ClrDebug
         /// The threadId value is immediately valid.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ThreadCreated(
             [In] ThreadID threadId);
 
@@ -479,7 +452,6 @@ namespace ClrDebug
         /// The threadId value is no longer valid at the time of this call.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ThreadDestroyed(
             [In] ThreadID threadId);
 
@@ -493,7 +465,6 @@ namespace ClrDebug
         /// of operating system threads to managed threads.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ThreadAssignedToOSThread(
             [In] ThreadID managedThreadId,
             [In] int osThreadId);
@@ -506,7 +477,6 @@ namespace ClrDebug
         /// on the same thread: You should be aware of the following issues with the remoting callbacks:
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RemotingClientInvocationStarted();
 
         /// <summary>
@@ -515,7 +485,6 @@ namespace ClrDebug
         /// <param name="pCookie">[in] A value that corresponds with the value provided in <see cref="RemotingServerReceivingMessage"/> under these conditions: This allows easy pairing of remoting calls and the creation of a logical call stack.</param>
         /// <param name="fIsAsync">[in] A value that is true if the call is asynchronous; otherwise, false.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RemotingClientSendingMessage(
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
@@ -531,7 +500,6 @@ namespace ClrDebug
         /// <param name="pCookie">[in] A value that will correspond with the value provided in <see cref="RemotingServerSendingReply"/> under these conditions: This allows easy pairing of remoting calls.</param>
         /// <param name="fIsAsync">[in] A value that is true if the call is asynchronous; otherwise, false.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RemotingClientReceivingReply(
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
@@ -552,7 +520,6 @@ namespace ClrDebug
         /// same thread: You should be aware of the following issues with the remoting callbacks:
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RemotingClientInvocationFinished();
 
         /// <summary>
@@ -564,7 +531,6 @@ namespace ClrDebug
         /// If the message request is asynchronous, the request can be serviced by any arbitrary thread.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RemotingServerReceivingMessage(
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
@@ -578,14 +544,12 @@ namespace ClrDebug
         /// Notifies the profiler that the process is invoking a method in response to a remote method invocation request.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RemotingServerInvocationStarted();
 
         /// <summary>
         /// Notifies the profiler that the process has finished invoking a method in response to a remote method invocation request.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RemotingServerInvocationReturned();
 
         /// <summary>
@@ -594,7 +558,6 @@ namespace ClrDebug
         /// <param name="pCookie">[in] A pointer to a GUID that will correspond with the value provided in <see cref="RemotingClientReceivingReply"/> under these conditions: This allows easy pairing of remoting calls and the creation of a logical call stack.</param>
         /// <param name="fIsAsync">[in] A value that is true if the call is asynchronous; otherwise, false.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RemotingServerSendingReply(
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
@@ -616,7 +579,6 @@ namespace ClrDebug
         /// it may be possible that the called function (that is, the managed function) has not yet been JIT-compiled.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT UnmanagedToManagedTransition(
             [In] FunctionID functionId,
             [In] COR_PRF_TRANSITION_REASON reason);
@@ -634,7 +596,6 @@ namespace ClrDebug
         /// more information on implicit PInvoke, see Using C.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ManagedToUnmanagedTransition(
             [In] FunctionID functionId,
             [In] COR_PRF_TRANSITION_REASON reason);
@@ -650,7 +611,6 @@ namespace ClrDebug
         /// or they are asked to suspend when they reach interruptible code.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RuntimeSuspendStarted(
             [In] COR_PRF_SUSPEND_REASON suspendReason);
 
@@ -665,7 +625,6 @@ namespace ClrDebug
         /// to occur on the same thread as the <see cref="RuntimeSuspendStarted"/> callback.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RuntimeSuspendFinished();
 
         /// <summary>
@@ -678,14 +637,12 @@ namespace ClrDebug
         /// on the same thread as the RuntimeSuspendStarted callback.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RuntimeSuspendAborted();
 
         /// <summary>
         /// Notifies the profiler that the runtime is resuming all run-time threads.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RuntimeResumeStarted();
 
         /// <summary>
@@ -696,7 +653,6 @@ namespace ClrDebug
         /// callback. However, it is guaranteed to occur on the same thread as the <see cref="RuntimeResumeStarted"/> callback.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RuntimeResumeFinished();
 
         /// <summary>
@@ -712,7 +668,6 @@ namespace ClrDebug
         /// before the thread is suspended.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RuntimeThreadSuspended(
             [In] ThreadID threadId);
 
@@ -721,7 +676,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="threadId">[in] The ID of the thread that has been resumed.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RuntimeThreadResumed(
             [In] ThreadID threadId);
 
@@ -747,7 +701,6 @@ namespace ClrDebug
         /// that all objects have been moved to their new locations and inspection can be performed.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT MovedReferences(
             [In] int cMovedObjectIDRanges,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ObjectID[] oldObjectIDRangeStart,
@@ -765,7 +718,6 @@ namespace ClrDebug
         /// load callback for that class immediately after the ObjectAllocated callback.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ObjectAllocated(
             [In] ObjectID objectId,
             [In] ClassID classId);
@@ -784,7 +736,6 @@ namespace ClrDebug
         /// array may contain one or more null entries if the corresponding cObjects array has types that are unloading.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ObjectsAllocatedByClass(
             [In] int cClassCount,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ClassID[] classIds,
@@ -809,7 +760,6 @@ namespace ClrDebug
         /// objectId has a type that is unloading.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ObjectReferences(
             [In] ObjectID objectId,
             [In] ClassID classId,
@@ -832,7 +782,6 @@ namespace ClrDebug
         /// is called, all objects have been moved to their new locations and can be safely inspected.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RootReferences(
             [In] int cRootRefs,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ObjectID[] rootRefIds);
@@ -848,7 +797,6 @@ namespace ClrDebug
         /// of this method should not call into managed code or in any way cause a managed-memory allocation.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ExceptionThrown(
             [In] ObjectID thrownObjectId);
 
@@ -857,7 +805,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="functionId">[in] The ID of the function that has been entered.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ExceptionSearchFunctionEnter(
             [In] FunctionID functionId);
 
@@ -865,7 +812,6 @@ namespace ClrDebug
         /// Notifies the profiler that the search phase of exception handling has finished searching a function.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ExceptionSearchFunctionLeave();
 
         /// <summary>
@@ -873,7 +819,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="functionId">[in] The ID of the function that contains the filter.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ExceptionSearchFilterEnter(
             [In] FunctionID functionId);
 
@@ -881,7 +826,6 @@ namespace ClrDebug
         /// Notifies the profiler that a user filter has just finished executing.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ExceptionSearchFilterLeave();
 
         /// <summary>
@@ -889,7 +833,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="functionId">[in] The ID of the function that contains the exception handler.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ExceptionSearchCatcherFound(
             [In] FunctionID functionId);
 
@@ -897,7 +840,6 @@ namespace ClrDebug
         /// Not implemented. A profiler that needs unmanaged exception information must obtain this information through other means.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ExceptionOSHandlerEnter(
             [In] IntPtr __unused);
 
@@ -905,7 +847,6 @@ namespace ClrDebug
         /// Not implemented. A profiler that needs unmanaged exception information must obtain this information through other means.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ExceptionOSHandlerLeave(
             [In] IntPtr __unused);
 
@@ -920,7 +861,6 @@ namespace ClrDebug
         /// of this method should not call into managed code or in any way cause a managed-memory allocation.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ExceptionUnwindFunctionEnter(
             [In] FunctionID functionId);
 
@@ -935,7 +875,6 @@ namespace ClrDebug
         /// must not call into managed code or in any way cause a managed-memory allocation.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ExceptionUnwindFunctionLeave();
 
         /// <summary>
@@ -949,7 +888,6 @@ namespace ClrDebug
         /// of this method should not call into managed code or in any way cause a managed-memory allocation.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ExceptionUnwindFinallyEnter(
             [In] FunctionID functionId);
 
@@ -963,7 +901,6 @@ namespace ClrDebug
         /// call into managed code or in any way cause a managed-memory allocation.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ExceptionUnwindFinallyLeave();
 
         /// <summary>
@@ -982,7 +919,6 @@ namespace ClrDebug
         /// allocation.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ExceptionCatcherEnter(
             [In] FunctionID functionId,
             [In] ObjectID objectId);
@@ -997,7 +933,6 @@ namespace ClrDebug
         /// of this method should not call into managed code or in any way cause a managed-memory allocation.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ExceptionCatcherLeave();
 
         /// <summary>
@@ -1014,7 +949,6 @@ namespace ClrDebug
         /// of this method should not call into managed code or in any way cause a managed-memory allocation.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT COMClassicVTableCreated(
             [In] ClassID wrappedClassId,
 #if !GENERATED_MARSHALLING
@@ -1039,7 +973,6 @@ namespace ClrDebug
         /// of this method should not call into managed code or in any way cause a managed-memory allocation.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT COMClassicVTableDestroyed(
             [In] ClassID wrappedClassId,
 #if !GENERATED_MARSHALLING
@@ -1054,14 +987,12 @@ namespace ClrDebug
         /// Called when a catch block for an exception is found inside the common language runtime (CLR) itself. This method is obsolete in .NET Framework version 2.0.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ExceptionCLRCatcherFound();
 
         /// <summary>
         /// Called when a catch block for an exception is executed inside the common language runtime (CLR) itself. This method is obsolete in .NET Framework version 2.0.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ExceptionCLRCatcherExecute();
 #endif
 
@@ -1072,7 +1003,6 @@ namespace ClrDebug
         /// <param name="cchName">[in] The length of the new name of the thread.</param>
         /// <param name="name">[in] The new name of the thread. The name is not null-terminated.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ThreadNameChanged(
             [In] ThreadID threadId,
             [In] int cchName,
@@ -1094,7 +1024,6 @@ namespace ClrDebug
         /// receives a ICorProfilerCallback2::GarbageCollectionFinished callback.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GarbageCollectionStarted(
             [In] int cGenerations,
             [In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.Bool, SizeParamIndex = 0)] bool[] generationCollected,
@@ -1125,7 +1054,6 @@ namespace ClrDebug
         /// callback survive the garbage collection.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SurvivingReferences(
             [In] int cSurvivingObjectIDRanges,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ObjectID[] objectIDRangeStart,
@@ -1139,7 +1067,6 @@ namespace ClrDebug
         /// is called.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GarbageCollectionFinished();
 
         /// <summary>
@@ -1148,7 +1075,6 @@ namespace ClrDebug
         /// <param name="finalizerFlags">[in] A value of the COR_PRF_FINALIZER_FLAGS enumeration that describes aspects of the finalizer.</param>
         /// <param name="objectID">[in] The ID of the object that has been queued.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT FinalizeableObjectQueued(
             [In] COR_PRF_FINALIZER_FLAGS finalizerFlags,
             [In] ObjectID objectID);
@@ -1175,7 +1101,6 @@ namespace ClrDebug
         /// is called, all objects have been moved to their new locations and can be safely inspected.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT RootReferences2(
             [In] int cRootRefs,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ObjectID[] rootRefIds,
@@ -1189,7 +1114,6 @@ namespace ClrDebug
         /// <param name="handleId">[in] The ID of the handle for the garbage collection.</param>
         /// <param name="initialObjectId">[in] The ID of the object for which the garbage collection handle was created.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT HandleCreated(
             [In] GCHandleID handleId,
             [In] ObjectID initialObjectId);
@@ -1199,7 +1123,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="handleId">[in] The ID of the handle for the garbage collection.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT HandleDestroyed(
             [In] GCHandleID handleId);
     }

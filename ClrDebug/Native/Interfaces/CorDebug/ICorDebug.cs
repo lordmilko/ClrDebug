@@ -36,7 +36,6 @@ namespace ClrDebug
         /// before any other method on <see cref="ICorDebug"/> is called.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Initialize();
 
         /// <summary>
@@ -46,7 +45,6 @@ namespace ClrDebug
         /// Terminate must be called when the <see cref="ICorDebug"/> object is no longer needed.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Terminate();
 
         /// <summary>
@@ -59,7 +57,6 @@ namespace ClrDebug
         /// returns an <see cref="HRESULT"/> of E_NOINTERFACE.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetManagedHandler(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugManagedCallback pCallback);
 
@@ -75,7 +72,6 @@ namespace ClrDebug
         /// until the main thread is resumed.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetUnmanagedHandler(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugUnmanagedCallback pCallback);
 
@@ -108,7 +104,6 @@ namespace ClrDebug
         /// IA-64-based and AMD64-based platforms.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateProcess(
             [MarshalAs(UnmanagedType.LPWStr), In] string lpApplicationName,
             [MarshalAs(UnmanagedType.LPWStr), In] string lpCommandLine,
@@ -133,7 +128,6 @@ namespace ClrDebug
         /// Interop debugging is not supported on Win9x and non-x86 platforms, such as IA-64-based and AMD64-based platforms.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT DebugActiveProcess(
             [In] int id,
             [In, MarshalAs(UnmanagedType.Bool)] bool win32Attach,
@@ -144,7 +138,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppProcess">A pointer to the address of an <see cref="ICorDebugProcessEnum"/> object that is the enumerator for the processes being debugged.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateProcesses(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcessEnum ppProcess);
 
@@ -154,7 +147,6 @@ namespace ClrDebug
         /// <param name="dwProcessId">[in] The ID of the process.</param>
         /// <param name="ppProcess">[out] A pointer to the address of a <see cref="ICorDebugProcess"/> instance for the specified process.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetProcess(
             [In] int dwProcessId,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
@@ -179,7 +171,6 @@ namespace ClrDebug
         /// differ if you use this option.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CanLaunchOrAttach(
             [In] int dwProcessId,
             [In] int win32DebuggingEnabled);

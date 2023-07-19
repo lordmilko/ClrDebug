@@ -31,7 +31,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="celt">[in] The number of items by which to move the cursor forward.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Skip(
             [In] int celt);
 
@@ -39,7 +38,6 @@ namespace ClrDebug
         /// Moves the cursor to the beginning of the enumeration.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Reset();
 
         /// <summary>
@@ -47,7 +45,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppEnum">[out] A pointer to the address of an <see cref="ICorDebugEnum"/> object that is a copy of this <see cref="ICorDebugEnum"/> object.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Clone(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);
 
@@ -56,7 +53,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pcelt">[out] A pointer to the number of items in the enumeration.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetCount(
             [Out] out int pcelt);
 #endif
@@ -68,7 +64,6 @@ namespace ClrDebug
         /// <param name="values">[out] An array of pointers, each of which points to a <see cref="CorDebugGuidToTypeMapping"/> object that maps a Windows Runtime GUID to its corresponding <see cref="ICorDebugType"/> object.</param>
         /// <param name="pceltFetched">[out] A pointer to the number of <see cref="CorDebugGuidToTypeMapping"/> objects actually returned in values.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Next(
             [In] int celt,
             [Out] out CorDebugGuidToTypeMapping values,

@@ -28,7 +28,6 @@ namespace ClrDebug
         /// <param name="cDeltaLines">[in] A ULONG that represents the number of lines that have changed.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT UpdateSymbolStore2(
             [MarshalAs(UnmanagedType.Interface), In] IStream pIStream,
             [In] ref SYMLINEDELTA pDeltaLines,
@@ -41,7 +40,6 @@ namespace ClrDebug
         /// <param name="pcLocals">[out] A pointer to a ULONG32 that receives the size, in characters, of the buffer required to contain the number of local variables.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLocalVariableCount(
             [In] mdMethodDef mdMethodToken,
             [Out] out int pcLocals);
@@ -55,7 +53,6 @@ namespace ClrDebug
         /// <param name="pceltFetched">[out] A pointer to a ULONG that receives the size of the rgLocals buffer required to contain the locals.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLocalVariables(
             [In] mdMethodDef mdMethodToken,
             [In] int cLocals,
@@ -67,7 +64,6 @@ namespace ClrDebug
         /// </summary>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT InitializeForEnc();
 
         /// <summary>
@@ -79,7 +75,6 @@ namespace ClrDebug
         /// <param name="cDeltas">[in] A ULONG containing the size of the pDeltas parameter.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT UpdateMethodLines(
             [In] mdMethodDef mdMethodToken,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] int[] pDeltas,

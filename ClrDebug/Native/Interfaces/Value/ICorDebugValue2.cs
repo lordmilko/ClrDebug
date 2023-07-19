@@ -29,7 +29,6 @@ namespace ClrDebug
         /// of a value.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetExactType(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);
     }

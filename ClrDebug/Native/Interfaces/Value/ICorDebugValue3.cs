@@ -35,7 +35,6 @@ namespace ClrDebug
         /// 2GB.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSize64(
             [Out] out long pSize);
     }

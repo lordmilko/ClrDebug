@@ -36,7 +36,6 @@ namespace ClrDebug
         /// cref="Deactivate"/> before the callback condition is reached.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsActive(
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pbActive);
 
@@ -47,7 +46,6 @@ namespace ClrDebug
         /// A new stepping command may be issued after the most recently received step command has been canceled.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Deactivate();
 
         /// <summary>
@@ -64,7 +62,6 @@ namespace ClrDebug
         /// will be used.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetInterceptMask(
             [In] CorDebugIntercept mask);
 
@@ -80,7 +77,6 @@ namespace ClrDebug
         /// step over unmapped code.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetUnmappedStopMask(
             [In] CorDebugUnmappedStop mask);
 
@@ -94,7 +90,6 @@ namespace ClrDebug
         /// instruction is executed by the thread.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Step(
             [In, MarshalAs(UnmanagedType.Bool)] bool bStepIn);
 
@@ -112,7 +107,6 @@ namespace ClrDebug
         /// code of a method.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StepRange(
             [In, MarshalAs(UnmanagedType.Bool)] bool bStepIn,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] COR_DEBUG_STEP_RANGE[] ranges,
@@ -129,7 +123,6 @@ namespace ClrDebug
         /// code themselves.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StepOut();
 
         /// <summary>
@@ -138,7 +131,6 @@ namespace ClrDebug
         /// <param name="bIL">[in] Set to true to specify that the ranges are relative to the MSIL code. Set to false to specify that the ranges are relative to the native code.<para/>
         /// The default value is true.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetRangeIL(
             [In, MarshalAs(UnmanagedType.Bool)] bool bIL);
     }

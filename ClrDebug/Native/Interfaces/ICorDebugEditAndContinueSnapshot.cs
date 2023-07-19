@@ -24,7 +24,6 @@ namespace ClrDebug
         /// </summary>
         [Obsolete]
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CopyMetaData(
             [MarshalAs(UnmanagedType.Interface), In] IStream pIStream,
             [Out]
@@ -38,7 +37,6 @@ namespace ClrDebug
         /// </summary>
         [Obsolete]
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetMvid(
             [Out]
 #if GENERATED_MARSHALLING
@@ -51,7 +49,6 @@ namespace ClrDebug
         /// </summary>
         [Obsolete]
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRoDataRVA(
             [Out] out int pRoDataRVA);
 
@@ -60,7 +57,6 @@ namespace ClrDebug
         /// </summary>
         [Obsolete]
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRwDataRVA(
             [Out] out int pRwDataRVA);
 
@@ -69,7 +65,6 @@ namespace ClrDebug
         /// </summary>
         [Obsolete]
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetPEBytes(
             [MarshalAs(UnmanagedType.Interface), In] IStream pIStream);
 
@@ -78,7 +73,6 @@ namespace ClrDebug
         /// </summary>
         [Obsolete]
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetILMap(
             [In] mdToken mdFunction,
             [In] int cMapSize,
@@ -89,7 +83,6 @@ namespace ClrDebug
         /// </summary>
         [Obsolete]
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetPESymbolBytes(
             [MarshalAs(UnmanagedType.Interface), In] IStream pIStream);
     }

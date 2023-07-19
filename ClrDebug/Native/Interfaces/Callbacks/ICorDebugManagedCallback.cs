@@ -35,7 +35,6 @@ namespace ClrDebug
         /// <param name="pThread">[in] A pointer to an <see cref="ICorDebugThread"/> object that represents the thread that contains the breakpoint.</param>
         /// <param name="pBreakpoint">[in] A pointer to an <see cref="ICorDebugBreakpoint"/> object that represents the breakpoint.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Breakpoint(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
@@ -52,7 +51,6 @@ namespace ClrDebug
         /// The stepper may be used to continue stepping if desired, unless the debugging is terminated.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT StepComplete(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
@@ -65,7 +63,6 @@ namespace ClrDebug
         /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain that contains the break instruction.</param>
         /// <param name="thread">[in] A pointer to an <see cref="ICorDebugThread"/> object that represents the thread that contains the break instruction.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Break(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread thread);
@@ -80,7 +77,6 @@ namespace ClrDebug
         /// The specific exception can be retrieved from the thread object.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Exception(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
@@ -93,7 +89,6 @@ namespace ClrDebug
         /// <param name="pThread">[in] A pointer to an <see cref="ICorDebugThread"/> object that represents the thread in which the evaluation was performed.</param>
         /// <param name="pEval">[in] A pointer to an <see cref="ICorDebugEval"/> object that represents the code that performed the evaluation.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EvalComplete(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
@@ -106,7 +101,6 @@ namespace ClrDebug
         /// <param name="pThread">[in] A pointer to an <see cref="ICorDebugThread"/> object that represents the thread in which the evaluation terminated.</param>
         /// <param name="pEval">[in] A pointer to an <see cref="ICorDebugEval"/> object that represents the code that performed the evaluation.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EvalException(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
@@ -121,7 +115,6 @@ namespace ClrDebug
         /// methods will return CORDBG_E_NOTREADY before the CreateProcess callback.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateProcess(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugProcess pProcess);
 
@@ -137,7 +130,6 @@ namespace ClrDebug
         /// called on shutdown.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ExitProcess(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugProcess pProcess);
 
@@ -150,7 +142,6 @@ namespace ClrDebug
         /// The thread will be positioned at the first managed code instruction to be executed.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateThread(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread thread);
@@ -164,7 +155,6 @@ namespace ClrDebug
         /// Once the ExitThread callback is fired, the thread will no longer appear in thread enumerations.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ExitThread(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread thread);
@@ -179,7 +169,6 @@ namespace ClrDebug
         /// compiler flags, or enable or disable class loading callbacks for the module.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT LoadModule(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugModule pModule);
@@ -193,7 +182,6 @@ namespace ClrDebug
         /// The module should not be used after this call.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT UnloadModule(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugModule pModule);
@@ -209,7 +197,6 @@ namespace ClrDebug
         /// to newly generated classes in dynamic modules.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT LoadClass(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugClass c);
@@ -223,7 +210,6 @@ namespace ClrDebug
         /// The class should not be referenced after this call.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT UnloadClass(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugClass c);
@@ -242,7 +228,6 @@ namespace ClrDebug
         /// terminating processes.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT DebuggerError(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugProcess pProcess,
             [In] HRESULT errorHR,
@@ -257,7 +242,6 @@ namespace ClrDebug
         /// <param name="pLogSwitchName">[in] A pointer to the name of the tracing switch.</param>
         /// <param name="pMessage">[in] A pointer to the message that was written to the event log.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT LogMessage(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
@@ -275,7 +259,6 @@ namespace ClrDebug
         /// <param name="pLogSwitchName">[in] A pointer to the name of the debugging/tracing switch.</param>
         /// <param name="pParentName">[in] A pointer to the name of the parent of the debugging/tracing switch.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT LogSwitch(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
@@ -290,7 +273,6 @@ namespace ClrDebug
         /// <param name="pProcess">[in] A pointer to an <see cref="ICorDebugProcess"/> object that represents the process in which the application domain was created.</param>
         /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain that has been created.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateAppDomain(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugProcess pProcess,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain);
@@ -301,7 +283,6 @@ namespace ClrDebug
         /// <param name="pProcess">[in] A pointer to an <see cref="ICorDebugProcess"/> object that represents the process that contains the given application domain.</param>
         /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain that has exited.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ExitAppDomain(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugProcess pProcess,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain);
@@ -312,7 +293,6 @@ namespace ClrDebug
         /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain into which the assembly has been loaded.</param>
         /// <param name="pAssembly">[in] A pointer to an <see cref="ICorDebugAssembly"/> object that represents the assembly.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT LoadAssembly(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAssembly pAssembly);
@@ -326,7 +306,6 @@ namespace ClrDebug
         /// The assembly should not be used after this callback.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT UnloadAssembly(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAssembly pAssembly);
@@ -345,7 +324,6 @@ namespace ClrDebug
         /// All application domains within the process are stopped for this callback.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ControlCTrap(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugProcess pProcess);
 
@@ -355,7 +333,6 @@ namespace ClrDebug
         /// <param name="pAppDomain">[in] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain that either had a name change or that contains the thread that had a name change.</param>
         /// <param name="pThread">[in] A pointer to an <see cref="ICorDebugThread"/> object that represents the thread that had a name change.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT NameChange(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread);
@@ -372,7 +349,6 @@ namespace ClrDebug
         /// A debugger should try to bind unbound source-level breakpoints.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT UpdateModuleSymbols(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugModule pModule,
@@ -387,7 +363,6 @@ namespace ClrDebug
         /// the IDE.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EditAndContinueRemap(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
@@ -405,7 +380,6 @@ namespace ClrDebug
         /// The given breakpoint will never be hit. The debugger should deactivate and rebind it.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT BreakpointSetError(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,

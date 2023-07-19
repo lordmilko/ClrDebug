@@ -27,7 +27,6 @@ namespace ClrDebug
         /// The map consists of two top-level sections: 
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetGenericDictionaryInfo(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryBuffer ppMemoryBuffer);
 
@@ -38,7 +37,6 @@ namespace ClrDebug
         /// <param name="pCodeStartRva">[out] A pointer to the method's starting relative virtual address.</param>
         /// <param name="pParentFrameStartRva">[out] A pointer to the frame's starting relative virtual address.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetFrameProps(
             [In] int codeRva,
             [Out] out int pCodeStartRva,

@@ -46,7 +46,6 @@ namespace ClrDebug
         /// </remarks>
         [Obsolete]
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CallFunction(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pFunction,
             [In] int nArgs,
@@ -61,7 +60,6 @@ namespace ClrDebug
         /// <param name="ppArgs">[in] An array of <see cref="ICorDebugValue"/> objects, each of which represents an argument to be passed to the constructor.</param>
         [Obsolete]
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT NewObject(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pConstructor,
             [In] int nArgs,
@@ -74,7 +72,6 @@ namespace ClrDebug
         /// <param name="pClass">[in] Pointer to an <see cref="ICorDebugClass"/> object that represents the type of object to be instantiated.</param>
         [Obsolete]
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT NewObjectNoConstructor(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugClass pClass);
 
@@ -86,7 +83,6 @@ namespace ClrDebug
         /// The string is always created in the application domain in which the thread is currently executing.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT NewString(
             [MarshalAs(UnmanagedType.LPWStr), In] string @string);
 
@@ -104,7 +100,6 @@ namespace ClrDebug
         /// </remarks>
         [Obsolete]
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT NewArray(
             [In] CorElementType elementType,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugClass pElementClass,
@@ -117,7 +112,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pbActive">[out] Pointer to a value that indicates whether this evaluation is active.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsActive(
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pbActive);
 
@@ -128,7 +122,6 @@ namespace ClrDebug
         /// If the evaluation is nested and it is not the most recent one, the Abort method may fail.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Abort();
 
         /// <summary>
@@ -141,7 +134,6 @@ namespace ClrDebug
         /// was for a new object, the result is the reference to the new object.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetResult(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppResult);
 
@@ -150,7 +142,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppThread">[out] A pointer to the address of an <see cref="ICorDebugThread"/> object that represents the thread.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetThread(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
 
@@ -171,7 +162,6 @@ namespace ClrDebug
         /// </remarks>
         [Obsolete]
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateValue(
             [In] int elementType,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugClass pElementClass,

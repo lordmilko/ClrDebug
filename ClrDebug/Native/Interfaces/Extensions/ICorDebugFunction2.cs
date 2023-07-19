@@ -32,7 +32,6 @@ namespace ClrDebug
         /// A Just My Code stepper will skip non-user code. User code must be a subset of debuggable code.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetJMCStatus(
             [In, MarshalAs(UnmanagedType.Bool)] bool bIsJustMyCode);
 
@@ -44,7 +43,6 @@ namespace ClrDebug
         /// If the function represented by this <see cref="ICorDebugFunction2"/> cannot be debugged, pbIsJustMyCode will always be false.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetJMCStatus(
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pbIsJustMyCode);
 
@@ -52,7 +50,6 @@ namespace ClrDebug
         /// Gets an interface pointer to an <see cref="ICorDebugCodeEnum"/> object that contains the native code statements in the function referenced by this <see cref="ICorDebugFunction2"/> object.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateNativeCode(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCodeEnum ppCodeEnum);
 
@@ -73,7 +70,6 @@ namespace ClrDebug
         /// The <see cref="ICorDebugCode.GetVersionNumber"/> method performs the same operation as ICorDebugFunction2::GetVersionNumber.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetVersionNumber(
             [Out] out int pnVersion);
     }

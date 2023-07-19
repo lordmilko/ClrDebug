@@ -27,7 +27,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pAddress">[out] A pointer to the base address of the loaded module.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetBaseAddress(
             [Out] out CORDB_ADDRESS pAddress);
 
@@ -38,7 +37,6 @@ namespace ClrDebug
         /// <param name="pcchName">[out] A pointer to the number of characters actually written to the szName buffer.</param>
         /// <param name="szName">[out] An array of characters that contain the name of the loaded module.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetName(
             [In] int cchName,
             [Out] out int pcchName,
@@ -49,7 +47,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pcBytes">[out] A pointer to the number of bytes in the loaded module.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSize(
             [Out] out int pcBytes);
     }

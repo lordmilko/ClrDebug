@@ -39,7 +39,6 @@ namespace ClrDebug
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetMetadata(
             [MarshalAs(UnmanagedType.LPWStr), In] string imagePath,
             [In] int imageTimestamp,

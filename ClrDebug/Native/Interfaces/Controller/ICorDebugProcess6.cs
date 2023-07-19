@@ -30,7 +30,6 @@ namespace ClrDebug
         /// <param name="dwThreadId">[in] The operating system identifier of the thread on which the exception was thrown.</param>
         /// <param name="ppEvent">[out] A pointer to the address of an <see cref="ICorDebugDebugEvent"/> object that represents a decoded managed debug event.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT DecodeEvent(
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] pRecord,
             [In] int countBytes,
@@ -47,7 +46,6 @@ namespace ClrDebug
         /// The debugger calls this method to notify <see cref="ICorDebug"/> that the process is running.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ProcessStateChanged(
             [In] CorDebugStateChange change);
 
@@ -57,7 +55,6 @@ namespace ClrDebug
         /// <param name="codeAddress">[in] A <see cref="CORDB_ADDRESS"/> value that specifies the starting address of the managed code segment.</param>
         /// <param name="ppCode">[out] A pointer to the address of an "ICorDebugCode" object that represents a segment of managed code.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCode(
             [In] CORDB_ADDRESS codeAddress,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
@@ -78,7 +75,6 @@ namespace ClrDebug
         /// module splitting has been turned off.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnableVirtualModuleSplitting(
             [In] int enableSplitting);
 
@@ -96,7 +92,6 @@ namespace ClrDebug
         /// | Other failing HRESULT values. | Other values likely indicate misbehaving debugger or compiler components.                                                                                                                                                                                                        |
         /// </returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT MarkDebuggerAttached(
             [In, MarshalAs(UnmanagedType.Bool)] bool fIsAttached);
 
@@ -116,7 +111,6 @@ namespace ClrDebug
         /// | Other failing HRESULT values. | As appropriate.                        |
         /// </returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetExportStepInfo(
             [MarshalAs(UnmanagedType.LPWStr), In] string pszExportName,
             [Out] out CorDebugCodeInvokeKind pInvokeKind,

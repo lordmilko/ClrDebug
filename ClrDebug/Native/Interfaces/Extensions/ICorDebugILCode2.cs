@@ -23,7 +23,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pmdSig">[out] A pointer to the <see cref="mdSignature"/> token for the local variable signature for this function, or mdSignatureNil if there is no signature (that is, if the function doesn't have any local variables).</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLocalVarSigToken(
             [Out] out mdSignature pmdSig);
 
@@ -43,7 +42,6 @@ namespace ClrDebug
         /// S_OK and sets pcMap to 0.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetInstrumentedILMap(
             [In] int cMap,
             [Out] out int pcMap,

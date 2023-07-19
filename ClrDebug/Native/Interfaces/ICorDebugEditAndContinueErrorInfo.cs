@@ -24,7 +24,6 @@ namespace ClrDebug
         /// </summary>
         [Obsolete]
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetModule(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
 
@@ -33,7 +32,6 @@ namespace ClrDebug
         /// </summary>
         [Obsolete]
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetToken(
             [Out] out int pToken);
 
@@ -42,7 +40,6 @@ namespace ClrDebug
         /// </summary>
         [Obsolete]
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetErrorCode(
             [Out] out HRESULT pHr);
 
@@ -51,7 +48,6 @@ namespace ClrDebug
         /// </summary>
         [Obsolete]
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetString(
             [In] int cchString,
             [Out] out int pcchString,

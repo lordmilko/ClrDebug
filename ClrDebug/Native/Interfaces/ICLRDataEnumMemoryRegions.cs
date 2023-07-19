@@ -30,7 +30,6 @@ namespace ClrDebug
         /// results.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumMemoryRegions(
             [MarshalAs(UnmanagedType.Interface), In] ICLRDataEnumMemoryRegionsCallback callback,
             [In] int miniDumpFlags,

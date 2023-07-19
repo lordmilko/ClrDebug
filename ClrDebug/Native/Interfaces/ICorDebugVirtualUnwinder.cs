@@ -36,7 +36,6 @@ namespace ClrDebug
         /// the context may not exactly match the register state at the time of the actual method call.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetContext(
             [In] ContextFlags contextFlags,
             [In] int cbContextBuf,
@@ -53,7 +52,6 @@ namespace ClrDebug
         /// failing <see cref="HRESULT"/> or CORDBG_S_AT_END_OF_STACK. Returning S_OK indefinitely may cause an infinite loop.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Next();
     }
 }

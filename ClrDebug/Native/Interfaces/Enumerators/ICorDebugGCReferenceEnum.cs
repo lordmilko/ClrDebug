@@ -30,7 +30,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="celt">[in] The number of items by which to move the cursor forward.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Skip(
             [In] int celt);
 
@@ -38,7 +37,6 @@ namespace ClrDebug
         /// Moves the cursor to the beginning of the enumeration.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Reset();
 
         /// <summary>
@@ -46,7 +44,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppEnum">[out] A pointer to the address of an <see cref="ICorDebugEnum"/> object that is a copy of this <see cref="ICorDebugEnum"/> object.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Clone(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugEnum ppEnum);
 
@@ -55,7 +52,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pcelt">[out] A pointer to the number of items in the enumeration.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetCount(
             [Out] out int pcelt);
 #endif
@@ -67,7 +63,6 @@ namespace ClrDebug
         /// <param name="roots">[out] An array of pointers, each of which points to a <see cref="COR_GC_REFERENCE"/> object that represents the root of an object to be garbage-collected.</param>
         /// <param name="pceltFetched">[out] A pointer to the number of <see cref="COR_GC_REFERENCE"/> objects actually returned in roots. This value may be null if celt is 1.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Next(
             [In] int celt,
             [Out] out COR_GC_REFERENCE roots,

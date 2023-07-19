@@ -27,7 +27,6 @@ namespace ClrDebug
         /// <param name="szName">[out] A pointer to a buffer that contains the namespace name.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetName(
             [In] int cchName,
             [Out] out int pcchName,
@@ -41,7 +40,6 @@ namespace ClrDebug
         /// <param name="namespaces">[out] A pointer to the buffer that contains the namespaces.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetNamespaces(
             [In] int cNameSpaces,
             [Out] out int pcNameSpaces,
@@ -55,7 +53,6 @@ namespace ClrDebug
         /// <param name="pVars">[out] A pointer to a buffer that contains the namespaces.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetVariables(
             [In] int cVars,
             [Out] out int pcVars,

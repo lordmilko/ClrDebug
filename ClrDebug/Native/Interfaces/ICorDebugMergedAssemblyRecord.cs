@@ -32,7 +32,6 @@ namespace ClrDebug
         /// code.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSimpleName(
             [In] int cchName,
             [Out] out int pcchName,
@@ -49,7 +48,6 @@ namespace ClrDebug
         /// For information on assembly version numbers, see the <see cref="Version"/> class topic.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetVersion(
             [Out] out ushort pMajor,
             [Out] out ushort pMinor,
@@ -67,7 +65,6 @@ namespace ClrDebug
         /// culture), or "neutral" (for a neutral culture).
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCulture(
             [In] int cchCulture,
             [Out] out int pcchCulture,
@@ -80,7 +77,6 @@ namespace ClrDebug
         /// <param name="pcbPublicKey">[out] A pointer to the actual number of bytes written to the pbPublicKey array.</param>
         /// <param name="pbPublicKey">[out] A pointer to a byte array that contains the assembly's public key.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetPublicKey(
             [In] int cbPublicKey,
             [Out] out int pcbPublicKey,
@@ -96,7 +92,6 @@ namespace ClrDebug
         /// An assembly's public key token is the last eight bytes of a SHA1 hash of its public key.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetPublicKeyToken(
             [In] int cbPublicKeyToken,
             [Out] out int pcbPublicKeyToken,
@@ -110,7 +105,6 @@ namespace ClrDebug
         /// The prefix index is used to prevent name collisions in the merged metadata type names.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetIndex(
             [Out] out int pIndex);
     }

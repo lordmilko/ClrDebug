@@ -33,7 +33,6 @@ namespace ClrDebug
         /// responsible for decoding the stack trace data from the _stackTrace field of the exception object.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateExceptionCallStack(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugExceptionObjectCallStackEnum ppCallStackEnum);
     }

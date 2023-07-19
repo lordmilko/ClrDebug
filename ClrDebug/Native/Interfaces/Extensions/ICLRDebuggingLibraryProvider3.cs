@@ -44,7 +44,6 @@ namespace ClrDebug
         /// module.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ProvideWindowsLibrary(
             [In, MarshalAs(UnmanagedType.LPWStr)] string pwszFileName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string pwszRuntimeModule,
@@ -77,7 +76,6 @@ namespace ClrDebug
         /// module.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ProvideUnixLibrary(
             [In, MarshalAs(UnmanagedType.LPWStr)] string pwszFileName,
             [In, MarshalAs(UnmanagedType.LPWStr)] string pwszRuntimeModule,

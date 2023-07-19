@@ -41,7 +41,6 @@ namespace ClrDebug
         /// mscordbi.dll and mscordacwks.dll. The debugger may use any available means to locate or procure the debugging module.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ProvideLibrary2(
             [In, MarshalAs(UnmanagedType.LPWStr)] string pwszFileName,
             [In] int dwTimestamp,

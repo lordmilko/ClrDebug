@@ -28,7 +28,6 @@ namespace ClrDebug
         /// <param name="szName">[out] The buffer that contains the file names.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetFileNameFromOffset(
             [In] int dwOffset,
             [In] int cchName,
@@ -46,7 +45,6 @@ namespace ClrDebug
         /// <param name="pdwStartOffset">[out] A pointer to a ULONG32 that receives the associated sequence point.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLineFromOffset(
             [In] int dwOffset,
             [Out] out int pline,
@@ -61,7 +59,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the size of the buffer required to contain the documents.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetDocumentsForMethodCount(
             [Out] out int pRetVal);
 
@@ -73,7 +70,6 @@ namespace ClrDebug
         /// <param name="documents">[in] The buffer that contains the documents.</param>
         /// <returns>S_OK if the method succeeds; otherwise, an error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetDocumentsForMethod(
             [In] int cDocs,
             [Out] out int pcDocs,
@@ -87,7 +83,6 @@ namespace ClrDebug
         /// <param name="pendLine">[out] A pointer to a ULONG32 that receives the end line.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSourceExtentInDocument(
             [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument document,
             [Out] out int pstartLine,

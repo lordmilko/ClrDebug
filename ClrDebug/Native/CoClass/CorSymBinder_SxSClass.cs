@@ -16,7 +16,6 @@ namespace ClrDebug.CoClass
     public partial class CorSymBinder_SxSClass : ISymUnmanagedBinder, CorSymBinder_SxS
     {
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetReaderForFile(
             [MarshalAs(UnmanagedType.Interface), In] IMetaDataImport importer,
             [In, MarshalAs(UnmanagedType.LPWStr)] string fileName,
@@ -24,7 +23,6 @@ namespace ClrDebug.CoClass
             [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedReader pRetVal);
 
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT GetReaderFromStream(
             [MarshalAs(UnmanagedType.Interface), In] IMetaDataImport importer,
             [MarshalAs(UnmanagedType.Interface), In] IStream pstream,

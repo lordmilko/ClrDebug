@@ -34,7 +34,6 @@ namespace ClrDebug
         /// value. They are both superseded by the generics-aware <see cref="ICorDebugValue2.GetExactType"/> method.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetType(
             [Out] out CorElementType pType);
 
@@ -48,7 +47,6 @@ namespace ClrDebug
         /// platforms. Use the <see cref="ICorDebugValue3.GetSize64"/> method instead for objects that are larger than 4 GB.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetSize(
             [Out] out int pSize);
 
@@ -61,7 +59,6 @@ namespace ClrDebug
         /// or stored in a garbage collector handle (GCHandle).
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetAddress(
             [Out] out CORDB_ADDRESS pAddress);
 
@@ -69,7 +66,6 @@ namespace ClrDebug
         /// The CreateBreakpoint method is currently not implemented.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT CreateBreakpoint(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
 #endif
@@ -83,7 +79,6 @@ namespace ClrDebug
         /// the type of a value; they are both superseded by the generics-aware <see cref="ICorDebugValue2.GetExactType"/>.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetClass(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);
 
@@ -101,7 +96,6 @@ namespace ClrDebug
         /// field of Dictionary&lt;string,int32&gt;.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetFieldValue(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugClass pClass,
             [In] mdFieldDef fieldDef,
@@ -111,7 +105,6 @@ namespace ClrDebug
         /// GetVirtualMethod is not implemented in this version of the .NET Framework.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetVirtualMethod(
             [In] int memberRef,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
@@ -120,7 +113,6 @@ namespace ClrDebug
         /// GetContext is not implemented in this version of the .NET Framework.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetContext(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugContext ppContext);
 
@@ -129,7 +121,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pbIsValueClass">[out] A pointer to a Boolean value that is true if the object value, represented by this "ICorDebugObjectValue", is a value type rather than a reference type; otherwise, pbIsValueClass is false.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsValueClass(
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pbIsValueClass);
 
@@ -138,7 +129,6 @@ namespace ClrDebug
         /// </summary>
         [Obsolete]
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetManagedCopy(
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppObject);
 
@@ -147,7 +137,6 @@ namespace ClrDebug
         /// </summary>
         [Obsolete]
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetFromManagedCopy(
             [MarshalAs(UnmanagedType.Interface), In] object pObject);
     }

@@ -26,7 +26,6 @@ namespace ClrDebug
         /// <param name="source">[in] The buffer that stores the embedded source.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetSource(
             [In] int sourceSize,
             [In] IntPtr source);
@@ -39,7 +38,6 @@ namespace ClrDebug
         /// <param name="checkSum">[in] The buffer that stores the checksum information.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetCheckSum(
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]

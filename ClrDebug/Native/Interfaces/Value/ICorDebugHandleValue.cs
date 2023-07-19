@@ -34,7 +34,6 @@ namespace ClrDebug
         /// value. They are both superseded by the generics-aware <see cref="ICorDebugValue2.GetExactType"/> method.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetType(
             [Out] out CorElementType pType);
 
@@ -48,7 +47,6 @@ namespace ClrDebug
         /// platforms. Use the <see cref="ICorDebugValue3.GetSize64"/> method instead for objects that are larger than 4 GB.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetSize(
             [Out] out int pSize);
 
@@ -61,7 +59,6 @@ namespace ClrDebug
         /// or stored in a garbage collector handle (GCHandle).
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetAddress(
             [Out] out CORDB_ADDRESS pAddress);
 
@@ -69,7 +66,6 @@ namespace ClrDebug
         /// The CreateBreakpoint method is currently not implemented.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT CreateBreakpoint(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueBreakpoint ppBreakpoint);
 
@@ -78,7 +74,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pbNull">[out] A pointer to a Boolean value that is true if this <see cref="ICorDebugReferenceValue"/> object is null; otherwise, pbNull is false.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT IsNull(
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pbNull);
 
@@ -87,7 +82,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pValue">[out] A pointer to a <see cref="CORDB_ADDRESS"/> value that specifies the address of the object to which this <see cref="ICorDebugReferenceValue"/> object points.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetValue(
             [Out] out CORDB_ADDRESS pValue);
 
@@ -96,7 +90,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="value">[in] A <see cref="CORDB_ADDRESS"/> value that specifies the address of the object to which this <see cref="ICorDebugReferenceValue"/> points.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT SetValue(
             [In] CORDB_ADDRESS value);
 
@@ -108,7 +101,6 @@ namespace ClrDebug
         /// The <see cref="ICorDebugValue"/> object is valid only while its reference has not yet been disabled.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Dereference(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 
@@ -116,7 +108,6 @@ namespace ClrDebug
         /// DereferenceStrong is not implemented. Do not call this method.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DereferenceStrong(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
 #endif
@@ -126,7 +117,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pType">[out] A pointer to a value of the <see cref="CorDebugHandleType"/> enumeration that indicates the type of this handle.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHandleType(
             [Out] out CorDebugHandleType pType);
 
@@ -134,7 +124,6 @@ namespace ClrDebug
         /// Releases the handle referenced by this <see cref="ICorDebugHandleValue"/> object without explicitly releasing the interface pointer.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Dispose();
     }
 }

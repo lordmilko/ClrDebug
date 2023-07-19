@@ -52,7 +52,6 @@ namespace ClrDebug
         /// | CORDBG_E_UNSUPPORTED_VERSION_STRUCT    | The CLR_DEBUGGING_VERSION structure does not have a recognized value for wStructVersion. The only accepted value at this time is 0.                                                                                                           |
         /// </returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT OpenVirtualProcess(
             [In] long moduleBaseAddress,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugDataTarget pDataTarget,
@@ -86,7 +85,6 @@ namespace ClrDebug
         /// within a call to the <see cref="OpenVirtualProcess"/> method.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CanUnloadNow(
             [In] IntPtr hModule);
     }

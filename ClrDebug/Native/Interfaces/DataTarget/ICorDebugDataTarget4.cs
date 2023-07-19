@@ -17,7 +17,6 @@ namespace ClrDebug
     public partial interface ICorDebugDataTarget4
     {
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT VirtualUnwind(
             [In] int threadID,
             [In] int contextSize,

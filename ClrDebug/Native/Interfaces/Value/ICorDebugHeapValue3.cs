@@ -39,7 +39,6 @@ namespace ClrDebug
         /// any, thread owns the monitor lock on this object, the method returns an <see cref="HRESULT"/> that indicates failure.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetThreadOwningMonitorLock(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread,
             [Out] out int pAcquisitionCount);
@@ -66,7 +65,6 @@ namespace ClrDebug
         /// threads are waiting for the monitor, the method returns an <see cref="HRESULT"/> that indicates failure.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetMonitorEventWaitList(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThreadEnum ppThreadEnum);
     }

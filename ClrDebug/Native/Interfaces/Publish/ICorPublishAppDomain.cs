@@ -26,7 +26,6 @@ namespace ClrDebug
         /// The identifier is unique only in the scope of the containing process.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetID(
             [Out] out int puId);
 
@@ -43,7 +42,6 @@ namespace ClrDebug
         /// were copied.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetName(
             [In] int cchName,
             [Out] out int pcchName,

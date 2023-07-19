@@ -39,7 +39,6 @@ namespace ClrDebug
         /// variables in the running method, since some of them may not be active.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateLocalVariablesEx(
             [In] ILCodeKind flags,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValueEnum ppValueEnum);
@@ -58,7 +57,6 @@ namespace ClrDebug
         /// added in profiler ReJIT instrumentation. If the IL is not instrumented, the method returns E_INVALIDARG.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLocalVariableEx(
             [In] ILCodeKind flags,
             [In] int dwIndex,
@@ -77,7 +75,6 @@ namespace ClrDebug
         /// instrumented, ppCode is null, and the method returns S_OK.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCodeEx(
             [In] ILCodeKind flags,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);

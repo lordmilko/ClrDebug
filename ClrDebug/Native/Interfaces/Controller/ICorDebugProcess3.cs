@@ -36,7 +36,6 @@ namespace ClrDebug
         /// Framework 4, the only supported notification is a cross-thread dependency notification.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetEnableCustomNotification(
             [In, MarshalAs(UnmanagedType.Interface)] ICorDebugClass pClass,
             [In, MarshalAs(UnmanagedType.Bool)] bool fEnable);

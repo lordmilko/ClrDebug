@@ -28,7 +28,6 @@ namespace ClrDebug
         /// <param name="bIInspectableOnly">[in] A value that indicates whether the method returns only Windows Runtime interfaces (IInspectable interfaces) or all COM interfaces cached by the runtime callable wrapper (RCW).</param>
         /// <param name="ppInterfacesEnum">[out] A pointer to the address of an <see cref="ICorDebugTypeEnum"/> enumerator that provides access to <see cref="ICorDebugType"/> objects that represent cached interface types filtered according to bIInspectableOnly.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCachedInterfaceTypes(
             [In, MarshalAs(UnmanagedType.Bool)] bool bIInspectableOnly,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppInterfacesEnum);
@@ -41,7 +40,6 @@ namespace ClrDebug
         /// <param name="pceltFetched">[out] A pointer to the number of <see cref="CORDB_ADDRESS"/> values actually returned in ptrs.</param>
         /// <param name="ptrs">A pointer to the starting address of an array of <see cref="CORDB_ADDRESS"/> values that contain the addresses of cached interface objects.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCachedInterfacePointers(
             [In, MarshalAs(UnmanagedType.Bool)] bool bIInspectableOnly,
             [In] int celt,

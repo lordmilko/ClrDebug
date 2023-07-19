@@ -32,7 +32,6 @@ namespace ClrDebug
         /// structures that are invalid.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetGCHeapInformation(
             [Out] out COR_HEAPINFO pHeapInfo);
 
@@ -52,7 +51,6 @@ namespace ClrDebug
         /// by any object but have not yet been collected by the garbage collector.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateHeap(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugHeapEnum ppObjects);
 
@@ -73,7 +71,6 @@ namespace ClrDebug
         /// along with the generation of the objects in that segment.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateHeapRegions(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugHeapSegmentEnum ppRegions);
 
@@ -86,7 +83,6 @@ namespace ClrDebug
         /// If addr does not point to a valid managed object, the GetObject method returns E_FAIL.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetObject(
             [In] CORDB_ADDRESS addr,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugObjectValue pObject);
@@ -102,7 +98,6 @@ namespace ClrDebug
         /// to determine why an object is still alive.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateGCReferences(
             [In] int enumerateWeakReferences,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugGCReferenceEnum ppEnum);
@@ -120,7 +115,6 @@ namespace ClrDebug
         /// <see cref="CorGCReferenceType"/> enumeration:
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateHandles(
             [In] CorGCReferenceType types,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugGCReferenceEnum ppEnum);
@@ -131,7 +125,6 @@ namespace ClrDebug
         /// <param name="obj">[in] The object address.</param>
         /// <param name="pId">A pointer to the <see cref="COR_TYPEID"/> value that identifies the object.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetTypeID(
             [In] CORDB_ADDRESS obj,
             [Out] out COR_TYPEID pId);
@@ -146,7 +139,6 @@ namespace ClrDebug
         /// as the id argument, the GetTypeForTypeID method will fail and return E_FAIL.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetTypeForTypeID(
             [In] COR_TYPEID id,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType ppType);
@@ -157,7 +149,6 @@ namespace ClrDebug
         /// <param name="id">[in] A <see cref="COR_TYPEID"/> token that specifies the array whose layout is desired.</param>
         /// <param name="pLayout">[out] A pointer to a <see cref="COR_ARRAY_LAYOUT"/> structure that contains information about the layout of the array in memory.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetArrayLayout(
             [In] COR_TYPEID id,
             [Out] out COR_ARRAY_LAYOUT pLayout);
@@ -173,7 +164,6 @@ namespace ClrDebug
         /// a <see cref="COR_TYPE_LAYOUT"/> structure that is populated by the method.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetTypeLayout(
             [In] COR_TYPEID id,
             [Out] out COR_TYPE_LAYOUT pLayout);
@@ -190,7 +180,6 @@ namespace ClrDebug
         /// should correspond to the value of the <see cref="COR_TYPE_LAYOUT.numFields"/> field.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetTypeFields(
             [In] COR_TYPEID id,
             [In] int celt,
@@ -209,7 +198,6 @@ namespace ClrDebug
         /// are loaded after the policy is set.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnableNGENPolicy(
             [In] CorDebugNGenPolicy ePolicy);
     }

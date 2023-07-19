@@ -30,7 +30,6 @@ namespace ClrDebug
         /// method can be called only in the context of the current frame, and only in one of the following cases:
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT RemapFunction(
             [In] int newILOffset);
 
@@ -43,7 +42,6 @@ namespace ClrDebug
         /// method type parameters this list contains. The type parameters are not always available.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateTypeParameters(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppTyParEnum);
     }

@@ -34,7 +34,6 @@ namespace ClrDebug
         /// A null pClassId indicates that objectId has a type that is unloading.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetClassFromObject(
             [In] ObjectID objectId,
             [Out] out ClassID pClassId);
@@ -49,7 +48,6 @@ namespace ClrDebug
         /// This method is obsolete; instead, use ICorProfilerInfo2::GetClassFromTokenAndTypeArgs for all types.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetClassFromToken(
             [In] ModuleID moduleId,
             [In] mdTypeDef typeDef,
@@ -68,7 +66,6 @@ namespace ClrDebug
         /// ICorProfilerInfo2::GetCodeInfo2 method instead. This function uses caller-allocated buffers.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetCodeInfo(
             [In] FunctionID functionId,
             [Out] out IntPtr pStart,
@@ -80,7 +77,6 @@ namespace ClrDebug
         /// <param name="pdwEvents">[out] A pointer to a 4-byte value that specifies the categories of events. Each bit controls a different capability, behavior, or type of event.<para/>
         /// The bits are described in the COR_PRF_MONITOR enumeration.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetEventMask(
             [Out] out COR_PRF_MONITOR pdwEvents);
 
@@ -90,7 +86,6 @@ namespace ClrDebug
         /// <param name="ip">[in] The instruction pointer in managed code.</param>
         /// <param name="pFunctionId">[out] The returned function ID.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetFunctionFromIP(
             [In] IntPtr ip,
             [Out] out FunctionID pFunctionId);
@@ -103,7 +98,6 @@ namespace ClrDebug
         /// Use ICorProfilerInfo2::GetFunctionFromTokenAndTypeArgs for all functions.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetFunctionFromToken(
             [In] ModuleID moduleId,
             [In] mdToken token,
@@ -119,7 +113,6 @@ namespace ClrDebug
         /// this method is owned by the runtime and the profiler should never close it.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetHandleFromThread(
             [In] ThreadID threadId,
             [Out] out IntPtr phThread);
@@ -136,7 +129,6 @@ namespace ClrDebug
         /// to advance from object to object on the garbage collection heap, add alignment padding manually, as necessary.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetObjectSize(
             [In] ObjectID objectId,
             [Out] out int pcSize);
@@ -153,7 +145,6 @@ namespace ClrDebug
         /// output parameters. Otherwise, it returns S_FALSE.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT IsArrayClass(
             [In] ClassID classId,
             [Out] out CorElementType pBaseElemType,
@@ -166,7 +157,6 @@ namespace ClrDebug
         /// <param name="threadId">[in] The ID of the thread for which to get the current Win32 ID.</param>
         /// <param name="pdwWin32ThreadId">[out] A pointer to the specified thread's current Win32 thread ID.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetThreadInfo(
             [In] ThreadID threadId,
             [Out] out int pdwWin32ThreadId);
@@ -180,7 +170,6 @@ namespace ClrDebug
         /// as the HRESULT, and the returned value of the pThreadId parameter will be null.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetCurrentThreadID(
             [Out] out ThreadID pThreadId);
 
@@ -196,7 +185,6 @@ namespace ClrDebug
         /// for the class. To get more information for generic types, use <see cref="ICorProfilerInfo2.GetClassIDInfo2"/>.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetClassIDInfo(
             [In] ClassID classId,
             [Out] out ModuleID pModuleId,
@@ -217,7 +205,6 @@ namespace ClrDebug
         /// with a COR_PRF_FRAME_INFO value to provide more context.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetFunctionInfo(
             [In] FunctionID functionId,
             [Out] out ClassID pClassId,
@@ -230,7 +217,6 @@ namespace ClrDebug
         /// <param name="dwEvents">[in] A 4-byte value that specifies the categories of events. Each bit controls a different capability, behavior, or type of event.<para/>
         /// The bits are described in the COR_PRF_MONITOR enumeration.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT SetEventMask(
             [In] COR_PRF_MONITOR dwEvents);
 
@@ -247,7 +233,6 @@ namespace ClrDebug
         /// the profiler's <see cref="ICorProfilerCallback.Initialize"/> callback.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT SetEnterLeaveFunctionHooks(
             [MarshalAs(UnmanagedType.FunctionPtr), In] FunctionEnter pFuncEnter,
             [MarshalAs(UnmanagedType.FunctionPtr), In] FunctionLeave pFuncLeave,
@@ -264,7 +249,6 @@ namespace ClrDebug
         /// callback.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT SetFunctionIDMapper(
             [MarshalAs(UnmanagedType.FunctionPtr), In] FunctionIDMapper pFunc);
 
@@ -276,7 +260,6 @@ namespace ClrDebug
         /// <param name="ppImport">[out] A pointer to the address of the metadata interface instance that can be used against the token for the specified function.</param>
         /// <param name="pToken">[out] A pointer to the metadata token for the specified function.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetTokenAndMetaDataFromFunction(
             [In] FunctionID functionId,
 #if !GENERATED_MARSHALLING
@@ -309,7 +292,6 @@ namespace ClrDebug
         /// GetModuleInfo again.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetModuleInfo(
             [In] ModuleID moduleId,
             [Out] out IntPtr ppBaseLoadAddress,
@@ -332,7 +314,6 @@ namespace ClrDebug
         /// S_FALSE, and a null in *ppOut.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetModuleMetaData(
             [In] ModuleID moduleId,
             [In] CorOpenFlags dwOpenFlags,
@@ -359,7 +340,6 @@ namespace ClrDebug
         /// method).
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetILFunctionBody(
             [In] ModuleID moduleId,
             [In] mdMethodDef methodId,
@@ -377,7 +357,6 @@ namespace ClrDebug
         /// the GetILFunctionBodyAllocator method ensures that memory is allocated within that range.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetILFunctionBodyAllocator(
             [In] ModuleID moduleId,
             [Out, MarshalAs(UnmanagedType.Interface)] out IMethodMalloc ppMalloc);
@@ -395,7 +374,6 @@ namespace ClrDebug
         /// cref="GetILFunctionBodyAllocator"/> method to allocate space for the new method to ensure that the buffer is compatible.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT SetILFunctionBody(
             [In] ModuleID moduleId,
             [In] mdMethodDef methodId,
@@ -418,7 +396,6 @@ namespace ClrDebug
         /// in pcchName and call GetAppDomainInfo again.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetAppDomainInfo(
             [In] AppDomainID appDomainId,
             [In] int cchName,
@@ -444,7 +421,6 @@ namespace ClrDebug
         /// in pcchName and call GetAssemblyInfo again.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetAssemblyInfo(
             [In] AssemblyID assemblyId,
             [In] int cchName,
@@ -457,7 +433,6 @@ namespace ClrDebug
         /// Not implemented. Do not use.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT SetFunctionReJIT(
             [In] FunctionID functionId);
 
@@ -470,7 +445,6 @@ namespace ClrDebug
         /// calls ForceGC when signaled.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ForceGC();
 
         /// <summary>
@@ -493,7 +467,6 @@ namespace ClrDebug
         /// attempt to free it.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT SetILInstrumentedCodeMap(
             [In] FunctionID functionId,
             [In, MarshalAs(UnmanagedType.Bool)] bool fStartJit,
@@ -511,7 +484,6 @@ namespace ClrDebug
         /// a set of functionality that is more in line with the profiling API.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetInprocInspectionInterface(
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppicd);
 
@@ -526,7 +498,6 @@ namespace ClrDebug
         /// a set of functionality that is more in line with the profiling API.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetInprocInspectionIThisThread(
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppicd);
 
@@ -536,7 +507,6 @@ namespace ClrDebug
         /// <param name="threadId">[in] The ID of the thread.</param>
         /// <param name="pContextId">[out] A pointer to the context ID currently associated with the specified thread. If the thread has no context currently associated with it, this function will return CORPROF_E_DATAINCOMPLETE.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetThreadContext(
             [In] ThreadID threadId,
             [Out] out ContextID pContextId);
@@ -553,7 +523,6 @@ namespace ClrDebug
         /// that is more in line with the profiling API.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT BeginInprocDebugging(
             [In, MarshalAs(UnmanagedType.Bool)] bool fThisThreadOnly,
             [Out] out int pdwProfilerContext);
@@ -570,7 +539,6 @@ namespace ClrDebug
         /// that is more in line with the profiling API.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT EndInprocDebugging(
             [In] int dwProfilerContext);
 
@@ -593,7 +561,6 @@ namespace ClrDebug
         /// returned in pcMap and call GetILToNativeMapping again.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetILToNativeMapping(
             [In] FunctionID functionId,
             [In] int cMap,
@@ -623,7 +590,6 @@ namespace ClrDebug
         /// or asynchronous, as explained in the following sections.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DoStackSnapshot(
             [In] ThreadID thread,
             [MarshalAs(UnmanagedType.FunctionPtr), In] StackSnapshotCallback callback,
@@ -647,7 +613,6 @@ namespace ClrDebug
         /// be called only from the profiler's <see cref="ICorProfilerCallback.Initialize"/> callback.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT SetEnterLeaveFunctionHooks2(
             [MarshalAs(UnmanagedType.FunctionPtr), In] FunctionEnter2 pFuncEnter,
             [MarshalAs(UnmanagedType.FunctionPtr), In] FunctionLeave2 pFuncLeave,
@@ -678,7 +643,6 @@ namespace ClrDebug
         /// again.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetFunctionInfo2(
             [In] FunctionID funcID,
             [In] COR_PRF_FRAME_INFO frameInfo,
@@ -702,7 +666,6 @@ namespace ClrDebug
         /// are stored: Strings may be null-terminated.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetStringLayout(
             [Out] out int pBufferLengthOffset,
             [Out] out int pStringLengthOffset,
@@ -729,7 +692,6 @@ namespace ClrDebug
         /// can then set the buffer size to the value returned in pcFieldOffset and call GetClassLayout again.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetClassLayout(
             [In] ClassID classId,
             [In, Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] COR_FIELD_OFFSET[] rFieldOffset,
@@ -760,7 +722,6 @@ namespace ClrDebug
         /// and call GetClassIDInfo2 again.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetClassIDInfo2(
             [In] ClassID classId,
             [Out] out ModuleID pModuleId,
@@ -787,7 +748,6 @@ namespace ClrDebug
         /// in pcCodeInfos, multiplied by the size of a COR_PRF_CODE_INFO structure, and call GetCodeInfo2 again.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetCodeInfo2(
             [In] FunctionID functionId,
             [In] int cCodeInfos,
@@ -812,7 +772,6 @@ namespace ClrDebug
         /// type, and use <see cref="GetClassIDInfo2"/> to check whether a given ClassID is that of the desired type.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetClassFromTokenAndTypeArgs(
             [In] ModuleID moduleId,
             [In] mdTypeDef typeDef,
@@ -840,7 +799,6 @@ namespace ClrDebug
         /// that of the desired function.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetFunctionFromTokenAndTypeArgs(
             [In] ModuleID moduleId,
             [In] mdMethodDef funcDef,
@@ -855,7 +813,6 @@ namespace ClrDebug
         /// <param name="moduleId">[in] The ID of the module that contains the frozen objects to be enumerated.</param>
         /// <param name="ppEnum">[out] A pointer to the address of an <see cref="ICorProfilerObjectEnum"/> interface, which enumerates the frozen objects.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT EnumModuleFrozenObjects(
             [In] ModuleID moduleId,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorProfilerObjectEnum ppEnum);
@@ -873,7 +830,6 @@ namespace ClrDebug
         /// each array are characteristics of the same entity.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetArrayObjectInfo(
             [In] ObjectID objectId,
             [In] int cDimensions,
@@ -891,7 +847,6 @@ namespace ClrDebug
         /// object, the value type's class layout can be used to interpret the object's value.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetBoxClassLayout(
             [In] ClassID classId,
             [Out] out int pBufferOffset);
@@ -902,7 +857,6 @@ namespace ClrDebug
         /// <param name="threadId">[in] The ID specifying the thread.</param>
         /// <param name="pAppDomainId">[out] A pointer to the ID of the application domain.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetThreadAppDomain(
             [In] ThreadID threadId,
             [Out] out AppDomainID pAppDomainId);
@@ -919,7 +873,6 @@ namespace ClrDebug
         /// fields may already be initialized and may be rooting garbage collection objects.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetRVAStaticAddress(
             [In] ClassID classId,
             [In] mdFieldDef fieldToken,
@@ -938,7 +891,6 @@ namespace ClrDebug
         /// static fields may already be initialized and rooting garbage collection objects.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetAppDomainStaticAddress(
             [In] ClassID classId,
             [In] mdFieldDef fieldToken,
@@ -958,7 +910,6 @@ namespace ClrDebug
         /// fields may already be initialized and rooting garbage collection objects.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetThreadStaticAddress(
             [In] ClassID classId,
             [In] mdFieldDef fieldToken,
@@ -978,7 +929,6 @@ namespace ClrDebug
         /// fields may already be initialized and rooting garbage collection objects.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetContextStaticAddress(
             [In] ClassID classId,
             [In] mdFieldDef fieldToken,
@@ -997,7 +947,6 @@ namespace ClrDebug
         /// (that is, constants) exist only in the metadata and do not have an address.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetStaticFieldInfo(
             [In] ClassID classId,
             [In] mdFieldDef fieldToken,
@@ -1023,7 +972,6 @@ namespace ClrDebug
         /// by the garbage collector. This function uses caller-allocated buffers.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetGenerationBounds(
             [In] int cObjectRanges,
             [Out] out int pcObjectRanges,
@@ -1041,7 +989,6 @@ namespace ClrDebug
         /// and <see cref="ICorProfilerCallback2.GarbageCollectionFinished"/>.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetObjectGeneration(
             [In] ObjectID objectId,
             [Out] out COR_PRF_GC_GENERATION_RANGE range);
@@ -1062,7 +1009,6 @@ namespace ClrDebug
         /// to escape a filter exception clause, so there is always a Leave notification in that case.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetNotifiedExceptionClauseInfo(
             [Out] out COR_PRF_EX_CLAUSE_INFO pinfo);
 
@@ -1076,7 +1022,6 @@ namespace ClrDebug
         /// with Ngen.exe.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT EnumJITedFunctions(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorProfilerFunctionEnum ppEnum);
 
@@ -1113,7 +1058,6 @@ namespace ClrDebug
         /// a check after 5 seconds, again after 10 seconds, and then every 10 minutes thereafter.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RequestProfilerDetach(
             [In] int dwExpectedCompletionMilliseconds);
 
@@ -1131,7 +1075,6 @@ namespace ClrDebug
         /// callback.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT SetFunctionIDMapper2(
             [MarshalAs(UnmanagedType.FunctionPtr), In] FunctionIDMapper2 pFunc,
             [In] IntPtr clientData);
@@ -1146,7 +1089,6 @@ namespace ClrDebug
         /// Strings may or may not be null-terminated.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetStringLayout2(
             [Out] out int pStringLengthOffset,
             [Out] out int pBufferOffset);
@@ -1168,7 +1110,6 @@ namespace ClrDebug
         /// profiler's <see cref="ICorProfilerCallback.Initialize"/> callback.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT SetEnterLeaveFunctionHooks3(
             [MarshalAs(UnmanagedType.FunctionPtr), In] FunctionEnter3 pFuncEnter3,
             [MarshalAs(UnmanagedType.FunctionPtr), In] FunctionLeave3 pFuncLeave3,
@@ -1191,7 +1132,6 @@ namespace ClrDebug
         /// from the profiler's <see cref="ICorProfilerCallback.Initialize"/> callback.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT SetEnterLeaveFunctionHooks3WithInfo(
             [MarshalAs(UnmanagedType.FunctionPtr), In] FunctionEnter3WithInfo pFuncEnter3WithInfo,
             [MarshalAs(UnmanagedType.FunctionPtr), In] FunctionLeave3WithInfo pFuncLeave3WithInfo,
@@ -1213,7 +1153,6 @@ namespace ClrDebug
         /// is being inspected, and must indicate the size in the pcbArgumentInfo parameter.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetFunctionEnter3Info(
             [In] FunctionID functionId,
             [In] COR_PRF_ELT_INFO eltInfo,
@@ -1231,7 +1170,6 @@ namespace ClrDebug
         /// <param name="pRetvalRange">[out] A pointer to a <see cref="COR_PRF_FUNCTION_ARGUMENT_RANGE"/> structure that contains the value that is returned from the function.<para/>
         /// To access return value information, the COR_PRF_ENABLE_FUNCTION_RETVAL flag must be set. The profiler can use the <see cref="ICorProfilerInfo.SetEventMask"/> to set the event flags.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetFunctionLeave3Info(
             [In] FunctionID functionId,
             [In] COR_PRF_ELT_INFO eltInfo,
@@ -1246,7 +1184,6 @@ namespace ClrDebug
         /// <param name="eltInfo">[in] An opaque handle that represents information about a given stack frame. The profiler should provide the same eltInfo that was given to the profiler by the FunctionTailcall3WithInfo function.</param>
         /// <param name="pFrameInfo">[out] An opaque handle that represents generics information about a given stack frame. This handle is valid only during the FunctionTailcall3WithInfo callback in which the profiler called the GetFunctionTailcall3Info method.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetFunctionTailcall3Info(
             [In] FunctionID functionId,
             [In] COR_PRF_ELT_INFO eltInfo,
@@ -1257,7 +1194,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppEnum">[out] A pointer to an <see cref="ICorProfilerModuleEnum"/> interface.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT EnumModules(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorProfilerModuleEnum ppEnum);
 
@@ -1277,7 +1213,6 @@ namespace ClrDebug
         /// You may pass null for any parameter. However, pcchVersionString cannot be null unless szVersionString is also null.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetRuntimeInformation(
             [Out] out ushort pClrInstanceId,
             [Out] out COR_PRF_RUNTIME_TYPE pRuntimeType,
@@ -1304,7 +1239,6 @@ namespace ClrDebug
         /// method is similar to the GetThreadStaticAddress2 method, but does not accept an application domain argument.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetThreadStaticAddress2(
             [In] ClassID classId,
             [In] mdFieldDef fieldToken,
@@ -1323,7 +1257,6 @@ namespace ClrDebug
         /// The method uses caller allocated buffers.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetAppDomainsContainingModule(
             [In] ModuleID moduleId,
             [In] int cAppDomainIds,
@@ -1354,7 +1287,6 @@ namespace ClrDebug
         /// and call GetModuleInfo2 again.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetModuleInfo2(
             [In] ModuleID moduleId,
             [Out] out IntPtr ppBaseLoadAddress,
@@ -1369,7 +1301,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppEnum">[out] A pointer to an <see cref="ICorProfilerThreadEnum"/> interface.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT EnumThreads(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorProfilerThreadEnum ppEnum);
 
@@ -1385,7 +1316,6 @@ namespace ClrDebug
         /// can now occur safely when no other threads are suspended.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT InitializeCurrentThread();
 
         /// <summary>
@@ -1419,7 +1349,6 @@ namespace ClrDebug
         /// CLR-created thread that is currently executing a profiler callback.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RequestReJIT(
             [In] int cFunctions,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ModuleID[] moduleIds,
@@ -1448,7 +1377,6 @@ namespace ClrDebug
         /// run. If a function is already running, it will finish executing the version that is running.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RequestRevert(
             [In] int cFunctions,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] ModuleID[] moduleIds,
@@ -1475,7 +1403,6 @@ namespace ClrDebug
         /// multiplied by the size of a <see cref="COR_PRF_CODE_INFO"/> structure, and call GetCodeInfo3 again.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetCodeInfo3(
             [In] FunctionID functionId,
             [In] ReJITID reJitId,
@@ -1494,7 +1421,6 @@ namespace ClrDebug
         /// ID of the function that contains the specified IP address.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetFunctionFromIP2(
             [In] IntPtr ip,
             [Out] out FunctionID pFunctionId,
@@ -1513,7 +1439,6 @@ namespace ClrDebug
         /// as other ICorProfilerInfo functions that accept caller-allocated buffers.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetReJITIDs(
             [In] FunctionID functionId,
             [In] int cReJitIds,
@@ -1542,7 +1467,6 @@ namespace ClrDebug
         /// returned in pcMap and call GetILToNativeMapping2 again.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetILToNativeMapping2(
             [In] FunctionID functionId,
             [In] ReJITID reJitId,
@@ -1564,7 +1488,6 @@ namespace ClrDebug
         /// see CORPROF_E_UNSUPPORTED_CALL_SEQUENCE HRESULT.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT EnumJITedFunctions2(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorProfilerFunctionEnum ppEnum);
 
@@ -1578,7 +1501,6 @@ namespace ClrDebug
         /// have a different size for each object.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetObjectSize2(
             [In] ObjectID objectId,
             [Out] out IntPtr pcSize);
@@ -1599,7 +1521,6 @@ namespace ClrDebug
         /// method.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetEventMask2(
             [Out] out COR_PRF_MONITOR pdwEventsLow,
             [Out] out COR_PRF_HIGH_MONITOR pdwEventsHigh);
@@ -1619,7 +1540,6 @@ namespace ClrDebug
         /// recommended alternative to the <see cref="ICorProfilerInfo.SetEventMask"/> method.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetEventMask2(
             [In] COR_PRF_MONITOR dwEventsLow,
             [In] COR_PRF_HIGH_MONITOR dwEventsHigh);

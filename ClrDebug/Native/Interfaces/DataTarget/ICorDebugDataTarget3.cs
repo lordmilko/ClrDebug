@@ -26,7 +26,6 @@ namespace ClrDebug
         /// <param name="pcFetchedModules">[out] A pointer to the number of modules about which information was returned.</param>
         /// <param name="pLoadedModules">[out] A pointer to an array of <see cref="ICorDebugLoadedModule"/> objects that provide information about loaded modules.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLoadedModules(
             [In] int cRequestedModules,
             [Out] out int pcFetchedModules,

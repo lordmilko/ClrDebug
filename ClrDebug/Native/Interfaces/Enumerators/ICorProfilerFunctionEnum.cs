@@ -41,7 +41,6 @@ namespace ClrDebug
         /// The new position of this enumerator's cursor is (current position) + celt.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Skip(
             [In] int celt);
 
@@ -49,7 +48,6 @@ namespace ClrDebug
         /// Moves the enumerator's cursor to the starting position of the sequence.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Reset();
 
         /// <summary>
@@ -58,7 +56,6 @@ namespace ClrDebug
         /// <param name="ppEnum">[out] A pointer to the interface pointer, which, in turn, points to the copy of this <see cref="ICorProfilerFunctionEnum"/> interface.<para/>
         /// The copy of the enumerator maintains its own enumeration state separately from this enumerator. However, the copy's initial cursor position is the same as this enumerator's current cursor position.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Clone(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorProfilerFunctionEnum ppEnum);
 
@@ -67,7 +64,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pcelt">[out] The number of functions that were loaded.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCount(
             [Out] out int pcelt);
 
@@ -86,7 +82,6 @@ namespace ClrDebug
         /// | S_FALSE | Fewer than celt elements were returned, which indicates that the enumeration is complete. |
         /// </returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Next(
             [In] int celt,
             [Out] out COR_PRF_FUNCTION ids,

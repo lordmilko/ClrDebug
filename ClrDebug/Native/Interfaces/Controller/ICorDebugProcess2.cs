@@ -28,7 +28,6 @@ namespace ClrDebug
         /// The host can set the task identifier by using the <see cref="ICLRTask.SetTaskIdentifier"/> method.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetThreadForTaskID(
             [In] long taskid,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread2 ppThread);
@@ -41,7 +40,6 @@ namespace ClrDebug
         /// The GetVersion method returns an error code if no runtime has been loaded in the process.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetVersion(
             [Out] out COR_VERSION version);
 
@@ -57,7 +55,6 @@ namespace ClrDebug
         /// the CLR to avoid dispatching an out-of-band breakpoint, when the breakpoint is set by the debugger.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetUnmanagedBreakpoint(
             [In] CORDB_ADDRESS address,
             [In] int bufsize,
@@ -75,7 +72,6 @@ namespace ClrDebug
         /// specified address.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ClearUnmanagedBreakpoint(
             [In] CORDB_ADDRESS address);
 
@@ -96,7 +92,6 @@ namespace ClrDebug
         /// in the <see cref="CorDebugJITCompilerFlags"/> enumeration or are not legal for the given process will fail.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetDesiredNGENCompilerFlags(
             [In] CorDebugJITCompilerFlags pdwFlags);
 
@@ -109,7 +104,6 @@ namespace ClrDebug
         /// pre-compiled image to load.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetDesiredNGENCompilerFlags(
             [Out] out CorDebugJITCompilerFlags pdwFlags);
 
@@ -124,7 +118,6 @@ namespace ClrDebug
         /// object is not affected by the lifetime of the reference value.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetReferenceValueFromGCHandle(
             [In] IntPtr handle,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugReferenceValue pOutValue);

@@ -37,7 +37,6 @@ namespace ClrDebug
         /// | E_POINTER | pwzBuffer or pchBuffer is null.    |
         /// </returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetVersionString(
             [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1), Out] char[] pwzBuffer,
             [In, Out] ref int pcchBuffer);
@@ -56,7 +55,6 @@ namespace ClrDebug
         /// | E_POINTER | pwzBuffer or pchBuffer is null.    |
         /// </returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRuntimeDirectory(
             [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 1), Out] char[] pwzBuffer,
             [In, Out] ref int pcchBuffer);
@@ -83,7 +81,6 @@ namespace ClrDebug
         /// interface, pbLoaded returns true; otherwise, it returns false.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsLoaded(
             [In] IntPtr hndProcess,
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pbLoaded);
@@ -105,7 +102,6 @@ namespace ClrDebug
         /// | E_INVALIDARG | pwzBuffer is null.                 |
         /// </returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT LoadErrorString(
             [In] HRESULT iResourceID,
             [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), Out] char[] pwzBuffer,
@@ -132,7 +128,6 @@ namespace ClrDebug
         /// assemblies.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT LoadLibrary(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzDllName,
             [Out] out IntPtr phndModule);
@@ -156,7 +151,6 @@ namespace ClrDebug
         /// This method causes the CLR to be loaded but not initialized.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetProcAddress(
             [MarshalAs(UnmanagedType.LPStr), In] string pszProcName,
             [Out] out IntPtr ppProc);
@@ -183,7 +177,6 @@ namespace ClrDebug
         /// for rclsid and riid.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetInterface(
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
@@ -219,7 +212,6 @@ namespace ClrDebug
         /// in-process. If no runtimes are loaded into the process, this method always returns true.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsLoadable(
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pbLoadable);
 
@@ -240,7 +232,6 @@ namespace ClrDebug
         /// method after thread B completes a call to SetStartupFlags and before thread B starts the runtime.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetDefaultStartupFlags(
             [In] STARTUP_FLAGS dwStartupFlags,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzHostConfigFile);
@@ -264,7 +255,6 @@ namespace ClrDebug
         /// bound to this runtime.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetDefaultStartupFlags(
             [Out] out STARTUP_FLAGS pdwStartupFlags,
             [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), Out] char[] pwzHostConfigFile,
@@ -288,7 +278,6 @@ namespace ClrDebug
         /// successfully bound legacy activation policy.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT BindAsLegacyV2Runtime();
 
         /// <summary>
@@ -308,7 +297,6 @@ namespace ClrDebug
         /// This method does not work with CLR versions earlier than the CLR version in the .NET Framework 4.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsStarted(
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pbStarted,
             [Out] out STARTUP_FLAGS pdwStartupFlags);

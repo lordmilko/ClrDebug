@@ -17,7 +17,6 @@ namespace ClrDebug.CoClass
     public partial class CorMetaDataDispenser : IMetaDataDispenser
     {
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT DefineScope(
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
@@ -35,7 +34,6 @@ namespace ClrDebug.CoClass
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);
 
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT OpenScope(
             [In, MarshalAs(UnmanagedType.LPWStr)] string szScope,
             [In] CorOpenFlags dwOpenFlags,
@@ -48,7 +46,6 @@ namespace ClrDebug.CoClass
             [Out, MarshalAs(UnmanagedType.Interface)] out object ppIUnk);
 
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HRESULT OpenScopeOnMemory(
             [In] IntPtr pData,
             [In] int cbData,

@@ -40,7 +40,6 @@ namespace ClrDebug
         /// The debugger may use any available means to locate or procure the debugging module.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ProvideLibrary(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwszFileName,
             [In] int dwTimestamp,

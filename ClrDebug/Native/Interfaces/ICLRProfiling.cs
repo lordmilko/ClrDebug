@@ -51,7 +51,6 @@ namespace ClrDebug
         /// | Other error codes                            | If the profiler’s ICorProfilerCallback3.InitializeForAttach method returns an HRESULT that indicates failure, AttachProfiler returns that same HRESULT. In this case, E_NOTIMPL is converted to CORPROF_E_PROFILER_NOT_ATTACHABLE. |
         /// </returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT AttachProfiler(
             [In] int dwProfileeProcessID,
             [In] int dwMillisecondsMax,

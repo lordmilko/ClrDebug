@@ -39,7 +39,6 @@ namespace ClrDebug
         /// this is the case, use the <see cref="IsMatchingParentFrame"/> method to check whether a frame is its parent.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsChild(
             [Out] out int pIsChild);
 
@@ -63,7 +62,6 @@ namespace ClrDebug
         /// returns an error.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsMatchingParentFrame(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugNativeFrame2 pPotentialParentFrame,
             [Out] out int pIsParent);
@@ -88,7 +86,6 @@ namespace ClrDebug
         /// a native unwinder, which does adjust for the parameters.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetStackParameterSize(
             [Out] out int pSize);
     }

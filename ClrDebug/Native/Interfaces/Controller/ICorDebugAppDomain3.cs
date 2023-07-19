@@ -39,7 +39,6 @@ namespace ClrDebug
         /// ELEMENT_TYPE_VOID for unknown interface identifiers.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCachedWinRTTypesForIIDs(
             [In] int cReqTypes,
 #if !GENERATED_MARSHALLING
@@ -55,7 +54,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppGuidToTypeEnum">[out] A pointer to an <see cref="ICorDebugGuidToTypeEnum"/> interface object that can enumerate the managed representations of Windows Runtime types currently loaded in the application domain.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCachedWinRTTypes(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugGuidToTypeEnum ppGuidToTypeEnum);
     }

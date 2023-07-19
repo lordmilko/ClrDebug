@@ -31,7 +31,6 @@ namespace ClrDebug
         /// that has additional data.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetEventKind(
             [Out] out CorDebugDebugEventKind pDebugEventKind);
 
@@ -40,7 +39,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppThread">[out] A pointer to the address of an <see cref="ICorDebugThread"/> object that represents the thread on which the event occurred.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetThread(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
 #endif
@@ -54,7 +52,6 @@ namespace ClrDebug
         /// available from the <see cref="ICorDebugDebugEvent.GetEventKind"/> method.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetStackPointer(
             [Out] out CORDB_ADDRESS pStackPointer);
 
@@ -67,7 +64,6 @@ namespace ClrDebug
         /// is available from the <see cref="ICorDebugDebugEvent.GetEventKind"/> method.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetNativeIP(
             [Out] out CORDB_ADDRESS pIP);
 
@@ -76,7 +72,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pdwFlags">[out] A pointer to a <see cref="CorDebugExceptionFlags"/> value that indicates whether the exception can be intercepted.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetFlags(
             [Out] out CorDebugExceptionFlags pdwFlags);
     }

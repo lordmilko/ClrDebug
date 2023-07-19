@@ -28,7 +28,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="bActive">[in] Set this value to true to specify the state as active; otherwise, set this value to false.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Activate(
             [In, MarshalAs(UnmanagedType.Bool)] bool bActive);
 
@@ -37,7 +36,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pbActive">[out] true if this breakpoint is active; otherwise, false.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsActive(
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pbActive);
     }

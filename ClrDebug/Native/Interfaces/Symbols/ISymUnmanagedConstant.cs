@@ -26,7 +26,6 @@ namespace ClrDebug
         /// <param name="szName">[out] The buffer that stores the name.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetName(
             [In] int cchName,
             [Out] out int pcchName,
@@ -38,7 +37,6 @@ namespace ClrDebug
         /// <param name="pValue">[out] A pointer to a variable that receives the value.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetValue(
 #if !GENERATED_MARSHALLING
             [Out, MarshalAs(UnmanagedType.Struct)]
@@ -55,7 +53,6 @@ namespace ClrDebug
         /// <param name="sig">[out] The buffer that stores the signature.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSignature(
             [In] int cSig,
             [Out] out int pcSig,

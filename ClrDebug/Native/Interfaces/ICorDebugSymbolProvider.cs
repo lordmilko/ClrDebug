@@ -28,7 +28,6 @@ namespace ClrDebug
         /// <param name="pcFetchedSymbols">[out] A pointer to the number of symbols retrieved by the method.</param>
         /// <param name="pSymbols">[out] A pointer to an <see cref="ICorDebugStaticFieldSymbol"/> array that contains the requested static field symbols.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetStaticFieldSymbols(
             [In] int cbSignature,
             [In, MarshalAs(UnmanagedType.SysInt, SizeParamIndex = 0)] IntPtr typeSig,
@@ -45,7 +44,6 @@ namespace ClrDebug
         /// <param name="pcFetchedSymbols">[out] A pointer to the number of symbols retrieved by the method.</param>
         /// <param name="pSymbols">[out] A pointer to an <see cref="ICorDebugStaticFieldSymbol"/> array that contains the requested instance field symbols.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetInstanceFieldSymbols(
             [In] int cbSignature,
             [In, MarshalAs(UnmanagedType.SysInt, SizeParamIndex = 0)] IntPtr typeSig,
@@ -61,7 +59,6 @@ namespace ClrDebug
         /// <param name="pcFetchedSymbols">[out] A pointer to the number of symbols retrieved by the method.</param>
         /// <param name="pSymbols">[out] A pointer to an <see cref="ICorDebugVariableSymbol"/> array that contains the method's local symbols.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetMethodLocalSymbols(
             [In] int nativeRVA,
             [In] int cRequestedSymbols,
@@ -76,7 +73,6 @@ namespace ClrDebug
         /// <param name="pcFetchedSymbols">[out] A pointer to the number of symbols retrieved by the method.</param>
         /// <param name="pSymbols">[out] A pointer to an <see cref="ICorDebugVariableSymbol"/> array that contains the method's local symbols.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetMethodParameterSymbols(
             [In] int nativeRVA,
             [In] int cRequestedSymbols,
@@ -90,7 +86,6 @@ namespace ClrDebug
         /// <param name="pcFetchedRecords">[out] A pointer to the number of symbol records retrieved by the method.</param>
         /// <param name="pRecords">A pointer to an array of <see cref="ICorDebugMergedAssemblyRecord"/> objects.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetMergedAssemblyRecords(
             [In] int cRequestedRecords,
             [Out] out int pcFetchedRecords,
@@ -110,7 +105,6 @@ namespace ClrDebug
         /// When the method returns, pcbSignature will contain the number of bytes required for the signature array.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetMethodProps(
             [In] int codeRva,
             [Out] out mdToken pMethodToken,
@@ -131,7 +125,6 @@ namespace ClrDebug
         /// When the method returns, pcbSignature will contain the number of bytes required for the signature array.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetTypeProps(
             [In] int vtableRva,
             [In] int cbSignature,
@@ -145,7 +138,6 @@ namespace ClrDebug
         /// <param name="pCodeStartAddress">[out] A pointer to the starting address of the method.</param>
         /// <param name="pCodeSize">A pointer to the method code size (the number of bytes of the method's code).</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCodeRange(
             [In] int codeRva,
             [Out] out int pCodeStartAddress,
@@ -158,7 +150,6 @@ namespace ClrDebug
         /// <param name="length">The number of bytes to read from the merged assembly.</param>
         /// <param name="ppMemoryBuffer">A pointer to the address of an <see cref="ICorDebugMemoryBuffer"/> object that contains information about the memory buffer with merged assembly metadata.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetAssemblyImageBytes(
             [In] long rva,
             [In] int length,
@@ -171,7 +162,6 @@ namespace ClrDebug
         /// <param name="typeSig">[in] The typespec signature.</param>
         /// <param name="pObjectSize">[out] A pointer to the size of the object.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetObjectSize(
             [In] int cbSignature,
             [In] IntPtr typeSig,
@@ -182,7 +172,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppMemoryBuffer">[out] A pointer to the address of an <see cref="ICorDebugMemoryBuffer"/> object that contains information about the size and address of the merged assembly's metadata.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetAssemblyImageMetadata(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugMemoryBuffer ppMemoryBuffer);
     }

@@ -16,7 +16,6 @@ namespace ClrDebug
     public partial interface ICorDebugProcess10
     {
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnableGCNotificationEvents(
             [In, MarshalAs(UnmanagedType.Bool)] bool fEnable);
     }

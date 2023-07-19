@@ -26,7 +26,6 @@ namespace ClrDebug
         /// method and type for the specified member reference.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetVirtualMethodAndType(
             [In] int memberRef,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction,

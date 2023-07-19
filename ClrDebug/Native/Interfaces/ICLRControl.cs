@@ -61,7 +61,6 @@ namespace ClrDebug
         /// | E_FAIL                 | An unknown catastrophic failure occurred. After a method returns E_FAIL, the CLR is no longer usable within the process. Subsequent calls to hosting methods return HOST_E_CLRNOTAVAILABLE. |
         /// </returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT SetAppDomainManagerType(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzAppDomainManagerAssembly,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzAppDomainManagerType);

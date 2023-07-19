@@ -28,7 +28,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pbIL">[out] true if this <see cref="ICorDebugCode"/> represents code that was compiled in MSIL; otherwise, false.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsIL(
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pbIL);
 
@@ -40,7 +39,6 @@ namespace ClrDebug
         /// <see cref="ICorDebugCode"/> and <see cref="ICorDebugFunction"/> maintain a one-to-one relationship.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetFunction(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
 
@@ -49,7 +47,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pStart">[out] A pointer to the RVA of the code segment.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetAddress(
             [Out] out CORDB_ADDRESS pStart);
 
@@ -58,7 +55,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pcBytes">[out] A pointer to the size, in bytes, of the binary code that this <see cref="ICorDebugCode"/> object represents.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSize(
             [Out] out int pcBytes);
 
@@ -73,7 +69,6 @@ namespace ClrDebug
         /// be applied in the JIT-compiled code as well. (The same is true if the code is JIT-compiled later.)
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateBreakpoint(
             [In] int offset,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunctionBreakpoint ppBreakpoint);
@@ -92,7 +87,6 @@ namespace ClrDebug
         /// offset. Instruction boundaries are not checked.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCode(
             [In] int startOffset,
             [In] int endOffset,
@@ -108,7 +102,6 @@ namespace ClrDebug
         /// The version number is incremented each time an edit-and-continue (EnC) operation is performed on the code.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetVersionNumber(
             [Out] out int nVersion);
 
@@ -124,7 +117,6 @@ namespace ClrDebug
         /// code that was just-in-time (JIT) compiled from MSIL code.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetILToNativeMapping(
             [In] int cMap,
             [Out] out int pcMap,
@@ -134,7 +126,6 @@ namespace ClrDebug
         /// This method is not implemented in the current version of the .NET Framework.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetEnCRemapSequencePoints(
             [In] int cMap,
             [Out] out int pcMap,

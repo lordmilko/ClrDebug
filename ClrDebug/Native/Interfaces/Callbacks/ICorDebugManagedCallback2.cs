@@ -41,7 +41,6 @@ namespace ClrDebug
         /// debugger returns S_OK.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT FunctionRemapOpportunity(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
@@ -59,7 +58,6 @@ namespace ClrDebug
         /// A CreateConnection callback will be fired in either of the following cases:
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateConnection(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugProcess pProcess,
             [In] int dwConnectionId,
@@ -75,7 +73,6 @@ namespace ClrDebug
         /// in the process to pick up the new changes.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ChangeConnection(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugProcess pProcess,
             [In] int dwConnectionId);
@@ -90,7 +87,6 @@ namespace ClrDebug
         /// Hosting API.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT DestroyConnection(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugProcess pProcess,
             [In] int dwConnectionId);
@@ -112,7 +108,6 @@ namespace ClrDebug
         /// by the dwEventType parameter as follows:
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Exception(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
@@ -135,7 +130,6 @@ namespace ClrDebug
         /// instructions before) the instruction that led to the exception.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ExceptionUnwind(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
@@ -152,7 +146,6 @@ namespace ClrDebug
         /// This callback gives the debugger an opportunity to recreate any steppers that previously existed.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT FunctionRemapComplete(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
@@ -178,7 +171,6 @@ namespace ClrDebug
         /// consumed by an MDA. Releasing the instance may improve performance if many MDAs are firing.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT MDANotification(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugController pController,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,

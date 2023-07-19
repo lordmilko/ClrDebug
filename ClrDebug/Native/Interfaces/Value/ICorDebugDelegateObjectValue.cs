@@ -16,12 +16,10 @@ namespace ClrDebug
     public partial interface ICorDebugDelegateObjectValue
     {
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetTarget(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugReferenceValue ppObject);
 
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetFunction(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
     }

@@ -31,7 +31,6 @@ namespace ClrDebug
         /// the register's position in the mask is determined as follows:
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRegistersAvailable(
             [In] int numChunks,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] availableRegChunks);
@@ -56,7 +55,6 @@ namespace ClrDebug
         /// the <see cref="ICorDebugRegisterSet.GetRegisters"/> method, which takes the ULONG64 mask.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRegisters(
             [In] int maskCount,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] mask,
@@ -67,7 +65,6 @@ namespace ClrDebug
         /// SetRegisters is not implemented in the .NET Framework version 2.0. Do not call this method.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetRegisters(
             [In] int maskCount,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] mask,

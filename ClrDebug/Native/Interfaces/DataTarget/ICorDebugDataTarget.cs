@@ -39,7 +39,6 @@ namespace ClrDebug
         /// is unusable. The method may fail for the following reasons:
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetPlatform(
             [Out] out CorDebugPlatform pTargetPlatform);
 
@@ -55,7 +54,6 @@ namespace ClrDebug
         /// reading of data structures with self-describing length, like null-terminated strings).
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ReadVirtual(
             [In] CORDB_ADDRESS address,
             [Out] IntPtr pBuffer,
@@ -75,7 +73,6 @@ namespace ClrDebug
         /// field of the CONTEXT structure. The CONTEXT structure is processor-specific; refer to the WinNT.h file for details.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetThreadContext(
             [In] int dwThreadId,
             [In] ContextFlags contextFlags,

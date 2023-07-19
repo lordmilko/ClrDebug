@@ -31,7 +31,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pModule">[out] A pointer to the address of an <see cref="ICorDebugModule"/> object that represents the module in which this class is defined.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetModule(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule pModule);
 
@@ -40,7 +39,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pTypeDef">[out] A pointer to an <see cref="mdTypeDef"/> token that references the definition of this class.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetToken(
             [Out] out mdTypeDef pTypeDef);
 
@@ -57,7 +55,6 @@ namespace ClrDebug
         /// instead of ICorDebugClass::GetStaticFieldValue.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetStaticFieldValue(
             [In] int fieldDef,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugFrame pFrame,

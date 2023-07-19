@@ -41,7 +41,6 @@ namespace ClrDebug
         /// exactly match the register state at the time of the call.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetContext(
             [In] ContextFlags contextFlags,
             [In] int contextBufSize,
@@ -70,7 +69,6 @@ namespace ClrDebug
         /// immediately calling the <see cref="GetContext"/> method.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetContext(
             [In] CorDebugSetContextFlag flag,
             [In] int contextSize,
@@ -94,7 +92,6 @@ namespace ClrDebug
         /// current frame. Otherwise, the object advances to the next frame that the runtime is able to unwind.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Next();
 
         /// <summary>
@@ -118,7 +115,6 @@ namespace ClrDebug
         /// store temporary data.)
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetFrame(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame pFrame);
     }

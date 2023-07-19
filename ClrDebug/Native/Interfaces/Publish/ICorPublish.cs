@@ -32,7 +32,6 @@ namespace ClrDebug
         /// of the EnumProcesses method.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumProcesses(
             [In] COR_PUB_ENUMPROCESS Type,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorPublishProcessEnum ppIEnum);
@@ -46,7 +45,6 @@ namespace ClrDebug
         /// GetProcess fails if the process doesn't exist, or isn't a managed process that can be debugged by the current user.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetProcess(
             [In] int pid,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorPublishProcess ppProcess);

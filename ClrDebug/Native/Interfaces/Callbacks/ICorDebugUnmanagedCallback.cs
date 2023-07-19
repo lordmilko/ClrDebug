@@ -43,7 +43,6 @@ namespace ClrDebug
         /// cref="ICorDebugProcess.SetThreadContext"/>, or any other member of the debugging API.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT DebugEvent(
             [In] ref DEBUG_EVENT pDebugEvent,
             [In, MarshalAs(UnmanagedType.Bool)] bool fOutOfBand);

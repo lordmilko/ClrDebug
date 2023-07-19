@@ -24,7 +24,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppProcess">[out] A pointer to the address of an <see cref="ICorDebugProcess"/> interface object that represents the process.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetProcess(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugProcess ppProcess);
 
@@ -37,7 +36,6 @@ namespace ClrDebug
         /// for different parts of the thread.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetID(
             [Out] out int pdwThreadId);
 
@@ -50,7 +48,6 @@ namespace ClrDebug
         /// is owned by the debugging API. The debugger should duplicate it before using it.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHandle(
             [Out] out IntPtr phThreadHandle);
 
@@ -59,7 +56,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppAppDomain">[out] A pointer to an <see cref="ICorDebugAppDomain"/> object that represents the application domain in which this thread is currently executing.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetAppDomain(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAppDomain ppAppDomain);
 
@@ -80,7 +76,6 @@ namespace ClrDebug
         /// before suspending or resuming threads. Else it may get events on a thread that it believes it has already suspended.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetDebugState(
             [In] CorDebugThreadState state);
 
@@ -93,7 +88,6 @@ namespace ClrDebug
         /// process were to be continued, not the actual current state of this thread.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetDebugState(
             [Out] out CorDebugThreadState pState);
 
@@ -106,7 +100,6 @@ namespace ClrDebug
         /// A thread may have multiple state bits set.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetUserState(
             [Out] out CorDebugUserState pState);
 
@@ -124,7 +117,6 @@ namespace ClrDebug
         /// to an out-of-memory exception.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCurrentException(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppExceptionObject);
 
@@ -132,7 +124,6 @@ namespace ClrDebug
         /// This method is not implemented. Do not use it.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ClearCurrentException();
 
         /// <summary>
@@ -143,7 +134,6 @@ namespace ClrDebug
         /// The active frame may be unmanaged code. The <see cref="ICorDebugStepper"/> interface must be used to perform the actual stepping.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateStepper(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugStepper ppStepper);
 
@@ -159,7 +149,6 @@ namespace ClrDebug
         /// relationships and regrouping them.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateChains(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChainEnum ppChains);
 
@@ -171,7 +160,6 @@ namespace ClrDebug
         /// The ppChain parameter is null if no stack chain is currently active.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetActiveChain(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);
 
@@ -183,7 +171,6 @@ namespace ClrDebug
         /// The ppFrame parameter is null if no frame is currently active.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetActiveFrame(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);
 
@@ -192,7 +179,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppRegisters">[out] A pointer to the address of an <see cref="ICorDebugRegisterSet"/> interface object that represents the register set for the active part of this thread.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRegisterSet(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugRegisterSet ppRegisters);
 
@@ -205,7 +191,6 @@ namespace ClrDebug
         /// currently being performed on the thread until the evaluation completes.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateEval(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugEval ppEval);
 
@@ -214,7 +199,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppObject">[out] A pointer to the address of an <see cref="ICorDebugValue"/> interface object that represents the CLR thread.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetObject(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppObject);
     }

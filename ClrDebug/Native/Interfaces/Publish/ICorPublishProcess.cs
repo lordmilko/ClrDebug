@@ -27,7 +27,6 @@ namespace ClrDebug
         /// always returns true.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsManaged(
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pbManaged);
 
@@ -42,7 +41,6 @@ namespace ClrDebug
         /// with an HRESULT value of CORDBG_E_PROCESS_TERMINATED.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumAppDomains(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorPublishAppDomainEnum ppEnum);
 
@@ -51,7 +49,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pid">[out] A pointer to the identifier of the process represented by this <see cref="ICorPublishProcess"/> object.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetProcessID(
             [Out] out int pid);
 
@@ -62,7 +59,6 @@ namespace ClrDebug
         /// <param name="pcchName">[out] The number of wide characters returned in the szName array.</param>
         /// <param name="szName">[out] An array to store the name, including the full path, of the executable. The name is null-terminated.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetDisplayName(
             [In] int cchName,
             [Out] out int pcchName,

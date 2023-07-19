@@ -25,7 +25,6 @@ namespace ClrDebug
         /// <param name="pToken">[out] A pointer to a <see cref="mdMethodDef"/> that receives the size, in characters, of the buffer required to contain the metadata.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetToken(
             [Out] out mdMethodDef pToken);
 
@@ -35,7 +34,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the size of the buffer required to contain the sequence points.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSequencePointCount(
             [Out] out int pRetVal);
 
@@ -45,7 +43,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer that is set to the returned <see cref="ISymUnmanagedScope"/> interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRootScope(
             [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedScope pRetVal);
 
@@ -56,7 +53,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer that is set to the returned <see cref="ISymUnmanagedScope"/> interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetScopeFromOffset(
             [In] int offset,
             [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedScope pRetVal);
@@ -70,7 +66,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to a ULONG32 that receives the offsets.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetOffset(
             [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument document,
             [In] int line,
@@ -89,7 +84,6 @@ namespace ClrDebug
         /// <param name="ranges">[out] A pointer to the buffer that receives the ranges.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRanges(
             [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument document,
             [In] int line,
@@ -106,7 +100,6 @@ namespace ClrDebug
         /// <param name="params">[out] A pointer to the buffer that receives the parameters.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetParameters(
             [In] int cParams,
             [Out] out int pcParams,
@@ -118,7 +111,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer that is set to the returned <see cref="ISymUnmanagedNamespace"/> interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetNamespace(
             [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedNamespace pRetVal);
 
@@ -131,7 +123,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] true if positions were defined; otherwise, false.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSourceStartEnd(
             [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In] ISymUnmanagedDocument[] docs,
             [MarshalAs(UnmanagedType.LPArray, SizeConst = 2), In] int[] lines,
@@ -151,7 +142,6 @@ namespace ClrDebug
         /// <param name="endColumns">[in] The array of columns in the documents at which the sequence points end.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSequencePoints(
             [In] int cPoints,
             [Out] out int pcPoints,

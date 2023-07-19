@@ -36,7 +36,6 @@ namespace ClrDebug
         /// returned <see cref="HRESULT"/> will indicate the most general possible reason for failure.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CallParameterizedFunction(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pFunction,
             [In] int nTypeArgs,
@@ -56,7 +55,6 @@ namespace ClrDebug
         /// method to create array values or string values.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateValueForType(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugType pType,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppValue);
@@ -73,7 +71,6 @@ namespace ClrDebug
         /// The object's constructor may take <see cref="Type"/> parameters.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT NewParameterizedObject(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugFunction pConstructor,
             [In] int nTypeArgs,
@@ -92,7 +89,6 @@ namespace ClrDebug
         /// types of type arguments are passed.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT NewParameterizedObjectNoConstructor(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugClass pClass,
             [In] int nTypeArgs,
@@ -110,7 +106,6 @@ namespace ClrDebug
         /// in which the thread is currently running. In the .NET Framework 2.0, the value of rank must be 1.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT NewParameterizedArray(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugType pElementType,
             [In] int rank,
@@ -128,7 +123,6 @@ namespace ClrDebug
         /// the application domain in which the thread is currently executing.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT NewStringWithLength(
             [MarshalAs(UnmanagedType.LPWStr), In] string @string,
             [In] int uiLength);
@@ -141,7 +135,6 @@ namespace ClrDebug
         /// state. Call this method with extreme caution.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT RudeAbort();
     }
 }

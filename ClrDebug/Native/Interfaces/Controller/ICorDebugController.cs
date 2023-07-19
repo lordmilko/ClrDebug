@@ -38,7 +38,6 @@ namespace ClrDebug
         /// the counter.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Stop(
             [In] int dwTimeoutIgnored);
 
@@ -57,7 +56,6 @@ namespace ClrDebug
         /// true.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Continue(
             [In, MarshalAs(UnmanagedType.Bool)] bool fIsOutOfBand);
 
@@ -66,7 +64,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pbRunning">[out] A pointer to a value that is true if the threads in the process are running freely; otherwise, false.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsRunning(
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pbRunning);
 
@@ -85,7 +82,6 @@ namespace ClrDebug
         /// the second debugging event for thread X will be dispatched although the thread has been suspended.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT HasQueuedCallbacks(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pbQueued);
@@ -101,7 +97,6 @@ namespace ClrDebug
         /// callback. The enumeration will naturally be empty.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateThreads(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThreadEnum ppThreads);
 
@@ -117,7 +112,6 @@ namespace ClrDebug
         /// method.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetAllThreadsDebugState(
             [In] CorDebugThreadState state,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pExceptThisThread);
@@ -131,7 +125,6 @@ namespace ClrDebug
         /// debugging is enabled, this method will fail due to operating system limitations.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Detach();
 
         /// <summary>
@@ -144,7 +137,6 @@ namespace ClrDebug
         /// or <see cref="ICorDebugManagedCallback.ExitAppDomain"/> callback.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Terminate(
             [In] int exitCode);
 
@@ -153,7 +145,6 @@ namespace ClrDebug
         /// </summary>
         [Obsolete]
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CanCommitChanges(
             [In] int cSnapshots,
             [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugEditAndContinueSnapshot pSnapshots,
@@ -164,7 +155,6 @@ namespace ClrDebug
         /// </summary>
         [Obsolete]
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CommitChanges(
             [In] int cSnapshots,
             [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugEditAndContinueSnapshot pSnapshots,

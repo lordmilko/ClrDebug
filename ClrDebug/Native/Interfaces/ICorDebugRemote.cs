@@ -48,7 +48,6 @@ namespace ClrDebug
         /// Mixed-mode debugging is not supported in Silverlight.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateProcessEx(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugRemoteTarget pRemoteTarget,
             [MarshalAs(UnmanagedType.LPWStr), In] string lpApplicationName,
@@ -79,7 +78,6 @@ namespace ClrDebug
         /// Mixed-mode debugging is not supported in Silverlight.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT DebugActiveProcessEx(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugRemoteTarget pRemoteTarget,
             [In] int dwProcessId,

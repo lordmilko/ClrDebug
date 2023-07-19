@@ -26,7 +26,6 @@ namespace ClrDebug
         /// Updates to the metadata of the target process can come from Edit and Continue, a profiler, or <see cref="System.Reflection.Emit"/>.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetWriteableMetadataUpdateMode(
             [In] WriteableMetadataUpdateMode flags);
     }

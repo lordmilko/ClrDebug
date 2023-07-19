@@ -56,7 +56,6 @@ namespace ClrDebug
         /// runtimes that are loaded with the new API are visible to the legacy API.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRuntime(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzVersion,
 #if !GENERATED_MARSHALLING
@@ -85,7 +84,6 @@ namespace ClrDebug
         /// | HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER) | The buffer is too small.           |
         /// </returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetVersionFromFile(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzFilePath,
             [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U2, SizeParamIndex = 2), Out] char[] pwzBuffer,
@@ -104,7 +102,6 @@ namespace ClrDebug
         /// | E_POINTER | ppEnumerator is null.              |
         /// </returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateInstalledRuntimes(
             [Out, MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppEnumerator);
 
@@ -126,7 +123,6 @@ namespace ClrDebug
         /// This method is lists all loaded runtimes, even if they were loaded with deprecated functions such as CorBindToRuntime.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateLoadedRuntimes(
             [In] IntPtr hndProcess,
             [Out, MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppEnumerator);
@@ -151,7 +147,6 @@ namespace ClrDebug
         /// be used in the following way:
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT RequestRuntimeLoadedNotification(
             [MarshalAs(UnmanagedType.FunctionPtr), In] RuntimeLoadedCallback pCallbackFunction);
 
@@ -170,7 +165,6 @@ namespace ClrDebug
         /// | E_NOINTERFACE | The method found a runtime that was bound to legacy activation policy, but riid is not supported by that runtime. |
         /// </returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT QueryLegacyV2RuntimeBinding(
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
@@ -186,7 +180,6 @@ namespace ClrDebug
         /// <param name="iExitCode">[in] The exit code for the process.</param>
         /// <returns>This method never returns, so its return value is undefined.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ExitProcess(
             [In] int iExitCode);
     }

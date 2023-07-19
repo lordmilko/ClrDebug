@@ -34,7 +34,6 @@ namespace ClrDebug
         /// (includingS_FALSE) indicate that the layout couldn't be determined and pIsMapped should be ignored.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsMappedLayout(
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pIsMapped);
     }

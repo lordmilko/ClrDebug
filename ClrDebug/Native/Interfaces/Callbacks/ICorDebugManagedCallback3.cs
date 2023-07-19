@@ -44,7 +44,6 @@ namespace ClrDebug
         /// and the semantics of the notifications are strictly a contract between debuggers, applications, and the .NET Framework.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CustomNotification(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugThread pThread,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugAppDomain pAppDomain);

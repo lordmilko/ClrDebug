@@ -40,7 +40,6 @@ namespace ClrDebug
         /// pointer to a backing store.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetAddress(
             [Out] out CORDB_ADDRESS pAddress);
 
@@ -62,7 +61,6 @@ namespace ClrDebug
         /// IsCloserToLeaf can be used to implement a policy for interleaving internal frames with other frames on the stack.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsCloserToLeaf(
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugFrame pFrameToCompare,
             [Out] out int pIsCloser);

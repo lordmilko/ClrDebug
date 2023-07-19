@@ -30,7 +30,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to the returned interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetDocument(
             [In, MarshalAs(UnmanagedType.LPWStr)] string url,
 #if !GENERATED_MARSHALLING
@@ -52,7 +51,6 @@ namespace ClrDebug
         /// <param name="pDocs">[out] A pointer to a variable that receives the document array.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetDocuments(
             [In] int cDocs,
             [Out] out int pcDocs,
@@ -64,7 +62,6 @@ namespace ClrDebug
         /// <param name="pToken">[out] A pointer to a variable that receives the entry point.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetUserEntryPoint(
             [Out] out mdMethodDef pToken);
 
@@ -75,7 +72,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to the returned interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetMethod(
             [In] mdMethodDef token,
             [Out, MarshalAs(UnmanagedType.Interface)] out ISymUnmanagedMethod pRetVal);
@@ -88,7 +84,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to the returned interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetMethodByVersion(
             [In] mdMethodDef token,
             [In] int version,
@@ -103,7 +98,6 @@ namespace ClrDebug
         /// <param name="pVars">[out] A pointer to the variable that receives the variables.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetVariables(
             [In] int parent,
             [In] int cVars,
@@ -118,7 +112,6 @@ namespace ClrDebug
         /// <param name="pVars">[out] A buffer that contains the variables.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetGlobalVariables(
             [In] int cVars,
             [Out] out int pcVars,
@@ -133,7 +126,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to the address of a <see cref="ISymUnmanagedMethod"/> object that represents the method containing the breakpoint.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetMethodFromDocumentPosition(
             [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument document,
             [In] int line,
@@ -150,7 +142,6 @@ namespace ClrDebug
         /// <param name="buffer">[out] A pointer to the variable that receives the attribute data.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetSymAttribute(
             [In] int parent,
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
@@ -166,7 +157,6 @@ namespace ClrDebug
         /// <param name="namespaces">[out] A pointer to a variable that receives the namespace list.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetNamespaces(
             [In] int cNameSpaces,
             [Out] out int pcNameSpaces,
@@ -185,7 +175,6 @@ namespace ClrDebug
         /// optional.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Initialize(
             [MarshalAs(UnmanagedType.Interface), In] IMetaDataImport importer,
             [In, MarshalAs(UnmanagedType.LPWStr)] string filename,
@@ -199,7 +188,6 @@ namespace ClrDebug
         /// <param name="pIStream">[in] The file stream, used as an alternative to the filename parameter.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT UpdateSymbolStore(
             [In, MarshalAs(UnmanagedType.LPWStr)] string filename,
             [MarshalAs(UnmanagedType.Interface), In] IStream pIStream);
@@ -211,7 +199,6 @@ namespace ClrDebug
         /// <param name="pIStream">[in] The file stream, used as an alternative to the filename parameter.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ReplaceSymbolStore(
             [In, MarshalAs(UnmanagedType.LPWStr)] string filename,
             [MarshalAs(UnmanagedType.Interface), In] IStream pIStream);
@@ -224,7 +211,6 @@ namespace ClrDebug
         /// <param name="szName">[out] A pointer to the variable that receives the file name of the symbol store.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetSymbolStoreFileName(
             [In] int cchName,
             [Out] out int pcchName,
@@ -241,7 +227,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] An array of pointers, each of which points to an <see cref="ISymUnmanagedMethod"/> object that represents a method containing the breakpoint.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetMethodsFromDocumentPosition(
             [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument document,
             [In] int line,
@@ -259,7 +244,6 @@ namespace ClrDebug
         /// <param name="pbCurrent">[out] A pointer to a variable that receives true if this is the latest version of the document, or false if it isn't the latest version.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetDocumentVersion(
             [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument pDoc,
             [Out] out int version,
@@ -272,7 +256,6 @@ namespace ClrDebug
         /// <param name="version">[out] A pointer to a variable that receives the method version.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetMethodVersion(
             [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedMethod pMethod,
             [Out] out int version);
@@ -286,7 +269,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to the returned <see cref="ISymUnmanagedMethod"/> interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetMethodByVersionPreRemap(
             [In] mdMethodDef token,
             [In] int version,
@@ -302,7 +284,6 @@ namespace ClrDebug
         /// <param name="buffer">[out] A pointer to the buffer that receives the attribute bytes.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSymAttributePreRemap(
             [In] int parent,
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
@@ -319,7 +300,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to the buffer that receives the methods.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetMethodsInDocument(
             [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocument document,
             [In] int cMethod,

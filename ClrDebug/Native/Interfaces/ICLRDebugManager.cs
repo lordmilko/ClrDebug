@@ -48,7 +48,6 @@ namespace ClrDebug
         /// cref="EndConnection"/>, for associating task lists with identifiers and friendly names.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT BeginConnection(
             [In] int dwConnectionId,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szConnectionName);
@@ -75,7 +74,6 @@ namespace ClrDebug
         /// for associating task lists with identifiers and friendly names.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetConnectionTasks(
             [In] int id,
             [In] int dwCount,
@@ -101,7 +99,6 @@ namespace ClrDebug
         /// for associating task lists with identifiers and friendly names.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EndConnection(
             [In] int dwConnectionId);
 
@@ -115,7 +112,6 @@ namespace ClrDebug
         /// | E_NOTIMPL | The method is not implemented. |
         /// </returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetDacl(
             [In] IntPtr pacl);
 
@@ -129,7 +125,6 @@ namespace ClrDebug
         /// | E_NOTIMPL | The method is not implemented. |
         /// </returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetDacl(
             [Out] out IntPtr pacl);
 
@@ -151,7 +146,6 @@ namespace ClrDebug
         /// IsDebuggerAttached allows the host to query the CLR to determine whether a debugger is attached to the process.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsDebuggerAttached(
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pbAttached);
 
@@ -167,7 +161,6 @@ namespace ClrDebug
         /// | E_FAIL                 | An unknown catastrophic failure occurred. After a method returns E_FAIL, the CLR is no longer usable within the process. Subsequent calls to hosting methods return HOST_E_CLRNOTAVAILABLE. |
         /// </returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetSymbolReadingPolicy(
             [In] ESymbolReadingPolicy policy);
     }

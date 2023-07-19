@@ -24,7 +24,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppChain">[out] A pointer to the address of an <see cref="ICorDebugChain"/> object that represents the chain containing this frame.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetChain(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugChain ppChain);
 
@@ -33,7 +32,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppCode">[out] A pointer to the address of an <see cref="ICorDebugCode"/> object that represents the code associated with this frame.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetCode(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
 
@@ -45,7 +43,6 @@ namespace ClrDebug
         /// The GetFunction method may fail if the frame is not associated with any particular function.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetFunction(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunction ppFunction);
 
@@ -54,7 +51,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pToken">[out] A pointer to an <see cref="mdMethodDef"/> token that references the metadata for the function.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetFunctionToken(
             [Out] out mdMethodDef pToken);
 
@@ -69,7 +65,6 @@ namespace ClrDebug
         /// for comparison of stack frame locations.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetStackRange(
             [Out] out CORDB_ADDRESS pStart,
             [Out] out CORDB_ADDRESS pEnd);
@@ -79,7 +74,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppFrame">[out] A pointer to the address of an <see cref="ICorDebugFrame"/> object that represents the calling frame. This value is null if the called frame is the outermost frame in the current chain.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetCaller(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);
 
@@ -88,7 +82,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppFrame">[out] A pointer to the address of an <see cref="ICorDebugFrame"/> object that represents the called frame. This value is null if the calling frame is the innermost frame in the current chain.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetCallee(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFrame ppFrame);
 
@@ -100,7 +93,6 @@ namespace ClrDebug
         /// If the frame is not active, the stepper object will typically have to return to the frame before the step is completed.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT CreateStepper(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugStepper ppStepper);
 #endif
@@ -114,7 +106,6 @@ namespace ClrDebug
         /// frame types.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetFrameType(
             [Out] out CorDebugInternalFrameType pType);
     }

@@ -44,7 +44,6 @@ namespace ClrDebug
         /// is unusable. The method may fail for the following reasons:
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetPlatform(
             [Out] out CorDebugPlatform pTargetPlatform);
 
@@ -60,7 +59,6 @@ namespace ClrDebug
         /// reading of data structures with self-describing length, like null-terminated strings).
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ReadVirtual(
             [In] CORDB_ADDRESS address,
             [Out] IntPtr pBuffer,
@@ -80,7 +78,6 @@ namespace ClrDebug
         /// field of the CONTEXT structure. The CONTEXT structure is processor-specific; refer to the WinNT.h file for details.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetThreadContext(
             [In] int dwThreadId,
             [In] ContextFlags contextFlags,
@@ -100,7 +97,6 @@ namespace ClrDebug
         /// the target would be in an inconsistent state that makes further debugging unreliable.)
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT WriteVirtual(
             [In] CORDB_ADDRESS address,
             [In] IntPtr pBuffer,
@@ -118,7 +114,6 @@ namespace ClrDebug
         /// method. On Windows, this is a CONTEXT structure.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetThreadContext(
             [In] int dwThreadId,
             [In] int contextSize,
@@ -137,7 +132,6 @@ namespace ClrDebug
         /// be cancelled.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT ContinueStatusChanged(
             [In] int dwThreadId,
             [In] int continueStatus);

@@ -16,7 +16,6 @@ namespace ClrDebug
     public partial interface ICorDebugFunction4
     {
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateNativeBreakpoint(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugFunctionBreakpoint ppBreakpoint);
     }

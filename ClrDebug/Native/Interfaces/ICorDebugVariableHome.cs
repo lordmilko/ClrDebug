@@ -23,7 +23,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppCode">[out] A pointer to the address of the "ICorDebugCode" instance that contains this <see cref="ICorDebugVariableHome"/> object.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetCode(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugCode ppCode);
 
@@ -43,7 +42,6 @@ namespace ClrDebug
         /// The slot-index can be used to retrieve the metadata for this local variable.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSlotIndex(
             [Out] out int pSlotIndex);
 
@@ -63,7 +61,6 @@ namespace ClrDebug
         /// The argument index can be used to retrieve metadata for this argument.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetArgumentIndex(
             [Out] out int pArgumentIndex);
 
@@ -73,7 +70,6 @@ namespace ClrDebug
         /// <param name="pStartOffset">[out] The logical offset at which the variable is first live.</param>
         /// <param name="pEndOffset">[out] The logical offset immediately after the point at which the variable is last live.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLiveRange(
             [Out] out int pStartOffset,
             [Out] out int pEndOffset);
@@ -83,7 +79,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pLocationType">[out] A pointer to the type of the variable's native location. See the <see cref="VariableLocationType"/> enumeration for more information.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetLocationType(
             [Out] out VariableLocationType pLocationType);
 
@@ -100,7 +95,6 @@ namespace ClrDebug
         /// | E_FAIL | The variable is not in a register or a register-relative location.   |
         /// </returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRegister(
             [Out] out CorDebugRegister pRegister);
 
@@ -117,7 +111,6 @@ namespace ClrDebug
         /// | E_FAIL | The variable is not in a register-relative memory location. |
         /// </returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetOffset(
             [Out] out int pOffset);
     }

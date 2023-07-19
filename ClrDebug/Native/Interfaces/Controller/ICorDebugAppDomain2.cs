@@ -30,7 +30,6 @@ namespace ClrDebug
         /// nRank must be zero.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetArrayOrPointerType(
             [In] CorElementType elementType,
             [In] int nRank,
@@ -45,7 +44,6 @@ namespace ClrDebug
         /// The first element is the return type; each of the other elements is a parameter type.</param>
         /// <param name="ppType">[out] A pointer to the address of an <see cref="ICorDebugType"/> object that represents the pointer to the function.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetFunctionPointerType(
             [In] int nTypeArgs,
             [MarshalAs(UnmanagedType.Interface), In] ref ICorDebugType ppTypeArgs,

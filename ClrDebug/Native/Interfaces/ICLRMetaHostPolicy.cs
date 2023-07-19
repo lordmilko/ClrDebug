@@ -63,7 +63,6 @@ namespace ClrDebug
         /// bitwise OR combination of the values that are set from the preceding list with the default startup flags.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRequestedRuntime(
             [In] METAHOST_POLICY_FLAGS dwPolicyFlags,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzBinary,

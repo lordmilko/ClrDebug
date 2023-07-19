@@ -30,7 +30,6 @@ namespace ClrDebug
         /// <param name="pRetVal">[out] A pointer to the returned <see cref="ISymUnmanagedWriter"/> interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineDocument(
             [In, MarshalAs(UnmanagedType.LPWStr)] string url,
 #if !GENERATED_MARSHALLING
@@ -50,7 +49,6 @@ namespace ClrDebug
         /// <param name="entryMethod">[in] The metadata token for the method that is the user entry point.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT SetUserEntryPoint(
             [In] int entryMethod);
 
@@ -62,7 +60,6 @@ namespace ClrDebug
         /// <param name="method">[in] The metadata token for the method to be opened.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT OpenMethod(
             [In] int method);
 
@@ -71,7 +68,6 @@ namespace ClrDebug
         /// </summary>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT CloseMethod();
 
         /// <summary>
@@ -87,7 +83,6 @@ namespace ClrDebug
         /// and <see cref="CloseScope"/> are ignored. Scope identifiers are valid only in the current method.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT OpenScope(
             [In] int startOffset,
             [Out] out int pRetVal);
@@ -104,7 +99,6 @@ namespace ClrDebug
         /// Scope identifiers are valid only in the current method.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT CloseScope(
             [In] int endOffset);
 
@@ -122,7 +116,6 @@ namespace ClrDebug
         /// and <see cref="CloseScope"/> are ignored. Scope identifiers are only valid in the current method.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT SetScopeRange(
             [In] int scopeID,
             [In] int startOffset,
@@ -146,7 +139,6 @@ namespace ClrDebug
         /// If it is a nonzero value, the variable falls within the offsets of the current scope.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineLocalVariable(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int attributes,
@@ -173,7 +165,6 @@ namespace ClrDebug
         /// <param name="addr3">[in] The third address for the parameter specification.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineParameter(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int attributes,
@@ -197,7 +188,6 @@ namespace ClrDebug
         /// <param name="addr3">[in] The third address for the field specification.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineField(
             [In] int parent,
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
@@ -222,7 +212,6 @@ namespace ClrDebug
         /// <param name="addr3">[in] The third address for the parameter specification.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineGlobalVariable(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int attributes,
@@ -242,7 +231,6 @@ namespace ClrDebug
         /// the symbols, use the <see cref="Abort"/> method instead.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Close();
 
         /// <summary>
@@ -254,7 +242,6 @@ namespace ClrDebug
         /// <param name="data">[in] The attribute value.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT SetSymAttribute(
             [In] int parent,
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
@@ -267,7 +254,6 @@ namespace ClrDebug
         /// <param name="name">[in] A pointer to the name of the new namespace.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT OpenNamespace(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name);
 
@@ -276,7 +262,6 @@ namespace ClrDebug
         /// </summary>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT CloseNamespace();
 
         /// <summary>
@@ -286,7 +271,6 @@ namespace ClrDebug
         /// <param name="fullName">[in] A pointer to the fully qualified name of the namespace.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT UsingNamespace(
             [In, MarshalAs(UnmanagedType.LPWStr)] string fullName);
 
@@ -301,7 +285,6 @@ namespace ClrDebug
         /// <param name="endColumn">[in] The ending column number.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT SetMethodSourceRange(
             [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocumentWriter startDoc,
             [In] int startLine,
@@ -322,7 +305,6 @@ namespace ClrDebug
         /// <param name="fFullBuild">[in] true if this is a full rebuild; false if this is an incremental compilation.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Initialize(
             [MarshalAs(UnmanagedType.Interface), In] object emitter,
             [In, MarshalAs(UnmanagedType.LPWStr)] string filename,
@@ -340,7 +322,6 @@ namespace ClrDebug
         /// <param name="data">[out] A pointer to a buffer that is large enough to hold the debug data for the symbol store.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetDebugInfo(
             [In, Out] ref IntPtr pIDD,
             [In] int cData,
@@ -361,7 +342,6 @@ namespace ClrDebug
         /// <param name="endColumns">[in] The ending column numbers of the sequence points. This parameter is optional.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineSequencePoints(
             [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocumentWriter document,
             [In] int spCount,
@@ -378,7 +358,6 @@ namespace ClrDebug
         /// <param name="newToken">[in] The new metadata token to which oldToken was remapped.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT RemapToken(
             [In] mdToken oldToken,
             [In] mdToken newToken);
@@ -395,7 +374,6 @@ namespace ClrDebug
         /// <param name="finalfilename">[in] A pointer to a WCHAR that is the path string to the final location of the PDB file.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Initialize2(
             [MarshalAs(UnmanagedType.Interface), In] object emitter,
             [In, MarshalAs(UnmanagedType.LPWStr)] string tempfilename,
@@ -412,7 +390,6 @@ namespace ClrDebug
         /// <param name="signature">[in] The type signature for the constant.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineConstant(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
 #if !GENERATED_MARSHALLING
@@ -430,7 +407,6 @@ namespace ClrDebug
         /// </summary>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Abort();
 
         /// <summary>
@@ -450,7 +426,6 @@ namespace ClrDebug
         /// If it is a nonzero value, the variable falls within the offsets of the current scope.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineLocalVariable2(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int attributes,
@@ -474,7 +449,6 @@ namespace ClrDebug
         /// <param name="addr3">[in] The third address for the parameter specification.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineGlobalVariable2(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
             [In] int attributes,
@@ -492,7 +466,6 @@ namespace ClrDebug
         /// <param name="sigToken">[in] The metadata token of the constant.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT DefineConstant2(
             [In, MarshalAs(UnmanagedType.LPWStr)] string name,
 #if !GENERATED_MARSHALLING
@@ -511,7 +484,6 @@ namespace ClrDebug
         /// <param name="offset">[in] The offset in the image.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT OpenMethod2(
             [In] int method,
             [In] int isect,
@@ -522,7 +494,6 @@ namespace ClrDebug
         /// </summary>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Commit();
 
         /// <summary>
@@ -531,7 +502,6 @@ namespace ClrDebug
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetDebugInfoWithPadding(
             [In, Out] ref IntPtr pIDD,
             [In] int cData,
@@ -544,7 +514,6 @@ namespace ClrDebug
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT OpenMapTokensToSourceSpans();
 
         /// <summary>
@@ -552,7 +521,6 @@ namespace ClrDebug
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CloseMapTokensToSourceSpans();
 
         /// <summary>
@@ -560,7 +528,6 @@ namespace ClrDebug
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT MapTokenToSourceSpan(
             [In] mdToken token,
             [MarshalAs(UnmanagedType.Interface), In] ISymUnmanagedDocumentWriter document,

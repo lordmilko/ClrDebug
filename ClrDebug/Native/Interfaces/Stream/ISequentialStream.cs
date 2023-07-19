@@ -17,14 +17,12 @@ namespace ClrDebug
     public partial interface ISequentialStream
     {
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Read(
             [Out] IntPtr pv,
             [In] int cb,
             [Out] out int pcbRead);
 
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT Write(
             [In] IntPtr pv,
             [In] int cb,

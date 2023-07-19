@@ -30,7 +30,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="machineType">[out] A pointer to a value that indicates the instruction set that the target process is using. The returned machineType is one of the IMAGE_FILE_MACHINE constants, which are defined in the WinNT.h header file.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetMachineType(
             [Out] out IMAGE_FILE_MACHINE machineType);
 
@@ -42,7 +41,6 @@ namespace ClrDebug
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetPointerSize(
             [Out] out int pointerSize);
 
@@ -56,7 +54,6 @@ namespace ClrDebug
         /// matching is done only on the file name.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetImageBase(
             [MarshalAs(UnmanagedType.LPWStr), In] string imagePath,
             [Out] out CLRDATA_ADDRESS baseAddress);
@@ -69,7 +66,6 @@ namespace ClrDebug
         /// <param name="bytesRequested">[in] The length of the buffer.</param>
         /// <param name="bytesRead">[out] A pointer to the number of bytes returned.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT ReadVirtual(
             [In] CLRDATA_ADDRESS address,
             [Out] IntPtr buffer,
@@ -84,7 +80,6 @@ namespace ClrDebug
         /// <param name="bytesRequested">[in] The number of bytes to be written.</param>
         /// <param name="bytesWritten">[out] A pointer to the actual number of bytes that were written.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT WriteVirtual(
             [In] CLRDATA_ADDRESS address,
             [In] IntPtr buffer,
@@ -101,7 +96,6 @@ namespace ClrDebug
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetTLSValue(
             [In] int threadID,
             [In] int index,
@@ -117,7 +111,6 @@ namespace ClrDebug
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT SetTLSValue(
             [In] int threadID,
             [In] int index,
@@ -131,7 +124,6 @@ namespace ClrDebug
         /// If there is no current thread for the target process, the GetCurrentThreadID method may fail.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetCurrentThreadID(
             [Out] out int threadID);
 
@@ -148,7 +140,6 @@ namespace ClrDebug
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetThreadContext(
             [In] int threadID,
             [In] ContextFlags contextFlags,
@@ -167,7 +158,6 @@ namespace ClrDebug
         /// This method is implemented by the writer of the debugging application.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT SetThreadContext(
             [In] int threadID,
             [In] int contextSize,
@@ -187,7 +177,6 @@ namespace ClrDebug
         /// application.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT Request(
             [In] uint reqCode,
             [In] int inBufferSize,
@@ -209,7 +198,6 @@ namespace ClrDebug
         /// by the writer of the debugging application.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT AllocVirtual(
             [In] CLRDATA_ADDRESS addr,
             [In] int size,
@@ -228,7 +216,6 @@ namespace ClrDebug
         /// by the writer of the debugging application.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT FreeVirtual(
             [In] CLRDATA_ADDRESS addr,
             [In] int size,

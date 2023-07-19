@@ -31,7 +31,6 @@ namespace ClrDebug
         /// IL is reverted, a thread can still be executing in the JIT-recompiled (ReJIT) code.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetActiveReJitRequestILCode(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugILCode ppReJitedILCode);
     }

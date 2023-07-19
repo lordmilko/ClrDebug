@@ -23,7 +23,6 @@ namespace ClrDebug
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT DefineKickoffMethod(
             [In] int kickoffMethod);
 
@@ -33,7 +32,6 @@ namespace ClrDebug
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT DefineCatchHandlerILOffset(
             [In] int catchHandlerOffset);
 
@@ -43,7 +41,6 @@ namespace ClrDebug
         /// </summary>
         /// <returns>Returns <see cref="HRESULT"/>.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT DefineAsyncStepInfo(
             [In] int count,
             [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] int[] yieldOffsets,

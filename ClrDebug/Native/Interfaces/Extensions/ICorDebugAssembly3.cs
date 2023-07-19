@@ -29,7 +29,6 @@ namespace ClrDebug
         /// topic.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetContainerAssembly(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAssembly ppAssembly);
 
@@ -43,7 +42,6 @@ namespace ClrDebug
         /// no valid enumerator is provided.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateContainedAssemblies(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugAssemblyEnum ppAssemblies);
     }

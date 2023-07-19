@@ -27,7 +27,6 @@ namespace ClrDebug
         /// that is, if no code in the assembly has been run yet.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT IsFullyTrusted(
             [Out, MarshalAs(UnmanagedType.Bool)] out bool pbFullyTrusted);
     }

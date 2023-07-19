@@ -16,7 +16,6 @@ namespace ClrDebug
     public partial interface ICLRRuntimeLocator
     {
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRuntimeBase(
             [Out] out CLRDATA_ADDRESS baseAddress);
     }

@@ -24,7 +24,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="fIsJMCStepper">[in] Set to true to step only through code that is authored by an application's developer; otherwise, set to false.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetJMC(
             [In, MarshalAs(UnmanagedType.Bool)] bool fIsJMCStepper);
     }

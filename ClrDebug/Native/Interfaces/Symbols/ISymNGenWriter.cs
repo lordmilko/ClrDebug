@@ -16,14 +16,12 @@ namespace ClrDebug
     public partial interface ISymNGenWriter
     {
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT AddSymbol(
             [MarshalAs(UnmanagedType.BStr), In] string pSymbol,
             [In] ushort iSection,
             [In] long rva);
 
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT AddSection(
             [In] ushort iSection,
             [In] ushort flags,

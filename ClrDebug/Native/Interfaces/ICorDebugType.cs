@@ -35,7 +35,6 @@ namespace ClrDebug
         /// be called to get the uninstantiated type for a generic type; otherwise, do not call ICorDebugType::GetClass.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetType(
             [Out] out CorElementType ty);
 
@@ -49,7 +48,6 @@ namespace ClrDebug
         /// get the uninstantiated type for a generic type.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetClass(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugClass ppClass);
 
@@ -63,7 +61,6 @@ namespace ClrDebug
         /// The number of parameters and their order depends on the type:
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnumerateTypeParameters(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugTypeEnum ppTyParEnum);
 
@@ -77,7 +74,6 @@ namespace ClrDebug
         /// or ELEMENT_TYPE_PTR, as indicated by the <see cref="GetType"/> method.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetFirstTypeParameter(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType value);
 
@@ -90,7 +86,6 @@ namespace ClrDebug
         /// all the fields of an object or its parent classes.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetBase(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugType pBase);
 
@@ -110,7 +105,6 @@ namespace ClrDebug
         /// to <see cref="GetType"/> returns a value of ELEMENT_TYPE_CLASS or ELEMENT_TYPE_VALUETYPE.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetStaticFieldValue(
             [In] mdFieldDef fieldDef,
             [MarshalAs(UnmanagedType.Interface), In] ICorDebugFrame pFrame,
@@ -121,7 +115,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pnRank">[out] A pointer to the number of dimensions.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRank(
             [Out] out int pnRank);
     }

@@ -35,7 +35,6 @@ namespace ClrDebug
         /// for an instantiated type such as ArrayList&lt;int&gt;.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetParameterizedType(
             [In] CorElementType elementType,
             [In] int nTypeArgs,
@@ -52,7 +51,6 @@ namespace ClrDebug
         /// successfully sets the value for all other methods.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetJMCStatus(
             [In, MarshalAs(UnmanagedType.Bool)] bool bIsJustMyCode);
     }

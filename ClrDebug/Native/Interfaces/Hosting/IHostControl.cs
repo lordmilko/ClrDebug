@@ -44,7 +44,6 @@ namespace ClrDebug
         /// ppObject to null. The CLR does not call Release on host managers, even when you shut it down.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT GetHostManager(
 #if !GENERATED_MARSHALLING
             [In, MarshalAs(UnmanagedType.LPStruct)]
@@ -78,7 +77,6 @@ namespace ClrDebug
         /// domain manager.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT SetAppDomainManager(
             [In] int dwAppDomainID,
             [MarshalAs(UnmanagedType.Interface), In] object pUnkAppDomainManager);

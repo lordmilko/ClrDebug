@@ -24,7 +24,6 @@ namespace ClrDebug
         /// <param name="sztMaxVirtualMemMB">[in] The requested size of memory to be allocated.</param>
         /// <param name="psztNewMaxVirtualMemMB">[in, out] A pointer to the actual size of memory allocated.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT RequestVirtualMemLimit(
             [In] int sztMaxVirtualMemMB,
             [Out] out int psztNewMaxVirtualMemMB);

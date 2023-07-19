@@ -26,7 +26,6 @@ namespace ClrDebug
         /// method gives the host an opportunity to perform another action while the thread blocks.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT ThreadIsBlockingForDebugger();
 
         /// <summary>
@@ -37,7 +36,6 @@ namespace ClrDebug
         /// blocked, it should release it now.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT ReleaseAllRuntimeThreads();
 
         /// <summary>
@@ -48,7 +46,6 @@ namespace ClrDebug
         /// The StartBlockingForDebugger method could be called on a runtime thread.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT StartBlockingForDebugger(
             [In] int dwUnused);
     }

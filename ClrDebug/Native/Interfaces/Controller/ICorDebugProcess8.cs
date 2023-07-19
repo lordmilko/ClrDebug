@@ -26,7 +26,6 @@ namespace ClrDebug
         /// If the value of enableExceptionsOutsideOfJMC is false: The default value of enableExceptionsOutsideOfJMC is true.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT EnableExceptionCallbacksOutsideOfMyCode(
             [In] int enableExceptionsOutsideOfJMC);
     }

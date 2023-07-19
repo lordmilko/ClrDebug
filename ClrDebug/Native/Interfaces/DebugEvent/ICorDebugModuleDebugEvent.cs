@@ -32,7 +32,6 @@ namespace ClrDebug
         /// that has additional data.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetEventKind(
             [Out] out CorDebugDebugEventKind pDebugEventKind);
 
@@ -41,7 +40,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="ppThread">[out] A pointer to the address of an <see cref="ICorDebugThread"/> object that represents the thread on which the event occurred.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         new HRESULT GetThread(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugThread ppThread);
 #endif
@@ -55,7 +53,6 @@ namespace ClrDebug
         /// or unloaded.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetModule(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugModule ppModule);
     }

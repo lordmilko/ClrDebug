@@ -29,7 +29,6 @@ namespace ClrDebug
         /// and extracting the name from the stream based on the schema.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetName(
             [In] int cchName,
             [Out] out int pcchName,
@@ -45,7 +44,6 @@ namespace ClrDebug
         /// The string can be zero in length.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetDescription(
             [In] int cchName,
             [Out] out int pcchName,
@@ -61,7 +59,6 @@ namespace ClrDebug
         /// The GetXML method can potentially affect performance, depending on the size of the associated XML stream.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetXML(
             [In] int cchName,
             [Out] out int pcchName,
@@ -72,7 +69,6 @@ namespace ClrDebug
         /// </summary>
         /// <param name="pFlags">[in] A bitwise combination of the <see cref="CorDebugMDAFlags"/> enumeration values that specify the settings of the flags for this MDA.</param>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetFlags(
             [In] ref CorDebugMDAFlags pFlags);
 
@@ -85,7 +81,6 @@ namespace ClrDebug
         /// a native thread or on a managed thread that has not yet entered managed code.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetOSThreadId(
             [Out] out int pOsTid);
     }

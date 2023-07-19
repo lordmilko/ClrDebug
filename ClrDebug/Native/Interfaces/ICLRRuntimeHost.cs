@@ -49,7 +49,6 @@ namespace ClrDebug
         /// initialized.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT Start();
 
         /// <summary>
@@ -66,7 +65,6 @@ namespace ClrDebug
         /// | E_FAIL                 | An unknown catastrophic failure occurred. If a method returns E_FAIL, the CLR is no longer usable within the process. Subsequent calls to hosting methods return HOST_E_CLRNOTAVAILABLE. |
         /// </returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT Stop();
 
         /// <summary>
@@ -90,7 +88,6 @@ namespace ClrDebug
         /// Function or CorBindToRuntimeEx Function.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT SetHostControl(
             [MarshalAs(UnmanagedType.Interface), In] IHostControl pHostControl);
 
@@ -114,7 +111,6 @@ namespace ClrDebug
         /// pointer to one of the manager types.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT GetCLRControl(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICLRControl pCLRControl);
 
@@ -139,7 +135,6 @@ namespace ClrDebug
         /// the managed <see cref="AppDomain"/> type.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT UnloadAppDomain(
             [In] int dwAppDomainID,
             [In, MarshalAs(UnmanagedType.Bool)] bool fWaitUntilDone);
@@ -167,7 +162,6 @@ namespace ClrDebug
         /// to the value of the <see cref="AppDomain.Id"/> property, by calling <see cref="GetCurrentAppDomainId"/>.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT ExecuteInAppDomain(
             [In] int dwAppDomainID,
             [MarshalAs(UnmanagedType.FunctionPtr), In] FExecuteInAppDomainCallback pCallback,
@@ -192,7 +186,6 @@ namespace ClrDebug
         /// in which the current thread is executing.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT GetCurrentAppDomainId(
             [Out] out int pdwAppDomainId);
 
@@ -222,7 +215,6 @@ namespace ClrDebug
         /// ExecuteApplication does not fail, but it does not return a value.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT ExecuteApplication(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzAppFullName,
             [In] int dwManifestPaths,
@@ -255,7 +247,6 @@ namespace ClrDebug
         /// S_OK, pReturnValue is set to the integer value returned by the invoked method. Otherwise, pReturnValue is not set.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT ExecuteInDefaultAppDomain(
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzAssemblyPath,
             [MarshalAs(UnmanagedType.LPWStr), In] string pwzTypeName,

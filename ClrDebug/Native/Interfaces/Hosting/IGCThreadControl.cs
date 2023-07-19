@@ -25,7 +25,6 @@ namespace ClrDebug
         /// The host may choose within the ThreadIsBlockingForSuspension callback whether to reschedule a thread.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT ThreadIsBlockingForSuspension();
 
         /// <summary>
@@ -35,7 +34,6 @@ namespace ClrDebug
         /// Do not reschedule any threads during the SuspensionStarting callback.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT SuspensionStarting();
 
         /// <summary>
@@ -46,7 +44,6 @@ namespace ClrDebug
         /// Do not reschedule any threads during the SuspensionEnding callback.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall)]
         HRESULT SuspensionEnding(
             [In] int Generation);
     }

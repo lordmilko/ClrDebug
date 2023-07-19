@@ -24,7 +24,6 @@ namespace ClrDebug
         /// <param name="pcSearchInfo">]out] A pointer to a ULONG32 that receives the size of the buffer required to contain the search information.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSymbolSearchInfoCount(
             [Out] out int pcSearchInfo);
 
@@ -36,7 +35,6 @@ namespace ClrDebug
         /// <param name="rgpSearchInfo">[out] A pointer that is set to the returned <see cref="ISymUnmanagedSymbolSearchInfo"/> interface.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSymbolSearchInfo(
             [In] int cSearchInfo,
             [Out] out int pcSearchInfo,

@@ -33,7 +33,6 @@ namespace ClrDebug
         /// if it is not available.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRegistersAvailable(
             [Out] out CorDebugRegister pAvailable);
 
@@ -51,7 +50,6 @@ namespace ClrDebug
         /// specifies a register that is unavailable, GetRegisters returns an indeterminate value for that register.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetRegisters(
             [In] CorDebugRegister mask,
             [In] int regCount,
@@ -61,7 +59,6 @@ namespace ClrDebug
         /// SetRegisters is not implemented in the .NET Framework version 2.0. Do not call this method.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetRegisters(
             [In] CorDebugRegister mask,
             [In] int regCount,
@@ -78,7 +75,6 @@ namespace ClrDebug
         /// for the current platform. For non-leaf frames, clients should check which registers are valid by using <see cref="GetRegistersAvailable"/>.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetThreadContext(
             [In] int contextSize,
             [Out] IntPtr context);
@@ -87,7 +83,6 @@ namespace ClrDebug
         /// SetThreadContext is not implemented in the .NET Framework version 2.0. Do not call this method.
         /// </summary>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT SetThreadContext(
             [In] int contextSize,
             [In] IntPtr context);

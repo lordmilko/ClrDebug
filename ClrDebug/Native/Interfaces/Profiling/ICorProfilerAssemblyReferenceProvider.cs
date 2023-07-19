@@ -37,7 +37,6 @@ namespace ClrDebug
         /// along with the assembly path and name in the wszAssemblyPath argument.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT AddAssemblyReference(
             [In] ref COR_PRF_ASSEMBLY_REFERENCE_INFO pAssemblyRefInfo);
     }

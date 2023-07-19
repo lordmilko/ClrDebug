@@ -42,7 +42,6 @@ namespace ClrDebug
         /// method is available only on x86-based and AMD64 systems.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetReturnValueForILOffset(
             [In] int ilOffset,
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugValue ppReturnValue);

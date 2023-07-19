@@ -24,7 +24,6 @@ namespace ClrDebug
         /// <param name="pcchPath">[out] A pointer to a ULONG32 that receives the size, in characters, of the buffer required to contain the search path length.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSearchPathLength(
             [Out] out int pcchPath);
 
@@ -36,7 +35,6 @@ namespace ClrDebug
         /// <param name="szPath">[out] A buffer to hold the search path.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetSearchPath(
             [In] int cchPath,
             [Out] out int pcchPath,
@@ -48,7 +46,6 @@ namespace ClrDebug
         /// <param name="phr">[out] A pointer to the <see cref="HRESULT"/>.</param>
         /// <returns>S_OK if the method succeeds; otherwise, E_FAIL or some other error code.</returns>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetHRESULT(
             [Out] out HRESULT phr);
     }

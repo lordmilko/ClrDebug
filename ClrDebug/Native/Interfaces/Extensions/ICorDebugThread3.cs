@@ -39,7 +39,6 @@ namespace ClrDebug
         /// current context.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT CreateStackWalk(
             [Out, MarshalAs(UnmanagedType.Interface)] out ICorDebugStackWalk ppStackWalk);
 
@@ -67,7 +66,6 @@ namespace ClrDebug
         /// Use the <see cref="GetActiveInternalFrames"/> method to return actual stack frames.
         /// </remarks>
         [PreserveSig]
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         HRESULT GetActiveInternalFrames(
             [In] int cInternalFrames,
             [Out] out int pcInternalFrames,
